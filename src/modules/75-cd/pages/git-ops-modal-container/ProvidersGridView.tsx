@@ -1,20 +1,21 @@
 import React from 'react'
-import { Container, Layout } from '@wings-software/uicore'
+import { Container, Layout, Pagination } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
 import ProviderCard from './ProviderCard/ProviderCard'
 import css from './ProvidersGridView.module.scss'
 
 interface ProvidersGridViewProps {
   providers: any
+  data: any
   loading?: boolean
   reloadPage?: () => Promise<void>
-  gotoPage?: (index: number) => void
-  onDelete?: () => Promise<void>
+  gotoPage: (index: number) => void
+  onDelete: () => Promise<void>
+  onEdit: (provider: any) => Promise<void>
 }
 
 const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
-  const { providers, loading } = props
-
+  const { providers, data, loading, gotoPage } = props
   return (
     <>
       {loading ? (
@@ -22,15 +23,29 @@ const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
           <PageSpinner />
         </div>
       ) : (
-        <Container className={css.masonry}>
-          <Layout.Masonry
-            center
-            gutter={10}
-            items={providers || []}
-            renderItem={(provider: any) => <ProviderCard provider={provider} onDelete={props.onDelete} />}
-            keyOf={(provider: any) => provider.name}
-          />
-        </Container>
+        <>
+          <Container className={css.masonry}>
+            <Layout.Masonry
+              center
+              gutter={10}
+              items={providers || []}
+              renderItem={(provider: any) => (
+                <ProviderCard provider={provider} onEdit={() => props.onEdit(provider)} onDelete={props.onDelete} />
+              )}
+              keyOf={(provider: any) => provider.name}
+            />
+          </Container>
+
+          <Container className={css.pagination}>
+            <Pagination
+              itemCount={data?.data?.totalItems || 0}
+              pageSize={data?.data?.pageSize || 10}
+              pageCount={data?.data?.totalPages || 0}
+              pageIndex={data?.data?.pageIndex || 0}
+              gotoPage={gotoPage}
+            />
+          </Container>
+        </>
       )}
     </>
   )

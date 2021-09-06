@@ -1,9 +1,18 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, HarnessDocTooltip, Layout, ExpandingSearchInput, useModalHook } from '@wings-software/uicore'
+import {
+  Container,
+  HarnessDocTooltip,
+  Layout,
+  ExpandingSearchInput,
+  useModalHook,
+  SelectOption
+} from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
+import { useGetConnectorListV2, GetConnectorListV2QueryParams } from 'services/cd-ng'
+
 import { useMutateAsGet } from '@common/hooks'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
@@ -13,22 +22,33 @@ import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInt
 import routes from '@common/RouteDefinitions'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-
-import { useGetConnectorListV2, GetConnectorListV2QueryParams } from 'services/cd-ng'
-
-import ProvidersGridView from './ProvidersGridView'
 import NewProviderModal from './NewProviderModal/NewProviderModal'
+import ProvidersGridView from './ProvidersGridView'
 
 import css from './GitOpsModalContainer.module.scss'
 
 const GitOpsModalContainer: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
+  const [page, setPage] = useState(0)
+  const [searchParam, setSearchParam] = useState<string>()
   const { selectedProject } = useAppStore()
   const project = selectedProject
   const textIdentifier = 'gitOps'
 
+  const allOrgsSelectOption: SelectOption = useMemo(
+    () => ({
+      label: getString('all'),
+      value: getString('projectsOrgs.capsAllValue')
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
+
   const [providers, setProviders] = useState([])
+  const [connectorResponseData, setConnectorResponseData] = useState()
+  const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
+  const [activeProvider, setActiveProvider] = useState(null)
   const [loadingConnectors, setLoadingConnectors] = useState(false)
 
   const defaultQueryParams: GetConnectorListV2QueryParams = {
@@ -45,6 +65,20 @@ const GitOpsModalContainer: React.FC = () => {
 
   const searchProvider = () => {}
 
+  React.useEffect(() => {
+    setPage(0)
+  }, [searchParam, orgFilter])
+
+  const handleEdit = (provider: any) => {
+    setActiveProvider(provider)
+  }
+
+  React.useEffect(() => {
+    if (activeProvider) {
+      addNewProviderModal()
+    }
+  }, [activeProvider])
+
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const processConnectorsResponse = (connectors: any) => {
     const argoProviders = connectors?.map((connectorData: any) => {
@@ -59,12 +93,12 @@ const GitOpsModalContainer: React.FC = () => {
   const refetchConnectorList = async (): Promise<void> => {
     setLoadingConnectors(true)
 
-    const { data: connectorResponse } = await fetchConnectors({
+    const { data: connectorData } = await fetchConnectors({
       filterType: 'Connector',
       types: ['ArgoConnector']
     })
 
-    const data = connectorResponse?.content
+    const data = connectorData?.content
 
     processConnectorsResponse(data)
     setLoadingConnectors(false)
@@ -80,7 +114,7 @@ const GitOpsModalContainer: React.FC = () => {
     processConnectorsResponse(data)
   }, [connectorData])
 
-  const [addNewProdiverModal, closeNewProviderModal] = useModalHook(() => {
+  const [addNewProviderModal, closeNewProviderModal] = useModalHook(() => {
     const handleClose = () => {
       closeNewProviderModal()
       refetchConnectorList()
@@ -101,10 +135,10 @@ const GitOpsModalContainer: React.FC = () => {
         }}
         enforceFocus={false}
       >
-        <NewProviderModal onClose={handleClose} />
+        <NewProviderModal provider={activeProvider} onClose={handleClose} />
       </Dialog>
     )
-  })
+  }, [activeProvider])
 
   return (
     <div className={css.main}>
@@ -140,7 +174,7 @@ const GitOpsModalContainer: React.FC = () => {
                 resourceIdentifier: projectIdentifier
               }
             }}
-            onClick={addNewProdiverModal}
+            onClick={addNewProviderModal}
             id="newProviderBtn"
             data-test="newProviderButton"
             withoutBoxShadow
@@ -162,7 +196,14 @@ const GitOpsModalContainer: React.FC = () => {
         </Layout.Horizontal>
       </Layout.Horizontal>
 
-      <ProvidersGridView onDelete={refetchConnectorList} providers={providers} loading={loading || loadingConnectors} />
+      <ProvidersGridView
+        onDelete={refetchConnectorList}
+        onEdit={async provider => handleEdit(provider)}
+        data={connectorData}
+        providers={providers}
+        gotoPage={(pageNumber: number) => setPage(pageNumber)}
+        loading={loading || loadingConnectors}
+      />
     </div>
   )
 }

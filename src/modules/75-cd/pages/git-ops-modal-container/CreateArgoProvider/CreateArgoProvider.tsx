@@ -12,6 +12,7 @@ import css from './CreateArgoProvider.module.scss'
 
 interface CreateArgoProviderProps {
   isEditMode?: boolean
+  provider?: any
   connectorInfo?: any
   mock?: any
   onClose?: void
@@ -19,6 +20,7 @@ interface CreateArgoProviderProps {
 
 const CreateArgoProvider: React.FC<CreateArgoProviderProps> = props => {
   const { getString } = useStrings()
+  const { provider } = props
 
   return (
     <StepWizard
@@ -31,10 +33,14 @@ const CreateArgoProvider: React.FC<CreateArgoProviderProps> = props => {
         type={Connectors.ARGO}
         name={getString('overview')}
         isEditMode={props.isEditMode}
-        connectorInfo={props.connectorInfo}
+        connectorInfo={props.provider}
         mock={props.mock}
       />
-      <ProviderOverviewStep name={getString('cd.providerDetails')} buildPayload={buildArgoConnectorPayload} />
+      <ProviderOverviewStep
+        provider={provider}
+        name={getString('cd.providerDetails')}
+        buildPayload={buildArgoConnectorPayload}
+      />
       <TestConnection onClose={props.onClose} name={getString('common.labelTestConnection')} />
     </StepWizard>
   )

@@ -1,5 +1,5 @@
 import { Button } from '@wings-software/uicore'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import CreateArgoProvider from '../CreateArgoProvider/CreateArgoProvider'
 import argoLogo from '../images/argo-logo.svg'
@@ -8,11 +8,21 @@ import harnessLogo from '../images/harness-logo.png'
 import css from './NewProviderModal.module.scss'
 
 interface NewProviderModalProps {
+  provider: any
   onClose: any
 }
 
 const NewProviderModal: React.FC<NewProviderModalProps> = props => {
-  const [showCreateModal, setShowCreateModal] = useState(false)
+  const { provider } = props
+  const [showCreateModal, setShowCreateModal] = useState(true)
+  const [isEditMode, setIsEditMode] = useState(false)
+
+  useEffect(() => {
+    if (provider && provider?.type === 'ArgoConnector') {
+      setShowCreateModal(true)
+      setIsEditMode(true)
+    }
+  }, [])
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const createProvider = (type: string) => {
@@ -51,7 +61,7 @@ const NewProviderModal: React.FC<NewProviderModalProps> = props => {
 
       {showCreateModal && (
         <div className={css.providerModalContainer}>
-          <CreateArgoProvider onClose={props.onClose} />
+          <CreateArgoProvider isEditMode={isEditMode} provider={props.provider} onClose={props.onClose} />
         </div>
       )}
 

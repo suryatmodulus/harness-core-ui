@@ -178,6 +178,11 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       try {
         const { status, data } = await fetchConnectors(sanitizedFilterRequest, { queryParams: params })
         /* istanbul ignore else */ if (status === 'SUCCESS') {
+          // Filter out ArgoConnectors
+          const filteredConnectors = data?.content?.filter(connector => connector?.connector?.type !== 'ArgoConnector')
+          if (data) {
+            data.content = filteredConnectors
+          }
           setConnectors(data)
           setConnectorFetchError(undefined)
         }

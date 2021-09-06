@@ -29,15 +29,16 @@ const TestConnection: React.FC<Record<string, unknown>> = (props: any) => {
   }
 
   return (
-    <Layout.Vertical>
-      <Container padding="medium">
-        <Heading level={2} font={{ weight: 'bold' }}>
+    <Layout.Vertical spacing="xxlarge" className={css.stepContainer}>
+      <Container>
+        <Heading level={2} style={{ fontSize: '18px', color: 'black' }}>
           {'Test Connection'}
         </Heading>
       </Container>
-      <StepsProgress steps={steps} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
 
       <Layout.Vertical spacing="large">
+        <StepsProgress steps={steps} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
+
         <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="medium">
           <Button text={'Finish'} onClick={handleSuccess} className={css.nextButton} />
           <Button

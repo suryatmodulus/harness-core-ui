@@ -1,6 +1,9 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly stepContainer: string
+  readonly heading: string
+  readonly stepFormContainer: string
   readonly layoutFooter: string
   readonly permissionCard: string
   readonly preTitle: string

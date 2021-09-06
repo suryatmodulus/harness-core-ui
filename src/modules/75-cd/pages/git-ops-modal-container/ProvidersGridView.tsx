@@ -6,16 +6,16 @@ import css from './ProvidersGridView.module.scss'
 
 interface ProvidersGridViewProps {
   providers: any
-  data: any
+  data?: any
   loading?: boolean
   reloadPage?: () => Promise<void>
-  gotoPage: (index: number) => void
-  onDelete: () => Promise<void>
+  gotoPage?: (index: number) => void
+  onDelete?: () => Promise<void>
   onEdit: (provider: any) => Promise<void>
 }
 
 const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
-  const { providers, data, loading, gotoPage } = props
+  const { providers, data, loading, onEdit, gotoPage } = props
   return (
     <>
       {loading ? (
@@ -30,7 +30,7 @@ const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {
               gutter={10}
               items={providers || []}
               renderItem={(provider: any) => (
-                <ProviderCard provider={provider} onEdit={() => props.onEdit(provider)} onDelete={props.onDelete} />
+                <ProviderCard provider={provider} onEdit={() => onEdit(provider)} onDelete={props.onDelete} />
               )}
               keyOf={(provider: any) => provider.name}
             />

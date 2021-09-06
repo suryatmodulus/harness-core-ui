@@ -86,7 +86,7 @@ const ProviderOverviewStep = (props: any) => {
   }
 
   return (
-    <Layout.Vertical spacing="xxlarge" className={css.stepContainer}>
+    <Layout.Vertical className={css.stepContainer}>
       {creating || updating ? (
         <PageSpinner
           message={
@@ -98,7 +98,9 @@ const ProviderOverviewStep = (props: any) => {
       ) : null}
 
       <Formik
-        initialValues={{}}
+        initialValues={{
+          adapterURL: props?.provider?.spec?.adapterUrl || ''
+        }}
         validationSchema={Yup.object().shape({
           adapterURL: Yup.string()
             .trim()
@@ -106,9 +108,6 @@ const ProviderOverviewStep = (props: any) => {
             .required('Please enter a valid Adapter URL')
         })}
         formName="connectionDetails"
-        // onSubmit={stepData => {
-        //   // nextStep?.({ ...props.connectorInfo, ...prevStepData, ...stepData })
-        // }}
         onSubmit={(stepData: any) => {
           const updatedStepData = {
             ...stepData

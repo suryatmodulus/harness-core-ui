@@ -180,7 +180,7 @@ const GitOpsModalContainer: React.FC = () => {
             withoutBoxShadow
           />
         </Layout.Horizontal>
-
+        {/* 
         <Layout.Horizontal margin={{ left: 'small' }}>
           <Container className={css.expandSearch} margin={{ right: 'small' }} data-name="providerSeachContainer">
             <ExpandingSearchInput
@@ -193,7 +193,7 @@ const GitOpsModalContainer: React.FC = () => {
               }}
             />
           </Container>
-        </Layout.Horizontal>
+        </Layout.Horizontal> */}
       </Layout.Horizontal>
 
       <ProvidersGridView
@@ -201,7 +201,9 @@ const GitOpsModalContainer: React.FC = () => {
         onEdit={async provider => handleEdit(provider)}
         data={connectorData}
         providers={providers}
-        gotoPage={(pageNumber: number) => setPage(pageNumber)}
+        gotoPage={(pageNumber: number) => {
+          setPage(pageNumber)
+        }}
         loading={loading || loadingConnectors}
       />
     </div>

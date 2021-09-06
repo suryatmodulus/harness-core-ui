@@ -14,7 +14,7 @@ interface NewProviderModalProps {
 
 const NewProviderModal: React.FC<NewProviderModalProps> = props => {
   const { provider } = props
-  const [showCreateModal, setShowCreateModal] = useState(true)
+  const [showCreateModal, setShowCreateModal] = useState(false)
   const [isEditMode, setIsEditMode] = useState(false)
 
   useEffect(() => {
@@ -26,6 +26,8 @@ const NewProviderModal: React.FC<NewProviderModalProps> = props => {
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const createProvider = (type: string) => {
+    setIsEditMode(false)
+
     if (type === 'argo') {
       setShowCreateModal(true)
     } else {

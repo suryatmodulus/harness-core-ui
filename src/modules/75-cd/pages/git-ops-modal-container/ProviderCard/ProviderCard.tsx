@@ -144,7 +144,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
               }}
             />
             <Menu style={{ minWidth: 'unset' }}>
-              <Menu.Item icon="edit" text="Edit" onClick={handleEdit} disabled />
+              <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
               <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
             </Menu>
           </Popover>

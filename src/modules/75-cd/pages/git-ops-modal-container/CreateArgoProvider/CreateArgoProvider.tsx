@@ -38,6 +38,7 @@ const CreateArgoProvider: React.FC<CreateArgoProviderProps> = props => {
       />
       <ProviderOverviewStep
         provider={provider}
+        isEditMode={props.isEditMode}
         name={getString('cd.providerDetails')}
         buildPayload={buildArgoConnectorPayload}
       />

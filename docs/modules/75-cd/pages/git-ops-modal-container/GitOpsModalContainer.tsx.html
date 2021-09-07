@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.42% </span>
+                <span class="strong">73.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/86</span>
+                <span class='fraction'>60/82</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.39% </span>
+                <span class="strong">27.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>23/71</span>
+                <span class='fraction'>18/65</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.42% </span>
+                <span class="strong">73.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>64/86</span>
+                <span class='fraction'>60/82</span>
             </div>
         
             
@@ -333,28 +333,11 @@
 <a name='L274'></a><a href='#L274'>274</a>
 <a name='L275'></a><a href='#L275'>275</a>
 <a name='L276'></a><a href='#L276'>276</a>
-<a name='L277'></a><a href='#L277'>277</a>
-<a name='L278'></a><a href='#L278'>278</a>
-<a name='L279'></a><a href='#L279'>279</a>
-<a name='L280'></a><a href='#L280'>280</a>
-<a name='L281'></a><a href='#L281'>281</a>
-<a name='L282'></a><a href='#L282'>282</a>
-<a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a>
-<a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a>
-<a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a>
-<a name='L292'></a><a href='#L292'>292</a>
-<a name='L293'></a><a href='#L293'>293</a>
-<a name='L294'></a><a href='#L294'>294</a>
-<a name='L295'></a><a href='#L295'>295</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L277'></a><a href='#L277'>277</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -376,10 +359,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -395,9 +375,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -572,21 +549,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -649,9 +613,10 @@
 import { debounce } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { GetDataError } from 'restful-react'
-import { HarnessDocTooltip, Layout, useModalHook, ExpandingSearchInput, Container } from '@wings-software/uicore'
+import { HarnessDocTooltip, Layout, useModalHook, ExpandingSearchInput } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 &nbsp;
 import { removeNullAndEmpty } from '@common/components/Filter/utils/FilterUtils'
 import { shouldShowError } from '@common/utils/errorUtils'
@@ -670,10 +635,7 @@ import {
 import { Page, useToaster } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import routes from '@common/RouteDefinitions'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import NewProviderModal from './NewProviderModal/NewProviderModal'
@@ -685,10 +647,7 @@ const textIdentifier = 'gitOps'
 &nbsp;
 const GitOpsModalContainer: React.FC = () =&gt; {
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams&lt;ProjectPathProps &amp; ModulePathParams&gt;()
-&nbsp;
-  const { selectedProject } = useAppStore()
-  const project = selectedProject
+  const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;ProjectPathProps &amp; ModulePathParams&gt;()
 &nbsp;
   const [searchTerm, setSearchTerm] = useState('')
   const [activeProvider, setActiveProvider] = useState(null)
@@ -843,65 +802,52 @@ const GitOpsModalContainer: React.FC = () =&gt; {
 &nbsp;
   return (
     &lt;&gt;
-      &lt;div className={css.main}&gt;
-        &lt;div className={css.header}&gt;
-          &lt;Breadcrumbs
-            links={[
-              {
-                label: <span class="branch-1 cbranch-no" title="branch not covered" >project?.name </span>|| '',
-                url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module })
-              },
-              {
-                label: 'GitOps',
-                url: ''
-              }
-            ]}
-          /&gt;
+      &lt;Page.Header
+        title={
           &lt;div className="ng-tooltip-native"&gt;
-            &lt;h2 data-tooltip-id={textIdentifier}&gt;{getString('cd.gitOps')}&lt;/h2&gt;
+            &lt;h2 data-tooltip-id={textIdentifier}&gt; {getString('cd.gitOps')}&lt;/h2&gt;
             &lt;HarnessDocTooltip tooltipId={textIdentifier} useStandAlone={true} /&gt;
           &lt;/div&gt;
-        &lt;/div&gt;
+        }
+        breadcrumbs={&lt;NGBreadcrumbs links={[]} /&gt;}
+      &gt;&lt;/Page.Header&gt;
 &nbsp;
-        &lt;Layout.Horizontal flex className={css.addProviderHeader}&gt;
-          &lt;Layout.Horizontal spacing="small"&gt;
-            &lt;RbacButton
-              intent="primary"
-              text={getString('cd.newProvider')}
-              icon="plus"
-              permission={{
-                permission: PermissionIdentifier.CREATE_PROJECT, // change to ADD_NEW_PROVIDER
-                resource: {
-                  resourceType: ResourceType.ACCOUNT,
-                  resourceIdentifier: projectIdentifier
-                }
-              }}
-              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                setActiveProvider(null)</span>
-<span class="cstat-no" title="statement not covered" >                addNewProviderModal()</span>
-              }}
-              id="newProviderBtn"
-              data-test="newProviderButton"
-            /&gt;
-          &lt;/Layout.Horizontal&gt;
-&nbsp;
-          &lt;Layout.Horizontal margin={{ left: 'small' }}&gt;
-            &lt;Container data-name="connectorSeachContainer"&gt;
-              &lt;ExpandingSearchInput
-                alwaysExpanded
-                width={200}
-                placeholder={getString('search')}
-                throttle={200}
-                onChange={<span class="fstat-no" title="function not covered" >(q</span>uery: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >                  debouncedConnectorSearch(encodeURIComponent(query))</span>
-<span class="cstat-no" title="statement not covered" >                  setSearchTerm(query)</span>
-                }}
-                className={css.expandSearch}
-              /&gt;
-            &lt;/Container&gt;
-          &lt;/Layout.Horizontal&gt;
+      &lt;Page.SubHeader&gt;
+        &lt;Layout.Horizontal&gt;
+          &lt;RbacButton
+            intent="primary"
+            text={getString('cd.newProvider')}
+            permission={{
+              permission: PermissionIdentifier.CREATE_PROJECT, // change to ADD_NEW_PROVIDER
+              resource: {
+                resourceType: ResourceType.ACCOUNT,
+                resourceIdentifier: projectIdentifier
+              }
+            }}
+            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >              setActiveProvider(null)</span>
+<span class="cstat-no" title="statement not covered" >              addNewProviderModal()</span>
+            }}
+            id="newProviderBtn"
+            data-test="newProviderButton"
+          /&gt;
         &lt;/Layout.Horizontal&gt;
+        &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
+          &lt;ExpandingSearchInput
+            alwaysExpanded
+            width={200}
+            placeholder={getString('search')}
+            throttle={200}
+            onChange={<span class="fstat-no" title="function not covered" >(q</span>uery: string) =&gt; {
+<span class="cstat-no" title="statement not covered" >              debouncedConnectorSearch(encodeURIComponent(query))</span>
+<span class="cstat-no" title="statement not covered" >              setSearchTerm(query)</span>
+            }}
+            className={css.expandSearch}
+          /&gt;
+        &lt;/Layout.Horizontal&gt;
+      &lt;/Page.SubHeader&gt;
 &nbsp;
+      &lt;Page.Body className={css.pageBody}&gt;
         &lt;Layout.Vertical&gt;
           &lt;Page.Body&gt;
             {loading ? (
@@ -933,7 +879,7 @@ const GitOpsModalContainer: React.FC = () =&gt; {
             )}
           &lt;/Page.Body&gt;
         &lt;/Layout.Vertical&gt;
-      &lt;/div&gt;
+      &lt;/Page.Body&gt;
     &lt;/&gt;
   )
 }
@@ -946,7 +892,7 @@ export default GitOpsModalContainer
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 07 2021 12:03:09 GMT+0000 (Greenwich Mean Time)
+                at Tue Sep 07 2021 12:32:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

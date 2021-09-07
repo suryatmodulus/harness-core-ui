@@ -73,6 +73,7 @@ const initialGatewayDetails = {
     preservePrivateIP: false,
     deleteCloudResources: false,
     alwaysUsePrivateIP: false,
+    hide_progress_page: false,
     access_details: accessDetails // eslint-disable-line
   },
   provider: {

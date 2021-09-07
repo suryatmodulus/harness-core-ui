@@ -38,7 +38,8 @@ describe('COProviderSelector', () => {
         preservePrivateIP: true,
         deleteCloudResources: true,
         alwaysUsePrivateIP: true,
-        access_details: {}
+        access_details: {},
+        hide_progress_page: false
       },
       provider: {
         name: 'AWS',

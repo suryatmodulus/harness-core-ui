@@ -16,7 +16,8 @@ import {
   Icon,
   Card,
   useModalHook,
-  IconName
+  IconName,
+  Toggle
 } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -380,7 +381,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         />
       </Dialog>
     )
-  }, [allConnectors, connectorsToShow, selectedConnector, loadingConnectors, props.gatewayDetails.metadata])
+  }, [allConnectors, connectorsToShow, selectedConnector, loadingConnectors, props.gatewayDetails])
 
   useLayoutEffect(() => {
     const observeScrollHandler = _debounce(() => {
@@ -1313,6 +1314,19 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             dataTooltip={{ titleId: isAwsProvider ? 'awsSetupAdvancedConfig' : 'azureSetupAdvancedConfig' }}
           >
             <Layout.Vertical spacing="medium">
+              {isK8sSelected && (
+                <Toggle
+                  label={'Hide Progress Page'}
+                  checked={props.gatewayDetails.opts.hide_progress_page}
+                  onToggle={isToggled => {
+                    props.setGatewayDetails({
+                      ...props.gatewayDetails,
+                      opts: { ...props.gatewayDetails.opts, hide_progress_page: isToggled }
+                    })
+                  }}
+                  data-testid={'progressPageViewToggle'}
+                />
+              )}
               {serviceDependencies && serviceDependencies.length ? (
                 <CORuleDendencySelector
                   deps={serviceDependencies}

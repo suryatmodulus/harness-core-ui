@@ -106,7 +106,8 @@ export const CECOEditGatewayPage: React.FC = () => {
         preservePrivateIP: service.opts?.preserve_private_ip as boolean,
         deleteCloudResources: service.opts?.delete_cloud_resources as boolean,
         alwaysUsePrivateIP: service.opts?.always_use_private_ip as boolean,
-        access_details: service.opts?.access_details as ConnectionMetadata
+        access_details: service.opts?.access_details as ConnectionMetadata,
+        hide_progress_page: service.opts?.hide_progress_page as boolean
       },
       provider: allProviders.find(provider => provider.value === providerType) as Provider,
       selectedInstances: selectedInstances,

@@ -140,7 +140,8 @@ const initialGatewayDetails = {
     preservePrivateIP: false,
     deleteCloudResources: false,
     alwaysUsePrivateIP: false,
-    access_details: accessDetails // eslint-disable-line
+    access_details: accessDetails, // eslint-disable-line
+    hide_progress_page: false
   },
   provider: {
     name: 'AWS',

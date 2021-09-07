@@ -2806,6 +2806,20 @@ exports[`Auto stopping Rule creation Tests kubernestes config edit 1`] = `
             <div
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
             >
+              <label
+                class="Toggle--toggle StyledProps--main"
+                data-testid="progressPageViewToggle"
+              >
+                <input
+                  class="Toggle--input"
+                  type="checkbox"
+                  value=""
+                />
+                <span
+                  class="Toggle--toggleIcon"
+                />
+                Hide Progress Page
+              </label>
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                 style="max-width: 180px;"

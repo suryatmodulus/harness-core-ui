@@ -2246,6 +2246,9 @@
         },
         "access_details": {
           "type": "object"
+        },
+        "hide_progress_page": {
+          "type": "boolean"
         }
       }
     },

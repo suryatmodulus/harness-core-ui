@@ -64,7 +64,8 @@ export const CECODashboardPage: React.FC = () => {
     opts: {
       preservePrivateIP: false,
       deleteCloudResources: false,
-      alwaysUsePrivateIP: false
+      alwaysUsePrivateIP: false,
+      hide_progress_page: false
     },
     provider: {
       icon: '',

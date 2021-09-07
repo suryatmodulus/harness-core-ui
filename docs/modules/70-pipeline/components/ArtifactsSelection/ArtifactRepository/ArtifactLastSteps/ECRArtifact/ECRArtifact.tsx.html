@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.17% </span>
+                <span class="strong">79.8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>76/96</span>
+                <span class='fraction'>79/99</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.51% </span>
+                <span class="strong">46.2% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>147/323</span>
+                <span class='fraction'>152/329</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56% </span>
+                <span class="strong">57.69% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>14/25</span>
+                <span class='fraction'>15/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.35% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>73/92</span>
+                <span class='fraction'>76/95</span>
             </div>
         
             
@@ -512,9 +512,7 @@
 <a name='L453'></a><a href='#L453'>453</a>
 <a name='L454'></a><a href='#L454'>454</a>
 <a name='L455'></a><a href='#L455'>455</a>
-<a name='L456'></a><a href='#L456'>456</a>
-<a name='L457'></a><a href='#L457'>457</a>
-<a name='L458'></a><a href='#L458'>458</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<a name='L456'></a><a href='#L456'>456</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -548,6 +546,7 @@
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -575,14 +574,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -663,8 +655,21 @@
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -682,15 +687,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
@@ -1012,11 +1008,12 @@ export const ECRArtifact: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; 
   initialValues,
   previousStep,
   artifactIdentifiers,
-  isReadonly = false
+  isReadonly = false,
+  selectedArtifact
 }) =&gt; {
   const { getString } = useStrings()
 &nbsp;
-  const ecrSchema = Yup.object().shape({
+  const schemaObject = {
     imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
     region: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.region')),
     tagType: Yup.string().required(),
@@ -1028,26 +1025,19 @@ export const ECRArtifact: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; 
       is: 'value',
       then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
     })
-  })
+  }
+&nbsp;
+  const ecrSchema = Yup.object().shape(schemaObject)
 &nbsp;
   const sideCarSchema = Yup.object().shape({
+    ...schemaObject,
     ...ArtifactIdentifierValidation(
       artifactIdentifiers,
       initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier,
       getString('pipeline.uniqueIdentifier')
-    ),
-    imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
-    region: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.region')),
-    tagType: Yup.string().required(),
-    tagRegex: Yup.string().when('tagType', {
-      is: 'regex',
-      then: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.tagRegex'))
-    }),
-    tag: Yup.mixed().when('tagType', {
-      is: 'value',
-      then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
-    })
+    )
   })
+&nbsp;
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;ProjectPathProps&gt;()
   const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
   const [tagList, setTagList] = React.useState([])
@@ -1119,28 +1109,7 @@ export const ECRArtifact: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; 
   }, [tagList])
   const tags = loading ? <span class="branch-0 cbranch-no" title="branch not covered" >[{ label: 'Loading Tags...', value: 'Loading Tags...' }] </span>: getSelectItems()
 &nbsp;
-  const getInitialValues = (): ImagePathTypes =&gt; {
-    const specValues = get(initialValues, 'spec', null)
-    if (specValues) {
-      const values = {
-        ...specValues,
-        tagType: specValues.tag ? <span class="branch-0 cbranch-no" title="branch not covered" >TagTypes.Value </span>: TagTypes.Regex
-      }
-&nbsp;
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (getMultiTypeFromValue(specValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ag) === MultiTypeInputType.FIXED) {
-        values.tag = { label: specValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ag, value: specValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ag }
-      }
-&nbsp;
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (getMultiTypeFromValue(specValues<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>egion) === MultiTypeInputType.FIXED) {
-        values.region = regions.find(regionData =&gt; regionData.value === specValues<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>egion)
-      }
-&nbsp;
-      if (context === 2 &amp;&amp; initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier) {
-        values.identifier = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
-      }
-      return values
-    }
-&nbsp;
+  const defaultStepValues = (): ImagePathTypes =&gt; {
     return {
       identifier: '',
       imagePath: '',
@@ -1148,6 +1117,31 @@ export const ECRArtifact: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; 
       tagType: TagTypes.Value,
       tagRegex: ''
     }
+  }
+&nbsp;
+  const getInitialValues = (): ImagePathTypes =&gt; {
+    const specValues = get(initialValues, 'spec', null)
+    if (selectedArtifact !== (initialValues as any)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype || !specValues) {
+      return defaultStepValues()
+    }
+&nbsp;
+    const values = {
+      ...specValues,
+      tagType: specValues.tag ? <span class="branch-0 cbranch-no" title="branch not covered" >TagTypes.Value </span>: TagTypes.Regex
+    }
+&nbsp;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (getMultiTypeFromValue(specValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ag) === MultiTypeInputType.FIXED) {
+      values.tag = { label: specValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ag, value: specValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ag }
+    }
+&nbsp;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (getMultiTypeFromValue(specValues<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>egion) === MultiTypeInputType.FIXED) {
+      values.region = regions.find(regionData =&gt; regionData.value === specValues<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>egion)
+    }
+&nbsp;
+    if (context === 2 &amp;&amp; initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier) {
+      values.identifier = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
+    }
+    return values
   }
 &nbsp;
   const fetchTags = <span class="fstat-no" title="function not covered" >(i</span>magePath = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> region = <span class="branch-0 cbranch-no" title="branch not covered" >'')</span>: void =&gt; {
@@ -1435,7 +1429,7 @@ export const ECRArtifact: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 07 2021 05:52:28 GMT+0000 (Greenwich Mean Time)
+                at Tue Sep 07 2021 08:14:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

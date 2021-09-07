@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/409</span>
+                <span class='fraction'>0/403</span>
             </div>
         
             
@@ -977,34 +977,7 @@
 <a name='L918'></a><a href='#L918'>918</a>
 <a name='L919'></a><a href='#L919'>919</a>
 <a name='L920'></a><a href='#L920'>920</a>
-<a name='L921'></a><a href='#L921'>921</a>
-<a name='L922'></a><a href='#L922'>922</a>
-<a name='L923'></a><a href='#L923'>923</a>
-<a name='L924'></a><a href='#L924'>924</a>
-<a name='L925'></a><a href='#L925'>925</a>
-<a name='L926'></a><a href='#L926'>926</a>
-<a name='L927'></a><a href='#L927'>927</a>
-<a name='L928'></a><a href='#L928'>928</a>
-<a name='L929'></a><a href='#L929'>929</a>
-<a name='L930'></a><a href='#L930'>930</a>
-<a name='L931'></a><a href='#L931'>931</a>
-<a name='L932'></a><a href='#L932'>932</a>
-<a name='L933'></a><a href='#L933'>933</a>
-<a name='L934'></a><a href='#L934'>934</a>
-<a name='L935'></a><a href='#L935'>935</a>
-<a name='L936'></a><a href='#L936'>936</a>
-<a name='L937'></a><a href='#L937'>937</a>
-<a name='L938'></a><a href='#L938'>938</a>
-<a name='L939'></a><a href='#L939'>939</a>
-<a name='L940'></a><a href='#L940'>940</a>
-<a name='L941'></a><a href='#L941'>941</a>
-<a name='L942'></a><a href='#L942'>942</a>
-<a name='L943'></a><a href='#L943'>943</a>
-<a name='L944'></a><a href='#L944'>944</a>
-<a name='L945'></a><a href='#L945'>945</a>
-<a name='L946'></a><a href='#L946'>946</a>
-<a name='L947'></a><a href='#L947'>947</a>
-<a name='L948'></a><a href='#L948'>948</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L921'></a><a href='#L921'>921</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1698,33 +1671,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2649,29 +2595,11 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
           &lt;Layout.Horizontal spacing="small" className={css.repoDetails}&gt;
             &lt;Icon name="repository" margin={{ left: 'medium' }}&gt;&lt;/Icon&gt;
             {pipelineIdentifier === DefaultNewPipelineId &amp;&amp; !loadingRepos ? (
-              &lt;Text
-                style={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  maxWidth: window.innerWidth &lt;= 1440 ? '70px' : '145px'
-                }}
-                font={FontVariation.SMALL}
-                tooltip={repoName}
-              &gt;
+              &lt;Text font={FontVariation.SMALL} tooltip={repoName} className={css.repoName}&gt;
                 {repoName}
               &lt;/Text&gt;
             ) : (
-              &lt;Text
-                style={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  maxWidth: window.innerWidth &lt;= 1440 ? '70px' : '190px'
-                }}
-                font={FontVariation.SMALL}
-                tooltip={folderName}
-              &gt;
+              &lt;Text font={FontVariation.SMALL} tooltip={folderName} className={css.folderName}&gt;
                 {folderName}
               &lt;/Text&gt;
             )}
@@ -2681,16 +2609,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             {pipelineIdentifier === DefaultNewPipelineId || isReadonly ? (
               &lt;&gt;
                 &lt;Icon name="git-new-branch" margin={{ left: 'medium' }}&gt;&lt;/Icon&gt;
-                &lt;Text
-                  style={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    maxWidth: window.innerWidth &lt;= 1440 ? '70px' : '145px'
-                  }}
-                  font={FontVariation.SMALL}
-                  tooltip={gitDetails?.branch}
-                &gt;
+                &lt;Text className={css.branchName} font={FontVariation.SMALL} tooltip={gitDetails?.branch}&gt;
                   {gitDetails?.branch}
                 &lt;/Text&gt;
               &lt;/&gt;
@@ -2905,7 +2824,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 07 2021 05:52:28 GMT+0000 (Greenwich Mean Time)
+                at Tue Sep 07 2021 08:14:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

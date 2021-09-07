@@ -1,7 +1,7 @@
 harness: Harness # Name of the company
 signUp:
-  signIn: 'Sign In'
-  signUp: 'Sign Up'
+  signIn: 'Sign in'
+  signUp: 'Sign up'
   ssoButton: 'Single Sign-On'
   message:
     primary: 'Sign up for an account'

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.73% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>51/55</span>
+                <span class='fraction'>52/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88% </span>
+                <span class="strong">87.01% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>66/75</span>
+                <span class='fraction'>67/77</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.45% </span>
+                <span class="strong">92.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/53</span>
+                <span class='fraction'>50/54</span>
             </div>
         
             
@@ -315,7 +315,13 @@
 <a name='L256'></a><a href='#L256'>256</a>
 <a name='L257'></a><a href='#L257'>257</a>
 <a name='L258'></a><a href='#L258'>258</a>
-<a name='L259'></a><a href='#L259'>259</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
@@ -327,6 +333,8 @@
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -349,6 +357,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -373,6 +382,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -584,6 +596,7 @@ import merge from 'lodash-es/merge'
 import { Popover, Menu, MenuItem, Dialog } from '@blueprintjs/core'
 import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import { useStrings } from 'framework/strings'
+import { getIconBySourceType } from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable.utils'
 import styles from './TimeseriesRow.module.scss'
 &nbsp;
 export interface SeriesConfig {
@@ -600,6 +613,7 @@ export interface TimeseriesRowProps {
   withContextMenu?: boolean
   className?: string
   setChartDivRef?: (element: HTMLDivElement | null) =&gt; void
+  dataSourceType?: string
 }
 &nbsp;
 const FONT_SIZE_SMALL: FontProps = {
@@ -613,7 +627,8 @@ export default function TimeseriesRow({
   className,
   chartOptions,
   withContextMenu = true,
-  setChartDivRef
+  setChartDivRef,
+  dataSourceType
 }: TimeseriesRowProps): JSX.Element {
   const { getString } = useStrings()
   const showDetails = useTimeseriesDetailsModal(transactionName, metricName)
@@ -642,7 +657,10 @@ export default function TimeseriesRow({
               {metricName}
             &lt;/Text&gt;
           &lt;/div&gt;
-          &lt;Icon name="star-empty" color={Color.GREY_250} /&gt;
+          &lt;Container className={styles.icons}&gt;
+            {dataSourceType ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;Icon name={getIconBySourceType(dataSourceType)} size={14} /&gt; </span>: null}
+            &lt;Icon name="star-empty" color={Color.GREY_250} padding={{ top: 'xsmall' }} /&gt;
+          &lt;/Container&gt;
         &lt;/div&gt;
       &lt;/Container&gt;
       &lt;Container className={styles.charts}&gt;
@@ -838,7 +856,7 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 07 2021 08:50:12 GMT+0000 (Greenwich Mean Time)
+                at Tue Sep 07 2021 09:40:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

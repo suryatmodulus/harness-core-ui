@@ -100,7 +100,7 @@ const managedResources = [
   {
     label: 'Kubernetes Cluster',
     value: RESOURCES.KUBERNETES,
-    providers: ['aws', 'azure'],
+    providers: ['aws', 'azure', 'gcp'],
     ffDependencies: ['CE_AS_KUBERNETES_ENABLED']
   }
 ]
@@ -643,10 +643,10 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
 
   useEffect(() => {
     if (!props.gatewayDetails.provider) return
-    refreshInstances()
-    isAwsProvider && fetchAndSetAsgItems()
-    isKubernetesEnabled && fetchAndSetConnectors()
-  }, [props.gatewayDetails.provider])
+    if (selectedResource === RESOURCES.INSTANCES) refreshInstances()
+    if (selectedResource === RESOURCES.ASG) fetchAndSetAsgItems()
+    if (selectedResource === RESOURCES.KUBERNETES) fetchAndSetConnectors()
+  }, [props.gatewayDetails.provider, selectedResource])
 
   useEffect(() => {
     if (isValid()) {

@@ -136,4 +136,37 @@ describe('COProviderSelector', () => {
     if (connectorLabel) expect(connectorLabel.textContent).toBe('ce.co.gatewayBasics.connect Azure rbac.account ')
     expect(container).toMatchSnapshot()
   })
+
+  test('selecting GCP provider shows option to select connector', () => {
+    const gcpProps = {
+      ...props,
+      gatewayDetails: {
+        ...props.gatewayDetails,
+        provider: {
+          name: 'GCP',
+          icon: 'gcp',
+          value: 'gcp'
+        }
+      }
+    }
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: 'testAcc', projectIdentifier: 'projectIdentifier', orgIdentifier: 'orgIdentifier' }}
+        defaultAppStoreValues={defaultAppStoreValues}
+      >
+        <COProviderSelector {...gcpProps} />
+      </TestWrapper>
+    )
+
+    const awsCard = container.querySelector('.bp3-card')
+    expect(awsCard).toBeDefined()
+    act(() => {
+      fireEvent.click(awsCard!)
+    })
+    const connectorLabel = container.querySelector('label.bp3-label')
+    expect(connectorLabel).toBeDefined()
+    if (connectorLabel) expect(connectorLabel.textContent).toBe('ce.co.gatewayBasics.connect GCP rbac.account ')
+    expect(container).toMatchSnapshot()
+  })
 })

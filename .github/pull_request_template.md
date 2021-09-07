@@ -8,5 +8,6 @@ You can use the following comments to re-trigger PR Checks
 - Build: `retrigger build`
 - Title Check: `retrigger titlecheck`
 - Coverage: `retrigger coverage`
+- Sonar: `retrigger sonar`
 - Rebase: `trigger rebase`
 - Fix Prettier - `fix prettier`

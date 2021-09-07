@@ -224,7 +224,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                   )
                 })}
                 <Popover
-                  interactionKind={PopoverInteractionKind.CLICK}
+                  interactionKind={PopoverInteractionKind.HOVER}
                   boundary="viewport"
                   popoverClassName={Classes.DARK}
                   content={

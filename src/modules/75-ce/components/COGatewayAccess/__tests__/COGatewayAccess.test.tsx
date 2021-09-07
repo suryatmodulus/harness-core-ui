@@ -196,11 +196,11 @@ describe('Testing COGatewayAccess', () => {
     await waitFor(() => {
       fireEvent.click(osCaret!)
     })
-    const osToSelect = await findByText(container, 'Mac')
+    const osToSelect = await findByText(container, 'Mac (amd64)')
     act(() => {
       fireEvent.click(osToSelect)
     })
-    expect(osDropdown.value).toBe('Mac')
+    expect(osDropdown.value).toBe('Mac (amd64)')
 
     const downloadBtn = await findByText(container, 'Download CLI')
     act(() => {

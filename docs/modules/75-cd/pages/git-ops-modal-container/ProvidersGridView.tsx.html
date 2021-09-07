@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/12</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">68.42% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>26/38</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">25% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">75% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>3/4</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/12</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
@@ -105,7 +105,18 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -122,8 +133,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,13 +149,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,7 +176,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Container, Layout } from '@wings-software/uicore'
+import { Container, Layout, Pagination } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
 import ProviderCard from './ProviderCard/ProviderCard'
 import css from './ProvidersGridView.module.scss'
@@ -164,17 +186,18 @@ interface ProvidersGridViewProps {
   data?: any
   loading?: boolean
   reloadPage?: () =&gt; Promise&lt;void&gt;
-  gotoPage?: (index: number) =&gt; void
+  gotoPage: (index: number) =&gt; void
   onDelete?: () =&gt; Promise&lt;void&gt;
   onEdit?: (provider: any) =&gt; Promise&lt;void&gt;
 }
 &nbsp;
 const ProvidersGridView: React.FC&lt;ProvidersGridViewProps&gt; = props =&gt; {
-  const { providers, loading, onEdit } = props
+  const { loading, data, onEdit, gotoPage } = props
+&nbsp;
   return (
     &lt;&gt;
       {loading ? (
-        &lt;div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}&gt;</span>
           &lt;PageSpinner /&gt;
         &lt;/div&gt;
       ) : (
@@ -183,15 +206,25 @@ const ProvidersGridView: React.FC&lt;ProvidersGridViewProps&gt; = props =&gt; {
             &lt;Layout.Masonry
               center
               gutter={10}
-              items={providers || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
-              renderItem={(provider: any) =&gt; (
-                &lt;ProviderCard
-                  provider={provider}
+              items={<span class="branch-1 cbranch-no" title="branch not covered" >data?.content </span>|| []}
+              renderItem={<span class="fstat-no" title="function not covered" >(p</span>rovider: any) =&gt; (
+<span class="cstat-no" title="statement not covered" >                &lt;ProviderCard</span>
+                  provider={provider?.connector}
                   onEdit={<span class="fstat-no" title="function not covered" >async </span>() =&gt; <span class="cstat-no" title="statement not covered" >onEdit &amp;&amp; onEdit(provider)}</span>
                   onDelete={props.onDelete}
                 /&gt;
               )}
-              keyOf={(provider: any) =&gt; provider.name}
+              keyOf={<span class="fstat-no" title="function not covered" >(p</span>rovider: any) =&gt; <span class="cstat-no" title="statement not covered" >provider.name}</span>
+            /&gt;
+          &lt;/Container&gt;
+&nbsp;
+          &lt;Container className={css.pagination}&gt;
+            &lt;Pagination
+              itemCount={<span class="branch-1 cbranch-no" title="branch not covered" >data?.totalItems </span>|| 0}
+              pageSize={<span class="branch-1 cbranch-no" title="branch not covered" >data?.pageSize </span>|| 10}
+              pageCount={<span class="branch-1 cbranch-no" title="branch not covered" >data?.totalPages </span>|| 0}
+              pageIndex={<span class="branch-1 cbranch-no" title="branch not covered" >data?.pageIndex </span>|| 0}
+              gotoPage={gotoPage}
             /&gt;
           &lt;/Container&gt;
         &lt;/&gt;
@@ -208,7 +241,7 @@ export default ProvidersGridView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 07 2021 03:29:38 GMT+0000 (Greenwich Mean Time)
+                at Tue Sep 07 2021 05:52:28 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

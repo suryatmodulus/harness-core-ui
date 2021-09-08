@@ -93,9 +93,6 @@ const AuthSettingsRoutes: React.FC = () => {
         >
           <SubscriptionsPage />
         </RouteWithLayout>
-        <Route path="*">
-          <NotFoundPage />
-        </Route>
       </Switch>
     </Provider>
   )

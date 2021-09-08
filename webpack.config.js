@@ -221,15 +221,15 @@ const commonPlugins = [
   }),
   new GenerateStringTypesPlugin()
 ]
-
+const mf=new ModuleFederationPlugin({
+  name: 'home',
+  filename: 'remoteEntry.js',
+  remotes: {
+    nav: 'nav@http://localhost:3003/remoteEntry.js'
+  }
+})
 const devOnlyPlugins = [
-  new ModuleFederationPlugin({
-    name: 'home',
-    filename: 'remoteEntry.js',
-    remotes: {
-      nav: 'nav@http://localhost:3003/remoteEntry.js'
-    }
-  }),
+  
   new webpack.WatchIgnorePlugin({
     paths: [/node_modules(?!\/@wings-software)/, /\.d\.ts$/, /stringTypes\.ts/]
   }),

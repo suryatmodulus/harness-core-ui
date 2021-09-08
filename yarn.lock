@@ -4007,14 +4007,15 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/test-app-publish-@^3.0.24":
-  version "3.0.24"
-  resolved "https://npm.pkg.github.com/download/@wings-software/test-app-publish-/3.0.24/6aed8da053f2b1efce5d1cc3621f214b23cac85a7edb874d47af296c5d55e8f5#d75bb6060e7b32a8d005c76ae7bf68a7289d0b25"
-  integrity sha512-vnI+v3lG1iamysBJ7hUmFfgvVp9/ApNbulxTExf5epLE3H+hpL5JpIasow0uGBGNCV8H28YIOzJgWPFpm4JPjA==
+"@wings-software/test-app-publish-@^3.0.44":
+  version "3.0.44"
+  resolved "https://npm.pkg.github.com/download/@wings-software/test-app-publish-/3.0.44/345c4708a9aa345f088edb9b5a787d232355aeba91a1ac632b219df7648ca0ea#f23309394bedfd9f88272690f042339eeabf8088"
+  integrity sha512-itXbDYS6Hb6RgisABjMLUCR3sJi3lxcA7em2yKgCUmHpnVzl4DiJUPCaY2JrXoHH4iLrZiQxBopwRJeM2D1cQg==
   dependencies:
     "@wings-software/uicore" "0.1.364"
-    react "^17.0.2"
-    react-dom "^17.0.2"
+    react "16.9.0"
+    react-dom "16.9.0"
+    react-router-dom "^5.2.0"
 
 "@wings-software/uicore@0.1.364":
   version "0.1.364"
@@ -13677,6 +13678,16 @@ react-docgen@^5.0.0:
     node-dir "^0.1.10"
     strip-indent "^3.0.0"
 
+react-dom@16.9.0:
+  version "16.9.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
+  integrity sha512-YFT2rxO9hM70ewk9jq0y6sQk8cL02xm4+IzYBz75CQGlClQQ1Bxq0nhHF6OtSbit+AIahujJgb/CPRibFkMNJQ==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.15.0"
+
 react-dom@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
@@ -13958,6 +13969,15 @@ react-virtuoso@^1.10.2:
     "@virtuoso.dev/react-urx" "^0.2.5"
     "@virtuoso.dev/urx" "^0.2.5"
     resize-observer-polyfill "^1.5.1"
+
+react@16.9.0:
+  version "16.9.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
+  integrity sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
 
 react@^17.0.2:
   version "17.0.2"
@@ -14677,6 +14697,14 @@ saxes@^5.0.0:
   integrity "sha1-7rq5U/o7dgjb6U5drbFciI+maW0= sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw=="
   dependencies:
     xmlchars "^2.2.0"
+
+scheduler@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
+  integrity sha512-xAefmSfN6jqAa7Kuq7LIJY0bwAPG3xlCj0HMEBQk1lxYiDKZscY2xJ5U/61ZTrYbmNQbXa+gc7czPkVo11tnCg==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 scheduler@^0.20.2:
   version "0.20.2"

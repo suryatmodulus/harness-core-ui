@@ -39,9 +39,6 @@ const RouteDestinationsWithoutAuth: React.FC = () => {
       <Route path={routes.toRedirect()}>
         <RedirectPage />
       </Route>
-      <Route path="*">
-        <NotFoundPage />
-      </Route>
     </Switch>
   )
 }

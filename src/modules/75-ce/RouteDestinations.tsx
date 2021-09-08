@@ -288,9 +288,6 @@ const CERoutes: React.FC = () => {
         >
           <OverviewPage />
         </RouteWithLayout>
-        <Route path="*">
-          <NotFoundPage />
-        </Route>
       </Switch>
     </Provider>
   )

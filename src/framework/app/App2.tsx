@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter, Switch, Route, NavLink, useRouteMatch } from 'react-router-dom'
 import languageLoader, { LangLocale } from 'strings/languageLoader'
 import { AppWithAuthentication, AppWithoutAuthentication } from './bootstrap'
 ;(async () => {
@@ -21,7 +21,8 @@ import { AppWithAuthentication, AppWithoutAuthentication } from './bootstrap'
             // this path is needed for AppStoreProvider to populate accountId, orgId and projectId
             '/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier',
             '/account/:accountId/orgs/:orgIdentifier/projects/:projectIdentifier',
-            '/account/:accountId'
+            '/account/:accountId',
+            '/account/:accountId/addroute'
           ]}
         >
           <AppWithAuthentication strings={strings} />

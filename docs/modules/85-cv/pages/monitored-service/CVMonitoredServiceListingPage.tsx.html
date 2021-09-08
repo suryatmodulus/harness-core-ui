@@ -347,7 +347,26 @@
 <a name='L288'></a><a href='#L288'>288</a>
 <a name='L289'></a><a href='#L289'>289</a>
 <a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -392,12 +411,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -407,6 +424,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -477,6 +495,26 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -640,7 +678,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useCallback } from 'react'
 import { Layout, Color, Text, Button, SelectOption, Select } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { Page, useToaster } from '@common/exports'
 import { Table } from '@common/components'
@@ -682,12 +720,10 @@ const PageBody = styled(Page.Body)`
 function CVMonitoredServiceListingPage(): JSX.Element {
   const { getString } = useStrings()
   const history = useHistory()
-  //const { selectedProject } = useAppStore()
   const { showError, clear } = useToaster()
   const params = useParams&lt;ProjectPathProps&gt;()
   const [page, setPage] = useState(0)
   const [environment, setEnvironment] = useState&lt;SelectOption&gt;()
-  // const [searchTerm, setSearchTerm] = useState('') // TODO: Need clarificaition from product
   const { data: environmentDataList, loading: loadingServices } = useGetMonitoredServiceListEnvironments({
     queryParams: {
       accountId: params.accountId,
@@ -707,6 +743,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     },
     debounce: 400
   })
+&nbsp;
   const { mutate: deleteMonitoredService, loading: isDeleting } = useDeleteMonitoredService({
     queryParams: {
       accountId: params.accountId,
@@ -745,7 +782,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
           onDelete={<span class="fstat-no" title="function not covered" >async </span>() =&gt; <span class="cstat-no" title="statement not covered" >await onDelete(rowdata.identifier)}</span>
           onEdit={() =&gt; {
             history.push({
-              pathname: routes.toCVAddMonitoringServicesEdit({
+              pathname: routes.toCVMonitoredServiceConfigurations({
                 accountId: params.accountId,
                 projectIdentifier: params.projectIdentifier,
                 orgIdentifier: params.orgIdentifier,
@@ -768,12 +805,32 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     const rowData = row<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>riginal
     return (
       &lt;Layout.Vertical&gt;
-        &lt;Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'normal' }}&gt;
-          {rowData.serviceName}
-        &lt;/Text&gt;
-        &lt;Text color={Color.PRIMARY_7} margin={{ bottom: 'small' }} font={{ align: 'left', size: 'xsmall' }}&gt;
-          {rowData.environmentName}
-        &lt;/Text&gt;
+        &lt;Link
+          to={routes.toCVAddMonitoringServicesEdit({
+            accountId: params.accountId,
+            projectIdentifier: params.projectIdentifier,
+            orgIdentifier: params.orgIdentifier,
+            identifier: rowData.identifier,
+            module: 'cv'
+          })}
+        &gt;
+          &lt;Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'normal' }}&gt;
+            {rowData.serviceName}
+          &lt;/Text&gt;
+        &lt;/Link&gt;
+        &lt;Link
+          to={routes.toCVAddMonitoringServicesEdit({
+            accountId: params.accountId,
+            projectIdentifier: params.projectIdentifier,
+            orgIdentifier: params.orgIdentifier,
+            identifier: rowData.identifier,
+            module: 'cv'
+          })}
+        &gt;
+          &lt;Text color={Color.PRIMARY_7} margin={{ bottom: 'small' }} font={{ align: 'left', size: 'xsmall' }}&gt;
+            {rowData.environmentName}
+          &lt;/Text&gt;
+        &lt;/Link&gt;
       &lt;/Layout.Vertical&gt;
     )
   }
@@ -934,7 +991,7 @@ export default CVMonitoredServiceListingPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 08 2021 05:16:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 08 2021 05:47:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

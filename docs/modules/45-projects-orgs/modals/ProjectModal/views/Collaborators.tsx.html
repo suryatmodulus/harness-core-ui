@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.89% </span>
+                <span class="strong">80.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>71/90</span>
+                <span class='fraction'>69/86</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.9% </span>
+                <span class="strong">55.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>84/153</span>
+                <span class='fraction'>84/151</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">68.18% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>15/24</span>
+                <span class='fraction'>15/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.41% </span>
+                <span class="strong">79.76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>69/88</span>
+                <span class='fraction'>67/84</span>
             </div>
         
             
@@ -454,23 +454,8 @@
 <a name='L395'></a><a href='#L395'>395</a>
 <a name='L396'></a><a href='#L396'>396</a>
 <a name='L397'></a><a href='#L397'>397</a>
-<a name='L398'></a><a href='#L398'>398</a>
-<a name='L399'></a><a href='#L399'>399</a>
-<a name='L400'></a><a href='#L400'>400</a>
-<a name='L401'></a><a href='#L401'>401</a>
-<a name='L402'></a><a href='#L402'>402</a>
-<a name='L403'></a><a href='#L403'>403</a>
-<a name='L404'></a><a href='#L404'>404</a>
-<a name='L405'></a><a href='#L405'>405</a>
-<a name='L406'></a><a href='#L406'>406</a>
-<a name='L407'></a><a href='#L407'>407</a>
-<a name='L408'></a><a href='#L408'>408</a>
-<a name='L409'></a><a href='#L409'>409</a>
-<a name='L410'></a><a href='#L410'>410</a>
-<a name='L411'></a><a href='#L411'>411</a>
-<a name='L412'></a><a href='#L412'>412</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L398'></a><a href='#L398'>398</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -504,7 +489,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -607,10 +591,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
@@ -755,14 +735,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -896,7 +868,6 @@ import {
   Icon,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
-  Avatar,
   ButtonVariation,
   Label
 } from '@wings-software/uicore'
@@ -916,7 +887,6 @@ import {
   ResponseListInviteOperationResponse
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { regexEmail } from '@common/utils/StringUtils'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import { useGetRoleList } from 'services/rbac'
@@ -924,7 +894,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmentForm'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { UserItemRenderer } from '@rbac/utils/utils'
+import { UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
 import { handleInvitationResponse } from '@rbac/utils/utils'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
@@ -1019,10 +989,6 @@ const Collaborators: React.FC&lt;CollaboratorModalData&gt; = props =&gt; {
         managed: roleOption.harnessManaged || <span class="branch-1 cbranch-no" title="branch not covered" >false</span>
       }
     }) || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
-&nbsp;
-  const isEmail = <span class="fstat-no" title="function not covered" >(e</span>mail: string): boolean =&gt; {
-<span class="cstat-no" title="statement not covered" >    return regexEmail.test(String(email).toLowerCase())</span>
-  }
 &nbsp;
   const getUrl = (): string | undefined =&gt; {
     if (projectIdentifier &amp;&amp; orgIdentifier)
@@ -1164,15 +1130,7 @@ const Collaborators: React.FC&lt;CollaboratorModalData&gt; = props =&gt; {
                     onQueryChange: (query: string) =&gt; {
                       setSearch(query)
                     },
-                    // eslint-disable-next-line react/display-name
-                    tagRenderer: <span class="fstat-no" title="function not covered" >item </span>=&gt; (
-<span class="cstat-no" title="statement not covered" >                      &lt;Layout.Horizontal key={item.label.toString()} flex spacing="small"&gt;</span>
-                        &lt;Avatar name={item.label} email={item.value.toString()} size="xsmall" hoverCard={false} /&gt;
-                        &lt;Text color={isEmail(item.value.toString().toLowerCase()) ? Color.BLACK : Color.RED_500}&gt;
-                          {item.label}
-                        &lt;/Text&gt;
-                      &lt;/Layout.Horizontal&gt;
-                    ),
+                    tagRenderer: UserTagRenderer,
                     itemRender: UserItemRenderer
                   }}
                   className={css.input}
@@ -1297,7 +1255,7 @@ export default Collaborators
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 08 2021 06:50:53 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 08 2021 08:00:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

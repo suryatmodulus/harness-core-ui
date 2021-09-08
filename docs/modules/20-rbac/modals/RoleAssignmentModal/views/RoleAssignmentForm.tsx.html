@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/48</span>
+                <span class='fraction'>35/50</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.68% </span>
+                <span class="strong">62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>37/62</span>
+                <span class='fraction'>31/50</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.21% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/47</span>
+                <span class='fraction'>35/49</span>
             </div>
         
             
@@ -226,13 +226,18 @@
 <a name='L167'></a><a href='#L167'>167</a>
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
@@ -394,17 +399,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useRef } from 'react'
 import { Container, Layout, Text, FieldArray, Select, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
+import { defaultTo } from 'lodash-es'
 import { useDeleteRoleAssignment, useGetRoleList } from 'services/rbac'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetResourceGroupList } from 'services/resourcegroups'
 import { errorCheck } from '@common/utils/formikHelpers'
 import { useToaster } from '@common/components'
+import { isAssignmentFieldDisabled } from '@rbac/utils/utils'
 import type { Assignment, RoleOption, UserRoleAssignmentValues } from './UserRoleAssigment'
 import type { UserGroupRoleAssignmentValues } from './UserGroupRoleAssignment'
 import css from './RoleAssignmentForm.module.scss'
@@ -447,7 +455,7 @@ const RoleAssignmentForm: React.FC&lt;RoleAssignmentFormProps&gt; = ({ noRoleAss
         return {
           label: response.role.name,
           value: response.role.identifier,
-          managed: response.harnessManaged || false,
+          managed: defaultTo(response.harnessManaged, false),
           managedRoleAssignment: false
         }
       }) || <span class="branch-1 cbranch-no" title="branch not covered" >[],</span>
@@ -459,12 +467,12 @@ const RoleAssignmentForm: React.FC&lt;RoleAssignmentFormProps&gt; = ({ noRoleAss
       resourceGroupList<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(response =&gt; {
         <span class="missing-if-branch" title="if path not taken" >I</span>if (response.harnessManaged)
 <span class="cstat-no" title="statement not covered" >          defaultResourceGroup.current = {</span>
-            label: response.resourceGroup.name || '',
-            value: response.resourceGroup.identifier || ''
+            label: defaultTo(response.resourceGroup.name, ''),
+            value: defaultTo(response.resourceGroup.identifier, '')
           }
         return {
-          label: response.resourceGroup.name || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-          value: response.resourceGroup.identifier || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+          label: defaultTo(response.resourceGroup.name, ''),
+          value: defaultTo(response.resourceGroup.identifier, '')
         }
       }) || <span class="branch-1 cbranch-no" title="branch not covered" >[],</span>
     [resourceGroupList]
@@ -492,7 +500,7 @@ const RoleAssignmentForm: React.FC&lt;RoleAssignmentFormProps&gt; = ({ noRoleAss
   return (
     &lt;Container className={css.roleAssignments}&gt;
       &lt;FieldArray
-        label={getString('rbac.usersPage.assignRoles')}
+        label={getString('rbac.usersPage.assignRoleBindings')}
         name="assignments"
         placeholder={noRoleAssignmentsText}
         insertRowAtBeginning={false}
@@ -520,7 +528,7 @@ const RoleAssignmentForm: React.FC&lt;RoleAssignmentFormProps&gt; = ({ noRoleAss
                   inputProps={{
                     placeholder: getString('rbac.usersPage.selectRole')
                   }}
-                  disabled={(value as RoleOption).assignmentIdentifier ? true : false}
+                  disabled={isAssignmentFieldDisabled(value)}
                   onChange={handleChange}
                 /&gt;
                 {errorCheck('assignments', formik) &amp;&amp; error ? (
@@ -542,6 +550,7 @@ const RoleAssignmentForm: React.FC&lt;RoleAssignmentFormProps&gt; = ({ noRoleAss
                   &lt;Select
                     items={resourceGroups}
                     value={value}
+                    disabled={isAssignmentFieldDisabled(value)}
                     popoverClassName={css.selectPopover}
                     inputProps={{
                       placeholder: getString('rbac.usersPage.selectResourceGroup')
@@ -571,7 +580,7 @@ export default RoleAssignmentForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 08 2021 06:50:53 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 08 2021 08:00:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

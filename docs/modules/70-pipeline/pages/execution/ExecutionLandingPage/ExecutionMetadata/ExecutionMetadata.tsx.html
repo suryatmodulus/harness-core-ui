@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.18% </span>
+                <span class="strong">59.42% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>14/34</span>
+                <span class='fraction'>41/69</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -102,7 +102,19 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -110,10 +122,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,8 +134,19 @@
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,6 +179,7 @@ import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { hasCDStage, hasCIStage, StageType } from '@pipeline/utils/stageHelpers'
 import factory from '@pipeline/factories/ExecutionFactory'
 import { mapTriggerTypeToStringID } from '@pipeline/utils/triggerUtils'
+import { UserLabel } from '@common/components/UserLabel/UserLabel'
 &nbsp;
 import css from './ExecutionMetadata.module.scss'
 &nbsp;
@@ -166,6 +191,9 @@ export default function ExecutionMetadata(): React.ReactElement {
   const HAS_CI = hasCIStage(pipelineExecutionSummary)
   const ciData = factory.getSummary(StageType.BUILD)
   const cdData = factory.getSummary(StageType.DEPLOY)
+  const executionTriggerInfo = pipelineExecutionSummary?.executionTriggerInfo
+  const isManualTriggerType = executionTriggerInfo?.triggerType === 'MANUAL'
+  const email = isManualTriggerType ? executionTriggerInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>riggeredBy<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xtraInfo<span class="branch-1 cbranch-no" title="branch not covered" >?.email </span>: ''
 &nbsp;
   return (
     &lt;div className={css.main}&gt;
@@ -181,14 +209,22 @@ export default function ExecutionMetadata(): React.ReactElement {
             nodeMap: pipelineStagesMap
           })
         : null}
-      &lt;div className={css.trigger}&gt;
-        &lt;Icon className={css.triggerIcon} size={14} name="trigger-execution" /&gt;
-        &lt;String
-          tagName="div"
-          className={css.triggerText}
-          stringID={mapTriggerTypeToStringID(pipelineExecutionSummary?.executionTriggerInfo?.triggerType)}
+      {isManualTriggerType ? (
+        &lt;UserLabel
+          name={executionTriggerInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>riggeredBy<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier || <span class="branch-1 cbranch-no" title="branch not covered" >email </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >''}</span>
+          email={email}
+          iconProps={{ size: 16 }}
         /&gt;
-      &lt;/div&gt;
+      ) : (
+        &lt;div className={css.trigger}&gt;
+          &lt;Icon className={css.triggerIcon} size={14} name="trigger-execution" /&gt;
+          &lt;String
+            tagName="div"
+            className={css.triggerText}
+            stringID={mapTriggerTypeToStringID(pipelineExecutionSummary?.executionTriggerInfo<span class="branch-1 cbranch-no" title="branch not covered" >?.triggerType)</span>}
+          /&gt;
+        &lt;/div&gt;
+      )}
     &lt;/div&gt;
   )
 }
@@ -199,7 +235,7 @@ export default function ExecutionMetadata(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 08 2021 08:00:12 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 08 2021 12:45:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

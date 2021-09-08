@@ -33,7 +33,7 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   const { data: orgData } = useGetOrganizationList({
     queryParams: {
       accountIdentifier: accountId,
-      searchTerm: orgIdentifier
+      pageSize: 200
     }
   })
 

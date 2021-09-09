@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">76.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>50/65</span>
+                <span class='fraction'>48/63</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">76.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>50/65</span>
+                <span class='fraction'>48/63</span>
             </div>
         
             
@@ -441,21 +441,7 @@
 <a name='L382'></a><a href='#L382'>382</a>
 <a name='L383'></a><a href='#L383'>383</a>
 <a name='L384'></a><a href='#L384'>384</a>
-<a name='L385'></a><a href='#L385'>385</a>
-<a name='L386'></a><a href='#L386'>386</a>
-<a name='L387'></a><a href='#L387'>387</a>
-<a name='L388'></a><a href='#L388'>388</a>
-<a name='L389'></a><a href='#L389'>389</a>
-<a name='L390'></a><a href='#L390'>390</a>
-<a name='L391'></a><a href='#L391'>391</a>
-<a name='L392'></a><a href='#L392'>392</a>
-<a name='L393'></a><a href='#L393'>393</a>
-<a name='L394'></a><a href='#L394'>394</a>
-<a name='L395'></a><a href='#L395'>395</a>
-<a name='L396'></a><a href='#L396'>396</a>
-<a name='L397'></a><a href='#L397'>397</a>
-<a name='L398'></a><a href='#L398'>398</a>
-<a name='L399'></a><a href='#L399'>399</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
+<a name='L385'></a><a href='#L385'>385</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -469,8 +455,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
@@ -491,7 +475,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
@@ -825,17 +808,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -864,14 +836,12 @@ import {
   MultiTypeInputType,
   Color,
   StepProps,
-  Icon,
   Accordion,
   ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { Tooltip } from '@blueprintjs/core'
 &nbsp;
 import { get, isEmpty, set } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -892,7 +862,6 @@ import {
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OSTemplateWithGit.module.scss'
-import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 &nbsp;
 interface OpenshiftTemplateWithGITPropType {
   stepName: string
@@ -1212,17 +1181,6 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                           isReadonly={isReadonly}
                         /&gt;
                       )}
-                      &lt;Tooltip
-                        position="bottom"
-                        content={
-                          &lt;div className={helmcss.tooltipContent}&gt;
-                            {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
-                          &lt;/div&gt;
-                        }
-                        className={cx(helmcss.skipversionTooltip)}
-                      &gt;
-                        &lt;Icon name="info-sign" color={Color.PRIMARY_4} size={16} /&gt;
-                      &lt;/Tooltip&gt;
                     &lt;/Layout.Horizontal&gt;
                   }
                 /&gt;
@@ -1258,7 +1216,7 @@ export default OpenShiftTemplateWithGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 09 2021 01:18:08 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 09 2021 05:29:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

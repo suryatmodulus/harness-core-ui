@@ -27,16 +27,20 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
 
   let type: Type
 
-  switch (data.ciExecutionInfoDTO.event as 'branch' | 'tag' | 'pullRequest') {
-    case 'branch':
-      type = Type.Branch
-      break
-    case 'tag':
-      type = Type.Tag
-      break
-    case 'pullRequest':
-      type = Type.PullRequest
-      break
+  if (data.ciExecutionInfoDTO?.event) {
+    switch (data.ciExecutionInfoDTO?.event as 'branch' | 'tag' | 'pullRequest') {
+      case 'branch':
+        type = Type.Branch
+        break
+      case 'tag':
+        type = Type.Tag
+        break
+      case 'pullRequest':
+        type = Type.PullRequest
+        break
+    }
+  } else {
+    type = Type.Branch
   }
 
   if (!type) return <></>
@@ -53,10 +57,10 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
             </div>
             <div>
               <Icon name="git-new-branch" size={12} color="primary7" />
-              {data.ciExecutionInfoDTO.pullRequest.sourceBranch}
+              {data.branch}
             </div>
           </div>
-          <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-5)' }}>
+          {/* <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-5)' }}>
             <Icon name="git-branch-existing" size={14} />
             <div style={{ fontSize: 0 }}>
               <Text
@@ -85,7 +89,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
               <div className={css.label}>{data.ciExecutionInfoDTO.pullRequest.commits[0].id.slice(0, 7)}</div>
               <Icon name="copy" size={14} />
             </Text>
-          </Layout.Horizontal>
+          </Layout.Horizontal> */}
         </>
       )
       break

@@ -9,14 +9,5 @@
   .trigger {
     display: flex;
     align-items: center;
-
-    .triggerIcon {
-      margin-right: var(--spacing-3);
-    }
-
-    .triggerText {
-      color: var(--primary-7);
-      font-size: var(--font-size-small);
-    }
   }
 }

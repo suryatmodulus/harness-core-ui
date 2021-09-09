@@ -1,13 +1,55 @@
 import React from 'react'
-import { Icon } from '@wings-software/uicore'
-
-import { String } from 'framework/strings'
+import { Container, Text, Icon } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { hasCDStage, hasCIStage, StageType } from '@pipeline/utils/stageHelpers'
 import factory from '@pipeline/factories/ExecutionFactory'
 import { mapTriggerTypeToStringID } from '@pipeline/utils/triggerUtils'
 
 import css from './ExecutionMetadata.module.scss'
+
+const ExecutionMetadataTrigger = () => {
+  const { getString } = useStrings()
+
+  const { pipelineExecutionDetail } = useExecutionContext()
+  const { pipelineExecutionSummary } = pipelineExecutionDetail || {}
+
+  const type = pipelineExecutionSummary?.executionTriggerInfo?.triggerType
+
+  if (type === 'WEBHOOK' || type === 'WEBHOOK_CUSTOM' || type === 'SCHEDULER_CRON') {
+    return (
+      <div className={css.trigger}>
+        <Icon
+          size={14}
+          name={type === 'SCHEDULER_CRON' ? 'stopwatch' : 'trigger-execution'}
+          margin={{ right: 'small' }}
+        />
+        <Text font={{ size: 'small' }} color="primary6" margin={{ right: 'xsmall' }}>
+          {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier}
+        </Text>
+        <Text font={{ size: 'small' }} color="grey500">
+          ({getString(mapTriggerTypeToStringID(type))})
+        </Text>
+      </div>
+    )
+  } else {
+    return (
+      <Text
+        font={{ size: 'small' }}
+        color="grey900"
+        tooltip={
+          <Container padding="small">
+            {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier}
+            <br />
+            {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.extraInfo?.email}
+          </Container>
+        }
+      >
+        {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier}
+      </Text>
+    )
+  }
+}
 
 export default function ExecutionMetadata(): React.ReactElement {
   const { pipelineExecutionDetail, pipelineStagesMap } = useExecutionContext()
@@ -32,14 +74,7 @@ export default function ExecutionMetadata(): React.ReactElement {
             nodeMap: pipelineStagesMap
           })
         : null}
-      <div className={css.trigger}>
-        <Icon className={css.triggerIcon} size={14} name="trigger-execution" />
-        <String
-          tagName="div"
-          className={css.triggerText}
-          stringID={mapTriggerTypeToStringID(pipelineExecutionSummary?.executionTriggerInfo?.triggerType)}
-        />
-      </div>
+      <ExecutionMetadataTrigger />
     </div>
   )
 }

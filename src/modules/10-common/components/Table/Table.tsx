@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTable, Column, Row, useSortBy, usePagination } from 'react-table'
+import { useTable, Column, Row, useSortBy, usePagination, useResizeColumns } from 'react-table'
 import cx from 'classnames'
 import { Icon, Pagination, PaginationProps } from '@wings-software/uicore'
 import css from './Table.module.scss'
@@ -39,20 +39,37 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
     rowDataTestID,
     getRowClassName
   } = props
-  const { headerGroups, page, prepareRow } = useTable(
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      minWidth: 30,
+      width: 150,
+      maxWidth: 400
+    }),
+    []
+  )
+
+  const { headerGroups, page, prepareRow, state, getTableBodyProps, getTableProps } = useTable(
     {
       columns,
       data,
+      defaultColumn,
       initialState: { pageIndex: pagination?.pageIndex || 0 },
       manualPagination: true,
       pageCount: pagination?.pageCount || -1
     },
     useSortBy,
-    usePagination
+    usePagination,
+    useResizeColumns // provides header.getRezierProps
   )
 
   return (
-    <div className={cx(css.table, className)}>
+    <div {...getTableProps()} className={cx(css.table, className)}>
+      {
+        <pre>
+          <code>{JSON.stringify(state, null, 2)}</code>
+        </pre>
+      }
       {hideHeaders
         ? null
         : headerGroups.map(headerGroup => {
@@ -69,7 +86,8 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                     // eslint-disable-next-line react/jsx-key
                     <div
                       {...header.getHeaderProps(sortable ? header.getSortByToggleProps() : void 0)}
-                      className={cx(css.cell, { [css.sortable]: sortable })}
+                      {...header.getHeaderProps(true ? header.getHeaderProps() : void 0)}
+                      className={cx(css.cell, { [css.sortable]: sortable }, css.th)}
                       style={{ width: header.width }}
                     >
                       {header.render('Header')}
@@ -86,13 +104,17 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                           padding={{ left: 'small' }}
                         />
                       ) : null}
+                      <div
+                        {...header.getResizerProps()}
+                        className={cx(css.resizer, header.isResizing && css.isResizing)}
+                      />
                     </div>
                   )
                 })}
               </div>
             )
           })}
-      <div className={css.body}>
+      <div {...getTableBodyProps()} className={css.body}>
         {page.map(row => {
           prepareRow(row)
           return (

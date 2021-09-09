@@ -10,6 +10,7 @@ import { useStrings } from 'framework/strings'
 import { CopyText } from '@common/components/CopyText/CopyText'
 import { Duration } from '@common/exports'
 import Table from '@common/components/Table/Table'
+import Table2 from '@common/components/Table/Table2'
 import useExpandErrorModal from '@pipeline/components/ExpandErrorModal/useExpandErrorModal'
 import { renderFailureRate } from './TestsUtils'
 import { TestsFailedPopover } from './TestsFailedPopover'
@@ -149,7 +150,12 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
                     durationText=" "
                     startTime={NOW}
                     endTime={NOW + (row.original[col] || 0)}
+<<<<<<< Updated upstream
                     showMsLessThanOneSecond={true}
+=======
+                    showZeroSecondsResult={true}
+                    // showMsLessThanOneSecond={true}
+>>>>>>> Stashed changes
                   />
                 ) : (
                   row.original[col]
@@ -328,6 +334,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
             </Container>
           )}
           {!loading && !error && (
+            // <Table2 />
             <Table<TestCase>
               className={cx(css.testSuiteTable, !!onShowCallGraphForClass && css.clickable)}
               columns={columns}

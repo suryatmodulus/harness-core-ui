@@ -10,5 +10,10 @@ declare const styles: {
   readonly row: string
   readonly card: string
   readonly clickable: string
+  readonly tr: string
+  readonly td: string
+  readonly th: string
+  readonly resizer: string
+  readonly isResizing: string
 }
 export default styles

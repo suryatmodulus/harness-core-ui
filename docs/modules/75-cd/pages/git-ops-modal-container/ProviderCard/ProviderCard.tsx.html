@@ -263,7 +263,19 @@
 <a name='L204'></a><a href='#L204'>204</a>
 <a name='L205'></a><a href='#L205'>205</a>
 <a name='L206'></a><a href='#L206'>206</a>
-<a name='L207'></a><a href='#L207'>207</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -407,6 +419,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -419,8 +445,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -606,70 +630,82 @@ const ProviderCard: React.FC&lt;ProviderCardProps&gt; = props =&gt; {
 &nbsp;
   return (
     &lt;Card className={css.card} interactive onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >openUploadCertiModal()}</span>&gt;
-      &lt;div className={css.mainTitle}&gt;
-        &lt;img className={css.argoLogo} src={logo} alt="" aria-hidden /&gt;
+      &lt;Container className={css.projectInfo}&gt;
+        &lt;div className={css.mainTitle}&gt;
+          &lt;img className={css.argoLogo} src={logo} alt="" aria-hidden /&gt;
 &nbsp;
-        &lt;Layout.Horizontal className={css.layout}&gt;
-          &lt;Popover
-            isOpen={menuOpen}
-            onInteraction={<span class="fstat-no" title="function not covered" >nextOpenState </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >              setMenuOpen(nextOpenState)</span>
-            }}
-            className={Classes.DARK}
-            position={Position.RIGHT_TOP}
-          &gt;
-            &lt;Button
-              variation={ButtonVariation.ICON}
-              className={css.iconMore}
-              icon="more"
-              color="grey-450"
-              withoutCurrentColor
-              onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                e.stopPropagation()</span>
-<span class="cstat-no" title="statement not covered" >                setMenuOpen(true)</span>
+          &lt;Layout.Horizontal className={css.layout}&gt;
+            &lt;Popover
+              isOpen={menuOpen}
+              onInteraction={<span class="fstat-no" title="function not covered" >nextOpenState </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                setMenuOpen(nextOpenState)</span>
               }}
-            /&gt;
-            &lt;Menu style={{ minWidth: 'unset' }}&gt;
-              &lt;Menu.Item icon="edit" text="Edit" onClick={handleEdit} /&gt;
-              &lt;Menu.Item icon="trash" text="Delete" onClick={handleDelete} /&gt;
-            &lt;/Menu&gt;
-          &lt;/Popover&gt;
-        &lt;/Layout.Horizontal&gt;
-      &lt;/div&gt;
-      &lt;Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}&gt;
-        &lt;Container&gt;
-          &lt;Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={provider.identifier}&gt;
-            {provider.name}
-          &lt;/Text&gt;
-          &lt;Text font="small" lineClamp={1} color={Color.GREY_600} margin={{ top: 'xsmall' }}&gt;
-            {getString('idLabel', { id: provider.identifier })}
-          &lt;/Text&gt;
-        &lt;/Container&gt;
-        {!isEmpty(provider.tags) &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;TagsPopover</span>
-            className={css.tagsPopover}
-            iconProps={{ size: 14, color: Color.GREY_600 }}
-            tags={provider.tags}
-          /&gt;
-        )}
-      &lt;/Layout.Horizontal&gt;
-&nbsp;
-      {!!provider.description<span class="branch-1 cbranch-no" title="branch not covered" >?.length </span>&amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Text font="small" lineClamp={2} color={Color.GREY_600} className={css.description} margin={{ top: 'xsmall' }}&gt;</span>
-          {provider.description}
-        &lt;/Text&gt;
-      )}
-      &lt;div className={css.urls}&gt;
-        &lt;div className={css.serverUrl}&gt;
-          &lt;Text intent={Intent.PRIMARY} font={{ size: 'small' }}&gt;
-            {getString('cd.argoAdapterURL')}
-          &lt;/Text&gt;
-          &lt;Text intent={Intent.PRIMARY} font={{ size: 'small' }}&gt;
-            {provider<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.adapterUrl}</span>
-          &lt;/Text&gt;
-          {/* &lt;a&gt;  &lt;/a&gt; */}
+              className={Classes.DARK}
+              position={Position.RIGHT_TOP}
+            &gt;
+              &lt;Button
+                variation={ButtonVariation.ICON}
+                className={css.iconMore}
+                icon="more"
+                color="grey-450"
+                withoutCurrentColor
+                onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                  e.stopPropagation()</span>
+<span class="cstat-no" title="statement not covered" >                  setMenuOpen(true)</span>
+                }}
+              /&gt;
+              &lt;Menu style={{ minWidth: 'unset' }}&gt;
+                &lt;Menu.Item icon="edit" text="Edit" onClick={handleEdit} /&gt;
+                &lt;Menu.Item icon="trash" text="Delete" onClick={handleDelete} /&gt;
+              &lt;/Menu&gt;
+            &lt;/Popover&gt;
+          &lt;/Layout.Horizontal&gt;
         &lt;/div&gt;
-      &lt;/div&gt;
+&nbsp;
+        &lt;Text
+          lineClamp={1}
+          font={{ weight: 'bold' }}
+          margin={{ top: 'small' }}
+          color={Color.GREY_800}
+          data-testid={provider.identifier}
+        &gt;
+          {provider.name}
+        &lt;/Text&gt;
+        &lt;Text lineClamp={1} font="small" color={Color.GREY_600} margin={{ top: 'xsmall' }}&gt;
+          {getString('idLabel', { id: provider.identifier })}
+        &lt;/Text&gt;
+&nbsp;
+        {!isEmpty(provider.tags) &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;div className={css.tags}&gt;</span>
+            &lt;TagsPopover
+              className={css.tagsPopover}
+              iconProps={{ size: 14, color: Color.GREY_600 }}
+              tags={provider.tags}
+            /&gt;
+          &lt;/div&gt;
+        )}
+&nbsp;
+        {!!provider.description<span class="branch-1 cbranch-no" title="branch not covered" >?.length </span>&amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;Text</span>
+            font="small"
+            lineClamp={2}
+            color={Color.GREY_600}
+            className={css.description}
+            margin={{ top: 'xsmall' }}
+          &gt;
+            {provider.description}
+          &lt;/Text&gt;
+        )}
+        &lt;div className={css.urls}&gt;
+          &lt;div className={css.serverUrl}&gt;
+            &lt;Text font={{ size: 'small' }}&gt;{getString('cd.argoAdapterURL')}:&lt;/Text&gt;
+            &lt;Text intent={Intent.PRIMARY} font={{ size: 'small' }}&gt;
+              {provider<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.adapterUrl}</span>
+            &lt;/Text&gt;
+            {/* &lt;a&gt;  &lt;/a&gt; */}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/Container&gt;
     &lt;/Card&gt;
   )
 }
@@ -682,7 +718,7 @@ export default ProviderCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 09 2021 07:21:18 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 09 2021 11:26:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

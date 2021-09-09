@@ -3,11 +3,11 @@ import { Icon, NestedAccordionPanel, NestedAccordionProvider, ExpandingSearchInp
 import { get } from 'lodash-es'
 
 import type {} from 'services/cd-ng'
-import { Tooltip } from '@blueprintjs/core'
 import { PageSpinner } from '@common/components'
 import { String, useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PageError } from '@common/components/Page/PageError'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import PipelineCard from './Cards/PipelineCard'
@@ -96,13 +96,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
             <div className={css.variableTitle}>
               <div>
                 <Icon name="pipeline-variables" />
-                <String stringID="variablesText" />
-                <Tooltip
-                  content={getString('customVariables.pipelineVariablesDescription')}
-                  portalClassName={css.descriptionTooltip}
-                >
-                  <Icon size={12} name="info" className={css.description} />
-                </Tooltip>
+                <StringWithTooltip stringId="variablesText" tooltipId="pipelineVariables" />
               </div>
             </div>
             <div>

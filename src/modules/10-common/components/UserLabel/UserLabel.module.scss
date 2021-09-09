@@ -5,3 +5,8 @@
   font-size: var(--font-size-small);
   color: var(--grey-900);
 }
+
+.rightSection {
+  padding-left: var(--spacing-4) !important;
+  gap: var(--spacing-1);
+}

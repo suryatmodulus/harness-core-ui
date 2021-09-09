@@ -60,12 +60,16 @@ const PipelineYamlView: React.FC = () => {
     try {
       if (yamlHandler && !isDrawerOpened) {
         Interval = window.setInterval(() => {
-          const pipelineFromYaml = parse(yamlHandler.getLatestYaml())?.pipeline
-          if (
-            !isEqual(omit(pipeline, 'repo', 'branch'), pipelineFromYaml) &&
-            yamlHandler.getYAMLValidationErrorMap()?.size === 0 // Don't update for Invalid Yaml
-          ) {
-            updatePipeline(pipelineFromYaml)
+          try {
+            const pipelineFromYaml = parse(yamlHandler.getLatestYaml())?.pipeline
+            if (
+              !isEqual(omit(pipeline, 'repo', 'branch'), pipelineFromYaml) &&
+              yamlHandler.getYAMLValidationErrorMap()?.size === 0 // Don't update for Invalid Yaml
+            ) {
+              updatePipeline(pipelineFromYaml)
+            }
+          } catch (e) {
+            // Ignore Error
           }
         }, POLL_INTERVAL)
         return () => {

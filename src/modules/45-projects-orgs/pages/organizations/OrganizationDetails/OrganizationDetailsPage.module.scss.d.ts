@@ -4,7 +4,6 @@ declare const styles: {
   readonly cardTags: string
   readonly title: string
   readonly wrap: string
-  readonly header: string
   readonly enabledModules: string
   readonly pageHeight: string
   readonly accessControl: string

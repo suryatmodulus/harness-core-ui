@@ -1,11 +1,13 @@
 import React from 'react'
 import { isNull, isNumber } from 'lodash-es'
 import Highcharts, { PointOptionsObject } from 'highcharts'
-import { Text, Layout, SelectOption } from '@wings-software/uicore'
+import { Text, Layout, SelectOption, Color } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import type { Renderer, CellProps } from 'react-table'
+import { PageSpinner } from '@common/components'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import type {
+  ChangeSummaryDTO,
   EnvironmentResponse,
   MonitoredServiceListItemDTO,
   ResponseListEnvironmentResponse,
@@ -13,7 +15,7 @@ import type {
 } from 'services/cv'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import type { FilterEnvInterface } from './CVMonitoredServiceListingPage.types'
-import { HistoricalTrendChartOption } from './CVMonitoredServiceListingPage.constants'
+import { HistoricalTrendChartOption, DefaultChangePercentage } from './CVMonitoredServiceListingPage.constants'
 import css from './CVMonitoredServiceListingPage.module.scss'
 
 export const getFilterAndEnvironmentValue = (environment: string, searchTerm: string): FilterEnvInterface => {
@@ -124,17 +126,48 @@ export const RenderTags: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ r
 }
 
 export const getEnvironmentOptions = (
-  environmentList: ResponseListEnvironmentResponse,
-  allValue: string
+  environmentList: ResponseListEnvironmentResponse | null,
+  loading: boolean,
+  getString: UseStringsReturn['getString']
 ): SelectOption[] => {
-  const allOption: SelectOption = { label: allValue, value: allValue }
-  const environmentSelectOption: SelectOption[] =
-    environmentList?.data?.map((environmentData: EnvironmentResponse) => {
-      const { name = '', identifier = '' } = environmentData?.environment || {}
-      return {
-        label: name,
-        value: identifier
-      }
-    }) || []
-  return [allOption, ...environmentSelectOption]
+  if (loading) {
+    return [{ label: getString('loading'), value: 'loading' }]
+  }
+  if (environmentList?.data?.length) {
+    const allOption: SelectOption = { label: getString('all'), value: getString('all') }
+    const environmentSelectOption: SelectOption[] =
+      environmentList?.data?.map((environmentData: EnvironmentResponse) => {
+        const { name = '', identifier = '' } = environmentData?.environment || {}
+        return {
+          label: name,
+          value: identifier
+        }
+      }) || []
+    return [allOption, ...environmentSelectOption]
+  }
+  return []
+}
+
+export const calculateChangePercentage = (changeSummary: ChangeSummaryDTO) => {
+  if (changeSummary?.categoryCountMap) {
+    const { categoryCountMap } = changeSummary
+    const { Infrastructure, Deployment, Alert } = categoryCountMap as any
+    const totalCount = Infrastructure?.count + Deployment?.count + Alert?.count
+    const totalCountInPrecedingWindow =
+      Infrastructure?.countInPrecedingWindow + Deployment?.countInPrecedingWindow + Alert?.countInPrecedingWindow
+    const percentageChange: number =
+      ((totalCount - totalCountInPrecedingWindow) / (totalCount + totalCountInPrecedingWindow)) * 100
+    if (isNaN(totalCount) || isNaN(totalCountInPrecedingWindow) || isNaN(percentageChange)) {
+      return DefaultChangePercentage
+    }
+    return {
+      color: percentageChange > 0 ? Color.SUCCESS : Color.ERROR,
+      percentage: Math.abs(Math.floor(percentageChange))
+    }
+  }
+  return DefaultChangePercentage
+}
+
+export const showPageSpinner = (loading: boolean, isDeleting: boolean) => {
+  return (loading || isDeleting) && <PageSpinner />
 }

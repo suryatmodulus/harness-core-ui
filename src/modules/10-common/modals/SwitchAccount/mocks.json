@@ -148,5 +148,6 @@
       "responseMessages": []
     },
     "loading": false
-  }
+  },
+  "switchAccount": { "metaData": {}, "resource": true, "responseMessages": [] }
 }

@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import * as Yup from 'yup'
+import { parse } from 'yaml'
 import { isEqual } from 'lodash-es'
 import { Formik, FormikContext } from 'formik'
-import { matchPath, useHistory, useParams } from 'react-router-dom'
+import { matchPath, useHistory, useParams, Link } from 'react-router-dom'
+import { Text, Color } from '@wings-software/uicore'
 import { PageSpinner, useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
@@ -12,26 +14,32 @@ import {
   MonitoredServiceResponse,
   useGetMonitoredService,
   useSaveMonitoredService,
-  useUpdateMonitoredService
+  useUpdateMonitoredService,
+  useGetMonitoredServiceYamlTemplate,
+  ChangeSourceDTO
 } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
+import { accountPathProps, projectPathProps, modulePathProps } from '@common/utils/routeUtils'
+import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
+import { ChangeSourceDrawer } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer'
 import SaveAndDiscardButton from '@common/components/SaveAndDiscardButton/SaveAndDiscardButton'
 import { useIndexedDBHook, CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
+import ChangeSourceTable from '@cv/pages/ChangeSource/ChangeSourceTable/ChangeSourceTable'
 import type { MonitoredServiceForm } from './Service.types'
 import { getInitFormData } from './Service.utils'
-import MonitoredServiceDetails from '../../../monitoredServiceDetails/MonitoredServiceDetails'
-import ServiceEnvironment from '../../../serviceEnvironment/MonitoredServiceEnvironment'
+import MonitoredServiceOverview from './components/MonitoredServiceOverview/MonitoredServiceOverview'
+import { MonitoredServiceType } from './components/MonitoredServiceOverview/MonitoredServiceOverview.constants'
 import css from './Service.module.scss'
 
 function Service(): JSX.Element {
-  const { getString } = useStrings()
   const history = useHistory()
+  const { getString } = useStrings()
   const { showWarning, showError, showSuccess } = useToaster()
   const [validMonitoredSource, setValidMonitoredSource] = useState(false)
+  const [defaultMonitoredService, setDefaultMonitoredService] = useState<MonitoredServiceDTO>()
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
@@ -40,7 +48,7 @@ function Service(): JSX.Element {
   const isEdit = !!identifier
   const {
     data: dataMonitoredServiceById,
-    refetch,
+    refetch: fetchMonitoredService,
     loading: loadingGetMonitoredService
   } = useGetMonitoredService({
     lazy: true,
@@ -55,17 +63,46 @@ function Service(): JSX.Element {
     }
   })
 
+  const {
+    data: yamlMonitoredService,
+    loading: loadingFetchMonitoredServiceYAML,
+    refetch: fetchMonitoredServiceYAML
+  } = useGetMonitoredServiceYamlTemplate({
+    queryParams: {
+      orgIdentifier,
+      projectIdentifier,
+      accountId
+    },
+    lazy: true
+  })
+
+  useEffect(() => {
+    if (yamlMonitoredService && yamlMonitoredService?.resource) {
+      // This only executed on creating new Monitored Service
+      const { monitoredService }: { monitoredService: MonitoredServiceDTO } = parse(yamlMonitoredService?.resource)
+      // Category is not present in default changeSource object
+      // hence adding here
+      monitoredService.sources?.changeSources?.forEach(changeSource => {
+        changeSource['category'] = 'Deployment'
+        changeSource['spec'] = {}
+      })
+      setDefaultMonitoredService(monitoredService)
+    }
+  }, [yamlMonitoredService])
+
   const { mutate: saveMonitoredService } = useSaveMonitoredService({
     queryParams: { accountId }
   })
-  const { mutate: updateMonitoredService, loading: loadingUpdateMoniotredService } = useUpdateMonitoredService({
+  const { mutate: updateMonitoredService, loading: loadingUpdateMonitoredService } = useUpdateMonitoredService({
     identifier,
     queryParams: { accountId }
   })
 
   useEffect(() => {
     if (isEdit) {
-      refetch()
+      fetchMonitoredService()
+    } else {
+      fetchMonitoredServiceYAML()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit])
@@ -114,6 +151,17 @@ function Service(): JSX.Element {
     [isEdit]
   )
 
+  const updateChangeSource = useCallback(
+    (data: any, formik: FormikContext<MonitoredServiceForm>): void => {
+      formik.setFieldValue('sources', {
+        ...formik.values?.sources,
+        changeSources: data
+      })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isEdit]
+  )
+
   const onSubmit = useCallback(
     async (formikValues: MonitoredServiceForm): Promise<void> => {
       const {
@@ -140,7 +188,7 @@ function Service(): JSX.Element {
       isEdit ? await updateMonitoredService(payload) : await saveMonitoredService(payload)
 
       if (isEdit) {
-        refetch()
+        fetchMonitoredService()
       } else {
         setOverrideBlockNavigation(true)
       }
@@ -171,9 +219,9 @@ function Service(): JSX.Element {
   )
 
   const initialValues: MonitoredServiceForm = useMemo(
-    () => getInitFormData(dataMonitoredServiceById?.data?.monitoredService, isEdit),
+    () => getInitFormData(dataMonitoredServiceById?.data?.monitoredService, defaultMonitoredService, isEdit),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [dataMonitoredServiceById?.data?.monitoredService.name, isEdit, loadingGetMonitoredService]
+    [dataMonitoredServiceById?.data?.monitoredService.name, isEdit, defaultMonitoredService, loadingGetMonitoredService]
   )
 
   useEffect(() => {
@@ -184,6 +232,62 @@ function Service(): JSX.Element {
     }
   }, [cachedInitialValues, initialValues])
 
+  const createChangeSourceDrawerHeader = useCallback(() => {
+    return (
+      <>
+        <Text
+          className={css.breadCrumbLink}
+          icon={'arrow-left'}
+          iconProps={{ color: Color.PRIMARY_7, margin: { right: 'small' } }}
+          color={Color.PRIMARY_7}
+          onClick={() => {
+            history.push(
+              routes.toCVMonitoringServices({
+                orgIdentifier: orgIdentifier,
+                projectIdentifier: projectIdentifier,
+                accountId: accountId
+              })
+            )
+          }}
+        >
+          {getString('cv.healthSource.backtoMonitoredService')}
+        </Text>
+        <div className="ng-tooltip-native">
+          <p>{isEdit ? getString('cv.changeSource.editChangeSource') : getString('cv.changeSource.addChangeSource')}</p>
+        </div>
+      </>
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEdit])
+
+  const { showDrawer, hideDrawer, setDrawerContentProps } = useDrawer({
+    createHeader: createChangeSourceDrawerHeader,
+    createDrawerContent: props => <ChangeSourceDrawer {...props} />
+  })
+
+  const openChangeSourceDrawer = useCallback(
+    async ({
+      formik,
+      onSuccessChangeSource
+    }: {
+      formik: FormikContext<MonitoredServiceForm>
+      onSuccessChangeSource: (data: ChangeSourceDTO[]) => void
+    }) => {
+      // has required fields
+      if (formik?.values.environmentRef && formik?.values.name) {
+        showDrawer()
+        setDrawerContentProps({
+          hideDrawer,
+          tableData: formik?.values?.sources?.changeSources || [],
+          onSuccess: onSuccessChangeSource
+        })
+      } else {
+        formik.submitForm()
+      }
+    },
+    []
+  )
+
   return (
     <Formik<MonitoredServiceForm>
       initialValues={cachedInitialValues || initialValues}
@@ -192,7 +296,13 @@ function Service(): JSX.Element {
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().required(getString('cv.monitoredServices.nameValidation')),
-        serviceRef: Yup.string().required(getString('cv.monitoredServices.serviceValidation')),
+        type: Yup.string().required(getString('common.validation.typeIsRequired')),
+        serviceRef: Yup.string()
+          .nullable()
+          .when('type', {
+            is: type => type === MonitoredServiceType.APPLICATION,
+            then: Yup.string().required(getString('cv.monitoredServices.serviceValidation'))
+          }),
         environmentRef: Yup.string().required(getString('cv.monitoredServices.environmentValidation'))
       })}
       enableReinitialize
@@ -203,13 +313,18 @@ function Service(): JSX.Element {
         if (formik.dirty) {
           setDBData(formik.values)
         }
+        const onSuccessChangeSource = (data: ChangeSourceDTO[]): void => {
+          updateChangeSource(data, formik)
+          hideDrawer()
+        }
+
         return (
           <div>
             {isEdit && !(serviceRef && environmentRef) ? (
               <PageSpinner />
             ) : (
               <>
-                {loadingUpdateMoniotredService && <PageSpinner />}
+                {(loadingUpdateMonitoredService || loadingFetchMonitoredServiceYAML) && <PageSpinner />}
                 <NavigationCheck
                   when={formik.dirty}
                   shouldBlockNavigation={nextLocation => {
@@ -218,6 +333,7 @@ function Service(): JSX.Element {
                         ? routes.toCVAddMonitoringServicesEdit({
                             ...accountPathProps,
                             ...projectPathProps,
+                            ...modulePathProps,
                             identifier: ':identifier'
                           })
                         : routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),
@@ -240,9 +356,28 @@ function Service(): JSX.Element {
                     }}
                   />
                 </div>
-                <MonitoredServiceDetails formik={formik} />
-                <ServiceEnvironment formik={formik} />
-                <CardWithOuterTitle title={getString('cv.healthSource.defineYourSource')}>
+                <MonitoredServiceOverview formikProps={formik} isEdit={isEdit} />
+                <Text color={Color.BLACK} className={css.sourceTableLabel}>
+                  {getString('cv.healthSource.defineYourSource')}
+                </Text>
+                <CardWithOuterTitle>
+                  <>
+                    <ChangeSourceTable
+                      onEdit={values => {
+                        showDrawer()
+                        setDrawerContentProps({ ...values, hideDrawer })
+                      }}
+                      value={formik?.values?.sources?.changeSources || []}
+                      onSuccess={onSuccessChangeSource}
+                    />
+                    <div>
+                      <Link to={'#'} onClick={() => openChangeSourceDrawer({ formik, onSuccessChangeSource })}>
+                        + {getString('cv.changeSource.addChangeSource')}
+                      </Link>
+                    </div>
+                  </>
+                </CardWithOuterTitle>
+                <CardWithOuterTitle>
                   <HealthSourceTable
                     isEdit={isEdit}
                     value={formik.values.sources?.healthSources || []}
@@ -258,6 +393,7 @@ function Service(): JSX.Element {
                     validMonitoredSource={validMonitoredSource}
                     onCloseDrawer={setValidMonitoredSource}
                     validateMonitoredSource={formik.submitForm}
+                    changeSources={formik?.values?.sources?.changeSources || []}
                   />
                 </CardWithOuterTitle>
               </>

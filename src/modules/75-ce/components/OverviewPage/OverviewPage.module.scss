@@ -213,3 +213,16 @@
     }
   }
 }
+
+.legendContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: var(--spacing-large);
+  grid-row-gap: var(--spacing-small);
+
+  .colorBoxContainer {
+    height: 12px;
+    width: 20px;
+    border-radius: 8px;
+  }
+}

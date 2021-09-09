@@ -370,7 +370,14 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             <Icon name="ng-filter" size={25} color={Color.WHITE} />
             <span className={css.title}>Filter</span>
           </Layout.Horizontal>
-          <Button icon="cross" onClick={onClose} className={css.closeFilter} withoutBoxShadow />
+          <Button
+            icon="cross"
+            variation={ButtonVariation.ICON}
+            iconProps={{ color: Color.WHITE }}
+            onClick={onClose}
+            className={css.closeFilter}
+            withoutBoxShadow
+          />
         </Layout.Horizontal>
       </Layout.Vertical>
       {isRefreshingFilters || isLoading ? (
@@ -381,7 +388,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
         <>
           <Layout.Vertical padding={{ top: 'xlarge' }}>
             <Button
-              variation={ButtonVariation.PRIMARY}
+              minimal
               icon="plus"
               text={
                 unsavedFilter && isNewFilter
@@ -439,7 +446,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
                         placeholder={getString('filters.typeFilterName')}
                       />
                       <Layout.Vertical spacing={'medium'} margin={{ top: 'large' }}>
-                        <Label style={{ fontSize: 'small', color: Color.WHITE }}>
+                        <Label className={cx(Classes.LABEL, css.filterVisibilityText)}>
                           {getString('filters.filterVisibility')}
                         </Label>
                         <FormInput.RadioGroup
@@ -458,7 +465,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
                       </Layout.Vertical>
                       <Layout.Horizontal spacing={'medium'} margin={{ top: 'large' }}>
                         <Button
-                          variation={ButtonVariation.PRIMARY}
+                          variation={ButtonVariation.SECONDARY}
                           text={getCRUDOperationLabel()}
                           className={css.saveFilterBtn}
                           type="submit"
@@ -470,7 +477,8 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
                         />
                         <Button
                           type="reset"
-                          variation={ButtonVariation.SECONDARY}
+                          variation={ButtonVariation.LINK}
+                          color={Color.WHITE}
                           text={getString('cancel')}
                           className={css.cancelBtn}
                           onClick={(event: React.MouseEvent<Element, MouseEvent>) => {

@@ -49,6 +49,7 @@ declare const styles: {
   readonly testCell: string
   readonly text: string
   readonly failed: string
+  readonly testSuiteName: string
   readonly select: string
   readonly testPopoverBody: string
   readonly testPopoverHeading: string

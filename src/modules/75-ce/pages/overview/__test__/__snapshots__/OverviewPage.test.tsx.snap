@@ -50,7 +50,7 @@ exports[`test cases for Overview Page should be able to render the overview dash
             <span
               class="bp3-button-text"
             >
-              ce.perspectives.timeRangeConstants.last30Days
+              projectsOrgs.landingDashboard.last30Days
             </span>
             <span
               class="bp3-icon bp3-icon-caret-down StyledProps--main"
@@ -562,60 +562,60 @@ exports[`test cases for Overview Page should be able to render the overview dash
               <div
                 class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
               >
-                <div
-                  class="Layout--horizontal StyledProps--main"
-                  style="justify-content: space-between; align-items: center;"
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
-                  >
-                    ce.overview.cardtitles.costByProviders
-                  </p>
-                </div>
+                  ce.overview.cardtitles.costByProviders
+                </p>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                  style="align-items: center; justify-content: flex-end;"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                  style="justify-content: space-between;"
                 >
-                  <span
-                    class="bp3-icon bp3-icon-timeline-area-chart StyledProps--main StyledProps--color StyledProps--color-grey400"
-                    icon="timeline-area-chart"
-                    style="cursor: pointer;"
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                    style="align-items: center; justify-content: flex-end;"
                   >
-                    <svg
-                      data-icon="timeline-area-chart"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      width="20"
+                    <span
+                      class="bp3-icon bp3-icon-timeline-area-chart StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      icon="timeline-area-chart"
+                      style="cursor: pointer;"
                     >
-                      <desc>
-                        timeline-area-chart
-                      </desc>
-                      <path
-                        d="M19 16H2V3c0-.55-.45-1-1-1s-1 .45-1 1v14c0 .55.45 1 1 1h18c.55 0 1-.45 1-1s-.45-1-1-1zm0-13.41l-7.07 7.07-4.3-3.44-.01.01A.987.987 0 007 6c-.24 0-.46.1-.63.24l-.01-.01L3 9.03V15h16V2.59z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-timeline-bar-chart StyledProps--main StyledProps--color StyledProps--color-primary7"
-                    icon="timeline-bar-chart"
-                    style="cursor: pointer;"
-                  >
-                    <svg
-                      data-icon="timeline-bar-chart"
-                      height="18"
-                      viewBox="0 0 16 16"
-                      width="18"
+                      <svg
+                        data-icon="timeline-area-chart"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          timeline-area-chart
+                        </desc>
+                        <path
+                          d="M19 16H2V3c0-.55-.45-1-1-1s-1 .45-1 1v14c0 .55.45 1 1 1h18c.55 0 1-.45 1-1s-.45-1-1-1zm0-13.41l-7.07 7.07-4.3-3.44-.01.01A.987.987 0 007 6c-.24 0-.46.1-.63.24l-.01-.01L3 9.03V15h16V2.59z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-timeline-bar-chart StyledProps--main StyledProps--color StyledProps--color-primary7"
+                      icon="timeline-bar-chart"
+                      style="cursor: pointer;"
                     >
-                      <desc>
-                        timeline-bar-chart
-                      </desc>
-                      <path
-                        d="M8 12h1c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1H8c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1zm5 0h1c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1h-1c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1zm2 1H2c-.55 0-1 .45-1 1s.45 1 1 1h13c.55 0 1-.45 1-1s-.45-1-1-1zM3 12h1c.55 0 1-.45 1-1V7c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
+                      <svg
+                        data-icon="timeline-bar-chart"
+                        height="18"
+                        viewBox="0 0 16 16"
+                        width="18"
+                      >
+                        <desc>
+                          timeline-bar-chart
+                        </desc>
+                        <path
+                          d="M8 12h1c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1H8c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1zm5 0h1c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1h-1c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1zm2 1H2c-.55 0-1 .45-1 1s.45 1 1 1h13c.55 0 1-.45 1-1s-.45-1-1-1zM3 12h1c.55 0 1-.45 1-1V7c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="StyledProps--font StyledProps--main"

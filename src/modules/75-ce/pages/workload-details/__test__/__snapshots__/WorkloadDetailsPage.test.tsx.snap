@@ -621,22 +621,6 @@ exports[`test cases for Workload details Page should be able to render the detai
                 </div>
               </div>
             </div>
-            <div
-              class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
-            >
-              <span
-                class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
-              >
-                Showing 
-                <strong>
-                  1
-                </strong>
-                 of 
-                <strong>
-                  1
-                </strong>
-              </span>
-            </div>
           </div>
         </div>
       </div>

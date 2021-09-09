@@ -15,7 +15,7 @@ export default function HomeSideNav(): React.ReactElement {
 
   return (
     <Layout.Vertical spacing="small" margin={{ top: 'xxxlarge' }}>
-      <SidebarLink label={getString('common.welcome')} to={routes.toGetStarted(params)} />
+      <SidebarLink label={getString('common.welcome')} to={routes.toLandingDashboard(params)} />
       <SidebarLink label={getString('projectsText')} to={routes.toProjects(params)} />
       <LaunchButton
         launchButtonText={getString('common.cgLaunchText')}

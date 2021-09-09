@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { FormInput, FormikForm, SelectOption, Container } from '@wings-software/uicore'
+import { FormInput, FormikForm, SelectOption, Container, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 
 import { parse } from 'yaml'
@@ -19,7 +19,10 @@ import {
   VerificationSensitivityOptions
 } from '../../constants'
 import RunTimeMonitoredService from './components/RunTimeMonitoredService/RunTimeMonitoredService'
-import { getInfraAndServiceData } from './components/ContinousVerificationInputSetStep.utils'
+import {
+  getInfraAndServiceData,
+  getInfraAndServiceFromStage
+} from './components/ContinousVerificationInputSetStep.utils'
 
 import css from './ContinousVerificationInputSetStep.module.scss'
 
@@ -42,13 +45,18 @@ export function ContinousVerificationInputSetStep(
 
   useEffect(() => {
     fetchPipeline()
-  }, [fetchPipeline])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (pipelineData?.data?.yamlPipeline) {
       setPipeline(parse(pipelineData?.data?.yamlPipeline))
     }
   }, [pipelineData?.data?.yamlPipeline])
+
+  const { serviceIdentifierFromStage, envIdentifierDataFromStage } = useMemo(() => {
+    return getInfraAndServiceFromStage(pipeline)
+  }, [pipeline])
 
   const { serviceIdentifier, envIdentifier } = useMemo(() => {
     const { serviceIdentifierData, envIdentifierData } = getInfraAndServiceData(pipeline, formik)
@@ -57,7 +65,7 @@ export function ContinousVerificationInputSetStep(
 
   return (
     <FormikForm>
-      {checkIfRunTimeInput(template?.spec?.monitoredServiceRef) && (
+      {(serviceIdentifierFromStage === RUNTIME_INPUT_VALUE || envIdentifierDataFromStage === RUNTIME_INPUT_VALUE) && (
         <RunTimeMonitoredService
           serviceIdentifier={serviceIdentifier}
           envIdentifier={envIdentifier}

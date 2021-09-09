@@ -27,7 +27,7 @@ useStartTrialLicenseMock.mockImplementation(() => ({
 }))
 
 describe('Subscription Plans', () => {
-  test('should render the plans', async () => {
+  test('should render the plans for CI', async () => {
     const data = cloneDeep(plansData)
     const responseState = {
       executeQuery: ({ query }: { query: DocumentNode }) => {
@@ -52,6 +52,105 @@ describe('Subscription Plans', () => {
         <TestWrapper>
           <Provider value={responseState as any}>
             <SubscriptionPlans module={ModuleName.CI} />
+          </Provider>
+        </TestWrapper>
+      )
+      expect(getByText('common.deactivate')).toBeDefined()
+      expect(container).toMatchSnapshot()
+    })
+  })
+
+  test('should render the plans for CCM', async () => {
+    const data = cloneDeep(plansData)
+    const responseState = {
+      executeQuery: ({ query }: { query: DocumentNode }) => {
+        if (query === FetchPlansDocument) {
+          return fromValue(data)
+        }
+        return fromValue({})
+      }
+    }
+    await act(async () => {
+      useGetLicensesAndSummaryMock.mockImplementation(() => {
+        return {
+          data: {
+            data: {},
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn(),
+          loading: false
+        }
+      })
+      const { container, getByText } = render(
+        <TestWrapper>
+          <Provider value={responseState as any}>
+            <SubscriptionPlans module={ModuleName.CE} />
+          </Provider>
+        </TestWrapper>
+      )
+      expect(getByText('common.deactivate')).toBeDefined()
+      expect(container).toMatchSnapshot()
+    })
+  })
+
+  test('should render the plans for CD', async () => {
+    const data = cloneDeep(plansData)
+    const responseState = {
+      executeQuery: ({ query }: { query: DocumentNode }) => {
+        if (query === FetchPlansDocument) {
+          return fromValue(data)
+        }
+        return fromValue({})
+      }
+    }
+    await act(async () => {
+      useGetLicensesAndSummaryMock.mockImplementation(() => {
+        return {
+          data: {
+            data: {},
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn(),
+          loading: false
+        }
+      })
+      const { container, getByText } = render(
+        <TestWrapper>
+          <Provider value={responseState as any}>
+            <SubscriptionPlans module={ModuleName.CD} />
+          </Provider>
+        </TestWrapper>
+      )
+      expect(getByText('common.deactivate')).toBeDefined()
+      expect(container).toMatchSnapshot()
+    })
+  })
+
+  test('should render the plans for FF', async () => {
+    const data = cloneDeep(plansData)
+    const responseState = {
+      executeQuery: ({ query }: { query: DocumentNode }) => {
+        if (query === FetchPlansDocument) {
+          return fromValue(data)
+        }
+        return fromValue({})
+      }
+    }
+    await act(async () => {
+      useGetLicensesAndSummaryMock.mockImplementation(() => {
+        return {
+          data: {
+            data: {},
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn(),
+          loading: false
+        }
+      })
+      const { container, getByText } = render(
+        <TestWrapper>
+          <Provider value={responseState as any}>
+            <SubscriptionPlans module={ModuleName.CF} />
           </Provider>
         </TestWrapper>
       )
@@ -121,8 +220,8 @@ describe('Subscription Plans', () => {
           </Provider>
         </TestWrapper>
       )
-      expect(getByText('Try Enterprise'))
-      fireEvent.click(getByText('Try Enterprise'))
+      expect(getByText('Try Now')).toBeInTheDocument()
+      fireEvent.click(getByText('Try Now'))
       expect(startTrialMock).toBeCalled()
     })
   })

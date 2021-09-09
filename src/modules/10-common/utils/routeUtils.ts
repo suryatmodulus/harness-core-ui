@@ -177,21 +177,22 @@ export const getScopeBasedRoute = ({
   }
   return `/settings/${path}`
 }
+
 export const returnUrlParams = (url: string): string => `?returnUrl=${url}`
+
 export const validateReturnUrl = (url: string): boolean => {
-  if (url && typeof url === 'string') {
-    if (url.startsWith('/')) {
-      return true
-    } else {
-      try {
-        const validUrl = new URL(url)
-        return window.location.hostname === validUrl.hostname
-      } catch (_e) {
-        return false
-      }
-    }
+  const decodedUrl = decodeURIComponent(url)
+
+  if (decodedUrl.startsWith('/')) {
+    return true
   }
-  return false
+
+  try {
+    const validUrl = new URL(decodedUrl)
+    return window.location.hostname === validUrl.hostname
+  } catch (_e) {
+    return false
+  }
 }
 
 export const returnLaunchUrl = (url: string): string => `${window.location.pathname.replace(/\/ng\//, '/')}${url}`

@@ -244,6 +244,7 @@ export interface ResponseMessage {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -1038,6 +1039,37 @@ export type UseAzureappclientidProps = Omit<UseGetProps<ResponseString, unknown,
  */
 export const useAzureappclientid = (props: UseAzureappclientidProps) =>
   useGet<ResponseString, unknown, void, void>(`/connector/azureappclientid`, { base: getConfig('ccm/api'), ...props })
+
+export interface GcpserviceaccountQueryParams {
+  accountIdentifier?: string
+}
+
+export type GcpserviceaccountProps = Omit<GetProps<ResponseString, unknown, GcpserviceaccountQueryParams, void>, 'path'>
+
+/**
+ * Provision and Get GCP Service Account
+ */
+export const Gcpserviceaccount = (props: GcpserviceaccountProps) => (
+  <Get<ResponseString, unknown, GcpserviceaccountQueryParams, void>
+    path={`/connector/gcpserviceaccount`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGcpserviceaccountProps = Omit<
+  UseGetProps<ResponseString, unknown, GcpserviceaccountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Provision and Get GCP Service Account
+ */
+export const useGcpserviceaccount = (props: UseGcpserviceaccountProps) =>
+  useGet<ResponseString, unknown, GcpserviceaccountQueryParams, void>(`/connector/gcpserviceaccount`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
 
 export interface Execute1Response {
   [key: string]: { [key: string]: any }

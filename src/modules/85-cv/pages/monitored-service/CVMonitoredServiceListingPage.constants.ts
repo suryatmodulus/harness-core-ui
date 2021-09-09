@@ -1,3 +1,5 @@
+import { Color } from '@wings-software/uicore'
+
 export const HistoricalTrendChartOption = {
   title: {
     text: ''
@@ -31,4 +33,9 @@ export const HistoricalTrendChartOption = {
       enableMouseTracking: false
     }
   }
+}
+
+export const DefaultChangePercentage = {
+  color: Color.BLACK_100,
+  percentage: 0
 }

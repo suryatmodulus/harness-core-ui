@@ -265,7 +265,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           })
         )
         dispatch(PipelineContextActions.initialized())
-      } else {
+      } else if (IdbPipeline) {
         await IdbPipeline.put(IdbPipelineStoreName, payload)
         dispatch(
           PipelineContextActions.success({
@@ -430,8 +430,10 @@ const _updatePipeline = async (
       isUpdated,
       gitDetails
     }
-    await IdbPipeline.put(IdbPipelineStoreName, payload)
-    dispatch(PipelineContextActions.success({ error: '', pipeline: pipeline as PipelineInfoConfig, isUpdated }))
+    if (IdbPipeline) {
+      await IdbPipeline.put(IdbPipelineStoreName, payload)
+      dispatch(PipelineContextActions.success({ error: '', pipeline: pipeline as PipelineInfoConfig, isUpdated }))
+    }
   }
 }
 

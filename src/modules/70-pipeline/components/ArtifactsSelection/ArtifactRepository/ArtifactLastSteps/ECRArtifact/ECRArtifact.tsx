@@ -39,11 +39,12 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   initialValues,
   previousStep,
   artifactIdentifiers,
-  isReadonly = false
+  isReadonly = false,
+  selectedArtifact
 }) => {
   const { getString } = useStrings()
 
-  const ecrSchema = Yup.object().shape({
+  const schemaObject = {
     imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
     region: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.region')),
     tagType: Yup.string().required(),
@@ -55,26 +56,19 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       is: 'value',
       then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
     })
-  })
+  }
+
+  const ecrSchema = Yup.object().shape(schemaObject)
 
   const sideCarSchema = Yup.object().shape({
+    ...schemaObject,
     ...ArtifactIdentifierValidation(
       artifactIdentifiers,
       initialValues?.identifier,
       getString('pipeline.uniqueIdentifier')
-    ),
-    imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
-    region: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.region')),
-    tagType: Yup.string().required(),
-    tagRegex: Yup.string().when('tagType', {
-      is: 'regex',
-      then: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.tagRegex'))
-    }),
-    tag: Yup.mixed().when('tagType', {
-      is: 'value',
-      then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
-    })
+    )
   })
+
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [tagList, setTagList] = React.useState([])
@@ -146,28 +140,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   }, [tagList])
   const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
 
-  const getInitialValues = (): ImagePathTypes => {
-    const specValues = get(initialValues, 'spec', null)
-    if (specValues) {
-      const values = {
-        ...specValues,
-        tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
-      }
-
-      if (getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
-        values.tag = { label: specValues?.tag, value: specValues?.tag }
-      }
-
-      if (getMultiTypeFromValue(specValues?.region) === MultiTypeInputType.FIXED) {
-        values.region = regions.find(regionData => regionData.value === specValues?.region)
-      }
-
-      if (context === 2 && initialValues?.identifier) {
-        values.identifier = initialValues?.identifier
-      }
-      return values
-    }
-
+  const defaultStepValues = (): ImagePathTypes => {
     return {
       identifier: '',
       imagePath: '',
@@ -175,6 +148,31 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       tagType: TagTypes.Value,
       tagRegex: ''
     }
+  }
+
+  const getInitialValues = (): ImagePathTypes => {
+    const specValues = get(initialValues, 'spec', null)
+    if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
+      return defaultStepValues()
+    }
+
+    const values = {
+      ...specValues,
+      tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
+    }
+
+    if (getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
+      values.tag = { label: specValues?.tag, value: specValues?.tag }
+    }
+
+    if (getMultiTypeFromValue(specValues?.region) === MultiTypeInputType.FIXED) {
+      values.region = regions.find(regionData => regionData.value === specValues?.region)
+    }
+
+    if (context === 2 && initialValues?.identifier) {
+      values.identifier = initialValues?.identifier
+    }
+    return values
   }
 
   const fetchTags = (imagePath = '', region = ''): void => {

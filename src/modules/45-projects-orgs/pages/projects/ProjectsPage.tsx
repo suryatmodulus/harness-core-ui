@@ -2,19 +2,16 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   Button,
-  Text,
   Layout,
   SelectOption,
   ExpandingSearchInput,
-  Color,
   Container,
   GridListToggle,
   Views,
-  ButtonVariation
+  ButtonVariation,
+  DropDown
 } from '@wings-software/uicore'
 
-import { Select } from '@blueprintjs/select'
-import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
 import { useGetOrganizationList, useGetProjectAggregateDTOList } from 'services/cd-ng'
@@ -34,8 +31,6 @@ import ProjectsListView from './views/ProjectListView/ProjectListView'
 import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 import ProjectsEmptyState from './projects-empty-state.png'
 import css from './ProjectsPage.module.scss'
-
-const CustomSelect = Select.ofType<SelectOption>()
 
 const ProjectsListPage: React.FC = () => {
   const { accountId } = useParams<AccountPathProps>()
@@ -152,38 +147,19 @@ const ProjectsListPage: React.FC = () => {
             icon="plus"
             onClick={() => openProjectModal()}
           />
-          <CustomSelect
+          <DropDown
             disabled={loading}
-            items={organizations}
             filterable={false}
-            itemRenderer={(item, { handleClick }) => (
-              <div key={item.value.toString()}>
-                <Menu.Item text={item.label} onClick={handleClick} />
-              </div>
-            )}
-            onItemSelect={item => {
+            items={organizations}
+            value={orgFilter.value.toString()}
+            onChange={item => {
               history.push({
                 pathname: routes.toProjects({ accountId }),
                 search: `?orgIdentifier=${item.value.toString()}`
               })
             }}
-            popoverProps={{ minimal: true, popoverClassName: css.customselect }}
-          >
-            <Button
-              inline
-              round
-              rightIcon="chevron-down"
-              disabled={loading}
-              className={css.orgSelect}
-              text={
-                <Layout.Horizontal spacing="xsmall">
-                  <Text color={Color.BLACK}>{getString('projectsOrgs.tabOrgs')}</Text>
-                  <Text>{orgFilter.label}</Text>
-                </Layout.Horizontal>
-              }
-            />
-          </CustomSelect>
-
+            getCustomLabel={item => getString('projectsOrgs.tabOrgs', { name: item.label })}
+          />
           <div style={{ flex: 1 }}></div>
           <ExpandingSearchInput
             alwaysExpanded

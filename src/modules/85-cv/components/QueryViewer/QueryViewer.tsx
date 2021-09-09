@@ -19,9 +19,16 @@ export function QueryContent(props: QueryContentProps): JSX.Element {
     isDialogOpen,
     textAreaProps,
     textAreaName,
+    isAutoFetch = false,
+    mandatoryFields = [],
     staleRecordsWarning
   } = props
   const { getString } = useStrings()
+  useEffect(() => {
+    if (!isEmpty(query) && mandatoryFields.every(v => v) && isAutoFetch) {
+      handleFetchRecords()
+    }
+  }, [query, isAutoFetch])
   return (
     <Container className={css.queryContainer}>
       <Layout.Horizontal className={css.queryIcons} spacing="small">
@@ -42,15 +49,17 @@ export function QueryContent(props: QueryContentProps): JSX.Element {
         textArea={textAreaProps}
         className={cx(css.formQueryBox)}
       />
-      <Layout.Horizontal spacing={'large'}>
-        <Button
-          intent="primary"
-          text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
-          onClick={handleFetchRecords}
-          disabled={isEmpty(query) || loading}
-        />
-        {staleRecordsWarning && <Text className={css.warningText}>{staleRecordsWarning}</Text>}
-      </Layout.Horizontal>
+      {!isAutoFetch && (
+        <Layout.Horizontal spacing={'large'}>
+          <Button
+            intent="primary"
+            text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
+            onClick={handleFetchRecords}
+            disabled={isEmpty(query) || loading}
+          />
+          {staleRecordsWarning && <Text className={css.warningText}>{staleRecordsWarning}</Text>}
+        </Layout.Horizontal>
+      )}
     </Container>
   )
 }
@@ -67,7 +76,9 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
     postFetchingRecords,
     queryNotExecutedMessage,
     queryTextAreaProps,
-    staleRecordsWarning
+    staleRecordsWarning,
+    isAutoFetch,
+    queryContentMandatoryProps
   } = props
   const { getString } = useStrings()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -99,6 +110,8 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
         handleFetchRecords={handleFetchRecords}
         textAreaProps={queryTextAreaProps}
         staleRecordsWarning={staleRecordsWarning}
+        isAutoFetch={isAutoFetch}
+        mandatoryFields={queryContentMandatoryProps}
       />
       <Records
         fetchRecords={handleFetchRecords}

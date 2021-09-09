@@ -8,6 +8,7 @@ import { useStrings } from 'framework/strings'
 import { GetDelegatesStatusV2QueryParams, useGetDelegateGroupsNGV2, DelegateGroupDetails } from 'services/portal'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import DelegateInstallationError from '@delegates/components/CreateDelegate/K8sDelegate/DelegateInstallationError/DelegateInstallationError'
+import DelegatesEmptyState from '@delegates/images/DelegatesEmptyState.svg'
 import { Page } from '@common/exports'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import RbacButton from '@rbac/components/Button/Button'
@@ -97,6 +98,18 @@ export const DelegateListing: React.FC = () => {
     }
   }
 
+  const newDelegateBtn = (
+    <RbacButton
+      intent="primary"
+      text={getString('delegates.newDelegate')}
+      icon="plus"
+      permission={permissionRequestNewDelegate}
+      onClick={() => openDelegateModal()}
+      id="newDelegateBtn"
+      data-test="newDelegateButton"
+    />
+  )
+
   return (
     <Container>
       <Dialog
@@ -108,15 +121,7 @@ export const DelegateListing: React.FC = () => {
         <DelegateInstallationError />
       </Dialog>
       <Layout.Horizontal className={css.header}>
-        <RbacButton
-          intent="primary"
-          text={getString('delegate.DelegateName')}
-          icon="plus"
-          permission={permissionRequestNewDelegate}
-          onClick={() => openDelegateModal()}
-          id="newDelegateBtn"
-          data-test="newDelegateButton"
-        />
+        {newDelegateBtn}
         <FlexExpander />
         <Layout.Horizontal spacing="xsmall">
           <ExpandingSearchInput
@@ -133,16 +138,30 @@ export const DelegateListing: React.FC = () => {
         </Layout.Horizontal>
       </Layout.Horizontal>
       <Page.Body>
-        <Container className={css.delegateListContainer} background={Color.GREY_100}>
-          <DelegateListingHeader />
-          {filteredDelegates.map((delegate: DelegateGroupDetails) => (
-            <DelegateListingItem
-              key={delegate.delegateGroupIdentifier}
-              delegate={delegate}
-              setOpenTroubleshoter={setOpenTroubleshoter}
-            />
-          ))}
-        </Container>
+        {filteredDelegates.length ? (
+          <Container className={css.delegateListContainer} background={Color.GREY_100}>
+            <DelegateListingHeader />
+            {filteredDelegates.map((delegate: DelegateGroupDetails) => (
+              <DelegateListingItem
+                key={delegate.delegateGroupIdentifier}
+                delegate={delegate}
+                setOpenTroubleshoter={setOpenTroubleshoter}
+              />
+            ))}
+          </Container>
+        ) : (
+          <div className={css.emptyStateContainer}>
+            <img src={DelegatesEmptyState} />
+            <div className={css.emptyStateText}>
+              {projectIdentifier
+                ? getString('delegates.noDelegatesInProject')
+                : orgIdentifier
+                ? getString('delegates.noDelegatesInOrganization')
+                : getString('delegates.noDelegatesInAccount')}
+            </div>
+            {newDelegateBtn}
+          </div>
+        )}
       </Page.Body>
     </Container>
   )

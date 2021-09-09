@@ -441,7 +441,7 @@ describe('Subscriptions Page', () => {
         </TestWrapper>
       )
 
-      expect(getByText('common.subscriptions.cd.services'))
+      expect(getByText('common.subscriptions.cd.services')).toBeInTheDocument()
     })
 
     test('should render CCM details', () => {
@@ -479,7 +479,85 @@ describe('Subscriptions Page', () => {
         </TestWrapper>
       )
 
-      expect(getByText('common.subscriptions.ccm.cloudSpend'))
+      expect(getByText('common.subscriptions.ccm.cloudSpend')).toBeInTheDocument()
+    })
+
+    test('should render CI details', () => {
+      useGetModuleLicenseInfoMock.mockImplementation(() => {
+        return {
+          data: {
+            data: [
+              {
+                edition: Editions.ENTERPRISE,
+                numberOfCommitters: 200,
+                moduleType: 'CI'
+              }
+            ],
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn()
+        }
+      })
+
+      useGetAccountMock.mockImplementation(() => {
+        return {
+          data: {
+            data: {
+              accountId: '123'
+            },
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn()
+        }
+      })
+
+      const { getByText } = render(
+        <TestWrapper defaultAppStoreValues={{ featureFlags }} pathParams={{ module: ModuleName.CE }}>
+          <SubscriptionsPage />
+        </TestWrapper>
+      )
+
+      expect(getByText('common.subscriptions.ci.developers')).toBeInTheDocument()
+    })
+
+    test('should render FF details', () => {
+      useGetModuleLicenseInfoMock.mockImplementation(() => {
+        return {
+          data: {
+            data: [
+              {
+                edition: Editions.ENTERPRISE,
+                numberOfUsers: 200,
+                numberOfClientMAUs: 20000,
+                moduleType: 'CF'
+              }
+            ],
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn()
+        }
+      })
+
+      useGetAccountMock.mockImplementation(() => {
+        return {
+          data: {
+            data: {
+              accountId: '123'
+            },
+            status: 'SUCCESS'
+          },
+          refetch: jest.fn()
+        }
+      })
+
+      const { getByText } = render(
+        <TestWrapper defaultAppStoreValues={{ featureFlags }} pathParams={{ module: ModuleName.CE }}>
+          <SubscriptionsPage />
+        </TestWrapper>
+      )
+
+      expect(getByText('common.subscriptions.featureFlags.users')).toBeInTheDocument()
+      expect(getByText('common.subscriptions.featureFlags.mau')).toBeInTheDocument()
     })
   })
 })

@@ -456,6 +456,31 @@
         }
       }
     },
+    "/connector/gcpserviceaccount": {
+      "get": {
+        "tags": ["connector"],
+        "summary": "Provision and Get GCP Service Account",
+        "description": "",
+        "operationId": "gcpserviceaccount",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseString"
+            }
+          }
+        }
+      }
+    },
     "/graphql": {
       "post": {
         "tags": ["graphql"],
@@ -1265,6 +1290,7 @@
             "RESUME_ALL_ALREADY",
             "ROLLBACK_ALREADY",
             "ABORT_ALL_ALREADY",
+            "EXPIRE_ALL_ALREADY",
             "RETRY_FAILED",
             "UNKNOWN_ARTIFACT_TYPE",
             "UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE",

@@ -6,10 +6,11 @@ import { useStrings } from 'framework/strings'
 import { URLValidationSchema } from '@common/utils/Validation'
 import { PageSpinner } from '@common/components'
 import { setupVaultFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import type {
+import {
   StepDetailsProps,
   ConnectorDetailsProps,
-  VaultConfigFormData
+  VaultConfigFormData,
+  HashiCorpVaultAccessTypes
 } from '@connectors/interfaces/ConnectorInterface'
 import VaultConnectorFormFields from './VaultConnectorFormFields'
 
@@ -26,12 +27,14 @@ const VaultConfigForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsPr
   const defaultInitialFormData: VaultConfigFormData = {
     vaultUrl: '',
     basePath: '',
+    namespace: undefined,
     readOnly: false,
     default: false,
-    accessType: 'APP_ROLE',
+    accessType: HashiCorpVaultAccessTypes.APP_ROLE,
     appRoleId: '',
     secretId: undefined,
     authToken: undefined,
+    sinkPath: undefined,
     renewalIntervalMinutes: 10
   }
 
@@ -66,24 +69,30 @@ const VaultConfigForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsPr
           authToken: Yup.object()
             .nullable()
             .when('accessType', {
-              is: 'TOKEN',
+              is: HashiCorpVaultAccessTypes.TOKEN,
               then: Yup.object().test('authToken', getString('validation.authToken'), function (value) {
-                if ((prevStepData?.spec as VaultConnectorDTO)?.accessType === 'TOKEN') return true
+                if ((prevStepData?.spec as VaultConnectorDTO)?.accessType === HashiCorpVaultAccessTypes.TOKEN)
+                  return true
                 else if (value?.name?.length > 0) return true
                 return false
               })
             }),
           appRoleId: Yup.string().when('accessType', {
-            is: 'APP_ROLE',
+            is: HashiCorpVaultAccessTypes.APP_ROLE,
             then: Yup.string().trim().required(getString('validation.appRole'))
           }),
           secretId: Yup.object().when('accessType', {
-            is: 'APP_ROLE',
+            is: HashiCorpVaultAccessTypes.APP_ROLE,
             then: Yup.object().test('secretId', getString('validation.secretId'), function (value) {
-              if ((prevStepData?.spec as VaultConnectorDTO)?.accessType === 'APP_ROLE') return true
+              if ((prevStepData?.spec as VaultConnectorDTO)?.accessType === HashiCorpVaultAccessTypes.APP_ROLE)
+                return true
               else if (value?.name?.length > 0) return true
               return false
             })
+          }),
+          sinkPath: Yup.string().when('accessType', {
+            is: HashiCorpVaultAccessTypes.VAULT_AGENT,
+            then: Yup.string().trim().required(getString('connectors.hashiCorpVault.sinkPathIsRequired'))
           })
         })}
         onSubmit={formData => {

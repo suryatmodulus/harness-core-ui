@@ -1,4 +1,14 @@
-import { Button, Color, Formik, FormInput, Layout, MultiSelectOption, StepProps, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Color,
+  Formik,
+  FormInput,
+  Layout,
+  MultiSelectOption,
+  StepProps,
+  Text
+} from '@wings-software/uicore'
 import React from 'react'
 import { Form } from 'formik'
 import { startCase } from 'lodash-es'
@@ -122,6 +132,7 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
                     <Layout.Vertical key={event.label}>
                       <Layout.Horizontal margin={{ bottom: 'small' }} flex>
                         <FormInput.CheckBox
+                          className={formikProps.values.types[event.value] ? 'checked' : 'unchecked'}
                           name={`types.${event.value}`}
                           checked={formikProps.values.types[event.label]}
                           label={event.label}
@@ -160,7 +171,12 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
                   )
                 })}
               </Layout.Vertical>
-              <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('continue')} />
+              <Button
+                type="submit"
+                variation={ButtonVariation.PRIMARY}
+                rightIcon="chevron-right"
+                text={getString('continue')}
+              />
             </Form>
           )
         }}

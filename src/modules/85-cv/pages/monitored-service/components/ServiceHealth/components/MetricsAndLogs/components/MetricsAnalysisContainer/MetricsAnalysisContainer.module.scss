@@ -1,0 +1,57 @@
+.main {
+  height: 100% !important;
+  width: 49%;
+  padding: var(--spacing-medium) !important;
+  position: relative;
+
+  .filters {
+    margin-bottom: var(--spacing-xlarge) !important;
+    display: flex;
+    align-items: center;
+    > * {
+      margin-right: var(--spacing-medium) !important;
+    }
+
+    .filterBy input {
+      border: 1px solid var(--grey-200);
+      border-radius: 4px !important;
+      &:focus {
+        width: 260px !important;
+      }
+    }
+  }
+
+  .content {
+    overflow-y: scroll;
+    min-height: 723px;
+  }
+
+  .loading,
+  .noData,
+  .error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .noData > div:first-child {
+    height: unset !important;
+    > div {
+      margin-top: 0 !important;
+    }
+  }
+
+  .analysisRow {
+    margin-bottom: var(--spacing-xsmall) !important;
+  }
+
+  .timeline {
+    padding-left: 25% !important;
+    padding-top: var(--spacing-medium) !important;
+  }
+
+  .maxDropDownWidth {
+    max-width: 250px;
+  }
+}

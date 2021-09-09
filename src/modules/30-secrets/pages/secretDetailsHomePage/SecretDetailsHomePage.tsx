@@ -9,7 +9,6 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { ResponseSecretResponseWrapper, SecretDTOV2, useGetSecretV2 } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import css from './SecretDetailsHomePage.module.scss'
 
 interface OptionalIdentifiers {
   module?: Module
@@ -79,7 +78,6 @@ const SecretDetaislHomePage: React.FC<SecretDetailsProps> = ({ children }, props
     <>
       <Page.Header
         size="large"
-        className={css.header}
         breadcrumbs={renderBreadCrumb(props)}
         title={
           <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>

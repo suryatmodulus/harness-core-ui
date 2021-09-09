@@ -1,7 +1,17 @@
 import React, { useState } from 'react'
-import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { FormikForm, FormInput, Button, Layout, Container, Icon, Heading, ButtonProps } from '@wings-software/uicore'
+import {
+  FormikForm,
+  FormInput,
+  Button,
+  Formik,
+  Layout,
+  Container,
+  Icon,
+  Heading,
+  ButtonProps,
+  ButtonVariation
+} from '@wings-software/uicore'
 import { Popover, Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -47,6 +57,7 @@ export const TestEmailConfig: React.FC<TestEmailConfigProps> = props => {
     <Container padding={'large'}>
       <Formik<EmailTestConfigData>
         onSubmit={handleSubmit}
+        formName="configureTestEmailNotifications"
         validationSchema={Yup.object().shape({
           to: EmailSchema(),
           subject: Yup.string().trim().required(getString('notifications.validationSubject')),
@@ -122,6 +133,7 @@ export const TestEmailNotifications: React.FC<{ onClick?: () => void; buttonProp
           text={loading ? <Spinner size={Spinner.SIZE_SMALL} /> : getString('test')}
           disabled={loading}
           onClick={onClick}
+          tooltipProps={{ dataTooltipId: 'testEmailConfigButton' }}
           {...buttonProps}
         />
         <TestEmailConfig handleTest={handleTest} />
@@ -170,6 +182,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
             emailIds: props.config?.emailIds.toString() || '',
             userGroups: props.config?.userGroups || []
           }}
+          formName="configureEmailNotifications"
           enableReinitialize={true}
         >
           {formik => {
@@ -181,19 +194,32 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
                   <TestEmailNotifications />
                 </Layout.Horizontal>
                 {props.isStep ? (
-                  <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
+                  <Layout.Horizontal spacing="large" className={css.buttonGroupEmail}>
                     <Button
                       text={getString('back')}
+                      variation={ButtonVariation.SECONDARY}
                       onClick={() => {
                         props.onBack?.(convertFormData(formik.values))
                       }}
                     />
-                    <Button text={props.submitButtonText || getString('next')} intent="primary" type="submit" />
+                    <Button
+                      text={props.submitButtonText || getString('next')}
+                      variation={ButtonVariation.PRIMARY}
+                      type="submit"
+                    />
                   </Layout.Horizontal>
                 ) : (
                   <Layout.Horizontal spacing={'medium'} margin={{ top: 'huge' }}>
-                    <Button type={'submit'} intent={'primary'} text={props.submitButtonText || getString('submit')} />
-                    <Button text={getString('cancel')} onClick={props.hideModal} />
+                    <Button
+                      type={'submit'}
+                      variation={ButtonVariation.PRIMARY}
+                      text={props.submitButtonText || getString('submit')}
+                    />
+                    <Button
+                      text={getString('cancel')}
+                      variation={ButtonVariation.SECONDARY}
+                      onClick={props.hideModal}
+                    />
                   </Layout.Horizontal>
                 )}
               </FormikForm>

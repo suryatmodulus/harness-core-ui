@@ -11,6 +11,7 @@ import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import type { ContinousVerificationData } from '../../types'
 import type { ContinousVerificationWidgetProps } from './types'
 import { ContinousVerificationWidgetSections } from './components/ContinousVerificationWidgetSections/ContinousVerificationWidgetSections'
+import { MONITORED_SERVICE_EXPRESSION } from './components/ContinousVerificationWidgetSections/components/MonitoredService/MonitoredService.constants'
 
 /**
  * Spec
@@ -29,7 +30,7 @@ export function ContinousVerificationWidget(
       type: Yup.string().required(getString('connectors.cdng.validations.verificationTypeRequired')),
       monitoredServiceRef: Yup.string().required(getString('connectors.cdng.validations.monitoringServiceRequired')),
       healthSources: Yup.string().when(['monitoredServiceRef'], (monitoredServiceRef: string) => {
-        if (monitoredServiceRef !== RUNTIME_INPUT_VALUE) {
+        if (monitoredServiceRef !== RUNTIME_INPUT_VALUE && monitoredServiceRef !== MONITORED_SERVICE_EXPRESSION) {
           return Yup.array().min(1, getString('connectors.cdng.validations.healthSourceRequired'))
         }
       }),

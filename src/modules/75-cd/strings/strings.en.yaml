@@ -97,5 +97,9 @@ serviceDashboard:
   noPipelines: No pipeline execution in {{timeRange}} matches the given criteria
   envName: Env Name
   noActiveServiceInstances: No Active Service Instances
+  noActiveServices: No Active Services in {{timeRange}}
 gitOps: GitOps
-newProvider: New Provider
+newProvider: Add Provider
+providerDetails: Provider Details
+launchArgo: Launch Argo App Dashboard
+argoAdapterURL: 'Adapter URL:'

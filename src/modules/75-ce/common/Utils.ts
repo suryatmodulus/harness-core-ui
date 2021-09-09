@@ -63,4 +63,18 @@ export class Utils {
       data.k8sClusterConnectorPresent
     )
   }
+
+  static isFFEnabledForResource = (
+    flags: string[] | undefined,
+    featureFlagsMap: Record<string, boolean | undefined>
+  ) => {
+    let enableStatus = true
+    if (!flags || _isEmpty(flags)) return enableStatus
+    flags.forEach(_flag => {
+      if (!featureFlagsMap[_flag]) {
+        enableStatus = false
+      }
+    })
+    return enableStatus
+  }
 }

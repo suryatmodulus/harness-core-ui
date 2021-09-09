@@ -3,7 +3,7 @@
 exports[`Organization Details Render 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main container xlarge StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -325,7 +325,7 @@ exports[`Organization Details Render 1`] = `
         </div>
       </div>
       <div
-        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
       >
         <h1
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"

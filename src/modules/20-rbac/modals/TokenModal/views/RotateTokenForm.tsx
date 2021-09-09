@@ -3,6 +3,7 @@ import {
   Button,
   Color,
   Container,
+  Checkbox,
   Formik,
   FormikForm as Form,
   FormInput,
@@ -16,7 +17,7 @@ import {
 import * as Yup from 'yup'
 import copy from 'copy-to-clipboard'
 import { useParams } from 'react-router-dom'
-import { Callout, Checkbox } from '@blueprintjs/core'
+import { Callout } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { TokenDTO, useRotateToken } from 'services/cd-ng'

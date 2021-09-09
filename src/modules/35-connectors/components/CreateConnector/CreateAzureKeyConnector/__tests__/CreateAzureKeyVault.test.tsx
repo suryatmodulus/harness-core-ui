@@ -4,95 +4,120 @@ import { render, fireEvent, findByText, waitFor } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
-import { Connectors } from '@connectors/constants'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
+import type { ResponseBoolean } from 'services/cd-ng'
 import CreateAzureKeyVaultConnector from '../CreateAzureKeyVaultConnector'
-import secretsListMockData from './secretsListMockData.json'
-import connectorsListMockData from './connectorsListMockData.json'
+import mockSecretList from './secretsListMockData.json'
+import connectorMockData from './connectorsListMockData.json'
 import connectorDetailsMockData from './connectorDetailsMockData.json'
 
 const commonProps = {
-  isEditMode: false,
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
   onClose: noop,
-  onSuccess: noop,
-  mock: { label: 'dummy vaultName', value: 'dummy vaultName' }
+  onSuccess: noop
 }
 
-const azureKeyVaultInfo = {
-  name: 'dummy connector name',
-  identifier: 'dummy connector identifier',
-  description: 'dummy connector desc',
-  type: Connectors.AzureKeyVault,
-  spec: {
-    clientId: 'dummy clientId',
-    secretKey: 'secretKey',
-    tenantId: 'dummy tenantId',
-    vaultName: 'dummy vaultName',
-    subscription: 'dummy subscription'
-  }
-}
-
-const successResponse = {
+export const mockResponse: ResponseBoolean = {
   status: 'SUCCESS',
   data: true,
   metaData: {},
   correlationId: ''
 }
 
-jest.mock('services/cd-ng', () => ({
-  ...(jest.requireActual('services/cd-ng') as any),
-  validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(successResponse)),
-  useGetMetadata: jest.fn().mockImplementation(() => ({
-    mutate: async () => {
-      return {
-        status: 'SUCCESS'
-      }
+export const mockSecret = {
+  status: 'SUCCESS',
+  data: {
+    secret: {
+      type: 'SecretText',
+      name: 'mockSecret',
+      identifier: 'mockSecret',
+      tags: {},
+      description: '',
+      spec: { secretManagerIdentifier: 'harnessSecretManager' }
     },
+    createdAt: 1611917313699,
+    updatedAt: 1611917313699,
+    draft: false
+  },
+  metaData: null,
+  correlationId: 'abb45801-d524-44ab-824c-aa532c367f39'
+}
+
+jest.mock('services/portal', () => ({
+  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegateSelectorsUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegatesUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegatesStatusV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegateFromId: jest.fn().mockImplementation(() => {
+    return { ...mockResponse, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
+
+jest.mock('services/cd-ng', () => ({
+  useUpdateConnector: jest.fn().mockImplementation(() => ({
+    mutate: () => Promise.resolve(mockResponse),
     loading: false
   })),
-  listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve(secretsListMockData)),
-  useGetConnectorList: () => {
-    return {
-      data: connectorsListMockData,
-      refetch: jest.fn()
-    }
-  },
-  useGetConnector: () => {
-    return {
-      data: connectorDetailsMockData,
-      refetch: jest.fn()
-    }
-  }
+  validateTheIdentifierIsUniquePromise: jest.fn(() => Promise.resolve(mockResponse)),
+  useCreateConnector: jest.fn().mockImplementation(() => ({
+    mutate: () => Promise.resolve(mockResponse),
+    loading: false
+  })),
+  useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn()),
+  useGetMetadata: jest.fn().mockImplementation(() => ({
+    mutate: () => Promise.resolve(mockResponse),
+    loading: false
+  })),
+  listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecretList)),
+  useGetSecretV2: jest.fn().mockImplementation(() => {
+    return { data: mockSecretList, refetch: jest.fn() }
+  }),
+  useGetConnectorList: jest.fn().mockImplementation(() => {
+    return { ...connectorMockData, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetConnector: jest.fn().mockImplementation(() => {
+    return { data: connectorDetailsMockData, refetch: jest.fn() }
+  }),
+  usePostSecret: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(mockResponse) })),
+  usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePutSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret)),
+  useGetFileContent: jest.fn().mockImplementation(() => ({ refetch: jest.fn() })),
+  useCreatePR: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 describe('Create Secret Manager Wizard', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   test('should be able to render first step form', async () => {
-    const { container, getByText } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateAzureKeyVaultConnector {...commonProps} />
+    const { container, getByText, getAllByText } = render(
+      <TestWrapper path={routes.toConnectors({ ...accountPathProps })} pathParams={{ accountId: 'dummy' }}>
+        <CreateAzureKeyVaultConnector {...commonProps} isEditMode={false} connectorInfo={undefined} />
       </TestWrapper>
     )
-    expect(container).toMatchSnapshot()
 
-    await act(async () => {
-      fillAtForm([
-        {
-          container,
-          type: InputTypes.TEXTFIELD,
-          fieldId: 'name',
-          value: 'dummy name'
-        }
-      ])
-    })
+    // Step 1
+    fillAtForm([
+      {
+        container,
+        type: InputTypes.TEXTFIELD,
+        fieldId: 'name',
+        value: 'dummy name'
+      }
+    ])
+
+    expect(container).toMatchSnapshot()
 
     await act(async () => {
       clickSubmit(container)
     })
 
-    // fill step 2
+    // Step 2
+    expect(getAllByText('common.clientId')[0]).toBeTruthy()
 
     fillAtForm([
       {
@@ -128,14 +153,6 @@ describe('Create Secret Manager Wizard', () => {
     await act(async () => {
       fireEvent.click(applyBtn)
     })
-    const closeButton = await modal?.querySelector("span[icon='cross']")?.closest('button')
-    await act(async () => {
-      fireEvent.click(closeButton!)
-    })
-
-    await act(async () => {
-      fireEvent.click(getByText('connectors.azureKeyVault.labels.fetchVault'))
-    })
 
     expect(container).toMatchSnapshot()
 
@@ -143,30 +160,15 @@ describe('Create Secret Manager Wizard', () => {
       clickSubmit(container)
     })
 
-    expect(container).toMatchSnapshot()
-  })
-
-  test('should render form in edit', async () => {
-    const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateAzureKeyVaultConnector {...commonProps} isEditMode={true} connectorInfo={azureKeyVaultInfo} />
-      </TestWrapper>
-    )
-
-    // match step 1
-    expect(container).toMatchSnapshot()
+    // Step 3
+    expect(getAllByText('delegate.DelegateselectionLabel')[1]).toBeTruthy()
 
     await act(async () => {
       clickSubmit(container)
     })
 
-    // match step 2
-    expect(container).toMatchSnapshot()
-
-    await act(async () => {
-      clickSubmit(container)
-    })
-
+    // Step 4
+    expect(getAllByText('connectors.azureKeyVault.labels.setupVault')[1]).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 })

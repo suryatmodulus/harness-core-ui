@@ -36,7 +36,7 @@ exports[`Delegates Configurations Page delete delegate configuration 1`] = `
         <span
           class="bp3-button-text"
         >
-          delegate.delegateConfiguration
+          delegates.newDelegateConfiguration
         </span>
       </button>
       <span
@@ -373,7 +373,7 @@ exports[`Delegates Configurations Page render data 1`] = `
         <span
           class="bp3-button-text"
         >
-          delegate.delegateConfiguration
+          delegates.newDelegateConfiguration
         </span>
       </button>
       <span
@@ -738,7 +738,7 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
         <span
           class="bp3-button-text"
         >
-          delegate.delegateConfiguration
+          delegates.newDelegateConfiguration
         </span>
       </button>
       <span

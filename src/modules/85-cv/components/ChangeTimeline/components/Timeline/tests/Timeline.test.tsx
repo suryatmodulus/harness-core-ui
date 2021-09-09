@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { Timeline } from '../Timeline'
 import type { TimelineProps } from '../Timeline.types'
+import type { TimelineSliderProps } from '../../TimelineSlider/TimelineSlider.types'
 
 const TimelineRows: TimelineProps['timelineRows'] = [
   {
@@ -63,6 +64,21 @@ const TimelineRows: TimelineProps['timelineRows'] = [
     ]
   }
 ]
+
+jest.mock(
+  '@cv/components/ChangeTimeline/components/TimelineSlider/TimelineSlider',
+  () => (props: TimelineSliderProps) =>
+    (
+      <div>
+        <button
+          className="sliderButton"
+          onClick={() =>
+            props.onSliderDragEnd?.({ endX: 200, startX: 100, endXPercentage: 0.4, startXPercentage: 0.2 })
+          }
+        />
+      </div>
+    )
+)
 
 describe('Unit tests for Timeline', () => {
   test('Ensure component renders correctly', async () => {

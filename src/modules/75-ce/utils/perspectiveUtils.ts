@@ -164,3 +164,31 @@ export const perspectiveDefaultTimeRangeMapper: Record<string, moment.Moment[]> 
   [ViewTimeRangeType.Last_30]: DATE_RANGE_SHORTCUTS.LAST_30_DAYS,
   [ViewTimeRangeType.LastMonth]: DATE_RANGE_SHORTCUTS.LAST_MONTH
 }
+
+export enum ChartState {
+  IN_ACTIVE = 'inactive',
+  NONE = ''
+}
+
+export const highlightNode = (chartRef: React.RefObject<Highcharts.Chart | undefined>, id: string) => {
+  if (chartRef && chartRef.current) {
+    const chart = chartRef.current
+    chart.series?.length > 1 &&
+      chart.series.forEach(chartItem => {
+        const nodeId = (chartItem.options as any).nodeId
+        if (nodeId !== id) {
+          chartItem.setState(ChartState.IN_ACTIVE)
+        }
+      })
+  }
+}
+
+export const resetNodeState = (chartRef: React.RefObject<Highcharts.Chart | undefined>) => {
+  if (chartRef && chartRef.current) {
+    const chart = chartRef.current
+    chart.series &&
+      chart.series.forEach(chartItem => {
+        chartItem.setState(ChartState.NONE)
+      })
+  }
+}

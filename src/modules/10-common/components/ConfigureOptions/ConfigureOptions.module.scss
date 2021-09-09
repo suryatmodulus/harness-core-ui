@@ -19,7 +19,7 @@
 
   .split {
     display: grid;
-    grid-template-columns: 170px 1px 1fr;
+    grid-template-columns: 150px 1px 1fr;
 
     .line {
       border-right: 1px solid var(--grey-250);

@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react'
 import {
-  Text,
+  Button,
+  ButtonSize,
+  ButtonVariation,
   Formik,
+  FormikForm,
   getMultiTypeFromValue,
   Layout,
   MultiTypeInputType,
-  Button,
-  StepProps,
-  ButtonVariation
+  StepProps
 } from '@wings-software/uicore'
-import { Form } from 'formik'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { set } from 'lodash-es'
@@ -93,19 +93,21 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
         }}
       >
         {formik => (
-          <Form>
+          <FormikForm>
             <div className={css.connectorForm}>
-              <div className={css.connectorContainer}>
+              <Layout.Horizontal
+                spacing={'medium'}
+                flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
+                className={css.connectorContainer}
+              >
                 <FormMultiTypeConnectorField
                   name="connectorId"
-                  label={
-                    <Text style={{ marginBottom: 8 }}>{`${selectedConnectorLabel} ${getString('connector')}`}</Text>
-                  }
+                  label={`${selectedConnectorLabel} ${getString('connector')}`}
                   placeholder={`${getString('select')} ${selectedConnectorLabel} ${getString('connector')}`}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
-                  width={410}
+                  width={400}
                   multiTypeProps={{ expressions }}
                   isNewConnectorLabelVisible={false}
                   type={connectorType}
@@ -114,26 +116,27 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                   gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 />
                 {getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME ? (
-                  <div className={css.configureOptions}>
-                    <ConfigureOptions
-                      value={formik.values.connectorId as unknown as string}
-                      type={connectorType}
-                      variableName="connectorRef"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        formik.setFieldValue('connectorId', value)
-                      }}
-                      isReadonly={isReadonly}
-                    />
-                  </div>
+                  <ConfigureOptions
+                    className={css.configureOptions}
+                    value={formik.values.connectorId as unknown as string}
+                    type={connectorType}
+                    variableName="connectorRef"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      formik.setFieldValue('connectorId', value)
+                    }}
+                    isReadonly={isReadonly}
+                  />
                 ) : (
                   <Button
                     variation={ButtonVariation.LINK}
+                    size={ButtonSize.SMALL}
                     id="new-artifact-connector"
                     text={newConnectorLabel}
                     icon="plus"
+                    iconProps={{ size: 12 }}
                     disabled={isReadonly || !canCreate}
                     onClick={() => {
                       handleViewChange()
@@ -142,7 +145,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                     className={css.addNewArtifact}
                   />
                 )}
-              </div>
+              </Layout.Horizontal>
             </div>
             <Layout.Horizontal spacing="xxlarge">
               <Button
@@ -162,7 +165,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                 }
               />
             </Layout.Horizontal>
-          </Form>
+          </FormikForm>
         )}
       </Formik>
     </Layout.Vertical>

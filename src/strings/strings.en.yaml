@@ -85,7 +85,7 @@ selectGitProvider: Select your Git Provider
 selectGitConnectorTypeLabel: 'Select the connector to your {{type}}'
 lastTested: Last Tested
 lastUpdated: Last Updated
-lastConnectionSuccess: Last time connection is successful
+lastConnectionSuccess: Last time connection was successful
 lastActivity: Last Activity
 noDetails: No details found
 connecectorHelpHeader: What is a Connector?
@@ -111,7 +111,7 @@ addStage: Add Stage
 rollbackSteps: Rollback Steps
 noConnectorFound: No Connector Found
 noUserGroupsFound: No User Groups found
-saveConnectorSuccess: Connector saved successfully
+saveConnectorSuccess: Connector saved
 resources: 'Resources'
 kubernetesText: Kubernetes
 kubernetesDirectText: Kubernetes Direct
@@ -137,7 +137,7 @@ serviceDeploymentTypes:
   awsCodeDeploy: CodeDeploy
   winrm: WinRM
   awsLambda: AWS Lambda
-  pcf: PCF
+  pcf: TAS
   ssh: Secure Shell
   deployDifferentLabel: Deploy different service
 noDeploymentText: Your Pipeline does not have any executions yet. Click the button below to run a pipeline.
@@ -167,7 +167,7 @@ buildToolLabel: Build Tool
 languageLabel: Language
 reset: Reset
 archiveFormat: Archive Format
-failIfKeyNotFound: Fail If Key Doesn’t exist
+failIfKeyNotFound: Fail If Key Doesn’t Exist
 override: Override Cache
 pathStyle: Path Style
 risk: Risk
@@ -184,7 +184,7 @@ commits: Commits
 tests: Tests
 pipelineBreadcrumb: '{{$.pipelines}}'
 performance: Performance
-quality: quality
+quality: Quality
 infrastructureText: Infrastructure
 infrastructureTypeText: Infrastructure Type
 update: Update
@@ -232,7 +232,7 @@ newEnvironment: New Environment
 editEnvironment: Edit Environment
 envType: Environment Type
 production: '{{$.common.production}}'
-nonProduction: Non Production
+nonProduction: Non-Production
 primaryArtifactText: Primary Artifact
 artifactDisplay: '{{image}} (tag: #{{tag}})'
 noArtifact: No Artifact
@@ -244,7 +244,7 @@ variablesText: Variables
 fileFolderPathText: File/Folder Path
 chartPath: Chart Path
 pluginPath: Kustomize Plugin Path
-addFileText: + Add File
+addFileText: '{{$.addFile}}'
 lastExecutionTs: 'Last Run'
 lastRunAtDate: '{{$.lastExecutionTs}}'
 emptyDeployments: _ _ _ _ _ _
@@ -259,8 +259,8 @@ newArtifactServer: New Artifact Server
 clickToCopy: Click to copy
 copiedToClipboard: Copied to clipboard
 multipleFilesHelpText:
-  'Multiple files can be overlaid together. They are applied in the order specified - first one gets
-  applied first, and the subsequent ones get layered in the order and overrides any previously
+  'Multiple files can be overlaid together. They are applied in the order specified. The first file is
+  applied first, and the subsequent files are layered in their order and override any previously
   specified values.'
 errorSummaryText: Error Summary
 errorDetails: Error Details
@@ -290,7 +290,7 @@ back: Back
 next: Next
 finish: Finish
 continue: Continue
-addPipeline: + Pipeline
+addPipeline: Add Pipeline
 cancel: Cancel
 close: Close
 duplicate: Duplicate
@@ -300,7 +300,7 @@ confirm: Confirm
 confirmation: Confirmation
 retry: Retry
 search: Search
-deleted: deleted
+deleted: Deleted
 showAll: Show All
 source: Source
 kind: Kind
@@ -314,7 +314,7 @@ encryptedFile: Encrypted File
 encrypted: Encrypted
 newNotification: New Notification
 editNotification: Edit Notification
-addNotification: + Add Notification
+addNotification: Add Notification
 noSearchResultsFoundPeriod: No results found.
 createOrSelectSecret: Create or Select a Secret
 description: Description
@@ -379,10 +379,10 @@ kerberos: 'Kerberos'
 secureToken: 'Secure Token'
 anonymous: 'Anonymous (no credentials required)'
 saveAndContinue: 'Save and Continue'
-errorWhileSaving: 'Error occurred saving'
+errorWhileSaving: 'Error occurred when saving'
 codebase: 'Codebase'
 addressErrorFields: 'Please address all error fields before submitting.'
-invalidYamlText: 'You have provided an invalid or empty yaml, please provide a valid yaml for the pipeline'
+invalidYamlText: 'You have provided invalid or empty YAML. Please provide valid YAML for the Pipeline'
 metricPacks: 'Metric Packs'
 review: 'Review'
 enabledLabel: 'Enabled'
@@ -408,11 +408,11 @@ mapApplicationsToEnvs: Map Applications to Harness Environments
 total: 'Total'
 credentials: Credentials
 editCredentials: Edit Credentials
-createProject: '+ Create Project'
+createProject: 'Create Project'
 pickProject: Pick a project and drill down to see your information.
 orSelectExisting: Or select an existing project
 stageConfirmationText: 'Are you sure you want to delete stage "{{ name }} [Id: {{id}}]"?'
-deletePipelineStage: 'Delete Pipeline Stage.'
+deletePipelineStage: 'Delete Pipeline Stage'
 deleteStageSuccess: 'Pipeline Stage Successfully removed.'
 deleteStageFailure: 'Pipeline Stage cannot be removed.'
 repositoryType: 'Repository Type'
@@ -430,9 +430,9 @@ stepPalette:
   showAllSteps: 'Show All Steps'
   searchPlaceholder: 'Search Step'
 orgDetails:
-  accessControlDescription: Manage users, create user groups and assign roles to your team. Fine tune your permissions with custom roles.
+  accessControlDescription: Manage users, create user groups, and assign roles to your team. Fine tune permissions with custom roles.
   governanceDescription: Precision control over all your Harness resources.
-  resourcesDescription: Manage connectors, secrets, delegates, templates here. Setup account level Git Experience here.
+  resourcesDescription: Manage connectors, secrets, Delegates, and templates here. Set up account-level Git Experience here.
   gitSyncDescription: Connect to your Git repository and track your changes
 createSecretYAML:
   create: '{{ $.create }}'
@@ -451,18 +451,18 @@ filters:
   clearAll: Clear All
   newFilter: New Filter
   typeFilterName: Type filter name
-  nameRequired: filter name cannot be empty
-  visibilityRequired: filter visibility needs to be specified
-  deleteFilterForUser: Deleting a private filter will remove it from your saved filter list. This action can not be undone.
-  deleteFilterForEveryone: Deleting a shared filter will remove it for all users who has access to the project. This action can not be undone.
+  nameRequired: Filter name cannot be empty
+  visibilityRequired: Filter visibility needs to be specified
+  deleteFilterForUser: Deleting a private filter removes it from your saved filter list. This action can not be undone.
+  deleteFilterForEveryone: Deleting a shared filter removes it for all users who have access to the project. This action can not be undone.
   confirmDelete: Confirm Deletion
-  filterDeleted: filter deleted.
-  filterDuplicated: filter duplicated.
+  filterDeleted: Filter deleted.
+  filterDuplicated: Filter duplicated.
   selectFilter: Select a saved filter
   invalidSelection: Invalid selection
-  visibilityTitle: This filter is visible to only me.
+  visibilityTitle: This filter is visible to me only.
   invalidCriteria: Invalid or no filter criteria specified.
-  noDataFound: No data found as per the applied filter(s).
+  noDataFound: No data found using the applied filter(s).
   noFilterFound: No filter found.
   executions:
     pipelineName: Pipeline Name
@@ -488,36 +488,36 @@ inputSets:
   newOverlayInputSet: New Overlay Input Set
   newInputSetLabel: New Input Set
   inputSetSaved: Input Set saved
-  nameIsRequired: Input Set Name is Required field
-  inputSetIsRequired: Input Set field cannot be empty
+  nameIsRequired: Input Set Name is required
+  inputSetIsRequired: Input Set field is required
   inputSetName: Input Set name
   overlaySetName: Overlay Set name
   overlayInputSetSavedError: 'Error while saving Overlay Input Set'
   selectInputSets: Select Input Sets
-  selectInputSetsHelp: Multiple input sets can be overlaid together. They are applied in the order specified - first one gets applied first, and the subsequent ones get layered in the order and overrides any previously specified values.
+  selectInputSetsHelp: Multiple Input Sets can be overlaid together. They are applied in the order specified. The first set is applied first, and subsequent sets are layered in their order and override any previously specified values.
   overlayInputSetSaved: 'Overlay Input Set saved'
   inputSetSavedError: Error while saving Input Set
   searchInputSet: Search Input Set
   addInputSet: Add Input Set
   saveAsInputSet: Save as Input Set
-  aboutInputSets: Input Sets are collections of variables/values that should be provided to a pipeline before execution.
+  aboutInputSets: Input Sets are collections of variables/values that must be provided to a Pipeline at runtime.
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set
   inputFieldSummary: Input Field Summary
-  noRecord: No Input Sets Created
-  selectMultipleInputSets: select multiple input sets
-  helpTextForMultiSelect: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
+  noRecord: No Input Sets created
+  selectMultipleInputSets: Select multiple Input Sets
+  helpTextForMultiSelect: Selected Input Sets will be applied in the order listed. Drag to reorder Input Sets.
   inputSetDeleted: 'Input Set "{{name}}" deleted'
   confirmDeleteText: 'Are you sure want to delete {{type}} "{{name}}"'
 assessment: Assessment
 workflowVariableInfo: 'Override existing variables or define new variables.'
-manifestSelectionInfo: Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the Harness file store.
+manifestSelectionInfo: Specify the locations of the manifests for this service. Harness will fetch the manifests at deployment runtime.
 duration: 'Duration:'
 runPipelineForm:
   pipelineRunSuccessFully: Pipeline started successfully
-  runPipelineFailed: Failed to run pipeline
-  noRuntimeInput: No runtime inputs are required for the execution of this pipeline
-  notifyOnlyMe: Notify only me about the status of the execution
+  runPipelineFailed: Failed to run Pipeline
+  noRuntimeInput: No runtime inputs are required for the execution of this Pipeline
+  notifyOnlyMe: Notify only me about execution status.
 skipped: 'Step has been skipped.'
 skipCondition: 'Skip condition:'
 skipConditionValidation: 'Skip condition is required.'
@@ -530,16 +530,10 @@ skipConditionLabel: If the JEXL condition evaluates to true, skip this step
 skipConditionStageLabel: If the JEXL condition evaluates to true, skip this stage
 skipResourceVersion: 'Skip Resource Versioning'
 skipConditionHelpText: |
-  In the {{ $.common.jexlExpression }}, you could use any of the pipeline variables - including the output of any previous steps.
-  Examples:
-  <+steps.step1.output.result> == “success”
-  <+environment.name> != “QA”
+  In the {{ $.common.jexlExpression }}, you can use any Pipeline variables, including the output of any previous steps.
 skipConditionText: |
-  In the {{ $.common.jexlExpression }}, you could use any of the pipeline variables - including the output of any previous stages.
-  Examples:
-  <+steps.step1.output.result> == “success”
-  <+environment.name> != “QA”
-preRequisitesTitle: Pre-requisites
+  In the {{ $.common.jexlExpression }}, you can use any Pipeline variables, including the output of any previous stages.
+preRequisitesTitle: Prerequisites
 advancedTitle: Advanced
 responseMapping: Response Mapping
 basic: Basic
@@ -549,15 +543,15 @@ image: 'Image:'
 createdAt: 'Created at:'
 username: 'Username'
 password: 'Password'
-navigationYamlErrorTitle: Invalid Yaml Detected
-navigationYamlError: You have provided an invalid yaml, navigating away will remove your changes
+navigationYamlErrorTitle: Invalid YAML Detected
+navigationYamlError: You have provided invalid YAML. Navigating away will remove your changes
 navigationCheckText: 'You have unsaved changes. Are you sure you want to leave this page without saving?'
 navigationCheckTitle: 'Close without saving?'
 continueWithoutSavingTitle: Continue without saving?
 continueWithoutSavingText: 'You have unsaved changes. Are you sure you want to continue without saving?'
 inputSetsText: 'Input Sets'
-projectDescription: A Harness project allows you to logically group your pipelines, environments, and more according to your business objectives.
-noProjects: No projects found
+projectDescription: A Harness Project allows you to logically group your Pipelines, Environments, and more, according to your teams and business goals.
+noProjects: No Projects found
 noRoles: No Roles Found
 string: 'String'
 number: 'Number'
@@ -569,7 +563,7 @@ HTTPS: 'HTTPS'
 SSH: 'SSH'
 SSH_KEY: 'SSH Key'
 version: Version
-goToHome: Go To Home
+goToHome: Go to Home
 governance: 'Governance'
 runPipeline: Run Pipeline
 generalSettings: 'General Settings'
@@ -615,23 +609,23 @@ inputName: Input Name
 outputValue: Output Value
 outputName: Output Name
 notificationMethod: Notification Method
-stepGroupInAnotherStepGroup: Step Group can not be put under another Step Group
+stepGroupInAnotherStepGroup: Step Group cannot be put under another Step Group
 overrideSet:
-  placeholder: Select override sets
+  placeholder: Select Override Sets
   searchInputSet: '{{$.search}}'
-  noRecord: No override sets available
-  selectMultipleInputSets: select multiple override sets
-  helpTextForMultiSelect: Selected overrides will be applied in the order listed. Drag to reorder the override sets.
+  noRecord: No Override Sets available
+  selectMultipleInputSets: Select multiple override sets
+  helpTextForMultiSelect: Selected overrides will be applied in the order listed. Drag the override sets to reorder them.
   inputSet: Override Set
   order: '{{$.order}}'
 pipelines-studio:
   addStep: Add step
   dependenciesGroupTitle: Dependencies
-  addDependency: Add service dependency (optional)
+  addDependency: Add Service Dependency (optional)
   pipelineUpdated: Pipeline Updated
   publishPipeline: 'Pipeline published successfully'
-  errorWhileSaving: Error occurred saving pipeline
-  pipelineUpdatedError: Pipeline is updated in the backend by someone so do you want to take the latest pipeline, this may you loose the local pipeline saved?
+  errorWhileSaving: Error occurred saving Pipeline
+  pipelineUpdatedError: The Pipeline is updated by someone else. Do you want to take the latest Pipeline? You might lose your saved Pipeline settings.
 inputTypes:
   FIXED: Fixed value
   RUNTIME: Runtime input
@@ -671,10 +665,10 @@ secret:
   placeholderSecretValue: 'Add your secret value'
   placeholderSecretReference: 'Add the Identifier of the secret to reference'
   validationName: '{{ $.common.validation.nameIsRequired }}'
-  validationNameChars: 'Name can only contain alphanumerics, _ and $'
+  validationNameChars: 'Name can only contain alphanumerics, _, and $'
   validationValue: '{{ $.common.validation.valueIsRequired }}'
   validationKms: 'Secret Manager is required'
-  validationIdentifier: 'ID is required'
+  validationIdentifier: 'Id is required'
   labelText: 'Text'
   labelFile: 'File'
   labelSecretType: 'Secret type'
@@ -682,18 +676,18 @@ secret:
   configureSecret: 'Configure Secret'
   updateSuccess: 'Secret updated successfully'
 instanceFieldOptions:
-  percentage: 'percentage'
-  instances: 'instances'
+  percentage: 'Percentage'
+  instances: 'Instances'
   percentageText: '% Percentage'
   instanceText: 'Instance Count'
-  percentagePlaceHolder: 'Percentage'
+  percentagePlaceHolder: '{{$.instanceFieldOptions.percentage}}'
   instanceHolder: 'Count'
 connected: Connected
 delegate:
-  numberOfDelegates: 'Number of delegates'
+  numberOfDelegates: 'Number of Delegates'
   delegateSizeUndefined: 'Delegate Size is undefined'
   hostName: 'Hostname'
-  useExistingSelectors: 'Use existing delegate selectors'
+  useExistingSelectors: 'Use existing Delegate selectors'
   verifyDelegateYamlCmnd: '$ kubectl apply -f harness-delegate.yaml'
   delegateNameRequired: 'Delegate Name is Required.'
   delegateSizeRequired: 'Delegate Size is Required.'
@@ -716,48 +710,44 @@ delegate:
   envTypes: Environment types
   initScriptPlaceholder: Enter initialization script...
   enterTags: Enter tags...
-  selectEnvType: Select environment types...
-  selectEnvs: Select environments...
+  selectEnvType: Select Environment types...
+  selectEnvs: Select Environments...
   pendingApproval: Pending Approval
   notConnected: Not Connected
-  newConfiguration: New Delegate Configuration
   delegates: 'Delegates'
-  NEW_DELEGATE: 'New Delegate'
   DelegateName: 'Delegate'
   DelegateSelector: 'Delegate Selector'
   DelegateselectionLabel: 'Setup Delegates'
-  DelegateselectionConnectorText: 'Limit usage of this connector to the delegates which have the following tags'
-  DelegateSelectorErrorMessage: 'Delegate Selector has an invalid expression, it does not include'
-  DelegateSelectorErrMsgSplChars: 'has invalid characters, the selector property cannot contain'
-  Delegate_Selector_placeholder: 'Add specific selectors or leave empty to target any delegate'
+  DelegateselectionConnectorText: 'Limit usage of this connector to the Delegates that have the following Tags'
+  DelegateSelectorErrorMessage: 'Delegate Selector has an invalid expression. It does not include'
+  DelegateSelectorErrMsgSplChars: 'has invalid characters. The Selector property cannot contain'
+  Delegate_Selector_placeholder: 'Add specific Selectors or leave empty to target any Delegate'
   delegateTags: 'Delegate Tags'
   ReturnToDelegates: 'Return to list of Delegates'
-  tagsFromDelegateConfig: 'Tags inherited from the delegate configuration'
-  delegateSpecificTags: 'Delegate Specific Tags'
-  delegateTagDescription:
-    'You can use delegate tags to control if this delegate can be used for executing certain steps in
-    a pipeline'
+  tagsFromDelegateConfig: 'Tags inherited from the Delegate configuration'
+  delegateSpecificTags: 'Delegate-specific Tags'
+  delegateTagDescription: 'Use Delegate Tags to select this Delegate for executing certain steps in a Pipeline'
   LastHeartBeat: 'Last HeartBeat'
-  delegates_4_ways_title: 'Delegates are worker processes that runs on your infrastructure to execute tasks on behalf of the Harness platform. You can run these Delegates in one of 4 ways:'
+  delegates_4_ways_title: 'Delegates are worker processes that run on your infrastructure to execute tasks on behalf of the Harness platform. You can run these Delegates in one of 4 ways:'
   kubernetes:
     prerequisites: 'Kubernetes Prerequisites'
     prerequisites_info1: 'You have access to your Kubernetes cluster and install Harness Delegates as YAML or Helm Chart'
-    prerequisites_info2: 'If you are using Harness SaaS, your machine must be able to connect to Harness SaaS URL: '
+    prerequisites_info2: 'If you are using Harness SaaS, your machine must be able to connect to the Harness SaaS URL: '
     prerequisites_info3: 'Your Kubernetes cluster has unallocated resources required to run the Harness Delegate workload'
     prerequisites_worload: '{{label}} - {{ram}}GB memory, {{cpu}}CPU'
-    permissions_title: 'You will need the following Kubernetes permissions to install the delegate:'
-    permissions_info1: 'Permission to create namespace (For the Harness Delegate namespace)'
-    permissions_info2: 'Permission to create statefulsets (For the Harness Delegate Pod to be created)'
+    permissions_title: 'You need the following Kubernetes permissions to install the Delegate:'
+    permissions_info1: 'Permission to create namespace (for the Harness Delegate namespace)'
+    permissions_info2: 'Permission to create StatefulSets (for the Harness Delegate Pod to be created)'
     url: 'https:app.harness.io:443/'
   stepOneWizard: 'Create Delegate'
   reviewScript:
     configProxySettings: 'Configure Proxy Settings (optional)'
-    descriptionProxySettings: 'If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in harness-delegate.yaml '
+    descriptionProxySettings: 'If the connection to Harness is through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER, and PROXY_PASSWORD in harness-delegate.yaml '
   successVerification:
     applyYAMLTitle: ' Apply YAML and verify connection'
-    description1: 'Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster.'
-    description2: 'Run the following command to apply the Harness delegate to your Kubernetes Cluster'
-    checkDelegateInstalled: Checking if the delegate is installed. It might take several minutes for the installation.
+    description1: 'Copy the downloaded YAML to a machine with kubectl installed and access to your Kubernetes cluster.'
+    description2: 'Run the following command to apply the Harness Delegate to your Kubernetes Cluster'
+    checkDelegateInstalled: Checking if the Delegate is installed. It might take several minutes for the installation.
     heartbeatReceived: Heartbeat received
     delegateInitialized: Delegate initialized
     delegateInstalled: Delegate Installed Successfully
@@ -768,11 +758,11 @@ delegate:
       icon: 'service-dockerhub'
       name: 'Docker'
     kubernetes:
-      text: 'Runs Harness Delegate as a workload on your Kubernetes Cluster.'
+      text: 'Runs Harness Delegate as a workload in your Kubernetes Cluster.'
       value: 'serviceKubernetes'
       icon: 'service-kubernetes'
     amazonECS:
-      text: 'Runs Harness Delegate as an Amazon process.'
+      text: 'Runs Harness Delegate as an Amazon ECS service.'
       value: 'serviceLinux'
       icon: 'service-linux'
       name: 'Amazon ECS'
@@ -789,7 +779,7 @@ delegate:
   instancesCount: '({{count}} of {{total}} instances)'
   deleteDelegate: 'Delete Delegate'
   deleteDelegateConfiguration: 'Delete Delegate Configuration'
-  deleteDelegateConfigurationQuestion: 'Are you sure you want to delete the configuration '
+  deleteDelegateConfigurationQuestion: 'Are you sure you want to delete the configuration?'
   deleteDelegateConfigurationSuccess: 'Delegate Configuration {{ profileName }} deleted'
 execution:
   pipelineIdentifierTextCI: '(Build ID: {{runSequence}})' # Text for Pipeline Identifier
@@ -800,31 +790,31 @@ execution:
   stepLogs: Step Logs
   consoleLogs: Console Logs
 pre-flight-check:
-  preFlightCheckTitle: 'Pre-flight check'
-  errorFoundCounter: '{{errorCount}} error found'
+  preFlightCheckTitle: 'Preflight check'
+  errorFoundCounter: '{{errorCount}} errors found'
   possibleCauses: 'Possible causes:'
   resolution: 'Resolution:'
-  gettingConnectorResult: 'Getting connector results'
-  couldNotVerifyConnectors: 'Could not verify connectors'
-  connectorLocationInPipeline: 'Connector location in the pipeline'
+  gettingConnectorResult: 'Getting Connector results'
+  couldNotVerifyConnectors: 'Could not verify Connectors'
+  connectorLocationInPipeline: 'Connector location in the Pipeline'
   stepColon: 'Step:'
   stageColon: 'Stage:'
-  couldNotVerifyInputSets: Could not verify input sets
+  couldNotVerifyInputSets: Could not verify Input Sets
   gettingResults: Getting results
-  continueToRunPipeline: Ignore the errors and continue to run pipeline
-  skipCheckBtn: Skip pre-flight check
-  skipCheckInfo: You can skip pre-flight check and continue to run your pipeline
-  verifyingPipelineInputs: Verifying pipeline inputs
-  verifyingConnectors: Verifying connectors
-titleOptional: '(OPTIONAL)'
+  continueToRunPipeline: Ignore the errors and continue to run Pipeline
+  skipCheckBtn: Skip preflight check
+  skipCheckInfo: You can skip the preflight check and continue to run your Pipeline
+  verifyingPipelineInputs: Verifying Pipeline inputs
+  verifyingConnectors: Verifying Connectors
+titleOptional: '(Optional)'
 executionList:
-  servicesDeployedText: 'Services Deployed ({{size}})'
+  servicesDeployedText: 'Services deployed ({{size}})'
 moduleRenderer:
   start: No modules-specific data
-  newPipeLine: Create New Pipeline
+  newPipeLine: Create new Pipeline
   viewPipelines: View Pipelines
-  setupChanges: Set Up Change Sources
-  monitoringSources: Set Up Monitoring Sources
+  setupChanges: Set up Change Sources
+  monitoringSources: Set up Monitoring Sources
 
 settingsLabel: 'Settings'
 pipelineSteps:
@@ -835,22 +825,22 @@ pipelineSteps:
   environmentTab:
     specifyYourEnvironment: Specify Environment
     selectEnvironment: '- Select Environment -'
-    newEnvironment: + New Environment
-    environmentIsRequired: Environment is a required field
+    newEnvironment: '{{$.newEnvironment}}'
+    environmentIsRequired: Environment is required
   serviceTab:
     specifyYourService: Specify Service
     selectService: '- Select Service -'
-    newService: + New Service
-    serviceIsRequired: Service is a required field
+    newService: '{{$.newService}}'
+    serviceIsRequired: Service is required
     aboutYourService: About the Service
     artifactList:
-      addSidecar: + Add Sidecar
-      addPrimary: + Add Primary Artifact
+      addSidecar: Add Sidecar
+      addPrimary: Add Primary Artifact
     manifestList:
-      manifestFormat: MANIFEST FORMAT
-      manifestType: MANIFEST TYPE
-      manifestStore: STORE
-      addManifest: + Add Manifest
+      manifestFormat: Manifest Format
+      manifestType: Manifest Type
+      manifestStore: '{{$.store}}'
+      addManifest: Add Manifest
   destroy: 'Destroy'
   configTypes:
     fromPlan: 'Inherit From Plan'
@@ -894,22 +884,22 @@ pipelineSteps:
   artifactsTargetPlaceholder: path/in/bucket
   outputVariablesLabel: 'Output Variables'
   sourcePathLabel: 'Source Path'
-  optionalConfiguration: 'OPTIONAL CONFIGURATIONS'
+  optionalConfiguration: 'Optional configurations'
   pullLabel: 'Image Pull Policy'
   pullInfo: |
     Determine the pull policy of the Docker image:
-    The default behavior is downloading an image if it doesn’t exist in the local cache, unless the “latest” tag is used either explicitly or implicitly.
-    “If not exists” - only pull the image if not found in the local cache.
-    “always” - always pull the newest version of the image.
-    “never” - always use image from local cache, if available.
-  pullIfNotExistsLabel: 'If not exists'
+    The default behavior is to download an image if it doesn’t exist in the local cache, unless the “latest” tag is used either explicitly or implicitly.
+    “Does not exist” - Only pull the image if it's not found in the local cache.
+    “Always” - Always pull the newest version of the image.
+    “Mever” - Always use the image from local cache, if available.
+  pullIfNotExistsLabel: 'Does not exist'
   pullNeverLabel: 'Never'
   pullAlwaysLabel: 'Always'
   sourcePathsLabel: 'Source Paths'
   sourcePathsInfo: 'A list of files. Expressions are supported. For example: target/*.jar'
   pomFileLabel: 'POM File'
   pomFileInfo: Path to the pom.xml file
-  setContainerResources: 'Set container Resources'
+  setContainerResources: 'Set container resources'
   limitMemoryLabel: 'Limit Memory'
   limitMemoryPlaceholder: '128Mi'
   limitCPULabel: 'Limit CPU'
@@ -928,7 +918,7 @@ pipelineSteps:
   manifestPathLabel: 'Manifest Path'
   manifestPathValue: 'ManifestPath'
   deleteResourcesBy: 'Delete resources by'
-  deleteResourcesPlaceHolder: 'Specify resources to be delete'
+  deleteResourcesPlaceHolder: 'Specify resources to delete'
   manifestPathsPlaceHolder: 'Specify file paths'
   deleteNamespaceWarning: 'Warning: Ensure that you are not deleting a namespace that is used by other deployments'
   typeName: 'instanceType'
@@ -959,18 +949,18 @@ pipelineSteps:
   methodIsRequired: Method is required
   build:
     delete:
-      confirmDeleteTitle: 'Are you sure you want to remove this stage '
-      deleteStageText: 'You are removing a stage that is dependency for other stages. Removing this stage will clear configuration for following stages:'
+      confirmDeleteTitle: 'Are you sure you want to remove this stage?'
+      deleteStageText: 'You are removing a stage that is dependency for other stages. Removing this stage will clear configuration for the following stages:'
     create:
       aboutYourStage: 'About your stage'
       stageNameRequiredError: 'Stage Name is required'
-      stageNameRegExpError: 'Stage Name can only contain alphanumerics, _ and $'
-      stageDescriptionRegExpError: 'Stage Description can only contain alphanumerics, _ and $'
+      stageNameRegExpError: 'Stage Name can only contain alphanumerics, _, and $'
+      stageDescriptionRegExpError: 'Stage Description can only contain alphanumerics, _, and $'
       configureCodebase: 'Configure Codebase'
       configureCodebaseHelperText: 'Connect Harness with your code repo.'
-      connectorRequiredError: 'Connector is required'
+      connectorRequiredError: '{{$.validation.sshConnectorRequired}}'
       repositoryNameLabel: 'Repository Name'
-      repositoryUrlWrongUrlError: 'Please enter valid URL'
+      repositoryUrlWrongUrlError: 'Please enter a valid URL'
       repositoryUrlRequiredError: 'Repository URL is required'
       setupStage: 'Set Up Stage'
 
@@ -978,14 +968,14 @@ pipelineSteps:
       variableNamePlaceholder: 'Enter Variable name'
       sharedPaths: 'Shared Paths'
       addSharedPath: '+ Path'
-      addDescription: 'description'
-      addTags: 'tags'
-      variablesCell: 'VARIABLES'
-      valueCell: 'VALUE'
+      addDescription: '{{$.description}}'
+      addTags: '{{$.tagsLabel}}'
+      variablesCell: '{{$.variablesText}}'
+      valueCell: '{{$.valueLabel}}'
     infraSpecifications:
       whereToRun: Where do you want the builds to run?
       propagate: 'Propagate from an existing stage'
-      newConfiguration: 'New Configuration'
+      newConfiguration: 'New configuration'
       kubernetesClusterPlaceholder: 'Select Kubernetes Cluster'
       namespace: '{{$.common.namespace}}'
   deploy:
@@ -1004,58 +994,58 @@ pipelineSteps:
         artifacts: '{{ $.artifacts }}'
         manifests: '{{ $.manifests }}'
     infrastructure:
-      infraDefinition: Infrastructure definition
+      infraDefinition: Infrastructure Definition
       selectMethod: Select the best method for Harness to reach your Kubernetes Cluster.
       directConnection: Direct Connection
       viaCloudProvider: Via Cloud Provider
     provisioner:
-      enableProvisionerLabel: Provision your infrastructure dynamically during the execution of your pipeline
+      enableProvisionerLabel: Provision your target infrastructure dynamically during the execution of your Pipeline
   feature:
     create:
       featureStageName: Feature Flag
-      specifyEnvironment: Specify the environment
+      specifyEnvironment: Specify the Environment
       whatIsFor: What is your flag used for?
 
 validation:
-  thisIsARequiredField: This is a required field
-  nameRequired: Name is a required field
-  connectorName: Connector name is a required field
-  stepNameRequired: Step Name is a required field
-  identifierRequired: Identifier is a required field
+  thisIsARequiredField: This setting is required
+  nameRequired: Name is required
+  connectorName: Connector name is required
+  stepNameRequired: '{{$.pipelineSteps.stepNameRequired}}'
+  identifierRequired: Identifier is required
   identifierDuplicate: Stage with same identifier already exists
-  connectorRefRequired: Container Registry is a required field
-  AWSConnectorRefRequired: AWS connector is a required field
-  GCPConnectorRefRequired: GCP connector is a required field
-  dockerHubConnectorRefRequired: Docker Connector is a required field
-  imageRequired: Image is a required field
-  commandRequired: Command is a required field
-  limitCPUMinNumberZero: Limit CPU must be greater than or equal to 0
-  keyRequired: Key is a required field
-  valueRequired: Value is a required field
+  connectorRefRequired: Container Registry is required
+  AWSConnectorRefRequired: AWS Connector is required
+  GCPConnectorRefRequired: GCP Connector is required
+  dockerHubConnectorRefRequired: Docker Connector is required
+  imageRequired: Image is required
+  commandRequired: Command is required
+  limitCPUMinNumberZero: CPU limit must be greater than or equal to 0
+  keyRequired: Key is required
+  valueRequired: Value is required
   branchName: 'Branch Name is required'
   commitId: 'Commit Id is required'
-  validIdRegex: Identifier must start with an alphabet or _ and can then be followed by alphanumerics, _ or $
+  validIdRegex: Identifier must start with an letter or _ and can then be followed by alphanumerics, _, or $
   # Replace if validIdRegex will apply the same rules
   validStepIdRegex: Identifier can only contain alphanumerics and _
   validKeyRegex: Keys can only contain alphanumerics and _
   validOutputVariableRegex: Output variables can only contain alphanumerics and _
   validReportPathRegex: Report paths should end with .xml
-  validStepNameRegex: Step Name can only contain alphanumerics, spaces, _ and -
+  validStepNameRegex: Step Name can only contain alphanumerics, spaces, _, and -
   illegalIdentifier: 'Identifier must not be one of the following values: or, and, eq, ne, lt, gt, le, ge, div, mod, not, null, true, false, new, var, return'
   uniqueStepAndServiceDependenciesId: Identifier should be unique across the steps and service dependencies
   uniqueKeys: Keys should be unique
   uniqueValues: Values should be unique
-  matchPattern: Invalid value, please look for info above to read more
-  duplicateIdError: 'Failed to create connector: {{ connectorName }}. There is already a connector with identifier {{ connectorIdentifier }} present or soft deleted. Please provide a new unique identifier and save again.'
-  username: 'Username is a required field'
-  password: 'Password is a required field'
-  accountName: Account Name is a required field
-  authType: 'Auth type is required'
+  matchPattern: Invalid value. See info above to learn more
+  duplicateIdError: 'Failed to create Connector: {{ connectorName }}. There is already a Connector with identifier {{ connectorIdentifier }} present or soft deleted. Please provide a new unique identifier and save again.'
+  username: 'Username is required'
+  password: 'Password is required'
+  accountName: Account Name is required
+  authType: 'Authentication type is required'
   masterUrl: 'Master URL is required'
   orgValidation: Organization is required
   serviceAccountToken: 'Service Account Token is required'
   OIDCIssuerUrl: 'OIDC Issuer URL is required'
-  OIDCUsername: 'OIDC username is required'
+  OIDCUsername: 'OIDC Username is required'
   OIDCPassword: 'OIDC Password is required'
   OIDCClientId: 'OIDC Client ID is required'
   OIDCSecret: 'OIDC Secret is required'
@@ -1077,51 +1067,51 @@ validation:
   appRole: 'App Role ID is required'
   sshKey: SSH key is required
   kerberosKey: Kerberos key is required
-  privateKey: 'GitHub Private Key is required'
+  privateKey: 'GitHub private key is required'
   accessToken: Access token is required
   dockerRegistryUrl: 'Docker Registry URL is required'
   helmRepoUrl: 'Helm Repo URL is required.'
-  jiraUrl: 'Jira Url is required.'
+  jiraUrl: 'Jira URL is required.'
   registryHostname: 'GCR Registry URL is required'
   nexusServerURL: 'Nexus URL is required'
   nexusVersion: 'Version is required'
   artifactoryServerURL: 'Artifactory URL is required'
-  timeout10SecMinimum: 'Min Timeout is 10 Seconds'
-  tagsRequired: Tags is a required field
-  environmentVariablesRequired: Environment Variables is a required field
-  settingsRequired: Settings is a required field
-  labelsRequired: Labels is a required field
-  buildArgsRequired: Build Arguments is a required field
-  imageNameRequired: Image Name is a required field
-  regionRequired: Region is a required field
-  dockerRegistryRequired: Docker Registry is a required field
-  accountRequired: Account ID is a required field
-  bucketRequired: Bucket is a required field
-  sourcePathRequired: Source Path is a required field
-  targetRequired: Target is a required field
-  sourcePathsRequired: Source Paths is a required field
-  hostRequired: Host is a required field
-  projectIDRequired: Project ID is a required field
-  scriptTypeRequired: Script Type is required field
-  targethostRequired: 'Target host is required field'
-  workingDirRequired: 'Working Directory is required field'
-  sshConnectorRequired: 'Connector is required field'
-  gitServerRequired: 'Git server is a required field'
+  timeout10SecMinimum: 'Min Timeout is 10 seconds'
+  tagsRequired: Tags is required
+  environmentVariablesRequired: Environment Variables is required
+  settingsRequired: Settings is required
+  labelsRequired: Labels is required
+  buildArgsRequired: Build Arguments is required
+  imageNameRequired: Image Name is required
+  regionRequired: Region is required
+  dockerRegistryRequired: Docker Registry is required
+  accountRequired: Account ID is required
+  bucketRequired: Bucket is required
+  sourcePathRequired: Source Path is required
+  targetRequired: Target is required
+  sourcePathsRequired: Source Paths is required
+  hostRequired: Host is required
+  projectIDRequired: Project ID is required
+  scriptTypeRequired: Script Type is required
+  targethostRequired: 'Target host is required'
+  workingDirRequired: 'Working Directory is required'
+  sshConnectorRequired: 'Connector is required'
+  gitServerRequired: 'Git server is required'
   urlIsNotValid: 'URL is not valid'
   notificationNameDuplicate: Notification with same name already exists
-  artifactServerRequired: Artifact Server is a required field
-  minLengthRequired: Minimum Length is a required field
+  artifactServerRequired: Artifact Server is required
+  minLengthRequired: Minimum Length is required
 
 yamlBuilder:
   enableEditContext: Editor is currently in read-only mode. Do you want to enable edit mode?
   lineNumberLabel: On line number
-  yamlError: Invalid or malformed yaml. Please fix the yaml and try again.
+  yamlError: Invalid or malformed YAML. Please fix the YAML and try again.
   snippets:
     noSnippetsFound: No snippets found.
 activityHistory:
   successfulActivity: Successful Activity
   failedActivity: Failed Activity
-  heartbeatFailure: Heart beat Failure
+  heartbeatFailure: Heartbeat Failure
   connectivityCheck: Connectivity Check
   connectivityCheckFailed: Connectivity Check Failed
   createdSuccessfully: Created Successfully
@@ -1130,18 +1120,17 @@ activityHistory:
 none: 'None'
 
 pipeline-list:
-  aboutPipeline: Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.
+  aboutPipeline: Pipelines define your release process using multiple steps and approvals in sequential and/or parallel stages.
   listStages: '{{ $.stages }}'
   createPipeline: '+ Create Pipeline'
   confirmDeleteTitle: Delete Pipeline
   pipelineDeleted: Pipeline {{name}} deleted
   readyToRun: Ready To Run
 variables:
-  copyVariableName: copy variable name
-  copyFqn: copy fully qualified name
+  copyVariableName: Copy variable name
+  copyFqn: Copy fully qualified name
 customVariables:
   pipelineVariablesTitle: Pipeline Variables
-  pipelineVariablesDescription: Every aspect of the pipeline configuration is represented in pipeline variables and its corresponding values. These variables can be referenced within stages and step. Custom variables may be added whose values are prompted for during the execution of this pipeline
   title: Custom Variables
   variableAndType: '{{name}} [Type: {{type}}]'
 

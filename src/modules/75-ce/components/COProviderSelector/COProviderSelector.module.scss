@@ -1,6 +1,6 @@
 .providersViewGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 70px);
   grid-template-rows: 1fr;
   grid-column-gap: var(--spacing-xlarge);
   grid-row-gap: 0px;
@@ -28,12 +28,13 @@
   }
 }
 .instanceTypeNameGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: grid !important;
+  grid-template-columns: repeat(4, 70px);
   grid-template-rows: 1fr;
-  grid-column-gap: 50px;
+  grid-column-gap: var(--spacing-large);
   grid-row-gap: 0px;
-  margin-left: var(--spacing-large) !important;
+  text-align: center;
+  // margin-left: var(--spacing-large) !important;
 }
 .breadCrumb {
   background: var(--blue-100);

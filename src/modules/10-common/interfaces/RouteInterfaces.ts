@@ -147,3 +147,7 @@ export interface ServiceAccountPathProps {
 export interface ModuleCardPathParams {
   moduleCard?: Module
 }
+
+export interface TemplateStudioPathParams {
+  templateIdentifier?: string
+}

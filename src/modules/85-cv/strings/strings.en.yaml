@@ -435,7 +435,6 @@ activitySources:
   harnessCD:
     defaultName: 'My Harness CD'
     select: 'Select your Change Source'
-    selectActivitySource: 'Select Change Source'
     selectApplication: 'Select Applications'
     selectEnvironment: 'Select Environments'
     selectService: 'Select Services'
@@ -532,9 +531,9 @@ monitoredServices:
   title: Monitored Services
   filterlabel: 'Environment:'
   noData: No Monitored Service
-  nameValidation: Monitored service name is required
-  environmentValidation: Environment is required
-  serviceValidation: Service is required
+  nameValidation: Monitored Service Name is required
+  environmentValidation: '{{$.pipelineSteps.environmentTab.environmentIsRequired}}'
+  serviceValidation: '{{$.pipelineSteps.serviceTab.serviceIsRequired}}'
   serviceAndEnvironment: Service And Environment
   monitoredServiceDetails: Monitored Service Details
   monitoredServiceName: Monitored service name
@@ -554,6 +553,8 @@ monitoredServices:
     last7Days: '{{ $.common.last7days }}'
     overallHealthScore: Overall Health Score
     noDataAvailableForHealthScore: No data available for health score
+    selectTimeline: Select a timeline to see metric & logs data
+    metricsAndLogs: Metrics & Logs
   monitoredServiceTabs:
     serviceHealth: Service Health
     configurations: Configurations
@@ -567,14 +568,32 @@ monitoredServices:
     lastestHealthTrend: Last 24 HR Health Trends
     serviceHealthScore: service Health Score
     healthMonitoring: Health Monitoring
+    changes: Changes (Last 24H)
+changeSource:
+  alertText: Alert
+  noData: No Change Sources Present
+  addChangeSource: Add New Change Source
+  selectChangeSource: Select Change Source
+  defineChangeSource: Define Change Sources
+  connectChangeSource: Connect Change Source
+  sourceName: Source Name
+  editChangeSource: Edit Change Source
+  duplicateIdentifier: identifier already exist
+  selectChangeSourceName: Select change source name
+  selectChangeSourceProvider: Select change source provider
+  selectChangeSourceType: Select change source type
+  PageDuty:
+    pagerDutyService: PagerDuty Service
+    selectPagerDutyService: Select PageDuty Service
+    pagerDutyEmptyService: No service available for {{ connector }}
 healthSource:
   nameLabel: Health Source Name
   namePlaceholder: Type your health source name
   featureLabel: Select Feature
   noData: No Health Sources Present
   featurePlaceholder: Select your {{ sourceType }} feature
-  environmentLabel: Create or Select Environment(s)
-  serviceLabel: Create or Select a Service
+  environmentLabel: Create or select an Environment
+  serviceLabel: Create or select a Service
   addHealthSource: Add New Health Source
   editHealthSource: Edit Health Source
   backtoMonitoredService: Back to monitored service

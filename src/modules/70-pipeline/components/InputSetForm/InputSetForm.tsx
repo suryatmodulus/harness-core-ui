@@ -294,7 +294,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     }
   }, [inputSetIdentifier])
 
-  useDocumentTitle([getString('pipelines'), getString('inputSetsText')])
+  useDocumentTitle([
+    parse(pipeline?.data?.yamlPipeline || '')?.pipeline?.name || getString('pipelines'),
+    isEdit ? inputSetResponse?.data?.name || '' : getString('inputSets.newInputSetLabel')
+  ])
 
   const handleModeSwitch = React.useCallback(
     (view: SelectedView) => {

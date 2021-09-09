@@ -31,3 +31,7 @@ export const getRoutePathByType = (type: DSConfig['type'] | ActivitySourceDTO['t
       return ''
   }
 }
+
+export const editParams = {
+  identifier: ':identifier'
+}

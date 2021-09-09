@@ -11,6 +11,7 @@ import {
   ModalErrorHandlerBinding,
   Text,
   TextInput,
+  Checkbox,
   ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
@@ -18,7 +19,7 @@ import moment from 'moment'
 import copy from 'copy-to-clipboard'
 import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Callout, Checkbox } from '@blueprintjs/core'
+import { Callout } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { TokenDTO, useCreateToken, useUpdateToken } from 'services/cd-ng'

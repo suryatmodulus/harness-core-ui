@@ -73,7 +73,7 @@ const transformServiceDetailsData = (data: ServiceDetailsDTO[]): ServiceListItem
     },
     lastDeployment: {
       name: item.lastPipelineExecuted?.name || '',
-      id: item.lastPipelineExecuted?.identifier || '',
+      id: item.lastPipelineExecuted?.pipelineExecutionId || '',
       timestamp: item.lastPipelineExecuted?.lastExecutedAt || 0,
       status: item.lastPipelineExecuted?.status || ''
     }

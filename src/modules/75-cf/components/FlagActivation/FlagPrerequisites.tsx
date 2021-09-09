@@ -59,6 +59,9 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
   const { getString } = useStrings()
   const { orgIdentifier, accountId, projectIdentifier, environmentIdentifier } = useParams<Record<string, string>>()
   const [searchTerm, setSearchTerm] = useState<string>()
+
+  const PAGE_SIZE = 500
+
   const queryParams = useMemo(
     () => ({
       environment: environmentIdentifier !== 'undefined' ? environmentIdentifier : '',
@@ -66,7 +69,8 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
       account: accountId,
       accountIdentifier: accountId,
       org: orgIdentifier,
-      name: searchTerm
+      name: searchTerm,
+      pageSize: PAGE_SIZE
     }),
     [searchTerm]
   )
@@ -77,12 +81,16 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
     refetch: fetchFlags
   } = useGetAllFeatures({
     lazy: true,
-    queryParams
+    queryParams,
+    debounce: 500
   })
+
   const featureList = useMemo(() => {
-    return searchedFeatures?.features?.filter(_feature => _feature.identifier !== featureFlag.identifier)
+    return searchedFeatures?.features?.filter(_feature => _feature.identifier !== featureFlag.identifier) || []
   }, [featureFlag.identifier, searchedFeatures?.features?.filter])
+
   const [isEditingPrerequisites, setEditingPrerequisites] = useState<boolean>(false)
+
   const { mutate: patchPrerequisites } = usePatchFeature({
     identifier: featureFlag.identifier as string,
     queryParams: {
@@ -93,6 +101,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
       org: orgIdentifier
     } as PatchFeatureQueryParams
   })
+
   const handlePrerequisiteInteraction = (action: 'edit' | 'delete', prereq: Prerequisite) => () => {
     if (action === 'delete') {
       patch.feature.addInstruction(patch.creators.removePrerequisite(prereq.feature))
@@ -229,6 +238,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
                                     }
                                   }}
                                 />
+
                                 <FormInput.Select
                                   name={`prerequisites.${i}.variation`}
                                   placeholder={getString('cf.addPrerequisites.selectVariation')}

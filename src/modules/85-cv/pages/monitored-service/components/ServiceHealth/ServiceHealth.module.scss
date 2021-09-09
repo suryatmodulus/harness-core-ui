@@ -21,20 +21,10 @@
   justify-content: space-between;
 }
 
-.healthScoreCardContainer {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-right: var(--spacing-large) !important;
-}
-
-.healthScoreCard {
-  height: 31px;
-  width: 31px;
-  border-radius: var(--spacing-xsmall);
-  font-size: var(--font-size-small);
-  padding-top: var(--spacing-small);
-  color: var(--white);
-  text-align: center;
-  margin-right: var(--spacing-small);
+.main {
+  position: relative;
+  .slider {
+    height: 82% !important;
+    padding-top: var(--spacing-xlarge);
+  }
 }

@@ -3,7 +3,7 @@
 exports[`Role Details Page Click on Resource Type 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main container xlarge StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -386,7 +386,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                       class="permissionList"
                     >
                       <label
-                        class="bp3-control bp3-checkbox bp3-disabled checkbox"
+                        class="bp3-control bp3-checkbox bp3-disabled StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
                       >
                         <input
                           checked=""
@@ -492,7 +492,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
 exports[`Role Details Page render data 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main container xlarge StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -875,7 +875,7 @@ exports[`Role Details Page render data 1`] = `
                       class="permissionList"
                     >
                       <label
-                        class="bp3-control bp3-checkbox bp3-disabled checkbox"
+                        class="bp3-control bp3-checkbox bp3-disabled StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
                       >
                         <input
                           data-testid="checkBox-ORGANIZATION-view"

@@ -57,6 +57,7 @@ const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => 
         resourceGroup: {
           label: roleAssignment.resourceGroupName || '',
           value: roleAssignment.resourceGroupIdentifier || '',
+          managedRoleAssignment: roleAssignment.managedRoleAssignment,
           assignmentIdentifier: roleAssignment.identifier
         }
       }

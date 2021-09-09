@@ -23,7 +23,10 @@ declare const styles: {
   readonly pipelineIcon: string
   readonly gitDetails: string
   readonly repoDetails: string
+  readonly repoName: string
+  readonly folderName: string
   readonly branchDetails: string
+  readonly branchName: string
   readonly branchSelector: string
   readonly runPipelineDialog: string
   readonly modalCard: string

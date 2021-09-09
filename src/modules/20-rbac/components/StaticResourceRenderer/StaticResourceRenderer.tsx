@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react'
-import { Button, Table } from '@wings-software/uicore'
+import { Button } from '@wings-software/uicore'
 import type { CellProps, Column } from 'react-table'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import Table from '@common/components/Table/Table'
 import type { ResourceHandlerTableData } from '../ResourceHandlerTable/ResourceHandlerTable'
 
 interface StaticResourceRendererProps<T extends ResourceHandlerTableData> {
@@ -42,7 +43,7 @@ const StaticResourceRenderer = <T extends ResourceHandlerTableData>({
     [onResourceSelectionChange, resourceType]
   )
 
-  return <Table<T> columns={staticResourceColumns} data={data} bpTableProps={{ bordered: false }} hideHeaders={true} />
+  return <Table<T> columns={staticResourceColumns} data={data} minimal hideHeaders={true} />
 }
 
 export default StaticResourceRenderer

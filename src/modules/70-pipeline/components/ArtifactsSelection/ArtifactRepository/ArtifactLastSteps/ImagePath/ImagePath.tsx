@@ -37,7 +37,8 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   initialValues,
   previousStep,
   artifactIdentifiers,
-  isReadonly = false
+  isReadonly = false,
+  selectedArtifact
 }) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -45,7 +46,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   const [tagList, setTagList] = React.useState([])
   const [lastImagePath, setLastImagePath] = React.useState('')
 
-  const primarySchema = Yup.object().shape({
+  const schemaObject = {
     imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
@@ -56,24 +57,17 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
       is: 'value',
       then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
     })
-  })
+  }
+
+  const primarySchema = Yup.object().shape(schemaObject)
 
   const sidecarSchema = Yup.object().shape({
+    ...schemaObject,
     ...ArtifactIdentifierValidation(
       artifactIdentifiers,
       initialValues?.identifier,
       getString('pipeline.uniqueIdentifier')
-    ),
-    imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
-    tagType: Yup.string().required(),
-    tagRegex: Yup.string().when('tagType', {
-      is: 'regex',
-      then: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.tagRegex'))
-    }),
-    tag: Yup.mixed().when('tagType', {
-      is: 'value',
-      then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
-    })
+    )
   })
 
   const {
@@ -117,23 +111,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
 
   const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
 
-  const getInitialValues = (): ImagePathTypes => {
-    const specValues = get(initialValues, 'spec', null)
-    if (specValues) {
-      const values = {
-        ...specValues,
-        tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
-      }
-      if (getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
-        values.tag = { label: specValues?.tag, value: specValues?.tag }
-      }
-      if (context === 2 && initialValues?.identifier) {
-        values.identifier = initialValues?.identifier
-      }
-
-      return values
-    }
-
+  const defaultStepValues = (): ImagePathTypes => {
     return {
       identifier: '',
       imagePath: '',
@@ -141,6 +119,27 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
       tagType: TagTypes.Value,
       tagRegex: ''
     }
+  }
+
+  const getInitialValues = (): ImagePathTypes => {
+    const specValues = get(initialValues, 'spec', null)
+
+    if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
+      return defaultStepValues()
+    }
+
+    const values = {
+      ...specValues,
+      tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
+    }
+    if (getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
+      values.tag = { label: specValues?.tag, value: specValues?.tag }
+    }
+    if (context === 2 && initialValues?.identifier) {
+      values.identifier = initialValues?.identifier
+    }
+
+    return values
   }
 
   const fetchTags = (imagePath = ''): void => {

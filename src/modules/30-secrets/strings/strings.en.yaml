@@ -12,6 +12,7 @@ typeSSH: 'Execution Credential'
 stepTitleVerify: 'Verify Connection'
 blank: '{{$.common.blank}}'
 labelSecretName: 'Secret Name'
+noSecrets: There are no secrets in your {{resourceName}}
 
 sshAuthFormFields:
   optionKey: 'Username/SSH Key'
@@ -40,7 +41,7 @@ createSSHCredWizard:
   hostnameInfo: 'This URL will only be used for verification process'
   btnVerifyConnection: '{{$.common.labelTestConnection}}'
   validatePort: 'Port is required'
-  validateUsername: 'Username is required'
+  validateUsername: '{{$.validation.username}}'
   validateKeypath: 'Key path is required'
   validateSshKey: 'Key file is required'
   validatePrincipal: 'Principal is required'

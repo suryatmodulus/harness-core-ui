@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { OptionsStackingValue } from 'highcharts'
 import moment from 'moment'
 import { Icon } from '@wings-software/uicore'
@@ -32,6 +32,15 @@ const GetChart: React.FC<GetChartProps> = ({
   showLegends
 }) => {
   const [chartObj, setChartObj] = useState<Highcharts.Chart | null>(null)
+
+  const [forceCounter, setForceCounter] = useState(0)
+
+  useEffect(() => {
+    // When the chart data changes the legend component is not getting updated due to no deps on data
+    // This setForceCounter ensures that it is taken care of when chart data is changing.
+    // This fixes the use case of sorting chart based column sequence of the grid.
+    setForceCounter(forceCounter + 1)
+  }, [chart])
 
   const xAxisOptions: Highcharts.XAxisOptions = {
     type: 'datetime',

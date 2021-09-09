@@ -7,7 +7,7 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
     style="width: 90%;"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-large StyledProps--main ciPlans"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main plans"
     >
       <div
         class="Layout--vertical StyledProps--main"
@@ -35,103 +35,35 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
         >
           <div
-            class="bp3-card bp3-elevation-0 Card--card plan ciBackground"
+            class="bp3-card bp3-elevation-0 Card--card plan"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
               <div
-                class="icon primary6"
+                class="icon ciColor"
               />
               <p
-                class="StyledProps--font StyledProps--main primary6 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
-              >
-                Community
-              </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
-              />
-              <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-                type="button"
-              >
-                <span
-                  class="bp3-button-text"
-                >
-                  Download
-                </span>
-              </button>
-              <p
-                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
-              />
-              <ul
-                class="ul"
-              >
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    On-premises only
-                  </p>
-                </li>
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    Kubernetes, VMs, Serverless, Custom
-                  </p>
-                </li>
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    Deployment verification
-                  </p>
-                </li>
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    5 workloads
-                  </p>
-                </li>
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    10 deployments/day
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div
-            class="bp3-card bp3-elevation-0 Card--card plan ciBackground"
-          >
-            <div
-              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-            >
-              <div
-                class="icon primary6"
-              />
-              <p
-                class="StyledProps--font StyledProps--main primary6 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main ciColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
               >
                 Free
               </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
-              />
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $0
+                  </p>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                />
+              </div>
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="button"
@@ -139,12 +71,14 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
                 <span
                   class="bp3-button-text"
                 >
-                  Create A Free Account
+                  Coming Soon
                 </span>
               </button>
               <p
                 class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
-              />
+              >
+                Fully-managed Service to help you get started - Perfect for Small Teams
+              </p>
               <ul
                 class="ul"
               >
@@ -152,67 +86,99 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    On-premises only
+                    Limited to 2500 Builds (then 100 Builds per month)
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Kubernetes, VMs, Serverless, Custom
+                    Integrated Platform with CD, FF & CCM modules
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Deployment verification
+                    Build Health & Execution Dashboards
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    5 workloads
-                  </p>
-                </li>
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    10 deployments/day
+                    Git Experience (Pipeline as code) & REST APIs
                   </p>
                 </li>
               </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Community
+              </p>
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card--card plan ciBackground"
+            class="bp3-card bp3-elevation-0 Card--card plan"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
               <div
-                class="icon primary6"
+                class="icon ciColor"
               />
               <p
-                class="StyledProps--font StyledProps--main primary6 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main ciColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
               >
                 Team
               </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
-              />
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $25
+                  </p>
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-start"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main ciColor StyledProps--font-size-small"
+                          tabindex="0"
+                        >
+                          per Developer
+                        </p>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    >
+                      common.perMonth
+                    </p>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                />
+              </div>
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="button"
@@ -220,12 +186,14 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
                 <span
                   class="bp3-button-text"
                 >
-                  Try For Free
+                  Coming Soon
                 </span>
               </button>
               <p
                 class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
-              />
+              >
+                Simplicity, Reliability & Flexibility for Growing Businesses
+              </p>
               <ul
                 class="ul"
               >
@@ -233,67 +201,109 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    On-premises only
+                    Up to 300 Developers
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Kubernetes, VMs, Serverless, Custom
+                    Unlimited Builds
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Deployment verification
+                    External & Custom Secret Managers
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    5 workloads
+                    External & Custom Approval Workflows
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    10 deployments/day
+                    SLA Guarantee
                   </p>
                 </li>
               </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Standard
+(Premier Support Add-On available)
+              </p>
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card--card plan ciBackground"
+            class="bp3-card bp3-elevation-0 Card--card plan"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
               <div
-                class="icon primary6"
+                class="icon ciColor"
               />
               <p
-                class="StyledProps--font StyledProps--main primary6 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main ciColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
               >
                 Enterprise
               </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
-              />
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $50
+                  </p>
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-start"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main ciColor StyledProps--font-size-small"
+                          tabindex="0"
+                        >
+                          per Developer
+                        </p>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    >
+                      common.perMonth
+                    </p>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                />
+              </div>
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="button"
@@ -306,7 +316,9 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
               </button>
               <p
                 class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
-              />
+              >
+                Scalability, Governance & Intelligence for Best in Class Enterprise Teams
+              </p>
               <ul
                 class="ul"
               >
@@ -314,48 +326,63 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    On-premises only
+                    Unlimited Developers
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Kubernetes, VMs, Serverless, Custom
+                    Unlimited Builds
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Deployment verification
+                    Test Intelligence (ML based test-cycle optimization)
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    5 workloads
+                    Advanced Security & Governance
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    10 deployments/day
+                    Organize by Multiple Organizations
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Template Library (Coming Soon)
                   </p>
                 </li>
               </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Standard
+(Premier Support Add-On available)
+              </p>
             </div>
           </div>
         </div>
@@ -397,15 +424,31 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
         </div>
       </div>
       <a
-        class="centerText"
-        href="http://harness-next.herokuapp.com/pricing?module=ci"
+        href="https://next.harness.io/pricing?module=ci"
         rel="noreferrer"
         target="_blank"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6"
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6 StyledProps--flex StyledProps--flex-align-center-center"
+          style="display: flex; align-items: center;"
         >
           common.plans.faq
+          <span
+            class="bp3-icon StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary6"
+            data-icon="main-share"
+          >
+            <svg
+              height="16"
+              viewBox="0 0 14 14"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
         </p>
       </a>
     </div>
@@ -413,14 +456,14 @@ exports[`Subscription Plans should expand feature comparison when click on arrow
 </div>
 `;
 
-exports[`Subscription Plans should render the plans 1`] = `
+exports[`Subscription Plans should render the plans for CCM 1`] = `
 <div>
   <div
     class="Layout--vertical StyledProps--main"
     style="width: 90%;"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-large StyledProps--main ciPlans"
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main plans"
     >
       <div
         class="Layout--vertical StyledProps--main"
@@ -448,103 +491,37 @@ exports[`Subscription Plans should render the plans 1`] = `
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
         >
           <div
-            class="bp3-card bp3-elevation-0 Card--card plan ciBackground"
+            class="bp3-card bp3-elevation-0 Card--card plan"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
               <div
-                class="icon primary6"
+                class="icon ccmColor"
               />
               <p
-                class="StyledProps--font StyledProps--main primary6 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
-              >
-                Community
-              </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
-              />
-              <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-                type="button"
-              >
-                <span
-                  class="bp3-button-text"
-                >
-                  Download
-                </span>
-              </button>
-              <p
-                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
-              />
-              <ul
-                class="ul"
-              >
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    On-premises only
-                  </p>
-                </li>
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    Kubernetes, VMs, Serverless, Custom
-                  </p>
-                </li>
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    Deployment verification
-                  </p>
-                </li>
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    5 workloads
-                  </p>
-                </li>
-                <li
-                  class="li"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primary6"
-                  >
-                    10 deployments/day
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div
-            class="bp3-card bp3-elevation-0 Card--card plan ciBackground"
-          >
-            <div
-              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-            >
-              <div
-                class="icon primary6"
-              />
-              <p
-                class="StyledProps--font StyledProps--main primary6 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main ccmColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
               >
                 Free
               </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
-              />
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $0
+                  </p>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                >
+                  Available as SaaS
+                </p>
+              </div>
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="button"
@@ -552,12 +529,14 @@ exports[`Subscription Plans should render the plans 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Create A Free Account
+                  Coming Soon
                 </span>
               </button>
               <p
                 class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
-              />
+              >
+                Fully managed Service to help you get started - Perfect for Small Teams
+              </p>
               <ul
                 class="ul"
               >
@@ -565,67 +544,110 @@ exports[`Subscription Plans should render the plans 1`] = `
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    On-premises only
+                    Limited to $250K of Cloud Spend optimization
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Kubernetes, VMs, Serverless, Custom
+                    Integrated Platform with CD, CI & FF modules
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Deployment verification
+                    Built-in Cloud Cost BI Dashboards
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    5 workloads
+                    Cost Optimization with Intelligent Cloud Auto Stopping
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    10 deployments/day
+                    Cost Budgets, Anomalies & Recommendations
                   </p>
                 </li>
               </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Community
+              </p>
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card--card plan ciBackground"
+            class="bp3-card bp3-elevation-0 Card--card plan"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
               <div
-                class="icon primary6"
+                class="icon ccmColor"
               />
               <p
-                class="StyledProps--font StyledProps--main primary6 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main ccmColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
               >
                 Team
               </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
-              />
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    2.25%
+                  </p>
+                </div>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large"
+                  >
+                    of Annual 
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main centerText ccmColor StyledProps--font-weight-light StyledProps--font-size-small"
+                        tabindex="0"
+                      >
+                        Cloud Spend
+                      </p>
+                    </span>
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-right-large"
+                  >
+                    
+                  </p>
+                </div>
+              </div>
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="button"
@@ -633,12 +655,14 @@ exports[`Subscription Plans should render the plans 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Try For Free
+                  Coming Soon
                 </span>
               </button>
               <p
                 class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
-              />
+              >
+                Simplicity, Reliability & Flexibility  for Growing Businesses
+              </p>
               <ul
                 class="ul"
               >
@@ -646,67 +670,120 @@ exports[`Subscription Plans should render the plans 1`] = `
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    On-premises only
+                    Unlimited Cloud Spend
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Kubernetes, VMs, Serverless, Custom
+                    Unlimited Clusters under monitoring
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Deployment verification
+                    Unlimited Cost Perspectives
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    5 workloads
+                    Custom Cloud Cost BI Dashboards & Comprehensive cost visibility
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    10 deployments/day
+                    Data Retention - 5 Years
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    SLA Guarantee
                   </p>
                 </li>
               </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Standard
+(Premier Support Add-On available)
+              </p>
             </div>
           </div>
           <div
-            class="bp3-card bp3-elevation-0 Card--card plan ciBackground"
+            class="bp3-card bp3-elevation-0 Card--card plan"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
               <div
-                class="icon primary6"
+                class="icon ccmColor"
               />
               <p
-                class="StyledProps--font StyledProps--main primary6 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+                class="StyledProps--font StyledProps--main ccmColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
               >
                 Enterprise
               </p>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
-              />
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    2.50%
+                  </p>
+                </div>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large"
+                  >
+                    of Annual 
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main centerText ccmColor StyledProps--font-weight-light StyledProps--font-size-small"
+                        tabindex="0"
+                      >
+                        Cloud Spend
+                      </p>
+                    </span>
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-right-large"
+                  >
+                    
+                  </p>
+                </div>
+              </div>
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="button"
@@ -719,7 +796,9 @@ exports[`Subscription Plans should render the plans 1`] = `
               </button>
               <p
                 class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
-              />
+              >
+                Scalability, Security  & Governance for Best in Class Enterprise Teams 
+              </p>
               <ul
                 class="ul"
               >
@@ -727,48 +806,81 @@ exports[`Subscription Plans should render the plans 1`] = `
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    On-premises only
+                    Unlimited Cloud Spend
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Kubernetes, VMs, Serverless, Custom
+                    Unlimited Clusters under monitoring
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    Deployment verification
+                    Unlimited Cost Perspectives
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    5 workloads
+                    Advanced Security
                   </p>
                 </li>
                 <li
                   class="li"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main primary6"
+                    class="StyledProps--font StyledProps--main"
                   >
-                    10 deployments/day
+                    Advanced Governance
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Organize by Multiple Organizations
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Granular & Customizable Role based Access
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    LDAP support
                   </p>
                 </li>
               </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Standard
+(Premier Support Add-On available)
+              </p>
             </div>
           </div>
         </div>
@@ -810,15 +922,1506 @@ exports[`Subscription Plans should render the plans 1`] = `
         </div>
       </div>
       <a
-        class="centerText"
-        href="http://harness-next.herokuapp.com/pricing?module=ci"
+        href="https://next.harness.io/pricing?module=cc"
         rel="noreferrer"
         target="_blank"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6"
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6 StyledProps--flex StyledProps--flex-align-center-center"
+          style="display: flex; align-items: center;"
         >
           common.plans.faq
+          <span
+            class="bp3-icon StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary6"
+            data-icon="main-share"
+          >
+            <svg
+              height="16"
+              viewBox="0 0 14 14"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </p>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Subscription Plans should render the plans for CD 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+    style="width: 90%;"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main plans"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--padding-top-small"
+          >
+            common.billed
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main yearly selected StyledProps--color StyledProps--color-primary6 StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-top-small StyledProps--padding-bottom-small"
+          >
+            common.yearly
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main monthly StyledProps--color StyledProps--color-primary6 StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-top-small StyledProps--padding-bottom-small"
+          >
+            common.monthly
+          </p>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+        >
+          <div
+            class="bp3-card bp3-elevation-0 Card--card plan"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+            >
+              <div
+                class="icon cdColor"
+              />
+              <p
+                class="StyledProps--font StyledProps--main cdColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+              >
+                Free
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $0
+                  </p>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                >
+                  Available as SaaS
+                </p>
+              </div>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Coming Soon
+                </span>
+              </button>
+              <p
+                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
+              >
+                Fully-managed Service to Help You Get Started - Perfect for Small Teams
+              </p>
+              <ul
+                class="ul"
+              >
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Limited to 5 Services & 10 Deployments per Day
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Integrated Platform with CI, FF & CCM modules
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Deploy on all key clouds and platforms
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Continuous Verification (with Advanced Deployment Strategies & Rollback)
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Git Experience (Pipeline as code) & REST APIs
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Integrated Infrastructure Provisioning
+                  </p>
+                </li>
+              </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Community
+              </p>
+            </div>
+          </div>
+          <div
+            class="bp3-card bp3-elevation-0 Card--card plan"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+            >
+              <div
+                class="icon cdColor"
+              />
+              <p
+                class="StyledProps--font StyledProps--main cdColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+              >
+                Team
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $100
+                  </p>
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-start"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main cdColor StyledProps--font-size-small"
+                          tabindex="0"
+                        >
+                          per Service
+                        </p>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    >
+                      common.perMonth
+                    </p>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                >
+                  Available as SaaS
+                </p>
+              </div>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Coming Soon
+                </span>
+              </button>
+              <p
+                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
+              >
+                Simplicity, Reliability & Flexibility  for Growing Businesses
+              </p>
+              <ul
+                class="ul"
+              >
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Up to 100 Services
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Users
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Deployments per Day
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    External & Custom Secret Managers
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    External & Custom Approval Workflows
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    SLA Guarantee
+                  </p>
+                </li>
+              </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Standard
+(Premier Support Add-On available)
+              </p>
+            </div>
+          </div>
+          <div
+            class="bp3-card bp3-elevation-0 Card--card plan"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+            >
+              <div
+                class="icon cdColor"
+              />
+              <p
+                class="StyledProps--font StyledProps--main cdColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+              >
+                Enterprise
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main lineHeight2 StyledProps--flex StyledProps--flex-align-center-center"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main hover StyledProps--color StyledProps--color-primary6 StyledProps--font-size-medium"
+                    >
+                      common.banners.trial.contactSales
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+                    >
+                      common.customPricing
+                    </p>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                >
+                  Available as SaaS & Self-Hosted
+                </p>
+              </div>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  common.deactivate
+                </span>
+              </button>
+              <p
+                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
+              >
+                Scalability, Security  & Governance for Best in Class Enterprise Teams
+              </p>
+              <ul
+                class="ul"
+              >
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Services
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Users
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Deployments per Day
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Advanced Security & Governance
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Organize by Multiple Organizations
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Template Library
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Custom Dashboards
+                  </p>
+                </li>
+              </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Standard
+(Premier Support Add-On available)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Accordion--accordion accordion"
+      >
+        <div
+          class="Accordion--panel"
+          data-open="false"
+          data-testid="feature-panel"
+        >
+          <div
+            class="Accordion--summary"
+            data-testid="feature-summary"
+          >
+            <div
+              class="Accordion--chevron"
+            />
+            <div
+              class=""
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6 StyledProps--padding-left-small"
+              >
+                common.plans.featureComparison
+              </p>
+            </div>
+          </div>
+          <div
+            class="bp3-collapse Accordion--collapse"
+          >
+            <div
+              aria-hidden="false"
+              class="bp3-collapse-body"
+              style="transform: translateY(-undefinedpx);"
+            />
+          </div>
+        </div>
+      </div>
+      <a
+        href="https://next.harness.io/pricing?module=cd"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6 StyledProps--flex StyledProps--flex-align-center-center"
+          style="display: flex; align-items: center;"
+        >
+          common.plans.faq
+          <span
+            class="bp3-icon StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary6"
+            data-icon="main-share"
+          >
+            <svg
+              height="16"
+              viewBox="0 0 14 14"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </p>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Subscription Plans should render the plans for CI 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+    style="width: 90%;"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main plans"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--padding-top-small"
+          >
+            common.billed
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main yearly selected StyledProps--color StyledProps--color-primary6 StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-top-small StyledProps--padding-bottom-small"
+          >
+            common.yearly
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main monthly StyledProps--color StyledProps--color-primary6 StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-top-small StyledProps--padding-bottom-small"
+          >
+            common.monthly
+          </p>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+        >
+          <div
+            class="bp3-card bp3-elevation-0 Card--card plan"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+            >
+              <div
+                class="icon ciColor"
+              />
+              <p
+                class="StyledProps--font StyledProps--main ciColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+              >
+                Free
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $0
+                  </p>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                />
+              </div>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Coming Soon
+                </span>
+              </button>
+              <p
+                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
+              >
+                Fully-managed Service to help you get started - Perfect for Small Teams
+              </p>
+              <ul
+                class="ul"
+              >
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Limited to 2500 Builds (then 100 Builds per month)
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Integrated Platform with CD, FF & CCM modules
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Build Health & Execution Dashboards
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Git Experience (Pipeline as code) & REST APIs
+                  </p>
+                </li>
+              </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Community
+              </p>
+            </div>
+          </div>
+          <div
+            class="bp3-card bp3-elevation-0 Card--card plan"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+            >
+              <div
+                class="icon ciColor"
+              />
+              <p
+                class="StyledProps--font StyledProps--main ciColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+              >
+                Team
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $25
+                  </p>
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-start"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main ciColor StyledProps--font-size-small"
+                          tabindex="0"
+                        >
+                          per Developer
+                        </p>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    >
+                      common.perMonth
+                    </p>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                />
+              </div>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Coming Soon
+                </span>
+              </button>
+              <p
+                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
+              >
+                Simplicity, Reliability & Flexibility for Growing Businesses
+              </p>
+              <ul
+                class="ul"
+              >
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Up to 300 Developers
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Builds
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    External & Custom Secret Managers
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    External & Custom Approval Workflows
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    SLA Guarantee
+                  </p>
+                </li>
+              </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Standard
+(Premier Support Add-On available)
+              </p>
+            </div>
+          </div>
+          <div
+            class="bp3-card bp3-elevation-0 Card--card plan"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+            >
+              <div
+                class="icon ciColor"
+              />
+              <p
+                class="StyledProps--font StyledProps--main ciColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+              >
+                Enterprise
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $50
+                  </p>
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-start"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main ciColor StyledProps--font-size-small"
+                          tabindex="0"
+                        >
+                          per Developer
+                        </p>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    >
+                      common.perMonth
+                    </p>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                />
+              </div>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  common.deactivate
+                </span>
+              </button>
+              <p
+                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
+              >
+                Scalability, Governance & Intelligence for Best in Class Enterprise Teams
+              </p>
+              <ul
+                class="ul"
+              >
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Developers
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Builds
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Test Intelligence (ML based test-cycle optimization)
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Advanced Security & Governance
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Organize by Multiple Organizations
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Template Library (Coming Soon)
+                  </p>
+                </li>
+              </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Standard
+(Premier Support Add-On available)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Accordion--accordion accordion"
+      >
+        <div
+          class="Accordion--panel"
+          data-open="false"
+          data-testid="feature-panel"
+        >
+          <div
+            class="Accordion--summary"
+            data-testid="feature-summary"
+          >
+            <div
+              class="Accordion--chevron"
+            />
+            <div
+              class=""
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6 StyledProps--padding-left-small"
+              >
+                common.plans.featureComparison
+              </p>
+            </div>
+          </div>
+          <div
+            class="bp3-collapse Accordion--collapse"
+          >
+            <div
+              aria-hidden="false"
+              class="bp3-collapse-body"
+              style="transform: translateY(-undefinedpx);"
+            />
+          </div>
+        </div>
+      </div>
+      <a
+        href="https://next.harness.io/pricing?module=ci"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6 StyledProps--flex StyledProps--flex-align-center-center"
+          style="display: flex; align-items: center;"
+        >
+          common.plans.faq
+          <span
+            class="bp3-icon StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary6"
+            data-icon="main-share"
+          >
+            <svg
+              height="16"
+              viewBox="0 0 14 14"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </p>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Subscription Plans should render the plans for FF 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+    style="width: 90%;"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main plans"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--padding-right-medium StyledProps--padding-top-small"
+          >
+            common.billed
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main yearly selected StyledProps--color StyledProps--color-primary6 StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-top-small StyledProps--padding-bottom-small"
+          >
+            common.yearly
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main monthly StyledProps--color StyledProps--color-primary6 StyledProps--padding-left-medium StyledProps--padding-right-medium StyledProps--padding-top-small StyledProps--padding-bottom-small"
+          >
+            common.monthly
+          </p>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+        >
+          <div
+            class="bp3-card bp3-elevation-0 Card--card plan"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+            >
+              <div
+                class="icon ffColor"
+              />
+              <p
+                class="StyledProps--font StyledProps--main ffColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+              >
+                Free
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $0
+                  </p>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                >
+                  Available as SaaS
+                </p>
+              </div>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Coming Soon
+                </span>
+              </button>
+              <p
+                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
+              >
+                Fully managed Service to help you get started - Perfect for Small Teams
+              </p>
+              <ul
+                class="ul"
+              >
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Limited to 2 Developers, 25K MAUs & Unlimited Server Monthly Active Users
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Integrated Platform with CD, CI & CCM modules
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Flags, Environments & Targets
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Git Experience (Flags as code) & REST APIs
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Progressive Delivery
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Feature flag pipelines (coming soon)
+                  </p>
+                </li>
+              </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Community
+              </p>
+            </div>
+          </div>
+          <div
+            class="bp3-card bp3-elevation-0 Card--card plan"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+            >
+              <div
+                class="icon ffColor"
+              />
+              <p
+                class="StyledProps--font StyledProps--main ffColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+              >
+                Team
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $15
+                  </p>
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-start"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main ffColor StyledProps--font-size-small"
+                          tabindex="0"
+                        >
+                          per Developer
+                        </p>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    >
+                      common.perMonth
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large"
+                  >
+                    25K 
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main centerText ffColor StyledProps--font-weight-light StyledProps--font-size-small"
+                        tabindex="0"
+                      >
+                        MAUs
+                      </p>
+                    </span>
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-right-large"
+                  >
+                     included Free + Add-on $75 per 25K MAU
+                  </p>
+                </div>
+              </div>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Coming Soon
+                </span>
+              </button>
+              <p
+                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
+              >
+                Simplicity, Reliability & Flexibility  for Growing Businesses
+              </p>
+              <ul
+                class="ul"
+              >
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Up to 50 Developers
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Up to 1 Million MAUs
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    25K MAUs included
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Server Monthly Active Users
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    SLA Guarantee
+                  </p>
+                </li>
+              </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Standard
+(Premier Support Add-On available)
+              </p>
+            </div>
+          </div>
+          <div
+            class="bp3-card bp3-elevation-0 Card--card plan"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+            >
+              <div
+                class="icon ffColor"
+              />
+              <p
+                class="StyledProps--font StyledProps--main ffColor StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+              >
+                Enterprise
+              </p>
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
+                  >
+                    $25
+                  </p>
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-start"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main ffColor StyledProps--font-size-small"
+                          tabindex="0"
+                        >
+                          per Developer
+                        </p>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
+                    >
+                      common.perMonth
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large"
+                  >
+                    25K 
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main centerText ffColor StyledProps--font-weight-light StyledProps--font-size-small"
+                        tabindex="0"
+                      >
+                        MAUs
+                      </p>
+                    </span>
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-right-large"
+                  >
+                     included Free + Add-on $100 per 25K MAU
+                  </p>
+                </div>
+              </div>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  common.deactivate
+                </span>
+              </button>
+              <p
+                class="StyledProps--font StyledProps--main desc StyledProps--color StyledProps--color-black StyledProps--padding-large"
+              >
+                Scalability, Security  & Governance for Best in Class Enterprise Teams 
+              </p>
+              <ul
+                class="ul"
+              >
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Developers
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited MAUs
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    25K MAUs included
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unlimited Server Monthly Active Users
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Automatic progressive delivery  (Coming Soon)
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Analytics & Custom Dashboards (Coming Soon)
+                  </p>
+                </li>
+                <li
+                  class="li"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Experimentation & Monitoring (Coming Soon)
+                  </p>
+                </li>
+              </ul>
+              <p
+                class="StyledProps--font StyledProps--main support"
+              >
+                Support - Standard
+(Premier Support Add-On available)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Accordion--accordion accordion"
+      >
+        <div
+          class="Accordion--panel"
+          data-open="false"
+          data-testid="feature-panel"
+        >
+          <div
+            class="Accordion--summary"
+            data-testid="feature-summary"
+          >
+            <div
+              class="Accordion--chevron"
+            />
+            <div
+              class=""
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6 StyledProps--padding-left-small"
+              >
+                common.plans.featureComparison
+              </p>
+            </div>
+          </div>
+          <div
+            class="bp3-collapse Accordion--collapse"
+          >
+            <div
+              aria-hidden="false"
+              class="bp3-collapse-body"
+              style="transform: translateY(-undefinedpx);"
+            />
+          </div>
+        </div>
+      </div>
+      <a
+        href="https://next.harness.io/pricing?module=ff"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6 StyledProps--flex StyledProps--flex-align-center-center"
+          style="display: flex; align-items: center;"
+        >
+          common.plans.faq
+          <span
+            class="bp3-icon StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary6"
+            data-icon="main-share"
+          >
+            <svg
+              height="16"
+              viewBox="0 0 14 14"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
         </p>
       </a>
     </div>

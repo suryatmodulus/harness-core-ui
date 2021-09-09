@@ -115,6 +115,7 @@ export interface StringsMap {
   'common.createPipeline': string
   'common.creating': string
   'common.current': string
+  'common.customPricing': string
   'common.daily': string
   'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string
@@ -301,6 +302,7 @@ export interface StringsMap {
   'common.paste': string
   'common.path': string
   'common.pendingInvitation': string
+  'common.perMonth': string
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
@@ -539,6 +541,7 @@ export interface StringsMap {
   'rbac.apiKey.form.editSuccess': string
   'rbac.apiKey.successMessage': string
   'rbac.categoryLabels.sharedResources': string
+  'rbac.forUser': string
   'rbac.generateToken': string
   'rbac.in': string
   'rbac.myApiKeys': string
@@ -651,11 +654,12 @@ export interface StringsMap {
   'rbac.userGroupPage.userList.deleteFailureMessage': string
   'rbac.userGroupPage.userList.deleteSuccessMessage': string
   'rbac.userGroupPage.userList.deleteTitle': string
-  'rbac.usersPage.assignRoles': string
+  'rbac.userRequired': string
+  'rbac.userUpperLimit': string
+  'rbac.usersPage.assignRoleBindings': string
   'rbac.usersPage.deleteConfirmation': string
   'rbac.usersPage.deleteSuccessMessage': string
   'rbac.usersPage.deleteTitle': string
-  'rbac.usersPage.forUser': string
   'rbac.usersPage.invitationError': string
   'rbac.usersPage.invitationSuccess': string
   'rbac.usersPage.lockedOutLabel': string
@@ -675,6 +679,9 @@ export interface StringsMap {
   'rbac.usersPage.unlockTitle': string
   'rbac.usersPage.userAlreadyAdded': string
   'rbac.usersPage.userAlreadyInvited': string
+  'rbac.usersPage.userForm.title': string
+  'rbac.usersPage.userForm.userGroupLabel': string
+  'rbac.usersPage.userForm.userLabel': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
   'rbac.youAreMissingTheFollowingPermission': string
@@ -838,6 +845,7 @@ export interface StringsMap {
   'delegates.downloadYAMLFile': string
   'delegates.harnessDocs': string
   'delegates.lastUpdated': string
+  'delegates.newDelegate': string
   'delegates.newDelegateConfigWizard.matchAllEnvs': string
   'delegates.newDelegateConfigWizard.nonprodEnv': string
   'delegates.newDelegateConfigWizard.overviewTitle': string
@@ -847,6 +855,10 @@ export interface StringsMap {
   'delegates.newDelegateConfigWizard.specEnvNotPossible': string
   'delegates.newDelegateConfigWizard.specifyEnvs': string
   'delegates.newDelegateConfigWizard.successMessage': string
+  'delegates.newDelegateConfiguration': string
+  'delegates.noDelegatesInAccount': string
+  'delegates.noDelegatesInOrganization': string
+  'delegates.noDelegatesInProject': string
   'delegates.openTroubleshooter': string
   'delegates.permissionRequired': string
   'delegates.questionForceDeleteDelegate': string
@@ -888,6 +900,7 @@ export interface StringsMap {
   'secrets.labelSecretsManager': string
   'secrets.labelType': string
   'secrets.labelValue': string
+  'secrets.noSecrets': string
   'secrets.selectSecret': string
   'secrets.sshAuthFormFields.labelFile': string
   'secrets.sshAuthFormFields.labelKeyFilePath': string
@@ -964,6 +977,7 @@ export interface StringsMap {
   'connectors.awsKms.validation.selectRegion': string
   'connectors.awsSecretManager.secretNamePrefix': string
   'connectors.azureKeyVault.labels.fetchVault': string
+  'connectors.azureKeyVault.labels.setupVault': string
   'connectors.azureKeyVault.labels.subscription': string
   'connectors.azureKeyVault.labels.tenantId': string
   'connectors.azureKeyVault.labels.vaultName': string
@@ -1301,6 +1315,7 @@ export interface StringsMap {
   'connectors.encryptedAPIKeyLabel': string
   'connectors.encryptedAPIKeyValidation': string
   'connectors.gcrConnectorDetails': string
+  'connectors.hashiCorpVault.appRole': string
   'connectors.hashiCorpVault.appRoleId': string
   'connectors.hashiCorpVault.baseSecretPath': string
   'connectors.hashiCorpVault.default': string
@@ -1312,10 +1327,14 @@ export interface StringsMap {
   'connectors.hashiCorpVault.readOnly': string
   'connectors.hashiCorpVault.readOnlyVault': string
   'connectors.hashiCorpVault.renewal': string
+  'connectors.hashiCorpVault.root': string
   'connectors.hashiCorpVault.secretEngine': string
   'connectors.hashiCorpVault.secretId': string
   'connectors.hashiCorpVault.setupEngine': string
+  'connectors.hashiCorpVault.sinkPath': string
+  'connectors.hashiCorpVault.sinkPathIsRequired': string
   'connectors.hashiCorpVault.stepTwoName': string
+  'connectors.hashiCorpVault.vaultAgent': string
   'connectors.hashiCorpVault.vaultUrl': string
   'connectors.hashicorpVaultDetails': string
   'connectors.helmRepo.helmRepoUrl': string
@@ -1389,6 +1408,8 @@ export interface StringsMap {
   'connectors.splunk.connectorDetailsHeader': string
   'connectors.splunkConnectorDetails': string
   'connectors.splunkLabel': string
+  'connectors.stackdriverLogsLabel': string
+  'connectors.stackdriverMetricsLabel': string
   'connectors.stepFourName': string
   'connectors.stepThreeName': string
   'connectors.successfullCreate': string
@@ -1613,6 +1634,14 @@ export interface StringsMap {
   'projectsOrgs.gotoFeatureFlags': string
   'projectsOrgs.invite': string
   'projectsOrgs.inviteCollab': string
+  'projectsOrgs.landingDashboard.atAGlance': string
+  'projectsOrgs.landingDashboard.dashboardTitle': string
+  'projectsOrgs.landingDashboard.last1Year': string
+  'projectsOrgs.landingDashboard.last30Days': string
+  'projectsOrgs.landingDashboard.last60Days': string
+  'projectsOrgs.landingDashboard.last90Days': string
+  'projectsOrgs.landingDashboard.welcomeMessage': string
+  'projectsOrgs.landingDashboard.welcomeMessageWithoutName': string
   'projectsOrgs.manageAProject': string
   'projectsOrgs.manageOrg': string
   'projectsOrgs.manageProject': string
@@ -1658,7 +1687,6 @@ export interface StringsMap {
   'projectsOrgs.purposeList.features': string
   'projectsOrgs.purposeList.integration': string
   'projectsOrgs.purposeList.linkcv': string
-  'projectsOrgs.purposeList.linkcvChangeSources': string
   'projectsOrgs.purposeList.moduleSuccess': string
   'projectsOrgs.purposeList.name': string
   'projectsOrgs.purposeList.selectAModule': string
@@ -2055,6 +2083,7 @@ export interface StringsMap {
   'pipeline.myBuildsText': string
   'pipeline.myDeploymentsText': string
   'pipeline.neverRan': string
+  'pipeline.newPipelineText': string
   'pipeline.noBuckets': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
@@ -2263,6 +2292,7 @@ export interface StringsMap {
   'pipeline.triggers.newArtifactLabel': string
   'pipeline.triggers.newManifestLabel': string
   'pipeline.triggers.newTrigger': string
+  'pipeline.triggers.newTriggerWithoutPlus': string
   'pipeline.triggers.noTriggersFound': string
   'pipeline.triggers.onNewArtifactTitle': string
   'pipeline.triggers.onNewArtifactTitleWhole': string
@@ -2363,6 +2393,7 @@ export interface StringsMap {
   'pipeline.verification.healthSourcePlaceholder': string
   'pipeline.verification.logClustersInViolation': string
   'pipeline.verification.logs.actions': string
+  'pipeline.verification.logs.allEvents': string
   'pipeline.verification.logs.clusterType': string
   'pipeline.verification.logs.copyURL': string
   'pipeline.verification.logs.filterByClusterType': string
@@ -2389,11 +2420,12 @@ export interface StringsMap {
   'pipeline.verificationResult': string
   'templatesLibrary.addNewTemplate': string
   'templatesLibrary.copyToNewPipeline': string
-  'templatesLibrary.createNewModal.defaultLabel': string
+  'templatesLibrary.createNewModal.defaultVersion': string
   'templatesLibrary.createNewModal.headingPrefix': string
   'templatesLibrary.createNewModal.headingSuffix': string
   'templatesLibrary.createNewModal.label': string
   'templatesLibrary.createNewModal.validation.name': string
+  'templatesLibrary.createNewModal.versionLabel': string
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.previewTemplate': string
   'templatesLibrary.referencedBy': string
@@ -2407,6 +2439,7 @@ export interface StringsMap {
   'cd.addRemote': string
   'cd.addTFVarFileLabel': string
   'cd.allowSimultaneousDeployments': string
+  'cd.argoAdapterURL': string
   'cd.backEndConfig': string
   'cd.cdLaunchText': string
   'cd.cdTrialHomePage.startTrial.description': string
@@ -2428,6 +2461,7 @@ export interface StringsMap {
   'cd.folderPath': string
   'cd.gitFetchTypeRequired': string
   'cd.gitOps': string
+  'cd.launchArgo': string
   'cd.learnMore': string
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
@@ -2440,6 +2474,7 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.propagateFrom': string
   'cd.pipelineSteps.serviceTab.propagateStage': string
   'cd.pipelineSteps.serviceTab.stageOverrides': string
+  'cd.providerDetails': string
   'cd.releaseNameValidation': string
   'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string
@@ -2463,6 +2498,7 @@ export interface StringsMap {
   'cd.serviceDashboard.month': string
   'cd.serviceDashboard.mostActiveServices': string
   'cd.serviceDashboard.noActiveServiceInstances': string
+  'cd.serviceDashboard.noActiveServices': string
   'cd.serviceDashboard.noDeployments': string
   'cd.serviceDashboard.noPipelines': string
   'cd.serviceDashboard.noServiceDetails': string
@@ -2735,6 +2771,11 @@ export interface StringsMap {
   'ce.nodeRecommendation.gke': string
   'ce.nodeRecommendation.howItWorks': string
   'ce.nodeRecommendation.instanceFam': string
+  'ce.nodeRecommendation.item1': string
+  'ce.nodeRecommendation.item2': string
+  'ce.nodeRecommendation.item3': string
+  'ce.nodeRecommendation.item4': string
+  'ce.nodeRecommendation.listhead': string
   'ce.nodeRecommendation.maxNode': string
   'ce.nodeRecommendation.mem': string
   'ce.nodeRecommendation.memory': string
@@ -2746,7 +2787,6 @@ export interface StringsMap {
   'ce.nodeRecommendation.poolDetails': string
   'ce.nodeRecommendation.recommended': string
   'ce.nodeRecommendation.resourceNeed': string
-  'ce.nodeRecommendation.rightSize': string
   'ce.nodeRecommendation.spot': string
   'ce.nodeRecommendation.suitable.prod': string
   'ce.nodeRecommendation.suitable.qa': string
@@ -2846,7 +2886,6 @@ export interface StringsMap {
   'ce.perspectives.timeRange.relativeDates': string
   'ce.perspectives.timeRange.selectCustomRange': string
   'ce.perspectives.timeRangeConstants.last12Months': string
-  'ce.perspectives.timeRangeConstants.last30Days': string
   'ce.perspectives.timeRangeConstants.last3Months': string
   'ce.perspectives.timeRangeConstants.last6Months': string
   'ce.perspectives.timeRangeConstants.last7Days': string
@@ -3436,7 +3475,6 @@ export interface StringsMap {
   'cv.activitySources.harnessCD.harnessApps': string
   'cv.activitySources.harnessCD.iconLabel': string
   'cv.activitySources.harnessCD.select': string
-  'cv.activitySources.harnessCD.selectActivitySource': string
   'cv.activitySources.harnessCD.selectApplication': string
   'cv.activitySources.harnessCD.selectEnvironment': string
   'cv.activitySources.harnessCD.selectService': string
@@ -3536,6 +3574,21 @@ export interface StringsMap {
   'cv.analysisScreens.totalClusters': string
   'cv.anomalous': string
   'cv.anomalousMetrics': string
+  'cv.changeSource.PageDuty.pagerDutyEmptyService': string
+  'cv.changeSource.PageDuty.pagerDutyService': string
+  'cv.changeSource.PageDuty.selectPagerDutyService': string
+  'cv.changeSource.addChangeSource': string
+  'cv.changeSource.alertText': string
+  'cv.changeSource.connectChangeSource': string
+  'cv.changeSource.defineChangeSource': string
+  'cv.changeSource.duplicateIdentifier': string
+  'cv.changeSource.editChangeSource': string
+  'cv.changeSource.noData': string
+  'cv.changeSource.selectChangeSource': string
+  'cv.changeSource.selectChangeSourceName': string
+  'cv.changeSource.selectChangeSourceProvider': string
+  'cv.changeSource.selectChangeSourceType': string
+  'cv.changeSource.sourceName': string
   'cv.changeTimeline': string
   'cv.changesPage.changeSourceDetails': string
   'cv.changesPage.changeSummary': string
@@ -3626,9 +3679,12 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.last3Days': string
   'cv.monitoredServices.serviceHealth.last4Hrs': string
   'cv.monitoredServices.serviceHealth.last7Days': string
+  'cv.monitoredServices.serviceHealth.metricsAndLogs': string
   'cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore': string
   'cv.monitoredServices.serviceHealth.overallHealthScore': string
+  'cv.monitoredServices.serviceHealth.selectTimeline': string
   'cv.monitoredServices.serviceValidation': string
+  'cv.monitoredServices.table.changes': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string
   'cv.monitoredServices.table.serviceHealthScore': string
@@ -4484,10 +4540,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'customVariables.pipelineVariablesDescription': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'customVariables.pipelineVariablesTitle': string
   /**
    * @deprecated migrate this string to module level file
@@ -4545,10 +4597,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.LastHeartBeat': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.NEW_DELEGATE': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -4777,10 +4825,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.kubernetes.url': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.newConfiguration': string
   /**
    * @deprecated migrate this string to module level file
    */

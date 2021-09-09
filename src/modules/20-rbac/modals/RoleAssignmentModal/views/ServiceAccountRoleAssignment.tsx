@@ -67,6 +67,7 @@ const ServiceAccountRoleAssignment: React.FC<ServiceAccountRoleAssignmentData> =
         resourceGroup: {
           label: roleAssignment.resourceGroupName || '',
           value: roleAssignment.resourceGroupIdentifier || '',
+          managedRoleAssignment: roleAssignment.managedRoleAssignment,
           assignmentIdentifier: roleAssignment.identifier
         }
       }

@@ -48,20 +48,6 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
         </div>
       </div>
     </div>
-    <div
-      class="Layout--horizontal StyledProps--main healthScoreCardContainer"
-    >
-      <div
-        class="healthScoreCard"
-      >
-        100
-      </div>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
-      >
-        cv.monitoredServices.monitoredServiceTabs.serviceHealth
-      </p>
-    </div>
   </div>
   <div
     class="StyledProps--font StyledProps--main serviceHealthCard"
@@ -76,19 +62,19 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="StyledProps--font StyledProps--main timelineRow"
+            class="StyledProps--font StyledProps--main main"
           >
-            <p
-              class="StyledProps--font StyledProps--main rowLabel"
-              style="width: 90px;"
-            >
-              cv.monitoredServices.serviceHealth.overallHealthScore
-            </p>
             <div
-              class="StyledProps--font StyledProps--main noData"
+              class="StyledProps--font StyledProps--main timelineRow"
             >
+              <p
+                class="StyledProps--font StyledProps--main rowLabel"
+                style="width: 90px;"
+              >
+                cv.monitoredServices.serviceHealth.overallHealthScore
+              </p>
               <div
-                class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"
+                class="StyledProps--font StyledProps--main noDataCard noData StyledProps--flex StyledProps--flex-align-center-center"
               >
                 <div
                   class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -125,60 +111,91 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
               </div>
             </div>
           </div>
+          <div
+            class="StyledProps--font StyledProps--main main"
+          >
+            <div
+              class="StyledProps--font StyledProps--main main"
+            >
+              <div
+                class="StyledProps--font StyledProps--main timelineRow"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main rowLabel"
+                  style="--text-line-clamp: 1; width: 90px;"
+                >
+                  Deployments
+                </p>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main main"
+            >
+              <div
+                class="StyledProps--font StyledProps--main timelineRow"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main rowLabel"
+                  style="--text-line-clamp: 1; width: 90px;"
+                >
+                  Infrastructure
+                </p>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main main"
+            >
+              <div
+                class="StyledProps--font StyledProps--main timelineRow"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main rowLabel"
+                  style="--text-line-clamp: 1; width: 90px;"
+                >
+                  Incidents
+                </p>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main timelineChartContainer"
+            >
+              <p
+                class="StyledProps--font StyledProps--main timelineLabel"
+                style="width: 90px;"
+              >
+                CV.TIMELINE
+              </p>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main metricsLogsContainer"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal StyledProps--padding-bottom-small"
+      >
+        cv.monitoredServices.serviceHealth.metricsAndLogs
+      </p>
+      <div
+        class="StyledProps--font StyledProps--main container"
+      >
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="StyledProps--font StyledProps--main content"
         >
           <div
-            class="StyledProps--font StyledProps--main main"
+            class="StyledProps--font StyledProps--main noTimeRangeSelected"
+            data-testid="analysis-image-view"
           >
-            <div
-              class="StyledProps--font StyledProps--main timelineRow"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main rowLabel"
-                style="--text-line-clamp: 1; width: 90px;"
-              >
-                Deployments
-              </p>
-            </div>
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main main"
-          >
-            <div
-              class="StyledProps--font StyledProps--main timelineRow"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main rowLabel"
-                style="--text-line-clamp: 1; width: 90px;"
-              >
-                Infrastructure
-              </p>
-            </div>
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main main"
-          >
-            <div
-              class="StyledProps--font StyledProps--main timelineRow"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main rowLabel"
-                style="--text-line-clamp: 1; width: 90px;"
-              >
-                Incidents
-              </p>
-            </div>
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main timelineChartContainer"
-          >
+            <img
+              src="test-file-stub"
+              width="600"
+            />
             <p
-              class="StyledProps--font StyledProps--main timelineLabel"
-              style="width: 90px;"
+              class="StyledProps--font StyledProps--main"
             >
-              CV.TIMELINE
+              cv.monitoredServices.serviceHealth.selectTimeline
             </p>
           </div>
         </div>

@@ -6,16 +6,17 @@ import { useStrings } from 'framework/strings'
 import type { ServiceSpec } from 'services/cd-ng'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
+// import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import type { CustomVariableInputSetExtraProps } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableInputSet'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceBaseFactory'
+import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
 
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
 import { KubernetesArtifacts } from './KubernetesArtifacts'
+import { KubernetesManifests } from './KubernetesManifests/KubernetesManifests'
 import { KubernetesSidecars } from './KubernetesSidecars'
 import css from './K8sServiceSpec.module.scss'
 
@@ -63,6 +64,18 @@ export const KubernetesServiceSpecInputSetMode = (props: KubernetesInputSetProps
       <KubernetesSidecars />
 
       {!!template?.manifests?.length && (
+        <KubernetesManifests
+          template={template}
+          path={path}
+          stepViewType={stepViewType}
+          manifests={allValues?.manifests}
+          initialValues={initialValues}
+          readonly={readonly}
+          stageIdentifier={stageIdentifier}
+          formik={formik}
+        />
+      )}
+      {/* {!!template?.manifests?.length && (
         <ManifestInputForm
           template={template}
           path={path}
@@ -72,7 +85,7 @@ export const KubernetesServiceSpecInputSetMode = (props: KubernetesInputSetProps
           stageIdentifier={stageIdentifier}
           formik={formik}
         />
-      )}
+      )} */}
       {!!template?.variables?.length && (
         <div id={`Stage.${stageIdentifier}.Service.Variables`} className={cx(css.nopadLeft, css.accordionSummary)}>
           <div className={css.subheading}>{getString('variablesText')}</div>

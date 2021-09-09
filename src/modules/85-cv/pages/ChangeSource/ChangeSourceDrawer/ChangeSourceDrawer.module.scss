@@ -1,0 +1,26 @@
+.alignHorizontal {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xlarge) !important;
+  p {
+    align-self: center;
+  }
+  div {
+    margin-bottom: 0px !important;
+  }
+}
+
+.outerCard > p:first-child {
+  font-weight: bold !important;
+}
+
+.selectChangeSource {
+  font-size: var(--font-size-normal);
+  margin-bottom: var(--spacing-large) !important;
+  color: var(--black) !important;
+  font-weight: bold !important;
+}
+
+.divider {
+  border-top: 1px solid var(--grey-200);
+}

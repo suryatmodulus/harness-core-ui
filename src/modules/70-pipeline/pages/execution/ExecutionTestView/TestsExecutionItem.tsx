@@ -7,6 +7,7 @@ import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } from 'services/ti-service'
 import { useStrings } from 'framework/strings'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import { Duration } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import useExpandErrorModal from '@pipeline/components/ExpandErrorModal/useExpandErrorModal'
@@ -16,6 +17,7 @@ import css from './BuildTests.module.scss'
 
 const NOW = Date.now()
 const PAGE_SIZE = 10
+const COPY_CLIPBOARD_ICON_WIDTH = 16
 
 export interface TestExecutionEntryProps {
   buildIdentifier: string
@@ -43,7 +45,6 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   const containerRef = useRef<HTMLElement>(null)
   const rightSideContainerRef = useRef<HTMLElement>(null)
   const [titleWidth, setTitleWidth] = useState<number>()
-
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams<{
     projectIdentifier: string
@@ -53,6 +54,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   }>()
   const [pageIndex, setPageIndex] = useState(0)
   const { openErrorModal } = useExpandErrorModal({})
+
   const queryParams = useMemo(
     () => ({
       accountId,
@@ -147,7 +149,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
                     durationText=" "
                     startTime={NOW}
                     endTime={NOW + (row.original[col] || 0)}
-                    showZeroSecondsResult
+                    showMsLessThanOneSecond={true}
                   />
                 ) : (
                   row.original[col]
@@ -169,7 +171,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         disableSortBy: true
       },
       {
-        Header: getString('pipeline.testsReports.testCaseName'),
+        Header: getString('pipeline.testsReports.testCaseName').toUpperCase(),
         accessor: 'name',
         width: 'calc(50% - 185px)',
         Cell: renderColumn({ col: 'name', openTestsFailedModal: openErrorModal }),
@@ -177,7 +179,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         openErrorModal
       },
       {
-        Header: getString('pipeline.testsReports.className'),
+        Header: getString('pipeline.testsReports.className').toUpperCase(),
         accessor: 'class_name',
         width: 'calc(50% - 65px)',
         Cell: renderColumn({ col: 'class_name' }),
@@ -230,9 +232,12 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
 
       const CHEVRON_BUTTON_WIDTH = 40
       const SIDES_SPACING = 25
-
       const newTitleWidth =
-        containerWidthWithoutPaddings - rightSideContainerWidth - CHEVRON_BUTTON_WIDTH - SIDES_SPACING
+        containerWidthWithoutPaddings -
+        rightSideContainerWidth -
+        CHEVRON_BUTTON_WIDTH -
+        SIDES_SPACING -
+        COPY_CLIPBOARD_ICON_WIDTH
 
       setTitleWidth(newTitleWidth)
     }
@@ -247,13 +252,17 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
         >
           <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={onExpand} />
-          <Text
-            width={titleWidth}
-            style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-            tooltip={<Container padding="small">{executionSummary.name}</Container>}
-          >
-            {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
-          </Text>
+          <Layout.Horizontal>
+            <Text width={titleWidth} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+              <CopyText iconName="clipboard-alt" textToCopy={executionSummary.name || ''}>
+                <Text tooltip={<Container padding="small">{executionSummary.name}</Container>}>
+                  <span className={css.testSuiteName}>
+                    {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
+                  </span>
+                </Text>
+              </CopyText>
+            </Text>
+          </Layout.Horizontal>
         </Text>
         <Container flex ref={rightSideContainerRef}>
           <Text
@@ -262,7 +271,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
             font={{ size: 'small' }}
             padding={{ left: 'small', right: 'small' }}
           >
-            <span style={{ whiteSpace: 'nowrap' }}>{getString('pipeline.testsReports.totalTests')}</span>
+            <span style={{ whiteSpace: 'nowrap' }}>{getString('total')}</span>
             <span>{executionSummary.total_tests}</span>
           </Text>
           <Text
@@ -271,7 +280,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
             font={{ size: 'small' }}
             padding={{ left: 'small', right: 'small' }}
           >
-            <span style={{ whiteSpace: 'nowrap' }}>{getString('pipeline.testsReports.failedTests')}</span>
+            <span style={{ whiteSpace: 'nowrap' }}>{getString('failed')}</span>
             <span>{executionSummary.failed_tests}</span>
           </Text>
           <Text

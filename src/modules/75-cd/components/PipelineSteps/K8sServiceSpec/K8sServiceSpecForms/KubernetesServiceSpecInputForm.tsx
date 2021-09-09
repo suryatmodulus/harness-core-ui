@@ -194,7 +194,11 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
 
   useDeepCompareEffect(() => {
     if (gcrError || dockerError || ecrError) {
-      showError(`Stage ${stageIdentifier}: ${getString('errorTag')}`, undefined, 'cd.tag.fetch.error')
+      showError(
+        `Stage ${stageIdentifier}: ${get(ecrError || gcrError || dockerError, 'data.message', null)}`,
+        undefined,
+        'cd.tag.fetch.error'
+      )
       return
     }
     if (Array.isArray(dockerdata?.data?.buildDetailsList)) {

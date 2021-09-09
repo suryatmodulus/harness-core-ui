@@ -11,9 +11,10 @@ import {
   MultiTypeInputType,
   ThumbnailSelect,
   IconName,
-  ButtonVariation
+  ButtonVariation,
+  FormikForm,
+  ButtonSize
 } from '@wings-software/uicore'
-import { Form } from 'formik'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/strings'
@@ -138,7 +139,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
         enableReinitialize={true}
       >
         {formik => (
-          <Form>
+          <FormikForm>
             <Layout.Vertical
               flex={{ justifyContent: 'space-between', alignItems: 'flex-start' }}
               className={css.manifestForm}
@@ -157,17 +158,17 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 </Layout.Horizontal>
 
                 {formik.values.store !== '' ? (
-                  <div className={css.connectorContainer}>
+                  <Layout.Horizontal
+                    spacing={'medium'}
+                    flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
+                    className={css.connectorContainer}
+                  >
                     <FormMultiTypeConnectorField
                       key={formik.values.store}
                       name="connectorRef"
-                      label={
-                        <Text style={{ marginBottom: '5px' }}>
-                          {`${getString(
-                            ManifestToConnectorLabelMap[formik.values.store as ManifestStores]
-                          )} ${getString('connector')}`}
-                        </Text>
-                      }
+                      label={`${getString(
+                        ManifestToConnectorLabelMap[formik.values.store as ManifestStores]
+                      )} ${getString('connector')}`}
                       placeholder={`${getString('select')} ${getString(
                         ManifestToConnectorLabelMap[formik.values.store as ManifestStores]
                       )} ${getString('connector')}`}
@@ -183,35 +184,36 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                       gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                     />
                     {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME ? (
-                      <div className={css.configureOptions}>
-                        <ConfigureOptions
-                          value={formik.values.connectorRef as unknown as string}
-                          type={ManifestToConnectorMap[formik.values.store]}
-                          variableName="connectorRef"
-                          showRequiredField={false}
-                          showDefaultField={false}
-                          showAdvanced={true}
-                          onChange={value => {
-                            formik.setFieldValue('connectorRef', value)
-                          }}
-                          isReadonly={isReadonly}
-                        />
-                      </div>
+                      <ConfigureOptions
+                        className={css.configureOptions}
+                        value={formik.values.connectorRef as unknown as string}
+                        type={ManifestToConnectorMap[formik.values.store]}
+                        variableName="connectorRef"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => {
+                          formik.setFieldValue('connectorRef', value)
+                        }}
+                        isReadonly={isReadonly}
+                      />
                     ) : (
                       <Button
                         variation={ButtonVariation.LINK}
+                        size={ButtonSize.SMALL}
                         disabled={isReadonly || !canCreate}
                         id="new-manifest-connector"
                         text={newConnectorLabel}
                         className={css.addNewManifest}
                         icon="plus"
+                        iconProps={{ size: 12 }}
                         onClick={() => {
                           handleConnectorViewChange()
                           nextStep?.({ ...prevStepData, store: selectedStore })
                         }}
                       />
                     )}
-                  </div>
+                  </Layout.Horizontal>
                 ) : null}
               </Layout.Vertical>
 
@@ -235,7 +237,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 />
               </Layout.Horizontal>
             </Layout.Vertical>
-          </Form>
+          </FormikForm>
         )}
       </Formik>
     </Layout.Vertical>

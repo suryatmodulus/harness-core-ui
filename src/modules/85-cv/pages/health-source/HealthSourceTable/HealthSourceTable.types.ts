@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react'
-import type { MonitoredServiceResponse } from 'services/cv'
+import type { ChangeSourceDTO, MonitoredServiceResponse } from 'services/cv'
 import type { MonitoredServiceRef } from '@cv/pages/monitored-service/components/Configurations/components/Service/Service.types'
 import type { RowData } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
 
@@ -18,4 +18,5 @@ export interface HealthSourceTableInterface {
   onCloseDrawer?: Dispatch<SetStateAction<boolean>>
   validMonitoredSource?: boolean
   validateMonitoredSource?: () => void
+  changeSources?: ChangeSourceDTO[]
 }

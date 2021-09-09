@@ -118,7 +118,7 @@ describe('Monitored Service list', () => {
       <div
         data-testid="location"
       >
-        /account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/edit/delete_me_test
+        /account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoredserviceconfigurations/edit/delete_me_test
       </div>
     `)
   })

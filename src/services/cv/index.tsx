@@ -15,7 +15,7 @@ export interface ActivityDTO {
   projectIdentifier?: string
   serviceIdentifier?: string
   tags?: string[]
-  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY'
   verificationJobRuntimeDetails?: VerificationJobRuntimeDetails[]
 }
 
@@ -23,7 +23,15 @@ export interface ActivityDashboardDTO {
   activityId?: string
   activityName?: string
   activityStartTime?: number
-  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  activityType?:
+    | 'DEPLOYMENT'
+    | 'INFRASTRUCTURE'
+    | 'CUSTOM'
+    | 'CONFIG'
+    | 'OTHER'
+    | 'KUBERNETES'
+    | 'HARNESS_CD'
+    | 'PAGER_DUTY'
   activityVerificationSummary?: ActivityVerificationSummary
   environmentIdentifier?: string
   environmentName?: string
@@ -54,7 +62,15 @@ export interface ActivityVerificationResultDTO {
   activityId?: string
   activityName?: string
   activityStartTime?: number
-  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  activityType?:
+    | 'DEPLOYMENT'
+    | 'INFRASTRUCTURE'
+    | 'CUSTOM'
+    | 'CONFIG'
+    | 'OTHER'
+    | 'KUBERNETES'
+    | 'HARNESS_CD'
+    | 'PAGER_DUTY'
   endTime?: number
   environmentIdentifier?: string
   environmentName?: string
@@ -184,6 +200,10 @@ export interface AppdynamicsValidationResponse {
   metricPackName?: string
   overallStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
   values?: AppdynamicsMetricValueValidationResponse[]
+}
+
+export type ArgoConnector = ConnectorConfigDTO & {
+  adapterUrl?: string
 }
 
 export interface ArtifactoryAuthCredentials {
@@ -459,6 +479,11 @@ export interface CVSetupStatus {
   totalNumberOfServices?: number
 }
 
+export interface CategoryCountDetails {
+  count?: number
+  countInPrecedingWindow?: number
+}
+
 export interface CategoryRisk {
   category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   risk?: number
@@ -469,6 +494,22 @@ export interface CategoryRisksDTO {
   endTimeEpoch?: number
   hasConfigsSetup?: boolean
   startTimeEpoch?: number
+}
+
+export interface ChangeEventDTO {
+  accountId: string
+  changeEventMetaData: ChangeEventMetaData
+  changeSourceIdentifier?: string
+  envIdentifier: string
+  eventTime?: number
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  type?: 'HarnessCD' | 'PagerDuty'
+}
+
+export interface ChangeEventMetaData {
+  [key: string]: any
 }
 
 export interface ChangeSourceDTO {
@@ -483,6 +524,12 @@ export interface ChangeSourceDTO {
 
 export interface ChangeSourceSpec {
   [key: string]: any
+}
+
+export interface ChangeSummaryDTO {
+  categoryCountMap?: {
+    [key: string]: CategoryCountDetails
+  }
 }
 
 export interface Cluster {
@@ -549,6 +596,7 @@ export interface ConnectorInfoDTO {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1605,6 +1653,36 @@ export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
 
 export type HarnessCDChangeSourceSpec = ChangeSourceSpec & { [key: string]: any }
 
+export type HarnessCDEventMetaData = ChangeEventMetaData & {
+  deploymentEndTime?: number
+  deploymentStartTime?: number
+  executionId?: string
+  stageId?: string
+  status?:
+    | 'NO_OP'
+    | 'RUNNING'
+    | 'INTERVENTION_WAITING'
+    | 'TIMED_WAITING'
+    | 'ASYNC_WAITING'
+    | 'TASK_WAITING'
+    | 'DISCONTINUING'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'SKIPPED'
+    | 'PAUSED'
+    | 'ABORTED'
+    | 'ERRORED'
+    | 'FAILED'
+    | 'EXPIRED'
+    | 'SUSPENDED'
+    | 'SUCCEEDED'
+    | 'IGNORE_FAILED'
+    | 'APPROVAL_WAITING'
+    | 'RESOURCE_WAITING'
+    | 'APPROVAL_REJECTED'
+    | 'UNRECOGNIZED'
+}
+
 export interface HealthMonitoringFlagResponse {
   accountId?: string
   healthMonitoringEnabled?: boolean
@@ -1622,6 +1700,13 @@ export interface HealthSource {
   name?: string
   spec: HealthSourceSpec
   type?: 'AppDynamics' | 'NewRelic' | 'StackdriverLog' | 'Stackdriver' | 'Prometheus' | 'Splunk'
+}
+
+export interface HealthSourceDTO {
+  identifier?: string
+  name?: string
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'STACKDRIVER_LOG' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  verificationType?: 'TIME_SERIES' | 'LOG'
 }
 
 export interface HealthSourceSpec {
@@ -1689,6 +1774,15 @@ export type HttpHelmUsernamePasswordDTO = HttpHelmAuthCredentialsDTO & {
   usernameRef?: string
 }
 
+export interface InputSetTemplateRequest {
+  pipelineYaml?: string
+  templateYaml?: string
+}
+
+export interface InputSetTemplateResponse {
+  inputSetTemplateYaml?: string
+}
+
 export type JiraConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   jiraUrl: string
@@ -1738,7 +1832,7 @@ export interface KubernetesActivityDTO {
   reason?: string
   serviceIdentifier?: string
   tags?: string[]
-  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY'
   verificationJobRuntimeDetails?: VerificationJobRuntimeDetails[]
   workloadName?: string
 }
@@ -1895,6 +1989,7 @@ export interface LogAnalysisCluster {
 }
 
 export interface LogAnalysisClusterChartDTO {
+  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
   hostName?: string
   label?: number
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
@@ -1938,6 +2033,8 @@ export interface LogClusterDTO {
 export interface LogData {
   count?: number
   label?: number
+  riskScore?: number
+  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   text?: string
   trend?: FrequencyDTO[]
@@ -2065,6 +2162,7 @@ export interface MonitoredServiceDTO {
 }
 
 export interface MonitoredServiceListItemDTO {
+  changeSummary?: ChangeSummaryDTO
   currentHealthScore?: RiskData
   environmentName?: string
   environmentRef?: string
@@ -2412,6 +2510,13 @@ export interface ResponseHealthScoreDTO {
 export interface ResponseHistoricalTrend {
   correlationId?: string
   data?: HistoricalTrend
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseInputSetTemplateResponse {
+  correlationId?: string
+  data?: InputSetTemplateResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2953,6 +3058,14 @@ export interface RestResponseCategoryRisksDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseChangeSummaryDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ChangeSummaryDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseDSConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3029,7 +3142,16 @@ export interface RestResponseListActivityType {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
+  resource?: (
+    | 'DEPLOYMENT'
+    | 'INFRASTRUCTURE'
+    | 'CUSTOM'
+    | 'CONFIG'
+    | 'OTHER'
+    | 'KUBERNETES'
+    | 'HARNESS_CD'
+    | 'PAGER_DUTY'
+  )[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3046,6 +3168,14 @@ export interface RestResponseListCVConfig {
     [key: string]: { [key: string]: any }
   }
   resource?: CVConfig[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListChangeEventDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ChangeEventDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3102,6 +3232,14 @@ export interface RestResponseListEnvToServicesDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: EnvToServicesDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListHealthSourceDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HealthSourceDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3329,6 +3467,14 @@ export interface RestResponseSetDatasourceTypeDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseSetHealthSourceDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HealthSourceDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseSortedSetLogDataByTag {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3438,7 +3584,7 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
 }
 
 export interface ServiceRef {
-  serviceRef?: string
+  monitoredServiceIdentifier?: string
 }
 
 export interface ServiceResponseDTO {
@@ -3598,6 +3744,14 @@ export interface TimeSeriesDataRecordMetricValue {
 
 export interface TimeSeriesMetricDataDTO {
   category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
+  dataSourceType?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
   environmentIdentifier?: string
   groupName?: string
   metricDataList?: MetricData[]
@@ -3743,18 +3897,21 @@ export interface ValidationError {
 }
 
 export type VaultConnectorDTO = ConnectorConfigDTO & {
-  accessType?: 'APP_ROLE' | 'TOKEN'
+  accessType?: 'APP_ROLE' | 'TOKEN' | 'VAULT_AGENT'
   appRoleId?: string
   authToken?: string
   basePath?: string
   default?: boolean
   delegateSelectors?: string[]
+  namespace?: string
   readOnly?: boolean
   renewalIntervalMinutes?: number
   secretEngineManuallyConfigured?: boolean
   secretEngineName?: string
   secretEngineVersion?: number
   secretId?: string
+  sinkPath?: string
+  useVaultAgent?: boolean
   vaultUrl?: string
 }
 
@@ -3809,7 +3966,16 @@ export interface VerificationResult {
 }
 
 export interface VerificationsNotify {
-  activityTypes?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
+  activityTypes?: (
+    | 'DEPLOYMENT'
+    | 'INFRASTRUCTURE'
+    | 'CUSTOM'
+    | 'CONFIG'
+    | 'OTHER'
+    | 'KUBERNETES'
+    | 'HARNESS_CD'
+    | 'PAGER_DUTY'
+  )[]
   allActivityTpe?: boolean
   allVerificationStatuses?: boolean
   verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
@@ -4596,6 +4762,8 @@ export const getActivityVerificationResultPromise = (
 export interface GetDeploymentLogAnalysisClustersQueryParams {
   accountId: string
   hostName?: string
+  healthSource?: string[]
+  clusterType?: ('KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY')[]
 }
 
 export interface GetDeploymentLogAnalysisClustersPathParams {
@@ -4831,7 +4999,9 @@ export interface GetDeploymentLogAnalysisResultQueryParams {
   pageNumber: number
   pageSize: number
   hostName?: string
+  healthSource?: string[]
   clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
+  clusterTypes?: ('KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY')[]
 }
 
 export interface GetDeploymentLogAnalysisResultPathParams {
@@ -4918,14 +5088,7 @@ export interface GetDeploymentMetricsQueryParams {
   anomalousMetricsOnly?: boolean
   hostName?: string
   filter?: string
-  healthSource?:
-    | 'APP_DYNAMICS'
-    | 'SPLUNK'
-    | 'STACKDRIVER'
-    | 'STACKDRIVER_LOG'
-    | 'KUBERNETES'
-    | 'NEW_RELIC'
-    | 'PROMETHEUS'
+  healthSources?: string[]
   pageNumber?: number
   pageSize?: number
 }
@@ -5669,186 +5832,13 @@ export const saveCVNGLogRecordsPromise = (
     signal
   )
 
-export interface GetDeploymentLogAnalysesQueryParams {
-  accountId?: string
-  label?: number
-  pageNumber?: number
-  hostName?: string
-  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
-}
-
-export interface GetDeploymentLogAnalysesPathParams {
-  verificationJobInstanceId: string
-}
-
-export type GetDeploymentLogAnalysesProps = Omit<
-  GetProps<
-    RestResponsePageLogAnalysisClusterDTO,
-    unknown,
-    GetDeploymentLogAnalysesQueryParams,
-    GetDeploymentLogAnalysesPathParams
-  >,
-  'path'
-> &
-  GetDeploymentLogAnalysesPathParams
-
-/**
- * get logs for given verificationJob
- */
-export const GetDeploymentLogAnalyses = ({ verificationJobInstanceId, ...props }: GetDeploymentLogAnalysesProps) => (
-  <Get<
-    RestResponsePageLogAnalysisClusterDTO,
-    unknown,
-    GetDeploymentLogAnalysesQueryParams,
-    GetDeploymentLogAnalysesPathParams
-  >
-    path={`/deployment-log-analysis/${verificationJobInstanceId}`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetDeploymentLogAnalysesProps = Omit<
-  UseGetProps<
-    RestResponsePageLogAnalysisClusterDTO,
-    unknown,
-    GetDeploymentLogAnalysesQueryParams,
-    GetDeploymentLogAnalysesPathParams
-  >,
-  'path'
-> &
-  GetDeploymentLogAnalysesPathParams
-
-/**
- * get logs for given verificationJob
- */
-export const useGetDeploymentLogAnalyses = ({
-  verificationJobInstanceId,
-  ...props
-}: UseGetDeploymentLogAnalysesProps) =>
-  useGet<
-    RestResponsePageLogAnalysisClusterDTO,
-    unknown,
-    GetDeploymentLogAnalysesQueryParams,
-    GetDeploymentLogAnalysesPathParams
-  >(
-    (paramsInPath: GetDeploymentLogAnalysesPathParams) =>
-      `/deployment-log-analysis/${paramsInPath.verificationJobInstanceId}`,
-    { base: getConfig('cv/api'), pathParams: { verificationJobInstanceId }, ...props }
-  )
-
-/**
- * get logs for given verificationJob
- */
-export const getDeploymentLogAnalysesPromise = (
-  {
-    verificationJobInstanceId,
-    ...props
-  }: GetUsingFetchProps<
-    RestResponsePageLogAnalysisClusterDTO,
-    unknown,
-    GetDeploymentLogAnalysesQueryParams,
-    GetDeploymentLogAnalysesPathParams
-  > & { verificationJobInstanceId: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    RestResponsePageLogAnalysisClusterDTO,
-    unknown,
-    GetDeploymentLogAnalysesQueryParams,
-    GetDeploymentLogAnalysesPathParams
-  >(getConfig('cv/api'), `/deployment-log-analysis/${verificationJobInstanceId}`, props, signal)
-
-export interface GetClusterChartAnalysesQueryParams {
-  accountId?: string
-  hostName?: string
-}
-
-export interface GetClusterChartAnalysesPathParams {
-  verificationJobInstanceId: string
-}
-
-export type GetClusterChartAnalysesProps = Omit<
-  GetProps<
-    RestResponseListLogAnalysisClusterChartDTO,
-    unknown,
-    GetClusterChartAnalysesQueryParams,
-    GetClusterChartAnalysesPathParams
-  >,
-  'path'
-> &
-  GetClusterChartAnalysesPathParams
-
-/**
- * get logs for given verificationJob
- */
-export const GetClusterChartAnalyses = ({ verificationJobInstanceId, ...props }: GetClusterChartAnalysesProps) => (
-  <Get<
-    RestResponseListLogAnalysisClusterChartDTO,
-    unknown,
-    GetClusterChartAnalysesQueryParams,
-    GetClusterChartAnalysesPathParams
-  >
-    path={`/deployment-log-analysis/${verificationJobInstanceId}/clusters`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetClusterChartAnalysesProps = Omit<
-  UseGetProps<
-    RestResponseListLogAnalysisClusterChartDTO,
-    unknown,
-    GetClusterChartAnalysesQueryParams,
-    GetClusterChartAnalysesPathParams
-  >,
-  'path'
-> &
-  GetClusterChartAnalysesPathParams
-
-/**
- * get logs for given verificationJob
- */
-export const useGetClusterChartAnalyses = ({ verificationJobInstanceId, ...props }: UseGetClusterChartAnalysesProps) =>
-  useGet<
-    RestResponseListLogAnalysisClusterChartDTO,
-    unknown,
-    GetClusterChartAnalysesQueryParams,
-    GetClusterChartAnalysesPathParams
-  >(
-    (paramsInPath: GetClusterChartAnalysesPathParams) =>
-      `/deployment-log-analysis/${paramsInPath.verificationJobInstanceId}/clusters`,
-    { base: getConfig('cv/api'), pathParams: { verificationJobInstanceId }, ...props }
-  )
-
-/**
- * get logs for given verificationJob
- */
-export const getClusterChartAnalysesPromise = (
-  {
-    verificationJobInstanceId,
-    ...props
-  }: GetUsingFetchProps<
-    RestResponseListLogAnalysisClusterChartDTO,
-    unknown,
-    GetClusterChartAnalysesQueryParams,
-    GetClusterChartAnalysesPathParams
-  > & { verificationJobInstanceId: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    RestResponseListLogAnalysisClusterChartDTO,
-    unknown,
-    GetClusterChartAnalysesQueryParams,
-    GetClusterChartAnalysesPathParams
-  >(getConfig('cv/api'), `/deployment-log-analysis/${verificationJobInstanceId}/clusters`, props, signal)
-
 export interface GetDeploymentTimeSeriesQueryParams {
   accountId?: string
   anomalousMetricsOnly?: boolean
   hostName?: string
   filter?: string
   pageNumber?: number
+  pageSize?: number
 }
 
 export interface GetDeploymentTimeSeriesPathParams {
@@ -6906,6 +6896,64 @@ export const getTagCountPromise = (
     signal
   )
 
+export interface GetAllLogsDataQueryParams {
+  accountId?: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  environmentIdentifier: string
+  clusterTypes?: ('KNOWN' | 'UNEXPECTED' | 'UNKNOWN')[]
+  startTime: number
+  endTime: number
+  healthSources?: string[]
+  page?: number
+  size?: number
+}
+
+export type GetAllLogsDataProps = Omit<
+  GetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all log data for a time range
+ */
+export const GetAllLogsData = (props: GetAllLogsDataProps) => (
+  <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>
+    path={`/log-dashboard/logs-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllLogsDataProps = Omit<
+  UseGetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all log data for a time range
+ */
+export const useGetAllLogsData = (props: UseGetAllLogsDataProps) =>
+  useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>(`/log-dashboard/logs-data`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get all log data for a time range
+ */
+export const getAllLogsDataPromise = (
+  props: GetUsingFetchProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsDataQueryParams, void>(
+    getConfig('cv/api'),
+    `/log-dashboard/logs-data`,
+    props,
+    signal
+  )
+
 export interface GetTagCountForActivityQueryParams {
   accountId?: string
   projectIdentifier: string
@@ -7424,6 +7472,128 @@ export const getMonitoredServiceListEnvironmentsPromise = (
     signal
   )
 
+export interface GetAllHealthSourcesForServiceAndEnvironmentQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  environmentIdentifier: string
+}
+
+export type GetAllHealthSourcesForServiceAndEnvironmentProps = Omit<
+  GetProps<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all health sources for service and environment
+ */
+export const GetAllHealthSourcesForServiceAndEnvironment = (
+  props: GetAllHealthSourcesForServiceAndEnvironmentProps
+) => (
+  <Get<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>
+    path={`/monitored-service/health-sources`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllHealthSourcesForServiceAndEnvironmentProps = Omit<
+  UseGetProps<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all health sources for service and environment
+ */
+export const useGetAllHealthSourcesForServiceAndEnvironment = (
+  props: UseGetAllHealthSourcesForServiceAndEnvironmentProps
+) =>
+  useGet<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>(
+    `/monitored-service/health-sources`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all health sources for service and environment
+ */
+export const getAllHealthSourcesForServiceAndEnvironmentPromise = (
+  props: GetUsingFetchProps<
+    RestResponseListHealthSourceDTO,
+    unknown,
+    GetAllHealthSourcesForServiceAndEnvironmentQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service/health-sources`,
+    props,
+    signal
+  )
+
+export interface GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  environmentIdentifier: string
+}
+
+export type GetMonitoredServiceScoresFromServiceAndEnvironmentProps = Omit<
+  GetProps<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>,
+  'path'
+>
+
+/**
+ * get monitored service scores from service and env ref
+ */
+export const GetMonitoredServiceScoresFromServiceAndEnvironment = (
+  props: GetMonitoredServiceScoresFromServiceAndEnvironmentProps
+) => (
+  <Get<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>
+    path={`/monitored-service/scores`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceScoresFromServiceAndEnvironmentProps = Omit<
+  UseGetProps<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>,
+  'path'
+>
+
+/**
+ * get monitored service scores from service and env ref
+ */
+export const useGetMonitoredServiceScoresFromServiceAndEnvironment = (
+  props: UseGetMonitoredServiceScoresFromServiceAndEnvironmentProps
+) =>
+  useGet<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>(
+    `/monitored-service/scores`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get monitored service scores from service and env ref
+ */
+export const getMonitoredServiceScoresFromServiceAndEnvironmentPromise = (
+  props: GetUsingFetchProps<
+    ResponseHealthScoreDTO,
+    unknown,
+    GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseHealthScoreDTO, unknown, GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service/scores`,
+    props,
+    signal
+  )
+
 export interface GetMonitoredServiceFromServiceAndEnvironmentQueryParams {
   accountId: string
   orgIdentifier: string
@@ -7484,6 +7654,56 @@ export const getMonitoredServiceFromServiceAndEnvironmentPromise = (
     GetMonitoredServiceFromServiceAndEnvironmentQueryParams,
     void
   >(getConfig('cv/api'), `/monitored-service/service-environment`, props, signal)
+
+export interface GetMonitoredServiceYamlTemplateQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetMonitoredServiceYamlTemplateProps = Omit<
+  GetProps<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>,
+  'path'
+>
+
+/**
+ * yaml template for monitored service
+ */
+export const GetMonitoredServiceYamlTemplate = (props: GetMonitoredServiceYamlTemplateProps) => (
+  <Get<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>
+    path={`/monitored-service/yaml-template`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceYamlTemplateProps = Omit<
+  UseGetProps<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>,
+  'path'
+>
+
+/**
+ * yaml template for monitored service
+ */
+export const useGetMonitoredServiceYamlTemplate = (props: UseGetMonitoredServiceYamlTemplateProps) =>
+  useGet<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>(
+    `/monitored-service/yaml-template`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * yaml template for monitored service
+ */
+export const getMonitoredServiceYamlTemplatePromise = (
+  props: GetUsingFetchProps<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseString, unknown, GetMonitoredServiceYamlTemplateQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service/yaml-template`,
+    props,
+    signal
+  )
 
 export interface DeleteMonitoredServiceQueryParams {
   accountId: string
@@ -8054,6 +8274,63 @@ export const getNewRelicMetricDataPromise = (
     MetricPackDTOArrayRequestBody,
     void
   >('POST', getConfig('cv/api'), `/newrelic/metric-data`, props, signal)
+
+export interface GetServicesFromPagerDutyQueryParams {
+  accountId?: string
+  orgIdentifier: string
+  projectIdentifier: string
+  connectorIdentifier?: string
+  requestGuid: string
+}
+
+export type GetServicesFromPagerDutyProps = Omit<
+  GetProps<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>,
+  'path'
+>
+
+/**
+ * gets services from PagerDuty
+ */
+export const GetServicesFromPagerDuty = (props: GetServicesFromPagerDutyProps) => (
+  <Get<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>
+    path={`/pagerduty/services`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetServicesFromPagerDutyProps = Omit<
+  UseGetProps<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>,
+  'path'
+>
+
+/**
+ * gets services from PagerDuty
+ */
+export const useGetServicesFromPagerDuty = (props: UseGetServicesFromPagerDutyProps) =>
+  useGet<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>(
+    `/pagerduty/services`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * gets services from PagerDuty
+ */
+export const getServicesFromPagerDutyPromise = (
+  props: GetUsingFetchProps<
+    RestResponseListPagerDutyServiceDetail,
+    Failure | Error,
+    GetServicesFromPagerDutyQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListPagerDutyServiceDetail, Failure | Error, GetServicesFromPagerDutyQueryParams, void>(
+    getConfig('cv/api'),
+    `/pagerduty/services`,
+    props,
+    signal
+  )
 
 export interface GetLabelNamesQueryParams {
   accountId: string
@@ -8926,6 +9203,65 @@ export const getMetricDataPromise = (
     signal
   )
 
+export interface GetTimeSeriesMetricDataQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  environmentIdentifier: string
+  startTime: number
+  endTime: number
+  anomalous?: boolean
+  filter?: string
+  healthSources?: string[]
+  page?: number
+  size?: number
+}
+
+export type GetTimeSeriesMetricDataProps = Omit<
+  GetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all time series data in a given time range
+ */
+export const GetTimeSeriesMetricData = (props: GetTimeSeriesMetricDataProps) => (
+  <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>
+    path={`/timeseries-dashboard/metrics`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetTimeSeriesMetricDataProps = Omit<
+  UseGetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all time series data in a given time range
+ */
+export const useGetTimeSeriesMetricData = (props: UseGetTimeSeriesMetricDataProps) =>
+  useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>(
+    `/timeseries-dashboard/metrics`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all time series data in a given time range
+ */
+export const getTimeSeriesMetricDataPromise = (
+  props: GetUsingFetchProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetTimeSeriesMetricDataQueryParams, void>(
+    getConfig('cv/api'),
+    `/timeseries-dashboard/metrics`,
+    props,
+    signal
+  )
+
 export interface GetActivityMetricsQueryParams {
   accountId: string
   projectIdentifier: string
@@ -9575,3 +9911,60 @@ export const updateVerificationJobPromise = (
     VerificationJobDTORequestBody,
     UpdateVerificationJobPathParams
   >('PUT', getConfig('cv/api'), `/verification-job/${identifier}`, props, signal)
+
+export interface InputSetTemplateQueryParams {
+  accountId: string
+}
+
+export type InputSetTemplateProps = Omit<
+  MutateProps<ResponseInputSetTemplateResponse, unknown, InputSetTemplateQueryParams, InputSetTemplateRequest, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Given a template Add verify step to it if required
+ */
+export const InputSetTemplate = (props: InputSetTemplateProps) => (
+  <Mutate<ResponseInputSetTemplateResponse, unknown, InputSetTemplateQueryParams, InputSetTemplateRequest, void>
+    verb="POST"
+    path={`/verify-step/input-set-template`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseInputSetTemplateProps = Omit<
+  UseMutateProps<ResponseInputSetTemplateResponse, unknown, InputSetTemplateQueryParams, InputSetTemplateRequest, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Given a template Add verify step to it if required
+ */
+export const useInputSetTemplate = (props: UseInputSetTemplateProps) =>
+  useMutate<ResponseInputSetTemplateResponse, unknown, InputSetTemplateQueryParams, InputSetTemplateRequest, void>(
+    'POST',
+    `/verify-step/input-set-template`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * Given a template Add verify step to it if required
+ */
+export const inputSetTemplatePromise = (
+  props: MutateUsingFetchProps<
+    ResponseInputSetTemplateResponse,
+    unknown,
+    InputSetTemplateQueryParams,
+    InputSetTemplateRequest,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseInputSetTemplateResponse,
+    unknown,
+    InputSetTemplateQueryParams,
+    InputSetTemplateRequest,
+    void
+  >('POST', getConfig('cv/api'), `/verify-step/input-set-template`, props, signal)

@@ -45,6 +45,8 @@ import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
+import DelegateListing from '@delegates/pages/delegates/DelegateListing'
+import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigurations'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
 import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
@@ -129,6 +131,12 @@ const RedirectToGitSyncHome = (): React.ReactElement => {
     useParams<PipelineType<ProjectPathProps & ModulePathParams>>()
 
   return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier, module })} />
+}
+
+const RedirectToDelegatesHome = (): React.ReactElement => {
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
+
+  return <Redirect to={routes.toDelegateList({ accountId, projectIdentifier, orgIdentifier, module })} />
 }
 
 const RedirectToCDProject = (): React.ReactElement => {
@@ -416,7 +424,35 @@ export default (
         ...pipelineModuleParams
       })}
     >
-      <DelegatesPage />
+      <RedirectToDelegatesHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      path={routes.toDelegateList({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <DelegatesPage>
+        <DelegateListing />
+      </DelegatesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      path={routes.toDelegateConfigs({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <DelegatesPage>
+        <DelegateConfigurations />
+      </DelegatesPage>
     </RouteWithLayout>
     <RouteWithLayout
       exact
@@ -726,7 +762,6 @@ export default (
     >
       <TemplatesList />
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}

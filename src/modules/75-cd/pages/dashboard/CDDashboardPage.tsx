@@ -13,6 +13,7 @@ import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PageHeader } from '@common/components/Page/PageHeader'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ExecutionCard from '@pipeline/components/ExecutionCard/ExecutionCard'
 import { CardVariant } from '@pipeline/utils/constants'
 import DeploymentsHealthCards from './DeploymentsHealthCards'
@@ -71,6 +72,8 @@ export const CDDashboardPage: React.FC = () => {
   })
   const history = useHistory()
   const { getString } = useStrings()
+
+  useDocumentTitle([getString('deploymentsText'), getString('overview')])
 
   const { data, loading, error, refetch } = useGetDeployments({
     queryParams: {

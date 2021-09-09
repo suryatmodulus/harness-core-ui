@@ -2,33 +2,26 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
+import {
+  Connectors,
+  CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+  CreateConnectorModalProps,
+  GIT_TESTCONNECTION_STEP_INDEX
+} from '@connectors/constants'
 import { useStrings } from 'framework/strings'
-import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
-
+import { buildAzureKeyVaultPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import AzureKeyVaultForm from './views/AzureKeyVaultForm'
+import SetupVault from './views/SetupVault'
 import css from './CreateAzureKeyVaultConnector.module.scss'
 
-export interface CreateAzureKeyVaultConnectorProps {
-  onClose: () => void
-  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
-  isEditMode: boolean
-  mock?: any
-  connectorInfo?: ConnectorInfoDTO | void
-}
-
-export interface StepSecretManagerProps extends ConnectorInfoDTO {
-  isEdit: boolean
-  spec: any
-}
-
-const CreateAzureKeyVaultConnector: React.FC<CreateAzureKeyVaultConnectorProps> = props => {
+const CreateAzureKeyVaultConnector: React.FC<CreateConnectorModalProps> = props => {
   const { onClose, onSuccess } = props
   const { getString } = useStrings()
   return (
-    <StepWizard<StepSecretManagerProps>
+    <StepWizard
       icon={getConnectorIconByType(Connectors.AZURE_KEY_VAULT)}
       iconProps={{ size: 37 }}
       title={getString(getConnectorTitleIdByType(Connectors.AZURE_KEY_VAULT))}
@@ -43,11 +36,35 @@ const CreateAzureKeyVaultConnector: React.FC<CreateAzureKeyVaultConnectorProps> 
         disableGitSync={true}
       />
       <AzureKeyVaultForm
-        {...props}
         name={getString('details')}
         identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
-        onSuccess={onSuccess}
-        mock={props.mock}
+        connectorInfo={props.connectorInfo}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        accountId={props.accountId}
+        orgIdentifier={props.orgIdentifier}
+        projectIdentifier={props.projectIdentifier}
+      />
+      <DelegateSelectorStep
+        name={getString('delegate.DelegateselectionLabel')}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        buildPayload={buildAzureKeyVaultPayload}
+        hideModal={onClose}
+        connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
+        disableGitSync={true}
+        submitOnNextStep
+      />
+      <SetupVault
+        name={getString('connectors.azureKeyVault.labels.setupVault')}
+        onConnectorCreated={onSuccess}
+        connectorInfo={props.connectorInfo}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        accountId={props.accountId}
+        orgIdentifier={props.orgIdentifier}
+        projectIdentifier={props.projectIdentifier}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
@@ -56,6 +73,7 @@ const CreateAzureKeyVaultConnector: React.FC<CreateAzureKeyVaultConnectorProps> 
         onClose={onClose}
         isLastStep={true}
         type={Connectors.AZURE_KEY_VAULT}
+        stepIndex={GIT_TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

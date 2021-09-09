@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
 import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
+import { useGetPipelineSummary } from 'services/pipeline-ng'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
@@ -30,6 +31,19 @@ export default function CDPipelineDeploymentList(): React.ReactElement {
       })
     )
   }
+
+  const { data: pipeline } = useGetPipelineSummary({
+    pipelineIdentifier,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch
+    }
+  })
+
+  useDocumentTitle([pipeline?.data?.name || getString('pipelines'), getString('executionsText')])
 
   return <PipelineDeploymentList showHealthAndExecution onRunPipeline={onRunPipeline} />
 }

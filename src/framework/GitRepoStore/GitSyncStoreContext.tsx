@@ -41,7 +41,9 @@ export const GitSyncStoreProvider: React.FC = props => {
     lazy: true
   })
 
-  const { data: codeManagers, loading: loadingCodeManagers } = useGetSourceCodeManagers({})
+  const { data: codeManagers, loading: loadingCodeManagers } = useGetSourceCodeManagers({
+    queryParams: { accountIdentifier: accountId }
+  })
 
   const [storeData, setStoreData] = React.useState<Omit<GitSyncStoreProps, 'updateStore' | 'strings'>>({
     gitSyncRepos: [],

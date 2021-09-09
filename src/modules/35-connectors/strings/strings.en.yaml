@@ -35,6 +35,8 @@ dynatraceLabel: Dynatrace
 appdLabel: AppDynamics
 newRelicLabel: New Relic
 splunkLabel: Splunk
+stackdriverMetricsLabel: Google Cloud Operations (Metrics)
+stackdriverLogsLabel: Google Cloud Operations (Logs)
 click: 'Click'
 dynatraceConnectorDetails: Dynatrace Connector Details
 connectorDetailsHeader: '{{type}} Connector Details'
@@ -168,6 +170,7 @@ k8:
   validation:
     clientKeyAlgo: Client Key Algorithm is required
 hashiCorpVault:
+  appRole: App Role
   appRoleId: 'App Role ID'
   baseSecretPath: 'Base Secret Path (optional)'
   secretId: 'Secret ID'
@@ -184,6 +187,10 @@ hashiCorpVault:
   fetchEngines: Fetch Engines
   setupEngine: Setup Engine
   manuallyConfigureEngine: Manually Configure Engine
+  vaultAgent: Vault Agent
+  root: '/(Root)'
+  sinkPath: Sink Path
+  sinkPathIsRequired: Sink Path is required
 nexus:
   nexusServerUrl: 'Nexus Repository URL'
 artifactory:
@@ -368,6 +375,7 @@ azureKeyVault:
     subscription: Subscription
     vaultName: Vault Name
     fetchVault: Fetch Vault
+    setupVault: Setup Vault
   validation:
     clientId: Client ID is required
     tenantId: '{{ $.connectors.tenantIdRequired }}'

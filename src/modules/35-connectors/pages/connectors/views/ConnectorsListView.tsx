@@ -1,5 +1,17 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Text, Link, Layout, Color, Icon, Button, Popover, StepsProgress, Container } from '@wings-software/uicore'
+import {
+  Text,
+  Link,
+  Layout,
+  Color,
+  Icon,
+  Button,
+  Popover,
+  StepsProgress,
+  Container,
+  ButtonVariation,
+  ButtonSize
+} from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind, TextArea } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
@@ -182,6 +194,7 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
 export const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
   const tags = data.connector?.tags || {}
+  const { getString } = useStrings()
   return (
     <Layout.Horizontal spacing="small">
       <Icon name={getIconByType(data.connector?.type)} size={30}></Icon>
@@ -193,7 +206,7 @@ export const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ 
           {tags && Object.keys(tags).length ? <TagsPopover tags={tags} /> : null}
         </Layout.Horizontal>
         <div className={css.identifier} title={data.connector?.identifier}>
-          {data.connector?.identifier}
+          {`${getString('common.ID')}: ${data.connector?.identifier}`}
         </div>
       </div>
     </Layout.Horizontal>
@@ -423,9 +436,10 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
       )}
       {!testing && !isStatusSuccess ? (
         <Button
-          font="small"
+          variation={ButtonVariation.SECONDARY}
+          size={ButtonSize.SMALL}
+          text={getString('test')}
           className={css.testBtn}
-          text={getString('test').toUpperCase()}
           onClick={e => {
             e.stopPropagation()
             setTesting(true)

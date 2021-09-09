@@ -8,7 +8,8 @@ import {
   Text,
   Color,
   DataTooltipInterface,
-  FormikTooltipContext
+  FormikTooltipContext,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 
 import { get, isPlainObject, pick } from 'lodash-es'
@@ -108,7 +109,11 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
       intent={errorCheck() ? Intent.DANGER : Intent.NONE}
     >
       <Layout.Vertical>
-        {label ? <label className={'bp3-label'}>{label}</label> : null}
+        {label ? (
+          <label className={'bp3-label'}>
+            <HarnessDocTooltip tooltipId={dataTooltipId} labelText={label} />
+          </label>
+        ) : null}
         <Container flex={{ alignItems: 'center', justifyContent: 'space-between' }} className={css.container}>
           <Link
             to="#"
@@ -129,7 +134,6 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
               flex={{ alignItems: 'center', justifyContent: 'flex-start', inline: false }}
               padding="small"
               className={css.containerLinkText}
-              tooltipProps={{ dataTooltipId: dataTooltipId }}
             >
               <div>{secretReference ? getString('secret.configureSecret') : getPlaceHolder()}</div>
               {secretReference ? <div>{`<${secretReference['name']}>`}</div> : null}

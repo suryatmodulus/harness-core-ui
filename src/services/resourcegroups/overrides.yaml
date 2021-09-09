@@ -2,3 +2,4 @@ allowpaths:
   - /resourcegroup
   - /resourcegroup/{identifier}
   - /resourcetype
+  - /resourcegroup/filter

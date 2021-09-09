@@ -403,6 +403,21 @@ export function useFetchPerspectiveTimeSeriesQuery(
 ) {
   return Urql.useQuery<FetchPerspectiveTimeSeriesQuery>({ query: FetchPerspectiveTimeSeriesDocument, ...options })
 }
+export const FetchPerspectiveTotalCountDocument = gql`
+  query FetchPerspectiveTotalCount(
+    $filters: [QLCEViewFilterWrapperInput]
+    $groupBy: [QLCEViewGroupByInput]
+    $isClusterQuery: Boolean
+  ) {
+    perspectiveTotalCount(filters: $filters, groupBy: $groupBy, isClusterQuery: $isClusterQuery)
+  }
+`
+
+export function useFetchPerspectiveTotalCountQuery(
+  options: Omit<Urql.UseQueryArgs<FetchPerspectiveTotalCountQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchPerspectiveTotalCountQuery>({ query: FetchPerspectiveTotalCountDocument, ...options })
+}
 export const FetchRecommendationDocument = gql`
   query FetchRecommendation(
     $id: String!
@@ -1169,6 +1184,14 @@ export type FetchPerspectiveTimeSeriesQuery = {
     >
   }>
 }
+
+export type FetchPerspectiveTotalCountQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>> | Maybe<QlceViewGroupByInput>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
+}>
+
+export type FetchPerspectiveTotalCountQuery = { __typename?: 'Query'; perspectiveTotalCount: Maybe<number> }
 
 export type FetchRecommendationQueryVariables = Exact<{
   id: Scalars['String']
@@ -1984,6 +2007,8 @@ export type Query = {
   perspectiveOverviewStats: Maybe<PerspectiveOverviewStatsData>
   /** Table for perspective */
   perspectiveTimeSeriesStats: Maybe<PerspectiveTimeSeriesData>
+  /** Get total count of rows for query */
+  perspectiveTotalCount: Maybe<Scalars['Int']>
   /** Trend stats for perspective */
   perspectiveTrendStats: Maybe<PerspectiveTrendStats>
   /** Fetch perspectives for account */
@@ -2079,6 +2104,13 @@ export type QueryPerspectiveTimeSeriesStatsArgs = {
   limit: Maybe<Scalars['Int']>
   offset: Maybe<Scalars['Int']>
   sortCriteria: Maybe<Array<Maybe<QlceViewSortCriteriaInput>>>
+}
+
+/** Query root */
+export type QueryPerspectiveTotalCountArgs = {
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
 }
 
 /** Query root */

@@ -1,4 +1,14 @@
-import { Button, Color, Container, Formik, FormInput, Layout, StepProps, Text } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Color,
+  Container,
+  Formik,
+  FormInput,
+  Layout,
+  StepProps,
+  Text
+} from '@wings-software/uicore'
 import React from 'react'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -45,7 +55,12 @@ const Overview: React.FC<StepProps<NotificationRules> & OverviewProps> = ({
               <Container height={400} width={400}>
                 <FormInput.Text name="name" label={getString('notifications.notificationName')} />
               </Container>
-              <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('continue')} />
+              <Button
+                type="submit"
+                variation={ButtonVariation.PRIMARY}
+                rightIcon="chevron-right"
+                text={getString('continue')}
+              />
             </Form>
           )
         }}

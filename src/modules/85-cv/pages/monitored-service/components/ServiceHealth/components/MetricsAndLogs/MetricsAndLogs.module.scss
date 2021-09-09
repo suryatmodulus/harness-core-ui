@@ -1,0 +1,20 @@
+.noTimeRangeSelected {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.metricsLogsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.analysisContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.analysisFields {
+  width: 49%;
+}

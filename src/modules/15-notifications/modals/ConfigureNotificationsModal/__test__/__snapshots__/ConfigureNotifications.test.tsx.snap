@@ -13,117 +13,132 @@ exports[`ConfigureNotifications Email 1`] = `
       >
         notifications.titleEmail
       </h1>
-      <form
-        class="FormikForm--main"
+      <div
+        class="OverlaySpinner--overlaySpinner"
       >
-        <div>
-          <div
-            class="bp3-form-group"
-            data-id="emailIds-0"
-          >
-            <label
-              class="bp3-label"
-              for="emailIds"
-            >
-              notifications.emailRecipients
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
+        <form
+          class="FormikForm--main"
+        >
+          <div>
             <div
-              class="bp3-form-content"
+              class="bp3-form-group"
+              data-id="emailIds-0"
             >
-              <textarea
-                autocomplete="off"
-                class="bp3-input bp3-fill"
-                maxlength="1024"
-                name="emailIds"
+              <label
+                class="bp3-label"
+                for="emailIds"
               >
-                test@harness.io
-              </textarea>
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="configureEmailNotifications_emailIds"
+                >
+                  notifications.emailRecipients
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <textarea
+                  autocomplete="off"
+                  class="bp3-input bp3-fill"
+                  maxlength="1024"
+                  name="emailIds"
+                >
+                  test@harness.io
+                </textarea>
+              </div>
             </div>
-          </div>
-          <div
-            class="bp3-form-group"
-            data-id="null-1"
-          >
             <div
-              class="bp3-form-content"
+              class="bp3-form-group"
+              data-id="null-1"
             >
               <div
-                class="Layout--vertical StyledProps--main"
+                class="bp3-form-content"
               >
-                <label
-                  class="bp3-label"
-                >
-                  notifications.labelSlackUserGroups
-                </label>
                 <div
-                  class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+                  class="Layout--vertical StyledProps--main"
                 >
-                  <div
-                    class="StyledProps--font StyledProps--main pointer"
+                  <label
+                    class="bp3-label"
+                    data-tooltip-id="configureEmailNotifications_userGroups"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+                    notifications.labelSlackUserGroups
+                  </label>
+                  <div
+                    class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main pointer"
                     >
-                      common.selectUserGroups
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+                      >
+                        common.selectUserGroups
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            class="Layout--horizontal StyledProps--main"
-            style="align-items: center;"
-          >
-            <span
-              class="bp3-popover-wrapper"
+            <div
+              class="Layout--horizontal StyledProps--main"
+              style="align-items: center;"
             >
               <span
-                class="bp3-popover-target"
+                class="bp3-popover-wrapper"
               >
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-                  type="button"
+                <span
+                  class="bp3-popover-target"
                 >
-                  <span
-                    class="bp3-button-text"
+                  <div
+                    class="Button--withDocsTooltip"
+                    data-tooltip-id="testEmailConfigButton"
                   >
-                    test
-                  </span>
-                </button>
+                    <button
+                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        test
+                      </span>
+                    </button>
+                  </div>
+                </span>
               </span>
-            </span>
-          </div>
-          <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
-          >
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-              type="submit"
+            </div>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
             >
-              <span
-                class="bp3-button-text"
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
+                type="submit"
               >
-                submit
-              </span>
-            </button>
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
+                <span
+                  class="bp3-button-text"
+                >
+                  submit
+                </span>
+              </button>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
+                type="button"
               >
-                cancel
-              </span>
-            </button>
+                <span
+                  class="bp3-button-text"
+                >
+                  cancel
+                </span>
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -240,6 +255,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
               >
                 <label
                   class="bp3-label"
+                  data-tooltip-id=""
                 >
                   notifications.labelSlackUserGroups
                 </label>
@@ -353,112 +369,127 @@ exports[`ConfigureNotifications Slack 1`] = `
       >
         notifications.infoSlack
       </p>
-      <form
-        class="FormikForm--main"
+      <div
+        class="OverlaySpinner--overlaySpinner"
       >
-        <div>
-          <div
-            class="bp3-form-group"
-            data-id="webhookUrl-0"
-          >
-            <label
-              class="bp3-label"
-              for="webhookUrl"
-            >
-              notifications.labelWebhookUrl
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
+        <form
+          class="FormikForm--main"
+        >
+          <div>
             <div
-              class="bp3-form-content"
+              class="bp3-form-group"
+              data-id="webhookUrl-0"
             >
-              <div
-                class="bp3-input-group"
+              <label
+                class="bp3-label"
+                for="webhookUrl"
               >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name="webhookUrl"
-                  type="text"
-                  value="http://valid.url"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="configureSlackNotifications_webhookUrl"
+                >
+                  notifications.labelWebhookUrl
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
                 />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="webhookUrl"
+                    type="text"
+                    value="http://valid.url"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-xxlarge"
-            style="align-items: center;"
-          >
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                test
-              </span>
-            </button>
-          </div>
-          <div
-            class="bp3-form-group"
-            data-id="null-1"
-          >
             <div
-              class="bp3-form-content"
+              class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-xxlarge"
+              style="align-items: center;"
             >
               <div
-                class="Layout--vertical StyledProps--main"
+                class="Button--withDocsTooltip"
+                data-tooltip-id="testSlackConfigButton"
               >
-                <label
-                  class="bp3-label"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  type="button"
                 >
-                  notifications.labelSlackUserGroups
-                </label>
-                <div
-                  class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
-                >
-                  <div
-                    class="StyledProps--font StyledProps--main pointer"
+                  <span
+                    class="bp3-button-text"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+                    test
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="null-1"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout--vertical StyledProps--main"
+                >
+                  <label
+                    class="bp3-label"
+                    data-tooltip-id="configureSlackNotifications_userGroups"
+                  >
+                    notifications.labelSlackUserGroups
+                  </label>
+                  <div
+                    class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main pointer"
                     >
-                      common.selectUserGroups
-                    </p>
+                      <p
+                        class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+                      >
+                        common.selectUserGroups
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
-          >
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-              type="submit"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
             >
-              <span
-                class="bp3-button-text"
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
+                type="submit"
               >
-                submit
-              </span>
-            </button>
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
+                <span
+                  class="bp3-button-text"
+                >
+                  submit
+                </span>
+              </button>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
+                type="button"
               >
-                cancel
-              </span>
-            </button>
+                <span
+                  class="bp3-button-text"
+                >
+                  cancel
+                </span>
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>

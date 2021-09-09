@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Layout, Popover, Icon, ExpandingSearchInput, Container, ButtonVariation } from '@wings-software/uicore'
+import { Layout, Popover, Icon, ExpandingSearchInput, Container, ButtonVariation, Color } from '@wings-software/uicore'
 import { Menu, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useListSecretsV2, ResponsePageSecretResponseWrapper, Error } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
@@ -19,10 +19,15 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { Page } from '@common/exports'
 import SecretsList from './views/SecretsListView/SecretsList'
 
+import SecretEmptyState from './secrets-empty-state.png'
+
 import css from './SecretsPage.module.scss'
 
 interface SecretsPageProps {
   mock?: UseGetMockData<ResponsePageSecretResponseWrapper>
+}
+interface CreateSecretBtnProp {
+  setOpenPopOverProp: (val: boolean) => void
 }
 
 const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
@@ -32,6 +37,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [page, setPage] = useState(0)
   const [openPopOver, setOpenPopOver] = useState<boolean>(false)
+  const [emptyStateOpenPopOver, setEmptyStateOpenPopOver] = useState<boolean>(false)
   useDocumentTitle(getString('common.secrets'))
 
   const {
@@ -62,49 +68,57 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
       refetch()
     }
   })
-
+  const CreateSecretBtn: React.FC<CreateSecretBtnProp> = ({ setOpenPopOverProp }) => {
+    return (
+      <RbacButton
+        intent="primary"
+        text={getString('secretType')}
+        icon="plus"
+        rightIcon="chevron-down"
+        permission={{
+          permission: PermissionIdentifier.UPDATE_SECRET,
+          resource: {
+            resourceType: ResourceType.SECRET
+          }
+        }}
+        onClick={() => {
+          setOpenPopOverProp(true)
+        }}
+        variation={ButtonVariation.PRIMARY}
+      />
+    )
+  }
+  const CreateSecretBtnMenu: React.FC = () => {
+    return (
+      <Menu large>
+        <Menu.Item
+          text={getString('secret.labelText')}
+          labelElement={<Icon name="text" />}
+          onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
+        />
+        <Menu.Item
+          text={getString('secret.labelFile')}
+          labelElement={<Icon name="document" color={Color.BLUE_600} />}
+          onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
+        />
+        <Menu.Item
+          text={getString('ssh.sshCredential')}
+          labelElement={<Icon name="secret-ssh" />}
+          onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
+        />
+      </Menu>
+    )
+  }
   return (
     <>
       <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('common.secrets')} />
       <Layout.Horizontal flex className={css.header}>
         <Layout.Horizontal spacing="small">
           <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
-            <RbacButton
-              intent="primary"
-              text={getString('secretType')}
-              icon="plus"
-              rightIcon="chevron-down"
-              permission={{
-                permission: PermissionIdentifier.UPDATE_SECRET,
-                resource: {
-                  resourceType: ResourceType.SECRET
-                }
-              }}
-              onClick={() => {
-                setOpenPopOver(true)
-              }}
-              variation={ButtonVariation.PRIMARY}
-            />
-            {openPopOver && (
-              <Menu large>
-                <Menu.Item
-                  text={getString('secret.labelText')}
-                  labelElement={<Icon name="text" />}
-                  onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
-                />
-                <Menu.Item
-                  text={getString('secret.labelFile')}
-                  labelElement={<Icon name="document" color="blue600" />}
-                  onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
-                />
-                <Menu.Item
-                  text={getString('ssh.sshCredential')}
-                  labelElement={<Icon name="secret-ssh" />}
-                  onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
-                />
-              </Menu>
-            )}
+            <CreateSecretBtn setOpenPopOverProp={setOpenPopOver} />
+            {openPopOver && <CreateSecretBtnMenu />}
           </Popover>
+
           <RbacButton
             text={getString('createViaYaml')}
             minimal
@@ -136,7 +150,20 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
           width={250}
         />
       </Layout.Horizontal>
-      <Page.Body className={css.body}>
+      <Page.Body
+        className={css.body}
+        noData={{
+          when: () => !loading && !searchTerm && !secretsResponse?.data?.content?.length,
+          image: SecretEmptyState,
+          message: getString('secrets.noSecrets', { resourceName: projectIdentifier ? 'project' : 'organization' }),
+          button: (
+            <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
+              <CreateSecretBtn setOpenPopOverProp={setEmptyStateOpenPopOver} />
+              {emptyStateOpenPopOver && <CreateSecretBtnMenu />}
+            </Popover>
+          )
+        }}
+      >
         {loading ? (
           <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
             <PageSpinner />

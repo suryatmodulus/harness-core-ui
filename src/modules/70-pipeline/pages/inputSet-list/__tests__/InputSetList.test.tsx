@@ -6,6 +6,7 @@ import { TestWrapper, findDialogContainer, findPopoverContainer } from '@common/
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
+import { PipelineResponse as PipelineDetailsMockResponse } from '../../pipeline-details/__tests__/PipelineDetailsMocks'
 import InputSetList from '../InputSetList'
 import {
   TemplateResponse,
@@ -34,6 +35,7 @@ jest.mock('services/cd-ng', () => ({
 
 jest.mock('services/pipeline-ng', () => ({
   useGetPipeline: jest.fn(() => PipelineResponse),
+  useGetPipelineSummary: jest.fn(() => PipelineDetailsMockResponse),
   useGetTemplateFromPipeline: jest.fn(() => TemplateResponse),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => MergeInputSetResponse),
   useGetOverlayInputSetForPipeline: jest.fn(() => GetOverlayInputSetEdit),

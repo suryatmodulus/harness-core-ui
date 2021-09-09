@@ -12,7 +12,7 @@ shared:
   lastEvaluated: Last Evaluated
   variation: Variation
   variations: Variations
-  prerequisites: Prerequisites
+  prerequisites: '{{$.preRequisitesTitle}}'
   selectEnvironment: Select Environment
   evaluations: Evaluations
   flags: '{{$.common.purpose.cf.flags}}'

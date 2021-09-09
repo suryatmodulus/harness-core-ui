@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 import { useStrings, UseStringsReturn } from 'framework/strings'
-import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/StringUtils'
+import { illegalIdentifiers, regexEmail, regexIdentifier, regexName } from '@common/utils/StringUtils'
 interface EmailProps {
   allowMultiple?: boolean
   emailSeparator?: string
@@ -80,4 +80,8 @@ export function URLValidationSchema(): Yup.Schema<string | undefined> {
     .trim()
     .required(getString('common.validation.urlIsRequired'))
     .url(getString('validation.urlIsNotValid'))
+}
+
+export const isEmail = (email: string): boolean => {
+  return regexEmail.test(String(email).toLowerCase())
 }

@@ -15,13 +15,12 @@
 
   .authHeaderRow {
     display: flex;
-
     justify-content: space-between;
+    margin-top: var(--spacing-medium);
 
     .authTitle {
       font-size: var(font-size-normal);
       color: var(--black-600);
-      padding-top: var(--spacing-small);
       font-weight: bold !important;
     }
   }

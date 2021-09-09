@@ -78,3 +78,8 @@ reviewScript:
   docLinkAfter: ' page.'
   copyYamlError: 'Download the YAML file before clicking on the continue button'
 delegateIdentifier: 'Delegate Identifier'
+newDelegate: 'New Delegate'
+newDelegateConfiguration: 'New Delegate Configuration'
+noDelegatesInProject: 'There are no delegates in your project'
+noDelegatesInOrganization: 'There are no delegates in your organization'
+noDelegatesInAccount: 'There are no delegates in your account'

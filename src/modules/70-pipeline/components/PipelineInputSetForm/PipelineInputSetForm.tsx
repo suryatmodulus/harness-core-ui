@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, getMultiTypeFromValue, MultiTypeInputType, Text, Icon, Color, IconName } from '@wings-software/uicore'
 import { isEmpty, get } from 'lodash-es'
 import cx from 'classnames'
+import { useParams } from 'react-router-dom'
 import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
@@ -10,6 +11,7 @@ import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { StageInputSetForm } from './StageInputSetForm'
 import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
 import { StepWidget } from '../AbstractSteps/StepWidget'
@@ -214,10 +216,12 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
 }
 export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
   const [template, setTemplate] = React.useState(props.template)
+  const accountPathProps = useParams<AccountPathProps>()
   React.useEffect(() => {
     if (props.isRunPipelineForm) {
       PubSubPipelineActions.publish(PipelineActions.RunPipeline, {
         pipeline: props.originalPipeline,
+        accountPathProps,
         template: props.template
       }).then(data => {
         if (data.length > 0) {

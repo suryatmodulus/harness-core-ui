@@ -29,19 +29,25 @@ interface ResourceGroupListViewProps {
   goToPage: (pageNumber: number) => void
 }
 
-const RenderColumnDetails: Renderer<CellProps<ResourceGroupResponse>> = ({ row }) => {
-  const data = row.original
-  return data?.resourceGroup ? (
-    <Layout.Horizontal spacing="small">
-      <div style={{ backgroundColor: data?.resourceGroup?.color }} className={cx(css.resourceGroupColor)}></div>
-      <Text color={Color.BLACK} lineClamp={1}>
-        {data?.resourceGroup?.name}
-      </Text>
+export const RenderColumnDetails: Renderer<CellProps<ResourceGroupResponse>> = ({ row }) => {
+  const data = row.original.resourceGroup
+  const { getString } = useStrings()
+  return (
+    <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      <div style={{ backgroundColor: data.color }} className={cx(css.resourceGroupColor)}></div>
+      <Layout.Vertical spacing="xsmall" padding={{ left: 'small' }}>
+        <Text color={Color.BLACK} lineClamp={1}>
+          {data.name}
+        </Text>
+        <Text color={Color.GREY_600} lineClamp={1} font="small">
+          {getString('idLabel', { id: data.identifier })}
+        </Text>
+      </Layout.Vertical>
     </Layout.Horizontal>
-  ) : null
+  )
 }
 
-const RenderColumnLastUpdated: Renderer<CellProps<ResourceGroupResponse>> = ({ row }) => {
+export const RenderColumnLastUpdated: Renderer<CellProps<ResourceGroupResponse>> = ({ row }) => {
   const { getString } = useStrings()
   const data = row?.original
   if (data.harnessManaged) {

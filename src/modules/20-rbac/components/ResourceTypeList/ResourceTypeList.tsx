@@ -1,6 +1,5 @@
 import React from 'react'
-import { Card, Layout, Text, Color } from '@wings-software/uicore'
-import { Checkbox } from '@blueprintjs/core'
+import { Card, Layout, Text, Color, Checkbox } from '@wings-software/uicore'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
@@ -87,7 +86,11 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                       const resourceHandler = RbacFactory.getResourceTypeHandler(resource)
                       return (
                         resourceHandler && (
-                          <Layout.Horizontal key={resource} className={css.resourceSubList}>
+                          <Layout.Horizontal
+                            key={resource}
+                            flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                            className={css.resourceSubList}
+                          >
                             <Checkbox
                               data-testid={`CHECK-BOX-${resource}`}
                               disabled={disableAddingResources}

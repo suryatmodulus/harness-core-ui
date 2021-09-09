@@ -10,7 +10,7 @@ import type {
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
+import { EntityReferenceResponse, getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import css from './UserGroupsReference.module.scss'
 
 export interface UserGroupsRef extends Omit<UserGroupDTO, 'users'> {
@@ -27,6 +27,7 @@ export interface UserGroupsReferenceProps {
   userGroupsScopeAndUuid?: ScopeAndIdentifier[]
   scope?: Scope
   mock?: UserGroupDTO[]
+  onlyCurrentScope?: boolean
 }
 
 const fetchRecords = (
@@ -83,11 +84,15 @@ const fetchRecords = (
 }
 
 const UserGroupsReference: React.FC<UserGroupsReferenceProps> = props => {
-  const { scope = Scope.ACCOUNT, onSelect, userGroupsScopeAndUuid } = props
-  const { getString } = useStrings()
-
-  const { showError } = useToaster()
   const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const {
+    onSelect,
+    userGroupsScopeAndUuid,
+    onlyCurrentScope,
+    scope = onlyCurrentScope ? getScopeFromDTO({ accountIdentifier, projectIdentifier, orgIdentifier }) : Scope.ACCOUNT
+  } = props
+  const { getString } = useStrings()
+  const { showError } = useToaster()
 
   return (
     <MultiSelectEntityReference<UserGroupsRef>
@@ -95,6 +100,7 @@ const UserGroupsReference: React.FC<UserGroupsReferenceProps> = props => {
       onMultiSelect={(selectedData: ScopeAndIdentifier[]) => {
         onSelect(selectedData)
       }}
+      onlyCurrentScope={onlyCurrentScope}
       defaultScope={scope}
       fetchRecords={(fetchScope, search = '', done) => {
         fetchRecords(fetchScope, search, done, accountIdentifier, showError, projectIdentifier, orgIdentifier)

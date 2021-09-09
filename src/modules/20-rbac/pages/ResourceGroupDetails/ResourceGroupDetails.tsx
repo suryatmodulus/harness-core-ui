@@ -190,7 +190,6 @@ const ResourceGroupDetails: React.FC = () => {
     <>
       <Page.Header
         size="xlarge"
-        className={css.headerContainer}
         breadcrumbs={
           <NGBreadcrumbs
             links={[

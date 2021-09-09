@@ -933,7 +933,7 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout--vertical StyledProps--main"
+                  class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                   style="width: 56%;"
                 >
                   <div
@@ -941,157 +941,159 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                     data-tooltip-id="awsAuthentication"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-top-small StyledProps--padding-bottom-large"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                     >
                       authentication
                     </p>
                   </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="accessKeyfieldType-1"
-                  >
+                  <div>
                     <div
-                      class="bp3-form-content"
+                      class="bp3-form-group"
+                      data-id="accessKeyfieldType-1"
                     >
                       <div
-                        class="Layout--vertical StyledProps--main"
+                        class="bp3-form-content"
                       >
                         <div
-                          class="label"
+                          class="Layout--vertical StyledProps--main"
                         >
-                          <span
-                            class="align bp3-label stringWithTooltipLabel"
-                            data-tooltip-id="stepAwsAuthForm_accessKey"
-                          >
-                            connectors.aws.accessKey
-                          </span>
                           <div
-                            class="bp3-form-group labelSelect"
-                            data-id="accessKeyfieldType-2"
+                            class="label"
                           >
+                            <span
+                              class="align bp3-label stringWithTooltipLabel"
+                              data-tooltip-id="stepAwsAuthForm_accessKey"
+                            >
+                              connectors.aws.accessKey
+                            </span>
                             <div
-                              class="bp3-form-content"
+                              class="bp3-form-group labelSelect"
+                              data-id="accessKeyfieldType-2"
                             >
                               <div
-                                class="bp3-popover-wrapper Select--main bp3-fill"
+                                class="bp3-form-content"
                               >
                                 <div
-                                  class="bp3-popover-target"
+                                  class="bp3-popover-wrapper Select--main bp3-fill"
                                 >
                                   <div
-                                    class="bp3-input-group"
+                                    class="bp3-popover-target"
                                   >
-                                    <input
-                                      autocomplete="off"
-                                      class="bp3-input"
-                                      name="accessKeyfieldType"
-                                      placeholder="- Select -"
-                                      style="padding-right: 0px;"
-                                      type="text"
-                                      value="plaintext"
-                                    />
-                                    <span
-                                      class="bp3-input-action"
+                                    <div
+                                      class="bp3-input-group"
                                     >
+                                      <input
+                                        autocomplete="off"
+                                        class="bp3-input"
+                                        name="accessKeyfieldType"
+                                        placeholder="- Select -"
+                                        style="padding-right: 0px;"
+                                        type="text"
+                                        value="plaintext"
+                                      />
                                       <span
-                                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                                        icon="chevron-down"
+                                        class="bp3-input-action"
                                       >
-                                        <svg
-                                          data-icon="chevron-down"
-                                          height="14"
-                                          viewBox="0 0 16 16"
-                                          width="14"
+                                        <span
+                                          class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                          icon="chevron-down"
                                         >
-                                          <desc>
-                                            chevron-down
-                                          </desc>
-                                          <path
-                                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
+                                          <svg
+                                            data-icon="chevron-down"
+                                            height="14"
+                                            viewBox="0 0 16 16"
+                                            width="14"
+                                          >
+                                            <desc>
+                                              chevron-down
+                                            </desc>
+                                            <path
+                                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                              fill-rule="evenodd"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div
-                          class="bp3-form-group textCss"
-                        >
                           <div
-                            class="bp3-form-content"
+                            class="bp3-form-group textCss"
                           >
                             <div
-                              class="bp3-input-group"
+                              class="bp3-form-content"
                             >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="accessKeytextField"
-                                type="text"
-                                value=""
-                              />
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="accessKeytextField"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="null-4"
-                  >
                     <div
-                      class="bp3-form-content"
+                      class="bp3-form-group"
+                      data-id="null-4"
                     >
                       <div
-                        class="Layout--vertical StyledProps--main"
+                        class="bp3-form-content"
                       >
-                        <label
-                          class="bp3-label"
-                        >
-                          connectors.aws.secretKey
-                        </label>
                         <div
-                          class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
+                          class="Layout--vertical StyledProps--main"
                         >
-                          <a
-                            class="containerLink"
-                            data-testid="secretKeyRef"
-                            href="/account/dummy/resources/connectors"
+                          <label
+                            class="bp3-label"
                           >
                             <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="key-main"
-                              style="height: 12px;"
-                            >
-                              <svg
-                                height="24"
-                                width="24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <g
-                                  fill="none"
-                                  stroke="#1C1C28"
-                                  stroke-width="0.5"
-                                >
-                                  <path
-                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                  />
-                                  <path
-                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                  />
-                                </g>
-                              </svg>
-                            </span>
-                            <div
-                              class="Text--withDocsTooltip"
+                              class="Tooltip--acenter"
                               data-tooltip-id="stepAwsAuthForm_secretKeyRef"
                             >
+                              connectors.aws.secretKey
+                            </span>
+                          </label>
+                          <div
+                            class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
+                          >
+                            <a
+                              class="containerLink"
+                              data-testid="secretKeyRef"
+                              href="/account/dummy/resources/connectors"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
+                                style="height: 12px;"
+                              >
+                                <svg
+                                  height="24"
+                                  width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
                               <p
                                 class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
@@ -1099,8 +1101,8 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                                   createOrSelectSecret
                                 </div>
                               </p>
-                            </div>
-                          </a>
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1769,7 +1771,7 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout--vertical StyledProps--main"
+                  class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                   style="width: 56%;"
                 >
                   <div
@@ -1777,157 +1779,159 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                     data-tooltip-id="awsAuthentication"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-top-small StyledProps--padding-bottom-large"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                     >
                       authentication
                     </p>
                   </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="accessKeyfieldType-1"
-                  >
+                  <div>
                     <div
-                      class="bp3-form-content"
+                      class="bp3-form-group"
+                      data-id="accessKeyfieldType-1"
                     >
                       <div
-                        class="Layout--vertical StyledProps--main"
+                        class="bp3-form-content"
                       >
                         <div
-                          class="label"
+                          class="Layout--vertical StyledProps--main"
                         >
-                          <span
-                            class="align bp3-label stringWithTooltipLabel"
-                            data-tooltip-id="stepAwsAuthForm_accessKey"
-                          >
-                            connectors.aws.accessKey
-                          </span>
                           <div
-                            class="bp3-form-group labelSelect"
-                            data-id="accessKeyfieldType-2"
+                            class="label"
                           >
+                            <span
+                              class="align bp3-label stringWithTooltipLabel"
+                              data-tooltip-id="stepAwsAuthForm_accessKey"
+                            >
+                              connectors.aws.accessKey
+                            </span>
                             <div
-                              class="bp3-form-content"
+                              class="bp3-form-group labelSelect"
+                              data-id="accessKeyfieldType-2"
                             >
                               <div
-                                class="bp3-popover-wrapper Select--main bp3-fill"
+                                class="bp3-form-content"
                               >
                                 <div
-                                  class="bp3-popover-target"
+                                  class="bp3-popover-wrapper Select--main bp3-fill"
                                 >
                                   <div
-                                    class="bp3-input-group"
+                                    class="bp3-popover-target"
                                   >
-                                    <input
-                                      autocomplete="off"
-                                      class="bp3-input"
-                                      name="accessKeyfieldType"
-                                      placeholder="- Select -"
-                                      style="padding-right: 0px;"
-                                      type="text"
-                                      value="plaintext"
-                                    />
-                                    <span
-                                      class="bp3-input-action"
+                                    <div
+                                      class="bp3-input-group"
                                     >
+                                      <input
+                                        autocomplete="off"
+                                        class="bp3-input"
+                                        name="accessKeyfieldType"
+                                        placeholder="- Select -"
+                                        style="padding-right: 0px;"
+                                        type="text"
+                                        value="plaintext"
+                                      />
                                       <span
-                                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                                        icon="chevron-down"
+                                        class="bp3-input-action"
                                       >
-                                        <svg
-                                          data-icon="chevron-down"
-                                          height="14"
-                                          viewBox="0 0 16 16"
-                                          width="14"
+                                        <span
+                                          class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                          icon="chevron-down"
                                         >
-                                          <desc>
-                                            chevron-down
-                                          </desc>
-                                          <path
-                                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
+                                          <svg
+                                            data-icon="chevron-down"
+                                            height="14"
+                                            viewBox="0 0 16 16"
+                                            width="14"
+                                          >
+                                            <desc>
+                                              chevron-down
+                                            </desc>
+                                            <path
+                                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                              fill-rule="evenodd"
+                                            />
+                                          </svg>
+                                        </span>
                                       </span>
-                                    </span>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div
-                          class="bp3-form-group textCss"
-                        >
                           <div
-                            class="bp3-form-content"
+                            class="bp3-form-group textCss"
                           >
                             <div
-                              class="bp3-input-group"
+                              class="bp3-form-content"
                             >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="accessKeytextField"
-                                type="text"
-                                value="mockAccessKey"
-                              />
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="accessKeytextField"
+                                  type="text"
+                                  value="mockAccessKey"
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="null-4"
-                  >
                     <div
-                      class="bp3-form-content"
+                      class="bp3-form-group"
+                      data-id="null-4"
                     >
                       <div
-                        class="Layout--vertical StyledProps--main"
+                        class="bp3-form-content"
                       >
-                        <label
-                          class="bp3-label"
-                        >
-                          connectors.aws.secretKey
-                        </label>
                         <div
-                          class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
+                          class="Layout--vertical StyledProps--main"
                         >
-                          <a
-                            class="containerLink"
-                            data-testid="secretKeyRef"
-                            href="/account/dummy/resources/connectors"
+                          <label
+                            class="bp3-label"
                           >
                             <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="key-main"
-                              style="height: 12px;"
-                            >
-                              <svg
-                                height="24"
-                                width="24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <g
-                                  fill="none"
-                                  stroke="#1C1C28"
-                                  stroke-width="0.5"
-                                >
-                                  <path
-                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                  />
-                                  <path
-                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                  />
-                                </g>
-                              </svg>
-                            </span>
-                            <div
-                              class="Text--withDocsTooltip"
+                              class="Tooltip--acenter"
                               data-tooltip-id="stepAwsAuthForm_secretKeyRef"
                             >
+                              connectors.aws.secretKey
+                            </span>
+                          </label>
+                          <div
+                            class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
+                          >
+                            <a
+                              class="containerLink"
+                              data-testid="secretKeyRef"
+                              href="/account/dummy/resources/connectors"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                data-icon="key-main"
+                                style="height: 12px;"
+                              >
+                                <svg
+                                  height="24"
+                                  width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <g
+                                    fill="none"
+                                    stroke="#1C1C28"
+                                    stroke-width="0.5"
+                                  >
+                                    <path
+                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                    />
+                                    <path
+                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                    />
+                                  </g>
+                                </svg>
+                              </span>
                               <p
                                 class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
@@ -1938,37 +1942,37 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                                   &lt;connectorPass&gt;
                                 </div>
                               </p>
-                            </div>
-                          </a>
-                          <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
-                            data-testid="secretKeyRef-edit"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-button-text"
+                            </a>
+                            <button
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
+                              data-testid="secretKeyRef-edit"
+                              type="button"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
-                                icon="edit"
+                                class="bp3-button-text"
                               >
-                                <svg
-                                  data-icon="edit"
-                                  height="16"
-                                  viewBox="0 0 16 16"
-                                  width="16"
+                                <span
+                                  class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
+                                  icon="edit"
                                 >
-                                  <desc>
-                                    edit
-                                  </desc>
-                                  <path
-                                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
+                                  <svg
+                                    data-icon="edit"
+                                    height="16"
+                                    viewBox="0 0 16 16"
+                                    width="16"
+                                  >
+                                    <desc>
+                                      edit
+                                    </desc>
+                                    <path
+                                      d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
                               </span>
-                            </span>
-                          </button>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>

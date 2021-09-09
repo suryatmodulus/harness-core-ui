@@ -365,6 +365,10 @@
       font-size: var(--font-size-normal);
       padding-top: 2px;
     }
+    [data-name='clipboard-alt'] {
+      position: relative;
+      top: -2px;
+    }
   }
 
   .withSeparator {
@@ -432,6 +436,10 @@
         }
       }
     }
+  }
+
+  .testSuiteName {
+    word-break: break-all;
   }
 }
 

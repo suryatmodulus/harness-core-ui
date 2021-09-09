@@ -6,6 +6,7 @@
   flex-direction: column;
   .tableContent {
     flex: 1;
+    overflow-y: scroll;
     .logAnalysisRow {
       display: flex;
       flex-direction: column;

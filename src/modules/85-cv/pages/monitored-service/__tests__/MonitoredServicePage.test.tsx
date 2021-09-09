@@ -5,6 +5,7 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
+import { yamlResponse } from './MonitoreService.mock'
 import MonitoredServicePage from '../MonitoredServicePage'
 
 const testWrapperProps: TestWrapperProps = {
@@ -12,7 +13,8 @@ const testWrapperProps: TestWrapperProps = {
   pathParams: {
     accountId: '1234_accountId',
     projectIdentifier: '1234_project',
-    orgIdentifier: '1234_org'
+    orgIdentifier: '1234_org',
+    identifier: 'monitored-service'
   }
 }
 
@@ -64,7 +66,7 @@ describe('Unit tests for createting monitored source', () => {
             monitoredService: {
               orgIdentifier: 'default',
               projectIdentifier: 'Demo',
-              identifier: 'Monitoring_service_101',
+              identifier: 'monitored-service',
               name: 'Monitoring service 102 new',
               type: 'Application',
               description: '',
@@ -113,8 +115,15 @@ describe('Unit tests for createting monitored source', () => {
           }
         } as any)
     )
+    jest.spyOn(cvServices, 'useGetMonitoredServiceYamlTemplate').mockImplementation(
+      () =>
+        ({
+          data: yamlResponse,
+          refetch: jest.fn()
+        } as any)
+    )
   })
-  test('Health source table and environment services compoenet renders', async () => {
+  test('Health source table and environment services compoenet renders ', async () => {
     const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <MonitoredServicePage />
@@ -123,11 +132,7 @@ describe('Unit tests for createting monitored source', () => {
     expect(getByText('cv.monitoredServices.title')).toBeDefined()
     expect(getByText('cv.monitoredServices.addNewMonitoredServices')).toBeDefined()
 
-    expect(getByText('cv.monitoredServices.monitoredServiceDetails')).toBeDefined()
     expect(getByText('cv.monitoredServices.monitoredServiceName')).toBeDefined()
-
-    // Servie and environment
-    expect(getByText('cv.monitoredServices.serviceAndEnvironment')).toBeDefined()
 
     // Table cv.healthSource.defineYourSource
     expect(getByText('cv.healthSource.defineYourSource')).toBeDefined()

@@ -1,5 +1,6 @@
 import React from 'react'
 import { fireEvent, render, RenderResult } from '@testing-library/react'
+import { FormikTooltipContext } from '@wings-software/uicore'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 
@@ -14,7 +15,7 @@ describe('Rendering', () => {
   beforeEach(() => {
     const renderObj = render(
       <TestWrapper>
-        <UserGroupsInput name="userGroups" label={'testing'} />
+        <UserGroupsInput name="userGroups" label={'testing'} tooltipProps={{ dataTooltipId: 'ugInput' }} />
       </TestWrapper>
     )
     container = renderObj.container
@@ -42,5 +43,31 @@ describe('Rendering', () => {
     const closeButton = modal.querySelector("button[class*='bp3-dialog-close-button']") as Element
     fireEvent.click(closeButton)
     expect(findDialogContainer()).toBeFalsy()
+  })
+})
+
+describe('Render with tooltip context hook', () => {
+  test('if tooltip ID taken from form name', () => {
+    const { container } = render(
+      <FormikTooltipContext.Provider value={{ formName: 'ugFormName' }}>
+        <TestWrapper>
+          <UserGroupsInput name="userGroups" label={'testing'} />
+        </TestWrapper>
+      </FormikTooltipContext.Provider>
+    )
+
+    expect(container).toMatchSnapshot('tooltipId formname')
+  })
+
+  test('if formname is empty', () => {
+    const { container } = render(
+      <FormikTooltipContext.Provider value={{ formName: '' }}>
+        <TestWrapper>
+          <UserGroupsInput name="userGroups" label={'testing'} />
+        </TestWrapper>
+      </FormikTooltipContext.Provider>
+    )
+
+    expect(container).toMatchSnapshot('tooltipId formname empty')
   })
 })

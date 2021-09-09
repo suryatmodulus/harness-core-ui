@@ -41,20 +41,16 @@ exports[`Org Resource Modal Body test initializes ok  1`] = `
             role="cell"
             style="width: 5%;"
           >
-            <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
             >
-              <label
-                class="bp3-control bp3-checkbox checkBox"
-              >
-                <input
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-              </label>
-            </div>
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
           </div>
           <div
             class="cell"
@@ -88,20 +84,16 @@ exports[`Org Resource Modal Body test initializes ok  1`] = `
             role="cell"
             style="width: 5%;"
           >
-            <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
             >
-              <label
-                class="bp3-control bp3-checkbox checkBox"
-              >
-                <input
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-              </label>
-            </div>
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
           </div>
           <div
             class="cell"

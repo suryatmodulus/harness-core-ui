@@ -9,11 +9,21 @@ export interface DurationProps extends Omit<TextProps, 'icon'> {
   durationText?: React.ReactNode // optional text to override the default `Duration: ` prefix: ;
   showMilliSeconds?: boolean
   showZeroSecondsResult?: boolean
+  showMsLessThanOneSecond?: boolean
   icon?: TextProps['icon'] | null
 }
 
 export function Duration(props: DurationProps): React.ReactElement {
-  const { startTime, endTime, durationText, icon, showMilliSeconds, showZeroSecondsResult, ...textProps } = props
+  const {
+    startTime,
+    endTime,
+    durationText,
+    icon,
+    showMilliSeconds,
+    showZeroSecondsResult,
+    showMsLessThanOneSecond,
+    ...textProps
+  } = props
   const [_endTime, setEndTime] = useState(endTime || Date.now())
   const { getString } = useStrings()
 
@@ -36,7 +46,7 @@ export function Duration(props: DurationProps): React.ReactElement {
 
   let delta = startTime ? Math.abs(startTime - _endTime) : 0
 
-  if (!showMilliSeconds) {
+  if ((!showMilliSeconds && !showMsLessThanOneSecond) || (showMsLessThanOneSecond && delta > 1000)) {
     delta = Math.round(delta / 1000) * 1000
   }
 

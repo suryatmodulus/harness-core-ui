@@ -48,6 +48,65 @@ describe('Unit tests for QueryViewer', () => {
     expect(fetchRecordsButton.closest('button')).toBeDisabled()
   })
 
+  test('Should not render fetchRecords button if autoFetch is true', () => {
+    const fetchRecordsMock = jest.fn()
+    const { queryByText } = render(
+      <WrapperComponent
+        fetchRecords={fetchRecordsMock}
+        query={'dummy'}
+        isAutoFetch={true}
+        loading={false}
+        error={null}
+      />
+    )
+    expect(queryByText('cv.monitoringSources.gcoLogs.fetchRecords')).toBeNull()
+  })
+
+  test('Should call fetchRecords property when a change in the query', async () => {
+    const fetchRecordsMock = jest.fn()
+    const { container } = render(
+      <WrapperComponent
+        fetchRecords={fetchRecordsMock}
+        query={'dummy'}
+        isAutoFetch={true}
+        loading={false}
+        error={null}
+        queryTextAreaProps={{
+          id: 'textAreaProps'
+        }}
+      />
+    )
+
+    act(() => {
+      fireEvent.change(container.querySelector('#textAreaProps')!, { target: { value: 'changedQuery' } })
+    })
+    // Called twice is because Query viewer is calling fetchRecords on page render.
+    expect(fetchRecordsMock).toHaveBeenCalledTimes(2)
+  })
+
+  test('Should not call fetchRecords property though there is a change in the query if one of the mandatoryField is false', async () => {
+    const fetchRecordsMock = jest.fn()
+    const { container } = render(
+      <WrapperComponent
+        fetchRecords={fetchRecordsMock}
+        query={'dummy'}
+        isAutoFetch={true}
+        loading={false}
+        error={null}
+        queryTextAreaProps={{
+          id: 'textAreaProps'
+        }}
+        queryContentMandatoryProps={[false]}
+      />
+    )
+
+    act(() => {
+      fireEvent.change(container.querySelector('#textAreaProps')!, { target: { value: 'changedQuery' } })
+    })
+
+    expect(fetchRecordsMock).toHaveBeenCalledTimes(1)
+  })
+
   test('Verify that fetchRecordsButton is disabled if loading is true', async () => {
     jest.spyOn(cvService, 'useGetStackdriverLogSampleData').mockReturnValue({} as any)
     const fetchRecordsMock = jest.fn()

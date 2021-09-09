@@ -8,6 +8,7 @@ import routes from '@common/RouteDefinitions'
 import { pipelinePathProps } from '@common/utils/routeUtils'
 import { GetTriggerResponse } from './webhookMockResponses'
 import { GetPipelineResponse, GetTriggerListForTargetResponse } from './sharedMockResponses'
+import { PipelineResponse as PipelineDetailsMockResponse } from '../../pipeline-details/__tests__/PipelineDetailsMocks'
 import TriggersPage from '../TriggersPage'
 
 const mockDelete = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
@@ -15,6 +16,7 @@ const mockUpdateTrigger = jest.fn().mockReturnValue(Promise.resolve({ data: {}, 
 const mockGetTriggersFunction = jest.fn()
 jest.mock('services/pipeline-ng', () => ({
   useGetPipeline: jest.fn(() => GetPipelineResponse),
+  useGetPipelineSummary: jest.fn(() => PipelineDetailsMockResponse),
   useGetTriggerListForTarget: jest.fn(args => {
     mockGetTriggersFunction(args)
     return GetTriggerListForTargetResponse

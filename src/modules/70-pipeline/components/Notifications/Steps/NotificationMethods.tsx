@@ -36,7 +36,9 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
 
       <Layout.Vertical height={500} width={500} spacing="large">
         <Layout.Vertical spacing="xsmall">
-          <Text>{getString('notifications.notificationMethod')}</Text>
+          <Text tooltipProps={{ dataTooltipId: 'notifications.notificationMethod' }}>
+            {getString('notifications.notificationMethod')}
+          </Text>
           <Select
             items={typeOptions || NotificationTypeSelectOptions}
             value={method}

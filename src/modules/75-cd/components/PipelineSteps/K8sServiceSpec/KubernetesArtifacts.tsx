@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom'
 
 import { useStrings } from 'framework/strings'
 import type { ArtifactListConfig, ServiceSpec } from 'services/cd-ng'
-import artifactSourceBaseFactory, { ArtifactSourceBaseFactory } from '@cd/factory/ArtifactSourceBaseFactory'
+import artifactSourceBaseFactory, {
+  ArtifactSourceBaseFactory
+} from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'

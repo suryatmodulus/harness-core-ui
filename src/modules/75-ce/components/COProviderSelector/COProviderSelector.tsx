@@ -10,6 +10,7 @@ import {
   Text,
   HarnessDocTooltip
 } from '@wings-software/uicore'
+import { omit as _omit } from 'lodash-es'
 import type { IconName } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
@@ -17,6 +18,8 @@ import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/mo
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { Utils } from '@ce/common/Utils'
 import COGatewayBasics from '../COGatewayBasics/COGatewayBasics'
 import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
 import COHelpSidebar from '../COHelpSidebar/COHelpSidebar'
@@ -29,7 +32,11 @@ interface COProviderSelectorProps {
   provider?: string
 }
 
-const data: Provider[] = [
+interface ProviderWithDependencies extends Provider {
+  ffDependencies?: string[]
+}
+
+const data: ProviderWithDependencies[] = [
   {
     name: 'AWS',
     value: 'aws',
@@ -39,12 +46,13 @@ const data: Provider[] = [
     name: 'Azure',
     value: 'azure',
     icon: 'service-azure'
+  },
+  {
+    name: 'GCP',
+    value: 'gcp',
+    icon: 'gcp',
+    ffDependencies: ['CE_AS_KUBERNETES_ENABLED']
   }
-  // {
-  //   name: 'Digital Ocean',
-  //   value: 'do',
-  //   icon: 'harness'
-  // }
 ]
 
 function getProvider(name: string | unknown): Provider | undefined {
@@ -54,6 +62,7 @@ function getProvider(name: string | unknown): Provider | undefined {
 const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const { CE_AS_KUBERNETES_ENABLED } = useFeatureFlags()
   const [selectedCard, setSelectedCard] = useState<Provider | undefined>(
     getProvider(props.gatewayDetails.provider.name)
   )
@@ -75,6 +84,12 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
       delete _gatewayDetails.metadata.cloud_provider_details
     }
   }
+
+  const providerData = React.useMemo(
+    () => data.filter(p => Utils.isFFEnabledForResource(p.ffDependencies, { CE_AS_KUBERNETES_ENABLED })),
+    [CE_AS_KUBERNETES_ENABLED]
+  )
+
   return (
     <>
       <Breadcrumbs
@@ -104,12 +119,12 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
           <Layout.Vertical spacing="small">
             <Layout.Horizontal spacing="small" style={{ paddingTop: '29px' }}>
               <CardSelect
-                data={data}
+                data={providerData}
                 selected={selectedCard}
                 className={css.providersViewGrid}
                 onChange={item => {
                   setSelectedCard(item)
-                  const updatedGatewayDetails = { ...props.gatewayDetails, provider: item }
+                  const updatedGatewayDetails = { ...props.gatewayDetails, provider: _omit(item, 'ffDependencies') }
                   clearCloudAccountDetails(updatedGatewayDetails)
                   props.setGatewayDetails(updatedGatewayDetails)
                 }}
@@ -122,12 +137,13 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
               ></CardSelect>
             </Layout.Horizontal>
             <Layout.Horizontal spacing="medium" className={css.instanceTypeNameGrid}>
-              <Text font={{ align: 'center' }} style={{ fontSize: 11 }}>
-                AWS
-              </Text>
-              <Text font={{ align: 'center' }} style={{ fontSize: 11 }}>
-                Azure
-              </Text>
+              {providerData.map(provider => {
+                return (
+                  <Text font={{ align: 'center' }} style={{ fontSize: 11 }} key={provider.value}>
+                    {provider.name}
+                  </Text>
+                )
+              })}
             </Layout.Horizontal>
           </Layout.Vertical>
           {selectedCard || props.provider ? (

@@ -7,7 +7,6 @@ declare const styles: {
   readonly listPage: string
   readonly view: string
   readonly tableContainer: string
-  readonly listContainer: string
   readonly selectConnector: string
   readonly dropdownLabel: string
   readonly ngFilter: string

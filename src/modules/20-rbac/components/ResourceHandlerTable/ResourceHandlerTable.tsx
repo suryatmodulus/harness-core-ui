@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
-import { Layout, PaginationProps } from '@wings-software/uicore'
+import { Checkbox, PaginationProps } from '@wings-software/uicore'
 import type { CellProps, Column } from 'react-table'
-import { Checkbox } from '@blueprintjs/core'
 import produce from 'immer'
 import Table from '@common/components/Table/Table'
 import css from './ResourceHandlerTable.module.scss'
@@ -43,15 +42,13 @@ const ResourceHandlerTable = <T extends ResourceHandlerTableData>(
         // eslint-disable-next-line react/display-name
         Cell: ({ row }: CellProps<T>) => {
           return (
-            <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-              <Checkbox
-                className={css.checkBox}
-                defaultChecked={selectedData.includes(row.original.identifier)}
-                onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                  handleSelectChange(event.currentTarget.checked, row.original.identifier)
-                }}
-              />
-            </Layout.Horizontal>
+            <Checkbox
+              className={css.checkBox}
+              defaultChecked={selectedData.includes(row.original.identifier)}
+              onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                handleSelectChange(event.currentTarget.checked, row.original.identifier)
+              }}
+            />
           )
         }
       },

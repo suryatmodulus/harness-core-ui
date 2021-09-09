@@ -1,7 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Card, Icon, Layout, Text, Color } from '@wings-software/uicore'
-import { Checkbox } from '@blueprintjs/core'
+import { Card, Icon, Layout, Text, Color, Checkbox } from '@wings-software/uicore'
 import type { Permission } from 'services/rbac'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'

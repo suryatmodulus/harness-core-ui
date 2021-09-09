@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { Button, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -7,29 +8,50 @@ import css from './DownloadCLI.module.scss'
 enum OS {
   Mac = 'Mac',
   Windows = 'Windows',
-  Linux = 'Linux'
+  Linux = 'Linux',
+  Darwin = 'darwin'
+}
+
+enum Arch {
+  AMD64 = 'amd64',
+  ARM64 = 'arm64',
+  A386 = 386
 }
 
 const dropdownOptions: SelectOption[] = [
   {
-    label: OS.Mac,
-    value:
-      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_darwin_amd64.zip'
+    label: `${OS.Mac} (${Arch.AMD64})`,
+    value: `${OS.Darwin}-${Arch.AMD64}`
   },
   {
-    label: OS.Windows,
-    value:
-      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_windows_amd64.zip'
+    label: `${OS.Mac} (${Arch.ARM64})`,
+    value: `${OS.Darwin}-${Arch.ARM64}`
   },
   {
-    label: OS.Linux,
-    value:
-      'https://lightwing-downloads.s3-ap-southeast-1.amazonaws.com/harness-autostopping-cli-downloads/harness_1.0.0_linux_amd64.zip'
+    label: `${OS.Linux} (${Arch.AMD64})`,
+    value: `${OS.Linux.toLowerCase()}-${Arch.AMD64}`
+  },
+  {
+    label: `${OS.Linux} (${Arch.ARM64})`,
+    value: `${OS.Linux.toLowerCase()}-${Arch.ARM64}`
+  },
+  {
+    label: `${OS.Linux} (${Arch.A386})`,
+    value: `${OS.Linux.toLowerCase()}-${Arch.A386}`
+  },
+  {
+    label: `${OS.Windows} (${Arch.A386})`,
+    value: `${OS.Windows.toLowerCase()}-${Arch.A386}`
+  },
+  {
+    label: `${OS.Windows} (${Arch.AMD64})`,
+    value: `${OS.Windows.toLowerCase()}-${Arch.AMD64}`
   }
 ]
 
 const DownloadCLI: React.FC = () => {
   const { getString } = useStrings()
+  const { accountId } = useParams<{ accountId: string }>()
   const [assetLink, setAssetLink] = React.useState<SelectOption | null>(null)
 
   React.useEffect(() => {
@@ -42,13 +64,14 @@ const DownloadCLI: React.FC = () => {
       : null
 
     if (defaultOs) {
-      setAssetLink(dropdownOptions.find(item => item.label === defaultOs) as SelectOption)
+      setAssetLink(dropdownOptions.find(item => item.label.includes(defaultOs)) as SelectOption)
     }
   }, [])
 
-  const downloadAsset = () => {
+  const downloadAsset = async () => {
+    const [platform, arch] = ((assetLink?.value || '') as string).split('-')
     const linkEl: HTMLAnchorElement = document.createElement('a')
-    linkEl.href = assetLink?.value as string
+    linkEl.href = `${window.location.origin}/gateway/lw/api/internal/downloads/harness_cli?platform=${platform}&arch=${arch}&accountIdentifier=${accountId}`
     linkEl.click()
   }
 

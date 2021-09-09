@@ -12,14 +12,13 @@
           "identifier": "vault1",
           "description": "",
           "tags": [],
-          "type": "Vault",
+          "type": "AzureKeyVault",
           "spec": {
-            "vaultUrl": "http://localhost:8200",
-            "renewalIntervalMinutes": 0,
-            "secretEngineName": "secret",
-            "secretEngineVersion": 2,
-            "default": false,
-            "readOnly": false
+            "clientId": "dummy clientId",
+            "secretKey": "account.mockSecret",
+            "tenantId": "dummy tenantId",
+            "vaultName": "dummy vaultName",
+            "subscription": "dummy subscription"
           }
         },
         "createdAt": 1600688306401,

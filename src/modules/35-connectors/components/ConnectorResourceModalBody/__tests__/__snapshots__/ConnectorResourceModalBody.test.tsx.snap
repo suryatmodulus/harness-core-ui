@@ -41,20 +41,16 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             role="cell"
             style="width: 5%;"
           >
-            <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
             >
-              <label
-                class="bp3-control bp3-checkbox checkBox"
-              >
-                <input
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-              </label>
-            </div>
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
           </div>
           <div
             class="cell"
@@ -108,7 +104,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="identifier"
                   title="AWSX"
                 >
-                  AWSX
+                  common.ID: AWSX
                 </div>
               </div>
             </div>
@@ -123,20 +119,16 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             role="cell"
             style="width: 5%;"
           >
-            <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
             >
-              <label
-                class="bp3-control bp3-checkbox checkBox"
-              >
-                <input
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-              </label>
-            </div>
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
           </div>
           <div
             class="cell"
@@ -214,7 +206,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="identifier"
                   title="Git_CTR"
                 >
-                  Git_CTR
+                  common.ID: Git_CTR
                 </div>
               </div>
             </div>
@@ -229,20 +221,16 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             role="cell"
             style="width: 5%;"
           >
-            <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
             >
-              <label
-                class="bp3-control bp3-checkbox checkBox"
-              >
-                <input
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-              </label>
-            </div>
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
           </div>
           <div
             class="cell"
@@ -286,7 +274,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="identifier"
                   title="SampleX"
                 >
-                  SampleX
+                  common.ID: SampleX
                 </div>
               </div>
             </div>
@@ -301,20 +289,16 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             role="cell"
             style="width: 5%;"
           >
-            <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
             >
-              <label
-                class="bp3-control bp3-checkbox checkBox"
-              >
-                <input
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-              </label>
-            </div>
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
           </div>
           <div
             class="cell"
@@ -363,7 +347,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="identifier"
                   title="XYZDockerX"
                 >
-                  XYZDockerX
+                  common.ID: XYZDockerX
                 </div>
               </div>
             </div>
@@ -378,20 +362,16 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             role="cell"
             style="width: 5%;"
           >
-            <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
             >
-              <label
-                class="bp3-control bp3-checkbox checkBox"
-              >
-                <input
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-              </label>
-            </div>
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
           </div>
           <div
             class="cell"
@@ -440,7 +420,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="identifier"
                   title="DockerCTRX"
                 >
-                  DockerCTRX
+                  common.ID: DockerCTRX
                 </div>
               </div>
             </div>
@@ -455,20 +435,16 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             role="cell"
             style="width: 5%;"
           >
-            <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
             >
-              <label
-                class="bp3-control bp3-checkbox checkBox"
-              >
-                <input
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-              </label>
-            </div>
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
           </div>
           <div
             class="cell"
@@ -528,7 +504,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="identifier"
                   title="Nexus_Connector"
                 >
-                  Nexus_Connector
+                  common.ID: Nexus_Connector
                 </div>
               </div>
             </div>
@@ -543,20 +519,16 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             role="cell"
             style="width: 5%;"
           >
-            <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
             >
-              <label
-                class="bp3-control bp3-checkbox checkBox"
-              >
-                <input
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-              </label>
-            </div>
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
           </div>
           <div
             class="cell"
@@ -640,7 +612,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                   class="identifier"
                   title="Kubernetes CTRX"
                 >
-                  Kubernetes CTRX
+                  common.ID: Kubernetes CTRX
                 </div>
               </div>
             </div>

@@ -1,0 +1,22 @@
+.connectorField {
+  span[icon='chevron-down'] {
+    position: relative !important;
+    right: calc(-1 * var(--spacing-small));
+  }
+
+  button[data-testid='cr-field-connectorRef'] div {
+    position: relative !important;
+    right: calc(-1 * var(--spacing-small));
+  }
+
+  button[data-testid='cr-field-connectorRef'] {
+    width: 400px !important;
+  }
+  input {
+    width: 400px !important;
+  }
+}
+
+.pagerDutyServiceTitle {
+  margin-bottom: var(--spacing-4) !important;
+}

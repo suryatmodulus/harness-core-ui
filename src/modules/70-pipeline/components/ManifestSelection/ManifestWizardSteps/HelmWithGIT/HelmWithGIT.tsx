@@ -93,7 +93,8 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         }
       } else {
         repoName =
-          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store?.spec?.connectorRef
+          `${prevStepData?.connectorRef?.scope}.${prevStepData?.connectorRef?.connector?.identifier}` ===
+          initialValues?.spec?.store?.spec?.connectorRef
             ? initialValues?.spec?.store?.spec?.repoName
             : ''
       }

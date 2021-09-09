@@ -3,3 +3,5 @@ export enum MonitoredServiceEnum {
   Configurations = 'Configurations',
   SLOs = 'SLOs'
 }
+
+export const configurationPath = 'monitoredserviceconfigurations/edit/'

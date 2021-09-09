@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
+import { useGetPipelineSummary } from 'services/pipeline-ng'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useQueryParams } from '@common/hooks'
 import TriggersList from './views/TriggersList'
@@ -45,7 +46,18 @@ const TriggersPage: React.FC = (): React.ReactElement => {
   }
   const { getString } = useStrings()
 
-  useDocumentTitle([getString('pipelines'), getString('pipeline.triggers.triggersLabel')])
+  const { data: pipeline } = useGetPipelineSummary({
+    pipelineIdentifier,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch
+    }
+  })
+
+  useDocumentTitle([pipeline?.data?.name || getString('pipelines'), getString('pipeline.triggers.triggersLabel')])
 
   return <TriggersList onNewTriggerClick={onNewTriggerClick} repoIdentifier={repoIdentifier} branch={branch} />
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render, waitFor, act, getAllByText } from '@testing-library/react'
+import { fireEvent, render, waitFor, act, getByText } from '@testing-library/react'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
 import { CurrentLocation, TestWrapper } from '@common/utils/testUtils'
@@ -137,7 +137,7 @@ describe('<CIPipelineDeploymentList /> tests', () => {
       </TestWrapper>
     )
 
-    const runButton = getAllByText(container, 'pipeline.runAPipeline')[0]
+    const runButton = getByText(container, 'runPipelineText')
     act(() => {
       fireEvent.click(runButton)
     })

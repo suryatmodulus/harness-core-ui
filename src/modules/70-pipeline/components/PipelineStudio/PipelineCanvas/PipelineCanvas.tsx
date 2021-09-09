@@ -9,7 +9,8 @@ import {
   Button,
   SelectOption,
   Container,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -44,6 +45,7 @@ import { TagsPopover } from '@common/components'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { validateJSONWithSchema } from '@common/utils/YamlUtils'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
@@ -162,6 +164,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   >()
 
   const { showSuccess, showError, clear } = useToaster()
+
+  useDocumentTitle([parse(pipeline?.name || getString('pipelines'))])
 
   const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
@@ -695,27 +699,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           <Layout.Horizontal spacing="small" className={css.repoDetails}>
             <Icon name="repository" margin={{ left: 'medium' }}></Icon>
             {pipelineIdentifier === DefaultNewPipelineId && !loadingRepos ? (
-              <Text
-                style={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  maxWidth: '145px'
-                }}
-                tooltip={repoName}
-              >
+              <Text font={FontVariation.SMALL} tooltip={repoName} className={css.repoName}>
                 {repoName}
               </Text>
             ) : (
-              <Text
-                style={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  maxWidth: '190px'
-                }}
-                tooltip={folderName}
-              >
+              <Text font={FontVariation.SMALL} tooltip={folderName} className={css.folderName}>
                 {folderName}
               </Text>
             )}
@@ -725,15 +713,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             {pipelineIdentifier === DefaultNewPipelineId || isReadonly ? (
               <>
                 <Icon name="git-new-branch" margin={{ left: 'medium' }}></Icon>
-                <Text
-                  style={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    maxWidth: '145px'
-                  }}
-                  tooltip={gitDetails?.branch}
-                >
+                <Text className={css.branchName} font={FontVariation.SMALL} tooltip={gitDetails?.branch}>
                   {gitDetails?.branch}
                 </Text>
               </>

@@ -74,7 +74,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
-    [roleBindings, principalInfo, onSuccess]
+    [roleBindings, principal, principalInfo, onSuccess]
   )
   const open = useCallback(
     (

@@ -1,5 +1,77 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Render with tooltip context hook if formname is empty: tooltipId formname empty 1`] = `
+<div>
+  <div
+    class="bp3-form-group"
+  >
+    <div
+      class="bp3-form-content"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <label
+          class="bp3-label"
+          data-tooltip-id=""
+        >
+          testing
+        </label>
+        <div
+          class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+        >
+          <div
+            class="StyledProps--font StyledProps--main pointer"
+          >
+            <p
+              class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+            >
+              common.selectUserGroups
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render with tooltip context hook if tooltip ID taken from form name: tooltipId formname 1`] = `
+<div>
+  <div
+    class="bp3-form-group"
+  >
+    <div
+      class="bp3-form-content"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <label
+          class="bp3-label"
+          data-tooltip-id="ugFormName_userGroups"
+        >
+          testing
+        </label>
+        <div
+          class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+        >
+          <div
+            class="StyledProps--font StyledProps--main pointer"
+          >
+            <p
+              class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+            >
+              common.selectUserGroups
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Rendering Modal should close on clicking cross 1`] = `
 <div
   class="bp3-dialog dialog"
@@ -227,6 +299,7 @@ exports[`Rendering should render 1`] = `
       >
         <label
           class="bp3-label"
+          data-tooltip-id="ugInput"
         >
           testing
         </label>

@@ -13,7 +13,12 @@ import {
 import type { StringsMap } from 'stringTypes'
 import type { ResponseListInviteOperationResponse } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { Assignment } from '@rbac/modals/RoleAssignmentModal/views/UserRoleAssigment'
+import type {
+  Assignment,
+  RoleOption,
+  ResourceGroupOption
+} from '@rbac/modals/RoleAssignmentModal/views/UserRoleAssigment'
+import { isEmail } from '@common/utils/Validation'
 
 export interface UserItem extends MultiSelectOption {
   email?: string
@@ -36,10 +41,12 @@ export const getRoleIcon = (roleIdentifier: string): IconName => {
   }
 }
 
-export const UserTagRenderer = (item: UserItem): React.ReactNode => (
+export const UserTagRenderer = (item: UserItem, validate = false): React.ReactNode => (
   <Layout.Horizontal key={item.value.toString()} flex spacing="small">
-    <Avatar name={item.label} size="xsmall" hoverCard={false} />
-    <Text>{item.label}</Text>
+    <Avatar name={item.label} email={item.value.toString()} size="xsmall" hoverCard={false} />
+    <Text color={validate && !isEmail(item.value.toString().toLowerCase()) ? Color.RED_500 : Color.BLACK}>
+      {item.label}
+    </Text>
   </Layout.Horizontal>
 )
 
@@ -58,7 +65,6 @@ export const UserItemRenderer: ItemRenderer<UserItem> = (item, { handleClick }) 
     onClick={handleClick}
   />
 )
-
 interface HandleInvitationResponse {
   responseType: Pick<ResponseListInviteOperationResponse, 'data'>
   getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
@@ -92,6 +98,11 @@ export const getScopeBasedDefaultAssignment = (
   scope: Scope,
   getString: (key: keyof StringsMap, vars?: Record<string, any>) => string
 ): Assignment[] => {
+  const resourceGroup = {
+    label: getString('rbac.allResources'),
+    value: '_all_resources',
+    managedRoleAssignment: true
+  }
   switch (scope) {
     case Scope.ACCOUNT:
       return [
@@ -102,10 +113,7 @@ export const getScopeBasedDefaultAssignment = (
             managed: true,
             managedRoleAssignment: true
           },
-          resourceGroup: {
-            label: getString('rbac.allResources'),
-            value: '_all_resources'
-          }
+          resourceGroup
         }
       ]
     case Scope.ORG:
@@ -117,10 +125,7 @@ export const getScopeBasedDefaultAssignment = (
             managed: true,
             managedRoleAssignment: true
           },
-          resourceGroup: {
-            label: getString('rbac.allResources'),
-            value: '_all_resources'
-          }
+          resourceGroup
         }
       ]
     case Scope.PROJECT:
@@ -132,11 +137,27 @@ export const getScopeBasedDefaultAssignment = (
             managed: true,
             managedRoleAssignment: true
           },
-          resourceGroup: {
-            label: getString('rbac.allResources'),
-            value: '_all_resources'
-          }
+          resourceGroup
+        }
+      ]
+    default:
+      return [
+        {
+          role: {
+            label: '',
+            value: '',
+            managed: true,
+            managedRoleAssignment: true
+          },
+          resourceGroup
         }
       ]
   }
+}
+
+export const isAssignmentFieldDisabled = (value: RoleOption | ResourceGroupOption): boolean => {
+  if (value.assignmentIdentifier || value.managedRoleAssignment) {
+    return true
+  }
+  return false
 }

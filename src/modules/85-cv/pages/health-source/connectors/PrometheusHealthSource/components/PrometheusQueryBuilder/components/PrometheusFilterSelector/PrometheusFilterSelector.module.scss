@@ -3,6 +3,8 @@
   max-height: 200px;
   max-width: 350px;
   overflow-y: scroll;
+  position: relative;
+  top: 35px;
 
   :global {
     .bp3-popover-arrow::before {

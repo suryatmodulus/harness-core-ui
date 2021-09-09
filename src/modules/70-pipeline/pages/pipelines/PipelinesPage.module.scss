@@ -102,10 +102,6 @@ $header-height: 80px;
 
 .topHeaderFields {
   justify-content: space-between;
-
-  .sortSelector {
-    width: 180px;
-  }
 }
 .tagRow {
   display: flex;
@@ -183,7 +179,6 @@ $header-height: 80px;
   text-align: center;
   .clearFilterText {
     color: var(--primary-7);
-    text-transform: uppercase;
     font-size: var(--spacing-medium);
     font-weight: 500;
     cursor: pointer;

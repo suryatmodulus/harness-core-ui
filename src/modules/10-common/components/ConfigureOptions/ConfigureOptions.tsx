@@ -298,22 +298,11 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                       ) : (
                         <>
                           {!fetchValues ? (
-                            <FormInput.TagInput
+                            <FormInput.KVTagInput
                               className={css.secondColumn}
                               label={getString('allowedValues')}
                               name="allowedValues"
-                              items={[]}
-                              labelFor={name => (typeof name === 'string' ? name : '')}
-                              itemFromNewTag={newTag => newTag}
-                              tagInputProps={{
-                                noInputBorder: false,
-                                openOnKeyDown: false,
-                                showAddTagButton: false,
-                                showClearAllButton: true,
-                                allowNewTag: true,
-                                placeholder: getString('common.configureOptions.enterTags'),
-                                getTagProps: () => ({ intent: 'primary', minimal: true })
-                              }}
+                              isArray={true}
                               disabled={isReadonly}
                             />
                           ) : (

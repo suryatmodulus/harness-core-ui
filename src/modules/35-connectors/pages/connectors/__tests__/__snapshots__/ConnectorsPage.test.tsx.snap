@@ -2233,11 +2233,11 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                       </span>
                     </div>
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
                       type="button"
                     >
                       <span
-                        class="bp3-icon bp3-icon-cross StyledProps--main"
+                        class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
                         icon="cross"
                       >
                         <svg
@@ -2262,7 +2262,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                   class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span

@@ -14,12 +14,12 @@ import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import BuildStageSetupShell from '../BuildStageSetupShell'
 import pipelineContextMock from './pipelineContext.json'
 
+jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => (
+  <textarea value={value} onChange={e => onChange(e.target.value)} name={name || 'spec.source.spec.script'} />
+))
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph')
-jest.mock('../../BuildAdvancedSpecifications/BuildAdvancedSpecifications', () => ({ children }: any) => (
-  <div className="advanced-mock">{children}</div>
-))
 jest.mock('@pipeline/components/ErrorsStrip/ErrorsStripBinded', () => () => <></>)
 
 class StepFactory extends AbstractStepFactory {

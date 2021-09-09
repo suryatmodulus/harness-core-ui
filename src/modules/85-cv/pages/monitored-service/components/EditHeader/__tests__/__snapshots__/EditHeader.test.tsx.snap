@@ -27,8 +27,24 @@ exports[`Unit tests for EditHeader Verify if all the fields are rendered correct
       >
         Last updated: 08/11/2021 06:49:02 pm
       </p>
+      <div
+        class="StyledProps--font StyledProps--main serviceAndType"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main monitoredServiceData"
+          style="--text-line-clamp: 1;"
+        >
+          Type: Infrastructure
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main monitoredServiceData"
+          style="--text-line-clamp: 1;"
+        >
+          Service: service
+        </p>
+      </div>
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--padding-top-small"
+        class="StyledProps--font StyledProps--main monitoredServiceData"
       >
         Environment: env
       </p>

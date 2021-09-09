@@ -603,7 +603,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
                 </label>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-small StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                 data-tooltip-id="connectors.delegate.delegateSelectorSelective"
               >
                 <label
@@ -622,7 +622,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
               </div>
             </div>
             <div
-              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-small"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-medium"
             >
               <div
                 class="wrapper"
@@ -723,7 +723,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
             </button>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main saveAndContinue StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
-              data-name="delegateSaveAndContinue"
+              data-testid="delegateSaveAndContinue"
               type="submit"
             >
               <span

@@ -24,13 +24,21 @@ export const TestsFailedPopover: React.FC<{
   openTestsFailedModal?: (errorContent: JSX.Element) => void
 }> = ({ testCase, openTestsFailedModal }) => {
   const { getString } = useStrings()
-  const { result: { status = '', message, desc, type } = {}, stderr: stacktrace, stdout: output } = testCase
+  const {
+    name,
+    class_name,
+    result: { status = '', message, desc, type } = {},
+    stderr: stacktrace,
+    stdout: output
+  } = testCase
 
   const failed = ['error', 'failed'].includes(status)
 
   if (failed) {
     const errorContent = (
       <Layout.Vertical spacing="xlarge" padding="xlarge" className={css.testPopoverBody}>
+        {name && <PopoverSection label={getString('pipeline.testsReports.testCaseName')} content={name} />}
+        {class_name && <PopoverSection label={getString('pipeline.testsReports.className')} content={class_name} />}
         {status && <PopoverSection label={getString('pipeline.testsReports.status')} content={status} />}
 
         {type && <PopoverSection label={getString('pipeline.testsReports.type')} content={type} />}

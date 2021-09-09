@@ -18,7 +18,7 @@ const getDateLabelToDisplayText: (getString: UseStringsReturn['getString']) => R
   return {
     [DATE_RANGE_SHORTCUTS_NAME.LAST_7_DAYS]: getString('ce.perspectives.timeRangeConstants.last7Days'),
     [DATE_RANGE_SHORTCUTS_NAME.CURRENT_MONTH]: getString('ce.perspectives.timeRangeConstants.thisMonth'),
-    [DATE_RANGE_SHORTCUTS_NAME.LAST_30_DAYS]: getString('ce.perspectives.timeRangeConstants.last30Days'),
+    [DATE_RANGE_SHORTCUTS_NAME.LAST_30_DAYS]: getString('projectsOrgs.landingDashboard.last30Days'),
     [DATE_RANGE_SHORTCUTS_NAME.THIS_QUARTER]: getString('ce.perspectives.timeRangeConstants.thisQuarter'),
     [DATE_RANGE_SHORTCUTS_NAME.THIS_YEAR]: getString('ce.perspectives.timeRangeConstants.thisYear'),
     [DATE_RANGE_SHORTCUTS_NAME.LAST_MONTH]: getString('ce.perspectives.timeRangeConstants.lastMonth'),

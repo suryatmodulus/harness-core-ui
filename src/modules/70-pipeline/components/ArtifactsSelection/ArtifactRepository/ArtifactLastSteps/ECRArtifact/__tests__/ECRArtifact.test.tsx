@@ -1,7 +1,7 @@
 import React from 'react'
 import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { TagTypes } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
+import { ArtifactType, TagTypes } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ECRArtifact } from '../ECRArtifact'
 
 const props = {
@@ -9,7 +9,8 @@ const props = {
   expressions: [],
   context: 2,
   handleSubmit: jest.fn(),
-  artifactIdentifiers: []
+  artifactIdentifiers: [],
+  selectedArtifact: 'Ecr' as ArtifactType
 }
 
 const mockRegions = {
@@ -83,7 +84,7 @@ describe('ECR Artifact tests', () => {
       spec: {
         region: 'region1'
       },
-      type: 'ECR',
+      type: 'Ecr',
       imagePath: '',
       tag: '',
       tagType: TagTypes.Value,
@@ -122,7 +123,7 @@ describe('ECR Artifact tests', () => {
       spec: {
         region: 'region1'
       },
-      type: 'ECR',
+      type: 'Ecr',
       imagePath: '',
       tag: '',
       tagType: TagTypes.Regex,

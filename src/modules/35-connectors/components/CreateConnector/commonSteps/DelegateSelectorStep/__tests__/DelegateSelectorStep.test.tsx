@@ -243,17 +243,16 @@ describe('DelegateSelectorStep', () => {
   })
 
   test('should disable save and continue button if no delegate selectors are added in selective delegate selectors option', async () => {
-    const { container } = render(
+    const { container, getByTestId } = render(
       <TestWrapper>
         <DelegateSelectorStep {...defaultProps} buildPayload={jest.fn()} />
       </TestWrapper>
     )
-    const getSaveAndContinueButton = () => container.querySelector('[data-name="delegateSaveAndContinue"]')
-    expect(getSaveAndContinueButton()?.getAttribute('disabled')).toBe(null)
+    expect(getByTestId('delegateSaveAndContinue')?.getAttribute('disabled')).toBe(null)
     await act(async () => {
       fireEvent.click(container.querySelector('input[value="DelegateOptions.DelegateOptionsSelective"]')!)
     })
-    expect(getSaveAndContinueButton()?.getAttribute('disabled')).toBe('')
+    expect(getByTestId('delegateSaveAndContinue')?.getAttribute('disabled')).toBe('')
   })
 
   test('should show warning message and no check icon should be visible', async () => {
@@ -284,7 +283,7 @@ describe('DelegateSelectorStep', () => {
 
   test('should call buildPayload with correct data', async () => {
     const buildPayload = jest.fn()
-    const { container } = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <DelegateSelectorStep
           {...defaultProps}
@@ -296,7 +295,7 @@ describe('DelegateSelectorStep', () => {
     )
     expect(buildPayload).not.toBeCalled()
     await act(async () => {
-      fireEvent.click(container.querySelector('[data-name="delegateSaveAndContinue"]')!)
+      fireEvent.click(getByTestId('delegateSaveAndContinue')!)
     })
     expect(buildPayload).toBeCalledWith({
       ...connectorInfoCredentials,
@@ -306,7 +305,7 @@ describe('DelegateSelectorStep', () => {
 
   test('should call buildPayload with no selectors if create via any delegate option is chosen', async () => {
     const buildPayload = jest.fn()
-    const { container } = render(
+    const { container, getByTestId } = render(
       <TestWrapper>
         <DelegateSelectorStep
           {...defaultProps}
@@ -321,7 +320,7 @@ describe('DelegateSelectorStep', () => {
     })
     expect(buildPayload).not.toBeCalled()
     await act(async () => {
-      fireEvent.click(container.querySelector('[data-name="delegateSaveAndContinue"]')!)
+      fireEvent.click(getByTestId('delegateSaveAndContinue')!)
     })
     expect(buildPayload).toBeCalledWith({ ...connectorInfoCredentials, delegateSelectors: [] })
   })
@@ -331,7 +330,7 @@ describe('DelegateSelectorStep', () => {
       CDNG_ENABLED: true,
       NG_CG_TASK_ASSIGNMENT_ISOLATION: true
     }))
-    const { container } = render(
+    const { getByTestId } = render(
       <GitSyncTestWrapper>
         <DelegateSelectorStep
           {...defaultProps}
@@ -342,12 +341,30 @@ describe('DelegateSelectorStep', () => {
       </GitSyncTestWrapper>
     )
     await act(async () => {
-      fireEvent.click(container.querySelector('[data-name="delegateSaveAndContinue"]')!)
+      fireEvent.click(getByTestId('delegateSaveAndContinue')!)
     })
     const form = findDialogContainer()
     expect(form).toBeTruthy()
     await act(async () => {
       expect(findDialogContainer()).toMatchSnapshot('Save Connectors to Git')
     })
+  })
+
+  test('should not open Git Sync modal on clicking Save and Continue if connectorInfo is passed and it sets orgIdentifier or projectIdentifier to false value', async () => {
+    const { getByTestId } = render(
+      <GitSyncTestWrapper>
+        <DelegateSelectorStep
+          {...defaultProps}
+          connectorInfo={{ ...connectorInfoCredentials, orgIdentifier: undefined, projectIdentifier: undefined }}
+          prevStepData={connectorInfoCredentials}
+          buildPayload={() => requestBody as ConnectorRequestBody}
+        />
+      </GitSyncTestWrapper>
+    )
+    await act(async () => {
+      fireEvent.click(getByTestId('delegateSaveAndContinue')!)
+    })
+    const form = findDialogContainer()
+    expect(form).toBeFalsy()
   })
 })

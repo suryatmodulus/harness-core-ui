@@ -374,6 +374,7 @@ triggers:
   searchPlaceholder: 'Search Triggers'
   noTriggersFound: 'No Triggers Found'
   newTrigger: + New Trigger
+  newTriggerWithoutPlus: New Trigger
   pipelineExecutionInput: Pipeline Execution Input
   lastActivationDetails: Last Activation Details
   lastActivationAt: 'Last activation at'
@@ -599,8 +600,8 @@ testsReports:
   consoleOutput: Console Output
   testSuite: 'Test Suite:'
   totalTests: Total Tests
-  testCaseName: TEST NAME
-  className: CLASS NAME
+  testCaseName: Test Name
+  className: Class Name
   result: RESULT
   testCasesExecution: Tests Execution
   testExecutions: Test Executions
@@ -654,7 +655,7 @@ artifactsSelection:
     enterTagRegex: Enter Tag Regex
   validation:
     imagePath: Image Path is a required
-    region: Region is required
+    region: '{{$.validation.regionRequired}}'
     tag: Tag is required
     tagRegex: Tag Regex is required
     sidecarId: Sidecar Identifier is required
@@ -696,6 +697,7 @@ verification:
     knownEvent: Known Event
     unknownEvent: Unknown Event
     unexpectedFrequency: Unexpected Frequency
+    allEvents: All Events
     noAnalysis: No analysis
     clusterType: CLUSTER TYPE
     sampleMessage: MESSAGE
@@ -808,3 +810,4 @@ executionStrategy:
           title: 'Step 2:'
         step3:
           title: 'Step 3:'
+newPipelineText: New Pipeline

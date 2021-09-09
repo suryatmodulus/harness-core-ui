@@ -6,7 +6,7 @@ declare const styles: {
   readonly tickersRow: string
   readonly ticker: string
   readonly serviceHealthHeader: string
-  readonly healthScoreCardContainer: string
-  readonly healthScoreCard: string
+  readonly main: string
+  readonly slider: string
 }
 export default styles

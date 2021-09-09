@@ -1,0 +1,17 @@
+.main {
+  margin-bottom: var(--spacing-xsmall) !important;
+  height: 60px;
+  position: relative;
+
+  .selectedTimeRange {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    z-index: 2;
+    opacity: 0.3;
+  }
+}
+
+[class*='highcharts-tooltip-container'] {
+  z-index: 500 !important;
+}

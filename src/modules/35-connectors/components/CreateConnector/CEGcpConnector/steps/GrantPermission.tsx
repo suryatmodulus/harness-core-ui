@@ -8,9 +8,11 @@ import {
   Layout,
   StepProps,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  Icon
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { useGcpserviceaccount } from 'services/ce'
 import { useCreateConnector, useUpdateConnector, Failure } from 'services/cd-ng'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import type { CEGcpConnectorDTO } from './OverviewStep'
@@ -33,6 +35,11 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
     queryParams: { accountIdentifier: accountId }
   })
 
+  const { data, loading: loadingServiceAccount } = useGcpserviceaccount({
+    queryParams: { accountIdentifier: accountId }
+  })
+  const serviceAccount = data?.data
+
   const handleSubmit = async () => {
     setIsSubmitLoading(true)
 
@@ -41,17 +48,15 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
         const connectorInfo: CEGcpConnectorDTO = {
           ...pick(prevStepData, ['name', 'identifier', 'description', 'tags', 'spec', 'type'])
         }
-        if (prevStepData.isEditMode) {
-          const response = await updateConnector({ connector: connectorInfo })
-          if (response.status != 'SUCCESS') {
-            throw response as Failure
-          }
-        } else {
-          const response = await createConnector({ connector: connectorInfo })
-          if (response.status != 'SUCCESS') {
-            throw response as Failure
-          }
+
+        const response = await (prevStepData.isEditMode
+          ? updateConnector({ connector: connectorInfo })
+          : createConnector({ connector: connectorInfo }))
+
+        if (response.status !== 'SUCCESS') {
+          throw response as Failure
         }
+
         nextStep?.(prevStepData)
       }
     } catch (e) {
@@ -98,7 +103,7 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
             <div>{getString('connectors.ceGcp.grantPermission.step5')}</div>
             <Container className={css.commandsContainer}>
               <Container className={css.command}>
-                <pre>harness-ce-harness-kmpys@ccm-play.iam.gserviceaccount.com</pre>
+                {loadingServiceAccount ? <Loader /> : <pre>{serviceAccount}</pre>}
                 <CopyToClipboard showFeedback content={'harness-ce-harness-kmpys@ccm-play.iam.gserviceaccount.com'} />
               </Container>
             </Container>
@@ -124,6 +129,14 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
         />
       </Layout.Horizontal>
     </Layout.Vertical>
+  )
+}
+
+const Loader = () => {
+  return (
+    <Container className={css.serviceAccountLoader}>
+      <Icon name="spinner" color="primary7" size={18} />
+    </Container>
   )
 }
 

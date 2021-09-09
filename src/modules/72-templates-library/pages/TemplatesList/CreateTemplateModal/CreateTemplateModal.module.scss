@@ -1,16 +1,19 @@
 .basicDetails {
-  background-color: var(--form-bg);
   width: 55%;
   padding: var(--spacing-xlarge) var(--spacing-xxlarge);
   border-radius: var(--spacing-2);
+  height: 500px;
 }
 
 .preview {
   padding: var(--spacing-10) var(--spacing-12);
+  display: flex;
+  justify-content: center;
 }
 
-.lg {
+.field {
   width: 75%;
+  margin: var(--spacing-7) 0;
 }
 
 .buttonGroup {
@@ -20,5 +23,12 @@
 .closeIcon {
   text-align: right;
   padding: var(--spacing-6) var(--spacing-4);
-  cursor: pointer;
+
+  :global {
+    svg[data-icon='cross'] {
+      width: 24px;
+      height: 24px;
+      color: var(--grey-500);
+    }
+  }
 }

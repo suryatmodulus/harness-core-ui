@@ -70,7 +70,7 @@ exports[`UsersPage Test Add Roles 1`] = `
                   <span
                     class="FieldArray--text"
                   >
-                    rbac.usersPage.assignRoles
+                    rbac.usersPage.assignRoleBindings
                   </span>
                   <button
                     class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
@@ -180,11 +180,12 @@ exports[`UsersPage Test Add Roles 1`] = `
                               class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-input-group"
+                                class="bp3-input-group bp3-disabled"
                               >
                                 <input
                                   autocomplete="off"
                                   class="bp3-input"
+                                  disabled=""
                                   placeholder="rbac.usersPage.selectResourceGroup"
                                   style="padding-right: 0px;"
                                   type="text"
@@ -571,7 +572,7 @@ exports[`UsersPage Test render data 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
                 Testing User Group
               </p>
@@ -786,7 +787,7 @@ exports[`UsersPage Test render data 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
                 dummy
               </p>
@@ -890,7 +891,7 @@ exports[`UsersPage Test render data 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
                 Testing User Group With SSO
               </p>
@@ -920,7 +921,9 @@ exports[`UsersPage Test render data 1`] = `
                       />
                     </svg>
                   </span>
-                  rbac.userDetails.linkToSSOProviderModal.saml
+                  <span>
+                    rbac.userDetails.linkToSSOProviderModal.saml
+                  </span>
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -931,7 +934,9 @@ exports[`UsersPage Test render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
-                  rbac.userDetails.linkToSSOProviderModal.group
+                  <span>
+                    rbac.userDetails.linkToSSOProviderModal.group
+                  </span>
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1152,7 +1157,7 @@ exports[`UsersPage Test render data 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
                 Testing User Group With SSO no Users
               </p>
@@ -1182,7 +1187,9 @@ exports[`UsersPage Test render data 1`] = `
                       />
                     </svg>
                   </span>
-                  rbac.userDetails.linkToSSOProviderModal.saml
+                  <span>
+                    rbac.userDetails.linkToSSOProviderModal.saml
+                  </span>
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1193,7 +1200,9 @@ exports[`UsersPage Test render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
-                  rbac.userDetails.linkToSSOProviderModal.group
+                  <span>
+                    rbac.userDetails.linkToSSOProviderModal.group
+                  </span>
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main"

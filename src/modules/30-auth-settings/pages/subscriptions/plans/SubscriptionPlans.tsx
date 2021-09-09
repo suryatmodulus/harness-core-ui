@@ -5,7 +5,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { FetchPlansQuery, useFetchPlansQuery } from 'services/common/services'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import CIPlans from './CIPlans'
+import Plans from './Plans'
 
 interface SubscriptionPlansProps {
   module: ModuleName
@@ -21,10 +21,38 @@ const PlanTabs: React.FC<PlanTabsProps> = ({ module, plans }) => {
     switch (module) {
       case ModuleName.CI:
         return (
-          <CIPlans
-            ciSaasPlans={plans?.ciSaasPlans}
-            ciSaasFeatureCaption={plans?.ciSaasFeatureCaption}
-            ciSaasFeatureGroup={plans?.ciSaasFeatureGroup}
+          <Plans
+            module={module}
+            plans={plans?.ciSaasPlans}
+            featureCaption={plans?.ciSaasFeatureCaption}
+            featureGroup={plans?.ciSaasFeatureGroup}
+          />
+        )
+      case ModuleName.CF:
+        return (
+          <Plans
+            module={module}
+            plans={plans?.ffPlans}
+            featureCaption={plans?.ffFeatureCaption}
+            featureGroup={plans?.ffFeatureGroup}
+          />
+        )
+      case ModuleName.CD:
+        return (
+          <Plans
+            module={module}
+            plans={plans?.cdPlans}
+            featureCaption={plans?.cdFeatureCaption}
+            featureGroup={plans?.cdFeatureGroup}
+          />
+        )
+      case ModuleName.CE:
+        return (
+          <Plans
+            module={module}
+            plans={plans?.ccPlans}
+            featureCaption={plans?.ccFeatureCaption}
+            featureGroup={plans?.ccFeatureGroup}
           />
         )
     }

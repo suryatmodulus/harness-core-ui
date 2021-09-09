@@ -50,10 +50,17 @@ type Params = {
 }
 
 const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
-  const { prevStepData, nextStep, disableGitSync } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<Params>()
+  const { prevStepData, nextStep, disableGitSync, connectorInfo } = props
+  const {
+    accountId,
+    projectIdentifier: projectIdentifierFromUrl,
+    orgIdentifier: orgIdentifierFromUrl
+  } = useParams<Params>()
+  const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
+  const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
   const { isGitSyncEnabled: gitSyncAppStoreEnabled } = useAppStore()
   const isGitSyncEnabled = gitSyncAppStoreEnabled && !disableGitSync
+  const showGitContextForm = isGitSyncEnabled && orgIdentifier && projectIdentifier
 
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
@@ -67,39 +74,39 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
       //In edit mode validateTheIdentifierIsUnique API not required
       props.setFormData?.(formData)
       nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
-    } else {
-      setLoading(true)
-      try {
-        const response = await validateTheIdentifierIsUniquePromise({
-          queryParams: {
-            identifier: formData.identifier,
-            accountIdentifier: accountId,
-            orgIdentifier: orgIdentifier,
-            projectIdentifier: projectIdentifier
-          },
-          mock: props.mock
-        })
-        setLoading(false)
+      return
+    }
+    setLoading(true)
+    try {
+      const response = await validateTheIdentifierIsUniquePromise({
+        queryParams: {
+          identifier: formData.identifier,
+          accountIdentifier: accountId,
+          orgIdentifier: orgIdentifier,
+          projectIdentifier: projectIdentifier
+        },
+        mock: props.mock
+      })
+      setLoading(false)
 
-        if ('SUCCESS' === response.status) {
-          if (response.data) {
-            props.setFormData?.(formData)
-            nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
-          } else {
-            modalErrorHandler?.showDanger(
-              getString('validation.duplicateIdError', {
-                connectorName: formData.name,
-                connectorIdentifier: formData.identifier
-              })
-            )
-          }
-        } else {
-          throw response as Failure
-        }
-      } catch (error) {
-        setLoading(false)
-        modalErrorHandler?.showDanger(error.message)
+      if ('SUCCESS' !== response.status) {
+        modalErrorHandler?.showDanger((response as Failure)?.message || '')
+        return
       }
+      if (response.data) {
+        props.setFormData?.(formData)
+        nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
+      } else {
+        modalErrorHandler?.showDanger(
+          getString('validation.duplicateIdError', {
+            connectorName: formData.name,
+            connectorIdentifier: formData.identifier
+          })
+        )
+      }
+    } catch (error) {
+      setLoading(false)
+      modalErrorHandler?.showDanger(error.message)
     }
   }
 
@@ -119,7 +126,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
       <div className={css.heading}>{getString(getHeadingIdByType(props.type))}</div>
-      <ModalErrorHandler bind={setModalErrorHandler} />
+      <ModalErrorHandler bind={setModalErrorHandler} style={{ maxWidth: '740px' }} />
 
       <Container padding="small" className={css.connectorForm}>
         <Formik<DetailsForm>
@@ -151,7 +158,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
                     identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
                   />
 
-                  {isGitSyncEnabled && (
+                  {showGitContextForm ? (
                     <GitSyncStoreProvider>
                       <GitContextForm
                         formikProps={formikProps}
@@ -159,6 +166,8 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
                         className={'gitDetailsContainer'}
                       />
                     </GitSyncStoreProvider>
+                  ) : (
+                    <></>
                   )}
                 </Container>
                 <Layout.Horizontal>

@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import DelegatesPage from '../DelegatesPage'
+import DelegateListing from '../DelegateListing'
 
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
@@ -16,7 +17,9 @@ describe('Delegates Page', () => {
   test('render data', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'dummy' }}>
-        <DelegatesPage />
+        <DelegatesPage>
+          <DelegateListing />
+        </DelegatesPage>
       </TestWrapper>
     )
 

@@ -830,7 +830,6 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
                           disabled=""
                           name="connectorRef"
                           placeholder="<+input>"
-                          style="width: 422px;"
                           type="text"
                           value="<+input>"
                         />

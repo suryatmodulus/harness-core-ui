@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
 import { Text, Layout, Color, Button, Icon, ButtonVariation } from '@wings-software/uicore'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { useSourceCodeModal } from '@user-profile/modals/SourceCodeManager/useSourceCodeManager'
@@ -7,6 +8,7 @@ import { SourceCodeManagerDTO, useDeleteSourceCodeManagers, useGetSourceCodeMana
 import { Table, useToaster } from '@common/components'
 import { getIconBySCM, SourceCodeTypes } from '@user-profile/utils/utils'
 import { useConfirmationDialog } from '@common/exports'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 const RenderColumnName: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row }) => {
   const data = row.original
@@ -51,7 +53,8 @@ const RenderColumnDelete: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row, co
   const data = row.original
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
-  const { mutate: deleteSCM } = useDeleteSourceCodeManagers({})
+  const { accountId } = useParams<AccountPathProps>()
+  const { mutate: deleteSCM } = useDeleteSourceCodeManagers({ queryParams: { accountIdentifier: accountId } })
 
   const { openDialog } = useConfirmationDialog({
     contentText: `${getString('userProfile.confirmDelete', { name: data.name })}`,
@@ -97,7 +100,8 @@ const RenderColumnDelete: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row, co
 
 const SourceCodeManagerList: React.FC = () => {
   const { getString } = useStrings()
-  const { data, loading, refetch } = useGetSourceCodeManagers({})
+  const { accountId } = useParams<AccountPathProps>()
+  const { data, loading, refetch } = useGetSourceCodeManagers({ queryParams: { accountIdentifier: accountId } })
 
   const { openSourceCodeModal } = useSourceCodeModal({ onSuccess: refetch })
 

@@ -14,3 +14,8 @@ export interface serviceAndEnvData {
   serviceIdentifierData: string
   envIdentifierData: string
 }
+
+export interface serviceAndEnvDataStage {
+  serviceIdentifierFromStage: string
+  envIdentifierDataFromStage: string
+}

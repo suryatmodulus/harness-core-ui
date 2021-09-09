@@ -8,6 +8,7 @@ import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/Pip
 
 import PipelineModalListView from '@pipeline/components/PipelineModalListView/PipelineModalListView'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { Page } from '@common/exports'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './DeploymentsList.module.scss'
@@ -15,6 +16,8 @@ import css from './DeploymentsList.module.scss'
 export default function DeploymentsList(): React.ReactElement {
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
+
+  useDocumentTitle([getString('pipelines'), getString('executionsText')])
 
   const runPipelineDialogProps: IDialogProps = {
     isOpen: true,

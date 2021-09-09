@@ -295,7 +295,12 @@ exports[`Stepk8ClusterDetails render  1`] = `
                     <label
                       class="bp3-label"
                     >
-                      password
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="k8ClusterForm_password"
+                      >
+                        password
+                      </span>
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -329,18 +334,13 @@ exports[`Stepk8ClusterDetails render  1`] = `
                             </g>
                           </svg>
                         </span>
-                        <div
-                          class="Text--withDocsTooltip"
-                          data-tooltip-id="k8ClusterForm_password"
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                          >
-                            <div>
-                              createOrSelectSecret
-                            </div>
-                          </p>
-                        </div>
+                          <div>
+                            createOrSelectSecret
+                          </div>
+                        </p>
                       </a>
                     </div>
                   </div>
@@ -748,7 +748,12 @@ exports[`Stepk8ClusterDetails render  2`] = `
                     <label
                       class="bp3-label"
                     >
-                      password
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="k8ClusterForm_password"
+                      >
+                        password
+                      </span>
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -782,18 +787,13 @@ exports[`Stepk8ClusterDetails render  2`] = `
                             </g>
                           </svg>
                         </span>
-                        <div
-                          class="Text--withDocsTooltip"
-                          data-tooltip-id="k8ClusterForm_password"
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                          >
-                            <div>
-                              createOrSelectSecret
-                            </div>
-                          </p>
-                        </div>
+                          <div>
+                            createOrSelectSecret
+                          </div>
+                        </p>
                       </a>
                     </div>
                   </div>
@@ -1206,7 +1206,12 @@ exports[`Stepk8ClusterDetails render  3`] = `
                     <label
                       class="bp3-label"
                     >
-                      password
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="k8ClusterForm_password"
+                      >
+                        password
+                      </span>
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1240,18 +1245,13 @@ exports[`Stepk8ClusterDetails render  3`] = `
                             </g>
                           </svg>
                         </span>
-                        <div
-                          class="Text--withDocsTooltip"
-                          data-tooltip-id="k8ClusterForm_password"
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                          >
-                            <div>
-                              createOrSelectSecret
-                            </div>
-                          </p>
-                        </div>
+                          <div>
+                            createOrSelectSecret
+                          </div>
+                        </p>
                       </a>
                     </div>
                   </div>
@@ -1629,7 +1629,12 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                     <label
                       class="bp3-label"
                     >
-                      password
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="k8ClusterForm_password"
+                      >
+                        password
+                      </span>
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1663,21 +1668,16 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                             </g>
                           </svg>
                         </span>
-                        <div
-                          class="Text--withDocsTooltip"
-                          data-tooltip-id="k8ClusterForm_password"
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                          >
-                            <div>
-                              secret.configureSecret
-                            </div>
-                            <div>
-                              &lt;k8serviceToken&gt;
-                            </div>
-                          </p>
-                        </div>
+                          <div>
+                            secret.configureSecret
+                          </div>
+                          <div>
+                            &lt;k8serviceToken&gt;
+                          </div>
+                        </p>
                       </a>
                       <button
                         class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -1984,7 +1984,12 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                     <label
                       class="bp3-label"
                     >
-                      connectors.k8.serviceAccountToken
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="k8ClusterForm_serviceAccountToken"
+                      >
+                        connectors.k8.serviceAccountToken
+                      </span>
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2018,21 +2023,16 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                             </g>
                           </svg>
                         </span>
-                        <div
-                          class="Text--withDocsTooltip"
-                          data-tooltip-id="k8ClusterForm_serviceAccountToken"
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                          >
-                            <div>
-                              secret.configureSecret
-                            </div>
-                            <div>
-                              &lt;k8serviceToken&gt;
-                            </div>
-                          </p>
-                        </div>
+                          <div>
+                            secret.configureSecret
+                          </div>
+                          <div>
+                            &lt;k8serviceToken&gt;
+                          </div>
+                        </p>
                       </a>
                       <button
                         class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -2726,7 +2726,12 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       <label
                         class="bp3-label"
                       >
-                        connectors.k8.OIDCPassword
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="k8ClusterForm_oidcPassword"
+                        >
+                          connectors.k8.OIDCPassword
+                        </span>
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2760,21 +2765,16 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                               </g>
                             </svg>
                           </span>
-                          <div
-                            class="Text--withDocsTooltip"
-                            data-tooltip-id="k8ClusterForm_oidcPassword"
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                            >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;k8serviceToken&gt;
-                              </div>
-                            </p>
-                          </div>
+                            <div>
+                              secret.configureSecret
+                            </div>
+                            <div>
+                              &lt;k8serviceToken&gt;
+                            </div>
+                          </p>
                         </a>
                         <button
                           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -2827,7 +2827,12 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       <label
                         class="bp3-label"
                       >
-                        connectors.k8.OIDCClientId
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="k8ClusterForm_oidcCleintId"
+                        >
+                          connectors.k8.OIDCClientId
+                        </span>
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2861,21 +2866,16 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                               </g>
                             </svg>
                           </span>
-                          <div
-                            class="Text--withDocsTooltip"
-                            data-tooltip-id="k8ClusterForm_oidcCleintId"
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                            >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;k8serviceToken&gt;
-                              </div>
-                            </p>
-                          </div>
+                            <div>
+                              secret.configureSecret
+                            </div>
+                            <div>
+                              &lt;k8serviceToken&gt;
+                            </div>
+                          </p>
                         </a>
                         <button
                           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -2923,7 +2923,12 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                       <label
                         class="bp3-label"
                       >
-                        connectors.k8.clientSecretOptional
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="k8ClusterForm_oidcCleintSecret"
+                        >
+                          connectors.k8.clientSecretOptional
+                        </span>
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2957,21 +2962,16 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                               </g>
                             </svg>
                           </span>
-                          <div
-                            class="Text--withDocsTooltip"
-                            data-tooltip-id="k8ClusterForm_oidcCleintSecret"
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                            >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;k8serviceToken&gt;
-                              </div>
-                            </p>
-                          </div>
+                            <div>
+                              secret.configureSecret
+                            </div>
+                            <div>
+                              &lt;k8serviceToken&gt;
+                            </div>
+                          </p>
                         </a>
                         <button
                           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"

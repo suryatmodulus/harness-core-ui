@@ -12,6 +12,8 @@ export interface QueryContentProps {
   textAreaProps?: TextAreaProps['textArea']
   textAreaName?: string
   onClickExpand: (isOpen: boolean) => void
+  isAutoFetch?: boolean
+  mandatoryFields?: any[]
   staleRecordsWarning?: string
 }
 
@@ -28,6 +30,8 @@ export interface QueryViewerProps {
   queryNotExecutedMessage?: string
   queryTextAreaProps?: TextAreaProps['textArea']
   staleRecordsWarning?: string
+  isAutoFetch?: boolean
+  queryContentMandatoryProps?: any[]
 }
 
 export interface QueryViewDialogProps extends RecordsProps {

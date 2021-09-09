@@ -8,6 +8,7 @@ import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mo
 import filters from '@pipeline/pages/pipeline-deployment-list/__tests__/filters.json'
 import services from '@pipeline/pages/pipelines/__tests__/mocks/services.json'
 import environments from '@pipeline/pages/pipelines/__tests__/mocks/environments.json'
+import { PipelineResponse as PipelineDetailsMockResponse } from '@pipeline/pages/pipeline-details/__tests__/PipelineDetailsMocks'
 import CDPipelineDeploymentList from '../CDPipelineDeploymentList'
 import data from './response.json'
 
@@ -24,6 +25,7 @@ jest.mock('services/pipeline-ng', () => ({
   })),
   useGetTemplateFromPipeline: jest.fn(() => ({ data: {} })),
   useGetPipeline: jest.fn(() => ({ data: {} })),
+  useGetPipelineSummary: jest.fn(() => PipelineDetailsMockResponse),
   useCreateInputSetForPipeline: jest.fn(() => ({ data: {} })),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => ({ data: {} })),
   useHandleInterrupt: jest.fn(() => ({})),

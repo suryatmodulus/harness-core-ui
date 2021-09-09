@@ -4,3 +4,17 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.sourceTableLabel {
+  font-size: medium !important;
+  margin-bottom: var(--spacing-large) !important;
+  margin-left: var(--spacing-xxlarge) !important;
+}
+
+.breadCrumbLink {
+  cursor: pointer !important;
+  padding: var(--spacing-small) var(--spacing-none) !important;
+  &:hover {
+    text-decoration: underline;
+  }
+}

@@ -189,6 +189,7 @@ describe('Connectors Page Test', () => {
     expect(searchInput?.value).toBe('')
     const expectedResponse = {
       filterType: 'Connector',
+      excludeTypes: ['ArgoConnector'],
       queryParams: {
         accountIdentifier: 'dummy',
         orgIdentifier: 'orgId',
@@ -199,7 +200,7 @@ describe('Connectors Page Test', () => {
       }
     }
     expect(getConnectorsListV2).toBeCalledWith(
-      { filterType: expectedResponse.filterType },
+      { filterType: expectedResponse.filterType, excludeTypes: ['ArgoConnector'] },
       { queryParams: expectedResponse.queryParams }
     )
     await act(async () => {

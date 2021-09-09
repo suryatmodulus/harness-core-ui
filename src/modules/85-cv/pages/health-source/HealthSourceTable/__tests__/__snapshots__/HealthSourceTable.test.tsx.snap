@@ -8,7 +8,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
     connectors.cdng.healthSources.label
   </p>
   <div
-    class="table tableWrapper"
+    class="table healthSourceTableWrapper"
   >
     <div
       class="header"

@@ -39,11 +39,11 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
           </span>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
+            class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
             icon="cross"
           >
             <svg
@@ -68,7 +68,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -276,8 +276,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
             >
               <label
-                class="Label--main"
-                style="font-size: small; color: white;"
+                class="Label--main bp3-label filterVisibilityText"
               >
                 filters.filterVisibility
               </label>
@@ -325,7 +324,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveFilterBtn Button--with-current-color Button--without-shadow Button--variation Button--variation-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveFilterBtn Button--with-current-color Button--without-shadow Button--variation Button--variation-secondary"
                 type="submit"
               >
                 <span
@@ -335,7 +334,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
                 </span>
               </button>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main cancelBtn Button--with-current-color Button--variation Button--variation-secondary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main cancelBtn StyledProps--color StyledProps--color-white Button--with-current-color Button--variation Button--variation-link"
                 type="reset"
               >
                 <span
@@ -392,11 +391,11 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 2`]
           </span>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
+            class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
             icon="cross"
           >
             <svg
@@ -421,7 +420,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 2`]
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -628,11 +627,11 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
           </span>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
+            class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
             icon="cross"
           >
             <svg
@@ -657,7 +656,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -865,8 +864,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
             >
               <label
-                class="Label--main"
-                style="font-size: small; color: white;"
+                class="Label--main bp3-label filterVisibilityText"
               >
                 filters.filterVisibility
               </label>
@@ -914,7 +912,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveFilterBtn Button--with-current-color Button--without-shadow Button--variation Button--variation-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveFilterBtn Button--with-current-color Button--without-shadow Button--variation Button--variation-secondary"
                 type="submit"
               >
                 <span
@@ -924,7 +922,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
                 </span>
               </button>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main cancelBtn Button--with-current-color Button--variation Button--variation-secondary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main cancelBtn StyledProps--color StyledProps--color-white Button--with-current-color Button--variation Button--variation-link"
                 type="reset"
               >
                 <span
@@ -981,11 +979,11 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 2`] =
           </span>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
+            class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
             icon="cross"
           >
             <svg
@@ -1010,7 +1008,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 2`] =
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -1217,11 +1215,11 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
           </span>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
+            class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
             icon="cross"
           >
             <svg
@@ -1246,7 +1244,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -1454,8 +1452,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
             >
               <label
-                class="Label--main"
-                style="font-size: small; color: white;"
+                class="Label--main bp3-label filterVisibilityText"
               >
                 filters.filterVisibility
               </label>
@@ -1503,7 +1500,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveFilterBtn Button--with-current-color Button--without-shadow Button--variation Button--variation-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveFilterBtn Button--with-current-color Button--without-shadow Button--variation Button--variation-secondary"
                 type="submit"
               >
                 <span
@@ -1513,7 +1510,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
                 </span>
               </button>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main cancelBtn Button--with-current-color Button--variation Button--variation-secondary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main cancelBtn StyledProps--color StyledProps--color-white Button--with-current-color Button--variation Button--variation-link"
                 type="reset"
               >
                 <span
@@ -1570,11 +1567,11 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 4`] =
           </span>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
+            class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
             icon="cross"
           >
             <svg
@@ -1599,7 +1596,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 4`] =
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -1806,11 +1803,11 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 5`] =
           </span>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
+            class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
             icon="cross"
           >
             <svg
@@ -1835,7 +1832,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 5`] =
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -2042,11 +2039,11 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
           </span>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
+            class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
             icon="cross"
           >
             <svg
@@ -2071,7 +2068,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -2279,8 +2276,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
               class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
             >
               <label
-                class="Label--main"
-                style="font-size: small; color: white;"
+                class="Label--main bp3-label filterVisibilityText"
               >
                 filters.filterVisibility
               </label>
@@ -2328,7 +2324,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-large"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main saveFilterBtn Button--with-current-color Button--without-shadow Button--variation Button--variation-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main saveFilterBtn Button--with-current-color Button--without-shadow Button--variation Button--variation-secondary"
                 type="submit"
               >
                 <span
@@ -2338,7 +2334,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main cancelBtn Button--with-current-color Button--variation Button--variation-secondary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main cancelBtn StyledProps--color StyledProps--color-white Button--with-current-color Button--variation Button--variation-link"
                 type="reset"
               >
                 <span
@@ -2395,11 +2391,11 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
           </span>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          class="bp3-button Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
+            class="bp3-icon bp3-icon-cross StyledProps--main StyledProps--color StyledProps--color-white"
             icon="cross"
           >
             <svg
@@ -2424,7 +2420,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon Button--variation Button--variation-primary"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span

@@ -22,9 +22,9 @@ exports[`Entity Usage render for connector data with gitSync 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main search   ExpandingSearchInput--light"
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
           data-name=""
-          style="max-width: 350px;"
+          style="width: 350px; max-width: 350px;"
         >
           <span
             class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -49,7 +49,7 @@ exports[`Entity Usage render for connector data with gitSync 1`] = `
             class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
             placeholder="Search"
-            style="padding-right: 0px;"
+            style="padding-right: 38px;"
             type="search"
             value=""
           />
@@ -316,9 +316,9 @@ exports[`Entity Usage render for data 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main search   ExpandingSearchInput--light"
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
           data-name=""
-          style="max-width: 350px;"
+          style="width: 350px; max-width: 350px;"
         >
           <span
             class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -343,7 +343,7 @@ exports[`Entity Usage render for data 1`] = `
             class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
             placeholder="Search"
-            style="padding-right: 0px;"
+            style="padding-right: 38px;"
             type="search"
             value=""
           />
@@ -462,9 +462,9 @@ exports[`Entity Usage render for no data 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main search   ExpandingSearchInput--light"
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
           data-name=""
-          style="max-width: 350px;"
+          style="width: 350px; max-width: 350px;"
         >
           <span
             class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -489,7 +489,7 @@ exports[`Entity Usage render for no data 1`] = `
             class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
             placeholder="Search"
-            style="padding-right: 0px;"
+            style="padding-right: 38px;"
             type="search"
             value=""
           />

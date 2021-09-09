@@ -14,15 +14,11 @@ export function TemplatesListHeader(): React.ReactElement {
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog
-        enforceFocus={false}
-        isOpen={true}
-        className={css.createTemplateDialog}
-        onClose={() => {
-          hideModal()
-        }}
-      >
-        <CreateTemplateModal initialValues={{ templateEntityType: createTemplateType }} onClose={hideModal} />
+      <Dialog enforceFocus={false} isOpen={true} className={css.createTemplateDialog} onClose={hideModal}>
+        <CreateTemplateModal
+          initialValues={{ templateEntityType: createTemplateType, name: 'New Template' }}
+          onClose={hideModal}
+        />
       </Dialog>
     ),
     [createTemplateType]

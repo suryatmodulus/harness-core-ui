@@ -224,7 +224,6 @@ const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
       value: barrier.identifier
     }))
   }
-
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.barrierRef) === MultiTypeInputType.RUNTIME && (
@@ -236,7 +235,7 @@ const BarrierInputStep: React.FC<BarrierProps> = ({ inputSetData }) => {
           disabled={loading}
           className={css.width50}
           items={barriers}
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}.spec.barrierRef`}
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}`}.spec.barrierRef`}
           key="barrierRef"
           label={getString('pipeline.barrierStep.barrierReference')}
         />

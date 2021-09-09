@@ -106,7 +106,7 @@ const OverviewStep: React.FC<OverviewProps> = props => {
     try {
       const response = await fetchConnectors(filterParams)
       if (response.status == 'SUCCESS') {
-        if (response?.data?.pageItemCount == 0) {
+        if (response?.data?.pageItemCount == 0 || isEditMode) {
           if (nextStep) nextStep(payload)
         } else {
           setIsLoading(false)
@@ -121,6 +121,7 @@ const OverviewStep: React.FC<OverviewProps> = props => {
         throw response as Failure
       }
     } catch (e) {
+      setIsLoading(false)
       modalErrorHandler?.showDanger(e?.data?.message)
     }
   }

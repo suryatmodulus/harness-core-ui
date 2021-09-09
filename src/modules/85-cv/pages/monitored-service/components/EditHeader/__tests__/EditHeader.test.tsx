@@ -4,6 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import type { MonitoredServiceDTO } from 'services/cv'
 import EditHeader from '../EditHeader'
 import type { EditHeaderProps } from '../EditHeader.types'
+import { MonitoredServiceType } from '../../Configurations/components/Service/components/MonitoredServiceOverview/MonitoredServiceOverview.constants'
 
 const WrapperComponent = (props: EditHeaderProps): JSX.Element => {
   return (
@@ -18,7 +19,9 @@ describe('Unit tests for EditHeader', () => {
     monitoredServiceData: {
       name: 'monitored-service-name',
       identifier: 'monitored-service-identifier',
-      environmentRef: 'env'
+      environmentRef: 'env',
+      serviceRef: 'service',
+      type: MonitoredServiceType.INFRASTRUCTURE
     } as MonitoredServiceDTO,
     lastModifiedAt: 1628707742169
   }

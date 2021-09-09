@@ -138,18 +138,28 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="resourceGroupColor"
                 style="background-color: rgb(0, 99, 247);"
               />
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                ss33
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  ss33
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -226,18 +236,28 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="resourceGroupColor"
                 style="background-color: rgb(0, 99, 247);"
               />
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                starte
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  starte
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -314,18 +334,28 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="resourceGroupColor"
                 style="background-color: rgb(0, 99, 247);"
               />
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                swarfdfds34343
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  swarfdfds34343
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -402,18 +432,28 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="resourceGroupColor"
                 style="background-color: rgb(0, 99, 247);"
               />
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                testttttte34343
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  testttttte34343
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -490,18 +530,28 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="resourceGroupColor"
                 style="background-color: rgb(0, 99, 247);"
               />
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                tterer
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  tterer
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -578,18 +628,28 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="resourceGroupColor"
                 style="background-color: rgb(0, 99, 247);"
               />
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                testvery1
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  testvery1
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -666,18 +726,28 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="resourceGroupColor"
                 style="background-color: rgb(0, 99, 247);"
               />
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                test create 3
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  test create 3
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -754,18 +824,28 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="resourceGroupColor"
                 style="background-color: rgb(230, 53, 53);"
               />
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                test 5549
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  test 5549
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -842,18 +922,28 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="resourceGroupColor"
                 style="background-color: rgb(230, 184, 0);"
               />
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                dfdfdf
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  dfdfdf
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -899,18 +989,28 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <div
-              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
               <div
                 class="resourceGroupColor"
                 style="background-color: rgb(0, 99, 247);"
               />
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 1;"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                test with desc
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  test with desc
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div

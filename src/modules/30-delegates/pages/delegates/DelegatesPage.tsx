@@ -1,29 +1,40 @@
 import React from 'react'
-import { Container, Tabs, Tab, Layout, Color } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+import { TabNavigation } from '@wings-software/uicore'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
-import { useQueryParams } from '@common/hooks'
-import DelegateListing from './DelegateListing'
-import DelegateConfigurations from './DelegateConfigurations'
-import { DelegateTab } from './utils/DelegateHelper'
-import css from './DelegatesPage.module.scss'
+import routes from '@common/RouteDefinitions'
+import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 
-export const DelegatesPage: React.FC = () => {
+const DelegatesPage: React.FC = ({ children }) => {
+  const params = useParams<PipelineType<ProjectPathProps>>()
+  const { accountId, orgIdentifier, projectIdentifier, module } = params
   const { getString } = useStrings()
-  const { tab = DelegateTab.DELEGATES } = useQueryParams<{ tab?: DelegateTab }>()
 
   return (
-    <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
-      <Container className={css.delegateTabs} background={Color.WHITE}>
-        <Tabs id="delegateTabs" defaultSelectedTabId={tab}>
-          <Tab id={DelegateTab.DELEGATES} title={getString('delegate.delegates')} panel={<DelegateListing />} />
-          <Tab
-            id={DelegateTab.CONFIGURATIONS}
-            title={getString('delegate.delegateConfigurations')}
-            panel={<DelegateConfigurations />}
+    <>
+      <Page.Header
+        breadcrumbs={<NGBreadcrumbs />}
+        title={getString('delegate.delegates')}
+        toolbar={
+          <TabNavigation
+            size={'small'}
+            links={[
+              {
+                label: getString('delegate.delegates'),
+                to: routes.toDelegateList({ accountId, orgIdentifier, projectIdentifier, module })
+              },
+              {
+                label: getString('delegate.delegateConfigurations'),
+                to: routes.toDelegateConfigs({ accountId, orgIdentifier, projectIdentifier, module })
+              }
+            ]}
           />
-        </Tabs>
-      </Container>
-    </Layout.Vertical>
+        }
+      />
+      <Page.Body>{children}</Page.Body>
+    </>
   )
 }
 

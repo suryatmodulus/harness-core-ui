@@ -1,12 +1,29 @@
 import React from 'react'
-import { Container, Text, Icon } from '@wings-software/uicore'
+import { Text, Icon } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { hasCDStage, hasCIStage, StageType } from '@pipeline/utils/stageHelpers'
 import factory from '@pipeline/factories/ExecutionFactory'
 import { mapTriggerTypeToStringID } from '@pipeline/utils/triggerUtils'
+import { UserLabel } from '@common/components/UserLabel/UserLabel'
 
 import css from './ExecutionMetadata.module.scss'
+
+{
+  /* <Text
+font={{ size: 'small' }}
+color="grey900"
+tooltip={
+  <Container padding="small">
+    {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier}
+    <br />
+    {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.extraInfo?.email}
+  </Container>
+}
+>
+{pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier}
+</Text> */
+}
 
 const ExecutionMetadataTrigger = () => {
   const { getString } = useStrings()
@@ -34,19 +51,17 @@ const ExecutionMetadataTrigger = () => {
     )
   } else {
     return (
-      <Text
-        font={{ size: 'small' }}
-        color="grey900"
-        tooltip={
-          <Container padding="small">
-            {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier}
-            <br />
-            {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.extraInfo?.email}
-          </Container>
-        }
-      >
-        {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier}
-      </Text>
+      <div style={{ fontSize: 0 }}>
+        <UserLabel
+          name={
+            pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier ||
+            pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.extraInfo?.email ||
+            ''
+          }
+          email={pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.extraInfo?.email}
+          iconProps={{ size: 16 }}
+        />
+      </div>
     )
   }
 }

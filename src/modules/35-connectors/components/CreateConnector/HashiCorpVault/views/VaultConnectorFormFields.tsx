@@ -4,18 +4,7 @@ import type { IOptionProps } from '@blueprintjs/core'
 import type { FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
-import type { VaultConfigFormData } from '@connectors/interfaces/ConnectorInterface'
-
-const accessTypeOptions: IOptionProps[] = [
-  {
-    label: 'App Role',
-    value: 'APP_ROLE'
-  },
-  {
-    label: 'Token',
-    value: 'TOKEN'
-  }
-]
+import { VaultConfigFormData, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 
 interface VaultConnectorFormFieldsProps {
   formik: FormikContext<VaultConfigFormData>
@@ -24,17 +13,37 @@ interface VaultConnectorFormFieldsProps {
 const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ formik }) => {
   const { getString } = useStrings()
 
+  const accessTypeOptions: IOptionProps[] = [
+    {
+      label: getString('connectors.hashiCorpVault.appRole'),
+      value: HashiCorpVaultAccessTypes.APP_ROLE
+    },
+    {
+      label: getString('token'),
+      value: HashiCorpVaultAccessTypes.TOKEN
+    },
+    {
+      label: getString('connectors.hashiCorpVault.vaultAgent'),
+      value: HashiCorpVaultAccessTypes.VAULT_AGENT
+    }
+  ]
+
   return (
     <>
       <FormInput.Text name="vaultUrl" label={getString('connectors.hashiCorpVault.vaultUrl')} />
       <FormInput.Text name="basePath" label={getString('connectors.hashiCorpVault.baseSecretPath')} />
+      <FormInput.Text
+        name="namespace"
+        label={getString('common.namespace')}
+        placeholder={getString('connectors.hashiCorpVault.root')}
+      />
       <FormInput.RadioGroup
         name="accessType"
         label={getString('authentication')}
         radioGroup={{ inline: true }}
         items={accessTypeOptions}
       />
-      {formik?.values['accessType'] === 'APP_ROLE' ? (
+      {formik?.values['accessType'] === HashiCorpVaultAccessTypes.APP_ROLE ? (
         <>
           <FormInput.Text name="appRoleId" label={getString('connectors.hashiCorpVault.appRoleId')} />
           <SecretInput
@@ -43,8 +52,10 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ for
             connectorTypeContext={'Vault'}
           />
         </>
-      ) : (
+      ) : formik?.values['accessType'] === HashiCorpVaultAccessTypes.TOKEN ? (
         <SecretInput name="authToken" label={getString('token')} connectorTypeContext={'Vault'} />
+      ) : (
+        <FormInput.Text name="sinkPath" label={getString('connectors.hashiCorpVault.sinkPath')} />
       )}
       <FormInput.Text name="renewalIntervalMinutes" label={getString('connectors.hashiCorpVault.renewal')} />
       <FormInput.CheckBox

@@ -611,7 +611,43 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="accessType-2"
+                data-id="namespace-2"
+              >
+                <label
+                  class="bp3-label"
+                  for="namespace"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="vaultConfigForm_namespace"
+                  >
+                    common.namespace
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="namespace"
+                      placeholder="connectors.hashiCorpVault.root"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="accessType-3"
               >
                 <label
                   class="bp3-label"
@@ -646,7 +682,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                       <span
                         class="bp3-control-indicator"
                       />
-                      App Role
+                      connectors.hashiCorpVault.appRole
                     </label>
                     <label
                       class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
@@ -659,14 +695,27 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                       <span
                         class="bp3-control-indicator"
                       />
-                      Token
+                      token
+                    </label>
+                    <label
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        name="accessType"
+                        type="radio"
+                        value="VAULT_AGENT"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      connectors.hashiCorpVault.vaultAgent
                     </label>
                   </div>
                 </div>
               </div>
               <div
                 class="bp3-form-group"
-                data-id="appRoleId-3"
+                data-id="appRoleId-4"
               >
                 <label
                   class="bp3-label"
@@ -701,7 +750,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="null-4"
+                data-id="null-5"
               >
                 <div
                   class="bp3-form-content"
@@ -712,7 +761,12 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                     <label
                       class="bp3-label"
                     >
-                      connectors.hashiCorpVault.secretId
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="vaultConfigForm_secretId"
+                      >
+                        connectors.hashiCorpVault.secretId
+                      </span>
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -746,21 +800,16 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                             </g>
                           </svg>
                         </span>
-                        <div
-                          class="Text--withDocsTooltip"
-                          data-tooltip-id="vaultConfigForm_secretId"
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                          >
-                            <div>
-                              secret.configureSecret
-                            </div>
-                            <div>
-                              &lt;selected_secret&gt;
-                            </div>
-                          </p>
-                        </div>
+                          <div>
+                            secret.configureSecret
+                          </div>
+                          <div>
+                            &lt;selected_secret&gt;
+                          </div>
+                        </p>
                       </a>
                       <button
                         class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -797,7 +846,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="renewalIntervalMinutes-5"
+                data-id="renewalIntervalMinutes-6"
               >
                 <label
                   class="bp3-label"
@@ -832,7 +881,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="readOnly-6"
+                data-id="readOnly-7"
               >
                 <div
                   class="bp3-form-content"
@@ -858,7 +907,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="default-7"
+                data-id="default-8"
               >
                 <div
                   class="bp3-form-content"
@@ -1568,7 +1617,43 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="accessType-2"
+                data-id="namespace-2"
+              >
+                <label
+                  class="bp3-label"
+                  for="namespace"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="vaultConfigForm_namespace"
+                  >
+                    common.namespace
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="namespace"
+                      placeholder="connectors.hashiCorpVault.root"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="accessType-3"
               >
                 <label
                   class="bp3-label"
@@ -1603,7 +1688,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                       <span
                         class="bp3-control-indicator"
                       />
-                      App Role
+                      connectors.hashiCorpVault.appRole
                     </label>
                     <label
                       class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
@@ -1616,14 +1701,27 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                       <span
                         class="bp3-control-indicator"
                       />
-                      Token
+                      token
+                    </label>
+                    <label
+                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        name="accessType"
+                        type="radio"
+                        value="VAULT_AGENT"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      connectors.hashiCorpVault.vaultAgent
                     </label>
                   </div>
                 </div>
               </div>
               <div
                 class="bp3-form-group"
-                data-id="appRoleId-3"
+                data-id="appRoleId-4"
               >
                 <label
                   class="bp3-label"
@@ -1658,7 +1756,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="null-4"
+                data-id="null-5"
               >
                 <div
                   class="bp3-form-content"
@@ -1669,7 +1767,12 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                     <label
                       class="bp3-label"
                     >
-                      connectors.hashiCorpVault.secretId
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="vaultConfigForm_secretId"
+                      >
+                        connectors.hashiCorpVault.secretId
+                      </span>
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1703,21 +1806,16 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                             </g>
                           </svg>
                         </span>
-                        <div
-                          class="Text--withDocsTooltip"
-                          data-tooltip-id="vaultConfigForm_secretId"
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                          >
-                            <div>
-                              secret.configureSecret
-                            </div>
-                            <div>
-                              &lt;selected_secret&gt;
-                            </div>
-                          </p>
-                        </div>
+                          <div>
+                            secret.configureSecret
+                          </div>
+                          <div>
+                            &lt;selected_secret&gt;
+                          </div>
+                        </p>
                       </a>
                       <button
                         class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -1754,7 +1852,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="renewalIntervalMinutes-5"
+                data-id="renewalIntervalMinutes-6"
               >
                 <label
                   class="bp3-label"
@@ -1789,7 +1887,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="readOnly-6"
+                data-id="readOnly-7"
               >
                 <div
                   class="bp3-form-content"
@@ -1815,7 +1913,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
               </div>
               <div
                 class="bp3-form-group"
-                data-id="default-7"
+                data-id="default-8"
               >
                 <div
                   class="bp3-form-content"

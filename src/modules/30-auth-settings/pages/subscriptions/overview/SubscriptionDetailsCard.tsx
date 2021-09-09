@@ -26,6 +26,7 @@ import {
   FeedbackFormValues
 } from '@common/modals/ExtendTrial/useExtendTrialOrFeedbackModal'
 import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { TrialInformation } from '../SubscriptionsPage'
 import css from './SubscriptionDetailsCard.module.scss'
 import pageCss from '../SubscriptionsPage.module.scss'
@@ -48,9 +49,9 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
   const { currentUserInfo } = useAppStore()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const { accountId } = useParams<AccountPathProps>()
-  const openMarketoContactSales = useContactSalesMktoModal({})
+  const { openMarketoContactSales, loading: loadingContactSales } = useContactSalesMktoModal({})
 
-  const { mutate: extendTrial, loading } = useExtendTrialLicense({
+  const { mutate: extendTrial, loading: extendingTrial } = useExtendTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }
@@ -288,6 +289,8 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
     }
   }
 
+  const loading = loadingContactSales || extendingTrial || sendingFeedback
+
   const subscribeButton = (
     <Button onClick={handleSubscribeClick} intent="primary">
       {getString('common.subscriptions.overview.subscribe')}
@@ -301,9 +304,7 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
   )
 
   const extendTrialButton = (
-    <Button disabled={loading} onClick={handleExtendTrial}>
-      {getString('common.banners.trial.expired.extendTrial')}
-    </Button>
+    <Button onClick={handleExtendTrial}>{getString('common.banners.trial.expired.extendTrial')}</Button>
   )
 
   const buttons = (
@@ -313,6 +314,10 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
       {licenseData?.licenseType !== ModuleLicenseType.PAID && isExpired && expiredDays < 15 && extendTrialButton}
     </React.Fragment>
   )
+
+  if (loading) {
+    return <PageSpinner />
+  }
 
   return (
     <Card className={pageCss.outterCard}>

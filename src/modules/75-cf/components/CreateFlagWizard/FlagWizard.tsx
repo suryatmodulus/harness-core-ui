@@ -8,6 +8,7 @@ import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage, showToaster, FeatureFlagMutivariateKind } from '@cf/utils/CFUtils'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
@@ -43,6 +44,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
     } as CreateFeatureFlagQueryParams
   })
   const { currentUserInfo } = useAppStore()
+  const events = useFeatureFlagTelemetry()
 
   const onWizardStepSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {
     modalErrorHandler?.hide()
@@ -60,6 +62,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
     if (formData) {
       createFeatureFlag(formData)
         .then(() => {
+          events.createFeatureFlagCompleted()
           hideModal()
           history.push(
             withActiveEnvironment(

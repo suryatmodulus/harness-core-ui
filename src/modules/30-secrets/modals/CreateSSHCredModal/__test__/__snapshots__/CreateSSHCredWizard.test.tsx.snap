@@ -683,7 +683,12 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                     <label
                       class="bp3-label"
                     >
-                      secrets.sshAuthFormFields.labelFile
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="stepAuthenticationForm_key"
+                      >
+                        secrets.sshAuthFormFields.labelFile
+                      </span>
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -717,18 +722,13 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                             </g>
                           </svg>
                         </span>
-                        <div
-                          class="Text--withDocsTooltip"
-                          data-tooltip-id="stepAuthenticationForm_key"
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                          >
-                            <div>
-                              createOrSelectSecret
-                            </div>
-                          </p>
-                        </div>
+                          <div>
+                            createOrSelectSecret
+                          </div>
+                        </p>
                       </a>
                     </div>
                   </div>
@@ -747,7 +747,12 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                     <label
                       class="bp3-label"
                     >
-                      secrets.sshAuthFormFields.labelPassphrase
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="stepAuthenticationForm_encryptedPassphrase"
+                      >
+                        secrets.sshAuthFormFields.labelPassphrase
+                      </span>
                     </label>
                     <div
                       class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -781,18 +786,13 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                             </g>
                           </svg>
                         </span>
-                        <div
-                          class="Text--withDocsTooltip"
-                          data-tooltip-id="stepAuthenticationForm_encryptedPassphrase"
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                          >
-                            <div>
-                              createOrSelectSecret
-                            </div>
-                          </p>
-                        </div>
+                          <div>
+                            createOrSelectSecret
+                          </div>
+                        </p>
                       </a>
                     </div>
                   </div>

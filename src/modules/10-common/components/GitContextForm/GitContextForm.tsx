@@ -139,6 +139,7 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
       border={{ top: true }}
       padding={{ top: 'medium', bottom: 'medium' }}
       className={cx(gitContextFormProps.className)}
+      data-testid="GitContextForm"
     >
       <Text margin={{ top: 'small', bottom: 'small' }}>
         {getString('common.gitSync.gitRepositoryDetails').toUpperCase()}

@@ -7,6 +7,7 @@ import { Page } from '@common/exports'
 import {
   InputSetSummaryResponse,
   useGetInputSetsListForPipeline,
+  useGetPipelineSummary,
   useGetTemplateFromPipeline
 } from 'services/pipeline-ng'
 import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
@@ -66,6 +67,17 @@ const InputSetList: React.FC = (): JSX.Element => {
     }
   })
 
+  const { data: pipeline } = useGetPipelineSummary({
+    pipelineIdentifier,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch
+    }
+  })
+
   // These flags will be used to disable the Add Input set buttons in the page.
   const [pipelineHasRuntimeInputs, setPipelineHasRuntimeInputs] = useState(true)
   useEffect(() => {
@@ -83,7 +95,8 @@ const InputSetList: React.FC = (): JSX.Element => {
   }>()
   const history = useHistory()
   const { getString } = useStrings()
-  useDocumentTitle([getString('pipelines'), getString('inputSetsText')])
+
+  useDocumentTitle([pipeline?.data?.name || getString('pipelines'), getString('inputSetsText')])
 
   const goToInputSetForm = React.useCallback(
     (inputSetTemp?: InputSetSummaryResponse) => {
@@ -206,7 +219,7 @@ const InputSetList: React.FC = (): JSX.Element => {
           when: () => !inputSet?.data?.content?.length,
           icon: 'yaml-builder-input-sets',
           message: getString('inputSets.aboutInputSets'),
-          buttonText: getString('inputSets.addInputSet'),
+          buttonText: getString('inputSets.newInputSet'),
           onClick: () => goToInputSetForm(),
           buttonDisabled: !canUpdateInputSet || !pipelineHasRuntimeInputs,
           buttonDisabledTooltip: getString('pipeline.inputSets.noRuntimeInputsCurrently')

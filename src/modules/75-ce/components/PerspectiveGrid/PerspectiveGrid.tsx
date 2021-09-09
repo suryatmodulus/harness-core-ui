@@ -14,12 +14,18 @@ export interface PerspectiveGridProps {
   setColumnSequence?: (cols: string[]) => void
   groupBy: QlceViewFieldInputInput
   showColumnSelector?: boolean
-  tempGridColumns?: boolean // TODO: remove after demo
-  showPagination?: boolean
+  tempGridColumns?: boolean
   gridData: Maybe<Maybe<QlceViewEntityStatsDataPoint>[]> | undefined
   gridFetching: boolean
   isClusterOnly?: boolean
   goToWorkloadDetails?: (clusterName: string, namespace: string, workloadName: string) => void
+  highlightNode?: (id: string) => void
+  resetNodeState?: () => void
+  showPagination?: boolean
+  totalItemCount?: number
+  fetchData?: (pageIndex: number, pageSize: number) => void
+  pageSize?: number
+  gridPageIndex?: number
 }
 
 const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
@@ -31,7 +37,13 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     gridData: response,
     gridFetching: fetching,
     isClusterOnly = false,
-    goToWorkloadDetails
+    goToWorkloadDetails,
+    resetNodeState,
+    highlightNode,
+    totalItemCount,
+    pageSize,
+    gridPageIndex,
+    fetchData
   } = props
 
   const gridColumns = getGridColumnsByGroupBy(groupBy, isClusterOnly)
@@ -95,8 +107,18 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
       <Grid<GridData>
         data={gridData}
         onRowClick={onRowClick}
+        onMouseEnter={row => {
+          highlightNode && row.original.id && highlightNode(row.original.id)
+        }}
+        onMouseLeave={() => {
+          resetNodeState && resetNodeState()
+        }}
         columns={props.tempGridColumns ? (DEFAULT_COLS as Column<GridData>[]) : (selectedColumns as Column<GridData>[])}
         showPagination={props.showPagination}
+        totalItemCount={totalItemCount}
+        gridPageIndex={gridPageIndex}
+        pageSize={pageSize}
+        fetchData={fetchData}
       />
     </Container>
   )

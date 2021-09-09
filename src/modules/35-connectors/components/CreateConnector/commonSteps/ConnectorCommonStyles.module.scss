@@ -21,4 +21,5 @@
 .authTypeSelectLarge {
   @extend .authTypeSelect;
   width: 280px;
+  margin-top: var(--spacing-small);
 }

@@ -1056,23 +1056,41 @@ exports[`test cases for Node Recommendation page should be able to render the pa
         class="StyledProps--font StyledProps--main instructionPanel"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
-        >
-          ce.nodeRecommendation.rightSize
-        </p>
-        <p
           class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey600"
         >
           ce.nodeRecommendation.howItWorks
         </p>
         <div
-          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
           <p
             class="StyledProps--font StyledProps--main"
           >
             ce.nodeRecommendation.text1
           </p>
+          <div
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ce.nodeRecommendation.listhead
+            </p>
+            <ul>
+              <li>
+                ce.nodeRecommendation.item1
+              </li>
+              <li>
+                ce.nodeRecommendation.item2
+              </li>
+              <li>
+                ce.nodeRecommendation.item3
+              </li>
+              <li>
+                ce.nodeRecommendation.item4
+              </li>
+            </ul>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >

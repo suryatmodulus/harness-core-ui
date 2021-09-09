@@ -1,8 +1,10 @@
 import React from 'react'
+import { Redirect, useParams } from 'react-router-dom'
 
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, delegateConfigProps, delegatePathProps } from '@common/utils/routeUtils'
+import { AccountSideNavProps } from '@common/RouteDestinations'
 
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -18,7 +20,9 @@ import DelegateConfigurationResourceModalBody from '@delegates/components/Delega
 import DelegateConfigurationResourceRenderer from '@delegates/components/DelegateConfigurationResourceRenderer/DelegateConfigurationResourceRenderer'
 import DelegateResourceRenderer from '@delegates/components/DelegateResourceRenderer/DelegateResourceRenderer'
 
-import { AccountSideNavProps } from '@common/RouteDestinations'
+import DelegateListing from '@delegates/pages/delegates/DelegateListing'
+import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigurations'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATE, {
   icon: 'res-delegates',
@@ -50,10 +54,31 @@ RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATECONFIGURATION, {
   staticResourceRenderer: props => <DelegateConfigurationResourceRenderer {...props} />
 })
 
+const RedirectToDelegatesHome = (): React.ReactElement => {
+  const { accountId } = useParams<AccountPathProps>()
+  return <Redirect to={routes.toDelegateList({ accountId })} />
+}
+
 export default (
   <>
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={[routes.toDelegates({ ...accountPathProps })]} exact>
-      <DelegatesPage />
+      <RedirectToDelegatesHome />
+    </RouteWithLayout>
+
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={[routes.toDelegateList({ ...accountPathProps })]} exact>
+      <DelegatesPage>
+        <DelegateListing />
+      </DelegatesPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={AccountSideNavProps}
+      path={[routes.toDelegateConfigs({ ...accountPathProps })]}
+      exact
+    >
+      <DelegatesPage>
+        <DelegateConfigurations />
+      </DelegatesPage>
     </RouteWithLayout>
 
     <RouteWithLayout

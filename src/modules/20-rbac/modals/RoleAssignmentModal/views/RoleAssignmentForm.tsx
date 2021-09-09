@@ -2,12 +2,14 @@ import React, { useMemo, useRef } from 'react'
 import { Container, Layout, Text, FieldArray, Select, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
+import { defaultTo } from 'lodash-es'
 import { useDeleteRoleAssignment, useGetRoleList } from 'services/rbac'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetResourceGroupList } from 'services/resourcegroups'
 import { errorCheck } from '@common/utils/formikHelpers'
 import { useToaster } from '@common/components'
+import { isAssignmentFieldDisabled } from '@rbac/utils/utils'
 import type { Assignment, RoleOption, UserRoleAssignmentValues } from './UserRoleAssigment'
 import type { UserGroupRoleAssignmentValues } from './UserGroupRoleAssignment'
 import css from './RoleAssignmentForm.module.scss'
@@ -50,7 +52,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
         return {
           label: response.role.name,
           value: response.role.identifier,
-          managed: response.harnessManaged || false,
+          managed: defaultTo(response.harnessManaged, false),
           managedRoleAssignment: false
         }
       }) || [],
@@ -62,12 +64,12 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
       resourceGroupList?.data?.content?.map(response => {
         if (response.harnessManaged)
           defaultResourceGroup.current = {
-            label: response.resourceGroup.name || '',
-            value: response.resourceGroup.identifier || ''
+            label: defaultTo(response.resourceGroup.name, ''),
+            value: defaultTo(response.resourceGroup.identifier, '')
           }
         return {
-          label: response.resourceGroup.name || '',
-          value: response.resourceGroup.identifier || ''
+          label: defaultTo(response.resourceGroup.name, ''),
+          value: defaultTo(response.resourceGroup.identifier, '')
         }
       }) || [],
     [resourceGroupList]
@@ -95,7 +97,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
   return (
     <Container className={css.roleAssignments}>
       <FieldArray
-        label={getString('rbac.usersPage.assignRoles')}
+        label={getString('rbac.usersPage.assignRoleBindings')}
         name="assignments"
         placeholder={noRoleAssignmentsText}
         insertRowAtBeginning={false}
@@ -123,7 +125,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
                   inputProps={{
                     placeholder: getString('rbac.usersPage.selectRole')
                   }}
-                  disabled={(value as RoleOption).assignmentIdentifier ? true : false}
+                  disabled={isAssignmentFieldDisabled(value)}
                   onChange={handleChange}
                 />
                 {errorCheck('assignments', formik) && error ? (
@@ -145,6 +147,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
                   <Select
                     items={resourceGroups}
                     value={value}
+                    disabled={isAssignmentFieldDisabled(value)}
                     popoverClassName={css.selectPopover}
                     inputProps={{
                       placeholder: getString('rbac.usersPage.selectResourceGroup')

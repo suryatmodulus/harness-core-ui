@@ -30,5 +30,7 @@ declare const styles: {
   readonly nodata: string
   readonly noDataContent: string
   readonly ngDocs: string
+  readonly legendContainer: string
+  readonly colorBoxContainer: string
 }
 export default styles

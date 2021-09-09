@@ -4,24 +4,12 @@
     min-height: 470px;
 
     .connectorContainer {
-      display: inline-grid;
-      grid-template-columns: 1fr 1fr;
-      .bp3-popover-target > button {
-        width: 28px !important;
+      .addNewManifest {
+        margin-top: 25px;
       }
-      div.configureOptions {
-        height: fit-content;
-        line-height: 72px;
+      .configureOptions {
+        margin-top: 21px;
       }
-    }
-    .addNewManifest {
-      position: relative;
-      top: 26px;
-      padding-right: 0 !important;
-      justify-content: flex-start;
-    }
-    .manifestStepWidth {
-      width: 100%;
     }
   }
 }

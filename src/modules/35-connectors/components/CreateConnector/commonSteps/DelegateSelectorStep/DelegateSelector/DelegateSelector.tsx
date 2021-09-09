@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Container, HarnessDocTooltip, Layout, Text } from '@wings-software/uicore'
+import { ButtonVariation, Color, Container, HarnessDocTooltip, Layout, Text } from '@wings-software/uicore'
 import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { DelegateSelectors, useToaster } from '@common/components'
@@ -83,7 +83,7 @@ const CustomRadioGroup: React.FC<CustomRadioGroupProps> = props => {
         const { CustomComponent = NullRenderer } = item
         return (
           <Layout.Horizontal
-            margin={index === items.length - 1 ? { bottom: 'small' } : { bottom: 'medium' }}
+            margin={{ bottom: 'medium' }}
             flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
             key={index}
             data-tooltip-id={`${item.label?.split(' ').join('')}`}
@@ -274,7 +274,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
 
   const CustomComponent = useMemo(() => {
     return (
-      <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} margin={{ bottom: 'small' }}>
+      <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} margin={{ bottom: 'medium' }}>
         {DelegateSelectorsCustomComponent}
         {DelegateSelectorCountComponent}
       </Layout.Horizontal>
@@ -333,6 +333,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         {CDNG_ENABLED && NG_CG_TASK_ASSIGNMENT_ISOLATION ? (
           <RbacButton
             icon="plus"
+            variation={ButtonVariation.SECONDARY}
             withoutBoxShadow
             font={{ weight: 'semi-bold' }}
             iconProps={{ margin: { right: 'xsmall' } }}

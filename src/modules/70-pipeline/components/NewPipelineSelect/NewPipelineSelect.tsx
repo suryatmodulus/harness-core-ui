@@ -52,6 +52,7 @@ export default function NewPipelineSelect(props: NewPipelineSelectProps): React.
       value={props.selectedPipeline}
       items={dummyPromise}
       usePortal={true}
+      addClearBtn={true}
       query={query}
       onQueryChange={setQuery}
       placeholder={getString('pipelines')}

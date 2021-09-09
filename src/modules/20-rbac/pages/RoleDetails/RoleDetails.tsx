@@ -149,7 +149,6 @@ const RoleDetails: React.FC = () => {
     <>
       <Page.Header
         size="xlarge"
-        className={css.header}
         breadcrumbs={
           <NGBreadcrumbs
             links={[

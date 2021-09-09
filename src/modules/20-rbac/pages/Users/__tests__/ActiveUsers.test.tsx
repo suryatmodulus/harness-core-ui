@@ -5,7 +5,7 @@ import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/
 import type { ResponseBoolean } from 'services/cd-ng'
 import { clickSubmit } from '@common/utils/JestFormHelper'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps } from '@common/utils/routeUtils'
+import { orgPathProps } from '@common/utils/routeUtils'
 import { activeUserMock, mockResponse, resourceGroupsMockData, roleMockData, usersMockData } from './mock'
 import UsersPage from '../UsersPage'
 
@@ -48,19 +48,22 @@ jest.mock('services/resourcegroups', () => ({
   })
 }))
 
-jest.mock('@common/hooks/useMutateAsGet', () => ({
-  useMutateAsGet: jest.fn().mockImplementation(() => {
-    return { data: activeUserMock, refetch: jest.fn(), error: null }
-  })
-}))
+jest.mock('@common/hooks/useMutateAsGet')
 
 jest.mock('services/cd-ng', () => ({
   useRemoveUser: jest.fn().mockImplementation(() => ({ mutate: deleteActiveUserMock })),
   useUnlockUser: jest.fn().mockImplementation(() => ({ mutate: unlockActiveUserMock })),
   useSendInvite: jest.fn().mockImplementation(() => ({ mutate: createUserMock })),
-  useGetCurrentGenUsers: jest.fn().mockImplementation(() => {
-    return { data: usersMockData, refetch: jest.fn(), error: null }
-  })
+  useGetAggregatedUsers: jest.fn(() => ({
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => activeUserMock)
+  })),
+  useGetUsers: jest.fn(() => ({
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => usersMockData)
+  }))
 }))
 
 jest.useFakeTimers()
@@ -71,7 +74,7 @@ describe('UsersPage Test', () => {
 
   beforeEach(async () => {
     const renderObj = render(
-      <TestWrapper path={routes.toUsers(accountPathProps)} pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper path={routes.toUsers(orgPathProps)} pathParams={{ accountId: 'testAcc', orgIdentifier: 'org' }}>
         <UsersPage />
       </TestWrapper>
     )
@@ -89,11 +92,17 @@ describe('UsersPage Test', () => {
     fireEvent.click(addUser!)
     const form = findDialogContainer()
     expect(form).toBeTruthy()
-    const selectCaret = document.body.querySelector('[data-icon="chevron-down"]')
-    expect(selectCaret).toBeTruthy()
-    fireEvent.click(selectCaret!)
-    const popover = findPopoverContainer()
-    fireEvent.click(getByText(popover!, 'admin@harness.io'))
+    const input = form?.querySelector('.bp3-input-ghost')!
+    expect(input).toBeDefined()
+    fireEvent.focus(input)
+    await act(async () => {
+      fireEvent.keyDown(input, { key: 'Enter', code: 13 })
+    })
+    const admin = getByText(form!, 'Admin')
+    await act(async () => {
+      fireEvent.click(admin)
+    })
+    expect(form).toMatchSnapshot()
     await act(async () => {
       clickSubmit(form!)
     })

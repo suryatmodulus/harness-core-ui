@@ -1,3 +1,6 @@
+"Directs the executor to include this field or fragment only when the `if` argument is true"
+directive @include("Included when true." if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
 "Directs the executor to skip this field or fragment when the `if`'argument is true."
 directive @skip("Skipped when true." if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
 
@@ -430,6 +433,12 @@ type Query {
     offset: Int
     sortCriteria: [QLCEViewSortCriteriaInput]
   ): PerspectiveTimeSeriesData
+  "Get total count of rows for query"
+  perspectiveTotalCount(
+    filters: [QLCEViewFilterWrapperInput]
+    groupBy: [QLCEViewGroupByInput]
+    isClusterQuery: Boolean
+  ): Int
   "Trend stats for perspective"
   perspectiveTrendStats(
     aggregateFunction: [QLCEViewAggregationInput]

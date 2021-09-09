@@ -20,7 +20,7 @@ export interface DeploymentTypeIconsProps {
 export const DeploymentTypeIcons: React.FC<DeploymentTypeIconsProps> = props => {
   const { deploymentTypes, size = 18, limit = 2 } = props
   return (
-    <Layout.Horizontal>
+    <Layout.Horizontal flex={{ alignItems: 'center' }}>
       {deploymentTypes.slice(0, limit).map(deploymentType => {
         return (
           <Icon

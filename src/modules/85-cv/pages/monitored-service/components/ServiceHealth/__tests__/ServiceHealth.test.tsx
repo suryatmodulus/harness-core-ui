@@ -6,7 +6,7 @@ import ServiceHealth from '../ServiceHealth'
 import { getTimeFormat, getTimeInHrs, getTimePeriods, getTimestampsForPeriod } from '../ServiceHealth.utils'
 import type { ServiceHealthProps } from '../ServiceHealth.types'
 import { NUMBER_OF_DATA_POINTS, TimePeriodEnum } from '../ServiceHealth.constants'
-import { timePeriodsMockData } from './ServiceHealth.mock'
+import { mockedHealthScoreData, timePeriodsMockData } from './ServiceHealth.mock'
 
 const WrapperComponent = (props: ServiceHealthProps): JSX.Element => {
   return (
@@ -20,11 +20,24 @@ function getString(key: StringKeys): StringKeys {
   return key
 }
 
+const fetchHealthScore = jest.fn()
 jest.mock('highcharts-react-official', () => () => <></>)
+
+jest.mock('services/cv', () => ({
+  useGetMonitoredServiceScoresFromServiceAndEnvironment: jest.fn().mockImplementation(() => ({
+    data: { currentHealthScore: { riskStatus: 'LOW', healthScore: 100 } },
+    loading: false,
+    error: null,
+    refetch: jest.fn()
+  })),
+  useGetMonitoredServiceOverAllHealthScore: jest.fn().mockImplementation(() => {
+    return { data: mockedHealthScoreData, refetch: fetchHealthScore, error: null, loading: false }
+  })
+}))
 
 describe('Unit tests for ServiceHealth', () => {
   test('Verify if all the fields are rendered correctly inside ServiceHealth', async () => {
-    const props = { currentHealthScore: { riskStatus: 'MEDIUM', healthScore: 100 } }
+    const props = { serviceIdentifier: 'service-identifier', environmentIdentifier: 'env-identifier' }
     const { container } = render(<WrapperComponent {...props} />)
     expect(container).toMatchSnapshot()
   })

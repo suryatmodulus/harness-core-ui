@@ -50,11 +50,12 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   initialValues,
   previousStep,
   artifactIdentifiers,
-  isReadonly = false
+  isReadonly = false,
+  selectedArtifact
 }) => {
   const { getString } = useStrings()
 
-  const primarySchema = Yup.object().shape({
+  const schemaObject = {
     imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
     registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
     tagType: Yup.string().required(),
@@ -66,25 +67,17 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       is: 'value',
       then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
     })
-  })
+  }
+
+  const primarySchema = Yup.object().shape(schemaObject)
 
   const sidecarSchema = Yup.object().shape({
+    ...schemaObject,
     ...ArtifactIdentifierValidation(
       artifactIdentifiers,
       initialValues?.identifier,
       getString('pipeline.uniqueIdentifier')
-    ),
-    imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
-    registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
-    tagType: Yup.string().required(),
-    tagRegex: Yup.string().when('tagType', {
-      is: 'regex',
-      then: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.tagRegex'))
-    }),
-    tag: Yup.mixed().when('tagType', {
-      is: 'value',
-      then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
-    })
+    )
   })
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -139,23 +132,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   }, [tagList])
   const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
 
-  const getInitialValues = (): ImagePathTypes => {
-    const specValues = get(initialValues, 'spec', null)
-
-    if (specValues) {
-      const values = {
-        ...specValues,
-        tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
-      }
-      if (getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
-        values.tag = { label: specValues?.tag, value: specValues?.tag }
-      }
-      if (context === 2 && initialValues?.identifier) {
-        values.identifier = initialValues?.identifier
-      }
-      return values
-    }
-
+  const defaultStepValues = (): ImagePathTypes => {
     return {
       identifier: '',
       imagePath: '',
@@ -164,6 +141,25 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       tagRegex: '',
       registryHostname: ''
     }
+  }
+
+  const getInitialValues = (): ImagePathTypes => {
+    const specValues = get(initialValues, 'spec', null)
+    if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
+      return defaultStepValues()
+    }
+
+    const values = {
+      ...specValues,
+      tagType: specValues.tag ? TagTypes.Value : TagTypes.Regex
+    }
+    if (getMultiTypeFromValue(specValues?.tag) === MultiTypeInputType.FIXED) {
+      values.tag = { label: specValues?.tag, value: specValues?.tag }
+    }
+    if (context === 2 && initialValues?.identifier) {
+      values.identifier = initialValues?.identifier
+    }
+    return values
   }
   const fetchTags = (imagePath = '', registryHostname = ''): void => {
     if (canFetchTags(imagePath, registryHostname)) {

@@ -29,13 +29,6 @@
     position: absolute;
     bottom: 0;
   }
-  .addNewArtifact {
-    position: relative;
-    top: 30px;
-    padding-right: 0 !important;
-    justify-content: flex-start;
-  }
-
   .artifactSelect {
     button.bp3-button {
       width: 380px;
@@ -55,17 +48,13 @@
     }
   }
   .connectorContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    .bp3-popover-target > button {
-      width: 28px !important;
+    .addNewArtifact {
+      margin-top: 25px;
     }
-    div.configureOptions {
-      height: fit-content;
-      line-height: 80px;
+    .configureOptions {
+      margin-top: 21px;
     }
   }
-
   .tagGroup {
     width: 60%;
     .radioGroup {

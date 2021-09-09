@@ -16,7 +16,7 @@ import AccountResources from './pages/AccountResources/AccountResources'
 
 const RedirectToHome = (): React.ReactElement => {
   const { accountId } = useParams<AccountPathProps>()
-  return <Redirect to={routes.toGetStarted({ accountId })} />
+  return <Redirect to={routes.toLandingDashboard({ accountId })} />
 }
 
 export const HomeSideNavProps: SidebarContext = {

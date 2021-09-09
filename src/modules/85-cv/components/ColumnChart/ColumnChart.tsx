@@ -47,7 +47,7 @@ const getDefaultOptions = (data: DataType): Highcharts.Options => ({
   },
   tooltip: {
     formatter: function () {
-      return `<p>${this.y}</p>`
+      return `<p>Health Score: ${this.y}</p>`
     }
   },
   series: data as SeriesColumnOptions[]

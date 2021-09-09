@@ -164,3 +164,19 @@
 .delegateItemSubcontainer {
   align-items: center;
 }
+
+.emptyStateContainer {
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.emptyStateText {
+  font-weight: 600;
+  color: var(--grey-600);
+  margin: 40px 0;
+  font-size: var(--font-size-medium);
+}

@@ -72,7 +72,7 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
               <Layout.Vertical spacing="xsmall">
                 {step.delegateInfoList.map((item, index) => (
                   <div key={`${item.id}-${index}`}>
-                    <Text font={{ size: 'small', weight: 'semi-bold' }}>
+                    <Text font={{ size: 'small', weight: 'bold' }}>
                       <String
                         stringID="common.delegateForTask"
                         vars={{ delegate: item.name, taskName: item.taskName }}
@@ -112,7 +112,7 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
               <Layout.Vertical spacing="xsmall">
                 {taskList.map((item, index) => (
                   <div key={`${item.taskId}-${index}`}>
-                    <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.ORANGE_500}>
+                    <Text font={{ size: 'small', weight: 'bold' }} color={Color.ORANGE_500}>
                       {item.taskName}
                     </Text>{' '}
                     (

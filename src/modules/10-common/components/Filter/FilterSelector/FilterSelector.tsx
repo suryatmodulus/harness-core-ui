@@ -60,6 +60,7 @@ export default function FilterSelector<T extends FilterInterface>(props: FilterS
         placeholder={filters?.length ? getString('filters.selectFilter') : getString('common.filters.noFilterSaved')}
         minWidth={220}
         usePortal={true}
+        addClearBtn={true}
       />
       <div className={css.filterButtonContainer}>
         {fieldCountInAppliedFilter ? (

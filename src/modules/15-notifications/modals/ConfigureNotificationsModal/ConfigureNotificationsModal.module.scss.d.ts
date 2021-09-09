@@ -8,5 +8,7 @@ declare const styles: {
   readonly statusIcon: string
   readonly green: string
   readonly red: string
+  readonly buttonGroupEmail: string
+  readonly buttonGroupSlack: string
 }
 export default styles

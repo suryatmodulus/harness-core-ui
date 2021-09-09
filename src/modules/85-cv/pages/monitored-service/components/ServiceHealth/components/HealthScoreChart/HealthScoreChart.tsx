@@ -53,14 +53,13 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
           <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
         </Container>
       )
-    } else if (!seriesData[0]?.data?.length) {
+    } else if (!seriesData[0]?.data?.length || seriesData[0].data.every(el => (el as SeriesDataPoint)?.y === 0)) {
       return (
-        <Container className={css.noData}>
-          <NoDataCard
-            message={getString('cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore')}
-            icon="warning-sign"
-          />
-        </Container>
+        <NoDataCard
+          message={getString('cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore')}
+          icon="warning-sign"
+          containerClassName={css.noData}
+        />
       )
     } else {
       return <ColumnChart data={seriesData} />

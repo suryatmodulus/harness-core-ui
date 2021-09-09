@@ -76,8 +76,7 @@ jest.mock('services/cd-ng', () => ({
   useGetTestConnectionResult: jest.fn()
 }))
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Connectors List Test', () => {
+describe('Connectors List Test', () => {
   const props = {
     data: connectorsData.data as any,
     reload: jest.fn(),
@@ -113,7 +112,8 @@ describe.skip('Connectors List Test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('Click on Test button with result error', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Click on Test button with result error', async () => {
     ;(useGetTestConnectionResult as any).mockImplementation(() => {
       return { mutate: reloadTestConnection }
     })
@@ -134,7 +134,8 @@ describe.skip('Connectors List Test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('Click on Test button with result active', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Click on Test button with result active', async () => {
     ;(useGetTestConnectionResult as any).mockImplementation(() => {
       return { mutate: reloadTestConnectionActive }
     })
@@ -155,7 +156,8 @@ describe.skip('Connectors List Test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('Click on Test button with result Failed api', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Click on Test button with result Failed api', async () => {
     ;(useGetTestConnectionResult as any).mockImplementation(() => {
       return { mutate: reloadTestConnectionFailedAPI }
     })
@@ -174,7 +176,8 @@ describe.skip('Connectors List Test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('Context menu should be present on each connector row', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Context menu should be present on each connector row', async () => {
     const { container } = setup()
     const tableRows = Array.from(container.querySelectorAll('div[role="row"]'))
     tableRows.shift() // remove header row
@@ -209,7 +212,8 @@ describe.skip('Connectors List Test', () => {
     }
   })
 
-  test('Edit and delete methods should be called with correct data', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Edit and delete methods should be called with correct data', async () => {
     const openConnectorModal = jest.fn()
     const { container } = setup({ openConnectorModal })
     const currentConnector = connectorsData.data.content[0].connector
@@ -235,7 +239,8 @@ describe.skip('Connectors List Test', () => {
     })
   })
 
-  test('Edit and delete methods should be called with correct data', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Edit and delete methods should be called with correct data', async () => {
     jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [false])
     const { container } = setup()
     const menuIcon = getMenuIcon(container.querySelectorAll('div[role="row"]')[1])

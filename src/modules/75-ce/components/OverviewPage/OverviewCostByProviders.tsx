@@ -24,6 +24,7 @@ interface CostByProvidersProps {
 
 const OverviewCostByProviders = (props: CostByProvidersProps) => {
   const { getString } = useStrings()
+  const [chartObj, setChartObj] = useState<Highcharts.Chart | null>(null)
   const { timeRange, clusterDataPresent } = props
   const [chartType, setChartType] = useState(CCM_CHART_TYPES.COLUMN)
 
@@ -50,18 +51,20 @@ const OverviewCostByProviders = (props: CostByProvidersProps) => {
   return (
     <div className={css.costByProviders}>
       <Layout.Vertical spacing="medium">
-        <Layout.Horizontal style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <Text color="grey800" font={{ weight: 'semi-bold', size: 'medium' }}>
-            {getString('ce.overview.cardtitles.costByProviders')}
-          </Text>
+        <Text color="grey800" font={{ weight: 'semi-bold', size: 'medium' }}>
+          {getString('ce.overview.cardtitles.costByProviders')}
+        </Text>
+        <Layout.Horizontal style={{ justifyContent: 'space-between' }} spacing="medium">
+          <Legends chartRef={chartObj as unknown as Highcharts.Chart} />
+          <ChartTypes chartType={chartType} setChartType={setChartType} />
         </Layout.Horizontal>
-        <ChartTypes chartType={chartType} setChartType={setChartType} />
         <Container>
           {chartListData.map((chart, idx: number) => {
             const options = getColumnChartConfig({
               data: chart,
               chartType,
-              chartHeight: !clusterDataPresent ? 380 : 400
+              chartHeight: !clusterDataPresent ? 380 : 400,
+              setChartObj
             })
             return chart ? <CEChart key={idx} options={options as any} /> : null
           })}
@@ -71,17 +74,50 @@ const OverviewCostByProviders = (props: CostByProvidersProps) => {
   )
 }
 
+const Legends = ({ chartRef }: { chartRef: Highcharts.Chart }) => {
+  if (!chartRef) {
+    return null
+  }
+
+  return (
+    <Container className={css.legendContainer}>
+      {chartRef.series.map(chart => {
+        const chartColor: string = (chart as any).color
+        return (
+          <Layout.Horizontal key={chart.userOptions.name} spacing="small" style={{ alignItems: 'center' }}>
+            <div
+              className={css.colorBoxContainer}
+              style={{
+                backgroundColor: chartColor
+              }}
+            />
+            <Text font="small" lineClamp={1}>
+              {chart.userOptions.name}
+            </Text>
+          </Layout.Horizontal>
+        )
+      })}
+    </Container>
+  )
+}
+
 interface ColumnChartConfig {
   data: ChartConfigType[]
   chartType: CCM_CHART_TYPES
   chartHeight: number
+  setChartObj: (value: React.SetStateAction<Highcharts.Chart | null>) => void
 }
 
-const getColumnChartConfig = ({ data, chartType, chartHeight }: ColumnChartConfig) => {
+function getColumnChartConfig({ data, chartType, chartHeight, setChartObj }: ColumnChartConfig) {
   return {
     chart: {
       type: chartType,
-      height: chartHeight
+      height: chartHeight,
+      events: {
+        load() {
+          setChartObj(this as any)
+        }
+      }
     },
     xAxis: {
       gridLineColor: '#fff',

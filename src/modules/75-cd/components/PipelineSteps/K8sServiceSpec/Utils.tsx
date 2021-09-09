@@ -15,6 +15,13 @@ interface PrimaryArtifactTooltipProps {
   template?: ServiceSpec
 }
 
+export enum AsyncStatus {
+  INIT = 'INIT',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+  INPROGRESS = 'INPROGRESS'
+}
+
 export const PrimaryArtifactTooltip = ({
   isPrimaryArtifactsRuntime,
   artifacts,

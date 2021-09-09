@@ -170,34 +170,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                 />
               </svg>
             </span>
-            <span>
-              variablesText
-            </span>
             <span
-              class="bp3-popover-wrapper"
+              class="align"
+              data-tooltip-id="pipelineVariables"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <span
-                  class="bp3-icon StyledProps--main description"
-                  data-icon="info"
-                  tabindex="0"
-                >
-                  <svg
-                    height="12"
-                    viewBox="0 0 12 12"
-                    width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
+              variablesText
             </span>
           </div>
         </div>
@@ -379,6 +356,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           >
                             <button
                               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                              data-name="copy-alt"
                               tabindex="0"
                               type="button"
                             >
@@ -439,6 +417,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           >
                             <button
                               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                              data-name="copy-alt"
                               tabindex="0"
                               type="button"
                             >
@@ -634,6 +613,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   >
                                     <button
                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                      data-name="copy-alt"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -825,6 +805,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   >
                                     <button
                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                      data-name="copy-alt"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -1128,6 +1109,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   >
                                     <button
                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                      data-name="copy-alt"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -1188,6 +1170,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   >
                                     <button
                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                      data-name="copy-alt"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -1387,6 +1370,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           >
                                             <button
                                               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                              data-name="copy-alt"
                                               tabindex="0"
                                               type="button"
                                             >
@@ -1578,6 +1562,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           >
                                             <button
                                               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                              data-name="copy-alt"
                                               tabindex="0"
                                               type="button"
                                             >
@@ -1873,6 +1858,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           >
                                             <button
                                               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                              data-name="copy-alt"
                                               tabindex="0"
                                               type="button"
                                             >
@@ -2334,6 +2320,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   >
                                                     <button
                                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                      data-name="copy-alt"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -2394,6 +2381,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   >
                                                     <button
                                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                      data-name="copy-alt"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -2558,6 +2546,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   >
                                                     <button
                                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                      data-name="copy-alt"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -2718,6 +2707,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                           >
                                                             <button
                                                               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                              data-name="copy-alt"
                                                               tabindex="0"
                                                               type="button"
                                                             >
@@ -2778,6 +2768,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                           >
                                                             <button
                                                               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                              data-name="copy-alt"
                                                               tabindex="0"
                                                               type="button"
                                                             >
@@ -2942,6 +2933,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                           >
                                                             <button
                                                               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                              data-name="copy-alt"
                                                               tabindex="0"
                                                               type="button"
                                                             >
@@ -3002,6 +2994,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                           >
                                                             <button
                                                               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                              data-name="copy-alt"
                                                               tabindex="0"
                                                               type="button"
                                                             >
@@ -3186,6 +3179,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   >
                                     <button
                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                      data-name="copy-alt"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -3246,6 +3240,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   >
                                     <button
                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                      data-name="copy-alt"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -3549,6 +3544,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           >
                                             <button
                                               class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                              data-name="copy-alt"
                                               tabindex="0"
                                               type="button"
                                             >
@@ -4010,6 +4006,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   >
                                                     <button
                                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                      data-name="copy-alt"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -4070,6 +4067,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   >
                                                     <button
                                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                      data-name="copy-alt"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -4250,6 +4248,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   >
                                     <button
                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                      data-name="copy-alt"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -4310,6 +4309,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   >
                                     <button
                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                      data-name="copy-alt"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -5009,6 +5009,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   >
                                                     <button
                                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                      data-name="copy-alt"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -5069,6 +5070,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   >
                                                     <button
                                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                      data-name="copy-alt"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -5249,6 +5251,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   >
                                     <button
                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                      data-name="copy-alt"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -5309,6 +5312,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   >
                                     <button
                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                      data-name="copy-alt"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -6008,6 +6012,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   >
                                                     <button
                                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                      data-name="copy-alt"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -6068,6 +6073,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   >
                                                     <button
                                                       class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
+                                                      data-name="copy-alt"
                                                       tabindex="0"
                                                       type="button"
                                                     >

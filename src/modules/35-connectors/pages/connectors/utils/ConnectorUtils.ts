@@ -15,9 +15,10 @@ import type {
   AwsSecretManagerCredential,
   AwsSMCredentialSpecManualConfig,
   AwsSMCredentialSpecAssumeSTS,
-  VaultConnectorDTO
+  VaultConnectorDTO,
+  AzureKeyVaultConnectorDTO
 } from 'services/cd-ng'
-import { FormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
+import { FormData, CredTypeValues, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
@@ -749,10 +750,22 @@ export const buildVaultPayload = (formData: FormData): BuildVaultPayloadReturnTy
     tags: formData.tags,
     type: Connectors.VAULT,
     spec: {
-      ...pick(formData, ['basePath', 'vaultUrl', 'readOnly', 'default', 'renewalIntervalMinutes', 'delegateSelectors']),
-      authToken: formData.accessType === 'TOKEN' ? formData.authToken?.referenceString : undefined,
-      appRoleId: formData.accessType === 'APP_ROLE' ? formData.appRoleId : undefined,
-      secretId: formData.accessType === 'APP_ROLE' ? formData.secretId?.referenceString : undefined,
+      ...pick(formData, [
+        'basePath',
+        'vaultUrl',
+        'namespace',
+        'readOnly',
+        'default',
+        'renewalIntervalMinutes',
+        'delegateSelectors'
+      ]),
+      authToken:
+        formData.accessType === HashiCorpVaultAccessTypes.TOKEN ? formData.authToken?.referenceString : undefined,
+      appRoleId: formData.accessType === HashiCorpVaultAccessTypes.APP_ROLE ? formData.appRoleId : undefined,
+      secretId:
+        formData.accessType === HashiCorpVaultAccessTypes.APP_ROLE ? formData.secretId?.referenceString : undefined,
+      useVaultAgent: formData.accessType === HashiCorpVaultAccessTypes.VAULT_AGENT,
+      sinkPath: formData.accessType === HashiCorpVaultAccessTypes.VAULT_AGENT ? formData.sinkPath : undefined,
       secretEngineManuallyConfigured: formData.engineType === 'manual',
       secretEngineName:
         formData.engineType === 'manual' ? formData.secretEngineName : formData.secretEngine?.split('@@@')[0],
@@ -979,6 +992,25 @@ export const buildAWSSecretManagerPayload = (formData: FormData): BuildAWSSecret
   return { connector: savedData }
 }
 
+interface BuildAzureKeyVaultPayloadReturnType {
+  connector: Omit<ConnectorInfoDTO, 'spec'> & {
+    spec: AzureKeyVaultConnectorDTO
+  }
+}
+
+export const buildAzureKeyVaultPayload = (formData: FormData): BuildAzureKeyVaultPayloadReturnType => {
+  const savedData = {
+    ...pick(formData, ['name', 'description', 'projectIdentifier', 'identifier', 'orgIdentifier', 'tags']),
+    type: Connectors.AZURE_KEY_VAULT,
+    spec: {
+      ...pick(formData, ['clientId', 'tenantId', 'default', 'subscription', 'vaultName', 'delegateSelectors']),
+      secretKey: formData.secretKey?.referenceString
+    }
+  }
+
+  return { connector: savedData }
+}
+
 export const buildGitPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -1012,6 +1044,22 @@ export const buildGitPayload = (formData: FormData) => {
       //     commitMessage: '[GITSYNC-0]: Pushing Changes'
       //   }
       // }
+    }
+  }
+  return { connector: savedData }
+}
+
+export const buildArgoConnectorPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    projectIdentifier: formData.projectIdentifier,
+    identifier: formData.identifier,
+    orgIdentifier: formData.orgIdentifier,
+    tags: formData.tags,
+    type: 'ArgoConnector',
+    spec: {
+      adapterUrl: formData.adapterUrl
     }
   }
   return { connector: savedData }
@@ -1307,9 +1355,14 @@ export const setupAzureKeyVaultFormData = async (
     clientId: connectorInfoSpec?.clientId || undefined,
     secretKey: secretKey || undefined,
     tenantId: connectorInfoSpec?.tenantId || undefined,
-    vaultName: connectorInfoSpec?.vaultName || undefined,
     subscription: connectorInfoSpec?.subscription || undefined,
     default: connectorInfoSpec?.default || false
+  }
+}
+
+export const setupAzureKeyVaultNameFormData = async (connectorInfo: ConnectorInfoDTO): Promise<FormData> => {
+  return {
+    vaultName: connectorInfo?.spec?.vaultName
   }
 }
 
@@ -1325,12 +1378,14 @@ export const setupVaultFormData = async (connectorInfo: ConnectorInfoDTO, accoun
   return {
     vaultUrl: connectorInfoSpec?.vaultUrl || '',
     basePath: connectorInfoSpec?.basePath || '',
+    namespace: connectorInfoSpec?.namespace,
     readOnly: connectorInfoSpec?.readOnly || false,
     default: connectorInfoSpec?.default || false,
-    accessType: connectorInfoSpec?.accessType || 'APP_ROLE',
+    accessType: connectorInfoSpec?.accessType || HashiCorpVaultAccessTypes.APP_ROLE,
     appRoleId: connectorInfoSpec?.appRoleId || '',
     secretId: secretId || undefined,
     authToken: authToken || undefined,
+    sinkPath: connectorInfoSpec?.sinkPath || '',
     renewalIntervalMinutes: connectorInfoSpec?.renewalIntervalMinutes || 10
   }
 }
@@ -1407,6 +1462,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-gcp'
     case Connectors.PAGER_DUTY:
       return 'service-pagerduty'
+    case Connectors.ARGO_CONNECTOR:
+      return 'argo'
     default:
       return 'cog'
   }
@@ -1555,7 +1612,7 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.datadog')
     case Connectors.SUMOLOGIC:
       return getString('connectors.testConnectionStep.validationText.sumologic')
-    case Connectors.CE_AZURE_KEY_VAULT:
+    case Connectors.AZURE_KEY_VAULT:
       return getString('connectors.testConnectionStep.validationText.azureKeyVault')
     case Connectors.PAGER_DUTY:
       return getString('connectors.testConnectionStep.validationText.pagerduty')

@@ -16,7 +16,6 @@ import {
 import cx from 'classnames'
 import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { Tooltip } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { get, set, isEmpty } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -267,9 +266,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         }}
       >
         {(formik: { setFieldValue: (a: string, b: string) => void; values: ManifestDetailDataType }) => {
-          const skipResourceVersionRunTime =
-            getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME
-          const skipResourceVersionClsName = !skipResourceVersionRunTime ? css.tooltipCls : ''
           return (
             <Form>
               <Layout.Vertical
@@ -468,17 +464,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                 isReadonly={isReadonly}
                               />
                             )}
-                            <Tooltip
-                              position="bottom"
-                              content={
-                                <div className={css.tooltipContent}>
-                                  {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
-                                </div>
-                              }
-                              className={cx(css.tooltip, skipResourceVersionClsName)}
-                            >
-                              <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
-                            </Tooltip>
                           </Layout.Horizontal>
                         }
                       />

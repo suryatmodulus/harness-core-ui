@@ -5,6 +5,7 @@ declare const styles: {
   readonly closeFilter: string
   readonly title: string
   readonly addNewFilterBtn: string
+  readonly filterVisibilityText: string
   readonly saveFilterBtn: string
   readonly cancelBtn: string
   readonly radioBtns: string

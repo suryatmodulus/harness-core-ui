@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Text, Layout, Button, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { ModuleName } from 'framework/types/ModuleName'
+import type { ModuleName } from 'framework/types/ModuleName'
 import type { StringsMap } from 'stringTypes'
 import { useToaster } from '@common/components'
 import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContactSalesMktoModal'
@@ -18,6 +18,7 @@ import {
   FeedbackFormValues
 } from '@common/modals/ExtendTrial/useExtendTrialOrFeedbackModal'
 import { Page } from '../Page/Page'
+import { PageSpinner } from '../Page/PageSpinner'
 import css from './TrialLicenseBanner.module.scss'
 
 interface TrialBannerProps {
@@ -36,22 +37,38 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
   const { showError, showSuccess } = useToaster()
   const [display, setDisplay] = useState(true)
   const { module, expiryTime, licenseType, setHasBanner, refetch } = trialBannerProps
-  const moduleName = module.toString().toLowerCase()
-  const moduleDescription = getString(`${moduleName}.continuous` as keyof StringsMap)
-
   const days = Math.round(moment(expiryTime).diff(moment.now(), 'days', true))
   const isExpired = days < 0
   const expiredDays = Math.abs(days)
   const expiredClassName = isExpired ? css.expired : css.notExpired
 
-  const descriptionModule = module === ModuleName.CF ? 'FF' : module
-  const { mutate: extendTrial, loading } = useExtendTrialLicense({
+  const moduleName = module.toString().toLowerCase()
+
+  const moduleDescriptionMap: Record<string, keyof StringsMap> = {
+    cd: 'cd.continuous',
+    ce: 'ce.continuous',
+    cf: 'cf.continuous',
+    ci: 'ci.continuous',
+    cv: 'cv.continuous'
+  }
+  const moduleDescription = getString(moduleDescriptionMap[moduleName])
+
+  const descriptionModuleMap: Record<string, keyof StringsMap> = {
+    cd: 'common.module.cd',
+    ce: 'common.module.ce',
+    cf: 'common.module.cf',
+    ci: 'common.module.ci',
+    cv: 'common.module.cv'
+  }
+  const descriptionModule = getString(descriptionModuleMap[moduleName])
+
+  const { mutate: extendTrial, loading: extendingTrial } = useExtendTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }
   })
 
-  const openMarketoContactSales = useContactSalesMktoModal({})
+  const { openMarketoContactSales, loading: loadingContactSales } = useContactSalesMktoModal({})
 
   const alertMsg = isExpired ? (
     <Text font={{ weight: 'semi-bold' }} icon="info" iconProps={{ size: 18, color: Color.RED_500 }}>
@@ -63,7 +80,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
   ) : (
     <Text font={{ weight: 'semi-bold' }} icon="info" iconProps={{ size: 18, color: Color.ORANGE_500 }}>
       {getString('common.banners.trial.description', {
-        descriptionModule,
+        module: descriptionModule,
         days,
         moduleDescription
       })}
@@ -125,6 +142,8 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
     return <></>
   }
 
+  const loading = extendingTrial || loadingContactSales || sendingFeedback
+
   const getExtendOrFeedBackBtn = (): React.ReactElement => {
     if (!isExpired) {
       return (
@@ -149,11 +168,14 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
         intent={'none'}
         color={Color.PRIMARY_7}
         className={css.extendTrial}
-        disabled={loading}
       >
         {getString('common.banners.trial.expired.extendTrial')}
       </Button>
     )
+  }
+
+  if (loading) {
+    return <PageSpinner />
   }
 
   return (

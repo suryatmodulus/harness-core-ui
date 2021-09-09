@@ -11,6 +11,7 @@ import css from './useSelectUserGroupsModal.module.scss'
 export interface UseSelectUserGroupsModalProps {
   onSuccess?: (data: ScopeAndIdentifier[]) => void
   secretsListMockData?: UserGroupDTO[]
+  onlyCurrentScope?: boolean
 }
 
 export interface UseSelectUserGroupsModalReturn {
@@ -36,6 +37,7 @@ const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSele
         <UserGroupsReference
           {...props}
           scope={scope}
+          onlyCurrentScope={props.onlyCurrentScope}
           userGroupsScopeAndUuid={selectedUserGroups}
           mock={props.secretsListMockData}
           onSelect={data => {

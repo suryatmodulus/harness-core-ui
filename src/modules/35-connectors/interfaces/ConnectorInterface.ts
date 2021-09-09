@@ -45,6 +45,13 @@ export enum CredTypeValues {
   AssumeIAMRole = 'AssumeIAMRole',
   AssumeRoleSTS = 'AssumeSTSRole'
 }
+
+export enum HashiCorpVaultAccessTypes {
+  APP_ROLE = 'APP_ROLE',
+  TOKEN = 'TOKEN',
+  VAULT_AGENT = 'VAULT_AGENT'
+}
+
 export interface AwsKmsConfigFormData {
   accessKey?: SecretReference
   secretKey?: SecretReference
@@ -88,12 +95,14 @@ export interface AwsSecretManagerConfigFormData {
 export interface VaultConfigFormData {
   vaultUrl: string
   basePath: string
+  namespace?: string
   readOnly: boolean
   default: boolean
   accessType: VaultMetadataRequestSpecDTO['accessType']
   appRoleId?: string
   secretId?: SecretReference
   authToken?: SecretReference
+  sinkPath?: string
   renewalIntervalMinutes: number
 }
 

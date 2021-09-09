@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Container, Layout, Text, IconName, Color, FlexExpander } from '@wings-software/uicore'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type {
@@ -29,6 +30,18 @@ export default function DelegateDetails(): JSX.Element {
     queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
 
+  const breadcrumbs = [
+    {
+      label: getString('delegate.delegates'),
+      url: routes.toDelegateList({
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        module
+      })
+    }
+  ]
+
   const delegate = data?.resource
 
   const {
@@ -48,18 +61,7 @@ export default function DelegateDetails(): JSX.Element {
     return (
       <Layout.Vertical spacing="small">
         <Layout.Horizontal spacing="small">
-          <Link
-            style={{ color: '#0092E4', fontSize: '12px' }}
-            to={routes.toDelegates({
-              accountId,
-              orgIdentifier,
-              projectIdentifier,
-              module
-            })}
-          >
-            {getString('delegate.delegates')}
-          </Link>
-          <span>/</span>
+          <NGBreadcrumbs links={breadcrumbs} />
         </Layout.Horizontal>
         <Text style={{ fontSize: '20px', color: 'var(--black)' }} icon={icon} iconProps={{ size: 21 }}>
           {delegate?.groupName}

@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Position, PopoverInteractionKind } from '@blueprintjs/core'
 import { Popover } from '@blueprintjs/core'
-import { Color, Icon } from '@wings-software/uicore'
+import { Icon } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { useToaster } from '@common/exports'
 
 import css from './CopyToClipBoard.module.scss'
 
@@ -13,16 +14,12 @@ interface CopyToClipboardProps {
 }
 
 const CopyToClipboard: React.FC<CopyToClipboardProps> = props => {
-  const [isCopied, setIsCopied] = useState<boolean>(false)
+  const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const getPopoverContent = (): JSX.Element => {
     return (
       <div className={css.popoverContent}>
-        {props.showFeedback && isCopied ? (
-          <Icon name="command-artifact-check" color={Color.GREEN_450} />
-        ) : (
-          <span className={css.tooltipLabel}>{getString('snippets.copyToClipboard')} </span>
-        )}
+        <span className={css.tooltipLabel}>{getString('snippets.copyToClipboard')} </span>
       </div>
     )
   }
@@ -33,11 +30,6 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = props => {
         position={Position.BOTTOM}
         interactionKind={PopoverInteractionKind.HOVER}
         content={getPopoverContent()}
-        onOpening={() => {
-          if (props.showFeedback) {
-            setIsCopied(false)
-          }
-        }}
       >
         <div>
           <Icon
@@ -47,7 +39,9 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = props => {
               event.preventDefault()
               event.stopPropagation()
               navigator?.clipboard?.writeText(props?.content)
-              setIsCopied(true)
+              if (props.showFeedback) {
+                showSuccess(getString('clipboardCopySuccess'))
+              }
             }}
             className={css.copyIcon}
           />

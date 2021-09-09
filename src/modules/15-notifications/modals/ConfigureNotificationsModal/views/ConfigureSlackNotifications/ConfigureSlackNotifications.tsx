@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
-import { Formik } from 'formik'
-import { FormikForm, FormInput, Button, Layout, Icon, Text, Heading, ButtonProps } from '@wings-software/uicore'
+import {
+  FormikForm,
+  FormInput,
+  Button,
+  Layout,
+  Icon,
+  Text,
+  Heading,
+  ButtonProps,
+  Formik,
+  ButtonVariation
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import cx from 'classnames'
@@ -69,7 +79,12 @@ export const TestSlackNotifications: React.FC<{
 
   return (
     <>
-      <Button text={getString('test')} onClick={() => handleTest(data)} {...buttonProps} />
+      <Button
+        text={getString('test')}
+        tooltipProps={{ dataTooltipId: 'testSlackConfigButton' }}
+        onClick={() => handleTest(data)}
+        {...buttonProps}
+      />
       {testStatus === TestStatus.SUCCESS ? <Icon name="tick" className={cx(css.statusIcon, css.green)} /> : null}
       {testStatus === TestStatus.FAILED || testStatus === TestStatus.ERROR ? (
         <Icon name="cross" className={cx(css.statusIcon, css.red)} />
@@ -106,6 +121,7 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
 
         <Formik
           onSubmit={handleSubmit}
+          formName="configureSlackNotifications"
           validationSchema={Yup.object().shape({
             webhookUrl: Yup.string().test('isValidUrl', getString('validation.urlIsNotValid'), _webhookUrl => {
               if (!_webhookUrl) return true
@@ -134,19 +150,32 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
                 </Layout.Horizontal>
                 <UserGroupsInput name="userGroups" label={getString('notifications.labelSlackUserGroups')} />
                 {props.isStep ? (
-                  <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
+                  <Layout.Horizontal spacing="large" className={css.buttonGroupSlack}>
                     <Button
                       text={getString('back')}
+                      variation={ButtonVariation.SECONDARY}
                       onClick={() => {
                         props.onBack?.(convertFormData(formik.values))
                       }}
                     />
-                    <Button text={props.submitButtonText || getString('next')} intent="primary" type="submit" />
+                    <Button
+                      text={props.submitButtonText || getString('next')}
+                      variation={ButtonVariation.PRIMARY}
+                      type="submit"
+                    />
                   </Layout.Horizontal>
                 ) : (
                   <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
-                    <Button type={'submit'} intent={'primary'} text={props.submitButtonText || getString('submit')} />
-                    <Button text={getString('cancel')} onClick={props.hideModal} />
+                    <Button
+                      type={'submit'}
+                      variation={ButtonVariation.PRIMARY}
+                      text={props.submitButtonText || getString('submit')}
+                    />
+                    <Button
+                      text={getString('cancel')}
+                      variation={ButtonVariation.SECONDARY}
+                      onClick={props.hideModal}
+                    />
                   </Layout.Horizontal>
                 )}
               </FormikForm>

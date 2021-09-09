@@ -19,7 +19,6 @@ declare const styles: {
   readonly viewExecutionBtn: string
   readonly runPipelineListBtn: string
   readonly topHeaderFields: string
-  readonly sortSelector: string
   readonly tagRow: string
   readonly cardTags: string
   readonly expandSearch: string

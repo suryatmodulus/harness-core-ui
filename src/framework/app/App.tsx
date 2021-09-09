@@ -41,6 +41,7 @@ interface AppProps {
 }
 
 const Harness = (window.Harness = window.Harness || {})
+const ignoredErrorClasses = ['YAMLSemanticError', 'YAMLSyntaxError']
 
 function AppWithAuthentication(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
@@ -155,7 +156,14 @@ function AppWithoutAuthentication(props: AppProps): React.ReactElement {
     window.bugsnagClient = Bugsnag.start({
       apiKey: window.bugsnagToken,
       appVersion: __BUGSNAG_RELEASE_VERSION__,
-      releaseStage: `ng-ui-${window.location.hostname.split('.')[0]}`
+      releaseStage: `ng-ui-${window.location.hostname.split('.')[0]}`,
+      onError: (event: any): boolean => {
+        if (Array.isArray(event.errors) && ignoredErrorClasses.includes(event.errors[0]?.errorClass)) {
+          return false
+        }
+
+        return true
+      }
     })
   }
   ReactDOM.render(

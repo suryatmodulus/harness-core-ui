@@ -33,11 +33,12 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
         </Text>
         <Layout.Horizontal padding={{ top: 'large' }} flex>
           <ExpandingSearchInput
+            alwaysExpanded
             onChange={text => {
               setSearchTerm(text.trim())
             }}
           />
-          <Text color={Color.BLUE_500}>
+          <Text color={Color.PRIMARY_7}>
             {getString('rbac.addResourceModal.selectedText', {
               name: getString(label || resourceHandler.label),
               number: selectedItems.length

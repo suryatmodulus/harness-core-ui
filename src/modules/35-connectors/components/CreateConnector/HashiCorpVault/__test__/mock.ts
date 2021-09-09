@@ -1,5 +1,6 @@
 import type { ResponseBoolean } from 'services/cd-ng'
 import { Connectors } from '@connectors/constants'
+import { HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 
 export const mockResponse: ResponseBoolean = {
   status: 'SUCCESS',
@@ -102,7 +103,7 @@ export const secretManagerInfo = {
   description: '',
   type: Connectors.VAULT,
   spec: {
-    accessType: 'APP_ROLE',
+    accessType: HashiCorpVaultAccessTypes.APP_ROLE,
     appRoleId: '123',
     basePath: '/harness',
     vaultUrl: 'https://vaultqa.harness.io',

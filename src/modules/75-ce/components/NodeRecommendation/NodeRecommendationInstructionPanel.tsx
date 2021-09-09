@@ -7,12 +7,20 @@ const InstructionPanel = () => {
   const { getString } = useStrings()
   return (
     <Container className={css.instructionPanel}>
-      <Text font={{ weight: 'semi-bold' }}>{getString('ce.nodeRecommendation.rightSize')}</Text>
       <Text font={{ weight: 'bold', size: 'medium' }} color="grey600">
         {getString('ce.nodeRecommendation.howItWorks')}
       </Text>
-      <Layout.Vertical spacing="large">
+      <Layout.Vertical spacing="medium">
         <Text>{getString('ce.nodeRecommendation.text1')}</Text>
+        <Layout.Vertical spacing="small">
+          <Text>{getString('ce.nodeRecommendation.listhead')}</Text>
+          <ul>
+            <li>{getString('ce.nodeRecommendation.item1')}</li>
+            <li>{getString('ce.nodeRecommendation.item2')}</li>
+            <li>{getString('ce.nodeRecommendation.item3')}</li>
+            <li>{getString('ce.nodeRecommendation.item4')}</li>
+          </ul>
+        </Layout.Vertical>
         <Text>{getString('ce.nodeRecommendation.text2')}</Text>
       </Layout.Vertical>
     </Container>

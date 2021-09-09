@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { Color, Container, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { Container, Select, SelectOption } from '@wings-software/uicore'
 import Card from '@cv/components/Card/Card'
 import { useStrings } from 'framework/strings'
 // import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import ChangeTimeline from '@cv/components/ChangeTimeline/ChangeTimeline'
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
-import { getTimeFormat, getTimePeriods, getTimestampsForPeriod } from './ServiceHealth.utils'
+import TimelineSlider from '@cv/components/ChangeTimeline/components/TimelineSlider/TimelineSlider'
+import { calculateStartAndEndTimes, getTimeFormat, getTimePeriods, getTimestampsForPeriod } from './ServiceHealth.utils'
 import {
   // tickerData,
   TimePeriodEnum
@@ -14,11 +14,14 @@ import {
 // import TickerValue from './components/TickerValue/TickerValue'
 import type { ServiceHealthProps } from './ServiceHealth.types'
 import HealthScoreChart from './components/HealthScoreChart/HealthScoreChart'
+import MetricsAndLogs from './components/MetricsAndLogs/MetricsAndLogs'
+import HealthScoreCard from './components/HealthScoreCard/HealthScoreCard'
 import css from './ServiceHealth.module.scss'
 
 export default function ServiceHealth({
-  currentHealthScore,
-  monitoredServiceIdentifier
+  monitoredServiceIdentifier,
+  serviceIdentifier,
+  environmentIdentifier
 }: ServiceHealthProps): JSX.Element {
   const { getString } = useStrings()
   const [selectedTimePeriod, setSelectedTimePeriod] = useState<SelectOption>({
@@ -26,17 +29,28 @@ export default function ServiceHealth({
     label: getString('cv.monitoredServices.serviceHealth.last24Hrs')
   })
   const [timestamps, setTimestamps] = useState<number[]>([])
-  const { riskStatus, healthScore = -2 } = currentHealthScore || {}
-  const color = getRiskColorValue(riskStatus)
+  const [timeRange, setTimeRange] = useState<{ startTime: number; endTime: number }>()
+  const [showTimelineSlider, setShowTimelineSlider] = useState(false)
 
   useEffect(() => {
     const timestampsForPeriod = getTimestampsForPeriod(selectedTimePeriod.value as string)
     setTimestamps(timestampsForPeriod)
+
+    //changing timeperiod in dropdown should reset the timerange and remove the slider.
+    if (showTimelineSlider) {
+      setTimeRange({ startTime: 0, endTime: 0 })
+      setShowTimelineSlider(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTimePeriod?.value])
 
   const timeFormat = useMemo(() => {
     return getTimeFormat(selectedTimePeriod?.value as string)
   }, [selectedTimePeriod?.value])
+
+  const onFocusTimeRange = useCallback((startTime: number, endTime: number) => {
+    setTimeRange({ startTime, endTime })
+  }, [])
 
   return (
     <>
@@ -47,16 +61,8 @@ export default function ServiceHealth({
           className={css.timePeriods}
           onChange={setSelectedTimePeriod}
         />
-        <Layout.Horizontal className={css.healthScoreCardContainer}>
-          <div className={css.healthScoreCard} style={{ background: color }}>
-            {healthScore > -1 ? healthScore : ''}
-          </div>
-          <Text color={Color.BLACK} font={{ size: 'small' }}>
-            {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
-          </Text>
-        </Layout.Horizontal>
+        <HealthScoreCard serviceIdentifier={serviceIdentifier} environmentIdentifier={environmentIdentifier} />
       </Container>
-
       <Container className={css.serviceHealthCard}>
         <Card>
           <>
@@ -85,13 +91,33 @@ export default function ServiceHealth({
                 )
               })}
             </Container> */}
-            <HealthScoreChart
-              duration={selectedTimePeriod.value as TimePeriodEnum}
-              monitoredServiceIdentifier={monitoredServiceIdentifier as string}
-            />
-            <ChangeTimeline timestamps={timestamps} timeFormat={timeFormat} />
+            <Container onClick={() => setShowTimelineSlider(true)} className={css.main}>
+              <HealthScoreChart
+                duration={selectedTimePeriod.value as TimePeriodEnum}
+                monitoredServiceIdentifier={monitoredServiceIdentifier as string}
+              />
+              {showTimelineSlider ? (
+                <TimelineSlider
+                  initialSliderWidth={50}
+                  leftContainerOffset={100}
+                  className={css.slider}
+                  minSliderWidth={50}
+                  onSliderDragEnd={({ startXPercentage, endXPercentage }) => {
+                    const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
+                    if (startAndEndtime) onFocusTimeRange?.(startAndEndtime[0], startAndEndtime[1])
+                  }}
+                />
+              ) : null}
+              <ChangeTimeline timestamps={timestamps} timeFormat={timeFormat} />
+            </Container>
           </>
         </Card>
+        <MetricsAndLogs
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+          startTime={timeRange?.startTime as number}
+          endTime={timeRange?.endTime as number}
+        />
       </Container>
     </>
   )

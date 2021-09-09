@@ -33,10 +33,12 @@ interface CloudCostInsightChartProps {
 
 function getChartList({
   data,
-  pageType
+  pageType,
+  columnSequence
 }: {
   data: Maybe<PerspectiveTimeSeriesData>
   pageType?: CCM_PAGE_TYPE
+  columnSequence: string[]
 }): ChartConfigType[][] {
   if (!data) {
     return []
@@ -79,21 +81,31 @@ function getChartList({
   }
 
   const defBillingData = (data?.stats as TimeSeriesDataPoints[]) || null
-  const defBillingChartData = defBillingData && transformTimeSeriesData(defBillingData, [])
+  const defBillingChartData = defBillingData && transformTimeSeriesData(defBillingData, columnSequence)
   return [defBillingChartData]
 }
 
 const CloudCostInsightChart = forwardRef((props: CloudCostInsightChartProps, ref: React.Ref<Highcharts.Chart>) => {
-  const { data, chartType, aggregation, xAxisPointCount, setFilterUsingChartClick, showLegends, pageType, fetching } =
-    props
+  const {
+    data,
+    chartType,
+    aggregation,
+    xAxisPointCount,
+    setFilterUsingChartClick,
+    showLegends,
+    pageType,
+    fetching,
+    columnSequence
+  } = props
 
   const chartListData = useMemo(
     () =>
       getChartList({
         data,
-        pageType
+        pageType,
+        columnSequence
       }),
-    [data]
+    [data, columnSequence]
   )
 
   const setChartRef: (chart: Highcharts.Chart) => void = chart => {

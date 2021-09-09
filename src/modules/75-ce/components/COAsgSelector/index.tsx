@@ -53,7 +53,19 @@ const COAsgSelector: React.FC<COAsgSelectorprops> = props => {
   }
 
   const addAsg = () => {
-    const newAsg = { ...selectedAsg }
+    /**
+     * desired capacity can't be 0
+     * it can be either > 0 or
+     * summation of od + spot or
+     * equal to max capacity
+     *  */
+    const desiredCapacityValue =
+      selectedAsg?.desired || (selectedAsg?.on_demand || 0) + (selectedAsg?.spot || 0) || selectedAsg?.max
+    const newAsg = {
+      ...selectedAsg,
+      desired: desiredCapacityValue,
+      on_demand: selectedAsg?.on_demand || desiredCapacityValue
+    }
     props.setSelectedAsg(newAsg)
     const updatedGatewayDetails = { ...props.gatewayDetails }
     const updatedRouting = { ...props.gatewayDetails.routing }

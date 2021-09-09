@@ -6,7 +6,7 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
     class="Layout--vertical StyledProps--main"
   >
     <div
-      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main container large header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <div
         class="Layout--vertical StyledProps--main"

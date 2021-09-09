@@ -23,17 +23,26 @@
   max-height: none !important;
   height: var(--spacing-huge) !important;
   padding-left: var(--spacing-medium) !important;
-  background: var(--filter-theme-bg-color) !important;
+  background-color: var(--filter-theme-bg-color) !important;
+  color: var(--white) !important;
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
+}
+
+.filterVisibilityText {
+  color: var(--white) !important;
 }
 
 .saveFilterBtn {
   width: 70px;
 }
 .cancelBtn {
+  :global {
+    .bp3-button-text {
+      color: var(--white) !important;
+    }
+  }
   width: 70px;
-  color: var(--white) !important;
   &:hover {
     cursor: pointer;
     color: var(--primary-7) !important;
@@ -65,7 +74,7 @@
 .filter {
   &:hover {
     cursor: pointer;
-    background: var(--hover-bg-color) !important;
+    background-color: var(--hover-bg-color) !important;
     opacity: 0.8;
   }
 }
@@ -89,7 +98,7 @@
 
 .isActive {
   cursor: pointer;
-  background: var(--hover-bg-color) !important;
+  background-color: var(--hover-bg-color) !important;
 }
 
 .layout {

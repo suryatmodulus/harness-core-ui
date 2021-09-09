@@ -97,7 +97,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       domain: props.gatewayDetails.customDomains?.length ? props.gatewayDetails.customDomains[0] : '',
       accountIdentifier: accountId
     },
-    lazy: true
+    lazy: !isEditFlow
   })
 
   // const debouncedFetchHostedZones = React.useCallback(_debounce(loadHostedZones, 500), [])

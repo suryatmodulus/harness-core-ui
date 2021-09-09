@@ -1987,7 +1987,12 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                       <label
                         class="bp3-label"
                       >
-                        password
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="stepGitAuthForm_password"
+                        >
+                          password
+                        </span>
                       </label>
                       <div
                         class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2021,21 +2026,16 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                               </g>
                             </svg>
                           </span>
-                          <div
-                            class="Text--withDocsTooltip"
-                            data-tooltip-id="stepGitAuthForm_password"
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                            >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;ConnectorPass&gt;
-                              </div>
-                            </p>
-                          </div>
+                            <div>
+                              secret.configureSecret
+                            </div>
+                            <div>
+                              &lt;ConnectorPass&gt;
+                            </div>
+                          </p>
                         </a>
                         <button
                           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"

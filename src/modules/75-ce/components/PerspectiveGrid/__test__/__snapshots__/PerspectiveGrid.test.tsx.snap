@@ -602,22 +602,6 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
           </div>
         </div>
       </div>
-      <div
-        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
-      >
-        <span
-          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
-        >
-          Showing 
-          <strong>
-            7
-          </strong>
-           of 
-          <strong>
-            7
-          </strong>
-        </span>
-      </div>
     </div>
   </div>
 </div>

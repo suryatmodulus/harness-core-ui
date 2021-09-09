@@ -95,10 +95,10 @@ datePickerShortcuts:
 validation:
   namePatternIsNotValid: 'Name can only contain alphanumerics, _ and -'
   harnessFolderNamePatternIsNotValid: 'Harness Folder name can only contain alphanumerics, underscore, hyphen or a whitespace'
-  nameIsRequired: Name is required
-  valueIsRequired: Value is required
+  nameIsRequired: '{{$.validation.nameRequired}}'
+  valueIsRequired: '{{$.validation.valueRequired}}'
   typeIsRequired: Type is required
-  keyIsRequired: Key is required
+  keyIsRequired: '{{$.validation.keyRequired}}'
   fileIsRequired: File is required
   yamlFilePath: 'File path can only contain valid file/folder name (should contain alphanumerics, _ and -) sepaerated by / and should end with .yaml.'
   variableAlreadyExists: Variable with same name already exists
@@ -109,7 +109,7 @@ validation:
   valueMustBeLessThanOrEqualToN: Value must be less than or equal to {{ n }}
   valueMustBeANumber: Value must be number
   formatMustBeAlphanumeric: Identifier can only contain alphanumerics, _ and $
-  identifierIsRequired: Identifier is required
+  identifierIsRequired: '{{$.validation.identifierRequired}}'
   urlIsRequired: URL is required
   testRepoIsRequired: Test Repository is required
   email:
@@ -492,7 +492,7 @@ cgLaunchText: Launch First Generation
 reportName: Report Name
 frequency: 'Frequency'
 last7days: Last 7 days
-instanceLabel: Instances
+instanceLabel: '{{$.instanceFieldOptions.instances}}'
 reportNameRequired: Report name is required
 selectUserGroups: Select User Group(s)
 totalSelected: 'Total Selected'
@@ -519,6 +519,7 @@ discard: Discard
 default: Default
 searchPlaceholder: Search by name or ID
 monthly: Monthly
+perMonth: /month
 hourly: Hourly
 daily: Daily
 yearly: Yearly
@@ -539,3 +540,4 @@ module:
   cf: FF
   ce: CCM
   cv: CV
+customPricing: for Custom Pricing

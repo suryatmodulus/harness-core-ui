@@ -31,7 +31,8 @@ import type {
   InputSetGitQueryParams,
   ModuleCardPathParams,
   ServiceAccountPathProps,
-  ServicePathProps
+  ServicePathProps,
+  TemplateStudioPathParams
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -161,6 +162,19 @@ const routes = {
       })
     }
   ),
+  toDelegateList: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `resources/delegates/list`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
   toDelegatesDetails: withAccountId(
     ({
       orgIdentifier,
@@ -168,7 +182,20 @@ const routes = {
       delegateIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegatePathProps>) => {
-      const path = `resources/delegates/${delegateIdentifier}`
+      const path = `resources/delegate/${delegateIdentifier}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toDelegateConfigs: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `resources/delegates/configs`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -186,7 +213,7 @@ const routes = {
       delegateConfigIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
-      const path = `resources/delegateconfigs/${delegateConfigIdentifier}`
+      const path = `resources/delegates/configs/${delegateConfigIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -204,7 +231,7 @@ const routes = {
       delegateConfigIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
-      const path = `resources/delegateconfigs/${delegateConfigIdentifier}/edit`
+      const path = `resources/delegates/configs/${delegateConfigIdentifier}/edit`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -714,6 +741,24 @@ const routes = {
       })
     }
   ),
+  toTemplatesStudio: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      templateIdentifier
+    }: Partial<ProjectPathProps & ModulePathParams & TemplateStudioPathParams>) => {
+      const path = `templates/${templateIdentifier}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
   /********************************************************************************************************************/
   toCI: withAccountId(() => `/ci`),
   toCIHome: withAccountId(() => `/ci/home`),
@@ -944,7 +989,15 @@ const routes = {
     }: Partial<ProjectPathProps & { identifier: string; module: string }>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/edit/${identifier}`
   ),
-
+  toCVMonitoredServiceConfigurations: withAccountId(
+    ({
+      projectIdentifier,
+      orgIdentifier,
+      identifier,
+      module
+    }: Partial<ProjectPathProps & { identifier: string; module: string }>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoredserviceconfigurations/edit/${identifier}`
+  ),
   toCVOnBoardingSetup: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/setup`
@@ -1033,7 +1086,7 @@ const routes = {
       `/home/orgs/${orgIdentifier}/projects/${projectIdentifier}/details`
   ),
   toProjects: withAccountId(() => '/home/projects'),
-  toGetStarted: withAccountId(() => '/home/get-started'),
+  toLandingDashboard: withAccountId(() => '/home/dashboard'),
   /********************************************************************************************************************/
   toCE: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier

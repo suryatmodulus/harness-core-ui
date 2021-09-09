@@ -804,7 +804,12 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                         <label
                           class="bp3-label"
                         >
-                          password
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="k8ClusterForm_password"
+                          >
+                            password
+                          </span>
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -838,18 +843,13 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                                 </g>
                               </svg>
                             </span>
-                            <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="k8ClusterForm_password"
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                              >
-                                <div>
-                                  createOrSelectSecret
-                                </div>
-                              </p>
-                            </div>
+                              <div>
+                                createOrSelectSecret
+                              </div>
+                            </p>
                           </a>
                         </div>
                       </div>
@@ -1409,7 +1409,12 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           <label
                             class="bp3-label"
                           >
-                            connectors.k8.OIDCPassword
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="k8ClusterForm_oidcPassword"
+                            >
+                              connectors.k8.OIDCPassword
+                            </span>
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1443,21 +1448,16 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <div
-                                class="Text--withDocsTooltip"
-                                data-tooltip-id="k8ClusterForm_oidcPassword"
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
-                                <p
-                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                                >
-                                  <div>
-                                    secret.configureSecret
-                                  </div>
-                                  <div>
-                                    &lt;k8serviceToken&gt;
-                                  </div>
-                                </p>
-                              </div>
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;k8serviceToken&gt;
+                                </div>
+                              </p>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -1510,7 +1510,12 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           <label
                             class="bp3-label"
                           >
-                            connectors.k8.OIDCClientId
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="k8ClusterForm_oidcCleintId"
+                            >
+                              connectors.k8.OIDCClientId
+                            </span>
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1544,21 +1549,16 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <div
-                                class="Text--withDocsTooltip"
-                                data-tooltip-id="k8ClusterForm_oidcCleintId"
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
-                                <p
-                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                                >
-                                  <div>
-                                    secret.configureSecret
-                                  </div>
-                                  <div>
-                                    &lt;k8serviceToken&gt;
-                                  </div>
-                                </p>
-                              </div>
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;k8serviceToken&gt;
+                                </div>
+                              </p>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -1606,7 +1606,12 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           <label
                             class="bp3-label"
                           >
-                            connectors.k8.clientSecretOptional
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="k8ClusterForm_oidcCleintSecret"
+                            >
+                              connectors.k8.clientSecretOptional
+                            </span>
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -1640,21 +1645,16 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <div
-                                class="Text--withDocsTooltip"
-                                data-tooltip-id="k8ClusterForm_oidcCleintSecret"
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
-                                <p
-                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                                >
-                                  <div>
-                                    secret.configureSecret
-                                  </div>
-                                  <div>
-                                    &lt;k8serviceToken&gt;
-                                  </div>
-                                </p>
-                              </div>
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;k8serviceToken&gt;
+                                </div>
+                              </p>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -2146,7 +2146,12 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                         <label
                           class="bp3-label"
                         >
-                          connectors.k8.serviceAccountToken
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="k8ClusterForm_serviceAccountToken"
+                          >
+                            connectors.k8.serviceAccountToken
+                          </span>
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -2180,21 +2185,16 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                                 </g>
                               </svg>
                             </span>
-                            <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="k8ClusterForm_serviceAccountToken"
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                              >
-                                <div>
-                                  secret.configureSecret
-                                </div>
-                                <div>
-                                  &lt;k8serviceToken&gt;
-                                </div>
-                              </p>
-                            </div>
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;k8serviceToken&gt;
+                              </div>
+                            </p>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3109,7 +3109,12 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                         <label
                           class="bp3-label"
                         >
-                          password
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="k8ClusterForm_password"
+                          >
+                            password
+                          </span>
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3143,21 +3148,16 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                                 </g>
                               </svg>
                             </span>
-                            <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="k8ClusterForm_password"
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                              >
-                                <div>
-                                  secret.configureSecret
-                                </div>
-                                <div>
-                                  &lt;k8serviceToken&gt;
-                                </div>
-                              </p>
-                            </div>
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;k8serviceToken&gt;
+                              </div>
+                            </p>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3615,7 +3615,12 @@ exports[`should render form for edit authtype clientKey 1`] = `
                           <label
                             class="bp3-label"
                           >
-                            connectors.k8.clientKey
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="k8ClusterForm_clientKey"
+                            >
+                              connectors.k8.clientKey
+                            </span>
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3649,21 +3654,16 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <div
-                                class="Text--withDocsTooltip"
-                                data-tooltip-id="k8ClusterForm_clientKey"
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
-                                <p
-                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                                >
-                                  <div>
-                                    secret.configureSecret
-                                  </div>
-                                  <div>
-                                    &lt;k8serviceToken&gt;
-                                  </div>
-                                </p>
-                              </div>
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;k8serviceToken&gt;
+                                </div>
+                              </p>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3711,7 +3711,12 @@ exports[`should render form for edit authtype clientKey 1`] = `
                           <label
                             class="bp3-label"
                           >
-                            connectors.k8.clientCertificate
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="k8ClusterForm_clientKeyCertificate"
+                            >
+                              connectors.k8.clientCertificate
+                            </span>
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3745,21 +3750,16 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <div
-                                class="Text--withDocsTooltip"
-                                data-tooltip-id="k8ClusterForm_clientKeyCertificate"
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
-                                <p
-                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                                >
-                                  <div>
-                                    secret.configureSecret
-                                  </div>
-                                  <div>
-                                    &lt;k8serviceToken&gt;
-                                  </div>
-                                </p>
-                              </div>
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;k8serviceToken&gt;
+                                </div>
+                              </p>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3811,7 +3811,12 @@ exports[`should render form for edit authtype clientKey 1`] = `
                           <label
                             class="bp3-label"
                           >
-                            connectors.k8.clientKeyPassphrase
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="k8ClusterForm_clientKeyPassphrase"
+                            >
+                              connectors.k8.clientKeyPassphrase
+                            </span>
                           </label>
                           <div
                             class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -3845,21 +3850,16 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                   </g>
                                 </svg>
                               </span>
-                              <div
-                                class="Text--withDocsTooltip"
-                                data-tooltip-id="k8ClusterForm_clientKeyPassphrase"
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
-                                <p
-                                  class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                                >
-                                  <div>
-                                    secret.configureSecret
-                                  </div>
-                                  <div>
-                                    &lt;k8serviceToken&gt;
-                                  </div>
-                                </p>
-                              </div>
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;k8serviceToken&gt;
+                                </div>
+                              </p>
                             </a>
                             <button
                               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -3980,7 +3980,12 @@ exports[`should render form for edit authtype clientKey 1`] = `
                         <label
                           class="bp3-label"
                         >
-                          connectors.k8.clientKeyCACertificate
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="k8ClusterForm_clientKeyCACertificate"
+                          >
+                            connectors.k8.clientKeyCACertificate
+                          </span>
                         </label>
                         <div
                           class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
@@ -4014,21 +4019,16 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                 </g>
                               </svg>
                             </span>
-                            <div
-                              class="Text--withDocsTooltip"
-                              data-tooltip-id="k8ClusterForm_clientKeyCACertificate"
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                              >
-                                <div>
-                                  secret.configureSecret
-                                </div>
-                                <div>
-                                  &lt;k8serviceToken&gt;
-                                </div>
-                              </p>
-                            </div>
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;k8serviceToken&gt;
+                              </div>
+                            </p>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -4350,7 +4350,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
                     </label>
                   </div>
                   <div
-                    class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-small StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                    class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
                     data-tooltip-id="connectors.delegate.delegateSelectorSelective"
                   >
                     <label
@@ -4370,7 +4370,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-small"
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-medium"
                 >
                   <div
                     class="wrapper"
@@ -4504,7 +4504,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
                 </button>
                 <button
                   class="bp3-button Button--button StyledProps--font StyledProps--main saveAndContinue StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
-                  data-name="delegateSaveAndContinue"
+                  data-testid="delegateSaveAndContinue"
                   type="submit"
                 >
                   <span

@@ -76,7 +76,7 @@ describe('ProvidersGridView snapshot test', () => {
   test('should render ProvidersGridView', () => {
     const { container } = render(
       <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
-        <ProvidersGridView providers={gitOpsProviders} />
+        <ProvidersGridView gotoPage={jest.fn()} providers={gitOpsProviders} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

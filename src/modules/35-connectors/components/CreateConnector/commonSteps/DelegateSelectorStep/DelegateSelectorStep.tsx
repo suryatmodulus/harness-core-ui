@@ -38,7 +38,7 @@ import {
   DelegateSelector,
   DelegatesFoundState
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
-import { CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
+import { CredTypeValues, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 interface BuildPayloadProps {
@@ -112,7 +112,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
   const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
   const { getString } = useStrings()
-  const isGitSyncEnabled = useAppStore().isGitSyncEnabled && !props.disableGitSync
+  const isGitSyncEnabled = useAppStore().isGitSyncEnabled && !props.disableGitSync && orgIdentifier && projectIdentifier
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector, loading: creating } = useCreateConnector({
     queryParams: { accountIdentifier: accountId }
@@ -125,7 +125,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType ||
       DelegateTypes.DELEGATE_IN_CLUSTER_IRSA === prevStepData?.delegateType ||
       CredTypeValues.AssumeIAMRole === prevStepData?.credType ||
-      CredTypeValues.AssumeRoleSTS === prevStepData?.credType
+      CredTypeValues.AssumeRoleSTS === prevStepData?.credType ||
+      HashiCorpVaultAccessTypes.VAULT_AGENT === prevStepData?.accessType
     )
   }
   const initialDelegateSelectors = (() => {
@@ -252,7 +253,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             }
 
             if (props.submitOnNextStep) {
-              nextStep?.({ ...prevStepData, ...updatedStepData })
+              nextStep?.({ ...prevStepData, ...updatedStepData, projectIdentifier, orgIdentifier })
               return
             }
 
@@ -334,7 +335,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                 className={css.saveAndContinue}
                 disabled={isSaveButtonDisabled}
                 rightIcon="chevron-right"
-                data-name="delegateSaveAndContinue"
+                data-testid="delegateSaveAndContinue"
               />
               <NoMatchingDelegateWarning delegatesFound={delegatesFound} />
             </Layout.Horizontal>

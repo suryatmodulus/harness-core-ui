@@ -183,6 +183,8 @@ function transformGetApi(
       continue
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     timelineActivityData[activityTypeToTrackIndex[activityType]]?.activities.push({
       startTime: activityStartTime,
       progress: activityVerificationSummary.progressPercentage || 0,

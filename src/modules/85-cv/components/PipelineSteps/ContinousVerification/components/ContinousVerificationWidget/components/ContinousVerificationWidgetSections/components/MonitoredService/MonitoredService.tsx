@@ -160,7 +160,9 @@ export default function MonitoredService({
                 label={getString('connectors.cdng.monitoredService.label')}
                 disabled
               />
-              {serviceIdentifier !== RUNTIME_INPUT_VALUE && environmentIdentifier !== RUNTIME_INPUT_VALUE ? (
+              {serviceIdentifier !== RUNTIME_INPUT_VALUE &&
+              environmentIdentifier !== RUNTIME_INPUT_VALUE &&
+              formValues?.spec?.monitoredServiceRef !== MONITORED_SERVICE_EXPRESSION ? (
                 <div className={css.monitoredServiceText}>
                   {`
                     ${getString('connectors.cdng.monitoredService.monitoredServiceText')}
@@ -171,7 +173,8 @@ export default function MonitoredService({
             </Container>
           </div>
         </Card>
-        {formValues?.spec?.monitoredServiceRef !== RUNTIME_INPUT_VALUE ? (
+        {formValues?.spec?.monitoredServiceRef !== RUNTIME_INPUT_VALUE &&
+        formValues?.spec?.monitoredServiceRef !== MONITORED_SERVICE_EXPRESSION ? (
           <HealthSourceTable
             isEdit={true}
             shouldRenderAtVerifyStep={true}

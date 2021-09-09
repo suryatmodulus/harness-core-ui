@@ -54,6 +54,8 @@ export const getIconBySourceType = (type: string): IconName => {
     case 'SPLUNK':
     case 'Splunk':
       return 'service-splunk'
+    case 'PagerDuty':
+      return 'service-pagerduty'
     default:
       return 'placeholder'
   }

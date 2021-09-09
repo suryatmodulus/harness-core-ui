@@ -54,7 +54,7 @@ const data: Data[] = [
       },
       {
         name: Modules.CE,
-        size: 25
+        size: 30
       }
     ]
   },
@@ -64,12 +64,20 @@ const data: Data[] = [
     description: 'common.harnessNextGenerationDescription',
     modules: [
       {
+        name: Modules.CD,
+        size: 25
+      },
+      {
         name: Modules.CI,
         size: 25
       },
       {
         name: Modules.CF,
         size: 25
+      },
+      {
+        name: Modules.CE,
+        size: 30
       }
     ]
   }

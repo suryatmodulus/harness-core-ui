@@ -27,7 +27,6 @@ export const TriggerBreadcrumbs = ({
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const { getString } = useStrings()
-  useDocumentTitle([getString('pipelines'), getString('pipeline.triggers.triggersLabel')])
 
   return (
     <NGBreadcrumbs
@@ -138,7 +137,7 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<unk
       triggerIdentifier: string
     }>
   >()
-
+  const { getString } = useStrings()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const { data: pipeline } = useGetPipelineSummary({
@@ -151,6 +150,11 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<unk
       branch
     }
   })
+
+  useDocumentTitle([
+    pipeline?.data?.name || getString('pipelines'),
+    getString('pipeline.triggers.newTriggerWithoutPlus') || getString('pipeline.triggers.triggersLabel')
+  ])
 
   return (
     <>

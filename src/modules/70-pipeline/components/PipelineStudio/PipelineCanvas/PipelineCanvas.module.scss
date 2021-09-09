@@ -154,6 +154,11 @@
     .pipelineIcon {
       vertical-align: middle;
     }
+    @media only screen and (max-width: 1500px) {
+      .pipelineIcon {
+        display: none;
+      }
+    }
   }
   .gitDetails {
     display: flex;
@@ -162,17 +167,86 @@
     align-items: center;
     .repoDetails {
       color: var(--grey-900) !important;
+      .repoName {
+        max-width: 145px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        @media only screen and (max-width: 1710px) {
+          max-width: 125px;
+        }
+        @media only screen and (max-width: 1630px) {
+          max-width: 105px;
+        }
+        @media only screen and (max-width: 1550px) {
+          max-width: 85px;
+        }
+        @media only screen and (max-width: 1440px) {
+          max-width: 70px;
+        }
+      }
+      .folderName {
+        max-width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        @media only screen and (max-width: 1720px) {
+          max-width: 170px;
+        }
+        @media only screen and (max-width: 1650px) {
+          max-width: 145px;
+        }
+        @media only screen and (max-width: 1580px) {
+          max-width: 120px;
+        }
+        @media only screen and (max-width: 1510px) {
+          max-width: 95px;
+        }
+        @media only screen and (max-width: 1440px) {
+          max-width: 70px;
+        }
+      }
     }
     .branchDetails {
-      color: var(--grey-900) !important;
+      > div > :global(.bp3-icon) {
+        color: var(--grey-400) !important;
+      }
+      .branchName {
+        max-width: 145px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        @media only screen and (max-width: 1710px) {
+          max-width: 125px;
+        }
+        @media only screen and (max-width: 1630px) {
+          max-width: 105px;
+        }
+        @media only screen and (max-width: 1550px) {
+          max-width: 85px;
+        }
+        @media only screen and (max-width: 1440px) {
+          max-width: 70px;
+        }
+      }
       .branchSelector {
         width: 125px;
+        @media only screen and (max-width: 1675px) {
+          width: 100px;
+        }
+        @media only screen and (max-width: 1558px) {
+          width: 85px;
+        }
+        @media only screen and (max-width: 1440px) {
+          width: 75px;
+        }
         input {
           border: none;
-          color: var(--grey-900);
+          color: var(--grey-500);
         }
         li {
-          font-size: var(--font-size-normal);
+          font-size: var(--font-size-small);
         }
       }
     }

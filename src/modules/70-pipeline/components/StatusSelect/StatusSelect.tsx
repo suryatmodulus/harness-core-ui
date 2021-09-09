@@ -72,6 +72,7 @@ export default function StatusSelect(props: StatusSelectProps): React.ReactEleme
       items={getAllowedOptions}
       usePortal={true}
       filterable={false}
+      addClearBtn={true}
       placeholder={getString('status')}
     />
   )

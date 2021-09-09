@@ -1,0 +1,19 @@
+diff --git a/node_modules/@projectstorm/react-canvas-core/dist/core-actions/ActionEventBus.js b/node_modules/@projectstorm/react-canvas-core/dist/core-actions/ActionEventBus.js
+index 3bc5cb0..2064095 100644
+--- a/node_modules/@projectstorm/react-canvas-core/dist/core-actions/ActionEventBus.js
++++ b/node_modules/@projectstorm/react-canvas-core/dist/core-actions/ActionEventBus.js
+@@ -44,12 +44,12 @@ class ActionEventBus {
+         }
+         else if (event.type === 'keydown') {
+             // store the recorded key
+-            this.keys[event.key.toLowerCase()] = true;
++            this.keys[event.key ? event.key.toLowerCase() : 'Unidentified'] = true;
+             return this.getActionsForType(Action_1.InputType.KEY_DOWN);
+         }
+         else if (event.type === 'keyup') {
+             // delete the recorded key
+-            delete this.keys[event.key.toLowerCase()];
++            delete this.keys[event.key ? event.key.toLowerCase() : 'Unidentified'];
+             return this.getActionsForType(Action_1.InputType.KEY_UP);
+         }
+         else if (event.type === 'mousemove') {

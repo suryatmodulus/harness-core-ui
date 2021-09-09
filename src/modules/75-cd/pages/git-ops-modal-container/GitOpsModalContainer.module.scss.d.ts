@@ -12,5 +12,41 @@ declare const styles: {
   readonly expandSearch: string
   readonly providerContainer: string
   readonly content: string
+  readonly createConnectorWizard: string
+  readonly itemName: string
+  readonly itemInfo: string
+  readonly formLayout: string
+  readonly stepsOverlay: string
+  readonly iconConnector: string
+  readonly firstep: string
+  readonly heading: string
+  readonly connectorForm: string
+  readonly saveBtn: string
+  readonly secondStep: string
+  readonly headingStepTwo: string
+  readonly customCss: string
+  readonly selectedText: string
+  readonly selectedCard: string
+  readonly recommended: string
+  readonly textInfo: string
+  readonly delegateWrapper: string
+  readonly incluster: string
+  readonly howToProceed: string
+  readonly radioOption: string
+  readonly label: string
+  readonly selectDelegate: string
+  readonly selectDelegateText: string
+  readonly saveSecondStep: string
+  readonly intermediateStep: string
+  readonly formWrapper: string
+  readonly formFields: string
+  readonly headingIntermediate: string
+  readonly credWrapper: string
+  readonly lockIcon: string
+  readonly selectAuth: string
+  readonly credForm: string
+  readonly crossIcon: string
+  readonly pagination: string
+  readonly pageBody: string
 }
 export default styles

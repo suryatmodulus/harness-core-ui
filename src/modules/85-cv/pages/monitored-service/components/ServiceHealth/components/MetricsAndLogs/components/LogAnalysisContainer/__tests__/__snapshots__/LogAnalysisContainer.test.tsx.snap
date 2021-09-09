@@ -1,0 +1,279 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit tests for LogAnalysisContainer Verify if LogAnalysisContainer renders 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main logsContainer container"
+  >
+    <div
+      class="StyledProps--font StyledProps--main content"
+    >
+      <div
+        class="StyledProps--font StyledProps--main logsTab"
+      >
+        <div
+          class="StyledProps--font StyledProps--main filters"
+        >
+          <div
+            class="bp3-popover-wrapper logsAnalysisFilters Select--main bp3-fill"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  placeholder="pipeline.verification.logs.filterByClusterType"
+                  style="padding-right: 0px;"
+                  type="text"
+                  value="pipeline.verification.logs.allEvents"
+                />
+                <span
+                  class="bp3-input-action"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
+                  >
+                    <svg
+                      data-icon="chevron-down"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        chevron-down
+                      </desc>
+                      <path
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-popover-wrapper maxDropDownWidth logsAnalysisFilters Select--main bp3-fill"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  placeholder="pipeline.verification.healthSourcePlaceholder"
+                  style="padding-right: 0px;"
+                  type="text"
+                  value=""
+                />
+                <span
+                  class="bp3-input-action"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
+                  >
+                    <svg
+                      data-icon="chevron-down"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        chevron-down
+                      </desc>
+                      <path
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main tableContent"
+        >
+          <div
+            class="StyledProps--font StyledProps--main main logAnalysisRow"
+          >
+            <div
+              class="StyledProps--font StyledProps--main mainRow columnHeader"
+            >
+              <p
+                class="StyledProps--font StyledProps--main clusterType logRowColumnHeader StyledProps--color StyledProps--color-black"
+              >
+                pipeline.verification.logs.clusterType
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main risk logRowColumnHeader StyledProps--color StyledProps--color-black"
+              >
+                pipeline.verification.logs.risk
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main message logRowColumnHeader StyledProps--color StyledProps--color-black"
+              >
+                pipeline.verification.logs.sampleMessage
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main count logRowColumnHeader StyledProps--color StyledProps--color-black"
+              >
+                pipeline.verification.logs.messageCount
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main messageFrequency logRowColumnHeader StyledProps--color StyledProps--color-black"
+              >
+                pipeline.verification.logs.messageFrequency
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main dataContainer"
+            >
+              <div
+                class="StyledProps--font StyledProps--main mainRow dataRow highlightRow"
+                data-testid="logs-data-row"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main dataColumn openModalColumn compareDataColumn clusterType"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Known
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main logRowText dataColumn openModalColumn risk"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main logText dataColumn openModalColumn message"
+                >
+                  <p
+                    class="logRowText"
+                  >
+                    prod-setup-205416
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main logRowText dataColumn openModalColumn count StyledProps--padding-left-medium"
+                >
+                  <p
+                    class="count"
+                  >
+                    1
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main lineChartContainer dataColumn messageFrequency"
+                />
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main mainRow dataRow highlightRow"
+                data-testid="logs-data-row"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main dataColumn openModalColumn compareDataColumn clusterType"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unknown
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main logRowText dataColumn openModalColumn risk"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main logText dataColumn openModalColumn message"
+                >
+                  <p
+                    class="logRowText"
+                  >
+                    prod-setup-205416
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main logRowText dataColumn openModalColumn count StyledProps--padding-left-medium"
+                >
+                  <p
+                    class="count"
+                  >
+                    1
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main lineChartContainer dataColumn messageFrequency"
+                />
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main mainRow dataRow highlightRow"
+                data-testid="logs-data-row"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main dataColumn openModalColumn compareDataColumn clusterType"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Unexpected
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main logRowText dataColumn openModalColumn risk"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main logText dataColumn openModalColumn message"
+                >
+                  <p
+                    class="logRowText"
+                  >
+                    prod-setup-205416
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main logRowText dataColumn openModalColumn count StyledProps--padding-left-medium"
+                >
+                  <p
+                    class="count"
+                  >
+                    1
+                  </p>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main lineChartContainer dataColumn messageFrequency"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+        >
+          <span
+            class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
+          >
+            Showing 
+            <strong>
+              1
+            </strong>
+             of 
+            <strong>
+              1
+            </strong>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

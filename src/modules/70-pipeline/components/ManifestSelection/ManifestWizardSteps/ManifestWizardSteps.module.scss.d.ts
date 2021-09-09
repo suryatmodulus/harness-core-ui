@@ -4,10 +4,8 @@ declare const styles: {
   readonly optionsViewContainer: string
   readonly manifestForm: string
   readonly connectorContainer: string
-  readonly bp3PopoverTarget: string
-  readonly configureOptions: string
   readonly addNewManifest: string
-  readonly manifestStepWidth: string
+  readonly configureOptions: string
   readonly halfWidth: string
   readonly manifestStore: string
   readonly accountUrl: string

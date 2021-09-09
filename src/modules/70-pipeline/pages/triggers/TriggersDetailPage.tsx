@@ -151,7 +151,6 @@ export default function TriggersDetailPage(): JSX.Element {
 
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
-  useDocumentTitle([getString('pipelines'), getString('pipeline.triggers.triggersLabel')])
   const triggerObj = parse(triggerResponse?.data?.yaml || '')?.trigger as NGTriggerConfigV2
   const pipelineInputSet = triggerObj?.inputYaml
   let conditionsArr: string[] = []
@@ -179,6 +178,10 @@ export default function TriggersDetailPage(): JSX.Element {
       branch
     }
   })
+  useDocumentTitle([
+    pipeline?.data?.name || getString('pipelines'),
+    triggerResponse?.data?.name || getString('pipeline.triggers.triggersLabel')
+  ])
 
   return (
     <>

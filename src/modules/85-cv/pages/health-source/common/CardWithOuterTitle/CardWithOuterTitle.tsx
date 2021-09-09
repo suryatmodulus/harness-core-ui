@@ -5,7 +5,7 @@ import css from './CardWithOuterTitle.module.scss'
 
 interface CardWithOuterTitleProp {
   title?: string
-  children: JSX.Element
+  children: React.ReactNode
   className?: string
 }
 

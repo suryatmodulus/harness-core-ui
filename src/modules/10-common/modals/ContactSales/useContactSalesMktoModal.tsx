@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
@@ -5,6 +6,11 @@ import css from './useContactSalesMktoModal.module.scss'
 
 interface UseContactSalesModalProps {
   onSubmit?: (values: ContactSalesFormProps) => void
+}
+
+interface UseContactSalesModalPayload {
+  openMarketoContactSales: () => void
+  loading: boolean
 }
 
 export interface ContactSalesFormProps {
@@ -63,10 +69,12 @@ const overrideCss = (): void => {
   formPhone?.setAttribute('class', cx(formPhone.getAttribute('class'), css.formPhone))
 }
 
-export const useContactSalesMktoModal = ({ onSubmit }: UseContactSalesModalProps): (() => void) => {
+export const useContactSalesMktoModal = ({ onSubmit }: UseContactSalesModalProps): UseContactSalesModalPayload => {
   const { getString } = useStrings()
+  const [loading, setLoading] = useState<boolean>(false)
 
   function openMarketoContactSales(): void {
+    setLoading(true)
     window?.MktoForms2.loadForm('//go.harness.io', '924-CQO-224', 1249, function (form: any) {
       window?.MktoForms2.lightbox(form).show()
       form.onSuccess(function () {
@@ -82,8 +90,8 @@ export const useContactSalesMktoModal = ({ onSubmit }: UseContactSalesModalProps
       removeUnneededElements()
       overrideCss()
       form.getFormElem()[0].setAttribute('data-mkto-ready', 'true')
+      setLoading(false)
     })
   }
-
-  return openMarketoContactSales
+  return { openMarketoContactSales, loading }
 }

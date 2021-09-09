@@ -1,0 +1,7 @@
+query FetchPerspectiveTotalCount(
+  $filters: [QLCEViewFilterWrapperInput]
+  $groupBy: [QLCEViewGroupByInput]
+  $isClusterQuery: Boolean
+) {
+  perspectiveTotalCount(filters: $filters, groupBy: $groupBy, isClusterQuery: $isClusterQuery)
+}

@@ -502,6 +502,7 @@ export default (
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      sidebarProps={CFSideNavProps}
       exact
     >
       <ConnectorsPage />

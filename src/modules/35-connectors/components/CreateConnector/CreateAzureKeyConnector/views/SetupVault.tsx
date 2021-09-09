@@ -1,0 +1,200 @@
+import React, { useState, useEffect } from 'react'
+import * as Yup from 'yup'
+import {
+  Container,
+  Text,
+  Formik,
+  FormikForm,
+  Layout,
+  FormInput,
+  Button,
+  StepProps,
+  SelectOption,
+  ModalErrorHandlerBinding,
+  ModalErrorHandler
+} from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
+import { useToaster } from '@common/exports'
+import {
+  ConnectorConfigDTO,
+  useGetMetadata,
+  AzureKeyVaultMetadataRequestSpecDTO,
+  AzureKeyVaultMetadataSpecDTO,
+  useCreateConnector,
+  useUpdateConnector,
+  ConnectorRequestBody
+} from 'services/cd-ng'
+import type { StepDetailsProps, ConnectorDetailsProps } from '@connectors/interfaces/ConnectorInterface'
+import { shouldShowError } from '@common/utils/errorUtils'
+import { PageSpinner } from '@common/components'
+import {
+  buildAzureKeyVaultPayload,
+  setupAzureKeyVaultNameFormData
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
+
+export interface SetupVaultFormData {
+  vaultName?: string
+}
+
+const defaultInitialFormData: SetupVaultFormData = {
+  vaultName: undefined
+}
+
+const SetupVault: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps> = ({
+  isEditMode,
+  accountId,
+  connectorInfo,
+  prevStepData,
+  previousStep,
+  nextStep,
+  onConnectorCreated
+}) => {
+  const { getString } = useStrings()
+  const { showSuccess } = useToaster()
+  const [initialValues, setInitialValues] = useState(defaultInitialFormData)
+  const [vaultNameOptions, setVaultNameOptions] = useState<SelectOption[]>([])
+  const [loadingFormData, setLoadingFormData] = useState(isEditMode)
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+
+  const { mutate: getMetadata, loading } = useGetMetadata({
+    queryParams: { accountIdentifier: accountId }
+  })
+  const { mutate: createConnector, loading: creating } = useCreateConnector({
+    queryParams: { accountIdentifier: accountId }
+  })
+  const { mutate: updateConnector, loading: updating } = useUpdateConnector({
+    queryParams: { accountIdentifier: accountId }
+  })
+
+  useEffect(() => {
+    if (isEditMode && connectorInfo) {
+      setupAzureKeyVaultNameFormData(connectorInfo).then(data => {
+        setInitialValues(data as SetupVaultFormData)
+        setLoadingFormData(false)
+      })
+    }
+  }, [isEditMode, connectorInfo])
+
+  const handleFetchEngines = async (formData: ConnectorConfigDTO): Promise<void> => {
+    modalErrorHandler?.hide()
+    try {
+      const { data } = await getMetadata({
+        identifier: formData.identifier,
+        encryptionType: 'AZURE_VAULT',
+        orgIdentifier: formData.orgIdentifier,
+        projectIdentifier: formData.projectIdentifier,
+        spec: {
+          clientId: formData.clientId?.trim(),
+          tenantId: formData.tenantId?.trim(),
+          subscription: formData.subscription?.trim(),
+          secretKey: (connectorInfo as any)?.spec?.secretKey || formData.secretKey?.referenceString,
+          delegateSelectors: formData.delegateSelectors
+        } as AzureKeyVaultMetadataRequestSpecDTO
+      })
+
+      setVaultNameOptions(
+        (data?.spec as AzureKeyVaultMetadataSpecDTO)?.vaultNames?.map(vaultName => {
+          return {
+            label: vaultName,
+            value: vaultName
+          }
+        }) || []
+      )
+    } catch (err) {
+      if (shouldShowError(err)) {
+        modalErrorHandler?.showDanger(err.data?.message || err.message)
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (isEditMode && !loadingFormData && prevStepData) {
+      handleFetchEngines(prevStepData as ConnectorConfigDTO)
+    }
+  }, [isEditMode, loadingFormData, prevStepData])
+
+  useEffect(() => {
+    if (isEditMode && !loadingFormData && loading && connectorInfo) {
+      setVaultNameOptions([{ label: connectorInfo.spec.vaultName, value: connectorInfo.spec.vaultName }])
+    }
+  }, [isEditMode, loadingFormData, loading, connectorInfo])
+
+  const handleCreateOrEdit = async (formData: SetupVaultFormData): Promise<void> => {
+    modalErrorHandler?.hide()
+    if (prevStepData) {
+      const data: ConnectorRequestBody = buildAzureKeyVaultPayload({ ...prevStepData, ...formData })
+
+      try {
+        if (isEditMode) {
+          const response = await updateConnector(data)
+          nextStep?.({ ...prevStepData, ...formData })
+          onConnectorCreated?.(response.data)
+          showSuccess(getString('secretManager.editmessageSuccess'))
+        } else {
+          const response = await createConnector(data)
+          nextStep?.({ ...prevStepData, ...formData })
+          onConnectorCreated?.(response.data)
+          showSuccess(getString('secretManager.createmessageSuccess'))
+        }
+      } catch (err) {
+        /* istanbul ignore next */
+        modalErrorHandler?.showDanger(err?.data?.message)
+      }
+    }
+  }
+
+  return loadingFormData ? (
+    <PageSpinner />
+  ) : (
+    <Container padding={{ top: 'medium' }} width="64%">
+      <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
+        {getString('connectors.azureKeyVault.labels.setupVault')}
+      </Text>
+      <ModalErrorHandler bind={setModalErrorHandler} />
+      <Formik
+        formName="azureKeyVaultForm"
+        enableReinitialize
+        initialValues={initialValues}
+        validationSchema={Yup.object().shape({
+          vaultName: Yup.string().required(getString('connectors.azureKeyVault.validation.vaultName'))
+        })}
+        onSubmit={formData => {
+          handleCreateOrEdit(formData)
+        }}
+      >
+        <FormikForm>
+          <Container height={490}>
+            <Layout.Horizontal spacing="medium" flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+              <FormInput.Select
+                name="vaultName"
+                label={getString('connectors.azureKeyVault.labels.vaultName')}
+                items={vaultNameOptions}
+                disabled={vaultNameOptions.length === 0 || loading}
+              />
+              <Button
+                margin={{ top: 'large' }}
+                intent="primary"
+                text={getString('connectors.azureKeyVault.labels.fetchVault')}
+                onClick={() => handleFetchEngines(prevStepData as ConnectorConfigDTO)}
+                disabled={loading}
+                loading={loading}
+              />
+            </Layout.Horizontal>
+          </Container>
+          <Layout.Horizontal spacing="medium">
+            <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
+            <Button
+              type="submit"
+              intent="primary"
+              rightIcon="chevron-right"
+              text={getString('saveAndContinue')}
+              disabled={creating || updating}
+            />
+          </Layout.Horizontal>
+        </FormikForm>
+      </Formik>
+    </Container>
+  )
+}
+
+export default SetupVault

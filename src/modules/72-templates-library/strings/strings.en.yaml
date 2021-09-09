@@ -12,7 +12,8 @@ selectTemplateToPreview: Select a template to preview
 createNewModal:
   headingPrefix: Create New
   headingSuffix: Template
-  defaultLabel: Default Label
+  versionLabel: Version Label
+  defaultVersion: Default Version
   label: Label
   validation:
     name: Template name is required

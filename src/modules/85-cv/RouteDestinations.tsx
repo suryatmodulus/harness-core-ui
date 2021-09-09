@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 
+import { parse } from 'yaml'
 import CVHomePage from '@cv/pages/home/CVHomePage'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
@@ -37,6 +38,8 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
+import DelegateListing from '@delegates/pages/delegates/DelegateListing'
+import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigurations'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
 import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
@@ -59,16 +62,39 @@ import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAcco
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
+import { inputSetTemplatePromise } from 'services/cv'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
+import { editParams } from './utils/routeUtils'
 
-PubSubPipelineActions.subscribe(PipelineActions.RunPipeline, ({ template }) => {
-  return Promise.resolve(template)
-})
+PubSubPipelineActions.subscribe(
+  PipelineActions.RunPipeline,
+  async ({ template, accountPathProps: accountPathParams, pipeline }) => {
+    let response = { ...template }
+    const payload = { pipelineYaml: yamlStringify({ pipeline }), templateYaml: yamlStringify(template) }
+
+    const updatedResponse = await inputSetTemplatePromise({
+      queryParams: { accountId: accountPathParams?.accountId },
+      body: payload
+    })
+    if (updatedResponse?.data?.inputSetTemplateYaml) {
+      response = { ...parse(updatedResponse.data.inputSetTemplateYaml)?.pipeline }
+    }
+
+    return Promise.resolve(response)
+  }
+)
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module: 'cv' })} />
+}
+
+const RedirectToDelegatesHome = (): React.ReactElement => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+
+  return <Redirect to={routes.toDelegateList({ accountId, projectIdentifier, orgIdentifier, module: 'cv' })} />
 }
 
 const RedirectToCVHome = (): React.ReactElement => {
@@ -175,8 +201,14 @@ export default (
         routes.toCVAddMonitoringServicesEdit({
           ...accountPathProps,
           ...projectPathProps,
-          identifier: ':identifier',
-          module: ':module(cv)'
+          ...editParams,
+          ...cvModuleParams
+        }),
+        routes.toCVMonitoredServiceConfigurations({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...editParams,
+          ...cvModuleParams
         })
       ]}
     >
@@ -210,7 +242,26 @@ export default (
       sidebarProps={CVSideNavProps}
       path={routes.toDelegates({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
     >
-      <DelegatesPage />
+      <RedirectToDelegatesHome />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toDelegateList({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+    >
+      <DelegatesPage>
+        <DelegateListing />
+      </DelegatesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toDelegateConfigs({ ...accountPathProps, ...projectPathProps, ...cvModuleParams })}
+    >
+      <DelegatesPage>
+        <DelegateConfigurations />
+      </DelegatesPage>
     </RouteWithLayout>
     <RouteWithLayout
       exact

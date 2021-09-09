@@ -50,6 +50,9 @@ import CIPipelineDeploymentList from '@ci/pages/pipeline-deployment-list/CIPipel
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
 
+import DelegateListing from '@delegates/pages/delegates/DelegateListing'
+import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigurations'
+
 import PipelineDetails from '@pipeline/pages/pipeline-details/PipelineDetails'
 import InputSetList from '@pipeline/pages/inputSet-list/InputSetList'
 import TriggersPage from '@pipeline/pages/triggers/TriggersPage'
@@ -110,6 +113,12 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
 
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module })} />
+}
+
+const RedirectToDelegatesHome = (): React.ReactElement => {
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
+
+  return <Redirect to={routes.toDelegateList({ accountId, projectIdentifier, orgIdentifier, module })} />
 }
 
 const RedirectToCIProject = (): React.ReactElement => {
@@ -222,7 +231,6 @@ export default (
     >
       <RedirectToCIProject />
     </RouteWithLayout>
-
     <RouteWithLayout
       layout={MinimalLayout}
       path={routes.toModuleTrialHome({ ...accountPathProps, module: 'ci' })}
@@ -230,7 +238,6 @@ export default (
     >
       <CITrialHomePage />
     </RouteWithLayout>
-
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CISideNavProps}
@@ -239,7 +246,6 @@ export default (
     >
       <CIHomePage />
     </RouteWithLayout>
-
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CISideNavProps}
@@ -280,7 +286,6 @@ export default (
         path={routes.toCIBuildCommits({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
         component={<BuildCommits />}
       /> */}
-
     <RouteWithLayout
       exact
       licenseRedirectData={licenseRedirectData}
@@ -297,7 +302,6 @@ export default (
     >
       <CreateConnectorFromYamlPage />
     </RouteWithLayout>
-
     <Route
       exact
       licenseRedirectData={licenseRedirectData}
@@ -413,7 +417,35 @@ export default (
         ...pipelineModuleParams
       })}
     >
-      <DelegatesPage />
+      <RedirectToDelegatesHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CISideNavProps}
+      path={routes.toDelegateList({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <DelegatesPage>
+        <DelegateListing />
+      </DelegatesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CISideNavProps}
+      path={routes.toDelegateConfigs({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <DelegatesPage>
+        <DelegateConfigurations />
+      </DelegatesPage>
     </RouteWithLayout>
     <RouteWithLayout
       exact
@@ -642,7 +674,6 @@ export default (
     >
       <RedirectToAccessControlHome />
     </RouteWithLayout>
-
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CISideNavProps}
@@ -653,7 +684,6 @@ export default (
         <UsersPage />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       licenseRedirectData={licenseRedirectData}
@@ -662,7 +692,6 @@ export default (
     >
       <UserDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       licenseRedirectData={licenseRedirectData}
@@ -673,7 +702,6 @@ export default (
         <UserGroups />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       licenseRedirectData={licenseRedirectData}
@@ -682,7 +710,6 @@ export default (
     >
       <UserGroupDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CISideNavProps}
       path={routes.toServiceAccounts({ ...projectPathProps, ...pipelineModuleParams })}
@@ -692,7 +719,6 @@ export default (
         <ServiceAccountsPage />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CISideNavProps}
       path={routes.toServiceAccountDetails({ ...projectPathProps, ...pipelineModuleParams, ...serviceAccountProps })}
@@ -700,7 +726,6 @@ export default (
     >
       <ServiceAccountDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       licenseRedirectData={licenseRedirectData}
@@ -711,7 +736,6 @@ export default (
         <ResourceGroups />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       licenseRedirectData={licenseRedirectData}
@@ -722,7 +746,6 @@ export default (
         <Roles />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       licenseRedirectData={licenseRedirectData}
@@ -731,7 +754,6 @@ export default (
     >
       <RoleDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       licenseRedirectData={licenseRedirectData}

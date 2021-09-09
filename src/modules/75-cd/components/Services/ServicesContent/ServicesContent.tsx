@@ -14,6 +14,7 @@ import { startOfDay, TimeRangeSelectorProps } from '@cd/components/TimeRangeSele
 import { DeploymentsWidget } from '@cd/components/Services/DeploymentsWidget/DeploymentsWidget'
 import { ServicesList, ServicesListProps } from '@cd/components/Services/ServicesList/ServicesList'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/strings'
 import css from '@cd/components/Services/ServicesContent/ServicesContent.module.scss'
 
@@ -35,6 +36,8 @@ export const ServicesContent: React.FC = () => {
     startTime: timeRange?.range[0]?.getTime() || 0,
     endTime: timeRange?.range[1]?.getTime() || 0
   }
+
+  useDocumentTitle([getString('services')])
 
   const {
     loading,

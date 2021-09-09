@@ -94,7 +94,6 @@ function HealthSourceDrawerContent({
         isOpen={modalOpen}
         position={Position.RIGHT}
         title={createHeader()}
-        data-type={'new'}
         isCloseButtonShown={false}
         portalClassName={'health-source-right-drawer'}
       >

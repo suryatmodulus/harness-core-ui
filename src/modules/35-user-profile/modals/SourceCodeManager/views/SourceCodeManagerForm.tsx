@@ -203,52 +203,26 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
     }
   }
 
+  const selectedValueToTypeMap: Record<SourceCodeTypes, SourceCodeTypes> = {
+    [SourceCodeTypes.BITBUCKET]: SourceCodeTypes.BITBUCKET,
+    [SourceCodeTypes.GITHUB]: SourceCodeTypes.GITHUB,
+    [SourceCodeTypes.GITLAB]: SourceCodeTypes.GITLAB,
+    [SourceCodeTypes.AWS_CODE_COMMIT]: SourceCodeTypes.AWS_CODE_COMMIT,
+    [SourceCodeTypes.AZURE_DEV_OPS]: SourceCodeTypes.AZURE_DEV_OPS
+  }
+
   const handleSubmit = async (values: SCMData): Promise<void> => {
-    let dataToSubmit: SourceCodeManagerDTO
     if (selected?.value) {
-      switch (selected.value) {
-        case SourceCodeTypes.BITBUCKET: {
-          dataToSubmit = {
-            type: SourceCodeTypes.BITBUCKET,
-            name: values.name,
-            authentication: getAuthentication(values)
-          }
-          break
-        }
-        case SourceCodeTypes.GITHUB: {
-          dataToSubmit = {
-            type: SourceCodeTypes.GITHUB,
-            name: values.name,
-            authentication: getAuthentication(values)
-          }
-          break
-        }
-        case SourceCodeTypes.GITLAB: {
-          dataToSubmit = {
-            type: SourceCodeTypes.GITLAB,
-            name: values.name,
-            authentication: getAuthentication(values)
-          }
-          break
-        }
-        case SourceCodeTypes.AWS_CODE_COMMIT: {
-          dataToSubmit = {
-            type: SourceCodeTypes.AWS_CODE_COMMIT,
-            name: values.name,
-            authentication: getAuthentication(values)
-          }
-          break
-        }
-        case SourceCodeTypes.AZURE_DEV_OPS: {
-          dataToSubmit = {
-            type: SourceCodeTypes.AZURE_DEV_OPS,
-            name: values.name,
-            authentication: getAuthentication(values)
-          }
-          break
-        }
-        default:
-          return undefined
+      const type = selectedValueToTypeMap[selected.value]
+      if (!type) {
+        return undefined
+      }
+
+      const dataToSubmit: SourceCodeManagerDTO = {
+        name: values.name,
+        authentication: getAuthentication(values),
+        accountIdentifier: accountId,
+        type
       }
 
       try {
@@ -257,7 +231,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
           : getString('userProfile.scmCreateSuccess')
         const failMessage = isEditMode ? getString('userProfile.scmUpdateFail') : getString('userProfile.scmCreateFail')
         /* istanbul ignore else */ if (dataToSubmit) {
-          const parsedDataToSubmit = isEditMode
+          const parsedDataToSubmit: SourceCodeManagerDTO = isEditMode
             ? { ...dataToSubmit, userIdentifier: initialValues?.userIdentifier }
             : dataToSubmit
           const saved = await (isEditMode ? updateSourceCodeManage : saveSourceCodeManager)(parsedDataToSubmit)

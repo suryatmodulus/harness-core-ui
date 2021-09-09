@@ -1,7 +1,7 @@
 import React from 'react'
 import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { TagTypes } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
+import { ArtifactType, TagTypes } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { GCRImagePath } from '../GCRImagePath'
 
 const props = {
@@ -9,7 +9,8 @@ const props = {
   expressions: [],
   context: 2,
   handleSubmit: jest.fn(),
-  artifactIdentifiers: []
+  artifactIdentifiers: [],
+  selectedArtifact: 'Gcr' as ArtifactType
 }
 
 describe('GCR Image Path Artifact tests', () => {
@@ -73,7 +74,7 @@ describe('GCR Image Path Artifact tests', () => {
       spec: {
         registryHostname: 'registryHostname-data'
       },
-      type: 'GCR',
+      type: 'Gcr',
       imagePath: '',
       tag: '',
       tagType: TagTypes.Value,
@@ -106,14 +107,13 @@ describe('GCR Image Path Artifact tests', () => {
     })
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('submits with the right payload with Tagregex data ', async () => {
+  test('submits with the right payload with Tagregex data ', async () => {
     const initialValues = {
       identifier: '',
       spec: {
-        registryHostname: ''
+        registryHostname: 'registryHostname-data1'
       },
-      type: 'GCR',
+      type: 'Gcr',
       imagePath: '',
       tag: '',
       tagType: TagTypes.Value,
@@ -130,7 +130,7 @@ describe('GCR Image Path Artifact tests', () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier2' } })
       fireEvent.change(queryByNameAttribute('imagePath')!, { target: { value: 'image-path' } })
       fireEvent.change(queryByNameAttribute('registryHostname')!, { target: { value: 'registryHostname-data1' } })
-      fireEvent.change(queryByNameAttribute('tagRegex')!, { target: { value: 'tagregex' } })
+      fireEvent.change(queryByNameAttribute('tagRegex')!, { target: { value: 'tag' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
 
@@ -141,7 +141,7 @@ describe('GCR Image Path Artifact tests', () => {
           connectorRef: '',
           imagePath: 'image-path',
           registryHostname: 'registryHostname-data1',
-          tagRegex: 'tagregex'
+          tagRegex: 'tag'
         }
       })
     })

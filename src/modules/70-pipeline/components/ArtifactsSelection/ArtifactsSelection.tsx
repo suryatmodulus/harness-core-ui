@@ -208,7 +208,7 @@ export default function ArtifactsSelection({
     canOutsideClickClose: false,
     enforceFocus: false,
     title: '',
-    style: { width: 1050, height: 550, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
+    style: { width: 1100, height: 550, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
   }
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<
@@ -459,7 +459,8 @@ export default function ArtifactsSelection({
         addArtifact(data)
       },
       artifactIdentifiers: sideCarArtifact?.map((item: SidecarArtifactWrapper) => item.sidecar?.identifier as string),
-      isReadonly: isReadonly
+      isReadonly: isReadonly,
+      selectedArtifact
     }
 
     return imagePathProps

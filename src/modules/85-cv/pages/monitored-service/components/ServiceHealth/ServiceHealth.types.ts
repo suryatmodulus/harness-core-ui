@@ -6,9 +6,7 @@ export interface TickerType {
 }
 
 export interface ServiceHealthProps {
-  currentHealthScore: {
-    riskStatus: string
-    healthScore: number
-  }
   monitoredServiceIdentifier?: string
+  serviceIdentifier: string
+  environmentIdentifier: string
 }

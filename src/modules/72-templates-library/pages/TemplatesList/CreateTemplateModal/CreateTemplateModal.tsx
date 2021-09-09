@@ -3,11 +3,11 @@ import * as Yup from 'yup'
 import { noop } from 'lodash-es'
 import type { FormikProps } from 'formik'
 
-import { Formik, Layout, FormikForm, FormInput, Heading, Color, Button, Icon } from '@wings-software/uicore'
+import { Formik, Layout, FormikForm, FormInput, Heading, Color, Button, ButtonVariation } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
 import type { TemplateResponseDTO } from 'services/template-ng'
-import { DescriptionTags, NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { getAllowedTemplateTypes, TemplateType } from '@templates-library/utils/templatesUtils'
 
 import { TemplateCard } from '../TemplateCard/TemplateCard'
@@ -41,6 +41,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
     )}`
   }
   const currentTemplateType = props.initialValues.templateEntityType
+  const formName = `create${currentTemplateType}Template`
   return (
     <div className={css.basicDetails}>
       <Heading
@@ -55,7 +56,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
         initialValues={props.initialValues}
         onSubmit={noop}
         validate={values => props.setPreviewValues(values)}
-        formName={`createTemplate${currentTemplateType}`}
+        formName={formName}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('templatesLibrary.createNewModal.validation.name'))
         })}
@@ -63,25 +64,26 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
         {(formik: FormikProps<TemplateResponseDTO>) => {
           return (
             <FormikForm>
-              <div className={css.lg}>
-                <NameId dataTooltipId={`createTemplate${currentTemplateType}`} />
+              <div className={css.field}>
+                <NameIdDescriptionTags tooltipProps={{ dataTooltipId: formName }} formikProps={formik} />
               </div>
-              <div className={css.lg}>
-                <FormInput.Text name="label" label={getString('templatesLibrary.createNewModal.label')} />
+              <div className={css.field}>
+                <FormInput.Text name="label" label={getString('templatesLibrary.createNewModal.versionLabel')} />
               </div>
-              <div className={css.lg}>
+              <div className={css.field}>
                 <FormInput.CheckBox
                   name="stableTemplate"
-                  label={getString('templatesLibrary.createNewModal.defaultLabel')}
+                  label={getString('templatesLibrary.createNewModal.defaultVersion')}
                 />
               </div>
-              <div className={css.lg}>
-                <DescriptionTags formikProps={formik} />
-              </div>
 
-              <Layout.Horizontal spacing="small" margin={{ top: 'huge' }}>
-                <Button text={getString('create')} type="submit" intent="primary" />
-                <Button text={getString('cancel')} intent="none" onClick={props.onClose} />
+              <Layout.Horizontal
+                spacing="small"
+                height={150}
+                flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+              >
+                <Button text={getString('create')} type="submit" variation={ButtonVariation.PRIMARY} />
+                <Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={props.onClose} />
               </Layout.Horizontal>
             </FormikForm>
           )
@@ -93,9 +95,9 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
 
 const TemplatePreview = (previewProps: PreviewInterface) => {
   return (
-    <Layout.Vertical>
+    <Layout.Vertical background={Color.FORM_BG}>
       <div className={css.closeIcon}>
-        <Icon name="cross" size={20} onClick={previewProps.onClose} />
+        <Button icon="cross" variation={ButtonVariation.ICON} onClick={previewProps.onClose} />
       </div>
       <div className={css.preview}>
         <TemplateCard

@@ -30,7 +30,7 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
 
   const dateLabelToDisplayText: Record<string, string> = {
     [ViewTimeRangeType.Last_7]: getString('ce.perspectives.timeRangeConstants.last7Days'),
-    [ViewTimeRangeType.Last_30]: getString('ce.perspectives.timeRangeConstants.last30Days'),
+    [ViewTimeRangeType.Last_30]: getString('projectsOrgs.landingDashboard.last30Days'),
     [ViewTimeRangeType.LastMonth]: getString('ce.perspectives.timeRangeConstants.lastMonth')
   }
 

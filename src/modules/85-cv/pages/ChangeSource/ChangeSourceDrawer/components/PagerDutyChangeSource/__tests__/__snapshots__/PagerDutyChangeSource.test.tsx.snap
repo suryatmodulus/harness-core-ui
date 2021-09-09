@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test PagerDuty Change Source PagerDuty ChangeSource renders in create mode 1`] = `
+<div>
+  <div
+    class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
+  >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
+      style="width: 400px;"
+    >
+      <div
+        class="connectorField"
+      >
+        <div
+          class="bp3-form-group"
+        >
+          <label
+            class="bp3-label"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small StyledProps--margin-bottom-small"
+            >
+              connectors.selectConnector
+            </p>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <button
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
+              data-testid="cr-field-spec.connectorRef"
+              style="width: 400px;"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                <span
+                  class="placeholder"
+                >
+                  cv.healthSource.connectors.selectConnector
+                </span>
+              </span>
+              <span
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main"
+                icon="chevron-down"
+              >
+                <svg
+                  data-icon="chevron-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    chevron-down
+                  </desc>
+                  <path
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
+      style="width: 400px;"
+    >
+      <p
+        class="StyledProps--font StyledProps--main pagerDutyServiceTitle StyledProps--color StyledProps--color-black StyledProps--font-small"
+      >
+        cv.changeSource.PageDuty.pagerDutyService
+      </p>
+      <div
+        class="bp3-form-group"
+      >
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="bp3-popover-wrapper Select--main bp3-fill"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="spec.pagerDutyServiceId"
+                  placeholder="- cv.changeSource.PageDuty.selectPagerDutyService -"
+                  style="padding-right: 0px;"
+                  type="text"
+                  value=""
+                />
+                <span
+                  class="bp3-input-action"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
+                  >
+                    <svg
+                      data-icon="chevron-down"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        chevron-down
+                      </desc>
+                      <path
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-error"
+      >
+        cv.changeSource.PageDuty.pagerDutyEmptyService
+      </p>
+    </div>
+  </div>
+</div>
+`;

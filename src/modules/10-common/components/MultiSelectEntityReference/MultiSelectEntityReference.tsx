@@ -83,6 +83,7 @@ export interface MultiSelectEntityReferenceProps<T> {
   searchInlineComponent?: JSX.Element
   selectedItemsUuidAndScope?: ScopeAndIdentifier[]
   onMultiSelect: (payLoad: ScopeAndIdentifier[]) => void
+  onlyCurrentScope?: boolean
 }
 
 export function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Scope {
@@ -116,7 +117,8 @@ export function MultiSelectEntityReference<T extends Identifier>(
     noRecordsText = getString('entityReference.noRecordFound'),
     searchInlineComponent,
     selectedItemsUuidAndScope,
-    onMultiSelect
+    onMultiSelect,
+    onlyCurrentScope
   } = props
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [selectedScope, setSelectedScope] = useState<Scope>(
@@ -302,6 +304,13 @@ export function MultiSelectEntityReference<T extends Identifier>(
     setRenderedList(renderedListTemp)
   }, [selectedScope, loading, error, data, checkedItems, checkedItems.total, selectedRecord])
 
+  const canRenderTab = (scope: Scope): boolean => {
+    if (onlyCurrentScope && !isEqual(scope, defaultScope)) {
+      return false
+    }
+    return true
+  }
+
   const renderTab = (
     show: boolean,
     id: string,
@@ -326,7 +335,7 @@ export function MultiSelectEntityReference<T extends Identifier>(
         </Text>
       )
     }
-    return show ? (
+    return show && canRenderTab(scope) ? (
       <Tab
         id={id}
         title={

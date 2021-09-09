@@ -9,14 +9,12 @@ import {
   MultiTypeInputType,
   Color,
   StepProps,
-  Icon,
   Accordion,
   ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { Tooltip } from '@blueprintjs/core'
 
 import { get, isEmpty, set } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -37,7 +35,6 @@ import {
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OSTemplateWithGit.module.scss'
-import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
 interface OpenshiftTemplateWithGITPropType {
   stepName: string
@@ -357,17 +354,6 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                           isReadonly={isReadonly}
                         />
                       )}
-                      <Tooltip
-                        position="bottom"
-                        content={
-                          <div className={helmcss.tooltipContent}>
-                            {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
-                          </div>
-                        }
-                        className={cx(helmcss.skipversionTooltip)}
-                      >
-                        <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
-                      </Tooltip>
                     </Layout.Horizontal>
                   }
                 />

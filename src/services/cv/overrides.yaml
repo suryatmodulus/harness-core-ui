@@ -73,13 +73,20 @@ allowpaths:
   - /prometheus/metric-list
   - /prometheus/sample-data
   - /sumologic/endpoints
+  - /pagerduty/services
   - /monitored-service
   - /monitored-service/{identifier}
   - /monitored-service/environments
   - /monitored-service/create-default
   - /monitored-service/service-environment
   - /monitored-service/{identifier}/health-monitoring-flag
+  - /monitored-service/yaml-template
   - /monitored-service/{identifier}/overall-health-score
+  - /log-dashboard/logs-data
+  - /timeseries-dashboard/metrics
+  - /verify-step/input-set-template
+  - /monitored-service/scores
+  - /monitored-service/health-sources
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

@@ -29,6 +29,7 @@ interface SecretsListProps {
 
 const RenderColumnSecret: Renderer<CellProps<SecretResponseWrapper>> = ({ row }) => {
   const data = row.original.secret
+  const { getString } = useStrings()
   return (
     <Layout.Horizontal>
       {data.type === 'SecretText' || data.type === 'SecretFile' ? (
@@ -43,7 +44,7 @@ const RenderColumnSecret: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
           {data.tags && Object.keys(data.tags).length ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
         <Text color={Color.GREY_600} font={{ size: 'small' }} width={230} lineClamp={1}>
-          {data.identifier}
+          {`${getString('common.ID')}: ${data.identifier}`}
         </Text>
       </Layout.Vertical>
     </Layout.Horizontal>

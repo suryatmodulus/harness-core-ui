@@ -40,7 +40,6 @@ interface TestsExecutionProps {
 
 export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId, serviceToken, showCallGraph }) => {
   const context = useExecutionContext()
-  const callGraphEnabled = /localhost|qa.harness.io/.test(location.hostname) || localStorage.CI_TI_CALL_GRAPH_ENABLED
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
@@ -98,9 +97,9 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
   const sortByItems = useMemo(
     () => [
       { label: getString('common.failureRate'), value: SortByKey.FAILURE_RATE },
-      { label: getString('pipeline.testsReports.failedTests'), value: SortByKey.FAILED_TESTS },
+      { label: getString('failed'), value: SortByKey.FAILED_TESTS },
       { label: getString('pipeline.duration'), value: SortByKey.DURATION_MS },
-      { label: getString('pipeline.testsReports.totalTests'), value: SortByKey.TOTAL_TESTS }
+      { label: getString('total'), value: SortByKey.TOTAL_TESTS }
     ],
     [getString]
   )
@@ -289,7 +288,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
     <div className={cx(css.widgetWrapper, css.rightContainer)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
         <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
-          {getString('pipeline.testsReports.testCasesExecution')}
+          {getString('pipeline.testsReports.testExecutions')}
         </Heading>
         <Button
           icon="question"
@@ -301,7 +300,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
         {loading && <Icon name="steps-spinner" size={16} color="blue500" margin={{ left: 'xsmall' }} />}
       </Container>
       <Layout.Horizontal spacing="medium" className={css.widget} padding="xlarge">
-        <Container width={`calc(100% - ${callGraphEnabled && showCallGraph ? CALL_GRAPH_WIDTH : 0}px)`}>
+        <Container width={`calc(100% - ${showCallGraph ? CALL_GRAPH_WIDTH : 0}px)`}>
           <Container flex>
             <Switch
               label={getString('pipeline.testsReports.showOnlyFailedTests')}
@@ -370,7 +369,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
                       onExpand={() => {
                         setExpandedIndex(expandedIndex !== index ? index : undefined)
                       }}
-                      onShowCallGraphForClass={callGraphEnabled && showCallGraph ? onClassSelected : undefined}
+                      onShowCallGraphForClass={showCallGraph ? onClassSelected : undefined}
                     />
                   ))}
                 </Layout.Vertical>
@@ -402,7 +401,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
         </Container>
 
         {/* Callgraph container */}
-        {callGraphEnabled && showCallGraph && (
+        {showCallGraph && (
           <Container width={CALL_GRAPH_WIDTH} className={css.callgraphContainer}>
             <Layout.Horizontal className={css.callgraphHeader}>
               <Text color={Color.GREY_800} style={{ fontWeight: 500, fontSize: '14px', lineHeight: '32px' }}>

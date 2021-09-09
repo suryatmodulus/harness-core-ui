@@ -27,8 +27,12 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { AccountSideNavProps } from '@common/RouteDestinations'
-import ServiceAccountsPage from './pages/ServiceAccounts/ServiceAccounts'
-import ServiceAccountDetails from './pages/ServiceAccountDetails/ServiceAccountDetails'
+import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
+import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
+import ResourceGroupsResourceModalBody from '@rbac/components/ResourceGroupsRenderer/ResourceGroupsResourceModalBody'
+import ResourceGroupsResourceRenderer from '@rbac/components/ResourceGroupsRenderer/ResourceGroupsResourceRenderer'
+import UserGroupsResourceModalBody from '@rbac/components/UserGroupsRenderer/UserGroupsResourceModalBody'
+import UserGroupssResourceRenderer from '@rbac/components/UserGroupsRenderer/UserGroupsResourceRenderer'
 
 RbacFactory.registerResourceCategory(ResourceCategory.SHARED_RESOURCES, {
   icon: 'support-tour',
@@ -58,7 +62,11 @@ RbacFactory.registerResourceTypeHandler(ResourceType.USERGROUP, {
   permissionLabels: {
     [PermissionIdentifier.VIEW_USERGROUP]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.MANAGE_USERGROUP]: <String stringID="rbac.permissionLabels.manage" />
-  }
+  },
+  // eslint-disable-next-line react/display-name
+  addResourceModalBody: props => <UserGroupsResourceModalBody {...props} />,
+  // eslint-disable-next-line react/display-name
+  staticResourceRenderer: props => <UserGroupssResourceRenderer {...props} />
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.RESOURCEGROUP, {
@@ -69,7 +77,11 @@ RbacFactory.registerResourceTypeHandler(ResourceType.RESOURCEGROUP, {
     [PermissionIdentifier.VIEW_RESOURCEGROUP]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.UPDATE_RESOURCEGROUP]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.DELETE_RESOURCEGROUP]: <String stringID="rbac.permissionLabels.delete" />
-  }
+  },
+  // eslint-disable-next-line react/display-name
+  addResourceModalBody: props => <ResourceGroupsResourceModalBody {...props} />,
+  // eslint-disable-next-line react/display-name
+  staticResourceRenderer: props => <ResourceGroupsResourceRenderer {...props} />
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ROLE, {

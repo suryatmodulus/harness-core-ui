@@ -2,7 +2,7 @@ import React from 'react'
 import { findAllByText, findByText, fireEvent, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import ArtifactWizard from '../ArtifactWizard/ArtifactWizard'
-import type { InitialArtifactDataType, TagTypes } from '../ArtifactInterface'
+import type { ArtifactType, InitialArtifactDataType, TagTypes } from '../ArtifactInterface'
 import { ImagePath } from '../ArtifactRepository/ArtifactLastSteps/ImagePath/ImagePath'
 import connectorsData from './connectors_mock.json'
 
@@ -161,7 +161,8 @@ describe('Artifact WizardStep tests', () => {
         tagRegex: ''
       },
       handleSubmit: jest.fn(),
-      artifactIdentifiers: []
+      artifactIdentifiers: [],
+      selectedArtifact: 'DockerRegistry' as ArtifactType
     }
 
     const { container } = render(

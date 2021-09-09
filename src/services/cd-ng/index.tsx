@@ -625,6 +625,10 @@ export interface Approvers {
   userGroups: string[]
 }
 
+export type ArgoConnector = ConnectorConfigDTO & {
+  adapterUrl?: string
+}
+
 export interface ArtifactConfig {
   [key: string]: any
 }
@@ -1135,6 +1139,7 @@ export interface ConnectorCatalogueItem {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1174,6 +1179,40 @@ export type ConnectorFilterProperties = FilterProperties & {
   connectorIdentifiers?: string[]
   connectorNames?: string[]
   description?: string
+  excludeTypes?: (
+    | 'K8sCluster'
+    | 'Git'
+    | 'Splunk'
+    | 'AppDynamics'
+    | 'Prometheus'
+    | 'Dynatrace'
+    | 'Vault'
+    | 'AzureKeyVault'
+    | 'DockerRegistry'
+    | 'Local'
+    | 'AwsKms'
+    | 'GcpKms'
+    | 'AwsSecretManager'
+    | 'Gcp'
+    | 'Aws'
+    | 'Artifactory'
+    | 'Jira'
+    | 'Nexus'
+    | 'Github'
+    | 'Gitlab'
+    | 'Bitbucket'
+    | 'Codecommit'
+    | 'CEAws'
+    | 'CEAzure'
+    | 'GcpCloudCost'
+    | 'CEK8sCluster'
+    | 'HttpHelmRepo'
+    | 'ArgoConnector'
+    | 'NewRelic'
+    | 'Datadog'
+    | 'SumoLogic'
+    | 'PagerDuty'
+  )[]
   inheritingCredentialsFromDelegate?: boolean
   types?: (
     | 'K8sCluster'
@@ -1203,6 +1242,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1248,6 +1288,7 @@ export interface ConnectorInfoDTO {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1304,6 +1345,7 @@ export interface ConnectorTypeStatistics {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1375,6 +1417,7 @@ export type CountInstanceSelection = InstanceSelectionBase & {
 export interface CreateInvite {
   inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
   roleBindings: RoleBinding[]
+  userGroups?: string[]
   users: string[]
 }
 
@@ -1475,6 +1518,7 @@ export interface DelegateProfileFilterProperties {
     | 'PipelineExecution'
     | 'Deployment'
     | 'Audit'
+    | 'Template'
   identifier?: string
   name?: string
   selectors?: string[]
@@ -1762,6 +1806,7 @@ export interface EntityDetail {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
 }
 
 export interface EntityGitDetails {
@@ -2552,6 +2597,7 @@ export interface FilterProperties {
     | 'PipelineExecution'
     | 'Deployment'
     | 'Audit'
+    | 'Template'
   tags?: {
     [key: string]: string
   }
@@ -2715,6 +2761,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
@@ -2744,6 +2791,7 @@ export interface GitEntityFilterProperties {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -2849,6 +2897,7 @@ export interface GitSyncEntityDTO {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   folderPath?: string
   gitConnectorId?: string
   repoProviderType?: 'github' | 'gitlab' | 'bitbucket' | 'unknown'
@@ -2880,6 +2929,7 @@ export interface GitSyncEntityListDTO {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -3292,6 +3342,7 @@ export interface Invite {
   orgIdentifier?: string
   projectIdentifier?: string
   roleBindings: RoleBinding[]
+  userGroups?: string[]
 }
 
 export type JexlCriteriaSpec = CriteriaSpec & {
@@ -5639,6 +5690,13 @@ export interface ResponseServiceDetailsInfoDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseServiceHeaderInfo {
+  correlationId?: string
+  data?: ServiceHeaderInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseServiceResponse {
   correlationId?: string
   data?: ServiceResponse
@@ -6263,6 +6321,15 @@ export interface ServiceExecutionSummary {
   identifier?: string
 }
 
+export interface ServiceHeaderInfo {
+  createdAt?: number
+  deploymentTypes?: string[]
+  description?: string
+  identifier?: string
+  lastModifiedAt?: number
+  name?: string
+}
+
 export interface ServiceOverrides {
   description?: string
   name?: string
@@ -6411,6 +6478,7 @@ export interface SourceCodeManagerAuthentication {
 }
 
 export interface SourceCodeManagerDTO {
+  accountIdentifier?: string
   authentication?: SourceCodeManagerAuthentication
   createdAt?: number
   id?: string
@@ -6881,6 +6949,7 @@ export interface UserGroupFilterDTO {
   identifierFilter?: string[]
   orgIdentifier?: string
   projectIdentifier?: string
+  searchTerm?: string
   userIdentifierFilter?: string[]
 }
 
@@ -6940,6 +7009,10 @@ export type ValuesManifest = ManifestAttributes & {
   store?: StoreConfigWrapper
 }
 
+export type VaultAgentCredentialDTO = VaultCredentialDTO & {
+  sinkPath?: string
+}
+
 export type VaultAppRoleCredentialDTO = VaultCredentialDTO & {
   appRoleId?: string
   secretId?: string
@@ -6950,18 +7023,21 @@ export type VaultAuthTokenCredentialDTO = VaultCredentialDTO & {
 }
 
 export type VaultConnectorDTO = ConnectorConfigDTO & {
-  accessType?: 'APP_ROLE' | 'TOKEN'
+  accessType?: 'APP_ROLE' | 'TOKEN' | 'VAULT_AGENT'
   appRoleId?: string
   authToken?: string
   basePath?: string
   default?: boolean
   delegateSelectors?: string[]
+  namespace?: string
   readOnly?: boolean
   renewalIntervalMinutes?: number
   secretEngineManuallyConfigured?: boolean
   secretEngineName?: string
   secretEngineVersion?: number
   secretId?: string
+  sinkPath?: string
+  useVaultAgent?: boolean
   vaultUrl?: string
 }
 
@@ -6970,8 +7046,9 @@ export interface VaultCredentialDTO {
 }
 
 export type VaultMetadataRequestSpecDTO = SecretManagerMetadataRequestSpecDTO & {
-  accessType: 'APP_ROLE' | 'TOKEN'
+  accessType: 'APP_ROLE' | 'TOKEN' | 'VAULT_AGENT'
   delegateSelectors?: string[]
+  namespace?: string
   spec?: VaultCredentialDTO
   url: string
 }
@@ -7066,9 +7143,9 @@ export type ProjectRequestRequestBody = ProjectRequest
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = SecretRequestWrapper
+export type SecretRequestWrapperRequestBody = void
 
-export type SecretRequestWrapper2RequestBody = void
+export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -7331,6 +7408,7 @@ export interface ListActivitiesQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -7354,6 +7432,7 @@ export interface ListActivitiesQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -7524,6 +7603,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -7547,6 +7627,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -10610,6 +10691,7 @@ export interface GetConnectorListQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -10888,6 +10970,7 @@ export interface GetAllAllowedFieldValuesQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -12135,6 +12218,57 @@ export const getActiveInstancesByServiceIdEnvIdAndBuildIdsPromise = (
     void
   >(getConfig('ng/api'), `/dashboard/getInstancesByServiceEnvAndBuilds`, props, signal)
 
+export interface GetServiceHeaderInfoQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceId: string
+}
+
+export type GetServiceHeaderInfoProps = Omit<
+  GetProps<ResponseServiceHeaderInfo, Failure | Error, GetServiceHeaderInfoQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get service header info
+ */
+export const GetServiceHeaderInfo = (props: GetServiceHeaderInfoProps) => (
+  <Get<ResponseServiceHeaderInfo, Failure | Error, GetServiceHeaderInfoQueryParams, void>
+    path={`/dashboard/getServiceHeaderInfo`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceHeaderInfoProps = Omit<
+  UseGetProps<ResponseServiceHeaderInfo, Failure | Error, GetServiceHeaderInfoQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get service header info
+ */
+export const useGetServiceHeaderInfo = (props: UseGetServiceHeaderInfoProps) =>
+  useGet<ResponseServiceHeaderInfo, Failure | Error, GetServiceHeaderInfoQueryParams, void>(
+    `/dashboard/getServiceHeaderInfo`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get service header info
+ */
+export const getServiceHeaderInfoPromise = (
+  props: GetUsingFetchProps<ResponseServiceHeaderInfo, Failure | Error, GetServiceHeaderInfoQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseServiceHeaderInfo, Failure | Error, GetServiceHeaderInfoQueryParams, void>(
+    getConfig('ng/api'),
+    `/dashboard/getServiceHeaderInfo`,
+    props,
+    signal
+  )
+
 export interface GetServicesGrowthTrendQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -12989,6 +13123,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -14139,7 +14274,15 @@ export interface GetFilterListQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
-  type: 'Connector' | 'DelegateProfile' | 'Delegate' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  type:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
+    | 'Template'
 }
 
 export type GetFilterListProps = Omit<
@@ -14291,7 +14434,15 @@ export interface DeleteFilterQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  type: 'Connector' | 'DelegateProfile' | 'Delegate' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  type:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
+    | 'Template'
 }
 
 export type DeleteFilterProps = Omit<
@@ -14344,7 +14495,15 @@ export interface GetFilterQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  type: 'Connector' | 'DelegateProfile' | 'Delegate' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  type:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
+    | 'Template'
 }
 
 export interface GetFilterPathParams {
@@ -14916,6 +15075,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -15007,6 +15167,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'Template'
       | 'Triggers'
       | 'MonitoredService'
+      | 'GitRepositories'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -19808,13 +19969,20 @@ export const verifyTokenPromise = (
     signal
   )
 
-export type GetSourceCodeManagersProps = Omit<GetProps<ResponseListSourceCodeManagerDTO, unknown, void, void>, 'path'>
+export interface GetSourceCodeManagersQueryParams {
+  accountIdentifier: string
+}
+
+export type GetSourceCodeManagersProps = Omit<
+  GetProps<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>,
+  'path'
+>
 
 /**
  * get source code manager information
  */
 export const GetSourceCodeManagers = (props: GetSourceCodeManagersProps) => (
-  <Get<ResponseListSourceCodeManagerDTO, unknown, void, void>
+  <Get<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>
     path={`/source-code-manager`}
     base={getConfig('ng/api')}
     {...props}
@@ -19822,7 +19990,7 @@ export const GetSourceCodeManagers = (props: GetSourceCodeManagersProps) => (
 )
 
 export type UseGetSourceCodeManagersProps = Omit<
-  UseGetProps<ResponseListSourceCodeManagerDTO, unknown, void, void>,
+  UseGetProps<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>,
   'path'
 >
 
@@ -19830,7 +19998,7 @@ export type UseGetSourceCodeManagersProps = Omit<
  * get source code manager information
  */
 export const useGetSourceCodeManagers = (props: UseGetSourceCodeManagersProps) =>
-  useGet<ResponseListSourceCodeManagerDTO, unknown, void, void>(`/source-code-manager`, {
+  useGet<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>(`/source-code-manager`, {
     base: getConfig('ng/api'),
     ...props
   })
@@ -19839,10 +20007,10 @@ export const useGetSourceCodeManagers = (props: UseGetSourceCodeManagersProps) =
  * get source code manager information
  */
 export const getSourceCodeManagersPromise = (
-  props: GetUsingFetchProps<ResponseListSourceCodeManagerDTO, unknown, void, void>,
+  props: GetUsingFetchProps<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListSourceCodeManagerDTO, unknown, void, void>(
+  getUsingFetch<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>(
     getConfig('ng/api'),
     `/source-code-manager`,
     props,
@@ -19896,8 +20064,12 @@ export const saveSourceCodeManagersPromise = (
     signal
   )
 
+export interface DeleteSourceCodeManagersQueryParams {
+  accountIdentifier: string
+}
+
 export type DeleteSourceCodeManagersProps = Omit<
-  MutateProps<ResponseBoolean, unknown, void, string, void>,
+  MutateProps<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -19905,7 +20077,7 @@ export type DeleteSourceCodeManagersProps = Omit<
  * delete source code manager
  */
 export const DeleteSourceCodeManagers = (props: DeleteSourceCodeManagersProps) => (
-  <Mutate<ResponseBoolean, unknown, void, string, void>
+  <Mutate<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>
     verb="DELETE"
     path={`/source-code-manager`}
     base={getConfig('ng/api')}
@@ -19914,7 +20086,7 @@ export const DeleteSourceCodeManagers = (props: DeleteSourceCodeManagersProps) =
 )
 
 export type UseDeleteSourceCodeManagersProps = Omit<
-  UseMutateProps<ResponseBoolean, unknown, void, string, void>,
+  UseMutateProps<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -19922,19 +20094,20 @@ export type UseDeleteSourceCodeManagersProps = Omit<
  * delete source code manager
  */
 export const useDeleteSourceCodeManagers = (props: UseDeleteSourceCodeManagersProps) =>
-  useMutate<ResponseBoolean, unknown, void, string, void>('DELETE', `/source-code-manager`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>(
+    'DELETE',
+    `/source-code-manager`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * delete source code manager
  */
 export const deleteSourceCodeManagersPromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, unknown, void, string, void>,
+  props: MutateUsingFetchProps<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseBoolean, unknown, void, string, void>(
+  mutateUsingFetch<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>(
     'DELETE',
     getConfig('ng/api'),
     `/source-code-manager`,
@@ -22886,7 +23059,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -22896,7 +23069,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -22909,7 +23082,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -22923,7 +23096,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -22935,7 +23108,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -22944,7 +23117,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -23337,7 +23510,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -23351,7 +23524,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >
     verb="POST"
@@ -23366,7 +23539,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -23380,7 +23553,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -23392,7 +23565,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -23401,7 +23574,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -23536,7 +23709,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -23551,7 +23724,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -23566,7 +23739,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -23581,7 +23754,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -23600,7 +23773,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -23609,7 +23782,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -23628,7 +23801,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -23643,7 +23816,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -23658,7 +23831,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -23673,7 +23846,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -23692,7 +23865,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -23701,7 +23874,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 
@@ -23779,6 +23952,7 @@ export interface GetYamlSchemaQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   subtype?:
     | 'K8sCluster'
     | 'Git'
@@ -23807,6 +23981,7 @@ export interface GetYamlSchemaQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -23905,6 +24080,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'sumologic'
     | 'dynatrace'
     | 'pagerduty'
+    | 'argoconnector'
   )[]
 }
 

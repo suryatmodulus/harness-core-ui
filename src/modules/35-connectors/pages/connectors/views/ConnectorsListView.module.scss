@@ -13,10 +13,11 @@
 .layout {
   justify-content: flex-end;
 }
+
 .testBtn {
-  color: var(--primary-7) !important;
-  border-color: var(--primary-7) !important;
+  align-self: center;
 }
+
 .testConnectionPop {
   border-radius: 4px;
   background-color: var(--white) !important;

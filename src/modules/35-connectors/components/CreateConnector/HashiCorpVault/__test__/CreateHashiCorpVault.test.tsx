@@ -6,6 +6,7 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
+import { HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 import { mockSecretList, mockResponse, connectorMockData, mockSecret, secretManagerInfo } from './mock'
 import CreateHashiCorpVault from '../CreateHashiCorpVault'
 
@@ -193,7 +194,7 @@ describe('Create Secret Manager Wizard', () => {
           container,
           type: InputTypes.RADIOS,
           fieldId: 'accessType',
-          value: 'TOKEN'
+          value: HashiCorpVaultAccessTypes.TOKEN
         }
       ])
 

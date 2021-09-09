@@ -21,5 +21,6 @@ declare const styles: {
   readonly extention: string
   readonly prereq: string
   readonly gray: string
+  readonly serviceAccountLoader: string
 }
 export default styles

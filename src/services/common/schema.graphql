@@ -51,7 +51,8 @@ type AboutUs {
   joinTeam: ComponentPageTeamZone
   coreValues: [ComponentPageModules]
   investors: ComponentPageSimpleZone
-  offices: [ComponentPageAdressZone]
+  offices: [ComponentCompanyPageAdressZone]
+  harnessOffices: ComponentCompanyPageOfficesZone
   published_at: DateTime
   created_by: AdminUser
   updated_by: AdminUser
@@ -64,7 +65,8 @@ input AboutUsInput {
   joinTeam: ComponentPageTeamZoneInput
   coreValues: [ComponentPageModuleInput]
   investors: ComponentPageSimpleZoneInput
-  offices: [ComponentPageAdressZoneInput]
+  offices: [ComponentCompanyPageAdressZoneInput]
+  harnessOffices: ComponentCompanyPageOfficesZoneInput
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -77,7 +79,8 @@ input editAboutUsInput {
   joinTeam: editComponentPageTeamZoneInput
   coreValues: [editComponentPageModuleInput]
   investors: editComponentPageSimpleZoneInput
-  offices: [editComponentPageAdressZoneInput]
+  offices: [editComponentCompanyPageAdressZoneInput]
+  harnessOffices: editComponentCompanyPageOfficesZoneInput
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -1131,6 +1134,392 @@ type deleteDevOpsToolPayload {
   devOpsTool: DevOpsTools
 }
 
+type EBook {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String!
+  slug: String!
+  preview_image: UploadFile
+  content: String
+  published: DateTime
+  detail_image: UploadFile
+  mkto_form_id: Int
+  pdf: UploadFile
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type EBookConnection {
+  values: [EBook]
+  groupBy: EBookGroupBy
+  aggregate: EBookAggregator
+}
+
+type EBookAggregator {
+  count: Int
+  totalCount: Int
+  sum: EBookAggregatorSum
+  avg: EBookAggregatorAvg
+  min: EBookAggregatorMin
+  max: EBookAggregatorMax
+}
+
+type EBookAggregatorSum {
+  mkto_form_id: Float
+}
+
+type EBookAggregatorAvg {
+  mkto_form_id: Float
+}
+
+type EBookAggregatorMin {
+  mkto_form_id: Float
+}
+
+type EBookAggregatorMax {
+  mkto_form_id: Float
+}
+
+type EBookGroupBy {
+  id: [EBookConnectionId]
+  created_at: [EBookConnectionCreated_at]
+  updated_at: [EBookConnectionUpdated_at]
+  title: [EBookConnectionTitle]
+  slug: [EBookConnectionSlug]
+  preview_image: [EBookConnectionPreview_image]
+  content: [EBookConnectionContent]
+  published: [EBookConnectionPublished]
+  detail_image: [EBookConnectionDetail_image]
+  mkto_form_id: [EBookConnectionMkto_form_id]
+  pdf: [EBookConnectionPdf]
+  published_at: [EBookConnectionPublished_at]
+  created_by: [EBookConnectionCreated_by]
+  updated_by: [EBookConnectionUpdated_by]
+}
+
+type EBookConnectionId {
+  key: ID
+  connection: EBookConnection
+}
+
+type EBookConnectionCreated_at {
+  key: DateTime
+  connection: EBookConnection
+}
+
+type EBookConnectionUpdated_at {
+  key: DateTime
+  connection: EBookConnection
+}
+
+type EBookConnectionTitle {
+  key: String
+  connection: EBookConnection
+}
+
+type EBookConnectionSlug {
+  key: String
+  connection: EBookConnection
+}
+
+type EBookConnectionPreview_image {
+  key: ID
+  connection: EBookConnection
+}
+
+type EBookConnectionContent {
+  key: String
+  connection: EBookConnection
+}
+
+type EBookConnectionPublished {
+  key: DateTime
+  connection: EBookConnection
+}
+
+type EBookConnectionDetail_image {
+  key: ID
+  connection: EBookConnection
+}
+
+type EBookConnectionMkto_form_id {
+  key: Int
+  connection: EBookConnection
+}
+
+type EBookConnectionPdf {
+  key: ID
+  connection: EBookConnection
+}
+
+type EBookConnectionPublished_at {
+  key: DateTime
+  connection: EBookConnection
+}
+
+type EBookConnectionCreated_by {
+  key: ID
+  connection: EBookConnection
+}
+
+type EBookConnectionUpdated_by {
+  key: ID
+  connection: EBookConnection
+}
+
+input EBookInput {
+  title: String!
+  slug: String!
+  preview_image: ID
+  content: String
+  published: DateTime
+  detail_image: ID
+  mkto_form_id: Int
+  pdf: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editEBookInput {
+  title: String
+  slug: String
+  preview_image: ID
+  content: String
+  published: DateTime
+  detail_image: ID
+  mkto_form_id: Int
+  pdf: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createEBookInput {
+  data: EBookInput
+}
+
+type createEBookPayload {
+  eBook: EBook
+}
+
+input updateEBookInput {
+  where: InputID
+  data: editEBookInput
+}
+
+type updateEBookPayload {
+  eBook: EBook
+}
+
+input deleteEBookInput {
+  where: InputID
+}
+
+type deleteEBookPayload {
+  eBook: EBook
+}
+
+type Event {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String!
+  slug: String!
+  topBannerText: String
+  topBannerImg: UploadFile
+  profilesHeading: String
+  detailsLeftColumn: String
+  detailsRightColumn: String
+  registration: Boolean
+  mkto_form_id: String
+  mktoFormTitle: String
+  registerImage: UploadFile
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+  panelists(sort: String, limit: Int, start: Int, where: JSON): [Panelist]
+}
+
+type EventConnection {
+  values: [Event]
+  groupBy: EventGroupBy
+  aggregate: EventAggregator
+}
+
+type EventAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type EventGroupBy {
+  id: [EventConnectionId]
+  created_at: [EventConnectionCreated_at]
+  updated_at: [EventConnectionUpdated_at]
+  title: [EventConnectionTitle]
+  slug: [EventConnectionSlug]
+  topBannerText: [EventConnectionTopBannerText]
+  topBannerImg: [EventConnectionTopBannerImg]
+  profilesHeading: [EventConnectionProfilesHeading]
+  detailsLeftColumn: [EventConnectionDetailsLeftColumn]
+  detailsRightColumn: [EventConnectionDetailsRightColumn]
+  registration: [EventConnectionRegistration]
+  mkto_form_id: [EventConnectionMkto_form_id]
+  mktoFormTitle: [EventConnectionMktoFormTitle]
+  registerImage: [EventConnectionRegisterImage]
+  published_at: [EventConnectionPublished_at]
+  created_by: [EventConnectionCreated_by]
+  updated_by: [EventConnectionUpdated_by]
+}
+
+type EventConnectionId {
+  key: ID
+  connection: EventConnection
+}
+
+type EventConnectionCreated_at {
+  key: DateTime
+  connection: EventConnection
+}
+
+type EventConnectionUpdated_at {
+  key: DateTime
+  connection: EventConnection
+}
+
+type EventConnectionTitle {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionSlug {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionTopBannerText {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionTopBannerImg {
+  key: ID
+  connection: EventConnection
+}
+
+type EventConnectionProfilesHeading {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionDetailsLeftColumn {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionDetailsRightColumn {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionRegistration {
+  key: Boolean
+  connection: EventConnection
+}
+
+type EventConnectionMkto_form_id {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionMktoFormTitle {
+  key: String
+  connection: EventConnection
+}
+
+type EventConnectionRegisterImage {
+  key: ID
+  connection: EventConnection
+}
+
+type EventConnectionPublished_at {
+  key: DateTime
+  connection: EventConnection
+}
+
+type EventConnectionCreated_by {
+  key: ID
+  connection: EventConnection
+}
+
+type EventConnectionUpdated_by {
+  key: ID
+  connection: EventConnection
+}
+
+input EventInput {
+  title: String!
+  slug: String!
+  topBannerText: String
+  topBannerImg: ID
+  profilesHeading: String
+  panelists: [ID]
+  detailsLeftColumn: String
+  detailsRightColumn: String
+  registration: Boolean
+  mkto_form_id: String
+  mktoFormTitle: String
+  registerImage: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editEventInput {
+  title: String
+  slug: String
+  topBannerText: String
+  topBannerImg: ID
+  profilesHeading: String
+  panelists: [ID]
+  detailsLeftColumn: String
+  detailsRightColumn: String
+  registration: Boolean
+  mkto_form_id: String
+  mktoFormTitle: String
+  registerImage: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createEventInput {
+  data: EventInput
+}
+
+type createEventPayload {
+  event: Event
+}
+
+input updateEventInput {
+  where: InputID
+  data: editEventInput
+}
+
+type updateEventPayload {
+  event: Event
+}
+
+input deleteEventInput {
+  where: InputID
+}
+
+type deleteEventPayload {
+  event: Event
+}
+
 enum ENUM_HARNESSMODULE_MODULESTYLE {
   deployment
   builds
@@ -2048,6 +2437,147 @@ type deleteOutcomePayload {
   outcome: Outcome
 }
 
+type Panelist {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  firstName: String
+  lastName: String
+  profile_image: UploadFile
+  jobTitle: String
+  company: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type PanelistConnection {
+  values: [Panelist]
+  groupBy: PanelistGroupBy
+  aggregate: PanelistAggregator
+}
+
+type PanelistAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type PanelistGroupBy {
+  id: [PanelistConnectionId]
+  created_at: [PanelistConnectionCreated_at]
+  updated_at: [PanelistConnectionUpdated_at]
+  firstName: [PanelistConnectionFirstName]
+  lastName: [PanelistConnectionLastName]
+  profile_image: [PanelistConnectionProfile_image]
+  jobTitle: [PanelistConnectionJobTitle]
+  company: [PanelistConnectionCompany]
+  published_at: [PanelistConnectionPublished_at]
+  created_by: [PanelistConnectionCreated_by]
+  updated_by: [PanelistConnectionUpdated_by]
+}
+
+type PanelistConnectionId {
+  key: ID
+  connection: PanelistConnection
+}
+
+type PanelistConnectionCreated_at {
+  key: DateTime
+  connection: PanelistConnection
+}
+
+type PanelistConnectionUpdated_at {
+  key: DateTime
+  connection: PanelistConnection
+}
+
+type PanelistConnectionFirstName {
+  key: String
+  connection: PanelistConnection
+}
+
+type PanelistConnectionLastName {
+  key: String
+  connection: PanelistConnection
+}
+
+type PanelistConnectionProfile_image {
+  key: ID
+  connection: PanelistConnection
+}
+
+type PanelistConnectionJobTitle {
+  key: String
+  connection: PanelistConnection
+}
+
+type PanelistConnectionCompany {
+  key: String
+  connection: PanelistConnection
+}
+
+type PanelistConnectionPublished_at {
+  key: DateTime
+  connection: PanelistConnection
+}
+
+type PanelistConnectionCreated_by {
+  key: ID
+  connection: PanelistConnection
+}
+
+type PanelistConnectionUpdated_by {
+  key: ID
+  connection: PanelistConnection
+}
+
+input PanelistInput {
+  firstName: String
+  lastName: String
+  profile_image: ID
+  jobTitle: String
+  company: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editPanelistInput {
+  firstName: String
+  lastName: String
+  profile_image: ID
+  jobTitle: String
+  company: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createPanelistInput {
+  data: PanelistInput
+}
+
+type createPanelistPayload {
+  panelist: Panelist
+}
+
+input updatePanelistInput {
+  where: InputID
+  data: editPanelistInput
+}
+
+type updatePanelistPayload {
+  panelist: Panelist
+}
+
+input deletePanelistInput {
+  where: InputID
+}
+
+type deletePanelistPayload {
+  panelist: Panelist
+}
+
 type Partners {
   id: ID!
   created_at: DateTime!
@@ -2157,6 +2687,8 @@ type Pricing {
   ciFaq: [ComponentPricingPageFaq]
   ffFaq: [ComponentPricingPageFaq]
   ccFaq: [ComponentPricingPageFaq]
+  openSource: ComponentPricingPageCallOut
+  tooltips: [ComponentPricingPageTooltipsZone]
   published_at: DateTime
   created_by: AdminUser
   updated_by: AdminUser
@@ -2187,6 +2719,8 @@ input PricingInput {
   ciFaq: [ComponentPricingPageFaqInput]
   ffFaq: [ComponentPricingPageFaqInput]
   ccFaq: [ComponentPricingPageFaqInput]
+  openSource: ComponentPricingPageCallOutInput
+  tooltips: [ComponentPricingPageTooltipsZoneInput]
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2217,6 +2751,8 @@ input editPricingInput {
   ciFaq: [editComponentPricingPageFaqInput]
   ffFaq: [editComponentPricingPageFaqInput]
   ccFaq: [editComponentPricingPageFaqInput]
+  openSource: editComponentPricingPageCallOutInput
+  tooltips: [editComponentPricingPageTooltipsZoneInput]
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2234,6 +2770,48 @@ type deletePricingPayload {
   pricing: Pricing
 }
 
+type Privacy {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String
+  date: String
+  content: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input PrivacyInput {
+  title: String
+  date: String
+  content: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editPrivacyInput {
+  title: String
+  date: String
+  content: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updatePrivacyInput {
+  data: editPrivacyInput
+}
+
+type updatePrivacyPayload {
+  privacy: Privacy
+}
+
+type deletePrivacyPayload {
+  privacy: Privacy
+}
+
 type ProductCd {
   id: ID!
   created_at: DateTime!
@@ -2242,10 +2820,10 @@ type ProductCd {
   customerLogos: [ComponentPageCustomerLogoZone]
   featureScreenshots: [ComponentPageOptionZone]
   features: [ComponentPageModules]
-  integrations: ComponentPageMultiImgZone
+  integrations: ComponentProductPageIntegrationsZone
   caseStudies: [ComponentPageCaseStudyZone]
-  plans: [ComponentPricingPagePlansZone]
-  morePlans: [ComponentPricingPageMorePlansZone]
+  harnessPlatform: ComponentPageProductIntroLogoZone
+  featuresTitle: String
   published_at: DateTime
   created_by: AdminUser
   updated_by: AdminUser
@@ -2256,10 +2834,10 @@ input ProductCdInput {
   customerLogos: [ComponentPageCustomerLogoZoneInput]
   featureScreenshots: [ComponentPageOptionZoneInput]
   features: [ComponentPageModuleInput]
-  integrations: ComponentPageMultiImgZoneInput
+  integrations: ComponentProductPageIntegrationsZoneInput
   caseStudies: [ComponentPageCaseStudyZoneInput]
-  plans: [ComponentPricingPagePlansZoneInput]
-  morePlans: [ComponentPricingPageMorePlansZoneInput]
+  harnessPlatform: ComponentPageProductIntroLogoZoneInput
+  featuresTitle: String
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2270,10 +2848,10 @@ input editProductCdInput {
   customerLogos: [editComponentPageCustomerLogoZoneInput]
   featureScreenshots: [editComponentPageOptionZoneInput]
   features: [editComponentPageModuleInput]
-  integrations: editComponentPageMultiImgZoneInput
+  integrations: editComponentProductPageIntegrationsZoneInput
   caseStudies: [editComponentPageCaseStudyZoneInput]
-  plans: [editComponentPricingPagePlansZoneInput]
-  morePlans: [editComponentPricingPageMorePlansZoneInput]
+  harnessPlatform: editComponentPageProductIntroLogoZoneInput
+  featuresTitle: String
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2299,8 +2877,9 @@ type ProductChangeIntelligence {
   customerLogos: [ComponentPageCustomerLogoZone]
   featureScreenshots: [ComponentPageOptionZone]
   features: [ComponentPageModules]
-  integrations: ComponentPageMultiImgZone
+  integrations: ComponentProductPageIntegrationsZone
   caseStudies: [ComponentPageCaseStudyZone]
+  featuresTitle: String
   published_at: DateTime
   created_by: AdminUser
   updated_by: AdminUser
@@ -2311,8 +2890,9 @@ input ProductChangeIntelligenceInput {
   customerLogos: [ComponentPageCustomerLogoZoneInput]
   featureScreenshots: [ComponentPageOptionZoneInput]
   features: [ComponentPageModuleInput]
-  integrations: ComponentPageMultiImgZoneInput
+  integrations: ComponentProductPageIntegrationsZoneInput
   caseStudies: [ComponentPageCaseStudyZoneInput]
+  featuresTitle: String
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2323,8 +2903,9 @@ input editProductChangeIntelligenceInput {
   customerLogos: [editComponentPageCustomerLogoZoneInput]
   featureScreenshots: [editComponentPageOptionZoneInput]
   features: [editComponentPageModuleInput]
-  integrations: editComponentPageMultiImgZoneInput
+  integrations: editComponentProductPageIntegrationsZoneInput
   caseStudies: [editComponentPageCaseStudyZoneInput]
+  featuresTitle: String
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2350,10 +2931,10 @@ type ProductCi {
   customerLogos: [ComponentPageCustomerLogoZone]
   featureScreenshots: [ComponentPageOptionZone]
   features: [ComponentPageModules]
-  integrations: ComponentPageMultiImgZone
+  integrations: ComponentProductPageIntegrationsZone
   caseStudies: [ComponentPageCaseStudyZone]
-  plans: [ComponentPricingPagePlansZone]
-  morePlans: [ComponentPricingPageMorePlansZone]
+  harnessPlatform: ComponentPageProductIntroLogoZone
+  featuresTitle: String
   published_at: DateTime
   created_by: AdminUser
   updated_by: AdminUser
@@ -2364,10 +2945,10 @@ input ProductCiInput {
   customerLogos: [ComponentPageCustomerLogoZoneInput]
   featureScreenshots: [ComponentPageOptionZoneInput]
   features: [ComponentPageModuleInput]
-  integrations: ComponentPageMultiImgZoneInput
+  integrations: ComponentProductPageIntegrationsZoneInput
   caseStudies: [ComponentPageCaseStudyZoneInput]
-  plans: [ComponentPricingPagePlansZoneInput]
-  morePlans: [ComponentPricingPageMorePlansZoneInput]
+  harnessPlatform: ComponentPageProductIntroLogoZoneInput
+  featuresTitle: String
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2378,10 +2959,10 @@ input editProductCiInput {
   customerLogos: [editComponentPageCustomerLogoZoneInput]
   featureScreenshots: [editComponentPageOptionZoneInput]
   features: [editComponentPageModuleInput]
-  integrations: editComponentPageMultiImgZoneInput
+  integrations: editComponentProductPageIntegrationsZoneInput
   caseStudies: [editComponentPageCaseStudyZoneInput]
-  plans: [editComponentPricingPagePlansZoneInput]
-  morePlans: [editComponentPricingPageMorePlansZoneInput]
+  harnessPlatform: editComponentPageProductIntroLogoZoneInput
+  featuresTitle: String
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2407,10 +2988,12 @@ type ProductCloudCost {
   customerLogos: [ComponentPageCustomerLogoZone]
   featureScreenshots: [ComponentPageOptionZone]
   costTransparency: [ComponentPageModules]
-  integrations: ComponentPageMultiImgZone
+  integrations: ComponentProductPageIntegrationsZone
   caseStudies: [ComponentPageCaseStudyZone]
   optimization: [ComponentPageModules]
   governance: [ComponentPageModules]
+  harnessPlatform: ComponentPageProductIntroLogoZone
+  featuresTitle: String
   published_at: DateTime
   created_by: AdminUser
   updated_by: AdminUser
@@ -2421,10 +3004,12 @@ input ProductCloudCostInput {
   customerLogos: [ComponentPageCustomerLogoZoneInput]
   featureScreenshots: [ComponentPageOptionZoneInput]
   costTransparency: [ComponentPageModuleInput]
-  integrations: ComponentPageMultiImgZoneInput
+  integrations: ComponentProductPageIntegrationsZoneInput
   caseStudies: [ComponentPageCaseStudyZoneInput]
   optimization: [ComponentPageModuleInput]
   governance: [ComponentPageModuleInput]
+  harnessPlatform: ComponentPageProductIntroLogoZoneInput
+  featuresTitle: String
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2435,10 +3020,12 @@ input editProductCloudCostInput {
   customerLogos: [editComponentPageCustomerLogoZoneInput]
   featureScreenshots: [editComponentPageOptionZoneInput]
   costTransparency: [editComponentPageModuleInput]
-  integrations: editComponentPageMultiImgZoneInput
+  integrations: editComponentProductPageIntegrationsZoneInput
   caseStudies: [editComponentPageCaseStudyZoneInput]
   optimization: [editComponentPageModuleInput]
   governance: [editComponentPageModuleInput]
+  harnessPlatform: editComponentPageProductIntroLogoZoneInput
+  featuresTitle: String
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2464,10 +3051,13 @@ type ProductFeatureFlags {
   customerLogos: [ComponentPageCustomerLogoZone]
   featureScreenshots: [ComponentPageOptionZone]
   features: [ComponentPageModules]
-  integrations: ComponentPageMultiImgZone
   caseStudies: [ComponentPageCaseStudyZone]
-  plans: [ComponentPricingPagePlansZone]
-  morePlans: [ComponentPricingPageMorePlansZone]
+  harnessPlatform: ComponentPageProductIntroLogoZone
+  sectionOptions: ComponentPageSectionOptions
+  featuresTitle: String
+  integrations: ComponentProductPageIntegrationZone
+  featuresTitle2: String
+  features2: [ComponentPageModules]
   published_at: DateTime
   created_by: AdminUser
   updated_by: AdminUser
@@ -2478,10 +3068,13 @@ input ProductFeatureFlagInput {
   customerLogos: [ComponentPageCustomerLogoZoneInput]
   featureScreenshots: [ComponentPageOptionZoneInput]
   features: [ComponentPageModuleInput]
-  integrations: ComponentPageMultiImgZoneInput
   caseStudies: [ComponentPageCaseStudyZoneInput]
-  plans: [ComponentPricingPagePlansZoneInput]
-  morePlans: [ComponentPricingPageMorePlansZoneInput]
+  harnessPlatform: ComponentPageProductIntroLogoZoneInput
+  sectionOptions: ComponentPageSectionOptionInput
+  featuresTitle: String
+  integrations: ComponentProductPageIntegrationZoneInput
+  featuresTitle2: String
+  features2: [ComponentPageModuleInput]
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2492,10 +3085,13 @@ input editProductFeatureFlagInput {
   customerLogos: [editComponentPageCustomerLogoZoneInput]
   featureScreenshots: [editComponentPageOptionZoneInput]
   features: [editComponentPageModuleInput]
-  integrations: editComponentPageMultiImgZoneInput
   caseStudies: [editComponentPageCaseStudyZoneInput]
-  plans: [editComponentPricingPagePlansZoneInput]
-  morePlans: [editComponentPricingPageMorePlansZoneInput]
+  harnessPlatform: editComponentPageProductIntroLogoZoneInput
+  sectionOptions: editComponentPageSectionOptionInput
+  featuresTitle: String
+  integrations: editComponentProductPageIntegrationZoneInput
+  featuresTitle2: String
+  features2: [editComponentPageModuleInput]
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2517,42 +3113,57 @@ type ProductPlatform {
   id: ID!
   created_at: DateTime!
   updated_at: DateTime!
-  title: ComponentPageTitleZone
+  hero: ComponentPageProductTitleZone
   modules: [ComponentPageModules]
   caseStudies: [ComponentPageCaseStudyZone]
   features: [ComponentPageModules]
   platformModules: ComponentPageTitleZone
-  supportedPlatforms: ComponentPageMultiImgZone
+  supportedPlatforms: ComponentProductPageIntegrationsZone
   hostingOptions: ComponentPageOptionZone
-  integrations: ComponentPageMultiImgZone
+  integrations: ComponentProductPageIntegrationsZone
+  harnessPlatform: ComponentPageProductIntroLogoZone
+  workflow: ComponentPageWorkflow
+  sectionOptions: ComponentPageSectionOptions
+  sectionSecurity: ComponentPageSectionSecurity
+  featuresTitle: String
   published_at: DateTime
   created_by: AdminUser
   updated_by: AdminUser
 }
 
 input ProductPlatformInput {
-  title: ComponentPageTitleZoneInput
+  hero: ComponentPageProductTitleZoneInput
   modules: [ComponentPageModuleInput]
   caseStudies: [ComponentPageCaseStudyZoneInput]
   features: [ComponentPageModuleInput]
   platformModules: ComponentPageTitleZoneInput
-  supportedPlatforms: ComponentPageMultiImgZoneInput
+  supportedPlatforms: ComponentProductPageIntegrationsZoneInput
   hostingOptions: ComponentPageOptionZoneInput
-  integrations: ComponentPageMultiImgZoneInput
+  integrations: ComponentProductPageIntegrationsZoneInput
+  harnessPlatform: ComponentPageProductIntroLogoZoneInput
+  workflow: ComponentPageWorkflowInput
+  sectionOptions: ComponentPageSectionOptionInput
+  sectionSecurity: ComponentPageSectionSecurityInput
+  featuresTitle: String
   published_at: DateTime
   created_by: ID
   updated_by: ID
 }
 
 input editProductPlatformInput {
-  title: editComponentPageTitleZoneInput
+  hero: editComponentPageProductTitleZoneInput
   modules: [editComponentPageModuleInput]
   caseStudies: [editComponentPageCaseStudyZoneInput]
   features: [editComponentPageModuleInput]
   platformModules: editComponentPageTitleZoneInput
-  supportedPlatforms: editComponentPageMultiImgZoneInput
+  supportedPlatforms: editComponentProductPageIntegrationsZoneInput
   hostingOptions: editComponentPageOptionZoneInput
-  integrations: editComponentPageMultiImgZoneInput
+  integrations: editComponentProductPageIntegrationsZoneInput
+  harnessPlatform: editComponentPageProductIntroLogoZoneInput
+  workflow: editComponentPageWorkflowInput
+  sectionOptions: editComponentPageSectionOptionInput
+  sectionSecurity: editComponentPageSectionSecurityInput
+  featuresTitle: String
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -2568,6 +3179,439 @@ type updateProductPlatformPayload {
 
 type deleteProductPlatformPayload {
   productPlatform: ProductPlatform
+}
+
+type Video {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String!
+  slug: String!
+  videoType: String
+  preview_image: UploadFile
+  content: String
+  mkto_form_id: Int
+  published: DateTime
+  duration: String
+  registration: Boolean
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+  panelists(sort: String, limit: Int, start: Int, where: JSON): [Panelist]
+}
+
+type VideoConnection {
+  values: [Video]
+  groupBy: VideoGroupBy
+  aggregate: VideoAggregator
+}
+
+type VideoAggregator {
+  count: Int
+  totalCount: Int
+  sum: VideoAggregatorSum
+  avg: VideoAggregatorAvg
+  min: VideoAggregatorMin
+  max: VideoAggregatorMax
+}
+
+type VideoAggregatorSum {
+  mkto_form_id: Float
+}
+
+type VideoAggregatorAvg {
+  mkto_form_id: Float
+}
+
+type VideoAggregatorMin {
+  mkto_form_id: Float
+}
+
+type VideoAggregatorMax {
+  mkto_form_id: Float
+}
+
+type VideoGroupBy {
+  id: [VideoConnectionId]
+  created_at: [VideoConnectionCreated_at]
+  updated_at: [VideoConnectionUpdated_at]
+  title: [VideoConnectionTitle]
+  slug: [VideoConnectionSlug]
+  videoType: [VideoConnectionVideoType]
+  preview_image: [VideoConnectionPreview_image]
+  content: [VideoConnectionContent]
+  mkto_form_id: [VideoConnectionMkto_form_id]
+  published: [VideoConnectionPublished]
+  duration: [VideoConnectionDuration]
+  registration: [VideoConnectionRegistration]
+  published_at: [VideoConnectionPublished_at]
+  created_by: [VideoConnectionCreated_by]
+  updated_by: [VideoConnectionUpdated_by]
+}
+
+type VideoConnectionId {
+  key: ID
+  connection: VideoConnection
+}
+
+type VideoConnectionCreated_at {
+  key: DateTime
+  connection: VideoConnection
+}
+
+type VideoConnectionUpdated_at {
+  key: DateTime
+  connection: VideoConnection
+}
+
+type VideoConnectionTitle {
+  key: String
+  connection: VideoConnection
+}
+
+type VideoConnectionSlug {
+  key: String
+  connection: VideoConnection
+}
+
+type VideoConnectionVideoType {
+  key: String
+  connection: VideoConnection
+}
+
+type VideoConnectionPreview_image {
+  key: ID
+  connection: VideoConnection
+}
+
+type VideoConnectionContent {
+  key: String
+  connection: VideoConnection
+}
+
+type VideoConnectionMkto_form_id {
+  key: Int
+  connection: VideoConnection
+}
+
+type VideoConnectionPublished {
+  key: DateTime
+  connection: VideoConnection
+}
+
+type VideoConnectionDuration {
+  key: String
+  connection: VideoConnection
+}
+
+type VideoConnectionRegistration {
+  key: Boolean
+  connection: VideoConnection
+}
+
+type VideoConnectionPublished_at {
+  key: DateTime
+  connection: VideoConnection
+}
+
+type VideoConnectionCreated_by {
+  key: ID
+  connection: VideoConnection
+}
+
+type VideoConnectionUpdated_by {
+  key: ID
+  connection: VideoConnection
+}
+
+input VideoInput {
+  title: String!
+  slug: String!
+  videoType: String
+  preview_image: ID
+  content: String
+  mkto_form_id: Int
+  panelists: [ID]
+  published: DateTime
+  duration: String
+  registration: Boolean
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editVideoInput {
+  title: String
+  slug: String
+  videoType: String
+  preview_image: ID
+  content: String
+  mkto_form_id: Int
+  panelists: [ID]
+  published: DateTime
+  duration: String
+  registration: Boolean
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createVideoInput {
+  data: VideoInput
+}
+
+type createVideoPayload {
+  video: Video
+}
+
+input updateVideoInput {
+  where: InputID
+  data: editVideoInput
+}
+
+type updateVideoPayload {
+  video: Video
+}
+
+input deleteVideoInput {
+  where: InputID
+}
+
+type deleteVideoPayload {
+  video: Video
+}
+
+type Webinars {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String
+  slug: String!
+  eventType: String
+  eventDateTime: String
+  content: String
+  preview_image: UploadFile
+  mkto_form_id: Int
+  published: DateTime
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+  panelists(sort: String, limit: Int, start: Int, where: JSON): [Panelist]
+}
+
+type WebinarsConnection {
+  values: [Webinars]
+  groupBy: WebinarsGroupBy
+  aggregate: WebinarsAggregator
+}
+
+type WebinarsAggregator {
+  count: Int
+  totalCount: Int
+  sum: WebinarsAggregatorSum
+  avg: WebinarsAggregatorAvg
+  min: WebinarsAggregatorMin
+  max: WebinarsAggregatorMax
+}
+
+type WebinarsAggregatorSum {
+  mkto_form_id: Float
+}
+
+type WebinarsAggregatorAvg {
+  mkto_form_id: Float
+}
+
+type WebinarsAggregatorMin {
+  mkto_form_id: Float
+}
+
+type WebinarsAggregatorMax {
+  mkto_form_id: Float
+}
+
+type WebinarsGroupBy {
+  id: [WebinarsConnectionId]
+  created_at: [WebinarsConnectionCreated_at]
+  updated_at: [WebinarsConnectionUpdated_at]
+  title: [WebinarsConnectionTitle]
+  slug: [WebinarsConnectionSlug]
+  eventType: [WebinarsConnectionEventType]
+  eventDateTime: [WebinarsConnectionEventDateTime]
+  content: [WebinarsConnectionContent]
+  preview_image: [WebinarsConnectionPreview_image]
+  mkto_form_id: [WebinarsConnectionMkto_form_id]
+  published: [WebinarsConnectionPublished]
+  published_at: [WebinarsConnectionPublished_at]
+  created_by: [WebinarsConnectionCreated_by]
+  updated_by: [WebinarsConnectionUpdated_by]
+}
+
+type WebinarsConnectionId {
+  key: ID
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionCreated_at {
+  key: DateTime
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionUpdated_at {
+  key: DateTime
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionTitle {
+  key: String
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionSlug {
+  key: String
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionEventType {
+  key: String
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionEventDateTime {
+  key: String
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionContent {
+  key: String
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionPreview_image {
+  key: ID
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionMkto_form_id {
+  key: Int
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionPublished {
+  key: DateTime
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionPublished_at {
+  key: DateTime
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionCreated_by {
+  key: ID
+  connection: WebinarsConnection
+}
+
+type WebinarsConnectionUpdated_by {
+  key: ID
+  connection: WebinarsConnection
+}
+
+input WebinarInput {
+  title: String
+  slug: String!
+  eventType: String
+  eventDateTime: String
+  content: String
+  preview_image: ID
+  mkto_form_id: Int
+  published: DateTime
+  panelists: [ID]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editWebinarInput {
+  title: String
+  slug: String
+  eventType: String
+  eventDateTime: String
+  content: String
+  preview_image: ID
+  mkto_form_id: Int
+  published: DateTime
+  panelists: [ID]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createWebinarInput {
+  data: WebinarInput
+}
+
+type createWebinarPayload {
+  webinar: Webinars
+}
+
+input updateWebinarInput {
+  where: InputID
+  data: editWebinarInput
+}
+
+type updateWebinarPayload {
+  webinar: Webinars
+}
+
+input deleteWebinarInput {
+  where: InputID
+}
+
+type deleteWebinarPayload {
+  webinar: Webinars
+}
+
+type WebsiteTermsOfUse {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String
+  content: String
+  date: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input WebsiteTermsOfUseInput {
+  title: String
+  content: String
+  date: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editWebsiteTermsOfUseInput {
+  title: String
+  content: String
+  date: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateWebsiteTermsOfUseInput {
+  data: editWebsiteTermsOfUseInput
+}
+
+type updateWebsiteTermsOfUsePayload {
+  websiteTermsOfUse: WebsiteTermsOfUse
+}
+
+type deleteWebsiteTermsOfUsePayload {
+  websiteTermsOfUse: WebsiteTermsOfUse
 }
 
 type UploadFile {
@@ -3124,6 +4168,46 @@ type deleteUserPayload {
   user: UsersPermissionsUser
 }
 
+type ComponentCompanyPageAdressZone {
+  id: ID!
+  name: String
+  address: String
+}
+
+input ComponentCompanyPageAdressZoneInput {
+  name: String
+  address: String
+}
+
+input editComponentCompanyPageAdressZoneInput {
+  id: ID
+  name: String
+  address: String
+}
+
+type ComponentCompanyPageOfficesZone {
+  id: ID!
+  title: String
+  subTitle: String
+  desc: String
+  addresses: [ComponentCompanyPageAdressZone]
+}
+
+input ComponentCompanyPageOfficesZoneInput {
+  title: String
+  subTitle: String
+  desc: String
+  addresses: [ComponentCompanyPageAdressZoneInput]
+}
+
+input editComponentCompanyPageOfficesZoneInput {
+  id: ID
+  title: String
+  subTitle: String
+  desc: String
+  addresses: [editComponentCompanyPageAdressZoneInput]
+}
+
 type ComponentCompetitorComparisonPageComparisonCaseStudy {
   id: ID!
   title: String
@@ -3285,23 +4369,6 @@ input editComponentCompetitorComparisonPageProductSummaryZoneInput {
   logo: ID
 }
 
-type ComponentPageAdressZone {
-  id: ID!
-  name: String
-  address: String
-}
-
-input ComponentPageAdressZoneInput {
-  name: String
-  address: String
-}
-
-input editComponentPageAdressZoneInput {
-  id: ID
-  name: String
-  address: String
-}
-
 enum ENUM_COMPONENTPAGECASELISTZONE_MODULECOLOR {
   deployment
   builds
@@ -3344,6 +4411,7 @@ type ComponentPageCaseStudyZone {
   link: String
   clientPic: UploadFile
   background_color: BackgroundColor
+  btnText: String
   harness_modules(sort: String, limit: Int, start: Int, where: JSON): [HarnessModule]
 }
 
@@ -3354,6 +4422,7 @@ input ComponentPageCaseStudyZoneInput {
   clientPic: ID
   harness_modules: [ID]
   background_color: ID
+  btnText: String
 }
 
 input editComponentPageCaseStudyZoneInput {
@@ -3364,6 +4433,7 @@ input editComponentPageCaseStudyZoneInput {
   clientPic: ID
   harness_modules: [ID]
   background_color: ID
+  btnText: String
 }
 
 type ComponentPageCustomerLogoZone {
@@ -3441,6 +4511,29 @@ input editComponentPageHarnessModuleInput {
   id: ID
   harness_modules: [ID]
   title: String
+}
+
+type ComponentPageImagePlus {
+  id: ID!
+  name: String
+  link: String
+  comingSoon: Boolean
+  img: UploadFile
+}
+
+input ComponentPageImagePlusInput {
+  name: String
+  link: String
+  comingSoon: Boolean
+  img: ID
+}
+
+input editComponentPageImagePlusInput {
+  id: ID
+  name: String
+  link: String
+  comingSoon: Boolean
+  img: ID
 }
 
 type ComponentPageImageZone {
@@ -3613,6 +4706,29 @@ input editComponentPageOptionZoneInput {
   screenshot: ID
 }
 
+type ComponentPageProductIntroLogoZone {
+  id: ID!
+  prodLogo: UploadFile
+  prodIntroTitle: String
+  ProdIntroDesc: String
+  prodIntroScreenshot: UploadFile
+}
+
+input ComponentPageProductIntroLogoZoneInput {
+  prodLogo: ID
+  prodIntroTitle: String
+  ProdIntroDesc: String
+  prodIntroScreenshot: ID
+}
+
+input editComponentPageProductIntroLogoZoneInput {
+  id: ID
+  prodLogo: ID
+  prodIntroTitle: String
+  ProdIntroDesc: String
+  prodIntroScreenshot: ID
+}
+
 type ComponentPageProductTitleZone {
   id: ID!
   title: String
@@ -3700,6 +4816,49 @@ input editComponentPageScreenshotZoneInput {
   title: String
   img: [editComponentPageImageZoneInput]
   desc: String
+}
+
+type ComponentPageSectionOptions {
+  id: ID!
+  optionTitle: String
+  optionDesc: String
+  optionImg: UploadFile
+  richTextDesc: String
+}
+
+input ComponentPageSectionOptionInput {
+  optionTitle: String
+  optionDesc: String
+  optionImg: ID
+  richTextDesc: String
+}
+
+input editComponentPageSectionOptionInput {
+  id: ID
+  optionTitle: String
+  optionDesc: String
+  optionImg: ID
+  richTextDesc: String
+}
+
+type ComponentPageSectionSecurity {
+  id: ID!
+  securityTitle: String
+  securityDesc: String
+  securityImg: UploadFile
+}
+
+input ComponentPageSectionSecurityInput {
+  securityTitle: String
+  securityDesc: String
+  securityImg: ID
+}
+
+input editComponentPageSectionSecurityInput {
+  id: ID
+  securityTitle: String
+  securityDesc: String
+  securityImg: ID
 }
 
 type ComponentPageSimpleTitleZone {
@@ -3876,6 +5035,49 @@ input editComponentPageTitleZoneInput {
   desktopHeroAnimation: ID
   mobileHeroAnimation: ID
   img: ID
+}
+
+type ComponentPageWorkflowCard {
+  id: ID!
+  cardTitle: String
+  cardDesc: String
+  cardImg: UploadFile
+}
+
+input ComponentPageWorkflowCardInput {
+  cardTitle: String
+  cardDesc: String
+  cardImg: ID
+}
+
+input editComponentPageWorkflowCardInput {
+  id: ID
+  cardTitle: String
+  cardDesc: String
+  cardImg: ID
+}
+
+type ComponentPageWorkflow {
+  id: ID!
+  workflowTitle: String
+  workflowDesc: String
+  workflowImg: UploadFile
+  workflowCard: [ComponentPageWorkflowCard]
+}
+
+input ComponentPageWorkflowInput {
+  workflowTitle: String
+  workflowDesc: String
+  workflowImg: ID
+  workflowCard: [ComponentPageWorkflowCardInput]
+}
+
+input editComponentPageWorkflowInput {
+  id: ID
+  workflowTitle: String
+  workflowDesc: String
+  workflowImg: ID
+  workflowCard: [editComponentPageWorkflowCardInput]
 }
 
 type ComponentPricingPageCallOut {
@@ -4082,7 +5284,12 @@ type ComponentPricingPagePlansZone {
   priceTips: String
   support: String
   featureTitle: String
-  callOut: ComponentPricingPageCallOut
+  unitTips: String
+  priceTerm: String
+  priceTermTips: String
+  yearlyPriceTips: String
+  yearlyPriceTerm: String
+  yearlyPriceTermTips: String
 }
 
 input ComponentPricingPagePlansZoneInput {
@@ -4100,7 +5307,12 @@ input ComponentPricingPagePlansZoneInput {
   priceTips: String
   support: String
   featureTitle: String
-  callOut: ComponentPricingPageCallOutInput
+  unitTips: String
+  priceTerm: String
+  priceTermTips: String
+  yearlyPriceTips: String
+  yearlyPriceTerm: String
+  yearlyPriceTermTips: String
 }
 
 input editComponentPricingPagePlansZoneInput {
@@ -4119,7 +5331,90 @@ input editComponentPricingPagePlansZoneInput {
   priceTips: String
   support: String
   featureTitle: String
-  callOut: editComponentPricingPageCallOutInput
+  unitTips: String
+  priceTerm: String
+  priceTermTips: String
+  yearlyPriceTips: String
+  yearlyPriceTerm: String
+  yearlyPriceTermTips: String
+}
+
+type ComponentPricingPageTooltipsZone {
+  id: ID!
+  keyword: String
+  tooltip: String
+}
+
+input ComponentPricingPageTooltipsZoneInput {
+  keyword: String
+  tooltip: String
+}
+
+input editComponentPricingPageTooltipsZoneInput {
+  id: ID
+  keyword: String
+  tooltip: String
+}
+
+type ComponentProductPageIntegrationZone {
+  id: ID!
+  title: String
+  subTitle: String
+  link: String
+  secondaryLink: String
+  desc: String
+  clientSide: [ComponentPageImagePlus]
+  serverSide: [ComponentPageImagePlus]
+}
+
+input ComponentProductPageIntegrationZoneInput {
+  title: String
+  subTitle: String
+  link: String
+  secondaryLink: String
+  desc: String
+  clientSide: [ComponentPageImagePlusInput]
+  serverSide: [ComponentPageImagePlusInput]
+}
+
+input editComponentProductPageIntegrationZoneInput {
+  id: ID
+  title: String
+  subTitle: String
+  link: String
+  secondaryLink: String
+  desc: String
+  clientSide: [editComponentPageImagePlusInput]
+  serverSide: [editComponentPageImagePlusInput]
+}
+
+type ComponentProductPageIntegrationsZone {
+  id: ID!
+  title: String
+  subTitle: String
+  link: String
+  secondaryLink: String
+  desc: String
+  img: [ComponentPageImagePlus]
+}
+
+input ComponentProductPageIntegrationsZoneInput {
+  title: String
+  subTitle: String
+  link: String
+  secondaryLink: String
+  desc: String
+  img: [ComponentPageImagePlusInput]
+}
+
+input editComponentProductPageIntegrationsZoneInput {
+  id: ID
+  title: String
+  subTitle: String
+  link: String
+  secondaryLink: String
+  desc: String
+  img: [editComponentPageImagePlusInput]
 }
 
 union Morph =
@@ -4251,6 +5546,55 @@ union Morph =
   | DevOpsTools
   | updateDevOpsToolPayload
   | deleteDevOpsToolPayload
+  | EBook
+  | EBookConnection
+  | EBookAggregator
+  | EBookAggregatorSum
+  | EBookAggregatorAvg
+  | EBookAggregatorMin
+  | EBookAggregatorMax
+  | EBookGroupBy
+  | EBookConnectionId
+  | EBookConnectionCreated_at
+  | EBookConnectionUpdated_at
+  | EBookConnectionTitle
+  | EBookConnectionSlug
+  | EBookConnectionPreview_image
+  | EBookConnectionContent
+  | EBookConnectionPublished
+  | EBookConnectionDetail_image
+  | EBookConnectionMkto_form_id
+  | EBookConnectionPdf
+  | EBookConnectionPublished_at
+  | EBookConnectionCreated_by
+  | EBookConnectionUpdated_by
+  | createEBookPayload
+  | updateEBookPayload
+  | deleteEBookPayload
+  | Event
+  | EventConnection
+  | EventAggregator
+  | EventGroupBy
+  | EventConnectionId
+  | EventConnectionCreated_at
+  | EventConnectionUpdated_at
+  | EventConnectionTitle
+  | EventConnectionSlug
+  | EventConnectionTopBannerText
+  | EventConnectionTopBannerImg
+  | EventConnectionProfilesHeading
+  | EventConnectionDetailsLeftColumn
+  | EventConnectionDetailsRightColumn
+  | EventConnectionRegistration
+  | EventConnectionMkto_form_id
+  | EventConnectionMktoFormTitle
+  | EventConnectionRegisterImage
+  | EventConnectionPublished_at
+  | EventConnectionCreated_by
+  | EventConnectionUpdated_by
+  | createEventPayload
+  | updateEventPayload
+  | deleteEventPayload
   | HarnessModule
   | HarnessModuleConnection
   | HarnessModuleAggregator
@@ -4360,6 +5704,24 @@ union Morph =
   | createOutcomePayload
   | updateOutcomePayload
   | deleteOutcomePayload
+  | Panelist
+  | PanelistConnection
+  | PanelistAggregator
+  | PanelistGroupBy
+  | PanelistConnectionId
+  | PanelistConnectionCreated_at
+  | PanelistConnectionUpdated_at
+  | PanelistConnectionFirstName
+  | PanelistConnectionLastName
+  | PanelistConnectionProfile_image
+  | PanelistConnectionJobTitle
+  | PanelistConnectionCompany
+  | PanelistConnectionPublished_at
+  | PanelistConnectionCreated_by
+  | PanelistConnectionUpdated_by
+  | createPanelistPayload
+  | updatePanelistPayload
+  | deletePanelistPayload
   | Partners
   | updatePartnerPayload
   | deletePartnerPayload
@@ -4369,6 +5731,9 @@ union Morph =
   | Pricing
   | updatePricingPayload
   | deletePricingPayload
+  | Privacy
+  | updatePrivacyPayload
+  | deletePrivacyPayload
   | ProductCd
   | updateProductCdPayload
   | deleteProductCdPayload
@@ -4387,6 +5752,60 @@ union Morph =
   | ProductPlatform
   | updateProductPlatformPayload
   | deleteProductPlatformPayload
+  | Video
+  | VideoConnection
+  | VideoAggregator
+  | VideoAggregatorSum
+  | VideoAggregatorAvg
+  | VideoAggregatorMin
+  | VideoAggregatorMax
+  | VideoGroupBy
+  | VideoConnectionId
+  | VideoConnectionCreated_at
+  | VideoConnectionUpdated_at
+  | VideoConnectionTitle
+  | VideoConnectionSlug
+  | VideoConnectionVideoType
+  | VideoConnectionPreview_image
+  | VideoConnectionContent
+  | VideoConnectionMkto_form_id
+  | VideoConnectionPublished
+  | VideoConnectionDuration
+  | VideoConnectionRegistration
+  | VideoConnectionPublished_at
+  | VideoConnectionCreated_by
+  | VideoConnectionUpdated_by
+  | createVideoPayload
+  | updateVideoPayload
+  | deleteVideoPayload
+  | Webinars
+  | WebinarsConnection
+  | WebinarsAggregator
+  | WebinarsAggregatorSum
+  | WebinarsAggregatorAvg
+  | WebinarsAggregatorMin
+  | WebinarsAggregatorMax
+  | WebinarsGroupBy
+  | WebinarsConnectionId
+  | WebinarsConnectionCreated_at
+  | WebinarsConnectionUpdated_at
+  | WebinarsConnectionTitle
+  | WebinarsConnectionSlug
+  | WebinarsConnectionEventType
+  | WebinarsConnectionEventDateTime
+  | WebinarsConnectionContent
+  | WebinarsConnectionPreview_image
+  | WebinarsConnectionMkto_form_id
+  | WebinarsConnectionPublished
+  | WebinarsConnectionPublished_at
+  | WebinarsConnectionCreated_by
+  | WebinarsConnectionUpdated_by
+  | createWebinarPayload
+  | updateWebinarPayload
+  | deleteWebinarPayload
+  | WebsiteTermsOfUse
+  | updateWebsiteTermsOfUsePayload
+  | deleteWebsiteTermsOfUsePayload
   | UploadFile
   | UploadFileConnection
   | UploadFileAggregator
@@ -4453,19 +5872,21 @@ union Morph =
   | createUserPayload
   | updateUserPayload
   | deleteUserPayload
+  | ComponentCompanyPageAdressZone
+  | ComponentCompanyPageOfficesZone
   | ComponentCompetitorComparisonPageComparisonCaseStudy
   | ComponentCompetitorComparisonPageDetailedFeatureComparison
   | ComponentCompetitorComparisonPageFeatureComparison
   | ComponentCompetitorComparisonPageProductDetailedFeature
   | ComponentCompetitorComparisonPageProductFeature
   | ComponentCompetitorComparisonPageProductSummaryZone
-  | ComponentPageAdressZone
   | ComponentPageCaseListZone
   | ComponentPageCaseStudyZone
   | ComponentPageCustomerLogoZone
   | ComponentPageExecutiveZone
   | ComponentPageFeatureLIstZone
   | ComponentPageHarnessModule
+  | ComponentPageImagePlus
   | ComponentPageImageZone
   | ComponentPageMiniTitleZone
   | ComponentPageModules
@@ -4473,10 +5894,13 @@ union Morph =
   | ComponentPageMultiImgZone
   | ComponentPageNewsZone
   | ComponentPageOptionZone
+  | ComponentPageProductIntroLogoZone
   | ComponentPageProductTitleZone
   | ComponentPageQuoteZone
   | ComponentPageRichTextZone
   | ComponentPageScreenshotZone
+  | ComponentPageSectionOptions
+  | ComponentPageSectionSecurity
   | ComponentPageSimpleTitleZone
   | ComponentPageSimpleZone
   | ComponentPageTeamZone
@@ -4484,6 +5908,8 @@ union Morph =
   | ComponentPageTextZone
   | ComponentPageTitleImgZone
   | ComponentPageTitleZone
+  | ComponentPageWorkflowCard
+  | ComponentPageWorkflow
   | ComponentPricingPageCallOut
   | ComponentPricingPageDetailedFeature
   | ComponentPricingPageFaq
@@ -4491,6 +5917,9 @@ union Morph =
   | ComponentPricingPageFeatureGroup
   | ComponentPricingPageMorePlansZone
   | ComponentPricingPagePlansZone
+  | ComponentPricingPageTooltipsZone
+  | ComponentProductPageIntegrationZone
+  | ComponentProductPageIntegrationsZone
 
 input InputID {
   id: ID!
@@ -4543,6 +5972,12 @@ type Query {
   contactusesConnection(sort: String, limit: Int, start: Int, where: JSON): ContactUsConnection
   customer(publicationState: PublicationState): Customer
   devOpsTool(publicationState: PublicationState): DevOpsTools
+  eBook(id: ID!, publicationState: PublicationState): EBook
+  eBooks(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [EBook]
+  eBooksConnection(sort: String, limit: Int, start: Int, where: JSON): EBookConnection
+  event(id: ID!, publicationState: PublicationState): Event
+  events(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Event]
+  eventsConnection(sort: String, limit: Int, start: Int, where: JSON): EventConnection
   harnessModule(id: ID!, publicationState: PublicationState): HarnessModule
   harnessModules(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [HarnessModule]
   harnessModulesConnection(sort: String, limit: Int, start: Int, where: JSON): HarnessModuleConnection
@@ -4560,15 +5995,26 @@ type Query {
   outcome(id: ID!, publicationState: PublicationState): Outcome
   outcomes(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Outcome]
   outcomesConnection(sort: String, limit: Int, start: Int, where: JSON): OutcomeConnection
+  panelist(id: ID!, publicationState: PublicationState): Panelist
+  panelists(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Panelist]
+  panelistsConnection(sort: String, limit: Int, start: Int, where: JSON): PanelistConnection
   partner(publicationState: PublicationState): Partners
   pressAndNew(publicationState: PublicationState): PressAndNews
   pricing(publicationState: PublicationState): Pricing
+  privacy(publicationState: PublicationState): Privacy
   productCd(publicationState: PublicationState): ProductCd
   productChangeIntelligence(publicationState: PublicationState): ProductChangeIntelligence
   productCi(publicationState: PublicationState): ProductCi
   productCloudCost(publicationState: PublicationState): ProductCloudCost
   productFeatureFlag(publicationState: PublicationState): ProductFeatureFlags
   productPlatform(publicationState: PublicationState): ProductPlatform
+  video(id: ID!, publicationState: PublicationState): Video
+  videos(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Video]
+  videosConnection(sort: String, limit: Int, start: Int, where: JSON): VideoConnection
+  webinar(id: ID!, publicationState: PublicationState): Webinars
+  webinars(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Webinars]
+  webinarsConnection(sort: String, limit: Int, start: Int, where: JSON): WebinarsConnection
+  websiteTermsOfUse(publicationState: PublicationState): WebsiteTermsOfUse
   files(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UploadFile]
   filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!, publicationState: PublicationState): UsersPermissionsRole
@@ -4611,6 +6057,12 @@ type Mutation {
   deleteCustomer: deleteCustomerPayload
   updateDevOpsTool(input: updateDevOpsToolInput): updateDevOpsToolPayload
   deleteDevOpsTool: deleteDevOpsToolPayload
+  createEBook(input: createEBookInput): createEBookPayload
+  updateEBook(input: updateEBookInput): updateEBookPayload
+  deleteEBook(input: deleteEBookInput): deleteEBookPayload
+  createEvent(input: createEventInput): createEventPayload
+  updateEvent(input: updateEventInput): updateEventPayload
+  deleteEvent(input: deleteEventInput): deleteEventPayload
   createHarnessModule(input: createHarnessModuleInput): createHarnessModulePayload
   updateHarnessModule(input: updateHarnessModuleInput): updateHarnessModulePayload
   deleteHarnessModule(input: deleteHarnessModuleInput): deleteHarnessModulePayload
@@ -4630,12 +6082,17 @@ type Mutation {
   createOutcome(input: createOutcomeInput): createOutcomePayload
   updateOutcome(input: updateOutcomeInput): updateOutcomePayload
   deleteOutcome(input: deleteOutcomeInput): deleteOutcomePayload
+  createPanelist(input: createPanelistInput): createPanelistPayload
+  updatePanelist(input: updatePanelistInput): updatePanelistPayload
+  deletePanelist(input: deletePanelistInput): deletePanelistPayload
   updatePartner(input: updatePartnerInput): updatePartnerPayload
   deletePartner: deletePartnerPayload
   updatePressAndNew(input: updatePressAndNewInput): updatePressAndNewPayload
   deletePressAndNew: deletePressAndNewPayload
   updatePricing(input: updatePricingInput): updatePricingPayload
   deletePricing: deletePricingPayload
+  updatePrivacy(input: updatePrivacyInput): updatePrivacyPayload
+  deletePrivacy: deletePrivacyPayload
   updateProductCd(input: updateProductCdInput): updateProductCdPayload
   deleteProductCd: deleteProductCdPayload
   updateProductChangeIntelligence(input: updateProductChangeIntelligenceInput): updateProductChangeIntelligencePayload
@@ -4648,6 +6105,14 @@ type Mutation {
   deleteProductFeatureFlag: deleteProductFeatureFlagPayload
   updateProductPlatform(input: updateProductPlatformInput): updateProductPlatformPayload
   deleteProductPlatform: deleteProductPlatformPayload
+  createVideo(input: createVideoInput): createVideoPayload
+  updateVideo(input: updateVideoInput): updateVideoPayload
+  deleteVideo(input: deleteVideoInput): deleteVideoPayload
+  createWebinar(input: createWebinarInput): createWebinarPayload
+  updateWebinar(input: updateWebinarInput): updateWebinarPayload
+  deleteWebinar(input: deleteWebinarInput): deleteWebinarPayload
+  updateWebsiteTermsOfUse(input: updateWebsiteTermsOfUseInput): updateWebsiteTermsOfUsePayload
+  deleteWebsiteTermsOfUse: deleteWebsiteTermsOfUsePayload
 
   """
   Delete one file

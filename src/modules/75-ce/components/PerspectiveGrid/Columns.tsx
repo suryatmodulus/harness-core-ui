@@ -30,8 +30,8 @@ export const addLegendColorToRow = (data: QlceViewEntityStatsDataPoint[]): GridD
   let idx = 0
   const colors = new Map()
 
-  return data.map(({ name, clusterData = {}, storageDetails = {}, instanceDetails = {}, ...rest }) => {
-    const key = name?.toLowerCase()
+  return data.map(({ name, id, clusterData = {}, storageDetails = {}, instanceDetails = {}, ...rest }) => {
+    const key = id
     if (!colors.has(key)) {
       colors.set(key, CE_COLOR_CONST[idx % CE_COLOR_CONST.length])
       idx++

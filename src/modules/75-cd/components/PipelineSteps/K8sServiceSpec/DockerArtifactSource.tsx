@@ -12,7 +12,7 @@ import {
   SelectOption,
   Text
 } from '@wings-software/uicore'
-import { ArtifactSourceBase, ArtifactSourceRenderProps, AsyncStatus } from '@cd/factory/ArtifactSourceBase'
+import { ArtifactSourceBase, ArtifactSourceRenderProps } from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBase'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
@@ -20,7 +20,7 @@ import { getBuildDetailsForDockerWithYamlPromise } from 'services/cd-ng'
 
 import ExperimentalInput from './K8sServiceSpecForms/ExperimentalInput'
 import { clearRuntimeInputValue, isFieldRuntime } from './K8sServiceSpecHelper'
-import { PrimaryArtifactTooltip } from './Utils'
+import { AsyncStatus, PrimaryArtifactTooltip } from './Utils'
 import css from './K8sServiceSpec.module.scss'
 
 interface DockerFetchTagsParams {

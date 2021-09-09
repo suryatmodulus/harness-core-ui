@@ -190,6 +190,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'aws-secret-manager'
     case Connectors.PAGER_DUTY:
       return 'service-pagerduty'
+    case Connectors.ARGO:
+      return 'argo'
     default:
       return 'placeholder'
   }

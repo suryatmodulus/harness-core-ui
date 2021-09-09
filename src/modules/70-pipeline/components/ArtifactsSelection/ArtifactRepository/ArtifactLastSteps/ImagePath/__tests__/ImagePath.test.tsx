@@ -1,7 +1,7 @@
 import React from 'react'
 import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { TagTypes } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
+import { ArtifactType, TagTypes } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ImagePath } from '../ImagePath'
 
 const props = {
@@ -9,7 +9,8 @@ const props = {
   expressions: [],
   context: 2,
   handleSubmit: jest.fn(),
-  artifactIdentifiers: []
+  artifactIdentifiers: [],
+  selectedArtifact: 'DockerRegistry' as ArtifactType
 }
 
 jest.mock('services/cd-ng', () => ({

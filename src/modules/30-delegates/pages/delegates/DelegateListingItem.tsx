@@ -212,7 +212,7 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
 
 export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroubleshoterProps) => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<Record<string, string>>()
   const history = useHistory()
 
   const [canAccessDelegate] = usePermission(
@@ -241,6 +241,9 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
       }
       if (projectIdentifier) {
         set(params, 'projectIdentifier', projectIdentifier)
+      }
+      if (module) {
+        set(params, 'module', module)
       }
       history.push(routes.toDelegatesDetails(params))
     }

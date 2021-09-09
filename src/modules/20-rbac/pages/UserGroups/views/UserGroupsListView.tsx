@@ -12,7 +12,7 @@ import {
   RoleAssignmentMetadataDTO
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
-import { useStrings } from 'framework/strings'
+import { useStrings, String } from 'framework/strings'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
@@ -37,12 +37,10 @@ interface UserGroupsListViewProps {
   openUserGroupModal: (userGroup?: UserGroupDTO, _isAddMember?: boolean) => void
 }
 
-const RenderColumnUserGroup: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row }) => {
-  const { getString } = useStrings()
-  const data = row.original.userGroupDTO
+export const UserGroupColumn = (data: UserGroupDTO): React.ReactElement => {
   return (
     <Layout.Vertical>
-      <Text>{data.name}</Text>
+      <Text color={Color.BLACK}>{data.name}</Text>
       {data.ssoLinked ? (
         <Layout.Horizontal
           flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
@@ -50,12 +48,14 @@ const RenderColumnUserGroup: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row
           className={css.truncatedText}
         >
           <Text icon={'link'} iconProps={{ color: Color.BLUE_500, size: 10 }} color={Color.BLACK}>
-            {getString('rbac.userDetails.linkToSSOProviderModal.saml')}
+            <String stringID="rbac.userDetails.linkToSSOProviderModal.saml" />
           </Text>
           <Text lineClamp={1} width={110}>
             {data.linkedSsoDisplayName}
           </Text>
-          <Text color={Color.BLACK}>{getString('rbac.userDetails.linkToSSOProviderModal.group')}</Text>
+          <Text color={Color.BLACK}>
+            <String stringID="rbac.userDetails.linkToSSOProviderModal.group" />
+          </Text>
           <Text lineClamp={1} width={110}>
             {data.ssoGroupName}
           </Text>
@@ -63,6 +63,11 @@ const RenderColumnUserGroup: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row
       ) : null}
     </Layout.Vertical>
   )
+}
+
+const RenderColumnUserGroup: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row }) => {
+  const data = row.original.userGroupDTO
+  return UserGroupColumn(data)
 }
 
 const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, column }) => {

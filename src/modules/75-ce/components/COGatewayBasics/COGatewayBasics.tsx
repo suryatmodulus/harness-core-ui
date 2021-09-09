@@ -3,12 +3,10 @@ import { Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { useTelemetry } from '@common/hooks/useTelemetry'
-import createConnectorModal from '@ce/components/Connectors/createConnectorModal'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { useStrings } from 'framework/strings'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
-import { Utils } from '@ce/common/Utils'
 import { Connectors } from '@connectors/constants'
 
 interface COGatewayBasicsProps {
@@ -25,19 +23,19 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
   const handleConnectorCreationSuccess = (data: ConnectorInfoDTO | undefined): void => {
     handleConnectorSelection(data as ConnectorInfoDTO)
   }
-  const { openConnectorModal } = createConnectorModal({
-    onSuccess: handleConnectorCreationSuccess
-    // onClose: () => {
-    // }
-  })
-  const { openConnectorModal: openAzureConnectorModal } = useCreateConnectorModal({
+  // const { openConnectorModal } = createConnectorModal({
+  //   onSuccess: handleConnectorCreationSuccess
+  // onClose: () => {
+  // }
+  // })
+  const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: data => {
       handleConnectorCreationSuccess(data?.connector)
     }
   })
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
-  const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
+  // const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const [selectedConnector, setSelectedConnector] = useState<ConnectorInfoDTO | null>(null)
 
   useEffect(() => {
@@ -56,19 +54,33 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
     trackEvent('SelectingExistingConnector', {})
   }
 
+  const getConnectorType = (provider: string) => {
+    switch (provider) {
+      case 'AWS':
+        return Connectors.CEAWS
+      case 'GCP':
+        return Connectors.CE_GCP
+      case 'Azure':
+        return Connectors.CE_AZURE
+      case 'Kubernetes':
+        return Connectors.CE_KUBERNETES
+      default:
+        return null
+    }
+  }
+
+  const handleConnectorCreation = (selectedProvider: string) => {
+    const connectorType = getConnectorType(selectedProvider)
+    if (connectorType) {
+      openConnectorModal(false, connectorType, {
+        connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
+      })
+    }
+  }
+
   useEffect(() => {
     if (props.provider) {
-      switch (props.provider) {
-        case 'CEAws':
-          openConnectorModal(false, 'CEAws')
-          break
-        case 'CEAzure':
-          openAzureConnectorModal(false, Connectors.CE_AZURE, {
-            connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
-          })
-          break
-        default:
-      }
+      handleConnectorCreation(props.provider)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.provider])
@@ -90,22 +102,14 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           onChange={handleConnectorSelection}
           type={
             props.gatewayDetails.provider.value
-              ? props.gatewayDetails.provider.value === 'aws'
-                ? Connectors.CEAWS
-                : Connectors.CE_AZURE
+              ? (getConnectorType(props.gatewayDetails.provider.name) as ConnectorInfoDTO['type'])
               : undefined
           }
         />
       </Layout.Vertical>
       <span
         onClick={() => {
-          if (isAwsProvider) {
-            openConnectorModal(false, 'CEAws')
-          } else {
-            openAzureConnectorModal(false, Connectors.CE_AZURE, {
-              connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
-            })
-          }
+          handleConnectorCreation(props.gatewayDetails.provider.name)
           trackEvent('MadeNewConnector', {})
         }}
         style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}
@@ -121,7 +125,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
         <div>
           <span
             onClick={() => {
-              openAzureConnectorModal(false, Connectors.CEAWS, {
+              openConnectorModal(false, Connectors.CEAWS, {
                 connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
               })
             }}
@@ -135,7 +139,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
         <div>
           <span
             onClick={() => {
-              openAzureConnectorModal(false, Connectors.CE_GCP, {
+              openConnectorModal(false, Connectors.CE_GCP, {
                 connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
               })
             }}

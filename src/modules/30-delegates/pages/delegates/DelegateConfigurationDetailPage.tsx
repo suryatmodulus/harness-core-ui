@@ -27,7 +27,6 @@ import DelegateConfigScopePreview from '@delegates/components/DelegateConfigScop
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { DelegateTab } from './utils/DelegateHelper'
 import { DetailPageTemplate } from '../../components/DetailPageTemplate/DetailPageTemplate'
 import css from './DelegateConfigurationDetailPage.module.scss'
 
@@ -52,8 +51,8 @@ export default function DelegateProfileDetails(): JSX.Element {
   }, [profile])
   const breadcrumbs = [
     {
-      title: getString('delegate.delegates'),
-      url: routes.toDelegates({
+      label: getString('delegate.delegates'),
+      url: routes.toDelegateList({
         accountId,
         orgIdentifier,
         projectIdentifier,
@@ -61,14 +60,13 @@ export default function DelegateProfileDetails(): JSX.Element {
       })
     },
     {
-      title: getString('delegate.delegatesConfigurations'),
-      url:
-        routes.toDelegates({
-          accountId,
-          orgIdentifier,
-          projectIdentifier,
-          module
-        }) + `?tab=${DelegateTab.CONFIGURATIONS}`
+      label: getString('delegate.delegatesConfigurations'),
+      url: routes.toDelegateConfigs({
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        module
+      })
     }
   ]
   const [editMode, toggleEditMode] = useToggle(false)

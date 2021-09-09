@@ -7,9 +7,7 @@ import { String, useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { Page, StringUtils } from '@common/exports'
 import { useQueryParams, useMutateAsGet, useUpdateQueryParams } from '@common/hooks'
-import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -64,15 +62,15 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const { replaceQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
 
   const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch, searchTerm } = queryParams
+
   const hasFilters =
-    [queryParams.pipelineIdentifier, status, filterIdentifier, searchTerm].some(filter => filter !== undefined) ||
-    myDeployments
+    [queryParams.pipelineIdentifier, queryParams.filters, status, filterIdentifier, searchTerm].some(
+      filter => filter !== undefined
+    ) || myDeployments
 
   const isCIModule = module === 'ci'
   const { getString } = useStrings()
   const hasFilterIdentifier = filterIdentifier && filterIdentifier !== StringUtils.getIdentifierFromName(UNSAVED_FILTER)
-
-  useDocumentTitle([getString('pipelines'), getString('executionsText')])
 
   const {
     data,
@@ -179,7 +177,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
             <div className={css.noDeploymentSection}>
               {hasFilters ? (
                 <Layout.Vertical spacing="small" flex>
-                  <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} margin={{ bottom: 'large' }} />
+                  <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-main'} margin={{ bottom: 'large' }} />
                   <Text
                     margin={{ top: 'large', bottom: 'small' }}
                     font={{ weight: 'bold', size: 'medium' }}

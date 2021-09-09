@@ -1,0 +1,41 @@
+.main {
+  --primary-color: var(--primary-6);
+  position: absolute;
+  height: 100% !important;
+  z-index: 5;
+  pointer-events: none;
+  top: 0;
+
+  .sliderContainer {
+    border: 3px solid var(--primary-color);
+    border-radius: 3px;
+    height: 100% !important;
+    position: relative;
+    pointer-events: auto;
+
+    .leftHandle,
+    .rightHandle {
+      position: absolute;
+      top: 50%;
+    }
+
+    .magnifyingGlass {
+      width: 100% !important;
+      height: 100% !important;
+      transform: translate(0, 0) !important;
+    }
+
+    &::after {
+      --triangle-height: 14px;
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: var(--triangle-height) solid transparent;
+      border-right: var(--triangle-height) solid transparent;
+      border-top: var(--triangle-height) solid var(--primary-color);
+      position: relative;
+      top: var(--triangle-height);
+      left: calc(50% - var(--triangle-height));
+    }
+  }
+}

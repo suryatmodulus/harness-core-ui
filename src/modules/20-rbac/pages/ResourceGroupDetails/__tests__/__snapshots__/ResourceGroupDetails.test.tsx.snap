@@ -3,7 +3,7 @@
 exports[`Resource Groups Page render data 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xlarge headerContainer StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main container xlarge StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -204,7 +204,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
               >
                 <label
-                  class="bp3-control bp3-checkbox checkBox"
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
                 >
                   <input
                     data-testid="CHECK-BOX-ADMINSTRATIVE_FUNCTIONS"
@@ -239,10 +239,10 @@ exports[`Resource Groups Page render data 1`] = `
                 </p>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main resourceSubList"
+                class="Layout--horizontal StyledProps--main resourceSubList StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
               >
                 <label
-                  class="bp3-control bp3-checkbox"
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main"
                 >
                   <input
                     checked=""
@@ -260,10 +260,10 @@ exports[`Resource Groups Page render data 1`] = `
                 </p>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main resourceSubList"
+                class="Layout--horizontal StyledProps--main resourceSubList StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
               >
                 <label
-                  class="bp3-control bp3-checkbox"
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main"
                 >
                   <input
                     data-testid="CHECK-BOX-PROJECT"
@@ -292,7 +292,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
               >
                 <label
-                  class="bp3-control bp3-checkbox checkBox"
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkBox StyledProps--main"
                 >
                   <input
                     data-testid="CHECK-BOX-SHARED_RESOURCES"
@@ -327,10 +327,10 @@ exports[`Resource Groups Page render data 1`] = `
                 </p>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main resourceSubList"
+                class="Layout--horizontal StyledProps--main resourceSubList StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
               >
                 <label
-                  class="bp3-control bp3-checkbox"
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main"
                 >
                   <input
                     data-testid="CHECK-BOX-SECRET"
@@ -347,10 +347,10 @@ exports[`Resource Groups Page render data 1`] = `
                 </p>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main resourceSubList"
+                class="Layout--horizontal StyledProps--main resourceSubList StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
               >
                 <label
-                  class="bp3-control bp3-checkbox"
+                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main"
                 >
                   <input
                     data-testid="CHECK-BOX-DELEGATE"

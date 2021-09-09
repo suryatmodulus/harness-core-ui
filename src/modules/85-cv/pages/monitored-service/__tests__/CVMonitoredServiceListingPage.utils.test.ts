@@ -1,6 +1,11 @@
 import type { RiskData } from 'services/cv'
-import { HistoricalTrendChartOption } from '../CVMonitoredServiceListingPage.constants'
-import { createTrendDataWithZone, getHistoricalTrendChartOption } from '../CVMonitoredServiceListingPage.utils'
+import { changeSummary, changeSummaryWithNegativeChange, changeSummaryWithPositiveChange } from './MonitoreService.mock'
+import { HistoricalTrendChartOption, DefaultChangePercentage } from '../CVMonitoredServiceListingPage.constants'
+import {
+  createTrendDataWithZone,
+  getHistoricalTrendChartOption,
+  calculateChangePercentage
+} from '../CVMonitoredServiceListingPage.utils'
 
 const trendChartMockData: RiskData[] = [
   { healthScore: 2, riskStatus: 'LOW' },
@@ -37,6 +42,27 @@ describe('Test util functions', () => {
     expect(trendChartOption).toEqual({
       ...HistoricalTrendChartOption,
       series: [{ ...trendSeries }]
+    })
+  })
+
+  test('calculateChangePercentage should return correct output', () => {
+    // Change summary is empty
+    const outputWithEmptyObject = calculateChangePercentage({})
+    expect(outputWithEmptyObject).toEqual(DefaultChangePercentage)
+    // With zero values for all changes
+    const outputWithDefaultObject = calculateChangePercentage(changeSummary)
+    expect(outputWithDefaultObject).toEqual(DefaultChangePercentage)
+
+    const outputWithPositiveValue = calculateChangePercentage(changeSummaryWithPositiveChange)
+    expect(outputWithPositiveValue).toEqual({
+      color: 'success',
+      percentage: 20
+    })
+
+    const outputWithNegativeObject = calculateChangePercentage(changeSummaryWithNegativeChange)
+    expect(outputWithNegativeObject).toEqual({
+      color: 'error',
+      percentage: 20
     })
   })
 })

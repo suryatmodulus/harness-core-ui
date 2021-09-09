@@ -15,7 +15,6 @@ import {
   Icon,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
-  Avatar,
   ButtonVariation,
   Label
 } from '@wings-software/uicore'
@@ -35,7 +34,6 @@ import {
   ResponseListInviteOperationResponse
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { regexEmail } from '@common/utils/StringUtils'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import { useGetRoleList } from 'services/rbac'
@@ -43,7 +41,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmentForm'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { UserItemRenderer } from '@rbac/utils/utils'
+import { UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
 import { handleInvitationResponse } from '@rbac/utils/utils'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
@@ -138,10 +136,6 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
         managed: roleOption.harnessManaged || false
       }
     }) || []
-
-  const isEmail = (email: string): boolean => {
-    return regexEmail.test(String(email).toLowerCase())
-  }
 
   const getUrl = (): string | undefined => {
     if (projectIdentifier && orgIdentifier)
@@ -283,15 +277,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                     onQueryChange: (query: string) => {
                       setSearch(query)
                     },
-                    // eslint-disable-next-line react/display-name
-                    tagRenderer: item => (
-                      <Layout.Horizontal key={item.label.toString()} flex spacing="small">
-                        <Avatar name={item.label} email={item.value.toString()} size="xsmall" hoverCard={false} />
-                        <Text color={isEmail(item.value.toString().toLowerCase()) ? Color.BLACK : Color.RED_500}>
-                          {item.label}
-                        </Text>
-                      </Layout.Horizontal>
-                    ),
+                    tagRenderer: UserTagRenderer,
                     itemRender: UserItemRenderer
                   }}
                   className={css.input}

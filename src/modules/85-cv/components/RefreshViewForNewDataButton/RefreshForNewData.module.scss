@@ -1,0 +1,7 @@
+.main {
+  cursor: pointer;
+  display: flex;
+  > p:nth-child(2) {
+    margin: 0 var(--spacing-xsmall) !important;
+  }
+}

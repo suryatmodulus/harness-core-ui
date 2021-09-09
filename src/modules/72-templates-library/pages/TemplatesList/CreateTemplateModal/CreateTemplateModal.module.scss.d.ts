@@ -3,7 +3,7 @@
 declare const styles: {
   readonly basicDetails: string
   readonly preview: string
-  readonly lg: string
+  readonly field: string
   readonly buttonGroup: string
   readonly closeIcon: string
 }

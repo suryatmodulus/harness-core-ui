@@ -1,6 +1,7 @@
 .plan {
   width: 33%;
-  border-radius: 8px;
+  min-width: 400px;
+  border-radius: var(--spacing-small);
   padding-top: var(--spacing-huge) !important;
 }
 
@@ -15,18 +16,14 @@
 
 .ul {
   list-style: none;
+  padding-bottom: var(--spacing-huge);
 }
 
 .li {
   &::marker {
     content: '\2022  ';
-    color: var(--primary-6);
   }
   padding-bottom: var(--spacing-small) !important;
-}
-
-.centerText {
-  text-align: center;
 }
 
 .accordion {
@@ -38,4 +35,26 @@
 .subCaption {
   color: var(--black) !important;
   font-size: large !important;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.support {
+  position: absolute;
+  top: 90%;
+  margin-bottom: var(--spacing-large);
+  text-align: center;
+  max-width: 80%;
+}
+
+.hover {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.lineHeight2 {
+  line-height: 2;
 }

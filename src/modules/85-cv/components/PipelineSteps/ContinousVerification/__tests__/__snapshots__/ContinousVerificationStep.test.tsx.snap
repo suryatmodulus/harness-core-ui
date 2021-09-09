@@ -11,6 +11,29 @@ exports[`Test ContinousVerificationStep Step renders empty inputSetView 1`] = `
       <div>
         <div
           class="StyledProps--font StyledProps--main container"
+        >
+          <div
+            class="StyledProps--font StyledProps--main content"
+          >
+            <div
+              class="emptyFields"
+            >
+              <div
+                class="emptyFieldItem"
+              >
+                
+              connectors.cdng.runTimeMonitoredService.pleaseSpecify 
+              service
+              and
+              environment
+              connectors.cdng.runTimeMonitoredService.toFetchMonitoredService
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main container"
         />
       </div>
     </form>

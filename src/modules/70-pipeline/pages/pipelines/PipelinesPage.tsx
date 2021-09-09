@@ -6,13 +6,13 @@ import {
   Icon,
   Layout,
   OverlaySpinner,
-  Select,
   SelectOption,
   Text,
   useModalHook,
   GridListToggle,
   Views,
-  ButtonVariation
+  ButtonVariation,
+  DropDown
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -34,6 +34,7 @@ import {
   useUpdateFilter
 } from 'services/pipeline-ng'
 import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -223,6 +224,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     },
     [reloadPipelines, showError, cancel, appliedFilter]
   )
+
+  useDocumentTitle([getString('pipelines')])
 
   const reset = (): void => {
     setAppliedFilter(null)
@@ -531,7 +534,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             <RbacButton
               variation={ButtonVariation.PRIMARY}
               data-testid="add-pipeline"
-              text={getString('addPipeline')}
+              icon="plus"
+              text={getString('pipeline.newPipelineText')}
               onClick={() => goToPipeline()}
               tooltipProps={{
                 dataTooltipId: 'addPipeline'
@@ -598,10 +602,13 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             <Text color={Color.GREY_800} iconProps={{ size: 14 }}>
               {getString('total')}: {pipelineList?.totalElements}
             </Text>
-            <Select
+            <DropDown
               items={sortOptions}
-              value={selectedSort}
-              className={css.sortSelector}
+              value={selectedSort.value.toString()}
+              filterable={false}
+              width={180}
+              icon={'main-sort'}
+              iconProps={{ size: 16, color: Color.GREY_400 }}
               onChange={item => {
                 if (item.value === SortFields.AZ09) {
                   setStort([SortFields.Name, Sort.ASC])
@@ -626,7 +633,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           <div className={css.noPipelineSection}>
             {appliedFilter || searchParam ? (
               <Layout.Vertical spacing="small" flex>
-                <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} margin={{ bottom: 'large' }} />
+                <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-main'} margin={{ bottom: 'large' }} />
                 <Text
                   margin={{ top: 'large', bottom: 'small' }}
                   font={{ weight: 'bold', size: 'medium' }}

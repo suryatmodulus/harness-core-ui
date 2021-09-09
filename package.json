@@ -84,6 +84,7 @@
     "@wings-software/telemetry": "^1.0.36",
     "@wings-software/test-app-publish-": "^3.0.24",
     "@wings-software/uicore": "0.1.364",
+    "@wings-software/vue3-component-library": "^0.0.17",
     "anser": "^2.0.1",
     "ansi-to-react": "^6.0.7",
     "classnames": "^2.2.6",

@@ -9,6 +9,11 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 import SelectModuleList from './SelectModuleList'
 import ModuleInfo from './ModuleInfo'
 import bgImageUrl from './images/background.svg'
+import ribbon from './images/ribbon.svg'
+import ribbon_ff from './images/ribbon_ff.svg'
+import ribbon_ci from './images/ribbon_ci.svg'
+import ribbon_ccm from './images/ribbon_ccm.svg'
+import ribbon_cd from './images/ribbon_cd.svg'
 import css from './WelcomePage.module.scss'
 
 enum STEPS {
@@ -28,6 +33,7 @@ const WelcomePage: React.FC = () => {
   const { getString } = useStrings()
   const [step, setStep] = useState<STEPS>(STEPS.SELECT_MODULE)
   const [module, setModule] = useState<Module>()
+  const [ribbonImg, setRibbonImg] = useState<string>(ribbon)
 
   const { CVNG_ENABLED, CING_ENABLED, CFNG_ENABLED, CENG_ENABLED } = useFeatureFlags()
   const CDNG_OPTIONS: ModuleProps = {
@@ -107,7 +113,14 @@ const WelcomePage: React.FC = () => {
         <Text padding={{ top: 'small', bottom: 'xxxlarge' }} color={Color.WHITE}>
           {getString('common.purpose.selectAModule')}
         </Text>
-        <SelectModuleList setStep={setStep} setModule={setModule} moduleList={getOptions()} />
+        <SelectModuleList
+          setStep={setStep}
+          onModuleClick={(_module?: Module) => {
+            setModule(_module)
+            setRibbonImg(ribbonMap[_module?.toString() || 'default'])
+          }}
+          moduleList={getOptions()}
+        />
       </Layout.Vertical>
     ) : (
       <Layout.Vertical padding={{ top: 'xxlarge' }}>
@@ -115,11 +128,23 @@ const WelcomePage: React.FC = () => {
       </Layout.Vertical>
     )
 
+  const ribbonMap: Record<string, string> = {
+    cd: ribbon_cd,
+    ce: ribbon_ccm,
+    cf: ribbon_ff,
+    ci: ribbon_ci,
+    default: ribbon
+  }
+
   return (
     <Container
       padding={{ left: 'xxxlarge', top: 'xxxlarge' }}
       flex={{ alignItems: 'start' }}
-      style={{ background: `transparent url(${bgImageUrl}) no-repeat` }}
+      style={{
+        backgroundImage: `url(${ribbonImg}), url(${bgImageUrl})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center'
+      }}
       className={css.container}
     >
       <Layout.Vertical padding={{ left: 'xxlarge', top: 'xxlarge' }} spacing="large" width="100%">

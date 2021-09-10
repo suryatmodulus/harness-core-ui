@@ -26,11 +26,11 @@ interface ModuleProps {
 
 interface SelectModuleListProps {
   setStep: (step: STEPS) => void
-  setModule: (module?: Module) => void
+  onModuleClick: (module?: Module) => void
   moduleList: ModuleProps[]
 }
 
-const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, setModule, moduleList }) => {
+const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, onModuleClick, moduleList }) => {
   const [selected, setSelected] = useState<Module>()
 
   const { getString } = useStrings()
@@ -43,11 +43,12 @@ const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, setModule,
 
   const handleModuleSelection = (module: Module): void => {
     setSelected(module)
+    onModuleClick(module)
   }
 
-  const handleContinue = (): void => {
+  const handleCDContinue = (): void => {
     setStep(STEPS.MODULE_INFO)
-    setModule(selected)
+    onModuleClick(selected)
   }
   const history = useHistory()
 
@@ -72,7 +73,7 @@ const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, setModule,
     switch (selected) {
       case 'cd':
         return (
-          <Button onClick={handleContinue} intent="primary" width={100}>
+          <Button onClick={handleCDContinue} intent="primary" width={100}>
             {getString('continue')}
           </Button>
         )

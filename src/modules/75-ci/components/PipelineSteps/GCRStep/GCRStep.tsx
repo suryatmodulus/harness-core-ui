@@ -102,6 +102,7 @@ export class GCRStep extends PipelineStep<GCRStepData> {
     }
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): GCRStepData {
     return getFormValuesInCorrectFormat<T, GCRStepData>(data, transformValuesFieldsConfig)
   }

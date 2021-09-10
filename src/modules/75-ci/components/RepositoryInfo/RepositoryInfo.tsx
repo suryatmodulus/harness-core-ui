@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react'
 import { Icon, Text } from '@wings-software/uicore'
 

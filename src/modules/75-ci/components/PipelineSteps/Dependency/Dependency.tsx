@@ -100,6 +100,7 @@ export class Dependency extends PipelineStep<DependencyData> {
     }
   }
 
+  /* istanbul ignore next */
   protected async getConnectorList(
     connectorTypes: string[] | undefined,
     path: string,
@@ -124,6 +125,7 @@ export class Dependency extends PipelineStep<DependencyData> {
     return []
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): DependencyData {
     return getFormValuesInCorrectFormat<T, DependencyData>(data, transformValuesFieldsConfig)
   }

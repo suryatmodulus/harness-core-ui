@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react'
 import { first } from 'lodash-es'
 import { Icon } from '@wings-software/uicore'

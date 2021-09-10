@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 
 import { RunStep } from './RunStep/RunStep'

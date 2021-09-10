@@ -87,6 +87,7 @@ export class PluginStep extends PipelineStep<PluginStepData> {
     }
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): PluginStepData {
     return getFormValuesInCorrectFormat<T, PluginStepData>(data, transformValuesFieldsConfig)
   }

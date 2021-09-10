@@ -96,6 +96,7 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
     }
   }
 
+  /* istanbul ignore next */
   protected async getConnectorList(
     path: string,
     yaml: string,
@@ -116,6 +117,7 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
     return []
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): RestoreCacheS3StepData {
     return getFormValuesInCorrectFormat<T, RestoreCacheS3StepData>(data, transformValuesFieldsConfig)
   }
@@ -130,7 +132,7 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
     if (getString) {
       return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
-
+    /* istanbul ignore next */
     return {}
   }
 

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from 'react'
 import type { UseStringsReturn } from 'framework/strings'
 import { StageType } from '@pipeline/utils/stageHelpers'

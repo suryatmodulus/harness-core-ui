@@ -115,6 +115,7 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
     }
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): RunTestsStepData {
     return getFormValuesInCorrectFormat<T, RunTestsStepData>(data, transformValuesFieldsConfig)
   }

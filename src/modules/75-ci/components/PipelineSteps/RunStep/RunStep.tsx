@@ -121,6 +121,7 @@ export class RunStep extends PipelineStep<RunStepData> {
     }
   }
 
+  /* istanbul ignore next */
   protected async getConnectorList(
     connectorTypes: string[] | undefined,
     path: string,
@@ -145,6 +146,7 @@ export class RunStep extends PipelineStep<RunStepData> {
     return []
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): RunStepData {
     return getFormValuesInCorrectFormat<T, RunStepData>(data, transformValuesFieldsConfig)
   }

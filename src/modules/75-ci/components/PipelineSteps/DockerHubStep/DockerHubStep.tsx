@@ -108,6 +108,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     }
   }
 
+  /* istanbul ignore next */
   protected async getConnectorList(
     path: string,
     yaml: string,
@@ -128,6 +129,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     return []
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): DockerHubStepData {
     return getFormValuesInCorrectFormat<T, DockerHubStepData>(data, transformValuesFieldsConfig)
   }

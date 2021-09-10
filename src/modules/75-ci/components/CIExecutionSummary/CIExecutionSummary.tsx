@@ -16,8 +16,8 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
 
   const [isCommitIdCopied, setIsCommitIdCopied] = React.useState(false)
 
-  const handleCommitIdClick = (): void => {
-    Utils.copy(data.ciExecutionInfoDTO.pullRequest.commits[0].id)
+  const handleCommitIdClick = (commitId: string): void => {
+    Utils.copy(commitId)
     setIsCommitIdCopied(true)
   }
 
@@ -27,20 +27,16 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
 
   let type: Type
 
-  if (data.ciExecutionInfoDTO?.event) {
-    switch (data.ciExecutionInfoDTO?.event as 'branch' | 'tag' | 'pullRequest') {
-      case 'branch':
-        type = Type.Branch
-        break
-      case 'tag':
-        type = Type.Tag
-        break
-      case 'pullRequest':
-        type = Type.PullRequest
-        break
-    }
-  } else {
-    type = Type.Branch
+  switch (data.buildType as 'branch' | 'tag' | 'PR') {
+    case 'branch':
+      type = Type.Branch
+      break
+    case 'tag':
+      type = Type.Tag
+      break
+    case 'PR':
+      type = Type.PullRequest
+      break
   }
 
   if (!type) return <></>
@@ -60,17 +56,19 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
               {data.branch}
             </div>
           </div>
-          {/* <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-5)' }}>
+          <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-5)' }}>
             <Icon name="git-branch-existing" size={14} />
             <div style={{ fontSize: 0 }}>
               <Text
                 font={{ size: 'small' }}
                 style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
                 tooltip={
-                  <Container padding="small">{data.ciExecutionInfoDTO.pullRequest.commits[0].message}</Container>
+                  <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+                    {data.ciExecutionInfoDTO.branch.commits[0].message}
+                  </Container>
                 }
               >
-                {data.ciExecutionInfoDTO.pullRequest.commits[0].message}
+                {data.ciExecutionInfoDTO.branch.commits[0].message}
               </Text>
             </div>
             <Text
@@ -84,12 +82,12 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 onClosed: handleCommitIdTooltipClosed
               }}
               style={{ cursor: 'pointer' }}
-              onClick={handleCommitIdClick}
+              onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.branch.commits[0].id)}
             >
-              <div className={css.label}>{data.ciExecutionInfoDTO.pullRequest.commits[0].id.slice(0, 7)}</div>
+              <div className={css.label}>{data.ciExecutionInfoDTO.branch.commits[0].id.slice(0, 7)}</div>
               <Icon name="copy" size={14} />
             </Text>
-          </Layout.Horizontal> */}
+          </Layout.Horizontal>
         </>
       )
       break
@@ -102,29 +100,11 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
           </div>
           <div className={css.label}>
             <Icon name="tag" size={14} color="primary7" />
-            {data.ciExecutionInfoDTO.pullRequest.commits[0].id.slice(0, 7)}
+            {data.tag}
           </div>
-          <Text
-            tooltip={
-              <Container padding="small">
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag <br />
-                Notes: shows notes if available for this tag
-              </Container>
-            }
-          >
+          {/* <Text tooltip={<Container padding="small"> Notes</Container>}>
             <Icon name="more" size={14} />
-          </Text>
+          </Text> */}
           <Layout.Horizontal flex spacing="small">
             <Text
               className={css.commit}
@@ -137,11 +117,11 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 onClosed: handleCommitIdTooltipClosed
               }}
               style={{ cursor: 'pointer' }}
-              onClick={handleCommitIdClick}
+              onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.branch.commits[0].id)}
             >
               <div className={css.label}>
                 <Icon name="git-branch-existing" size={14} color="primary7" />
-                {data.ciExecutionInfoDTO.pullRequest.commits[0].id.slice(0, 7)}
+                {data.ciExecutionInfoDTO.branch.commits[0].id.slice(0, 7)}
               </div>
               <Icon name="copy" size={14} />
             </Text>
@@ -174,7 +154,9 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 font={{ size: 'small' }}
                 style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
                 tooltip={
-                  <Container padding="small">{data.ciExecutionInfoDTO.pullRequest.commits[0].message}</Container>
+                  <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+                    {data.ciExecutionInfoDTO.pullRequest.commits[0].message}
+                  </Container>
                 }
               >
                 {data.ciExecutionInfoDTO.pullRequest.commits[0].message}
@@ -191,7 +173,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 onClosed: handleCommitIdTooltipClosed
               }}
               style={{ cursor: 'pointer' }}
-              onClick={handleCommitIdClick}
+              onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.pullRequest.commits[0].id)}
             >
               <div className={css.label}>{data.ciExecutionInfoDTO.pullRequest.commits[0].id.slice(0, 7)}</div>
               <Icon name="copy" size={14} />

@@ -9,22 +9,6 @@ import { UserLabel } from '@common/components/UserLabel/UserLabel'
 
 import css from './ExecutionMetadata.module.scss'
 
-{
-  /* <Text
-font={{ size: 'small' }}
-color="grey900"
-tooltip={
-  <Container padding="small">
-    {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier}
-    <br />
-    {pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.extraInfo?.email}
-  </Container>
-}
->
-{pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier}
-</Text> */
-}
-
 const ExecutionMetadataTrigger = () => {
   const { getString } = useStrings()
 

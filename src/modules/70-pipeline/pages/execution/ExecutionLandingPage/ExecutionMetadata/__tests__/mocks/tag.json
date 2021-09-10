@@ -1,0 +1,102 @@
+{
+  "_id": "6137611f077dd56a1a7bda76",
+  "runSequence": 55,
+  "accountId": "kmpySmUISimoRrJL6NL73w",
+  "orgIdentifier": "default",
+  "projectIdentifier": "CIProject",
+  "pipelineIdentifier": "Pipeline",
+  "planExecutionId": "4UcYZh6XQBSkdWXkZyZT0Q",
+  "name": "Pipeline",
+  "pipelineDeleted": false,
+  "internalStatus": "RUNNING",
+  "status": "RUNNING",
+  "inputSetYaml": "",
+  "tags": [],
+  "moduleInfo": {
+    "ci": {
+      "__recast": "io.harness.ci.plan.creator.execution.CIPipelineModuleInfo",
+      "buildType": "tag",
+      "ciExecutionInfoDTO": {
+        "__recast": "io.harness.ci.pipeline.executions.beans.CIWebhookInfoDTO",
+        "event": "branch",
+        "branch": {
+          "__recast": "io.harness.ci.pipeline.executions.beans.CIBuildBranchHook",
+          "name": null,
+          "link": null,
+          "state": null,
+          "commits": [
+            {
+              "__recast": "io.harness.ci.pipeline.executions.beans.CIBuildCommit",
+              "id": "51b4e651f205937321b7cbd8a532724c1fb51407",
+              "link": "https://github.com/wings-software/portal/commit/51b4e651f205937321b7cbd8a532724c1fb51407",
+              "message": "[CVNG-896]: API for Deployment Verification details per build tag (#17320)\n\n* [CVNG-896]: Initial implementation for deployment verification details based on tag\r\n\r\n* [CVNG-896]: Modifying implementation for recent deployment activity verifications by tag\r\n\r\n* [CVNG-896]: Modifying implementation\r\n\r\n* [CVNG-896]: Removing unused and commented code\r\n\r\n* [CVNG-896]: Changing response DTO for API and refactoring code\r\n\r\n* [CVNG-896]: Adding exception handling in case no deployment activities were found\r\n\r\n* [CVNG-896]: Fixing unit test",
+              "ownerName": "Nemanja Lukovic",
+              "ownerId": "Nemanja-Harness",
+              "ownerEmail": "nemanja.lukovic@harness.io",
+              "timeStamp": 1601921558
+            }
+          ],
+          "triggerCommits": null
+        }
+      },
+      "repoName": "portal",
+      "tag": "signoff-unittest-15730"
+    }
+  },
+  "layoutNodeMap": {
+    "hmgEuIiPRw6Xn83QCeliEA": {
+      "nodeType": "CI",
+      "nodeGroup": "STAGE",
+      "nodeIdentifier": "CIStage",
+      "name": "CIStage",
+      "nodeUuid": "hmgEuIiPRw6Xn83QCeliEA",
+      "status": "RUNNING",
+      "module": "ci",
+      "moduleInfo": {
+        "ci": {
+          "__recast": "io.harness.ci.plan.creator.execution.CIStageModuleInfo"
+        }
+      },
+      "edgeLayoutList": {
+        "currentNodeChildren": [],
+        "nextIds": []
+      },
+      "nodeRunInfo": {
+        "whenCondition": "<+OnPipelineSuccess>",
+        "evaluatedCondition": true,
+        "expressions": [
+          {
+            "expression": "OnPipelineSuccess",
+            "expressionValue": "true",
+            "count": 1
+          }
+        ]
+      },
+      "startTs": 1631019297531
+    }
+  },
+  "modules": ["ci"],
+  "startingNodeId": "hmgEuIiPRw6Xn83QCeliEA",
+  "executionTriggerInfo": {
+    "triggerType": "MANUAL",
+    "triggeredBy": {
+      "uuid": "lv0euRhKRCyiXWzS7pOg6g",
+      "identifier": "Admin",
+      "extraInfo": {
+        "email": "admin@harness.io"
+      }
+    },
+    "isRerun": true,
+    "rerunInfo": {
+      "rootExecutionId": "lz9Q2hbxTH28jZrAtYRLoQ",
+      "rootTriggerType": "MANUAL",
+      "prevExecutionId": "lz9Q2hbxTH28jZrAtYRLoQ",
+      "prevTriggerType": "MANUAL"
+    }
+  },
+  "startTs": 1631019295715,
+  "createdAt": 1631019295898,
+  "lastUpdatedAt": 1631019295898,
+  "version": 19,
+  "_class": "planExecutionsSummary"
+}

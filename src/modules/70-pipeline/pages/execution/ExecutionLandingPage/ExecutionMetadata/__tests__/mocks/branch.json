@@ -1,0 +1,118 @@
+{
+  "_id": "61375931077dd56a1a7bd2bc",
+  "runSequence": 39,
+  "accountId": "kmpySmUISimoRrJL6NL73w",
+  "orgIdentifier": "default",
+  "projectIdentifier": "CIProject",
+  "pipelineIdentifier": "Pipeline",
+  "planExecutionId": "FOdNIk9ZQty79Q2KVOvTKQ",
+  "name": "Pipeline",
+  "pipelineDeleted": false,
+  "internalStatus": "RUNNING",
+  "status": "RUNNING",
+  "inputSetYaml": "pipeline:\n  identifier: \"Pipeline\"\n  properties:\n    ci:\n      codebase:\n        build:\n          type: \"branch\"\n          spec:\n            branch: \"<+trigger.branch>\"\n",
+  "pipelineTemplate": "pipeline:\n  identifier: \"Pipeline\"\n  properties:\n    ci:\n      codebase:\n        build: \"<+input>\"\n",
+  "tags": [],
+  "moduleInfo": {
+    "ci": {
+      "__recast": "io.harness.ci.plan.creator.execution.CIPipelineModuleInfo",
+      "branch": "master",
+      "buildType": "branch",
+      "ciExecutionInfoDTO": {
+        "__recast": "io.harness.ci.pipeline.executions.beans.CIWebhookInfoDTO",
+        "event": "branch",
+        "author": {
+          "__recast": "io.harness.ci.pipeline.executions.beans.CIBuildAuthor",
+          "id": "root",
+          "name": "Administrator",
+          "email": "",
+          "avatar": "https://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=80&d=identicon"
+        },
+        "branch": {
+          "__recast": "io.harness.ci.pipeline.executions.beans.CIBuildBranchHook",
+          "name": null,
+          "link": null,
+          "state": null,
+          "commits": [
+            {
+              "__recast": "io.harness.ci.pipeline.executions.beans.CIBuildCommit",
+              "id": "b6b487cc4b60f41e83401463c2e0289348fa47c1",
+              "link": "https://github.com/wings-software/portal/commit/b6b487cc4b60f41e83401463c2e0289348fa47c1",
+              "message": "[CDP-18685]: Fixed kryo registration for AwsAsgGetRunningCountData (#27163)\n\n* [CDP-18685]: Fixed kryo registration for AwsAsgGetRunningCountData\r\n\r\n* [CDP-18685]: Fixed aeriform auto action\r\n\r\n* [CDP-18685]: Fixed clang format issue",
+              "ownerName": "Sainath Batthala",
+              "ownerId": "sainath-b",
+              "ownerEmail": "sainath.batthala@harness.io",
+              "timeStamp": 1631015849
+            }
+          ],
+          "triggerCommits": [
+            {
+              "__recast": "io.harness.ci.pipeline.executions.beans.CIBuildCommit",
+              "id": "0fe585279aac04d25344246b0b764e4f328281c2",
+              "link": "http://35.185.35.26/root/testproject/-/commit/0fe585279aac04d25344246b0b764e4f328281c2",
+              "message": "Update file1",
+              "ownerName": "Administrator",
+              "ownerId": "",
+              "ownerEmail": "admin@example.com",
+              "timeStamp": -62135596800000
+            }
+          ]
+        }
+      },
+      "repoName": "portal"
+    }
+  },
+  "layoutNodeMap": {
+    "1bxIoknfTv--g23Oqf2QbA": {
+      "nodeType": "CI",
+      "nodeGroup": "STAGE",
+      "nodeIdentifier": "CIStage",
+      "name": "CIStage",
+      "nodeUuid": "1bxIoknfTv--g23Oqf2QbA",
+      "status": "RUNNING",
+      "module": "ci",
+      "moduleInfo": {
+        "ci": {
+          "__recast": "io.harness.ci.plan.creator.execution.CIStageModuleInfo"
+        }
+      },
+      "edgeLayoutList": {
+        "currentNodeChildren": [],
+        "nextIds": []
+      },
+      "nodeRunInfo": {
+        "whenCondition": "<+OnPipelineSuccess>",
+        "evaluatedCondition": true,
+        "expressions": [
+          {
+            "expression": "OnPipelineSuccess",
+            "expressionValue": "true",
+            "count": 1
+          }
+        ]
+      },
+      "startTs": 1631017266244
+    }
+  },
+  "modules": ["ci"],
+  "startingNodeId": "1bxIoknfTv--g23Oqf2QbA",
+  "executionTriggerInfo": {
+    "triggerType": "WEBHOOK",
+    "triggeredBy": {
+      "uuid": "systemUser",
+      "identifier": "trigger",
+      "extraInfo": {
+        "execution_trigger_tag_needed_for_abort": "kmpySmUISimoRrJL6NL73w:default:CIProject:Pipeline:PUSH:http://35.185.35.26/root/testproject:refs/heads/fdfdfdfd",
+        "triggerRef": "kmpySmUISimoRrJL6NL73w/default/CIProject/fdfdfd",
+        "eventCorrelationId": "6137592f077dd56a1a7bd2b8",
+        "gitUser": "root"
+      }
+    },
+    "isRerun": false
+  },
+  "startTs": 1631017265908,
+  "createdAt": 1631017265970,
+  "lastUpdatedAt": 1631017265970,
+  "version": 13,
+  "_class": "planExecutionsSummary"
+}

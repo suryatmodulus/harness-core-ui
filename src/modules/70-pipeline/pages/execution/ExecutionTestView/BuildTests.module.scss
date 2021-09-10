@@ -445,6 +445,24 @@
   width: auto !important;
 }
 
+.sortBySelect {
+  width: 162px !important;
+  margin-right: 32px !important;
+  [class*='bp3-menu'] {
+    width: 162px;
+    max-width: 162px;
+    min-width: 162px;
+  }
+}
+
+.listIcons {
+  align-self: center;
+  &:hover {
+    cursor: pointer;
+    box-shadow: var(--button-shadow);
+  }
+}
+
 .testPopoverBody {
   max-width: 800px;
 

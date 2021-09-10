@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
+import { get, omit } from 'lodash-es'
 import { Button, Color, Icon, Container, Text, useIsMounted, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
@@ -26,10 +26,11 @@ export interface TestExecutionEntryProps {
   executionSummary: TestSuite
   expanded?: boolean
   status?: 'failed'
-  onExpand: () => void
+  onExpand?: () => void
   stageId: string
   stepId: string
   onShowCallGraphForClass?: (classname: string) => void
+  isCompleteList?: boolean // true for ungrouped list of data
 }
 
 const getColumnText = ({
@@ -103,7 +104,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   onExpand,
   stageId,
   stepId,
-  onShowCallGraphForClass
+  onShowCallGraphForClass,
+  isCompleteList
 }) => {
   const containerRef = useRef<HTMLElement>(null)
   const rightSideContainerRef = useRef<HTMLElement>(null)
@@ -259,6 +261,9 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   useEffect(() => {
     if (expanded && !data) {
       refetchData(queryParams)
+    } else if (isCompleteList) {
+      const newQueryParams = { ...omit(queryParams, ['suite_name']) }
+      refetchData(newQueryParams)
     }
   }, [expanded, queryParams, refetchData, data])
 
@@ -315,18 +320,22 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           color={Color.GREY_500}
           style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
         >
-          <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={onExpand} />
-          <Layout.Horizontal>
-            <Text width={titleWidth} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-              <CopyText iconName="clipboard-alt" textToCopy={executionSummary.name || ''}>
-                <Text tooltip={<Container padding="small">{executionSummary.name}</Container>}>
-                  <span className={css.testSuiteName}>
-                    {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
-                  </span>
+          {!isCompleteList && (
+            <>
+              <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={() => onExpand?.()} />
+              <Layout.Horizontal>
+                <Text width={titleWidth} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                  <CopyText iconName="clipboard-alt" textToCopy={executionSummary.name || ''}>
+                    <Text tooltip={<Container padding="small">{executionSummary.name}</Container>}>
+                      <span className={css.testSuiteName}>
+                        {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
+                      </span>
+                    </Text>
+                  </CopyText>
                 </Text>
-              </CopyText>
-            </Text>
-          </Layout.Horizontal>
+              </Layout.Horizontal>
+            </>
+          )}
         </Text>
         <Container flex ref={rightSideContainerRef}>
           <Text

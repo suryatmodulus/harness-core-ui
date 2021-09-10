@@ -120,7 +120,23 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -151,6 +167,22 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,7 +216,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
-import { Container } from '@wings-software/uicore'
+import { Color, Container, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { useGetPipelinedHealth } from 'services/pipeline-ng'
@@ -218,26 +250,42 @@ export default function PipelineSummaryCards() {
       &lt;RangeSelectorWithTitle title={getString('pipeline.dashboards.pipelineHealth')} onRangeSelected={setRange} /&gt;
       &lt;Container className={styles.summaryCards}&gt;
         &lt;SummaryCard
-          title={getString('pipeline.dashboards.totalExecutions')}
+          title={
+            &lt;Text font={{ weight: 'bold' }} color={Color.GREY_600}&gt;
+              {getString('pipeline.dashboards.totalExecutions')}
+            &lt;/Text&gt;
+          }
           text={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutions<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ount}
           rate={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutions<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ate}
           isLoading={loading}
           neutralColor
         /&gt;
         &lt;SummaryCard
-          title={getString('pipeline.dashboards.successRate')}
+          title={
+            &lt;Text font={{ weight: 'bold' }} color={Color.GREY_600}&gt;
+              {getString('pipeline.dashboards.successRate')}
+            &lt;/Text&gt;
+          }
           text={roundNumber(data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutions<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccess<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ercent)}
           rate={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutions<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccess<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ate}
           isLoading={loading}
         /&gt;
         &lt;SummaryCard
-          title={getString('pipeline.dashboards.meanDuration')}
+          title={
+            &lt;Text font={{ weight: 'bold' }} color={Color.GREY_600}&gt;
+              {getString('pipeline.dashboards.meanDuration')}
+            &lt;/Text&gt;
+          }
           text={formatDuration(data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutions<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>eanInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>uration)}
           rateDuration={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutions<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>eanInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ate}
           isLoading={loading}
         /&gt;
         &lt;SummaryCard
-          title={getString('pipeline.dashboards.medianDuration')}
+          title={
+            &lt;Text font={{ weight: 'bold' }} color={Color.GREY_600}&gt;
+              {getString('pipeline.dashboards.medianDuration')}
+            &lt;/Text&gt;
+          }
           text={formatDuration(data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutions<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>edianInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>uration)}
           rateDuration={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecutions<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>edianInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ate}
           isLoading={loading}
@@ -253,7 +301,7 @@ export default function PipelineSummaryCards() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 09 2021 12:27:34 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 10 2021 03:17:34 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

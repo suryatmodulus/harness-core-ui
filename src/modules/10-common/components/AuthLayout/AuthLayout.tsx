@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from '@wings-software/uicore'
 
-import SignupIllustration from './images/SignupIllustration.png'
+import NewSignupIllustration from './images/NewSignupIllustration.svg'
 import css from './AuthLayout.module.scss'
 
 const AuthLayout: React.FC<React.PropsWithChildren<unknown>> = props => {
@@ -13,7 +13,7 @@ const AuthLayout: React.FC<React.PropsWithChildren<unknown>> = props => {
         </div>
       </div>
       <div className={css.imageColumn}>
-        <img className={css.image} src={SignupIllustration} alt="" aria-hidden />
+        <img className={css.image} src={NewSignupIllustration} alt="" aria-hidden />
       </div>
     </div>
   )

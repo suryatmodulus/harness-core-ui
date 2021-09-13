@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">66.85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>242/362</span>
+                <span class='fraction'>240/359</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50.54% </span>
+                <span class="strong">50.98% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>236/467</span>
+                <span class='fraction'>235/461</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">66.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>237/356</span>
+                <span class='fraction'>235/353</span>
             </div>
         
             
@@ -1395,25 +1395,7 @@
 <a name='L1336'></a><a href='#L1336'>1336</a>
 <a name='L1337'></a><a href='#L1337'>1337</a>
 <a name='L1338'></a><a href='#L1338'>1338</a>
-<a name='L1339'></a><a href='#L1339'>1339</a>
-<a name='L1340'></a><a href='#L1340'>1340</a>
-<a name='L1341'></a><a href='#L1341'>1341</a>
-<a name='L1342'></a><a href='#L1342'>1342</a>
-<a name='L1343'></a><a href='#L1343'>1343</a>
-<a name='L1344'></a><a href='#L1344'>1344</a>
-<a name='L1345'></a><a href='#L1345'>1345</a>
-<a name='L1346'></a><a href='#L1346'>1346</a>
-<a name='L1347'></a><a href='#L1347'>1347</a>
-<a name='L1348'></a><a href='#L1348'>1348</a>
-<a name='L1349'></a><a href='#L1349'>1349</a>
-<a name='L1350'></a><a href='#L1350'>1350</a>
-<a name='L1351'></a><a href='#L1351'>1351</a>
-<a name='L1352'></a><a href='#L1352'>1352</a>
-<a name='L1353'></a><a href='#L1353'>1353</a>
-<a name='L1354'></a><a href='#L1354'>1354</a>
-<a name='L1355'></a><a href='#L1355'>1355</a>
-<a name='L1356'></a><a href='#L1356'>1356</a>
-<a name='L1357'></a><a href='#L1357'>1357</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L1339'></a><a href='#L1339'>1339</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1447,14 +1429,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1472,6 +1446,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1656,17 +1631,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">28x</span>
@@ -2802,15 +2766,7 @@ import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGat
 import COInstanceSelector from '@ce/components/COInstanceSelector/COInstanceSelector'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import { Utils } from '@ce/common/Utils'
-import {
-  ASGMinimal,
-  PortConfig,
-  Service,
-  ServiceDep,
-  useAllResourcesOfAccount,
-  useGetAllASGs,
-  useGetServices
-} from 'services/lw'
+import { ASGMinimal, PortConfig, Service, ServiceDep, useAllResourcesOfAccount, useGetAllASGs } from 'services/lw'
 import { String, StringKeys, useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TagsPopover } from '@common/components'
@@ -2835,6 +2791,7 @@ interface COGatewayConfigProps {
   valid: boolean
   setValidity: (tab: boolean) =&gt; void
   activeStepDetails?: { count?: number; tabId?: string } | null
+  allServices: Service[]
 }
 interface CardData {
   text: string
@@ -3013,17 +2970,6 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
   const { mutate: fetchConnectors, loading: loadingConnectors } = useGetConnectorListV2({
     queryParams: defaultQueryParams
   })
-&nbsp;
-  const { data: servicesData, error } = useGetServices({
-    account_id: accountId,
-    queryParams: {
-      accountIdentifier: accountId
-    },
-    debounce: 300
-  })
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (error) {
-<span class="cstat-no" title="statement not covered" >    showError('Faield to fetch services', undefined, 'ce.svc.fetch.error')</span>
-  }
 &nbsp;
   const [openInstancesModal, closeInstancesModal] = useModalHook(() =&gt; {
     return (
@@ -4103,7 +4049,7 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
                   deps={serviceDependencies}
                   setDeps={setServiceDependencies}
                   service_id={props.gatewayDetails.id}
-                  allServices={servicesData?.response as Service[]}
+                  allServices={props.allServices}
                 &gt;&lt;/CORuleDendencySelector&gt;
               ) : null}
               &lt;Button
@@ -4132,7 +4078,7 @@ export default COGatewayConfig
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Sep 13 2021 07:30:34 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 13 2021 11:33:49 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

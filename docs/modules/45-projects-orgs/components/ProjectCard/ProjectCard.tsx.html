@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.15% </span>
+                <span class="strong">83.08% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>56/65</span>
+                <span class='fraction'>54/65</span>
             </div>
         
             
@@ -254,8 +254,7 @@
 <a name='L195'></a><a href='#L195'>195</a>
 <a name='L196'></a><a href='#L196'>196</a>
 <a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a>
-<a name='L199'></a><a href='#L199'>199</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
+<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
@@ -295,21 +294,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">278x</span>
-<span class="cline-any cline-yes">277x</span>
+<span class="cline-any cline-yes">267x</span>
+<span class="cline-any cline-yes">266x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">277x</span>
-<span class="cline-any cline-yes">277x</span>
-<span class="cline-any cline-yes">277x</span>
-<span class="cline-any cline-yes">277x</span>
-<span class="cline-any cline-yes">277x</span>
-<span class="cline-any cline-yes">277x</span>
-<span class="cline-any cline-yes">277x</span>
+<span class="cline-any cline-yes">266x</span>
+<span class="cline-any cline-yes">266x</span>
+<span class="cline-any cline-yes">266x</span>
+<span class="cline-any cline-yes">266x</span>
+<span class="cline-any cline-yes">266x</span>
+<span class="cline-any cline-yes">266x</span>
+<span class="cline-any cline-yes">266x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -320,11 +319,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">277x</span>
+<span class="cline-any cline-yes">266x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">277x</span>
-<span class="cline-any cline-yes">277x</span>
+<span class="cline-any cline-yes">266x</span>
+<span class="cline-any cline-yes">266x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -432,7 +431,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -569,11 +567,11 @@ const ProjectCard: React.FC&lt;ProjectCardProps&gt; = props =&gt; {
             &lt;Text font="medium" lineClamp={1} color={Color.BLACK}&gt;
               {data.name}
             &lt;/Text&gt;
-          ) : isPreview ? (
+          ) : <span class="branch-1 cbranch-no" title="branch not covered" >isPreview ? (</span>
             &lt;Text font="medium" lineClamp={1} color={Color.BLACK}&gt;
               {getString('projectCard.projectName')}
             &lt;/Text&gt;
-          ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+          ) : null}
           &lt;Text font={{ size: 'small' }} margin={{ top: 'xsmall' }} color={Color.GREY_700}&gt;
             {getString('idLabel', { id: data.identifier })}
           &lt;/Text&gt;
@@ -630,7 +628,6 @@ const ProjectCard: React.FC&lt;ProjectCardProps&gt; = props =&gt; {
                 avatars={collaboratorsList?.length ? collaboratorsList : [{}]}
                 onAdd={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                  event.stopPropagation()</span>
-&nbsp;
 <span class="cstat-no" title="statement not covered" >                  handleInviteCollaborators ? handleInviteCollaborators(data) : null</span>
                 }}
                 restrictLengthTo={1}
@@ -658,7 +655,7 @@ export default ProjectCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Sep 13 2021 16:07:49 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 13 2021 18:25:28 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

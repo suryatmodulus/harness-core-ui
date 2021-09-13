@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">85.37% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/38</span>
+                <span class='fraction'>35/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.33% </span>
+                <span class="strong">72.73% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>44/60</span>
+                <span class='fraction'>32/44</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/9</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.57% </span>
+                <span class="strong">89.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/35</span>
+                <span class='fraction'>33/37</span>
             </div>
         
             
@@ -202,7 +202,9 @@
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
 <a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -215,8 +217,10 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -347,7 +351,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useEffect, useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Container, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import {
@@ -360,12 +364,14 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import LogAnalysis from './LogAnalysis'
 import { pageSize, initialPageNumber, POLLING_INTERVAL, StepStatus } from './LogAnalysis.constants'
 import type { LogAnalysisContainerProps } from './LogAnalysis.types'
+import { getActivityId } from '../../ExecutionVerificationView.utils'
 &nbsp;
 export default function LogAnalysisContainer({ step, hostName }: LogAnalysisContainerProps): React.ReactElement {
   const { accountId } = useParams&lt;AccountPathProps&gt;()
   const { showError } = useToaster()
   const [selectedClusterType, setSelectedClusterType] = useState&lt;SelectOption&gt;()
   const [pollingIntervalId, setPollingIntervalId] = useState&lt;any&gt;(-1)
+  const activityId = useMemo(() =&gt; getActivityId(step), [step])
 &nbsp;
   const {
     data: logsData,
@@ -373,7 +379,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     error: logsError,
     refetch: fetchLogAnalysis
   } = useGetDeploymentLogAnalysisResult({
-    activityId: step<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rogressData<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctivityId as unknown as string,
+    activityId: activityId as unknown as string,
     queryParams: {
       accountId,
       pageNumber: initialPageNumber,
@@ -388,7 +394,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     error: clusterChartError,
     refetch: fetchClusterAnalysis
   } = useGetDeploymentLogAnalysisClusters({
-    activityId: step<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rogressData<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctivityId as unknown as string,
+    activityId: activityId as unknown as string,
     queryParams: {
       accountId
     },
@@ -499,7 +505,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Sep 12 2021 17:20:38 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 13 2021 01:34:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.36% </span>
+                <span class="strong">96.49% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/55</span>
+                <span class='fraction'>55/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.08% </span>
+                <span class="strong">90.8% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>109/121</span>
+                <span class='fraction'>79/87</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.23% </span>
+                <span class="strong">96.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>51/53</span>
+                <span class='fraction'>52/54</span>
             </div>
         
             
@@ -174,7 +174,8 @@
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
 <a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -191,6 +192,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -291,7 +293,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useMemo, useState } from 'react'
 import { Container, Icon, Color, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -308,6 +310,7 @@ import { SummaryOfDeployedNodes } from './components/SummaryOfDeployedNodes/Summ
 import { getErrorMessage } from '../DeploymentMetrics/DeploymentMetrics.utils'
 import { DeploymentProgressAndNodes } from '../DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import type { VerifyExecutionProps } from './ExecutionVerificationSummary.types'
+import { getActivityId } from '../../ExecutionVerificationView.utils'
 import css from './ExecutionVerificationSummary.module.scss'
 &nbsp;
 const POLLING_INTERVAL = 15000
@@ -317,7 +320,7 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
   const { accountId } = useParams&lt;ProjectPathProps&gt;()
   const [pollingIntervalId, setPollingIntervalId] = useState(-1)
   const [showSpinner, setShowSpinner] = useState(true)
-  const activityId = step<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rogressData?.activityId ? (step.progressData.activityId as unknown as string) : ''
+  const activityId = useMemo(() =&gt; getActivityId(step), [step])
   const { data, error, refetch } = useGetDeploymentActivitySummary({
     queryParams: { accountId },
     activityId,
@@ -348,11 +351,11 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
 &nbsp;
     refetch()
     return () =&gt; clearInterval(intervalId)
-  }, [step<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rogressData?.activityId, step<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus])
+  }, [activityId, step<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus])
 &nbsp;
   useEffect(() =&gt; {
-    setShowSpinner(Boolean(step<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rogressData?.activityId))
-  }, [step<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rogressData?.activityId])
+    setShowSpinner(Boolean(activityId))
+  }, [activityId])
 &nbsp;
   useEffect(() =&gt; {
     if ((data || error) &amp;&amp; showSpinner) setShowSpinner(false)
@@ -415,7 +418,7 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Sep 12 2021 17:20:38 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 13 2021 01:34:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

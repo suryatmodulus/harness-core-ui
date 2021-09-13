@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -111,8 +111,7 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -120,6 +119,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,9 +133,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,7 +165,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useState } from 'react'
 import { Container, Tabs, Tab } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -176,6 +174,7 @@ import { DeploymentMetrics } from './components/DeploymentMetrics/DeploymentMetr
 import { ExecutionVerificationSummary } from './components/ExecutionVerificationSummary/ExecutionVerificationSummary'
 import type { DeploymentNodeAnalysisResult } from './components/DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes.constants'
 import LogAnalysisContainer from './components/LogAnalysisContainer/LogAnalysisView.container'
+import { getActivityId } from './ExecutionVerificationView.utils'
 import css from './ExecutionVerificationView.module.scss'
 &nbsp;
 interface ExecutionVerificationViewProps {
@@ -186,17 +185,15 @@ export function ExecutionVerificationView(props: ExecutionVerificationViewProps)
   const { step } = props
   const { getString } = useStrings()
   const [selectedNode, setSelectedNode] = useState&lt;DeploymentNodeAnalysisResult | undefined&gt;()
-  const content = step<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rogressData?.activityId ? (
+  const activityId = useMemo(() =&gt; getActivityId(step), [step])
+&nbsp;
+  const content = activityId ? (
     &lt;Tabs id="AnalysisTypeTabs"&gt;
       &lt;Tab
         id={getString('pipeline.verification.analysisTab.metrics')}
         title={getString('pipeline.verification.analysisTab.metrics')}
         panel={
-          &lt;DeploymentMetrics
-            step={step}
-            selectedNode={selectedNode}
-            activityId={step.progressData.activityId as unknown as string}
-          /&gt;
+          &lt;DeploymentMetrics step={step} selectedNode={selectedNode} activityId={activityId as unknown as string} /&gt;
         }
       /&gt;
       &lt;Tab
@@ -229,7 +226,7 @@ export function ExecutionVerificationView(props: ExecutionVerificationViewProps)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Sep 12 2021 17:20:38 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 13 2021 01:34:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -1235,7 +1235,23 @@ const getManifests = (pipelineObj: any, stageId: string): any => {
     } else if (item && item.stage && item.stage.identifier === stageId) {
       manifestArr = item?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
     }
-    return manifestArr
+    if (manifestArr) {
+      return manifestArr
+    }
+  }
+}
+
+const getPipelineOverrideManifests = (pipelineObj: any, stageId: string): any => {
+  let manifestArr
+  for (const item of pipelineObj) {
+    if (Array.isArray(item.parallel)) {
+      manifestArr = getPipelineOverrideManifests(item.parallel, stageId)
+    } else if (item && item.stage && item.stage.identifier === stageId) {
+      manifestArr = item?.stage?.spec?.serviceConfig?.stageOverrides?.manifests
+    }
+    if (manifestArr) {
+      return manifestArr
+    }
   }
 }
 // data is already filtered w/ correct manifest
@@ -1258,11 +1274,7 @@ export const getArtifactTableDataFromData = ({
 
   if (appliedArtifact && stageId && isManifest) {
     const pipelineManifests = getManifests(pipeline.stages, stageId)
-    // const pipelineManifests = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === stageId)?.stage
-    //   ?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
-    // applied artifact is a manifest override
-    const stageOverridesManifests = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === stageId)
-      ?.stage?.spec?.serviceConfig?.stageOverrides?.manifests
+    const stageOverridesManifests = getPipelineOverrideManifests(pipeline.stages, stageId)
 
     const { location } = getDetailsFromPipeline({
       manifests: pipelineManifests,
@@ -1294,10 +1306,7 @@ export const getArtifactTableDataFromData = ({
       const dataStageId = stageObject?.stage?.identifier
       // pipelineManifests used to find location from pipeline
       const pipelineManifests = getManifests(pipeline?.stages, dataStageId)
-      const stageOverridesManifests = pipeline?.stages?.find(
-        (stageObj: any) => stageObj?.stage?.identifier === dataStageId
-      )?.stage?.spec?.serviceConfig?.stageOverrides?.manifests
-
+      const stageOverridesManifests = getPipelineOverrideManifests(pipeline.stages, dataStageId)
       const { manifests = [] } = stageObject?.stage?.spec?.serviceConfig?.serviceDefinition?.spec || {}
       manifests.forEach((manifestObj: any) => {
         const { location, chartVersion } = getDetailsFromPipeline({

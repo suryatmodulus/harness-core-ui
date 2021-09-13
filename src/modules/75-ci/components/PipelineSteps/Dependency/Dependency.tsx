@@ -1,8 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import { parse } from 'yaml'
-import get from 'lodash-es/get'
 import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -18,17 +16,12 @@ import type {
   Resources,
   MultiTypeListUIType
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
-import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
-import { ModuleName } from 'framework/types/ModuleName'
-import { loggerFor } from 'framework/logging/logging'
 import { DependencyBaseWithRef } from './DependencyBase'
 import { DependencyInputSet } from './DependencyInputSet'
 import { DependencyVariables, DependencyVariablesProps } from './DependencyVariables'
 import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './DependencyFunctionConfigs'
-import { getConnectorSuggestions } from '../EditorSuggestionUtils'
+import { getConnectorList } from '../../common/utils'
 
-const logger = loggerFor(ModuleName.CI)
-// const stepConnectorRegEx = /.connectorRef$/
 const stepConnectorRegEx = /stage\.spec\.serviceDependencies\.\d+\.spec\.connectorRef$/
 
 export interface DependencySpec {
@@ -83,7 +76,7 @@ export class Dependency extends PipelineStep<DependencyData> {
     super()
     this._hasStepVariables = true
     this.invocationMap = new Map()
-    this.invocationMap.set(stepConnectorRegEx, this.getConnectorList.bind(this, undefined))
+    this.invocationMap.set(stepConnectorRegEx, this.getConnectorListProtected.bind(this, undefined))
   }
 
   protected type = StepType.Dependency
@@ -101,29 +94,30 @@ export class Dependency extends PipelineStep<DependencyData> {
   }
 
   /* istanbul ignore next */
-  protected async getConnectorList(
-    connectorTypes: string[] | undefined,
-    path: string,
-    yaml: string,
-    params: Record<string, unknown>
-  ): Promise<CompletionItemInterface[]> {
-    if (connectorTypes?.length) {
-      return getConnectorSuggestions(params, connectorTypes)
-    }
-    let pipelineObj
-    try {
-      pipelineObj = parse(yaml)
-    } catch (err) {
-      logger.error('Error while parsing the yaml', err)
-    }
-    if (pipelineObj) {
-      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
-      if (obj.type === StepType.Dependency) {
-        return getConnectorSuggestions(params, ['Gcp', 'Aws', 'DockerRegistry'])
-      }
-    }
-    return []
-  }
+  protected getConnectorListProtected = getConnectorList
+  // (
+  //   connectorTypes: string[] | undefined,
+  //   path: string,
+  //   yaml: string,
+  //   params: Record<string, unknown>
+  // ): Promise<CompletionItemInterface[]> {
+  //   if (connectorTypes?.length) {
+  //     return getConnectorSuggestions(params, connectorTypes)
+  //   }
+  //   let pipelineObj
+  //   try {
+  //     pipelineObj = parse(yaml)
+  //   } catch (err) {
+  //     logger.error('Error while parsing the yaml', err)
+  //   }
+  //   if (pipelineObj) {
+  //     const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+  //     if (obj.type === StepType.Dependency) {
+  //       return getConnectorSuggestions(params, ['Gcp', 'Aws', 'DockerRegistry'])
+  //     }
+  //   }
+  //   return []
+  // }
 
   /* istanbul ignore next */
   processFormData<T>(data: T): DependencyData {

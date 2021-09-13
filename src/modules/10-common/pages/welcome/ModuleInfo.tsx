@@ -1,38 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Button, Color, Container, Text, Icon, IconName, Layout, Heading } from '@wings-software/uicore'
+import { Button, Color, Container, Text, Layout } from '@wings-software/uicore'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import routes from '@common/RouteDefinitions'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import { Experiences } from '@common/constants/Utils'
 import { useToaster } from '@common/components'
-import type { StringsMap } from 'stringTypes'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { Category, PurposeActions } from '@common/constants/TrackingConstants'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import ModuleCard from './ModuleCard'
 import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '../../components/ModuleInfoCards/ModuleInfoCards'
 import css from './WelcomePage.module.scss'
 
-enum STEPS {
-  SELECT_MODULE = 'SELECT',
-  MODULE_INFO = 'MODULE'
+export interface ModuleProps {
+  module?: Module
 }
 
-interface ModuleProps {
-  enabled: boolean
-  titleIcon: IconName
-  bodyIcon: IconName
-  module: Module
-}
-
-interface ModuleInfoProps {
-  setStep: (step: STEPS) => void
-  moduleProps: ModuleProps
-}
-
-const ModuleInfo: React.FC<ModuleInfoProps> = ({ setStep, moduleProps }) => {
+const ModuleInfo: React.FC<ModuleProps> = ({ module = 'cd' }) => {
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard>()
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
@@ -47,7 +32,7 @@ const ModuleInfo: React.FC<ModuleInfoProps> = ({ setStep, moduleProps }) => {
     accountIdentifier: accountId
   })
 
-  const getModuleLink = (module: Module): React.ReactElement => {
+  const getModuleLink = (_module: Module): React.ReactElement => {
     async function handleUpdateDefaultExperience(): Promise<void> {
       try {
         await updateDefaultExperience({
@@ -65,9 +50,9 @@ const ModuleInfo: React.FC<ModuleInfoProps> = ({ setStep, moduleProps }) => {
           intent="primary"
           className={css.continueButton}
           onClick={() => {
-            trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: module })
+            trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: _module })
             handleUpdateDefaultExperience().then(() =>
-              history.push(routes.toModuleHome({ accountId, module, source: 'purpose' }))
+              history.push(routes.toModuleHome({ accountId, module: _module, source: 'purpose' }))
             )
           }}
         >
@@ -96,48 +81,32 @@ const ModuleInfo: React.FC<ModuleInfoProps> = ({ setStep, moduleProps }) => {
     )
   }
 
-  const getModuleInfo = (module: Module): React.ReactElement => {
-    const moduleName = module.toString().toLowerCase()
-    const title = getString(`${moduleName}.continuous` as keyof StringsMap)
-    const link = getModuleLink(module)
+  const getModuleInfo = (_module: Module): React.ReactElement => {
+    const link = getModuleLink(_module)
 
     const infoCards = (
       <ModuleInfoCards
-        className={css.moduleInfoCards}
-        module={module}
+        module={_module}
         selectedInfoCard={selectedInfoCard}
         setSelectedInfoCard={setSelectedInfoCard}
-        fontColor={Color.WHITE}
+        fontColor={Color.BLACK}
       />
     )
 
-    function getIconName(): string {
-      if (module === 'cf') {
-        return 'ff-solid'
-      }
-      if (module === 'ce') {
-        return 'ccm-solid'
-      }
-      return `${module}-solid`
-    }
-
     return (
       <Layout.Vertical
-        key={module}
+        key={_module}
         spacing="large"
         padding={{ bottom: 'xxxlarge', left: 'xxxlarge', right: 'xxxlarge', top: 'small' }}
       >
         <Layout.Horizontal spacing="small">
-          <Icon name={getIconName() as IconName} size={25} />
-          <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.WHITE}>
-            {title}
+          <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
+            {getString('common.selectAVersion.title')}
           </Text>
         </Layout.Horizontal>
-        <String
-          stringID={`common.purpose.${moduleName}.description` as keyof StringsMap}
-          useRichText
-          className={css.moduleInfoDescription}
-        />
+        <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
+          {getString('common.selectAVersion.description')}
+        </Text>
         {infoCards}
         {link}
       </Layout.Vertical>
@@ -145,36 +114,17 @@ const ModuleInfo: React.FC<ModuleInfoProps> = ({ setStep, moduleProps }) => {
   }
 
   useEffect(() => {
-    const infoCardProps = getInfoCardsProps(accountId, GTM_CD_ENABLED)[moduleProps.module]
+    const infoCardProps = getInfoCardsProps(accountId, GTM_CD_ENABLED)[module]
 
     // Automatically select the first info card if none are selected
     if (!selectedInfoCard && infoCardProps) {
       setSelectedInfoCard(infoCardProps[0])
     }
-  }, [moduleProps, selectedInfoCard, accountId, GTM_CD_ENABLED])
+  }, [module, selectedInfoCard, accountId, GTM_CD_ENABLED])
 
   return (
     <Layout.Horizontal className={css.moduleInfo}>
-      <Container className={css.moduleInfoLeft}>
-        <Layout.Vertical>
-          <Heading color={Color.WHITE} font={{ size: 'large', weight: 'bold' }}>
-            {getString('common.purpose.welcome')}
-          </Heading>
-          <Layout.Horizontal>
-            <ModuleCard option={moduleProps} selected cornerSelected className={css.selectedModuleInfoCard} />
-            <Text
-              color={Color.PRIMARY_3}
-              onClick={() => {
-                setStep(STEPS.SELECT_MODULE)
-              }}
-              className={css.changeSelection}
-            >
-              {getString('common.purpose.changeSelection')}
-            </Text>
-          </Layout.Horizontal>
-        </Layout.Vertical>
-      </Container>
-      <Container className={css.moduleInfoRight}>{moduleProps?.module && getModuleInfo(moduleProps?.module)}</Container>
+      <Container className={css.moduleInfoRight}>{module && getModuleInfo(module)}</Container>
     </Layout.Horizontal>
   )
 }

@@ -12,11 +12,6 @@ import type { Module, AccountPathProps } from '@common/interfaces/RouteInterface
 import ModuleCard from './ModuleCard'
 import css from './WelcomePage.module.scss'
 
-enum STEPS {
-  SELECT_MODULE = 'SELECT',
-  MODULE_INFO = 'MODULE'
-}
-
 interface ModuleProps {
   enabled: boolean
   titleIcon: IconName
@@ -25,12 +20,12 @@ interface ModuleProps {
 }
 
 interface SelectModuleListProps {
-  setStep: (step: STEPS) => void
   onModuleClick: (module?: Module) => void
   moduleList: ModuleProps[]
+  openVersionSelection: () => void
 }
 
-const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, onModuleClick, moduleList }) => {
+const SelectModuleList: React.FC<SelectModuleListProps> = ({ onModuleClick, moduleList, openVersionSelection }) => {
   const [selected, setSelected] = useState<Module>()
 
   const { getString } = useStrings()
@@ -47,8 +42,8 @@ const SelectModuleList: React.FC<SelectModuleListProps> = ({ setStep, onModuleCl
   }
 
   const handleCDContinue = (): void => {
-    setStep(STEPS.MODULE_INFO)
     onModuleClick(selected)
+    openVersionSelection()
   }
   const history = useHistory()
 

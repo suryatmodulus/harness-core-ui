@@ -542,3 +542,6 @@ module:
   cv: CV
 customPricing: for Custom Pricing
 specified: Specified
+selectAVersion:
+  title: Select a version to proceed
+  description: Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.

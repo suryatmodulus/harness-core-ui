@@ -10,7 +10,6 @@ declare const styles: {
   readonly moduleInfoRight: string
   readonly continueButton: string
   readonly moduleInfoDescription: string
-  readonly moduleInfoCards: string
   readonly changeSelection: string
   readonly selectedModuleInfoCard: string
   readonly titleIcon: string

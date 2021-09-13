@@ -386,6 +386,8 @@ export interface StringsMap {
   'common.seeDetails': string
   'common.seeWhatChanged': string
   'common.selectAChannel': string
+  'common.selectAVersion.description': string
+  'common.selectAVersion.title': string
   'common.selectBranch': string
   'common.selectDefaultExperience': string
   'common.selectUserGroups': string

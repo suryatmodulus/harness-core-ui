@@ -5,9 +5,9 @@ import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { Category, PageNames } from '@common/constants/TrackingConstants'
 import type { Module } from '@common/interfaces/RouteInterfaces'
+import { useVersionSelectionModal } from './useVersionSelectionModal'
 
 import SelectModuleList from './SelectModuleList'
-import ModuleInfo from './ModuleInfo'
 import bgImageUrl from './images/background.svg'
 import ribbon from './images/ribbon.svg'
 import ribbon_ff from './images/ribbon_ff.svg'
@@ -15,11 +15,6 @@ import ribbon_ci from './images/ribbon_ci.svg'
 import ribbon_ccm from './images/ribbon_ccm.svg'
 import ribbon_cd from './images/ribbon_cd.svg'
 import css from './WelcomePage.module.scss'
-
-enum STEPS {
-  SELECT_MODULE = 'SELECT',
-  MODULE_INFO = 'MODULE'
-}
 
 interface ModuleProps {
   enabled: boolean
@@ -31,8 +26,6 @@ interface ModuleProps {
 const WelcomePage: React.FC = () => {
   const HarnessLogo = HarnessIcons['harness-logo-white']
   const { getString } = useStrings()
-  const [step, setStep] = useState<STEPS>(STEPS.SELECT_MODULE)
-  const [module, setModule] = useState<Module>()
   const [ribbonImg, setRibbonImg] = useState<string>(ribbon)
 
   const { CVNG_ENABLED, CING_ENABLED, CFNG_ENABLED, CENG_ENABLED } = useFeatureFlags()
@@ -102,31 +95,25 @@ const WelcomePage: React.FC = () => {
 
   useTelemetry({ pageName: PageNames.Purpose, category: Category.SIGNUP })
 
-  const selectedModuleProps = module && getModuleProps(module)
+  const { openVersionSelectionModal } = useVersionSelectionModal()
 
-  const body =
-    step === STEPS.SELECT_MODULE ? (
-      <Layout.Vertical>
-        <Heading color={Color.WHITE} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}>
-          {getString('common.purpose.welcome')}
-        </Heading>
-        <Text padding={{ top: 'small', bottom: 'xxxlarge' }} color={Color.WHITE}>
-          {getString('common.purpose.selectAModule')}
-        </Text>
-        <SelectModuleList
-          setStep={setStep}
-          onModuleClick={(_module?: Module) => {
-            setModule(_module)
-            setRibbonImg(ribbonMap[_module?.toString() || 'default'])
-          }}
-          moduleList={getOptions()}
-        />
-      </Layout.Vertical>
-    ) : (
-      <Layout.Vertical padding={{ top: 'xxlarge' }}>
-        {selectedModuleProps && <ModuleInfo setStep={setStep} moduleProps={selectedModuleProps} />}
-      </Layout.Vertical>
-    )
+  const body = (
+    <Layout.Vertical>
+      <Heading color={Color.WHITE} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}>
+        {getString('common.purpose.welcome')}
+      </Heading>
+      <Text padding={{ top: 'small', bottom: 'xxxlarge' }} color={Color.WHITE}>
+        {getString('common.purpose.selectAModule')}
+      </Text>
+      <SelectModuleList
+        onModuleClick={(_module?: Module) => {
+          setRibbonImg(ribbonMap[_module?.toString() || 'default'])
+        }}
+        openVersionSelection={openVersionSelectionModal}
+        moduleList={getOptions()}
+      />
+    </Layout.Vertical>
+  )
 
   const ribbonMap: Record<string, string> = {
     cd: ribbon_cd,

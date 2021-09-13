@@ -262,7 +262,7 @@ createPipeline:
   setupLater: Setup Later
   learnMore: Learn More
 selectOrCreateForm:
-  description: Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
+  description: '{{$.common.selectAVersion.description}}'
 execution:
   stagesExecuted: Stages executed (most recent first)
   upcomingStagesPrefix: 'Upcoming stages: '

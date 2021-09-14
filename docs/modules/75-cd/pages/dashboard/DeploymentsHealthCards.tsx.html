@@ -361,7 +361,9 @@
 <a name='L302'></a><a href='#L302'>302</a>
 <a name='L303'></a><a href='#L303'>303</a>
 <a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -514,6 +516,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -524,8 +530,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -739,13 +743,13 @@ export default function DeploymentsHealthCards() {
             {
               type: 'bar',
               name: 'Non Prod',
-              color: 'var(--ci-color-blue-250)',
+              color: 'var(--grey-600)',
               data: [nonProduction, 0]
             },
             {
               type: 'bar',
               name: 'Prod',
-              color: 'var(--ci-color-blue-550)',
+              color: 'var(--grey-600)',
               data: [0, production]
             }
           ]
@@ -787,7 +791,11 @@ export default function DeploymentsHealthCards() {
 &nbsp;
   return (
     &lt;Container&gt;
-      &lt;RangeSelectorWithTitle title="Deployments Health" onRangeSelected={setRange} /&gt;
+      &lt;RangeSelectorWithTitle
+        title="Deployments Health"
+        onRangeSelected={setRange}
+        titleClsName={styles.rangeSelectorHeader}
+      /&gt;
       &lt;Container className={styles.healthCards}&gt;
         &lt;HealthCard
           title="Total Deployments"
@@ -798,7 +806,7 @@ export default function DeploymentsHealthCards() {
           secondaryChartOptions={chartsData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalBarChartOptions}
         /&gt;
         &lt;HealthCard
-          title="Success Deployments"
+          title="Successful Deployments"
           text={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ealthDeploymentInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccess<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ount}
           rate={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ealthDeploymentInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccess<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ate}
           isLoading={loading}
@@ -829,9 +837,7 @@ export function HealthCard({
 }: HealthCardProps) {
   return (
     &lt;Container className={styles.healthCard}&gt;
-      &lt;Text className={styles.cardHeader} font={{ size: 'small' }}&gt;
-        {title}
-      &lt;/Text&gt;
+      &lt;Text className={styles.cardHeader}&gt;{title}&lt;/Text&gt;
       &lt;Container style={layout === 'horizontal' ? { display: 'flex' } : {}}&gt;
         &lt;Container className={styles.textAndRate}&gt;
           {isLoading ? (
@@ -844,7 +850,7 @@ export function HealthCard({
               &lt;Text
                 margin={{ left: 'xsmall' }}
                 style={{
-                  color: rate &gt;= 0 ? 'var(--ci-color-green-500)' : <span class="branch-1 cbranch-no" title="branch not covered" >'var(--ci-color-red-500)'</span>
+                  color: rate &gt;= 0 ? 'var(--green-600)' : <span class="branch-1 cbranch-no" title="branch not covered" >'var(--ci-color-red-500)'</span>
                 }}
               &gt;
                 {Math.abs(roundNumber(rate)!)}%
@@ -853,7 +859,7 @@ export function HealthCard({
                 size={14}
                 name={rate &gt;= 0 ? 'caret-up' : <span class="branch-1 cbranch-no" title="branch not covered" >'caret-down'}</span>
                 style={{
-                  color: rate &gt;= 0 ? 'var(--ci-color-green-500)' : <span class="branch-1 cbranch-no" title="branch not covered" >'var(--ci-color-red-500)'</span>
+                  color: rate &gt;= 0 ? 'var(--green-600)' : <span class="branch-1 cbranch-no" title="branch not covered" >'var(--ci-color-red-500)'</span>
                 }}
               /&gt;
             &lt;/&gt;
@@ -976,7 +982,7 @@ const secondaryChartOptions: Highcharts.Options = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 14 2021 04:37:17 GMT+0000 (Greenwich Mean Time)
+                at Tue Sep 14 2021 05:25:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.67% </span>
+                <span class="strong">89.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/73</span>
+                <span class='fraction'>62/69</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.9% </span>
+                <span class="strong">56.44% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>56/102</span>
+                <span class='fraction'>57/101</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.67% </span>
+                <span class="strong">89.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>64/73</span>
+                <span class='fraction'>62/69</span>
             </div>
         
             
@@ -269,17 +269,7 @@
 <a name='L210'></a><a href='#L210'>210</a>
 <a name='L211'></a><a href='#L211'>211</a>
 <a name='L212'></a><a href='#L212'>212</a>
-<a name='L213'></a><a href='#L213'>213</a>
-<a name='L214'></a><a href='#L214'>214</a>
-<a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a>
-<a name='L217'></a><a href='#L217'>217</a>
-<a name='L218'></a><a href='#L218'>218</a>
-<a name='L219'></a><a href='#L219'>219</a>
-<a name='L220'></a><a href='#L220'>220</a>
-<a name='L221'></a><a href='#L221'>221</a>
-<a name='L222'></a><a href='#L222'>222</a>
-<a name='L223'></a><a href='#L223'>223</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L213'></a><a href='#L213'>213</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -312,6 +302,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">25x</span>
@@ -336,8 +330,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -354,22 +346,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -535,6 +515,10 @@ import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 import ProjectsEmptyState from './projects-empty-state.png'
 import css from './ProjectsPage.module.scss'
 &nbsp;
+enum OrgFilter {
+  ALL = '$$ALL$$'
+}
+&nbsp;
 const ProjectsListPage: React.FC = () =&gt; {
   const { accountId } = useParams&lt;AccountPathProps&gt;()
   const { orgIdentifier } = useQueryParams&lt;OrgPathProps&gt;()
@@ -550,13 +534,11 @@ const ProjectsListPage: React.FC = () =&gt; {
   const allOrgsSelectOption: SelectOption = useMemo(
     () =&gt; ({
       label: getString('all'),
-      value: getString('projectsOrgs.capsAllValue')
+      value: OrgFilter.ALL
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
-&nbsp;
-  const [orgFilter, setOrgFilter] = useState&lt;SelectOption&gt;(allOrgsSelectOption)
 &nbsp;
   const { data: orgsData } = useGetOrganizationList({
     queryParams: {
@@ -575,22 +557,10 @@ const ProjectsListPage: React.FC = () =&gt; {
     [verify]
   )
 &nbsp;
-  useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (orgIdentifier === 'ALL' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >orgFilter.value !== 'ALL')</span> {
-<span class="cstat-no" title="statement not covered" >      setOrgFilter(allOrgsSelectOption)</span>
-    }
-  }, [orgIdentifier, allOrgsSelectOption, orgFilter.value])
-&nbsp;
   const organizations: SelectOption[] = useMemo(() =&gt; {
     return [
       allOrgsSelectOption,
       ...(orgsData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(org =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (org.organization.identifier === orgIdentifier) {
-<span class="cstat-no" title="statement not covered" >          setOrgFilter({</span>
-            label: org.organization.name,
-            value: org.organization.identifier
-          })
-        }
         return {
           label: org.organization.name,
           value: org.organization.identifier
@@ -601,12 +571,12 @@ const ProjectsListPage: React.FC = () =&gt; {
 &nbsp;
   React.useEffect(() =&gt; {
     setPage(0)
-  }, [searchParam, orgFilter])
+  }, [searchParam, orgIdentifier])
 &nbsp;
   const { data, loading, refetch, error } = useGetProjectAggregateDTOList({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: orgFilter.value == 'ALL' ? <span class="branch-0 cbranch-no" title="branch not covered" >undefined </span>: orgFilter.value.toString(),
+      orgIdentifier,
       searchTerm: searchParam,
       pageIndex: page,
       pageSize: 50
@@ -642,7 +612,7 @@ const ProjectsListPage: React.FC = () =&gt; {
     &lt;Container className={css.projectsPage} height="inherit"&gt;
       &lt;EmailVerificationBanner /&gt;
       &lt;Page.Header breadcrumbs={&lt;NGBreadcrumbs /&gt;} title={getString('projectsText')} /&gt;
-      {data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalItems || <span class="branch-1 cbranch-no" title="branch not covered" >searchParam </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >loading </span>|| <span class="branch-3 cbranch-no" title="branch not covered" >error </span>? (
+      {data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalItems || <span class="branch-1 cbranch-no" title="branch not covered" >searchParam </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >loading </span>|| <span class="branch-3 cbranch-no" title="branch not covered" >error </span>|| <span class="branch-4 cbranch-no" title="branch not covered" >orgIdentifier </span>? (
         &lt;Layout.Horizontal spacing="large" className={css.header}&gt;
           &lt;Button
             variation={ButtonVariation.PRIMARY}
@@ -654,11 +624,11 @@ const ProjectsListPage: React.FC = () =&gt; {
             disabled={loading}
             filterable={false}
             items={organizations}
-            value={orgFilter.value.toString()}
+            value={orgIdentifier || OrgFilter.ALL}
             onChange={item =&gt; {
               history.push({
                 pathname: routes.toProjects({ accountId }),
-                search: `?orgIdentifier=${item.value.toString()}`
+                search: item.value !== OrgFilter.ALL ? <span class="branch-0 cbranch-no" title="branch not covered" >`?orgIdentifier=${item.value.toString()}` </span>: undefined
               })
             }}
             getCustomLabel={item =&gt; getString('projectsOrgs.tabOrgs', { name: item.label })}
@@ -730,7 +700,7 @@ export default ProjectsListPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 14 2021 05:25:12 GMT+0000 (Greenwich Mean Time)
+                at Tue Sep 14 2021 08:49:15 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

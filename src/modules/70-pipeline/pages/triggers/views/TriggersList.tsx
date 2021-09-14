@@ -22,6 +22,7 @@ import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
 
 import css from './TriggersList.module.scss'
+import { ArtifactIconByType, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 
 interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
@@ -149,17 +150,42 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
     const categoryItems = getCategoryItems(getString)
     /* istanbul ignore next */
     if (NG_NEWARTIFACT_TRIGGER) {
-      categoryItems.categories.splice(1, 0, {
-        categoryLabel: getString('manifestsText'),
-        categoryValue: 'Manifest',
-        items: [
-          {
-            itemLabel: getString(manifestTypeLabels.HelmChart),
-            value: ManifestDataType.HelmChart,
-            iconName: manifestTypeIcons.HelmChart
-          }
-        ]
-      })
+      categoryItems.categories.splice(
+        1,
+        0,
+        {
+          categoryLabel: getString('pipeline.triggers.artifactTriggerConfigPanel.artifact'),
+          categoryValue: 'Artifact',
+          items: [
+            {
+              itemLabel: ENABLED_ARTIFACT_TYPES.Gcr,
+              value: ENABLED_ARTIFACT_TYPES.Gcr,
+              iconName: ArtifactIconByType.Gcr
+            },
+            {
+              itemLabel: ENABLED_ARTIFACT_TYPES.Ecr,
+              value: ENABLED_ARTIFACT_TYPES.Ecr,
+              iconName: ArtifactIconByType.Ecr
+            },
+            {
+              itemLabel: ENABLED_ARTIFACT_TYPES.DockerRegistry,
+              value: ENABLED_ARTIFACT_TYPES.DockerRegistry,
+              iconName: ArtifactIconByType.DockerRegistry
+            }
+          ]
+        },
+        {
+          categoryLabel: getString('manifestsText'),
+          categoryValue: 'Manifest',
+          items: [
+            {
+              itemLabel: getString(manifestTypeLabels.HelmChart),
+              value: ManifestDataType.HelmChart,
+              iconName: manifestTypeIcons.HelmChart
+            }
+          ]
+        }
+      )
     }
 
     return (

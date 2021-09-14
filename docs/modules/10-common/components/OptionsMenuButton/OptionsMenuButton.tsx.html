@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -91,27 +91,27 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">301x</span>
-<span class="cline-any cline-yes">301x</span>
-<span class="cline-any cline-yes">301x</span>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">304x</span>
+<span class="cline-any cline-yes">304x</span>
+<span class="cline-any cline-yes">304x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">301x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">304x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">301x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">304x</span>
+<span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,8 +135,8 @@ export interface OptionsMenuButtonProps extends ButtonProps {
   items: Array&lt;React.ComponentProps&lt;typeof Menu.Item&gt; | '-'&gt;
 }
 &nbsp;
-export const OptionsMenuButton: React.FC&lt;OptionsMenuButtonProps&gt; = <span class="fstat-no" title="function not covered" >({</span> items, ...props }) =&gt; {
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export const OptionsMenuButton: React.FC&lt;OptionsMenuButtonProps&gt; = ({ items, ...props }) =&gt; {
+  return (
     &lt;Button
       minimal
       icon="Options"
@@ -144,8 +144,8 @@ export const OptionsMenuButton: React.FC&lt;OptionsMenuButtonProps&gt; = <span c
       tooltip={
         &lt;Menu style={{ minWidth: 'unset' }}&gt;
           {items.map(
-<span class="fstat-no" title="function not covered" >            (i</span>tem, index) =&gt;
-<span class="cstat-no" title="statement not covered" >              ((item as string) === MenuDivider &amp;&amp; &lt;Menu.Divider key={index} /&gt;) || (</span>
+            (item, index) =&gt;
+              ((item as string) === MenuDivider &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Menu.Divider key={index} /&gt;)</span> || (
                 &lt;Menu.Item
                   key={(item as React.ComponentProps&lt;typeof Menu.Item&gt;).text as string}
                   className={Classes.POPOVER_DISMISS}
@@ -166,7 +166,7 @@ export const OptionsMenuButton: React.FC&lt;OptionsMenuButtonProps&gt; = <span c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 14 2021 08:49:15 GMT+0000 (Greenwich Mean Time)
+                at Tue Sep 14 2021 10:53:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

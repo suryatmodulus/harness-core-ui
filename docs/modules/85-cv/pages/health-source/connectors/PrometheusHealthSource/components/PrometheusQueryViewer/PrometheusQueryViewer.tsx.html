@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.25% </span>
+                <span class="strong">79.63% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/53</span>
+                <span class='fraction'>43/54</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.77% </span>
+                <span class="strong">81.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/52</span>
+                <span class='fraction'>43/53</span>
             </div>
         
             
@@ -249,10 +249,7 @@
 <a name='L190'></a><a href='#L190'>190</a>
 <a name='L191'></a><a href='#L191'>191</a>
 <a name='L192'></a><a href='#L192'>192</a>
-<a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L193'></a><a href='#L193'>193</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -304,11 +301,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -340,6 +337,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -359,13 +357,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -379,7 +374,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -499,12 +493,12 @@ const DrawerProps: IDrawerProps = {
 &nbsp;
 export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
   const { query, error, loading, data, onChange, isQueryExecuted, fetchData } = props
+  const { getString } = useStrings()
 &nbsp;
   const { options: highchartsOptions, records } = useMemo(() =&gt; {
     onChange(PrometheusMonitoringSourceFieldNames.RECORD_COUNT, <span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >data?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.length)</span>
     return transformPrometheusSampleData(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >data?.d</span>ata)</span>
   }, [data])
-&nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!error &amp;&amp; !loading &amp;&amp; records<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength) {
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;&gt;
@@ -518,11 +512,11 @@ export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
           error={error}
           query={query}
           isQueryExecuted={isQueryExecuted}
+          queryNotExecutedMessage={getString('cv.monitoringSources.prometheus.submitQueryToSeeRecords')}
         /&gt;
       &lt;/&gt;
     )
   }
-&nbsp;
   return (
     &lt;Records
       fetchRecords={fetchData}
@@ -531,6 +525,7 @@ export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
       error={error}
       query={query}
       isQueryExecuted={isQueryExecuted}
+      queryNotExecutedMessage={getString('cv.monitoringSources.prometheus.submitQueryToSeeRecords') as string}
     /&gt;
   )
 }
@@ -554,15 +549,12 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
     values<span class="branch-0 cbranch-no" title="branch not covered" >?.q</span>uery,
     values<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rometheusMetric
   ])
-&nbsp;
   const { data, refetch, cancel, error, loading } = useGetSampleData({ lazy: true })
-&nbsp;
   useEffect(() =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (!isManualQuery) {
       onChange(PrometheusMonitoringSourceFieldNames.QUERY, query)
     }
   }, [query])
-&nbsp;
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const { openDialog } = useConfirmationDialog({
     titleText: getString('cv.monitoringSources.prometheus.querySettingsNotEditable'),
@@ -574,7 +566,6 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
     }
   })
   const isManualQuery = Boolean(values<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>sManualQuery)
-&nbsp;
   let content = (
     &lt;&gt;
       &lt;QueryContent
@@ -649,7 +640,7 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 15 2021 06:31:23 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 15 2021 07:04:49 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../prettify.js"></script>

@@ -70,7 +70,8 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     artifactId: selectedArtifactId,
     isManifest
   })
-  const templateObject = getTemplateObject(filteredArtifact, [])
+
+  const templateObject = isManifest ? getTemplateObject(filteredArtifact, []) : getTemplateObject([], filteredArtifact)
   const artifactOrManifestText = isManifest
     ? getString('manifestsText')
     : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')

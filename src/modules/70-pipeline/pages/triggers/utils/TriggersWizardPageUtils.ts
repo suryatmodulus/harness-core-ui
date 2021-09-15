@@ -1116,10 +1116,10 @@ export const filterArtifact = ({
   } else {
     return (
       filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.find(
-        (artifactObj: any) => artifactObj?.artifact?.identifier === artifactId
+        (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId
       ) ||
       filteredStage?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts.find(
-        (artifactObj: any) => artifactObj?.artifact?.identifier === artifactId
+        (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId
       )
     )
   }
@@ -1181,6 +1181,7 @@ const getLocationAttribute = ({
   } else if (type === ManifestStoreMap.Http) {
     return get(artifact, 'manifest.spec.chartName')
   } else if (type === 'Gcr') {
+    console.log(artifact, 'art')
     return get(artifact, 'sidecar.spec.imagePath')
   }
 }
@@ -1245,7 +1246,7 @@ export const getArtifactDetailsFromPipeline = ({
     if (matchedManifest) {
       details.location = getLocationAttribute({
         artifact: matchedManifest,
-        type: matchedManifest?.manifest?.spec?.store?.type
+        type: artifactType
       })
       details.chartVersion = getChartVersionAttribute({
         artifact: matchedManifest
@@ -1288,7 +1289,7 @@ export const getArtifactConnectorNameFromPipeline = ({
   // }
   if (artifactType) {
     return artifacts?.sidecars?.find((artifactObj: any) => artifactObj?.sidecar.identifier === artifactIdentifier)
-      ?.sidecar?.spec?.store?.spec?.connectorRef
+      ?.sidecar?.spec?.connectorRef
   }
 }
 
@@ -1329,9 +1330,11 @@ const getManifestTableItem = ({
   manifest,
   artifactRepository,
   chartVersion,
+  buildTag,
   location,
   isStageOverrideManifest,
-  getString
+  getString,
+  isManifest
 }: {
   stageId: string
   manifest: any
@@ -1339,13 +1342,27 @@ const getManifestTableItem = ({
   location?: string
   chartVersion?: string // chartVersion will always be fixed concrete value if exists
   isStageOverrideManifest: boolean
+  buildTag?: string
   getString?: (key: StringKeys) => string
+  isManifest?: boolean
 }): artifactTableItem => {
   const { identifier: artifactId } = manifest
   const manifestSpecObjectValues = Object.values(manifest?.spec || {})
   const storeSpecObjectValues = Object.values(manifest?.spec?.store?.spec || {})
   const hasRuntimeInputs =
     manifestSpecObjectValues.some(val => isRuntimeInput(val)) || storeSpecObjectValues.some(val => isRuntimeInput(val))
+
+  const disabled = () => {
+    if (isManifest) {
+      return (
+        !manifest?.spec?.chartVersion ||
+        getRuntimeInputLabel({ str: manifest?.spec?.chartVersion, getString }) !==
+          getString?.('pipeline.triggers.artifactTriggerConfigPanel.runtimeInput')
+      )
+    } else {
+      return !manifest?.spec?.tag
+    }
+  }
 
   return {
     artifactLabel: `${stageId}: ${artifactId || 'primary'}`, // required for sorting
@@ -1357,12 +1374,10 @@ const getManifestTableItem = ({
       getString
     }),
     version: getRuntimeInputLabel({ str: manifest?.spec?.chartVersion, getString }) || chartVersion,
-    disabled:
-      !manifest?.spec?.chartVersion ||
-      getRuntimeInputLabel({ str: manifest?.spec?.chartVersion, getString }) !==
-        getString?.('pipeline.triggers.artifactTriggerConfigPanel.runtimeInput'),
+    disabled: disabled(),
     hasRuntimeInputs,
-    isStageOverrideManifest
+    isStageOverrideManifest,
+    buildTag
   }
 }
 
@@ -1498,9 +1513,10 @@ export const getArtifactTableDataFromData = ({
               manifest: artifactObj,
               artifactRepository,
               location,
-              chartVersion: tag,
+              buildTag: tag,
               getString,
-              isStageOverrideManifest: false
+              isStageOverrideManifest: false,
+              isManifest
             })
           )
           console.log(artifactTableData, 'atd')
@@ -1528,9 +1544,10 @@ export const getArtifactTableDataFromData = ({
                 manifest: artifactObj?.sidecar,
                 artifactRepository,
                 location,
-                chartVersion: tag,
+                buildTag: tag,
                 getString,
-                isStageOverrideManifest: false
+                isStageOverrideManifest: false,
+                isManifest
               })
             )
           }

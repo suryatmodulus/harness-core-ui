@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.74% </span>
+                <span class="strong">89.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/46</span>
+                <span class='fraction'>33/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.62% </span>
+                <span class="strong">77.27% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/29</span>
+                <span class='fraction'>17/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.74% </span>
+                <span class="strong">89.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/46</span>
+                <span class='fraction'>33/37</span>
             </div>
         
             
@@ -227,7 +227,9 @@
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
@@ -328,22 +330,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -492,28 +496,30 @@ export class RestoreCacheGCSStep extends PipelineStep&lt;RestoreCacheGCSStepData
     }
   }
 &nbsp;
-  protected <span class="fstat-no" title="function not covered" >async </span>getConnectorList(
+  /* istanbul ignore next */
+  protected async getConnectorList(
     path: string,
     yaml: string,
     params: Record&lt;string, unknown&gt;
   ): Promise&lt;CompletionItemInterface[]&gt; {
     let pipelineObj
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      pipelineObj = parse(yaml)</span>
+    try {
+      pipelineObj = parse(yaml)
     } catch (err) {
-<span class="cstat-no" title="statement not covered" >      logger.error('Error while parsing the yaml', err)</span>
+      logger.error('Error while parsing the yaml', err)
     }
-<span class="cstat-no" title="statement not covered" >    if (pipelineObj) {</span>
-      const obj = <span class="cstat-no" title="statement not covered" >get(pipelineObj, path.replace('.spec.connectorRef', ''))</span>
-<span class="cstat-no" title="statement not covered" >      if (obj.type === StepType.RestoreCacheGCS || obj.type === StepType.SaveCacheGCS || obj.type === StepType.GCR) {</span>
-<span class="cstat-no" title="statement not covered" >        return getConnectorSuggestions(params, ['Gcp'])</span>
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj.type === StepType.RestoreCacheGCS || obj.type === StepType.SaveCacheGCS || obj.type === StepType.GCR) {
+        return getConnectorSuggestions(params, ['Gcp'])
       }
     }
-<span class="cstat-no" title="statement not covered" >    return []</span>
+    return []
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  processFormData&lt;</span>T&gt;(data: T): RestoreCacheGCSStepData {
-<span class="cstat-no" title="statement not covered" >    return getFormValuesInCorrectFormat&lt;T, RestoreCacheGCSStepData&gt;(data, transformValuesFieldsConfig)</span>
+  /* istanbul ignore next */
+  processFormData&lt;T&gt;(data: T): RestoreCacheGCSStepData {
+    return getFormValuesInCorrectFormat&lt;T, RestoreCacheGCSStepData&gt;(data, transformValuesFieldsConfig)
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  validateInputSet(</span>{
@@ -574,7 +580,7 @@ export class RestoreCacheGCSStep extends PipelineStep&lt;RestoreCacheGCSStepData
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 15 2021 04:59:15 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 15 2021 06:31:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

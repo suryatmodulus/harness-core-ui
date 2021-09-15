@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">97.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/48</span>
+                <span class='fraction'>36/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.25% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/32</span>
+                <span class='fraction'>18/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">97.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/48</span>
+                <span class='fraction'>36/37</span>
             </div>
         
             
@@ -241,7 +241,9 @@
 <a name='L182'></a><a href='#L182'>182</a>
 <a name='L183'></a><a href='#L183'>183</a>
 <a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
@@ -349,26 +351,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -527,32 +531,34 @@ export class Dependency extends PipelineStep&lt;DependencyData&gt; {
     }
   }
 &nbsp;
-  protected <span class="fstat-no" title="function not covered" >async </span>getConnectorList(
+  /* istanbul ignore next */
+  protected async getConnectorList(
     connectorTypes: string[] | undefined,
     path: string,
     yaml: string,
     params: Record&lt;string, unknown&gt;
   ): Promise&lt;CompletionItemInterface[]&gt; {
-<span class="cstat-no" title="statement not covered" >    if (connectorTypes?.length) {</span>
-<span class="cstat-no" title="statement not covered" >      return getConnectorSuggestions(params, connectorTypes)</span>
+    if (connectorTypes?.length) {
+      return getConnectorSuggestions(params, connectorTypes)
     }
     let pipelineObj
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      pipelineObj = parse(yaml)</span>
+    try {
+      pipelineObj = parse(yaml)
     } catch (err) {
-<span class="cstat-no" title="statement not covered" >      logger.error('Error while parsing the yaml', err)</span>
+      logger.error('Error while parsing the yaml', err)
     }
-<span class="cstat-no" title="statement not covered" >    if (pipelineObj) {</span>
-      const obj = <span class="cstat-no" title="statement not covered" >get(pipelineObj, path.replace('.spec.connectorRef', ''))</span>
-<span class="cstat-no" title="statement not covered" >      if (obj.type === StepType.Dependency) {</span>
-<span class="cstat-no" title="statement not covered" >        return getConnectorSuggestions(params, ['Gcp', 'Aws', 'DockerRegistry'])</span>
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.spec.connectorRef', ''))
+      if (obj.type === StepType.Dependency) {
+        return getConnectorSuggestions(params, ['Gcp', 'Aws', 'DockerRegistry'])
       }
     }
-<span class="cstat-no" title="statement not covered" >    return []</span>
+    return []
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  processFormData&lt;</span>T&gt;(data: T): DependencyData {
-<span class="cstat-no" title="statement not covered" >    return getFormValuesInCorrectFormat&lt;T, DependencyData&gt;(data, transformValuesFieldsConfig)</span>
+  /* istanbul ignore next */
+  processFormData&lt;T&gt;(data: T): DependencyData {
+    return getFormValuesInCorrectFormat&lt;T, DependencyData&gt;(data, transformValuesFieldsConfig)
   }
 &nbsp;
   validateInputSet({
@@ -616,7 +622,7 @@ export class Dependency extends PipelineStep&lt;DependencyData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 15 2021 04:59:15 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 15 2021 06:31:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/10</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -81,24 +81,28 @@
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -110,20 +114,22 @@ import type { UseStringsReturn } from 'framework/strings'
 import type { LogData } from 'services/cv'
 import { LogEvents } from './LogAnalysis.constants'
 &nbsp;
-export const mapClusterType = <span class="fstat-no" title="function not covered" >(t</span>ype: string): LogData['tag'] =&gt; {
-<span class="cstat-no" title="statement not covered" >  switch (type) {</span>
+export const mapClusterType = (type: string): LogData['tag'] =&gt; {
+  switch (type) {
     case 'KNOWN_EVENT':
-<span class="cstat-no" title="statement not covered" >      return 'KNOWN'</span>
+      return 'KNOWN'
     case 'UNKNOWN_EVENT':
-<span class="cstat-no" title="statement not covered" >      return 'UNKNOWN'</span>
+      return 'UNKNOWN'
+    case 'UNEXPECTED_FREQUENCY':
+      return 'UNEXPECTED'
     default:
-<span class="cstat-no" title="statement not covered" >      return</span>
+      return 'KNOWN'
   }
 }
 &nbsp;
 export const getClusterTypes = (getString: UseStringsReturn['getString']): SelectOption[] =&gt; {
   return [
-    { label: getString('pipeline.verification.logs.allEvents'), value: LogEvents.ALL_EVENTS },
+    { label: getString('pipeline.verification.logs.allEvents'), value: '' },
     { label: getString('pipeline.verification.logs.knownEvent'), value: LogEvents.KNOWN_EVENT },
     { label: getString('pipeline.verification.logs.unknownEvent'), value: LogEvents.UNKNOWN_EVENT },
     { label: getString('pipeline.verification.logs.unexpectedFrequency'), value: LogEvents.UNEXPECTED_FREQUENCY }
@@ -136,7 +142,7 @@ export const getClusterTypes = (getString: UseStringsReturn['getString']): Selec
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 15 2021 04:59:15 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 15 2021 06:31:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

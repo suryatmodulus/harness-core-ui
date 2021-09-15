@@ -1181,16 +1181,19 @@ const getLocationAttribute = ({
   } else if (type === ManifestStoreMap.Http) {
     return get(artifact, 'manifest.spec.chartName')
   } else if (type === 'Gcr') {
-    return get(artifact, 'sidecar.spec.tag')
+    return get(artifact, 'sidecar.spec.imagePath')
   }
 }
 
 const getChartVersionAttribute = ({ artifact }: { artifact: ManifestConfigWrapper }): string | undefined =>
   get(artifact, 'manifest.spec.chartVersion')
 
+const getTag = ({ artifact }: { artifact: ManifestConfigWrapper }): string | undefined =>
+  get(artifact, 'sidecar.spec.tag')
 interface artifactTableDetails {
   location?: string
   chartVersion?: string
+  tag?: string
 }
 export const getDetailsFromPipeline = ({
   manifests,
@@ -1213,7 +1216,7 @@ export const getDetailsFromPipeline = ({
         artifact: matchedManifest,
         type: matchedManifest?.manifest?.spec?.store?.type
       })
-      details.chartVersion = getChartVersionAttribute({
+      details.tag = getTag({
         artifact: matchedManifest
       })
     }
@@ -1267,6 +1270,25 @@ export const getConnectorNameFromPipeline = ({
     return (stageOverridesManifests || manifests)?.find(
       (manifestObj: any) => manifestObj?.manifest.identifier === manifestIdentifier
     )?.manifest?.spec?.store?.spec?.connectorRef
+  }
+}
+
+export const getArtifactConnectorNameFromPipeline = ({
+  artifacts,
+  artifactIdentifier,
+  artifactType
+}: {
+  artifacts: { primary: any; sidecars: any[] }
+  artifactIdentifier: string
+  artifactType: string
+}): string | undefined => {
+  // const primaryArtifact = artifacts?.primary.type === artifactType ? artifacts?.primary : null
+  // if (primaryArtifact) {
+  //   return primaryArtifact
+  // }
+  if (artifactType) {
+    return artifacts?.sidecars?.find((artifactObj: any) => artifactObj?.sidecar.identifier === artifactIdentifier)
+      ?.sidecar?.spec?.store?.spec?.connectorRef
   }
 }
 
@@ -1326,7 +1348,7 @@ const getManifestTableItem = ({
     manifestSpecObjectValues.some(val => isRuntimeInput(val)) || storeSpecObjectValues.some(val => isRuntimeInput(val))
 
   return {
-    artifactLabel: `${stageId}: ${artifactId}`, // required for sorting
+    artifactLabel: `${stageId}: ${artifactId || 'primary'}`, // required for sorting
     artifactId,
     stageId,
     location: getRuntimeInputLabel({ str: location, getString }),
@@ -1463,45 +1485,60 @@ export const getArtifactTableDataFromData = ({
       const pipelineArtifacts = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === dataStageId)
         ?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
       const { artifacts = [] } = stageObject?.stage?.spec?.serviceConfig?.serviceDefinition?.spec || {}
+      console.log(artifacts, 'Artifacts')
+      artifacts?.forEach((artifactObj: any) => {
+        if (!artifactObj.sidecar) {
+          const location = artifactObj?.spec?.imagePath
+          const tag = artifactObj?.spec?.tag
+          const artifactRepository = artifactObj?.spec?.connectorRef
 
-      artifacts.forEach((artifactObj: any) => {
-        getArtifactDetailsFromPipeline({
-          artifacts: pipelineArtifacts,
-          artifactIdentifier: artifactObj?.sidecar?.identifier,
-          artifactType: artifactObj?.sidecar?.type
-        })
+          artifactTableData.push(
+            getManifestTableItem({
+              stageId: dataStageId,
+              manifest: artifactObj,
+              artifactRepository,
+              location,
+              chartVersion: tag,
+              getString,
+              isStageOverrideManifest: false
+            })
+          )
+          console.log(artifactTableData, 'atd')
+        } else {
+          const { tag, location } = getArtifactDetailsFromPipeline({
+            artifacts: pipelineArtifacts,
+            artifactIdentifier: artifactObj?.sidecar?.identifier,
+            artifactType: artifactObj?.sidecar?.type
+          })
+
+          console.log(tag, 'tag', location, 'loc')
+
+          const artifactRepository = getArtifactConnectorNameFromPipeline({
+            artifacts: pipelineArtifacts,
+            artifactIdentifier: artifactObj?.sidecar?.identifier,
+            artifactType: artifactObj?.sidecar?.type
+          })
+
+          console.log(artifactRepository, 'artRepo', artifactObj, 'art')
+
+          if (artifactObj?.sidecar) {
+            artifactTableData.push(
+              getManifestTableItem({
+                stageId: dataStageId,
+                manifest: artifactObj?.sidecar,
+                artifactRepository,
+                location,
+                chartVersion: tag,
+                getString,
+                isStageOverrideManifest: false
+              })
+            )
+          }
+        }
       })
     })
-
-    // artifacts.forEach((manifestObj: any) => {
-    //   const { location, chartVersion } = getDetailsFromPipeline({
-    //     manifests: pipelineArtifacts,
-    //     manifestIdentifier: manifestObj.manifest.identifier,
-    //     manifestType: manifestObj.manifest.type,
-    //     stageOverridesManifests
-    //   })
-
-    //   const artifactRepository = getConnectorNameFromPipeline({
-    //     manifests: pipelineArtifacts,
-    //     manifestIdentifier: manifestObj.manifest.identifier,
-    //     manifestType: manifestObj.manifest.type,
-    //     stageOverridesManifests
-    //   })
-
-    //   if (manifestObj?.manifest) {
-    //     artifactTableData.push(
-    //       getManifestTableItem({
-    //         stageId: dataStageId,
-    //         manifest: manifestObj.manifest,
-    //         artifactRepository,
-    //         location,
-    //         chartVersion,
-    //         getString,
-    //         isStageOverrideManifest: !!stageOverridesManifests
-    //       })
-    //     )
-    //   }
-    // })
+    console.log(artifactTableData, 'atd')
+    return { artifactTableData }
   }
   return {}
 }

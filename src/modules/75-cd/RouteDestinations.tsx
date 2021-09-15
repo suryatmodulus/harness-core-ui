@@ -107,6 +107,8 @@ import { CDStageDetails } from './components/CDStageDetails/CDStageDetails'
 import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputForm'
 import GitOpsModalContainer from './pages/gitops-providers-list/GitOpsProvidersList'
 
+import { ArtifactInputForm } from './components/ArtifactInputForm/ArtifactInputForm'
+
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
   component: CDExecutionCardSummary
@@ -235,6 +237,10 @@ const pipelineModuleParams: ModulePathParams = {
 }
 TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
   component: ManifestInputForm
+})
+
+TriggerFactory.registerTriggerForm(TriggerFormType.Artifact, {
+  component: ArtifactInputForm
 })
 
 export default (
@@ -761,13 +767,6 @@ export default (
       path={routes.toTemplatesListing({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <TemplatesList />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CDSideNavProps}
-      path={routes.toGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-    >
-      <GitOpsModalContainer />
     </RouteWithLayout>
   </>
 )

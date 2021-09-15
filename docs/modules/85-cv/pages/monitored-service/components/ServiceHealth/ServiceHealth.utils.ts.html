@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.24% </span>
+                <span class="strong">93.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>69/74</span>
+                <span class='fraction'>74/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.13% </span>
+                <span class="strong">81.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>43/53</span>
+                <span class='fraction'>40/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.85% </span>
+                <span class="strong">94.2% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>61/65</span>
+                <span class='fraction'>65/69</span>
             </div>
         
             
@@ -188,11 +188,23 @@
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -319,6 +331,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { SelectOption } from '@wings-software/uicore'
 import { minBy } from 'lodash-es'
 import type { UseStringsReturn } from 'framework/strings'
@@ -328,6 +346,9 @@ import {
   daysTimeFormat,
   HOURS,
   hoursTimeFormat,
+  LEFT_TEXTFIELD_WIDTH,
+  MAX_BARS_TO_SHOW,
+  MIN_BARS_TO_SHOW,
   NUMBER_OF_DATA_POINTS,
   TimePeriodEnum
 } from './ServiceHealth.constants'
@@ -432,14 +453,14 @@ export function calculateStartAndEndTimes(
   return [startTime, endTime]
 }
 &nbsp;
-export function calculateLowestHealthScore(
+export function calculateLowestHealthScoreBar(
   startTime?: number,
   endTime?: number,
   healthScoreData?: RiskData[]
-): number | undefined {
+): RiskData | undefined {
   if (startTime &amp;&amp; endTime &amp;&amp; healthScoreData &amp;&amp; healthScoreData.length) {
     const dataPointsLyingInTheRange = healthScoreData.filter((el: RiskData) =&gt; isInTheRange(el, startTime, endTime))
-    return minBy(dataPointsLyingInTheRange, 'healthScore')<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ealthScore
+    return minBy(dataPointsLyingInTheRange, 'healthScore')
   }
 }
 &nbsp;
@@ -450,6 +471,12 @@ export const isInTheRange = (el: RiskData, startTime: number, endTime: number): 
 <span class="cstat-no" title="statement not covered" >    return false</span>
   }
 }
+&nbsp;
+export const getSliderDimensions = (containerWidth: number): { minWidth: number; maxWidth: number } =&gt; {
+  const minWidth = (containerWidth - LEFT_TEXTFIELD_WIDTH) / (NUMBER_OF_DATA_POINTS / MIN_BARS_TO_SHOW)
+  const maxWidth = (containerWidth - LEFT_TEXTFIELD_WIDTH) / (NUMBER_OF_DATA_POINTS / MAX_BARS_TO_SHOW)
+  return { minWidth, maxWidth }
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -457,7 +484,7 @@ export const isInTheRange = (el: RiskData, startTime: number, endTime: number): 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 15 2021 04:26:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 15 2021 04:59:15 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

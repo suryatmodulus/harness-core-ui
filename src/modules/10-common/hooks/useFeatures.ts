@@ -1,7 +1,17 @@
 import { useEffect } from 'react'
-import { useFeaturesContext, FeatureRequestOptions, FeatureRequest } from 'framework/featureStore/FeaturesContext'
+import {
+  useFeaturesContext,
+  FeatureRequestOptions,
+  FeatureRequest,
+  CheckFeatureReturn,
+  ToolTipProps
+} from 'framework/featureStore/FeaturesContext'
 
-export function useFeature(featureRequest: FeatureRequest, options?: FeatureRequestOptions): boolean {
+export function useFeature(
+  featureRequest: FeatureRequest,
+  options?: FeatureRequestOptions,
+  tooltipProps?: ToolTipProps
+): CheckFeatureReturn {
   const { requestFeatures, checkFeature, checkLimitFeature, cancelRequest } = useFeaturesContext()
 
   useEffect(() => {
@@ -17,6 +27,6 @@ export function useFeature(featureRequest: FeatureRequest, options?: FeatureRequ
 
   // rate limit feature always calls the api in real time
   return featureRequest.isRateLimit
-    ? checkLimitFeature(featureRequest, options)
-    : checkFeature(featureRequest.featureName)
+    ? checkLimitFeature(featureRequest, options, tooltipProps)
+    : checkFeature(featureRequest.featureName, tooltipProps)
 }

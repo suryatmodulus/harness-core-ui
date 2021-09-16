@@ -4,12 +4,18 @@ import { isEqual } from 'lodash-es'
 import produce from 'immer'
 
 import { useParams } from 'react-router'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
+import FeatureTooltip from './FeatureToolTip'
 
 export interface FeatureRequest {
   accountIdentifier?: string
   featureName: string
   isRateLimit?: boolean
+}
+
+export interface CheckFeatureReturn {
+  enabled: boolean
+  toolTip?: React.ReactElement
 }
 
 interface FeatureResponse {
@@ -28,20 +34,36 @@ export interface FeatureRequestOptions {
   debounce?: number
 }
 
+export interface ToolTipProps {
+  module: Module
+}
+
 export interface FeaturesContextProps {
   // features only cache enabled features
   features: Features
   requestFeatures: (featureRequest: FeatureRequest, options?: FeatureRequestOptions) => void
-  checkFeature: (featureName: string) => boolean
-  checkLimitFeature: (featureRequest: FeatureRequest, options?: FeatureRequestOptions) => boolean
+  checkFeature: (featureName: string, toolTipProps?: ToolTipProps) => CheckFeatureReturn
+  checkLimitFeature: (
+    featureRequest: FeatureRequest,
+    options?: FeatureRequestOptions,
+    toolTipProps?: ToolTipProps
+  ) => CheckFeatureReturn
   cancelRequest: (featureRequest: FeatureRequest) => void
 }
 
 export const FeaturesContext = createContext<FeaturesContextProps>({
   features: new Map<string, boolean>(),
   requestFeatures: () => void 0,
-  checkFeature: () => true,
-  checkLimitFeature: () => true,
+  checkFeature: () => {
+    return {
+      enabled: true
+    }
+  },
+  checkLimitFeature: () => {
+    return {
+      enabled: true
+    }
+  },
   cancelRequest: () => void 0
 })
 
@@ -127,19 +149,44 @@ export function FeaturesProvider(props: React.PropsWithChildren<FeaturesProvider
     }
   }
 
-  function checkFeature(featureName: string): boolean {
+  function checkFeature(featureName: string, toolTipProps?: ToolTipProps): CheckFeatureReturn {
     const feature = features.get(featureName)
+    const { module } = toolTipProps || {}
     // absence of featureName means feature disabled
     // api call fails by default set all features to be true
-    return !!feature || hasErr
+    const enabled = !!feature || hasErr
+    const toolTip = <FeatureTooltip featureName={featureName} enabled={enabled} apiFail={hasErr} module={module} />
+    return {
+      enabled,
+      toolTip
+    }
   }
 
   // rate/limit feature check
-  function checkLimitFeature(featureRequest: FeatureRequest, options?: FeatureRequestOptions): boolean {
+  function checkLimitFeature(
+    featureRequest: FeatureRequest,
+    options?: FeatureRequestOptions,
+    toolTipProps?: ToolTipProps
+  ): CheckFeatureReturn {
     const { accountIdentifier = accountId, featureName } = featureRequest
     const { debounce = 50 } = options
+    const { module } = toolTipProps || {}
     //TODO: call rate/limit api, if api call fails, return true
-    return true
+    const enabled = true
+    const toolTip = (
+      <FeatureTooltip
+        featureName={featureName}
+        enabled={enabled}
+        apiFail={false}
+        limit={100}
+        count={100}
+        module={module}
+      />
+    )
+    return {
+      enabled,
+      toolTip
+    }
   }
 
   function cancelRequest(featureRequest: FeatureRequest): void {

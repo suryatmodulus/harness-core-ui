@@ -16,6 +16,7 @@ interface CreateModalData {
   modules?: Project['modules']
 }
 
+const ALL_ORGANIZATIONS_IDENTIFIER = 'ALL'
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   const { accountId, orgIdentifier: orgIdPathParam } = useParams<OrgPathProps>()
   const { orgIdentifier: orgIdQueryParam } = useQueryParams<OrgPathProps>()
@@ -75,13 +76,17 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
       modalErrorHandler?.showDanger(e.data.message)
     }
   }
+
+  const initialOrgIdentifier =
+    orgIdentifier && orgIdentifier !== ALL_ORGANIZATIONS_IDENTIFIER ? orgIdentifier : defaultOrg
+
   return (
     <>
       <ProjectForm
         disableSelect={false}
         enableEdit={true}
         disableSubmit={saving}
-        initialOrgIdentifier={orgIdentifier || defaultOrg}
+        initialOrgIdentifier={initialOrgIdentifier}
         initialModules={modules}
         organizationItems={organizations}
         title={getString('projectsOrgs.aboutProject')}

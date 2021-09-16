@@ -285,13 +285,20 @@ export function SetupSourceTabsProvider<T>(props: SetupSourceTabsProviderProps<T
 }
 
 export function SetupSourceTabs<T>(props: SetupSourceTabsProps<T>): JSX.Element {
-  const { data, tabTitles, children, determineMaxTab } = props
+  const { data, tabTitles, children } = props
+  const [tabsLength, setTabsLength] = useState<number>(0)
   const tabInfo = useMemo(() => initializeTabsInfo(tabTitles), [tabTitles])
   const { sourceData, activeTabIndex, onSwitchTab, onNext, onPrevious } = useSetupSourceTabsHook(data, tabInfo)
-  const maxEnabledTab = determineMaxTab(sourceData)
   const updatedChildren = useMemo(() => (Array.isArray(children) ? children : [children]), [children])
   return (
-    <SetupSourceTabsProvider sourceData={sourceData} onPrevious={onPrevious} onNext={onNext}>
+    <SetupSourceTabsProvider
+      sourceData={sourceData}
+      onPrevious={onPrevious}
+      onNext={async (updatedData: any, updatedTabInfo?: TabInfo | undefined) => {
+        setTabsLength(tabsL => (tabsL > tabTitles.length ? tabTitles.length : tabsL + 1))
+        await onNext(updatedData, updatedTabInfo)
+      }}
+    >
       <Container className={css.tabWrapper}>
         <Tabs
           id="setup-sources"
@@ -303,7 +310,7 @@ export function SetupSourceTabs<T>(props: SetupSourceTabsProps<T>): JSX.Element 
               key={tabTitles[index]}
               id={index}
               title={tabTitles[index]}
-              disabled={index > maxEnabledTab}
+              disabled={index > tabsLength}
               panel={child}
             />
           ))}

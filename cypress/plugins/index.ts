@@ -10,17 +10,13 @@
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
-import Prism from '@stoplight/prism-http/dist/client'
-import { getHttpOperationsFromSpec } from '@stoplight/prism-cli/dist/operations'
-
 /**
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
-module.exports = (on: Cypress.PluginEvents, _config: Cypress.PluginConfigOptions) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
-  on('before:run', details => {
-    console.log(details)
-  })
+const cypressTypeScriptPreprocessor = require('./cy-ts-preprocessor')
+module.exports = (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
+  require('@cypress/code-coverage/task')(on, config)
+  on('file:preprocessor', cypressTypeScriptPreprocessor)
+  return config
 }

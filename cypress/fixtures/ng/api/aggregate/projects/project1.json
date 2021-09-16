@@ -1,0 +1,31 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "projectResponse": {
+      "project": {
+        "orgIdentifier": "default",
+        "identifier": "project1",
+        "name": "project1",
+        "color": "#0063f7",
+        "modules": ["CF", "CORE", "CV", "PMS", "CI", "CD", "CE"],
+        "description": "",
+        "tags": {}
+      },
+      "createdAt": 1631092357124,
+      "lastModifiedAt": 1631092357124
+    },
+    "organization": { "identifier": "default", "name": "default", "description": "", "tags": {} },
+    "harnessManagedOrg": false,
+    "admins": [
+      {
+        "name": "email@harness.io",
+        "email": "email@harness.io",
+        "uuid": "uuid",
+        "locked": false
+      }
+    ],
+    "collaborators": []
+  },
+  "metaData": null,
+  "correlationId": "138c487d-e4e5-44c8-b660-733b567c9c6a"
+}

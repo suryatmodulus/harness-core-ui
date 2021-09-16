@@ -36,6 +36,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   const { state, actions } = useLogsContent()
   const { getString } = useStrings()
   const { linesWithResults, currentIndex } = state.searchData
+  const containerRef = React.useRef<HTMLPreElement | null>(null)
   const searchRef = React.useRef<ExpandingSearchInputHandle>()
 
   const virtuosoRef = React.useRef<null | GroupedVirtuosoHandle | VirtuosoHandle>(null)
@@ -88,6 +89,49 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     }
   }
 
+  function handleCopy(e: React.ClipboardEvent<HTMLPreElement>): void {
+    // reference: https://developer.mozilla.org/en-US/docs/Web/API/Element/copy_event
+    const selection = document.getSelection()
+
+    if (
+      containerRef.current &&
+      selection &&
+      selection.anchorNode &&
+      selection.anchorNode.nodeName === '#text' &&
+      selection.focusNode &&
+      selection.focusNode.nodeName === '#text'
+    ) {
+      const startNode = selection.anchorNode
+      const endNode = selection.focusNode
+
+      const lines = Array.from(containerRef.current.querySelectorAll('[data-line]'))
+      const startLineIndex = lines.findIndex(line => line.textContent === startNode.textContent)
+      const endLineIndex = lines.findIndex(line => line.textContent === endNode.textContent)
+
+      if (startLineIndex === -1 || endLineIndex === -1) {
+        return
+      }
+
+      const selectedLines = lines.slice(startLineIndex, endLineIndex + 1)
+      const selectedText = selectedLines
+        .map((line, i) => {
+          if (i === 0) {
+            return line.textContent?.slice(selection.anchorOffset)
+          }
+
+          if (i === selectedLines.length - 1) {
+            return line.textContent?.slice(0, selection.focusOffset)
+          }
+
+          return line.textContent
+        })
+        .join('')
+
+      e.clipboardData.setData('text/plain', selectedText)
+      e.preventDefault()
+    }
+  }
+
   /* istanbul ignore next */
   useGlobalEventListener('keydown', e => {
     const isMetaKey = navigator.userAgent.includes('Mac') ? e.metaKey : e.ctrlKey
@@ -133,7 +177,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
           ) : null}
         </div>
       </div>
-      <pre className={css.container}>
+      <pre ref={containerRef} className={css.container} onCopy={handleCopy}>
         {state.units.length > 0 ? (
           state.units.length === 1 ? (
             <SingleSectionLogs ref={virtuosoRef} state={state} actions={actions} />

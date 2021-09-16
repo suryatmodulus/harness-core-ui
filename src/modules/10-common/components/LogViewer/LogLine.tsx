@@ -17,20 +17,20 @@ function linkyText(txt: string): string {
     .join('')
 }
 
-export interface LogLineProps {
+export interface LogLineProps extends React.HTMLAttributes<HTMLSpanElement> {
   data: string
   skipLinkify?: boolean
   className?: string
 }
 
 export function LogLine(props: LogLineProps): React.ReactElement {
-  const { data, skipLinkify, className } = props
+  const { data, skipLinkify, className, ...rest } = props
   const anserJson = React.useMemo(() => {
     return ansiToJson(skipLinkify ? data : linkyText(data), { use_classes: true })
   }, [data, skipLinkify])
 
   return (
-    <span className={cx(css.logLine, className)}>
+    <span className={cx(css.logLine, className)} {...rest}>
       {anserJson?.map((row, i) => {
         return (
           <span

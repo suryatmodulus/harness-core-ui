@@ -137,6 +137,7 @@ export function MultiLogLine(props: MultiLogLineProps): React.ReactElement {
       />
       <LogLine
         skipLinkify
+        data-line={lineNumber + 1}
         data={getTextWithSearchMarkersAndLinks({
           txt: text.out,
           searchText,

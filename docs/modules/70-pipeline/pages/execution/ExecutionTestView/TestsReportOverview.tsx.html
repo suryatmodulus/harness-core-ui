@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -149,14 +149,23 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,11 +176,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7564x</span>
-<span class="cline-any cline-yes">7564x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,9 +242,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7564x</span>
+<span class="cline-any cline-yes">1400x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6000x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">164x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,25 +261,29 @@
 import { Text, Container, Layout, Heading, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
-import type { TestReportSummary } from 'services/ti-service'
 import { Duration } from '@common/exports'
-import { renderFailureRate, TestStatus } from './TestsUtils'
+import { renderFailureRate } from './TestsUtils'
 import css from './BuildTests.module.scss'
 &nbsp;
 interface TestsReportOverviewProps {
   totalTests: number
+  failedTests: number
+  skippedTests: number
+  successfulTests: number
   durationMS: number
-  tests: NonNullable&lt;TestReportSummary['tests']&gt;
 }
 &nbsp;
 const now = Date.now()
 &nbsp;
-export const TestsReportOverview: React.FC&lt;TestsReportOverviewProps&gt; = ({ totalTests, durationMS, tests }) =&gt; {
+export const TestsReportOverview: React.FC&lt;TestsReportOverviewProps&gt; = ({
+  totalTests,
+  failedTests,
+  skippedTests,
+  successfulTests,
+  durationMS
+}) =&gt; {
   const { getString } = useStrings()
 &nbsp;
-  const failedTests = tests.filter(({ status }) =&gt; status === TestStatus.FAILED || status === TestStatus.ERROR).length
-  const skippedTests = tests.filter(({ status }) =&gt; status === TestStatus.SKIPPED).length
-  const passedTests = totalTests - failedTests - skippedTests
   const failureRate = failedTests / (totalTests || <span class="branch-1 cbranch-no" title="branch not covered" >1)</span>
   const failureRateDisplay = renderFailureRate(failureRate) + `%`
 &nbsp;
@@ -311,7 +331,7 @@ export const TestsReportOverview: React.FC&lt;TestsReportOverviewProps&gt; = ({ 
           &lt;/Text&gt;
           &lt;Text inline icon="stop" iconProps={{ size: 16, style: { color: '#6BD167' } }}&gt;
             {getString('passed')}
-            {` (${passedTests})`}
+            {` (${successfulTests})`}
           &lt;/Text&gt;
           &lt;Text inline icon="stop" iconProps={{ size: 16, color: Color.GREY_300 }}&gt;
             {getString('pipeline.testsReports.skipped')}
@@ -321,10 +341,14 @@ export const TestsReportOverview: React.FC&lt;TestsReportOverviewProps&gt; = ({ 
         &lt;Container className={css.graphWrapper}&gt;
           &lt;Container className={css.graphContainer}&gt;
             &lt;ul className={css.graph}&gt;
-              {tests.map((test, index) =&gt; (
-                &lt;li key={(test.name as string) + index} data-status={test.status}&gt;
-                  &lt;Text inline /*tooltip={test.name} TODO: Performance issue, disable for now */&gt;&amp;nbsp;&lt;/Text&gt;
-                &lt;/li&gt;
+              {Array.from(Array(failedTests)).map((_, index) =&gt; (
+                &lt;li key={index} data-status="failed"&gt;&lt;/li&gt;
+              ))}
+              {Array.from(Array(successfulTests)).map((_, index) =&gt; (
+                &lt;li key={index}&gt;&lt;/li&gt;
+              ))}
+              {Array.from(Array(skippedTests)).map((_, index) =&gt; (
+                &lt;li key={index} data-status="skipped"&gt;&lt;/li&gt;
               ))}
             &lt;/ul&gt;
           &lt;/Container&gt;
@@ -340,7 +364,7 @@ export const TestsReportOverview: React.FC&lt;TestsReportOverviewProps&gt; = ({ 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 16 2021 11:48:08 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 16 2021 14:09:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

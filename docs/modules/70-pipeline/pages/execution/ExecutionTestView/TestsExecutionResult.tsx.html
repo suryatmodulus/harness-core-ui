@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/16</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/16</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
@@ -153,12 +153,15 @@
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,18 +169,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7564x</span>
-<span class="cline-any cline-yes">7564x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,10 +240,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1400x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7564x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6000x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">164x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,23 +263,24 @@
 import cx from 'classnames'
 import { Heading, Text, Container, Color, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { TestReportSummary } from 'services/ti-service'
-import { TestStatus } from './TestsUtils'
 import css from './BuildTests.module.scss'
 &nbsp;
 interface TestsExecutionResultProps {
   totalTests: number
-  tests: NonNullable&lt;TestReportSummary['tests']&gt;
+  failedTests: number
+  successfulTests: number
+  skippedTests: number
 }
 &nbsp;
 const NUMBER_OF_ITEMS_TO_FILL_THE_SPACE = 330
 &nbsp;
-export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = ({ totalTests, tests }) =&gt; {
+export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = ({
+  totalTests,
+  failedTests,
+  successfulTests,
+  skippedTests
+}) =&gt; {
   const { getString } = useStrings()
-&nbsp;
-  const failedTests = tests.filter(({ status }) =&gt; status === TestStatus.FAILED || status === TestStatus.ERROR).length
-  const skippedTests = tests<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilter(({ status }) =&gt; status === TestStatus.SKIPPED).length
-  const passedTests = totalTests - failedTests - skippedTests
 &nbsp;
   const amountOfEmptyItemsToRender = NUMBER_OF_ITEMS_TO_FILL_THE_SPACE - totalTests
 &nbsp;
@@ -293,8 +304,8 @@ export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = (
           &lt;Text font={{ weight: 'semi-bold' }} style={{ fontSize: 10 }}&gt;
             {getString('pipeline.testsReports.totalWithColon')} {totalTests} |{' '}
             {getString('pipeline.testsReports.failedWithColon')} {failedTests} |{' '}
-            {getString('pipeline.testsReports.successWithColon')} {passedTests}{' '}
-            {skippedTests ? <span class="branch-0 cbranch-no" title="branch not covered" >`| ${getString('pipeline.testsReports.skippedWithColon')} ${skippedTests}` </span>: null}
+            {getString('pipeline.testsReports.successWithColon')} {successfulTests}{' '}
+            {skippedTests ? `| ${getString('pipeline.testsReports.skippedWithColon')} ${skippedTests}` : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
           &lt;/Text&gt;
           &lt;Container flex&gt;
             &lt;Text
@@ -316,7 +327,7 @@ export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = (
               {getString('passed')}
             &lt;/Text&gt;
             {skippedTests ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;Text</span>
+              &lt;Text
                 font={{ weight: 'semi-bold' }}
                 icon="stop"
                 iconProps={{ size: 16, color: Color.GREY_300 }}
@@ -324,15 +335,19 @@ export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = (
               &gt;
                 {getString('pipeline.testsReports.skipped')}
               &lt;/Text&gt;
-            ) : null}
+            ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
           &lt;/Container&gt;
         &lt;/Container&gt;
         &lt;Container className={css.graphContainer}&gt;
           &lt;ul className={css.graph}&gt;
-            {tests<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((test, index) =&gt; (
-              &lt;li key={(test.name as string) + index} data-status={test.status}&gt;
-                &lt;Text inline /*tooltip={test.name} TODO: Performance issue, disable for now */&gt;&amp;nbsp;&lt;/Text&gt;
-              &lt;/li&gt;
+            {Array.from(Array(failedTests)).map((_, index) =&gt; (
+              &lt;li key={index} data-status="failed"&gt;&lt;/li&gt;
+            ))}
+            {Array.from(Array(successfulTests)).map((_, index) =&gt; (
+              &lt;li key={index}&gt;&lt;/li&gt;
+            ))}
+            {Array.from(Array(skippedTests)).map((_, index) =&gt; (
+              &lt;li key={index} data-status="skipped"&gt;&lt;/li&gt;
             ))}
             {amountOfEmptyItemsToRender &gt; -1 &amp;&amp;
               // eslint-disable-next-line prefer-spread
@@ -352,7 +367,7 @@ export const TestsExecutionResult: React.FC&lt;TestsExecutionResultProps&gt; = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 16 2021 11:48:08 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 16 2021 14:09:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

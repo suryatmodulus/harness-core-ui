@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">69.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/48</span>
+                <span class='fraction'>32/46</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.45% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/11</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">69.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/48</span>
+                <span class='fraction'>32/46</span>
             </div>
         
             
@@ -194,26 +194,7 @@
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,10 +218,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
@@ -324,21 +301,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -394,11 +356,7 @@ const COGatewayBasics: React.FC&lt;COGatewayBasicsProps&gt; = props =&gt; {
   const handleConnectorCreationSuccess = <span class="fstat-no" title="function not covered" >(d</span>ata: ConnectorInfoDTO | undefined): void =&gt; {
 <span class="cstat-no" title="statement not covered" >    handleConnectorSelection(data as ConnectorInfoDTO)</span>
   }
-  // const { openConnectorModal } = createConnectorModal({
-  //   onSuccess: handleConnectorCreationSuccess
-  // onClose: () =&gt; {
-  // }
-  // })
+&nbsp;
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: <span class="fstat-no" title="function not covered" >data </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >      handleConnectorCreationSuccess(data?.connector)</span>
@@ -406,7 +364,7 @@ const COGatewayBasics: React.FC&lt;COGatewayBasicsProps&gt; = props =&gt; {
   })
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
-  // const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
+&nbsp;
   const [selectedConnector, setSelectedConnector] = useState&lt;ConnectorInfoDTO | null&gt;(null)
 &nbsp;
   useEffect(() =&gt; {
@@ -461,7 +419,6 @@ const COGatewayBasics: React.FC&lt;COGatewayBasicsProps&gt; = props =&gt; {
       &lt;Layout.Vertical spacing="large"&gt;
         &lt;ConnectorReferenceField
           name="cloudAccount"
-          // category={'CLOUD_COST'}
           selected={props.gatewayDetails.cloudAccount.id || <span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >selectedConnector?.i</span>dentifier}</span>
           label={[
             getString('ce.co.gatewayBasics.connect'),
@@ -478,20 +435,6 @@ const COGatewayBasics: React.FC&lt;COGatewayBasicsProps&gt; = props =&gt; {
           }
         /&gt;
       &lt;/Layout.Vertical&gt;
-      &lt;span
-        onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >          handleConnectorCreation(props.gatewayDetails.provider.name)</span>
-<span class="cstat-no" title="statement not covered" >          trackEvent('MadeNewConnector', {})</span>
-        }}
-        style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}
-      &gt;
-        {[
-          '+',
-          getString('ce.co.gatewayBasics.new'),
-          props.gatewayDetails.provider.name,
-          getString('rbac.account')
-        ].join(' ')}
-      &lt;/span&gt;
       {localStorage.CENGAWSCONNECTOR &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div&gt;</span>
           &lt;span
@@ -532,7 +475,7 @@ export default COGatewayBasics
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 16 2021 11:48:08 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 16 2021 14:09:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -345,6 +345,7 @@ export default function TriggersDetailPage(): JSX.Element {
                     showSnippetSection={false}
                     schema={pipelineSchema?.data}
                     onEnableEditMode={goToEditWizard}
+                    // isEditModeSupported={!isTriggerRbacDisabled}
                   />
                 )}
               </div>
@@ -352,7 +353,7 @@ export default function TriggersDetailPage(): JSX.Element {
           </Layout.Vertical>
           <Layout.Vertical style={{ flex: 1 }}>
             <Layout.Horizontal spacing="xxlarge">
-              <Text font={{ size: 'medium', weight: 'bold' }}>
+              <Text font={{ size: 'medium', weight: 'bold' }} inline={true} color={Color.GREY_800}>
                 {getString('pipeline.triggers.lastActivationDetails')}
               </Text>
               {triggerResponse?.data?.lastTriggerExecutionDetails?.lastExecutionSuccessful === false ? (
@@ -361,6 +362,8 @@ export default function TriggersDetailPage(): JSX.Element {
                   icon="warning-sign"
                   iconProps={{ color: Color.RED_500 }}
                   color={Color.RED_500}
+                  font={{ size: 'medium' }}
+                  inline={true}
                 >
                   {getString('failed')}
                 </Text>
@@ -371,13 +374,15 @@ export default function TriggersDetailPage(): JSX.Element {
                     icon="execution-success"
                     color={Color.GREEN_500}
                     iconProps={{ color: Color.GREEN_500 }}
+                    font={{ size: 'medium' }}
+                    inline={true}
                   >
                     {getString('passed')}
                   </Text>
                 )
               )}
             </Layout.Horizontal>
-            <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
+            <Layout.Vertical spacing="small" margin={{ top: 'small' }}>
               <div>
                 {triggerResponse?.data?.lastTriggerExecutionDetails?.lastExecutionTime ? (
                   <Text>

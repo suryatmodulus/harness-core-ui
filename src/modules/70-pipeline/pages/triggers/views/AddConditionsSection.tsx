@@ -1,9 +1,8 @@
 import React from 'react'
-import { FormInput, Text, Icon, Heading, Color, Button, ButtonVariation } from '@wings-software/uicore'
+import { FormInput, Text, Icon, Color, Button, ButtonVariation, Container } from '@wings-software/uicore'
 import cx from 'classnames'
 import { FieldArray } from 'formik'
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 import { mockOperators, inNotInArr, inNotInPlaceholder } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookConditionsPanel.module.scss'
 
@@ -28,7 +27,6 @@ interface AddConditionRowInterface {
   attributePlaceholder: string
   operatorPlaceholder: string
   valuePlaceholder: string
-  getString: UseStringsReturn['getString']
 }
 
 // Has first class support with predefined attribute
@@ -48,15 +46,16 @@ export const ConditionRow = ({
   const valueError = formikProps?.errors?.[valueKey]
   const operatorValue = formikProps?.values?.[operatorKey]
   return (
-    <div className={css.conditionsRow}>
+    <div className={cx(css.conditionsRow, css.predefinedRows)}>
       <div>
         <Text style={{ fontSize: 16 }}>{label}</Text>
       </div>
       <FormInput.Select
         style={{ alignSelf: valueError ? 'baseline' : 'center' }}
+        className={css.operatorContainer}
         items={mockOperators}
         name={operatorKey}
-        label={getString('pipeline.triggers.conditionsPanel.operator')}
+        label={getString('pipeline.triggers.conditionsPanel.operator').toUpperCase()}
         placeholder={getString('pipeline.operatorPlaceholder')}
         onChange={() => {
           formikProps.setFieldTouched(valueKey, true)
@@ -65,7 +64,7 @@ export const ConditionRow = ({
       <FormInput.Text
         name={valueKey}
         style={{ alignSelf: operatorError ? 'baseline' : 'center' }}
-        label={getString('pipeline.triggers.conditionsPanel.matchesValue')}
+        label={getString('pipeline.triggers.conditionsPanel.matchesValue').toUpperCase()}
         onChange={() => {
           formikProps.setFieldTouched(operatorKey, true)
         }}
@@ -82,22 +81,28 @@ export const ConditionRow = ({
 const AddConditionRow: React.FC<AddConditionRowInterface> = ({
   fieldId,
   index,
-  getString,
   attributePlaceholder,
   operatorPlaceholder,
   valuePlaceholder
 }) => (
   <div className={cx(css.conditionsRow, css.addConditionsRow)}>
-    <FormInput.Text placeholder={attributePlaceholder} name={`${fieldId}.${[index]}.key`} label="Attribute" />
+    <FormInput.Text
+      className={css.textContainer}
+      placeholder={attributePlaceholder}
+      name={`${fieldId}.${[index]}.key`}
+      label=""
+    />
     <FormInput.Select
+      className={css.operatorContainer}
       placeholder={operatorPlaceholder}
       items={mockOperators}
       name={`${fieldId}.${[index]}.operator`}
-      label="Operator"
+      label=""
     />
     <FormInput.Text
+      className={css.textContainer}
       name={`${fieldId}.${[index]}.value`}
-      label={getString('pipeline.triggers.conditionsPanel.matchesValue')}
+      label=""
       placeholder={valuePlaceholder}
     />
   </div>
@@ -115,18 +120,30 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
   const addConditions = formikValues?.[fieldId] || []
   return (
     <section data-name={fieldId}>
-      <Heading level={2} font={{ weight: 'bold' }}>
+      <Text font={{ weight: 'bold' }} color={Color.GREY_800}>
         {title}
-      </Heading>
+      </Text>
       <FieldArray
         name={fieldId}
         render={() => (
-          <div>
+          <>
+            {addConditions?.length ? (
+              <Container className={css.conditionsRowHeaders}>
+                <Text font={{ size: 'xsmall', weight: 'bold' }}>
+                  {getString('pipeline.triggers.conditionsPanel.attribute').toUpperCase()}
+                </Text>
+                <Text font={{ size: 'xsmall', weight: 'bold' }}>
+                  {getString('pipeline.triggers.conditionsPanel.operator').toUpperCase()}
+                </Text>
+                <Text font={{ size: 'xsmall', weight: 'bold' }}>
+                  {getString('pipeline.triggers.conditionsPanel.matchesValue').toUpperCase()}
+                </Text>
+              </Container>
+            ) : null}
             {addConditions?.map((_addCondition: AddConditionInterface, index: number) => (
-              <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+              <Container key={index} className={css.rowContainer}>
                 <AddConditionRow
                   index={index}
-                  getString={getString}
                   fieldId={fieldId}
                   attributePlaceholder={attributePlaceholder}
                   operatorPlaceholder={getString('pipeline.operatorPlaceholder')}
@@ -137,11 +154,7 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
                   }
                 />
                 <Icon
-                  style={{
-                    position: 'absolute',
-                    left: '775px',
-                    cursor: 'pointer'
-                  }}
+                  className={css.rowTrashIcon}
                   data-name="main-delete"
                   size={14}
                   color={Color.GREY_500}
@@ -152,7 +165,7 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
                     setFieldValue(fieldId, newAddConditions)
                   }}
                 />
-              </div>
+              </Container>
             ))}
             {(addConditions?.length && errors[fieldId] && (
               <Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}>
@@ -160,7 +173,7 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
               </Text>
             )) ||
               null}
-          </div>
+          </>
         )}
       />
       <Button

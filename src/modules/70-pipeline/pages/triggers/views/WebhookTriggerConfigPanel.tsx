@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, FormInput, SelectOption, Text, Heading, Color } from '@wings-software/uicore'
+import { Layout, FormInput, SelectOption, Text, Color } from '@wings-software/uicore'
 import { isEmpty, isUndefined } from 'lodash-es'
 import { useGetGitTriggerEventDetails } from 'services/pipeline-ng'
 import { NameIdDescriptionTags } from '@common/components'
@@ -103,10 +103,25 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
           <PageSpinner />
         </div>
       )}
-      <h2 className={css.heading}>{`${getString('pipeline.triggers.triggerConfigurationLabel')}${
+      <Text
+        font={{ size: 'medium', weight: 'bold' }}
+        inline={true}
+        color={Color.GREY_800}
+        style={{ marginBottom: 'var(--spacing-large)' }}
+      >
+        {`${getString('pipeline.triggers.triggerConfigurationLabel')}${
+          !isEdit ? `: ${getString('pipeline.triggers.onNewWebhookTitle')}` : ''
+        }`}
+      </Text>
+      {/* <h2 className={css.heading}>{`${getString('pipeline.triggers.triggerConfigurationLabel')}${
         !isEdit ? `: ${getString('pipeline.triggers.onNewWebhookTitle')}` : ''
-      }`}</h2>
-      <div style={{ backgroundColor: 'var(--white)' }}>
+      }`}</h2> */}
+      <div
+        className={css.formContent}
+        style={{
+          marginBottom: 'var(--spacing-large)'
+        }}
+      >
         <NameIdDescriptionTags
           className={css.nameIdDescriptionTags}
           formikProps={formikProps}
@@ -117,9 +132,20 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
             dataTooltipId: 'webhookTrigger'
           }}
         />
-        <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
+      </div>
+
+      <Text
+        font={{ size: 'medium', weight: 'bold' }}
+        inline={true}
+        color={Color.GREY_800}
+        style={{ marginBottom: 'var(--spacing-large)' }}
+      >
+        {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}
+      </Text>
+      <div className={css.formContent}>
+        {/* <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
           {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}
-        </Heading>
+        </Heading> */}
         <section style={{ width: '650px', marginTop: 'var(--spacing-small)' }}>
           <FormInput.Select
             label={getString('pipeline.triggers.triggerConfigurationPanel.payloadType')}

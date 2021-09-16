@@ -40,7 +40,7 @@ const renderIcon = ({
     iconColor = Color.RED_500
   }
 
-  return <Icon size={14} color={iconColor} name={iconName} />
+  return <Icon size={20} color={iconColor} name={iconName} />
 }
 
 export const renderTitle = ({

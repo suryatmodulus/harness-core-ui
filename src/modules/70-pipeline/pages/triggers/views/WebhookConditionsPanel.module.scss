@@ -1,10 +1,30 @@
 .webhookConditionsContainer {
   // chagne Icon positioning in PayloadConditionsSection
   // if width changes
-  width: 800px !important;
+  width: 1000px !important;
   padding: var(--spacing-large) var(--spacing-xxlarge) !important;
   .heading {
     margin: 0;
+  }
+
+  .formContent {
+    background-color: var(--white);
+    padding: var(--spacing-large);
+    box-shadow: 0px 0px 1px rgb(40 41 61 / 8%), 0px 0.5px 2px rgb(96 97 112 / 16%);
+  }
+}
+
+.conditionsRowHeaders {
+  padding: var(--spacing-xsmall) 0 !important;
+  margin: var(--spacing-xsmall) 0 !important;
+  border-bottom: 1px solid #d9dae5;
+  display: flex;
+  p:nth-child(1),
+  p:nth-child(3) {
+    width: 308px;
+  }
+  p:nth-child(2) {
+    width: 248px;
   }
 }
 
@@ -12,11 +32,38 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  div {
-    width: 240px;
+  .textContainer {
+    margin-right: var(--spacing-small);
+    div {
+      width: 300px;
+    }
+  }
+  .operatorContainer {
+    margin-right: var(--spacing-small);
+
+    div {
+      width: 240px;
+    }
   }
 }
 
+.predefinedRows {
+  label {
+    font-size: 10px !important;
+  }
+}
 .addConditionsRow {
   width: 750px;
+}
+
+.rowTrashIcon {
+  position: absolute;
+  left: 930px;
+  cursor: pointer;
+}
+
+.rowContainer {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #d9dae5;
 }

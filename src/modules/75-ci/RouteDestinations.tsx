@@ -548,7 +548,7 @@ export default (
       sidebarProps={CISideNavProps}
       path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
     >
-      <TriggerDetails>
+      <TriggerDetails wizard={true}>
         <TriggersWizardPage />
       </TriggerDetails>
     </RouteWithLayout>

@@ -6,9 +6,9 @@ declare const styles: {
   readonly tab: string
   readonly tabPanel: string
   readonly yamlContainer: string
+  readonly positionInHeader: string
   readonly footer: string
   readonly cancel: string
-  readonly headerLine: string
   readonly transparentBlock: string
   readonly footerLine: string
   readonly extendedNav: string

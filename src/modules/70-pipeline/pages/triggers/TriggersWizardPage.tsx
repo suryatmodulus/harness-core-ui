@@ -1387,7 +1387,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         tabWidth="218px"
         onHide={returnToTriggersPage}
         wizardType="webhook"
-        // defaultTabId="Schedule"
+        defaultTabId="Conditions"
         submitLabel={
           isEdit ? getString('pipeline.triggers.updateTrigger') : getString('pipeline.triggers.createTrigger')
         }
@@ -1403,7 +1403,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           schema: triggerSchema?.data,
           onYamlSubmit: submitTrigger,
           loading: loadingYamlSchema,
-          invocationMap: invocationMapWebhook
+          invocationMap: invocationMapWebhook,
+          positionInHeader: true
         }}
         leftNav={titleWithSwitch}
       >

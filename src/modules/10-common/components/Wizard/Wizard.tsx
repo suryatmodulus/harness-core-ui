@@ -54,6 +54,7 @@ interface VisualYamlPropsInterface {
   yamlObjectKey?: string
   loading?: boolean
   yamlBuilderReadOnlyModeProps: YamlBuilderProps
+  positionInHeader?: boolean
 }
 interface WizardProps {
   wizardMap: WizardMapInterface
@@ -113,7 +114,8 @@ const Wizard: React.FC<WizardProps> = ({
     convertFormikValuesToYaml,
     onYamlSubmit,
     yamlObjectKey,
-    invocationMap
+    invocationMap,
+    positionInHeader
   } = visualYamlProps
   const isYamlView = selectedView === SelectedView.YAML
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
@@ -164,6 +166,7 @@ const Wizard: React.FC<WizardProps> = ({
           {title}
           {showVisualYaml ? (
             <VisualYamlToggle
+              className={cx(positionInHeader && css.positionInHeader)}
               beforeOnChange={(mode, callback) => {
                 try {
                   const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
@@ -195,7 +198,7 @@ const Wizard: React.FC<WizardProps> = ({
           {wizardLabel}
         </Heading>
       )}
-      {!isYamlView && <div className={css.headerLine}></div>}
+      {/* {!isYamlView && <div className={css.headerLine}></div>} */}
       <Layout.Horizontal spacing="large" className={css.tabsContainer}>
         <Formik
           {...formikInitialProps}

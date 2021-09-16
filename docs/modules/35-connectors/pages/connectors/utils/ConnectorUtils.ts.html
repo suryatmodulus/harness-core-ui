@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.3% </span>
+                <span class="strong">66.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>254/395</span>
+                <span class='fraction'>262/395</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.86% </span>
+                <span class="strong">52.29% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>962/1855</span>
+                <span class='fraction'>972/1859</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.69% </span>
+                <span class="strong">72.41% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>41/58</span>
+                <span class='fraction'>42/58</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.17% </span>
+                <span class="strong">61.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>200/338</span>
+                <span class='fraction'>208/338</span>
             </div>
         
             
@@ -3281,22 +3281,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -4154,7 +4154,7 @@ export const buildAWSPayload = (formData: FormData) =&gt; {
         crossAccountAccess: formData.crossAccountAccess
           ? {
               crossAccountRoleArn: formData.crossAccountRoleArn,
-              externalId: formData.externalId.length ? formData.externalId : <span class="branch-1 cbranch-no" title="branch not covered" >null</span>
+              externalId: formData.externalId<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? formData.externalId : <span class="branch-1 cbranch-no" title="branch not covered" >null</span>
             }
           : null
       }
@@ -4989,23 +4989,23 @@ export const getConnectorDisplayName = (type: string) =&gt; {
   }
 }
 &nbsp;
-export const getIconByEntityType = <span class="fstat-no" title="function not covered" >(t</span>ype: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >  switch (type) {</span>
+export const getIconByEntityType = (type: string) =&gt; {
+  switch (type) {
     case EntityTypes.PROJECT:
-<span class="cstat-no" title="statement not covered" >      return 'nav-project'</span>
+      return 'nav-project'
     case EntityTypes.PIPELINE:
-<span class="cstat-no" title="statement not covered" >      return 'pipeline'</span>
+      return 'pipeline'
     case EntityTypes.SECRET:
-<span class="cstat-no" title="statement not covered" >      return 'key-main'</span>
+      return 'key-main'
     case EntityTypes.CV_CONFIG:
-<span class="cstat-no" title="statement not covered" >      return 'desktop'</span>
+      return 'desktop'
     case EntityTypes.CV_K8_ACTIVITY_SOURCE:
-<span class="cstat-no" title="statement not covered" >      return 'square'</span>
+      return 'square'
     case EntityTypes.CV_VERIFICATION_JOB:
-<span class="cstat-no" title="statement not covered" >      return 'confirm'</span>
+      return 'confirm'
 &nbsp;
     default:
-<span class="cstat-no" title="statement not covered" >      return ''</span>
+      return ''
   }
 }
 &nbsp;
@@ -5191,7 +5191,7 @@ export const isSMConnector = (type?: ConnectorInfoDTO['type']): boolean | undefi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 15 2021 17:53:57 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 16 2021 09:12:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

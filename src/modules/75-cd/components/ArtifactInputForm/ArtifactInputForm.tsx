@@ -351,6 +351,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
       tagValue?.length &&
       formik.setFieldValue(tagPath, '')
   }
+
   return (
     <>
       {get(template, 'artifacts', false) && (
@@ -660,9 +661,9 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                       <ExperimentalInput
                         formik={formik}
                         useValue
-                        disabled={
-                          readonly || isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type || '', index)
-                        }
+                        // disabled={
+                        //   readonly || isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type || '', index)
+                        // }
                         selectItems={
                           dockerLoading || gcrLoading || ecrLoading
                             ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]

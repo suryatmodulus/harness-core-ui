@@ -12,9 +12,11 @@ import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
 import {
   clearRuntimeInputValue,
   filterArtifact,
+  filterSideCarArtifacts,
   getPathString,
   getTemplateObject,
   replaceTriggerDefaultBuild,
+  updatePipelineArtifact,
   updatePipelineManifest
 } from '../../utils/TriggersWizardPageUtils'
 import css from './SelectArtifactModal.module.scss'
@@ -125,27 +127,31 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
       ) : (
         <>
           <PipelineVariablesContextProvider pipeline={formikProps.values.originalPipeline}>
-            <ManifestFormDetails
-              template={templateObject}
-              path={getPathString(runtimeData, selectedStageId)}
-              allValues={templateObject}
-              initialValues={runtimeData}
-              readonly={false}
-              stageIdentifier={selectedStageId}
-              formik={formikProps}
-              fromTrigger={true}
-            />
+            {isManifest && (
+              <ManifestFormDetails
+                template={templateObject}
+                path={getPathString(runtimeData, selectedStageId)}
+                allValues={templateObject}
+                initialValues={runtimeData}
+                readonly={false}
+                stageIdentifier={selectedStageId}
+                formik={formikProps}
+                fromTrigger={true}
+              />
+            )}
 
-            <ArtifactFormDetails
-              template={templateObject}
-              path={getPathString(runtimeData, selectedStageId)}
-              allValues={templateObject}
-              initialValues={runtimeData}
-              readonly={false}
-              stageIdentifier={selectedStageId}
-              formik={formikProps}
-              fromTrigger={true}
-            />
+            {!isManifest && (
+              <ArtifactFormDetails
+                template={templateObject}
+                path={getPathString(runtimeData, selectedStageId)}
+                allValues={templateObject}
+                initialValues={runtimeData}
+                readonly={false}
+                stageIdentifier={selectedStageId}
+                formik={formikProps}
+                fromTrigger={true}
+              />
+            )}
           </PipelineVariablesContextProvider>
           <Layout.Horizontal spacing="medium" className={css.footer}>
             {!values?.selectedArtifact?.identifier && (
@@ -162,27 +168,43 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               text={getString('filters.apply')}
               intent="primary"
               onClick={() => {
-                const orginalArtifact = filterArtifact({
-                  runtimeData: formikProps.values.originalPipeline?.stages,
-                  stageId: selectedStageId,
-                  artifactId: selectedArtifactId,
-                  isManifest
-                })
+                const orginalArtifact = isManifest
+                  ? filterArtifact({
+                      runtimeData: formikProps.values.originalPipeline?.stages,
+                      stageId: selectedStageId,
+                      artifactId: selectedArtifactId,
+                      isManifest
+                    })
+                  : filterSideCarArtifacts({
+                      runtimeData: formikProps.values.originalPipeline?.stages,
+                      stageId: selectedStageId,
+                      artifactId: selectedArtifactId
+                    })
 
-                /*
-                                  when we have multiple stages - need to filter undefined values
-                                  in this case formikprops.values.stages will be [undefined, [stage obj]]
-                                  when chartVersion alone is runtime input, stages array could be empty
-                        */
-                const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
-                // when stages is empty array, filteredArtifact will be empty object
-                const formFilteredArtifact =
-                  filterFormStages && filterFormStages.length
+                const getManifests = () => {
+                  return filterFormStages && filterFormStages.length
                     ? filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests[0]
                     : {}
-                const finalArtifact = merge({}, orginalArtifact, formFilteredArtifact)?.[
-                  isManifest ? 'manifest' : 'artifact'
-                ]
+                }
+
+                const getArtifacts = () => {
+                  return filterFormStages && filterFormStages.length
+                    ? filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars[0]
+                    : {}
+                }
+
+                /*
+                                      when we have multiple stages - need to filter undefined values
+                                      in this case formikprops.values.stages will be [undefined, [stage obj]]
+                                      when chartVersion alone is runtime input, stages array could be empty
+                            */
+                const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
+                // when stages is empty array, filteredArtifact will be empty object
+                const formFilteredArtifact = isManifest ? getManifests() : getArtifacts()
+
+                const finalArtifact = isManifest
+                  ? merge({}, orginalArtifact, formFilteredArtifact)?.['manifest']
+                  : merge({}, orginalArtifact?.sidecar, formFilteredArtifact?.sidecar)
 
                 if (finalArtifact?.spec?.chartVersion) {
                   // hardcode manifest chart version to default
@@ -191,12 +213,19 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                   })
                 }
                 const { pipeline, selectedArtifact } = formikProps.values
-                const newPipelineObj = updatePipelineManifest({
-                  pipeline,
-                  stageIdentifier: selectedStageId,
-                  selectedArtifact,
-                  newArtifact: clearRuntimeInputValue(finalArtifact)
-                })
+                const newPipelineObj = isManifest
+                  ? updatePipelineManifest({
+                      pipeline,
+                      stageIdentifier: selectedStageId,
+                      selectedArtifact,
+                      newArtifact: clearRuntimeInputValue(finalArtifact)
+                    })
+                  : updatePipelineArtifact({
+                      pipeline,
+                      stageIdentifier: selectedStageId,
+                      selectedArtifact,
+                      newArtifact: clearRuntimeInputValue(finalArtifact)
+                    })
 
                 formikProps.setValues({
                   ...formikProps.values,

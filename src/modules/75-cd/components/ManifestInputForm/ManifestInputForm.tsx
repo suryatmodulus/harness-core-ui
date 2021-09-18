@@ -129,6 +129,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
       formik?.values?.triggerType === TriggerTypes.MANIFEST && formik?.values?.selectedArtifact !== null && !fromTrigger
     )
   }
+
   return (
     <>
       <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${stageIdentifier}.Service.Manifests`}>

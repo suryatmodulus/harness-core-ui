@@ -22,7 +22,7 @@
     "cypress:open": "cypress open",
     "strings-check": "node ./scripts/yaml-strings-check.js",
     "clean": "rm -rf dist && rm -rf node_modules/.cache",
-    "dev:cypress": "NODE_ENV=development TARGET_LOCALHOST=false BASE_URL=https://localhost:8080 webpack serve --progress",
+    "dev:cypress": "NODE_ENV=development TARGET_LOCALHOST=false CYPRESS=true BASE_URL=https://localhost:8080 webpack serve --progress",
     "dev": "NODE_ENV=development webpack serve --progress",
     "watch": "yarn clean && NODE_ENV=development webpack --watch --progress",
     "services": "npm-run-all services:*",

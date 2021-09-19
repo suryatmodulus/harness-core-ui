@@ -35,7 +35,7 @@ module.exports = {
     '!src/modules/70-pipeline/components/PipelineStudio/PipelineContext/PipelineContext.tsx',
     '!src/modules/70-pipeline/components/PipelineStudio/ExecutionGraph/**'
   ],
-  coverageReporters: ['lcov', 'json-summary'],
+  coverageReporters: ['lcov', 'json-summary', 'json'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
     '^.+\\.js$': 'ts-jest',

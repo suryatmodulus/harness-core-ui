@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.44% </span>
+                <span class="strong">82.8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>76/90</span>
+                <span class='fraction'>77/93</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.38% </span>
+                <span class="strong">66.32% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>126/187</span>
+                <span class='fraction'>126/190</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.54% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/13</span>
+                <span class='fraction'>8/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.88% </span>
+                <span class="strong">83.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>73/86</span>
+                <span class='fraction'>74/89</span>
             </div>
         
             
@@ -300,7 +300,20 @@
 <a name='L241'></a><a href='#L241'>241</a>
 <a name='L242'></a><a href='#L242'>242</a>
 <a name='L243'></a><a href='#L243'>243</a>
-<a name='L244'></a><a href='#L244'>244</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -530,8 +543,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -547,7 +573,7 @@
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { ModuleName } from 'framework/types/ModuleName'
-import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
+import { HomePageTemplate } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
 import { useGetLicensesAndSummary, useGetProjectList } from 'services/cd-ng'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
@@ -773,11 +799,24 @@ export const CDHomePage: React.FC = () =&gt; {
       /&gt;
     )
   }
+  const projectCreateSuccessHandler = <span class="fstat-no" title="function not covered" >(p</span>roject?: Project): void =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (project) {</span>
+<span class="cstat-no" title="statement not covered" >      history.push(</span>
+        routes.toProjectOverview({
+          projectIdentifier: project.identifier,
+          orgIdentifier: <span class="branch-0 cbranch-no" title="branch not covered" >project.orgIdentifier </span>|| /* istanbul ignore next */ '',
+          accountId,
+          module: 'cd'
+        })
+      )
+    }
+  }
 &nbsp;
   return (
     &lt;HomePageTemplate
       title={getString('cd.continuous')}
       bgImageUrl={bgImageURL}
+      projectCreateSuccessHandler={projectCreateSuccessHandler}
       subTitle={getString('cd.dashboard.subHeading')}
       documentText={getString('cd.learnMore')}
       trialBannerProps={trialBannerProps}
@@ -793,7 +832,7 @@ export default CDHomePage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Sep 20 2021 05:02:19 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 20 2021 07:06:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

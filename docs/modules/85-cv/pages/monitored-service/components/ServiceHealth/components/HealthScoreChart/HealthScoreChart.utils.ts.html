@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">91.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>22/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.19% </span>
+                <span class="strong">73.91% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>32/42</span>
+                <span class='fraction'>34/46</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.12% </span>
+                <span class="strong">90.48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>19/21</span>
             </div>
         
             
@@ -101,7 +101,14 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,6 +128,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -136,10 +144,16 @@
 <span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,6 +178,7 @@ export const mapRiskStatusToColor = (riskStatus: string): string =&gt; {
 }
 &nbsp;
 export const getSeriesData = (healthScoreData: RiskData[]): SeriesDataPoint[] =&gt; {
+  const areAllPointsNoData = checkIfAllPointsNoData(healthScoreData)
   return healthScoreData.map(el =&gt; {
     let healthScoreDataPoint = {
       y: el.healthScore,
@@ -179,11 +194,17 @@ export const getSeriesData = (healthScoreData: RiskData[]): SeriesDataPoint[] =&
 &nbsp;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (el.healthScore === 0) {
 <span class="cstat-no" title="statement not covered" >      healthScoreDataPoint = { ...healthScoreDataPoint, y: 5 }</span>
+    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (areAllPointsNoData &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >el.riskStatus === RiskValues.NO_DATA)</span> {
+<span class="cstat-no" title="statement not covered" >      healthScoreDataPoint = { ...healthScoreDataPoint, y: 0 }</span>
     } else if (el.riskStatus === RiskValues.NO_DATA || isHealthScoreLessThanEqualTo(el, 8)) {
       healthScoreDataPoint = { ...healthScoreDataPoint, y: 8 }
     }
     return healthScoreDataPoint
   })
+}
+&nbsp;
+function checkIfAllPointsNoData(healthScoreData: RiskData[]): boolean {
+  return healthScoreData.every(el =&gt; el.riskStatus === RiskValues.NO_DATA)
 }
 &nbsp;
 function isHealthScoreLessThanEqualTo(el: RiskData, num: number): boolean {
@@ -196,7 +217,7 @@ function isHealthScoreLessThanEqualTo(el: RiskData, num: number): boolean {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Sep 20 2021 09:10:24 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 20 2021 10:27:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../prettify.js"></script>

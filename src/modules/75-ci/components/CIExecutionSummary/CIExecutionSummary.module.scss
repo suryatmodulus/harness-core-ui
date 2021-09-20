@@ -6,7 +6,6 @@
   column-gap: var(--spacing-3);
 
   .icon {
-    margin-right: var(--spacing-2) !important;
     display: flex;
     align-items: center;
   }
@@ -25,10 +24,16 @@
   padding: var(--spacing-xsmall) var(--spacing-small) !important;
 
   &.multiple {
+    > * {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      color: inherit !important;
+    }
+
     > * + * {
-      border-left: 1px solid var(--primary-3);
-      padding-left: var(--spacing-small);
-      margin-left: var(--spacing-small);
+      border-left: 1px solid var(--primary-3) !important;
+      padding-left: var(--spacing-small) !important;
+      margin-left: var(--spacing-small) !important;
     }
   }
 

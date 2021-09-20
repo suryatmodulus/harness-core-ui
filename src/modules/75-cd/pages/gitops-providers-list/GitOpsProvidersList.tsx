@@ -195,13 +195,15 @@ const GitOpsModalContainer: React.FC = () => {
         enforceFocus={false}
       >
         <NewProviderModal
+          isEditMode={editMode}
+          onUpdateMode={(mode: boolean) => setEditMode(mode)}
           provider={activeProvider}
           onClose={handleClose}
           onLaunchArgoDashboard={handleLaunchArgoDashboard}
         />
       </Dialog>
     )
-  }, [activeProvider])
+  }, [activeProvider, editMode])
 
   /* Through page browsing */
   useEffect(() => {
@@ -256,6 +258,7 @@ const GitOpsModalContainer: React.FC = () => {
             }}
             onClick={() => {
               setActiveProvider(null)
+              setEditMode(false)
               addNewProviderModal()
             }}
             icon="plus"
@@ -328,6 +331,7 @@ const GitOpsModalContainer: React.FC = () => {
                     }}
                     onClick={() => {
                       setActiveProvider(null)
+                      setEditMode(false)
                       addNewProviderModal()
                     }}
                     icon="plus"

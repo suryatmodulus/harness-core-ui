@@ -1,31 +1,23 @@
 import { Button, ButtonVariation } from '@wings-software/uicore'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import type { GitopsProviderResponse } from 'services/cd-ng'
-import { isConnectedGitOpsProvider } from '@cd/utils/GitOpsUtils'
 import CreateProvider from '../CreateProvider/CreateProvider'
 
 import css from './NewProviderModal.module.scss'
 
 interface NewProviderModalProps {
   provider: GitopsProviderResponse | null
+  isEditMode: boolean
   onClose?(): void
+  onUpdateMode?(mode: boolean): void
   onLaunchArgoDashboard?: (provider: GitopsProviderResponse) => void
 }
 
 const NewProviderModal: React.FC<NewProviderModalProps> = props => {
-  const { provider } = props
-  const [isEditMode, setIsEditMode] = useState(false)
-
-  useEffect(() => {
-    if (isConnectedGitOpsProvider(provider?.spec)) {
-      setIsEditMode(true)
-    }
-  }, [])
-
   return (
     <div className={css.addNewProviderModal}>
       <div className={css.providerModalContainer}>
-        <CreateProvider isEditMode={isEditMode} onUpdateMode={(mode: boolean) => setIsEditMode(mode)} {...props} />
+        <CreateProvider onUpdateMode={props.onUpdateMode} {...props} />
       </div>
 
       <Button

@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useMemo, useCallback, useRef, useState } from '
 import { Container } from '@wings-software/uicore'
 import Draggable from 'react-draggable'
 import cx from 'classnames'
+import { LEFT_TEXTFIELD_WIDTH } from '@cv/pages/monitored-service/components/ServiceHealth/ServiceHealth.constants'
 import type { SliderAspects, TimelineSliderProps } from './TimelineSlider.types'
 import TimelineSliderHandle from './components/TimelineSliderHandle/TimelineSliderHandle'
 import {
@@ -31,7 +32,8 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
     containerWidth: propsContainerWidth,
     leftContainerOffset = 0,
     minSliderWidth,
-    onSliderDragEnd
+    onSliderDragEnd,
+    infoCard
   } = props
   const [containerWidth, setContainerWidth] = useState<number>(0)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
@@ -91,6 +93,11 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
         style={{ left: leftOffset, transition: onClickTransition }}
         onClick={e => e.stopPropagation()}
       >
+        {infoCard ? (
+          <Container className={cx(css.card, { [css.reverseCard]: leftOffset < LEFT_TEXTFIELD_WIDTH })}>
+            {infoCard}
+          </Container>
+        ) : null}
         <TimelineSliderHandle
           className={css.leftHandle}
           bounds={LEFT_SLIDER_BOUNDS}

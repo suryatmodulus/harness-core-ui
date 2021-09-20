@@ -156,6 +156,7 @@ export interface StringsMap {
   'common.extendTrial.feedback.title': string
   'common.extendTrial.heading': string
   'common.failureRate': string
+  'common.file': string
   'common.filters.clearFilters': string
   'common.filters.noFilterSaved': string
   'common.filters.noMatchingFilterData': string
@@ -398,6 +399,7 @@ export interface StringsMap {
   'common.showMore': string
   'common.sidecarArtifactsText': string
   'common.slack': string
+  'common.specified': string
   'common.specify': string
   'common.startTrial': string
   'common.submittingRequest': string
@@ -487,10 +489,13 @@ export interface StringsMap {
   'notifications.emailOrAlias': string
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
+  'notifications.eventRequired': string
   'notifications.helpPagerDuty': string
   'notifications.helpSlack': string
   'notifications.infoPagerDuty': string
   'notifications.infoSlack': string
+  'notifications.invalidPagerDutyKey': string
+  'notifications.invalidWebhookURL': string
   'notifications.labelBody': string
   'notifications.labelEmailUserGroups': string
   'notifications.labelMS': string
@@ -577,6 +582,7 @@ export interface StringsMap {
   'rbac.resourceGroup.summary': string
   'rbac.resourceGroup.updateResourceGroupDialogTitle': string
   'rbac.resourceGroup.updateSuccess': string
+  'rbac.resourceSelectorErrorMessage': string
   'rbac.roleAssignment.assignmentValidation': string
   'rbac.roleAssignment.deleteFailure': string
   'rbac.roleAssignment.deleteSuccess': string
@@ -901,6 +907,29 @@ export interface StringsMap {
   'secrets.labelType': string
   'secrets.labelValue': string
   'secrets.noSecrets': string
+  'secrets.secret.configureSecret': string
+  'secrets.secret.inlineSecret': string
+  'secrets.secret.labelFile': string
+  'secrets.secret.labelSecretFile': string
+  'secrets.secret.labelSecretReference': string
+  'secrets.secret.labelSecretType': string
+  'secrets.secret.labelText': string
+  'secrets.secret.messageSelectSM': string
+  'secrets.secret.noSecretsFound': string
+  'secrets.secret.placeholderSecretReference': string
+  'secrets.secret.placeholderSecretValue': string
+  'secrets.secret.referenceSecret': string
+  'secrets.secret.saving': string
+  'secrets.secret.secretActivity': string
+  'secrets.secret.secretCreated': string
+  'secrets.secret.titleCreateFile': string
+  'secrets.secret.titleCreateText': string
+  'secrets.secret.titleEditFile': string
+  'secrets.secret.titleEditText': string
+  'secrets.secret.updateSuccess': string
+  'secrets.secret.validationIdentifier': string
+  'secrets.secret.validationKms': string
+  'secrets.secret.validationNameChars': string
   'secrets.selectSecret': string
   'secrets.sshAuthFormFields.labelFile': string
   'secrets.sshAuthFormFields.labelKeyFilePath': string
@@ -1619,6 +1648,7 @@ export interface StringsMap {
   'projectsOrgs.createOrgLoader': string
   'projectsOrgs.createProject': string
   'projectsOrgs.createProjectLoader': string
+  'projectsOrgs.createProjectMessage': string
   'projectsOrgs.editTitle': string
   'projectsOrgs.enableModules': string
   'projectsOrgs.getStarted': string
@@ -1640,6 +1670,7 @@ export interface StringsMap {
   'projectsOrgs.landingDashboard.last30Days': string
   'projectsOrgs.landingDashboard.last60Days': string
   'projectsOrgs.landingDashboard.last90Days': string
+  'projectsOrgs.landingDashboard.title': string
   'projectsOrgs.landingDashboard.welcomeMessage': string
   'projectsOrgs.landingDashboard.welcomeMessageWithoutName': string
   'projectsOrgs.manageAProject': string
@@ -1708,6 +1739,7 @@ export interface StringsMap {
   'projectsOrgs.viewProjects': string
   'projectsOrgs.welcome': string
   'projectsOrgs.welcomeSecondLine': string
+  'projectsOrgs.whyCreateProject': string
   'projectsOrgs.youHaveNoProjects': string
   'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
@@ -2435,6 +2467,8 @@ export interface StringsMap {
   'templatesLibrary.templateSettings': string
   'templatesLibrary.useTemplate': string
   'templatesLibrary.versionLog': string
+  'cd.aboutHarnessAdapter': string
+  'cd.aboutProvider': string
   'cd.addInline': string
   'cd.addRemote': string
   'cd.addTFVarFileLabel': string
@@ -2448,11 +2482,18 @@ export interface StringsMap {
   'cd.configFilePlaceHolder': string
   'cd.configIdentifer': string
   'cd.configurationFile': string
+  'cd.confirmDeleteTitle': string
+  'cd.confirmProviderDelete': string
+  'cd.connectionIssueInfo': string
+  'cd.connectionIssueSuggestion': string
   'cd.contentRequired': string
   'cd.continuous': string
+  'cd.createdSuccessfully': string
+  'cd.creating': string
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.duplicateIdError': string
   'cd.dynamicProvisioning': string
   'cd.environmentCreated': string
   'cd.environmentUpdated': string
@@ -2461,11 +2502,14 @@ export interface StringsMap {
   'cd.folderPath': string
   'cd.gitFetchTypeRequired': string
   'cd.gitOps': string
+  'cd.installAdapterHelperText': string
   'cd.launchArgo': string
   'cd.learnMore': string
+  'cd.learnMoreAboutHarnessAdapter': string
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
   'cd.newProvider': string
+  'cd.noProviderText': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.infraTab.deploymentType': string
   'cd.pipelineSteps.serviceTab.deploymentTypeRequired': string
@@ -2475,6 +2519,7 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.propagateStage': string
   'cd.pipelineSteps.serviceTab.stageOverrides': string
   'cd.providerDetails': string
+  'cd.providerOverview': string
   'cd.releaseNameValidation': string
   'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string
@@ -2524,8 +2569,11 @@ export interface StringsMap {
   'cd.steps.kubernetesGcpStep.stepName': string
   'cd.terraformVarFiles': string
   'cd.tfVarStore': string
+  'cd.updatedSuccessfully': string
+  'cd.updating': string
   'cd.varFile': string
   'cd.varFileDetails': string
+  'cd.whatIsHarnessAdapter': string
   'cd.workloadRequired': string
   'ce.ceTrialHomePage.modal.description': string
   'ce.ceTrialHomePage.modal.title': string
@@ -3072,6 +3120,7 @@ export interface StringsMap {
   'cf.environments.apiKeys.keyType': string
   'cf.environments.apiKeys.message': string
   'cf.environments.apiKeys.noKeysFound': string
+  'cf.environments.apiKeys.redactionWarning': string
   'cf.environments.apiKeys.serverType': string
   'cf.environments.apiKeys.title': string
   'cf.environments.create.description': string
@@ -3258,6 +3307,7 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.editVariationMappingTitle': string
   'cf.pipeline.flagConfiguration.environmentRequired': string
   'cf.pipeline.flagConfiguration.fixedInput': string
+  'cf.pipeline.flagConfiguration.flagChanges': string
   'cf.pipeline.flagConfiguration.flagRequired': string
   'cf.pipeline.flagConfiguration.flagState': string
   'cf.pipeline.flagConfiguration.flagSwitch': string
@@ -3267,8 +3317,13 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.runtimeInput': string
   'cf.pipeline.flagConfiguration.selectEnvironment': string
   'cf.pipeline.flagConfiguration.selectFlag': string
+  'cf.pipeline.flagConfiguration.selectOnOrOff': string
   'cf.pipeline.flagConfiguration.serve': string
   'cf.pipeline.flagConfiguration.serveMapping': string
+  'cf.pipeline.flagConfiguration.servePercentageRollout': string
+  'cf.pipeline.flagConfiguration.serveVariationToIndividualTarget': string
+  'cf.pipeline.flagConfiguration.serveVariationToTargetGroup': string
+  'cf.pipeline.flagConfiguration.setFlagSwitch': string
   'cf.pipeline.flagConfiguration.stepName': string
   'cf.pipeline.flagConfiguration.switchTo': string
   'cf.pipeline.flagConfiguration.toGroups': string
@@ -3443,11 +3498,15 @@ export interface StringsMap {
   'ci.runTestsMavenSetupTitle': string
   'ci.save': string
   'ci.secrets': string
+  'ci.successful': string
   'ci.templates': string
+  'ci.testSummary': string
   'ci.titleGovernance': string
   'ci.titleResources': string
   'ci.titleSettings': string
   'ci.welcome': string
+  'cv.Dependency.noData': string
+  'cv.Dependency.serviceList': string
   'cv.abbreviatedCategories.errors': string
   'cv.abbreviatedCategories.infrastructure': string
   'cv.abbreviatedCategories.performance': string
@@ -3589,6 +3648,7 @@ export interface StringsMap {
   'cv.changeSource.selectChangeSourceProvider': string
   'cv.changeSource.selectChangeSourceType': string
   'cv.changeSource.sourceName': string
+  'cv.changeSource.tooltip.incident': string
   'cv.changeTimeline': string
   'cv.changesPage.changeSourceDetails': string
   'cv.changesPage.changeSummary': string
@@ -3675,10 +3735,12 @@ export interface StringsMap {
   'cv.monitoredServices.riskLabel.mediumRisk': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceCount': string
+  'cv.monitoredServices.serviceHealth.anamolies': string
   'cv.monitoredServices.serviceHealth.last24Hrs': string
   'cv.monitoredServices.serviceHealth.last3Days': string
   'cv.monitoredServices.serviceHealth.last4Hrs': string
   'cv.monitoredServices.serviceHealth.last7Days': string
+  'cv.monitoredServices.serviceHealth.lowestHealthScore': string
   'cv.monitoredServices.serviceHealth.metricsAndLogs': string
   'cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore': string
   'cv.monitoredServices.serviceHealth.overallHealthScore': string
@@ -3838,6 +3900,7 @@ export interface StringsMap {
   'cv.monitoringSources.prometheus.serviceFilter': string
   'cv.monitoringSources.prometheus.stddevAggregator': string
   'cv.monitoringSources.prometheus.stdvarAggregator': string
+  'cv.monitoringSources.prometheus.submitQueryToSeeRecords': string
   'cv.monitoringSources.prometheus.sumAggregator': string
   'cv.monitoringSources.prometheus.undoManualQuery': string
   'cv.monitoringSources.prometheus.validation.aggregator': string
@@ -7133,106 +7196,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   search: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.configureSecret': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.inlineSecret': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelSecretFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelSecretReference': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelSecretType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.messageSelectSM': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.noSecretsFound': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.placeholderSecretReference': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.placeholderSecretValue': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.referenceSecret': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.saving': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.secretActivity': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.secretCreated': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.titleCreateFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.titleCreateText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.titleEditFile': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.titleEditText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.updateSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.validationIdentifier': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.validationKms': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.validationName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.validationNameChars': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.validationValue': string
   /**
    * @deprecated migrate this string to module level file
    */

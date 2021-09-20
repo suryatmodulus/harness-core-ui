@@ -2,25 +2,29 @@ import React from 'react'
 import { Text, Container, Layout, Heading, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
-import type { TestReportSummary } from 'services/ti-service'
 import { Duration } from '@common/exports'
-import { renderFailureRate, TestStatus } from './TestsUtils'
+import { renderFailureRate } from './TestsUtils'
 import css from './BuildTests.module.scss'
 
 interface TestsReportOverviewProps {
   totalTests: number
+  failedTests: number
+  skippedTests: number
+  successfulTests: number
   durationMS: number
-  tests: NonNullable<TestReportSummary['tests']>
 }
 
 const now = Date.now()
 
-export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({ totalTests, durationMS, tests }) => {
+export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({
+  totalTests,
+  failedTests,
+  skippedTests,
+  successfulTests,
+  durationMS
+}) => {
   const { getString } = useStrings()
 
-  const failedTests = tests.filter(({ status }) => status === TestStatus.FAILED || status === TestStatus.ERROR).length
-  const skippedTests = tests.filter(({ status }) => status === TestStatus.SKIPPED).length
-  const passedTests = totalTests - failedTests - skippedTests
   const failureRate = failedTests / (totalTests || 1)
   const failureRateDisplay = renderFailureRate(failureRate) + `%`
 
@@ -68,7 +72,7 @@ export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({ totalT
           </Text>
           <Text inline icon="stop" iconProps={{ size: 16, style: { color: '#6BD167' } }}>
             {getString('passed')}
-            {` (${passedTests})`}
+            {` (${successfulTests})`}
           </Text>
           <Text inline icon="stop" iconProps={{ size: 16, color: Color.GREY_300 }}>
             {getString('pipeline.testsReports.skipped')}
@@ -78,10 +82,14 @@ export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({ totalT
         <Container className={css.graphWrapper}>
           <Container className={css.graphContainer}>
             <ul className={css.graph}>
-              {tests.map((test, index) => (
-                <li key={(test.name as string) + index} data-status={test.status}>
-                  <Text inline /*tooltip={test.name} TODO: Performance issue, disable for now */>&nbsp;</Text>
-                </li>
+              {Array.from(Array(failedTests)).map((_, index) => (
+                <li key={index} data-status="failed"></li>
+              ))}
+              {Array.from(Array(successfulTests)).map((_, index) => (
+                <li key={index}></li>
+              ))}
+              {Array.from(Array(skippedTests)).map((_, index) => (
+                <li key={index} data-status="skipped"></li>
               ))}
             </ul>
           </Container>

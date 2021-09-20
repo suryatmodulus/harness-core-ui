@@ -1,5 +1,17 @@
-import React, { useContext, useMemo, useRef, useState } from 'react'
-import { Button, Color, Container, Heading, Layout, Pagination, Tab, Tabs, Text, Utils } from '@wings-software/uicore'
+import React, { useContext, useMemo, useState } from 'react'
+import {
+  Button,
+  Color,
+  Container,
+  FontVariation,
+  Heading,
+  Layout,
+  Pagination,
+  Tab,
+  Tabs,
+  Text,
+  Utils
+} from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import type { Column } from 'react-table'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
@@ -41,41 +53,43 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
   const { environmentIdentifier, isNew, onDelete, getSecret } = useContext(RowContext) ?? defaultContext
   const { getString, getEnvString } = useEnvStrings()
   const { showSuccess, showError } = useToaster()
-  const textRef = useRef<HTMLDivElement>(null)
-  const showCopy = isNew(apiKey.identifier) || apiKey.type === EnvironmentSDKKeyType.CLIENT
+  const showCopy = isNew(apiKey.identifier)
 
-  const handleCopy = () => {
-    if (textRef.current) {
-      Utils.copy(textRef.current.innerText)
-        .then(() => showSuccess(getString('clipboardCopySuccess')))
-        .catch(() => showError(getString('clipboardCopyFail'), undefined, 'cf.copy.text.error'))
-    }
+  const apiKeyText = showCopy ? getSecret(apiKey.identifier, apiKey.apiKey) : apiKey.apiKey
+
+  const handleCopy = (): void => {
+    Utils.copy(apiKeyText)
+      .then(() => showSuccess(getString('clipboardCopySuccess')))
+      .catch(() => showError(getString('clipboardCopyFail'), undefined, 'cf.copy.text.error'))
   }
 
   return (
     <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-      <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-        <Text font={{ weight: 'bold' }}>
-          {apiKey.type === EnvironmentSDKKeyType.CLIENT ? getString(`common.clientId`) : getString('secretType')}
+      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center' }} className={css.keyContainer}>
+        <Text font={{ weight: 'bold' }} className={css.keyType}>
+          {apiKey.type === EnvironmentSDKKeyType.CLIENT ? getString(`common.clientId`) : getString('secretType')}:
         </Text>
         {showCopy ? (
-          <div ref={textRef}>
+          <div className={css.keyCopyContainer}>
             <Text
               font={{ mono: true }}
               rightIcon="main-clone"
               rightIconProps={{
                 onClick: handleCopy,
                 color: Color.GREY_350,
-                style: { cursor: 'pointer', marginLeft: 'var(--spacing-small)' }
+                className: css.keyCopyIcon
               }}
               padding="small"
-              style={{ borderRadius: '4px', backgroundColor: '#F3F3FA' }}
+              className={css.keyCopy}
             >
-              {getSecret(apiKey.identifier, apiKey.apiKey)}
+              {apiKeyText}
+            </Text>
+            <Text font={{ variation: FontVariation.TINY }} color={Color.ORANGE_900}>
+              {getEnvString('apiKeys.redactionWarning')}
             </Text>
           </div>
         ) : (
-          <Text>{apiKey.apiKey}</Text>
+          <Text>{apiKeyText}</Text>
         )}
       </Layout.Horizontal>
       <Container>
@@ -85,7 +99,7 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
           iconProps={{
             size: 16
           }}
-          style={{ color: 'var(--grey-300)' }}
+          className={css.keyDeleteButton}
           tooltip={
             <Container width="350px" padding="medium">
               <Heading level={2} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
@@ -144,7 +158,7 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
   })
 
   const { mutate: deleteKey } = useDeleteApiKey({ queryParams })
-  const handleDelete = (id: string, keyName: string) => {
+  const handleDelete = (id: string, keyName: string): void => {
     deleteKey(id)
       .then(() => showSuccess(getString('cf.environments.apiKeys.deleteSuccess', { keyName })))
       .then(() => refetch())
@@ -167,7 +181,7 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
       {
         Header: getString('name').toUpperCase(),
         accessor: 'name',
-        width: '35%',
+        width: '25%',
         Cell: NameCell
       },
       {
@@ -178,7 +192,7 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
       },
       {
         id: 'info',
-        width: '55%',
+        width: '65%',
         Cell: ApiInfoCell
       }
     ],
@@ -190,23 +204,13 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
       {hasData && (
         <Layout.Vertical
           padding={{ top: 'xxxlarge', left: 'xxlarge' }}
-          style={{ justifyContent: 'flex-start', alignItems: 'flex-start', height: '100%', overflow: 'hidden' }}
+          height="100%"
+          flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
         >
-          <Heading
-            level={2}
-            style={{
-              display: 'flex',
-              fontWeight: 600,
-              fontSize: '16px',
-              lineHeight: '22px',
-              flexDirection: 'row',
-              alignItems: 'center',
-              width: '100%',
-              paddingRight: 'var(--spacing-large)'
-            }}
-            color={Color.BLACK}
-          >
-            <span style={{ flexGrow: 1 }}>{getEnvString('apiKeys.title')}</span>
+          <Layout.Horizontal width="100%" flex={{ distribution: 'space-between', alignItems: 'baseline' }}>
+            <Heading level={2} font={{ variation: FontVariation.H5 }}>
+              {getEnvString('apiKeys.title')}
+            </Heading>
             <AddKeyDialog
               environment={environment}
               onCreate={(newKey: ApiKey, hideCreate) => {
@@ -215,8 +219,8 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
                 refetch()
               }}
             />
-          </Heading>
-          <Text style={{ color: '#22222A' }} padding={{ top: 'small', bottom: 'xxlarge' }}>
+          </Layout.Horizontal>
+          <Text color={Color.GREY_800} padding={{ top: 'small', bottom: 'xxlarge' }}>
             {getEnvString('apiKeys.message')}
           </Text>
           <Container className={css.content}>
@@ -252,18 +256,7 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
       )}
 
       {emptyData && (
-        <Layout.Vertical
-          spacing="medium"
-          style={{
-            position: 'relative',
-            display: 'flex',
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            height: '100%'
-          }}
-        >
+        <Layout.Vertical width="100%" height="100%" flex={{ align: 'center-center' }} spacing="medium">
           <Text>{getEnvString('apiKeys.noKeysFound')}</Text>
           <AddKeyDialog
             primary
@@ -278,19 +271,9 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
       )}
 
       {loading && (
-        <Container
-          style={{
-            position: 'relative',
-            display: 'flex',
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            height: '100%'
-          }}
-        >
+        <Layout.Horizontal width="100%" height="100%" flex={{ align: 'center-center' }}>
           <ContainerSpinner />
-        </Container>
+        </Layout.Horizontal>
       )}
 
       {error && (

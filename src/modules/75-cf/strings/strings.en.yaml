@@ -319,6 +319,7 @@ environments:
     deleteSuccess: 'Successfully deleted Key: {{keyName}}'
     keyType: 'Key Type'
     noKeysFound: 'No SDK Keys found in this environment. Click the button below to create a Key'
+    redactionWarning: Your secret will be redacted once you leave the page. Please make sure to copy and store your secret.
 auditLogs:
   title: Audit Logs
   summaryHeading: 'Module: Feature Flags • Project: {{project}} • Environment: {{environment}}'
@@ -416,6 +417,12 @@ pipeline:
       values static by updating your option to Fixed Input List to test things out.
     serve: Serve
     toGroups: to Target(s)/Target Group(s)
+    flagChanges: Flag Changes
+    setFlagSwitch: Set Flag Switch
+    serveVariationToIndividualTarget: Serve Variation to Individual Target
+    serveVariationToTargetGroup: Serve Variation to Target Group
+    servePercentageRollout: Serve Percentage Rollout
+    selectOnOrOff: Select ON or OFF
 segmentDetail:
   directlyAdded: Directly Added
   autoAdded: Automatically Added Through Conditions

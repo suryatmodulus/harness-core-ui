@@ -229,7 +229,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
         />
       ) : null}
       <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
-        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK} id="delegateSelectorStepTitle">
           {getString('delegate.DelegateselectionLabel')}
         </Text>
         <ModalErrorHandler bind={setModalErrorHandler} />

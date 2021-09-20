@@ -63,9 +63,12 @@ const VaultConfigForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsPr
         formName="vaultConfigForm"
         validationSchema={Yup.object().shape({
           vaultUrl: URLValidationSchema(),
-          renewalIntervalMinutes: Yup.number()
-            .positive(getString('validation.renewalNumber'))
-            .required(getString('validation.renewalInterval')),
+          renewalIntervalMinutes: Yup.mixed().when('accessType', {
+            is: val => val !== HashiCorpVaultAccessTypes.VAULT_AGENT,
+            then: Yup.number()
+              .positive(getString('validation.renewalNumber'))
+              .required(getString('validation.renewalInterval'))
+          }),
           authToken: Yup.object()
             .nullable()
             .when('accessType', {

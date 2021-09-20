@@ -32,7 +32,8 @@ jest.mock('services/resourcegroups', () => ({
 jest.mock('@rbac/factories/RbacFactory', () => ({
   getResourceTypeHandler: jest.fn().mockImplementation(resource => getResourceTypeHandlerMock(resource)),
   getResourceCategoryHandler: jest.fn().mockImplementation(resource => getResourceGroupTypeHandlerMock(resource)),
-  getResourceCategoryList: jest.fn().mockImplementation(() => getResourceCategoryListMock())
+  getResourceCategoryList: jest.fn().mockImplementation(() => getResourceCategoryListMock()),
+  getResourceTypeLabelKey: jest.fn()
 }))
 
 describe('Resource Groups Page', () => {
@@ -82,6 +83,10 @@ describe('Resource Groups Page', () => {
   })
   test('test orgs selection and save', async () => {
     const { container, getByTestId } = renderObj
+    const specifiedResource = getByTestId('static-ORGANIZATION')
+    act(() => {
+      fireEvent.click(specifiedResource)
+    })
     const addResources = getByTestId('addResources-ORGANIZATION')
     expect(addResources).toBeTruthy()
     act(() => {

@@ -1,7 +1,9 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { ExecutionNode } from 'services/pipeline-ng'
 import { ExecutionVerificationView } from '../ExecutionVerificationView'
+import { getActivityId } from '../ExecutionVerificationView.utils'
 
 jest.mock('../components/DeploymentMetrics/DeploymentMetrics', () => ({
   ...(jest.requireActual('../components/DeploymentMetrics/DeploymentMetrics') as any),
@@ -34,5 +36,25 @@ describe('Unit tests for ExecutionVerificationView unit tests', () => {
     await waitFor(() => expect(container.querySelector('[class*="noAnalysis"]')))
     expect(container.querySelector('[class*="bp3-tabs"]')).toBeNull()
     expect(container).toMatchSnapshot()
+  })
+
+  test('Ensure correct activityId is returned when getActivityId utils method is called with activityId being present in progressdata and not in outputdata', async () => {
+    const step = {
+      progressData: {
+        activityId: 'activityId-from-step-progressData'
+      }
+    }
+    expect(getActivityId(step as unknown as ExecutionNode)).toEqual('activityId-from-step-progressData')
+  })
+
+  test('Ensure correct activityId is returned when getActivityId utils method is called with activityId is not present in progressdata but present in output data', async () => {
+    const step = {
+      outcomes: {
+        output: {
+          activityId: 'activityId-from-step-outputdata'
+        }
+      }
+    }
+    expect(getActivityId(step as unknown as ExecutionNode)).toEqual('activityId-from-step-outputdata')
   })
 })

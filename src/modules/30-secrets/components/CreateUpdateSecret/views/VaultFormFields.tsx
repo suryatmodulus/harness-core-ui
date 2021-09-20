@@ -30,15 +30,15 @@ const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> 
             name="valueType"
             radioGroup={{ inline: true }}
             items={[
-              { label: getString('secret.inlineSecret'), value: 'Inline', disabled: readonly },
-              { label: getString('secret.referenceSecret'), value: 'Reference' }
+              { label: getString('secrets.secret.inlineSecret'), value: 'Inline', disabled: readonly },
+              { label: getString('secrets.secret.referenceSecret'), value: 'Reference' }
             ]}
           />
           {formik?.values['valueType'] === 'Inline' ? (
             <FormInput.Text
               name="value"
               label={getString('secrets.labelValue')}
-              placeholder={editing ? getString('encrypted') : getString('secret.placeholderSecretValue')}
+              placeholder={editing ? getString('encrypted') : getString('secrets.secret.placeholderSecretValue')}
               inputGroup={{ type: 'password' }}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 event.target.value.trim()
@@ -48,14 +48,14 @@ const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> 
           {formik?.values['valueType'] === 'Reference' ? (
             <FormInput.Text
               name="value"
-              label={getString('secret.labelSecretReference')}
-              placeholder={getString('secret.placeholderSecretReference')}
+              label={getString('secrets.secret.labelSecretReference')}
+              placeholder={getString('secrets.secret.placeholderSecretReference')}
             />
           ) : null}
         </>
       ) : null}
       {type === 'SecretFile' ? (
-        <FormInput.FileInput name="file" label={getString('secret.labelSecretFile')} multiple />
+        <FormInput.FileInput name="file" label={getString('secrets.secret.labelSecretFile')} multiple />
       ) : null}
       <FormInput.TextArea name="description" isOptional={true} label={getString('description')} />
       <FormInput.KVTagInput name="tags" isOptional={true} label={getString('tagsLabel')} />

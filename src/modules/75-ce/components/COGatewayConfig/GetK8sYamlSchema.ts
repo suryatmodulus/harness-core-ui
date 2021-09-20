@@ -1,3 +1,4 @@
+import { isEmpty as _isEmpty } from 'lodash-es'
 import { Utils } from '@ce/common/Utils'
 
 const getK8sYamlSchema = () => ({
@@ -47,95 +48,200 @@ const getK8sYamlSchema = () => ({
       $id: '#/properties/spec',
       type: 'object',
       title: 'The spec schema',
-      required: ['rules'],
+      description: '',
+      required: ['hideProgressPage'],
       properties: {
-        rules: {
-          $id: '#/properties/spec/properties/rules',
+        idleTimeMins: {
+          $id: '#/properties/spec/properties/idleTimeMins',
+          type: 'integer',
+          title: 'The idleTimeMins schema',
+          description: ''
+        },
+        hideProgressPage: {
+          $id: '#/properties/spec/properties/hideProgressPage',
+          type: 'boolean',
+          title: 'The hideProgressPage schema',
+          description: ''
+        },
+        dependencies: {
+          $id: '#/properties/spec/properties/dependencies',
           type: 'array',
-          title: 'The rules schema',
+          title: 'The dependencies schema',
+          description: '',
           additionalItems: true,
           items: {
-            $id: '#/properties/spec/properties/rules/items',
-            type: 'object',
-            title: 'The items schema',
-            required: ['http'],
-            properties: {
-              http: {
-                $id: '#/properties/spec/properties/rules/items/properties/http',
+            $id: '#/properties/spec/properties/dependencies/items',
+            anyOf: [
+              {
+                $id: '#/properties/spec/properties/dependencies/items/anyOf/0',
                 type: 'object',
-                title: 'The http schema',
-                required: ['paths'],
+                title: 'Dependency Object',
+                description: '',
+                required: ['selector', 'wait'],
                 properties: {
-                  paths: {
-                    $id: '#/properties/spec/properties/rules/items/properties/http/properties/paths',
-                    type: 'array',
-                    title: 'The paths schema',
-                    additionalItems: true,
-                    items: {
-                      $id: '#/properties/spec/properties/rules/items/properties/http/properties/paths/items',
-                      type: 'object',
-                      title: 'The items schema',
-                      required: ['path', 'pathType', 'backend'],
-                      properties: {
-                        path: {
-                          $id: '#/properties/spec/properties/rules/items/properties/http/properties/paths/items/properties/path',
-                          type: 'string',
-                          title: 'The path schema'
-                        },
-                        pathType: {
-                          $id: '#/properties/spec/properties/rules/items/properties/http/properties/paths/items/properties/pathType',
-                          type: 'string',
-                          title: 'The pathType schema'
-                        },
-                        backend: {
-                          $id: '#/properties/spec/properties/rules/items/properties/http/properties/paths/items/properties/backend',
-                          type: 'object',
-                          title: 'The backend schema',
-                          required: ['service'],
-                          properties: {
-                            service: {
-                              $id: '#/properties/spec/properties/rules/items/properties/http/properties/paths/items/properties/backend/properties/service',
-                              type: 'object',
-                              title: 'The service schema',
-                              required: ['name', 'port'],
-                              properties: {
-                                name: {
-                                  $id: '#/properties/spec/properties/rules/items/properties/http/properties/paths/items/properties/backend/properties/service/properties/name',
-                                  type: 'string',
-                                  title: 'The name schema'
-                                },
-                                port: {
-                                  $id: '#/properties/spec/properties/rules/items/properties/http/properties/paths/items/properties/backend/properties/service/properties/port',
-                                  type: 'object',
-                                  title: 'The port schema',
-                                  required: ['number'],
-                                  properties: {
-                                    number: {
-                                      $id: '#/properties/spec/properties/rules/items/properties/http/properties/paths/items/properties/backend/properties/service/properties/port/properties/number',
-                                      type: 'integer',
-                                      title: 'The number schema'
-                                    }
-                                  },
-                                  additionalProperties: true
-                                }
-                              },
-                              additionalProperties: true
-                            }
-                          },
-                          additionalProperties: true
-                        }
-                      },
-                      additionalProperties: true
-                    }
+                  selector: {
+                    $id: '#/properties/spec/properties/dependencies/items/anyOf/0/properties/selector',
+                    type: 'object',
+                    title: 'The selector schema',
+                    description: '',
+                    required: ['ruleName'],
+                    properties: {
+                      ruleName: {
+                        $id: '#/properties/spec/properties/dependencies/items/anyOf/0/properties/selector/properties/ruleName',
+                        type: 'string',
+                        title: 'The ruleName schema',
+                        description: ''
+                      }
+                    },
+                    additionalProperties: true
+                  },
+                  wait: {
+                    $id: '#/properties/spec/properties/dependencies/items/anyOf/0/properties/wait',
+                    type: 'integer',
+                    title: 'The wait schema',
+                    description: ''
                   }
                 },
                 additionalProperties: true
               }
-            },
-            additionalProperties: true
+            ]
           }
+        },
+        ingress: {
+          $id: '#/properties/spec/properties/ingress',
+          type: 'object',
+          title: 'The ingress schema',
+          description: '',
+          required: ['rules'],
+          properties: {
+            rules: {
+              $id: '#/properties/spec/properties/ingress/properties/rules',
+              type: 'array',
+              title: 'The rules schema',
+              description: '',
+              additionalItems: true,
+              items: {
+                $id: '#/properties/spec/properties/ingress/properties/rules/items',
+                anyOf: [
+                  {
+                    $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0',
+                    type: 'object',
+                    title: 'Rule Object',
+                    description: '',
+                    required: ['host', 'http'],
+                    properties: {
+                      host: {
+                        $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0/properties/host',
+                        type: 'string',
+                        title: 'The host schema',
+                        description: ''
+                      },
+                      http: {
+                        $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0/properties/http',
+                        type: 'object',
+                        title: 'The http schema',
+                        description: '',
+                        required: ['paths'],
+                        properties: {
+                          paths: {
+                            $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0/properties/http/properties/paths',
+                            type: 'array',
+                            title: 'The paths schema',
+                            description: '',
+                            additionalItems: true,
+                            items: {
+                              $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0/properties/http/properties/paths/items',
+                              anyOf: [
+                                {
+                                  $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0/properties/http/properties/paths/items/anyOf/0',
+                                  type: 'object',
+                                  title: 'Path Object',
+                                  description: '',
+                                  required: ['path', 'pathType', 'backend'],
+                                  properties: {
+                                    path: {
+                                      $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0/properties/http/properties/paths/items/anyOf/0/properties/path',
+                                      type: 'string',
+                                      title: 'The path schema',
+                                      description: ''
+                                    },
+                                    pathType: {
+                                      $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0/properties/http/properties/paths/items/anyOf/0/properties/pathType',
+                                      type: 'string',
+                                      title: 'The pathType schema',
+                                      description: ''
+                                    },
+                                    backend: {
+                                      $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0/properties/http/properties/paths/items/anyOf/0/properties/backend',
+                                      type: 'object',
+                                      title: 'The backend schema',
+                                      description: '',
+                                      required: ['service'],
+                                      properties: {
+                                        service: {
+                                          type: 'object',
+                                          title: 'The service schema',
+                                          description: '',
+                                          required: ['name', 'port'],
+                                          properties: {
+                                            name: {
+                                              type: 'string',
+                                              title: 'The name schema',
+                                              description: ''
+                                            },
+                                            port: {
+                                              type: 'object',
+                                              title: 'The port schema',
+                                              description: '',
+                                              required: ['number'],
+                                              properties: {
+                                                number: {
+                                                  type: 'integer',
+                                                  title: 'The number schema',
+                                                  description: ''
+                                                }
+                                              },
+                                              additionalProperties: true
+                                            }
+                                          },
+                                          additionalProperties: true
+                                        }
+                                      },
+                                      additionalProperties: true
+                                    }
+                                  },
+                                  additionalProperties: true
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        additionalProperties: true
+                      }
+                    },
+                    additionalProperties: true
+                  }
+                ]
+              }
+            }
+          },
+          additionalProperties: true
+        },
+        serviceName: {
+          $id: '#/properties/spec/properties/serviceName',
+          type: 'string',
+          title: 'The serviceName schema',
+          description: ''
         }
       },
+      oneOf: [
+        {
+          required: ['ingress']
+        },
+        {
+          required: ['serviceName']
+        }
+      ],
       additionalProperties: true
     },
     status: {
@@ -149,7 +255,7 @@ const getK8sYamlSchema = () => ({
   additionalProperties: true
 })
 
-const getK8sIngressTemplate = ({ name, idleTime, cloudConnectorId }: Record<string, any>) => {
+const getK8sIngressTemplate = ({ name, idleTime, cloudConnectorId, hideProgressPage, deps }: Record<string, any>) => {
   const modifiedName = Utils.getHyphenSpacedString(name)
   return {
     apiVersion: 'lightwing.lightwing.io/v1',
@@ -163,27 +269,31 @@ const getK8sIngressTemplate = ({ name, idleTime, cloudConnectorId }: Record<stri
     },
     spec: {
       idleTimeMins: idleTime,
-      rules: [
-        {
-          host: '<replace with your domain name or simply remove it>',
-          http: {
-            paths: [
-              {
-                path: '/',
-                pathType: 'Prefix',
-                backend: {
-                  service: {
-                    name: '<replace your service name>',
-                    port: {
-                      number: '<replace with your service port>'
+      hideProgressPage: Boolean(hideProgressPage),
+      ingress: {
+        rules: [
+          {
+            host: '<replace with your domain name or simply remove it>',
+            http: {
+              paths: [
+                {
+                  path: '/',
+                  pathType: 'Prefix',
+                  backend: {
+                    service: {
+                      name: '<replace your service name>',
+                      port: {
+                        number: '<replace with your service port>'
+                      }
                     }
                   }
                 }
-              }
-            ]
+              ]
+            }
           }
-        }
-      ]
+        ]
+      },
+      ...(!_isEmpty(deps) && { dependencies: deps })
     }
   }
 }

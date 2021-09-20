@@ -126,7 +126,10 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         offVariation: flagData.envProperties?.offVariation as string,
         defaultServe: flagData.envProperties?.defaultServe as Serve,
         customRules: flagData.envProperties?.rules ?? [],
-        variationMap: cloneDeep(flagData.envProperties?.variationMap ?? [])
+        variationMap: cloneDeep(
+          // filter out variations with no targets. UI needs reworked to suit the use case: https://harness.atlassian.net/browse/FFM-1267
+          flagData.envProperties?.variationMap?.filter(variationMapItem => !!variationMapItem?.targets?.length) ?? []
+        )
       }),
     []
   )

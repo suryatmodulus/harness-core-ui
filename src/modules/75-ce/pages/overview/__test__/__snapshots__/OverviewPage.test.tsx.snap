@@ -11,12 +11,17 @@ exports[`test cases for Overview Page should be able to render the overview dash
       <div
         class="Layout--vertical StyledProps--main"
       >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-          level="2"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ccmOverviewTitle"
         >
-          Overview
-        </h2>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+            style="font-size: 20px; font-weight: bold;"
+          >
+            Overview
+          </p>
+        </div>
       </div>
       <span
         class="bp3-popover-wrapper"
@@ -104,11 +109,20 @@ exports[`test cases for Overview Page should be able to render the overview dash
                       class="Layout--horizontal StyledProps--main"
                       style="justify-content: space-between;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
+                      <div
+                        class="StyledProps--font StyledProps--main"
                       >
-                        Total Cost
-                      </p>
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="overviewSummaryTotalCost"
+                        >
+                          <span
+                            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
+                          >
+                            Total Cost
+                          </span>
+                        </div>
+                      </div>
                       <span
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700 StyledProps--inline"
                         style="display: inline-flex; align-items: center;"
@@ -156,9 +170,18 @@ exports[`test cases for Overview Page should be able to render the overview dash
                       class="Layout--horizontal StyledProps--main"
                       style="justify-content: space-between;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
-                      />
+                      <div
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="overviewSummaryForecastedCost"
+                        >
+                          <span
+                            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
+                          />
+                        </div>
+                      </div>
                       <span
                         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700 StyledProps--inline"
                       >
@@ -256,11 +279,16 @@ exports[`test cases for Overview Page should be able to render the overview dash
                   </div>
                 </div>
                 <div>
-                  <p
-                    class="StyledProps--font StyledProps--main"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="overviewCostBreakdown"
                   >
-                    Cost breakdown
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      Cost breakdown
+                    </p>
+                  </div>
                   <div
                     class="breakdown"
                   >
@@ -359,11 +387,16 @@ exports[`test cases for Overview Page should be able to render the overview dash
                       <div
                         class="Layout--vertical StyledProps--main"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="overviewCostEfficiencyScore"
                         >
-                          ce.overview.cardtitles.efficiencyScore
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ce.overview.cardtitles.efficiencyScore
+                          </p>
+                        </div>
                         <div
                           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                           style="align-items: center;"
@@ -562,11 +595,16 @@ exports[`test cases for Overview Page should be able to render the overview dash
               <div
                 class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
               >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="overviewCostByProvider"
                 >
-                  ce.overview.cardtitles.costByProviders
-                </p>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-semi-bold StyledProps--font-size-medium"
+                  >
+                    ce.overview.cardtitles.costByProviders
+                  </p>
+                </div>
                 <div
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                   style="justify-content: space-between;"

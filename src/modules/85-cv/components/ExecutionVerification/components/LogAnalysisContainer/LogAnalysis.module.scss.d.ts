@@ -9,5 +9,7 @@ declare const styles: {
   readonly loading: string
   readonly noData: string
   readonly refreshButton: string
+  readonly logsAnalysisFilters: string
+  readonly filters: string
 }
 export default styles

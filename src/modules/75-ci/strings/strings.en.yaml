@@ -9,7 +9,7 @@ ciTrialHomePage:
       description: Start 14 day CI Enterprise trial
 dashboard:
   subHeading: Take your software build processes to the next level using our Harness Continuous Integration
-  createProject: '{{ $.projectsOrgs.createProject }}'
+  createProject: '{{$.createProject}}'
 commitsOn: 'Commits on'
 committed: 'committed'
 clipboardCopySuccess: '{{ $.clipboardCopySuccess }}'
@@ -52,3 +52,5 @@ runTestsMavenSetupSample: |
   <argLine> existing ${env.HARNESS_JAVA_AGENT} </argLine>
 commitMessage: Commit Message
 prTitle: PR Title
+testSummary: Test Summary
+successful: Successful

@@ -4,9 +4,9 @@ import cx from 'classnames'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { useStrings } from 'framework/strings'
+import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import getLogAnalysisLineChartOptions from './LogAnalysisLineChartConfig'
 import { LogAnalysisRiskAndJiraModal } from './components/LogAnalysisRiskAndJiraModal/LogAnalysisRiskAndJiraModal'
-import { HealthScoreCard } from './components/HealthScoreCard/HealthScoreCard'
 import type {
   LogAnalysisDataRowProps,
   LogAnalysisRowProps,
@@ -41,6 +41,8 @@ function ColumnHeaderRow(): JSX.Element {
 
 function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
   const { rowData } = props
+  const { riskScore, riskStatus } = rowData
+  const color = getRiskColorValue(riskStatus)
   const chartOptions = useMemo(
     () => getLogAnalysisLineChartOptions(rowData?.messageFrequency || []),
     [rowData?.messageFrequency]
@@ -72,7 +74,13 @@ function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
         className={cx(css.logRowText, css.dataColumn, css.openModalColumn, css.risk)}
         onClick={onShowRiskEditModalCallback}
       >
-        <HealthScoreCard riskScore={rowData.riskScore} riskStatus={rowData.riskStatus} />
+        {riskScore || riskScore === 0 ? (
+          <div className={css.healthScoreCard} style={{ background: color }}>
+            <Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.WHITE}>
+              {riskStatus}
+            </Text>
+          </div>
+        ) : null}
       </Container>
       <Container
         className={cx(css.logText, css.dataColumn, css.openModalColumn, css.message)}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -225,6 +225,56 @@ describe('Test K8sBlueGreenDeployStep', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('should submit with valid payload for instance type instances', async () => {
+    const onUpdate = jest.fn()
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          identifier: 'Test_A',
+          type: 'K8sScale',
+          spec: {
+            workload: 'test',
+            instanceSelection: {
+              spec: {
+                count: 10,
+                percentage: 1
+              },
+              type: InstanceTypes.Instances
+            }
+          },
+          timeout: '10m',
+          name: 'Test A'
+        }}
+        type={StepType.K8sScale}
+        stepViewType={StepViewType.Edit}
+        onUpdate={onUpdate}
+        ref={ref}
+      />
+    )
+    await ref.current?.submitForm()
+
+    await waitFor(() =>
+      expect(onUpdate).toHaveBeenCalledWith({
+        identifier: 'Test_A',
+        name: 'Test A',
+        spec: {
+          instanceSelection: {
+            spec: {
+              count: 10
+            },
+            type: InstanceTypes.Instances
+          },
+          skipSteadyStateCheck: false,
+          workload: 'test'
+        },
+        timeout: '10m',
+        type: 'K8sScale'
+      })
+    )
+    expect(container).toMatchSnapshot()
+  })
+
   test('on Edit view for instance type percentage', async () => {
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
@@ -380,6 +430,55 @@ describe('Test K8sBlueGreenDeployStep', () => {
         stepViewType={StepViewType.InputVariable}
       />
     )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render inputSet view and test validation', async () => {
+    const onUpdate = jest.fn()
+    const template = {
+      identifier: 'Test_A',
+      name: 'Test A',
+      spec: {
+        instanceSelection: {
+          spec: {
+            count: '<+input>'
+          },
+          type: 'Count'
+        },
+        workload: 'test'
+      },
+      timeout: '<+input>',
+      type: 'K8sScale'
+    }
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{}}
+        allValues={{
+          identifier: 'Test_A',
+          name: 'Test A',
+          spec: {
+            instanceSelection: {
+              spec: {
+                count: '<+input>'
+              },
+              type: 'Count'
+            },
+            workload: 'test'
+          },
+
+          timeout: '<+input>',
+          type: 'K8sScale'
+        }}
+        template={template}
+        type={StepType.K8sScale}
+        onUpdate={onUpdate}
+        stepViewType={StepViewType.InputSet}
+      />
+    )
+    await act(async () => {
+      fireEvent.click(getByText('Submit'))
+    })
+
     expect(container).toMatchSnapshot()
   })
 })

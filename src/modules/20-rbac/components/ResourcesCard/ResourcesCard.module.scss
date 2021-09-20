@@ -12,14 +12,11 @@
   align-items: center;
   column-gap: var(--spacing-xxlarge);
 }
-// since uicore radio button adds margin-left with negative value
-.radioBtn > span {
-  margin-left: 0px !important;
-}
+
 .radioBtn {
-  padding-left: var(--spacing-large) !important;
-  margin-bottom: 0px !important;
+  padding-left: 100px !important;
 }
+
 .limitAccessCell {
   justify-self: end;
 }

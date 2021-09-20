@@ -87,6 +87,9 @@ allowpaths:
   - /verify-step/input-set-template
   - /monitored-service/scores
   - /monitored-service/health-sources
+  - /monitored-service/{identifier}/anomaliesCount
+  - /monitored-service/{identifier}/change-event/summary
+  - /activity/{activityId}/healthSources
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

@@ -1,4 +1,5 @@
 import { DockerArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/DockerArtifactSource'
+import { GCRArtifactSource } from '@cd/components/PipelineSteps/K8sServiceSpec/GCRArtifactSource'
 import type { ArtifactSourceBase } from './ArtifactSourceBase'
 
 export class ArtifactSourceBaseFactory {
@@ -25,5 +26,5 @@ export class ArtifactSourceBaseFactory {
 
 const artifactSourceBaseFactory = new ArtifactSourceBaseFactory()
 artifactSourceBaseFactory.registerArtifactSource(new DockerArtifactSource())
-
+artifactSourceBaseFactory.registerArtifactSource(new GCRArtifactSource())
 export default artifactSourceBaseFactory

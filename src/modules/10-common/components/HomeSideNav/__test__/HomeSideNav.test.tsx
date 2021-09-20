@@ -6,7 +6,7 @@ import HomeSideNav from '../HomeSideNav'
 describe('HomeSidenav', () => {
   test('render', () => {
     const { container } = render(
-      <TestWrapper path="/account/:accountId/home/dashboard" pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper path="/account/:accountId/home/get-started" pathParams={{ accountId: 'dummy' }}>
         <HomeSideNav />
       </TestWrapper>
     )

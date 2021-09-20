@@ -9,7 +9,7 @@ import {
 import { useToaster } from '@common/exports'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import LogAnalysis from '@cv/components/LogsAnalysis/LogAnalysis'
-import { LogEvents, pageSize } from '@cv/components/LogsAnalysis/LogAnalysis.constants'
+import { pageSize } from '@cv/components/LogsAnalysis/LogAnalysis.constants'
 import type { LogAnalysisRowData } from '@cv/components/LogsAnalysis/LogAnalysis.types'
 import Card from '@cv/components/Card/Card'
 import type { MetricsAndLogsProps } from '../../MetricsAndLogs.types'
@@ -33,10 +33,9 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
       environmentIdentifier,
       startTime,
       endTime,
-      ...(selectedClusterType?.value &&
-        selectedClusterType?.value !== LogEvents.ALL_EVENTS && {
-          clusterTypes: (selectedClusterType.value as string).split('_')[0] as any
-        }),
+      ...(selectedClusterType?.value && {
+        clusterTypes: (selectedClusterType.value as string).split('_')[0] as any
+      }),
       ...(selectedHealthSource && { healthSources: selectedHealthSource as any })
     }
   }, [
@@ -82,13 +81,17 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime, endTime])
 
-  // On changing cluster type , fetching the logs data again.
+  // Fetching logs data for selected cluster type
   useEffect(() => {
-    if (selectedClusterType?.value && startTime && endTime) {
-      fetchLogAnalysis({ queryParams: logsAnalysisQueryParams })
-    }
+    fetchLogsDataForCluster(selectedClusterType?.value as string)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedClusterType?.value])
+
+  // Fetching logs data for selected health source
+  useEffect(() => {
+    fetchLogsDataForHealthSource(selectedHealthSource)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedHealthSource])
 
   const goToLogsPage = useCallback(
     page => {
@@ -113,10 +116,24 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
     //clusterChartError
   ])
 
-  const onChangeHealthSource = useCallback(
+  const fetchLogsDataForHealthSource = useCallback(
     currentHealthSource => {
-      fetchLogAnalysis({ queryParams: { ...logsAnalysisQueryParams, healthSources: currentHealthSource } })
-      setSelectedHealthSource(currentHealthSource)
+      fetchLogAnalysis({
+        queryParams: { ...logsAnalysisQueryParams, ...(currentHealthSource && { healthSources: currentHealthSource }) }
+      })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [logsAnalysisQueryParams]
+  )
+
+  const fetchLogsDataForCluster = useCallback(
+    clusterTypes => {
+      fetchLogAnalysis({
+        queryParams: {
+          ...logsAnalysisQueryParams,
+          ...(clusterTypes && { clusterTypes: clusterTypes.split('_')[0] as any })
+        }
+      })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [logsAnalysisQueryParams]
@@ -153,9 +170,8 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
         // clusterChartData={clusterChartData}
         // clusterChartLoading={clusterChartLoading}
         goToPage={goToLogsPage}
-        selectedClusterType={selectedClusterType as SelectOption}
         setSelectedClusterType={setSelectedClusterType}
-        onChangeHealthSource={onChangeHealthSource}
+        onChangeHealthSource={setSelectedHealthSource}
       />
     </Card>
   )

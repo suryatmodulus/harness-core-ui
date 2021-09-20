@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`] = `<div />`;
+
+exports[`CIExecutionSummary tests Shows Successful summary 1`] = `<div />`;

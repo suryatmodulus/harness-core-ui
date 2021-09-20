@@ -14,5 +14,6 @@ declare const styles: {
   readonly serviceTag: string
   readonly cdCustomIcon: string
   readonly hoverService: string
+  readonly rangeSelectorHeader: string
 }
 export default styles

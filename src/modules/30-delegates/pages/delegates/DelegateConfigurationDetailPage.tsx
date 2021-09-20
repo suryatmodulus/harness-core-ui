@@ -276,13 +276,9 @@ export default function DelegateProfileDetails(): JSX.Element {
                           fill
                           openOnKeyDown={false}
                           showClearAllButton
-                          showNewlyCreatedItemsInList={true}
                           allowNewTag
                           placeholder={getString('delegate.enterTags')}
                           selectedItems={formData.selectors || []}
-                          validateNewTag={tag => {
-                            return !!tag // TODO: Note to Sahithi: Copy the logic from wingsui to check  for new profile tag
-                          }}
                           items={formData.selectors || []}
                           onChange={(selectedItems, _createdItems, _items) => {
                             setFormData({ ...formData, selectors: selectedItems as string[] })

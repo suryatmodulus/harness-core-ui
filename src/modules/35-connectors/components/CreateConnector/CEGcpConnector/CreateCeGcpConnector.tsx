@@ -2,7 +2,7 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import DialogExtention from '@connectors/common/ConnectorExtention/DialogExtention'
-import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/strings'
 import OverviewStep, { CEGcpConnectorDTO } from './steps/OverviewStep'
 import BillingExport from './steps/BillingExport'
@@ -17,7 +17,7 @@ const CreateCeGcpConnector: React.FC<CreateConnectorModalProps> = props => {
       <StepWizard
         icon={getConnectorIconByType(Connectors.CE_GCP)}
         iconProps={{ size: 40 }}
-        title={getString(getConnectorTitleIdByType(Connectors.CE_GCP))}
+        title={getString('pipelineSteps.gcpConnectorLabel')}
         className={css.gcpConnector}
       >
         <OverviewStep

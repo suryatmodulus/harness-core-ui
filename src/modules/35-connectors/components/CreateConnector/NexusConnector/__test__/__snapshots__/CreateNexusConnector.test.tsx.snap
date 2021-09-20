@@ -1880,7 +1880,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                secret.configureSecret
+                                secrets.secret.configureSecret
                               </div>
                               <div>
                                 &lt;connectorPass&gt;

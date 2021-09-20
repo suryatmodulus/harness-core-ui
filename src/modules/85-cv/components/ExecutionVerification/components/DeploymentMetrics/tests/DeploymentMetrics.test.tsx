@@ -276,21 +276,23 @@ const ApiResponse = {
   responseMessages: []
 }
 
-const DataSourceTypesResponse = {
+const HealthSourcesResponse = {
+  metaData: {},
   resource: [
     {
-      dataSourceType: 'APP_DYNAMICS',
+      identifier: 'Without_Monitored_service/Test_Appd',
+      name: 'Test Appd',
+      type: 'APP_DYNAMICS',
       verificationType: 'TIME_SERIES'
     },
     {
-      dataSourceType: 'SPLUNK',
+      identifier: 'Without_Monitored_service/SPLUNK_Health_Source',
+      name: 'SPLUNK  Health Source',
+      type: 'SPLUNK',
       verificationType: 'LOG'
-    },
-    {
-      dataSourceType: 'STACKDRIVER',
-      verificationType: 'TIME_SERIES'
     }
-  ]
+  ],
+  responseMessages: []
 }
 
 const MockExecutionNode: ExecutionNode = {
@@ -312,8 +314,8 @@ describe('Unit tests for Deployment metrics', () => {
   })
 
   test('Ensure api is called with non anomalous filter', async () => {
-    const useGetDatasourceTypesSpy = jest.spyOn(cvService, 'useGetDataSourcetypes').mockReturnValue({
-      data: DataSourceTypesResponse,
+    const useGetHealthSourcesSpy = jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
+      data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, any, any, any>)
 
@@ -332,7 +334,7 @@ describe('Unit tests for Deployment metrics', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
-    expect(useGetDatasourceTypesSpy).toHaveBeenCalled()
+    expect(useGetHealthSourcesSpy).toHaveBeenCalled()
     expect(useGetDeploymentMetricsSpy).toHaveBeenLastCalledWith({
       activityId: '1234_activityId',
       queryParams: {
@@ -367,7 +369,7 @@ describe('Unit tests for Deployment metrics', () => {
     // select stackdriver health source
     fireEvent.click(healthSourceFilter.querySelector('[data-icon="chevron-down"]')!)
     await waitFor(() => expect(document.querySelector('[class*="menuItem"]')).not.toBeNull())
-    fireEvent.click(getByText('Google Cloud Operations (Metrics)'))
+    fireEvent.click(getByText('Test Appd'))
 
     await waitFor(() =>
       expect(useGetDeploymentMetricsSpy).toHaveBeenLastCalledWith({
@@ -375,7 +377,7 @@ describe('Unit tests for Deployment metrics', () => {
         queryParams: {
           accountId: undefined,
           anomalousMetricsOnly: true,
-          healthSource: 'STACKDRIVER',
+          healthSource: 'Without_Monitored_service/Test_Appd',
           hostName: undefined,
           pageNumber: 0,
           pageSize: 10
@@ -385,8 +387,8 @@ describe('Unit tests for Deployment metrics', () => {
   })
 
   test('Ensure api is called with filter and selected page', async () => {
-    jest.spyOn(cvService, 'useGetDataSourcetypes').mockReturnValue({
-      data: DataSourceTypesResponse,
+    jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
+      data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, any, any, any>)
 
@@ -445,8 +447,8 @@ describe('Unit tests for Deployment metrics', () => {
   })
 
   test('Ensure loading state is rendered', async () => {
-    jest.spyOn(cvService, 'useGetDataSourcetypes').mockReturnValue({
-      data: DataSourceTypesResponse,
+    jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
+      data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, any, any, any>)
 
@@ -468,8 +470,8 @@ describe('Unit tests for Deployment metrics', () => {
   })
 
   test('Ensure error state is rendred', async () => {
-    jest.spyOn(cvService, 'useGetDataSourcetypes').mockReturnValue({
-      data: DataSourceTypesResponse,
+    jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
+      data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, any, any, any>)
 
@@ -496,8 +498,8 @@ describe('Unit tests for Deployment metrics', () => {
   })
 
   test('Ensure no data state is rendered', async () => {
-    jest.spyOn(cvService, 'useGetDataSourcetypes').mockReturnValue({
-      data: DataSourceTypesResponse,
+    jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
+      data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, any, any, any>)
 
@@ -521,8 +523,8 @@ describe('Unit tests for Deployment metrics', () => {
   })
 
   test('Ensure that when new activityId is passed as prop view is reset', async () => {
-    jest.spyOn(cvService, 'useGetDataSourcetypes').mockReturnValue({
-      data: DataSourceTypesResponse,
+    jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
+      data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, any, any, any>)
 
@@ -592,8 +594,8 @@ describe('Unit tests for Deployment metrics', () => {
   })
 
   test('Ensure polling works correctly', async () => {
-    jest.spyOn(cvService, 'useGetDataSourcetypes').mockReturnValue({
-      data: DataSourceTypesResponse,
+    jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
+      data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, any, any, any>)
 
@@ -619,20 +621,20 @@ describe('Unit tests for Deployment metrics', () => {
     clonedResponse.resource.pageResponse.content = [
       {
         transactionMetric: {
-          transactionName: '/todolist/inside',
-          metricName: 'Stall Count',
-          score: 0.0,
-          risk: 'NO_DATA'
+          transactionName: 'OutOfMemoryError',
+          metricName: 'Number of Errors',
+          score: 1.0933333333333335,
+          risk: 'MEDIUM'
         },
-        connectorName: 'CV-AH-AppDynamics-QA',
+        connectorName: 'appd-connector',
         nodes: [
           {
-            hostName: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx',
-            risk: 'NO_DATA',
-            score: 0.0,
-            controlData: null,
-            testData: [0.0, 0.0, 0.0, 0.0, 0.0],
-            anomalous: false
+            hostName: 'harness-test-appd-ng-deployment-7fdd6688bd-tc2tt',
+            risk: 'MEDIUM',
+            score: 1.0933333333333335,
+            controlData: [6.666666666666667, 3.0],
+            testData: [6.0, 7.0],
+            anomalous: true
           }
         ]
       }

@@ -135,7 +135,7 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
               padding="small"
               className={css.containerLinkText}
             >
-              <div>{secretReference ? getString('secret.configureSecret') : getPlaceHolder()}</div>
+              <div>{secretReference ? getString('secrets.secret.configureSecret') : getPlaceHolder()}</div>
               {secretReference ? <div>{`<${secretReference['name']}>`}</div> : null}
             </Text>
           </Link>

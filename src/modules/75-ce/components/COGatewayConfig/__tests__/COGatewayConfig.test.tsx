@@ -170,8 +170,7 @@ jest.mock('services/lw', () => ({
   useSecurityGroupsOfInstances: jest.fn().mockImplementation(() => ({
     mutate: jest.fn(() => Promise.resolve({ response: mockedSecurityGroupResponse })),
     loading: false
-  })),
-  useGetServices: jest.fn().mockImplementation(() => ({ data: mockedData, loading: false, error: null }))
+  }))
 }))
 
 describe('Auto stopping Rule creation Tests', () => {
@@ -183,6 +182,7 @@ describe('Auto stopping Rule creation Tests', () => {
           setValidity={jest.fn()}
           valid={false}
           gatewayDetails={initialGatewayDetails}
+          allServices={mockedData.response}
         />
       </TestWrapper>
     )
@@ -197,6 +197,7 @@ describe('Auto stopping Rule creation Tests', () => {
           setValidity={jest.fn()}
           valid={false}
           gatewayDetails={initialGatewayDetails}
+          allServices={mockedData.response}
         />
       </TestWrapper>
     )
@@ -222,6 +223,7 @@ describe('Auto stopping Rule creation Tests', () => {
           setGatewayDetails={jest.fn()}
           setValidity={jest.fn()}
           valid={false}
+          allServices={mockedData.response}
           gatewayDetails={{ ...initialGatewayDetails, selectedInstances: mockedInstances }}
         />
       </TestWrapper>
@@ -258,6 +260,7 @@ describe('Auto stopping Rule creation Tests', () => {
           setGatewayDetails={jest.fn()}
           setValidity={jest.fn()}
           valid={false}
+          allServices={mockedData.response}
           gatewayDetails={{
             ...initialGatewayDetails,
             routing: {
@@ -310,6 +313,7 @@ describe('Auto stopping Rule creation Tests', () => {
           setGatewayDetails={jest.fn()}
           setValidity={jest.fn()}
           valid={false}
+          allServices={mockedData.response}
           gatewayDetails={{
             ...initialGatewayDetails,
             kind: 'k8s',

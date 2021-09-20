@@ -1,6 +1,6 @@
+import React, { useEffect, useMemo } from 'react'
 import { Container, FormInput, Layout, SelectOption, Utils } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import React, { useEffect, useMemo } from 'react'
 import type { FormikProps } from 'formik'
 import { Color, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -12,7 +12,13 @@ import { FormConnectorReferenceField } from '@connectors/components/ConnectorRef
 import type { UpdatedChangeSourceDTO } from '../../ChangeSourceDrawer.types'
 import style from './PagerDutyChangeSource.module.scss'
 
-export default function PageDutyChangeSource({ formik }: { formik: FormikProps<UpdatedChangeSourceDTO> }): JSX.Element {
+export default function PageDutyChangeSource({
+  formik,
+  isEdit
+}: {
+  formik: FormikProps<UpdatedChangeSourceDTO>
+  isEdit?: boolean
+}): JSX.Element {
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
@@ -64,6 +70,7 @@ export default function PageDutyChangeSource({ formik }: { formik: FormikProps<U
           <FormConnectorReferenceField
             width={400}
             formik={formik}
+            disabled={isEdit}
             type={formik?.values?.type as any}
             name={'spec.connectorRef'}
             accountIdentifier={accountId}
@@ -82,9 +89,14 @@ export default function PageDutyChangeSource({ formik }: { formik: FormikProps<U
       </Container>
       {formik?.values?.spec?.connectorRef && (
         <Container margin={{ bottom: 'large' }} width={'400px'}>
-          <Text color={Color.BLACK} font={'small'} className={style.pagerDutyServiceTitle}>
-            {getString('cv.changeSource.PageDuty.pagerDutyService')}
-          </Text>
+          <Layout.Horizontal spacing={'medium'} className={style.pagerDutyServiceTitle}>
+            <Text color={Color.BLACK} font={'small'}>
+              {getString('cv.changeSource.PageDuty.pagerDutyService')}
+            </Text>
+            {/* <Tooltip content={'to be defined'}>
+              <Icon name={'info'} />
+            </Tooltip> */}
+          </Layout.Horizontal>
           <FormInput.Select
             name="spec.pagerDutyServiceId"
             placeholder={

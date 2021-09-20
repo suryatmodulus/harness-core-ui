@@ -93,6 +93,7 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
     }
   }
 
+  /* istanbul ignore next */
   protected async getConnectorList(
     path: string,
     yaml: string,
@@ -113,6 +114,7 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
     return []
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): RestoreCacheGCSStepData {
     return getFormValuesInCorrectFormat<T, RestoreCacheGCSStepData>(data, transformValuesFieldsConfig)
   }

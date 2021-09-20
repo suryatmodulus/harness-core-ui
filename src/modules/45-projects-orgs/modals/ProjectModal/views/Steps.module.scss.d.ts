@@ -25,5 +25,6 @@ declare const styles: {
   readonly name: string
   readonly email: string
   readonly role: string
+  readonly img: string
 }
 export default styles

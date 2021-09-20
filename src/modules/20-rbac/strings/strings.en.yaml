@@ -182,3 +182,4 @@ resourceGroup:
 updateNotificationSuccess: Notification preferences updated successfully
 userRequired: User is Required
 userUpperLimit: Addition of more than 15 users is not allowed
+resourceSelectorErrorMessage: Add atleast one specific resource for the following types [{{resources}}]

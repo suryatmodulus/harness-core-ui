@@ -72,13 +72,13 @@ export default function DeploymentsHealthCards() {
             {
               type: 'bar',
               name: 'Non Prod',
-              color: 'var(--ci-color-blue-250)',
+              color: 'var(--grey-600)',
               data: [nonProduction, 0]
             },
             {
               type: 'bar',
               name: 'Prod',
-              color: 'var(--ci-color-blue-550)',
+              color: 'var(--grey-600)',
               data: [0, production]
             }
           ]
@@ -120,7 +120,11 @@ export default function DeploymentsHealthCards() {
 
   return (
     <Container>
-      <RangeSelectorWithTitle title="Deployments Health" onRangeSelected={setRange} />
+      <RangeSelectorWithTitle
+        title="Deployments Health"
+        onRangeSelected={setRange}
+        titleClsName={styles.rangeSelectorHeader}
+      />
       <Container className={styles.healthCards}>
         <HealthCard
           title="Total Deployments"
@@ -131,7 +135,7 @@ export default function DeploymentsHealthCards() {
           secondaryChartOptions={chartsData?.totalBarChartOptions}
         />
         <HealthCard
-          title="Success Deployments"
+          title="Successful Deployments"
           text={data?.data?.healthDeploymentInfo?.success?.count}
           rate={data?.data?.healthDeploymentInfo?.success?.rate}
           isLoading={loading}
@@ -162,9 +166,7 @@ export function HealthCard({
 }: HealthCardProps) {
   return (
     <Container className={styles.healthCard}>
-      <Text className={styles.cardHeader} font={{ size: 'small' }}>
-        {title}
-      </Text>
+      <Text className={styles.cardHeader}>{title}</Text>
       <Container style={layout === 'horizontal' ? { display: 'flex' } : {}}>
         <Container className={styles.textAndRate}>
           {isLoading ? (
@@ -177,7 +179,7 @@ export function HealthCard({
               <Text
                 margin={{ left: 'xsmall' }}
                 style={{
-                  color: rate >= 0 ? 'var(--ci-color-green-500)' : 'var(--ci-color-red-500)'
+                  color: rate >= 0 ? 'var(--green-600)' : 'var(--ci-color-red-500)'
                 }}
               >
                 {Math.abs(roundNumber(rate)!)}%
@@ -186,7 +188,7 @@ export function HealthCard({
                 size={14}
                 name={rate >= 0 ? 'caret-up' : 'caret-down'}
                 style={{
-                  color: rate >= 0 ? 'var(--ci-color-green-500)' : 'var(--ci-color-red-500)'
+                  color: rate >= 0 ? 'var(--green-600)' : 'var(--ci-color-red-500)'
                 }}
               />
             </>

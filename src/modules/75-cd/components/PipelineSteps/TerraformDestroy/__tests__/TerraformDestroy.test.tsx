@@ -1,7 +1,7 @@
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { TerraformDestroy } from '../TerraformDestroy'
@@ -117,6 +117,45 @@ describe('Test TerraformDestroy', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('expand backend Spec config', () => {
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformDestroy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          spec: {
+            //data.spec?.configuration?.spec?.targets
+            provisionerIdentifier: 'test',
+            configuration: {
+              type: 'Inline',
+              spec: {
+                backendConfig: {
+                  type: 'Inline',
+                  spec: {
+                    content: 'test'
+                  }
+                },
+                targets: ['test1', 'test2'],
+                environmentVariables: [
+                  {
+                    key: 'test',
+                    value: 'abc'
+                  }
+                ]
+              }
+            }
+          }
+        }}
+        type={StepType.TerraformDestroy}
+        stepViewType={StepViewType.Edit}
+      />
+    )
+    fireEvent.click(getByText('common.optionalConfig'))
+    expect(container).toMatchSnapshot()
+  })
+
   test('add new terraform var file', () => {
     const { container, getByText } = render(
       <TestStepWidget
@@ -153,6 +192,35 @@ describe('Test TerraformDestroy', () => {
     )
     fireEvent.click(getByText('common.optionalConfig'))
     fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should submit form for inheritfromplan config', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const onUpdate = jest.fn()
+    const { container } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'TerraformDestroy',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+          delegateSelectors: ['test-1', 'test-2'],
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              type: 'InheritFromPlan'
+            }
+          }
+        }}
+        type={StepType.TerraformDestroy}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        onUpdate={onUpdate}
+      />
+    )
+    await act(() => ref.current?.submitForm())
+    expect(onUpdate).toHaveBeenCalled()
     expect(container).toMatchSnapshot()
   })
 

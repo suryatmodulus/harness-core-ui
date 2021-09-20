@@ -56,7 +56,7 @@ describe('Secret Details', () => {
     await act(async () => {
       const $editButton = await findByText(container, 'editDetails')
       fireEvent.click($editButton)
-      await waitFor(() => getByText(document.body, 'secret.titleEditText'))
+      await waitFor(() => getByText(document.body, 'secrets.secret.titleEditText'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
     })

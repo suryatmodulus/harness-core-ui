@@ -117,3 +117,17 @@
 .highlightRow:hover {
   background-color: var(--blue-200);
 }
+
+.healthScoreCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 31px;
+  width: 31px;
+  border-radius: var(--spacing-xsmall);
+  font-size: var(--font-size-small);
+  padding: var(--spacing-small);
+  color: var(--white);
+  text-align: center;
+  margin-right: var(--spacing-small);
+}

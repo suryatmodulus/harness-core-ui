@@ -38,10 +38,11 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
   const [inputSetYaml, setInputSetYaml] = useState('')
   const [inputSetTemplateYaml, setInputSetTemplateYaml] = useState('')
   useEffect(() => {
-    if (data?.data?.inputSetYaml) {
+    // Won't actually render out RunPipelineForm
+    /* istanbul ignore else */ if (data?.data?.inputSetYaml) {
       setInputSetYaml(data.data?.inputSetYaml)
     }
-    if (data?.data?.inputSetTemplateYaml) {
+    /* istanbul ignore else */ if (data?.data?.inputSetTemplateYaml) {
       setInputSetTemplateYaml(data.data.inputSetTemplateYaml)
     }
   }, [data])

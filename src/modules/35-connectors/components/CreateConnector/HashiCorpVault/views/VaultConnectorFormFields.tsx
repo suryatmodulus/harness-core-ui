@@ -57,7 +57,9 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ for
       ) : (
         <FormInput.Text name="sinkPath" label={getString('connectors.hashiCorpVault.sinkPath')} />
       )}
-      <FormInput.Text name="renewalIntervalMinutes" label={getString('connectors.hashiCorpVault.renewal')} />
+      {formik?.values['accessType'] !== HashiCorpVaultAccessTypes.VAULT_AGENT ? (
+        <FormInput.Text name="renewalIntervalMinutes" label={getString('connectors.hashiCorpVault.renewal')} />
+      ) : null}
       <FormInput.CheckBox
         name="readOnly"
         label={getString('connectors.hashiCorpVault.readOnlyVault')}

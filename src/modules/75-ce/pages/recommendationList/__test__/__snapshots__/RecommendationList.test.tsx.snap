@@ -8,12 +8,17 @@ exports[`test cases for Recommendation List Page should be able to render empty 
     <div
       class="Layout--vertical StyledProps--main"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
+      <div
+        class="Text--withDocsTooltip"
+        data-tooltip-id="ccmRecommendations"
       >
-        Recommendations
-      </h2>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+          style="font-size: 20px; font-weight: bold;"
+        >
+          Recommendations
+        </p>
+      </div>
     </div>
   </div>
   <div
@@ -308,12 +313,17 @@ exports[`test cases for Recommendation List Page should be able to render the li
     <div
       class="Layout--vertical StyledProps--main"
     >
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
+      <div
+        class="Text--withDocsTooltip"
+        data-tooltip-id="ccmRecommendations"
       >
-        Recommendations
-      </h2>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+          style="font-size: 20px; font-weight: bold;"
+        >
+          Recommendations
+        </p>
+      </div>
     </div>
   </div>
   <div

@@ -3,7 +3,7 @@ import { isEmpty, cloneDeep } from 'lodash-es'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import type { StringsMap } from 'stringTypes'
 import type { UseStringsReturn } from 'framework/strings'
-import type { ChangeSourceDTO } from 'services/cv'
+import type { ChangeSourceDTO, MonitoredServiceDTO } from 'services/cv'
 import { Connectors } from '@connectors/constants'
 import { getIconBySource } from '../ChangeSource.utils'
 import {
@@ -112,11 +112,23 @@ export const validateChangeSourceSpec = (
   }
 }
 
-export const getChangeSourceOptions = (getString: UseStringsReturn['getString']): SelectOption[] =>
-  cloneDeep(ChangeSourceCategoryOptions).map(item => {
-    item.label = getString(item.label as keyof StringsMap)
-    return item
-  })
+export const getChangeSourceOptions = (
+  getString: UseStringsReturn['getString'],
+  type?: MonitoredServiceDTO['type']
+): SelectOption[] => {
+  const options: SelectOption[] = []
+  for (const category of ChangeSourceCategoryOptions) {
+    if (
+      (type === 'Application' && category.value === ChangeSourceCategoryName.INFRASTRUCTURE) ||
+      (type === 'Infrastructure' && category.value === ChangeSourceCategoryName.DEPLOYMENT)
+    ) {
+      continue
+    }
+
+    options.push({ label: getString(category.label as keyof StringsMap), value: category.value })
+  }
+  return options
+}
 
 export const updateSpecByType = (data: ChangeSourceDTO): ChangeSourceDTO['spec'] => {
   switch (data?.type) {
@@ -134,10 +146,10 @@ export const updateSpecByType = (data: ChangeSourceDTO): ChangeSourceDTO['spec']
   }
 }
 
-export const buildInitialData = (): UpdatedChangeSourceDTO => {
+export const buildInitialData = (categoryOptions: SelectOption[]): UpdatedChangeSourceDTO => {
   return {
-    [ChangeSourceFieldNames.CATEGORY]: ChangeSourceCategoryOptions[0].value,
-    [ChangeSourceFieldNames.TYPE]: ChangeSourceConnectorOptions[0].value,
+    [ChangeSourceFieldNames.CATEGORY]: categoryOptions[0].value,
+    [ChangeSourceFieldNames.TYPE]: preSelectChangeSourceConnectorOnCategoryChange(categoryOptions[0].value as string),
     spec: {}
   }
 }

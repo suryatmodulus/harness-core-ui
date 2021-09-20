@@ -18,7 +18,7 @@ purposeList:
   features: '{{$.common.purpose.cf.features}}'
   descriptionCF: '{{$.common.purpose.cf.subtitle}}'
   cd: '{{$.common.purpose.cd.continuous}}'
-  cv: '{{$.common.purpose.cv.continuous}}'
+  cv: '{{$.common.changeIntelligence}}'
   ci: '{{$.common.purpose.ci.continuous}}'
   ce: '{{$.common.purpose.ce.continuous}}'
   cf: '{{$.common.purpose.cf.continuous}}'
@@ -105,5 +105,8 @@ landingDashboard:
   last90Days: Last 90 Days
   last1Year: Last 1 Year
   dashboardTitle: 'Good Morning, {{name}}'
+  title: Top Projects for {{timeRange}}
   welcomeMessage: "Welcome, {{name}}, let's get you started!"
   welcomeMessageWithoutName: "Welcome, let's get you started!"
+whyCreateProject: Why create a project?
+createProjectMessage: 'Organize your pipelines, services, infrastructure and shared resources like connectors, secrets and delegates all in one place. Invite teams, collaborate on software delivery processes using the Harness modules.'

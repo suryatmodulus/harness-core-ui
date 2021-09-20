@@ -51,7 +51,11 @@ const OverviewCostByProviders = (props: CostByProvidersProps) => {
   return (
     <div className={css.costByProviders}>
       <Layout.Vertical spacing="medium">
-        <Text color="grey800" font={{ weight: 'semi-bold', size: 'medium' }}>
+        <Text
+          color="grey800"
+          font={{ weight: 'semi-bold', size: 'medium' }}
+          tooltipProps={{ dataTooltipId: 'overviewCostByProvider' }}
+        >
           {getString('ce.overview.cardtitles.costByProviders')}
         </Text>
         <Layout.Horizontal style={{ justifyContent: 'space-between' }} spacing="medium">
@@ -81,7 +85,7 @@ const Legends = ({ chartRef }: { chartRef: Highcharts.Chart }) => {
 
   return (
     <Container className={css.legendContainer}>
-      {chartRef.series.map(chart => {
+      {chartRef.series?.map(chart => {
         const chartColor: string = (chart as any).color
         return (
           <Layout.Horizontal key={chart.userOptions.name} spacing="small" style={{ alignItems: 'center' }}>

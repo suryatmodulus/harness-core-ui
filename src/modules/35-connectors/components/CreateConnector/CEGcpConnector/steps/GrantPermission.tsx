@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { pick } from 'lodash-es'
 import {
@@ -35,10 +35,21 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
     queryParams: { accountIdentifier: accountId }
   })
 
-  const { data, loading: loadingServiceAccount } = useGcpserviceaccount({
-    queryParams: { accountIdentifier: accountId }
+  const {
+    data,
+    loading: loadingServiceAccount,
+    refetch: refetchServiceAccount
+  } = useGcpserviceaccount({
+    queryParams: { accountIdentifier: accountId },
+    lazy: true
   })
-  const serviceAccount = data?.data
+
+  const serviceAccount = prevStepData?.serviceAccount || data?.data
+  useEffect(() => {
+    if (!prevStepData?.serviceAccount) {
+      refetchServiceAccount()
+    }
+  }, [])
 
   const handleSubmit = async () => {
     setIsSubmitLoading(true)
@@ -46,7 +57,11 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
     try {
       if (prevStepData) {
         const connectorInfo: CEGcpConnectorDTO = {
-          ...pick(prevStepData, ['name', 'identifier', 'description', 'tags', 'spec', 'type'])
+          ...pick(prevStepData, ['name', 'identifier', 'description', 'tags', 'spec', 'type']),
+          spec: {
+            ...prevStepData.spec,
+            serviceAccountEmail: serviceAccount || ''
+          }
         }
 
         const response = await (prevStepData.isEditMode
@@ -57,7 +72,7 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
           throw response as Failure
         }
 
-        nextStep?.(prevStepData)
+        nextStep?.({ ...prevStepData, serviceAccount })
       }
     } catch (e) {
       modalErrorHandler?.showDanger(e?.data?.message)
@@ -66,7 +81,7 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
   }
 
   const handlePrev = () => {
-    previousStep?.({ ...(prevStepData as CEGcpConnectorDTO) })
+    previousStep?.({ ...(prevStepData as CEGcpConnectorDTO), serviceAccount })
   }
 
   return (
@@ -104,7 +119,7 @@ const GrantPermission: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
             <Container className={css.commandsContainer}>
               <Container className={css.command}>
                 {loadingServiceAccount ? <Loader /> : <pre>{serviceAccount}</pre>}
-                <CopyToClipboard showFeedback content={'harness-ce-harness-kmpys@ccm-play.iam.gserviceaccount.com'} />
+                <CopyToClipboard showFeedback content={serviceAccount || ''} />
               </Container>
             </Container>
           </Layout.Vertical>

@@ -35,6 +35,7 @@ export default function DeploymentExecutionsChart() {
 
   return (
     <ExecutionsChart
+      customTitleCls="true"
       titleText={getString('deploymentsText')}
       data={chartData}
       loading={loading}

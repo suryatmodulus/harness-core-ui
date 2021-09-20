@@ -46,11 +46,11 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
         <Text font={{ size: 'medium' }} color={Color.BLACK} margin={{ bottom: 'large' }}>
           {secret?.identifier
             ? !type || type === 'SecretText'
-              ? getString('secret.titleEditText')
-              : getString('secret.titleEditFile')
+              ? getString('secrets.secret.titleEditText')
+              : getString('secrets.secret.titleEditFile')
             : type === 'SecretText'
-            ? getString('secret.titleCreateText')
-            : getString('secret.titleCreateFile')}
+            ? getString('secrets.secret.titleCreateText')
+            : getString('secrets.secret.titleCreateFile')}
         </Text>
         <CreateUpdateSecret
           secret={secret}

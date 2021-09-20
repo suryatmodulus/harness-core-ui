@@ -66,11 +66,11 @@ const processBarrierFormData = (values: BarrierData): BarrierData => {
   return {
     ...values,
     spec: {
-      ...values.spec,
+      ...values?.spec,
       barrierRef:
-        getMultiTypeFromValue(values.spec?.barrierRef as SelectOption) === MultiTypeInputType.FIXED
-          ? (values.spec?.barrierRef as SelectOption)?.value?.toString()
-          : values.spec?.barrierRef
+        getMultiTypeFromValue(values?.spec?.barrierRef as SelectOption) === MultiTypeInputType.FIXED
+          ? (values?.spec?.barrierRef as SelectOption)?.value?.toString()
+          : values?.spec?.barrierRef
     }
   }
 }
@@ -96,11 +96,11 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
     return {
       ...values,
       spec: {
-        ...values.spec,
+        ...values?.spec,
         barrierRef:
           getMultiTypeFromValue(values.spec?.barrierRef as SelectOption) === MultiTypeInputType.FIXED
             ? barriers?.find(opt => opt.value === values.spec?.barrierRef)
-            : values.spec?.barrierRef
+            : values?.spec?.barrierRef
       }
     }
   }
@@ -108,11 +108,11 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
   const [initialValuesFormik, setInitialValuesFormik] = useState<BarrierData>(processForFormValues(initialValues))
 
   useEffect(() => {
-    if (initialValues.spec?.barrierRef) {
+    if (initialValues?.spec?.barrierRef) {
       const updatedValues = processForFormValues(initialValues)
       setInitialValuesFormik(updatedValues)
     }
-  }, [initialValues.spec?.barrierRef])
+  }, [initialValues?.spec?.barrierRef])
 
   return (
     <>

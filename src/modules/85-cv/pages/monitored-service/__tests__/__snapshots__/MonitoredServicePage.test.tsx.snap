@@ -162,13 +162,14 @@ exports[`Unit tests for createting monitored source Health source table and envi
           </div>
           <div
             aria-controls="bp3-tab-panel_configurationTabs_pipelines-studio.dependenciesGroupTitle"
-            aria-disabled="true"
+            aria-disabled="false"
             aria-expanded="false"
             aria-selected="false"
             class="bp3-tab"
             data-tab-id="pipelines-studio.dependenciesGroupTitle"
             id="bp3-tab-title_configurationTabs_pipelines-studio.dependenciesGroupTitle"
             role="tab"
+            tabindex="0"
           >
             pipelines-studio.dependenciesGroupTitle
           </div>

@@ -44,7 +44,7 @@ function NodeHealthPopover(props: NodeHealthPopoverProps): JSX.Element {
         <Text color={Color.BLACK_100}>{`${analysisResult?.anomalousMetricsCount} ${getString(
           'pipeline.verification.metricsInViolation'
         )}`}</Text>
-        <Text color={Color.BLACK_100}>{`${analysisResult?.anomalousMetricsCount} ${getString(
+        <Text color={Color.BLACK_100}>{`${analysisResult?.anomalousLogClustersCount} ${getString(
           'pipeline.verification.logClustersInViolation'
         )}`}</Text>
       </Container>

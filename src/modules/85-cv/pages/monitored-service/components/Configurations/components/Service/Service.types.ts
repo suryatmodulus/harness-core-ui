@@ -7,8 +7,6 @@ export interface MonitoredServiceRef {
   description?: string
 }
 
-export interface MonitoredServiceForm
-  extends Omit<MonitoredServiceDTO, 'projectIdentifier' | 'orgIdentifier' | 'type'> {
-  type: string
+export interface MonitoredServiceForm extends Omit<MonitoredServiceDTO, 'projectIdentifier' | 'orgIdentifier'> {
   isEdit: boolean
 }

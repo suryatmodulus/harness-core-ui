@@ -15415,6 +15415,48 @@
         }
       }
     },
+    "/delegates-verification/heartbeatV2": {
+      "get": {
+        "tags": ["delegates-verification"],
+        "operationId": "getDelegatesHeartbeatDetailsV2",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "delegateName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseDelegateHeartbeatDetails"
+            }
+          }
+        }
+      }
+    },
     "/delegates-verification/initialized": {
       "get": {
         "tags": ["delegates-verification"],
@@ -15441,6 +15483,48 @@
           },
           {
             "name": "sessionId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseListDelegateInitializationDetails"
+            }
+          }
+        }
+      }
+    },
+    "/delegates-verification/initializedV2": {
+      "get": {
+        "tags": ["delegates-verification"],
+        "operationId": "getDelegatesInitializationDetailsV2",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "delegateName",
             "in": "query",
             "required": false,
             "type": "string"

@@ -102,6 +102,7 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
         }
         organizationItems={organizations}
         title={getString('projectsOrgs.projectEdit')}
+        saveTitle={getString('save')}
         setModalErrorHandler={setModalErrorHandler}
         onComplete={onComplete}
         displayProjectCardPreview={isStep ? true : false}

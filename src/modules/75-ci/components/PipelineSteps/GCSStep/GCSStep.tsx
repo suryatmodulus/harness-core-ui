@@ -79,6 +79,7 @@ export class GCSStep extends PipelineStep<GCSStepData> {
     }
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): GCSStepData {
     return getFormValuesInCorrectFormat<T, GCSStepData>(data, transformValuesFieldsConfig)
   }

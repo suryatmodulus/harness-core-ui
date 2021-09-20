@@ -38,4 +38,35 @@ describe('Test PagerDuty Change Source', () => {
 
     expect(container).toMatchSnapshot()
   })
+
+  test('PagerDuty ChangeSource renders in edit mode', async () => {
+    jest.spyOn(cvServices, 'useGetServicesFromPagerDuty').mockImplementation(
+      () =>
+        ({
+          loading: false,
+          error: null,
+          data: {},
+          refetch: jest.fn()
+        } as any)
+    )
+    const { container } = render(
+      <TestWrapper>
+        <PagerDutyChangeSource
+          formik={
+            {
+              values: {
+                spec: {
+                  pagerDutyServiceId: 'cvng',
+                  connectorRef: 'PagerDutyConnector'
+                }
+              }
+            } as any
+          }
+          isEdit={true}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('.connectorField .bp3-disabled')).toBeDisabled())
+  })
 })

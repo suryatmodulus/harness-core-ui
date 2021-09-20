@@ -1,4 +1,4 @@
-continuous: '{{$.common.purpose.cv.continuous}}'
+continuous: '{{$.common.changeIntelligence}}'
 methodLabel: Method Label
 request: Request
 response: Response
@@ -90,7 +90,7 @@ metricVerificationModal:
   modalTitle: Metric Pack Connection Test
 dashboard:
   subHeading: Take your software build verification processes to the next level using our Harness Continuous Verifications
-  createProject: '{{$.ci.dashboard.createProject}}'
+  createProject: '{{$.createProject}}'
   notStarted: Not started
 hostNamePlaceholder: '${host}'
 harnessService: 'Harness Service'
@@ -232,7 +232,7 @@ onboarding:
   selectProductScreen:
     validationText:
       name: Name is required.
-      identifier: '{{$.common.validation.identifierIsRequired}}'
+      identifier: '{{$.validation.identifierRequired}}'
       connectorRef: Connector Selection is required.
       validIdRegex: Identifier can only contain alphanumerics, _ and $.
       product: 'Product selection is required.'
@@ -365,6 +365,7 @@ monitoringSources:
     provideQueryToSeeRecords: Provide query to see records from Prometheus
     querySpecificationsAndMappings: Query Specifications and Mapping
     undoManualQuery: Undo manual query selection
+    submitQueryToSeeRecords: Submit query to see records from Prometheus
     customizeQuery: Customize the query to get the desired output and map to Harness Service.
     mapPrometheusMetricsToServicesAndEnvs: Map Prometheus metrics to Harness Environments and Services
     chartAndRecords: Chart and Records
@@ -555,6 +556,8 @@ monitoredServices:
     noDataAvailableForHealthScore: No data available for health score
     selectTimeline: Select a timeline to see metric & logs data
     metricsAndLogs: Metrics & Logs
+    lowestHealthScore: Lowest Health Score
+    anamolies: Anamolies
   monitoredServiceTabs:
     serviceHealth: Service Health
     configurations: Configurations
@@ -582,10 +585,15 @@ changeSource:
   selectChangeSourceName: Select change source name
   selectChangeSourceProvider: Select change source provider
   selectChangeSourceType: Select change source type
+  tooltip:
+    incident: Incident
   PageDuty:
     pagerDutyService: PagerDuty Service
     selectPagerDutyService: Select PageDuty Service
     pagerDutyEmptyService: No service available for {{ connector }}
+Dependency:
+  serviceList: Service list
+  noData: No Data For Dependency Graph
 healthSource:
   nameLabel: Health Source Name
   namePlaceholder: Type your health source name

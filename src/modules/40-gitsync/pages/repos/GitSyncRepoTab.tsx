@@ -301,7 +301,7 @@ const GitSyncRepoTab: React.FC = () => {
                 <FormikForm>
                   <Layout.Vertical border={{ bottom: true, color: Color.GREY_250 }} margin={{ bottom: 'medium' }}>
                     <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="large">
-                      <Layout.Vertical>
+                      <Layout.Vertical width="80%">
                         <FormInput.Text
                           className={cx(css.inputFields, { [css.noSpacing]: formValues.repo })}
                           name="repo"

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Container, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import {
@@ -8,15 +8,45 @@ import {
 } from 'services/cv'
 import { useToaster } from '@common/exports'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/strings'
 import LogAnalysis from './LogAnalysis'
 import { pageSize, initialPageNumber, POLLING_INTERVAL, StepStatus } from './LogAnalysis.constants'
 import type { LogAnalysisContainerProps } from './LogAnalysis.types'
+import { getActivityId } from '../../ExecutionVerificationView.utils'
+import { getClusterTypes } from './LogAnalysis.utils'
 
 export default function LogAnalysisContainer({ step, hostName }: LogAnalysisContainerProps): React.ReactElement {
   const { accountId } = useParams<AccountPathProps>()
   const { showError } = useToaster()
-  const [selectedClusterType, setSelectedClusterType] = useState<SelectOption>()
+  const { getString } = useStrings()
+  const [selectedClusterType, setSelectedClusterType] = useState<SelectOption>(getClusterTypes(getString)[0])
+  const [selectedHealthSource, setSelectedHealthSource] = useState<string>()
   const [pollingIntervalId, setPollingIntervalId] = useState<any>(-1)
+  const activityId = useMemo(() => getActivityId(step), [step])
+
+  const logsAnalysisQueryParams = useMemo(() => {
+    return {
+      accountId,
+      pageNumber: initialPageNumber,
+      pageSize,
+      ...(hostName && { hostName }),
+      ...(selectedClusterType?.value && {
+        clusterType: selectedClusterType?.value as GetDeploymentLogAnalysisResultQueryParams['clusterType']
+      }),
+      ...(selectedHealthSource && { healthSource: selectedHealthSource as any })
+    }
+  }, [accountId, hostName, selectedClusterType?.value, selectedHealthSource])
+
+  const clusterAnalysisQueryParams = useMemo(() => {
+    return {
+      accountId,
+      ...(hostName && { hostName }),
+      ...(selectedClusterType?.value && {
+        clusterType: selectedClusterType?.value as any
+      }),
+      ...(selectedHealthSource && { healthSource: selectedHealthSource as any })
+    }
+  }, [accountId, hostName, selectedClusterType?.value, selectedHealthSource])
 
   const {
     data: logsData,
@@ -24,12 +54,8 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     error: logsError,
     refetch: fetchLogAnalysis
   } = useGetDeploymentLogAnalysisResult({
-    activityId: step?.progressData?.activityId as unknown as string,
-    queryParams: {
-      accountId,
-      pageNumber: initialPageNumber,
-      pageSize
-    },
+    activityId: activityId as unknown as string,
+    queryParams: logsAnalysisQueryParams,
     lazy: true
   })
 
@@ -39,12 +65,24 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     error: clusterChartError,
     refetch: fetchClusterAnalysis
   } = useGetDeploymentLogAnalysisClusters({
-    activityId: step?.progressData?.activityId as unknown as string,
-    queryParams: {
-      accountId
-    },
+    activityId: activityId as unknown as string,
+    queryParams: clusterAnalysisQueryParams,
     lazy: true
   })
+
+  // Fetching logs and cluster data for selected cluster type
+  useEffect(() => {
+    fetchLogsDataForCluster(selectedClusterType.value as string)
+    fetchLogsClusterDataForCluster(selectedClusterType.value as string)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedClusterType?.value])
+
+  // Fetching logs and cluster data for selected health source
+  useEffect(() => {
+    fetchLogsDataForHealthSource(selectedHealthSource)
+    fetchLogsClusterDataForHealthSource(selectedHealthSource)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedHealthSource])
 
   useEffect(() => {
     if (logsError) showError(logsError.message)
@@ -52,81 +90,80 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logsError, clusterChartError])
 
-  // Fetching logs and cluster data when different different host name is selected
+  // Fetching logs and cluster data when different host name is selected
   useEffect(() => {
     Promise.all([
-      fetchLogAnalysis({
-        queryParams: {
-          accountId,
-          pageNumber: initialPageNumber,
-          pageSize,
-          ...(hostName && { hostName }),
-          ...(selectedClusterType?.value && {
-            clusterType: selectedClusterType?.value as GetDeploymentLogAnalysisResultQueryParams['clusterType']
-          })
-        }
-      }),
-      fetchClusterAnalysis({
-        queryParams: {
-          accountId,
-          ...(hostName && { hostName })
-        }
-      })
+      fetchLogAnalysis({ queryParams: logsAnalysisQueryParams }),
+      fetchClusterAnalysis({ queryParams: clusterAnalysisQueryParams })
     ])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountId, hostName])
 
-  // Fetching logs data for selected cluster type
+  // Polling for Logs and Cluster Chart data
   useEffect(() => {
-    if (selectedClusterType) {
-      fetchLogsDataForCluster(selectedClusterType.value as string)
+    let intervalId = pollingIntervalId
+    clearInterval(intervalId)
+    if (step?.status === StepStatus.Running || step?.status === StepStatus.AsyncWaiting) {
+      intervalId = setInterval(() => {
+        Promise.all([
+          fetchLogAnalysis({ queryParams: logsAnalysisQueryParams }),
+          fetchClusterAnalysis({ queryParams: clusterAnalysisQueryParams })
+        ])
+      }, POLLING_INTERVAL)
+      setPollingIntervalId(intervalId)
     }
+    return () => clearInterval(intervalId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedClusterType?.value])
+  }, [clusterAnalysisQueryParams, logsAnalysisQueryParams, pollingIntervalId, step?.status])
 
-  useEffect(
-    () => {
-      let intervalId = pollingIntervalId
-      clearInterval(intervalId)
-      if (step?.status === StepStatus.Running || step?.status === StepStatus.AsyncWaiting) {
-        intervalId = setInterval(() => {
-          Promise.all([fetchLogAnalysis, fetchClusterAnalysis])
-        }, POLLING_INTERVAL)
-        setPollingIntervalId(intervalId)
-      }
-      return () => clearInterval(intervalId)
+  const fetchLogsDataForHealthSource = useCallback(
+    currentHealthSource => {
+      fetchLogAnalysis({
+        queryParams: { ...logsAnalysisQueryParams, ...(currentHealthSource && { healthSource: currentHealthSource }) }
+      })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [step?.status]
+    [logsAnalysisQueryParams]
   )
 
   const fetchLogsDataForCluster = useCallback(
     clusterType => {
       fetchLogAnalysis({
-        queryParams: {
-          accountId,
-          pageNumber: initialPageNumber,
-          pageSize,
-          ...(hostName && { hostName }),
-          ...(clusterType && { clusterType })
-        }
+        queryParams: { ...logsAnalysisQueryParams, ...(clusterType && { clusterType }) }
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [accountId, hostName]
+    [logsAnalysisQueryParams]
   )
+
+  const fetchLogsClusterDataForHealthSource = useCallback(
+    currentHealthSource => {
+      fetchClusterAnalysis({
+        queryParams: { ...logsAnalysisQueryParams, ...(currentHealthSource && { healthSource: currentHealthSource }) }
+      })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [logsAnalysisQueryParams]
+  )
+
+  const fetchLogsClusterDataForCluster = useCallback(
+    clusterType => {
+      fetchClusterAnalysis({
+        queryParams: { ...logsAnalysisQueryParams, ...(clusterType && { clusterType }) }
+      })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [logsAnalysisQueryParams]
+  )
+
   const goToLogsPage = useCallback(
     pageNumber => {
       fetchLogAnalysis({
-        queryParams: {
-          accountId,
-          pageNumber,
-          pageSize
-        }
+        queryParams: { ...logsAnalysisQueryParams, pageNumber }
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [accountId]
+    [logsAnalysisQueryParams]
   )
 
   return (
@@ -137,8 +174,9 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
         logsLoading={logsLoading}
         clusterChartLoading={clusterChartLoading}
         goToPage={goToLogsPage}
-        selectedClusterType={selectedClusterType as SelectOption}
         setSelectedClusterType={setSelectedClusterType}
+        onChangeHealthSource={setSelectedHealthSource}
+        activityId={activityId}
       />
     </Container>
   )

@@ -1,4 +1,9 @@
-import type { ConnectorInfoDTO, ResponseListSourceCodeManagerDTO, ResponseGitBranchListDTO } from 'services/cd-ng'
+import type {
+  ConnectorInfoDTO,
+  ResponseListSourceCodeManagerDTO,
+  ResponseGitBranchListDTO,
+  GitSyncConfig
+} from 'services/cd-ng'
 
 export const defaultProps = {
   name: 'Set Up Delegates',
@@ -112,7 +117,7 @@ export const requestBody = {
   }
 }
 
-export const gitConfigs = [
+export const gitConfigs: GitSyncConfig[] = [
   {
     identifier: 'identifier',
     name: 'name',
@@ -157,6 +162,7 @@ export const branchStatusMock: ResponseGitBranchListDTO = {
       content: [
         { branchName: 'gitSync', branchSyncStatus: 'SYNCED' },
         { branchName: 'master', branchSyncStatus: 'SYNCED' },
+        { branchName: 'feature', branchSyncStatus: 'SYNCED' },
         { branchName: 'branch1', branchSyncStatus: 'SYNCING' },
         { branchName: 'branch2', branchSyncStatus: 'UNSYNCED' }
       ],

@@ -1,0 +1,525 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Connector details step Test for  create  connector step one required feilds 1`] = `
+<div>
+  <div
+    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main stepContainer"
+  >
+    <div
+      class="heading"
+    >
+      cd.providerOverview
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main connectorForm"
+    >
+      <div
+        class="OverlaySpinner--overlaySpinner"
+      >
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="min-height: 460px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main main formElm"
+              >
+                <div
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
+                >
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                      :
+                    </p>
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-editable-text-content"
+                            style="height: 1px; line-height: 1px; min-width: 0;"
+                          />
+                        </div>
+                      </span>
+                    </span>
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="Edit"
+                      style="vertical-align: middle; cursor: pointer;"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                            stroke="#555770"
+                          />
+                          <path
+                            d="M6.583 5.146l2.063-2.063"
+                            opacity="0.3"
+                            stroke="#606170"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="bp3-form-group bp3-intent-danger"
+                    data-id="name-0"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="name"
+                    >
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="GitOpsProviderStepFormundefined_name"
+                      >
+                        name
+                      </span>
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group bp3-intent-danger"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="name"
+                          placeholder="common.namePlaceholder"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        <div
+                          class="FormError--errorDiv"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                            data-icon="circle-cross"
+                          >
+                            <svg
+                              height="12"
+                              viewBox="0 0 13 13"
+                              width="12"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                          <span
+                            class="FormError--error"
+                          >
+                            common.validation.nameIsRequired
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                >
+                  <label
+                    class="Label--main bp3-label descriptionLabel"
+                  >
+                    optionalField
+                    <span
+                      class="bp3-icon StyledProps--main editOpen"
+                      data-icon="Edit"
+                      data-name="edit"
+                      data-testid="description-edit"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                            stroke="#555770"
+                          />
+                          <path
+                            d="M6.583 5.146l2.063-2.063"
+                            opacity="0.3"
+                            stroke="#606170"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                >
+                  <label
+                    class="Label--main bp3-label descriptionLabel"
+                  >
+                    optionalField
+                    <span
+                      class="bp3-icon StyledProps--main editOpen"
+                      data-icon="Edit"
+                      data-name="edit"
+                      data-testid="tags-edit"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                            stroke="#555770"
+                          />
+                          <path
+                            d="M6.583 5.146l2.063-2.063"
+                            opacity="0.3"
+                            stroke="#606170"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withRightIcon Button--variation Button--variation-primary"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  <span>
+                    continue
+                  </span>
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Connector details step Test for going to next step 1`] = `
+<div>
+  <div
+    class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main stepContainer"
+  >
+    <div
+      class="heading"
+    >
+      cd.providerOverview
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main connectorForm"
+    >
+      <div
+        class="OverlaySpinner--overlaySpinner"
+      >
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="min-height: 460px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main main formElm"
+              >
+                <div
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
+                >
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                      :
+                    </p>
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-editable-text InputWithIdentifier--idValue"
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-editable-text-content"
+                            style="height: 1px; line-height: 1px; min-width: 0;"
+                          >
+                            dummy_name
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="Edit"
+                      style="vertical-align: middle; cursor: pointer;"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                            stroke="#555770"
+                          />
+                          <path
+                            d="M6.583 5.146l2.063-2.063"
+                            opacity="0.3"
+                            stroke="#606170"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="name-0"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="name"
+                    >
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="GitOpsProviderStepFormundefined_name"
+                      >
+                        name
+                      </span>
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="name"
+                          placeholder="common.namePlaceholder"
+                          type="text"
+                          value="dummy name"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                >
+                  <label
+                    class="Label--main bp3-label descriptionLabel"
+                  >
+                    optionalField
+                    <span
+                      class="bp3-icon StyledProps--main editOpen"
+                      data-icon="Edit"
+                      data-name="edit"
+                      data-testid="description-edit"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                            stroke="#555770"
+                          />
+                          <path
+                            d="M6.583 5.146l2.063-2.063"
+                            opacity="0.3"
+                            stroke="#606170"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                >
+                  <label
+                    class="Label--main bp3-label descriptionLabel"
+                  >
+                    optionalField
+                    <span
+                      class="bp3-icon StyledProps--main editOpen"
+                      data-icon="Edit"
+                      data-name="edit"
+                      data-testid="tags-edit"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 12 12"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g
+                          fill="none"
+                          fill-rule="evenodd"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                            stroke="#555770"
+                          />
+                          <path
+                            d="M6.583 5.146l2.063-2.063"
+                            opacity="0.3"
+                            stroke="#606170"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withRightIcon Button--variation Button--variation-primary"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  <span>
+                    continue
+                  </span>
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

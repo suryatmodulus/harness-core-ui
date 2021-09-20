@@ -348,13 +348,32 @@ exports[`About Project test create project  1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span
                   class="bp3-button-text"
                 >
                   saveAndContinue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
                 </span>
               </button>
             </div>
@@ -364,128 +383,26 @@ exports[`About Project test create project  1`] = `
             style="width: 50%;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard previewProjectCard"
-              data-testid="project-card-"
+              class="Layout--vertical StyledProps--main StyledProps--padding-huge StyledProps--flex StyledProps--flex-align-center-center"
+              style="width: 100%;"
             >
+              <img
+                class="img"
+                src="test-file-stub"
+              />
               <div
-                class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main"
-                >
-                  <div
-                    class="colorBar"
-                    style="background-color: rgb(0, 99, 247);"
-                  />
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
-                    style="--text-line-clamp: 1;"
-                  >
-                    projectCard.projectName
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
-                  >
-                    idLabel
-                  </p>
-                  <div
-                    class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
-                  >
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                    />
-                  </div>
-                  <div
-                    class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium"
-                  >
-                    <div
-                      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-small"
-                      >
-                        adminLabel 
-                      </p>
-                      <div
-                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
-                      >
-                        <div
-                          class="AvatarGroup--stack projectAvatarGroup"
-                          style="--avatar-over-lap: -13px;"
-                        >
-                          <div
-                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                          >
-                            <span
-                              class="bp3-popover-wrapper Avatar--avatarPopOver"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <div
-                                  class="Avatar--AvatarInner"
-                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                  tabindex="0"
-                                >
-                                  +
-                                </div>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-small"
-                      >
-                        collaboratorsLabel 
-                      </p>
-                      <div
-                        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
-                      >
-                        <div
-                          class="AvatarGroup--stack projectAvatarGroup"
-                          style="--avatar-over-lap: -13px;"
-                        >
-                          <div
-                            class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-                          >
-                            <span
-                              class="bp3-popover-wrapper Avatar--avatarPopOver"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <div
-                                  class="Avatar--AvatarInner"
-                                  style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                                  tabindex="0"
-                                >
-                                  +
-                                </div>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="Layout--vertical StyledProps--main started StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--padding-bottom-xlarge"
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--padding-bottom-xsmall"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-semi-bold"
                 >
-                  modules
+                  projectsOrgs.whyCreateProject
                 </p>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                />
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-small"
+                >
+                  projectsOrgs.createProjectMessage
+                </p>
               </div>
             </div>
           </div>
@@ -834,13 +751,32 @@ exports[`About Project test create project  2`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="submit"
               >
                 <span
                   class="bp3-button-text"
                 >
                   saveAndContinue
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
                 </span>
               </button>
             </div>
@@ -1304,7 +1240,7 @@ exports[`About Project test edit project  1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  saveAndContinue
+                  save
                 </span>
               </button>
             </div>
@@ -1632,7 +1568,7 @@ exports[`About Project test edit project  2`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  saveAndContinue
+                  save
                 </span>
               </button>
             </div>

@@ -39,4 +39,5 @@ export interface ValidationChartProps {
   onRetry: () => void
   sampleData?: Highcharts.Options
   setAsTooManyMetrics?: (_: boolean) => void
+  isQueryExecuted?: boolean
 }

@@ -1,13 +1,15 @@
 .resourceTypeListContainer {
   background-color: var(--white) !important;
+  box-shadow: var(--card-shadow);
 }
 .pageContainer {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 1fr 4fr;
-  height: 100%;
+  grid-template-columns: 320px 1fr;
 }
 .colorDiv {
-  min-height: 50px;
-  min-width: 50px;
+  min-height: 40px;
+  min-width: 40px;
+  display: inline-block;
+  border-radius: var(--spacing-xsmall);
 }

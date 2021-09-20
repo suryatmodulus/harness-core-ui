@@ -3,7 +3,6 @@ import type { UseStringsReturn } from 'framework/strings'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import type { StageAttributes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { isFFPipelinesEnabled } from '@cf/utils/pipelinesEnabled'
 import { FeatureFlagStage } from './FeatureFlagStage'
 
 const getStageAttributes = (getString: UseStringsReturn['getString']): StageAttributes => ({
@@ -30,6 +29,6 @@ const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsR
   />
 )
 
-if (isFFPipelinesEnabled()) {
+export function registerFeatureFlagPipelineStage(): void {
   stagesCollection.registerStageFactory(StageType.FEATURE, getStageAttributes, getStageEditorImplementation)
 }

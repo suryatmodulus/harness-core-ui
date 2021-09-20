@@ -105,7 +105,7 @@ const OverviewClusterCostBreakdown = (props: ClusterCostBreakdownProps) => {
         }
         footer={
           <div>
-            <Text>Cost breakdown</Text>
+            <Text tooltipProps={{ dataTooltipId: 'overviewCostBreakdown' }}>Cost breakdown</Text>
             <div className={css.breakdown}>
               <Container padding={{ top: 'medium' }}>
                 <TableList data={chartData.slice(0, LEGEND_LIMIT)} type={ListType.KEY_VALUE} classNames={css.rowGap8} />

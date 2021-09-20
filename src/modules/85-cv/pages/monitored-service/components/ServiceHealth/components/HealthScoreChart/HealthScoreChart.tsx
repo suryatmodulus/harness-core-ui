@@ -14,7 +14,7 @@ import { getSeriesData } from './HealthScoreChart.utils'
 import css from './HealthScoreChart.module.scss'
 
 export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Element {
-  const { monitoredServiceIdentifier, duration } = props
+  const { monitoredServiceIdentifier, duration, setHealthScoreData, timeFormat } = props
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const [seriesData, setSeriesData] = useState<SeriesDataType>([{ data: [], showInLegend: false }])
@@ -41,7 +41,11 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
     if (healthScoreData?.data?.healthScores && !isEmpty(healthScoreData?.data?.healthScores)) {
       const series = getSeriesData(healthScoreData.data.healthScores)
       setSeriesData([{ data: series as SeriesDataPoint[], showInLegend: false }])
+      if (setHealthScoreData) {
+        setHealthScoreData(healthScoreData.data.healthScores)
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [healthScoreData])
 
   const renderHealthScoreChart = useCallback(() => {
@@ -62,7 +66,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
         />
       )
     } else {
-      return <ColumnChart data={seriesData} />
+      return <ColumnChart data={seriesData} timeFormat={timeFormat} />
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, loading, seriesData])

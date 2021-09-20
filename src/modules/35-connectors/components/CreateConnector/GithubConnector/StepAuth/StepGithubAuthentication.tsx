@@ -9,8 +9,7 @@ import {
   StepProps,
   Color,
   Container,
-  SelectOption,
-  HarnessDocTooltip
+  SelectOption
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
@@ -124,8 +123,11 @@ const RenderAPIAccessForm: React.FC<FormikProps<GithubFormInterface>> = props =>
     case GitAPIAuthTypes.TOKEN:
       return (
         <Container width={'52%'} data-tooltip-id="gitHubPersonalAccessTooltip">
-          <HarnessDocTooltip tooltipId="gitHubPersonalAccessTooltip" useStandAlone={true} />
-          <SecretInput name="apiAccessToken" label={getString('personalAccessToken')} />
+          <SecretInput
+            name="apiAccessToken"
+            label={getString('personalAccessToken')}
+            tooltipProps={{ dataTooltipId: 'gitHubPersonalAccessTooltip' }}
+          />
         </Container>
       )
     default:

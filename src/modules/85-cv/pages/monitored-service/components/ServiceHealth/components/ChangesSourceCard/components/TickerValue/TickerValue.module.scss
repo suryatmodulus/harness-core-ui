@@ -1,0 +1,11 @@
+.tickerValue {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--spacing-small) !important;
+}
+
+.tickerLabel {
+  position: relative;
+  left: -10px !important;
+  top: -5px !important;
+}

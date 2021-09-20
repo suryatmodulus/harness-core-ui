@@ -1,12 +1,17 @@
 import React from 'react'
 
-import { StepProps, Layout, Icon, Text, Tabs, Tab } from '@wings-software/uicore'
+import { Layout, Icon, Text, Tabs, Tab } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import CommonProblems from '../../CommonProblems/CommonProblems'
 import TroubleShooting from './TroubleShooting'
 import css from './DelegateInstallationError.module.scss'
 
-const DelegateInstallationError: React.FC<StepProps<null>> = () => {
+interface DelegateInstallationErrorProps {
+  showDelegateInstalledMessage?: boolean
+}
+const DelegateInstallationError: React.FC<DelegateInstallationErrorProps> = ({
+  showDelegateInstalledMessage = true
+}) => {
   const { getString } = useStrings()
   return (
     <Layout.Vertical
@@ -15,10 +20,12 @@ const DelegateInstallationError: React.FC<StepProps<null>> = () => {
         e.stopPropagation()
       }}
     >
-      <Layout.Horizontal spacing="small">
-        <Icon name="warning-sign" size={16} className={css.notInstalled} />
-        <Text>{getString('delegates.delegateNotInstalled.title')}</Text>
-      </Layout.Horizontal>
+      {showDelegateInstalledMessage && (
+        <Layout.Horizontal spacing="small">
+          <Icon name="warning-sign" size={16} className={css.notInstalled} />
+          <Text>{getString('delegates.delegateNotInstalled.title')}</Text>
+        </Layout.Horizontal>
+      )}
       <Layout.Horizontal spacing="small">
         <Tabs id="delegateNotInstalledTabs">
           <Tab

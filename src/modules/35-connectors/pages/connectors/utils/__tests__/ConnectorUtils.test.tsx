@@ -1,10 +1,12 @@
+import { EntityTypes } from '@connectors/constants'
 import {
   buildAWSPayload,
   buildArtifactoryPayload,
   buildGitPayload,
   removeErrorCode,
   buildKubPayload,
-  setupKubFormData
+  setupKubFormData,
+  getIconByEntityType
 } from '../ConnectorUtils'
 
 jest.mock('services/cd-ng', () => ({
@@ -524,5 +526,14 @@ describe('Connector Utils', () => {
         accountIdentifier: 'accountId'
       }
     })
-  })
+  }),
+    test('test getIconByEntityType', () => {
+      expect(getIconByEntityType(EntityTypes.PROJECT as string)).toEqual('nav-project')
+      expect(getIconByEntityType(EntityTypes.PIPELINE as string)).toEqual('pipeline')
+      expect(getIconByEntityType(EntityTypes.SECRET as string)).toEqual('key-main')
+      expect(getIconByEntityType(EntityTypes.CV_CONFIG as string)).toEqual('desktop')
+      expect(getIconByEntityType(EntityTypes.CV_K8_ACTIVITY_SOURCE as string)).toEqual('square')
+      expect(getIconByEntityType(EntityTypes.CV_VERIFICATION_JOB as string)).toEqual('confirm')
+      expect(getIconByEntityType(EntityTypes.default as string)).toEqual('')
+    })
 })

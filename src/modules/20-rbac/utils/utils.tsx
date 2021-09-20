@@ -19,6 +19,7 @@ import type {
   ResourceGroupOption
 } from '@rbac/modals/RoleAssignmentModal/views/UserRoleAssigment'
 import { isEmail } from '@common/utils/Validation'
+import { RbacResourceGroupTypes } from '@rbac/constants/utils'
 
 export interface UserItem extends MultiSelectOption {
   email?: string
@@ -157,6 +158,12 @@ export const getScopeBasedDefaultAssignment = (
 
 export const isAssignmentFieldDisabled = (value: RoleOption | ResourceGroupOption): boolean => {
   if (value.assignmentIdentifier || value.managedRoleAssignment) {
+    return true
+  }
+  return false
+}
+export const isDynamicResourceSelector = (value: string | string[]): boolean => {
+  if (value === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR) {
     return true
   }
   return false

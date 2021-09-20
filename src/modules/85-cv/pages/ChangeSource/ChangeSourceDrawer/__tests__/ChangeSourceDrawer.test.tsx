@@ -215,4 +215,49 @@ describe('Test Change Source Drawer', () => {
     fireEvent.click(getByText('cv.changeSource.alertText'))
     await waitFor(() => expect(container.querySelector('input[value="cv.changeSource.alertText"]')).toBeTruthy())
   })
+
+  test('Ensure that correct category drop down values are rendered when type prop is provided', async () => {
+    const { container, rerender } = render(
+      <TestWrapper>
+        <ChangeSourceDrawer
+          onSuccess={onSuccess}
+          hideDrawer={hideDrawer}
+          isEdit={false}
+          monitoredServiceType="Application"
+          rowdata={{ spec: {} }}
+          tableData={[]}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector(`input[value="deploymentText"]`)).not.toBeNull())
+    expect(container.querySelector('input[name="category"][value="deploymentText"]')).not.toBeNull()
+    fireEvent.click(container.querySelector(`.bp3-input-action [data-icon="chevron-down"]`)!)
+    await waitFor(() => expect(container.querySelector('[class*="menuItemLabel"]')).not.toBeNull())
+
+    let menuItemLabels = container.querySelectorAll('[class*="menuItemLabel"]')
+    expect(menuItemLabels[0].innerHTML).toEqual('deploymentText')
+    expect(menuItemLabels[1].innerHTML).toEqual('cv.changeSource.alertText')
+
+    rerender(
+      <TestWrapper>
+        <ChangeSourceDrawer
+          onSuccess={onSuccess}
+          hideDrawer={hideDrawer}
+          isEdit={false}
+          monitoredServiceType="Infrastructure"
+          rowdata={{ spec: {} }}
+          tableData={[]}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector(`input[placeholder="infrastructureText"]`)).not.toBeNull())
+    fireEvent.click(container.querySelector(`.bp3-input-action [data-icon="chevron-down"]`)!)
+    await waitFor(() => expect(container.querySelector('[class*="menuItemLabel"]')).not.toBeNull())
+
+    menuItemLabels = container.querySelectorAll('[class*="menuItemLabel"]')
+    expect(menuItemLabels[0].innerHTML).toEqual('infrastructureText')
+    expect(menuItemLabels[1].innerHTML).toEqual('cv.changeSource.alertText')
+  })
 })

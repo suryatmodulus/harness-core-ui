@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container } from '@wings-software/uicore'
+import { Color, Container, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { useGetPipelinedHealth } from 'services/pipeline-ng'
@@ -33,26 +33,42 @@ export default function PipelineSummaryCards() {
       <RangeSelectorWithTitle title={getString('pipeline.dashboards.pipelineHealth')} onRangeSelected={setRange} />
       <Container className={styles.summaryCards}>
         <SummaryCard
-          title={getString('pipeline.dashboards.totalExecutions')}
+          title={
+            <Text font={{ weight: 'bold' }} color={Color.GREY_600}>
+              {getString('pipeline.dashboards.totalExecutions')}
+            </Text>
+          }
           text={data?.data?.executions?.total?.count}
           rate={data?.data?.executions?.total?.rate}
           isLoading={loading}
           neutralColor
         />
         <SummaryCard
-          title={getString('pipeline.dashboards.successRate')}
+          title={
+            <Text font={{ weight: 'bold' }} color={Color.GREY_600}>
+              {getString('pipeline.dashboards.successRate')}
+            </Text>
+          }
           text={roundNumber(data?.data?.executions?.success?.percent)}
           rate={data?.data?.executions?.success?.rate}
           isLoading={loading}
         />
         <SummaryCard
-          title={getString('pipeline.dashboards.meanDuration')}
+          title={
+            <Text font={{ weight: 'bold' }} color={Color.GREY_600}>
+              {getString('pipeline.dashboards.meanDuration')}
+            </Text>
+          }
           text={formatDuration(data?.data?.executions?.meanInfo?.duration)}
           rateDuration={data?.data?.executions?.meanInfo?.rate}
           isLoading={loading}
         />
         <SummaryCard
-          title={getString('pipeline.dashboards.medianDuration')}
+          title={
+            <Text font={{ weight: 'bold' }} color={Color.GREY_600}>
+              {getString('pipeline.dashboards.medianDuration')}
+            </Text>
+          }
           text={formatDuration(data?.data?.executions?.medianInfo?.duration)}
           rateDuration={data?.data?.executions?.medianInfo?.rate}
           isLoading={loading}

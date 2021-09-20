@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Heading, Layout, Tabs, Tab, Icon, Text } from '@wings-software/uicore'
+import { Heading, Layout, Tabs, Tab, Icon, Text, HarnessDocTooltip } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -115,7 +115,14 @@ const CreatePerspectivePage: React.FC = () => {
                   />
                 }
                 panelClassName={css.panelClass}
-                title={<span className={css.tab}>{tabHeadings[0]}</span>}
+                title={
+                  <>
+                    <span data-tooltip-id="perspectiveBuilder" className={css.tab}>
+                      {tabHeadings[0]}
+                    </span>
+                    <HarnessDocTooltip tooltipId="perspectiveBuilder" useStandAlone={true} />
+                  </>
+                }
                 data-testid={tabHeadings[0]}
               />
               <Icon
@@ -130,7 +137,14 @@ const CreatePerspectivePage: React.FC = () => {
                 disabled={selectedTabId === tabHeadings[0]}
                 id={tabHeadings[1]}
                 panelClassName={css.panelClass}
-                title={<span className={css.tab}>{tabHeadings[1]}</span>}
+                title={
+                  <>
+                    <span data-tooltip-id="perspectiveReportsAndBudget" className={css.tab}>
+                      {tabHeadings[1]}
+                    </span>
+                    <HarnessDocTooltip tooltipId="perspectiveReportsAndBudget" useStandAlone={true} />
+                  </>
+                }
                 panel={
                   <ReportsAndBudgets
                     onPrevButtonClick={() => {

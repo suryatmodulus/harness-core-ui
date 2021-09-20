@@ -2,12 +2,14 @@ import React from 'react'
 import { Card, FontVariation, Layout, Text } from '@wings-software/uicore'
 import { useLandingDashboardContext } from '@common/factories/LandingDashboardContext'
 import GlanceCard from '@common/components/GlanceCard/GlanceCard'
+import { useStrings } from 'framework/strings'
 import TimeRangeSelect from '../TimeRangeSelect/TimeRangeSelect'
 
 import css from './LandingDashboardSummaryWidget.module.scss'
 
 const LandingDashboardSummaryWidget: React.FC = () => {
   const { selectedTimeRange } = useLandingDashboardContext()
+  const { getString } = useStrings()
 
   return (
     <div style={{ position: 'relative' }}>
@@ -34,8 +36,9 @@ const LandingDashboardSummaryWidget: React.FC = () => {
         </Layout.Horizontal>
         <Card style={{ width: '100%' }}>
           <Layout.Vertical>
-            <Text font={{ variation: FontVariation.CARD_TITLE }}>Top Projects</Text>
-            {selectedTimeRange}
+            <Text font={{ variation: FontVariation.CARD_TITLE }}>
+              {getString('projectsOrgs.landingDashboard.title', { timeRange: selectedTimeRange })}
+            </Text>
           </Layout.Vertical>
         </Card>
       </Layout.Horizontal>

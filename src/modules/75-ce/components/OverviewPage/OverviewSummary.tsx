@@ -1,4 +1,4 @@
-import { Layout, Text } from '@wings-software/uicore'
+import { Container, Layout, Text } from '@wings-software/uicore'
 import React from 'react'
 import { useStrings } from 'framework/strings'
 import type { StatsInfo } from 'services/ce/services'
@@ -9,10 +9,11 @@ import css from './OverviewPage.module.scss'
 interface SummaryProps {
   cost: StatsInfo
   fetching: boolean
+  name: string
 }
 
 const OverviewSummary = (props: SummaryProps) => {
-  const { cost, fetching } = props
+  const { cost, name, fetching } = props
   const { getString } = useStrings()
   return (
     <Layout.Horizontal>
@@ -22,9 +23,11 @@ const OverviewSummary = (props: SummaryProps) => {
         ) : (
           <Layout.Vertical spacing="medium">
             <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
-              <Text color="grey500" font="small">
-                {cost.statsLabel}
-              </Text>
+              <Container>
+                <Text inline color="grey500" font="small" tooltipProps={{ dataTooltipId: `overviewSummary${name}` }}>
+                  {cost.statsLabel}
+                </Text>
+              </Container>
               <CostTrend value={cost.statsTrend} />
             </Layout.Horizontal>
             <Text color="black" font="medium">

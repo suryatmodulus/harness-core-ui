@@ -20,7 +20,7 @@ import css from './DelegatesPage.module.scss'
 
 type delTroubleshoterProps = {
   delegate: DelegateGroupDetails
-  setOpenTroubleshoter: (flag: boolean) => void
+  setOpenTroubleshoter: (prop: { isConnected: boolean | undefined }) => void
 }
 
 export const DelegateListingHeader = () => {
@@ -106,7 +106,7 @@ const RenderActivityColumn = (delegate: DelegateGroupDetails) => {
 }
 
 const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterProps) => {
-  const { delegateGroupIdentifier, groupName } = delegate
+  const { delegateGroupIdentifier, groupName, activelyConnected } = delegate
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
@@ -200,7 +200,7 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
             text={getString('delegates.openTroubleshooter')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
-              setOpenTroubleshoter(true)
+              setOpenTroubleshoter({ isConnected: activelyConnected })
             }}
             icon="book"
           />
@@ -292,7 +292,7 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
               onClick={e => {
                 e.preventDefault()
                 e.stopPropagation()
-                setOpenTroubleshoter(true)
+                setOpenTroubleshoter({ isConnected })
               }}
             >
               {getString('delegates.troubleshootOption')}

@@ -52,7 +52,7 @@ export default function RouteDestinations(): React.ReactElement {
           <CERoutes />
         </Route>
       ) : null}
-      {...CFNG_ENABLED ? CFRoutes.props.children : []}
+      {CFNG_ENABLED && <CFRoutes />}
       <Route path="*">
         <NotFoundPage />
       </Route>

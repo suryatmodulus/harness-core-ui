@@ -1,12 +1,17 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { Color, Container, Icon, Pagination, Select, Text } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
+import { VerificationType } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown.constants'
+import { useGetHealthSources } from 'services/cv'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ClusterChart from './components/ClusterChart/ClusterChart'
 import type { LogAnalysisProps, LogAnalysisRowData } from './LogAnalysis.types'
 import { LogAnalysisRow } from './components/LogAnalysisRow/LogAnalysisRow'
 import { getClusterTypes, mapClusterType } from './LogAnalysis.utils'
+import { HealthSourceDropDown } from '../HealthSourcesDropdown/HealthSourcesDropdown'
 import styles from './LogAnalysis.module.scss'
 
 export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
@@ -16,10 +21,30 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
     goToPage,
     logsLoading,
     clusterChartLoading,
-    selectedClusterType,
-    setSelectedClusterType
+    setSelectedClusterType,
+    onChangeHealthSource,
+    activityId
   } = props
   const { getString } = useStrings()
+  const { accountId } = useParams<ProjectPathProps>()
+
+  const {
+    data: healthSourcesData,
+    error: healthSourcesError,
+    loading: healthSourcesLoading,
+    refetch: fetchHealthSources
+  } = useGetHealthSources({
+    queryParams: { accountId },
+    activityId: activityId as string,
+    lazy: true
+  })
+
+  useEffect(() => {
+    if (activityId) {
+      fetchHealthSources()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activityId])
 
   const logAnalysisData = useMemo((): LogAnalysisRowData[] => {
     return (
@@ -91,13 +116,23 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
         <Text font={{ weight: 'bold' }}>{getString('pipeline.verification.logs.logCluster')}</Text>
         {renderChartCluster()}
       </Container>
-      <Select
-        value={selectedClusterType}
-        items={getClusterTypes(getString)}
-        className={styles.clusterTypeFilter}
-        inputProps={{ placeholder: getString('pipeline.verification.logs.filterByClusterType') }}
-        onChange={setSelectedClusterType}
-      />
+      <Container className={styles.filters}>
+        <Select
+          items={getClusterTypes(getString)}
+          defaultSelectedItem={getClusterTypes(getString)[0]}
+          className={styles.clusterTypeFilter}
+          inputProps={{ placeholder: getString('pipeline.verification.logs.filterByClusterType') }}
+          onChange={setSelectedClusterType}
+        />
+        <HealthSourceDropDown
+          data={healthSourcesData}
+          loading={healthSourcesLoading}
+          error={healthSourcesError}
+          onChange={onChangeHealthSource}
+          className={styles.logsAnalysisFilters}
+          verificationType={VerificationType.LOG}
+        />
+      </Container>
       <Container className={styles.tableContent}>{renderLogsData()}</Container>
       {!!data?.resource?.totalPages && (
         <Pagination

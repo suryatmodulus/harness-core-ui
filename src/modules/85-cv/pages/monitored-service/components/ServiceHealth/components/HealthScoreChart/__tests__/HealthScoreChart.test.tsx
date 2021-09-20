@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { highRiskColor, lowRiskColor, mediumRiskColor } from '@common/components/HeatMap/ColorUtils'
+import { highRiskColor, lowRiskColor, mediumRiskColor, noAnalysisColor } from '@common/components/HeatMap/ColorUtils'
 import type { RiskData } from 'services/cv'
 import HealthScoreChart from '../HealthScoreChart'
 import type { HealthScoreChartProps } from '../HealthScoreChart.types'
@@ -36,7 +36,7 @@ describe('Unit tests for HealthScoreChart', () => {
     expect(mapRiskStatusToColor('HIGH')).toEqual(highRiskColor)
     expect(mapRiskStatusToColor('MEDIUM')).toEqual(mediumRiskColor)
     expect(mapRiskStatusToColor('LOW')).toEqual(lowRiskColor)
-    expect(mapRiskStatusToColor('default')).toEqual(lowRiskColor)
+    expect(mapRiskStatusToColor('default')).toEqual(noAnalysisColor)
   })
 
   test('Verify if correct series is returned for the health score bar graph', async () => {

@@ -621,7 +621,7 @@ ceGcp:
     heading: '{{ $.overview }}'
     projectIdLabel: 'Specify Project ID'
   billingExport:
-    heading: 'GCP Billing Export'
+    heading: 'Setup Billing Export'
     description: 'Cloud Billing export to BigQuery enables you to export detailed Google Cloud billing data (such as usage and cost estimate data) automatically throughout the day to a BigQuery dataset that you specify.'
     followInstruction: 'Please follow the instructions to provide create a Billing export for the specified Project ID'
     launchTemplate: 'Launch GCP console'

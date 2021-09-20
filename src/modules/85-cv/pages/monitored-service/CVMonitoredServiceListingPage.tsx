@@ -171,13 +171,31 @@ function CVMonitoredServiceListingPage(): JSX.Element {
       const { color, percentage } = calculateChangePercentage(rowData?.changeSummary)
       return (
         <Layout.Horizontal spacing={'medium'}>
-          <Text inline icon="cube" font={{ weight: 'semi-bold' }} iconProps={{ size: 16 }}>
+          <Text
+            tooltip={getString('deploymentText')}
+            inline
+            icon={'nav-project'}
+            font={{ weight: 'semi-bold' }}
+            iconProps={{ size: 16 }}
+          >
             {deploymentCount}
           </Text>
-          <Text inline icon="infrastructure" font={{ weight: 'semi-bold' }} iconProps={{ size: 20 }}>
+          <Text
+            tooltip={getString('infrastructureText')}
+            inline
+            icon="infrastructure"
+            font={{ weight: 'semi-bold' }}
+            iconProps={{ size: 16 }}
+          >
             {infraCount}
           </Text>
-          <Text inline icon="warning-outline" font={{ weight: 'semi-bold' }} iconProps={{ size: 16 }}>
+          <Text
+            tooltip={getString('cv.changeSource.tooltip.incident')}
+            inline
+            icon="warning-outline"
+            font={{ weight: 'semi-bold' }}
+            iconProps={{ size: 16 }}
+          >
             {alertCount}
           </Text>
           <Text
@@ -185,7 +203,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             icon="symbol-triangle-up"
             color={color}
             font={{ size: 'xsmall' }}
-            iconProps={{ size: 6, color: color }}
+            iconProps={{ size: 12, color: color }}
           >
             {percentage}
           </Text>

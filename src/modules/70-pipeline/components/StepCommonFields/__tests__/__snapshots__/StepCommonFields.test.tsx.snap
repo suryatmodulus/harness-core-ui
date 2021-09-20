@@ -10,11 +10,16 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
     >
       <div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="runAsUser"
           >
-            pipeline.stepCommonFields.runAsUser
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            >
+              pipeline.stepCommonFields.runAsUser
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -324,11 +329,16 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
     >
       <div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="runAsUser"
           >
-            pipeline.stepCommonFields.runAsUser
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            >
+              pipeline.stepCommonFields.runAsUser
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >

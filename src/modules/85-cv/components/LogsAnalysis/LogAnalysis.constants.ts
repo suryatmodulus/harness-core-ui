@@ -9,7 +9,6 @@ export enum StepStatus {
 }
 
 export enum LogEvents {
-  ALL_EVENTS = 'ALL_EVENTS',
   KNOWN_EVENT = 'KNOWN_EVENT',
   UNKNOWN_EVENT = 'UNKNOWN_EVENT',
   UNEXPECTED_FREQUENCY = 'UNEXPECTED_FREQUENCY'

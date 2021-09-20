@@ -882,11 +882,15 @@ exports[`Test Change Source Drawer ChangeSource Drawer renders in create mode fo
             class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
             style="width: 400px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main pagerDutyServiceTitle StyledProps--color StyledProps--color-black StyledProps--font-small"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main pagerDutyServiceTitle"
             >
-              cv.changeSource.PageDuty.pagerDutyService
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small"
+              >
+                cv.changeSource.PageDuty.pagerDutyService
+              </p>
+            </div>
             <div
               class="bp3-form-group bp3-intent-danger"
             >
@@ -1735,9 +1739,11 @@ exports[`Test Change Source Drawer ChangeSource Drawer renders in edit mode for 
                   class="bp3-form-content"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
+                    class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                     data-testid="cr-field-spec.connectorRef"
+                    disabled=""
                     style="width: 400px;"
+                    tabindex="-1"
                     type="button"
                   >
                     <span
@@ -1816,11 +1822,15 @@ exports[`Test Change Source Drawer ChangeSource Drawer renders in edit mode for 
             class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
             style="width: 400px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main pagerDutyServiceTitle StyledProps--color StyledProps--color-black StyledProps--font-small"
+            <div
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main pagerDutyServiceTitle"
             >
-              cv.changeSource.PageDuty.pagerDutyService
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-small"
+              >
+                cv.changeSource.PageDuty.pagerDutyService
+              </p>
+            </div>
             <div
               class="bp3-form-group"
             >

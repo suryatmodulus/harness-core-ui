@@ -302,9 +302,17 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
                   testsCountDiff={testsCountDiff}
                 />
               )}
-            {reportSummaryData?.total_tests && reportSummaryData?.tests && (
-              <TestsExecutionResult totalTests={reportSummaryData.total_tests} tests={reportSummaryData.tests} />
-            )}
+            {typeof reportSummaryData?.total_tests !== 'undefined' &&
+              typeof reportSummaryData?.failed_tests !== 'undefined' &&
+              typeof reportSummaryData?.successful_tests !== 'undefined' &&
+              typeof reportSummaryData?.skipped_tests !== 'undefined' && (
+                <TestsExecutionResult
+                  totalTests={reportSummaryData.total_tests}
+                  failedTests={reportSummaryData.failed_tests}
+                  successfulTests={reportSummaryData.successful_tests}
+                  skippedTests={reportSummaryData.skipped_tests}
+                />
+              )}
             {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
               typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
               typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
@@ -361,12 +369,16 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
           {header}
           <Layout.Horizontal spacing="large">
             {typeof reportSummaryData?.total_tests !== 'undefined' &&
-              typeof reportSummaryData?.duration_ms !== 'undefined' &&
-              typeof reportSummaryData?.tests !== 'undefined' && (
+              typeof reportSummaryData?.failed_tests !== 'undefined' &&
+              typeof reportSummaryData?.successful_tests !== 'undefined' &&
+              typeof reportSummaryData?.skipped_tests !== 'undefined' &&
+              typeof reportSummaryData?.duration_ms !== 'undefined' && (
                 <TestsReportOverview
                   totalTests={reportSummaryData.total_tests}
+                  failedTests={reportSummaryData.failed_tests}
+                  successfulTests={reportSummaryData.successful_tests}
+                  skippedTests={reportSummaryData.skipped_tests}
                   durationMS={reportSummaryData.duration_ms}
-                  tests={reportSummaryData.tests}
                 />
               )}
             {/* Overview and Reports split the width  */}

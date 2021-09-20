@@ -95,7 +95,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           <span
             class="StepWizard--title StepWizard--header"
           >
-            connector
+            pipelineSteps.gcpConnectorLabel
           </span>
           <div
             class="StepWizard--navStep StepWizard--activeStep"
@@ -192,7 +192,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                       style="width: 65%;"
                     >
                       <div
-                        class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"
+                        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                       >
                         <div
                           class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -565,7 +565,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           <span
             class="StepWizard--title StepWizard--header"
           >
-            connector
+            pipelineSteps.gcpConnectorLabel
           </span>
           <div
             class="StepWizard--navStep StepWizard--completedStep"
@@ -1092,7 +1092,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
           <span
             class="StepWizard--title StepWizard--header"
           >
-            connector
+            pipelineSteps.gcpConnectorLabel
           </span>
           <div
             class="StepWizard--navStep StepWizard--completedStep"
@@ -1511,7 +1511,7 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
           <span
             class="StepWizard--title StepWizard--header"
           >
-            connector
+            pipelineSteps.gcpConnectorLabel
           </span>
           <div
             class="StepWizard--navStep StepWizard--completedStep"
@@ -1748,32 +1748,13 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
               </div>
             </div>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main submitBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+              class="bp3-button Button--button StyledProps--font StyledProps--main submitBtn StyledProps--intent-primary Button--with-current-color"
               type="submit"
             >
               <span
                 class="bp3-button-text"
               >
-                close
-              </span>
-              <span
-                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                icon="chevron-right"
-              >
-                <svg
-                  data-icon="chevron-right"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    chevron-right
-                  </desc>
-                  <path
-                    d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
+                finish
               </span>
             </button>
           </div>
@@ -1896,7 +1877,7 @@ exports[`Create Secret Manager Wizard should throw an error when connectors alre
           <span
             class="StepWizard--title StepWizard--header"
           >
-            connector
+            pipelineSteps.gcpConnectorLabel
           </span>
           <div
             class="StepWizard--navStep StepWizard--activeStep"
@@ -1993,7 +1974,7 @@ exports[`Create Secret Manager Wizard should throw an error when connectors alre
                       style="width: 65%;"
                     >
                       <div
-                        class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"
+                        class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                       >
                         <div
                           class="InputWithIdentifier--txtNameContainer TextInput--main"

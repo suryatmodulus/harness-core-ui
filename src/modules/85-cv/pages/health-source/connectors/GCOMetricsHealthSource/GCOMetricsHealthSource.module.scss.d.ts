@@ -3,6 +3,7 @@
 declare const styles: {
   readonly hiddenField: string
   readonly setupContainer: string
+  readonly query: string
   readonly sectionHeading: string
   readonly nameAndMetricTagContainer: string
   readonly configureRiskProfileContainer: string
@@ -12,7 +13,6 @@ declare const styles: {
   readonly checkbox: string
   readonly validationContainer: string
   readonly textAreaLabel: string
-  readonly query: string
   readonly chartContainer: string
   readonly tooManyRecords: string
   readonly noDataContainer: string

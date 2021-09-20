@@ -7,11 +7,13 @@ import {
   Layout,
   MultiSelectOption,
   StepProps,
-  Text
+  Text,
+  Intent
 } from '@wings-software/uicore'
 import React from 'react'
+import * as Yup from 'yup'
 import { Form } from 'formik'
-import { startCase } from 'lodash-es'
+import { startCase, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { NotificationRules, PipelineEvent } from 'services/pipeline-ng'
 import css from '../useNotificationModal.module.scss'
@@ -107,6 +109,30 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
       <Formik<PipelineEventsFormData>
         initialValues={{ ...initialValues, types }}
         formName="pipelineEvents"
+        validationSchema={Yup.object()
+          .shape({
+            types: Yup.object().required()
+          })
+          .test({
+            test(val: { types: { [key: string]: boolean } }): boolean | Yup.ValidationError {
+              if (isEmpty(val?.types)) {
+                return this.createError({
+                  path: 'types',
+                  message: getString('notifications.eventRequired')
+                })
+              }
+              if (Object.keys(val.types).length === 1 && val.types[PipelineEventType.ALL_EVENTS] === false) {
+                return this.createError({
+                  path: 'types',
+                  message: getString('notifications.eventRequired')
+                })
+              }
+
+              return true
+            }
+          })
+          .required()}
+        validateOnChange={false}
         onSubmit={values => {
           const pipelineEvents: PipelineEvent[] = Object.keys(values.types)
             .filter(function (k) {
@@ -126,7 +152,14 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
           return (
             <Form>
               <Layout.Vertical spacing="medium" className={css.formContent}>
-                <Text margin={{ bottom: 'large' }}>{getString('notifications.selectPipelineEvents')} </Text>
+                <Text margin={{ bottom: !isEmpty(formikProps.errors) ? 'small' : 'large' }}>
+                  {getString('notifications.selectPipelineEvents')}
+                </Text>
+                {!isEmpty(formikProps.errors) && (
+                  <Text intent={Intent.DANGER} margin={{ top: 'none', bottom: 'small' }}>
+                    {getString('notifications.eventRequired')}
+                  </Text>
+                )}
                 {pipelineEventItems.map(event => {
                   return (
                     <Layout.Vertical key={event.label}>

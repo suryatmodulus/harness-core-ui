@@ -17,3 +17,26 @@ index 3bc5cb0..2064095 100644
              return this.getActionsForType(Action_1.InputType.KEY_UP);
          }
          else if (event.type === 'mousemove') {
+diff --git a/node_modules/@projectstorm/react-canvas-core/src/states/SelectionBoxState.ts b/node_modules/@projectstorm/react-canvas-core/src/states/SelectionBoxState.ts
+index 5fa86cb..b59889b 100644
+--- a/node_modules/@projectstorm/react-canvas-core/src/states/SelectionBoxState.ts
++++ b/node_modules/@projectstorm/react-canvas-core/src/states/SelectionBoxState.ts
+@@ -36,12 +36,12 @@ export class SelectionBoxState extends AbstractDisplacementState {
+ 		}
+ 
+ 		return {
+-			left: rel.x > this.initialXRelative ? this.initialXRelative : rel.x,
+-			top: rel.y > this.initialYRelative ? this.initialYRelative : rel.y,
+-			width: Math.abs(rel.x - this.initialXRelative),
+-			height: Math.abs(rel.y - this.initialYRelative),
+-			right: rel.x < this.initialXRelative ? this.initialXRelative : rel.x,
+-			bottom: rel.y < this.initialYRelative ? this.initialYRelative : rel.y
++			left: rel?.x > this.initialXRelative ? this.initialXRelative : rel?.x,
++			top: rel?.y > this.initialYRelative ? this.initialYRelative : rel?.y,
++			width: Math.abs(rel?.x - this.initialXRelative),
++			height: Math.abs(rel?.y - this.initialYRelative),
++			right: rel?.x < this.initialXRelative ? this.initialXRelative : rel?.x,
++			bottom: rel?.y < this.initialYRelative ? this.initialYRelative : rel?.y
+ 		};
+ 	}
+ 

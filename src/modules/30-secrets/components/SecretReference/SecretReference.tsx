@@ -89,11 +89,11 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
 
   const secretTypeOptions: SelectOption[] = [
     {
-      label: getString('secret.labelText'),
+      label: getString('secrets.secret.labelText'),
       value: 'SecretText'
     },
     {
-      label: getString('secret.labelFile'),
+      label: getString('secrets.secret.labelFile'),
       value: 'SecretFile'
     }
   ]
@@ -101,7 +101,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
 
   const selectTypeDropdown = (
     <Container flex={{ alignItems: 'baseline' }}>
-      <Text margin={{ left: 'medium', right: 'xsmall' }}>{getString('secret.labelSecretType')}</Text>
+      <Text margin={{ left: 'medium', right: 'xsmall' }}>{getString('secrets.secret.labelSecretType')}</Text>
       <CustomSelect
         items={secretTypeOptions}
         filterable={false}
@@ -148,7 +148,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
       }}
       projectIdentifier={projectIdentifier}
       orgIdentifier={orgIdentifier}
-      noRecordsText={getString('secret.noSecretsFound')}
+      noRecordsText={getString('secrets.secret.noSecretsFound')}
       searchInlineComponent={!type ? selectTypeDropdown : undefined}
       recordRender={({ item, selected }) => (
         <>

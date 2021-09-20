@@ -2,6 +2,7 @@ import React from 'react'
 import { render, fireEvent, act, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { gitConfigs, sourceCodeManagers, branchStatusMock } from '@connectors/mocks/mock'
+import * as GitSyncStoreContext from 'framework/GitRepoStore/GitSyncStoreContext'
 import PipelineCreate from '../CreateModal/PipelineCreate'
 import type { PipelineCreateProps } from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
@@ -23,6 +24,17 @@ jest.mock('services/cd-ng', () => ({
     return { data: sourceCodeManagers, refetch: jest.fn() }
   })
 }))
+
+jest.spyOn(GitSyncStoreContext, 'useGitSyncStore').mockImplementation((): GitSyncStoreContext.GitSyncStoreProps => {
+  return {
+    loadingRepos: false,
+    gitSyncRepos: gitConfigs,
+    codeManagers: sourceCodeManagers.data || [],
+    loadingCodeManagers: false,
+    updateStore: jest.fn(),
+    refreshStore: jest.fn()
+  }
+})
 
 const getEditProps = (
   identifier = 'test',
@@ -146,55 +158,51 @@ describe('PipelineCreate test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('when git exp is enabled - pipeline create modal should take repo and branch to save pipeline to', async () => {
-    afterSave.mockReset()
-    closeModal.mockReset()
+  test('when git exp is enabled - pipeline edit modal should display repo and branch to save pipeline to', async () => {
     const initialPipelineCreateData = {
-      identifier: '-1',
+      identifier: 'pipeline1',
       name: 'Pipeline 1',
       description: 'abc',
-      repo: 'git_sync',
-      branch: 'test_branch'
+      repo: 'repo',
+      branch: 'branch'
     }
     const { getByText } = render(
       <TestWrapper
-        path="/account/:accountId/:module/orgs/:ordIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/pipeline-studio/"
+        path="/account/:accountId/:module/orgs/:ordIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/pipeline-studio"
         pathParams={{
           accountId: 'dummy',
           ordIdentifier: 'testOrg',
           projectIdentifier: 'testProject',
-          pipelineIdentifier: -1,
+          pipelineIdentifier: DefaultNewPipelineId,
           module: 'cd'
         }}
         defaultAppStoreValues={{ isGitSyncEnabled: true }}
       >
-        <PipelineCreate initialValues={initialPipelineCreateData} afterSave={afterSave} closeModal={closeModal} />
+        <PipelineCreate initialValues={initialPipelineCreateData} afterSave={afterSave} />
       </TestWrapper>
     )
 
-    await waitFor(() => getByText('start'))
+    await waitFor(() => getByText('save'))
     expect(getByText('COMMON.GITSYNC.GITREPOSITORYDETAILS')).not.toBeNull()
     expect(getByText('common.git.selectRepoLabel')).not.toBeNull()
     expect(getByText('common.gitSync.selectBranchLabel')).not.toBeNull()
 
-    // @TODO: Make this working, without this there is not real test case here
-    // loadingRepos is coming as true always and because of that
-    // there are not repos in the repo dropdown in GitContextForm component and that in turn is not allowing Start button click
-
-    // const startBtn = getElementByText('start').parentElement
-    // act(() => {
-    //   fireEvent.click(startBtn!)
-    // })
-    // await waitFor(() => expect(afterSave).toBeCalledTimes(1))
-    // expect(afterSave).toBeCalledWith(initialPipelineCreateData, {
-    //   repoIdentfier: initialPipelineCreateData.repo,
-    //   branch: initialPipelineCreateData.branch
-    // })
-
-    const cancelBtn = getByText('cancel').parentElement
+    const startBtn = getByText('save').parentElement
     act(() => {
-      fireEvent.click(cancelBtn!)
+      fireEvent.click(startBtn!)
     })
-    await waitFor(() => expect(closeModal).toBeCalledTimes(1))
+
+    await waitFor(() => expect(afterSave).toHaveBeenCalledTimes(1))
+    expect(afterSave).toBeCalledWith(
+      {
+        identifier: 'pipeline1',
+        name: 'Pipeline 1',
+        description: 'abc'
+      },
+      {
+        repoIdentifier: 'identifier',
+        branch: 'master'
+      }
+    )
   })
 })

@@ -1,4 +1,4 @@
-import { isNull, isUndefined, omitBy, isEmpty, get, set } from 'lodash-es'
+import { isNull, isUndefined, omitBy, isEmpty, get, set, flatten } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
 import type { SelectOption } from '@wings-software/uicore'
 import type { PipelineInfoConfig, ConnectorInfoDTO, ConnectorResponse, ManifestConfigWrapper } from 'services/cd-ng'
@@ -922,44 +922,89 @@ export const parseArtifactsManifests = ({
   if (inputSetTemplateYamlObj?.pipeline && isManifest && manifestType) {
     let appliedArtifact
     const stagesManifests = inputSetTemplateYamlObj.pipeline.stages?.map((stageObj: any) => {
-      // shows manifests matching manifest type + manifest overrides from their references
-      const filteredManifests = getFilteredManifestsWithOverrides({
-        stageObj,
-        manifestType,
-        stages: inputSetTemplateYamlObj.pipeline.stages
-      })
-
-      if (stageId && artifactRef) {
-        const newAppliedArtifact = filteredManifests?.find(
-          (manifestObj: any) => manifestObj?.manifest?.identifier === artifactRef
-        )?.manifest
-        if (newAppliedArtifact) {
-          appliedArtifact = newAppliedArtifact
-        }
-      }
-
-      if (filteredManifests?.length) {
-        const filteredStageObj = { ...stageObj }
-        // adding all manifests to serviceDefinition for UI to render in SelectArtifactModal
-        if (filteredStageObj.stage.spec.serviceConfig?.serviceDefinition?.spec?.manifests) {
-          filteredStageObj.stage.spec.serviceConfig.serviceDefinition.spec.manifests = filteredManifests
-        } else {
-          filteredStageObj.stage.spec.serviceConfig.serviceDefinition = {
-            spec: {
-              manifests: filteredManifests
+      if (stageObj.parallel) {
+        return stageObj.parallel.map((parStg: any) => {
+          const filteredManifests = getFilteredManifestsWithOverrides({
+            stageObj: parStg,
+            manifestType,
+            stages: inputSetTemplateYamlObj.pipeline.stages
+          })
+          if (stageId && artifactRef) {
+            const newAppliedArtifact = filteredManifests?.find(
+              (manifestObj: any) => manifestObj?.manifest?.identifier === artifactRef
+            )?.manifest
+            if (newAppliedArtifact) {
+              appliedArtifact = newAppliedArtifact
             }
           }
+          if (filteredManifests?.length) {
+            const filteredStageObj = { ...parStg }
+            // adding all manifests to serviceDefinition for UI to render in SelectArtifactModal
+            if (filteredStageObj.stage.spec.serviceConfig?.serviceDefinition?.spec?.manifests) {
+              filteredStageObj.stage.spec.serviceConfig.serviceDefinition.spec.manifests = filteredManifests
+            } else {
+              filteredStageObj.stage.spec.serviceConfig.serviceDefinition = {
+                spec: {
+                  manifests: filteredManifests
+                }
+              }
+            }
+            return filteredStageObj
+          }
+        })
+      } else {
+        // shows manifests matching manifest type + manifest overrides from their references
+        const filteredManifests = getFilteredManifestsWithOverrides({
+          stageObj,
+          manifestType,
+          stages: inputSetTemplateYamlObj.pipeline.stages
+        })
+        if (stageId && artifactRef) {
+          const newAppliedArtifact = filteredManifests?.find(
+            (manifestObj: any) => manifestObj?.manifest?.identifier === artifactRef
+          )?.manifest
+          if (newAppliedArtifact) {
+            appliedArtifact = newAppliedArtifact
+          }
         }
-        return filteredStageObj
+        if (filteredManifests?.length) {
+          const filteredStageObj = { ...stageObj }
+          // adding all manifests to serviceDefinition for UI to render in SelectArtifactModal
+          if (filteredStageObj.stage.spec.serviceConfig?.serviceDefinition?.spec?.manifests) {
+            filteredStageObj.stage.spec.serviceConfig.serviceDefinition.spec.manifests = filteredManifests
+          } else {
+            filteredStageObj.stage.spec.serviceConfig.serviceDefinition = {
+              spec: {
+                manifests: filteredManifests
+              }
+            }
+          }
+          return filteredStageObj
+        }
       }
     })
-
-    return { appliedArtifact, data: stagesManifests?.filter((stage: Record<string, unknown>) => !isUndefined(stage)) }
+    const stageManifests = flatten(stagesManifests)
+    return {
+      appliedArtifact,
+      data: stageManifests?.filter((stage: Record<string, unknown>) => !isUndefined(stage))
+    }
   } else if (inputSetTemplateYamlObj?.pipeline && artifactType) {
     // todo
     return {}
   }
   return {}
+}
+
+const getFilteredStage = (pipelineObj: any, stageId: string): any => {
+  let filteredStage
+  for (const item of pipelineObj) {
+    if (Array.isArray(item.parallel)) {
+      filteredStage = getFilteredStage(item.parallel, stageId)
+    } else if (item && item.stage && item.stage.identifier === stageId) {
+      filteredStage = item
+    }
+  }
+  return filteredStage
 }
 
 export const filterArtifact = ({
@@ -973,7 +1018,8 @@ export const filterArtifact = ({
   artifactId: any
   isManifest: boolean
 }): any => {
-  const filteredStage = (runtimeData || []).find((item: any) => item?.stage?.identifier === stageId)
+  const filteredStage = getFilteredStage(runtimeData, stageId)
+  //(runtimeData || []).find((item: any) => item?.stage?.identifier === stageId)
   if (isManifest) {
     return (
       filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests.find(
@@ -1180,6 +1226,34 @@ const getManifestTableItem = ({
     isStageOverrideManifest
   }
 }
+
+const getManifests = (pipelineObj: any, stageId: string): any => {
+  let manifestArr
+  for (const item of pipelineObj) {
+    if (Array.isArray(item.parallel)) {
+      manifestArr = getManifests(item.parallel, stageId)
+    } else if (item && item.stage && item.stage.identifier === stageId) {
+      manifestArr = item?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
+    }
+    if (manifestArr) {
+      return manifestArr
+    }
+  }
+}
+
+const getPipelineOverrideManifests = (pipelineObj: any, stageId: string): any => {
+  let manifestArr
+  for (const item of pipelineObj) {
+    if (Array.isArray(item.parallel)) {
+      manifestArr = getPipelineOverrideManifests(item.parallel, stageId)
+    } else if (item && item.stage && item.stage.identifier === stageId) {
+      manifestArr = item?.stage?.spec?.serviceConfig?.stageOverrides?.manifests
+    }
+    if (manifestArr) {
+      return manifestArr
+    }
+  }
+}
 // data is already filtered w/ correct manifest
 export const getArtifactTableDataFromData = ({
   data,
@@ -1199,11 +1273,8 @@ export const getArtifactTableDataFromData = ({
   const artifactTableData: artifactTableItem[] = []
 
   if (appliedArtifact && stageId && isManifest) {
-    const pipelineManifests = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === stageId)?.stage
-      ?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
-    // applied artifact is a manifest override
-    const stageOverridesManifests = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === stageId)
-      ?.stage?.spec?.serviceConfig?.stageOverrides?.manifests
+    const pipelineManifests = getManifests(pipeline.stages, stageId)
+    const stageOverridesManifests = getPipelineOverrideManifests(pipeline.stages, stageId)
 
     const { location } = getDetailsFromPipeline({
       manifests: pipelineManifests,
@@ -1234,12 +1305,8 @@ export const getArtifactTableDataFromData = ({
     data?.forEach((stageObject: any) => {
       const dataStageId = stageObject?.stage?.identifier
       // pipelineManifests used to find location from pipeline
-      const pipelineManifests = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === dataStageId)
-        ?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
-      const stageOverridesManifests = pipeline?.stages?.find(
-        (stageObj: any) => stageObj?.stage?.identifier === dataStageId
-      )?.stage?.spec?.serviceConfig?.stageOverrides?.manifests
-
+      const pipelineManifests = getManifests(pipeline?.stages, dataStageId)
+      const stageOverridesManifests = getPipelineOverrideManifests(pipeline.stages, dataStageId)
       const { manifests = [] } = stageObject?.stage?.spec?.serviceConfig?.serviceDefinition?.spec || {}
       manifests.forEach((manifestObj: any) => {
         const { location, chartVersion } = getDetailsFromPipeline({
@@ -1331,7 +1398,8 @@ export function updatePipelineManifest({
   newArtifact: any
 }): any {
   const newPipelineObj = { ...pipeline }
-  const pipelineStages = newPipelineObj?.stages.find((item: any) => item.stage.identifier === stageIdentifier)
+  const pipelineStages = getFilteredStage(newPipelineObj?.stages, stageIdentifier)
+  // const pipelineStages = newPipelineObj?.stages.find((item: any) => item.stage.identifier === stageIdentifier)
   const stageArtifacts = pipelineStages?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
   const stageArtifactIdx = pipelineStages?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.findIndex(
     (item: any) => item.manifest?.identifier === selectedArtifact?.identifier

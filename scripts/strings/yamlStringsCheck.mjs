@@ -28,11 +28,8 @@ const values = {
 function validateReferences(str, path, restricedModules = [], isOld) {
   const REFERENCE_REGEX1 = /\{\{\s*\$\.(.+?)\s*\}\}/g
 
-  // REFERENCE_REGEX.lastIndex = 0
-
   let match = null
 
-  // console.log(REFERENCE_REGEX1.exec(str))
   while ((match = REFERENCE_REGEX1.exec(str))) {
     const [, ref] = match
 
@@ -46,6 +43,11 @@ function validateReferences(str, path, restricedModules = [], isOld) {
 
     if (typeof refValue !== 'string') {
       errors.push([chalk.red('error'), `"${path}" has incorrect reference: "${ref}"`])
+    } else if (refValue.match(REFERENCE_REGEX)) {
+      errors.push([
+        chalk.red('error'),
+        `"${path}" is referring "${ref}" which in turn is a reference to "${refValue}". This is not allowed`
+      ])
     }
   }
 }

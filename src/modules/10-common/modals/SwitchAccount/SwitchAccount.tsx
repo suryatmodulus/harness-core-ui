@@ -3,7 +3,7 @@ import { Container, Text, Button, ButtonVariation } from '@wings-software/uicore
 import type { Column, Renderer, CellProps } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
-
+import AppStorage from 'framework/utils/AppStorage'
 import { useGetUser, useSetDefaultAccountForCurrentUser, RestResponseUser, useNewSwitchAccount } from 'services/portal'
 import type { User, Account } from 'services/portal'
 
@@ -55,6 +55,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
         const response = await switchAccount({ accountId: account.uuid })
         if (response.resource) {
           // this needs to be a server-redirect to support cluster isolation
+          AppStorage.set('acctId', account.uuid)
           window.location.href = `${window.location.pathname}#${routes.toHome({ accountId: account.uuid })}`
         } else {
           showError(getString('common.switchAccountError'))

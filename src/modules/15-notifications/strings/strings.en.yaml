@@ -41,3 +41,6 @@ labelPagerDuty: PagerDuty Integration Key
 labelMSTeam: Microsoft Teams Webhook URL
 labelMS: Microsoft Teams
 msTestSuccess: Microsoft Teams test is successfully executed
+eventRequired: Event is required
+invalidPagerDutyKey: Invalid pagerduty key
+invalidWebhookURL: Invalid Webhook URL

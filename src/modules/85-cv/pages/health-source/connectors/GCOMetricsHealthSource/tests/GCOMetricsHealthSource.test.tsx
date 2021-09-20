@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { cloneDeep } from 'lodash-es'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
-import { render, waitFor, fireEvent } from '@testing-library/react'
+import { render, waitFor, fireEvent, act } from '@testing-library/react'
 import { Container } from '@wings-software/uicore'
 import { fillAtForm, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -261,6 +261,45 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
       }
     } as UseGetReturn<any, any, any, any>)
   })
+
+  test('Should show please Enter Query when ther is no query in the text area', async () => {
+    const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
+    getMetricPackSpy.mockReturnValue({
+      data: { resource: [{ identifier: 'Errors' }, { identifier: 'Performance' }] }
+    } as UseGetReturn<any, any, any, any>)
+
+    const sampleDataSpy = jest.spyOn(cvService, 'useGetStackdriverSampleData')
+    const mutateMock = jest.fn().mockReturnValue(
+      Promise.resolve({
+        ...MockValidationResponse
+      })
+    )
+
+    sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown, cancel: jest.fn() as unknown } as UseMutateReturn<
+      any,
+      any,
+      any,
+      any,
+      any
+    >)
+    const { container, getByText } = render(<WrapperComponent onSubmit={jest.fn()} data={cloneDeep(DefaultObject)} />)
+    await setFieldValue({ container, type: InputTypes.TEXTAREA, fieldId: FieldNames.QUERY, value: MockQuery })
+
+    const fetchRecordsButton = await waitFor(() => getByText('cv.monitoringSources.gcoLogs.fetchRecords'))
+    expect(fetchRecordsButton).not.toBeNull()
+    act(() => {
+      fireEvent.click(fetchRecordsButton)
+    })
+    await waitFor(() => {
+      fireEvent.change(container.querySelector('textarea')!, { target: { value: '' } })
+    })
+
+    expect(container.querySelector('[data-icon="fullscreen"]')).not.toBeNull()
+
+    expect(container.querySelector('[data-icon="main-notes"]')).not.toBeNull()
+    expect(getByText('cv.monitoringSources.gco.mapMetricsToServicesPage.enterQueryForValidation')).not.toBeNull()
+  })
+
   test('Ensure validation api is called on query input', async () => {
     const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
     getMetricPackSpy.mockReturnValue({
@@ -281,21 +320,26 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
       any,
       any
     >)
-    const { container } = render(<WrapperComponent onSubmit={jest.fn()} data={cloneDeep(DefaultObject)} />)
+    const { container, getByText } = render(<WrapperComponent onSubmit={jest.fn()} data={cloneDeep(DefaultObject)} />)
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
     await setFieldValue({ container, type: InputTypes.TEXTAREA, fieldId: FieldNames.QUERY, value: MockQuery })
 
-    jest.advanceTimersByTime(2000)
+    expect(getByText('cv.monitoringSources.gcoLogs.submitQueryToSeeRecords')).toBeDefined()
+
+    const fetchRecordsButton = await waitFor(() => getByText('cv.monitoringSources.gcoLogs.fetchRecords'))
+    expect(fetchRecordsButton).not.toBeNull()
+    expect(getByText('cv.monitoringSources.gcoLogs.submitQueryToSeeRecords')).not.toBeNull()
+    act(() => {
+      fireEvent.click(fetchRecordsButton)
+    })
+
     await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(1))
     expect(container.querySelector('[class*="highcharts"]')).not.toBeNull()
 
-    const viewQuery = container.querySelector('[data-name="viewQuery"]')
-    if (!viewQuery) {
-      throw new Error('View query button not rendered.')
-    }
-
-    fireEvent.click(viewQuery)
+    act(() => {
+      fireEvent.click(container.querySelector('[data-icon="fullscreen"]')!)
+    })
     await waitFor(() => expect(document.body.querySelector('[class*="monaco-editor"]')).not.toBeNull())
     const changeButton = document.body.querySelector('button.monaco-editor-onChangebutton')
     if (!changeButton) {
@@ -370,7 +414,11 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     // error case
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
     await setFieldValue({ container, type: InputTypes.TEXTAREA, fieldId: FieldNames.QUERY, value: MockQuery })
-
+    const fetchRecordsButton = await waitFor(() => getByText('cv.monitoringSources.gcoLogs.fetchRecords'))
+    expect(fetchRecordsButton).not.toBeNull()
+    act(() => {
+      fireEvent.click(fetchRecordsButton)
+    })
     await waitFor(() => expect(getByText('mock error')).not.toBeNull())
     expect(container.querySelector('[class*="highcharts"]')).toBeNull()
 
@@ -395,6 +443,9 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
       type: InputTypes.TEXTAREA,
       fieldId: FieldNames.QUERY,
       value: '{ "dsadd": "dsfs" }'
+    })
+    act(() => {
+      fireEvent.click(fetchRecordsButton)
     })
     await waitFor(() => expect(getByText('cv.monitoringSources.gco.mapMetricsToServicesPage.noDataForQuery')))
 
@@ -496,6 +547,12 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
       value: MockQueryWithGroupBy
     })
 
+    const fetchRecordsButton = await waitFor(() => getByText('cv.monitoringSources.gcoLogs.fetchRecords'))
+    expect(fetchRecordsButton).not.toBeNull()
+    act(() => {
+      fireEvent.click(fetchRecordsButton)
+    })
+
     // assign a query with gruopByFields and ensure validation is there
     await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(1))
     expect(container.querySelector('[class*="highcharts"]')).not.toBeNull()
@@ -509,6 +566,9 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
       type: InputTypes.TEXTAREA,
       fieldId: FieldNames.QUERY,
       value: MockQuery
+    })
+    act(() => {
+      fireEvent.click(fetchRecordsButton)
     })
     await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(2))
     expect(container.querySelector('[class*="highcharts"]')).not.toBeNull()

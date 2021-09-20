@@ -51,7 +51,11 @@ const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepC
       {enableFields.includes('spec.imagePullPolicy') && (
         <MultiTypeSelectField
           name="spec.imagePullPolicy"
-          label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.pullLabel')}</Text>}
+          label={
+            <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'imagePullPolicy' }}>
+              {getString('pipelineSteps.pullLabel')}
+            </Text>
+          }
           multiTypeInputProps={{
             selectItems: GetImagePullPolicyOptions(),
             placeholder: getString('select'),
@@ -70,7 +74,11 @@ const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepC
       {enableFields.includes('spec.shell') && (
         <MultiTypeSelectField
           name="spec.shell"
-          label={<Text margin={{ bottom: 'xsmall' }}>{getString('common.shell')}</Text>}
+          label={
+            <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'shell' }}>
+              {getString('common.shell')}
+            </Text>
+          }
           multiTypeInputProps={{
             selectItems: GetImagePullPolicyOptions(),
             placeholder: getString('select'),
@@ -87,7 +95,11 @@ const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepC
         />
       )}
       <MultiTypeTextField
-        label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipeline.stepCommonFields.runAsUser')}</Text>}
+        label={
+          <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'runAsUser' }}>
+            {getString('pipeline.stepCommonFields.runAsUser')}
+          </Text>
+        }
         name="spec.runAsUser"
         multiTextInputProps={{
           multiTextInputProps: { expressions },

@@ -105,7 +105,7 @@ import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDEx
 import { CDExecutionSummary } from './components/CDExecutionSummary/CDExecutionSummary'
 import { CDStageDetails } from './components/CDStageDetails/CDStageDetails'
 import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputForm'
-import GitOpsModalContainer from './pages/git-ops-modal-container/GitOpsModalContainer'
+import GitOpsModalContainer from './pages/gitops-providers-list/GitOpsProvidersList'
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',

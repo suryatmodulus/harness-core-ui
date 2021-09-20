@@ -1086,7 +1086,7 @@ const routes = {
       `/home/orgs/${orgIdentifier}/projects/${projectIdentifier}/details`
   ),
   toProjects: withAccountId(() => '/home/projects'),
-  toLandingDashboard: withAccountId(() => '/home/dashboard'),
+  toLandingDashboard: withAccountId(() => '/home/get-started'),
   /********************************************************************************************************************/
   toCE: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier

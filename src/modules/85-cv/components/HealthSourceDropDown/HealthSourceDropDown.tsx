@@ -1,16 +1,23 @@
 import React, { useMemo } from 'react'
-import { IconName, Select, SelectOption } from '@wings-software/uicore'
+import { Select, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import classNames from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetAllHealthSourcesForServiceAndEnvironment } from 'services/cv'
-import { getIconBySourceType } from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable.utils'
 import type { HealthSourceDropDownProps } from './HealthSourceDropDown.types'
+import { VerificationType } from './HealthSourceDropDown.constants'
+import { getDropdownOptions } from './HealthSourceDropDown.utils'
 import css from './HealthSourceDropDown.module.scss'
 
 export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Element {
-  const { onChange, serviceIdentifier, environmentIdentifier, className, verificationType = 'TIME_SERIES' } = props
+  const {
+    onChange,
+    serviceIdentifier,
+    environmentIdentifier,
+    className,
+    verificationType = VerificationType.TIME_SERIES
+  } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
@@ -19,31 +26,9 @@ export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Elem
   })
 
   const healthSources: SelectOption[] = useMemo(() => {
-    if (loading) {
-      return [{ value: '', label: getString('loading') }]
-    }
-    if (error) {
-      return []
-    }
-
-    const options = []
-    for (const source of data?.resource || []) {
-      if (source?.identifier && source?.name && source?.verificationType === verificationType) {
-        options.push({
-          label: source.name,
-          value: source.identifier as string,
-          icon: { name: getIconBySourceType(source?.type as string) as IconName }
-        })
-      }
-    }
-
-    if (options.length > 1) {
-      options.unshift({ label: getString('all'), value: 'all' })
-    }
-
-    return options
+    return getDropdownOptions({ loading, error, data, verificationType }, getString)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.resource, error, loading])
+  }, [data, error, loading, verificationType])
 
   return (
     <Select

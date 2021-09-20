@@ -6,5 +6,7 @@ declare const styles: {
   readonly leftHandle: string
   readonly rightHandle: string
   readonly magnifyingGlass: string
+  readonly card: string
+  readonly reverseCard: string
 }
 export default styles

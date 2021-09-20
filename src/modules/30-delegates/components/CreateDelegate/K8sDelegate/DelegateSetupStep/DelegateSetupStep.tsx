@@ -32,7 +32,7 @@ import { useToaster } from '@common/exports'
 
 import type { StepK8Data } from '@delegates/DelegateInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 
 import { DelegateSize } from '@delegates/constants'
 import css from './DelegateSetupStep.module.scss'
@@ -238,7 +238,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
                   <Layout.Horizontal className={css.baseContainer}>
                     <Layout.Vertical className={css.leftPanel}>
                       <div className={css.formGroup}>
-                        <AddDescriptionAndTagsWithIdentifier
+                        <AddDescriptionAndKVTagsWithIdentifier
                           identifierProps={{
                             inputLabel: getString('delegate.delegateName')
                           }}

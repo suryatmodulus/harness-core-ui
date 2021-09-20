@@ -18,10 +18,9 @@
 
   .formAndMessageContainer {
     height: 100%;
-    display: grid;
-    grid-template-columns: 30% 1fr;
-    grid-template-rows: 1fr 35px;
-    grid-gap: var(--spacing-large) calc(2 * var(--spacing-large));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .formContainer {
@@ -32,9 +31,8 @@
   }
 
   .buttonContainer {
-    justify-self: flex-end;
-    grid-column-start: 1;
-    grid-column-end: 3;
+    justify-content: flex-end;
+    display: flex;
     button:first-child {
       margin-right: var(--spacing-small);
     }

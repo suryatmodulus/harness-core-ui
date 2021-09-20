@@ -2,23 +2,24 @@ import React from 'react'
 import cx from 'classnames'
 import { Heading, Text, Container, Color, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { TestReportSummary } from 'services/ti-service'
-import { TestStatus } from './TestsUtils'
 import css from './BuildTests.module.scss'
 
 interface TestsExecutionResultProps {
   totalTests: number
-  tests: NonNullable<TestReportSummary['tests']>
+  failedTests: number
+  successfulTests: number
+  skippedTests: number
 }
 
 const NUMBER_OF_ITEMS_TO_FILL_THE_SPACE = 330
 
-export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ totalTests, tests }) => {
+export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({
+  totalTests,
+  failedTests,
+  successfulTests,
+  skippedTests
+}) => {
   const { getString } = useStrings()
-
-  const failedTests = tests.filter(({ status }) => status === TestStatus.FAILED || status === TestStatus.ERROR).length
-  const skippedTests = tests?.filter(({ status }) => status === TestStatus.SKIPPED).length
-  const passedTests = totalTests - failedTests - skippedTests
 
   const amountOfEmptyItemsToRender = NUMBER_OF_ITEMS_TO_FILL_THE_SPACE - totalTests
 
@@ -42,7 +43,7 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ tota
           <Text font={{ weight: 'semi-bold' }} style={{ fontSize: 10 }}>
             {getString('pipeline.testsReports.totalWithColon')} {totalTests} |{' '}
             {getString('pipeline.testsReports.failedWithColon')} {failedTests} |{' '}
-            {getString('pipeline.testsReports.successWithColon')} {passedTests}{' '}
+            {getString('pipeline.testsReports.successWithColon')} {successfulTests}{' '}
             {skippedTests ? `| ${getString('pipeline.testsReports.skippedWithColon')} ${skippedTests}` : null}
           </Text>
           <Container flex>
@@ -78,10 +79,14 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({ tota
         </Container>
         <Container className={css.graphContainer}>
           <ul className={css.graph}>
-            {tests?.map((test, index) => (
-              <li key={(test.name as string) + index} data-status={test.status}>
-                <Text inline /*tooltip={test.name} TODO: Performance issue, disable for now */>&nbsp;</Text>
-              </li>
+            {Array.from(Array(failedTests)).map((_, index) => (
+              <li key={index} data-status="failed"></li>
+            ))}
+            {Array.from(Array(successfulTests)).map((_, index) => (
+              <li key={index}></li>
+            ))}
+            {Array.from(Array(skippedTests)).map((_, index) => (
+              <li key={index} data-status="skipped"></li>
             ))}
             {amountOfEmptyItemsToRender > -1 &&
               // eslint-disable-next-line prefer-spread

@@ -51,15 +51,19 @@ $header-height: 80px;
     min-width: 0;
     .cardHeader {
       margin-bottom: 12px !important;
+      color: #4f5162 !important;
+      font-weight: 500 !important;
+      font-size: 12px !important;
+      letter-spacing: 0.2px;
     }
     .textAndRate {
       display: flex;
       align-items: flex-end;
       .cardText {
-        font-size: 25px !important;
         font-weight: 600 !important;
         line-height: 1;
-        color: var(--black-color-2) !important;
+        color: var(--grey-800) !important;
+        font-size: 28px !important;
       }
     }
     .chartWrap {
@@ -85,4 +89,11 @@ $header-height: 80px;
 
 .hoverService {
   cursor: pointer;
+}
+
+.rangeSelectorHeader {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  color: var(--grey-1000) !important;
+  letter-spacing: 0.5px;
 }

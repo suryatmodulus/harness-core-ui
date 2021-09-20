@@ -448,7 +448,6 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
 
   renderStep(props: StepProps<K8SDirectServiceStep>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, factory, customStepProps, readonly } = props
-
     if (stepViewType === StepViewType.InputVariable) {
       return (
         <K8sServiceSpecVariablesForm

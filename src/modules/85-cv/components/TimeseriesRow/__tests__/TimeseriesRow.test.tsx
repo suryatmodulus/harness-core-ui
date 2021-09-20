@@ -56,7 +56,7 @@ describe('TimeseriesRow', () => {
 
   test('useTimeseriesDetailsModal returns Dialog handler', () => {
     const timestamp = 1607094947608
-    const { result } = renderHook(() => useTimeseriesDetailsModal('transaction1', 'metric1'))
+    const { result } = renderHook(() => useTimeseriesDetailsModal('transaction1', 'metric1', 'APP_DYNAMICS'))
     const r: any = result.current({
       name: 'testNode',
       series: [

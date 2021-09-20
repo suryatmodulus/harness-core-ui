@@ -7,6 +7,7 @@ import { LogAnalysisRow } from './components/LogAnalysisRow/LogAnalysisRow'
 import { getClusterTypes } from './LogAnalysis.utils'
 import type { LogAnalysisProps } from './LogAnalysis.types'
 import ClusterChart from './components/ClusterChart/ClusterChart'
+import { VerificationType } from '../HealthSourceDropDown/HealthSourceDropDown.constants'
 import styles from './LogAnalysis.module.scss'
 
 export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
@@ -17,7 +18,6 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
     goToPage,
     logsLoading,
     clusterChartLoading,
-    selectedClusterType,
     setSelectedClusterType,
     serviceIdentifier,
     environmentIdentifier,
@@ -74,7 +74,6 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
       ) : null}
       <Container className={styles.filters}>
         <Select
-          value={selectedClusterType}
           items={getClusterTypes(getString)}
           defaultSelectedItem={getClusterTypes(getString)[0]}
           className={styles.logsAnalysisFilters}
@@ -87,7 +86,7 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
             className={styles.logsAnalysisFilters}
             serviceIdentifier={serviceIdentifier}
             environmentIdentifier={environmentIdentifier}
-            verificationType={'LOG'}
+            verificationType={VerificationType.LOG}
           />
         ) : null}
       </Container>

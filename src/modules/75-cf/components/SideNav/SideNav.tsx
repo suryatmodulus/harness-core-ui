@@ -10,7 +10,6 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useQueryParams } from '@common/hooks'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
-import { isFFPipelinesEnabled } from '@cf/utils/pipelinesEnabled'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
 import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -25,7 +24,7 @@ export default function CFSideNav(): React.ReactElement {
   const { trial } = useQueryParams<{ trial?: boolean }>()
   const events = useFeatureFlagTelemetry()
 
-  const { FF_GITSYNC } = useFeatureFlags()
+  const { FF_GITSYNC, FF_PIPELINE } = useFeatureFlags()
 
   /* istanbul ignore next */
   const projectSelectHandler: ProjectSelectorProps['onSelect'] = data => {
@@ -67,7 +66,7 @@ export default function CFSideNav(): React.ReactElement {
           />
           <SidebarLink label={getString('environments')} to={withActiveEnvironment(routes.toCFEnvironments(params))} />
 
-          {isFFPipelinesEnabled() && (
+          {FF_PIPELINE && (
             <SidebarLink
               label={getString('pipelines')}
               to={withActiveEnvironment(routes.toPipelines({ ...params, module: 'cf' }))}
@@ -91,6 +90,10 @@ export default function CFSideNav(): React.ReactElement {
                     to={routes.toConnectors({ ...params, module: 'cf' })}
                   />
                   <SidebarLink label={getString('common.secrets')} to={routes.toSecrets({ ...params, module: 'cf' })} />
+                  <SidebarLink
+                    label={getString('gitManagement')}
+                    to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier, module: 'cf' })}
+                  />
                 </>
               )}
             </Layout.Vertical>

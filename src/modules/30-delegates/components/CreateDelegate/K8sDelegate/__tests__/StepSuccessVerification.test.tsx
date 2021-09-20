@@ -5,10 +5,10 @@ import StepSuccessVerifcation from '../StepSuccessVerification/StepSuccessVerifc
 
 const onClose = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegatesHeartbeatDetails: jest.fn().mockImplementation(() => {
+  useGetDelegatesHeartbeatDetailsV2: jest.fn().mockImplementation(() => {
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetDelegatesInitializationDetails: jest.fn().mockImplementation(() => {
+  useGetDelegatesInitializationDetailsV2: jest.fn().mockImplementation(() => {
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   })
 }))

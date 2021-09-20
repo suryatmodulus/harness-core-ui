@@ -324,7 +324,6 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     ) {
       delete values.spec.instanceSelection.spec.percentage
     }
-
     if (
       get(values, 'spec.instanceSelection.type') === InstanceTypes.Percentage &&
       has(values, 'spec.instanceSelection.spec.count')
@@ -398,7 +397,6 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     if (isEmpty(errors.spec)) {
       delete errors.spec
     }
-
     return errors
   }
   protected defaultValues: K8sScaleData = {

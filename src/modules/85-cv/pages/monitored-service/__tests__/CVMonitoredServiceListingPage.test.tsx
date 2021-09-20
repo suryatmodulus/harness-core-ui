@@ -5,6 +5,7 @@ import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
 import CVMonitoredServiceListingPage from '../CVMonitoredServiceListingPage'
+import { monitoredServicelist, mockDeleteData } from './MonitoreService.mock'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps }),
@@ -26,7 +27,13 @@ jest.mock('@cv/components/ContextMenuActions/ContextMenuActions', () => (props: 
 
 describe('Monitored Service list', () => {
   beforeAll(() => {
-    jest.spyOn(cvServices, 'useDeleteMonitoredService').mockImplementation(() => ({} as any))
+    jest.spyOn(cvServices, 'useDeleteMonitoredService').mockImplementation(
+      () =>
+        ({
+          data: {},
+          mutate: jest.fn()
+        } as any)
+    )
     jest.spyOn(cvServices, 'useGetMonitoredServiceListEnvironments').mockImplementation(
       () =>
         ({
@@ -37,63 +44,14 @@ describe('Monitored Service list', () => {
       () =>
         ({
           data: {
-            data: {
-              totalPages: 1,
-              totalItems: 3,
-              pageItemCount: 3,
-              pageSize: 10,
-              content: [
-                {
-                  name: 'delete me test',
-                  identifier: 'delete_me_test',
-                  serviceRef: 'AppDService',
-                  serviceName: 'ServiceName 1',
-                  environmentName: 'EnvironmentName 1',
-                  environmentRef: 'new_env_test',
-                  type: 'Application',
-                  healthMonitoringEnabled: true,
-                  historicalTrend: {
-                    healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
-                  },
-                  currentHealthScore: { riskValue: 10, riskStatus: 'LOW' }
-                },
-                {
-                  name: 'Monitoring service 102 new',
-                  identifier: 'Monitoring_service_101',
-                  serviceRef: 'AppDService101',
-                  environmentRef: 'AppDTestEnv1',
-                  serviceName: 'ServiceName 2',
-                  environmentName: 'EnvironmentName 2',
-                  type: 'Application',
-                  healthMonitoringEnabled: true,
-                  historicalTrend: {
-                    healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
-                  },
-                  tags: { tag1: '', tag2: '', tag3: '' },
-                  currentHealthScore: { riskValue: 50, riskStatus: 'MEDIUM' }
-                },
-                {
-                  name: 'new monitored service 101',
-                  identifier: 'dadadasd',
-                  serviceRef: 'test_service',
-                  environmentRef: 'AppDTestEnv2',
-                  serviceName: 'ServiceName 3',
-                  environmentName: 'EnvironmentName 3',
-                  type: 'Application',
-                  healthMonitoringEnabled: true,
-                  historicalTrend: {
-                    healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
-                  },
-                  currentHealthScore: { riskValue: 90, riskStatus: 'HIGH' }
-                }
-              ],
-              pageIndex: 0,
-              empty: false
-            },
+            ...monitoredServicelist,
             loading: false,
             refetch: jest.fn(),
             error: {}
-          }
+          },
+          loading: false,
+          refetch: jest.fn(),
+          error: {}
         } as any)
     )
   })
@@ -161,5 +119,24 @@ describe('Monitored Service list', () => {
     await waitFor(() => expect(getByText('tag1')).toBeDefined())
     await waitFor(() => expect(getByText('tag2')).toBeDefined())
     await waitFor(() => expect(getByText('tag3')).toBeDefined())
+  })
+
+  test('delete flow works correctly', async () => {
+    jest.spyOn(cvServices, 'useListMonitoredService').mockImplementation(
+      () =>
+        ({
+          data: { ...mockDeleteData },
+          loading: false,
+          refetch: jest.fn(),
+          error: {}
+        } as any)
+    )
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredServiceListingPage />
+      </TestWrapper>
+    )
+    fireEvent.click(container.querySelector('.context-menu-mock-delete')!)
+    await waitFor(() => expect(container.querySelectorAll('.body [role="row"]').length).toEqual(2))
   })
 })

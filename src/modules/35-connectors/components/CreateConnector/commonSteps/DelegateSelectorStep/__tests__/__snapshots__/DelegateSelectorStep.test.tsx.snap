@@ -562,6 +562,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
   >
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+      id="delegateSelectorStepTitle"
     >
       delegate.DelegateselectionLabel
     </p>

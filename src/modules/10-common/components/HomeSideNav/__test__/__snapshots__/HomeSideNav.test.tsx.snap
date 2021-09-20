@@ -8,7 +8,7 @@ exports[`HomeSidenav render 1`] = `
     <a
       aria-current="page"
       class="link selected"
-      href="/account/dummy/home/dashboard"
+      href="/account/dummy/home/get-started"
     >
       <p
         class="StyledProps--font StyledProps--main text"

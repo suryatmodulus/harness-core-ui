@@ -410,6 +410,11 @@ export interface ServiceDep {
   service_id?: any
 }
 
+export interface YamlDependency {
+  selector: { ruleName: string }
+  wait: number
+}
+
 export interface ServiceDepTree {
   children?: ServiceDepTree[]
   service?: Service

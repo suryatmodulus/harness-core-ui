@@ -296,7 +296,7 @@ errorHandler:
   tryTheseSuggestions: Try these suggestions
 noRefData: 'No references found'
 references: 'References'
-labelTestConnection: 'Test Connection'
+labelTestConnection: 'Connection Test'
 path: 'Path'
 enableGitSyncPipeline:
   Git Experience allows you to store Harness projects, pipelines, and resources in Git alongside your
@@ -541,3 +541,5 @@ module:
   ce: CCM
   cv: CV
 customPricing: for Custom Pricing
+specified: Specified
+file: File

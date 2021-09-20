@@ -30,7 +30,7 @@ const StaticResourceRenderer = <T extends ResourceHandlerTableData>({
         Cell: ({ row }: CellProps<T>) => {
           return (
             <Button
-              icon="trash"
+              icon="remove-minus"
               minimal
               onClick={() => {
                 onResourceSelectionChange(resourceType, false, [row.original.identifier])

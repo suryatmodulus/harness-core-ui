@@ -16,8 +16,8 @@ import type {
 import routes from '@common/RouteDefinitions'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { RbacResourceGroupTypes } from '@rbac/constants/utils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { isDynamicResourceSelector } from '@rbac/utils/utils'
 import ResourceGroupColumnMenu from './ResourceGroupColumnMenu'
 
 import css from './ResourceGroupList.module.scss'
@@ -71,7 +71,7 @@ const RenderColumnSummary: Renderer<CellProps<ResourceGroupResponse>> = ({ row, 
   const resourceTypeName = (resource: ResourceSelector): string => {
     const label = RbacFactory.getResourceTypeHandler(resource?.resourceType)?.label
     if (label) {
-      if (get(resource, 'type') === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR) {
+      if (isDynamicResourceSelector(get(resource, 'type'))) {
         return getString('rbac.resourceGroup.all', {
           name: getString(label)
         })

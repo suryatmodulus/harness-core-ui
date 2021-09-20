@@ -94,6 +94,7 @@ exports[`test cases for Create Perspective Page should be able to render the Per
           >
             <span
               class="tab"
+              data-tooltip-id="perspectiveBuilder"
             >
               1. Perspective Builder
             </span>
@@ -131,6 +132,7 @@ exports[`test cases for Create Perspective Page should be able to render the Per
           >
             <span
               class="tab"
+              data-tooltip-id="perspectiveReportsAndBudget"
             >
               2. Reports and Budget
             </span>

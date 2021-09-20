@@ -1564,6 +1564,245 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
 </div>
 `;
 
+exports[`Test K8sBlueGreenDeployStep should render inputSet view and test validation 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="formGroup sm"
+    >
+      <div
+        class="bp3-form-group bp3-intent-danger"
+      >
+        <label
+          class="bp3-label"
+          for="timeout"
+        >
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+            style="flex-grow: 1;"
+          >
+            <div
+              class="bp3-input-group bp3-fill"
+            >
+              <input
+                class="bp3-input"
+                name="timeout"
+                placeholder="Enter w/d/h/m/s/ms"
+                type="text"
+                value=""
+              />
+            </div>
+            <span
+              class="bp3-popover-wrapper MultiTypeInput--wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="fixed-input"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+          <div
+            class="bp3-form-helper-text"
+          >
+            <div
+              class="FormError--errorDiv"
+            >
+              <span
+                class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                data-icon="circle-cross"
+              >
+                <svg
+                  height="12"
+                  viewBox="0 0 13 13"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="FormError--error"
+              >
+                validation.timeout10SecMinimum
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="formGroup md"
+    >
+      <div
+        class="bp3-form-group formGroup"
+      >
+        <label
+          class="bp3-label"
+          for="spec.instanceSelection"
+        >
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+          >
+            <div
+              class="bp3-input-group MultiTypeInput--input"
+            >
+              <input
+                class="bp3-input"
+                min="1"
+                placeholder="instanceFieldOptions.instanceHolder"
+                type="number"
+                value="0"
+              />
+            </div>
+            <span
+              class="bp3-popover-wrapper MultiTypeInput--wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="fixed-input"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+          <span
+            class="bp3-popover-wrapper instancePopover"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
+                disabled=""
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  instanceFieldOptions.instanceText
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                  icon="caret-down"
+                >
+                  <svg
+                    data-icon="caret-down"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      caret-down
+                    </desc>
+                    <path
+                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      Errors
+    </p>
+    <pre>
+      {
+  "timeout": "validation.timeout10SecMinimum"
+}
+    </pre>
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
 exports[`Test K8sBlueGreenDeployStep should render variable view 1`] = `
 <div>
   <div
@@ -2007,6 +2246,426 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
             >
               <input
                 checked=""
+                name="spec.skipSteadyStateCheck"
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              pipelineSteps.skipSteadyStateCheck
+            </label>
+            <span
+              class="bp3-popover-wrapper MultiTypeInput--wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="fixed-input"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+          <span
+            class="Tooltip--acenter tooltip"
+            data-tooltip-id="k8Scale_spec.skipSteadyStateCheck"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instance type instances 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="formGroup lg"
+    >
+      <div
+        class="InputWithIdentifier--txtNameContainer TextInput--main"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            ID
+            :
+          </p>
+          <span
+            class="bp3-popover-wrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <div
+                class="bp3-editable-text InputWithIdentifier--idValue"
+                tabindex="0"
+              >
+                <span
+                  class="bp3-editable-text-content"
+                  style="height: 1px; line-height: 1px; min-width: 0;"
+                >
+                  Test_A
+                </span>
+              </div>
+            </span>
+          </span>
+          <span
+            class="bp3-icon StyledProps--main"
+            data-icon="Edit"
+            style="vertical-align: middle; cursor: pointer;"
+          >
+            <svg
+              height="12"
+              viewBox="0 0 12 12"
+              width="12"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                  stroke="#555770"
+                />
+                <path
+                  d="M6.583 5.146l2.063-2.063"
+                  opacity="0.3"
+                  stroke="#606170"
+                />
+              </g>
+            </svg>
+          </span>
+        </div>
+        <div
+          class="bp3-form-group"
+        >
+          <label
+            class="bp3-label"
+            for="name"
+          >
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Scale_name"
+            >
+              name
+            </span>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="name"
+                type="text"
+                value="Test A"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="formGroup sm"
+    >
+      <div
+        class="bp3-form-group duration"
+      >
+        <label
+          class="bp3-label"
+          for="timeout"
+        >
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+            style="flex-grow: 1;"
+          >
+            <div
+              class="bp3-input-group bp3-fill"
+            >
+              <input
+                class="bp3-input"
+                name="timeout"
+                placeholder="Enter w/d/h/m/s/ms"
+                type="text"
+                value="10m"
+              />
+            </div>
+            <span
+              class="bp3-popover-wrapper MultiTypeInput--wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="fixed-input"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="divider"
+    />
+    <div
+      class="formGroup md"
+    >
+      <div
+        class="bp3-form-group formGroup"
+      >
+        <label
+          class="bp3-label"
+          for="spec.instanceSelection"
+        >
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+          >
+            <div
+              class="bp3-input-group MultiTypeInput--input"
+            >
+              <input
+                class="bp3-input"
+                min="1"
+                placeholder="instanceFieldOptions.instanceHolder"
+                type="number"
+                value="10"
+              />
+            </div>
+            <span
+              class="bp3-popover-wrapper MultiTypeInput--wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="fixed-input"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+          <span
+            class="bp3-popover-wrapper instancePopover"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <button
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  instanceFieldOptions.instanceText
+                </span>
+                <span
+                  class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                  icon="caret-down"
+                >
+                  <svg
+                    data-icon="caret-down"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      caret-down
+                    </desc>
+                    <path
+                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="formGroup md"
+    >
+      <div
+        class="bp3-form-group"
+      >
+        <label
+          class="bp3-label"
+          for="spec.workload"
+        >
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Scale_spec.workload"
+          >
+            pipelineSteps.workload
+          </span>
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+          >
+            <div
+              class="bp3-input-group MultiTypeInput--input"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="spec.workload"
+                type="text"
+                value="test"
+              />
+            </div>
+            <span
+              class="bp3-popover-wrapper MultiTypeInput--wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="fixed-input"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="formGroup md"
+    >
+      <div
+        class="bp3-form-group multiTypeCheckbox"
+      >
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+          >
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
+            >
+              <input
                 name="spec.skipSteadyStateCheck"
                 type="checkbox"
               />

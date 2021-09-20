@@ -175,7 +175,6 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 avatars={collaboratorsList?.length ? collaboratorsList : [{}]}
                 onAdd={event => {
                   event.stopPropagation()
-
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
                 restrictLengthTo={1}

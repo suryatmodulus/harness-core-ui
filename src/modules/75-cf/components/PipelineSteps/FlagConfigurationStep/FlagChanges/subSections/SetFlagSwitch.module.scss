@@ -1,0 +1,7 @@
+.hideLabelText {
+  :global(.bp3-label) {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}

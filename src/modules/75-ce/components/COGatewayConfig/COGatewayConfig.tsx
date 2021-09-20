@@ -31,15 +31,7 @@ import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGat
 import COInstanceSelector from '@ce/components/COInstanceSelector/COInstanceSelector'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import { Utils } from '@ce/common/Utils'
-import {
-  ASGMinimal,
-  PortConfig,
-  Service,
-  ServiceDep,
-  useAllResourcesOfAccount,
-  useGetAllASGs,
-  useGetServices
-} from 'services/lw'
+import { ASGMinimal, PortConfig, Service, ServiceDep, useAllResourcesOfAccount, useGetAllASGs } from 'services/lw'
 import { String, StringKeys, useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TagsPopover } from '@common/components'
@@ -64,6 +56,7 @@ interface COGatewayConfigProps {
   valid: boolean
   setValidity: (tab: boolean) => void
   activeStepDetails?: { count?: number; tabId?: string } | null
+  allServices: Service[]
 }
 interface CardData {
   text: string
@@ -242,17 +235,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const { mutate: fetchConnectors, loading: loadingConnectors } = useGetConnectorListV2({
     queryParams: defaultQueryParams
   })
-
-  const { data: servicesData, error } = useGetServices({
-    account_id: accountId,
-    queryParams: {
-      accountIdentifier: accountId
-    },
-    debounce: 300
-  })
-  if (error) {
-    showError('Faield to fetch services', undefined, 'ce.svc.fetch.error')
-  }
 
   const [openInstancesModal, closeInstancesModal] = useModalHook(() => {
     return (
@@ -1332,7 +1314,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                   deps={serviceDependencies}
                   setDeps={setServiceDependencies}
                   service_id={props.gatewayDetails.id}
-                  allServices={servicesData?.response as Service[]}
+                  allServices={props.allServices}
                 ></CORuleDendencySelector>
               ) : null}
               <Button

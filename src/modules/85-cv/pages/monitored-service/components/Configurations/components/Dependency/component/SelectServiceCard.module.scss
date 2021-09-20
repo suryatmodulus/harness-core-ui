@@ -1,0 +1,33 @@
+.cardListContainer {
+  padding: 0 var(--spacing-medium) !important;
+  margin-bottom: var(--spacing-medium) !important;
+}
+
+.serviceCard {
+  width: 100%;
+  display: flex !important;
+  justify-content: space-between;
+}
+
+.serviceCardChip {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  background: #effbff;
+  border: 1px solid #cdf4fe;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  p {
+    font-size: 10px !important;
+    text-transform: uppercase;
+    color: #3446a7 !important;
+    font-weight: bold !important;
+    line-height: 14px !important;
+    letter-spacing: 2px !important;
+  }
+}
+
+.selectService {
+  margin-right: var(--spacing-medium) !important;
+}

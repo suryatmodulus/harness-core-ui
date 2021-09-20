@@ -13,7 +13,7 @@ import {
   Icon
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
-import { pick, omit } from 'lodash-es'
+import { pick, omit, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import {
   ConnectorInfoDTO,
@@ -38,6 +38,7 @@ export interface CEGcpConnectorDTO extends ConnectorInfoDTO {
   spec: GcpCloudCostConnector
   includeBilling?: boolean
   isEditMode?: boolean
+  serviceAccount?: string
 }
 
 interface OverviewProps extends StepProps<CEGcpConnectorDTO> {
@@ -147,19 +148,19 @@ const OverviewStep: React.FC<OverviewProps> = props => {
           }}
           formName="ceGcpOverview"
         >
-          {() => (
+          {formikProps => (
             <FormikForm>
               <ModalErrorHandler bind={() => setModalErrorHandler} />
               <Container className={css.main} style={{ width: '65%' }}>
-                <Layout.Vertical spacing="xlarge">
+                <Layout.Vertical spacing="large">
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('connectors.name')}
                     isIdentifierEditable={!isEditMode}
                   />
                   <FormInput.Text name={'projectId'} label={getString('connectors.ceGcp.overview.projectIdLabel')} />
                   <Layout.Vertical spacing="small">
-                    <Description />
-                    <Tags />
+                    <Description descriptionProps={{}} hasValue={!!formikProps?.values.description} />
+                    <Tags tagsProps={{}} isOptional={true} hasValue={!isEmpty(formikProps?.values.tags)} />
                   </Layout.Vertical>
                 </Layout.Vertical>
               </Container>

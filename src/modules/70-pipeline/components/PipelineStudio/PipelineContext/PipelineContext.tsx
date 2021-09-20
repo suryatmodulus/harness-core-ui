@@ -1,6 +1,6 @@
 import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
-import { isEqual, cloneDeep, pick, isNil, isEmpty, omit } from 'lodash-es'
+import { isEqual, cloneDeep, pick, isNil, isEmpty, omit, defaultTo } from 'lodash-es'
 import { parse } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import merge from 'lodash-es/merge'
@@ -226,84 +226,93 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
   const pipelineId = newPipelineId || identifier
   const id = getId(
     queryParams.accountIdentifier,
-    queryParams.orgIdentifier || '',
-    queryParams.projectIdentifier || '',
+    defaultTo(queryParams.orgIdentifier, ''),
+    defaultTo(queryParams.projectIdentifier, ''),
     pipelineId,
-    gitDetails.repoIdentifier || '',
-    gitDetails.branch || ''
+    defaultTo(gitDetails.repoIdentifier, ''),
+    defaultTo(gitDetails.branch, '')
   )
-  if (IdbPipeline) {
-    dispatch(PipelineContextActions.fetching())
-    const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
-    if ((!data || forceFetch) && pipelineId !== DefaultNewPipelineId) {
-      const pipelineWithGitDetails: PipelineInfoConfigWithGitDetails = await getPipelineByIdentifier(
-        queryParams,
-        pipelineId,
-        signal
+  dispatch(PipelineContextActions.fetching())
+  const data: PipelinePayload = await IdbPipeline?.get(IdbPipelineStoreName, id)
+  if ((!data || forceFetch) && pipelineId !== DefaultNewPipelineId) {
+    const pipelineWithGitDetails: PipelineInfoConfigWithGitDetails = await getPipelineByIdentifier(
+      queryParams,
+      pipelineId,
+      signal
+    )
+    const pipeline: PipelineInfoConfig = omit(pipelineWithGitDetails, 'gitDetails', 'repo', 'branch')
+    const payload: PipelinePayload = {
+      [KeyPath]: id,
+      pipeline,
+      originalPipeline: cloneDeep(pipeline),
+      isUpdated: false,
+      gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
+        ? pipelineWithGitDetails.gitDetails
+        : data?.gitDetails ?? {}
+    }
+    if (data && !forceUpdate) {
+      dispatch(
+        PipelineContextActions.success({
+          error: '',
+          pipeline: data.pipeline,
+          originalPipeline: cloneDeep(pipeline),
+          isBEPipelineUpdated: !isEqual(pipeline, data.originalPipeline),
+          isUpdated: !isEqual(pipeline, data.pipeline),
+          gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
+            ? pipelineWithGitDetails.gitDetails
+            : defaultTo(data?.gitDetails, {})
+        })
       )
-      const pipeline: PipelineInfoConfig = omit(pipelineWithGitDetails, 'gitDetails', 'repo', 'branch')
-      const payload: PipelinePayload = {
-        [KeyPath]: id,
-        pipeline,
-        originalPipeline: cloneDeep(pipeline),
-        isUpdated: false,
-        gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
-          ? pipelineWithGitDetails.gitDetails
-          : data?.gitDetails ?? {}
-      }
-      if (data && !forceUpdate) {
-        dispatch(
-          PipelineContextActions.success({
-            error: '',
-            pipeline: data.pipeline,
-            originalPipeline: cloneDeep(pipeline),
-            isBEPipelineUpdated: !isEqual(pipeline, data.originalPipeline),
-            isUpdated: !isEqual(pipeline, data.pipeline),
-            gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
-              ? pipelineWithGitDetails.gitDetails
-              : data?.gitDetails ?? {}
-          })
-        )
-        dispatch(PipelineContextActions.initialized())
-      } else if (IdbPipeline) {
-        await IdbPipeline.put(IdbPipelineStoreName, payload)
-        dispatch(
-          PipelineContextActions.success({
-            error: '',
-            pipeline,
-            originalPipeline: cloneDeep(pipeline),
-            isBEPipelineUpdated: false,
-            isUpdated: false,
-            gitDetails: payload.gitDetails
-          })
-        )
-        dispatch(PipelineContextActions.initialized())
-      }
+      dispatch(PipelineContextActions.initialized())
+    } else if (IdbPipeline) {
+      await IdbPipeline.put(IdbPipelineStoreName, payload)
+      dispatch(
+        PipelineContextActions.success({
+          error: '',
+          pipeline,
+          originalPipeline: cloneDeep(pipeline),
+          isBEPipelineUpdated: false,
+          isUpdated: false,
+          gitDetails: payload.gitDetails
+        })
+      )
+      dispatch(PipelineContextActions.initialized())
     } else {
       dispatch(
         PipelineContextActions.success({
           error: '',
-          pipeline: data?.pipeline || {
-            ...DefaultPipeline,
-            projectIdentifier: queryParams.projectIdentifier,
-            orgIdentifier: queryParams.orgIdentifier
-          },
-          originalPipeline:
-            cloneDeep(data?.pipeline) ||
-            cloneDeep({
-              ...DefaultPipeline,
-              projectIdentifier: queryParams.projectIdentifier,
-              orgIdentifier: queryParams.orgIdentifier
-            }),
-          isUpdated: true,
+          pipeline,
+          originalPipeline: cloneDeep(pipeline),
           isBEPipelineUpdated: false,
-          gitDetails: data?.gitDetails ?? {}
+          isUpdated: false,
+          gitDetails: pipelineWithGitDetails?.gitDetails?.objectId ? pipelineWithGitDetails.gitDetails : {}
         })
       )
       dispatch(PipelineContextActions.initialized())
     }
   } else {
-    dispatch(PipelineContextActions.success({ error: 'DB is not initialized' }))
+    dispatch(
+      PipelineContextActions.success({
+        error: '',
+        pipeline: defaultTo(data?.pipeline, {
+          ...DefaultPipeline,
+          projectIdentifier: queryParams.projectIdentifier,
+          orgIdentifier: queryParams.orgIdentifier
+        }),
+        originalPipeline: defaultTo(
+          cloneDeep(data?.pipeline),
+          cloneDeep({
+            ...DefaultPipeline,
+            projectIdentifier: queryParams.projectIdentifier,
+            orgIdentifier: queryParams.orgIdentifier
+          })
+        ),
+        isUpdated: true,
+        isBEPipelineUpdated: false,
+        gitDetails: defaultTo(data?.gitDetails, {})
+      })
+    )
+    dispatch(PipelineContextActions.initialized())
   }
 }
 
@@ -376,8 +385,8 @@ const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetails: EntityG
     gitDetails.repoIdentifier || '',
     gitDetails.branch || ''
   )
+  const isUpdated = !isEqual(originalPipeline, pipeline)
   if (IdbPipeline) {
-    const isUpdated = !isEqual(originalPipeline, pipeline)
     const payload: PipelinePayload = {
       [KeyPath]: id,
       pipeline,
@@ -386,8 +395,8 @@ const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetails: EntityG
       gitDetails
     }
     await IdbPipeline.put(IdbPipelineStoreName, payload)
-    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated, gitDetails }))
   }
+  dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated, gitDetails }))
 }
 
 interface UpdatePipelineArgs {
@@ -395,6 +404,7 @@ interface UpdatePipelineArgs {
   queryParams: GetPipelineQueryParams
   identifier: string
   originalPipeline: PipelineInfoConfig
+  pipeline: PipelineInfoConfig
   gitDetails: EntityGitDetails
 }
 
@@ -402,7 +412,7 @@ const _updatePipeline = async (
   args: UpdatePipelineArgs,
   pipelineArg: PipelineInfoConfig | ((p: PipelineInfoConfig) => PipelineInfoConfig)
 ): Promise<void> => {
-  const { dispatch, queryParams, identifier, originalPipeline, gitDetails } = args
+  const { dispatch, queryParams, identifier, originalPipeline, pipeline: latestPipeline, gitDetails } = args
   const id = getId(
     queryParams.accountIdentifier,
     queryParams.orgIdentifier || '',
@@ -411,30 +421,34 @@ const _updatePipeline = async (
     gitDetails.repoIdentifier || '',
     gitDetails.branch || ''
   )
-  if (IdbPipeline) {
-    let pipeline = pipelineArg
 
-    if (typeof pipelineArg === 'function') {
+  let pipeline = pipelineArg
+  if (typeof pipelineArg === 'function') {
+    if (IdbPipeline) {
       const dbPipeline = await IdbPipeline.get(IdbPipelineStoreName, id)
       if (dbPipeline?.pipeline) {
         pipeline = pipelineArg(dbPipeline.pipeline)
       } else {
         pipeline = {} as PipelineInfoConfig
       }
-    }
-    const isUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), pipeline)
-    const payload: PipelinePayload = {
-      [KeyPath]: id,
-      pipeline: pipeline as PipelineInfoConfig,
-      originalPipeline,
-      isUpdated,
-      gitDetails
-    }
-    if (IdbPipeline) {
-      await IdbPipeline.put(IdbPipelineStoreName, payload)
-      dispatch(PipelineContextActions.success({ error: '', pipeline: pipeline as PipelineInfoConfig, isUpdated }))
+    } else if (latestPipeline) {
+      pipeline = pipelineArg(latestPipeline)
+    } else {
+      pipeline = {} as PipelineInfoConfig
     }
   }
+  const isUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), pipeline)
+  const payload: PipelinePayload = {
+    [KeyPath]: id,
+    pipeline: pipeline as PipelineInfoConfig,
+    originalPipeline,
+    isUpdated,
+    gitDetails
+  }
+  if (IdbPipeline) {
+    await IdbPipeline.put(IdbPipelineStoreName, payload)
+  }
+  dispatch(PipelineContextActions.success({ error: '', pipeline: pipeline as PipelineInfoConfig, isUpdated }))
 }
 
 const cleanUpDBRefs = (): void => {
@@ -596,6 +610,7 @@ export const PipelineProvider: React.FC<{
     queryParams,
     identifier: pipelineIdentifier,
     originalPipeline: state.originalPipeline,
+    pipeline: state.pipeline,
     gitDetails: state.gitDetails
   })
 
@@ -734,11 +749,8 @@ export const PipelineProvider: React.FC<{
   })
 
   React.useEffect(() => {
-    if (state.isDBInitialized) {
-      abortControllerRef.current = new AbortController()
-
-      fetchPipeline({ forceFetch: true, signal: abortControllerRef.current?.signal })
-    }
+    abortControllerRef.current = new AbortController()
+    fetchPipeline({ forceFetch: true, signal: abortControllerRef.current?.signal })
 
     return () => {
       if (abortControllerRef.current) {

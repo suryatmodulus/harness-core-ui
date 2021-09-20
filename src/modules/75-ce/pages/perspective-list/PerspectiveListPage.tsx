@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Layout, Button, Container, ExpandingSearchInput, FlexExpander } from '@wings-software/uicore'
+import { Layout, Text, Button, Container, ExpandingSearchInput, FlexExpander } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
@@ -178,7 +178,17 @@ const PerspectiveListPage: React.FC = () => {
 
   return (
     <>
-      <Page.Header title="Perspectives" />
+      <Page.Header
+        title={
+          <Text
+            color="grey800"
+            style={{ fontSize: 20, fontWeight: 'bold' }}
+            tooltipProps={{ dataTooltipId: 'ccmPerspectives' }}
+          >
+            Perspectives
+          </Text>
+        }
+      />
       <Layout.Horizontal spacing="large" className={css.header}>
         <Button
           intent="primary"

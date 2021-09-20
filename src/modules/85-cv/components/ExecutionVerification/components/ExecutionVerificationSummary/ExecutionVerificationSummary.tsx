@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Container, Icon, Color, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -15,6 +15,7 @@ import { SummaryOfDeployedNodes } from './components/SummaryOfDeployedNodes/Summ
 import { getErrorMessage } from '../DeploymentMetrics/DeploymentMetrics.utils'
 import { DeploymentProgressAndNodes } from '../DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import type { VerifyExecutionProps } from './ExecutionVerificationSummary.types'
+import { getActivityId } from '../../ExecutionVerificationView.utils'
 import css from './ExecutionVerificationSummary.module.scss'
 
 const POLLING_INTERVAL = 15000
@@ -24,7 +25,7 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
   const { accountId } = useParams<ProjectPathProps>()
   const [pollingIntervalId, setPollingIntervalId] = useState(-1)
   const [showSpinner, setShowSpinner] = useState(true)
-  const activityId = step?.progressData?.activityId ? (step.progressData.activityId as unknown as string) : ''
+  const activityId = useMemo(() => getActivityId(step), [step])
   const { data, error, refetch } = useGetDeploymentActivitySummary({
     queryParams: { accountId },
     activityId,
@@ -55,11 +56,11 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
 
     refetch()
     return () => clearInterval(intervalId)
-  }, [step?.progressData?.activityId, step?.status])
+  }, [activityId, step?.status])
 
   useEffect(() => {
-    setShowSpinner(Boolean(step?.progressData?.activityId))
-  }, [step?.progressData?.activityId])
+    setShowSpinner(Boolean(activityId))
+  }, [activityId])
 
   useEffect(() => {
     if ((data || error) && showSpinner) setShowSpinner(false)

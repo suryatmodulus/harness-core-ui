@@ -87,7 +87,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           class="StyledProps--font StyledProps--main titleAndFilter"
         >
           <p
-            class="StyledProps--font StyledProps--main"
+            class="StyledProps--font StyledProps--main rangeSelectorHeader"
           >
             Deployments Health
           </p>
@@ -136,7 +136,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
             class="StyledProps--font StyledProps--main healthCard"
           >
             <p
-              class="StyledProps--font StyledProps--main cardHeader StyledProps--font-size-small"
+              class="StyledProps--font StyledProps--main cardHeader"
             >
               Total Deployments
             </p>
@@ -168,9 +168,9 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
             class="StyledProps--font StyledProps--main healthCard"
           >
             <p
-              class="StyledProps--font StyledProps--main cardHeader StyledProps--font-size-small"
+              class="StyledProps--font StyledProps--main cardHeader"
             >
-              Success Deployments
+              Successful Deployments
             </p>
             <div
               class="StyledProps--font StyledProps--main"
@@ -221,7 +221,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
             class="StyledProps--font StyledProps--main healthCard"
           >
             <p
-              class="StyledProps--font StyledProps--main cardHeader StyledProps--font-size-small"
+              class="StyledProps--font StyledProps--main cardHeader"
             >
               Failed Deployments
             </p>
@@ -288,7 +288,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                 class="Layout--horizontal StyledProps--main"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--margin-right-small"
+                  class="StyledProps--font StyledProps--main rangeSelectorHeader StyledProps--margin-right-small"
                 >
                   deploymentsText
                 </p>

@@ -51,3 +51,32 @@
     }
   }
 }
+
+.keyContainer {
+  flex-shrink: 1;
+}
+
+.keyType {
+  white-space: nowrap;
+}
+
+.keyCopyContainer {
+  display: flex;
+  align-items: center;
+}
+
+.keyCopy {
+  border-radius: var(--spacing-2);
+  background-color: var(--grey-100);
+  flex-shrink: 0;
+  margin-right: var(--spacing-5);
+}
+
+.keyCopyIcon {
+  cursor: pointer;
+  margin-left: var(--spacing-small);
+}
+
+.keyDeleteButton {
+  color: var(--grey-300);
+}

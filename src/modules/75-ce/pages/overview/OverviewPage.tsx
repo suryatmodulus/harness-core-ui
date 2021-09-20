@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
-import { Container } from '@wings-software/uicore'
+import { Container, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { Page } from '@common/components/Page/Page'
@@ -167,7 +167,15 @@ const OverviewPage: React.FC = () => {
       <TrialLicenseBanner {...trialBannerProps} setHasBanner={setShowBanner} />
       <Container className={cx(css.body, bannerClassName)}>
         <Page.Header
-          title="Overview"
+          title={
+            <Text
+              color="grey800"
+              style={{ fontSize: 20, fontWeight: 'bold' }}
+              tooltipProps={{ dataTooltipId: 'ccmOverviewTitle' }}
+            >
+              Overview
+            </Text>
+          }
           content={<PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />}
         />
         <Page.Body>
@@ -175,8 +183,8 @@ const OverviewPage: React.FC = () => {
             <div className={css.mainContainer}>
               <div className={css.columnOne}>
                 <div className={cx(css.summary, css.noColor)}>
-                  <OverviewSummary cost={cloudCost} fetching={summaryFetching} />
-                  <OverviewSummary cost={forecastedCost} fetching={summaryFetching} />
+                  <OverviewSummary cost={cloudCost} fetching={summaryFetching} name="TotalCost" />
+                  <OverviewSummary cost={forecastedCost} fetching={summaryFetching} name="ForecastedCost" />
                 </div>
                 {clusterDataPresent && (
                   <OverviewClusterCostBreakdown

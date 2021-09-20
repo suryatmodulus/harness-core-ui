@@ -28,6 +28,9 @@
   &:hover .btn-wrapper {
     opacity: 1;
   }
+  .successIcon {
+    color: var(--green-500) !important;
+  }
 }
 
 .tooltip {

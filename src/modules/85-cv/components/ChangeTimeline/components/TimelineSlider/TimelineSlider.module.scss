@@ -25,6 +25,21 @@
       transform: translate(0, 0) !important;
     }
 
+    .card {
+      background-color: #383946 !important;
+      border-radius: 4px;
+      width: 214px;
+      position: absolute;
+      transform: translate(-8%);
+      bottom: 0;
+      right: 100%;
+    }
+
+    .reverseCard {
+      transform: translate(8%);
+      left: 100%;
+    }
+
     &::after {
       --triangle-height: 14px;
       content: '';

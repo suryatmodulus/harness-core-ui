@@ -48,3 +48,12 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.logsAnalysisFilters {
+  max-width: 250px;
+  padding: var(--spacing-medium);
+}
+
+.filters {
+  display: flex;
+}

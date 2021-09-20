@@ -38,7 +38,9 @@ allowpaths:
   - '/setup/delegates/validate-kubernetes-yaml'
   - '/setup/delegates/generate-kubernetes-yaml'
   - '/delegates-verification/heartbeat'
+  - '/delegates-verification/heartbeatV2'
   - '/delegates-verification/initialized'
+  - '/delegates-verification/initializedV2'
   - '/awshelper/aws-regions'
 operationIdOverrides:
   /setup/delegates.get: getDelegates
@@ -73,5 +75,7 @@ operationIdOverrides:
   /setup/delegates/validate-kubernetes-yaml: validateKubernetesYaml
   /setup/delegates/generate-kubernetes-yaml: generateKubernetesYaml
   /delegates-verification/heartbeat: verifyDelegateHeartBeat
+  /delegates-verification/heartbeatV2: verifyDelegateHeartBeatV2
   /delegates-verification/initialized: verifyDelegateInitialization
+  /delegates-verification/initializedV2: verifyDelegateInitializationV2
   /awshelper/aws-regions: getAwsRegions

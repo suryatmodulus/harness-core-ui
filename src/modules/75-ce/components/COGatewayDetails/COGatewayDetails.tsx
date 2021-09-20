@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
-import { Layout, Tabs, Tab, Button, Container, Icon, Text } from '@wings-software/uicore'
-import { isEmpty as _isEmpty } from 'lodash-es'
+import { Layout, Tabs, Tab, Button, Container, Icon } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useToaster } from '@common/exports'
 import COGatewayConfig from '@ce/components/COGatewayConfig/COGatewayConfig'
 import COGatewayAccess from '@ce/components/COGatewayAccess/COGatewayAccess'
 import COGatewayReview from '@ce/components/COGatewayReview/COGatewayReview'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import routes from '@common/RouteDefinitions'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings } from 'framework/strings'
-import { useSaveService, Service, RoutingData } from 'services/lw'
+import { useSaveService, Service, useGetServices } from 'services/lw'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { Utils } from '@ce/common/Utils'
-import { ASRuleTabs, GatewayKindType } from '@ce/constants'
+import { ASRuleTabs } from '@ce/constants'
 import { GatewayContextProvider } from '@ce/context/GatewayContext'
+import { ConfigTabTitle, ReviewTabTitle, SetupAccessTabTitle } from './TabTitles'
+import { getServiceObjectFromgatewayDetails, isPrimaryBtnDisable, trackPrimaryBtnClick } from './helper'
 import css from './COGatewayDetails.module.scss'
 
 interface COGatewayDetailsProps {
@@ -28,18 +28,30 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const history = useHistory()
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
+  const { trackEvent } = useTelemetry()
   const [selectedTabId, setSelectedTabId] = useState<string>(props.activeTab ?? ASRuleTabs.CONFIGURATION)
   const [validConfig, setValidConfig] = useState<boolean>(false)
   const [validAccessSetup, setValidAccessSetup] = useState<boolean>(false)
   const [saveInProgress, setSaveInProgress] = useState<boolean>(false)
   const [activeConfigStep, setActiveConfigStep] = useState<{ count?: number; tabId?: string } | null>(null)
   const tabs = [ASRuleTabs.CONFIGURATION, ASRuleTabs.SETUP_ACCESS, ASRuleTabs.REVIEW]
-  const { trackEvent } = useTelemetry()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
   }>()
+
+  const { data: servicesData, error } = useGetServices({
+    account_id: accountId,
+    queryParams: {
+      accountIdentifier: accountId
+    },
+    debounce: 300
+  })
+  if (error) {
+    showError('Faield to fetch services', undefined, 'ce.svc.fetch.error')
+  }
+
   const { mutate: saveGateway } = useSaveService({
     account_id: accountId,
     queryParams: {
@@ -50,56 +62,19 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const onSave = async (): Promise<void> => {
     try {
       setSaveInProgress(true)
-      const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
-      const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
-      const routing: RoutingData = { ports: props.gatewayDetails.routing.ports, lb: undefined }
-      if (isK8sRule) {
-        routing.k8s = props.gatewayDetails.routing.k8s
-      } else if (hasInstances) {
-        const instanceIDs = props.gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
-        routing.instance = {
-          filter_text: `id = [${instanceIDs}]` // eslint-disable-line
-        }
-      } else {
-        routing.instance = {
-          filter_text: '', // eslint-disable-line
-          scale_group: props.gatewayDetails.routing.instance.scale_group // eslint-disable-line
-        }
-      }
-      routing.custom_domain_providers = props.gatewayDetails.routing.custom_domain_providers
-      const gateway: Service = {
-        name: props.gatewayDetails.name,
-        org_id: orgIdentifier, // eslint-disable-line
-        project_id: projectIdentifier, // eslint-disable-line
-        account_identifier: accountId, // eslint-disable-line
-        fulfilment: isK8sRule ? 'kubernetes' : props.gatewayDetails.fullfilment || 'ondemand',
-        kind: isK8sRule ? GatewayKindType.KUBERNETES : GatewayKindType.INSTANCE,
-        cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-        idle_time_mins: props.gatewayDetails.idleTimeMins, // eslint-disable-line
-        custom_domains: props.gatewayDetails.customDomains ? props.gatewayDetails.customDomains : [], // eslint-disable-line
-        // eslint-disable-next-line
-        health_check: props.gatewayDetails.healthCheck,
-        routing,
-        opts: {
-          preserve_private_ip: false, // eslint-disable-line
-          always_use_private_ip: false, // eslint-disable-line
-          access_details: props.gatewayDetails.opts.access_details // eslint-disable-line
-        },
-        metadata: props.gatewayDetails.metadata,
-        disabled: props.gatewayDetails.disabled,
-        match_all_subdomains: props.gatewayDetails.matchAllSubdomains, // eslint-disable-line
-        access_point_id: props.gatewayDetails.accessPointID // eslint-disable-line
-      }
-      if (props.gatewayDetails.id) {
-        gateway.id = props.gatewayDetails.id
-      }
+      const gateway = getServiceObjectFromgatewayDetails(
+        props.gatewayDetails,
+        orgIdentifier,
+        projectIdentifier,
+        accountId
+      )
       const result = await saveGateway({ service: gateway, deps: props.gatewayDetails.deps, apply_now: false }) // eslint-disable-line
+      // Rule creation is halted until the access point creation takes place successfully.
+      // Informing the user regarding the same
+      if (props.gatewayDetails.accessPointData?.status === 'submitted') {
+        showSuccess('Rule will take effect once the load balancer creation is successful!!')
+      }
       if (result.response) {
-        // Rule creation is halted until the access point creation takes place successfully.
-        // Informing the user regarding the same
-        if (props.gatewayDetails.accessPointData?.status === 'submitted') {
-          showSuccess('Rule will take effect once the load balancer creation is successful!!')
-        }
         history.push(
           routes.toCECORules({
             accountId
@@ -128,9 +103,6 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
     }
   }
   const selectTab = (tabId: string) => {
-    if (tabId == selectedTabId) {
-      return
-    }
     const tabIndex = tabs.findIndex(t => t == tabId)
     setSelectedTabId(tabs[tabIndex])
   }
@@ -147,16 +119,10 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
     metaData?: { activeStepCount?: number; activeStepTabId?: string }
   }) => {
     setSelectedTabId(tabDetails.id)
-    if (!_isEmpty(tabDetails.metaData)) {
-      const activeStepDetails: { count?: number; tabId?: string } = {}
-      if (tabDetails.metaData?.activeStepCount) {
-        activeStepDetails['count'] = tabDetails.metaData.activeStepCount
-      }
-      if (tabDetails.metaData?.activeStepTabId) {
-        activeStepDetails['tabId'] = tabDetails.metaData.activeStepTabId
-      }
-      setActiveConfigStep(activeStepDetails)
-    }
+    const activeStepDetails: { count?: number; tabId?: string } = {}
+    activeStepDetails['count'] = tabDetails.metaData?.activeStepCount
+    activeStepDetails['tabId'] = tabDetails.metaData?.activeStepTabId
+    setActiveConfigStep(activeStepDetails)
   }
 
   return (
@@ -170,7 +136,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           },
           {
             url: '',
-            label: props.gatewayDetails.name || ''
+            label: props.gatewayDetails.name
           }
         ]}
       />
@@ -180,16 +146,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
             <Tab
               id="configuration"
               disabled
-              title={
-                <Layout.Horizontal>
-                  {validConfig ? (
-                    <Icon name="tick-circle" className={css.greenSymbol} size={16} />
-                  ) : (
-                    <Icon name="symbol-circle" className={css.symbol} size={16} />
-                  )}
-                  <Text className={css.tabTitle}>1. {getString('configuration')}</Text>
-                </Layout.Horizontal>
-              }
+              title={<ConfigTabTitle isValidConfig={validConfig} />}
               panel={
                 <COGatewayConfig
                   gatewayDetails={props.gatewayDetails}
@@ -197,22 +154,14 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                   valid={validConfig}
                   setValidity={setValidConfig}
                   activeStepDetails={activeConfigStep}
+                  allServices={servicesData?.response as Service[]}
                 />
               }
             />
             <Tab
               id="setupAccess"
               disabled
-              title={
-                <Layout.Horizontal>
-                  {validAccessSetup ? (
-                    <Icon name="tick-circle" className={css.greenSymbol} size={16} />
-                  ) : (
-                    <Icon name="symbol-circle" className={css.symbol} size={16} />
-                  )}
-                  <Text className={css.tabTitle}>2. {getString('ce.co.autoStoppingRule.setupAccess.pageName')}</Text>
-                </Layout.Horizontal>
-              }
+              title={<SetupAccessTabTitle isValidAccessSetup={validAccessSetup} />}
               panel={
                 <COGatewayAccess
                   valid={validAccessSetup}
@@ -220,22 +169,14 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                   gatewayDetails={props.gatewayDetails}
                   setGatewayDetails={props.setGatewayDetails}
                   activeStepDetails={activeConfigStep}
+                  allServices={servicesData?.response as Service[]}
                 />
               }
             />
             <Tab
               id="review"
               disabled
-              title={
-                <Layout.Horizontal>
-                  {validConfig && validAccessSetup ? (
-                    <Icon name="tick-circle" className={css.greenSymbol} size={16} />
-                  ) : (
-                    <Icon name="symbol-circle" className={css.symbol} size={16} />
-                  )}
-                  <Text className={css.tabTitle}>3. {getString('review')}</Text>
-                </Layout.Horizontal>
-              }
+              title={<ReviewTabTitle isValidConfig={validConfig} isValidAccessSetup={validAccessSetup} />}
               panel={<COGatewayReview gatewayDetails={props.gatewayDetails} onEdit={handleReviewDetailsEdit} />}
             />
           </Tabs>
@@ -253,18 +194,22 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           text={getNextButtonText()}
           icon="chevron-right"
           onClick={() => {
-            if (selectedTabId == tabs[0]) trackEvent('VisitedSetupAccessPage', {})
-            if (selectedTabId == tabs[1])
-              trackEvent('CompletedSetupAccess', props.gatewayDetails.opts.access_details || {})
-            if (selectedTabId == tabs[2]) trackEvent('AutoStoppingRuleCompleted', {})
+            trackPrimaryBtnClick(
+              selectedTabId,
+              {
+                [ASRuleTabs.CONFIGURATION]: {},
+                [ASRuleTabs.REVIEW]: {},
+                [ASRuleTabs.SETUP_ACCESS]: props.gatewayDetails.opts.access_details
+              },
+              trackEvent
+            )
             nextTab()
           }}
-          disabled={
-            (selectedTabId == tabs[0] && !validConfig) ||
-            (selectedTabId == tabs[1] && !validAccessSetup) ||
-            (selectedTabId == tabs[2] && (!validAccessSetup || !validConfig)) ||
+          disabled={isPrimaryBtnDisable(
+            selectedTabId,
+            { config: validConfig, setupAccess: validAccessSetup },
             saveInProgress
-          }
+          )}
           loading={saveInProgress}
         />
         {saveInProgress ? <Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} /> : null}

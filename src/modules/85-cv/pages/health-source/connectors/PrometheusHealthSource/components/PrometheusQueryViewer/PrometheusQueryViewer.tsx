@@ -50,12 +50,12 @@ const DrawerProps: IDrawerProps = {
 
 export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
   const { query, error, loading, data, onChange, isQueryExecuted, fetchData } = props
+  const { getString } = useStrings()
 
   const { options: highchartsOptions, records } = useMemo(() => {
     onChange(PrometheusMonitoringSourceFieldNames.RECORD_COUNT, data?.data?.length)
     return transformPrometheusSampleData(data?.data)
   }, [data])
-
   if (!error && !loading && records?.length) {
     return (
       <>
@@ -69,11 +69,11 @@ export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
           error={error}
           query={query}
           isQueryExecuted={isQueryExecuted}
+          queryNotExecutedMessage={getString('cv.monitoringSources.prometheus.submitQueryToSeeRecords')}
         />
       </>
     )
   }
-
   return (
     <Records
       fetchRecords={fetchData}
@@ -82,6 +82,7 @@ export function ChartAndRecords(props: ChartAndRecordsProps): JSX.Element {
       error={error}
       query={query}
       isQueryExecuted={isQueryExecuted}
+      queryNotExecutedMessage={getString('cv.monitoringSources.prometheus.submitQueryToSeeRecords') as string}
     />
   )
 }
@@ -105,15 +106,12 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
     values?.query,
     values?.prometheusMetric
   ])
-
   const { data, refetch, cancel, error, loading } = useGetSampleData({ lazy: true })
-
   useEffect(() => {
     if (!isManualQuery) {
       onChange(PrometheusMonitoringSourceFieldNames.QUERY, query)
     }
   }, [query])
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const { openDialog } = useConfirmationDialog({
     titleText: getString('cv.monitoringSources.prometheus.querySettingsNotEditable'),
@@ -125,7 +123,6 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
     }
   })
   const isManualQuery = Boolean(values?.isManualQuery)
-
   let content = (
     <>
       <QueryContent

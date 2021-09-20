@@ -316,7 +316,6 @@
             "in": "query",
             "name": "stepId",
             "description": "Step ID",
-            "required": true,
             "type": "string"
           },
           {
@@ -807,22 +806,17 @@
           "type": "integer",
           "format": "int64"
         },
-        "tests": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TestCaseSummary"
-          }
-        }
-      }
-    },
-    "TestCaseSummary": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
+        "skipped_tests": {
+          "type": "integer",
+          "format": "int64"
         },
-        "status": {
-          "$ref": "#/definitions/TestCaseStatus"
+        "failed_tests": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "successful_tests": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -856,6 +850,9 @@
           "type": "integer"
         },
         "time_saved_ms": {
+          "type": "integer"
+        },
+        "time_taken_ms": {
           "type": "integer"
         },
         "selected_tests": {
@@ -1041,6 +1038,10 @@
         "important": {
           "type": "boolean",
           "description": "Whether the node should be specially marked in the UI or not"
+        },
+        "root": {
+          "type": "boolean",
+          "description": "Whether to use this node as the root node in the UI or not"
         }
       }
     },

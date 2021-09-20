@@ -1,3 +1,5 @@
+import type { MonitoredServiceForm } from '../Service.types'
+
 export const editModeData = {
   status: 'SUCCESS',
   data: {
@@ -54,13 +56,51 @@ export const editModeData = {
   correlationId: 'c910c9e2-5a48-4f4b-9dad-afdeac54d060'
 }
 
+export const cachedData = {
+  orgIdentifier: 'default',
+  projectIdentifier: 'Demo',
+  identifier: 'monitoredservice101',
+  name: 'Monitored Service 101',
+  type: 'Application',
+  description: 'Monitored Service with change source and health source',
+  serviceRef: 'ServiceRef102',
+  environmentRef: 'EnvironmentRef102',
+  tags: { tag1: '', tag2: '' },
+  sources: {
+    healthSources: [],
+    changeSources: [
+      {
+        name: 'CD 101',
+        identifier: 'cd',
+        type: 'HarnessCD' as any,
+        desc: 'deployment',
+        enabled: true,
+        category: 'Deployment' as any,
+        spec: {}
+      }
+    ]
+  },
+  dependencies: [],
+  metaData: null,
+  correlationId: 'c910c9e2-5a48-4f4b-9dad-afdeac54d060'
+}
+
 export const onUpdatePayload = {
+  dependencies: [
+    {
+      monitoredServiceIdentifier: 'service1'
+    },
+    {
+      monitoredServiceIdentifier: 'service2'
+    }
+  ],
   description: 'Monitored Service with change source and health source',
   environmentRef: 'EnvironmentRef102',
   identifier: 'monitoredservice101',
+  isEdit: true,
   name: 'Monitored Service 101',
-  orgIdentifier: '1234_org',
-  projectIdentifier: '1234_project',
+  orgIdentifier: 'default',
+  projectIdentifier: 'Demo',
   serviceRef: 'ServiceRef102',
   sources: {
     changeSources: [
@@ -99,6 +139,45 @@ export const onUpdatePayload = {
   tags: {
     tag1: '',
     tag2: ''
+  },
+  type: 'Application'
+}
+
+export const MockMonitoredServiceDTO: MonitoredServiceForm = {
+  dependencies: [],
+  environmentRef: '1234_env',
+  identifier: '1234_ident',
+  name: 'solo-dolo',
+  isEdit: false,
+  tags: {},
+  serviceRef: '1234_serviceRef',
+  sources: {
+    changeSources: [
+      {
+        category: 'Deployment',
+        enabled: true,
+        identifier: '1234_iden',
+        name: 'deployment',
+        spec: {},
+        type: 'HarnessCD'
+      },
+      {
+        category: 'Infrastructure',
+        enabled: true,
+        identifier: '343_iden',
+        name: 'k8',
+        spec: {},
+        type: 'K8sCluster'
+      },
+      {
+        category: 'Alert',
+        enabled: true,
+        identifier: '343_iden',
+        name: 'pager',
+        spec: {},
+        type: 'PagerDuty'
+      }
+    ]
   },
   type: 'Application'
 }

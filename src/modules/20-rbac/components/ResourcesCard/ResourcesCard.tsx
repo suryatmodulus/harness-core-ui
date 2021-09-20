@@ -5,8 +5,8 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import useAddResourceModal from '@rbac/modals/AddResourceModal/useAddResourceModal'
-import { RbacResourceGroupTypes } from '@rbac/constants/utils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { isDynamicResourceSelector } from '@rbac/utils/utils'
 import css from './ResourcesCard.module.scss'
 
 interface ResourcesCardProps {
@@ -50,16 +50,22 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
           <Layout.Horizontal flex>
             <Radio
               label={getString('rbac.resourceGroup.all')}
-              checked={resourceValues === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR}
-              className={css.radioBtn}
+              data-testid={`dynamic-${resourceType}`}
+              checked={isDynamicResourceSelector(resourceValues)}
               onChange={e => onResourceSelectionChange(resourceType, e.currentTarget.checked)}
             />
             {addResourceModalBody && (
-              <>
+              <Layout.Horizontal spacing="small" flex padding={{ left: 'huge' }} className={css.radioBtn}>
+                <Radio
+                  label={getString('common.specified')}
+                  data-testid={`static-${resourceType}`}
+                  checked={!isDynamicResourceSelector(resourceValues)}
+                  onChange={e => onResourceSelectionChange(resourceType, e.currentTarget.checked, [])}
+                />
                 <Button
                   variation={ButtonVariation.LINK}
                   data-testid={`addResources-${resourceType}`}
-                  disabled={disableAddingResources}
+                  disabled={disableAddingResources || isDynamicResourceSelector(resourceValues)}
                   className={css.addResourceBtn}
                   onClick={() => {
                     openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])
@@ -67,12 +73,12 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
                 >
                   {getString('rbac.resourceGroup.add')}
                 </Button>
-              </>
+              </Layout.Horizontal>
             )}
           </Layout.Horizontal>
         </Layout.Horizontal>
 
-        {Array.isArray(resourceValues) && (
+        {Array.isArray(resourceValues) && resourceValues.length > 0 && (
           <Layout.Vertical padding={{ top: 'large' }}>
             {staticResourceRenderer
               ? staticResourceRenderer({

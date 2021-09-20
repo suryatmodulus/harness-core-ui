@@ -92,12 +92,12 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
     return (
       <Menu large>
         <Menu.Item
-          text={getString('secret.labelText')}
+          text={getString('secrets.secret.labelText')}
           labelElement={<Icon name="text" />}
           onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
         />
         <Menu.Item
-          text={getString('secret.labelFile')}
+          text={getString('secrets.secret.labelFile')}
           labelElement={<Icon name="document" color={Color.BLUE_600} />}
           onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
         />

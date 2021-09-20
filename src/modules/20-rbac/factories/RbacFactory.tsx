@@ -79,6 +79,10 @@ class RbacFactory {
   getResourceTypeHandler(resourceType: ResourceType): ResourceHandler | undefined {
     return this.map.get(resourceType)
   }
+
+  getResourceTypeLabelKey(resourceType: ResourceType): keyof StringsMap | undefined {
+    return this.map.get(resourceType)?.label
+  }
 }
 
 export default new RbacFactory()

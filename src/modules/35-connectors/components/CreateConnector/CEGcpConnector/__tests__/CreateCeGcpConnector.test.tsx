@@ -34,7 +34,8 @@ jest.mock('services/ce', () => ({
     data: {
       data: 'harness-ce-kmpys-27520@ccm-play.iam.gserviceaccount.com'
     },
-    loading: false
+    loading: false,
+    refetch: jest.fn()
   }))
 }))
 

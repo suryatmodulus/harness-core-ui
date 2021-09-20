@@ -29,3 +29,11 @@
   width: 350px;
   margin-bottom: 0px;
 }
+
+.formError {
+  margin: 0px !important;
+  margin-bottom: var(--spacing-small) !important;
+  &.formContent {
+    margin-bottom: var(--spacing-small) !important;
+  }
+}

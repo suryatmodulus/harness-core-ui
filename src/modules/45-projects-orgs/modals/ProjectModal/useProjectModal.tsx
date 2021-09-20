@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useModalHook, StepWizard, Button } from '@wings-software/uicore'
-import { Dialog, Classes } from '@blueprintjs/core'
-import cx from 'classnames'
+import { Dialog, IDialogProps } from '@blueprintjs/core'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { Project } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -33,7 +32,17 @@ export const useProjectModal = ({
   const [projectData, setProjectData] = useState<Project>()
   const [refreshProjects, setRefreshProjects] = useState(false)
   const { getString } = useStrings()
-
+  const modalProps: IDialogProps = {
+    isOpen: true,
+    enforceFocus: false,
+    style: {
+      width: view === Views.CREATE ? 1100 : 500,
+      borderLeft: 0,
+      paddingBottom: 0,
+      position: 'relative',
+      overflow: 'auto'
+    }
+  }
   const wizardCompleteHandler = async (wizardData: Project | undefined): Promise<void> => {
     if (!wizardData) {
       setProjectData(wizardData)
@@ -43,8 +52,6 @@ export const useProjectModal = ({
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
-        isOpen={true}
-        enforceFocus={false}
         onClose={() => {
           if (refreshProjects) {
             onSuccess?.(projectData)
@@ -54,12 +61,12 @@ export const useProjectModal = ({
           setView(Views.CREATE)
           hideModal()
         }}
-        className={cx(css.dialog, Classes.DIALOG, {
-          [css.create]: view === Views.CREATE
-        })}
+        {...modalProps}
       >
         {view === Views.CREATE ? (
           <StepWizard<Project>
+            icon="projects-wizard"
+            iconProps={{ size: 30, padding: { bottom: 'xxlarge' } }}
             onCompleteWizard={wizardCompleteHandler}
             onStepChange={() => {
               if (!refreshProjects) {

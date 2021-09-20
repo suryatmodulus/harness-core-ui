@@ -21,5 +21,6 @@ declare const styles: {
   readonly columnHeader: string
   readonly dataRow: string
   readonly highlightRow: string
+  readonly healthScoreCard: string
 }
 export default styles

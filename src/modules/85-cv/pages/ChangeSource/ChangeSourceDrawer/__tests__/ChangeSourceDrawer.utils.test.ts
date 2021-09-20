@@ -1,5 +1,11 @@
-import { createCardOptions, validateChangeSource } from '../ChangeSourceDrawer.utils'
+import {
+  createCardOptions,
+  validateChangeSource,
+  getChangeSourceOptions,
+  buildInitialData
+} from '../ChangeSourceDrawer.utils'
 import { allFieldsEmpty, emptyPagerDutyConnectorAndService } from './ChangeSourceDrawer.mock'
+import { ChangeSourceCategoryName } from '../ChangeSourceDrawer.constants'
 
 function mockGetString(name: string): string {
   switch (name) {
@@ -23,7 +29,7 @@ function mockGetString(name: string): string {
       return ''
   }
 }
-describe('Validate ChnagSource Utils', () => {
+describe('Validate ChangeSource Utils', () => {
   test('Validate CreateCardOptions', () => {
     expect(createCardOptions('Deployment', mockGetString)).toEqual([
       { category: 'Deployment', icon: 'cd-main', label: 'Harness CD NextGen', value: 'HarnessCD' }
@@ -57,5 +63,70 @@ describe('Validate ChnagSource Utils', () => {
         mockGetString
       )
     ).toEqual(emptyPagerDutyConnectorAndService)
+  })
+
+  test('Ensure getChangeSourceOptions works as intended', async () => {
+    // no infra options should be returned for application type
+    expect(getChangeSourceOptions(jest.fn(), 'Application')).toEqual([
+      {
+        label: undefined,
+        value: 'Deployment'
+      },
+      {
+        label: undefined,
+        value: 'Alert'
+      }
+    ])
+
+    // no deploymnt options should be return for infra type
+    expect(getChangeSourceOptions(jest.fn(), 'Infrastructure')).toEqual([
+      {
+        label: undefined,
+        value: 'Infrastructure'
+      },
+      {
+        label: undefined,
+        value: 'Alert'
+      }
+    ])
+
+    expect(getChangeSourceOptions(jest.fn())).toEqual([
+      {
+        label: undefined,
+        value: 'Deployment'
+      },
+      {
+        label: undefined,
+        value: 'Infrastructure'
+      },
+      {
+        label: undefined,
+        value: 'Alert'
+      }
+    ])
+  })
+
+  test('Ensure building initial data returns correct values', async () => {
+    expect(
+      buildInitialData([
+        { label: 'deploymentText', value: ChangeSourceCategoryName.DEPLOYMENT },
+        { label: 'cv.changeSource.alertText', value: ChangeSourceCategoryName.ALERT }
+      ])
+    ).toEqual({
+      category: 'Deployment',
+      spec: {},
+      type: 'HarnessCD'
+    })
+
+    expect(
+      buildInitialData([
+        { label: 'infrastructureText', value: ChangeSourceCategoryName.INFRASTRUCTURE },
+        { label: 'cv.changeSource.alertText', value: ChangeSourceCategoryName.ALERT }
+      ])
+    ).toEqual({
+      category: 'Infrastructure',
+      spec: {},
+      type: 'K8sCluster'
+    })
   })
 })

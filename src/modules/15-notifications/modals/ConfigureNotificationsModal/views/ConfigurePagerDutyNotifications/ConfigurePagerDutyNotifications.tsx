@@ -62,7 +62,7 @@ export const TestPagerDutyNotifications: React.FC<{
         setTestStatus(TestStatus.FAILED)
       }
     } catch (err) {
-      showError(err.data.message)
+      showError(getString('notifications.invalidPagerDutyKey'))
       setTestStatus(TestStatus.ERROR)
     }
   }

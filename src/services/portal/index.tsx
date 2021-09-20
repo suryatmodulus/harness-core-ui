@@ -20531,6 +20531,37 @@ export const useGetDelegatesHeartbeatDetails = (props: UseGetDelegatesHeartbeatD
     { base: getConfig('api'), ...props }
   )
 
+export interface GetDelegatesHeartbeatDetailsV2QueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+  delegateName?: string
+}
+
+export type GetDelegatesHeartbeatDetailsV2Props = Omit<
+  GetProps<RestResponseDelegateHeartbeatDetails, unknown, GetDelegatesHeartbeatDetailsV2QueryParams, void>,
+  'path'
+>
+
+export const GetDelegatesHeartbeatDetailsV2 = (props: GetDelegatesHeartbeatDetailsV2Props) => (
+  <Get<RestResponseDelegateHeartbeatDetails, unknown, GetDelegatesHeartbeatDetailsV2QueryParams, void>
+    path={`/delegates-verification/heartbeatV2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegatesHeartbeatDetailsV2Props = Omit<
+  UseGetProps<RestResponseDelegateHeartbeatDetails, unknown, GetDelegatesHeartbeatDetailsV2QueryParams, void>,
+  'path'
+>
+
+export const useGetDelegatesHeartbeatDetailsV2 = (props: UseGetDelegatesHeartbeatDetailsV2Props) =>
+  useGet<RestResponseDelegateHeartbeatDetails, unknown, GetDelegatesHeartbeatDetailsV2QueryParams, void>(
+    `/delegates-verification/heartbeatV2`,
+    { base: getConfig('api'), ...props }
+  )
+
 export interface GetDelegatesInitializationDetailsQueryParams {
   accountId?: string
   orgId?: string
@@ -20564,6 +20595,47 @@ export type UseGetDelegatesInitializationDetailsProps = Omit<
 export const useGetDelegatesInitializationDetails = (props: UseGetDelegatesInitializationDetailsProps) =>
   useGet<RestResponseListDelegateInitializationDetails, unknown, GetDelegatesInitializationDetailsQueryParams, void>(
     `/delegates-verification/initialized`,
+    { base: getConfig('api'), ...props }
+  )
+
+export interface GetDelegatesInitializationDetailsV2QueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+  delegateName?: string
+}
+
+export type GetDelegatesInitializationDetailsV2Props = Omit<
+  GetProps<
+    RestResponseListDelegateInitializationDetails,
+    unknown,
+    GetDelegatesInitializationDetailsV2QueryParams,
+    void
+  >,
+  'path'
+>
+
+export const GetDelegatesInitializationDetailsV2 = (props: GetDelegatesInitializationDetailsV2Props) => (
+  <Get<RestResponseListDelegateInitializationDetails, unknown, GetDelegatesInitializationDetailsV2QueryParams, void>
+    path={`/delegates-verification/initializedV2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegatesInitializationDetailsV2Props = Omit<
+  UseGetProps<
+    RestResponseListDelegateInitializationDetails,
+    unknown,
+    GetDelegatesInitializationDetailsV2QueryParams,
+    void
+  >,
+  'path'
+>
+
+export const useGetDelegatesInitializationDetailsV2 = (props: UseGetDelegatesInitializationDetailsV2Props) =>
+  useGet<RestResponseListDelegateInitializationDetails, unknown, GetDelegatesInitializationDetailsV2QueryParams, void>(
+    `/delegates-verification/initializedV2`,
     { base: getConfig('api'), ...props }
   )
 

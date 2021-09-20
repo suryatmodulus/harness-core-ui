@@ -4,7 +4,7 @@ learnMore: Learn more about Continuous Delivery
 dynamicProvisioning: Dynamic provisioning
 dashboard:
   subHeading: Let Harness take your software release process to the next level with Continuous Delivery
-  createProject: '{{$.projectsOrgs.createProject}}'
+  createProject: '{{$.createProject}}'
   orSelectExisting: '{{$.orSelectExisting}}'
 steps:
   common:
@@ -99,7 +99,23 @@ serviceDashboard:
   noActiveServiceInstances: No Active Service Instances
   noActiveServices: No Active Services in {{timeRange}}
 gitOps: GitOps
-newProvider: Add Provider
+providerOverview: Provider Overview
+newProvider: New Provider
 providerDetails: Provider Details
 launchArgo: Launch Argo App Dashboard
-argoAdapterURL: 'Adapter URL:'
+argoAdapterURL: 'Adapter URL'
+noProviderText: 'There are no providers in your project'
+aboutProvider: 'Providers help connect to your ArgoCD Instance and view your Apps.'
+installAdapterHelperText: 'Install Argo CD adapter in your cluster. This adapter allows customers to interact with the ArgoCD server directly from Harness UI with minimal configuration. <ul> <li> Install one adapter per ArgoCD Server. </li> <li> This Adapter should be able to reach the ArgoCD Server. </li> <li> The communication between Harness UI to Harness Argo Adapter takes place over HTTPS for security purposes. </li> </ul>'
+whatIsHarnessAdapter: 'What is a Harness Adapter?'
+aboutHarnessAdapter: 'The Harness Adapter is a service you run in your local network or VPC to establish connectivity between Harness UI and ArgoCD.'
+learnMoreAboutHarnessAdapter: 'Learn More about this'
+updating: 'Updating provider {{name}}'
+creating: 'Creating provider {{name}}'
+createdSuccessfully: 'Provider {{name}} created successfully'
+updatedSuccessfully: 'Provider {{name}} updated successfully'
+confirmDeleteTitle: Delete provider
+confirmProviderDelete: Are you sure you want to delete the Provider
+duplicateIdError: 'Failed to create Provider: {{ providerName }}. There is already a Provider with identifier {{ providerIdentifier }} present. Please provide a new unique identifier and save again.'
+connectionIssueSuggestion: 'Try these suggestions <ul> <li> Please provide the correct adapter URL of the kubernetes cluster. It can be obtained using &#39;kubectlcluster-info&#39; cli command </li> </ul>'
+connectionIssueInfo: 'Issue could be <ul> <li> Adapter URL provided is not reachable </li> </ul>'

@@ -47,7 +47,8 @@ describe('Unit tests for Deployment Nodes', () => {
     // make sure popover has right contents
     fireEvent.mouseOver(container.querySelector('[class*="hexagonContainer"]')!)
     await waitFor(() => expect(document.body.querySelector('[class*="nodeHealthPopoverContent"]')).not.toBeNull())
-    getByText('2 pipeline.verification.metricsInViolation')
+    expect(getByText('2 pipeline.verification.metricsInViolation')).not.toBeNull()
+    expect(getByText('4 pipeline.verification.logClustersInViolation')).not.toBeNull()
     expect(document.body.querySelector('[class*="nodeHealthPopoverContent"] [class*="nodeHealth"]')).not.toBeNull()
   })
 })

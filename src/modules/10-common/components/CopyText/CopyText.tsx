@@ -28,11 +28,11 @@ export function CopyText(props: CopyTextProps): React.ReactElement {
       <div className={cx(css.text, props.className)}>{props.children}</div>
       <Button
         data-name={icon}
-        icon={icon}
+        icon={copied ? 'execution-success' : icon}
         minimal
         intent="primary"
         small
-        className={css.copyIcon}
+        className={cx(css.copyIcon, copied && css.successIcon)}
         tooltip={<String className={css.tooltip} stringID={copied ? 'copiedToClipboard' : 'clickToCopy'} />}
         tooltipProps={{ wrapperTagName: 'div', className: css.btnWrapper, onClosed }}
         onClick={handleClick}

@@ -561,7 +561,7 @@ testsReports:
     class: Class
     method: '{{ $.methodLabel }}'
     params: Params
-    file: '{{ $.secret.labelFile }}'
+    file: '{{ $.common.file }}'
     type: '{{ $.typeLabel }}'
   viewCallgraph: View Callgraph
   testMethods: Test methods
@@ -633,9 +633,9 @@ addStage:
 pipelineSteps:
   customStage: Custom Stage
   chainedPipeline: Chained Pipeline
-  deployStageDescription: Deploy services, serverless functions or execute workloads.
+  deployStageDescription: Deploy services, Serverless functions, or other workloads.
   featureStageDescription: Enable or disable functionality remotely without redeploying code.
-  approvalStageDescription: Approve or reject changes during Pipeline executions.
+  approvalStageDescription: Approve or reject changes during Pipeline progress.
 aboutYourStage:
   stageNamePlaceholder: Enter Stage Name
 infraSpecifications:

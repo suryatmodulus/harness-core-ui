@@ -9,9 +9,11 @@
     align-items: center;
     margin-bottom: var(--spacing-xsmall) !important;
     .title {
+      font-size: 16px !important;
+      color: #000000 !important;
       margin-left: var(--spacing-small);
-      font-size: var(--ci-font-size-normal) !important;
-      font-weight: 500 !important;
+
+      font-weight: 600 !important;
       flex: 1;
     }
   }

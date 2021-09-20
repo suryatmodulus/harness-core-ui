@@ -9,14 +9,16 @@ export const mapClusterType = (type: string): LogData['tag'] => {
       return 'KNOWN'
     case 'UNKNOWN_EVENT':
       return 'UNKNOWN'
+    case 'UNEXPECTED_FREQUENCY':
+      return 'UNEXPECTED'
     default:
-      return
+      return 'KNOWN'
   }
 }
 
 export const getClusterTypes = (getString: UseStringsReturn['getString']): SelectOption[] => {
   return [
-    { label: getString('pipeline.verification.logs.allEvents'), value: LogEvents.ALL_EVENTS },
+    { label: getString('pipeline.verification.logs.allEvents'), value: '' },
     { label: getString('pipeline.verification.logs.knownEvent'), value: LogEvents.KNOWN_EVENT },
     { label: getString('pipeline.verification.logs.unknownEvent'), value: LogEvents.UNKNOWN_EVENT },
     { label: getString('pipeline.verification.logs.unexpectedFrequency'), value: LogEvents.UNEXPECTED_FREQUENCY }

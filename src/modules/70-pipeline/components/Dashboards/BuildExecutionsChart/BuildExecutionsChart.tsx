@@ -15,6 +15,7 @@ import styles from './BuildExecutionsChart.module.scss'
 
 export interface ExecutionsChartProps {
   titleText: React.ReactNode
+  customTitleCls?: string
   data?: Array<{
     time?: number
     success?: number
@@ -74,7 +75,8 @@ export function ExecutionsChart({
   range,
   onRangeChange,
   yAxisTitle,
-  successColor
+  successColor,
+  customTitleCls
 }: ExecutionsChartProps) {
   const [chartOptions, setChartOptions] = useState<Highcharts.Options>(
     generateEmptyChartData(range[0], range[1], {
@@ -141,13 +143,15 @@ export function ExecutionsChart({
       )
     }
   }, [data])
-
+  const titleCls = customTitleCls ? styles.rangeSelectorHeader : ''
   return (
     <Container className={styles.main}>
       <RangeSelectorWithTitle
         title={
           <Layout.Horizontal>
-            <Text margin={{ right: 'small' }}>{titleText}</Text>
+            <Text margin={{ right: 'small' }} className={titleCls}>
+              {titleText}
+            </Text>
             {loading && <Spinner size={15} />}
           </Layout.Horizontal>
         }

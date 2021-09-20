@@ -32,6 +32,10 @@ import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 import ProjectsEmptyState from './projects-empty-state.png'
 import css from './ProjectsPage.module.scss'
 
+enum OrgFilter {
+  ALL = '$$ALL$$'
+}
+
 const ProjectsListPage: React.FC = () => {
   const { accountId } = useParams<AccountPathProps>()
   const { orgIdentifier } = useQueryParams<OrgPathProps>()
@@ -47,13 +51,11 @@ const ProjectsListPage: React.FC = () => {
   const allOrgsSelectOption: SelectOption = useMemo(
     () => ({
       label: getString('all'),
-      value: getString('projectsOrgs.capsAllValue')
+      value: OrgFilter.ALL
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
-
-  const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
 
   const { data: orgsData } = useGetOrganizationList({
     queryParams: {
@@ -72,22 +74,10 @@ const ProjectsListPage: React.FC = () => {
     [verify]
   )
 
-  useEffect(() => {
-    if (orgIdentifier === 'ALL' && orgFilter.value !== 'ALL') {
-      setOrgFilter(allOrgsSelectOption)
-    }
-  }, [orgIdentifier, allOrgsSelectOption, orgFilter.value])
-
   const organizations: SelectOption[] = useMemo(() => {
     return [
       allOrgsSelectOption,
       ...(orgsData?.data?.content?.map(org => {
-        if (org.organization.identifier === orgIdentifier) {
-          setOrgFilter({
-            label: org.organization.name,
-            value: org.organization.identifier
-          })
-        }
         return {
           label: org.organization.name,
           value: org.organization.identifier
@@ -98,12 +88,12 @@ const ProjectsListPage: React.FC = () => {
 
   React.useEffect(() => {
     setPage(0)
-  }, [searchParam, orgFilter])
+  }, [searchParam, orgIdentifier])
 
   const { data, loading, refetch, error } = useGetProjectAggregateDTOList({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: orgFilter.value == 'ALL' ? undefined : orgFilter.value.toString(),
+      orgIdentifier,
       searchTerm: searchParam,
       pageIndex: page,
       pageSize: 50
@@ -139,7 +129,7 @@ const ProjectsListPage: React.FC = () => {
     <Container className={css.projectsPage} height="inherit">
       <EmailVerificationBanner />
       <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('projectsText')} />
-      {data?.data?.totalItems || searchParam || loading || error ? (
+      {data?.data?.totalItems || searchParam || loading || error || orgIdentifier ? (
         <Layout.Horizontal spacing="large" className={css.header}>
           <Button
             variation={ButtonVariation.PRIMARY}
@@ -151,11 +141,11 @@ const ProjectsListPage: React.FC = () => {
             disabled={loading}
             filterable={false}
             items={organizations}
-            value={orgFilter.value.toString()}
+            value={orgIdentifier || OrgFilter.ALL}
             onChange={item => {
               history.push({
                 pathname: routes.toProjects({ accountId }),
-                search: `?orgIdentifier=${item.value.toString()}`
+                search: item.value !== OrgFilter.ALL ? `?orgIdentifier=${item.value.toString()}` : undefined
               })
             }}
             getCustomLabel={item => getString('projectsOrgs.tabOrgs', { name: item.label })}

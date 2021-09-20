@@ -60,7 +60,11 @@ exports[`PipelineSummaryCards shows data correctly 1`] = `
         <div
           class="StyledProps--font StyledProps--main cardHeader"
         >
-          pipeline.dashboards.totalExecutions
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600"
+          >
+            pipeline.dashboards.totalExecutions
+          </p>
         </div>
         <div
           class="StyledProps--font StyledProps--main cardContent"
@@ -114,7 +118,11 @@ exports[`PipelineSummaryCards shows data correctly 1`] = `
         <div
           class="StyledProps--font StyledProps--main cardHeader"
         >
-          pipeline.dashboards.successRate
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600"
+          >
+            pipeline.dashboards.successRate
+          </p>
         </div>
         <div
           class="StyledProps--font StyledProps--main cardContent"
@@ -167,7 +175,11 @@ exports[`PipelineSummaryCards shows data correctly 1`] = `
         <div
           class="StyledProps--font StyledProps--main cardHeader"
         >
-          pipeline.dashboards.meanDuration
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600"
+          >
+            pipeline.dashboards.meanDuration
+          </p>
         </div>
         <div
           class="StyledProps--font StyledProps--main cardContent"
@@ -216,7 +228,11 @@ exports[`PipelineSummaryCards shows data correctly 1`] = `
         <div
           class="StyledProps--font StyledProps--main cardHeader"
         >
-          pipeline.dashboards.medianDuration
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600"
+          >
+            pipeline.dashboards.medianDuration
+          </p>
         </div>
         <div
           class="StyledProps--font StyledProps--main cardContent"

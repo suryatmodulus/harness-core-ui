@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { debounce, noop } from 'lodash-es'
+import { noop } from 'lodash-es'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { Drawer, IOptionProps } from '@blueprintjs/core'
@@ -27,6 +27,7 @@ import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
+import { QueryContent } from '@cv/components/QueryViewer/QueryViewer'
 import { GCODashboardWidgetMetricNav } from './components/GCODashboardWidgetMetricNav/GCODashboardWidgetMetricNav'
 import { MANUAL_INPUT_QUERY } from './components/ManualInputQueryModal/ManualInputQueryModal'
 import {
@@ -92,7 +93,7 @@ function ConfigureRiskProfile(): JSX.Element {
 }
 
 function ValidationChart(props: ValidationChartProps): JSX.Element {
-  const { loading, error, queryValue, onRetry, sampleData, setAsTooManyMetrics } = props
+  const { loading, error, queryValue, onRetry, sampleData, setAsTooManyMetrics, isQueryExecuted = false } = props
   const { getString } = useStrings()
   const isTooManyMetrics = Boolean(
     sampleData?.series?.length && sampleData.series.length > 1 && queryValue?.includes(GroupByClause)
@@ -102,17 +103,6 @@ function ValidationChart(props: ValidationChartProps): JSX.Element {
     setAsTooManyMetrics?.(isTooManyMetrics)
   }, [sampleData])
 
-  if (loading) {
-    return <Icon name="steps-spinner" size={32} color={Color.GREY_600} className={css.sampleDataSpinner} />
-  }
-  if (error) {
-    return (
-      <Container className={css.chartContainer}>
-        <PageError message={error} onClick={() => onRetry()} />
-      </Container>
-    )
-  }
-
   if (!queryValue?.length) {
     return (
       <Container className={cx(css.chartContainer, css.noDataContainer)}>
@@ -120,6 +110,29 @@ function ValidationChart(props: ValidationChartProps): JSX.Element {
           icon="main-notes"
           message={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.enterQueryForValidation')}
         />
+      </Container>
+    )
+  }
+
+  if (!isQueryExecuted) {
+    return (
+      <Container className={cx(css.chartContainer, css.noDataContainer)}>
+        <NoDataCard
+          icon="timeline-line-chart"
+          message={getString('cv.monitoringSources.gcoLogs.submitQueryToSeeRecords')}
+        />
+      </Container>
+    )
+  }
+
+  if (loading) {
+    return <Icon name="steps-spinner" size={32} color={Color.GREY_600} className={css.sampleDataSpinner} />
+  }
+
+  if (error) {
+    return (
+      <Container className={css.chartContainer}>
+        <PageError message={error} onClick={() => onRetry()} />
       </Container>
     )
   }
@@ -155,18 +168,6 @@ function ValidationChart(props: ValidationChartProps): JSX.Element {
   )
 }
 
-function TextAreaLabel({ onExpandQuery }: { onExpandQuery: () => void }): JSX.Element {
-  const { getString } = useStrings()
-  return (
-    <Container className={css.textAreaLabel}>
-      <Text>{getString('cv.monitoringSources.gco.mapMetricsToServicesPage.operationsQueryLabel')}</Text>
-      <Text intent="primary" onClick={onExpandQuery} data-name="viewQuery">
-        {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.viewQuery')}
-      </Text>
-    </Container>
-  )
-}
-
 export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.Element {
   const { data, onSubmit } = props
   const { onPrevious } = useContext(SetupSourceTabsContext)
@@ -175,6 +176,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
   const [updatedData, setUpdatedData] = useState(
     initializeSelectedMetrics(data.selectedDashboards || [], transformedData.metricDefinition)
   )
+  const [shouldShowChart, setShouldShowChart] = useState<boolean>(false)
   const [selectedMetric, setSelectedMetric] = useState<string>()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [error, setError] = useState<string | undefined>()
@@ -189,12 +191,12 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
     }),
     [data?.connectorRef, projectIdentifier, orgIdentifier, accountId]
   )
-  const { mutate, cancel } = useGetStackdriverSampleData({
-    queryParams
-  })
+
+  const { mutate, cancel } = useGetStackdriverSampleData({ queryParams })
+
   const [isQueryExpanded, setIsQueryExpanded] = useState(false)
   const [sampleData, setSampleData] = useState<Highcharts.Options | undefined>()
-  const [, setDebouncedFunc] = useState<typeof debounce | undefined>()
+
   const onQueryChange = useCallback(
     async (updatedQueryValue: string | undefined, onError?: () => void) => {
       cancel()
@@ -219,6 +221,8 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
           return
         }
         if (e.name === 'SyntaxError') {
+          setError(getErrorMessage(e))
+          setSampleData(transformSampleDataIntoHighchartOptions([]))
           onError?.()
         } else if (e?.data) {
           setError(getErrorMessage(e))
@@ -229,7 +233,15 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
     },
     [mutate, cancel]
   )
-
+  const onChangeMetric = (newMetricName: FormEvent<HTMLInputElement>) => {
+    const currentSelectedInfo = updatedData.get(selectedMetric || '')
+    if (currentSelectedInfo?.isManualQuery && newMetricName.currentTarget.value) {
+      setSelectedMetric(newMetricName.currentTarget.value)
+      updatedData.delete(selectedMetric || '')
+      updatedData.set(newMetricName.currentTarget.value, { ...currentSelectedInfo })
+      setUpdatedData(new Map(updatedData))
+    }
+  }
   return (
     <Formik<GCOMetricInfo>
       enableReinitialize={true}
@@ -273,48 +285,27 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     label={getString('cv.monitoringSources.metricNameLabel')}
                     name={FieldNames.METRIC_NAME}
                     onChange={(newMetricName: FormEvent<HTMLInputElement>) => {
-                      const currentSelectedInfo = updatedData.get(selectedMetric || '')
-                      if (currentSelectedInfo?.isManualQuery && newMetricName.currentTarget.value) {
-                        setSelectedMetric(newMetricName.currentTarget.value)
-                        updatedData.delete(selectedMetric || '')
-                        updatedData.set(newMetricName.currentTarget.value, { ...currentSelectedInfo })
-                        setUpdatedData(new Map(updatedData))
-                      }
+                      onChangeMetric(newMetricName)
                       formikProps.setFieldValue(FieldNames.METRIC_NAME, newMetricName.currentTarget?.value || '')
                     }}
                   />
                 </Container>
+
                 <Container className={css.validationContainer}>
-                  <FormInput.CustomRender
-                    name={FieldNames.QUERY}
-                    className={css.query}
-                    label={<TextAreaLabel onExpandQuery={() => setIsQueryExpanded(true)} />}
-                    render={() => (
-                      <>
-                        <textarea
-                          value={formikProps.values.query || ''}
-                          name={FieldNames.QUERY}
-                          onChange={event => {
-                            event.persist()
-                            const updatedValue = event.target?.value
-                            formikProps.setFieldValue(FieldNames.QUERY, updatedValue)
-                            setDebouncedFunc((prevDebounce?: any) => {
-                              prevDebounce?.cancel()
-                              const debouncedFunc = debounce(onQueryChange, 750)
-                              debouncedFunc(updatedValue, () =>
-                                formikProps.setFieldError(
-                                  FieldNames.QUERY,
-                                  getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON')
-                                )
-                              )
-                              return debouncedFunc as any
-                            })
-                          }}
-                        />
-                        <FormError errorMessage={formikProps.errors['query']} />
-                      </>
-                    )}
+                  <QueryContent
+                    handleFetchRecords={async () => {
+                      if (!shouldShowChart) {
+                        setShouldShowChart(true)
+                      }
+                      onQueryChange(formikProps.values.query)
+                    }}
+                    onClickExpand={setIsQueryExpanded}
+                    isDialogOpen={isQueryExpanded}
+                    query={formikProps.values.query}
+                    loading={loading}
+                    textAreaName={FieldNames.QUERY}
                   />
+
                   <ValidationChart
                     loading={loading}
                     error={error}
@@ -327,22 +318,18 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                         formikProps.setFieldError('tooManyMetrics', '')
                       }
                     }}
+                    isQueryExecuted={shouldShowChart}
                     onRetry={async () => {
                       if (!formikProps.values.query?.length) return
                       onQueryChange(formikProps.values.query)
                     }}
                   />
+
                   {isQueryExpanded && (
                     <Drawer
                       {...DrawerOptions}
                       onClose={() => {
                         setIsQueryExpanded(false)
-                        onQueryChange(formikProps.values.query, () =>
-                          formikProps.setFieldError(
-                            FieldNames.QUERY,
-                            getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON')
-                          )
-                        )
                       }}
                     >
                       <MonacoEditor
@@ -361,6 +348,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     </Drawer>
                   )}
                 </Container>
+
                 <ConfigureRiskProfile />
                 <FormInput.Text name={OVERALL} className={css.hiddenField} />
                 <DrawerFooter
@@ -422,7 +410,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     }
                   }
 
-                  metricInfo.query = formatJSON(metricInfo.query)
+                  metricInfo.query = formatJSON(metricInfo.query) || ''
                   updatedData.set(metricName, metricInfo)
                   if (selectedMetric) {
                     updatedData.set(selectedMetric as string, { ...formikProps.values })
@@ -430,12 +418,10 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
 
                   setUpdatedData(new Map(updatedData))
                   setSelectedMetric(metricName)
-                  onQueryChange(metricInfo.query, () =>
-                    formikProps.setFieldError(
-                      FieldNames.QUERY,
-                      getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON')
-                    )
-                  )
+                  setShouldShowChart(false)
+                  setError(undefined)
+                  setSampleData(transformSampleDataIntoHighchartOptions([]))
+
                   formikProps.resetForm()
                 }}
               />

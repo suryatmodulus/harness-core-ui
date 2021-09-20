@@ -21,9 +21,15 @@ jest.mock('@common/hooks/useTelemetry', () => ({
   useTelemetry: () => ({ identifyUser: jest.fn(), trackEvent: jest.fn() })
 }))
 
-describe('Sidenav', () => {
-  beforeEach(() => localStorage.clear())
+jest.mock('@cf/pages/pipeline-studio/views/FeatureFlagStage', () => ({
+  registerFeatureFlagPipelineStage: jest.fn()
+}))
 
+jest.mock('@cf/components/PipelineSteps', () => ({
+  registerFlagConfigurationPipelineStep: jest.fn()
+}))
+
+describe('Sidenav', () => {
   const Subject: React.FC<{ path?: string }> = ({
     path = '/account/:accountId/cf/dashboard/orgs/:orgIdentifier/projects/:projectIdentifier'
   }) => (
@@ -37,13 +43,16 @@ describe('Sidenav', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('it should display the pipelines link only when pipelines are enabled', async () => {
+  test('it should only display the pipelines link when FF_PIPELINE is true', async () => {
+    const useFeatureFlags = jest.spyOn(hooks, 'useFeatureFlags')
+    useFeatureFlags.mockReturnValue({ FF_PIPELINE: false })
+
     const { rerender } = render(<Subject />)
     expect(screen.queryByText('pipelines')).not.toBeInTheDocument()
 
-    localStorage.setItem('FF_PIPELINES', 'true')
+    useFeatureFlags.mockReturnValue({ FF_PIPELINE: true })
     rerender(<Subject />)
-    expect(screen.getByText('pipelines')).toBeInTheDocument()
+    expect(screen.queryByText('pipelines')).toBeInTheDocument()
   })
 
   test('it should hide the Git Experience links when FF_GITSYNC is FALSE', async () => {
@@ -55,6 +64,7 @@ describe('Sidenav', () => {
 
     expect(screen.queryByText('connectorsLabel')).not.toBeInTheDocument()
     expect(screen.queryByText('common.secrets')).not.toBeInTheDocument()
+    expect(screen.queryByText('gitManagement')).not.toBeInTheDocument()
   })
 
   test('it should show the Git Experience links when FF_GITSYNC is TRUE', async () => {
@@ -64,11 +74,12 @@ describe('Sidenav', () => {
       <Subject path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/setup/access-control/users" />
     )
 
-    expect(screen.getByText('connectorsLabel')).toBeInTheDocument()
+    expect(screen.queryByText('connectorsLabel')).toBeInTheDocument()
     expect(screen.queryByText('common.secrets')).toBeInTheDocument()
+    expect(screen.queryByText('gitManagement')).toBeInTheDocument()
   })
 
-  test('it should fire telementary event when Feature Flags menu item clicked', () => {
+  test('it should fire telemetry event when Feature Flags menu item clicked', () => {
     render(<Subject />)
 
     const featureFlagLink = screen.getByText('featureFlagsText')

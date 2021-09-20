@@ -1,22 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import {
-  Color,
-  Container,
-  ExpandingSearchInput,
-  Select,
-  SelectOption,
-  Text,
-  Icon,
-  Pagination
-} from '@wings-software/uicore'
+import React, { useState, useEffect, useCallback } from 'react'
+import { Color, Container, ExpandingSearchInput, Select, Text, Icon, Pagination } from '@wings-software/uicore'
 import { isEqual } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import type { ExecutionNode } from 'services/pipeline-ng'
-import { GetDeploymentMetricsQueryParams, useGetDataSourcetypes, useGetDeploymentMetrics } from 'services/cv'
+import { GetDeploymentMetricsQueryParams, useGetDeploymentMetrics, useGetHealthSources } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { VerificationType } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown.constants'
 import {
   MetricType,
   MetricTypeOptions,
@@ -30,7 +22,8 @@ import {
   DeploymentMetricsAnalysisRow,
   DeploymentMetricsAnalysisRowProps
 } from './components/DeploymentMetricsAnalysisRow/DeploymentMetricsAnalysisRow'
-import { transformMetricData, dataSourceTypeToLabel, getErrorMessage } from './DeploymentMetrics.utils'
+import { transformMetricData, getErrorMessage } from './DeploymentMetrics.utils'
+import { HealthSourceDropDown } from '../HealthSourcesDropdown/HealthSourcesDropdown'
 import css from './DeploymentMetrics.module.scss'
 
 interface DeploymentMetricsProps {
@@ -39,64 +32,11 @@ interface DeploymentMetricsProps {
   selectedNode?: DeploymentNodeAnalysisResult
 }
 
-interface HealthSourceDropDownProps {
-  onChange: (selectedHealthSource: string) => void
-  serviceIdentifier: string
-  environmentIdentifier: string
-}
-
 type UpdateViewState = {
   hasNewData: boolean
   shouldUpdateView: boolean
   currentViewData: DeploymentMetricsAnalysisRowProps[]
   showSpinner: boolean
-}
-
-export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Element {
-  const { onChange, serviceIdentifier, environmentIdentifier } = props
-  const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { data, error, loading } = useGetDataSourcetypes({
-    queryParams: { accountId, projectIdentifier, orgIdentifier, serviceIdentifier, environmentIdentifier }
-  })
-
-  const healthSources: SelectOption[] = useMemo(() => {
-    if (loading) {
-      return [{ value: '', label: getString('loading') }]
-    }
-    if (error) {
-      return []
-    }
-
-    const options = []
-    for (const source of data?.resource || []) {
-      if (source.dataSourceType && source.verificationType === 'TIME_SERIES') {
-        options.push({
-          label: dataSourceTypeToLabel(source.dataSourceType),
-          value: source.dataSourceType as string
-        })
-      }
-    }
-
-    if (options.length > 1) {
-      options.unshift({ label: getString('all'), value: 'all' })
-    }
-
-    return options
-  }, [data, loading])
-
-  return (
-    <Select
-      items={healthSources}
-      className={css.maxDropDownWidth}
-      defaultSelectedItem={healthSources?.[0]}
-      key={healthSources?.[0]?.value as string}
-      inputProps={{ placeholder: getString('pipeline.verification.healthSourcePlaceholder') }}
-      onChange={item => {
-        onChange(item?.value === 'all' ? '' : (item.value as string))
-      }}
-    />
-  )
 }
 
 export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
@@ -124,7 +64,21 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
     activityId
   })
 
+  const {
+    data: healthSourcesData,
+    error: healthSourcesError,
+    loading: healthSourcesLoading,
+    refetch: fetchHealthSources
+  } = useGetHealthSources({
+    queryParams: { accountId },
+    activityId: activityId as string,
+    lazy: true
+  })
+
   useEffect(() => {
+    if (activityId) {
+      fetchHealthSources()
+    }
     setPollingIntervalId(-1)
     setUpdateViewInfo({ currentViewData: [], hasNewData: false, shouldUpdateView: true, showSpinner: true })
     setQueryParams(oldParams => ({
@@ -132,6 +86,7 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
       hostName: undefined,
       pageNumber: 0
     }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activityId])
 
   useEffect(() => {
@@ -174,6 +129,15 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
   }, [data])
 
   const paginationInfo = data?.resource?.pageResponse || DEFAULT_PAGINATION_VALUEE
+
+  const handleHealthSourceChange = useCallback(selectedHealthSource => {
+    setQueryParams((oldQueryParams: any) => ({
+      ...oldQueryParams,
+      pageNumber: 0,
+      healthSource: selectedHealthSource
+    }))
+    setUpdateViewInfo(oldInfo => ({ ...oldInfo, shouldUpdateView: true, showSpinner: true }))
+  }, [])
 
   const renderContent = () => {
     if (loading && showSpinner) {
@@ -248,16 +212,11 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
           }}
         />
         <HealthSourceDropDown
-          onChange={selectedHealthSource => {
-            setQueryParams((oldQueryParams: any) => ({
-              ...oldQueryParams,
-              pageNumber: 0,
-              healthSource: selectedHealthSource
-            }))
-            setUpdateViewInfo(oldInfo => ({ ...oldInfo, shouldUpdateView: true, showSpinner: true }))
-          }}
-          serviceIdentifier={(step?.stepParameters?.serviceIdentifier as unknown as string) || ''}
-          environmentIdentifier={(step?.stepParameters?.environmentIdentifier as unknown as string) || ''}
+          data={healthSourcesData}
+          loading={healthSourcesLoading}
+          error={healthSourcesError}
+          onChange={handleHealthSourceChange}
+          verificationType={VerificationType.TIME_SERIES}
         />
         <ExpandingSearchInput
           throttle={500}

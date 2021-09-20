@@ -44,7 +44,7 @@ export default function TimeseriesRow({
   dataSourceType
 }: TimeseriesRowProps): JSX.Element {
   const { getString } = useStrings()
-  const showDetails = useTimeseriesDetailsModal(transactionName, metricName)
+  const showDetails = useTimeseriesDetailsModal(transactionName, metricName, dataSourceType as string)
   const chartingRowRef = useRef<HTMLDivElement>(null)
 
   const rows = useMemo(() => {
@@ -72,7 +72,6 @@ export default function TimeseriesRow({
           </div>
           <Container className={styles.icons}>
             {dataSourceType ? <Icon name={getIconBySourceType(dataSourceType)} size={14} /> : null}
-            <Icon name="star-empty" color={Color.GREY_250} padding={{ top: 'xsmall' }} />
           </Container>
         </div>
       </Container>
@@ -114,7 +113,11 @@ export default function TimeseriesRow({
   )
 }
 
-export function useTimeseriesDetailsModal(transactionName: React.ReactNode, metricName: React.ReactNode) {
+export function useTimeseriesDetailsModal(
+  transactionName: React.ReactNode,
+  metricName: React.ReactNode,
+  dataSourceType: string
+) {
   const [range, setRange] = useState<{ startDate: number; endDate: number } | undefined>()
   const [seriesData, setSeriesData] = useState<SeriesConfig>()
   const [openModal, hideModal] = useModalHook(
@@ -134,6 +137,7 @@ export function useTimeseriesDetailsModal(transactionName: React.ReactNode, metr
             transactionName={transactionName}
             metricName={metricName}
             seriesData={seriesData && [seriesData]}
+            dataSourceType={dataSourceType}
             chartOptions={{
               chart: {
                 height: 200,

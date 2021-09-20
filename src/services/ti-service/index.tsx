@@ -75,11 +75,6 @@ export interface TestCase {
  */
 export type TestCaseStatus = 'passed' | 'skipped' | 'error' | 'failed'
 
-export interface TestCaseSummary {
-  name?: string
-  status?: TestCaseStatus
-}
-
 export interface TestCases {
   content?: TestCase[]
   data?: ResponseMetadata
@@ -87,7 +82,9 @@ export interface TestCases {
 
 export interface TestReportSummary {
   duration_ms?: number
-  tests?: TestCaseSummary[]
+  failed_tests?: number
+  skipped_tests?: number
+  successful_tests?: number
   total_tests?: number
 }
 
@@ -127,7 +124,12 @@ export interface VisNode {
    * Whether the node should be specially marked in the UI or not
    */
   important?: boolean
+  method?: string
   package?: string
+  params?: string
+  /**
+   * Whether to use this node as the root node in the UI or not
+   */
   root?: boolean
   /**
    * Can be test | source | resource
@@ -211,7 +213,7 @@ export interface ReportSummaryQueryParams {
   /**
    * Step ID
    */
-  stepId: string
+  stepId?: string
   /**
    * Stage ID
    */

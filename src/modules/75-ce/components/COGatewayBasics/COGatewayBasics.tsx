@@ -23,11 +23,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
   const handleConnectorCreationSuccess = (data: ConnectorInfoDTO | undefined): void => {
     handleConnectorSelection(data as ConnectorInfoDTO)
   }
-  // const { openConnectorModal } = createConnectorModal({
-  //   onSuccess: handleConnectorCreationSuccess
-  // onClose: () => {
-  // }
-  // })
+
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: data => {
       handleConnectorCreationSuccess(data?.connector)
@@ -35,7 +31,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
   })
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
-  // const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
+
   const [selectedConnector, setSelectedConnector] = useState<ConnectorInfoDTO | null>(null)
 
   useEffect(() => {
@@ -90,7 +86,6 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
       <Layout.Vertical spacing="large">
         <ConnectorReferenceField
           name="cloudAccount"
-          // category={'CLOUD_COST'}
           selected={props.gatewayDetails.cloudAccount.id || selectedConnector?.identifier}
           label={[
             getString('ce.co.gatewayBasics.connect'),
@@ -107,20 +102,6 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           }
         />
       </Layout.Vertical>
-      <span
-        onClick={() => {
-          handleConnectorCreation(props.gatewayDetails.provider.name)
-          trackEvent('MadeNewConnector', {})
-        }}
-        style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}
-      >
-        {[
-          '+',
-          getString('ce.co.gatewayBasics.new'),
-          props.gatewayDetails.provider.name,
-          getString('rbac.account')
-        ].join(' ')}
-      </span>
       {localStorage.CENGAWSCONNECTOR && (
         <div>
           <span

@@ -14,6 +14,7 @@ import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { HealthSourceDropDown } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown'
 import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import Card from '@cv/components/Card/Card'
+import { VerificationType } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown.constants'
 import {
   MetricTypeOptions,
   PAGE_SIZE,
@@ -75,7 +76,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
   }, [startTime, endTime])
 
   useEffect(() => {
-    if (metricsData && metricsData?.resource?.content?.length) {
+    if (metricsData && !metricsLoading && !metricsError) {
       const timeSeriesInfo = generatePointsForTimeSeries(
         metricsData as RestResponsePageTimeSeriesMetricDataDTO,
         startTime,
@@ -86,9 +87,61 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [metricsData])
 
+  // Fetching metrics data for selected health source
+  useEffect(() => {
+    fetchMetricsDataForHealthSource(selectedHealthSource)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedHealthSource])
+
+  // Fetching metrics data for searched string
+  useEffect(() => {
+    fetchMetricsDataForString(filterString)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterString])
+
+  // Fetching metrics data for selected metric type
+  useEffect(() => {
+    fetchMetricsDataForMetricType(isAnamolousMetricType)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAnamolousMetricType])
+
   const paginationInfo = useMemo(
     () => (metricsData?.resource ? omit(metricsData.resource, ['content', 'empty']) : DEFAULT_PAGINATION_VALUE),
     [metricsData?.resource]
+  )
+
+  const goToMetricsPage = useCallback(
+    page => {
+      fetchMetricsData({ queryParams: { ...queryParams, page, size: PAGE_SIZE } })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [queryParams]
+  )
+
+  const fetchMetricsDataForMetricType = useCallback(
+    isAnamolous => {
+      fetchMetricsData({ queryParams: { ...queryParams, anomalous: isAnamolous } })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [queryParams]
+  )
+
+  const fetchMetricsDataForString = useCallback(
+    currentFilterString => {
+      fetchMetricsData({ queryParams: { ...queryParams, ...(filterString && { filter: currentFilterString }) } })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [queryParams]
+  )
+
+  const fetchMetricsDataForHealthSource = useCallback(
+    currentHealthSource => {
+      fetchMetricsData({
+        queryParams: { ...queryParams, ...(currentHealthSource && { healthSources: currentHealthSource }) }
+      })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [queryParams]
   )
 
   const renderContent = (): JSX.Element => {
@@ -133,41 +186,6 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
     )
   }
 
-  const goToMetricsPage = useCallback(
-    page => {
-      fetchMetricsData({ queryParams: { ...queryParams, page, size: PAGE_SIZE } })
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [queryParams]
-  )
-
-  const handleMetricsTypeChange = useCallback(
-    item => {
-      fetchMetricsData({ queryParams: { ...queryParams, anomalous: item.value === MetricType.ANOMALOUS } })
-      setIsAnamolousMetricType(item.value === MetricType.ANOMALOUS)
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [queryParams]
-  )
-
-  const handleSearch = useCallback(
-    currentFilterString => {
-      fetchMetricsData({ queryParams: { ...queryParams, filter: currentFilterString } })
-      setFilterString(currentFilterString)
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [queryParams]
-  )
-
-  const handleHealthSourceChange = useCallback(
-    currentHealthSource => {
-      fetchMetricsData({ queryParams: { ...queryParams, healthSources: currentHealthSource } })
-      setSelectedHealthSource(currentHealthSource)
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [queryParams]
-  )
-
   return (
     <Card className={css.main}>
       <>
@@ -179,12 +197,12 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
             items={MetricTypeOptions}
             className={css.maxDropDownWidth}
             defaultSelectedItem={MetricTypeOptions[0]}
-            onChange={handleMetricsTypeChange}
+            onChange={item => setIsAnamolousMetricType(item.value === MetricType.ANOMALOUS)}
           />
           {serviceIdentifier && environmentIdentifier ? (
             <HealthSourceDropDown
-              verificationType="TIME_SERIES"
-              onChange={handleHealthSourceChange}
+              verificationType={VerificationType.TIME_SERIES}
+              onChange={setSelectedHealthSource}
               serviceIdentifier={serviceIdentifier as string}
               environmentIdentifier={environmentIdentifier as string}
             />
@@ -193,7 +211,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
             throttle={500}
             className={css.filterBy}
             placeholder={getString('pipeline.verification.metricViewPlaceholder')}
-            onChange={handleSearch}
+            onChange={setFilterString}
           />
         </Container>
         <Container className={css.content}>{renderContent()}</Container>

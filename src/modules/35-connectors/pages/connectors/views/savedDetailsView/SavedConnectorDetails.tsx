@@ -13,6 +13,7 @@ import { StringUtils } from '@common/exports'
 import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
+import { HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 import { getLabelForAuthType } from '../../utils/ConnectorHelper'
 import css from './SavedConnectorDetails.module.scss'
 
@@ -328,7 +329,7 @@ const getVaultSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowIn
     },
     {
       label: 'connectors.hashiCorpVault.renewal',
-      value: data.renewalIntervalMinutes
+      value: data.accessType !== HashiCorpVaultAccessTypes.VAULT_AGENT ? data.renewalIntervalMinutes : undefined
     },
     {
       label: 'connectors.hashiCorpVault.readOnly',

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Text, Formik, FormInput, Container, Color, ThumbnailSelect } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { useParams } from 'react-router-dom'
@@ -28,7 +28,8 @@ export function ChangeSourceDrawer({
   rowdata,
   tableData,
   onSuccess,
-  hideDrawer
+  hideDrawer,
+  monitoredServiceType
 }: ChangeSoureDrawerInterface): JSX.Element {
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
@@ -39,6 +40,7 @@ export function ChangeSourceDrawer({
     onSuccess(updatedChangeSources)
   }
 
+  const categoryOptions = useMemo(() => getChangeSourceOptions(getString, monitoredServiceType), [monitoredServiceType])
   const renderChangeSource = useCallback(
     (formik: FormikProps<any>): React.ReactNode => {
       const changeSourceType = formik.values?.type as string
@@ -47,7 +49,7 @@ export function ChangeSourceDrawer({
 
       switch (changeSourceType) {
         case Connectors.PAGER_DUTY:
-          changeSource = <PageDutyChangeSource formik={formik} />
+          changeSource = <PageDutyChangeSource formik={formik} isEdit={isEdit} />
           break
         default:
           changeSource = (
@@ -81,7 +83,7 @@ export function ChangeSourceDrawer({
   return (
     <Formik
       formName={'changeSourceaForm'}
-      initialValues={rowdata?.category ? rowdata : buildInitialData()}
+      initialValues={rowdata?.category ? rowdata : buildInitialData(categoryOptions)}
       onSubmit={onSuccessWrapper}
       validate={values => validateChangeSource(values, tableData, isEdit, getString)}
       enableReinitialize
@@ -99,7 +101,7 @@ export function ChangeSourceDrawer({
                   <FormInput.Select
                     name={ChangeSourceFieldNames.CATEGORY}
                     disabled={isEdit}
-                    items={getChangeSourceOptions(getString)}
+                    items={categoryOptions}
                     onChange={categoryName =>
                       formik.setValues({
                         [ChangeSourceFieldNames.CATEGORY]: categoryName?.value || ('' as string),

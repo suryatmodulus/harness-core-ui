@@ -6,7 +6,9 @@ import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps, modulePathProps } from '@common/utils/routeUtils'
 import * as dbHook from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import Service from '../Service'
-import { editModeData, onUpdatePayload } from './Service.mock'
+import { editModeData, onUpdatePayload, cachedData } from './Service.mock'
+import { monitoredService } from '../../Dependency/__tests__/Dependency.mock'
+import type { MonitoredServiceForm } from '../Service.types'
 
 const paramsEditMode = { ...accountPathProps, ...projectPathProps, ...modulePathProps, identifier: ':identifier' }
 const testWrapperProps: TestWrapperProps = {
@@ -59,6 +61,7 @@ jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironm
 
 const fetchMonitoredServiceYAML = jest.fn(() => Promise.resolve({ data: {} }))
 const updateMonitoredService = jest.fn()
+const onSuccess = jest.fn()
 
 jest.mock('services/cv', () => ({
   useSaveMonitoredService: jest
@@ -86,7 +89,12 @@ describe('Verify Service', () => {
     })
     const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
-        <Service />
+        <Service
+          value={monitoredService}
+          onSuccess={onSuccess}
+          serviceTabformRef={{ current: {} }}
+          onChangeMonitoredServiceType={jest.fn()}
+        />
       </TestWrapper>
     )
     // name
@@ -117,8 +125,60 @@ describe('Verify Service', () => {
     })
 
     // onSave works
-    await waitFor(() => expect(updateMonitoredService).toHaveBeenCalledWith(onUpdatePayload))
+    await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(onUpdatePayload))
 
     expect(container).toMatchSnapshot()
+  })
+
+  test('Ensure that any infra change source is removed when switching type to application', async () => {
+    jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
+      dbInstance: {
+        put: jest.fn(),
+        get: jest.fn().mockReturnValue(Promise.resolve({ currentData: cachedData }))
+      } as any,
+      isInitializingDB: false
+    })
+    const onChangeType = jest.fn()
+    const { container, getByText } = render(
+      <TestWrapper>
+        <Service
+          value={{ isEdit: false, ...cachedData } as MonitoredServiceForm}
+          onSuccess={onSuccess}
+          serviceTabformRef={{ current: {} }}
+          onChangeMonitoredServiceType={onChangeType}
+        />
+      </TestWrapper>
+    )
+    // name
+    await waitFor(() => expect(container.querySelector('input[value="Application"]')).toBeTruthy())
+    expect(getByText('CD 101')).not.toBeNull()
+    fireEvent.click(
+      container.querySelector(`[class*="monitoredService"] .bp3-input-action [data-icon="chevron-down"]`)!
+    )
+    await waitFor(() => expect(container.querySelector('[class*="menuItemLabel"]')).not.toBeNull())
+    fireEvent.click(getByText('Infrastructure'))
+    await waitFor(() => expect(getByText('cv.healthSource.noData')).not.toBeNull())
+    expect(onChangeType).toHaveBeenCalledWith({
+      correlationId: 'c910c9e2-5a48-4f4b-9dad-afdeac54d060',
+      dependencies: [],
+      description: 'Monitored Service with change source and health source',
+      environmentRef: 'EnvironmentRef102',
+      identifier: 'monitoredservice101',
+      isEdit: false,
+      metaData: null,
+      name: 'Monitored Service 101',
+      orgIdentifier: 'default',
+      projectIdentifier: 'Demo',
+      serviceRef: 'ServiceRef102',
+      sources: {
+        changeSources: [],
+        healthSources: []
+      },
+      tags: {
+        tag1: '',
+        tag2: ''
+      },
+      type: 'Infrastructure'
+    })
   })
 })

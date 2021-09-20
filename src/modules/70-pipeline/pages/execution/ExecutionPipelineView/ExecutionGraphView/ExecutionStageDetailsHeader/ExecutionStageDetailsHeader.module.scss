@@ -11,7 +11,7 @@
   overflow: hidden;
 
   .stageDetails {
-    padding: var(--spacing-4) var(--spacing-6);
+    padding: var(--spacing-4) var(--spacing-2);
     display: grid;
     grid-template-columns: 400px minmax(10px, 1fr);
     max-height: var(--execution-stage-details-height);

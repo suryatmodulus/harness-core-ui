@@ -144,7 +144,7 @@ export function LogAnalysisRiskAndJiraModal(props: LogAnalysisRiskAndJiraModalPr
   return (
     <Drawer {...DrawerProps} isOpen={isOpen} onClose={onHideCallback} className={css.main}>
       <Container className={css.headingContainer}>
-        <Heading level={2} color={Color.BLACK}>
+        <Heading level={2} color={Color.BLACK} padding={{ bottom: 'small' }}>
           {activityType}
         </Heading>
         {/* <IconHeading /> */}

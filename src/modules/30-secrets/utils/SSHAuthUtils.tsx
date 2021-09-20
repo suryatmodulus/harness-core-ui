@@ -72,9 +72,9 @@ export const getStringForType = (type?: SecretDTOV2['type']): React.ReactElement
   if (!type) return <String stringID="secrets.blank" />
   switch (type) {
     case 'SecretText':
-      return <String stringID="secret.labelText" />
+      return <String stringID="secrets.secret.labelText" />
     case 'SecretFile':
-      return <String stringID="secret.labelFile" />
+      return <String stringID="secrets.secret.labelFile" />
     case 'SSHKey':
       return <String stringID="secrets.typeSSH" />
     default:

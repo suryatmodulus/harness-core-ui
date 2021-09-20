@@ -74,11 +74,12 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                     />
 
                     <Text
-                      color={Color.BLACK}
+                      font={{ size: 'small', weight: 'semi-bold' }}
+                      color={Color.GREY_600}
                       icon={resourceCategoryHandler.icon}
                       iconProps={{ padding: { right: 'small' } }}
                     >
-                      {getString(resourceCategoryHandler.label)}
+                      {getString(resourceCategoryHandler.label).toUpperCase()}
                     </Text>
                   </Layout.Horizontal>
                   {resourceTypes &&
@@ -99,7 +100,9 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                               }}
                               checked={getChecked(resource)}
                             />
-                            <Text color={Color.BLACK}>{getString(resourceHandler.label)}</Text>
+                            <Text font="small" color={Color.GREY_800}>
+                              {getString(resourceHandler.label)}
+                            </Text>
                           </Layout.Horizontal>
                         )
                       )

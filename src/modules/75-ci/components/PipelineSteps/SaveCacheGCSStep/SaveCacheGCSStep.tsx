@@ -88,6 +88,7 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
     }
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): SaveCacheGCSStepData {
     return getFormValuesInCorrectFormat<T, SaveCacheGCSStepData>(data, transformValuesFieldsConfig)
   }

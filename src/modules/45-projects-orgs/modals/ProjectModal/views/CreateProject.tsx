@@ -85,6 +85,8 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
         initialModules={modules}
         organizationItems={organizations}
         title={getString('projectsOrgs.aboutProject')}
+        saveTitle={getString('saveAndContinue')}
+        saveIcon="chevron-right"
         setModalErrorHandler={setModalErrorHandler}
         onComplete={onComplete}
       />

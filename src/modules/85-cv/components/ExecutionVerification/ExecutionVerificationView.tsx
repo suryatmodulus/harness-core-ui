@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Container, Tabs, Tab } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -7,6 +7,7 @@ import { DeploymentMetrics } from './components/DeploymentMetrics/DeploymentMetr
 import { ExecutionVerificationSummary } from './components/ExecutionVerificationSummary/ExecutionVerificationSummary'
 import type { DeploymentNodeAnalysisResult } from './components/DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes.constants'
 import LogAnalysisContainer from './components/LogAnalysisContainer/LogAnalysisView.container'
+import { getActivityId } from './ExecutionVerificationView.utils'
 import css from './ExecutionVerificationView.module.scss'
 
 interface ExecutionVerificationViewProps {
@@ -17,17 +18,15 @@ export function ExecutionVerificationView(props: ExecutionVerificationViewProps)
   const { step } = props
   const { getString } = useStrings()
   const [selectedNode, setSelectedNode] = useState<DeploymentNodeAnalysisResult | undefined>()
-  const content = step?.progressData?.activityId ? (
+  const activityId = useMemo(() => getActivityId(step), [step])
+
+  const content = activityId ? (
     <Tabs id="AnalysisTypeTabs">
       <Tab
         id={getString('pipeline.verification.analysisTab.metrics')}
         title={getString('pipeline.verification.analysisTab.metrics')}
         panel={
-          <DeploymentMetrics
-            step={step}
-            selectedNode={selectedNode}
-            activityId={step.progressData.activityId as unknown as string}
-          />
+          <DeploymentMetrics step={step} selectedNode={selectedNode} activityId={activityId as unknown as string} />
         }
       />
       <Tab

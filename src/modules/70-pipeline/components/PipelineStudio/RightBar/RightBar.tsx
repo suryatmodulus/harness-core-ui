@@ -11,8 +11,6 @@ import {
   TextInput,
   FormInput,
   Text,
-  Popover,
-  Color,
   Layout,
   getMultiTypeFromValue,
   MultiTypeInputType,
@@ -20,7 +18,7 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty, get, set } from 'lodash-es'
-import { Classes, Dialog, Position } from '@blueprintjs/core'
+import { Classes, Dialog } from '@blueprintjs/core'
 import flatten from 'lodash-es/flatten'
 import produce from 'immer'
 import { useStrings } from 'framework/strings'
@@ -45,19 +43,17 @@ import {
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
 import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import {
   generateSchemaForLimitCPU,
   generateSchemaForLimitMemory
 } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
-import { EnableGitExperience } from '../EnableGitExperience/EnableGitExperience'
 import css from './RightBar.module.scss'
 
 interface CodebaseValues {
@@ -116,7 +112,6 @@ export const RightBar = (): JSX.Element => {
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
-  const { isGitSyncEnabled } = useAppStore()
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
 
@@ -317,7 +312,6 @@ export const RightBar = (): JSX.Element => {
   ])
 
   const { getString } = useStrings()
-  const [isGitExpOpen, setIsGitExpOpen] = React.useState(false)
 
   if (isLoading) {
     return <div className={css.rightBar}></div>
@@ -325,41 +319,13 @@ export const RightBar = (): JSX.Element => {
 
   return (
     <div className={css.rightBar}>
-      {!isGitSyncEnabled && (
-        <Popover
-          position={Position.LEFT}
-          onOpening={() => setIsGitExpOpen(true)}
-          onClosing={() => setIsGitExpOpen(false)}
-          popoverClassName={css.gitSyncPopover}
-        >
-          <Button
-            className={cx(css.iconButton, css.enableGitExpIcon, {
-              [css.selected]: isGitExpOpen
-            })}
-            variation={ButtonVariation.TERTIARY}
-            font={{ weight: 'semi-bold', size: 'xsmall' }}
-            icon="service-github"
-            text={getString('gitsync.label')}
-            iconProps={{ size: 22, color: Color.RED_500 }}
-            onClick={() => {
-              updatePipelineView({
-                ...pipelineView,
-                isDrawerOpened: false,
-                drawerData: { type: DrawerTypes.AddStep }
-              })
-            }}
-            withoutCurrentColor={true}
-          />
-          <EnableGitExperience />
-        </Popover>
-      )}
       {isCodebaseEnabled && !isYaml && (
         <Button
           className={cx(css.iconButton, css.codebaseIcon)}
           text={getString('codebase')}
           variation={ButtonVariation.TERTIARY}
           font={{ weight: 'semi-bold', size: 'xsmall' }}
-          icon={codebaseIcons[codebaseStatus] as IconName}
+          icon={codebaseIcons[codebaseStatus]}
           iconProps={{ size: 20 }}
           minimal
           withoutCurrentColor

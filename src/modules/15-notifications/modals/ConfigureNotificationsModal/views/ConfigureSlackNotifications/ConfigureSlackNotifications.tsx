@@ -72,7 +72,7 @@ export const TestSlackNotifications: React.FC<{
         setTestStatus(TestStatus.FAILED)
       }
     } catch (err) {
-      showError(err.data.message)
+      showError(getString('notifications.invalidWebhookURL'))
       setTestStatus(TestStatus.ERROR)
     }
   }
@@ -124,8 +124,6 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
           formName="configureSlackNotifications"
           validationSchema={Yup.object().shape({
             webhookUrl: Yup.string().test('isValidUrl', getString('validation.urlIsNotValid'), _webhookUrl => {
-              if (!_webhookUrl) return true
-
               // TODO: Create global validation function for url validation
               try {
                 const url = new URL(_webhookUrl)

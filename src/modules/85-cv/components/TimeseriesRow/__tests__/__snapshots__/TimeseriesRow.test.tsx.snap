@@ -25,27 +25,7 @@ exports[`TimeseriesRow matches snapshot 1`] = `
         </div>
         <div
           class="StyledProps--font StyledProps--main icons"
-        >
-          <span
-            class="bp3-icon bp3-icon-star-empty StyledProps--main StyledProps--color StyledProps--color-grey250 StyledProps--padding-top-xsmall"
-            icon="star-empty"
-          >
-            <svg
-              data-icon="star-empty"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                star-empty
-              </desc>
-              <path
-                d="M16 6.11l-5.53-.84L8 0 5.53 5.27 0 6.11l4 4.1L3.06 16 8 13.27 12.94 16 12 10.21l4-4.1zM4.91 13.2l.59-3.62L3 7.02l3.45-.53L8 3.2l1.55 3.29 3.45.53-2.5 2.56.59 3.62L8 11.49 4.91 13.2z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </div>
+        />
       </div>
     </div>
     <div
@@ -126,27 +106,7 @@ exports[`TimeseriesRow matches snapshot when config is passed 1`] = `
         </div>
         <div
           class="StyledProps--font StyledProps--main icons"
-        >
-          <span
-            class="bp3-icon bp3-icon-star-empty StyledProps--main StyledProps--color StyledProps--color-grey250 StyledProps--padding-top-xsmall"
-            icon="star-empty"
-          >
-            <svg
-              data-icon="star-empty"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                star-empty
-              </desc>
-              <path
-                d="M16 6.11l-5.53-.84L8 0 5.53 5.27 0 6.11l4 4.1L3.06 16 8 13.27 12.94 16 12 10.21l4-4.1zM4.91 13.2l.59-3.62L3 7.02l3.45-.53L8 3.2l1.55 3.29 3.45.53-2.5 2.56.59 3.62L8 11.49 4.91 13.2z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </div>
+        />
       </div>
     </div>
     <div

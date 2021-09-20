@@ -6,11 +6,11 @@ import StepProcessing from '../StepProcessing/StepProcessing'
 const mockGetCallFunction = jest.fn()
 
 jest.mock('services/portal', () => ({
-  useGetDelegatesHeartbeatDetails: jest.fn().mockImplementation(args => {
+  useGetDelegatesHeartbeatDetailsV2: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   }),
-  useGetDelegatesInitializationDetails: jest.fn().mockImplementation(args => {
+  useGetDelegatesInitializationDetailsV2: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   })

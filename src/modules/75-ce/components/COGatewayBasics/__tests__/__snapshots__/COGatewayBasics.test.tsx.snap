@@ -59,11 +59,6 @@ exports[`Test GatewayBasic renders without crashing 1`] = `
         </div>
       </div>
     </div>
-    <span
-      style="font-size: 13px; color: rgb(2, 120, 213); line-height: 20px; cursor: pointer;"
-    >
-      + ce.co.gatewayBasics.new Azure rbac.account
-    </span>
   </div>
 </div>
 `;

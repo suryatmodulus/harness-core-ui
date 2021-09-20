@@ -9,7 +9,7 @@ const setShowSuccess = jest.fn()
 const setIsDelegateInitialised = jest.fn()
 
 jest.mock('services/portal', () => ({
-  useGetDelegatesInitializationDetails: jest.fn().mockImplementation(args => {
+  useGetDelegatesInitializationDetailsV2: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   })

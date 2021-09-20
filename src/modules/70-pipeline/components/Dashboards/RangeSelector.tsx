@@ -12,6 +12,7 @@ export const rangeOptions = [
 export interface RangeSelectorProps {
   defaultOption?: SelectOption
   onRangeSelected?(range: number[]): void
+  titleClsName?: string
 }
 
 export interface RangeSelectorWithTitleProps extends RangeSelectorProps {
@@ -41,10 +42,16 @@ export default function RangeSelector({ defaultOption = rangeOptions[0], onRange
   )
 }
 
-export function RangeSelectorWithTitle({ defaultOption, onRangeSelected, title }: RangeSelectorWithTitleProps) {
+export function RangeSelectorWithTitle({
+  defaultOption,
+  onRangeSelected,
+  title,
+  titleClsName
+}: RangeSelectorWithTitleProps) {
+  const containerCls = styles.titleAndFilter
   return (
-    <Container className={styles.titleAndFilter}>
-      <Text>{title}</Text>
+    <Container className={containerCls}>
+      <Text className={titleClsName}>{title}</Text>
       <RangeSelector defaultOption={defaultOption} onRangeSelected={onRangeSelected} />
     </Container>
   )

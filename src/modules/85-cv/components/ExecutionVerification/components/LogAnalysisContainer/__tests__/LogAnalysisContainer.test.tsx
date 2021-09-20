@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitFor, screen, act, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { ExecutionNode } from 'services/pipeline-ng'
-import { mockedLogAnalysisData, mockedLogChartsData } from './LogAnalysisContainer.mocks'
+import { mockedHealthSourcesData, mockedLogAnalysisData, mockedLogChartsData } from './LogAnalysisContainer.mocks'
 import LogAnalysisContainer from '../LogAnalysisView.container'
 import type { LogAnalysisContainerProps } from '../LogAnalysis.types'
 
@@ -24,6 +24,7 @@ const WrapperComponent = (props: LogAnalysisContainerProps): JSX.Element => {
 
 const fetchLogsAnalysisData = jest.fn()
 const fetchChartsAnalysisData = jest.fn()
+const fetchHealthSources = jest.fn()
 
 jest.mock('services/cv', () => ({
   useGetDeploymentLogAnalysisResult: jest.fn().mockImplementation(() => {
@@ -31,6 +32,9 @@ jest.mock('services/cv', () => ({
   }),
   useGetDeploymentLogAnalysisClusters: jest.fn().mockImplementation(() => {
     return { data: mockedLogChartsData, refetch: fetchChartsAnalysisData, error: null, loading: false }
+  }),
+  useGetHealthSources: jest.fn().mockImplementation(() => {
+    return { data: mockedHealthSourcesData, refetch: fetchHealthSources, error: null, loading: false }
   })
 }))
 

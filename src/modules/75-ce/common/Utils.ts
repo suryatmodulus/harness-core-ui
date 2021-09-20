@@ -1,7 +1,7 @@
 import { isEmpty as _isEmpty } from 'lodash-es'
 import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
 import type { CcmMetaData } from 'services/ce/services'
-import type { HealthCheck, PortConfig } from 'services/lw'
+import type { HealthCheck, PortConfig, Service, ServiceDep, YamlDependency } from 'services/lw'
 
 export class Utils {
   static booleanToString(val: boolean): string {
@@ -69,12 +69,30 @@ export class Utils {
     featureFlagsMap: Record<string, boolean | undefined>
   ) => {
     let enableStatus = true
-    if (!flags || _isEmpty(flags)) return enableStatus
+    if (!flags || _isEmpty(flags)) {
+      return enableStatus
+    }
     flags.forEach(_flag => {
       if (!featureFlagsMap[_flag]) {
         enableStatus = false
       }
     })
     return enableStatus
+  }
+
+  static fromServiceToYamlDependencies = (services: Service[] = [], dep: ServiceDep[] = []): YamlDependency[] => {
+    return dep.map(_d => ({
+      selector: {
+        ruleName: services.find(_s => _s.id === _d.dep_id)?.name as string
+      },
+      wait: _d.delay_secs
+    }))
+  }
+
+  static fromYamlToServiceDependencies = (services: Service[] = [], dep: YamlDependency[] = []): ServiceDep[] => {
+    return dep.map(_d => ({
+      delay_secs: _d.wait,
+      dep_id: services.find(_s => _s.name === _d.selector.ruleName)?.id
+    }))
   }
 }

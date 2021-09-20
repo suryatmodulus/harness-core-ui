@@ -677,7 +677,7 @@ export const buildAWSPayload = (formData: FormData) => {
         crossAccountAccess: formData.crossAccountAccess
           ? {
               crossAccountRoleArn: formData.crossAccountRoleArn,
-              externalId: formData.externalId.length ? formData.externalId : null
+              externalId: formData.externalId?.length ? formData.externalId : null
             }
           : null
       }
@@ -750,15 +750,9 @@ export const buildVaultPayload = (formData: FormData): BuildVaultPayloadReturnTy
     tags: formData.tags,
     type: Connectors.VAULT,
     spec: {
-      ...pick(formData, [
-        'basePath',
-        'vaultUrl',
-        'namespace',
-        'readOnly',
-        'default',
-        'renewalIntervalMinutes',
-        'delegateSelectors'
-      ]),
+      ...pick(formData, ['basePath', 'vaultUrl', 'namespace', 'readOnly', 'default', 'delegateSelectors']),
+      renewalIntervalMinutes:
+        formData.accessType !== HashiCorpVaultAccessTypes.VAULT_AGENT ? formData.renewalIntervalMinutes : 10,
       authToken:
         formData.accessType === HashiCorpVaultAccessTypes.TOKEN ? formData.authToken?.referenceString : undefined,
       appRoleId: formData.accessType === HashiCorpVaultAccessTypes.APP_ROLE ? formData.appRoleId : undefined,
@@ -1044,22 +1038,6 @@ export const buildGitPayload = (formData: FormData) => {
       //     commitMessage: '[GITSYNC-0]: Pushing Changes'
       //   }
       // }
-    }
-  }
-  return { connector: savedData }
-}
-
-export const buildArgoConnectorPayload = (formData: FormData) => {
-  const savedData = {
-    name: formData.name,
-    description: formData.description,
-    projectIdentifier: formData.projectIdentifier,
-    identifier: formData.identifier,
-    orgIdentifier: formData.orgIdentifier,
-    tags: formData.tags,
-    type: 'ArgoConnector',
-    spec: {
-      adapterUrl: formData.adapterUrl
     }
   }
   return { connector: savedData }

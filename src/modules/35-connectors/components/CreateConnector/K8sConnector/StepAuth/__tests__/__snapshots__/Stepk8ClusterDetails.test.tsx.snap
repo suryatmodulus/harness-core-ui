@@ -1672,7 +1672,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            secret.configureSecret
+                            secrets.secret.configureSecret
                           </div>
                           <div>
                             &lt;k8serviceToken&gt;
@@ -2027,7 +2027,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            secret.configureSecret
+                            secrets.secret.configureSecret
                           </div>
                           <div>
                             &lt;k8serviceToken&gt;
@@ -2769,7 +2769,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              secret.configureSecret
+                              secrets.secret.configureSecret
                             </div>
                             <div>
                               &lt;k8serviceToken&gt;
@@ -2870,7 +2870,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              secret.configureSecret
+                              secrets.secret.configureSecret
                             </div>
                             <div>
                               &lt;k8serviceToken&gt;
@@ -2966,7 +2966,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              secret.configureSecret
+                              secrets.secret.configureSecret
                             </div>
                             <div>
                               &lt;k8serviceToken&gt;

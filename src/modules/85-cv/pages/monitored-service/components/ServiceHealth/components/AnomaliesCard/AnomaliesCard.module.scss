@@ -1,0 +1,14 @@
+.cardRow {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.cardColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.seperator {
+  margin-left: var(--spacing-xsmall);
+  margin-right: var(--spacing-xsmall);
+}

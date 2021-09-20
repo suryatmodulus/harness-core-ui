@@ -59,6 +59,242 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
         class="StyledProps--font StyledProps--main content"
       >
         <div
+          class="StyledProps--font StyledProps--main"
+        >
+          <div
+            class="StyledProps--font StyledProps--main tickersRow"
+          >
+            <div
+              class="StyledProps--font StyledProps--main ticker"
+            >
+              <div
+                class="tickerContainer"
+                data-test="ticker"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+                >
+                  45
+                </p>
+                <div
+                  class="ticker tickerTopAlign"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+                      data-icon="main-caret-up"
+                    >
+                      <svg
+                        height="6"
+                        viewBox="0 0 14 9"
+                        width="6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="tickerValue"
+                    data-test="tickerValue"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main tickerValue"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                      >
+                        changes
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                      >
+                        50%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main ticker"
+            >
+              <div
+                class="tickerContainer"
+                data-test="ticker"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+                >
+                  15
+                </p>
+                <div
+                  class="ticker tickerTopAlign"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+                      data-icon="main-caret-up"
+                    >
+                      <svg
+                        height="6"
+                        viewBox="0 0 14 9"
+                        width="6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="tickerValue"
+                    data-test="tickerValue"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main tickerValue"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                      >
+                        deploymentText
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                      >
+                        50%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main ticker"
+            >
+              <div
+                class="tickerContainer"
+                data-test="ticker"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+                >
+                  15
+                </p>
+                <div
+                  class="ticker tickerTopAlign"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+                      data-icon="main-caret-up"
+                    >
+                      <svg
+                        height="6"
+                        viewBox="0 0 14 9"
+                        width="6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="tickerValue"
+                    data-test="tickerValue"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main tickerValue"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                      >
+                        infrastructureText
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                      >
+                        50%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main ticker"
+            >
+              <div
+                class="tickerContainer"
+                data-test="ticker"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+                >
+                  15
+                </p>
+                <div
+                  class="ticker tickerTopAlign"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+                      data-icon="main-caret-up"
+                    >
+                      <svg
+                        height="6"
+                        viewBox="0 0 14 9"
+                        width="6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="tickerValue"
+                    data-test="tickerValue"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main tickerValue"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                      >
+                        cv.changeSource.tooltip.incident
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                      >
+                        50%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
           class="StyledProps--font StyledProps--main main"
         >
           <div

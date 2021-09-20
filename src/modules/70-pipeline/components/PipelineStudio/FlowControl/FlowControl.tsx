@@ -34,7 +34,7 @@ const getErrors = (barriers: Barrier[], getString: UseStringsReturn['getString']
   Object.values(barrierValueMap).map(({ indexes }: { indexes: number[] }) => {
     indexes.map((errIndex: number) => {
       if (barriers[errIndex].identifier === '') {
-        set(errors, `[${errIndex}].name`, getString('secret.validationIdentifier'))
+        set(errors, `[${errIndex}].name`, getString('secrets.secret.validationIdentifier'))
       } else {
         set(errors, `[${errIndex}].name`, getString('common.duplicateId'))
       }

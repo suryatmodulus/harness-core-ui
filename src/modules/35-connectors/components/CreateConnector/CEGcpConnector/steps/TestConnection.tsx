@@ -86,8 +86,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
       <Button
         type="submit"
         intent="primary"
-        text={getString('close')}
-        rightIcon="chevron-right"
+        text={getString('finish')}
         className={css.submitBtn}
         onClick={() => {
           props.onClose?.()

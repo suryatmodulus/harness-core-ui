@@ -74,7 +74,7 @@ describe('unit tests for dashboard widget metric', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  test(' Ensure content is rendered', async () => {
+  test(' Ensure that the content is rendered', async () => {
     const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
       data: { data: MockWidgetResponse },

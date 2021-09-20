@@ -1,0 +1,541 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test ChangeSourcecard should render with negative change 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <div
+      class="StyledProps--font StyledProps--main tickersRow"
+    >
+      <div
+        class="StyledProps--font StyledProps--main ticker"
+      >
+        <div
+          class="tickerContainer"
+          data-test="ticker"
+        >
+          <p
+            class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+          >
+            30
+          </p>
+          <div
+            class="ticker tickerTopAlign"
+          >
+            <div
+              class="iconContainer"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                data-icon="main-caret-down"
+              >
+                <svg
+                  height="6"
+                  viewBox="0 0 14 9"
+                  width="6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14 1.1c0-.6-.5-1.1-1.2-1.1H1.2C.5 0 0 .5 0 1.1c0 .3.1.5.3.7l5.8 6.8c.2.2.5.4.9.4s.7-.2.9-.4l5.8-6.8c.2-.2.3-.4.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="tickerValue"
+              data-test="tickerValue"
+            >
+              <div
+                class="StyledProps--font StyledProps--main tickerValue"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                >
+                  changes
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                >
+                  33.3%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main ticker"
+      >
+        <div
+          class="tickerContainer"
+          data-test="ticker"
+        >
+          <p
+            class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+          >
+            10
+          </p>
+          <div
+            class="ticker tickerTopAlign"
+          >
+            <div
+              class="iconContainer"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                data-icon="main-caret-down"
+              >
+                <svg
+                  height="6"
+                  viewBox="0 0 14 9"
+                  width="6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14 1.1c0-.6-.5-1.1-1.2-1.1H1.2C.5 0 0 .5 0 1.1c0 .3.1.5.3.7l5.8 6.8c.2.2.5.4.9.4s.7-.2.9-.4l5.8-6.8c.2-.2.3-.4.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="tickerValue"
+              data-test="tickerValue"
+            >
+              <div
+                class="StyledProps--font StyledProps--main tickerValue"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                >
+                  deploymentText
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                >
+                  33.3%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main ticker"
+      >
+        <div
+          class="tickerContainer"
+          data-test="ticker"
+        >
+          <p
+            class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+          >
+            10
+          </p>
+          <div
+            class="ticker tickerTopAlign"
+          >
+            <div
+              class="iconContainer"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                data-icon="main-caret-down"
+              >
+                <svg
+                  height="6"
+                  viewBox="0 0 14 9"
+                  width="6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14 1.1c0-.6-.5-1.1-1.2-1.1H1.2C.5 0 0 .5 0 1.1c0 .3.1.5.3.7l5.8 6.8c.2.2.5.4.9.4s.7-.2.9-.4l5.8-6.8c.2-.2.3-.4.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="tickerValue"
+              data-test="tickerValue"
+            >
+              <div
+                class="StyledProps--font StyledProps--main tickerValue"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                >
+                  infrastructureText
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                >
+                  33.3%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main ticker"
+      >
+        <div
+          class="tickerContainer"
+          data-test="ticker"
+        >
+          <p
+            class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+          >
+            10
+          </p>
+          <div
+            class="ticker tickerTopAlign"
+          >
+            <div
+              class="iconContainer"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                data-icon="main-caret-down"
+              >
+                <svg
+                  height="6"
+                  viewBox="0 0 14 9"
+                  width="6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14 1.1c0-.6-.5-1.1-1.2-1.1H1.2C.5 0 0 .5 0 1.1c0 .3.1.5.3.7l5.8 6.8c.2.2.5.4.9.4s.7-.2.9-.4l5.8-6.8c.2-.2.3-.4.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="tickerValue"
+              data-test="tickerValue"
+            >
+              <div
+                class="StyledProps--font StyledProps--main tickerValue"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                >
+                  cv.changeSource.tooltip.incident
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                >
+                  33.3%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Test ChangeSourcecard should render with positive change 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <div
+      class="StyledProps--font StyledProps--main tickersRow"
+    >
+      <div
+        class="StyledProps--font StyledProps--main ticker"
+      >
+        <div
+          class="tickerContainer"
+          data-test="ticker"
+        >
+          <p
+            class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+          >
+            45
+          </p>
+          <div
+            class="ticker tickerTopAlign"
+          >
+            <div
+              class="iconContainer"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+                data-icon="main-caret-up"
+              >
+                <svg
+                  height="6"
+                  viewBox="0 0 14 9"
+                  width="6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="tickerValue"
+              data-test="tickerValue"
+            >
+              <div
+                class="StyledProps--font StyledProps--main tickerValue"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                >
+                  changes
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                >
+                  50%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main ticker"
+      >
+        <div
+          class="tickerContainer"
+          data-test="ticker"
+        >
+          <p
+            class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+          >
+            15
+          </p>
+          <div
+            class="ticker tickerTopAlign"
+          >
+            <div
+              class="iconContainer"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+                data-icon="main-caret-up"
+              >
+                <svg
+                  height="6"
+                  viewBox="0 0 14 9"
+                  width="6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="tickerValue"
+              data-test="tickerValue"
+            >
+              <div
+                class="StyledProps--font StyledProps--main tickerValue"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                >
+                  deploymentText
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                >
+                  50%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main ticker"
+      >
+        <div
+          class="tickerContainer"
+          data-test="ticker"
+        >
+          <p
+            class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+          >
+            15
+          </p>
+          <div
+            class="ticker tickerTopAlign"
+          >
+            <div
+              class="iconContainer"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+                data-icon="main-caret-up"
+              >
+                <svg
+                  height="6"
+                  viewBox="0 0 14 9"
+                  width="6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="tickerValue"
+              data-test="tickerValue"
+            >
+              <div
+                class="StyledProps--font StyledProps--main tickerValue"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                >
+                  infrastructureText
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                >
+                  50%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main ticker"
+      >
+        <div
+          class="tickerContainer"
+          data-test="ticker"
+        >
+          <p
+            class="StyledProps--font StyledProps--main tickerCount StyledProps--color StyledProps--color-black StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--margin-right-small"
+          >
+            15
+          </p>
+          <div
+            class="ticker tickerTopAlign"
+          >
+            <div
+              class="iconContainer"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+                data-icon="main-caret-up"
+              >
+                <svg
+                  height="6"
+                  viewBox="0 0 14 9"
+                  width="6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="tickerValue"
+              data-test="tickerValue"
+            >
+              <div
+                class="StyledProps--font StyledProps--main tickerValue"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main tickerLabel StyledProps--font-size-small StyledProps--font-weight-bold"
+                >
+                  cv.changeSource.tooltip.incident
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                >
+                  50%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Test ChangeSourcecard validate error state 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <span
+      class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-error"
+      icon="error"
+    >
+      <svg
+        data-icon="error"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+      >
+        <desc>
+          error
+        </desc>
+        <path
+          d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13h-2v-2h2v2zm0-3h-2v-7h2v7z"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Test ChangeSourcecard validate loading 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <span
+      class="bp3-icon StyledProps--main"
+      data-icon="spinner"
+    >
+      <svg
+        fill="none"
+        height="16"
+        viewBox="0 0 36 36"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
+          stroke="currentColor"
+          stroke-dasharray="75,100"
+          stroke-linecap="round"
+          stroke-width="2.8"
+          style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
+        />
+      </svg>
+    </span>
+  </div>
+</div>
+`;

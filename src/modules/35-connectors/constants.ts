@@ -71,8 +71,7 @@ export const Connectors: ConnectorType = {
   SUMOLOGIC: 'SumoLogic',
   CE_GCP: 'GcpCloudCost',
   AWS_SECRET_MANAGER: 'AwsSecretManager',
-  PAGER_DUTY: 'PagerDuty',
-  ARGO_CONNECTOR: 'ArgoConnector'
+  PAGER_DUTY: 'PagerDuty'
 }
 
 export const ConnectorInfoText = {

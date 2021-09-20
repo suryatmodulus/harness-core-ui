@@ -3020,7 +3020,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                secret.configureSecret
+                                secrets.secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;
@@ -3577,7 +3577,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                secret.configureSecret
+                                secrets.secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;
@@ -3738,7 +3738,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="stepGithubAuthForm_apiAccessToken"
+                            data-tooltip-id="gitHubPersonalAccessTooltip"
                           >
                             personalAccessToken
                           </span>
@@ -3779,7 +3779,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                secret.configureSecret
+                                secrets.secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;
@@ -4306,7 +4306,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                secret.configureSecret
+                                secrets.secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;
@@ -4467,7 +4467,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="stepGithubAuthForm_apiAccessToken"
+                            data-tooltip-id="gitHubPersonalAccessTooltip"
                           >
                             personalAccessToken
                           </span>
@@ -4508,7 +4508,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                secret.configureSecret
+                                secrets.secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;
@@ -5035,7 +5035,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                               class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
-                                secret.configureSecret
+                                secrets.secret.configureSecret
                               </div>
                               <div>
                                 &lt;githubPassword&gt;

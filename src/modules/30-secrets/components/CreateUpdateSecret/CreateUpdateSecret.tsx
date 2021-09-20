@@ -248,8 +248,8 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     item => item.connector?.spec?.default
   )[0]?.connector?.identifier
   const secretTypeOptions = [
-    { label: getString('secret.labelText'), value: 'SecretText' },
-    { label: getString('secret.labelFile'), value: 'SecretFile' }
+    { label: getString('secrets.secret.labelText'), value: 'SecretText' },
+    { label: getString('secrets.secret.labelFile'), value: 'SecretFile' }
   ]
 
   const [selectedSecretManager, setSelectedSecretManager] = useState<ConnectorInfoDTO | undefined>()
@@ -301,8 +301,8 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
           value:
             editing || type === 'SecretFile'
               ? Yup.string().trim()
-              : Yup.string().trim().required(getString('secret.validationValue')),
-          secretManagerIdentifier: Yup.string().required(getString('secret.validationKms'))
+              : Yup.string().trim().required(getString('common.validation.valueIsRequired')),
+          secretManagerIdentifier: Yup.string().required(getString('secrets.secret.validationKms'))
         })}
         validate={formData => {
           props.onChange?.({
@@ -336,7 +336,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
               {!secretTypeFromProps ? (
                 <FormInput.RadioGroup
                   name="type"
-                  label={getString('secret.labelSecretType')}
+                  label={getString('secrets.secret.labelSecretType')}
                   items={secretTypeOptions}
                   radioGroup={{ inline: true }}
                   onChange={ev => {
@@ -351,7 +351,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
                 isIdentifierEditable={!editing}
                 inputGroupProps={{ disabled: loadingSecret }}
               />
-              {!typeOfSelectedSecretManager ? <Text>{getString('secret.messageSelectSM')}</Text> : null}
+              {!typeOfSelectedSecretManager ? <Text>{getString('secrets.secret.messageSelectSM')}</Text> : null}
               {LocalFormFieldsSMList.findIndex(val => val === typeOfSelectedSecretManager) !== -1 ? (
                 <LocalFormFields formik={formikProps} type={type} editing={editing} />
               ) : null}
@@ -363,7 +363,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
               <Button
                 intent="primary"
                 type="submit"
-                text={loading ? getString('secret.saving') : getString('save')}
+                text={loading ? getString('secrets.secret.saving') : getString('save')}
                 margin={{ top: 'large' }}
                 disabled={loading || !typeOfSelectedSecretManager}
                 variation={ButtonVariation.PRIMARY}

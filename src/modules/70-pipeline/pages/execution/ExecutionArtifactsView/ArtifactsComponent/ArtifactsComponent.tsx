@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { CollapseList, CollapseListPanel, IconName, Text, Color, Link, Icon } from '@wings-software/uicore'
+import { CollapseList, CollapseListPanel, IconName, Text, Color, Icon } from '@wings-software/uicore'
 import type { IProps } from '@blueprintjs/core'
 import css from './ArtifactsComponent.module.scss'
 
@@ -47,14 +47,10 @@ const ArtifactsComponent: React.FC<ArtifactsComponentProps> = props => {
               {artifactGroup.artifacts.map(({ url, type, image, tag }, itemIdx) => {
                 return (
                   <div key={itemIdx} className={css.listItem}>
-                    <Link href={url} target="_blank" rel="noopener noreferrer">
-                      {url}
-                    </Link>
-                    {type === 'Image' ? (
-                      <span className={css.imageTag}>
-                        [{image}: {tag}]
-                      </span>
-                    ) : (
+                    <a className={css.artifactUrl} href={url} target="_blank" rel="noreferrer">
+                      {image}: {tag}
+                    </a>
+                    {type !== 'Image' && (
                       <a href={url} download>
                         <Icon name={'import'} />
                       </a>

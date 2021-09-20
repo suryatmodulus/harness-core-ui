@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { FC } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { RouteWithLayout } from '@common/router'
@@ -10,10 +10,9 @@ import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
 import Roles from '@rbac/pages/Roles/Roles'
 import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
-import type { Module, PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { CFSideNavProps } from '@cf/constants'
-import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
-import { ModuleName } from 'framework/types/ModuleName'
+import { licenseRedirectData } from '@cf/components/routing/License'
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
@@ -21,44 +20,7 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module })} />
 }
 
-const RedirectToModuleTrialHome = (): React.ReactElement => {
-  const { accountId } = useParams<{
-    accountId: string
-  }>()
-
-  return (
-    <Redirect
-      to={routes.toModuleTrialHome({
-        accountId,
-        module: 'cf'
-      })}
-    />
-  )
-}
-
-const RedirectToSubscriptions = (): React.ReactElement => {
-  const { accountId } = useParams<{
-    accountId: string
-  }>()
-
-  return (
-    <Redirect
-      to={routes.toSubscriptions({
-        accountId,
-        moduleCard: ModuleName.CF.toLowerCase() as Module
-      })}
-    />
-  )
-}
-
-const licenseRedirectData: LicenseRedirectProps = {
-  licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
-  startTrialRedirect: RedirectToModuleTrialHome,
-  expiredTrialRedirect: RedirectToSubscriptions
-}
-
-// eslint-disable-next-line react/display-name
-export default (): ReactElement => (
+const AdminRouteDestinations: FC = () => (
   <>
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
@@ -133,3 +95,5 @@ export default (): ReactElement => (
     </RouteWithLayout>
   </>
 )
+
+export default AdminRouteDestinations

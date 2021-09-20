@@ -804,7 +804,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            secret.configureSecret
+                            secrets.secret.configureSecret
                           </div>
                           <div>
                             &lt;selected_secret&gt;
@@ -1810,7 +1810,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                           class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
-                            secret.configureSecret
+                            secrets.secret.configureSecret
                           </div>
                           <div>
                             &lt;selected_secret&gt;

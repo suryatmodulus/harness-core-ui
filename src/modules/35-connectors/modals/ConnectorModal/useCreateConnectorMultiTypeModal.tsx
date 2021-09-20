@@ -70,7 +70,7 @@ const useCreateConnectorMultiTypeModal = (
               <Card interactive={true} elevation={0} selected={false} onClick={() => handleSelect(type)}>
                 <Icon name={getConnectorIconByType(type)} size={20} />
               </Card>
-              <Text lineClamp={3} color="white" margin={{ top: 'small' }} style={{ textAlign: 'center', width: 80 }}>
+              <Text lineClamp={3} color="white" margin={{ top: 'small' }} style={{ textAlign: 'center', width: 90 }}>
                 {getString(getConnectorTitleIdByType(type))}
               </Text>
             </div>

@@ -1,10 +1,25 @@
 .hiddenField input {
   display: none;
 }
+textarea[name='query'] {
+  width: 490px !important;
+}
 
 .setupContainer {
   margin-bottom: 80px !important;
 
+  .query {
+    flex-basis: 48%;
+    max-width: 550px;
+    textarea {
+      resize: none;
+      height: 200px;
+      width: 100%;
+      border: 1px solid var(--grey-250);
+      border-radius: 4px;
+      padding: var(--spacing-small);
+    }
+  }
   .sectionHeading {
     padding: var(--spacing-small) var(--spacing-xsmall) !important;
     border-bottom: 1px solid var(--grey-250);
@@ -60,19 +75,6 @@
       width: 100%;
       > p:nth-child(2) {
         cursor: pointer;
-      }
-    }
-
-    .query {
-      flex-basis: 48%;
-      max-width: 550px;
-      textarea {
-        resize: none;
-        height: 200px;
-        width: 100%;
-        border: 1px solid var(--grey-250);
-        border-radius: 4px;
-        padding: var(--spacing-small);
       }
     }
 

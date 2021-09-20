@@ -228,6 +228,9 @@ exports[`Create K8s Delegate render data 1`] = `
                               </p>
                             </div>
                           </div>
+                          <div
+                            class="StyledProps--font StyledProps--main connectorFormElm"
+                          />
                         </div>
                       </div>
                       <div

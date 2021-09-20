@@ -55,7 +55,12 @@
       }
     }
   }
+
   .imageTag {
     white-space: nowrap;
+  }
+
+  .artifactUrl {
+    color: var(--primary-7);
   }
 }

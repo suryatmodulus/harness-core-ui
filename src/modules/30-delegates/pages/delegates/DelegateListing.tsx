@@ -32,7 +32,9 @@ export const DelegateListing: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<Record<string, string>>()
   const [searchParam, setSearchParam] = useState('')
-  const [troubleshoterOpen, setOpenTroubleshoter] = useState(false)
+  const [troubleshoterOpen, setOpenTroubleshoter] = useState<{ isConnected: boolean | undefined } | undefined>(
+    undefined
+  )
 
   const queryParams: GetDelegatesStatusV2QueryParams = {
     accountId,
@@ -113,12 +115,12 @@ export const DelegateListing: React.FC = () => {
   return (
     <Container>
       <Dialog
-        isOpen={troubleshoterOpen}
+        isOpen={!!troubleshoterOpen}
         enforceFocus={false}
         style={{ width: '680px', height: '100%' }}
-        onClose={() => setOpenTroubleshoter(false)}
+        onClose={() => setOpenTroubleshoter(undefined)}
       >
-        <DelegateInstallationError />
+        <DelegateInstallationError showDelegateInstalledMessage={false} />
       </Dialog>
       <Layout.Horizontal className={css.header}>
         {newDelegateBtn}

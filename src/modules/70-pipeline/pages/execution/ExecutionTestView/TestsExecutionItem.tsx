@@ -31,6 +31,68 @@ export interface TestExecutionEntryProps {
   onShowCallGraphForClass?: (classname: string) => void
 }
 
+const getColumnText = ({
+  col,
+  pageIndex,
+  itemOrderNumber,
+  row
+}: {
+  col: keyof TestCase | 'order'
+  pageIndex: number
+  itemOrderNumber: number
+  row: { original: TestCase }
+}): string | JSX.Element => {
+  if (col === 'order') {
+    return PAGE_SIZE * pageIndex + itemOrderNumber + '.'
+  } else if (col === 'result') {
+    return row.original[col]?.status || ''
+  } else if (col === 'duration_ms') {
+    return (
+      <Duration
+        icon={undefined}
+        durationText=" "
+        startTime={NOW}
+        endTime={NOW + (row.original[col] || 0)}
+        showMsLessThanOneSecond={true}
+      />
+    )
+  } else if (col === 'name' || col === 'class_name') {
+    const textToCopy = row.original[col] || ''
+    return (
+      <CopyText iconName="clipboard-alt" textToCopy={textToCopy}>
+        {row.original[col]}
+      </CopyText>
+    )
+  } else {
+    return row.original[col] || ''
+  }
+}
+
+const ColumnText = ({
+  tooltip,
+  failed,
+  col,
+  pageIndex,
+  itemOrderNumber,
+  row
+}: {
+  tooltip?: JSX.Element
+  failed: boolean
+  col: keyof TestCase | 'order'
+  pageIndex: number
+  itemOrderNumber: number
+  row: { original: TestCase }
+}): JSX.Element => (
+  <Text
+    className={cx(css.text, tooltip && css.failed)}
+    color={failed && col !== 'order' ? Color.RED_700 : Color.GREY_700}
+    lineClamp={!tooltip ? 1 : undefined}
+    tooltip={tooltip}
+  >
+    {getColumnText({ col, pageIndex, itemOrderNumber, row })}
+  </Text>
+)
+
 export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   buildIdentifier,
   serviceToken,
@@ -133,28 +195,14 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
 
           return (
             <Container width="90%" className={css.testCell}>
-              <Text
-                className={cx(css.text, tooltip && css.failed)}
-                color={failed && col !== 'order' ? Color.RED_700 : Color.GREY_700}
-                lineClamp={!tooltip ? 1 : undefined}
+              <ColumnText
                 tooltip={tooltip}
-              >
-                {col === 'order' ? (
-                  PAGE_SIZE * pageIndex + itemOrderNumber + '.'
-                ) : col === 'result' ? (
-                  row.original[col]?.status
-                ) : col === 'duration_ms' ? (
-                  <Duration
-                    icon={undefined}
-                    durationText=" "
-                    startTime={NOW}
-                    endTime={NOW + (row.original[col] || 0)}
-                    showMsLessThanOneSecond={true}
-                  />
-                ) : (
-                  row.original[col]
-                )}
-              </Text>
+                failed={failed}
+                col={col}
+                pageIndex={pageIndex}
+                itemOrderNumber={itemOrderNumber}
+                row={row}
+              />
             </Container>
           )
         }) as Renderer<CellProps<TestCase>>

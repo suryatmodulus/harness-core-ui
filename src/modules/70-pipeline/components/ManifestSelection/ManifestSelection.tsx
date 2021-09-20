@@ -107,8 +107,11 @@ export default function ManifestSelection({
   const refetchConnectorList = async (): Promise<void> => {
     const connectorList = getConnectorList()
     const connectorIdentifiers = connectorList.map((item: { scope: string; identifier: string }) => item.identifier)
-    const { data: connectorResponse } = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
-    setFetchedConnectorResponse(connectorResponse)
+    const response = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
+    if (response?.data) {
+      const { data: connectorResponse } = response
+      setFetchedConnectorResponse(connectorResponse)
+    }
   }
 
   const { getString } = useStrings()

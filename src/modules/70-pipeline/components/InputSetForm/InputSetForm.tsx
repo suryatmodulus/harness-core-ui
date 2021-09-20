@@ -502,7 +502,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             onClick={e => {
                               e.preventDefault()
                               formikProps.validateForm().then(() => {
-                                if (formikProps?.values?.name?.length && formikProps?.values?.identifier?.length) {
+                                if (
+                                  formikProps?.values?.name?.length &&
+                                  formikProps?.values?.identifier?.length &&
+                                  isEmpty(formikProps.errors)
+                                ) {
                                   handleSubmit(formikProps.values, {
                                     repoIdentifier: formikProps.values.repo,
                                     branch: formikProps.values.branch

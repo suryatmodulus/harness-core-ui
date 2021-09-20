@@ -12,7 +12,8 @@ import {
   Color,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  ButtonVariation
+  ButtonVariation,
+  IconName
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { DescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
@@ -20,6 +21,7 @@ import type { Project } from 'services/cd-ng'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
+import ProjectsEmptyState from '@projects-orgs/pages/projects/projects-empty-state.png'
 import { NameSchema, IdentifierSchema } from '@common/utils/Validation'
 import css from './Steps.module.scss'
 
@@ -29,6 +31,8 @@ interface ProjectModalData {
   disableSubmit: boolean
   enableEdit: boolean
   title: string
+  saveTitle: string
+  saveIcon?: IconName
   initialOrgIdentifier: string
   initialModules?: Project['modules']
   onComplete: (project: Project) => Promise<void>
@@ -45,6 +49,8 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const {
     data: projectData,
     title,
+    saveTitle,
+    saveIcon,
     enableEdit,
     onComplete,
     disableSelect,
@@ -107,15 +113,30 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                 <Layout.Horizontal>
                   <Button
                     variation={ButtonVariation.PRIMARY}
-                    text={getString('saveAndContinue')}
+                    text={saveTitle}
                     type="submit"
                     disabled={disableSubmit}
+                    rightIcon={saveIcon}
                   />
                 </Layout.Horizontal>
               </Layout.Vertical>
               {displayProjectCardPreview && (
                 <Container width="50%" flex={{ align: 'center-center' }} className={css.preview}>
-                  <ProjectCard data={{ projectResponse: { project: formikProps.values } }} isPreview={true} />
+                  {Object.keys(formikProps.touched).length ? (
+                    <ProjectCard data={{ projectResponse: { project: formikProps.values } }} isPreview={true} />
+                  ) : (
+                    <Layout.Vertical width="100%" padding="huge" flex={{ align: 'center-center' }}>
+                      <img src={ProjectsEmptyState} className={css.img} />
+                      <Layout.Vertical flex={{ alignItems: 'flex-start' }} spacing="medium">
+                        <Text color={Color.GREY_800} font={{ weight: 'semi-bold' }}>
+                          {getString('projectsOrgs.whyCreateProject')}
+                        </Text>
+                        <Text color={Color.GREY_800} font="small">
+                          {getString('projectsOrgs.createProjectMessage')}
+                        </Text>
+                      </Layout.Vertical>
+                    </Layout.Vertical>
+                  )}
                 </Container>
               )}
             </Layout.Horizontal>

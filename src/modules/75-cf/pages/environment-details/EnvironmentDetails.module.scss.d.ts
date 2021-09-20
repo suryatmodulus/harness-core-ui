@@ -5,5 +5,11 @@ declare const styles: {
   readonly content: string
   readonly table: string
   readonly paginationContainer: string
+  readonly keyContainer: string
+  readonly keyType: string
+  readonly keyCopyContainer: string
+  readonly keyCopy: string
+  readonly keyCopyIcon: string
+  readonly keyDeleteButton: string
 }
 export default styles

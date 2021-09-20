@@ -6,5 +6,6 @@ declare const styles: {
   readonly dialog: string
   readonly forStages: string
   readonly stagesMultiSelect: string
+  readonly formError: string
 }
 export default styles

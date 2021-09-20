@@ -2030,7 +2030,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                             class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
-                              secret.configureSecret
+                              secrets.secret.configureSecret
                             </div>
                             <div>
                               &lt;ConnectorPass&gt;

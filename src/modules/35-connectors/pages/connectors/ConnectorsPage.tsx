@@ -171,7 +171,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
             }
           : {},
         {
-          excludeTypes: ['ArgoConnector'],
           filterType: 'Connector'
         }
       ) as ConnectorFilterProperties

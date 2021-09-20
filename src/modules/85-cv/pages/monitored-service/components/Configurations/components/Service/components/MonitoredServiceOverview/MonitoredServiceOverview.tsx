@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, FormInput } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
+import type { MonitoredServiceDTO } from 'services/cv'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import {
   useGetHarnessServices,
@@ -18,7 +19,7 @@ import type { MonitoredServiceOverviewProps } from './MonitoredSourceOverview.ty
 import css from './MonitoredServiceOverview.module.scss'
 
 export default function MonitoredServiceOverview(props: MonitoredServiceOverviewProps): JSX.Element {
-  const { formikProps, isEdit } = props
+  const { formikProps, isEdit, onChangeMonitoredServiceType } = props
   const { getString } = useStrings()
   const { serviceOptions, setServiceOptions } = useGetHarnessServices()
   const { environmentOptions, setEnvironmentOptions } = useGetHarnessEnvironments()
@@ -29,7 +30,17 @@ export default function MonitoredServiceOverview(props: MonitoredServiceOverview
       {!isEdit ? (
         <>
           <Layout.Horizontal spacing="large">
-            <FormInput.Select name="type" items={MonitoredServiceTypeOptions} label={getString('typeLabel')} />
+            <FormInput.Select
+              name="type"
+              items={MonitoredServiceTypeOptions}
+              label={getString('typeLabel')}
+              value={
+                formikProps.values?.type === 'Infrastructure'
+                  ? MonitoredServiceTypeOptions[1]
+                  : MonitoredServiceTypeOptions[0]
+              }
+              onChange={item => onChangeMonitoredServiceType?.(item.value as MonitoredServiceDTO['type'])}
+            />
             <HarnessServiceAsFormField
               customRenderProps={{
                 name: 'serviceRef',

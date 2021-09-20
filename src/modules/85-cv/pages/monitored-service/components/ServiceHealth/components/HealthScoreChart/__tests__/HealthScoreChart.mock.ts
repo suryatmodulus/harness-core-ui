@@ -198,179 +198,338 @@ export const mockedHealthScoreData = {
 export const mockedSeriesData = [
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
-    y: 0
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
+    color: 'var(--grey-200)',
+    healthScore: null,
+    riskStatus: 'NO_DATA',
+    timeRange: {},
+    y: 8
   },
   {
     color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
-    y: 100
-  },
-  {
-    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   },
   {
     color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
+    y: 100
+  },
+  {
+    color: 'var(--green-500)',
+    healthScore: 100,
+    riskStatus: 'LOW',
+    timeRange: {},
     y: 100
   }
 ]

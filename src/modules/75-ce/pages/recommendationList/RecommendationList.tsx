@@ -268,7 +268,17 @@ const RecommendationList: React.FC = () => {
 
   return (
     <>
-      <Page.Header title="Recommendations"></Page.Header>
+      <Page.Header
+        title={
+          <Text
+            color="grey800"
+            style={{ fontSize: 20, fontWeight: 'bold' }}
+            tooltipProps={{ dataTooltipId: 'ccmRecommendations' }}
+          >
+            Recommendations
+          </Text>
+        }
+      />
       <Page.Body loading={fetching}>
         <Container padding="xlarge" height="100%">
           <Layout.Vertical spacing="large">

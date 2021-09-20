@@ -58,7 +58,7 @@ describe('Secret Reference', () => {
       </TestWrapper>
     )
     await waitFor(() => getByText(container, 'entityReference.apply'))
-    expect(getByText(container, 'secret.noSecretsFound')).toBeTruthy()
+    expect(getByText(container, 'secrets.secret.noSecretsFound')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 })

@@ -90,6 +90,7 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
     }
   }
 
+  /* istanbul ignore next */
   protected async getConnectorList(
     path: string,
     yaml: string,
@@ -110,6 +111,7 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
     return []
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): JFrogArtifactoryStepData {
     return getFormValuesInCorrectFormat<T, JFrogArtifactoryStepData>(data, transformValuesFieldsConfig)
   }

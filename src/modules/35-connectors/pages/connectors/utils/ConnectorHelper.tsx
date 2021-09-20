@@ -163,7 +163,7 @@ export const getConnectorIconByType = (type: string): IconName => {
     case Connectors.AWS:
       return 'service-aws'
     case Connectors.AWS_CODECOMMIT:
-      return 'service-aws-code-deploy'
+      return 'aws-codecommit'
     case Connectors.NEXUS:
       return 'service-nexus'
     case Connectors.ARTIFACTORY:

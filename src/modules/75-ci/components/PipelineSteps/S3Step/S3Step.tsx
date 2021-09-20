@@ -82,6 +82,7 @@ export class S3Step extends PipelineStep<S3StepData> {
     }
   }
 
+  /* istanbul ignore next */
   processFormData<T>(data: T): S3StepData {
     return getFormValuesInCorrectFormat<T, S3StepData>(data, transformValuesFieldsConfig)
   }

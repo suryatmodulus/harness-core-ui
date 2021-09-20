@@ -1,6 +1,7 @@
 {
   "data": {
     "branch": "master",
+    "buildType": "branch",
     "ciExecutionInfoDTO": {
       "event": "branch",
       "author": {

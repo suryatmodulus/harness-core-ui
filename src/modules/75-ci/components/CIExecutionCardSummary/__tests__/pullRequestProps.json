@@ -1,6 +1,7 @@
 {
   "data": {
     "branch": "master",
+    "buildType": "PR",
     "ciExecutionInfoDTO": {
       "event": "pullRequest",
       "author": {

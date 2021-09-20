@@ -20,12 +20,12 @@ export function CIExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
 
   return (
     <div className={css.main}>
-      {buildData?.event === 'branch' ? (
+      {data?.buildType === 'branch' ? (
         <React.Fragment>
           <BranchBadge branchName={buildData?.branch?.name} commitId={lastCommit?.id?.slice(0, 7)} />
           <CommitsInfo commits={buildData?.branch?.commits} />
         </React.Fragment>
-      ) : buildData?.event === 'pullRequest' ? (
+      ) : data?.buildType === 'PR' ? (
         <React.Fragment>
           <PullRequestBadge pullRequest={buildData?.pullRequest} />
           {variant === CardVariant.Default ? <PullRequestInfo pullRequest={buildData?.pullRequest} /> : null}

@@ -8,6 +8,7 @@ declare const styles: {
   readonly mainContainer: string
   readonly contentContainer: string
   readonly formContainer: string
+  readonly formElm: string
   readonly aboutHarnessAdapterContainer: string
   readonly aboutHarnessAdapterQuestion: string
   readonly aboutHarnessAdapterAnswer: string

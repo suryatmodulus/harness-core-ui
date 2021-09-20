@@ -225,6 +225,7 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
                     <div className={css.contentContainer}>
                       <div className={css.formContainer}>
                         <NameIdDescriptionTags
+                          className={css.formElm}
                           formikProps={formikProps}
                           identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
                         />

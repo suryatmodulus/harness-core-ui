@@ -1,6 +1,4 @@
 .stepContainer {
-  padding: 10px !important;
-
   .heading {
     color: var(--grey-800);
     font-size: var(--font-size-medium);
@@ -32,6 +30,8 @@
 }
 
 .mainContainer {
+  overflow: auto;
+
   .contentContainer {
     display: flex;
     gap: 20px;
@@ -41,6 +41,11 @@
   .formContainer {
     width: 50%;
     overflow: auto;
+
+    .formElm {
+      width: 100%;
+      max-width: 100%;
+    }
   }
   .aboutHarnessAdapterContainer {
     width: 50%;

@@ -156,6 +156,12 @@ export interface StringsMap {
   'common.extendTrial.feedback.title': string
   'common.extendTrial.heading': string
   'common.failureRate': string
+  'common.feature.apiFail': string
+  'common.feature.comparePlans': string
+  'common.feature.disabled': string
+  'common.feature.overCap.count': string
+  'common.feature.overCap.limit': string
+  'common.feature.overCap.title': string
   'common.file': string
   'common.filters.clearFilters': string
   'common.filters.noFilterSaved': string

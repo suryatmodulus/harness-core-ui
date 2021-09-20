@@ -5,6 +5,8 @@ import produce from 'immer'
 
 import { useParams } from 'react-router'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
+import { useGetEnabledFeatureDetailsByAccountId, useGetFeatureDetails } from 'services/cd-ng'
+import type { FeatureDetailsDTO } from 'services/cd-ng'
 import FeatureTooltip from './FeatureToolTip'
 
 export interface FeatureRequest {
@@ -16,14 +18,6 @@ export interface FeatureRequest {
 export interface CheckFeatureReturn {
   enabled: boolean
   toolTip?: React.ReactElement
-}
-
-interface FeatureResponse {
-  name: string
-  restrictionType: string
-  limit?: number
-  count?: number
-  enabled: boolean
 }
 
 type Features = Map<string, boolean>
@@ -47,7 +41,7 @@ export interface FeaturesContextProps {
     featureRequest: FeatureRequest,
     options?: FeatureRequestOptions,
     toolTipProps?: ToolTipProps
-  ) => CheckFeatureReturn
+  ) => Promise<CheckFeatureReturn>
   cancelRequest: (featureRequest: FeatureRequest) => void
 }
 
@@ -59,7 +53,7 @@ export const FeaturesContext = createContext<FeaturesContextProps>({
       enabled: true
     }
   },
-  checkLimitFeature: () => {
+  checkLimitFeature: async () => {
     return {
       enabled: true
     }
@@ -84,10 +78,13 @@ export function FeaturesProvider(props: React.PropsWithChildren<FeaturesProvider
 
   const { accountId } = useParams<AccountPathProps>()
 
-  const { refetch: getEnabledFeatures } = useGetEnabledFeaturesForAccount({
+  const { data: enabledFeatureList, refetch: getEnabledFeatures } = useGetEnabledFeatureDetailsByAccountId({
+    queryParams: {
+      accountIdentifier: accountId
+    },
     lazy: true
   })
-  const debouncedGetFeatures = useCallback(debounce(getEnabledFeatures, debounceWait), [
+  const debouncedGetFeatureList = useCallback(debounce(getEnabledFeatures, debounceWait), [
     getEnabledFeatures,
     debounceWait
   ])
@@ -118,9 +115,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<FeaturesProvider
 
     try {
       // try to fetch the features after waiting for `debounceWait` ms
-      const res = await debouncedGetFeatures({
-        features: pendingRequests
-      })
+      await debouncedGetFeatureList({})
 
       // clear pending requests after API call
       pendingRequests = []
@@ -132,9 +127,9 @@ export function FeaturesProvider(props: React.PropsWithChildren<FeaturesProvider
       setFeatures(oldFeatures => {
         return produce(oldFeatures, draft => {
           // find the current request in aggregated response
-          const enabled = res?.data?.find((feature: FeatureResponse) =>
+          const enabled = enabledFeatureList?.data?.find((feature: FeatureDetailsDTO) =>
             isEqual(feature.name, featureRequest.featureName)
-          )?.enabled
+          )?.restriction?.enabled
 
           // update current feature in the map
           draft.set(featureRequest.featureName, !!enabled)
@@ -162,29 +157,58 @@ export function FeaturesProvider(props: React.PropsWithChildren<FeaturesProvider
     }
   }
 
+  const { data: featureDetailsData, refetch: getFeatureDetails } = useGetFeatureDetails({
+    featureName: 'TEST1',
+    queryParams: {
+      accountIdentifier: accountId
+    },
+    lazy: true
+  })
+
   // rate/limit feature check
-  function checkLimitFeature(
+  async function checkLimitFeature(
     featureRequest: FeatureRequest,
     options?: FeatureRequestOptions,
     toolTipProps?: ToolTipProps
-  ): CheckFeatureReturn {
+  ): Promise<CheckFeatureReturn> {
     const { accountIdentifier = accountId, featureName } = featureRequest
-    const { debounce = 50 } = options
+    const { debounce: debounceTime = 50 } = options || {}
     const { module } = toolTipProps || {}
-    //TODO: call rate/limit api, if api call fails, return true
-    const enabled = true
-    const toolTip = (
-      <FeatureTooltip
-        featureName={featureName}
-        enabled={enabled}
-        apiFail={false}
-        limit={100}
-        count={100}
-        module={module}
-      />
-    )
+
+    let featureEnabled = true,
+      apiFail = false,
+      featureLimit,
+      featureCount,
+      toolTip
+    try {
+      await getFeatureDetails({
+        pathParams: {
+          accountIdentifier,
+          featureName
+        },
+        debounce: debounceTime
+      })
+      if (featureDetailsData?.data?.restriction?.enabled != undefined) {
+        featureEnabled = featureDetailsData?.data?.restriction?.enabled
+      }
+      featureLimit = featureDetailsData?.data?.restriction?.limit
+      featureCount = featureDetailsData?.data?.restriction?.count
+    } catch (err) {
+      apiFail = true
+    } finally {
+      toolTip = (
+        <FeatureTooltip
+          featureName={featureName}
+          enabled={featureEnabled}
+          apiFail={apiFail}
+          limit={featureLimit}
+          count={featureCount}
+          module={module}
+        />
+      )
+    }
     return {
-      enabled,
+      enabled: featureEnabled,
       toolTip
     }
   }

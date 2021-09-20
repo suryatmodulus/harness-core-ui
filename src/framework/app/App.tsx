@@ -28,6 +28,7 @@ import './App.scss'
 import routes from '@common/RouteDefinitions'
 import { returnUrlParams } from '@common/utils/routeUtils'
 import { PermissionsProvider } from 'framework/rbac/PermissionsContext'
+import { FeaturesProvider } from 'framework/featureStore/FeaturesContext'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -128,11 +129,13 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
             <AppErrorBoundary>
               <LicenseStoreProvider>
                 <PermissionsProvider>
-                  <RouteDestinations />
-                  <NGTooltipEditorPortal
-                    showTooltipEditor={showTooltipEditor}
-                    onEditorClose={() => setShowTooltipEditor(false)}
-                  />
+                  <FeaturesProvider>
+                    <RouteDestinations />
+                    <NGTooltipEditorPortal
+                      showTooltipEditor={showTooltipEditor}
+                      onEditorClose={() => setShowTooltipEditor(false)}
+                    />
+                  </FeaturesProvider>
                 </PermissionsProvider>
               </LicenseStoreProvider>
             </AppErrorBoundary>

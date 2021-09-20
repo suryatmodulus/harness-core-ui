@@ -2613,6 +2613,13 @@ export interface FailureStrategyConfig {
   onFailure: OnFailureConfig
 }
 
+export interface FeatureDetailsDTO {
+  description?: string
+  moduleType?: string
+  name?: 'TEST1' | 'TEST2' | 'TEST3'
+  restriction?: RestrictionDTO
+}
+
 export type FeatureFlagStageConfig = StageInfoConfig & {}
 
 export interface FeedbackFormDTO {
@@ -2884,7 +2891,7 @@ export type GitLabStore = StoreConfig & {
 }
 
 export interface GitOpsInfoDTO {
-  type?: 'ConnectedArgoProvider' | 'ManagedArgoProvider'
+  gitProviderType?: 'ConnectedArgoProvider' | 'ManagedArgoProvider'
 }
 
 export interface GitOpsProvider {
@@ -3170,14 +3177,10 @@ export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
 
 export interface GitopsProviderResponse {
   description?: string
-  identifier: string
-  name: string
+  identifier?: string
+  infoDTO?: GitOpsInfoDTO
   orgIdentifier?: string
   projectIdentifier?: string
-  spec: GitOpsInfoDTO
-  tags?: {
-    [key: string]: string
-  }
 }
 
 export type HarnessApprovalStepInfo = StepSpecType & {
@@ -4908,6 +4911,13 @@ export interface ResponseExecutionDeploymentInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseFeatureDetailsDTO {
+  correlationId?: string
+  data?: FeatureDetailsDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseFieldValues {
   correlationId?: string
   data?: FieldValues
@@ -5085,6 +5095,13 @@ export interface ResponseListExecutionStatus {
     | 'APPROVAL_REJECTED'
     | 'WAITING'
   )[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListFeatureDetailsDTO {
+  correlationId?: string
+  data?: FeatureDetailsDTO[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -6077,6 +6094,13 @@ export interface RestResponseVoid {
   }
   resource?: Void
   responseMessages?: ResponseMessage[]
+}
+
+export interface RestrictionDTO {
+  count?: number
+  enabled?: boolean
+  limit?: number
+  restrictionType?: 'ENABLED' | 'STATIC_LIMIT' | 'RATE_LIMIT'
 }
 
 export type RetryFailureActionConfig = FailureStrategyActionConfig & {
@@ -7410,7 +7434,7 @@ export type UserFilterRequestBody = UserFilter
 
 export type UserGroupDTORequestBody = UserGroupDTO
 
-export type UnsubscribeBodyRequestBody = string[]
+export type ProcessPollingResultNgBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -15932,7 +15956,6 @@ export interface ListGitOpsProvidersQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  searchTerm?: string
 }
 
 export type ListGitOpsProvidersProps = Omit<
@@ -15975,57 +15998,6 @@ export const listGitOpsProvidersPromise = (
   getUsingFetch<ResponsePageGitopsProviderResponse, Failure | Error, ListGitOpsProvidersQueryParams, void>(
     getConfig('ng/api'),
     `/gitopsproviders/list`,
-    props,
-    signal
-  )
-
-export interface ValidateProviderIdentifierIsUniqueQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  identifier?: string
-}
-
-export type ValidateProviderIdentifierIsUniqueProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, ValidateProviderIdentifierIsUniqueQueryParams, void>,
-  'path'
->
-
-/**
- * Validate Identifier is unique
- */
-export const ValidateProviderIdentifierIsUnique = (props: ValidateProviderIdentifierIsUniqueProps) => (
-  <Get<ResponseBoolean, Failure | Error, ValidateProviderIdentifierIsUniqueQueryParams, void>
-    path={`/gitopsproviders/validateUniqueIdentifier`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateProviderIdentifierIsUniqueProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, ValidateProviderIdentifierIsUniqueQueryParams, void>,
-  'path'
->
-
-/**
- * Validate Identifier is unique
- */
-export const useValidateProviderIdentifierIsUnique = (props: UseValidateProviderIdentifierIsUniqueProps) =>
-  useGet<ResponseBoolean, Failure | Error, ValidateProviderIdentifierIsUniqueQueryParams, void>(
-    `/gitopsproviders/validateUniqueIdentifier`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Validate Identifier is unique
- */
-export const validateProviderIdentifierIsUniquePromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateProviderIdentifierIsUniqueQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, ValidateProviderIdentifierIsUniqueQueryParams, void>(
-    getConfig('ng/api'),
-    `/gitopsproviders/validateUniqueIdentifier`,
     props,
     signal
   )
@@ -18297,6 +18269,121 @@ export const getExecutionStrategyYamlPromise = (
     signal
   )
 
+export interface GetEnabledFeatureDetailsByAccountIdQueryParams {
+  accountIdentifier: string
+}
+
+export type GetEnabledFeatureDetailsByAccountIdProps = Omit<
+  GetProps<ResponseListFeatureDetailsDTO, Failure | Error, GetEnabledFeatureDetailsByAccountIdQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets List of Enabled Feature Details for The Account
+ */
+export const GetEnabledFeatureDetailsByAccountId = (props: GetEnabledFeatureDetailsByAccountIdProps) => (
+  <Get<ResponseListFeatureDetailsDTO, Failure | Error, GetEnabledFeatureDetailsByAccountIdQueryParams, void>
+    path={`/plan-feature/enabled`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEnabledFeatureDetailsByAccountIdProps = Omit<
+  UseGetProps<ResponseListFeatureDetailsDTO, Failure | Error, GetEnabledFeatureDetailsByAccountIdQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets List of Enabled Feature Details for The Account
+ */
+export const useGetEnabledFeatureDetailsByAccountId = (props: UseGetEnabledFeatureDetailsByAccountIdProps) =>
+  useGet<ResponseListFeatureDetailsDTO, Failure | Error, GetEnabledFeatureDetailsByAccountIdQueryParams, void>(
+    `/plan-feature/enabled`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets List of Enabled Feature Details for The Account
+ */
+export const getEnabledFeatureDetailsByAccountIdPromise = (
+  props: GetUsingFetchProps<
+    ResponseListFeatureDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureDetailsByAccountIdQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListFeatureDetailsDTO, Failure | Error, GetEnabledFeatureDetailsByAccountIdQueryParams, void>(
+    getConfig('ng/api'),
+    `/plan-feature/enabled`,
+    props,
+    signal
+  )
+
+export interface GetFeatureDetailsQueryParams {
+  accountIdentifier: string
+}
+
+export interface GetFeatureDetailsPathParams {
+  featureName: 'TEST1' | 'TEST2' | 'TEST3'
+}
+
+export type GetFeatureDetailsProps = Omit<
+  GetProps<ResponseFeatureDetailsDTO, Failure | Error, GetFeatureDetailsQueryParams, GetFeatureDetailsPathParams>,
+  'path'
+> &
+  GetFeatureDetailsPathParams
+
+/**
+ * Gets Feature Details
+ */
+export const GetFeatureDetails = ({ featureName, ...props }: GetFeatureDetailsProps) => (
+  <Get<ResponseFeatureDetailsDTO, Failure | Error, GetFeatureDetailsQueryParams, GetFeatureDetailsPathParams>
+    path={`/plan-feature/${featureName}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetFeatureDetailsProps = Omit<
+  UseGetProps<ResponseFeatureDetailsDTO, Failure | Error, GetFeatureDetailsQueryParams, GetFeatureDetailsPathParams>,
+  'path'
+> &
+  GetFeatureDetailsPathParams
+
+/**
+ * Gets Feature Details
+ */
+export const useGetFeatureDetails = ({ featureName, ...props }: UseGetFeatureDetailsProps) =>
+  useGet<ResponseFeatureDetailsDTO, Failure | Error, GetFeatureDetailsQueryParams, GetFeatureDetailsPathParams>(
+    (paramsInPath: GetFeatureDetailsPathParams) => `/plan-feature/${paramsInPath.featureName}`,
+    { base: getConfig('ng/api'), pathParams: { featureName }, ...props }
+  )
+
+/**
+ * Gets Feature Details
+ */
+export const getFeatureDetailsPromise = (
+  {
+    featureName,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseFeatureDetailsDTO,
+    Failure | Error,
+    GetFeatureDetailsQueryParams,
+    GetFeatureDetailsPathParams
+  > & { featureName: 'TEST1' | 'TEST2' | 'TEST3' },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseFeatureDetailsDTO, Failure | Error, GetFeatureDetailsQueryParams, GetFeatureDetailsPathParams>(
+    getConfig('ng/api'),
+    `/plan-feature/${featureName}`,
+    props,
+    signal
+  )
+
 export interface ProcessPollingResultNgQueryParams {
   accountId?: string
 }
@@ -18310,7 +18397,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -18322,7 +18409,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -18337,7 +18424,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -18349,7 +18436,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -18365,7 +18452,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -18374,17 +18461,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -18393,22 +18480,28 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<
+    ResponsePollingResponseDTO,
+    Failure | Error,
+    void,
+    ProcessPollingResultNgBodyRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -18417,12 +18510,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -18431,21 +18524,22 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+    'POST',
+    `/polling/unsubscribe`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,

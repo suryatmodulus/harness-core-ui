@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useDeepCompareEffect } from '@common/hooks'
 import {
   useFeaturesContext,
   FeatureRequestOptions,
@@ -7,26 +7,29 @@ import {
   ToolTipProps
 } from 'framework/featureStore/FeaturesContext'
 
-export function useFeature(
-  featureRequest: FeatureRequest,
-  options?: FeatureRequestOptions,
+interface Props {
+  featureRequest: FeatureRequest
+  options?: FeatureRequestOptions
   tooltipProps?: ToolTipProps
-): CheckFeatureReturn {
-  const { requestFeatures, checkFeature, checkLimitFeature, cancelRequest } = useFeaturesContext()
+}
 
-  useEffect(() => {
-    // cache enabled feature list in the context
-    requestFeatures(featureRequest, options)
+export function useFeature(props: Props): CheckFeatureReturn {
+  const { requestFeatures, checkFeature, requestLimitFeature, checkLimitFeature } = useFeaturesContext()
 
-    return () => {
-      // cancel above request when this hook instance is unmounting
-      cancelRequest(featureRequest)
+  const { featureRequest, options, tooltipProps } = props
+  useDeepCompareEffect(() => {
+    if (featureRequest.isRateLimit) {
+      requestLimitFeature(featureRequest)
+    } else {
+      // cache enabled feature list in the context
+      requestFeatures(featureRequest, options)
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [featureRequest, options])
 
   // rate limit feature always calls the api in real time
   return featureRequest.isRateLimit
-    ? checkLimitFeature(featureRequest, options, tooltipProps)
+    ? checkLimitFeature(featureRequest.featureName, tooltipProps)
     : checkFeature(featureRequest.featureName, tooltipProps)
 }

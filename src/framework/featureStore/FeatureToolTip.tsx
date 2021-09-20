@@ -6,9 +6,8 @@ import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 
-interface Props {
+export interface FeatureTooltipProps {
   featureName: string
-  enabled: boolean
   limit?: number
   count?: number
   apiFail?: boolean
@@ -16,19 +15,17 @@ interface Props {
   className?: string
 }
 
-const FeatureTooltip: React.FC<Props> = ({ featureName, enabled, limit, count, apiFail, module, className }) => {
+const FeatureTooltip: React.FC<FeatureTooltipProps> = ({ featureName, limit, count, apiFail, module, className }) => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   if (apiFail) {
     return (
-      <Text className={cx('api-fail', className)} font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
-        {getString('common.feature.apiFail', { featureName: featureName })}
-      </Text>
+      <Layout.Vertical padding="small" spacing="small" className={cx('api-fail', className)}>
+        <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
+          {getString('common.feature.apiFail', { featureName: featureName })}
+        </Text>
+      </Layout.Vertical>
     )
-  }
-
-  if (enabled) {
-    return <div></div>
   }
 
   if (limit || count) {

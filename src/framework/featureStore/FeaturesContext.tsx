@@ -1,17 +1,17 @@
-import React, { createContext, useContext, useState, useCallback } from 'react'
-import debounce from 'p-debounce'
-import { isEqual } from 'lodash-es'
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import { isEmpty } from 'lodash-es'
 import produce from 'immer'
 
 import { useParams } from 'react-router'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
-import { useGetEnabledFeatureDetailsByAccountId, useGetFeatureDetails } from 'services/cd-ng'
-import type { FeatureDetailsDTO } from 'services/cd-ng'
+import { useGetEnabledFeatureDetailsByAccountId, useGetFeatureDetail } from 'services/cd-ng'
+import type { FeatureIdentifier } from './FeatureIdentifier'
 import FeatureTooltip from './FeatureToolTip'
+import type { FeatureTooltipProps } from './FeatureToolTip'
 
 export interface FeatureRequest {
   accountIdentifier?: string
-  featureName: string
+  featureName: FeatureIdentifier
   isRateLimit?: boolean
 }
 
@@ -25,7 +25,6 @@ type Features = Map<string, boolean>
 export interface FeatureRequestOptions {
   skipCache?: boolean
   skipCondition?: (featureRequest: FeatureRequest) => boolean
-  debounce?: number
 }
 
 export interface ToolTipProps {
@@ -37,69 +36,78 @@ export interface FeaturesContextProps {
   features: Features
   requestFeatures: (featureRequest: FeatureRequest, options?: FeatureRequestOptions) => void
   checkFeature: (featureName: string, toolTipProps?: ToolTipProps) => CheckFeatureReturn
-  checkLimitFeature: (
-    featureRequest: FeatureRequest,
-    options?: FeatureRequestOptions,
-    toolTipProps?: ToolTipProps
-  ) => Promise<CheckFeatureReturn>
-  cancelRequest: (featureRequest: FeatureRequest) => void
+  requestLimitFeature: (featureRequest: FeatureRequest) => void
+  checkLimitFeature: (featureName: string, toolTipProps?: ToolTipProps) => CheckFeatureReturn
+}
+
+const defaultReturn = {
+  enabled: true
 }
 
 export const FeaturesContext = createContext<FeaturesContextProps>({
   features: new Map<string, boolean>(),
   requestFeatures: () => void 0,
   checkFeature: () => {
-    return {
-      enabled: true
-    }
+    return defaultReturn
   },
-  checkLimitFeature: async () => {
-    return {
-      enabled: true
-    }
-  },
-  cancelRequest: () => void 0
+  requestLimitFeature: () => void 0,
+  checkLimitFeature: () => {
+    return defaultReturn
+  }
 })
 
 export function useFeaturesContext(): FeaturesContextProps {
   return useContext(FeaturesContext)
 }
 
-interface FeaturesProviderProps {
-  debounceWait?: number
-}
-
-let pendingRequests: FeatureRequest[] = []
-
-export function FeaturesProvider(props: React.PropsWithChildren<FeaturesProviderProps>): React.ReactElement {
-  const { debounceWait = 50 } = props
+export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const [features, setFeatures] = useState<Features>(new Map<string, boolean>())
   const [hasErr, setHasErr] = useState<boolean>(false)
 
   const { accountId } = useParams<AccountPathProps>()
 
-  const { data: enabledFeatureList, refetch: getEnabledFeatures } = useGetEnabledFeatureDetailsByAccountId({
+  const {
+    data: enabledFeatureList,
+    refetch: getEnabledFeatures,
+    error: gettingEnabledFeaturesError
+  } = useGetEnabledFeatureDetailsByAccountId({
     queryParams: {
       accountIdentifier: accountId
     },
     lazy: true
   })
-  const debouncedGetFeatureList = useCallback(debounce(getEnabledFeatures, debounceWait), [
-    getEnabledFeatures,
-    debounceWait
-  ])
+
+  useEffect(() => {
+    if (!isEmpty(enabledFeatureList)) {
+      const list = enabledFeatureList?.data?.reduce((acc, curr) => {
+        if (curr?.name) {
+          acc?.set(curr?.name, !!curr?.allowed)
+        }
+        return acc
+      }, new Map<string, boolean>())
+      list && setFeatures(list)
+    }
+  }, [enabledFeatureList])
+
+  useEffect(() => {
+    if (gettingEnabledFeaturesError) {
+      // set err flag to true
+      setHasErr(true)
+    }
+  }, [gettingEnabledFeaturesError])
 
   // this function is called from `useFeature` hook to cache all enabled features
-  // make the feature list call until `debounceWait` is triggered
   async function requestFeatures(featureRequest: FeatureRequest, options?: FeatureRequestOptions): Promise<void> {
     // rate limit feature doesn't get cached
-    if (featureRequest.isRateLimit) return
+    if (featureRequest.isRateLimit) {
+      return
+    }
 
     const { skipCache = false, skipCondition } = options || {}
 
     // exit early if we already fetched features before
     // disabling this will disable caching, because it will make a fresh request and update in the store
-    if (!skipCache && features.size > 0) {
+    if (!skipCache && features.has(featureRequest.featureName)) {
       return
     }
 
@@ -108,40 +116,10 @@ export function FeaturesProvider(props: React.PropsWithChildren<FeaturesProvider
       return
     }
 
-    // check if this request is already queued
-    if (!pendingRequests.find(req => isEqual(req, featureRequest))) {
-      pendingRequests.push(featureRequest)
-    }
+    await getEnabledFeatures({})
 
-    try {
-      // try to fetch the features after waiting for `debounceWait` ms
-      await debouncedGetFeatureList({})
-
-      // clear pending requests after API call
-      pendingRequests = []
-
-      // reset hasErr
-      setHasErr(false)
-
-      // `p-debounce` package ensure all debounced promises are resolved at this stage
-      setFeatures(oldFeatures => {
-        return produce(oldFeatures, draft => {
-          // find the current request in aggregated response
-          const enabled = enabledFeatureList?.data?.find((feature: FeatureDetailsDTO) =>
-            isEqual(feature.name, featureRequest.featureName)
-          )?.restriction?.enabled
-
-          // update current feature in the map
-          draft.set(featureRequest.featureName, !!enabled)
-        })
-      })
-    } catch (err) {
-      // clear pending requests even if api fails
-      pendingRequests = []
-      // set err flag to true
-      setHasErr(true)
-      if (process.env.NODE_ENV === 'test') throw err
-    }
+    // reset hasErr
+    setHasErr(false)
   }
 
   function checkFeature(featureName: string, toolTipProps?: ToolTipProps): CheckFeatureReturn {
@@ -150,76 +128,137 @@ export function FeaturesProvider(props: React.PropsWithChildren<FeaturesProvider
     // absence of featureName means feature disabled
     // api call fails by default set all features to be true
     const enabled = !!feature || hasErr
-    const toolTip = <FeatureTooltip featureName={featureName} enabled={enabled} apiFail={hasErr} module={module} />
+    const toolTip = getToolTip(
+      enabled,
+      {
+        featureName,
+        apiFail: hasErr
+      },
+      module
+    )
+    return {
+      enabled,
+      toolTip
+    }
+  }
+  interface FeatureDetailProps {
+    featureName: string
+    enabled: boolean
+    limit?: number
+    count?: number
+    apiFail?: boolean
+  }
+
+  const [featureDetailMap, setFeatureDetailMap] = useState<Map<string, FeatureDetailProps>>(
+    new Map<string, FeatureDetailProps>()
+  )
+  const { mutate: getFeatureDetails } = useGetFeatureDetail({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  // rate/limit feature check
+  async function requestLimitFeature(featureRequest: FeatureRequest): Promise<void> {
+    const { featureName } = featureRequest
+
+    try {
+      const res = await getFeatureDetails({
+        featureName
+      })
+      const allowed = res?.data?.allowed
+      const restriction = res?.data?.restriction
+      const enabled = !!allowed
+      let limit: number, count: number
+      const apiFail = false
+      if (restriction) {
+        limit = restriction.limit
+        count = restriction.count
+      }
+
+      setFeatureDetailMap(oldMap => {
+        return produce(oldMap, draft => {
+          // update current feature in the map
+          draft.set(featureName, {
+            featureName,
+            enabled,
+            limit,
+            count,
+            apiFail
+          })
+        })
+      })
+    } catch (ex) {
+      setFeatureDetailMap(oldMap => {
+        return produce(oldMap, draft => {
+          // update current feature in the map
+          draft.set(featureName, {
+            featureName,
+            enabled: true,
+            apiFail: true
+          })
+        })
+      })
+    }
+  }
+
+  function checkLimitFeature(featureName: string, toolTipProps?: ToolTipProps): CheckFeatureReturn {
+    const { module } = toolTipProps || {}
+    // api call fails by default set feature to be true
+    const featureDetail = featureDetailMap.get(featureName)
+    const enabled = featureDetail?.apiFail || !!featureDetail?.enabled
+    const toolTip = getToolTip(
+      enabled,
+      {
+        featureName,
+        apiFail: featureDetail?.apiFail,
+        limit: featureDetail?.limit,
+        count: featureDetail?.count
+      },
+      module
+    )
     return {
       enabled,
       toolTip
     }
   }
 
-  const { data: featureDetailsData, refetch: getFeatureDetails } = useGetFeatureDetails({
-    featureName: 'TEST1',
-    queryParams: {
-      accountIdentifier: accountId
-    },
-    lazy: true
-  })
-
-  // rate/limit feature check
-  async function checkLimitFeature(
-    featureRequest: FeatureRequest,
-    options?: FeatureRequestOptions,
-    toolTipProps?: ToolTipProps
-  ): Promise<CheckFeatureReturn> {
-    const { accountIdentifier = accountId, featureName } = featureRequest
-    const { debounce: debounceTime = 50 } = options || {}
-    const { module } = toolTipProps || {}
-
-    let featureEnabled = true,
-      apiFail = false,
-      featureLimit,
-      featureCount,
-      toolTip
-    try {
-      await getFeatureDetails({
-        pathParams: {
-          accountIdentifier,
-          featureName
-        },
-        debounce: debounceTime
-      })
-      if (featureDetailsData?.data?.restriction?.enabled != undefined) {
-        featureEnabled = featureDetailsData?.data?.restriction?.enabled
-      }
-      featureLimit = featureDetailsData?.data?.restriction?.limit
-      featureCount = featureDetailsData?.data?.restriction?.count
-    } catch (err) {
-      apiFail = true
-    } finally {
-      toolTip = (
+  function getToolTip(
+    enabled: boolean,
+    toolTipProps: FeatureTooltipProps,
+    module?: Module
+  ): React.ReactElement | undefined {
+    if (toolTipProps.apiFail) {
+      return (
         <FeatureTooltip
-          featureName={featureName}
-          enabled={featureEnabled}
-          apiFail={apiFail}
-          limit={featureLimit}
-          count={featureCount}
+          featureName={toolTipProps?.featureName || 'TEST1'}
+          apiFail={toolTipProps?.apiFail}
+          limit={toolTipProps?.limit}
+          count={toolTipProps?.count}
           module={module}
         />
       )
     }
-    return {
-      enabled: featureEnabled,
-      toolTip
-    }
-  }
 
-  function cancelRequest(featureRequest: FeatureRequest): void {
-    // remove any matching requests
-    pendingRequests = pendingRequests.filter(req => !isEqual(req, featureRequest))
+    if (enabled) {
+      return undefined
+    }
+
+    return (
+      <FeatureTooltip
+        featureName={toolTipProps?.featureName || 'TEST1'}
+        apiFail={toolTipProps?.apiFail}
+        limit={toolTipProps?.limit}
+        count={toolTipProps?.count}
+        module={module}
+      />
+    )
   }
 
   return (
-    <FeaturesContext.Provider value={{ features, requestFeatures, checkLimitFeature, checkFeature, cancelRequest }}>
+    <FeaturesContext.Provider
+      value={{ features, requestFeatures, requestLimitFeature, checkLimitFeature, checkFeature }}
+    >
       {props.children}
     </FeaturesContext.Provider>
   )

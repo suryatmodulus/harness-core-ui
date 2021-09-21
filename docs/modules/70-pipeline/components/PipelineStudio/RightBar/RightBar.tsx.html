@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.45% </span>
+                <span class="strong">53.27% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>318/595</span>
+                <span class='fraction'>318/597</span>
             </div>
         
             
@@ -716,7 +716,19 @@
 <a name='L657'></a><a href='#L657'>657</a>
 <a name='L658'></a><a href='#L658'>658</a>
 <a name='L659'></a><a href='#L659'>659</a>
-<a name='L660'></a><a href='#L660'>660</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L660'></a><a href='#L660'>660</a>
+<a name='L661'></a><a href='#L661'>661</a>
+<a name='L662'></a><a href='#L662'>662</a>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a>
+<a name='L665'></a><a href='#L665'>665</a>
+<a name='L666'></a><a href='#L666'>666</a>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a>
+<a name='L670'></a><a href='#L670'>670</a>
+<a name='L671'></a><a href='#L671'>671</a>
+<a name='L672'></a><a href='#L672'>672</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -817,6 +829,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1375,6 +1388,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import * as Yup from 'yup'
 import cx from 'classnames'
@@ -1485,6 +1509,7 @@ export const RightBar = (): JSX.Element =&gt; {
         drawerData: { type }
       }
     },
+    isReadonly,
     view,
     updatePipeline,
     updatePipelineView
@@ -1891,7 +1916,7 @@ export const RightBar = (): JSX.Element =&gt; {
                       error={errors?.connectorRef}
                       label={getString('connector')}
                       placeholder={loading ? getString('loading') : getString('connectors.selectConnector')}
-                      disabled={loading}
+                      disabled={loading || isReadonly}
                       accountIdentifier={accountId}
                       projectIdentifier={projectIdentifier}
                       orgIdentifier={orgIdentifier}
@@ -1922,6 +1947,7 @@ export const RightBar = (): JSX.Element =&gt; {
                           label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                           name="repoName"
                           style={{ flexGrow: 1 }}
+                          disabled={isReadonly}
                         /&gt;
                         {connectorUrl.length &gt; 0 ? (
                           &lt;div className={css.predefinedValue}&gt;
@@ -1955,6 +1981,7 @@ export const RightBar = (): JSX.Element =&gt; {
                                   {getString('pipeline.depth')}
                                 &lt;/Text&gt;
                               }
+                              disabled={isReadonly}
                             /&gt;
                             &lt;FormInput.Select
                               name="sslVerify"
@@ -1968,6 +1995,7 @@ export const RightBar = (): JSX.Element =&gt; {
                                 &lt;/Text&gt;
                               }
                               items={sslVerifyOptions}
+                              disabled={isReadonly}
                             /&gt;
                             &lt;MultiTypeSelectField
                               name="prCloneStrategy"
@@ -1979,6 +2007,7 @@ export const RightBar = (): JSX.Element =&gt; {
                               multiTypeInputProps={{
                                 selectItems: prCloneStrategyOptions,
                                 placeholder: 'Select',
+                                disabled: isReadonly,
                                 multiTypeInputProps: {
                                   selectProps: { addClearBtn: true, items: prCloneStrategyOptions },
                                   allowableTypes: [MultiTypeInputType.FIXED]
@@ -2000,6 +2029,7 @@ export const RightBar = (): JSX.Element =&gt; {
                                 }
                                 placeholder={getString('pipelineSteps.limitMemoryPlaceholder')}
                                 style={{ flex: 1 }}
+                                disabled={isReadonly}
                               /&gt;
                               &lt;FormInput.Text
                                 name="cpuLimit"
@@ -2008,6 +2038,7 @@ export const RightBar = (): JSX.Element =&gt; {
                                 }
                                 placeholder={getString('pipelineSteps.limitCPUPlaceholder')}
                                 style={{ flex: 1 }}
+                                disabled={isReadonly}
                               /&gt;
                             &lt;/Layout.Horizontal&gt;
                           &lt;/div&gt;
@@ -2017,8 +2048,13 @@ export const RightBar = (): JSX.Element =&gt; {
                   &lt;/FormikForm&gt;
                 &lt;/div&gt;
                 &lt;div className={Classes.DIALOG_FOOTER}&gt;
-                  &lt;Button variation={ButtonVariation.PRIMARY} text={getString('save')} onClick={submitForm} /&gt; &amp;nbsp;
-                  &amp;nbsp;
+                  &lt;Button
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('save')}
+                    onClick={submitForm}
+                    disabled={isReadonly}
+                  /&gt;{' '}
+                  &amp;nbsp; &amp;nbsp;
                   &lt;Button
                     variation={ButtonVariation.TERTIARY}
                     text={getString('cancel')}
@@ -2041,7 +2077,7 @@ export const RightBar = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 21 2021 10:47:17 GMT+0000 (Greenwich Mean Time)
+                at Tue Sep 21 2021 12:00:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

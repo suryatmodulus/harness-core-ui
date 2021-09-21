@@ -31,7 +31,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                   class="formContainer"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main main"
+                    class="StyledProps--font StyledProps--main main formElm"
                   >
                     <div
                       class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -427,7 +427,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                   class="formContainer"
                 >
                   <div
-                    class="StyledProps--font StyledProps--main main"
+                    class="StyledProps--font StyledProps--main main formElm"
                   >
                     <div
                       class="InputWithIdentifier--txtNameContainer TextInput--main"

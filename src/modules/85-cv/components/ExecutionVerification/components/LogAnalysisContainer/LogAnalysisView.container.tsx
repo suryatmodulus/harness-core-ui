@@ -114,7 +114,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     }
     return () => clearInterval(intervalId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clusterAnalysisQueryParams, logsAnalysisQueryParams, pollingIntervalId, step?.status])
+  }, [clusterAnalysisQueryParams, logsAnalysisQueryParams, step?.status])
 
   const fetchLogsDataForHealthSource = useCallback(
     currentHealthSource => {

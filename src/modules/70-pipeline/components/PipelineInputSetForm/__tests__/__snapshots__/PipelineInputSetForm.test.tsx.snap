@@ -141,6 +141,20 @@ exports[`CI enabled CI READONLY mode: CI stage readonly mode 1`] = `
                     />
                     gitTag
                   </label>
+                  <label
+                    class="bp3-control bp3-radio bp3-disabled bp3-inline RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      disabled=""
+                      name="/dummypath.properties.ci.codebase.build.type"
+                      type="radio"
+                      value="PR"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                    pipeline.gitPullRequest
+                  </label>
                 </div>
               </div>
             </div>
@@ -215,6 +229,19 @@ exports[`CI enabled CI present in one of the stages: CI codebase input set form 
                       class="bp3-control-indicator"
                     />
                     gitTag
+                  </label>
+                  <label
+                    class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      name="/dummypath.properties.ci.codebase.build.type"
+                      type="radio"
+                      value="PR"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                    pipeline.gitPullRequest
                   </label>
                 </div>
               </div>

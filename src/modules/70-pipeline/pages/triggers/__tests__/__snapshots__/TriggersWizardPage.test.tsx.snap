@@ -324,7 +324,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                           class="bp3-input"
                                           name="pipeline.variables[0].value"
                                           type="text"
-                                          value="123"
+                                          value=""
                                         />
                                       </div>
                                       <span
@@ -394,7 +394,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                           class="bp3-input"
                                           name="pipeline.variables[1].value"
                                           type="text"
-                                          value="1"
+                                          value=""
                                         />
                                       </div>
                                       <span
@@ -472,7 +472,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                               placeholder="Search..."
                                               style="padding-right: 0px;"
                                               type="text"
-                                              value="val1"
+                                              value=""
                                             />
                                             <span
                                               class="bp3-input-action"
@@ -590,6 +590,19 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                         />
                                         gitTag
                                       </label>
+                                      <label
+                                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                                      >
+                                        <input
+                                          name="pipeline.properties.ci.codebase.build.type"
+                                          type="radio"
+                                          value="PR"
+                                        />
+                                        <span
+                                          class="bp3-control-indicator"
+                                        />
+                                        pipeline.gitPullRequest
+                                      </label>
                                     </div>
                                   </div>
                                 </div>
@@ -626,7 +639,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                           class="bp3-input"
                                           name="pipeline.properties.ci.codebase.build.spec.branch"
                                           type="text"
-                                          value="test"
+                                          value="<+trigger.branch>"
                                         />
                                       </div>
                                       <span
@@ -736,7 +749,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                               class="bp3-input"
                                               name="pipeline.stages[0].stage.spec.infrastructure.spec.namespace"
                                               type="text"
-                                              value="default"
+                                              value=""
                                             />
                                           </div>
                                           <span
@@ -958,9 +971,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                                 >
                                                   <textarea
                                                     name="pipeline.stages[0].stage.spec.execution.steps[0].step.spec.command"
-                                                  >
-                                                    echo 'from trigger'
-                                                  </textarea>
+                                                  />
                                                   <button
                                                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                                                     type="button"

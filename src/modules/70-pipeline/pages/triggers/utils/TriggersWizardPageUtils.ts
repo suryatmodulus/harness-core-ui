@@ -788,6 +788,13 @@ export const ciCodebaseBuild = {
   }
 }
 
+export const ciCodebaseBuildPullRequest = {
+  type: 'PR',
+  spec: {
+    number: '<+trigger.prNumber>'
+  }
+}
+
 export const getConnectorName = (connector?: ConnectorResponse): string =>
   `${
     connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier

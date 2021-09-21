@@ -16,6 +16,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   const type = get(formik?.values, `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`, '') as
     | 'branch'
     | 'tag'
+    | 'PR'
   const { getString } = useStrings()
   const disableOnWebhookTrigger =
     formik?.values?.triggerType === TriggerTypes.WEBHOOK && formik.values.sourceRepo !== CUSTOM
@@ -29,6 +30,11 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
       label: getString('gitTag'),
       value: 'tag',
       disabled: readonly
+    },
+    {
+      label: getString('pipeline.gitPullRequest'),
+      value: 'PR',
+      disabled: readonly
     }
   ]
 
@@ -36,7 +42,14 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
 
   const inputLabels = {
     branch: getString('gitBranch'),
-    tag: getString('gitTag')
+    tag: getString('gitTag'),
+    PR: getString('pipeline.gitPullRequestNumber')
+  }
+
+  const inputNames = {
+    branch: 'branch',
+    tag: 'tag',
+    PR: 'number'
   }
 
   return (
@@ -54,7 +67,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
       {type && (
         <FormInput.MultiTextInput
           label={inputLabels[type]}
-          name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${type}`}
+          name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${inputNames[type]}`}
           multiTextInputProps={{
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Layout, Heading, Text, NestedAccordionProvider } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import { pick, merge } from 'lodash-es'
+import { pick, merge, cloneDeep } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import {
@@ -16,7 +16,12 @@ import { useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { isPipelineWithCiCodebase, ciCodebaseBuild, filterArtifactIndex } from '../utils/TriggersWizardPageUtils'
+import {
+  ciCodebaseBuild,
+  ciCodebaseBuildPullRequest,
+  filterArtifactIndex,
+  eventTypes
+} from '../utils/TriggersWizardPageUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
 
 interface WebhookPipelineInputPanelPropsInterface {
@@ -30,6 +35,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     values: { inputSetSelected, pipeline, originalPipeline },
     values
   } = formikProps
+
   const { orgIdentifier, accountId, projectIdentifier, pipelineIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -47,6 +53,34 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
   })
   const [selectedInputSets, setSelectedInputSets] = useState<InputSetSelectorProps['value']>(inputSetSelected)
   const { getString } = useStrings()
+
+  useEffect(() => {
+    const formikValues = cloneDeep(formikProps.values)
+
+    if (formikValues.event === eventTypes.PULL_REQUEST) {
+      formikValues.pipeline = {
+        properties: {
+          ci: {
+            codebase: {
+              build: ciCodebaseBuildPullRequest
+            }
+          }
+        }
+      }
+    } else {
+      formikValues.pipeline = {
+        properties: {
+          ci: {
+            codebase: {
+              build: ciCodebaseBuild
+            }
+          }
+        }
+      }
+    }
+
+    formikProps.setValues(formikValues)
+  }, [])
 
   useEffect(() => {
     setSelectedInputSets(inputSetSelected)
@@ -111,9 +145,6 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
             const pipelineObject = parse(data.data.pipelineYaml) as {
               pipeline: PipelineInfoConfig | any
             }
-            if (isPipelineWithCiCodebase(pipelineObject?.pipeline)) {
-              pipelineObject.pipeline.properties.ci.codebase.build = ciCodebaseBuild
-            }
             const newPipelineObject = applySelectedArtifactToPipelineObject(pipelineObject.pipeline)
             formikProps.setValues({
               ...values,
@@ -138,10 +169,6 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
             if (selectedInputSets[0].type === 'INPUT_SET') {
               const pipelineObject = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
                 pipeline: PipelineInfoConfig | any
-              }
-
-              if (isPipelineWithCiCodebase(pipelineObject?.pipeline)) {
-                pipelineObject.pipeline.properties.ci.codebase.build = ciCodebaseBuild
               }
 
               const newPipelineObject = applySelectedArtifactToPipelineObject(pipelineObject.pipeline)

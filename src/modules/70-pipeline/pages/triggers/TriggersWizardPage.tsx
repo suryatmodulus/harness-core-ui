@@ -48,12 +48,9 @@ import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
 import {
   eventTypes,
-  isPipelineWithCiCodebase,
-  ciCodebaseBuild,
   getConnectorName,
   getConnectorValue,
   isRowFilled,
-  CUSTOM,
   isArtifactOrManifestTrigger,
   FlatValidArtifactFormikValuesInterface,
   clearRuntimeInputValue,
@@ -1015,13 +1012,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const getInitialValues = (triggerType: NGTriggerSourceV2['type']): FlatInitialValuesInterface | any => {
     if (triggerType === TriggerTypes.WEBHOOK) {
       const newPipeline: any = { ...(currentPipeline?.pipeline || {}) }
-
-      if (isPipelineWithCiCodebase(newPipeline)) {
-        newPipeline.properties.ci.codebase.build = ciCodebaseBuild
-        if (sourceRepoOnNew === CUSTOM) {
-          newPipeline.properties.ci.codebase.build.spec.branch = ''
-        }
-      }
 
       return {
         triggerType: triggerTypeOnNew,

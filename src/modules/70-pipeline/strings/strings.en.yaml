@@ -811,3 +811,5 @@ executionStrategy:
         step3:
           title: 'Step 3:'
 newPipelineText: New Pipeline
+gitPullRequest: Git Pull Request
+gitPullRequestNumber: Git Pull Request Number

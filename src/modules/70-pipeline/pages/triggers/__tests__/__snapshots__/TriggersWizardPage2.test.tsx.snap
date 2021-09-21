@@ -922,7 +922,7 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
                                                       disabled=""
                                                       name="pipeline.stages[0].stage.spec.serviceConfig.serviceDefinition.spec.manifests[1].manifest.spec.store.spec.folderPath"
                                                       type="text"
-                                                      value="sdfds"
+                                                      value=""
                                                     />
                                                   </div>
                                                   <button
@@ -986,7 +986,7 @@ exports[`Manifest Trigger Tests Check chartVersion to be disabled and default va
                                                       disabled=""
                                                       name="pipeline.stages[0].stage.spec.serviceConfig.serviceDefinition.spec.manifests[1].manifest.spec.chartName"
                                                       type="text"
-                                                      value="sdfds"
+                                                      value=""
                                                     />
                                                   </div>
                                                   <button

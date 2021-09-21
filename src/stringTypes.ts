@@ -1969,6 +1969,8 @@ export interface StringsMap {
   'pipeline.gitExperience.selectDiffBranch': string
   'pipeline.gitExperience.selectRepoBranch': string
   'pipeline.gitExperience.skipNow': string
+  'pipeline.gitPullRequest': string
+  'pipeline.gitPullRequestNumber': string
   'pipeline.gitRepos': string
   'pipeline.imagePathLabel': string
   'pipeline.infraSpecifications.initTimeout': string

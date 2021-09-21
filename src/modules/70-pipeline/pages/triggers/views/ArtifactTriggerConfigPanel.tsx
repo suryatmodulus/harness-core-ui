@@ -53,6 +53,14 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
     }
   }, [initialPath, appliedTableArtifact])
 
+  const manifestArtifactRef = () => {
+    if (isManifest) {
+      return selectedArtifact?.identifier
+    } else if (!isManifest) {
+      return selectedArtifact?.identifier || 'primary'
+    }
+  }
+
   useEffect(() => {
     if (inputSetTemplateYamlObj || selectedArtifact) {
       const res = parseArtifactsManifests({
@@ -60,7 +68,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
         manifestType,
         stageId,
         artifactType,
-        artifactRef: selectedArtifact?.identifier, // artifactRef will represent artifact or manifest
+        artifactRef: manifestArtifactRef(), // artifactRef will represent artifact or manifest
         isManifest
       })
       setParsedArtifactsManifests(res)

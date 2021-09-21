@@ -188,28 +188,51 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 }
 
                 const getArtifacts = () => {
-                  return filterFormStages && filterFormStages.length
-                    ? filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars[0]
-                    : {}
+                  if (
+                    filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars
+                      ?.length
+                  ) {
+                    return filterFormStages && filterFormStages.length
+                      ? filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars[0]
+                      : {}
+                  } else if (
+                    filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.primary
+                  ) {
+                    return filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.primary
+                  }
                 }
 
                 /*
-                                      when we have multiple stages - need to filter undefined values
-                                      in this case formikprops.values.stages will be [undefined, [stage obj]]
-                                      when chartVersion alone is runtime input, stages array could be empty
-                            */
+                                          when we have multiple stages - need to filter undefined values
+                                          in this case formikprops.values.stages will be [undefined, [stage obj]]
+                                          when chartVersion alone is runtime input, stages array could be empty
+                                */
                 const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
                 // when stages is empty array, filteredArtifact will be empty object
                 const formFilteredArtifact = isManifest ? getManifests() : getArtifacts()
 
-                const finalArtifact = isManifest
-                  ? merge({}, orginalArtifact, formFilteredArtifact)?.['manifest']
-                  : merge({}, orginalArtifact?.sidecar, formFilteredArtifact?.sidecar)
+                const mergeArtifact = () => {
+                  if (isManifest) {
+                    return merge({}, orginalArtifact, formFilteredArtifact)?.['manifest']
+                  } else if (!isManifest) {
+                    if (orginalArtifact?.sidecar) {
+                      return merge({}, orginalArtifact?.sidecar, formFilteredArtifact?.sidecar)
+                    } else {
+                      return merge({}, orginalArtifact, formFilteredArtifact)
+                    }
+                  }
+                }
 
-                if (finalArtifact?.spec?.chartVersion) {
+                const finalArtifact = mergeArtifact()
+
+                if (finalArtifact?.spec?.chartVersion && isManifest) {
                   // hardcode manifest chart version to default
                   finalArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
                     chartVersion: finalArtifact.spec.chartVersion
+                  })
+                } else if (!isManifest && finalArtifact?.spec?.tag) {
+                  finalArtifact.spec.tag = replaceTriggerDefaultBuild({
+                    build: finalArtifact?.spec?.tag
                   })
                 }
                 const { pipeline, selectedArtifact } = formikProps.values

@@ -1055,10 +1055,12 @@ export const parseArtifactsManifests = ({
         )
         if (newAppliedArtifact) {
           appliedArtifact = newAppliedArtifact
+        } else if (artifactRef === 'primary') {
+          appliedArtifact = filteredArtifacts?.primary
         }
       }
 
-      if (filteredArtifacts?.sidecars?.length) {
+      if (filteredArtifacts?.sidecars?.length && filteredArtifacts?.primary) {
         const filteredStageObj = { ...stageObj }
         // adding all manifests to serviceDefinition for UI to render in SelectArtifactModal
 
@@ -1110,14 +1112,18 @@ export const filterArtifact = ({
       )
     )
   } else {
-    return (
-      filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars?.find(
-        (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId
-      ) ||
-      filteredStage?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.sidecars?.find(
-        (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId
-      )
-    )
+    if (artifactId === 'primary') {
+      return { primary: filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.primary }
+    }
+    return {
+      sidecars:
+        filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars?.filter(
+          (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId
+        ) ||
+        filteredStage?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.sidecars?.filter(
+          (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId
+        )
+    }
   }
 }
 
@@ -1132,7 +1138,11 @@ export const filterSideCarArtifacts = ({
 }): any => {
   const filteredStage = getFilteredStage(runtimeData, stageId)
   const artifacts = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
-  const { sidecars } = artifacts
+  const { sidecars, primary } = artifacts
+
+  if (artifactId === 'primary') {
+    return primary
+  }
 
   return (
     sidecars?.find((artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId) ||
@@ -1170,7 +1180,7 @@ export const getStageIdx = (runtimeData: any, stageId: any) => {
 
 export const getTemplateObject = (manifest: any, artifacts: any) => {
   return {
-    artifacts: { sidecars: [artifacts] },
+    artifacts: { primary: artifacts?.primary, sidecars: artifacts?.sidecars },
     manifests: [manifest]
   }
 }
@@ -1322,7 +1332,7 @@ export interface artifactTableItem {
 
 export const TriggerDefaultFieldList = {
   chartVersion: '<+trigger.manifest.version>',
-  build: '<+trigger.artifact.build'
+  build: '<+trigger.artifact.build>'
 }
 
 export const replaceTriggerDefaultBuild = ({
@@ -1378,9 +1388,13 @@ const getManifestTableItem = ({
     }
   }
 
+  const getArtifactId = () => {
+    return isManifest || artifactId ? artifactId : 'primary'
+  }
+
   return {
     artifactLabel: `${stageId}: ${artifactId || 'primary'}`, // required for sorting
-    artifactId,
+    artifactId: getArtifactId(),
     stageId,
     location: getRuntimeInputLabel({ str: location, getString }),
     artifactRepository: getRuntimeInputLabel({
@@ -1534,12 +1548,24 @@ export const getArtifactTableDataFromData = ({
       const pipelineArtifacts = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === dataStageId)
         ?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
       const { artifacts = [] } = stageObject?.stage?.spec?.serviceConfig?.serviceDefinition?.spec || {}
-      artifacts?.sidecars?.forEach((artifactObj: any) => {
-        if (!artifactObj.sidecar) {
-          const location = artifactObj?.spec?.imagePath
-          const tag = artifactObj?.spec?.tag
-          const artifactRepository = artifactObj?.spec?.connectorRef
-          artifactData.primary = getManifestTableItem({
+
+      if (artifacts?.primary) {
+        const artifactObj = artifacts?.primary
+        const location = artifacts?.primary?.spec?.imagePath
+        const tag = artifacts?.primary?.spec?.tag
+        const artifactRepository = artifacts?.primary?.spec?.connectorRef
+        artifactData.primary = getManifestTableItem({
+          stageId: dataStageId,
+          manifest: artifactObj,
+          artifactRepository,
+          location,
+          buildTag: tag,
+          getString,
+          isStageOverrideManifest: false,
+          isManifest
+        })
+        artifactTableData.push(
+          getManifestTableItem({
             stageId: dataStageId,
             manifest: artifactObj,
             artifactRepository,
@@ -1549,19 +1575,10 @@ export const getArtifactTableDataFromData = ({
             isStageOverrideManifest: false,
             isManifest
           })
-          artifactTableData.push(
-            getManifestTableItem({
-              stageId: dataStageId,
-              manifest: artifactObj,
-              artifactRepository,
-              location,
-              buildTag: tag,
-              getString,
-              isStageOverrideManifest: false,
-              isManifest
-            })
-          )
-        } else {
+        )
+      }
+      artifacts?.sidecars?.forEach((artifactObj: any) => {
+        if (artifactObj.sidecar) {
           const { tag, location } = getArtifactDetailsFromPipeline({
             artifacts: pipelineArtifacts,
             artifactIdentifier: artifactObj?.sidecar?.identifier,
@@ -1692,11 +1709,13 @@ export function updatePipelineArtifact({
   const pipelineStages = getFilteredStage(newPipelineObj?.stages, stageIdentifier)
   // const pipelineStages = newPipelineObj?.stages.find((item: any) => item.stage.identifier === stageIdentifier)
   const stageArtifacts = pipelineStages?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
-  const { sidecars } = stageArtifacts
+  const { sidecars, primary } = stageArtifacts
   const stageArtifactIdx = sidecars?.findIndex((item: any) => item.sidecar?.identifier === selectedArtifact?.identifier)
 
   if (stageArtifactIdx >= 0) {
     sidecars[stageArtifactIdx].sidecar = newArtifact
+  } else {
+    stageArtifacts[primary] = newArtifact
   }
   return newPipelineObj
 }

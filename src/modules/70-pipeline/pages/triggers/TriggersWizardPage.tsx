@@ -276,7 +276,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         triggerResponseYaml: triggerResponse.data.yaml
       })
       setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
-    } else if (triggerResponse?.data?.yaml && triggerResponse.data.type === TriggerTypes.MANIFEST) {
+    } else if (
+      triggerResponse?.data?.yaml &&
+      (triggerResponse.data.type === TriggerTypes.MANIFEST || triggerResponse.data.type === TriggerTypes.ARTIFACT)
+    ) {
       const newOnEditInitialValues = getArtifactTriggerValues({
         triggerResponseYaml: triggerResponse?.data?.yaml
       })

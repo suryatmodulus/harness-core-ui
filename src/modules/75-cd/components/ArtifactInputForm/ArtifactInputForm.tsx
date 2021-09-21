@@ -351,7 +351,6 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
       tagValue?.length &&
       formik.setFieldValue(tagPath, '')
   }
-
   return (
     <>
       {get(template, 'artifacts', false) && (
@@ -546,6 +545,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
             {template?.artifacts?.sidecars?.length && (
               <Text className={css.sectionHeader}>{getString('sidecarArtifactText')}</Text>
             )}
+
             {template?.artifacts?.sidecars?.map(
               (
                 {

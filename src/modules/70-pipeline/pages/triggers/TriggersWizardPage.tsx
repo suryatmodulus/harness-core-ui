@@ -163,7 +163,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   })
 
   const convertFormikValuesToYaml = (values: any): { trigger: TriggerConfigDTO } | undefined => {
-    console.log(values.triggerType, 'trype')
     if (values.triggerType === TriggerTypes.WEBHOOK) {
       const res = getWebhookTriggerYaml({ values, persistIncomplete: true })
       // remove invalid values
@@ -763,6 +762,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           type: artifactManifestType || _manifestType,
           spec
         }
+      } else if (type === TriggerTypes.ARTIFACT) {
+        const { artifactRef, type: artifactType, spec } = source?.spec || {}
+        if (artifactType) {
+          setArtifactManifestType(artifactType)
+        }
+        selectedArtifact = {
+          identifier: artifactRef,
+          type: artifactManifestType || artifactType,
+          spec
+        }
       }
 
       let pipelineJson = undefined
@@ -781,26 +790,48 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         eventConditions?.find(
           (eventCondition: AddConditionInterface) => eventCondition.key === EventConditionTypes.BUILD
         ) || {}
-
-      newOnEditInitialValues = {
-        name,
-        identifier,
-        description,
-        tags,
-        pipeline: pipelineJson,
-        triggerType: TriggerTypes.MANIFEST as unknown as NGTriggerSourceV2['type'],
-        manifestType: selectedArtifact?.type,
-        stageId: source?.spec?.stageIdentifier,
-        inputSetTemplateYamlObj: parse(template?.data?.inputSetTemplateYaml || ''),
-        selectedArtifact,
-        versionValue,
-        versionOperator,
-        buildValue,
-        buildOperator,
-        eventConditions: eventConditions?.filter(
-          (eventCondition: AddConditionInterface) =>
-            eventCondition.key !== EventConditionTypes.BUILD && eventCondition.key !== EventConditionTypes.VERSION
-        )
+      if (type === TriggerTypes.ARTIFACT) {
+        newOnEditInitialValues = {
+          name,
+          identifier,
+          description,
+          tags,
+          pipeline: pipelineJson,
+          triggerType: type ? type : (TriggerTypes.ARTIFACT as unknown as NGTriggerSourceV2['type']),
+          artifactType: selectedArtifact?.type,
+          stageId: source?.spec?.stageIdentifier,
+          inputSetTemplateYamlObj: parse(template?.data?.inputSetTemplateYaml || ''),
+          selectedArtifact,
+          versionValue,
+          versionOperator,
+          buildValue,
+          buildOperator,
+          eventConditions: eventConditions?.filter(
+            (eventCondition: AddConditionInterface) =>
+              eventCondition.key !== EventConditionTypes.BUILD && eventCondition.key !== EventConditionTypes.VERSION
+          )
+        }
+      } else {
+        newOnEditInitialValues = {
+          name,
+          identifier,
+          description,
+          tags,
+          pipeline: pipelineJson,
+          triggerType: type ? type : (TriggerTypes.MANIFEST as unknown as NGTriggerSourceV2['type']),
+          manifestType: selectedArtifact?.type,
+          stageId: source?.spec?.stageIdentifier,
+          inputSetTemplateYamlObj: parse(template?.data?.inputSetTemplateYaml || ''),
+          selectedArtifact,
+          versionValue,
+          versionOperator,
+          buildValue,
+          buildOperator,
+          eventConditions: eventConditions?.filter(
+            (eventCondition: AddConditionInterface) =>
+              eventCondition.key !== EventConditionTypes.BUILD && eventCondition.key !== EventConditionTypes.VERSION
+          )
+        }
       }
       return newOnEditInitialValues
     } catch (e) {

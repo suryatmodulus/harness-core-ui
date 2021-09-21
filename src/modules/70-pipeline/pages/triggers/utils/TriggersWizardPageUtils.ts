@@ -56,6 +56,7 @@ export interface FlatOnEditValuesInterface {
   pipeline: PipelineInfoConfig
   triggerType: NGTriggerSourceV2['type']
   manifestType?: string
+  artifactType?: string
   originalPipeline?: PipelineInfoConfig
   // WEBHOOK-SPECIFIC
   sourceRepo?: GetActionsListQueryParams['sourceRepo']
@@ -920,31 +921,31 @@ const getFilteredArtifactsWithOverrides = ({
     ) || []
 
   // // filter & add in manifest overrides
-  // let stageOverridesManifests =
-  //   stageObj?.stage?.spec?.serviceConfig?.stageOverrides?.manifests?.filter(
-  //     (manifestObj: { manifest: ManifestInterface }) => manifestObj?.manifest?.type === artifactType
+  // let stageOverridesArtifacts =
+  //   stageObj?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.sidecars?.filter(
+  //     (artifactObj: { sidecar: any }) => artifactObj?.sidecar?.type === artifactType
   //   ) || []
 
   // // override can be (1) Reference with partial new values, (2) New manifest
-  // stageOverridesManifests = stageOverridesManifests
-  //   .map((manifest: any) => {
-  //     if (filteredManifests.some((fm: any) => fm.identifier === manifest.identifier)) {
+  // stageOverridesArtifacts = stageOverridesArtifacts
+  //   .map((artifact: any) => {
+  //     if (filteredArtifacts.some((fm: any) => fm.identifier === artifact.identifier)) {
   //       // already accounted override manifest into serviceConfig.serviceDefinition
   //       return null
   //     }
   //     // stage Reference will always be here for manifests within propagated stages
   //     const stageReference = stageObj?.stage?.spec?.serviceConfig?.useFromStage?.stage
-  //     const matchedManifest = stages
+  //     const matchedArtifact = stages
   //       .find((stage: any) => stage.name === stageReference)
-  //       ?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.find(
-  //         (manifestReference: any) => manifestReference.name === manifest.name
+  //       ?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.find(
+  //         (artifactReference: any) => artifactReference?.sidecar?.name === artifact.name
   //       )
-  //     if (matchedManifest) {
+  //     if (matchedArtifact) {
   //       // Found matching manifestIdentifier and need to merge
   //       // This will be hidden in SelectArtifactModal and shown a warning message to use unique manifestId
-  //       return { ...matchedManifest, ...manifest }
+  //       return { ...matchedArtifact, ...artifact }
   //     } else {
-  //       return manifest
+  //       return artifact
   //     }
   //   })
   //   .filter((x: any) => !!x)

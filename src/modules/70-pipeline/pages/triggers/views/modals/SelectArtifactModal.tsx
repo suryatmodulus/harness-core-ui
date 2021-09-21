@@ -12,7 +12,6 @@ import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
 import {
   clearRuntimeInputValue,
   filterArtifact,
-  filterSideCarArtifacts,
   getPathString,
   getTemplateObject,
   replaceTriggerDefaultBuild,
@@ -168,18 +167,12 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               text={getString('filters.apply')}
               intent="primary"
               onClick={() => {
-                const orginalArtifact = isManifest
-                  ? filterArtifact({
-                      runtimeData: formikProps.values.originalPipeline?.stages,
-                      stageId: selectedStageId,
-                      artifactId: selectedArtifactId,
-                      isManifest
-                    })
-                  : filterSideCarArtifacts({
-                      runtimeData: formikProps.values.originalPipeline?.stages,
-                      stageId: selectedStageId,
-                      artifactId: selectedArtifactId
-                    })
+                const orginalArtifact = filterArtifact({
+                  runtimeData: formikProps.values.originalPipeline?.stages,
+                  stageId: selectedStageId,
+                  artifactId: selectedArtifactId,
+                  isManifest
+                })
 
                 const getManifests = () => {
                   return filterFormStages && filterFormStages.length
@@ -203,10 +196,10 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 }
 
                 /*
-                                          when we have multiple stages - need to filter undefined values
-                                          in this case formikprops.values.stages will be [undefined, [stage obj]]
-                                          when chartVersion alone is runtime input, stages array could be empty
-                                */
+                                              when we have multiple stages - need to filter undefined values
+                                              in this case formikprops.values.stages will be [undefined, [stage obj]]
+                                              when chartVersion alone is runtime input, stages array could be empty
+                                    */
                 const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
                 // when stages is empty array, filteredArtifact will be empty object
                 const formFilteredArtifact = isManifest ? getManifests() : getArtifacts()
@@ -215,8 +208,8 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                   if (isManifest) {
                     return merge({}, orginalArtifact, formFilteredArtifact)?.['manifest']
                   } else if (!isManifest) {
-                    if (orginalArtifact?.sidecar) {
-                      return merge({}, orginalArtifact?.sidecar, formFilteredArtifact?.sidecar)
+                    if (orginalArtifact?.sidecars?.length) {
+                      return merge({}, orginalArtifact?.sidecars[0]?.sidecar, formFilteredArtifact?.sidecar)
                     } else {
                       return merge({}, orginalArtifact, formFilteredArtifact)
                     }

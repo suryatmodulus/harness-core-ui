@@ -128,6 +128,7 @@ export const DependencyBase = (
                 style={{ marginBottom: 0 }}
                 multiTypeProps={{ expressions, disabled: readonly }}
                 gitScope={gitScope}
+                setRefValue
               />
               <MultiTypeTextField
                 name="spec.image"

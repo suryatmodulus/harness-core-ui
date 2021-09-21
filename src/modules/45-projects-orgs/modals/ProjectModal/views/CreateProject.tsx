@@ -10,6 +10,7 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
 import { useQueryParams } from '@common/hooks'
+import { getRBACErrorMessage } from '@rbac/utils/utils'
 import ProjectForm from './ProjectForm'
 
 interface CreateModalData {
@@ -72,7 +73,7 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
       showSuccess(getString('projectsOrgs.projectCreateSuccess'))
     } catch (e) {
       /* istanbul ignore next */
-      modalErrorHandler?.showDanger(e.data.message)
+      modalErrorHandler?.showDanger(getRBACErrorMessage(e))
     }
   }
   return (

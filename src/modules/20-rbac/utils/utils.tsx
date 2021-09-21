@@ -11,7 +11,7 @@ import {
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
 import type { StringsMap } from 'stringTypes'
-import type { ResponseListInviteOperationResponse } from 'services/cd-ng'
+import type { AccessControlCheckError, ResponseListInviteOperationResponse } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type {
   Assignment,
@@ -20,6 +20,11 @@ import type {
 } from '@rbac/modals/RoleAssignmentModal/views/UserRoleAssigment'
 import { isEmail } from '@common/utils/Validation'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
+import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
+import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
+import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import css from './utils.module.scss'
 
 export interface UserItem extends MultiSelectOption {
   email?: string
@@ -167,4 +172,26 @@ export const isDynamicResourceSelector = (value: string | string[]): boolean => 
     return true
   }
   return false
+}
+
+interface ErrorHandlerProps {
+  data: AccessControlCheckError
+}
+
+export const getRBACErrorMessage = (error: ErrorHandlerProps): string | React.ReactElement => {
+  const err = error?.data
+  if (err?.code === 'NG_ACCESS_DENIED' && err?.failedPermissionChecks?.length) {
+    const { permission, resourceType, resourceScope } = err.failedPermissionChecks[0]
+    if (permission && resourceType && resourceScope) {
+      return (
+        <RBACTooltip
+          permission={permission as PermissionIdentifier}
+          resourceType={resourceType as ResourceType}
+          resourceScope={resourceScope}
+          className={css.tooltip}
+        />
+      )
+    }
+  }
+  return getErrorInfoFromErrorObject(error)
 }

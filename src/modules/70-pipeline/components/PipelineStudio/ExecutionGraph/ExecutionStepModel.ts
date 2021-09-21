@@ -631,7 +631,7 @@ export class ExecutionStepModel extends DiagramModel {
     this.setLocked(false)
 
     // Start Node
-    const startNode = (this.getNode('start-new') as DefaultNodeModel) || new NodeStartModel({ id: 'start-new' })
+    const startNode = new NodeStartModel({ id: 'start-new' })
     startNode.setPosition(startX, startY)
     this.addNode(startNode)
     startX += START_AND_END_NODE_WIDTH
@@ -639,8 +639,7 @@ export class ExecutionStepModel extends DiagramModel {
     const tempStartX = startX
 
     // Stop Node
-    const stopNode =
-      (this.getNode('stop') as DefaultNodeModel) || new NodeStartModel({ id: 'stop', icon: 'stop', isStart: false })
+    const stopNode = new NodeStartModel({ icon: 'stop', isStart: false })
 
     // Create Node
     const createNode = new CreateNewModel({

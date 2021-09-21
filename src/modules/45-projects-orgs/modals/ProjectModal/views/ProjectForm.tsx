@@ -97,7 +97,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                       {title}
                     </Text>
                   </Layout.Horizontal>
-                  <ModalErrorHandler bind={setModalErrorHandler} />
+                  <ModalErrorHandler bind={setModalErrorHandler} style={{ padding: '5px 10px' }} />
                   <FormInput.InputWithIdentifier isIdentifierEditable={enableEdit} />
                   <Layout.Horizontal spacing="small" margin={{ bottom: 'xsmall' }}>
                     <FormInput.ColorPicker label={getString('color')} name="color" height={38} />

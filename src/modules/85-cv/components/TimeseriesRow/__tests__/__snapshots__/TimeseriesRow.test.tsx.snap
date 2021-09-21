@@ -8,25 +8,25 @@ exports[`TimeseriesRow matches snapshot 1`] = `
     <div
       class="StyledProps--font StyledProps--main labels"
     >
-      <div>
-        <div>
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
-            style="--text-line-clamp: 1;"
-          >
-            transaction1
-          </p>
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
-            style="--text-line-clamp: 1;"
-          >
-            metric1
-          </p>
-        </div>
-        <div
-          class="StyledProps--font StyledProps--main icons"
-        />
+      <div
+        class="metricLablesContainer"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
+          style="--text-line-clamp: 1;"
+        >
+          transaction1
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+          style="--text-line-clamp: 1;"
+        >
+          metric1
+        </p>
       </div>
+      <div
+        class="StyledProps--font StyledProps--main icons"
+      />
     </div>
     <div
       class="StyledProps--font StyledProps--main charts"
@@ -89,25 +89,25 @@ exports[`TimeseriesRow matches snapshot when config is passed 1`] = `
     <div
       class="StyledProps--font StyledProps--main labels"
     >
-      <div>
-        <div>
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
-            style="--text-line-clamp: 1;"
-          >
-            transaction1
-          </p>
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
-            style="--text-line-clamp: 1;"
-          >
-            metric1
-          </p>
-        </div>
-        <div
-          class="StyledProps--font StyledProps--main icons"
-        />
+      <div
+        class="metricLablesContainer"
+      >
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
+          style="--text-line-clamp: 1;"
+        >
+          transaction1
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+          style="--text-line-clamp: 1;"
+        >
+          metric1
+        </p>
       </div>
+      <div
+        class="StyledProps--font StyledProps--main icons"
+      />
     </div>
     <div
       class="StyledProps--font StyledProps--main charts"

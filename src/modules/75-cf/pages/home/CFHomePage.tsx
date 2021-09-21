@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
+import { HomePageTemplate } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -127,11 +127,24 @@ const CFHomePage: React.FC = () => {
     )
   }
 
+  const projectCreateSuccessHandler = (project?: Project): void => {
+    if (project) {
+      history.push(
+        routes.toCFFeatureFlags({
+          projectIdentifier: project.identifier,
+          orgIdentifier: project.orgIdentifier || '',
+          accountId
+        })
+      )
+    }
+  }
+
   // by default will return Home Page
   return (
     <HomePageTemplate
       title={getString('cf.continuous')}
       bgImageUrl={bgImageURL}
+      projectCreateSuccessHandler={projectCreateSuccessHandler}
       subTitle={getString('cf.homepage.slogan')}
       documentText={getString('cf.homepage.learnMore')}
       documentURL="https://ngdocs.harness.io/article/0a2u2ppp8s-getting-started-with-continuous-features"

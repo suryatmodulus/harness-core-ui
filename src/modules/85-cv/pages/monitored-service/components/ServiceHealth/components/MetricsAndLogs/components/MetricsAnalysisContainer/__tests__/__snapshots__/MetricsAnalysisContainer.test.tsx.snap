@@ -150,25 +150,25 @@ exports[`Unit tests for MetricsAnalysisContainer Verify if MetricsAnalysisContai
             <div
               class="StyledProps--font StyledProps--main labels"
             >
-              <div>
-                <div>
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
-                    style="--text-line-clamp: 1;"
-                  >
-                    /api/account
-                  </p>
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
-                    style="--text-line-clamp: 1;"
-                  >
-                    Average Response Time (ms)
-                  </p>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main icons"
-                />
+              <div
+                class="metricLablesContainer"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  /api/account
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  Average Response Time (ms)
+                </p>
               </div>
+              <div
+                class="StyledProps--font StyledProps--main icons"
+              />
             </div>
             <div
               class="StyledProps--font StyledProps--main charts"

@@ -1,8 +1,4 @@
 .delegateSelectorContainer {
-  .saveAndContinue {
-    white-space: nowrap !important;
-  }
-
   .formInput {
     min-width: 310px;
     max-width: 620px !important;
@@ -57,4 +53,8 @@
       word-break: break-word;
     }
   }
+}
+
+.saveAndContinue {
+  white-space: nowrap !important;
 }

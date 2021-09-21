@@ -11,6 +11,7 @@ import { useToaster } from '@common/components'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { ModuleName } from 'framework/types/ModuleName'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import bgImage from './images/cehomebg.svg'
 
 const CETrialHomePage: React.FC = () => {
@@ -48,7 +49,7 @@ const CETrialHomePage: React.FC = () => {
 
   const handleStartTrial = async (): Promise<void> => {
     try {
-      const data = await startTrial({ moduleType: 'CE' })
+      const data = await startTrial({ moduleType: 'CE', edition: Editions.ENTERPRISE })
 
       const expiryTime = data?.data?.expiryTime
 

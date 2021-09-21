@@ -5,20 +5,6 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
 export const SPEC_VERSION = '1.0'
-export interface ActivityDTO {
-  accountIdentifier?: string
-  activityEndTime?: number
-  activityStartTime: number
-  environmentIdentifier?: string
-  name: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  serviceIdentifier?: string
-  tags?: string[]
-  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY'
-  verificationJobRuntimeDetails?: VerificationJobRuntimeDetails[]
-}
-
 export interface ActivityDashboardDTO {
   activityId?: string
   activityName?: string
@@ -504,7 +490,7 @@ export interface CategoryRisksDTO {
 
 export interface ChangeEventDTO {
   accountId: string
-  changeEventMetaData: ChangeEventMetaData
+  changeEventMetaData: ChangeEventMetadata
   changeSourceIdentifier?: string
   envIdentifier: string
   eventTime?: number
@@ -514,7 +500,7 @@ export interface ChangeEventDTO {
   type?: 'HarnessCD' | 'PagerDuty' | 'K8sCluster'
 }
 
-export interface ChangeEventMetaData {
+export interface ChangeEventMetadata {
   [key: string]: any
 }
 
@@ -663,6 +649,8 @@ export interface DataCollectionRequest {
     | 'PROMETHEUS_LABEL_VALUES_GET'
     | 'PROMETHEUS_SAMPLE_DATA'
     | 'PAGERDUTY_SERVICES'
+    | 'PAGERDUTY_REGISTER_WEBHOOK'
+    | 'PAGERDUTY_DELETE_WEBHOOK'
 }
 
 export interface DataCollectionTaskDTO {
@@ -1159,6 +1147,7 @@ export interface Error {
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1456,6 +1445,7 @@ export interface Failure {
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -1660,7 +1650,7 @@ export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
 
 export type HarnessCDChangeSourceSpec = ChangeSourceSpec & { [key: string]: any }
 
-export type HarnessCDEventMetaData = ChangeEventMetaData & {
+export type HarnessCDEventMetadata = ChangeEventMetadata & {
   artifactTag?: string
   artifactType?: string
   deploymentEndTime?: number
@@ -1874,6 +1864,19 @@ export interface KubernetesAuthDTO {
   type: 'UsernamePassword' | 'ClientKeyCert' | 'ServiceAccount' | 'OpenIdConnect'
 }
 
+export type KubernetesChangeEventMetadata = ChangeEventMetadata & {
+  action?: 'Add' | 'Update' | 'Delete'
+  kind?: string
+  message?: string
+  namespace?: string
+  newYaml?: string
+  oldYaml?: string
+  reason?: string
+  resourceType?: 'Deployment' | 'ReplicaSet' | 'Secret' | 'Pod'
+  timestamp?: number
+  workload?: string
+}
+
 export type KubernetesChangeSourceSpec = ChangeSourceSpec & {
   connectorRef?: string
 }
@@ -1960,6 +1963,14 @@ export interface LearningEngineTask {
   verificationTaskId?: string
 }
 
+export interface LiveMonitoringLogAnalysisClusterDTO {
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  text?: string
+  x?: number
+  y?: number
+}
+
 export type LocalConnectorDTO = ConnectorConfigDTO & {
   default?: boolean
 }
@@ -1979,6 +1990,8 @@ export interface LogAnalysisCluster {
   uuid?: string
   validUntil?: string
   verificationTaskId?: string
+  x?: number
+  y?: number
 }
 
 export interface LogAnalysisClusterChartDTO {
@@ -2139,7 +2152,7 @@ export interface MetricValidationResponse {
 }
 
 export interface MonitoredServiceDTO {
-  dependencies?: MonitoredServiceRef[]
+  dependencies?: ServiceDependencyDTO[]
   description?: string
   environmentRef: string
   identifier: string
@@ -2169,10 +2182,6 @@ export interface MonitoredServiceListItemDTO {
     [key: string]: string
   }
   type?: 'Application' | 'Infrastructure'
-}
-
-export interface MonitoredServiceRef {
-  monitoredServiceIdentifier?: string
 }
 
 export interface MonitoredServiceResponse {
@@ -2350,6 +2359,16 @@ export interface PageMonitoredServiceListItemDTO {
   totalPages?: number
 }
 
+export interface PageMonitoredServiceResponse {
+  content?: MonitoredServiceResponse[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
 export interface PageMonitoringSource {
   content?: MonitoringSource[]
   empty?: boolean
@@ -2418,6 +2437,18 @@ export type PagerDutyChangeSourceSpec = ChangeSourceSpec & {
 export type PagerDutyConnectorDTO = ConnectorConfigDTO & {
   apiTokenRef: string
   delegateSelectors?: string[]
+}
+
+export type PagerDutyEventMetaData = ChangeEventMetadata & {
+  eventId?: string
+  pagerDutyUrl?: string
+  title?: string
+}
+
+export interface PagerDutyIncidentDTO {
+  id?: string
+  self?: string
+  title?: string
 }
 
 export interface PagerDutyServiceDetail {
@@ -2866,6 +2897,7 @@ export interface ResponseMessage {
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -2933,6 +2965,13 @@ export interface ResponsePageCVNGLogDTO {
 export interface ResponsePageMonitoredServiceListItemDTO {
   correlationId?: string
   data?: PageMonitoredServiceListItemDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePageMonitoredServiceResponse {
+  correlationId?: string
+  data?: PageMonitoredServiceResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3259,6 +3298,14 @@ export interface RestResponseListLinkedHashMap {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListLiveMonitoringLogAnalysisClusterDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LiveMonitoringLogAnalysisClusterDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseListLogAnalysisCluster {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3558,9 +3605,19 @@ export interface RiskSummaryPopoverDTO {
   envSummaries?: EnvSummary[]
 }
 
+export interface ServiceDependencyDTO {
+  dependencyMetadata?: ServiceDependencyMetadata
+  monitoredServiceIdentifier?: string
+}
+
 export interface ServiceDependencyGraphDTO {
   edges?: Edge[]
   nodes?: ServiceSummaryDetails[]
+}
+
+export interface ServiceDependencyMetadata {
+  supportedChangeSourceTypes?: ('HarnessCD' | 'PagerDuty' | 'K8sCluster')[]
+  type?: 'KUBERNETES'
 }
 
 export interface ServiceGuardTimeSeriesAnalysisDTO {
@@ -3992,8 +4049,6 @@ export interface Void {
   [key: string]: any
 }
 
-export type ActivityDTORequestBody = ActivityDTO
-
 export type ActivitySourceDTORequestBody = ActivitySourceDTO
 
 export type AlertRuleDTORequestBody = AlertRuleDTO
@@ -4001,6 +4056,8 @@ export type AlertRuleDTORequestBody = AlertRuleDTO
 export type CVConfigRequestBody = CVConfig
 
 export type CVConfigArrayRequestBody = CVConfig[]
+
+export type ChangeEventDTORequestBody = ChangeEventDTO
 
 export type DSConfigRequestBody = DSConfig
 
@@ -4770,7 +4827,9 @@ export interface GetDeploymentLogAnalysisClustersQueryParams {
   accountId: string
   hostName?: string
   healthSource?: string[]
+  healthSources?: string[]
   clusterType?: ('KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY')[]
+  clusterTypes?: ('KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY')[]
 }
 
 export interface GetDeploymentLogAnalysisClustersPathParams {
@@ -5007,6 +5066,7 @@ export interface GetDeploymentLogAnalysisResultQueryParams {
   pageSize: number
   hostName?: string
   healthSource?: string[]
+  healthSources?: string[]
   clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
   clusterTypes?: ('KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY')[]
 }
@@ -6965,6 +7025,67 @@ export const getTagCountPromise = (
     signal
   )
 
+export interface GetAllLogsClusterDataQueryParams {
+  accountId?: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  environmentIdentifier: string
+  clusterTypes?: ('KNOWN' | 'UNEXPECTED' | 'UNKNOWN')[]
+  startTime: number
+  endTime: number
+  healthSources?: string[]
+}
+
+export type GetAllLogsClusterDataProps = Omit<
+  GetProps<RestResponseListLiveMonitoringLogAnalysisClusterDTO, unknown, GetAllLogsClusterDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all log cluster data for a time range
+ */
+export const GetAllLogsClusterData = (props: GetAllLogsClusterDataProps) => (
+  <Get<RestResponseListLiveMonitoringLogAnalysisClusterDTO, unknown, GetAllLogsClusterDataQueryParams, void>
+    path={`/log-dashboard/logs-cluster`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllLogsClusterDataProps = Omit<
+  UseGetProps<RestResponseListLiveMonitoringLogAnalysisClusterDTO, unknown, GetAllLogsClusterDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all log cluster data for a time range
+ */
+export const useGetAllLogsClusterData = (props: UseGetAllLogsClusterDataProps) =>
+  useGet<RestResponseListLiveMonitoringLogAnalysisClusterDTO, unknown, GetAllLogsClusterDataQueryParams, void>(
+    `/log-dashboard/logs-cluster`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all log cluster data for a time range
+ */
+export const getAllLogsClusterDataPromise = (
+  props: GetUsingFetchProps<
+    RestResponseListLiveMonitoringLogAnalysisClusterDTO,
+    unknown,
+    GetAllLogsClusterDataQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListLiveMonitoringLogAnalysisClusterDTO, unknown, GetAllLogsClusterDataQueryParams, void>(
+    getConfig('cv/api'),
+    `/log-dashboard/logs-cluster`,
+    props,
+    signal
+  )
+
 export interface GetAllLogsDataQueryParams {
   accountId?: string
   orgIdentifier: string
@@ -8741,6 +8862,58 @@ export const getSampleDataPromise = (
   getUsingFetch<ResponseListPrometheusSampleData, Failure | Error, GetSampleDataQueryParams, void>(
     getConfig('cv/api'),
     `/prometheus/sample-data`,
+    props,
+    signal
+  )
+
+export interface GetServiceDependencyGraphQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  envIdentifier?: string
+  serviceIdentifier?: string
+}
+
+export type GetServiceDependencyGraphProps = Omit<
+  GetProps<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>,
+  'path'
+>
+
+/**
+ * get service dependency graph
+ */
+export const GetServiceDependencyGraph = (props: GetServiceDependencyGraphProps) => (
+  <Get<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>
+    path={`/service-dependency-graph`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceDependencyGraphProps = Omit<
+  UseGetProps<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>,
+  'path'
+>
+
+/**
+ * get service dependency graph
+ */
+export const useGetServiceDependencyGraph = (props: UseGetServiceDependencyGraphProps) =>
+  useGet<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>(
+    `/service-dependency-graph`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get service dependency graph
+ */
+export const getServiceDependencyGraphPromise = (
+  props: GetUsingFetchProps<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>(
+    getConfig('cv/api'),
+    `/service-dependency-graph`,
     props,
     signal
   )

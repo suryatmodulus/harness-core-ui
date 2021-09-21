@@ -9,7 +9,7 @@ exports[`Unit tests for LogAnalysisContainer Verify if LogAnalysisContainer rend
       class="StyledProps--font StyledProps--main content"
     >
       <div
-        class="StyledProps--font StyledProps--main logsTab"
+        class="StyledProps--font StyledProps--main logsContainer"
       >
         <div
           class="StyledProps--font StyledProps--main filters"
@@ -102,10 +102,26 @@ exports[`Unit tests for LogAnalysisContainer Verify if LogAnalysisContainer rend
           </div>
         </div>
         <div
-          class="StyledProps--font StyledProps--main tableContent"
+          class="StyledProps--font StyledProps--main clusterChartContainer"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
+          >
+            pipeline.verification.logs.logCluster
+          </p>
+          <div
+            class="StyledProps--font StyledProps--main clusterChart"
+          >
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+            />
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main logsData"
         >
           <div
-            class="StyledProps--font StyledProps--main main logAnalysisRow"
+            class="StyledProps--font StyledProps--main main"
           >
             <div
               class="StyledProps--font StyledProps--main mainRow columnHeader"

@@ -17,6 +17,7 @@ import {
   FORM_TYPE,
   FeedbackFormValues
 } from '@common/modals/ExtendTrial/useExtendTrialOrFeedbackModal'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import { Page } from '../Page/Page'
 import { PageSpinner } from '../Page/PageSpinner'
 import css from './TrialLicenseBanner.module.scss'
@@ -129,7 +130,10 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
 
   const handleExtendTrial = async (): Promise<void> => {
     try {
-      const data = await extendTrial({ moduleType: module as StartTrialDTO['moduleType'] })
+      const data = await extendTrial({
+        moduleType: module as StartTrialDTO['moduleType'],
+        edition: Editions.ENTERPRISE
+      })
       handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as any, data?.data)
       openExtendTrialOrFeedbackModal()
     } catch (error) {

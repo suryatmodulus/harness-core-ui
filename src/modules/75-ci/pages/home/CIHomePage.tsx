@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
-import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
+import { HomePageTemplate } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
@@ -121,11 +121,25 @@ const CIHomePage: React.FC = () => {
     )
   }
 
+  const projectCreateSuccessHandler = (project?: Project): void => {
+    if (project) {
+      history.push(
+        routes.toProjectOverview({
+          projectIdentifier: project.identifier,
+          orgIdentifier: project.orgIdentifier || '',
+          accountId,
+          module: 'ci'
+        })
+      )
+    }
+  }
+
   // by default will return Home Page
   return (
     <HomePageTemplate
       title={getString('ci.continuous')}
       bgImageUrl={bgImageURL}
+      projectCreateSuccessHandler={projectCreateSuccessHandler}
       subTitle={getString('ci.dashboard.subHeading')}
       documentText={getString('ci.learnMore')}
       documentURL="https://ngdocs.harness.io/category/zgffarnh1m-ci-category"

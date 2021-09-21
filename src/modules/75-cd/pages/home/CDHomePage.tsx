@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { ModuleName } from 'framework/types/ModuleName'
-import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
+import { HomePageTemplate } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
 import { useGetLicensesAndSummary, useGetProjectList } from 'services/cd-ng'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
@@ -228,11 +228,24 @@ export const CDHomePage: React.FC = () => {
       />
     )
   }
+  const projectCreateSuccessHandler = (project?: Project): void => {
+    if (project) {
+      history.push(
+        routes.toProjectOverview({
+          projectIdentifier: project.identifier,
+          orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
+          accountId,
+          module: 'cd'
+        })
+      )
+    }
+  }
 
   return (
     <HomePageTemplate
       title={getString('cd.continuous')}
       bgImageUrl={bgImageURL}
+      projectCreateSuccessHandler={projectCreateSuccessHandler}
       subTitle={getString('cd.dashboard.subHeading')}
       documentText={getString('cd.learnMore')}
       trialBannerProps={trialBannerProps}

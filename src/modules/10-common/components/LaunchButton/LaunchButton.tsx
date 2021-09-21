@@ -6,9 +6,10 @@ export interface LaunchButtonProps {
   redirectUrl: string
 }
 export const LaunchButton: React.FC<LaunchButtonProps> = props => {
-  const launchUrlRedirect = () => {
+  const launchUrlRedirect = (): void => {
     window.location.href = props.redirectUrl
   }
+
   return (
     <button type="button" className={css.launchButtonPosition} onClick={launchUrlRedirect}>
       {props.launchButtonText}

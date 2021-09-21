@@ -4,7 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import LogAnalysisContainer from '../LogAnalysisContainer'
 import type { MetricsAndLogsProps } from '../../../MetricsAndLogs.types'
 import { mockedLogAnalysisData } from './LogAnalysisContainer.mocks'
-import { mockedHealthSourcesData } from '../../../__tests__/MetricsAndLogs.mock'
+import { mockedClustersData, mockedHealthSourcesData } from '../../../__tests__/MetricsAndLogs.mock'
 
 const WrapperComponent = (props: MetricsAndLogsProps): JSX.Element => {
   return (
@@ -16,6 +16,7 @@ const WrapperComponent = (props: MetricsAndLogsProps): JSX.Element => {
 
 jest.mock('highcharts-react-official', () => () => <></>)
 const fetchLogAnalysis = jest.fn()
+const fetchClusterData = jest.fn()
 
 jest.mock('services/cv', () => ({
   useGetAllLogsData: jest.fn().mockImplementation(() => ({
@@ -26,6 +27,9 @@ jest.mock('services/cv', () => ({
   })),
   useGetAllHealthSourcesForServiceAndEnvironment: jest.fn().mockImplementation(() => {
     return { data: mockedHealthSourcesData, error: null, loading: false }
+  }),
+  useGetAllLogsClusterData: jest.fn().mockImplementation(() => {
+    return { data: mockedClustersData, error: null, loading: false, refetch: fetchClusterData }
   })
 }))
 

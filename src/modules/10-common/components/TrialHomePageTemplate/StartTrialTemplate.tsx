@@ -9,6 +9,7 @@ import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, TrialActions } from '@common/constants/TrackingConstants'
 import routes from '@common/RouteDefinitions'
 import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import css from './StartTrialTemplate.module.scss'
 
 interface StartTrialTemplateProps {
@@ -101,7 +102,8 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
   }>()
 
   const startTrialRequestBody: StartTrialDTORequestBody = {
-    moduleType: module.toUpperCase() as any
+    moduleType: module.toUpperCase() as any,
+    edition: Editions.ENTERPRISE
   }
 
   const { mutate: startTrial, loading } = useStartTrialLicense({

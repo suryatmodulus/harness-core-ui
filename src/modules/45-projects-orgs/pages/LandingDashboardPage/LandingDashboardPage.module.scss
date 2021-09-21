@@ -4,10 +4,7 @@
   justify-content: center;
   height: calc(100vh - var(--page-header-height, 64px));
   margin-top: var(--spacing-xlarge);
-}
-
-.image {
-  width: 130%;
+  background-color: var(--white) !important;
 }
 
 .hasBanner {

@@ -109,7 +109,7 @@ export function SampleData(props: SampleDataProps): JSX.Element {
       <Text color={Color.BLACK} className={css.sampleEvent}>
         {getString('pipeline.verification.logs.sampleEvent')}
       </Text>
-      <Text className={css.logMessage} lineClamp={30} tooltipProps={{ isOpen: false }}>
+      <Text className={css.logMessage} lineClamp={30} tooltipProps={{ isOpen: false }} padding={{ top: 'small' }}>
         {logMessage}
       </Text>
     </Container>

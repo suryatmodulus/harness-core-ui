@@ -120,6 +120,7 @@ export const JFrogArtifactoryStepBase = (
               multiTypeProps={{ expressions, disabled: readonly }}
               gitScope={gitScope}
               style={{ marginBottom: 'var(--spacing-small)' }}
+              setRefValue
             />
             <MultiTypeTextField
               name="spec.target"

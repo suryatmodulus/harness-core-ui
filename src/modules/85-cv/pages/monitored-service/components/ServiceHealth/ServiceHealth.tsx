@@ -110,7 +110,11 @@ export default function ServiceHealth({
         <Card>
           <>
             {serviceIdentifier && environmentIdentifier && (
-              <ChangesSourceCard startTime={timeRange?.startTime as number} endTime={timeRange?.endTime as number} />
+              <ChangesSourceCard
+                duration={selectedTimePeriod.value as TimePeriodEnum}
+                startTime={timeRange?.startTime as number}
+                endTime={timeRange?.endTime as number}
+              />
             )}
             <Container onClick={() => setShowTimelineSlider(true)} className={css.main} ref={containerRef}>
               <HealthScoreChart

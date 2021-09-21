@@ -10,6 +10,7 @@ import { useStartTrialLicense } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import bgImageURL from './images/cd.svg'
 
 const CDTrialHomePage: React.FC = () => {
@@ -30,7 +31,7 @@ const CDTrialHomePage: React.FC = () => {
   })
 
   const startTrialnOpenCDTrialModal = async (): Promise<void> => {
-    const data = await startTrial({ moduleType: 'CD' })
+    const data = await startTrial({ moduleType: 'CD', edition: Editions.ENTERPRISE })
 
     handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, 'cd', data?.data)
 

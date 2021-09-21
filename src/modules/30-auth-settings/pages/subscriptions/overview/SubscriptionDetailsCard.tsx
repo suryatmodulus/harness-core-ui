@@ -281,7 +281,10 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
 
   const handleExtendTrial = async (): Promise<void> => {
     try {
-      const data = await extendTrial({ moduleType: module as StartTrialDTO['moduleType'] })
+      const data = await extendTrial({
+        moduleType: module as StartTrialDTO['moduleType'],
+        edition: Editions.ENTERPRISE
+      })
       handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as any, data?.data)
       openExtendTrialOrFeedbackModal()
     } catch (error) {

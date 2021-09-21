@@ -14,6 +14,7 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { ModuleName } from 'framework/types/ModuleName'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import type { TIME_TYPE } from './Plan'
 import Plan from './Plan'
 import css from './Plans.module.scss'
@@ -51,7 +52,7 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
   async function handleStartTrial(): Promise<void> {
     trackEvent(TrialActions.StartTrialClick, { category: Category.SIGNUP, module })
     try {
-      const data = await startTrial({ moduleType })
+      const data = await startTrial({ moduleType, edition: Editions.ENTERPRISE })
 
       handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as Module, data?.data)
 

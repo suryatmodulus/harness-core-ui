@@ -43,7 +43,6 @@ const getDefaultOptions = (data: DataType, format?: string): Highcharts.Options 
         borderRadius: 4,
         pointWidth: 12,
         animation: true,
-        // minPointLength: 3,
         events: {
           legendItemClick: function () {
             return false

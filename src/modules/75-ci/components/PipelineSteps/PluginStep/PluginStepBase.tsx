@@ -114,6 +114,7 @@ export const PluginStepBase = (
               multiTypeProps={{ expressions, disabled: readonly }}
               gitScope={gitScope}
               style={{ marginBottom: 0 }}
+              setRefValue
             />
             <MultiTypeTextField
               name="spec.image"

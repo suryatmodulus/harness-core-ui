@@ -29,8 +29,6 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
     setIsCommitIdCopied(false)
   }
 
-  console.log(data)
-
   let type: Type
 
   switch (data.buildType as 'branch' | 'tag' | 'PR') {

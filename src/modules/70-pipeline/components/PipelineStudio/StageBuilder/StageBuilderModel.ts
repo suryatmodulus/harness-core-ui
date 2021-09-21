@@ -296,13 +296,13 @@ export class StageBuilderModel extends DiagramModel {
     this.setLocked(false)
 
     //Start Node
-    const startNode = new NodeStartModel({ id: 'start-new' })
+    const startNode = new NodeStartModel()
     startNode.setPosition(startX, startY)
     this.addNode(startNode)
     startX += START_AND_END_NODE_WIDTH
 
     // Stop Node
-    const stopNode = new NodeStartModel({ id: 'stop', icon: 'stop', isStart: false })
+    const stopNode = new NodeStartModel({ icon: 'stop', isStart: false })
 
     // Create Node
     const createNode = new CreateNewModel({

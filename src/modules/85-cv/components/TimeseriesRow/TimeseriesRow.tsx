@@ -61,19 +61,17 @@ export default function TimeseriesRow({
   return (
     <Container className={classnames(styles.timeseriesRow, className)}>
       <Container className={styles.labels}>
-        <div>
-          <div>
-            <Text color={Color.BLACK} font={FONT_SIZE_SMALL} lineClamp={1}>
-              {transactionName}
-            </Text>
-            <Text font={FONT_SIZE_SMALL} lineClamp={1}>
-              {metricName}
-            </Text>
-          </div>
-          <Container className={styles.icons}>
-            {dataSourceType ? <Icon name={getIconBySourceType(dataSourceType)} size={14} /> : null}
-          </Container>
+        <div className={styles.metricLablesContainer}>
+          <Text color={Color.BLACK} font={FONT_SIZE_SMALL} lineClamp={1}>
+            {transactionName}
+          </Text>
+          <Text font={FONT_SIZE_SMALL} lineClamp={1}>
+            {metricName}
+          </Text>
         </div>
+        <Container className={styles.icons}>
+          {dataSourceType ? <Icon name={getIconBySourceType(dataSourceType)} size={14} /> : null}
+        </Container>
       </Container>
       <Container className={styles.charts}>
         {rows?.map((data, index) => (

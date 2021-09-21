@@ -124,6 +124,7 @@ export const RunStepBase = (
               multiTypeProps={{ expressions, disabled: readonly }}
               gitScope={gitScope}
               style={{ marginBottom: 'var(--spacing-small)' }}
+              setRefValue
             />
             <MultiTypeTextField
               name="spec.image"

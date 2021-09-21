@@ -170,7 +170,7 @@ export interface PipelineContextInterface {
   updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   updateTemplateView: (data: TemplateViewData) => void
-  deletePipelineCache: () => Promise<void>
+  deletePipelineCache: (gitDetails?: EntityGitDetails) => Promise<void>
   getStageFromPipeline<T extends StageElementConfig = StageElementConfig>(
     stageId: string,
     pipeline?: PipelineInfoConfig | StageElementWrapperConfig
@@ -218,11 +218,13 @@ export interface FetchPipelineUnboundProps {
   forceUpdate?: boolean
   newPipelineId?: string
   signal?: AbortSignal
+  repoIdentifier?: string
+  branch?: string
 }
 
 const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipelineUnboundProps): Promise<void> => {
   const { dispatch, queryParams, pipelineIdentifier: identifier, gitDetails } = props
-  const { forceFetch = false, forceUpdate = false, newPipelineId, signal } = params
+  const { forceFetch = false, forceUpdate = false, newPipelineId, signal, repoIdentifier, branch } = params
   const pipelineId = newPipelineId || identifier
   const id = getId(
     queryParams.accountIdentifier,
@@ -236,7 +238,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
   const data: PipelinePayload = await IdbPipeline?.get(IdbPipelineStoreName, id)
   if ((!data || forceFetch) && pipelineId !== DefaultNewPipelineId) {
     const pipelineWithGitDetails: PipelineInfoConfigWithGitDetails = await getPipelineByIdentifier(
-      queryParams,
+      { ...queryParams, ...(repoIdentifier && branch ? { repoIdentifier, branch } : {}) },
       pipelineId,
       signal
     )
@@ -504,7 +506,7 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
 const _deletePipelineCache = async (
   queryParams: GetPipelineQueryParams,
   identifier: string,
-  gitDetails: EntityGitDetails
+  gitDetails?: EntityGitDetails
 ): Promise<void> => {
   if (IdbPipeline) {
     const id = getId(
@@ -512,8 +514,8 @@ const _deletePipelineCache = async (
       queryParams.orgIdentifier || '',
       queryParams.projectIdentifier || '',
       identifier,
-      gitDetails.repoIdentifier || '',
-      gitDetails.branch || ''
+      gitDetails?.repoIdentifier || '',
+      gitDetails?.branch || ''
     )
     await IdbPipeline.delete(IdbPipelineStoreName, id)
   }
@@ -525,8 +527,8 @@ const _deletePipelineCache = async (
       queryParams.orgIdentifier || '',
       queryParams.projectIdentifier || '',
       DefaultNewPipelineId,
-      gitDetails.repoIdentifier || '',
-      gitDetails.branch || ''
+      gitDetails?.repoIdentifier || '',
+      gitDetails?.branch || ''
     )
     await IdbPipeline.delete(IdbPipelineStoreName, defaultId)
   }
@@ -636,13 +638,13 @@ export const PipelineProvider: React.FC<{
     [queryParams.accountIdentifier, queryParams.orgIdentifier, queryParams.projectIdentifier, pipelineIdentifier]
   )
   const isReadonly = !isEdit
-  const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier, state.gitDetails)
+  const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier)
   const pipelineSaved = React.useCallback(
     async (pipeline: PipelineInfoConfig) => {
-      await deletePipelineCache()
+      await deletePipelineCache(state.gitDetails)
       dispatch(PipelineContextActions.pipelineSavedAction({ pipeline, originalPipeline: cloneDeep(pipeline) }))
     },
-    [deletePipelineCache]
+    [deletePipelineCache, state.gitDetails]
   )
   const setYamlHandler = React.useCallback((yamlHandler: YamlBuilderHandlerBinding) => {
     dispatch(PipelineContextActions.setYamlHandler({ yamlHandler }))

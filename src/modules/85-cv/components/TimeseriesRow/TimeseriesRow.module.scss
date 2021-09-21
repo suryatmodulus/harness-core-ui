@@ -1,23 +1,31 @@
 .timeseriesRow {
   display: flex;
   .labels {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     background-color: var(--grey-200) !important;
     padding: var(--spacing-small) !important;
     width: 25%;
     max-width: 25%;
     border-radius: 2px;
-    > div {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
     :global {
       .bp3-popover-wrapper {
         height: var(--font-size);
         display: block;
       }
+      .bp3-popover-target {
+        max-width: 90%;
+      }
     }
   }
+
+  .metricLablesContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+  }
+
   .charts {
     flex: 1;
     min-width: 0;

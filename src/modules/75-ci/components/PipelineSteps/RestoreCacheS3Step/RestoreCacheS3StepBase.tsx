@@ -116,6 +116,7 @@ export const RestoreCacheS3StepBase = (
               multiTypeProps={{ expressions, disabled: readonly }}
               gitScope={gitScope}
               style={{ marginBottom: 'var(--spacing-small)' }}
+              setRefValue
             />
             <MultiTypeTextField
               name="spec.region"

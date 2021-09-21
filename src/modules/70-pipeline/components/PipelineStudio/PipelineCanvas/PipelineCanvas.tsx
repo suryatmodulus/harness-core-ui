@@ -195,7 +195,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     confirmButtonText: getString('confirm'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
-        deletePipelineCache().then(() => {
+        deletePipelineCache(gitDetails).then(() => {
           history.push(
             routes.toPipelineStudio({
               projectIdentifier,
@@ -278,7 +278,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
     if (response && response.status === 'SUCCESS') {
       if (pipelineIdentifier === DefaultNewPipelineId) {
-        await deletePipelineCache()
+        await deletePipelineCache(gitDetails)
 
         showSuccess(getString('pipelines-studio.publishPipeline'))
 
@@ -487,7 +487,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const onCloseCreate = React.useCallback(() => {
     if (pipelineIdentifier === DefaultNewPipelineId || getOtherModal) {
       if (getOtherModal) {
-        deletePipelineCache()
+        deletePipelineCache(gitDetails)
       }
       history.push(toPipelineList({ orgIdentifier, projectIdentifier, accountId, module }))
     }
@@ -673,18 +673,22 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       if (isUpdated && branch !== selectedFilter.branch) {
         setBlockNavigation(true)
       } else if (branch !== selectedFilter.branch) {
-        history.push(
-          routes.toPipelineStudio({
-            projectIdentifier,
-            orgIdentifier,
-            pipelineIdentifier: pipelineIdentifier || '-1',
-            accountId,
-            module,
-            branch: selectedFilter.branch,
-            repoIdentifier: selectedFilter.repo
-          })
+        deletePipelineCache({ repoIdentifier: selectedFilter.repo || '', branch: selectedFilter.branch || '' }).then(
+          () => {
+            history.push(
+              routes.toPipelineStudio({
+                projectIdentifier,
+                orgIdentifier,
+                pipelineIdentifier: pipelineIdentifier || '-1',
+                accountId,
+                module,
+                branch: selectedFilter.branch,
+                repoIdentifier: selectedFilter.repo
+              })
+            )
+            location.reload()
+          }
         )
-        location.reload()
       }
     },
     [repoIdentifier, branch, isUpdated, pipelineIdentifier]
@@ -800,7 +804,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               !matchDefault?.isExact &&
               localUpdated &&
               !isReadonly &&
-              !(pipelineIdentifier === DefaultNewPipelineId && isEmpty(pipeline.name))
+              !(pipelineIdentifier === DefaultNewPipelineId && isEmpty(pipeline?.name))
             )
           }}
           textProps={{
@@ -812,7 +816,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
               exact: true
             })
-            !isPipeline?.isExact && deletePipelineCache()
+            !isPipeline?.isExact && deletePipelineCache(gitDetails)
             history.push(newPath)
           }}
         />

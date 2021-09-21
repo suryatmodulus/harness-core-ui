@@ -1,16 +1,15 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { Color, Container, Icon, Pagination, Select, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import { VerificationType } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown.constants'
 import { useGetHealthSources } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import ClusterChart from './components/ClusterChart/ClusterChart'
+import { LogAnalysisRow } from '@cv/components/LogsAnalysis/components/LogAnalysisRow/LogAnalysisRow'
+import ClusterChart from '@cv/components/LogsAnalysis/components/ClusterChart/ClusterChart'
 import type { LogAnalysisProps, LogAnalysisRowData } from './LogAnalysis.types'
-import { LogAnalysisRow } from './components/LogAnalysisRow/LogAnalysisRow'
-import { getClusterTypes, mapClusterType } from './LogAnalysis.utils'
+import { getClusterTypes, getLogAnalysisData } from './LogAnalysis.utils'
 import { HealthSourceDropDown } from '../HealthSourcesDropdown/HealthSourcesDropdown'
 import styles from './LogAnalysis.module.scss'
 
@@ -47,29 +46,7 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
   }, [activityId])
 
   const logAnalysisData = useMemo((): LogAnalysisRowData[] => {
-    return (
-      data?.resource?.content?.map(d => ({
-        clusterType: mapClusterType(d.clusterType!),
-        count: d.count!,
-        message: d.message!,
-        messageFrequency: [
-          {
-            name: 'testData',
-            type: 'line',
-            color: getRiskColorValue(d.risk),
-            data: d!.testFrequencyData
-          },
-          {
-            name: 'controlData',
-            type: 'line',
-            color: 'var(--grey-350)',
-            data: d!.controlFrequencyData
-          }
-        ],
-        riskScore: d.score!,
-        riskStatus: d.risk!
-      })) ?? []
-    )
+    return getLogAnalysisData(data)
   }, [data])
 
   const renderLogsData = useCallback(() => {
@@ -112,10 +89,6 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
 
   return (
     <Container className={styles.logsTab}>
-      <Container className={styles.panel}>
-        <Text font={{ weight: 'bold' }}>{getString('pipeline.verification.logs.logCluster')}</Text>
-        {renderChartCluster()}
-      </Container>
       <Container className={styles.filters}>
         <Select
           items={getClusterTypes(getString)}
@@ -132,6 +105,10 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
           className={styles.logsAnalysisFilters}
           verificationType={VerificationType.LOG}
         />
+      </Container>
+      <Container className={styles.clusterChart}>
+        <Text font={{ weight: 'bold' }}>{getString('pipeline.verification.logs.logCluster')}</Text>
+        {renderChartCluster()}
       </Container>
       <Container className={styles.tableContent}>{renderLogsData()}</Container>
       {!!data?.resource?.totalPages && (

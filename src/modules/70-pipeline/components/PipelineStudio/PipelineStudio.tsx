@@ -55,7 +55,10 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
 
   render(): JSX.Element {
     const { error } = this.state
-    const { deletePipelineCache } = this.context
+    const {
+      deletePipelineCache,
+      state: { gitDetails }
+    } = this.context
     if (error) {
       return (
         <Layout.Vertical spacing="medium" padding="large">
@@ -72,7 +75,7 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
             <Button
               variation={ButtonVariation.SECONDARY}
               onClick={() => {
-                return deletePipelineCache().then(() => {
+                return deletePipelineCache(gitDetails).then(() => {
                   window.location.reload()
                 })
               }}

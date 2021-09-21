@@ -14,3 +14,17 @@ export const mockedHealthSourcesData = {
     ]
   }
 }
+
+export const mockedClustersData = {
+  metaData: {},
+  resource: [
+    {
+      text: 'verification-svc',
+      risk: 'LOW',
+      x: 0,
+      y: 0,
+      tag: 'KNOWN'
+    }
+  ],
+  responseMessages: []
+}

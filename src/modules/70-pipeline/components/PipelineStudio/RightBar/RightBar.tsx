@@ -319,28 +319,25 @@ export const RightBar = (): JSX.Element => {
 
   return (
     <div className={css.rightBar}>
-      {isCodebaseEnabled && !isYaml && (
-        <Button
-          className={cx(css.iconButton, css.codebaseIcon)}
-          text={getString('codebase')}
-          variation={ButtonVariation.TERTIARY}
-          font={{ weight: 'semi-bold', size: 'xsmall' }}
-          icon={codebaseIcons[codebaseStatus]}
-          iconProps={{ size: 20 }}
-          minimal
-          withoutCurrentColor
-          onClick={() => {
-            updatePipelineView({
-              ...pipelineView,
-              isDrawerOpened: false,
-              drawerData: { type: DrawerTypes.AddStep },
-              isSplitViewOpen: false,
-              splitViewData: {}
-            })
-            openCodebaseDialog()
-          }}
-        />
-      )}
+      <Button
+        className={cx(css.iconButton, css.variablesIcon, { [css.selected]: type === DrawerTypes.PipelineVariables })}
+        onClick={() =>
+          updatePipelineView({
+            ...pipelineView,
+            isDrawerOpened: true,
+            drawerData: { type: DrawerTypes.PipelineVariables },
+            isSplitViewOpen: false,
+            splitViewData: {}
+          })
+        }
+        variation={ButtonVariation.TERTIARY}
+        font={{ weight: 'semi-bold', size: 'xsmall' }}
+        icon="pipeline-variables"
+        withoutCurrentColor={true}
+        iconProps={{ size: 20 }}
+        text={getString('variablesText')}
+        data-testid="input-variable"
+      />
 
       <Button
         className={cx(css.iconButton, css.notificationsIcon, {
@@ -359,7 +356,7 @@ export const RightBar = (): JSX.Element => {
         font={{ weight: 'semi-bold', size: 'xsmall' }}
         icon="right-bar-notification"
         iconProps={{ size: 28 }}
-        text={getString('notifications.notificationRules')}
+        text={getString('notifications.name')}
         withoutCurrentColor={true}
       />
 
@@ -384,25 +381,28 @@ export const RightBar = (): JSX.Element => {
         text={getString('pipeline.barriers.flowControl')}
       />
 
-      <Button
-        className={cx(css.iconButton, css.variablesIcon, { [css.selected]: type === DrawerTypes.PipelineVariables })}
-        onClick={() =>
-          updatePipelineView({
-            ...pipelineView,
-            isDrawerOpened: true,
-            drawerData: { type: DrawerTypes.PipelineVariables },
-            isSplitViewOpen: false,
-            splitViewData: {}
-          })
-        }
-        variation={ButtonVariation.TERTIARY}
-        font={{ weight: 'semi-bold', size: 'xsmall' }}
-        icon="pipeline-variables"
-        withoutCurrentColor={true}
-        iconProps={{ size: 20 }}
-        text={getString('variablesText')}
-        data-testid="input-variable"
-      />
+      {isCodebaseEnabled && !isYaml && (
+        <Button
+          className={cx(css.iconButton, css.codebaseIcon)}
+          text={getString('codebase')}
+          variation={ButtonVariation.TERTIARY}
+          font={{ weight: 'semi-bold', size: 'xsmall' }}
+          icon={codebaseIcons[codebaseStatus]}
+          iconProps={{ size: 20 }}
+          minimal
+          withoutCurrentColor
+          onClick={() => {
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: false,
+              drawerData: { type: DrawerTypes.AddStep },
+              isSplitViewOpen: false,
+              splitViewData: {}
+            })
+            openCodebaseDialog()
+          }}
+        />
+      )}
       <div />
       {isCodebaseDialogOpen && (
         <Dialog

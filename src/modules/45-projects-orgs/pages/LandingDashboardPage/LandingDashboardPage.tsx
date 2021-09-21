@@ -17,7 +17,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import getStarted from './images/getStarted.svg'
+import welcomeVideo from './images/welcome-anim.mp4'
 import css from './LandingDashboardPage.module.scss'
 
 const modules: Array<ModuleName> = [ModuleName.COMMON]
@@ -103,7 +103,7 @@ const LandingDashboardPage: React.FC = () => {
                 />
               ) : null}
               <Layout.Vertical spacing="medium" flex>
-                <img src={getStarted} className={css.image} />
+                <video src={welcomeVideo} autoPlay={true} loop={true} muted={true} />
                 <Heading level={1} font={{ weight: 'bold' }} color={Color.BLACK}>
                   {name
                     ? getString('projectsOrgs.landingDashboard.welcomeMessage', { name })

@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import { Heading, Layout, Text, Link as ExternalLink, FlexExpander, Container, Color } from '@wings-software/uicore'
+import {
+  Heading,
+  Layout,
+  Text,
+  Link as ExternalLink,
+  FlexExpander,
+  Container,
+  Color,
+  Button,
+  ButtonVariation
+} from '@wings-software/uicore'
 import cx from 'classnames'
-import { Link, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import routes from '@common/RouteDefinitions'
 import type { ModuleName } from 'framework/types/ModuleName'
 import { useQueryParams } from '@common/hooks'
 import { useToaster } from '@common/exports'
 import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanner'
-import { Page } from '../Page/Page'
+import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
+import type { Project } from 'services/cd-ng'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { Page } from '@common/components/Page/Page'
 import css from './HomePageTemplate.module.scss'
 
 export interface TrialBannerProps {
@@ -28,6 +39,7 @@ interface HomePageTemplate {
   subTitle: string
   bgImageUrl: string
   documentText: string
+  projectCreateSuccessHandler: (data?: Project) => void
   documentURL?: string
   trialBannerProps: TrialBannerProps
   ctaProps?: CTAProps
@@ -40,11 +52,21 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   subTitle,
   documentText,
   documentURL = 'https://ngdocs.harness.io/',
+  projectCreateSuccessHandler,
   trialBannerProps
 }) => {
-  const { accountId } = useParams<{
-    accountId: string
-  }>()
+  const { updateAppStore } = useAppStore()
+
+  const { openProjectModal, closeProjectModal } = useProjectModal({
+    onSuccess: projectCreateSuccessHandler,
+    onWizardComplete: data => {
+      closeProjectModal()
+      if (data) {
+        updateAppStore({ selectedProject: data })
+      }
+      projectCreateSuccessHandler(data)
+    }
+  })
 
   const [hasBanner, setHasBanner] = useState<boolean>(true)
   const { getString } = useStrings()
@@ -84,9 +106,9 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
               {documentText}
             </ExternalLink>
             <Layout.Horizontal spacing="large" flex>
-              <Link to={routes.toProjects({ accountId })} className={css.createBtn}>
+              <Button variation={ButtonVariation.PRIMARY} large onClick={() => openProjectModal()}>
                 {getString('createProject')}
-              </Link>
+              </Button>
               <Text font={{ size: 'medium' }} color={Color.BLACK}>
                 {getString('orSelectExisting')}
               </Text>

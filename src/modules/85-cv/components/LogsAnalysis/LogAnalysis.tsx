@@ -29,33 +29,39 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
   const renderLogsData = useCallback(() => {
     if (logsLoading) {
       return (
-        <Container className={styles.loading}>
+        <Container>
           <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
         </Container>
       )
     } else if (!logAnalysisTableData?.length) {
       return (
-        <Container className={styles.noData}>
-          <NoDataCard message={getString('pipeline.verification.logs.noAnalysis')} icon="warning-sign" />
-        </Container>
+        <NoDataCard
+          containerClassName={styles.noDataContainer}
+          message={getString('pipeline.verification.logs.noAnalysis')}
+          icon="warning-sign"
+        />
       )
     } else {
-      return <LogAnalysisRow className={styles.logAnalysisRow} data={logAnalysisTableData} />
+      return <LogAnalysisRow data={logAnalysisTableData} />
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logsLoading, logAnalysisTableData?.length])
 
-  const renderChartCluster = useCallback(() => {
+  const renderClusterChart = useCallback(() => {
     if (clusterChartLoading) {
       return (
-        <Container className={styles.loading}>
+        <Container>
           <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
         </Container>
       )
     } else if (!clusterChartData?.resource?.length) {
       return (
         <Container className={styles.noData}>
-          <NoDataCard message={getString('pipeline.verification.logs.noAnalysis')} icon="warning-sign" />
+          <NoDataCard
+            containerClassName={styles.noDataContainer}
+            message={getString('pipeline.verification.logs.noAnalysis')}
+            icon="warning-sign"
+          />
         </Container>
       )
     } else {
@@ -65,13 +71,7 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
   }, [clusterChartData?.resource?.length, clusterChartLoading])
 
   return (
-    <Container className={styles.logsTab}>
-      {showClusterChart ? (
-        <Container className={styles.panel}>
-          <Text font={{ weight: 'bold' }}>{getString('pipeline.verification.logs.logCluster')}</Text>
-          {renderChartCluster()}
-        </Container>
-      ) : null}
+    <Container className={styles.logsContainer}>
       <Container className={styles.filters}>
         <Select
           items={getClusterTypes(getString)}
@@ -90,11 +90,17 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
           />
         ) : null}
       </Container>
-      <Container className={styles.tableContent}>{renderLogsData()}</Container>
+      {showClusterChart ? (
+        <Container className={styles.clusterChartContainer}>
+          <Text font={{ weight: 'bold' }}>{getString('pipeline.verification.logs.logCluster')}</Text>
+          <Container className={styles.clusterChart}>{renderClusterChart()}</Container>
+        </Container>
+      ) : null}
+      <Container className={styles.logsData}>{renderLogsData()}</Container>
       {!!data?.resource?.totalPages && (
         <Pagination
           pageSize={data.resource.pageSize as number}
-          pageCount={data.resource.totalPages + 1}
+          pageCount={data.resource.totalPages}
           itemCount={data.resource.totalItems as number}
           pageIndex={data.resource.pageIndex}
           gotoPage={goToPage}

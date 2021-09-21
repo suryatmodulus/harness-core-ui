@@ -1,6 +1,14 @@
 .tickersRow {
   display: flex;
   flex-direction: row;
+  min-height: 72px;
+
+  span[data-icon='spinner'] {
+    align-self: center;
+    position: relative;
+    width: 500px;
+    left: 250px;
+  }
 }
 
 .ticker {

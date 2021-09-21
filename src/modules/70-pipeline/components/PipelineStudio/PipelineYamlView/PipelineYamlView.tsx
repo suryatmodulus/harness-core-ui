@@ -1,11 +1,12 @@
 import React from 'react'
-import { isEqual, isEqualWith, isNil, omit } from 'lodash-es'
+import { defaultTo, isEqual, isEqualWith, isNil, omit } from 'lodash-es'
 import { parse } from 'yaml'
 import { ButtonVariation, Tag } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import RbacButton from '@rbac/components/Button/Button'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -28,12 +29,14 @@ export const YamlBuilderMemo = React.memo(YAMLBuilder, (prevProps, nextProps) =>
 })
 
 let Interval: number | undefined
+const defaultFileName = 'Pipeline.yaml'
 const PipelineYamlView: React.FC = () => {
   const {
     state: {
       pipeline,
       pipelineView: { isDrawerOpened, isYamlEditable },
-      pipelineView
+      pipelineView,
+      gitDetails
     },
     updatePipelineView,
     stepsFactory,
@@ -49,7 +52,9 @@ const PipelineYamlView: React.FC = () => {
     }>
   >()
   const { pipelineSchema } = usePipelineSchema()
+  const { isGitSyncEnabled } = useAppStore()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
+  const [yamlFileName, setYamlFileName] = React.useState<string>(defaultFileName)
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const expressionRef = React.useRef<string[]>([])
@@ -87,13 +92,24 @@ const PipelineYamlView: React.FC = () => {
     }
   }, [yamlHandler, setYamlHandlerContext])
 
+  React.useEffect(() => {
+    if (isGitSyncEnabled) {
+      if (gitDetails?.objectId) {
+        const filePathArr = gitDetails.filePath?.split('/')
+        const fileName = filePathArr?.length ? filePathArr[filePathArr?.length - 1] : 'Pipeline.yaml'
+        setYamlFileName(fileName)
+      }
+      setYamlFileName(pipeline.identifier + '.yaml')
+    }
+  }, [gitDetails, isGitSyncEnabled, pipeline.identifier])
+
   return (
     <div className={css.yamlBuilder}>
       <>
         {!isDrawerOpened && (
           <YamlBuilderMemo
             key={isYamlEditable.toString()}
-            fileName="Pipeline.yaml"
+            fileName={defaultTo(yamlFileName, defaultFileName)}
             entityType="Pipelines"
             isReadOnlyMode={isReadonly || !isYamlEditable}
             existingJSON={{ pipeline: omit(pipeline, 'repo', 'branch') }}

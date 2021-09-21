@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { fireEvent, render, act, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { RightBar } from '../RightBar'
@@ -149,5 +149,74 @@ describe('RightBar', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('clicking on Variables should open variables view in right drawer', async () => {
+    const { getByText } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={pipelineContext}>
+          <RightBar />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    const variableBtn = getByText('variablesText')
+    act(() => {
+      fireEvent.click(variableBtn)
+    })
+    await waitFor(() => expect(pipelineContext.updatePipelineView).toHaveBeenCalled())
+    expect(pipelineContext.updatePipelineView).toHaveBeenCalledWith({
+      drawerData: {
+        type: 'PipelineVariables'
+      },
+      isDrawerOpened: true,
+      isSplitViewOpen: false,
+      splitViewData: {}
+    })
+  })
+
+  test('clicking on Notifications should open notifications table in right drawer', async () => {
+    const { getByText } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={pipelineContext}>
+          <RightBar />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    const notificationsBtn = getByText('notifications.name')
+    act(() => {
+      fireEvent.click(notificationsBtn)
+    })
+    await waitFor(() => expect(pipelineContext.updatePipelineView).toHaveBeenCalled())
+    expect(pipelineContext.updatePipelineView).toHaveBeenCalledWith({
+      drawerData: {
+        type: 'PipelineNotifications'
+      },
+      isDrawerOpened: true,
+      isSplitViewOpen: false,
+      splitViewData: {}
+    })
+  })
+
+  test('clicking on Flow Control should open Flow Control view in right drawer', async () => {
+    const { getByText } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={pipelineContext}>
+          <RightBar />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    const flowControlBtn = getByText('pipeline.barriers.flowControl')
+    act(() => {
+      fireEvent.click(flowControlBtn)
+    })
+    await waitFor(() => expect(pipelineContext.updatePipelineView).toHaveBeenCalled())
+    expect(pipelineContext.updatePipelineView).toHaveBeenCalledWith({
+      drawerData: {
+        type: 'FlowControl'
+      },
+      isDrawerOpened: true,
+      isSplitViewOpen: false,
+      splitViewData: {}
+    })
   })
 })

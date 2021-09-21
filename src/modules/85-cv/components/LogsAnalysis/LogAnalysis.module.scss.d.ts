@@ -1,14 +1,13 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly logsTab: string
-  readonly tableContent: string
-  readonly logAnalysisRow: string
-  readonly panel: string
-  readonly logsAnalysisFilters: string
-  readonly loading: string
-  readonly noData: string
-  readonly refreshButton: string
+  readonly logsContainer: string
+  readonly logsData: string
+  readonly clusterChartContainer: string
+  readonly clusterChart: string
   readonly filters: string
+  readonly logsAnalysisFilters: string
+  readonly noData: string
+  readonly noDataContainer: string
 }
 export default styles

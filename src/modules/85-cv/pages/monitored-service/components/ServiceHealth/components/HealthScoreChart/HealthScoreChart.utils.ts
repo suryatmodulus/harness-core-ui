@@ -17,6 +17,7 @@ export const mapRiskStatusToColor = (riskStatus: string): string => {
 }
 
 export const getSeriesData = (healthScoreData: RiskData[]): SeriesDataPoint[] => {
+  const areAllPointsNoData = checkIfAllPointsNoData(healthScoreData)
   return healthScoreData.map(el => {
     let healthScoreDataPoint = {
       y: el.healthScore,
@@ -32,11 +33,17 @@ export const getSeriesData = (healthScoreData: RiskData[]): SeriesDataPoint[] =>
 
     if (el.healthScore === 0) {
       healthScoreDataPoint = { ...healthScoreDataPoint, y: 5 }
+    } else if (areAllPointsNoData && el.riskStatus === RiskValues.NO_DATA) {
+      healthScoreDataPoint = { ...healthScoreDataPoint, y: 0 }
     } else if (el.riskStatus === RiskValues.NO_DATA || isHealthScoreLessThanEqualTo(el, 8)) {
       healthScoreDataPoint = { ...healthScoreDataPoint, y: 8 }
     }
     return healthScoreDataPoint
   })
+}
+
+function checkIfAllPointsNoData(healthScoreData: RiskData[]): boolean {
+  return healthScoreData.every(el => el.riskStatus === RiskValues.NO_DATA)
 }
 
 function isHealthScoreLessThanEqualTo(el: RiskData, num: number): boolean {

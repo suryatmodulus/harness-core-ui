@@ -1,6 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly healthScoreCard: string
+  readonly tooltip: string
 }
 export default styles

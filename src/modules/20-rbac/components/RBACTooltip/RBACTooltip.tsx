@@ -17,9 +17,10 @@ interface Props {
   permission: PermissionIdentifier
   resourceType: ResourceType
   resourceScope?: ResourceScope
+  className?: string
 }
 
-const RBACTooltip: React.FC<Props> = ({ permission, resourceType, resourceScope }) => {
+const RBACTooltip: React.FC<Props> = ({ permission, resourceType, resourceScope, className }) => {
   const { getString } = useStrings()
   const { selectedProject } = useAppStore()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -59,7 +60,7 @@ const RBACTooltip: React.FC<Props> = ({ permission, resourceType, resourceScope 
   }
 
   return (
-    <Layout.Vertical padding="small" spacing="small">
+    <Layout.Vertical padding="small" spacing="small" className={className}>
       <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_800}>
         {`${getString('rbac.youAreNotAuthorizedTo')} `}
         <span className={css.textToLowercase}>{resourceTypeHandler?.permissionLabels?.[permission] || permission}</span>

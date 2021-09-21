@@ -304,6 +304,7 @@ export interface AccessControlCheckError {
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   failedPermissionChecks?: PermissionCheck[]
@@ -416,6 +417,7 @@ export interface AccountPermissions {
     | 'ACCOUNT_MANAGEMENT'
     | 'PROVISIONER'
     | 'TEMPLATE_MANAGEMENT'
+    | 'APP_TEMPLATE'
     | 'USER_PERMISSION_READ'
     | 'AUDIT_VIEWER'
     | 'TAG_MANAGEMENT'
@@ -611,6 +613,7 @@ export interface AppPermission {
     | 'ACCOUNT_MANAGEMENT'
     | 'PROVISIONER'
     | 'TEMPLATE_MANAGEMENT'
+    | 'APP_TEMPLATE'
     | 'USER_PERMISSION_READ'
     | 'AUDIT_VIEWER'
     | 'TAG_MANAGEMENT'
@@ -1603,6 +1606,21 @@ export type DeploymentStageConfig = StageInfoConfig & {
   serviceConfig: ServiceConfig
 }
 
+export interface DeploymentStatsSummary {
+  count?: number
+  countChangeRate?: number
+  deploymentRate?: number
+  deploymentRateChangeRate?: number
+  failed24HoursCount?: number
+  failureChangeRate?: number
+  failureCount?: number
+  failureRate?: number
+  failureRateChangeRate?: number
+  manualInterventionsCount?: number
+  pendingApprovalsCount?: number
+  runningCount?: number
+}
+
 export interface DeploymentsInfo {
   deployments?: ExecutionStatusInfo[]
 }
@@ -1875,6 +1893,11 @@ export interface EnvBuildIdAndInstanceCountInfo {
 
 export interface EnvBuildIdAndInstanceCountInfoList {
   envBuildIdAndInstanceCountInfoList?: EnvBuildIdAndInstanceCountInfo[]
+}
+
+export interface EnvCount {
+  newCount?: number
+  totalCount?: number
 }
 
 export type EnvFilter = Filter & {
@@ -2227,6 +2250,7 @@ export interface Error {
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -2574,6 +2598,7 @@ export interface Failure {
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -3979,9 +4004,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -4574,6 +4600,14 @@ export interface ProjectAggregateDTO {
   projectResponse: ProjectResponse
 }
 
+export interface ProjectDashBoardInfo {
+  accountId?: string
+  deploymentsCount?: number
+  deploymentsCountChangeRate?: number
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
 export interface ProjectRequest {
   project: Project
 }
@@ -4582,6 +4616,10 @@ export interface ProjectResponse {
   createdAt?: number
   lastModifiedAt?: number
   project: Project
+}
+
+export interface ProjectsDashboardInfo {
+  projectDashBoardInfoList?: ProjectDashBoardInfo[]
 }
 
 export type PrometheusConnectorDTO = ConnectorConfigDTO & {
@@ -4786,6 +4824,13 @@ export interface ResponseDashboardWorkloadDeployment {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseDeploymentStatsSummary {
+  correlationId?: string
+  data?: DeploymentStatsSummary
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseDeploymentsInfo {
   correlationId?: string
   data?: DeploymentsInfo
@@ -4831,6 +4876,13 @@ export interface ResponseEcrResponseDTO {
 export interface ResponseEnvBuildIdAndInstanceCountInfoList {
   correlationId?: string
   data?: EnvBuildIdAndInstanceCountInfoList
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseEnvCount {
+  correlationId?: string
+  data?: EnvCount
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5126,6 +5178,13 @@ export interface ResponseListSourceCodeManagerDTO {
 export interface ResponseListString {
   correlationId?: string
   data?: string[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListTimeBasedDeploymentInfo {
+  correlationId?: string
+  data?: TimeBasedDeploymentInfo[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5452,6 +5511,7 @@ export interface ResponseMessage {
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -5719,6 +5779,13 @@ export interface ResponseProjectResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseProjectsDashboardInfo {
+  correlationId?: string
+  data?: ProjectsDashboardInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseRoleAssignmentResponse {
   correlationId?: string
   data?: RoleAssignmentResponse
@@ -5806,6 +5873,20 @@ export interface ResponseServiceResponse {
 export interface ResponseServiceResponseDTO {
   correlationId?: string
   data?: ServiceResponseDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseServicesCount {
+  correlationId?: string
+  data?: ServicesCount
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseServicesDashboardInfo {
+  correlationId?: string
+  data?: ServicesDashboardInfo
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -6366,6 +6447,20 @@ export interface ServiceConfig {
   useFromStage?: ServiceUseFromStage
 }
 
+export interface ServiceDashboardInfo {
+  accountIdentifier?: string
+  failureDeploymentsCount?: number
+  identifier?: string
+  instancesCount?: number
+  instancesCountChangeRate?: number
+  name?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  successDeploymentsCount?: number
+  totalDeploymentsChangeRate?: number
+  totalDeploymentsCount?: number
+}
+
 export interface ServiceDefinition {
   spec: ServiceSpec
   type: 'Kubernetes'
@@ -6501,6 +6596,15 @@ export interface ServiceYaml {
   tags?: {
     [key: string]: string
   }
+}
+
+export interface ServicesCount {
+  newCount?: number
+  totalCount?: number
+}
+
+export interface ServicesDashboardInfo {
+  serviceDashboardInfoList?: ServiceDashboardInfo[]
 }
 
 export type SetFeatureFlagStateYaml = PatchInstruction & {
@@ -6653,6 +6757,7 @@ export interface StageWhenCondition {
 }
 
 export interface StartTrialDTO {
+  edition: 'FREE' | 'TEAM' | 'ENTERPRISE'
   moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
 }
 
@@ -6851,6 +6956,13 @@ export interface Throwable {
   message?: string
   stackTrace?: StackTraceElement[]
   suppressed?: Throwable[]
+}
+
+export interface TimeBasedDeploymentInfo {
+  count?: number
+  failedCount?: number
+  successCount?: number
+  time?: number
 }
 
 export interface TimeValuePair {
@@ -7278,9 +7390,9 @@ export type ProjectRequestRequestBody = ProjectRequest
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = SecretRequestWrapper
+export type SecretRequestWrapperRequestBody = void
 
-export type SecretRequestWrapper2RequestBody = void
+export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -16752,6 +16864,269 @@ export const validateJiraCredentialsPromise = (
     signal
   )
 
+export interface GetDeploymentStatsSummaryQueryParams {
+  accountIdentifier: string
+  orgProjectIdentifiers: string[]
+  startTime: number
+  endTime: number
+}
+
+export type GetDeploymentStatsSummaryProps = Omit<
+  GetProps<ResponseDeploymentStatsSummary, Failure | Error, GetDeploymentStatsSummaryQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get deployment stats summary
+ */
+export const GetDeploymentStatsSummary = (props: GetDeploymentStatsSummaryProps) => (
+  <Get<ResponseDeploymentStatsSummary, Failure | Error, GetDeploymentStatsSummaryQueryParams, void>
+    path={`/landingDashboards/deploymentStatsSummary`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetDeploymentStatsSummaryProps = Omit<
+  UseGetProps<ResponseDeploymentStatsSummary, Failure | Error, GetDeploymentStatsSummaryQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get deployment stats summary
+ */
+export const useGetDeploymentStatsSummary = (props: UseGetDeploymentStatsSummaryProps) =>
+  useGet<ResponseDeploymentStatsSummary, Failure | Error, GetDeploymentStatsSummaryQueryParams, void>(
+    `/landingDashboards/deploymentStatsSummary`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get deployment stats summary
+ */
+export const getDeploymentStatsSummaryPromise = (
+  props: GetUsingFetchProps<
+    ResponseDeploymentStatsSummary,
+    Failure | Error,
+    GetDeploymentStatsSummaryQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseDeploymentStatsSummary, Failure | Error, GetDeploymentStatsSummaryQueryParams, void>(
+    getConfig('ng/api'),
+    `/landingDashboards/deploymentStatsSummary`,
+    props,
+    signal
+  )
+
+export interface GetEnvCountQueryParams {
+  accountIdentifier: string
+  orgProjectIdentifiers: string[]
+  startTime: number
+  endTime: number
+}
+
+export type GetEnvCountProps = Omit<GetProps<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>, 'path'>
+
+/**
+ * Get environments count
+ */
+export const GetEnvCount = (props: GetEnvCountProps) => (
+  <Get<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>
+    path={`/landingDashboards/envCount`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEnvCountProps = Omit<
+  UseGetProps<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get environments count
+ */
+export const useGetEnvCount = (props: UseGetEnvCountProps) =>
+  useGet<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>(`/landingDashboards/envCount`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get environments count
+ */
+export const getEnvCountPromise = (
+  props: GetUsingFetchProps<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>(
+    getConfig('ng/api'),
+    `/landingDashboards/envCount`,
+    props,
+    signal
+  )
+
+export interface GetServicesCountQueryParams {
+  accountIdentifier: string
+  orgProjectIdentifiers: string[]
+  startTime: number
+  endTime: number
+}
+
+export type GetServicesCountProps = Omit<
+  GetProps<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get services count
+ */
+export const GetServicesCount = (props: GetServicesCountProps) => (
+  <Get<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>
+    path={`/landingDashboards/servicesCount`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetServicesCountProps = Omit<
+  UseGetProps<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get services count
+ */
+export const useGetServicesCount = (props: UseGetServicesCountProps) =>
+  useGet<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>(
+    `/landingDashboards/servicesCount`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get services count
+ */
+export const getServicesCountPromise = (
+  props: GetUsingFetchProps<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>(
+    getConfig('ng/api'),
+    `/landingDashboards/servicesCount`,
+    props,
+    signal
+  )
+
+export interface GetTimeWiseDeploymentInfoQueryParams {
+  accountIdentifier: string
+  orgProjectIdentifiers: string[]
+  startTime: number
+  endTime: number
+  groupBy: 'DAY' | 'WEEK' | 'MONTH'
+}
+
+export type GetTimeWiseDeploymentInfoProps = Omit<
+  GetProps<ResponseListTimeBasedDeploymentInfo, Failure | Error, GetTimeWiseDeploymentInfoQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get time wise deployment stats
+ */
+export const GetTimeWiseDeploymentInfo = (props: GetTimeWiseDeploymentInfoProps) => (
+  <Get<ResponseListTimeBasedDeploymentInfo, Failure | Error, GetTimeWiseDeploymentInfoQueryParams, void>
+    path={`/landingDashboards/timeDeploymentStats`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetTimeWiseDeploymentInfoProps = Omit<
+  UseGetProps<ResponseListTimeBasedDeploymentInfo, Failure | Error, GetTimeWiseDeploymentInfoQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get time wise deployment stats
+ */
+export const useGetTimeWiseDeploymentInfo = (props: UseGetTimeWiseDeploymentInfoProps) =>
+  useGet<ResponseListTimeBasedDeploymentInfo, Failure | Error, GetTimeWiseDeploymentInfoQueryParams, void>(
+    `/landingDashboards/timeDeploymentStats`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get time wise deployment stats
+ */
+export const getTimeWiseDeploymentInfoPromise = (
+  props: GetUsingFetchProps<
+    ResponseListTimeBasedDeploymentInfo,
+    Failure | Error,
+    GetTimeWiseDeploymentInfoQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListTimeBasedDeploymentInfo, Failure | Error, GetTimeWiseDeploymentInfoQueryParams, void>(
+    getConfig('ng/api'),
+    `/landingDashboards/timeDeploymentStats`,
+    props,
+    signal
+  )
+
+export interface GetTopProjectsQueryParams {
+  accountIdentifier: string
+  orgProjectIdentifiers: string[]
+  startTime: number
+  endTime: number
+}
+
+export type GetTopProjectsProps = Omit<
+  GetProps<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Top Projects as per Deployments
+ */
+export const GetTopProjects = (props: GetTopProjectsProps) => (
+  <Get<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>
+    path={`/landingDashboards/topProjects`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetTopProjectsProps = Omit<
+  UseGetProps<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Top Projects as per Deployments
+ */
+export const useGetTopProjects = (props: UseGetTopProjectsProps) =>
+  useGet<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>(
+    `/landingDashboards/topProjects`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Top Projects as per Deployments
+ */
+export const getTopProjectsPromise = (
+  props: GetUsingFetchProps<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>(
+    getConfig('ng/api'),
+    `/landingDashboards/topProjects`,
+    props,
+    signal
+  )
+
 export interface GetModuleLicenseByAccountAndModuleTypeQueryParams {
   accountIdentifier: string
   moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -16917,6 +17292,58 @@ export const extendTrialLicensePromise = (
     void
   >('POST', getConfig('ng/api'), `/licenses/extend-trial`, props, signal)
 
+export interface StartFreeLicenseQueryParams {
+  accountIdentifier: string
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+}
+
+export type StartFreeLicenseProps = Omit<
+  MutateProps<ResponseModuleLicenseDTO, Failure | Error, StartFreeLicenseQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Starts Free License For A Module
+ */
+export const StartFreeLicense = (props: StartFreeLicenseProps) => (
+  <Mutate<ResponseModuleLicenseDTO, Failure | Error, StartFreeLicenseQueryParams, void, void>
+    verb="POST"
+    path={`/licenses/free`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseStartFreeLicenseProps = Omit<
+  UseMutateProps<ResponseModuleLicenseDTO, Failure | Error, StartFreeLicenseQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Starts Free License For A Module
+ */
+export const useStartFreeLicense = (props: UseStartFreeLicenseProps) =>
+  useMutate<ResponseModuleLicenseDTO, Failure | Error, StartFreeLicenseQueryParams, void, void>(
+    'POST',
+    `/licenses/free`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Starts Free License For A Module
+ */
+export const startFreeLicensePromise = (
+  props: MutateUsingFetchProps<ResponseModuleLicenseDTO, Failure | Error, StartFreeLicenseQueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseModuleLicenseDTO, Failure | Error, StartFreeLicenseQueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/licenses/free`,
+    props,
+    signal
+  )
+
 export interface GetModuleLicensesByAccountAndModuleTypeQueryParams {
   moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
 }
@@ -17016,7 +17443,7 @@ export type StartTrialLicenseProps = Omit<
 >
 
 /**
- * Starts Trail License For A Module
+ * Starts Trial License For A Module
  */
 export const StartTrialLicense = (props: StartTrialLicenseProps) => (
   <Mutate<ResponseModuleLicenseDTO, Failure | Error, StartTrialLicenseQueryParams, StartTrialDTORequestBody, void>
@@ -17039,7 +17466,7 @@ export type UseStartTrialLicenseProps = Omit<
 >
 
 /**
- * Starts Trail License For A Module
+ * Starts Trial License For A Module
  */
 export const useStartTrialLicense = (props: UseStartTrialLicenseProps) =>
   useMutate<ResponseModuleLicenseDTO, Failure | Error, StartTrialLicenseQueryParams, StartTrialDTORequestBody, void>(
@@ -17049,7 +17476,7 @@ export const useStartTrialLicense = (props: UseStartTrialLicenseProps) =>
   )
 
 /**
- * Starts Trail License For A Module
+ * Starts Trial License For A Module
  */
 export const startTrialLicensePromise = (
   props: MutateUsingFetchProps<
@@ -23685,7 +24112,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -23695,7 +24122,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -23708,7 +24135,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -23722,7 +24149,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -23734,7 +24161,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -23743,7 +24170,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -24136,7 +24563,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -24150,7 +24577,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >
     verb="POST"
@@ -24165,7 +24592,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -24179,7 +24606,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -24191,7 +24618,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -24200,7 +24627,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -24335,7 +24762,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -24350,7 +24777,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -24365,7 +24792,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -24380,7 +24807,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -24399,7 +24826,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -24408,7 +24835,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -24427,7 +24854,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -24442,7 +24869,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -24457,7 +24884,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -24472,7 +24899,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -24491,7 +24918,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -24500,7 +24927,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 

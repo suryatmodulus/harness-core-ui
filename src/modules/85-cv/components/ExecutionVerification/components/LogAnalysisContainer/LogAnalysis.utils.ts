@@ -1,6 +1,8 @@
+import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type { UseStringsReturn } from 'framework/strings'
-import type { LogData } from 'services/cv'
+import type { LogData, RestResponsePageLogAnalysisClusterDTO } from 'services/cv'
+import type { LogAnalysisRowData } from './LogAnalysis.types'
 
 export const mapClusterType = (type: string): LogData['tag'] => {
   switch (type) {
@@ -22,4 +24,30 @@ export const getClusterTypes = (getString: UseStringsReturn['getString']): Selec
     { label: getString('pipeline.verification.logs.unknownEvent'), value: 'UNKNOWN_EVENT' },
     { label: getString('pipeline.verification.logs.unexpectedFrequency'), value: 'UNEXPECTED_FREQUENCY' }
   ]
+}
+
+export function getLogAnalysisData(data: RestResponsePageLogAnalysisClusterDTO | null): LogAnalysisRowData[] {
+  return (
+    data?.resource?.content?.map(d => ({
+      clusterType: mapClusterType(d?.clusterType as string),
+      count: d?.count as number,
+      message: d?.message as string,
+      messageFrequency: [
+        {
+          name: 'testData',
+          type: 'line',
+          color: getRiskColorValue(d.risk),
+          data: d?.testFrequencyData
+        },
+        {
+          name: 'controlData',
+          type: 'line',
+          color: 'var(--grey-350)',
+          data: d?.controlFrequencyData
+        }
+      ],
+      riskScore: d?.score as number,
+      riskStatus: d?.risk as string
+    })) ?? []
+  )
 }

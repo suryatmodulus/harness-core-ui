@@ -1,4 +1,4 @@
-export const pageSize = 10
+export const pageSize = 7
 export const initialPageNumber = 0
 
 export const POLLING_INTERVAL = 30000

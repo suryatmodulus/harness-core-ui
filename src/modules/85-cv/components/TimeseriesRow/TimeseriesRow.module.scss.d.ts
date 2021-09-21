@@ -3,6 +3,7 @@
 declare const styles: {
   readonly timeseriesRow: string
   readonly labels: string
+  readonly metricLablesContainer: string
   readonly charts: string
   readonly chartRow: string
   readonly chartContainer: string

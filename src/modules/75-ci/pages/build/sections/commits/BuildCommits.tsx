@@ -69,7 +69,7 @@ const Commits: React.FC<{ commits: CIBuildCommit[] }> = ({ commits }): any => {
             name={firstName}
             size={'xsmall'}
             backgroundColor={AVATAR_COLORS[index % AVATAR_COLORS.length]}
-            src={commitAuthor!.avatar}
+            src={commitAuthor?.avatar}
             hoverCard={false}
           />
           <Text className={css.committed} font="xsmall" margin={{ right: 'xlarge' }}>

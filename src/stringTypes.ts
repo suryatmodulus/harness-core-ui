@@ -335,8 +335,6 @@ export interface StringsMap {
   'common.policy.newPolicy': string
   'common.policy.noPolicy': string
   'common.policy.noPolicyResult': string
-  'common.policy.overview': string
-  'common.policy.policies': string
   'common.policy.policySearch': string
   'common.policy.policysets': string
   'common.policy.table.createdAt': string

@@ -3,9 +3,13 @@ import { Switch, Route } from 'react-router-dom'
 import delegatesRoutes from '@delegates/RouteDestinations'
 import commonRoutes from '@common/RouteDestinations'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import AuthSettingsRoutes from '@auth-settings/RouteDestinations'
-import secretsRoutes from '@secrets/RouteDestinations'
+
+import { ModalProvider } from '@wings-software/uicore'
+
+import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import rbacRoutes from '@rbac/RouteDestinations'
+
+import AccessControlRoutes from 'accesscontrol/AccessControlRoutes'
 import projectsOrgsRoutes from '@projects-orgs/RouteDestinations'
 import connectorRoutes from '@connectors/RouteDestinations'
 import tempatesRoutes from '@templates-library/RouteDestinations'
@@ -20,9 +24,11 @@ import CERoutes from '@ce/RouteDestinations'
 import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
+
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 
+import UseCreateSecretModalReturn from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 export const AccountSideNavProps: SidebarContext = {
   navComponent: AccountSideNav,
   icon: 'nav-settings',
@@ -31,11 +37,10 @@ export const AccountSideNavProps: SidebarContext = {
 
 export default function RouteDestinations(): React.ReactElement {
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
-  console.log('RoutesTemp', { RoutesTemp })
+  console.log('AccessControlRoutes', { AccessControlRoutes })
   return (
     <Switch>
       {...commonRoutes.props.children}
-      {...secretsRoutes.props.children}
       {...rbacRoutes.props.children}
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}
@@ -50,9 +55,6 @@ export default function RouteDestinations(): React.ReactElement {
       <Route path="/account/:accountId/settings">
         <AuthSettingsRoutes />
       </Route>
-      <React.Fragment>
-        <RoutesTemp contextObj={AppStoreContext} />
-      </React.Fragment>
 
       {CENG_ENABLED ? (
         <Route path="/account/:accountId/:module(ce)">

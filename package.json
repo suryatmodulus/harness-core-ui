@@ -1,14 +1,17 @@
 {
-  "name": "nextgenui",
+  "name": "@wings-software/vue3-component-library",
   "description": "Harness Inc",
   "version": "0.269.0",
   "author": "Harness Inc",
   "license": "Harness Inc",
-  "private": true,
   "homepage": "http://app.harness.io/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wings-software/nextgenui.git"
+    "url": "https://github.com/wings-software/test-app-publish-.git",
+    "directory": "create-snowpack-app/app-template-react-typescript"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "bugs": {
     "url": "https://github.com/wings-software/nextgenui/issues"
@@ -57,7 +60,6 @@
     "postservices:ci": "prettier --write src/services/ci/index.tsx",
     "services:cv": "restful-react import --config restful-react.config.js cv",
     "postservices": "prettier --write src/services/**/*.tsx",
-    "build": "yarn clean && GIT_COMMIT=$(git log -1 --pretty=%h) GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD) webpack",
     "coverage": "yarn test --coverage",
     "grouped-coverage": "yarn coverage && jest-grouped-coverage -i coverage/coverage-summary.json -c coverage-groups.json",
     "docker": "sh -c 'docker build -t harness/nextgenui:\"$0\" . && docker push harness/nextgenui:\"$0\"'",
@@ -116,6 +118,9 @@
     "monaco-languages": "1.6.0",
     "monaco-plugin-helpers": "^1.0.2",
     "p-debounce": "^3.0.1",
+    "postcss-import": "^14.0.2",
+    "postcss-mixins": "^8.1.0",
+    "postcss-nested": "^5.0.6",
     "qs": "^6.9.4",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.0.0",
@@ -138,6 +143,7 @@
     "utility-types": "^3.10.0",
     "uuid": "^8.3.0",
     "vscode-languageserver-types": "3.15.1",
+    "webpack-node-externals": "^3.0.0",
     "yaml": "^1.10.0",
     "yup": "^0.29.1"
   },
@@ -217,6 +223,7 @@
     "jest": "^26.2.0",
     "jest-canvas-mock": "^2.3.0",
     "jest-junit": "^12.0.0",
+    "jsdoc": "^3.6.7",
     "lighthouse": "^6.5.0",
     "lint-staged": "^11.0.0",
     "mini-css-extract-plugin": "^1.4.1",
@@ -239,6 +246,7 @@
     "ts-loader": "^8.2.0",
     "ts-node": "^10.2.1",
     "tsconfig-paths-webpack-plugin": "^3.5.1",
+    "typedoc": "^0.22.4",
     "typescript": "^4.2.4",
     "url-loader": "^4.1.1",
     "webpack": "^5.33.2",

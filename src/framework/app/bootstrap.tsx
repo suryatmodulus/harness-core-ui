@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
-import { HashRouter, Route, Switch, useHistory } from 'react-router-dom'
+import {useHistory } from 'react-router-dom'
 import { useParams } from 'react-router'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
@@ -8,8 +7,6 @@ import { TooltipContextProvider } from '@wings-software/uicore'
 import { tooltipDictionary } from '@wings-software/ng-tooltip'
 import { setAutoFreeze, enableMapSet } from 'immer'
 import SessionToken from 'framework/utils/SessionToken'
-import languageLoader from 'strings/languageLoader'
-import type { LangLocale } from 'strings/languageLoader'
 import { AppStoreProvider } from 'framework/AppStore/AppStoreContext'
 import { LicenseStoreProvider } from 'framework/LicenseStore/LicenseStoreContext'
 // eslint-disable-next-line aliased-module-imports
@@ -111,7 +108,6 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
           history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL()) })
           return
         }
-
         checkAndRefreshToken()
       }}
     >

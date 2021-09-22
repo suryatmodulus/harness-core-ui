@@ -2511,6 +2511,7 @@ export interface StringsMap {
   'cd.newProvider': string
   'cd.noProviderText': string
   'cd.pathCannotBeEmpty': string
+  'cd.pipelineSteps.infraTab.clusterError': string
   'cd.pipelineSteps.infraTab.deploymentType': string
   'cd.pipelineSteps.serviceTab.deploymentTypeRequired': string
   'cd.pipelineSteps.serviceTab.differentService': string

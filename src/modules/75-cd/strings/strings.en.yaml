@@ -62,6 +62,7 @@ pipelineSteps:
     differentService: Deploy different Service
   infraTab:
     deploymentType: Infrastructure type selection is required
+    clusterError: No cluster found with given Connector
 cdLaunchText: Launch CD First Generation
 serviceDashboard:
   activeServiceInstancesLabel: '{{$.common.subscriptions.usage.srvcInst}}'

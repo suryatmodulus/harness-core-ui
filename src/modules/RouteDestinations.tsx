@@ -1,16 +1,18 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { RoutesTemp } from '@wings-software/test-app-publish-'
 
 // import RoutesTemp from 'nav/Routes1'
 
-import TextInput from 'nav/TextBox1'
 import delegatesRoutes from '@delegates/RouteDestinations'
 import commonRoutes from '@common/RouteDestinations'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import AuthSettingsRoutes from '@auth-settings/RouteDestinations'
-import secretsRoutes from '@secrets/RouteDestinations'
+
+import { ModalProvider } from '@wings-software/uicore'
+
+import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import rbacRoutes from '@rbac/RouteDestinations'
+
+import AccessControlRoutes from 'accesscontrol/AccessControlRoutes'
 import projectsOrgsRoutes from '@projects-orgs/RouteDestinations'
 import connectorRoutes from '@connectors/RouteDestinations'
 import userProfileRoutes from '@user-profile/RouteDestinations'
@@ -24,9 +26,11 @@ import CERoutes from '@ce/RouteDestinations'
 import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
+
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 
+import UseCreateSecretModalReturn from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 export const AccountSideNavProps: SidebarContext = {
   navComponent: AccountSideNav,
   icon: 'nav-settings',
@@ -35,11 +39,10 @@ export const AccountSideNavProps: SidebarContext = {
 
 export default function RouteDestinations(): React.ReactElement {
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
-  console.log('RoutesTemp', { RoutesTemp })
+  console.log('AccessControlRoutes', { AccessControlRoutes })
   return (
     <Switch>
       {...commonRoutes.props.children}
-      {...secretsRoutes.props.children}
       {...rbacRoutes.props.children}
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}
@@ -52,11 +55,17 @@ export default function RouteDestinations(): React.ReactElement {
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
 
       <Route path="/account/:accountId/settingsfd">
-        <TextInput label="Email Addresss" placeholder="name@example.com" />
+        {/* <RoutesTemp contextObj={AppStoreContext} /> */}
+        <ModalProvider>
+          {console.log('parent', React.version)}
+          {AccessControlRoutes({
+            params: {
+              commonComponents: { secrets: UseCreateSecretModalReturn },
+              parentContextObj: { parentContext: { appStoreContext: AppStoreContext } }
+            }
+          })}
+        </ModalProvider>
       </Route>
-      <React.Fragment>
-        <RoutesTemp contextObj={AppStoreContext} />
-      </React.Fragment>
 
       {CENG_ENABLED ? (
         <Route path="/account/:accountId/:module(ce)">

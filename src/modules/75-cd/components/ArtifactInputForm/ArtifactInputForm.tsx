@@ -43,6 +43,7 @@ import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/compon
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
+import { TriggerDefaultFieldList, TriggerTypes } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 
 import { clearRuntimeInputValue, getNonRuntimeFields } from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecHelper'
@@ -56,7 +57,8 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
   initialValues,
   readonly = false,
   stageIdentifier,
-  formik
+  formik,
+  fromTrigger
 }) => {
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
@@ -351,6 +353,15 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
       tagValue?.length &&
       formik.setFieldValue(tagPath, '')
   }
+
+  const fromPipelineInputTriggerTab = () => {
+    return (
+      formik?.values?.triggerType === TriggerTypes.ARTIFACT && formik?.values?.selectedArtifact !== null && !fromTrigger
+    )
+  }
+
+  const isPipelineInputTab = fromPipelineInputTriggerTab()
+  const isSelectedStage = stageIdentifier === formik?.values?.stageId
   return (
     <>
       {get(template, 'artifacts', false) && (
@@ -458,76 +469,91 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                   />
                 )}
 
-                {getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
-                  <ExperimentalInput
-                    formik={formik}
-                    disabled={readonly || isTagSelectionDisabled(artifacts?.primary?.type || '')}
-                    selectItems={
-                      dockerLoading || gcrLoading || ecrLoading
-                        ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
-                        : getSelectItems('primary')
-                    }
-                    useValue
-                    multiTypeInputProps={{
-                      onFocus: (e: any) => {
-                        if (
-                          e?.target?.type !== 'text' ||
-                          (e?.target?.type === 'text' && e?.target?.placeholder === EXPRESSION_STRING)
-                        ) {
-                          return
-                        }
-                        const imagePath =
-                          getMultiTypeFromValue(artifacts?.primary?.spec?.imagePath) !== MultiTypeInputType.RUNTIME
-                            ? artifacts?.primary?.spec?.imagePath
-                            : initialValues.artifacts?.primary?.spec?.imagePath
-                        const connectorRef =
-                          getMultiTypeFromValue(artifacts?.primary?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
-                            ? artifacts?.primary?.spec?.connectorRef
-                            : initialValues.artifacts?.primary?.spec?.connectorRef
-                        const regionCurrent =
-                          getMultiTypeFromValue(artifacts?.primary?.spec?.region) !== MultiTypeInputType.RUNTIME
-                            ? artifacts?.primary?.spec?.region
-                            : initialValues.artifacts?.primary?.spec?.region
-                        const registryHostnameCurrent =
-                          getMultiTypeFromValue(artifacts?.primary?.spec?.registryHostname) !==
-                          MultiTypeInputType.RUNTIME
-                            ? artifacts?.primary?.spec?.registryHostname
-                            : initialValues.artifacts?.primary?.spec?.registryHostname
-                        const tagsPath = `primary`
-                        !isTagSelectionDisabled(artifacts?.primary?.type || '') &&
-                          fetchTags({
-                            path: tagsPath,
-                            imagePath,
-                            connectorRef,
-                            connectorType: artifacts?.primary?.type,
-                            registryHostname: registryHostnameCurrent,
-                            region: regionCurrent
-                          })
-                      },
-                      selectProps: {
-                        items:
-                          dockerLoading || gcrLoading || ecrLoading
-                            ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
-                            : getSelectItems('primary'),
-                        usePortal: true,
-                        addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type || '')),
-                        noResults: (
-                          <Text lineClamp={1}>
-                            {get(ecrError || gcrError || dockerError, 'data.message', null) ||
-                              getString('pipelineSteps.deploy.errors.notags')}
-                          </Text>
-                        ),
-                        itemRenderer: itemRenderer,
-                        allowCreatingNewItems: true,
-                        popoverClassName: css.selectPopover
-                      },
-                      expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                    }}
-                    label={getString('tagLabel')}
-                    name={`${path}.artifacts.primary.spec.tag`}
-                  />
-                )}
+                {fromTrigger &&
+                  getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
+                    <FormInput.MultiTextInput
+                      label={getString('tagLabel')}
+                      multiTextInputProps={{
+                        expressions,
+                        value: TriggerDefaultFieldList.build,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      disabled={true}
+                      name={`${path}.artifacts.primary.spec.tag`}
+                    />
+                  )}
+
+                {!fromTrigger &&
+                  getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
+                    <ExperimentalInput
+                      formik={formik}
+                      // disabled={fromTrigger ? false : isTagSelectionDisabled(artifacts?.primary?.type || '')}
+                      selectItems={
+                        dockerLoading || gcrLoading || ecrLoading
+                          ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
+                          : getSelectItems('primary')
+                      }
+                      useValue
+                      multiTypeInputProps={{
+                        onFocus: (e: any) => {
+                          if (
+                            e?.target?.type !== 'text' ||
+                            (e?.target?.type === 'text' && e?.target?.placeholder === EXPRESSION_STRING)
+                          ) {
+                            return
+                          }
+                          const imagePath =
+                            getMultiTypeFromValue(artifacts?.primary?.spec?.imagePath) !== MultiTypeInputType.RUNTIME
+                              ? artifacts?.primary?.spec?.imagePath
+                              : initialValues.artifacts?.primary?.spec?.imagePath
+                          const connectorRef =
+                            getMultiTypeFromValue(artifacts?.primary?.spec?.connectorRef) !== MultiTypeInputType.RUNTIME
+                              ? artifacts?.primary?.spec?.connectorRef
+                              : initialValues.artifacts?.primary?.spec?.connectorRef
+                          const regionCurrent =
+                            getMultiTypeFromValue(artifacts?.primary?.spec?.region) !== MultiTypeInputType.RUNTIME
+                              ? artifacts?.primary?.spec?.region
+                              : initialValues.artifacts?.primary?.spec?.region
+                          const registryHostnameCurrent =
+                            getMultiTypeFromValue(artifacts?.primary?.spec?.registryHostname) !==
+                            MultiTypeInputType.RUNTIME
+                              ? artifacts?.primary?.spec?.registryHostname
+                              : initialValues.artifacts?.primary?.spec?.registryHostname
+                          const tagsPath = `primary`
+                          !isTagSelectionDisabled(artifacts?.primary?.type || '') &&
+                            fetchTags({
+                              path: tagsPath,
+                              imagePath,
+                              connectorRef,
+                              connectorType: artifacts?.primary?.type,
+                              registryHostname: registryHostnameCurrent,
+                              region: regionCurrent
+                            })
+                        },
+                        selectProps: {
+                          items:
+                            dockerLoading || gcrLoading || ecrLoading
+                              ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
+                              : getSelectItems('primary'),
+                          usePortal: true,
+                          addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type || '')),
+                          noResults: (
+                            <Text lineClamp={1}>
+                              {get(ecrError || gcrError || dockerError, 'data.message', null) ||
+                                getString('pipelineSteps.deploy.errors.notags')}
+                            </Text>
+                          ),
+                          itemRenderer: itemRenderer,
+                          allowCreatingNewItems: true,
+                          popoverClassName: css.selectPopover
+                        },
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      label={getString('tagLabel')}
+                      name={`${path}.artifacts.primary.spec.tag`}
+                    />
+                  )}
                 {getMultiTypeFromValue(artifacts?.primary?.spec?.tagRegex) === MultiTypeInputType.RUNTIME && (
                   <FormInput.MultiTextInput
                     disabled={readonly}
@@ -556,6 +582,68 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                 }: any,
                 index: number
               ) => {
+                if (isPipelineInputTab) {
+                  let selectedArtifact: any = initialValues?.artifacts?.sidecars?.find(
+                    (item: any) => item?.sidecar?.identifier === formik?.values?.selectedArtifact?.identifier
+                  ) || {
+                    artifact: {
+                      identifier: '',
+                      type: formik?.values?.selectedArtifact?.type,
+                      spec: {
+                        store: {
+                          spec: {}
+                        }
+                      }
+                    }
+                  }
+                  const selectedIndex =
+                    initialValues?.artifacts?.sidecars?.findIndex(
+                      (item: any) => item?.sidecar?.identifier === formik?.values?.selectedArtifact?.identifier
+                    ) || 0
+
+                  if (stageIdentifier === formik?.values?.stageId) {
+                    if (selectedArtifact && initialValues && initialValues.artifacts && selectedIndex >= 0) {
+                      const artifactSpec = formik?.values?.selectedArtifact?.spec || {}
+                      /*
+                       backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
+                      */
+                      if (artifactSpec.eventConditions) {
+                        delete artifactSpec.eventConditions
+                      }
+
+                      selectedArtifact = {
+                        artifact: {
+                          identifier: formik?.values?.selectedArtifact?.identifier,
+                          type: formik?.values?.selectedArtifact?.type,
+                          spec: {
+                            ...artifactSpec
+                          }
+                        }
+                      }
+                    }
+                    if (selectedIndex >= 0 && initialValues?.artifacts?.sidecars) {
+                      initialValues.artifacts['sidecars'][selectedIndex].sidecar = selectedArtifact?.artifact
+                    }
+                  }
+                }
+                // const filteredManifest = allValues?.manifests?.find(item => item.manifest?.identifier === identifier)
+                const isSelectedManifest: boolean =
+                  isPipelineInputTab &&
+                  stageIdentifier === formik?.values?.stageId &&
+                  formik?.values?.selectedArtifact &&
+                  identifier === formik?.values?.selectedArtifact?.identifier
+
+                const disableField = (fieldName: string, isTag = false) => {
+                  if (fromTrigger) {
+                    // Trigger Configuration Tab
+                    return get(TriggerDefaultFieldList, fieldName) ? true : false
+                  } else if (isPipelineInputTab && isSelectedManifest && isSelectedStage) {
+                    return true
+                  }
+                  return isTag
+                    ? isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type || '', index)
+                    : readonly
+                }
                 const currentSidecarSpec = initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec
                 return (
                   <Layout.Vertical key={identifier} className={css.inputWidth}>
@@ -588,7 +676,8 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                         label={getString('pipelineSteps.deploy.inputSet.artifactServer')}
                         placeholder={''}
                         setRefValue
-                        disabled={readonly}
+                        disabled={disableField(`sidecars[${index}].sidecar.spec.connectorRef`)}
+                        // disabled={readonly}
                         multiTypeProps={{
                           allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
                           expressions
@@ -621,7 +710,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                             allowCreatingNewItems: true
                           }
                         }}
-                        disabled={readonly}
+                        disabled={disableField(`sidecars[${index}].sidecar.spec.region`)}
                         selectItems={regions}
                         label={getString('regionLabel')}
                         name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
@@ -634,7 +723,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                           expressions,
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                         }}
-                        disabled={readonly}
+                        disabled={disableField(`sidecars[${index}].sidecar.spec.imagePath`)}
                         name={`${path}.artifacts.sidecars[${index}].sidecar.spec.imagePath`}
                         onChange={() => resetTags(`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`)}
                       />
@@ -642,7 +731,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                     {getMultiTypeFromValue(registryHostname) === MultiTypeInputType.RUNTIME && (
                       <ExperimentalInput
                         formik={formik}
-                        disabled={readonly}
+                        disabled={disableField(`sidecars[${index}].sidecar.spec.registryHostname`)}
                         selectItems={gcrUrlList}
                         useValue
                         multiTypeInputProps={{
@@ -656,90 +745,105 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                       />
                     )}
 
-                    {getMultiTypeFromValue(template?.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag) ===
-                      MultiTypeInputType.RUNTIME && (
-                      <ExperimentalInput
-                        formik={formik}
-                        useValue
-                        // disabled={
-                        //   readonly || isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type || '', index)
-                        // }
-                        selectItems={
-                          dockerLoading || gcrLoading || ecrLoading
-                            ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
-                            : getSelectItems(`sidecars[${index}]`)
-                        }
-                        multiTypeInputProps={{
-                          onFocus: (e: any) => {
-                            if (
-                              e?.target?.type !== 'text' ||
-                              (e?.target?.type === 'text' && e?.target?.placeholder === EXPRESSION_STRING)
-                            ) {
-                              return
-                            }
-                            const sidecarIndex =
-                              initialValues?.artifacts?.sidecars?.findIndex(
-                                sidecar => sidecar.sidecar?.identifier === identifier
-                              ) ?? -1
-                            const imagePathCurrent =
-                              getMultiTypeFromValue(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.imagePath) !==
-                              MultiTypeInputType.RUNTIME
-                                ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.imagePath
-                                : currentSidecarSpec?.imagePath
-                            const connectorRefCurrent =
-                              getMultiTypeFromValue(
-                                artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.connectorRef
-                              ) !== MultiTypeInputType.RUNTIME
-                                ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.connectorRef
-                                : currentSidecarSpec?.connectorRef
-                            const regionCurrent =
-                              getMultiTypeFromValue(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.region) !==
-                              MultiTypeInputType.RUNTIME
-                                ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.region
-                                : currentSidecarSpec?.region
-                            const registryHostnameCurrent =
-                              getMultiTypeFromValue(
-                                artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.registryHostname
-                              ) !== MultiTypeInputType.RUNTIME
-                                ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.registryHostname
-                                : currentSidecarSpec?.registryHostname
-                            const tagsPath = `sidecars[${sidecarIndex}]`
-                            !isTagSelectionDisabled(
-                              artifacts?.sidecars?.[sidecarIndex]?.sidecar?.type || '',
-                              sidecarIndex
-                            ) &&
-                              fetchTags({
-                                path: tagsPath,
-                                imagePath: imagePathCurrent,
-                                connectorRef: connectorRefCurrent,
-                                connectorType: artifacts?.sidecars?.[index]?.sidecar?.type,
-                                registryHostname: registryHostnameCurrent,
-                                region: regionCurrent
-                              })
-                          },
-                          allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-                          expressions,
-                          selectProps: {
-                            items:
-                              dockerLoading || gcrLoading || ecrLoading
-                                ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
-                                : getSelectItems(`sidecars[${index}]`),
-                            usePortal: true,
-                            addClearBtn: true && !readonly,
-                            noResults: (
-                              <Text lineClamp={1}>
-                                {get(ecrError || gcrError || dockerError, 'data.message', null) ||
-                                  getString('pipelineSteps.deploy.errors.notags')}
-                              </Text>
-                            ),
-                            itemRenderer: itemRenderer,
-                            allowCreatingNewItems: true
+                    {fromTrigger &&
+                      getMultiTypeFromValue(template?.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag) ===
+                        MultiTypeInputType.RUNTIME && (
+                        <FormInput.MultiTextInput
+                          label={getString('tagLabel')}
+                          multiTextInputProps={{
+                            expressions,
+                            value: TriggerDefaultFieldList.build,
+                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                          }}
+                          disabled={true}
+                          name={`${path}.artifacts.sidecars[${index}].sidecar.spec.tag`}
+                        />
+                      )}
+                    {!fromTrigger &&
+                      getMultiTypeFromValue(template?.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag) ===
+                        MultiTypeInputType.RUNTIME && (
+                        <ExperimentalInput
+                          formik={formik}
+                          useValue
+                          disabled={disableField(`sidecars[${index}].sidecar.spec.tag`, true)}
+                          selectItems={
+                            dockerLoading || gcrLoading || ecrLoading
+                              ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
+                              : getSelectItems(`sidecars[${index}]`)
                           }
-                        }}
-                        label={getString('tagLabel')}
-                        name={`${path}.artifacts.sidecars[${index}].sidecar.spec.tag`}
-                      />
-                    )}
+                          multiTypeInputProps={{
+                            // ...(fromTrigger && { value: TriggerDefaultFieldList.build }),
+                            onFocus: (e: any) => {
+                              if (
+                                e?.target?.type !== 'text' ||
+                                (e?.target?.type === 'text' && e?.target?.placeholder === EXPRESSION_STRING)
+                              ) {
+                                return
+                              }
+                              const sidecarIndex =
+                                initialValues?.artifacts?.sidecars?.findIndex(
+                                  sidecar => sidecar.sidecar?.identifier === identifier
+                                ) ?? -1
+                              const imagePathCurrent =
+                                getMultiTypeFromValue(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.imagePath) !==
+                                MultiTypeInputType.RUNTIME
+                                  ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.imagePath
+                                  : currentSidecarSpec?.imagePath
+                              const connectorRefCurrent =
+                                getMultiTypeFromValue(
+                                  artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.connectorRef
+                                ) !== MultiTypeInputType.RUNTIME
+                                  ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.connectorRef
+                                  : currentSidecarSpec?.connectorRef
+                              const regionCurrent =
+                                getMultiTypeFromValue(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.region) !==
+                                MultiTypeInputType.RUNTIME
+                                  ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.region
+                                  : currentSidecarSpec?.region
+                              const registryHostnameCurrent =
+                                getMultiTypeFromValue(
+                                  artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.registryHostname
+                                ) !== MultiTypeInputType.RUNTIME
+                                  ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.registryHostname
+                                  : currentSidecarSpec?.registryHostname
+                              const tagsPath = `sidecars[${sidecarIndex}]`
+                              !isTagSelectionDisabled(
+                                artifacts?.sidecars?.[sidecarIndex]?.sidecar?.type || '',
+                                sidecarIndex
+                              ) &&
+                                fetchTags({
+                                  path: tagsPath,
+                                  imagePath: imagePathCurrent,
+                                  connectorRef: connectorRefCurrent,
+                                  connectorType: artifacts?.sidecars?.[index]?.sidecar?.type,
+                                  registryHostname: registryHostnameCurrent,
+                                  region: regionCurrent
+                                })
+                            },
+                            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                            value: TriggerDefaultFieldList.build,
+                            expressions,
+                            selectProps: {
+                              items:
+                                dockerLoading || gcrLoading || ecrLoading
+                                  ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
+                                  : getSelectItems(`sidecars[${index}]`),
+                              usePortal: true,
+                              addClearBtn: true && !readonly,
+                              noResults: (
+                                <Text lineClamp={1}>
+                                  {get(ecrError || gcrError || dockerError, 'data.message', null) ||
+                                    getString('pipelineSteps.deploy.errors.notags')}
+                                </Text>
+                              ),
+                              itemRenderer: itemRenderer,
+                              allowCreatingNewItems: true
+                            }
+                          }}
+                          label={getString('tagLabel')}
+                          name={`${path}.artifacts.sidecars[${index}].sidecar.spec.tag`}
+                        />
+                      )}
                     {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.tagRegex) ===
                       MultiTypeInputType.RUNTIME && (
                       <FormInput.MultiTextInput
@@ -747,7 +851,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                           expressions,
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                         }}
-                        disabled={readonly}
+                        disabled={disableField(`sidecars[${index}].sidecar.spec.tagRegex`)}
                         label={getString('tagRegex')}
                         name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.tagRegex`}
                       />

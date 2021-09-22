@@ -1,10 +1,9 @@
 import React from 'react'
 import { get, isEmpty } from 'lodash-es'
-import { FormInput, Color, Text, MultiTypeInputType } from '@wings-software/uicore'
+import { FormInput, MultiTypeInputType } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { TriggerTypes, CUSTOM } from '../../pages/triggers/utils/TriggersWizardPageUtils'
 
 export interface CICodebaseInputSetFormProps {
   path: string
@@ -18,8 +17,6 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
     | 'tag'
     | 'PR'
   const { getString } = useStrings()
-  const disableOnWebhookTrigger =
-    formik?.values?.triggerType === TriggerTypes.WEBHOOK && formik.values.sourceRepo !== CUSTOM
   const radioGroupItems = [
     {
       label: getString('gitBranch'),
@@ -58,7 +55,6 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
         name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`}
         items={radioGroupItems}
         radioGroup={{ inline: true }}
-        disabled={disableOnWebhookTrigger}
         onChange={() => {
           formik?.setFieldValue(`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec`, undefined)
         }}
@@ -73,13 +69,8 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
           style={{ marginBottom: 0 }}
-          disabled={readonly || disableOnWebhookTrigger}
+          disabled={readonly}
         />
-      )}
-      {disableOnWebhookTrigger && (
-        <Text style={{ marginTop: 'var(--spacing-xsmall)' }} color={Color.GREY_400}>
-          {getString('pipeline.triggers.pipelineInputPanel.automaticallyExtractedFromText')}
-        </Text>
       )}
     </>
   )

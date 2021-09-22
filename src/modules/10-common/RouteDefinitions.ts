@@ -1235,8 +1235,10 @@ const routes = {
       `/dashboards/folder/${folderId ? folderId : 'shared'}/view/${viewId}`
   ),
   toCustomFolderHome: withAccountId(() => '/dashboards/folders'),
-  toViewCustomFolder: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/folder/view/${viewId}`)
+  toViewCustomFolder: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/folder/view/${viewId}`),
+
   /****************** Secret Usage************************************************************************************/
+  toPolicyListPage: withAccountId(() => 'settings/governance/policies')
 }
 
 export default routes

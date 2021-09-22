@@ -38,6 +38,7 @@
       "@gitsync/*": ["modules/40-gitsync/*"],
       "@pipeline/*": ["modules/70-pipeline/*"],
       "@templates-library/*": ["modules/72-templates-library/*"],
+      "@policies/*": ["modules/73-policy-mgmt/*"],
       "@cd/*": ["modules/75-cd/*"],
       "@cf/*": ["modules/75-cf/*"],
       "@ci/*": ["modules/75-ci/*"],

@@ -507,6 +507,17 @@ accountSettings: Account Settings
 governance: Governance
 myProfile: My Profile
 accountResources: Account Resources
+policy:
+  policysets: Policy Sets
+  newPolicy: New Policy
+  evaluations: Evaluation
+  policySearch: Search Policy by name
+  noPolicy: You have no Policy. Click on the button below to create a new one.
+  noPolicyResult: No policy found
+  table:
+    name: Policy
+    lastModified: Last Modified
+    createdAt: Created At
 accountResourcesPage:
   line1: 'Account Resources are shared and available for use within any organization or projects within your account.'
   line2: 'For better isolation of resources, it is recommended that you create resources at the organization or project levels respectively.'

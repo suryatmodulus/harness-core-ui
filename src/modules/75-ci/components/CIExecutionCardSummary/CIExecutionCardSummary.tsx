@@ -22,7 +22,7 @@ export function CIExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
     <div className={css.main}>
       {data?.buildType === 'branch' ? (
         <React.Fragment>
-          <BranchBadge branchName={buildData?.branch?.name} commitId={lastCommit?.id?.slice(0, 7)} />
+          <BranchBadge branchName={data?.branch} commitId={lastCommit?.id?.slice(0, 7)} />
           <CommitsInfo commits={buildData?.branch?.commits} />
         </React.Fragment>
       ) : data?.buildType === 'PR' ? (

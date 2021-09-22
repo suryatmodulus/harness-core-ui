@@ -31,7 +31,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
 
   let type: Type
 
-  switch (data.buildType as 'branch' | 'tag' | 'PR') {
+  switch (data?.buildType as 'branch' | 'tag' | 'PR') {
     case 'branch':
       type = Type.Branch
       break

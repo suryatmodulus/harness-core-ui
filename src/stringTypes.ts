@@ -331,6 +331,7 @@ export interface StringsMap {
   'common.plans.title': string
   'common.plusNumber': string
   'common.plusNumberNoSpace': string
+  'common.policies': string
   'common.policy.evaluations': string
   'common.policy.newPolicy': string
   'common.policy.noPolicy': string

@@ -507,6 +507,7 @@ accountSettings: Account Settings
 governance: Governance
 myProfile: My Profile
 accountResources: Account Resources
+policies: 'Policies'
 policy:
   policysets: Policy Sets
   newPolicy: New Policy

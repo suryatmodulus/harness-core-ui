@@ -17,12 +17,12 @@ import dashboards from '@dashboards/strings/strings.en.yaml'
 import projectsOrgs from '@projects-orgs/strings/strings.en.yaml'
 import pipeline from '@pipeline/strings/strings.en.yaml'
 import templatesLibrary from '@templates-library/strings/strings.en.yaml'
+import policy from '@policy/strings/strings.en.yaml'
 import cd from '@cd/strings/strings.en.yaml'
 import ce from '@ce/strings/strings.en.yaml'
 import cf from '@cf/strings/strings.en.yaml'
 import ci from '@ci/strings/strings.en.yaml'
 import cv from '@cv/strings/strings.en.yaml'
-import policies from '@policies/strings/strings.en.yaml'
 
 export default function languageLoader() {
   return {
@@ -40,11 +40,11 @@ export default function languageLoader() {
     projectsOrgs,
     pipeline,
     templatesLibrary,
+    policy,
     cd,
     ce,
     cf,
     ci,
-    cv,
-    policies
+    cv
   }
 }

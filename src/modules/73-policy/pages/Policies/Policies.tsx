@@ -31,7 +31,7 @@ export interface PoliciesDTO {
 const Policies: React.FC = () => {
   const { accountId } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
-  useDocumentTitle(getString('common.policy.policies'))
+  useDocumentTitle(getString('common.policies'))
   const [page, setPage] = useState(0)
   const [searchTerm, setsearchTerm] = useState<string>('')
   const {

@@ -15,17 +15,17 @@ const PolicyControlPage: React.FC = ({ children }) => {
     <>
       <Page.Header
         breadcrumbs={<NGBreadcrumbs />}
-        title={getString('common.policy.policies')}
+        title={getString('governance')}
         toolbar={
           <TabNavigation
             size={'small'}
             links={[
               {
-                label: getString('common.policy.overview'),
+                label: getString('overview'),
                 to: routes.toServiceAccounts({ accountId, orgIdentifier, projectIdentifier, module })
               },
               {
-                label: getString('common.policy.policies'),
+                label: getString('common.policies'),
                 to: routes.toPolicyListPage({ accountId })
               },
               {

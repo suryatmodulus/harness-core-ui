@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.73% </span>
+                <span class="strong">92.98% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>51/55</span>
+                <span class='fraction'>53/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.72% </span>
+                <span class="strong">72% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>71/99</span>
+                <span class='fraction'>72/100</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.73% </span>
+                <span class="strong">92.98% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>51/55</span>
+                <span class='fraction'>53/57</span>
             </div>
         
             
@@ -289,7 +289,9 @@
 <a name='L230'></a><a href='#L230'>230</a>
 <a name='L231'></a><a href='#L231'>231</a>
 <a name='L232'></a><a href='#L232'>232</a>
-<a name='L233'></a><a href='#L233'>233</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -303,6 +305,7 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -408,6 +411,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -538,6 +542,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import PipelineSummaryCards from '@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards'
 import PipelineBuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/PipelineBuildExecutionsChart'
+import useTabVisible from '@common/hooks/useTabVisible'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
 import { PipelineDeploymentListHeader } from './PipelineDeploymentListHeader/PipelineDeploymentListHeader'
@@ -642,6 +647,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   })
   const pipelineExecutionSummary = data?.data || {}
   const filters = <span class="branch-1 cbranch-no" title="branch not covered" >filterData?.data<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.content </span>|| []
+  const visible = useTabVisible()
   /* #region Polling logic */
   //  - At any moment of time, only one polling is done
   //  - Only do polling on first page
@@ -649,7 +655,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   //  - When polling call (API) is being processed, wait until it's done then re-schedule
   React.useEffect(() =&gt; {
     const timeoutId = window.setTimeout(() =&gt; {
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (page === 1 &amp;&amp; !loading) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (page === 1 &amp;&amp; !loading &amp;&amp; visible) {
         setPollingRequest(true)
         fetchExecutions()<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>hen(
           () =&gt; setPollingRequest(false),
@@ -662,7 +668,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       window.clearTimeout(timeoutId)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, loading])
+  }, [page, loading, visible])
 &nbsp;
   const clearFilters = <span class="fstat-no" title="function not covered" >(): void =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >    replaceQueryParams({})</span>
@@ -760,7 +766,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 22 2021 08:16:19 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 22 2021 10:37:43 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

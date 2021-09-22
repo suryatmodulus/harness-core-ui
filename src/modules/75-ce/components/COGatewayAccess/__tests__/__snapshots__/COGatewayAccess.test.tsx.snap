@@ -333,27 +333,6 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
                                         colspan="1"
                                         role="columnheader"
                                         style="width: 16.5%;"
-                                      >
-                                        REDIRECT URL
-                                      </th>
-                                      <th
-                                        colspan="1"
-                                        role="columnheader"
-                                        style="width: 16.5%;"
-                                      >
-                                        SERVER NAME
-                                      </th>
-                                      <th
-                                        colspan="1"
-                                        role="columnheader"
-                                        style="width: 16.5%;"
-                                      >
-                                        PATH MATCH
-                                      </th>
-                                      <th
-                                        colspan="1"
-                                        role="columnheader"
-                                        style="width: 16.5%;"
                                       />
                                     </tr>
                                   </thead>
@@ -534,57 +513,6 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
                                               class="bp3-input"
                                               type="text"
                                               value="80"
-                                            />
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td
-                                        role="cell"
-                                      >
-                                        <div
-                                          class="TextInput--main"
-                                        >
-                                          <div
-                                            class="bp3-input-group"
-                                          >
-                                            <input
-                                              class="bp3-input"
-                                              type="text"
-                                              value=""
-                                            />
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td
-                                        role="cell"
-                                      >
-                                        <div
-                                          class="TextInput--main"
-                                        >
-                                          <div
-                                            class="bp3-input-group"
-                                          >
-                                            <input
-                                              class="bp3-input"
-                                              type="text"
-                                              value=""
-                                            />
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td
-                                        role="cell"
-                                      >
-                                        <div
-                                          class="TextInput--main"
-                                        >
-                                          <div
-                                            class="bp3-input-group"
-                                          >
-                                            <input
-                                              class="bp3-input"
-                                              type="text"
-                                              value=""
                                             />
                                           </div>
                                         </div>
@@ -787,57 +715,6 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
                                               class="bp3-input"
                                               type="text"
                                               value="443"
-                                            />
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td
-                                        role="cell"
-                                      >
-                                        <div
-                                          class="TextInput--main"
-                                        >
-                                          <div
-                                            class="bp3-input-group"
-                                          >
-                                            <input
-                                              class="bp3-input"
-                                              type="text"
-                                              value=""
-                                            />
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td
-                                        role="cell"
-                                      >
-                                        <div
-                                          class="TextInput--main"
-                                        >
-                                          <div
-                                            class="bp3-input-group"
-                                          >
-                                            <input
-                                              class="bp3-input"
-                                              type="text"
-                                              value=""
-                                            />
-                                          </div>
-                                        </div>
-                                      </td>
-                                      <td
-                                        role="cell"
-                                      >
-                                        <div
-                                          class="TextInput--main"
-                                        >
-                                          <div
-                                            class="bp3-input-group"
-                                          >
-                                            <input
-                                              class="bp3-input"
-                                              type="text"
-                                              value=""
                                             />
                                           </div>
                                         </div>

@@ -100,12 +100,7 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
     <PageSpinner />
   ) : (
     <Layout.Vertical height={'inherit'} margin="small">
-      <Text
-        font="medium"
-        margin={{ top: 'small' }}
-        color={Color.BLACK}
-        tooltipProps={{ dataTooltipId: 'NexusConnectorDetailsTooltip' }}
-      >
+      <Text font="medium" color={Color.BLACK} tooltipProps={{ dataTooltipId: 'NexusConnectorDetailsTooltip' }}>
         {getString('details')}
       </Text>
       <Formik

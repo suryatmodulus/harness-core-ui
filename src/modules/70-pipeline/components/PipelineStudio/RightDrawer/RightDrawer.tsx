@@ -85,7 +85,7 @@ export const updateStepWithinStage = (
       })
     } else if (stepWithinStage.step?.identifier === processingNodeIdentifier) {
       // Else simply find the matching step ad update the node
-      stepWithinStage.step = processedNode as StepElementConfig
+      stepWithinStage.step = processedNode
     }
   })
   if (execution?.rollbackSteps) {
@@ -471,7 +471,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       className={cx(css.main, css.almostFullScreen, css.fullScreen, { [css.showRighDrawer]: isFullScreenDrawer })}
       {...restDrawerProps}
       // {...(type === DrawerTypes.FlowControl ? { style: { right: 60, top: 64 }, hasBackdrop: false } : {})}
-      isCloseButtonShown={title ? true : undefined}
+      isCloseButtonShown={false}
       // BUG: https://github.com/palantir/blueprint/issues/4519
       // you must pass only a single classname, not even an empty string, hence passing a dummy class
       // "classnames" package cannot be used here because it returns an empty string when no classes are applied

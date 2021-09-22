@@ -1,0 +1,33 @@
+.monitoredServiceCategory {
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--spacing-xsmall) !important;
+  height: 25px;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  .categoryName {
+    font-size: var(--font-size-xsmall) !important;
+    text-transform: uppercase;
+    font-weight: bolder !important;
+    letter-spacing: 2px !important;
+  }
+
+  &.application {
+    background: #effbff !important;
+    border: 1px solid #cdf4fe;
+
+    .categoryName {
+      color: var(--primary-8) !important;
+    }
+  }
+
+  &.infrastructure {
+    background: var(--purple-50) !important;
+    border: 1px solid var(--purple-100);
+
+    .categoryName {
+      color: var(--purple-500) !important;
+    }
+  }
+}

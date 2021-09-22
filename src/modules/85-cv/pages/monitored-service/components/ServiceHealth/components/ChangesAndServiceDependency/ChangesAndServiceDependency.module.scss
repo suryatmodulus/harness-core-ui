@@ -1,0 +1,35 @@
+.changesTable {
+  flex: 4;
+  margin-right: var(--spacing-medium) !important;
+  align-self: flex-start;
+}
+
+.serviceDependency {
+  flex: 3;
+  align-self: flex-start;
+}
+
+.cardContainer {
+  align-self: flex-start;
+  overflow-y: scroll;
+  min-height: 500px;
+}
+
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 170px;
+  padding-top: 40% !important;
+}
+
+.noData > div:first-child {
+  height: unset !important;
+  > div {
+    margin-top: 0 !important;
+  }
+}
+
+.noDataContainer {
+  height: 500px;
+}

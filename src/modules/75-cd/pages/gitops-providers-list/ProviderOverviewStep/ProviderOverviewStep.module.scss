@@ -1,6 +1,4 @@
 .stepContainer {
-  padding: 10px !important;
-
   .heading {
     color: var(--grey-800);
     font-size: var(--font-size-medium);
@@ -9,9 +7,7 @@
 
   .connectorForm {
     min-height: 440px;
-    .formElm {
-      width: 54%;
-    }
+
     .infoGroup {
       display: flex;
       align-items: center;
@@ -31,4 +27,60 @@
       }
     }
   }
+}
+
+.mainContainer {
+  overflow: auto;
+
+  .contentContainer {
+    display: flex;
+    gap: 30px;
+    overflow: hidden;
+  }
+
+  .formContainer {
+    width: 50%;
+    padding-right: 30px;
+    border-right: 1px solid #ddd;
+    overflow: auto;
+
+    .formElm {
+      max-width: 332px;
+
+      textarea {
+        max-height: 80px;
+      }
+    }
+  }
+  .aboutHarnessAdapterContainer {
+    width: 50%;
+  }
+
+  .aboutHarnessAdapterQuestion {
+    font-size: 12px;
+    font-weight: 500 !important;
+    color: var(--grey-600);
+  }
+
+  .aboutHarnessAdapterAnswer {
+    font-weight: 400;
+    color: var(--grey-700);
+    font-size: 11px;
+  }
+
+  .aboutHarnessAdapterIllustration {
+    margin: var(--layout-spacing) 0;
+    height: 120px;
+  }
+
+  .aboutHarnessAdapterUrl {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.adapterUrl {
+  color: var(--grey-600);
+  font-size: var(--form-input-font-size);
+  font-weight: 500;
 }

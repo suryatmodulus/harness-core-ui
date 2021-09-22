@@ -81,6 +81,11 @@ exports[`Switch Account render 1`] = `
       </span>
     </button>
   </div>
+  <p
+    class="StyledProps--font StyledProps--main StyledProps--intent-warning StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-small"
+  >
+    common.noteAccountSwitch
+  </p>
   <div
     class="StyledProps--font StyledProps--main container StyledProps--padding-left-large StyledProps--padding-right-large"
   >

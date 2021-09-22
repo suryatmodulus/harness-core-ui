@@ -35,7 +35,7 @@ const createChangeSourceCardData = (
     count,
     id: categoryType,
     label: labelByCategory(categoryType, getString),
-    percentage: isNaN(categoryPercentage) ? 0 : categoryPercentage
+    percentage: isNaN(categoryPercentage) ? 0 : categoryPercentage === Infinity ? 100 : categoryPercentage
   }
 }
 

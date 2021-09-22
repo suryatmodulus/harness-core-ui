@@ -30,7 +30,6 @@ import {
   EnvironmentYaml,
   getEnvironmentListPromise,
   PipelineInfrastructure,
-  useCreateEnvironmentV2,
   useGetEnvironmentAccessList,
   useGetEnvironmentList,
   useUpsertEnvironmentV2
@@ -84,12 +83,6 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
     accountId: string
   }>()
 
-  const { loading: createLoading, mutate: createEnvironment } = useCreateEnvironmentV2({
-    queryParams: {
-      accountIdentifier: accountId
-    }
-  })
-
   const { loading: updateLoading, mutate: updateEnvironment } = useUpsertEnvironmentV2({
     queryParams: {
       accountIdentifier: accountId
@@ -112,7 +105,7 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
             onCreateOrUpdate(values)
           }
         } else {
-          const response = await createEnvironment({ ...values, orgIdentifier, projectIdentifier })
+          const response = await updateEnvironment({ ...values, orgIdentifier, projectIdentifier })
           if (response.status === 'SUCCESS') {
             clear()
             showSuccess(getString('cd.environmentCreated'))
@@ -140,7 +133,7 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
     }
   ]
 
-  if (createLoading || updateLoading) {
+  if (updateLoading) {
     return <PageSpinner />
   }
   return (

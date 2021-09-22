@@ -1,3 +1,263 @@
+import type { MonitoredServiceForm } from '../../Service/Service.types'
+
+export const monitoredServiceList = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 3,
+    pageItemCount: 3,
+    pageSize: 10,
+    content: [
+      {
+        createdAt: 1631728213634,
+        lastModifiedAt: 1631773309201,
+        monitoredService: {
+          orgIdentifier: 'the_monopoly',
+          projectIdentifier: 'conglomerate',
+          identifier: 'delegate_production',
+          name: 'delegate_production',
+          type: 'Infrastructure',
+          description: '',
+          serviceRef: 'delegate',
+          environmentRef: 'production',
+          tags: {},
+          sources: {
+            healthSources: [],
+            changeSources: [
+              {
+                name: 'asd',
+                identifier: 'asd',
+                type: 'K8sCluster',
+                enabled: false,
+                spec: { connectorRef: 'kube' },
+                category: 'Infrastructure'
+              }
+            ]
+          },
+          dependencies: []
+        }
+      },
+      {
+        createdAt: 1631731888732,
+        lastModifiedAt: 1631731888732,
+        monitoredService: {
+          orgIdentifier: 'the_monopoly',
+          projectIdentifier: 'conglomerate',
+          identifier: 'manager_production',
+          name: 'manager_production',
+          type: 'Application',
+          description: '',
+          serviceRef: 'manager',
+          environmentRef: 'production',
+          tags: {},
+          sources: {
+            healthSources: [],
+            changeSources: [
+              {
+                name: 'Harness CD',
+                identifier: 'harness_cd',
+                type: 'HarnessCD',
+                enabled: true,
+                spec: {},
+                category: 'Deployment'
+              }
+            ]
+          },
+          dependencies: []
+        }
+      },
+      {
+        createdAt: 1631728798205,
+        lastModifiedAt: 1632176646039,
+        monitoredService: {
+          orgIdentifier: 'the_monopoly',
+          projectIdentifier: 'conglomerate',
+          identifier: 'todolist_production',
+          name: 'todolist_production',
+          type: 'Application',
+          description: '',
+          serviceRef: 'todolist',
+          environmentRef: 'production',
+          tags: {},
+          sources: {
+            healthSources: [],
+            changeSources: [
+              {
+                name: 'Harness CD',
+                identifier: 'harness_cd',
+                type: 'HarnessCD',
+                enabled: true,
+                spec: {},
+                category: 'Deployment'
+              }
+            ]
+          },
+          dependencies: [
+            {
+              monitoredServiceIdentifier: 'delegate_production',
+              dependencyMetadata: {
+                namespace: 'le-ng-harness',
+                workload: 'sampleledelegate-kmpysm',
+                type: 'KUBERNETES',
+                supportedChangeSourceTypes: ['K8sCluster']
+              }
+            },
+            { monitoredServiceIdentifier: 'manager_production', dependencyMetadata: null }
+          ]
+        }
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  },
+  metaData: null,
+  correlationId: 'f4f7d62c-18ec-40cd-8350-c4c4fb82cea7'
+}
+
+export const filteredMonitoredList = {
+  correlationId: 'f4f7d62c-18ec-40cd-8350-c4c4fb82cea7',
+  data: {
+    content: [
+      {
+        createdAt: 1631728213634,
+        lastModifiedAt: 1631773309201,
+        monitoredService: {
+          dependencies: [],
+          description: '',
+          environmentRef: 'production',
+          identifier: 'delegate_production',
+          name: 'delegate_production',
+          orgIdentifier: 'the_monopoly',
+          projectIdentifier: 'conglomerate',
+          serviceRef: 'delegate',
+          sources: {
+            changeSources: [
+              {
+                category: 'Infrastructure',
+                enabled: false,
+                identifier: 'asd',
+                name: 'asd',
+                spec: {
+                  connectorRef: 'kube'
+                },
+                type: 'K8sCluster'
+              }
+            ],
+            healthSources: []
+          },
+          tags: {},
+          type: 'Infrastructure'
+        }
+      },
+      {
+        createdAt: 1631731888732,
+        lastModifiedAt: 1631731888732,
+        monitoredService: {
+          dependencies: [],
+          description: '',
+          environmentRef: 'production',
+          identifier: 'manager_production',
+          name: 'manager_production',
+          orgIdentifier: 'the_monopoly',
+          projectIdentifier: 'conglomerate',
+          serviceRef: 'manager',
+          sources: {
+            changeSources: [
+              {
+                category: 'Deployment',
+                enabled: true,
+                identifier: 'harness_cd',
+                name: 'Harness CD',
+                spec: {},
+                type: 'HarnessCD'
+              }
+            ],
+            healthSources: []
+          },
+          tags: {},
+          type: 'Application'
+        }
+      },
+      {
+        createdAt: 1631728798205,
+        lastModifiedAt: 1632176646039,
+        monitoredService: {
+          dependencies: [
+            {
+              dependencyMetadata: {
+                namespace: 'le-ng-harness',
+                supportedChangeSourceTypes: ['K8sCluster'],
+                type: 'KUBERNETES',
+                workload: 'sampleledelegate-kmpysm'
+              },
+              monitoredServiceIdentifier: 'delegate_production'
+            },
+            {
+              dependencyMetadata: null,
+              monitoredServiceIdentifier: 'manager_production'
+            }
+          ],
+          description: '',
+          environmentRef: 'production',
+          identifier: 'todolist_production',
+          name: 'todolist_production',
+          orgIdentifier: 'the_monopoly',
+          projectIdentifier: 'conglomerate',
+          serviceRef: 'todolist',
+          sources: {
+            changeSources: [
+              {
+                category: 'Deployment',
+                enabled: true,
+                identifier: 'harness_cd',
+                name: 'Harness CD',
+                spec: {},
+                type: 'HarnessCD'
+              }
+            ],
+            healthSources: []
+          },
+          tags: {},
+          type: 'Application'
+        }
+      }
+    ],
+    empty: false,
+    pageIndex: 0,
+    pageItemCount: 3,
+    pageSize: 10,
+    totalItems: 3,
+    totalPages: 1
+  },
+  metaData: null,
+  status: 'SUCCESS'
+}
+
+export const monitoredServiceForm: MonitoredServiceForm = {
+  isEdit: false,
+  identifier: 'manager_production',
+  name: 'manager_production',
+  type: 'Application',
+  description: '',
+  serviceRef: 'manager',
+  environmentRef: 'production',
+  tags: {},
+  sources: {
+    healthSources: [],
+    changeSources: [
+      {
+        name: 'Harness CD',
+        identifier: 'harness_cd',
+        type: 'HarnessCD',
+        enabled: true,
+        spec: {},
+        category: 'Deployment'
+      }
+    ]
+  },
+  dependencies: []
+}
+
 export const monitoredService = {
   isEdit: true,
   orgIdentifier: 'default',
@@ -51,84 +311,4 @@ export const monitoredService = {
       monitoredServiceIdentifier: 'service2'
     }
   ]
-}
-
-export const monitoredServiceList = {
-  data: {
-    content: [
-      {
-        identifier: 'monitoresService1',
-        serviceRef: 'service1',
-        serviceName: 'Service 1'
-      },
-      {
-        identifier: 'monitoresService2',
-        serviceRef: 'service2',
-        serviceName: 'Service 2'
-      },
-      {
-        identifier: 'monitoresService3',
-        serviceRef: 'service3',
-        serviceName: 'Service 3'
-      }
-    ]
-  }
-}
-
-export const updatedPayload = {
-  dependencies: [
-    {
-      monitoredServiceIdentifier: 'service1'
-    },
-    {
-      monitoredServiceIdentifier: 'service2'
-    }
-  ],
-  description: 'Monitored Service with change source and health source',
-  environmentRef: 'EnvironmentRef102',
-  identifier: 'monitoredservice101',
-  isEdit: true,
-  name: 'Monitored Service 101',
-  orgIdentifier: 'default',
-  projectIdentifier: 'Demo',
-  serviceRef: 'ServiceRef102',
-  sources: {
-    changeSources: [
-      {
-        category: 'Alert',
-        desc: 'Alert from PagerDuty',
-        enabled: true,
-        identifier: 'pagerduty',
-        name: 'PagerDuty 101',
-        spec: {
-          connectorRef: 'PagerDutyConnector',
-          pagerDutyServiceId: 'pagerDutyServiceId101'
-        },
-        type: 'PagerDuty'
-      }
-    ],
-    healthSources: [
-      {
-        identifier: 'splunk102',
-        name: 'Splunk 102',
-        spec: {
-          connectorRef: 'Splunk_Conn',
-          feature: 'Cloud Logs',
-          queries: [
-            {
-              name: 'SPLUNK Logs Query',
-              query: 'error OR failed OR severe OR ( sourcetype=access_* ( 404 OR 500 OR 503 ) )',
-              serviceInstanceIdentifier: '_sourcetype'
-            }
-          ]
-        },
-        type: 'Splunk'
-      }
-    ]
-  },
-  tags: {
-    tag1: '',
-    tag2: ''
-  },
-  type: 'Application'
 }

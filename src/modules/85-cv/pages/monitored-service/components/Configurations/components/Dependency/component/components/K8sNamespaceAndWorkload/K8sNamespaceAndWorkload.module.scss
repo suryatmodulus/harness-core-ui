@@ -1,0 +1,33 @@
+.main {
+  height: 0 !important;
+  opacity: 0;
+  transition: height 0.3s, opacity 0.3s ease-out;
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--grey-200);
+  }
+
+  .infoContainer {
+    display: flex;
+    align-items: baseline;
+    margin: var(--spacing-small) 0 !important;
+
+    > .selectContainer {
+      width: 50% !important;
+
+      &:first-of-type {
+        margin-right: var(--spacing-medium) !important;
+      }
+
+      .errorMsg {
+        margin-top: var(--spacing-xsmall) !important;
+      }
+    }
+  }
+}
+
+.main.expand {
+  height: 50px !important;
+  opacity: 1;
+}

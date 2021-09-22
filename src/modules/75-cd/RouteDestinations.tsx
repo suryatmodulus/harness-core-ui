@@ -462,7 +462,7 @@ export default (
         ...accountPathProps,
         ...projectPathProps,
         ...delegatePathProps,
-        ...connectorPathProps
+        ...pipelineModuleParams
       })}
     >
       <DelegateDetails />
@@ -471,12 +471,20 @@ export default (
       exact
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
-      path={routes.toDelegateConfigsDetails({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...delegateConfigProps,
-        ...pipelineModuleParams
-      })}
+      path={[
+        routes.toDelegateConfigsDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...delegateConfigProps,
+          ...pipelineModuleParams
+        }),
+        routes.toEditDelegateConfigsDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...delegateConfigProps,
+          ...pipelineModuleParams
+        })
+      ]}
     >
       <DelegateProfileDetails />
     </RouteWithLayout>

@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
+import { isEmpty as _isEmpty, omit as _omit } from 'lodash-es'
 import { Icon, Select, Table, TextInput } from '@wings-software/uicore'
-import type { CellProps } from 'react-table'
+import type { CellProps, Column } from 'react-table'
 import { debounce as _debounce } from 'lodash-es'
 import type { PortConfig } from 'services/lw'
 import type { InstanceDetails } from '../COCreateGateway/models'
@@ -38,13 +39,16 @@ interface CORoutingTableProps {
   setRoutingRecords: (records: PortConfig[]) => void
 }
 const CORoutingTable: React.FC<CORoutingTableProps> = props => {
+  const [redirectionConfigRows, setRedirectionConfigRows] = useState<Record<string, boolean>>({})
+
   const debouncedInputHandler = React.useCallback(
     _debounce((value: string, tableProps: CellProps<InstanceDetails>) => {
       updatePortConfig(tableProps.row.index, tableProps.column.id, value)
     }, 500),
     [props.routingRecords]
   )
-  function updatePortConfig(index: number, column: string, val: string) {
+
+  const updatePortConfig = (index: number, column: string, val: string) => {
     const portConfig = [...props.routingRecords]
     switch (column) {
       case 'protocol': {
@@ -82,16 +86,18 @@ const CORoutingTable: React.FC<CORoutingTableProps> = props => {
     }
     props.setRoutingRecords(portConfig)
   }
-  function deletePortConfig(index: number) {
+
+  const deletePortConfig = (index: number) => {
     const portConfig = [...props.routingRecords]
     portConfig.splice(index, 1)
     props.setRoutingRecords(portConfig)
   }
 
-  function getItembyValue(items: SelectItem[], value: string): SelectItem {
+  const getItembyValue = (items: SelectItem[], value: string): SelectItem => {
     return items.filter(x => x.value == value)[0]
   }
-  function InputCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
+
+  const InputCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
     return (
       <TextInput
         defaultValue={tableProps.value}
@@ -100,7 +106,8 @@ const CORoutingTable: React.FC<CORoutingTableProps> = props => {
       />
     )
   }
-  function ProtocolCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
+
+  const ProtocolCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
     return (
       <Select
         className={css.selectCell}
@@ -112,7 +119,8 @@ const CORoutingTable: React.FC<CORoutingTableProps> = props => {
       />
     )
   }
-  function ActionCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
+
+  const ActionCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
     return (
       <Select
         className={css.selectCell}
@@ -120,11 +128,17 @@ const CORoutingTable: React.FC<CORoutingTableProps> = props => {
         items={actions}
         onChange={e => {
           updatePortConfig(tableProps.row.index, tableProps.column.id, e.value.toString())
+          if (e.value === 'redirect') {
+            setRedirectionConfigRows(prevRecord => ({ ...prevRecord, [tableProps.row.index]: true }))
+          } else if (redirectionConfigRows[tableProps.row.index]) {
+            setRedirectionConfigRows(prevRecord => _omit(prevRecord, tableProps.row.index))
+          }
         }}
       />
     )
   }
-  function PathCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
+
+  const PathCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
     return (
       <TextInput
         defaultValue={tableProps.value.length ? tableProps.value[0].path_match : ''}
@@ -133,9 +147,113 @@ const CORoutingTable: React.FC<CORoutingTableProps> = props => {
       />
     )
   }
-  function DeleteCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
+
+  const DeleteCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
     return <Icon name="trash" onClick={() => deletePortConfig(tableProps.row.index)}></Icon>
   }
+
+  const columns: Array<Column<PortConfig>> = useMemo(() => {
+    return !_isEmpty(redirectionConfigRows)
+      ? [
+          {
+            accessor: 'protocol',
+            Header: 'LISTEN PROTOCOL',
+            width: '16.5%',
+            Cell: ProtocolCell
+          },
+          {
+            accessor: 'port',
+            Header: 'LISTEN PORT',
+            width: '16.5%',
+            Cell: InputCell,
+            disableSortBy: true
+          },
+          {
+            accessor: 'action',
+            Header: 'ACTION',
+            width: '16.5%',
+            Cell: ActionCell
+          },
+          {
+            accessor: 'target_protocol',
+            Header: 'TARGET PROTOCOL',
+            width: '16.5%',
+            Cell: ProtocolCell
+          },
+          {
+            accessor: 'target_port',
+            Header: 'TARGET PORT',
+            width: '16.5%',
+            Cell: InputCell
+          },
+          {
+            accessor: 'redirect_url',
+            Header: 'REDIRECT URL',
+            width: '16.5%',
+            Cell: InputCell
+          },
+          {
+            accessor: 'server_name',
+            Header: 'SERVER NAME',
+            width: '16.5%',
+            Cell: InputCell
+          },
+          {
+            accessor: 'routing_rules',
+            Header: 'PATH MATCH',
+            width: '16.5%',
+            Cell: PathCell
+          },
+          {
+            Header: '',
+            id: 'menu',
+            accessor: (row: PortConfig) => row.port,
+            width: '16.5%',
+            Cell: DeleteCell
+          }
+        ]
+      : [
+          {
+            accessor: 'protocol',
+            Header: 'LISTEN PROTOCOL',
+            width: '16.5%',
+            Cell: ProtocolCell
+          },
+          {
+            accessor: 'port',
+            Header: 'LISTEN PORT',
+            width: '16.5%',
+            Cell: InputCell,
+            disableSortBy: true
+          },
+          {
+            accessor: 'action',
+            Header: 'ACTION',
+            width: '16.5%',
+            Cell: ActionCell
+          },
+          {
+            accessor: 'target_protocol',
+            Header: 'TARGET PROTOCOL',
+            width: '16.5%',
+            Cell: ProtocolCell
+          },
+          {
+            accessor: 'target_port',
+            Header: 'TARGET PORT',
+            width: '16.5%',
+            Cell: InputCell
+          },
+          {
+            Header: '',
+            id: 'menu',
+            accessor: (row: PortConfig) => row.port,
+            width: '16.5%',
+            Cell: DeleteCell
+          }
+        ]
+  }, [redirectionConfigRows, props.routingRecords])
+
   // const fields: Field[] = [
   //   {
   //     name: 'protocol',
@@ -258,69 +376,7 @@ const CORoutingTable: React.FC<CORoutingTableProps> = props => {
   // }, [props.routingRecords])
   // console.log(routingData)
   return (
-    <Table<PortConfig>
-      data={props.routingRecords}
-      className={css.routingTable}
-      bpTableProps={{}}
-      columns={[
-        {
-          accessor: 'protocol',
-          Header: 'LISTEN PROTOCOL',
-          width: '16.5%',
-          Cell: ProtocolCell
-        },
-        {
-          accessor: 'port',
-          Header: 'LISTEN PORT',
-          width: '16.5%',
-          Cell: InputCell,
-          disableSortBy: true
-        },
-        {
-          accessor: 'action',
-          Header: 'ACTION',
-          width: '16.5%',
-          Cell: ActionCell
-        },
-        {
-          accessor: 'target_protocol',
-          Header: 'TARGET PROTOCOL',
-          width: '16.5%',
-          Cell: ProtocolCell
-        },
-        {
-          accessor: 'target_port',
-          Header: 'TARGET PORT',
-          width: '16.5%',
-          Cell: InputCell
-        },
-        {
-          accessor: 'redirect_url',
-          Header: 'REDIRECT URL',
-          width: '16.5%',
-          Cell: InputCell
-        },
-        {
-          accessor: 'server_name',
-          Header: 'SERVER NAME',
-          width: '16.5%',
-          Cell: InputCell
-        },
-        {
-          accessor: 'routing_rules',
-          Header: 'PATH MATCH',
-          width: '16.5%',
-          Cell: PathCell
-        },
-        {
-          Header: '',
-          id: 'menu',
-          accessor: row => row.port,
-          width: '16.5%',
-          Cell: DeleteCell
-        }
-      ]}
-    />
+    <Table<PortConfig> data={props.routingRecords} className={css.routingTable} bpTableProps={{}} columns={columns} />
     // <Formik
     //   key={Math.random()}
     //   initialValues={{ routingRecords: routingData }}

@@ -15,6 +15,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import PipelineSummaryCards from '@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards'
 import PipelineBuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/PipelineBuildExecutionsChart'
+import useTabVisible from '@common/hooks/useTabVisible'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
 import { PipelineDeploymentListHeader } from './PipelineDeploymentListHeader/PipelineDeploymentListHeader'
@@ -119,6 +120,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   })
   const pipelineExecutionSummary = data?.data || {}
   const filters = filterData?.data?.content || []
+  const visible = useTabVisible()
   /* #region Polling logic */
   //  - At any moment of time, only one polling is done
   //  - Only do polling on first page
@@ -126,7 +128,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   //  - When polling call (API) is being processed, wait until it's done then re-schedule
   React.useEffect(() => {
     const timeoutId = window.setTimeout(() => {
-      if (page === 1 && !loading) {
+      if (page === 1 && !loading && visible) {
         setPollingRequest(true)
         fetchExecutions()?.then(
           () => setPollingRequest(false),
@@ -139,7 +141,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       window.clearTimeout(timeoutId)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, loading])
+  }, [page, loading, visible])
 
   const clearFilters = (): void => {
     replaceQueryParams({})

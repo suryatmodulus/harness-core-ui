@@ -1,34 +1,100 @@
 import React from 'react'
-import { render, waitFor, act, fireEvent } from '@testing-library/react'
+import type { UseGetReturn } from 'restful-react'
+import { render, waitFor, fireEvent } from '@testing-library/react'
+import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { DependencyMetaData } from '@cv/pages/monitored-service/components/Configurations/components/Dependency/component/SelectServiceCard.types'
 import SelectServiceCard from '../SelectServiceCard'
 
-const data = {
+const applicationData: cvService.MonitoredServiceDTO = {
   serviceRef: 'service101',
-  serviceName: 'Service 101'
+  type: 'Application',
+  orgIdentifier: '1234_orgIdentifier',
+  projectIdentifier: '1234_projectIdentifier',
+  dependencies: [],
+  name: 'monitoredService1',
+  environmentRef: '1234_env',
+  identifier: '1234_identifier',
+  tags: {}
 }
-const onChange = jest.fn()
+
+const infrastructureData: cvService.MonitoredServiceDTO = {
+  serviceRef: 'service102',
+  type: 'Infrastructure',
+  orgIdentifier: '1234_orgIdentifier',
+  projectIdentifier: '1234_projectIdentifier',
+  dependencies: [
+    {
+      monitoredServiceIdentifier: '12356_identifier'
+    }
+  ],
+  name: 'monitoredService1',
+  environmentRef: '1234_env',
+  identifier: '1234_identifier',
+  tags: {}
+}
 
 describe('SelectServiceCard', () => {
-  test('should render', async () => {
-    const { container, getByRole } = render(
-      <TestWrapper>
-        <SelectServiceCard data={data} onChange={onChange} isChecked />
-      </TestWrapper>
-    )
-    act(() => {
-      fireEvent.click(getByRole('checkbox'))
-    })
-    await waitFor(() => expect(onChange).toHaveBeenCalled())
-    expect(container).toMatchSnapshot()
-  })
-  test('should retain checked status', async () => {
+  test('should render application service card', async () => {
+    const onChange = jest.fn()
     const { container } = render(
       <TestWrapper>
-        <SelectServiceCard data={data} onChange={onChange} isChecked />
+        <SelectServiceCard
+          monitoredService={applicationData}
+          onChange={onChange}
+          dependencyMetaData={infrastructureData.dependencies![0] as DependencyMetaData}
+        />
       </TestWrapper>
     )
-    await waitFor(() => expect(container.querySelector('input[type="checkbox"]')).toBeChecked())
-    expect(container).toMatchSnapshot()
+
+    await waitFor(() => expect(container.querySelector('[class*="application"]')).not.toBeNull())
+    fireEvent.click(container.querySelector('input[type="checkbox"]')!)
+    await waitFor(() => expect(onChange).toHaveBeenCalledWith(false, { monitoredServiceIdentifier: '1234_identifier' }))
+  })
+
+  test('should render infrastructure service card', async () => {
+    const onChange = jest.fn()
+    jest
+      .spyOn(cvService, 'useGetNamespaces')
+      .mockReturnValue({ data: { data: { content: ['namespace1', 'namespace2'] } } } as UseGetReturn<
+        any,
+        any,
+        any,
+        any
+      >)
+
+    jest
+      .spyOn(cvService, 'useGetWorkloads')
+      .mockReturnValue({ data: { data: { content: ['workload1', 'workload2'] } } } as UseGetReturn<any, any, any, any>)
+
+    const { container, getByText } = render(
+      <TestWrapper>
+        <SelectServiceCard
+          monitoredService={infrastructureData}
+          onChange={onChange}
+          dependencyMetaData={infrastructureData.dependencies![0] as DependencyMetaData}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="infrastructure"]')).not.toBeNull())
+    fireEvent.click(container.querySelector('input[type="checkbox"]')!)
+    await waitFor(() => expect(container.querySelectorAll('[class*="selectContainer"]').length).toBe(2))
+
+    const carets = container.querySelectorAll('[data-icon="chevron-down"]')
+    fireEvent.click(carets[0])
+    await waitFor(() => container.querySelector('[class*="menuItem"]'))
+    fireEvent.click(getByText('namespace1'))
+    await waitFor(() => expect(container.querySelector('input[name="workload"][disabled]')).toBeNull())
+
+    fireEvent.click(carets[1])
+    await waitFor(() => container.querySelector('[class*="menuItem"]'))
+    fireEvent.click(getByText('workload1'))
+    await waitFor(() =>
+      expect(onChange).toHaveBeenLastCalledWith(true, {
+        dependencyMetadata: { namespace: 'namespace1', type: 'KUBERNETES', workload: 'workload1' },
+        monitoredServiceIdentifier: '1234_identifier'
+      })
+    )
   })
 })

@@ -108,6 +108,7 @@ export const RightBar = (): JSX.Element => {
         drawerData: { type }
       }
     },
+    isReadonly,
     view,
     updatePipeline,
     updatePipelineView
@@ -514,7 +515,7 @@ export const RightBar = (): JSX.Element => {
                       error={errors?.connectorRef}
                       label={getString('connector')}
                       placeholder={loading ? getString('loading') : getString('connectors.selectConnector')}
-                      disabled={loading}
+                      disabled={loading || isReadonly}
                       accountIdentifier={accountId}
                       projectIdentifier={projectIdentifier}
                       orgIdentifier={orgIdentifier}
@@ -545,6 +546,7 @@ export const RightBar = (): JSX.Element => {
                           label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                           name="repoName"
                           style={{ flexGrow: 1 }}
+                          disabled={isReadonly}
                         />
                         {connectorUrl.length > 0 ? (
                           <div className={css.predefinedValue}>
@@ -578,6 +580,7 @@ export const RightBar = (): JSX.Element => {
                                   {getString('pipeline.depth')}
                                 </Text>
                               }
+                              disabled={isReadonly}
                             />
                             <FormInput.Select
                               name="sslVerify"
@@ -591,6 +594,7 @@ export const RightBar = (): JSX.Element => {
                                 </Text>
                               }
                               items={sslVerifyOptions}
+                              disabled={isReadonly}
                             />
                             <MultiTypeSelectField
                               name="prCloneStrategy"
@@ -602,6 +606,7 @@ export const RightBar = (): JSX.Element => {
                               multiTypeInputProps={{
                                 selectItems: prCloneStrategyOptions,
                                 placeholder: 'Select',
+                                disabled: isReadonly,
                                 multiTypeInputProps: {
                                   selectProps: { addClearBtn: true, items: prCloneStrategyOptions },
                                   allowableTypes: [MultiTypeInputType.FIXED]
@@ -623,6 +628,7 @@ export const RightBar = (): JSX.Element => {
                                 }
                                 placeholder={getString('pipelineSteps.limitMemoryPlaceholder')}
                                 style={{ flex: 1 }}
+                                disabled={isReadonly}
                               />
                               <FormInput.Text
                                 name="cpuLimit"
@@ -631,6 +637,7 @@ export const RightBar = (): JSX.Element => {
                                 }
                                 placeholder={getString('pipelineSteps.limitCPUPlaceholder')}
                                 style={{ flex: 1 }}
+                                disabled={isReadonly}
                               />
                             </Layout.Horizontal>
                           </div>
@@ -640,8 +647,13 @@ export const RightBar = (): JSX.Element => {
                   </FormikForm>
                 </div>
                 <div className={Classes.DIALOG_FOOTER}>
-                  <Button variation={ButtonVariation.PRIMARY} text={getString('save')} onClick={submitForm} /> &nbsp;
-                  &nbsp;
+                  <Button
+                    variation={ButtonVariation.PRIMARY}
+                    text={getString('save')}
+                    onClick={submitForm}
+                    disabled={isReadonly}
+                  />{' '}
+                  &nbsp; &nbsp;
                   <Button
                     variation={ButtonVariation.TERTIARY}
                     text={getString('cancel')}

@@ -23,9 +23,9 @@ export const getCIPipelineStages: (
     <PipelineStages {...args}>
       {stagesCollection.getStage(StageType.BUILD, isCIEnabled, getString)}
       {stagesCollection.getStage(StageType.DEPLOY, isCDEnabled, getString)}
+      {stagesCollection.getStage(StageType.APPROVAL, isApprovalStageEnabled, getString)}
       {stagesCollection.getStage(StageType.FEATURE, isCFEnabled, getString)}
       {stagesCollection.getStage(StageType.PIPELINE, false, getString)}
-      {stagesCollection.getStage(StageType.APPROVAL, isApprovalStageEnabled, getString)}
       {stagesCollection.getStage(StageType.CUSTOM, false, getString)}
     </PipelineStages>
   )

@@ -27,13 +27,13 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] 
                 data-item="google_1"
                 data-status="Running"
               >
-                google_1
+                Google1
               </div>
               <div
                 data-item="google_2"
                 data-status="Running"
               >
-                google_2
+                Google2
               </div>
             </div>
             <div
@@ -77,7 +77,9 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] 
                 >
                   <div
                     class="stageName"
-                  />
+                  >
+                    Google1
+                  </div>
                   <div
                     class="main"
                   />
@@ -290,13 +292,13 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                 data-item="google_1"
                 data-status="Running"
               >
-                google_1
+                Google1
               </div>
               <div
                 data-item="google_2"
                 data-status="Running"
               >
-                google_2
+                Google2
               </div>
             </div>
             <div
@@ -340,7 +342,9 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                 >
                   <div
                     class="stageName"
-                  />
+                  >
+                    Google1
+                  </div>
                   <div
                     class="main"
                   />

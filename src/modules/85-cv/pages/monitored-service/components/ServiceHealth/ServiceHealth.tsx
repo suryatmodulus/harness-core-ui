@@ -21,6 +21,7 @@ import MetricsAndLogs from './components/MetricsAndLogs/MetricsAndLogs'
 import HealthScoreCard from './components/HealthScoreCard/HealthScoreCard'
 import AnomaliesCard from './components/AnomaliesCard/AnomaliesCard'
 import ChangesSourceCard from './components/ChangesSourceCard/ChangesSourceCard'
+import ChangesAndServiceDependency from './components/ChangesAndServiceDependency/ChangesAndServiceDependency'
 import css from './ServiceHealth.module.scss'
 
 export default function ServiceHealth({
@@ -95,6 +96,11 @@ export default function ServiceHealth({
     timeRange
   ])
 
+  const changesTableAndSourceCardStartAndEndtime = useMemo(
+    () => calculateStartAndEndTimes(0, 1, timestamps) || [],
+    [timestamps]
+  )
+
   return (
     <>
       <Container className={css.serviceHealthHeader}>
@@ -109,13 +115,15 @@ export default function ServiceHealth({
       <Container className={css.serviceHealthCard}>
         <Card>
           <>
-            {serviceIdentifier && environmentIdentifier && (
-              <ChangesSourceCard
-                duration={selectedTimePeriod.value as TimePeriodEnum}
-                startTime={timeRange?.startTime as number}
-                endTime={timeRange?.endTime as number}
-              />
-            )}
+            {serviceIdentifier &&
+              environmentIdentifier &&
+              changesTableAndSourceCardStartAndEndtime[0] &&
+              changesTableAndSourceCardStartAndEndtime[1] && (
+                <ChangesSourceCard
+                  startTime={changesTableAndSourceCardStartAndEndtime[0]}
+                  endTime={changesTableAndSourceCardStartAndEndtime[1]}
+                />
+              )}
             <Container onClick={() => setShowTimelineSlider(true)} className={css.main} ref={containerRef}>
               <HealthScoreChart
                 duration={selectedTimePeriod.value as TimePeriodEnum}
@@ -141,6 +149,14 @@ export default function ServiceHealth({
             </Container>
           </>
         </Card>
+        <ChangesAndServiceDependency
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+          startTime={
+            showTimelineSlider ? (timeRange?.startTime as number) : changesTableAndSourceCardStartAndEndtime[0]
+          }
+          endTime={showTimelineSlider ? (timeRange?.endTime as number) : changesTableAndSourceCardStartAndEndtime[1]}
+        />
         <MetricsAndLogs
           serviceIdentifier={serviceIdentifier}
           environmentIdentifier={environmentIdentifier}

@@ -70,7 +70,6 @@ $actions-translate: 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        transform: translateX($actions-translate);
         column-gap: var(--spacing-5);
       }
 
@@ -186,6 +185,7 @@ $actions-translate: 10px;
     .header {
       .actions {
         width: $timer-width + $actions-translate;
+        transform: translateX($actions-translate);
       }
     }
     .footer {
@@ -197,6 +197,16 @@ $actions-translate: 10px;
           min-width: 150px;
         }
       }
+    }
+  }
+
+  &[data-variant='Minimal'] {
+    .content {
+      padding: var(--spacing-5) var(--spacing-6) var(--spacing-4) var(--spacing-6);
+    }
+
+    .footer {
+      padding: 0 var(--spacing-6);
     }
   }
 }

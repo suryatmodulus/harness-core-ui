@@ -353,11 +353,16 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
           <img
             src="test-file-stub"
           />
-          <p
-            class="StyledProps--font StyledProps--main title"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="overview_REPOSITORY"
           >
-            repositories
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main title"
+            >
+              repositories
+            </p>
+          </div>
           <div
             class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
           >
@@ -507,11 +512,16 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
           <img
             src="test-file-stub"
           />
-          <p
-            class="StyledProps--font StyledProps--main title"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="overview_FAILED_BUILD"
           >
-            pipeline.dashboards.failedBuilds
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main title"
+            >
+              pipeline.dashboards.failedBuilds
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small"
           >
@@ -880,11 +890,16 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
               </g>
             </svg>
           </span>
-          <p
-            class="StyledProps--font StyledProps--main title"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="overview_ACTIVE_BUILD"
           >
-            pipeline.dashboards.activeBuilds
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main title"
+            >
+              pipeline.dashboards.activeBuilds
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small"
           >

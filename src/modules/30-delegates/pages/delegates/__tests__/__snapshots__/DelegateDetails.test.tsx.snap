@@ -146,56 +146,6 @@ exports[`Delegates Details Page render data 1`] = `
         <div
           class="StyledProps--font StyledProps--main cardContainer"
         />
-        <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
-          style="box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16); border-radius: 4px; width: 398px; height: 150px;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main StyledProps--flex"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-              style="font-weight: 600;"
-            >
-              delegate.delegateSizeLower
-            </p>
-            <span
-              style="flex-grow: 1;"
-            />
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="background: rgb(207, 180, 255); border-radius: 10px; color: rgb(77, 11, 143); text-align: center; padding: 3px 34px; font-weight: 600;"
-            />
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main StyledProps--flex"
-          >
-            <div
-              class="Layout--horizontal StyledProps--main"
-              style="flex-grow: 1; flex-basis: 0px; justify-content: space-around;"
-            >
-              <p
-                class="StyledProps--font StyledProps--main delegateMachineSpec"
-              >
-                delegate.delegateMEM
-                 
-                <span>
-                  NaN
-                  <span>
-                    GB
-                  </span>
-                </span>
-              </p>
-              <p
-                class="StyledProps--font StyledProps--main delegateMachineSpec"
-              >
-                delegate.delegateCPU
-                 
-                <span />
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

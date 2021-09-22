@@ -134,7 +134,7 @@ describe('<ExecutionGraphView /> tests', () => {
   })
 
   test('stage selection works', async () => {
-    const { findByText, getByTestId } = render(
+    const { getByTestId } = render(
       <TestWrapper>
         <ExecutionContext.Provider value={contextValue()}>
           <ExecutionGraphView />
@@ -143,9 +143,9 @@ describe('<ExecutionGraphView /> tests', () => {
       </TestWrapper>
     )
 
-    const stage = await findByText('google_1')
+    const stage = await document.querySelector('[data-item="google_1"]')
 
-    fireEvent.click(stage)
+    fireEvent.click(stage!)
 
     expect(getByTestId('location')).toMatchInlineSnapshot(`
       <div

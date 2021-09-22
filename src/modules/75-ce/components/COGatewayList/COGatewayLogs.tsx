@@ -2,13 +2,14 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Service, ServiceLog, useLogsOfService } from 'services/lw'
 import { SimpleLogViewer } from '@common/components/LogViewer/SimpleLogViewer'
+import css from './COGatewayList.module.scss'
 
 interface COGatewayLogsProps {
   service: Service | undefined
 }
 
 const logColorMap = {
-  errored: '\u001b[31m', // red
+  errored: '\u001b[31;1m', // red
   active: '\u001b[32m' // green
 }
 
@@ -51,7 +52,7 @@ const COGatewayLogs: React.FC<COGatewayLogsProps> = props => {
     }
   })
 
-  return <SimpleLogViewer data={getLogs(data?.response)} loading={loading} />
+  return <SimpleLogViewer className={css.gatewayLogView} data={getLogs(data?.response)} loading={loading} />
 }
 
 export default COGatewayLogs

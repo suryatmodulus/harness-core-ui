@@ -20,7 +20,7 @@ export default function RedirectPage(): JSX.Element {
       return
     }
 
-    window.location.href = getLoginPageURL(false)
+    window.location.href = getLoginPageURL({})
   }, [returnUrl])
 
   return <div>Redirecting...</div>

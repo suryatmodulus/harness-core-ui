@@ -15,30 +15,6 @@ jest.mock('services/cd-ng', () => ({
   useGetServiceAccessList: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: inputSetServiceData, refetch: jest.fn() })),
-  useCreateServicesV2: jest.fn().mockImplementation(() => ({
-    cancel: jest.fn(),
-    loading: false,
-    mutate: jest.fn().mockImplementation(obj => {
-      serviceData.data.content.push({
-        service: {
-          accountId: 'AQ8xhfNCRtGIUjq5bSM8Fg',
-          identifier: obj[0].identifier,
-          orgIdentifier: 'default',
-          projectIdentifier: 'asdsaff',
-          name: obj[0].name,
-          description: null,
-          deleted: false,
-          tags: {},
-          version: 9
-        },
-        createdAt: null,
-        lastModifiedAt: null
-      })
-      return {
-        status: 'SUCCESS'
-      }
-    })
-  })),
   useUpsertServiceV2: jest.fn().mockImplementation(() => ({
     cancel: jest.fn(),
     loading: false,
@@ -77,7 +53,7 @@ describe('Test DeployService Step', () => {
     const { container } = render(
       <DeployService
         type={StepType.DeployService}
-        initialValues={{ serviceRef: 'New_Service' }}
+        initialValues={{ serviceRef: 'login4' }}
         stepViewType={StepViewType.Edit}
       />
     )
@@ -95,7 +71,7 @@ describe('Test DeployService Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "serviceRef: New_Service
+      "serviceRef: login4
       "
     `)
   })

@@ -15,9 +15,9 @@ entitiesByRepositories: 'Entities By repositories'
 seeMore: 'See more'
 seeLess: 'See less'
 connectToGitProvider: How do you want to connect to the Git Provider?
-connectThroughManagerLabel: Connect Through Manager
+connectThroughManagerLabel: Connect Through Platform
 connectThroughDelegateLabel: Connect Through Delegate
-connectThroughManager: Communication with the Git provider will be made through the Harness manager which will reduce the response time.
+connectThroughManager: Communication with the Git provider will be made through the Harness platform which will reduce the response time.
 connectThroughDelegate: Communication with the Git provider will be made through the delegate. This provides enhanced security but will result in slower response time.
 learnMore: Learn More about these settings
 configureHarnessFolder: Configure Harness Folder

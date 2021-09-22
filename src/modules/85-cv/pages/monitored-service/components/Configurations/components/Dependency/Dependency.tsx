@@ -1,9 +1,8 @@
-import { Layout, Text, Color, Container, Pagination, Formik, FormInput } from '@wings-software/uicore'
-import React, { useState, useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
+import { Layout, Text, Color, Container, Pagination } from '@wings-software/uicore'
+import { isEqual } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import * as Yup from 'yup'
-import { noop } from 'lodash-es'
-import { useListMonitoredService } from 'services/cv'
+import { useGetMonitoredServiceList } from 'services/cv'
 import { PageSpinner, useToaster } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -13,17 +12,19 @@ import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { MonitoredServiceForm } from '../Service/Service.types'
 import SelectServiceCard from './component/SelectServiceCard'
-import { onServiceChange } from './Dependency.utils'
-import { isUpdated } from '../../Configurations.utils'
+import type { DependencyMetaData } from './component/SelectServiceCard.types'
+import {
+  updateMonitoredServiceWithDependencies,
+  filterCurrentMonitoredServiceFromList,
+  initializeDependencyMap
+} from './Dependency.utils'
 import css from './Dependency.module.scss'
 
 export default function Dependency({
   value,
   onSuccess,
   cachedInitialValues,
-  setDBData,
-  onDiscard,
-  dependencyTabformRef
+  onDiscard
 }: {
   value: MonitoredServiceForm
   onSuccess: (val: any) => Promise<void>
@@ -33,140 +34,116 @@ export default function Dependency({
   dependencyTabformRef?: any
 }): JSX.Element {
   const { getString } = useStrings()
-  const [page, setPage] = useState(0)
   const { showSuccess } = useToaster()
+  const [dependencyMap, setDependencyMap] = useState<Map<string, DependencyMetaData>>(new Map())
+  const [isDirty, setIsDirty] = useState(false)
   const { accountId, identifier, orgIdentifier, projectIdentifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
+  const [queryParams, setQueryParams] = useState({
+    offset: 0,
+    pageSize: 10,
+    projectIdentifier,
+    orgIdentifier,
+    accountId,
+    environmentIdentifier: identifier ? value?.environmentRef : cachedInitialValues?.environmentRef || ''
+  })
 
   const {
-    data: monitoredServiceList,
+    data,
     loading: loadingGetMonitoredService,
     error: errorGetMonitoredService,
     refetch
-  } = useListMonitoredService({
-    queryParams: {
-      offset: page,
-      pageSize: 10,
-      orgIdentifier,
-      projectIdentifier,
-      accountId,
-      environmentIdentifier: identifier ? value?.environmentRef : cachedInitialValues?.environmentRef || ''
-    },
-    debounce: 400
+  } = useGetMonitoredServiceList({
+    queryParams,
+    resolve: response => filterCurrentMonitoredServiceFromList(response, value.identifier)
   })
 
-  const filteredMonitoredServiceList = useMemo(
-    () => monitoredServiceList?.data?.content?.filter(item => item.identifier !== value.identifier) || [],
-    [loadingGetMonitoredService]
-  )
-
-  const { pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = monitoredServiceList?.data ?? ({} as any)
-
-  if (loadingGetMonitoredService) {
-    return <PageSpinner />
-  }
+  const initalDependencies = useMemo(() => {
+    const dependencies = initializeDependencyMap(value?.dependencies)
+    setDependencyMap(dependencies)
+    return dependencies
+  }, [value?.dependencies])
 
   if (errorGetMonitoredService) {
     return <PageError message={getErrorMessage(errorGetMonitoredService)} onClick={() => refetch()} />
   }
 
+  const {
+    pageIndex = -1,
+    pageSize = 0,
+    totalPages = 1,
+    totalItems = 0,
+    content: monitoredServiceList = []
+  } = data?.data || {}
+
   return (
-    <div>
-      <Formik<MonitoredServiceForm>
-        formName={'dependencyTab'}
-        initialValues={cachedInitialValues || value}
-        enableReinitialize
-        validationSchema={Yup.object().shape({
-          dependencies: Yup.array()
-        })}
-        onSubmit={noop}
-      >
-        {formik => {
-          dependencyTabformRef.current = formik
-          if (formik.dirty) {
-            setDBData?.(formik.values)
-          }
-          return (
-            <FormInput.CustomRender
-              name={'dependencies'}
-              render={() => {
-                return (
-                  <div>
-                    <Container className={css.saveDiscardBlock}>
-                      <SaveAndDiscardButton
-                        isUpdated={isUpdated(formik.dirty, value, cachedInitialValues)}
-                        onSave={async () => {
-                          await onSuccess(formik?.values)
-                          showSuccess(
-                            getString(
-                              identifier
-                                ? 'cv.monitoredServices.monitoredServiceUpdated'
-                                : 'cv.monitoredServices.monitoredServiceCreated'
-                            )
-                          )
-                        }}
-                        onDiscard={() => {
-                          formik.resetForm()
-                          onDiscard?.()
-                        }}
-                      />
-                    </Container>
-                    <Layout.Horizontal>
-                      <div className={css.leftSection}>
-                        <Container margin={{ left: 'medium', right: 'medium' }}>
-                          <Text
-                            margin={{ bottom: 'large' }}
-                            color={Color.BLACK}
-                            font={{ size: 'medium', weight: 'semi-bold' }}
-                          >
-                            {getString('cv.Dependency.serviceList')}
-                          </Text>
-                          <Text
-                            margin={{ bottom: 'medium' }}
-                            color={Color.BLACK}
-                            font={{ size: 'small', weight: 'semi-bold' }}
-                          >
-                            {getString('total')} {filteredMonitoredServiceList.length}
-                          </Text>
-                        </Container>
-                        {!filteredMonitoredServiceList.length ? (
-                          <NoDataCard icon={'join-table'} message={getString('cv.monitoredServices.noData')} />
-                        ) : (
-                          filteredMonitoredServiceList.map(service => (
-                            <SelectServiceCard
-                              key={service.serviceRef}
-                              data={service}
-                              isChecked={
-                                !!formik.values.dependencies
-                                  ?.map(item => item.monitoredServiceIdentifier || '')
-                                  .find(item => item === service.serviceRef)
-                              }
-                              onChange={data => onServiceChange(data, formik)}
-                            />
-                          ))
-                        )}
-                        <Container>
-                          <Pagination
-                            pageSize={pageSize}
-                            pageIndex={pageIndex}
-                            pageCount={totalPages}
-                            itemCount={totalItems - 1}
-                            gotoPage={pageNumber => setPage(pageNumber)}
-                          />
-                        </Container>
-                      </div>
-                      <div className={css.rightSection}>
-                        <NoDataCard message={getString('cv.Dependency.noData')} icon="warning-sign" />
-                      </div>
-                    </Layout.Horizontal>
-                  </div>
-                )
-              }}
-            />
+    <Container>
+      {loadingGetMonitoredService && <PageSpinner />}
+      <SaveAndDiscardButton
+        className={css.saveDiscardBlock}
+        isUpdated={isDirty}
+        onSave={async () => {
+          await onSuccess(updateMonitoredServiceWithDependencies(Array.from(dependencyMap.values()), value))
+          showSuccess(
+            getString(
+              identifier
+                ? 'cv.monitoredServices.monitoredServiceUpdated'
+                : 'cv.monitoredServices.monitoredServiceCreated'
+            )
           )
         }}
-      </Formik>
-    </div>
+        onDiscard={() => {
+          setDependencyMap(initalDependencies)
+          setIsDirty(false)
+          onDiscard?.()
+        }}
+      />
+      <Layout.Horizontal>
+        <Container className={css.leftSection}>
+          <Container margin={{ left: 'medium', right: 'medium' }}>
+            <Text margin={{ bottom: 'large' }} color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
+              {getString('cv.Dependency.serviceList')}
+            </Text>
+            <Text margin={{ bottom: 'medium' }} color={Color.BLACK} font={{ size: 'small', weight: 'semi-bold' }}>
+              {getString('total')} {monitoredServiceList.length}
+            </Text>
+          </Container>
+          {!monitoredServiceList.length ? (
+            <NoDataCard icon="join-table" message={getString('cv.monitoredServices.noData')} />
+          ) : (
+            monitoredServiceList.map(service => (
+              <SelectServiceCard
+                key={service.monitoredService.identifier}
+                monitoredService={service.monitoredService}
+                dependencyMetaData={dependencyMap.get(service.monitoredService.identifier)}
+                onChange={(isChecked, dependencyMetaData) =>
+                  setDependencyMap(oldMap => {
+                    const newMap = new Map(oldMap)
+                    if (isChecked && dependencyMetaData) {
+                      newMap.set(service.monitoredService.identifier, dependencyMetaData)
+                    } else {
+                      newMap.delete(service.monitoredService.identifier)
+                    }
+                    setIsDirty(!isEqual(initalDependencies, newMap))
+                    return newMap
+                  })
+                }
+              />
+            ))
+          )}
+          <Pagination
+            pageSize={pageSize}
+            pageIndex={pageIndex}
+            pageCount={totalPages}
+            itemCount={totalItems - 1}
+            gotoPage={pageNumber => setQueryParams(prevParams => ({ ...prevParams, offset: pageNumber }))}
+          />
+        </Container>
+        <Container className={css.rightSection}>
+          <NoDataCard message={getString('cv.Dependency.noData')} icon="warning-sign" />
+        </Container>
+      </Layout.Horizontal>
+    </Container>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { StringKeys } from 'framework/strings'
 import type { RiskData } from 'services/cv'
@@ -56,6 +56,14 @@ jest.mock('services/cv', () => ({
   useGetChangeSummary: jest.fn().mockImplementation(() => {
     return {
       data: { resource: { ...changeSummaryWithPositiveChange } },
+      refetch: jest.fn(),
+      error: null,
+      loading: false
+    }
+  }),
+  useChangeEventList: jest.fn().mockImplementation(() => {
+    return {
+      data: {},
       refetch: jest.fn(),
       error: null,
       loading: false
@@ -137,11 +145,18 @@ describe('Unit tests for ServiceHealth', () => {
     expect(getSliderDimensions(containerWidth)).toEqual(expectedDimensions)
   })
 
-  test('Verify ChangesSourceCard loads', () => {
+  test('Verify ChangesSourceCard loads', async () => {
     const props = { serviceIdentifier: 'service-identifier', environmentIdentifier: 'env-identifier' }
     const { container } = render(<WrapperComponent {...props} />)
-    container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach((item, index) => {
-      expect(item.textContent).toEqual(expectedPositiveTextContent[index])
+    await waitFor(() => expect(container.querySelectorAll('.tickerValue[data-test="tickerValue"]').length).toEqual(4))
+    container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach(async (item, index) => {
+      await (() => expect(item.textContent).toEqual(expectedPositiveTextContent[index]))
     })
+  })
+
+  test('Verify ChangesSourceCard does not loads', async () => {
+    const props = { serviceIdentifier: '', environmentIdentifier: '' }
+    const { container } = render(<WrapperComponent {...props} />)
+    await waitFor(() => expect(container.querySelectorAll('.tickerValue[data-test="tickerValue"]').length).toEqual(0))
   })
 })

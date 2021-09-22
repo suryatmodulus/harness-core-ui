@@ -1,0 +1,49 @@
+{
+  "pipeline": {
+    "identifier": "asdasd",
+    "properties": {
+      "ci": {
+        "codebase": {
+          "build": {
+            "type": "branch",
+            "spec": {
+              "branch": "master"
+            }
+          }
+        }
+      }
+    },
+    "stages": [
+      {
+        "stage": {
+          "identifier": "GitClone",
+          "type": "CI",
+          "variables": [
+            {
+              "name": "stagevar1",
+              "type": "String",
+              "value": "<+input>"
+            },
+            {
+              "name": "stagevar2",
+              "type": "String",
+              "value": "v2_test"
+            }
+          ]
+        }
+      }
+    ],
+    "variables": [
+      {
+        "name": "Namespace",
+        "type": "String",
+        "value": "D2"
+      },
+      {
+        "name": "Groups",
+        "type": "String",
+        "value": "http"
+      }
+    ]
+  }
+}

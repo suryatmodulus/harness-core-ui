@@ -41,15 +41,18 @@
     display: flex;
     align-items: center;
     font-size: var(--font-size-small);
-    column-gap: var(--spacing-small);
 
     & :global(.bp3-control) {
-      margin: 0;
+      margin: 0 -4px 0 8px;
       transform: translateY(1px);
     }
 
     & :global(.bp3-control.bp3-switch input:checked ~ .bp3-control-indicator) {
       background-color: var(--primary-7);
+    }
+
+    & :global(.bp3-popover-target) {
+      margin-top: var(--spacing-2) !important;
     }
   }
 }

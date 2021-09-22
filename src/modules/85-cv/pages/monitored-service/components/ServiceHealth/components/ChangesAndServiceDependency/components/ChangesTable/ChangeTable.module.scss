@@ -1,0 +1,28 @@
+.changeSoureName {
+  padding-right: var(--spacing-medium) !important;
+  overflow-x: hidden;
+  white-space: nowrap !important;
+  text-overflow: ellipsis;
+}
+
+.loading,
+.noData,
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 170px;
+  padding-top: 25% !important;
+}
+
+.noData > div:first-child {
+  height: unset !important;
+  > div {
+    margin-top: 0 !important;
+  }
+}
+
+.cardContainer {
+  height: 500px;
+  overflow-y: scroll;
+}

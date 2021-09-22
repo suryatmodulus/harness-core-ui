@@ -27,7 +27,6 @@ import {
   ServiceRequestDTO,
   ServiceResponseDTO,
   ServiceYaml,
-  useCreateServicesV2,
   useGetServiceAccessList,
   useGetServiceList,
   useUpsertServiceV2
@@ -80,12 +79,6 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
     accountId: string
   }>()
 
-  const { loading: createLoading, mutate: createService } = useCreateServicesV2({
-    queryParams: {
-      accountIdentifier: accountId
-    }
-  })
-
   const { loading: updateLoading, mutate: updateService } = useUpsertServiceV2({
     queryParams: {
       accountIdentifier: accountId
@@ -112,7 +105,11 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
             onCreateOrUpdate(values)
           }
         } else {
-          const response = await createService([{ ...values, orgIdentifier, projectIdentifier }])
+          const response = await updateService({
+            ...omit(values, 'accountId', 'deleted'),
+            orgIdentifier,
+            projectIdentifier
+          })
           if (response.status === 'SUCCESS') {
             clear()
             showSuccess(getString('cd.serviceCreated'))
@@ -127,7 +124,7 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
     [onCreateOrUpdate, orgIdentifier, projectIdentifier, isEdit, isService]
   )
 
-  if (createLoading || updateLoading) {
+  if (updateLoading) {
     return <PageSpinner />
   }
 

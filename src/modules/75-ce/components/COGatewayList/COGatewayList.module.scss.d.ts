@@ -13,5 +13,6 @@ declare const styles: {
   readonly fulFilmentIcon: string
   readonly refreshIconContainer: string
   readonly analyticsSubHeader: string
+  readonly gatewayLogView: string
 }
 export default styles

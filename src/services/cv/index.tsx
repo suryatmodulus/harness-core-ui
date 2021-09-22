@@ -490,13 +490,17 @@ export interface CategoryRisksDTO {
 
 export interface ChangeEventDTO {
   accountId: string
-  changeEventMetaData: ChangeEventMetadata
+  category?: 'Deployment' | 'Infrastructure' | 'Alert'
   changeSourceIdentifier?: string
   envIdentifier: string
+  environmentName?: string
   eventTime?: number
+  metadata: ChangeEventMetadata
+  name?: string
   orgIdentifier: string
   projectIdentifier: string
   serviceIdentifier: string
+  serviceName?: string
   type?: 'HarnessCD' | 'PagerDuty' | 'K8sCluster'
 }
 
@@ -520,6 +524,12 @@ export interface ChangeSourceSpec {
 export interface ChangeSummaryDTO {
   categoryCountMap?: {
     [key: string]: CategoryCountDetails
+  }
+}
+
+export interface ChangeTimeline {
+  categoryTimeline?: {
+    [key: string]: TimeRangeDetail[]
   }
 }
 
@@ -2339,6 +2349,16 @@ export interface PageCVNGLogDTO {
   totalPages?: number
 }
 
+export interface PageChangeEventDTO {
+  content?: ChangeEventDTO[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
 export interface PageLogAnalysisClusterDTO {
   content?: LogAnalysisClusterDTO[]
   empty?: boolean
@@ -3111,6 +3131,14 @@ export interface RestResponseChangeSummaryDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseChangeTimeline {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ChangeTimeline
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseDSConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3480,6 +3508,14 @@ export interface RestResponsePageAnalyzedLogDataDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponsePageChangeEventDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PageChangeEventDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponsePageLogAnalysisClusterDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3765,6 +3801,12 @@ export interface Throwable {
 }
 
 export interface TimeRange {
+  endTime?: number
+  startTime?: number
+}
+
+export interface TimeRangeDetail {
+  count?: number
   endTime?: number
   startTime?: number
 }
@@ -4068,6 +4110,171 @@ export type MonitoredServiceDTORequestBody = MonitoredServiceDTO
 export type ServiceGuardTimeSeriesAnalysisDTORequestBody = ServiceGuardTimeSeriesAnalysisDTO
 
 export type VerificationJobDTORequestBody = VerificationJobDTO
+
+export interface ChangeEventListQueryParams {
+  serviceIdentifiers: string[]
+  envIdentifiers: string[]
+  startTime: number
+  endTime: number
+  changeCategories?: ('Deployment' | 'Infrastructure' | 'Alert')[]
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+}
+
+export interface ChangeEventListPathParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ChangeEventListProps = Omit<
+  GetProps<RestResponsePageChangeEventDTO, unknown, ChangeEventListQueryParams, ChangeEventListPathParams>,
+  'path'
+> &
+  ChangeEventListPathParams
+
+/**
+ * get ChangeEvent List
+ */
+export const ChangeEventList = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  ...props
+}: ChangeEventListProps) => (
+  <Get<RestResponsePageChangeEventDTO, unknown, ChangeEventListQueryParams, ChangeEventListPathParams>
+    path={`/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseChangeEventListProps = Omit<
+  UseGetProps<RestResponsePageChangeEventDTO, unknown, ChangeEventListQueryParams, ChangeEventListPathParams>,
+  'path'
+> &
+  ChangeEventListPathParams
+
+/**
+ * get ChangeEvent List
+ */
+export const useChangeEventList = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  ...props
+}: UseChangeEventListProps) =>
+  useGet<RestResponsePageChangeEventDTO, unknown, ChangeEventListQueryParams, ChangeEventListPathParams>(
+    (paramsInPath: ChangeEventListPathParams) =>
+      `/account/${paramsInPath.accountIdentifier}/org/${paramsInPath.orgIdentifier}/project/${paramsInPath.projectIdentifier}/change-event`,
+    { base: getConfig('cv/api'), pathParams: { accountIdentifier, orgIdentifier, projectIdentifier }, ...props }
+  )
+
+/**
+ * get ChangeEvent List
+ */
+export const changeEventListPromise = (
+  {
+    accountIdentifier,
+    orgIdentifier,
+    projectIdentifier,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponsePageChangeEventDTO,
+    unknown,
+    ChangeEventListQueryParams,
+    ChangeEventListPathParams
+  > & { accountIdentifier: string; orgIdentifier: string; projectIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageChangeEventDTO, unknown, ChangeEventListQueryParams, ChangeEventListPathParams>(
+    getConfig('cv/api'),
+    `/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event`,
+    props,
+    signal
+  )
+
+export interface ChangeEventTimelineQueryParams {
+  serviceIdentifiers: string[]
+  envIdentifiers: string[]
+  startTime: number
+  endTime: number
+  pointCount?: number
+}
+
+export interface ChangeEventTimelinePathParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ChangeEventTimelineProps = Omit<
+  GetProps<RestResponseChangeTimeline, unknown, ChangeEventTimelineQueryParams, ChangeEventTimelinePathParams>,
+  'path'
+> &
+  ChangeEventTimelinePathParams
+
+/**
+ * get ChangeEvent timeline
+ */
+export const ChangeEventTimeline = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  ...props
+}: ChangeEventTimelineProps) => (
+  <Get<RestResponseChangeTimeline, unknown, ChangeEventTimelineQueryParams, ChangeEventTimelinePathParams>
+    path={`/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/timeline`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseChangeEventTimelineProps = Omit<
+  UseGetProps<RestResponseChangeTimeline, unknown, ChangeEventTimelineQueryParams, ChangeEventTimelinePathParams>,
+  'path'
+> &
+  ChangeEventTimelinePathParams
+
+/**
+ * get ChangeEvent timeline
+ */
+export const useChangeEventTimeline = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  ...props
+}: UseChangeEventTimelineProps) =>
+  useGet<RestResponseChangeTimeline, unknown, ChangeEventTimelineQueryParams, ChangeEventTimelinePathParams>(
+    (paramsInPath: ChangeEventTimelinePathParams) =>
+      `/account/${paramsInPath.accountIdentifier}/org/${paramsInPath.orgIdentifier}/project/${paramsInPath.projectIdentifier}/change-event/timeline`,
+    { base: getConfig('cv/api'), pathParams: { accountIdentifier, orgIdentifier, projectIdentifier }, ...props }
+  )
+
+/**
+ * get ChangeEvent timeline
+ */
+export const changeEventTimelinePromise = (
+  {
+    accountIdentifier,
+    orgIdentifier,
+    projectIdentifier,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseChangeTimeline,
+    unknown,
+    ChangeEventTimelineQueryParams,
+    ChangeEventTimelinePathParams
+  > & { accountIdentifier: string; orgIdentifier: string; projectIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseChangeTimeline, unknown, ChangeEventTimelineQueryParams, ChangeEventTimelinePathParams>(
+    getConfig('cv/api'),
+    `/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/timeline`,
+    props,
+    signal
+  )
 
 export interface GetActivitySourceQueryParams {
   accountId: string
@@ -7719,6 +7926,60 @@ export const getAllHealthSourcesForServiceAndEnvironmentPromise = (
   getUsingFetch<RestResponseListHealthSourceDTO, unknown, GetAllHealthSourcesForServiceAndEnvironmentQueryParams, void>(
     getConfig('cv/api'),
     `/monitored-service/health-sources`,
+    props,
+    signal
+  )
+
+export interface GetMonitoredServiceListQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  environmentIdentifier: string
+  offset: number
+  pageSize: number
+  filter?: string
+}
+
+export type GetMonitoredServiceListProps = Omit<
+  GetProps<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>,
+  'path'
+>
+
+/**
+ * get list of monitored service data
+ */
+export const GetMonitoredServiceList = (props: GetMonitoredServiceListProps) => (
+  <Get<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>
+    path={`/monitored-service/list`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetMonitoredServiceListProps = Omit<
+  UseGetProps<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>,
+  'path'
+>
+
+/**
+ * get list of monitored service data
+ */
+export const useGetMonitoredServiceList = (props: UseGetMonitoredServiceListProps) =>
+  useGet<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>(
+    `/monitored-service/list`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get list of monitored service data
+ */
+export const getMonitoredServiceListPromise = (
+  props: GetUsingFetchProps<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageMonitoredServiceResponse, unknown, GetMonitoredServiceListQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service/list`,
     props,
     signal
   )

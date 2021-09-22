@@ -278,12 +278,20 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toDelegateConfigsDetails({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...delegateConfigProps,
-        ...cvModuleParams
-      })}
+      path={[
+        routes.toDelegateConfigsDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...delegateConfigProps,
+          ...cvModuleParams
+        }),
+        routes.toEditDelegateConfigsDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...delegateConfigProps,
+          ...cvModuleParams
+        })
+      ]}
     >
       <DelegateProfileDetails />
     </RouteWithLayout>

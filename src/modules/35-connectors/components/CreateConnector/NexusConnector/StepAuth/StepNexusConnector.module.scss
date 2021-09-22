@@ -3,7 +3,7 @@
   .formRow {
     display: flex;
     .urlInput {
-      width: 50%;
+      width: 56%;
       margin-right: var(--spacing-small);
     }
     .versionInput {
@@ -13,7 +13,7 @@
 
   .authHeaderRow {
     display: flex;
-    width: 50%;
+    width: 56%;
     justify-content: space-between;
 
     :global {
@@ -27,7 +27,6 @@
     .authTitle {
       font-size: var(font-size-normal);
       color: var(--black-600);
-      padding-top: var(--spacing-small);
       font-weight: bold !important;
     }
     :global {
@@ -44,6 +43,6 @@
   }
 
   .formWrapper {
-    width: 50%;
+    width: 56%;
   }
 }

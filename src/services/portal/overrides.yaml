@@ -22,7 +22,7 @@ allowpaths:
   - '/ng/signup'
   - '/users/{userId}/logout'
   - '/users/refresh-token'
-  - '/users/switch-account'
+  - '/users/restricted-switch-account'
   - '/setup/delegates/delegate-tags.get'
   - '/apps'
   - '/services'

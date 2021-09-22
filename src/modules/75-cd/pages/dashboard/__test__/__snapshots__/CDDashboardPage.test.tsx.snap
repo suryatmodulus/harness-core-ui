@@ -86,11 +86,16 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
         <div
           class="StyledProps--font StyledProps--main titleAndFilter"
         >
-          <p
-            class="StyledProps--font StyledProps--main rangeSelectorHeader"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="overview_deploymentsHealth"
           >
-            Deployments Health
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main rangeSelectorHeader"
+            >
+              Deployments Health
+            </p>
+          </div>
           <div
             class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
           >
@@ -346,11 +351,16 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           class="StyledProps--font StyledProps--main header"
         >
           
-          <p
-            class="StyledProps--font StyledProps--main title"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="overview_WORKLOAD"
           >
-            services
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main title"
+            >
+              services
+            </p>
+          </div>
         </div>
         <div
           class="StyledProps--font StyledProps--main content"
@@ -518,11 +528,16 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
               />
             </svg>
           </span>
-          <p
-            class="StyledProps--font StyledProps--main title"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="overview_FAILED_DEPLOYMENT"
           >
-            pipeline.dashboards.failedDeployments
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main title"
+            >
+              pipeline.dashboards.failedDeployments
+            </p>
+          </div>
         </div>
         <div
           class="StyledProps--font StyledProps--main content contentEmpty"
@@ -576,11 +591,16 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
               />
             </svg>
           </span>
-          <p
-            class="StyledProps--font StyledProps--main title"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="overview_ACTIVE_DEPLOYMENT"
           >
-            pipeline.dashboards.activeDeployments
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main title"
+            >
+              pipeline.dashboards.activeDeployments
+            </p>
+          </div>
         </div>
         <div
           class="StyledProps--font StyledProps--main content contentEmpty"

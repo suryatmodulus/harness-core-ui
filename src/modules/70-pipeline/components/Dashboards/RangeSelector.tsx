@@ -17,6 +17,7 @@ export interface RangeSelectorProps {
 
 export interface RangeSelectorWithTitleProps extends RangeSelectorProps {
   title: React.ReactNode
+  tooltipId?: string
 }
 
 export default function RangeSelector({ defaultOption = rangeOptions[0], onRangeSelected }: RangeSelectorProps) {
@@ -46,12 +47,15 @@ export function RangeSelectorWithTitle({
   defaultOption,
   onRangeSelected,
   title,
-  titleClsName
+  titleClsName,
+  tooltipId
 }: RangeSelectorWithTitleProps) {
   const containerCls = styles.titleAndFilter
   return (
     <Container className={containerCls}>
-      <Text className={titleClsName}>{title}</Text>
+      <Text className={titleClsName} tooltipProps={{ dataTooltipId: tooltipId }}>
+        {title}
+      </Text>
       <RangeSelector defaultOption={defaultOption} onRangeSelected={onRangeSelected} />
     </Container>
   )

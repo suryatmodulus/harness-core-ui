@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Color, Container, ExpandingSearchInput, Select, Text, Icon, Pagination } from '@wings-software/uicore'
-import { isEqual } from 'lodash-es'
+import { isEqual, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -131,15 +131,17 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
   const paginationInfo = data?.resource?.pageResponse || DEFAULT_PAGINATION_VALUEE
 
   const handleHealthSourceChange = useCallback(selectedHealthSource => {
-    setQueryParams((oldQueryParams: any) => ({
-      ...oldQueryParams,
-      pageNumber: 0,
-      healthSource: selectedHealthSource
-    }))
+    setQueryParams((oldQueryParams: any) => {
+      let updatedQueryParams = { ...oldQueryParams, pageNumber: 0 }
+      updatedQueryParams = selectedHealthSource
+        ? { ...updatedQueryParams, healthSources: selectedHealthSource }
+        : omit(updatedQueryParams, 'healthSources')
+      return updatedQueryParams
+    })
     setUpdateViewInfo(oldInfo => ({ ...oldInfo, shouldUpdateView: true, showSpinner: true }))
   }, [])
 
-  const renderContent = () => {
+  const renderContent = (): JSX.Element => {
     if (loading && showSpinner) {
       return <Icon name="steps-spinner" className={css.loading} color={Color.GREY_400} size={30} />
     }

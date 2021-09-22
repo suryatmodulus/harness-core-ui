@@ -4,7 +4,6 @@ import { Connectors } from '@connectors/constants'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/strings'
 import ProviderOverviewStep from '../ProviderOverviewStep/ProviderOverviewStep'
-import ProviderDetailsStep from '../ProviderDetailsStep/ProviderDetailsStep'
 import type { BaseProviderStepProps } from '../types'
 import TestConnection from '../TestConnection/TestConnection'
 
@@ -25,7 +24,6 @@ const CreateArgoProvider: React.FC<CreateArgoProviderProps> = props => {
       className={css.stepWizard}
     >
       <ProviderOverviewStep name={getString('overview')} {...props} />
-      <ProviderDetailsStep {...props} name={getString('cd.providerDetails')} />
       <TestConnection {...props} name={getString('common.labelTestConnection')} />
     </StepWizard>
   )

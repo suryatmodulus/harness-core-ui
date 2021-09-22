@@ -1,12 +1,15 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { Container, Text, Button, ButtonVariation } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
-import AppStorage from 'framework/utils/AppStorage'
-import { useGetUser, useSetDefaultAccountForCurrentUser, RestResponseUser, useNewSwitchAccount } from 'services/portal'
+import { useParams, useHistory } from 'react-router-dom'
+import { get, defaultTo } from 'lodash-es'
+import {
+  useGetUser,
+  useSetDefaultAccountForCurrentUser,
+  RestResponseUser,
+  useRestrictedSwitchAccount
+} from 'services/portal'
 import type { User, Account } from 'services/portal'
-
 import { Table, PageSpinner } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
@@ -14,13 +17,19 @@ import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
-
+import { getLoginPageURL } from 'framework/utils/SessionUtils'
+import AppStorage from 'framework/utils/AppStorage'
 import css from './SwitchAccount.module.scss'
 
 interface SwitchAccountProps {
   hideModal: () => void
   searchString?: string
   mock?: UseGetMockData<RestResponseUser>
+}
+
+interface ReAuthenticationNoteProps {
+  accounts: Account[]
+  accountId: string
 }
 
 const RenderColumnCompanyName: Renderer<CellProps<Account>> = ({ row }) => {
@@ -33,17 +42,26 @@ const RenderColumnAccountEdition: Renderer<CellProps<Account>> = ({ row }) => {
   return <Text>{name}</Text>
 }
 
+const ReAuthenticationNote: React.FC<ReAuthenticationNoteProps> = ({ accounts, accountId }) => {
+  const { getString } = useStrings()
+  return accounts.length > 1 || (accounts[0] && accounts[0].uuid !== accountId) ? (
+    <Text intent="warning" padding={{ left: 'large', right: 'large', top: 'small' }}>
+      {getString('common.noteAccountSwitch')}
+    </Text>
+  ) : null
+}
+
 const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }) => {
   const { accountId } = useParams<AccountPathProps>()
   const [user, setUser] = useState<User>()
   const { showError } = useToaster()
-
+  const history = useHistory()
   const { getString } = useStrings()
   const { data, loading, error, refetch } = useGetUser({
     mock
   })
   const { mutate: setDefaultAccount, loading: settingDefault } = useSetDefaultAccountForCurrentUser({ accountId })
-  const { mutate: switchAccount, loading: switchAccountLoading } = useNewSwitchAccount({
+  const { mutate: switchAccount, loading: switchAccountLoading } = useRestrictedSwitchAccount({
     // requestOptions: { headers: { 'content-type': 'application/json' } }
   })
 
@@ -53,9 +71,16 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
     const handleSwitchAccount = async (): Promise<void> => {
       try {
         const response = await switchAccount({ accountId: account.uuid })
-        if (response.resource) {
-          // this needs to be a server-redirect to support cluster isolation
+        if (response.resource?.requiresReAuthentication) {
+          const baseUrl = window.location.href.split('#')[0]
+          const returnUrl = `${baseUrl}#${routes.toHome({ accountId: account.uuid })}`
+          history.push({
+            pathname: routes.toRedirect(),
+            search: `?returnUrl=${getLoginPageURL({ returnUrl })}`
+          })
+        } else if (response.resource) {
           AppStorage.set('acctId', account.uuid)
+          // this needs to be a server-redirect to support cluster isolation
           window.location.href = `${window.location.pathname}#${routes.toHome({ accountId: account.uuid })}`
         } else {
           showError(getString('common.switchAccountError'))
@@ -124,9 +149,12 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const accounts = useMemo(
     () =>
-      user?.accounts
-        ?.concat(user.supportAccounts || [])
-        ?.filter(account => account.accountName.toLowerCase().includes(searchString.toLowerCase())) || [],
+      defaultTo(
+        user?.accounts
+          ?.concat(defaultTo(user.supportAccounts, []))
+          ?.filter(account => account.accountName.toLowerCase().includes(searchString.toLowerCase())),
+        []
+      ),
     [user, searchString]
   )
 
@@ -165,15 +193,18 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
   )
 
   return (
-    <Container padding={{ left: 'large', right: 'large' }} className={css.container}>
-      {loading || settingDefault ? <PageSpinner /> : null}
-      {error ? (
-        <PageError message={error.message || getString('somethingWentWrong')} onClick={() => refetch()} />
-      ) : null}
-      {!loading && !settingDefault && !error && accounts ? (
-        <Table columns={columns} data={accounts} sortable={false} />
-      ) : null}
-    </Container>
+    <>
+      <ReAuthenticationNote accounts={accounts} accountId={accountId} />
+      <Container padding={{ left: 'large', right: 'large' }} className={css.container}>
+        {loading || settingDefault ? <PageSpinner /> : null}
+        {error ? (
+          <PageError message={error.message || getString('somethingWentWrong')} onClick={() => refetch()} />
+        ) : null}
+        {!loading && !settingDefault && !error && accounts ? (
+          <Table columns={columns} data={accounts} sortable={false} />
+        ) : null}
+      </Container>
+    </>
   )
 }
 

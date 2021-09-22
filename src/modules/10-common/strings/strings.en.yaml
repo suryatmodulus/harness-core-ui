@@ -436,6 +436,7 @@ at: at
 moreRefineSearch: '+{{number}} more (refine search)'
 switchAccount: Switch Account
 switchAccountSearch: Search by Account Name
+noteAccountSwitch: 'Note: Switching Account might require re-authentication based on the configured authentication settings.'
 accountOverview: Account Overview
 accountDetails: Account Details
 addAccountName: Add Account Name

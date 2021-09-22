@@ -207,27 +207,6 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                               colspan="1"
                               role="columnheader"
                               style="width: 16.5%;"
-                            >
-                              REDIRECT URL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              SERVER NAME
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              PATH MATCH
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
                             />
                           </tr>
                         </thead>
@@ -553,27 +532,6 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                               style="width: 16.5%;"
                             >
                               TARGET PORT
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              REDIRECT URL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              SERVER NAME
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              PATH MATCH
                             </th>
                             <th
                               colspan="1"
@@ -909,27 +867,6 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                               colspan="1"
                               role="columnheader"
                               style="width: 16.5%;"
-                            >
-                              REDIRECT URL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              SERVER NAME
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              PATH MATCH
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
                             />
                           </tr>
                         </thead>
@@ -1255,27 +1192,6 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                               style="width: 16.5%;"
                             >
                               TARGET PORT
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              REDIRECT URL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              SERVER NAME
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              PATH MATCH
                             </th>
                             <th
                               colspan="1"

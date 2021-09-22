@@ -1,3 +1,4 @@
+import type { AllNGVariables } from '@pipeline/utils/types'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { InputSetErrorResponse } from 'services/pipeline-ng'
 import { getStageFromPipeline } from '../PipelineStudio/PipelineContext/helpers'
@@ -41,8 +42,17 @@ export const mergeTemplateWithInputSetData = (
     const stageIdToBeMatched = stage.stage?.identifier || ''
     const matchedStageInInputSet = getStageFromPipeline(stageIdToBeMatched, inputSetPortion.pipeline)
     if (matchedStageInInputSet.stage) {
+      let updatedStageVars = []
+      if (stage?.stage?.variables && matchedStageInInputSet?.stage?.stage?.variables) {
+        updatedStageVars = getMergedVariables(
+          stage?.stage?.variables as AllNGVariables[],
+          matchedStageInInputSet.stage.stage?.variables as AllNGVariables[]
+        )
+        matchedStageInInputSet.stage.stage.variables = updatedStageVars
+      }
       return matchedStageInInputSet.stage
     }
+
     return stage
   })
   const toBeUpdated = templatePipeline
@@ -65,7 +75,11 @@ export const mergeTemplateWithInputSetData = (
 
   if (inputSetPortion.pipeline.variables) {
     // If we have variables saved in input set, pick them and update
-    toBeUpdated.pipeline.variables = inputSetPortion.pipeline.variables
+
+    toBeUpdated.pipeline.variables = getMergedVariables(
+      toBeUpdated.pipeline.variables as AllNGVariables[],
+      inputSetPortion.pipeline.variables as AllNGVariables[]
+    ) // inputSetPortion.pipeline.variables
   }
 
   return toBeUpdated
@@ -84,4 +98,21 @@ export const getFormattedErrors = (apiErrorMap?: { [key: string]: InputSetErrorR
     })
   }
   return toReturn
+}
+
+export const getMergedVariables = (
+  variables: AllNGVariables[],
+  inputSetVariables: AllNGVariables[]
+): AllNGVariables[] => {
+  const finalVariables = variables?.map((variable: AllNGVariables) => {
+    const variableInInputSetPortion = inputSetVariables?.find(currVar => currVar.name === variable.name)
+    if (variableInInputSetPortion) {
+      return {
+        ...variable,
+        value: variableInInputSetPortion?.value || ''
+      }
+    }
+    return variable
+  })
+  return finalVariables as AllNGVariables[]
 }

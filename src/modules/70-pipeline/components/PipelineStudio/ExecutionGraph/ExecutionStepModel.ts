@@ -515,7 +515,7 @@ export class ExecutionStepModel extends DiagramModel {
           depth: depthY,
           headerDepth: GROUP_HEADER_DEPTH,
           allowAdd: allowAdd === true && !isReadonly,
-          showRollback: !isRollback,
+          showRollback: false,
           rollBackProps: {
             active: stepState?.isStepGroupRollback ? StepsType.Rollback : StepsType.Normal
           }

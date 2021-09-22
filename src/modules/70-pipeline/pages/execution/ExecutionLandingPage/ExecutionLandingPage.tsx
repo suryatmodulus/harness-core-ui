@@ -20,6 +20,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
 
+import useTabVisible from '@common/hooks/useTabVisible'
 import { ExecutionHeader } from './ExecutionHeader/ExecutionHeader'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
@@ -88,18 +89,21 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
     })
   }, [data?.data?.executionGraph?.nodeMap, data?.data?.executionGraph?.nodeAdjacencyListMap])
 
+  const visibility = useTabVisible()
   // setup polling
   React.useEffect(() => {
     if (!loading && data && !isExecutionComplete(data.data?.pipelineExecutionSummary?.status)) {
       const timerId = window.setTimeout(() => {
-        refetch()
+        if (visibility) {
+          refetch()
+        }
       }, POLL_INTERVAL)
 
       return () => {
         window.clearTimeout(timerId)
       }
     }
-  }, [data, refetch, loading])
+  }, [data, refetch, loading, visibility])
 
   // show the current running stage and steps automatically
   React.useEffect(() => {

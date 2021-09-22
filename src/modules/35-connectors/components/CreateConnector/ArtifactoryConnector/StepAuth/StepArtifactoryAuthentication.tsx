@@ -95,12 +95,7 @@ const StepArtifactoryAuthentication: React.FC<
     <PageSpinner />
   ) : (
     <Layout.Vertical height={'inherit'} margin="small">
-      <Text
-        font="medium"
-        margin={{ top: 'small' }}
-        color={Color.BLACK}
-        tooltipProps={{ dataTooltipId: 'artifactRepositoryDetails' }}
-      >
+      <Text font="medium" color={Color.BLACK} tooltipProps={{ dataTooltipId: 'artifactRepositoryDetails' }}>
         {getString('details')}
       </Text>
       <Formik

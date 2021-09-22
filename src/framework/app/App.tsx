@@ -77,7 +77,10 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
 
   useEffect(() => {
     if (!token) {
-      history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL()) })
+      history.push({
+        pathname: routes.toRedirect(),
+        search: returnUrlParams(getLoginPageURL({ returnUrl: window.location.href }))
+      })
     }
   }, [history, token])
 
@@ -109,7 +112,10 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
       onResponse={response => {
         if (!response.ok && response.status === 401) {
           AppStorage.clear()
-          history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL()) })
+          history.push({
+            pathname: routes.toRedirect(),
+            search: returnUrlParams(getLoginPageURL({ returnUrl: window.location.href }))
+          })
           return
         }
 

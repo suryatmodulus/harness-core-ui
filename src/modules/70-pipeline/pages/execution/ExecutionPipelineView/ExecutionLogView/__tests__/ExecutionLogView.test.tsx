@@ -60,11 +60,11 @@ describe('<ExecutionLogView /> tests', () => {
       </TestWrapper>
     )
 
-    const stageBtn = await findByText('google_1')
+    const stageBtn = await findByText('Google1')
 
     fireEvent.click(stageBtn!)
 
-    const stage = await findByText('google_2')
+    const stage = await findByText('Google2')
 
     fireEvent.click(stage)
 

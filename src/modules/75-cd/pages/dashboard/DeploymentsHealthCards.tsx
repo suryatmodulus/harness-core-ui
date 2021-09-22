@@ -123,6 +123,7 @@ export default function DeploymentsHealthCards() {
       <RangeSelectorWithTitle
         title="Deployments Health"
         onRangeSelected={setRange}
+        tooltipId="overview_deploymentsHealth"
         titleClsName={styles.rangeSelectorHeader}
       />
       <Container className={styles.healthCards}>

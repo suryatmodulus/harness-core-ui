@@ -3,7 +3,7 @@
 exports[`Auto stopping rule logs should show logs 1`] = `
 <div>
   <div
-    class="logViewer"
+    class="logViewer gatewayLogView"
     style="--char-size: 2ch;"
   >
     <pre>
@@ -40,7 +40,7 @@ exports[`Auto stopping rule logs should show logs 1`] = `
             class=""
           />
           <span
-            class="ansi-red-fg"
+            class="ansi-red-fg ansi-decoration-bold"
           >
             2021-04-05T13:14:58.857084Z  Rule state changed to: coolingdown Error: null 
           </span>

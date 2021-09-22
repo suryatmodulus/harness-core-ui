@@ -82,6 +82,7 @@ allowpaths:
   - /monitored-service/{identifier}/health-monitoring-flag
   - /monitored-service/yaml-template
   - /monitored-service/{identifier}/overall-health-score
+  - /monitored-service/list
   - /log-dashboard/logs-data
   - /timeseries-dashboard/metrics
   - /verify-step/input-set-template
@@ -91,6 +92,8 @@ allowpaths:
   - /service-dependency-graph
   - /monitored-service/{identifier}/change-event/summary
   - /activity/{activityId}/healthSources
+  - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event
+  - /account/{accountIdentifier}/org/{orgIdentifier}/project/{projectIdentifier}/change-event/timeline
   - /log-dashboard/logs-cluster
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications

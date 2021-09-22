@@ -33,7 +33,7 @@ export default function NewPipelineSelect(props: NewPipelineSelectProps): React.
     return new Promise<SelectOption[]>(resolve => {
       cancel()
       reloadPipelines({ filterType: 'PipelineSetup' }).then(result => {
-        if (result.data?.content) {
+        if (result?.data?.content) {
           const selectItems = result.data?.content?.map(item => {
             return { label: item.name || '', value: item.identifier || '' }
           }) as SelectOption[]

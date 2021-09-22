@@ -15,7 +15,7 @@ const RedirectToHome: React.FC = () => {
   if (accountId) {
     return <Redirect to={routes.toHome({ accountId })} />
   } else {
-    history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL(false)) })
+    history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL({})) })
     return null
   }
 }

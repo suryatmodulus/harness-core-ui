@@ -464,12 +464,20 @@ export default (
       exact
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CISideNavProps}
-      path={routes.toDelegateConfigsDetails({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...delegateConfigProps,
-        ...pipelineModuleParams
-      })}
+      path={[
+        routes.toDelegateConfigsDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...delegateConfigProps,
+          ...pipelineModuleParams
+        }),
+        routes.toEditDelegateConfigsDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...delegateConfigProps,
+          ...pipelineModuleParams
+        })
+      ]}
     >
       <DelegateProfileDetails />
     </RouteWithLayout>

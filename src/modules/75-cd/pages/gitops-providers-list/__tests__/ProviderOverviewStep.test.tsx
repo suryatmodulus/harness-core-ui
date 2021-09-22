@@ -20,6 +20,14 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
     return { data: sourceCodeManagers, refetch: jest.fn() }
+  }),
+  useCreateGitOpsProvider: jest.fn().mockImplementation(() => {
+    // Update data with mock response
+    return { data: {}, refetch: jest.fn() }
+  }),
+  useUpdateGitOpsProvider: jest.fn().mockImplementation(() => {
+    // Update data with mock response
+    return { data: {}, refetch: jest.fn() }
   })
 }))
 

@@ -273,6 +273,7 @@ export interface AccountAuditFilter {
 export interface AccountDetails {
   accountId?: string
   accountName?: string
+  activeServiceCount?: number
   ceLicenseInfo?: CeLicenseInfo
   cluster?: string
   companyName?: string
@@ -364,6 +365,7 @@ export interface AccountPermissionSummary {
     | 'MANAGE_IP_WHITELIST'
     | 'MANAGE_IP_WHITELISTING'
     | 'MANAGE_DEPLOYMENT_FREEZES'
+    | 'ALLOW_DEPLOYMENTS_DURING_FREEZE'
     | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
     | 'MANAGE_API_KEYS'
     | 'MANAGE_TAGS'
@@ -413,6 +415,7 @@ export interface AccountPermissions {
     | 'MANAGE_IP_WHITELIST'
     | 'MANAGE_IP_WHITELISTING'
     | 'MANAGE_DEPLOYMENT_FREEZES'
+    | 'ALLOW_DEPLOYMENTS_DURING_FREEZE'
     | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
     | 'MANAGE_API_KEYS'
     | 'MANAGE_TAGS'
@@ -884,6 +887,7 @@ export interface AppPermission {
     | 'MANAGE_IP_WHITELIST'
     | 'MANAGE_IP_WHITELISTING'
     | 'MANAGE_DEPLOYMENT_FREEZES'
+    | 'ALLOW_DEPLOYMENTS_DURING_FREEZE'
     | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
     | 'MANAGE_API_KEYS'
     | 'MANAGE_TAGS'
@@ -1262,11 +1266,17 @@ export interface ApprovalAuthorization {
 
 export interface ApprovalDetails {
   action?: 'APPROVE' | 'REJECT'
+  approvalFromGraphQL?: boolean
   approvalFromSlack?: boolean
   approvalId?: string
+  approvalViaApiKey?: boolean
   approvedBy?: EmbeddedUser
   comments?: string
   variables?: NameValuePair[]
+}
+
+export type ArgoConnector = ConnectorConfigDTO & {
+  adapterUrl?: string
 }
 
 export interface Artifact {
@@ -1620,16 +1630,26 @@ export interface AuditHeaderYamlResponse {
   oldYamlPath?: string
 }
 
-export type AuditPreference = Preference & {
+export interface AuditPreference {
   accountAuditFilter?: AccountAuditFilter
+  accountId?: string
+  appId: string
   applicationAuditFilter?: ApplicationAuditFilter
+  createdAt?: number
+  createdBy?: EmbeddedUser
   createdByUserIds?: string[]
   endTime?: string
   includeAccountLevelResources?: boolean
   includeAppLevelResources?: boolean
   lastNDays?: number
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
   operationTypes?: string[]
+  preferenceType?: string
   startTime?: string
+  userId?: string
+  uuid: string
 }
 
 export interface AuditPreferenceResponse {
@@ -1709,7 +1729,7 @@ export type AwsConnector = ConnectorConfigDTO & {
 export interface AwsCredential {
   crossAccountAccess?: CrossAccountAccess
   spec?: AwsCredentialSpec
-  type: 'InheritFromDelegate' | 'ManualConfig'
+  type: 'InheritFromDelegate' | 'ManualConfig' | 'Irsa'
 }
 
 export interface AwsCredentialSpec {
@@ -1848,6 +1868,36 @@ export type AwsManualConfigSpec = AwsCredentialSpec & {
 export interface AwsRoute53HostedZoneData {
   hostedZoneId?: string
   hostedZoneName?: string
+}
+
+export type AwsSMCredentialSpecAssumeIAM = AwsSecretManagerCredentialSpec & { [key: string]: any }
+
+export type AwsSMCredentialSpecAssumeSTS = AwsSecretManagerCredentialSpec & {
+  assumeStsRoleDuration?: number
+  externalId?: string
+  roleArn: string
+}
+
+export type AwsSMCredentialSpecManualConfig = AwsSecretManagerCredentialSpec & {
+  accessKey: string
+  secretKey: string
+}
+
+export interface AwsSecretManagerCredential {
+  spec?: AwsSecretManagerCredentialSpec
+  type: 'AssumeIAMRole' | 'AssumeSTSRole' | 'ManualConfig'
+}
+
+export interface AwsSecretManagerCredentialSpec {
+  [key: string]: any
+}
+
+export type AwsSecretManagerDTO = ConnectorConfigDTO & {
+  credential: AwsSecretManagerCredential
+  default?: boolean
+  delegateSelectors?: string[]
+  region: string
+  secretNamePrefix?: string
 }
 
 export interface AwsSecretsManagerConfig {
@@ -2094,6 +2144,7 @@ export type BasicOrchestrationWorkflow = OrchestrationWorkflow & {
   postDeploymentSteps?: PhaseStep
   preDeploymentSteps?: PhaseStep
   rollbackProvisioners?: PhaseStep
+  rollbackProvisionersReverse?: PhaseStep
   rollbackWorkflowPhaseIdMap?: {
     [key: string]: WorkflowPhase
   }
@@ -2168,6 +2219,7 @@ export type BlueGreenOrchestrationWorkflow = OrchestrationWorkflow & {
   postDeploymentSteps?: PhaseStep
   preDeploymentSteps?: PhaseStep
   rollbackProvisioners?: PhaseStep
+  rollbackProvisionersReverse?: PhaseStep
   rollbackWorkflowPhaseIdMap?: {
     [key: string]: WorkflowPhase
   }
@@ -2406,6 +2458,7 @@ export type BuildWorkflow = OrchestrationWorkflow & {
   postDeploymentSteps?: PhaseStep
   preDeploymentSteps?: PhaseStep
   rollbackProvisioners?: PhaseStep
+  rollbackProvisionersReverse?: PhaseStep
   rollbackWorkflowPhaseIdMap?: {
     [key: string]: WorkflowPhase
   }
@@ -2414,7 +2467,8 @@ export type BuildWorkflow = OrchestrationWorkflow & {
 }
 
 export type CDModuleLicenseDTO = ModuleLicenseDTO & {
-  deploymentsPerDay?: number
+  cdLicenseType?: 'SERVICES' | 'SERVICE_INSTANCES'
+  serviceInstances?: number
   workloads?: number
 }
 
@@ -2803,6 +2857,7 @@ export type CanaryOrchestrationWorkflow = OrchestrationWorkflow & {
   postDeploymentSteps?: PhaseStep
   preDeploymentSteps?: PhaseStep
   rollbackProvisioners?: PhaseStep
+  rollbackProvisionersReverse?: PhaseStep
   rollbackWorkflowPhaseIdMap?: {
     [key: string]: WorkflowPhase
   }
@@ -3275,11 +3330,12 @@ export interface CommandUnitDetails {
   variables?: Variable[]
 }
 
-export interface CompareEnvironmentAggregationInfo {
+export interface CompareEnvironmentAggregationResponseInfo {
   count?: string
-  get_id?: Id
+  envInfo?: {
+    [key: string]: ServiceInfoResponseSummary[]
+  }
   serviceId?: string
-  serviceInfoSummaries?: ServiceInfoSummary[]
   serviceName?: string
 }
 
@@ -3561,6 +3617,7 @@ export interface ConnectorInfoDTO {
     | 'Local'
     | 'AwsKms'
     | 'GcpKms'
+    | 'AwsSecretManager'
     | 'Gcp'
     | 'Aws'
     | 'Artifactory'
@@ -3575,9 +3632,11 @@ export interface ConnectorInfoDTO {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
+    | 'PagerDuty'
 }
 
 export interface ConnectorValidationResult {
@@ -4263,6 +4322,8 @@ export interface DataCollectionRequest {
   tracingId?: string
   type?:
     | 'SPLUNK_SAVED_SEARCHES'
+    | 'SPLUNK_SAMPLE_DATA'
+    | 'SPLUNK_LATEST_HISTOGRAM'
     | 'STACKDRIVER_DASHBOARD_LIST'
     | 'STACKDRIVER_DASHBOARD_GET'
     | 'STACKDRIVER_SAMPLE_DATA'
@@ -4276,6 +4337,7 @@ export interface DataCollectionRequest {
     | 'PROMETHEUS_LABEL_NAMES_GET'
     | 'PROMETHEUS_LABEL_VALUES_GET'
     | 'PROMETHEUS_SAMPLE_DATA'
+    | 'PAGERDUTY_SERVICES'
 }
 
 export interface DataDogSetupTestNodeData {
@@ -4579,6 +4641,27 @@ export interface DelegateFile {
   mimeType?: string
   relativePath?: string
   taskId?: string
+}
+
+export interface DelegateFilterProperties {
+  delegateGroupIdentifier?: string
+  delegateName?: string
+  delegateType?: string
+  description?: string
+  filterType?:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
+    | 'Template'
+  hostName?: string
+  status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
+  tags?: {
+    [key: string]: string
+  }
 }
 
 export interface DelegateGroupDetails {
@@ -5310,6 +5393,7 @@ export type EcsBlueGreenOrchestrationWorkflow = OrchestrationWorkflow & {
   postDeploymentSteps?: PhaseStep
   preDeploymentSteps?: PhaseStep
   rollbackProvisioners?: PhaseStep
+  rollbackProvisionersReverse?: PhaseStep
   rollbackWorkflowPhaseIdMap?: {
     [key: string]: WorkflowPhase
   }
@@ -6417,6 +6501,7 @@ export interface ExecutionInterrupt {
     | 'MARK_FAILED'
     | 'MARK_SUCCESS'
     | 'ROLLBACK'
+    | 'ROLLBACK_PROVISIONER_AFTER_PHASES'
     | 'NEXT_STEP'
     | 'END_EXECUTION'
     | 'ROLLBACK_DONE'
@@ -6840,6 +6925,7 @@ export interface FailureStrategy {
     | 'MARK_FAILED'
     | 'MARK_SUCCESS'
     | 'ROLLBACK'
+    | 'ROLLBACK_PROVISIONER_AFTER_PHASES'
     | 'NEXT_STEP'
     | 'END_EXECUTION'
     | 'ROLLBACK_DONE'
@@ -6862,6 +6948,7 @@ export interface FailureStrategy {
   repairActionCode?:
     | 'MANUAL_INTERVENTION'
     | 'ROLLBACK_WORKFLOW'
+    | 'ROLLBACK_PROVISIONER_AFTER_PHASES'
     | 'ROLLBACK_PHASE'
     | 'IGNORE'
     | 'RETRY'
@@ -6871,6 +6958,7 @@ export interface FailureStrategy {
   repairActionCodeAfterRetry?:
     | 'MANUAL_INTERVENTION'
     | 'ROLLBACK_WORKFLOW'
+    | 'ROLLBACK_PROVISIONER_AFTER_PHASES'
     | 'ROLLBACK_PHASE'
     | 'IGNORE'
     | 'RETRY'
@@ -6949,6 +7037,7 @@ export type GcpCloudCostConnector = ConnectorConfigDTO & {
   billingExportSpec?: GcpBillingExportSpec
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
   projectId: string
+  serviceAccountEmail: string
 }
 
 export type GcpConnector = ConnectorConfigDTO & {
@@ -7921,14 +8010,6 @@ export type HttpTemplate = BaseTemplate & {
   method?: string
   timeoutMillis?: number
   url?: string
-}
-
-export interface Id {
-  envId?: string
-  infraMappingId?: string
-  lastArtifactBuildNum?: string
-  lastWorkflowExecutionId?: string
-  serviceId?: string
 }
 
 export interface IamInstanceProfile {
@@ -8938,6 +9019,7 @@ export interface InstanceExecutionHistory {
     | 'MARK_FAILED'
     | 'MARK_SUCCESS'
     | 'ROLLBACK'
+    | 'ROLLBACK_PROVISIONER_AFTER_PHASES'
     | 'NEXT_STEP'
     | 'END_EXECUTION'
     | 'ROLLBACK_DONE'
@@ -9469,6 +9551,7 @@ export interface LdapConnectionSettings {
   referralsEnabled?: boolean
   responseTimeout?: number
   sslEnabled?: boolean
+  useRecursiveGroupMembershipSearch?: boolean
 }
 
 export interface LdapGroupResponse {
@@ -9488,6 +9571,11 @@ export interface LdapGroupSettings {
   referencedUserAttr?: string
   searchFilter?: string
   userMembershipAttr?: string
+}
+
+export interface LdapIdentificationInfo {
+  host?: string
+  port?: number
 }
 
 export interface LdapLinkGroupRequest {
@@ -10491,7 +10579,7 @@ export interface ModuleLicenseDTO {
   id?: string
   lastModifiedAt?: number
   licenseType?: 'TRIAL' | 'PAID'
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   startTime?: number
   status?: 'ACTIVE' | 'DELETED' | 'EXPIRED'
 }
@@ -10507,6 +10595,7 @@ export type MultiServiceOrchestrationWorkflow = OrchestrationWorkflow & {
   postDeploymentSteps?: PhaseStep
   preDeploymentSteps?: PhaseStep
   rollbackProvisioners?: PhaseStep
+  rollbackProvisionersReverse?: PhaseStep
   rollbackWorkflowPhaseIdMap?: {
     [key: string]: WorkflowPhase
   }
@@ -11145,6 +11234,10 @@ export interface NotificationSettings {
   useIndividualEmails?: boolean
 }
 
+export interface OauthIdentificationInfo {
+  providers?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
+}
+
 export interface OauthSettings {
   accountId?: string
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
@@ -11293,6 +11386,11 @@ export interface Pcf {
 export interface PhysicalHost {
   instanceId?: string
   publicDns?: string
+}
+
+export type PagerDutyConnectorDTO = ConnectorConfigDTO & {
+  apiTokenRef: string
+  delegateSelectors?: string[]
 }
 
 export interface Pair {
@@ -11474,6 +11572,7 @@ export interface Permission {
     | 'MANAGE_IP_WHITELIST'
     | 'MANAGE_IP_WHITELISTING'
     | 'MANAGE_DEPLOYMENT_FREEZES'
+    | 'ALLOW_DEPLOYMENTS_DURING_FREEZE'
     | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
     | 'MANAGE_API_KEYS'
     | 'MANAGE_TAGS'
@@ -11531,6 +11630,8 @@ export interface PerpetualTaskClientContext {
 
 export interface PerpetualTaskRecord {
   accountId?: string
+  assignAfterMs?: number
+  assignTryCount?: number
   assignerIterations?: number[]
   clientContext?: PerpetualTaskClientContext
   createdAt?: number
@@ -11554,6 +11655,13 @@ export interface PerpetualTaskRecord {
   timeoutMillis?: number
   unassignedReason?: 'NO_DELEGATE_INSTALLED' | 'NO_DELEGATE_AVAILABLE' | 'NO_ELIGIBLE_DELEGATES'
   uuid?: string
+}
+
+export interface PerpetualTaskScheduleConfig {
+  accountId?: string
+  perpetualTaskType?: string
+  timeIntervalInMillis?: number
+  uuid: string
 }
 
 export type PerspectiveBudgetScope = BudgetScope & {
@@ -14744,11 +14852,11 @@ export interface RestResponsePageResponseCVEnabledService {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponsePageResponseCompareEnvironmentAggregationInfo {
+export interface RestResponsePageResponseCompareEnvironmentAggregationResponseInfo {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: CompareEnvironmentAggregationInfo[]
+  resource?: CompareEnvironmentAggregationResponseInfo[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -15192,6 +15300,14 @@ export interface RestResponsePcfServiceSpecification {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponsePerpetualTaskScheduleConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PerpetualTaskScheduleConfig
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponsePhaseStep {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -15237,6 +15353,14 @@ export interface RestResponseResourceConstraint {
     [key: string]: { [key: string]: any }
   }
   resource?: ResourceConstraint
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseRestrictedSwitchAccountInfo {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: RestrictedSwitchAccountInfo
   responseMessages?: ResponseMessage[]
 }
 
@@ -15513,6 +15637,14 @@ export interface RestResponseString {
     [key: string]: { [key: string]: any }
   }
   resource?: string
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSwitchAccountResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SwitchAccountResponse
   responseMessages?: ResponseMessage[]
 }
 
@@ -15836,6 +15968,17 @@ export interface RestResponseZendeskSsoLoginResponse {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestrictedSwitchAccountInfo {
+  authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
+  harnessSupportGroupUser?: boolean
+  ldapIdentificationInfo?: LdapIdentificationInfo
+  oauthIdentificationInfo?: OauthIdentificationInfo
+  samlIdentificationInfo?: SamlIdentificationInfo
+  skipReAuthentication?: boolean
+  twoFactorAuthEnabledForAccount?: boolean
+  whitelistedDomains?: string[]
+}
+
 export interface Restriction {
   appIds?: string[]
   tags?: Tag[]
@@ -15887,6 +16030,7 @@ export type RollingOrchestrationWorkflow = OrchestrationWorkflow & {
   postDeploymentSteps?: PhaseStep
   preDeploymentSteps?: PhaseStep
   rollbackProvisioners?: PhaseStep
+  rollbackProvisionersReverse?: PhaseStep
   rollbackWorkflowPhaseIdMap?: {
     [key: string]: WorkflowPhase
   }
@@ -15913,6 +16057,7 @@ export interface RuntimeInputsConfig {
   timeoutAction?:
     | 'MANUAL_INTERVENTION'
     | 'ROLLBACK_WORKFLOW'
+    | 'ROLLBACK_PROVISIONER_AFTER_PHASES'
     | 'ROLLBACK_PHASE'
     | 'IGNORE'
     | 'RETRY'
@@ -15989,6 +16134,11 @@ export interface SSOSettings {
   type: 'SAML' | 'LDAP' | 'OAUTH'
   url?: string
   uuid: string
+}
+
+export interface SamlIdentificationInfo {
+  metaDataFile?: string
+  origin?: string
 }
 
 export interface SamlLinkGroupRequest {
@@ -16542,14 +16692,12 @@ export interface ServiceGuardTimeSeries {
   transactionsInAnalysis?: string[]
 }
 
-export interface ServiceInfoSummary {
-  envId?: string
+export interface ServiceInfoResponseSummary {
   infraMappingId?: string
   infraMappingName?: string
   lastArtifactBuildNum?: string
   lastWorkflowExecutionId?: string
   lastWorkflowExecutionName?: string
-  serviceName?: string
 }
 
 export interface ServiceInfraWorkflow {
@@ -17728,6 +17876,7 @@ export interface StateExecutionInstance {
     | 'MARK_FAILED'
     | 'MARK_SUCCESS'
     | 'ROLLBACK'
+    | 'ROLLBACK_PROVISIONER_AFTER_PHASES'
     | 'NEXT_STEP'
     | 'END_EXECUTION'
     | 'ROLLBACK_DONE'
@@ -17737,6 +17886,7 @@ export interface StateExecutionInstance {
   actionOnTimeout?:
     | 'MANUAL_INTERVENTION'
     | 'ROLLBACK_WORKFLOW'
+    | 'ROLLBACK_PROVISIONER_AFTER_PHASES'
     | 'ROLLBACK_PHASE'
     | 'IGNORE'
     | 'RETRY'
@@ -17780,6 +17930,7 @@ export interface StateExecutionInstance {
   retryCount?: number
   rollback?: boolean
   rollbackPhaseName?: string
+  rollbackProvisionerAfterPhases?: boolean
   selectionLogsTrackingForTasksEnabled?: boolean
   stageName?: string
   startTs?: number
@@ -18133,6 +18284,10 @@ export interface SumoLogicSetupTestNodedata {
 
 export interface SwitchAccountRequest {
   accountId?: string
+}
+
+export interface SwitchAccountResponse {
+  requiresReAuthentication?: boolean
 }
 
 export interface SyncStatus {
@@ -19069,18 +19224,21 @@ export interface VaultConfig {
 }
 
 export type VaultConnectorDTO = ConnectorConfigDTO & {
-  accessType?: 'APP_ROLE' | 'TOKEN'
+  accessType?: 'APP_ROLE' | 'TOKEN' | 'VAULT_AGENT'
   appRoleId?: string
   authToken?: string
   basePath?: string
   default?: boolean
   delegateSelectors?: string[]
+  namespace?: string
   readOnly?: boolean
   renewalIntervalMinutes?: number
   secretEngineManuallyConfigured?: boolean
   secretEngineName?: string
   secretEngineVersion?: number
   secretId?: string
+  sinkPath?: string
+  useVaultAgent?: boolean
   vaultUrl?: string
 }
 
@@ -19529,6 +19687,7 @@ export interface WorkflowExecution {
   releaseNo?: string
   rollbackArtifacts?: Artifact[]
   rollbackDuration?: number
+  rollbackProvisionerAfterPhases?: boolean
   rollbackStartTs?: number
   serviceExecutionSummaries?: ElementExecutionSummary[]
   serviceIds?: string[]
@@ -20118,6 +20277,8 @@ export type SplunkConnectorDTORequestBody = SplunkConnectorDTO
 
 export type StackDriverSetupTestNodeDataRequestBody = StackDriverSetupTestNodeData
 
+export type SwitchAccountRequestRequestBody = SwitchAccountRequest
+
 export type TaskSelectorMapRequestBody = TaskSelectorMap
 
 export type TemplateRequestBody = Template
@@ -20154,13 +20315,13 @@ export type YamlPayloadRequestBody = YamlPayload
 
 export type GcpSignUpRequestBody = void
 
-export type GetDelegatePropertiesBodyRequestBody = string[]
-
 export type ImportAccountDataRequestBody = void
 
-export type SaveGcpSecretsManagerConfigRequestBody = void
+export type SaveApiCallLogsBodyRequestBody = string[]
 
 export type SaveGcpSecretsManagerConfig1RequestBody = void
+
+export type SaveGlobalKmsConfigRequestBody = void
 
 export interface SaveMessageComparisonListBodyRequestBody {
   [key: string]: string
@@ -20172,7 +20333,7 @@ export interface UpdateAccountPreferenceBodyRequestBody {
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
-export type Update29RequestBody = void
+export type Update30RequestBody = void
 
 export type UploadPlatformRequestBody = void
 
@@ -20767,17 +20928,17 @@ export const useGetListServices = (props: UseGetListServicesProps) =>
     ...props
   })
 
-export interface Save14QueryParams {
+export interface Save15QueryParams {
   appId?: string
 }
 
-export type Save14Props = Omit<
-  MutateProps<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>,
+export type Save15Props = Omit<
+  MutateProps<RestResponseService, unknown, Save15QueryParams, ServiceRequestBody, void>,
   'path' | 'verb'
 >
 
-export const Save14 = (props: Save14Props) => (
-  <Mutate<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>
+export const Save15 = (props: Save15Props) => (
+  <Mutate<RestResponseService, unknown, Save15QueryParams, ServiceRequestBody, void>
     verb="POST"
     path={`/services`}
     base={getConfig('api')}
@@ -20785,13 +20946,13 @@ export const Save14 = (props: Save14Props) => (
   />
 )
 
-export type UseSave14Props = Omit<
-  UseMutateProps<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>,
+export type UseSave15Props = Omit<
+  UseMutateProps<RestResponseService, unknown, Save15QueryParams, ServiceRequestBody, void>,
   'path' | 'verb'
 >
 
-export const useSave14 = (props: UseSave14Props) =>
-  useMutate<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>('POST', `/services`, {
+export const useSave15 = (props: UseSave15Props) =>
+  useMutate<RestResponseService, unknown, Save15QueryParams, ServiceRequestBody, void>('POST', `/services`, {
     base: getConfig('api'),
     ...props
   })
@@ -21537,6 +21698,56 @@ export type UseRefreshTokenProps = Omit<UseGetProps<RestResponseString, unknown,
 export const useRefreshToken = (props: UseRefreshTokenProps) =>
   useGet<RestResponseString, unknown, void, void>(`/users/refresh-token`, { base: getConfig('api'), ...props })
 
+export interface RestrictedSwitchAccountQueryParams {
+  routingId?: string
+}
+
+export type RestrictedSwitchAccountProps = Omit<
+  MutateProps<
+    RestResponseSwitchAccountResponse,
+    unknown,
+    RestrictedSwitchAccountQueryParams,
+    SwitchAccountRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+export const RestrictedSwitchAccount = (props: RestrictedSwitchAccountProps) => (
+  <Mutate<
+    RestResponseSwitchAccountResponse,
+    unknown,
+    RestrictedSwitchAccountQueryParams,
+    SwitchAccountRequestRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/users/restricted-switch-account`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseRestrictedSwitchAccountProps = Omit<
+  UseMutateProps<
+    RestResponseSwitchAccountResponse,
+    unknown,
+    RestrictedSwitchAccountQueryParams,
+    SwitchAccountRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+export const useRestrictedSwitchAccount = (props: UseRestrictedSwitchAccountProps) =>
+  useMutate<
+    RestResponseSwitchAccountResponse,
+    unknown,
+    RestrictedSwitchAccountQueryParams,
+    SwitchAccountRequestRequestBody,
+    void
+  >('POST', `/users/restricted-switch-account`, { base: getConfig('api'), ...props })
+
 export interface SetDefaultAccountForCurrentUserPathParams {
   accountId: string
 }
@@ -21568,53 +21779,6 @@ export const useSetDefaultAccountForCurrentUser = ({ accountId, ...props }: UseS
     (paramsInPath: SetDefaultAccountForCurrentUserPathParams) => `/users/set-default-account/${paramsInPath.accountId}`,
     { base: getConfig('api'), pathParams: { accountId }, ...props }
   )
-
-export interface SwitchAccountQueryParams {
-  accountId?: string
-}
-
-export type SwitchAccountProps = Omit<GetProps<RestResponseUser, unknown, SwitchAccountQueryParams, void>, 'path'>
-
-export const SwitchAccount = (props: SwitchAccountProps) => (
-  <Get<RestResponseUser, unknown, SwitchAccountQueryParams, void>
-    path={`/users/switch-account`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseSwitchAccountProps = Omit<UseGetProps<RestResponseUser, unknown, SwitchAccountQueryParams, void>, 'path'>
-
-export const useSwitchAccount = (props: UseSwitchAccountProps) =>
-  useGet<RestResponseUser, unknown, SwitchAccountQueryParams, void>(`/users/switch-account`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export type NewSwitchAccountProps = Omit<
-  MutateProps<RestResponseBoolean, unknown, void, SwitchAccountRequest, void>,
-  'path' | 'verb'
->
-
-export const NewSwitchAccount = (props: NewSwitchAccountProps) => (
-  <Mutate<RestResponseBoolean, unknown, void, SwitchAccountRequest, void>
-    verb="POST"
-    path={`/users/switch-account`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseNewSwitchAccountProps = Omit<
-  UseMutateProps<RestResponseBoolean, unknown, void, SwitchAccountRequest, void>,
-  'path' | 'verb'
->
-
-export const useNewSwitchAccount = (props: UseNewSwitchAccountProps) =>
-  useMutate<RestResponseBoolean, unknown, void, SwitchAccountRequest, void>('POST', `/users/switch-account`, {
-    base: getConfig('api'),
-    ...props
-  })
 
 export type GetUserProps = Omit<GetProps<RestResponseUser, unknown, void, void>, 'path'>
 

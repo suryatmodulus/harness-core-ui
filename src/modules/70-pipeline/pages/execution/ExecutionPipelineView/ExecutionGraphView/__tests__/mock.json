@@ -31,6 +31,7 @@
           "nodeIdentifier": "google_1",
           "nodeUuid": "google_1",
           "status": "Running",
+          "name": "Google1",
           "moduleInfo": {
             "cd": {
               "infrastructureIdentifiers": "infraIdentifier",
@@ -45,6 +46,7 @@
           "nodeIdentifier": "google_2",
           "nodeUuid": "google_2",
           "status": "Running",
+          "name": "Google2",
           "moduleInfo": {
             "cd": {
               "infrastructureIdentifiers": "infraIdentifier",

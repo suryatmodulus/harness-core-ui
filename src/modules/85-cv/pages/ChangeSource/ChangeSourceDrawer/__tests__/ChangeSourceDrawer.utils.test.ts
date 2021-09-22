@@ -114,6 +114,7 @@ describe('Validate ChangeSource Utils', () => {
       ])
     ).toEqual({
       category: 'Deployment',
+      enabled: true,
       spec: {},
       type: 'HarnessCD'
     })
@@ -125,6 +126,7 @@ describe('Validate ChangeSource Utils', () => {
       ])
     ).toEqual({
       category: 'Infrastructure',
+      enabled: true,
       spec: {},
       type: 'K8sCluster'
     })

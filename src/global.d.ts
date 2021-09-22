@@ -52,6 +52,11 @@ declare interface Window {
   MktoForms2: any
 }
 
+declare interface Document {
+  msHidden: string
+  webkitHidden: string
+}
+
 declare const monaco: any
 
 declare module 'event-source-polyfill'

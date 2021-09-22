@@ -84,7 +84,7 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
     <PageSpinner />
   ) : (
     <Layout.Vertical height={'inherit'} margin="small">
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+      <Text font="medium" color={Color.BLACK} tooltipProps={{ dataTooltipId: 'jiraConnectorDetails' }}>
         {getString('details')}
       </Text>
       <Formik

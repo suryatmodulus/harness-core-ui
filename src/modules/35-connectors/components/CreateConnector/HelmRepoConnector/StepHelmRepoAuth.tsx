@@ -96,7 +96,7 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
     <PageSpinner />
   ) : (
     <Layout.Vertical height={'inherit'} margin="small">
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+      <Text font="medium" color={Color.BLACK} tooltipProps={{ dataTooltipId: 'helmRepoAuthenticationDetails' }}>
         {getString('details')}
       </Text>
       <Formik

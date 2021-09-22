@@ -22,7 +22,7 @@ jest.mock('services/portal', () => ({
       mutate: setDefaultAccountMock
     }
   },
-  useNewSwitchAccount: () => {
+  useRestrictedSwitchAccount: () => {
     return {
       mutate: switchAccountMock
     }

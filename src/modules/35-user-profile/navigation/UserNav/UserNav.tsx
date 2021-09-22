@@ -28,7 +28,7 @@ export default function UserNav(): React.ReactElement {
     try {
       await logout()
       AppStorage.clear()
-      history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL(false)) })
+      history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL({})) })
       return
     } catch (err) {
       showError(get(err, 'responseMessages[0].message', getString('somethingWentWrong')))

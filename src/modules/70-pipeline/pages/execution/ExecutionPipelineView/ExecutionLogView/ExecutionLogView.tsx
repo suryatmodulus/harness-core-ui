@@ -50,7 +50,7 @@ export default function ExecutionLogView(): React.ReactElement {
   )
   const selectOptions: StageSelectOption[] = React.useMemo(() => {
     return [...pipelineStagesMap.entries()].map(([identifier, stage]) => ({
-      label: defaultTo(stage.nodeIdentifier, ''),
+      label: defaultTo(stage?.name, ''),
       value: identifier,
       node: stage,
       type: defaultTo(stage.nodeType, '')

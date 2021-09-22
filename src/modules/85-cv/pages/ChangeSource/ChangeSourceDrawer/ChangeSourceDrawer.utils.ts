@@ -150,7 +150,8 @@ export const buildInitialData = (categoryOptions: SelectOption[]): UpdatedChange
   return {
     [ChangeSourceFieldNames.CATEGORY]: categoryOptions[0].value,
     [ChangeSourceFieldNames.TYPE]: preSelectChangeSourceConnectorOnCategoryChange(categoryOptions[0].value as string),
-    spec: {}
+    spec: {},
+    enabled: true
   }
 }
 

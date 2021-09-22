@@ -25,25 +25,6 @@
   }
 }
 
-.delegateMachineSpec {
-  font-size: 8px !important;
-  color: #6b6d85 !important;
-  width: 33.33%;
-  text-align: center;
-
-  > span {
-    color: var(--black);
-    font-size: 16px;
-    font-weight: 400;
-    display: block;
-    margin-top: var(--spacing-xsmall);
-
-    > span {
-      font-size: 12px;
-    }
-  }
-}
-
 .delegateOverviewEntry {
   border-bottom: 0.5px solid #dce0e7;
   padding: var(--spacing-medium) 0 !important;

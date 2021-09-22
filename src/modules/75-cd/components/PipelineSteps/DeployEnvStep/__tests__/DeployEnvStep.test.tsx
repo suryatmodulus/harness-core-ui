@@ -18,32 +18,6 @@ jest.mock('services/cd-ng', () => ({
   useGetEnvironmentAccessList: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: inputSetEnvironments, refetch: jest.fn() })),
-  useCreateEnvironmentV2: jest.fn().mockImplementation(() => ({
-    cancel: jest.fn(),
-    loading: false,
-    mutate: jest.fn().mockImplementation(obj => {
-      environments.data.content.push({
-        environment: {
-          accountId: 'AQ8xhfNCRtGIUjq5bSM8Fg',
-          orgIdentifier: 'default',
-          projectIdentifier: 'asdasd',
-          identifier: obj.identifier,
-          name: obj.name,
-          description: null,
-          color: '#0063F7',
-          type: obj.type,
-          deleted: false,
-          tags: {},
-          version: 1
-        },
-        createdAt: null,
-        lastModifiedAt: null
-      })
-      return {
-        status: 'SUCCESS'
-      }
-    })
-  })),
   useUpsertEnvironmentV2: jest.fn().mockImplementation(() => ({
     cancel: jest.fn(),
     loading: false,
@@ -83,7 +57,7 @@ describe('Test DeployEnvironment Step', () => {
     const { container, getByLabelText } = render(
       <DeployEnvironment
         type={StepType.DeployEnvironment}
-        initialValues={{ environmentRef: 'New_Project' }}
+        initialValues={{ environmentRef: 'gjhjghjhg' }}
         stepViewType={StepViewType.Edit}
       />
     )
@@ -103,7 +77,7 @@ describe('Test DeployEnvironment Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: New_Project
+      "environmentRef: gjhjghjhg
       "
     `)
   })

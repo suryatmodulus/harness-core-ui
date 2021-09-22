@@ -71,7 +71,8 @@ export const RunTestsStepBase = (
 
   const buildToolOptions = [
     { label: 'Bazel', value: 'Bazel' },
-    { label: 'Maven', value: 'Maven' }
+    { label: 'Maven', value: 'Maven' },
+    { label: 'Gradle', value: 'Gradle' }
   ]
   const languageOptions = [{ label: 'Java', value: 'Java' }]
 
@@ -232,6 +233,18 @@ export const RunTestsStepBase = (
                       />
                     </>
                   )}
+                </>
+              )}
+            {(formik.values?.spec?.language as any)?.value === 'Java' &&
+              (formik.values?.spec?.buildTool as any)?.value === 'Gradle' && (
+                <>
+                  <Text margin={{ top: 'small', bottom: 'small' }} color="grey800">
+                    {getString('ci.gradleNotesTitle')}
+                  </Text>
+                  <CodeBlock format="pre" snippet={getString('ci.gradleNote1')} />
+                  <Text margin={{ top: 'small' }} color="grey800">
+                    {getString('ci.gradleNote2')}
+                  </Text>
                 </>
               )}
             <MultiTypeTextField

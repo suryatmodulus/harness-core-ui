@@ -96,7 +96,9 @@ export default function CardRailView({
     <Container className={styles.main}>
       <Container className={styles.header}>
         {icons[contentType]}
-        <Text className={styles.title}>{titles[contentType]}</Text>
+        <Text className={styles.title} tooltipProps={{ dataTooltipId: `overview_${contentType}` }}>
+          {titles[contentType]}
+        </Text>
         {titleSideContent}
       </Container>
       <Container

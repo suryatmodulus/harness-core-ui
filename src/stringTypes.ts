@@ -289,6 +289,7 @@ export interface StringsMap {
   'common.noAPIKeys': string
   'common.noRefData': string
   'common.note': string
+  'common.noteAccountSwitch': string
   'common.notificationPreferences': string
   'common.ok': string
   'common.on': string
@@ -3476,6 +3477,9 @@ export interface StringsMap {
   'ci.description': string
   'ci.executionLabel': string
   'ci.fileStore': string
+  'ci.gradleNote1': string
+  'ci.gradleNote2': string
+  'ci.gradleNotesTitle': string
   'ci.infraLabel': string
   'ci.labels': string
   'ci.learnMore': string
@@ -3715,6 +3719,8 @@ export interface StringsMap {
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
   'cv.monitoredServices.addNewMonitoredServices': string
+  'cv.monitoredServices.changesTable.impact': string
+  'cv.monitoredServices.changesTable.noData': string
   'cv.monitoredServices.deleteMonitoredService': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.editMonitoredServices': string
@@ -3999,8 +4005,10 @@ export interface StringsMap {
   'cv.sampleMessage': string
   'cv.searchForAService': string
   'cv.selectCreateService': string
+  'cv.selectNamespace': string
   'cv.selectOrCreateEnv': string
   'cv.selectQuery': string
+  'cv.selectWorkload': string
   'cv.selectedTimeInterval': string
   'cv.serviceDashboardPage.fifteenMinutes': string
   'cv.serviceDashboardPage.fiveMinutes': string

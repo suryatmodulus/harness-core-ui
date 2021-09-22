@@ -269,8 +269,8 @@ const GitOpsModalContainer: React.FC = () => {
         <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
           <ExpandingSearchInput
             alwaysExpanded
-            width={200}
-            placeholder={getString('search')}
+            width={300}
+            placeholder={getString('cd.searchPlaceholder')}
             throttle={200}
             onChange={(query: string) => {
               setSearchTerm(query)

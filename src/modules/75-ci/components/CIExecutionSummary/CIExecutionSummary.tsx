@@ -50,21 +50,33 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
 
     if (type === Type.Branch) {
       if (repo && sourceBranch) {
-        if (repo.offsetWidth > 200) repo.style.width = '200px'
-        if (sourceBranch.offsetWidth > 200) sourceBranch.style.width = '200px'
+        if (repo.offsetWidth > 200) {
+          repo.style.width = '200px'
+        }
+        if (sourceBranch.offsetWidth > 200) {
+          sourceBranch.style.width = '200px'
+        }
       }
     }
 
     if (type === Type.PullRequest) {
       if (repo && targetBranch && sourceBranch) {
-        if (repo.offsetWidth > 150) repo.style.width = '150px'
-        if (targetBranch.offsetWidth > 150) targetBranch.style.width = '150px'
-        if (sourceBranch.offsetWidth > 150) sourceBranch.style.width = '150px'
+        if (repo.offsetWidth > 150) {
+          repo.style.width = '150px'
+        }
+        if (targetBranch.offsetWidth > 150) {
+          targetBranch.style.width = '150px'
+        }
+        if (sourceBranch.offsetWidth > 150) {
+          sourceBranch.style.width = '150px'
+        }
       }
     }
   }, [type])
 
-  if (!type) return <></>
+  if (!type) {
+    return <></>
+  }
 
   let ui = null
   switch (type) {
@@ -240,7 +252,9 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
       break
   }
 
-  if (!ui) return <></>
+  if (!ui) {
+    return <></>
+  }
 
   return (
     <div className={css.main}>

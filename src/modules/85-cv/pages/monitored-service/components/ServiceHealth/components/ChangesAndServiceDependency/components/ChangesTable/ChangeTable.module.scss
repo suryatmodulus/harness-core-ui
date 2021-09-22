@@ -1,8 +1,14 @@
 .changeSoureName {
-  padding-right: var(--spacing-medium) !important;
-  overflow-x: hidden;
-  white-space: nowrap !important;
-  text-overflow: ellipsis;
+  p {
+    padding-right: var(--spacing-medium) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  span {
+    width: 90% !important;
+    overflow: hidden !important;
+  }
 }
 
 .loading,

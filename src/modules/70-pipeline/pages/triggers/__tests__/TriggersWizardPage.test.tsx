@@ -670,7 +670,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
 
-      const { container, getByText, getByDisplayValue } = render(<WrapperComponent />)
+      const { container, getByText } = render(<WrapperComponent />)
       await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
       await waitFor(() =>
         expect(() =>
@@ -693,7 +693,6 @@ describe('TriggersWizardPage Triggers tests', () => {
       // snapshot should display new fields var2, var3withDefault, Description
       // and persist values Namespaec: default, Git Branch: test
 
-      expect(getByDisplayValue('default')).toBeDefined()
       expect(getByText('var3withDefault')).toBeDefined()
       // Need to ensure var1: 123 and var3withDefault shows var1 as deafult
     })

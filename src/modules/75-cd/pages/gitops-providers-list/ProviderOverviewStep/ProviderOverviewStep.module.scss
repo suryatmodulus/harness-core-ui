@@ -34,16 +34,22 @@
 
   .contentContainer {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     overflow: hidden;
   }
 
   .formContainer {
     width: 50%;
+    padding-right: 30px;
+    border-right: 1px solid #ddd;
     overflow: auto;
 
     .formElm {
-      max-width: 370px;
+      max-width: 332px;
+
+      textarea {
+        max-height: 80px;
+      }
     }
   }
   .aboutHarnessAdapterContainer {

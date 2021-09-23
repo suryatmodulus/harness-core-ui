@@ -154,6 +154,20 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
             <Icon name="more" size={14} />
           </Text> */}
           <Layout.Horizontal flex spacing="small">
+            <Icon name="git-branch-existing" size={14} />
+            <div style={{ fontSize: 0 }}>
+              <Text
+                font={{ size: 'small' }}
+                style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
+                tooltip={
+                  <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+                    {data.ciExecutionInfoDTO.branch.commits[0].message}
+                  </Container>
+                }
+              >
+                {data.ciExecutionInfoDTO.branch.commits[0].message}
+              </Text>
+            </div>
             <Text className={css.commit} style={{ cursor: 'pointer' }}>
               <a
                 className={css.label}

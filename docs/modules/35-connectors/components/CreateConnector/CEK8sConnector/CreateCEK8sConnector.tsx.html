@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -104,7 +104,14 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">109x</span>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">109x</span>
+<span class="cline-any cline-yes">109x</span>
+<span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-yes">109x</span>
@@ -150,6 +157,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { useState } from 'react'
@@ -158,42 +168,47 @@ import { useStrings } from 'framework/strings'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import DialogExtention from '@connectors/common/ConnectorExtention/DialogExtention'
 import OverviewStep from './OverviewStep'
 import ProvidePermissions from './ProvidePermissions'
 import FeatureSelectionStep from './FeatureSelectionStep'
 import SecretCreationStep from './SecretCreationStep'
+import css from './CEK8sConnector.module.scss'
 &nbsp;
 const CreateCEK8sConnector: React.FC&lt;CreateConnectorModalProps&gt; = props =&gt; {
   const { getString } = useStrings()
   const [isOptimizationSelected, setIsOptimizationSelected] = useState&lt;boolean&gt;(false)
   return (
-    &lt;StepWizard
-      icon={getConnectorIconByType(Connectors.CE_KUBERNETES)}
-      iconProps={{ size: 40 }}
-      title={getString('pipelineSteps.kubernetesInfraStep.kubernetesConnector')}
-    &gt;
-      &lt;OverviewStep
-        type={Connectors.CE_KUBERNETES}
-        name={getString('overview')}
-        isEditMode={props.isEditMode}
-        connectorInfo={props.connectorInfo}
-      /&gt;
-      &lt;FeatureSelectionStep
-        name="Feature Selection"
-        isEditMode={props.isEditMode}
-        handleOptimizationSelection={setIsOptimizationSelected}
-      /&gt;
-      {isOptimizationSelected ? &lt;SecretCreationStep name="Secret Creation" /&gt; : null}
-      &lt;ProvidePermissions {...props} name={'Provide permissions'} /&gt;
-      &lt;VerifyOutOfClusterDelegate
-        name={getString('connectors.verifyConnection')}
-        onClose={props.onClose}
-        isStep
-        isLastStep
-        type={Connectors.CE_KUBERNETES}
-        connectorInfo={props.connectorInfo}
-      /&gt;
-    &lt;/StepWizard&gt;
+    &lt;DialogExtention dialogStyles={{ width: 1159 }}&gt;
+      &lt;StepWizard
+        icon={getConnectorIconByType(Connectors.CE_KUBERNETES)}
+        iconProps={{ size: 40 }}
+        title={getString('pipelineSteps.kubernetesInfraStep.kubernetesConnector')}
+        className={css.ceK8SConnector}
+      &gt;
+        &lt;OverviewStep
+          type={Connectors.CE_KUBERNETES}
+          name={getString('overview')}
+          isEditMode={props.isEditMode}
+          connectorInfo={props.connectorInfo}
+        /&gt;
+        &lt;FeatureSelectionStep
+          name="Feature Selection"
+          isEditMode={props.isEditMode}
+          handleOptimizationSelection={setIsOptimizationSelected}
+        /&gt;
+        {isOptimizationSelected ? &lt;SecretCreationStep name="Secret Creation" /&gt; : null}
+        &lt;ProvidePermissions {...props} name={'Provide permissions'} /&gt;
+        &lt;VerifyOutOfClusterDelegate
+          name={getString('connectors.verifyConnection')}
+          onClose={props.onClose}
+          isStep
+          isLastStep
+          type={Connectors.CE_KUBERNETES}
+          connectorInfo={props.connectorInfo}
+        /&gt;
+      &lt;/StepWizard&gt;
+    &lt;/DialogExtention&gt;
   )
 }
 &nbsp;
@@ -205,7 +220,7 @@ export default CreateCEK8sConnector
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 23 2021 06:39:43 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 23 2021 07:27:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

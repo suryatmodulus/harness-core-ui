@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.56% </span>
+                <span class="strong">95.56% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/41</span>
+                <span class='fraction'>43/45</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.56% </span>
+                <span class="strong">95.56% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/41</span>
+                <span class='fraction'>43/45</span>
             </div>
         
             
@@ -212,7 +212,15 @@
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">109x</span>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -226,6 +234,8 @@
 <span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">109x</span>
+<span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-yes">109x</span>
 <span class="cline-any cline-yes">109x</span>
@@ -252,6 +262,8 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -304,6 +316,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -367,7 +383,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">109x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useContext, useState } from 'react'
 import {
   Button,
   Heading,
@@ -383,10 +399,12 @@ import { omit as _omit } from 'lodash-es'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'
 import { downloadYamlAsFile } from '@common/utils/downloadYamlUtils'
+import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import { useCloudCostK8sClusterSetup } from 'services/ce'
 import CopyCodeSection from './components/CopyCodeSection'
+import PermissionYAMLPreview from './PermissionYAMLPreview'
 import css from './CEK8sConnector.module.scss'
 &nbsp;
 interface ProvidePermissionsProps {
@@ -407,6 +425,8 @@ const ProvidePermissions: React.FC&lt;StepProps&lt;StepSecretManagerProps&gt; &a
   const [command] = useState('kubectl apply -f cost-optimisation-crd.yaml')
   const [isSaving, setIsSaving] = useState&lt;boolean&gt;(false)
   const [modalErrorHandler, setModalErrorHandler] = useState&lt;ModalErrorHandlerBinding | undefined&gt;()
+  const { triggerExtension } = useContext(DialogExtensionContext)
+&nbsp;
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({
     queryParams: { accountIdentifier: accountId }
@@ -458,7 +478,11 @@ const ProvidePermissions: React.FC&lt;StepProps&lt;StepSecretManagerProps&gt; &a
       &lt;ModalErrorHandler bind={setModalErrorHandler} /&gt;
       &lt;Text&gt;
         To provide required permissions to your cluster, please download the YAML below and continue to apply it using
-        instructions given in the next step. You can preview the YAML file here.
+        instructions given in the next step. You can preview the YAML file{' '}
+        &lt;span className={css.previewLink} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >triggerExtension(&lt;PermissionYAMLPreview /&gt;)}</span>&gt;
+          here
+        &lt;/span&gt;
+        .
       &lt;/Text&gt;
       &lt;div&gt;
         &lt;Text&gt;This YAML file contains:&lt;/Text&gt;
@@ -529,7 +553,7 @@ export default ProvidePermissions
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 23 2021 06:39:43 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 23 2021 07:27:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Heading, Text, Label, Button, Container, Color } from '@wings-software/uicore'
+import { Layout, Text, Label, Button, Container, Color } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
@@ -285,14 +285,16 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
           <PageSpinner />
         </div>
       )}
-      <h2 className={css.heading}>{`${getString('pipeline.triggers.triggerConfigurationLabel')}${
-        !isEdit
-          ? `: ${getString('pipeline.triggers.onNewArtifactTitle', {
-              artifact: artifactOrManifestText
-            })}`
-          : ''
-      }`}</h2>
-      <div style={{ backgroundColor: 'var(--white)' }}>
+      <Text className={css.formContentTitle} inline={true}>
+        {`${getString('pipeline.triggers.triggerConfigurationLabel')}${
+          !isEdit
+            ? `: ${getString('pipeline.triggers.onNewArtifactTitle', {
+                artifact: artifactOrManifestText
+              })}`
+            : ''
+        }`}
+      </Text>
+      <div className={css.formContent}>
         <NameIdDescriptionTags
           className={css.nameIdDescriptionTags}
           formikProps={formikProps}
@@ -303,11 +305,11 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
             dataTooltipId: 'artifactTrigger'
           }}
         />
-        <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
-          {getString('pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact', {
-            artifact: artifactOrManifestText
-          })}
-        </Heading>
+      </div>
+      <Text className={css.formContentTitle} inline={true}>
+        {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}
+      </Text>
+      <div className={css.formContent}>
         <section style={{ marginTop: 'var(--spacing-small)' }}>
           {appliedTableArtifact ? (
             showAppliedTableArtifact({

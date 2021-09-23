@@ -10,7 +10,6 @@
   }
 
   .tabsContainer {
-    // background: #fbfcfd;
     display: flex;
     justify-content: flex-start;
 
@@ -18,43 +17,46 @@
       [class*='FormikForm'] > div > [class*='bp3-tabs'] {
         .bp3-tab {
           margin: var(--spacing-small) 0 !important;
-          min-width: 140px;
-          padding: 0 var(--spacing-medium);
+          min-width: 105px; // see trigger Schedule tab
+          padding: 0 var(--spacing-medium) 0 0;
           text-align: center;
         }
         > .bp3-tab-list {
-          // background-color: var(--white);
-          // justify-content: center;
-          // width: 1000px;
-          // border-bottom: 0;
-          // border-bottom-color: transparent !important;
           position: sticky;
-          top: 36px;
+          top: 58px;
           z-index: 1;
           border-bottom: 1px solid rgba(0, 0, 0, 0.13);
           background-color: var(--white);
           padding-bottom: 3px;
-          padding-left: var(--spacing-large);
+          padding-left: 0;
+
+          [class*='bp3-tab-indicator-wrapper'] {
+            width: 200px !important;
+            left: 22px;
+          }
         }
         > .bp3-tab-panel {
           width: 1000px;
-          // padding-top: var(--spacing-huge);
-          // margin-top: 0;
-          // z-index: 0;
-          // background-color: #fbfcfd;
-          // > div {
-          //   background-color: var(--white);
-          //   margin-top: 20px;
-          //   border-left: none;
-          //   border-right: none;
-          //   box-shadow: 0px 0.5px 2px rgba(96, 97, 112, 0.16);
-          // }
+        }
+
+        &:hover {
+          [data-name='chevron-right-tab'] svg path {
+            fill: var(--grey-400) !important;
+          }
         }
       }
     }
     .tab {
       span[class*='bp3-icon'] {
         margin-right: var(--spacing-small);
+      }
+      &:hover {
+        .panelIndexCircle {
+          border-color: var(--primary-7);
+        }
+        .panelIndexNumber {
+          color: var(--primary-7);
+        }
       }
     }
     .tabPanel {
@@ -73,10 +75,10 @@
     position: fixed;
     bottom: 0px;
     width: 100%;
-    background-color: var(--white);
+    padding: var(--spacing-medium) 0 !important;
+    background-color: var(--form-bg) !important;
     z-index: 1;
     align-items: center;
-    padding: var(--spacing-medium) var(--spacing-xxlarge) !important;
     p:hover {
       cursor: pointer;
       color: var(--grey-700);
@@ -84,6 +86,12 @@
     .cancel {
       margin-left: var(--spacing-xlarge) !important;
     }
+    > button:not(:first-child) {
+      margin-left: 12px !important;
+    }
+  }
+  .nonYamlViewFooter {
+    padding: var(--spacing-medium) var(--spacing-xlarge) !important;
   }
 }
 // .headerLine {
@@ -106,6 +114,7 @@
   bottom: 0;
   position: fixed;
   width: 100%;
+  background-color: var(--form-bg) !important;
 }
 
 .extendedNav {
@@ -116,10 +125,26 @@
   justify-content: space-between;
   background-color: var(--white);
   border-bottom: 1px solid rgba(0, 0, 0, 0.13);
-  padding: var(--spacing-xsmall) 0;
+  padding: var(--spacing-small) 0 var(--spacing-large) 0;
   align-items: center;
 }
 
 .sideItems {
   width: 500px;
+}
+
+.panelIndexCircle {
+  color: var(--grey-500);
+  border: 1px solid var(--grey-500);
+  border-radius: 100%;
+  display: inline-block;
+  margin-right: var(--spacing-small);
+  width: 21px;
+}
+.panelIndexNumber {
+  color: var(--grey-700);
+}
+
+.activeIndex {
+  border-color: var(--grey-800);
 }

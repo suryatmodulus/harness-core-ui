@@ -103,25 +103,13 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
           <PageSpinner />
         </div>
       )}
-      <Text
-        font={{ size: 'medium', weight: 'bold' }}
-        inline={true}
-        color={Color.GREY_800}
-        style={{ marginBottom: 'var(--spacing-large)' }}
-      >
+      <Text className={css.formContentTitle} inline={true}>
         {`${getString('pipeline.triggers.triggerConfigurationLabel')}${
           !isEdit ? `: ${getString('pipeline.triggers.onNewWebhookTitle')}` : ''
         }`}
       </Text>
-      {/* <h2 className={css.heading}>{`${getString('pipeline.triggers.triggerConfigurationLabel')}${
-        !isEdit ? `: ${getString('pipeline.triggers.onNewWebhookTitle')}` : ''
-      }`}</h2> */}
-      <div
-        className={css.formContent}
-        style={{
-          marginBottom: 'var(--spacing-large)'
-        }}
-      >
+
+      <div className={css.formContent}>
         <NameIdDescriptionTags
           className={css.nameIdDescriptionTags}
           formikProps={formikProps}
@@ -134,18 +122,10 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
         />
       </div>
 
-      <Text
-        font={{ size: 'medium', weight: 'bold' }}
-        inline={true}
-        color={Color.GREY_800}
-        style={{ marginBottom: 'var(--spacing-large)' }}
-      >
+      <Text className={css.formContentTitle} inline={true}>
         {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}
       </Text>
       <div className={css.formContent}>
-        {/* <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
-          {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}
-        </Heading> */}
         <section style={{ width: '650px', marginTop: 'var(--spacing-small)' }}>
           <FormInput.Select
             label={getString('pipeline.triggers.triggerConfigurationPanel.payloadType')}

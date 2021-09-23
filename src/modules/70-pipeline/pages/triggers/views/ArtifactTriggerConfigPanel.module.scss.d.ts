@@ -3,8 +3,8 @@
 declare const styles: {
   readonly artifactTriggerConfigContainer: string
   readonly nameIdDescriptionTags: string
-  readonly heading: string
-  readonly listenOnNewWebhook: string
+  readonly formContentTitle: string
+  readonly formContent: string
   readonly footer: string
 }
 export default styles

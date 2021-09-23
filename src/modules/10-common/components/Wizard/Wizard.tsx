@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, createRef, RefObject } from 'react'
-import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, ButtonVariation } from '@wings-software/uicore'
+import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, ButtonVariation, Icon } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
@@ -62,7 +62,7 @@ interface WizardProps {
   onHide: () => void
   defaultTabId?: string
   tabWidth?: string
-  includeTabNumber?: boolean
+  tabChevronOffset?: string
   submitLabel?: string
   isEdit?: boolean
   children?: JSX.Element[]
@@ -80,8 +80,8 @@ const Wizard: React.FC<WizardProps> = ({
   onHide,
   submitLabel,
   tabWidth,
+  tabChevronOffset,
   defaultTabId,
-  includeTabNumber = true,
   formikInitialProps,
   children,
   isEdit = false,
@@ -265,19 +265,36 @@ const Wizard: React.FC<WizardProps> = ({
                           panelIndex,
                           touchedPanels,
                           isEdit,
-                          includeTabNumber,
+                          selectedTabIndex,
                           formikValues: formikProps.values,
                           ref: elementsRef.current[panelIndex]
                         })}
                         panel={
                           children?.[panelIndex] && React.cloneElement(children[panelIndex], { formikProps, isEdit })
                         }
-                      />
+                      >
+                        {panelIndex !== wizardMap.panels.length - 1 && (
+                          <Icon
+                            data-name="chevron-right-tab"
+                            name="chevron-right"
+                            height={20}
+                            size={20}
+                            margin={{ right: 'small', left: 'small' }}
+                            color={'grey400'}
+                            style={{
+                              position: tabChevronOffset ? 'absolute' : 'initial',
+                              left: tabChevronOffset || 'auto',
+                              cursor: 'auto'
+                            }}
+                            onClick={e => e.preventDefault()}
+                          />
+                        )}
+                      </Tab>
                     )
                   })}
                 </Tabs>
               )}
-              <Layout.Horizontal spacing="medium" className={css.footer}>
+              <Layout.Horizontal className={cx(css.footer, !isYamlView && css.nonYamlViewFooter)}>
                 {!isYamlView && selectedTabIndex !== 0 && (
                   <Button
                     variation={ButtonVariation.SECONDARY}
@@ -330,7 +347,7 @@ const Wizard: React.FC<WizardProps> = ({
                 {!isYamlView && (
                   <Button
                     className={css.cancel}
-                    variation={ButtonVariation.SECONDARY}
+                    variation={ButtonVariation.TERTIARY}
                     onClick={onHide}
                     text={getString('cancel')}
                   />
@@ -368,7 +385,7 @@ const Wizard: React.FC<WizardProps> = ({
                     />
                     <Button
                       className={css.cancel}
-                      variation={ButtonVariation.SECONDARY}
+                      variation={ButtonVariation.TERTIARY}
                       onClick={onHide}
                       text={getString('cancel')}
                     />

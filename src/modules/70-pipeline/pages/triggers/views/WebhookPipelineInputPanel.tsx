@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Heading, Text, NestedAccordionProvider } from '@wings-software/uicore'
+import { Layout, Text, NestedAccordionProvider, Color } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { pick, merge, cloneDeep } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
@@ -213,7 +213,9 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
         <div className={css.inputsetGrid}>
           <div className={css.inputSetContent}>
             <div className={css.pipelineInputRow}>
-              <Heading level={2}>{getString('pipeline.triggers.pipelineInputLabel')}</Heading>
+              <Text font={{ size: 'medium', weight: 'bold' }} inline={true} color={Color.GREY_800}>
+                {getString('pipeline.triggers.pipelineInputLabel')}
+              </Text>
               <GitSyncStoreProvider>
                 <InputSetSelector
                   pipelineIdentifier={pipelineIdentifier}

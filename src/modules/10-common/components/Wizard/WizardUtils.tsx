@@ -1,6 +1,6 @@
 import React, { RefObject } from 'react'
-import { Color, Icon } from '@wings-software/uicore'
-import type { IconName } from '@wings-software/uicore'
+import { Color, Icon, IconName } from '@wings-software/uicore'
+import cx from 'classnames'
 import { isUndefined, range } from 'lodash-es'
 import css from './Wizard.module.scss'
 
@@ -46,23 +46,23 @@ const renderIcon = ({
 export const renderTitle = ({
   tabTitle,
   tabTitleComponent,
-  includeTabNumber,
   requiredFields,
   checkValidPanel,
   panelIndex,
   touchedPanels,
   isEdit,
+  selectedTabIndex,
   ref,
   formikValues
 }: {
   tabTitle?: string
   tabTitleComponent?: JSX.Element
-  includeTabNumber?: boolean
   requiredFields: string[]
   checkValidPanel?: (formiKValues: any) => boolean
   panelIndex: number
   touchedPanels: number[]
   isEdit: boolean
+  selectedTabIndex: number
   formikValues: { [key: string]: any }
   ref: RefObject<HTMLSpanElement>
 }): JSX.Element => {
@@ -70,17 +70,23 @@ export const renderTitle = ({
 
   if (tabTitleComponent) title = tabTitleComponent
   else if (tabTitle) title = tabTitle
+  const icon = renderIcon({
+    requiredFields,
+    panelIndex,
+    touchedPanels,
+    isEdit,
+    formikValues,
+    checkValidPanel
+  })
   return (
     <span ref={ref} className={css.tab}>
-      {renderIcon({
-        requiredFields,
-        panelIndex,
-        touchedPanels,
-        isEdit,
-        formikValues,
-        checkValidPanel
-      })}
-      {includeTabNumber ? `${panelIndex + 1}. ` : ''}
+      {icon ? (
+        icon
+      ) : (
+        <div className={cx(css.panelIndexCircle, selectedTabIndex === panelIndex && css.activeIndex)}>
+          <span className={css.panelIndexNumber}>{panelIndex + 1}</span>
+        </div>
+      )}
       {title}
     </span>
   )

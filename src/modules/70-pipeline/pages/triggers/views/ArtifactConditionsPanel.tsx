@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text } from '@wings-software/uicore'
+import { Layout, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 
@@ -18,30 +18,32 @@ const ArtifactConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = 
   const isManifest = !!manifestType
   return (
     <Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge">
-      <h2 className={css.heading}>
+      <Text font={{ size: 'medium', weight: 'bold' }} inline={true} color={Color.GREY_800}>
         {getString('conditions')}{' '}
-        <Text style={{ display: 'inline-block' }} color="grey400">
+        <Text style={{ display: 'inline-block' }} color={Color.GREY_500}>
           {getString('titleOptional')}
         </Text>
-      </h2>
-      <Text>
-        {isManifest
-          ? getString('pipeline.triggers.conditionsPanel.subtitle')
-          : getString('pipeline.triggers.conditionsPanel.subtitle')}
+        <Text color={Color.BLACK} style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-large)' }}>
+          {isManifest
+            ? getString('pipeline.triggers.conditionsPanel.subtitle')
+            : getString('pipeline.triggers.conditionsPanel.subtitle')}{' '}
+        </Text>
       </Text>
-      {isManifest ? (
-        <ConditionRow
-          formikProps={formikProps}
-          name="version"
-          label={getString('pipeline.triggers.conditionsPanel.manifestVersion')}
-        />
-      ) : (
-        <ConditionRow
-          formikProps={formikProps}
-          name="build"
-          label={getString('pipeline.triggers.conditionsPanel.artifactBuild')}
-        />
-      )}
+      <Layout.Vertical className={css.formContent}>
+        {isManifest ? (
+          <ConditionRow
+            formikProps={formikProps}
+            name="version"
+            label={getString('pipeline.triggers.conditionsPanel.manifestVersion')}
+          />
+        ) : (
+          <ConditionRow
+            formikProps={formikProps}
+            name="build"
+            label={getString('pipeline.triggers.conditionsPanel.artifactBuild')}
+          />
+        )}
+      </Layout.Vertical>
     </Layout.Vertical>
   )
 }

@@ -1,15 +1,22 @@
 .webhookPipelineInputContainer {
-  width: 1000px !important;
-  // padding: var(--spacing-medium) var(--spacing-xxlarge) !important;
+  min-width: 800px;
+  padding: 12px var(--spacing-xlarge) !important;
   .heading {
     margin: 0;
+  }
+
+  [class*='PipelineInputSetForm'][class*='container'] {
+    position: relative;
+    margin-left: -20px;
   }
 }
 
 .pipelineInputRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  // ! Awaiting Yuen's response for this change
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  display: grid;
   h2 {
     font-size: 1.5em !important;
     font-weight: bold !important;
@@ -41,5 +48,7 @@
 }
 
 .inputSetSelectedValue {
-  width: 600px !important;
+  // ! Awaiting Yuen's response for this change
+  // width: 600px !important;
+  margin-top: var(--spacing-medium);
 }

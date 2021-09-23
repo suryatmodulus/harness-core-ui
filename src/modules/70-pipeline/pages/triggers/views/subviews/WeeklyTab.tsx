@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, Container, Color, Layout, Icon, Button, SelectOption } from '@wings-software/uicore'
+import { Text, Container, Layout, Icon, Button, SelectOption } from '@wings-software/uicore'
 import cx from 'classnames'
 import { TimeSelect } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -79,10 +79,8 @@ export default function WeeklyTab(props: DailyTabInterface): JSX.Element {
                     visibility: selectedDaysOfWeek.includes(day) ? 'visible' : 'hidden'
                   }}
                   className={css.checked}
-                  background={Color.WHITE}
-                  color={Color.WHITE}
                   size={16}
-                  name="deployment-success-new"
+                  name="execution-success"
                 />
                 <Text>
                   {getString(

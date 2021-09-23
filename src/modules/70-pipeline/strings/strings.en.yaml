@@ -454,7 +454,7 @@ triggers:
     jexlCondition: 'JEXL Condition'
     jexlConditionPlaceholder: Enter JEXL Condition
     matchesValuePlaceholder: Enter Matches Value
-    manifestVersion: Manifest version
+    manifestVersion: Manifest Version
     artifactBuild: Artifact Build
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'

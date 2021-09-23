@@ -4,7 +4,8 @@
   height: 36px !important;
 }
 
-// .rightNavWizard {
-//   position: relative;
-//   top: 10px;
-// }
+.wizardBody {
+  [data-name*='page-body'] {
+    min-height: 96%;
+  }
+}

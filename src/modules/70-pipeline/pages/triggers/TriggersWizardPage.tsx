@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Layout, SelectOption, Heading, Text, Switch } from '@wings-software/uicore'
+import { Layout, SelectOption, Color, Text, Switch } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { isEmpty, isUndefined, merge, cloneDeep } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
@@ -1314,9 +1314,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const titleWithSwitch = ({ selectedView }: { selectedView: SelectedView }): JSX.Element => (
     <Layout.Horizontal
       spacing="medium"
-      style={{ paddingLeft: 'var(--spacing-large)', paddingTop: 'var(--spacing-xsmall)', alignItems: 'baseline' }}
+      style={{ paddingLeft: 'var(--spacing-xlarge)', paddingTop: 'var(--spacing-xsmall)', alignItems: 'baseline' }}
     >
-      <Heading level={2}>{wizardMap?.wizardLabel}</Heading>
+      <Text color={Color.GREY_700} style={{ fontSize: 20 }}>
+        {wizardMap?.wizardLabel}{' '}
+      </Text>
       {selectedView !== SelectedView.YAML ? (
         <>
           <Text>{getString('enabledLabel')}</Text>
@@ -1384,10 +1386,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }}
         className={css.tabs}
         wizardMap={wizardMap}
-        tabWidth="218px"
+        tabWidth="260px"
+        tabChevronOffset="235px"
         onHide={returnToTriggersPage}
         wizardType="webhook"
-        defaultTabId="Conditions"
+        // defaultTabId="Conditions"
         submitLabel={
           isEdit ? getString('pipeline.triggers.updateTrigger') : getString('pipeline.triggers.createTrigger')
         }
@@ -1433,7 +1436,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }}
         className={css.tabs}
         wizardMap={wizardMap}
-        tabWidth="218px"
+        tabWidth="260px"
+        tabChevronOffset="235px"
         onHide={returnToTriggersPage}
         // defaultTabId="Schedule"
         submitLabel={
@@ -1479,7 +1483,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }}
         className={css.tabs}
         wizardMap={wizardMap}
-        tabWidth="218px"
+        tabWidth="260px"
+        tabChevronOffset="235px"
         onHide={returnToTriggersPage}
         // defaultTabId="Conditions"
         submitLabel={

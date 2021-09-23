@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { eventTypes } from '../utils/TriggersWizardPageUtils'
 import { GitSourceProviders } from '../utils/TriggersListUtils'
-import AddConditionsSection, { ConditionRow } from './AddConditionsSection'
+import AddConditionsSection, { ConditionRow, ConditionsRowHeaders } from './AddConditionsSection'
 import css from './WebhookConditionsPanel.module.scss'
 
 interface WebhookConditionsPanelPropsInterface {
@@ -23,19 +23,17 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
     <Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge">
       <Text font={{ size: 'medium', weight: 'bold' }} inline={true} color={Color.GREY_800}>
         {getString('conditions')}{' '}
-        <Text style={{ display: 'inline-block' }} color="grey400">
+        <Text style={{ display: 'inline-block' }} color={Color.GREY_500}>
           {getString('titleOptional')}
         </Text>
-        <Text>{getString('pipeline.triggers.conditionsPanel.subtitle')}</Text>
+        <Text color={Color.BLACK} style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-large)' }}>
+          {getString('pipeline.triggers.conditionsPanel.subtitle')}
+        </Text>
       </Text>
-      <div
-        className={css.formContent}
-        style={{
-          marginBottom: 'var(--spacing-large)'
-        }}
-      >
-        {sourceRepo !== GitSourceProviders.CUSTOM.value && (
+      {sourceRepo !== GitSourceProviders.CUSTOM.value && (
+        <Layout.Vertical className={css.formContent}>
           <section>
+            <ConditionsRowHeaders getString={getString} />
             {event !== eventTypes.PUSH && event !== eventTypes.TAG && (
               <ConditionRow
                 formikProps={formikProps}
@@ -69,9 +67,9 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
               />
             )}
           </section>
-        )}
-      </div>
-      <div className={css.formContent}>
+        </Layout.Vertical>
+      )}
+      <Layout.Vertical className={css.formContent}>
         <AddConditionsSection
           title={getString('pipeline.triggers.conditionsPanel.headerConditions')}
           key="headerConditions"
@@ -81,8 +79,8 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
           setFieldValue={setFieldValue}
           errors={errors}
         />
-      </div>
-      <div className={css.formContent}>
+      </Layout.Vertical>
+      <Layout.Vertical className={css.formContent}>
         <AddConditionsSection
           title={getString('pipeline.triggers.conditionsPanel.payloadConditions')}
           key="payloadConditions"
@@ -92,14 +90,16 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
           setFieldValue={setFieldValue}
           errors={errors}
         />
-        <div className={css.formContent}></div>
+      </Layout.Vertical>
+      <Layout.Vertical className={css.formContent}>
+        <Text className={css.sectionHeader}>{getString('pipeline.triggers.conditionsPanel.jexlCondition')}</Text>
         <FormInput.Text
           style={{ width: '100%' }}
           name="jexlCondition"
-          label={getString('pipeline.triggers.conditionsPanel.jexlCondition')}
+          label=""
           placeholder={getString('pipeline.triggers.conditionsPanel.jexlConditionPlaceholder')}
         />
-      </div>
+      </Layout.Vertical>
     </Layout.Vertical>
   )
 }

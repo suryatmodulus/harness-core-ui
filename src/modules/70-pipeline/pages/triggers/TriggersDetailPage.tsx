@@ -186,70 +186,68 @@ export default function TriggersDetailPage(): JSX.Element {
   return (
     <>
       <Container
-        style={{ borderBottom: '1px solid var(--grey-200)' }}
+        style={{ borderBottom: '1px solid var(--grey-200)', padding: '12px 24px 10px 24px' }}
         padding={{ top: 'xlarge', left: 'xlarge', bottom: 'medium', right: 'xlarge' }}
         background={Color.PRIMARY_1}
       >
         <Layout.Vertical spacing="medium">
           <TriggerBreadcrumbs pipelineResponse={pipeline} />
-          <div>
-            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-              <Icon
-                name={
-                  triggerResponse?.data?.type
-                    ? getTriggerIcon({
-                        type: triggerResponse.data.type,
-                        webhookSourceRepo: triggerResponse?.data?.webhookDetails?.webhookSourceRepo
+          <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+            <Icon
+              name={
+                triggerResponse?.data?.type
+                  ? getTriggerIcon({
+                      type: triggerResponse.data.type,
+                      webhookSourceRepo: triggerResponse?.data?.webhookDetails?.webhookSourceRepo
+                    })
+                  : 'yaml-builder-trigger'
+              }
+              size={35}
+            />
+            <Layout.Horizontal spacing="small" data-testid={triggerResponse?.data?.identifier}>
+              <Layout.Vertical padding={{ left: 'small' }}>
+                <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                  <Text style={{ fontSize: 20 }} color={Color.BLACK}>
+                    {triggerResponse?.data?.name}
+                  </Text>
+                  <Text>{getString('enabledLabel')}</Text>
+                  <Switch
+                    label=""
+                    disabled={isTriggerRbacDisabled}
+                    checked={triggerResponse?.data?.enabled ?? false}
+                    onChange={async () => {
+                      const { values, error } = getEnabledStatusTriggerValues({
+                        data: triggerResponse?.data,
+                        enabled: (triggerResponse?.data && !triggerResponse?.data.enabled) || false,
+                        getString
                       })
-                    : 'yaml-builder-trigger'
-                }
-                size={26}
-              />
-              <Layout.Horizontal spacing="small" data-testid={triggerResponse?.data?.identifier}>
-                <Layout.Vertical padding={{ left: 'small' }}>
-                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                    <Text style={{ fontSize: 20 }} color={Color.BLACK}>
-                      {triggerResponse?.data?.name}
-                    </Text>
-                    <Text>{getString('enabledLabel')}</Text>
-                    <Switch
-                      label=""
-                      disabled={isTriggerRbacDisabled}
-                      checked={triggerResponse?.data?.enabled ?? false}
-                      onChange={async () => {
-                        const { values, error } = getEnabledStatusTriggerValues({
-                          data: triggerResponse?.data,
-                          enabled: (triggerResponse?.data && !triggerResponse?.data.enabled) || false,
-                          getString
-                        })
-                        if (error) {
-                          showError(error, undefined, 'pipeline.enable.status.error')
-                          return
-                        }
-                        try {
-                          const { status, data } = await updateTrigger(
-                            yamlStringify({ trigger: clearNullUndefined(values) }) as any
+                      if (error) {
+                        showError(error, undefined, 'pipeline.enable.status.error')
+                        return
+                      }
+                      try {
+                        const { status, data } = await updateTrigger(
+                          yamlStringify({ trigger: clearNullUndefined(values) }) as any
+                        )
+                        if (status === ResponseStatus.SUCCESS) {
+                          showSuccess(
+                            getString('pipeline.triggers.toast.toggleEnable', {
+                              enabled: data?.enabled ? 'enabled' : 'disabled',
+                              name: data?.name
+                            })
                           )
-                          if (status === ResponseStatus.SUCCESS) {
-                            showSuccess(
-                              getString('pipeline.triggers.toast.toggleEnable', {
-                                enabled: data?.enabled ? 'enabled' : 'disabled',
-                                name: data?.name
-                              })
-                            )
-                            refetchTrigger()
-                          }
-                        } catch (err) {
-                          showError(err?.data?.message, undefined, 'pipeline.common.trigger.error')
+                          refetchTrigger()
                         }
-                      }}
-                    />
-                  </Layout.Horizontal>
-                  <Text>{triggerResponse?.data?.identifier}</Text>
-                </Layout.Vertical>
-              </Layout.Horizontal>
+                      } catch (err) {
+                        showError(err?.data?.message, undefined, 'pipeline.common.trigger.error')
+                      }
+                    }}
+                  />
+                </Layout.Horizontal>
+                <Text>{triggerResponse?.data?.identifier}</Text>
+              </Layout.Vertical>
             </Layout.Horizontal>
-          </div>
+          </Layout.Horizontal>
         </Layout.Vertical>
       </Container>
 

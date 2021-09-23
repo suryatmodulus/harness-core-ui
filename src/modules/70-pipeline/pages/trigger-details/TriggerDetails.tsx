@@ -175,7 +175,7 @@ export default function TriggerDetails({
           </Layout.Vertical>
         }
       />
-      <Page.Body>{children}</Page.Body>
+      <Page.Body className={cx(wizard && css.wizardBody)}>{children}</Page.Body>
     </>
   )
 }

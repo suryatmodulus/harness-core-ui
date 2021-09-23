@@ -3,10 +3,9 @@
 declare const styles: {
   readonly webhookConfigurationContainer: string
   readonly actionsContainer: string
+  readonly formContentTitle: string
   readonly formContent: string
   readonly nameIdDescriptionTags: string
-  readonly heading: string
-  readonly listenOnNewWebhook: string
   readonly footer: string
   readonly checkbox: string
   readonly secureTokenLoader: string

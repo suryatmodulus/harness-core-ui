@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import { Layout, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -28,17 +28,21 @@ const TriggerOverviewPanel: React.FC<TriggerOverviewPanelPropsInterface> = ({
           <PageSpinner />
         </div>
       )}
-      <h2>{getString('pipeline.triggers.triggerOverviewPanel.title')}</h2>
-      <NameIdDescriptionTags
-        className={css.nameIdDescriptionTags}
-        formikProps={formikProps}
-        identifierProps={{
-          isIdentifierEditable: !isEdit
-        }}
-        tooltipProps={{
-          dataTooltipId: 'triggerOverview'
-        }}
-      />
+      <Text className={css.formContentTitle} inline={true}>
+        {getString('pipeline.triggers.triggerOverviewPanel.title')}
+      </Text>
+      <Layout.Vertical className={css.formContent}>
+        <NameIdDescriptionTags
+          className={css.nameIdDescriptionTags}
+          formikProps={formikProps}
+          identifierProps={{
+            isIdentifierEditable: !isEdit
+          }}
+          tooltipProps={{
+            dataTooltipId: 'triggerOverview'
+          }}
+        />
+      </Layout.Vertical>
     </Layout.Vertical>
   )
 }

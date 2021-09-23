@@ -18,6 +18,8 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
   const sourceBranchRef = useRef<HTMLDivElement>(null)
   const targetBranchRef = useRef<HTMLDivElement>(null)
 
+  console.log(data)
+
   const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
 
   const handleCommitIdClick = (commitId: string): void => {
@@ -101,21 +103,21 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
                 tooltip={
                   <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                    {data.ciExecutionInfoDTO.branch.commits[0].message}
+                    {data?.ciExecutionInfoDTO?.branch.commits[0].message}
                   </Container>
                 }
               >
-                {data.ciExecutionInfoDTO.branch.commits[0].message}
+                {data?.ciExecutionInfoDTO?.branch.commits[0].message}
               </Text>
             </div>
             <Text className={css.commit} style={{ cursor: 'pointer' }}>
               <a
                 className={css.label}
-                href={data.ciExecutionInfoDTO.branch.commits[0].link}
+                href={data?.ciExecutionInfoDTO?.branch.commits[0].link}
                 rel="noreferrer"
                 target="_blank"
               >
-                {data.ciExecutionInfoDTO.branch.commits[0].id.slice(0, 7)}
+                {data?.ciExecutionInfoDTO?.branch.commits[0].id.slice(0, 7)}
               </a>
               <Text
                 tooltip={
@@ -131,7 +133,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 <Icon
                   name="copy"
                   size={14}
-                  onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.branch.commits[0].link)}
+                  onClick={() => handleCommitIdClick(data?.ciExecutionInfoDTO?.branch.commits[0].link)}
                 />
               </Text>
             </Text>
@@ -161,21 +163,21 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
                 tooltip={
                   <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                    {data.ciExecutionInfoDTO.branch.commits[0].message}
+                    {data?.ciExecutionInfoDTO?.branch.commits[0].message}
                   </Container>
                 }
               >
-                {data.ciExecutionInfoDTO.branch.commits[0].message}
+                {data?.ciExecutionInfoDTO?.branch.commits[0].message}
               </Text>
             </div>
             <Text className={css.commit} style={{ cursor: 'pointer' }}>
               <a
                 className={css.label}
-                href={data.ciExecutionInfoDTO.branch.commits[0].link}
+                href={data?.ciExecutionInfoDTO?.branch.commits[0].link}
                 rel="noreferrer"
                 target="_blank"
               >
-                {data.ciExecutionInfoDTO.branch.commits[0].id.slice(0, 7)}
+                {data?.ciExecutionInfoDTO?.branch.commits[0].id.slice(0, 7)}
               </a>
               <Text
                 tooltip={
@@ -191,7 +193,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 <Icon
                   name="copy"
                   size={14}
-                  onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.branch.commits[0].link)}
+                  onClick={() => handleCommitIdClick(data?.ciExecutionInfoDTO?.branch.commits[0].link)}
                 />
               </Text>
             </Text>
@@ -209,7 +211,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
             </div>
             <div ref={sourceBranchRef} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
               <Icon name="git-new-branch" size={12} color="primary7" />
-              {data.ciExecutionInfoDTO.pullRequest.sourceBranch}
+              {data?.ciExecutionInfoDTO?.pullRequest.sourceBranch}
             </div>
           </div>
           <Icon name="arrow-right" size={14} />
@@ -219,7 +221,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
             style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
           >
             <Icon name="git-new-branch" size={12} color="primary7" />
-            {data.ciExecutionInfoDTO.pullRequest.targetBranch}
+            {data?.ciExecutionInfoDTO?.pullRequest.targetBranch}
           </div>
           <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-3)' }}>
             <Icon name="git-branch-existing" size={14} />
@@ -229,21 +231,21 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
                 tooltip={
                   <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                    {data.ciExecutionInfoDTO.pullRequest.commits[0].message}
+                    {data?.ciExecutionInfoDTO?.pullRequest.commits[0].message}
                   </Container>
                 }
               >
-                {data.ciExecutionInfoDTO.pullRequest.commits[0].message}
+                {data?.ciExecutionInfoDTO?.pullRequest.commits[0].message}
               </Text>
             </div>
             <Text className={css.commit} style={{ cursor: 'pointer' }}>
               <a
                 className={css.label}
-                href={data.ciExecutionInfoDTO.pullRequest.commits[0].link}
+                href={data?.ciExecutionInfoDTO?.pullRequest.commits[0].link}
                 rel="noreferrer"
                 target="_blank"
               >
-                {data.ciExecutionInfoDTO.pullRequest.commits[0].id.slice(0, 7)}
+                {data?.ciExecutionInfoDTO?.pullRequest.commits[0].id.slice(0, 7)}
               </a>
               <Text
                 tooltip={
@@ -259,7 +261,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 <Icon
                   name="copy"
                   size={14}
-                  onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.pullRequest.commits[0].link)}
+                  onClick={() => handleCommitIdClick(data?.ciExecutionInfoDTO?.pullRequest.commits[0].link)}
                 />
               </Text>
             </Text>
@@ -270,26 +272,26 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
               <Text
                 font={{ size: 'small' }}
                 style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-                tooltip={<Container padding="small">{data.ciExecutionInfoDTO.pullRequest.title}</Container>}
+                tooltip={<Container padding="small">{data?.ciExecutionInfoDTO?.pullRequest.title}</Container>}
               >
-                {data.ciExecutionInfoDTO.pullRequest.title}
+                {data?.ciExecutionInfoDTO?.pullRequest.title}
               </Text>
             </div>
             <a
               className={css.label}
-              href={data.ciExecutionInfoDTO.pullRequest?.link || ''}
+              href={data?.ciExecutionInfoDTO?.pullRequest?.link || ''}
               target="_blank"
               rel="noopener noreferrer"
             >
               {getString('ci.prSymbol')}
-              {typeof data.ciExecutionInfoDTO.pullRequest?.id === 'string' ||
-              typeof data.ciExecutionInfoDTO.pullRequest?.id === 'number'
-                ? data.ciExecutionInfoDTO.pullRequest?.id
-                : data.ciExecutionInfoDTO.pullRequest?.id?.['$numberLong']
-                ? data.ciExecutionInfoDTO.pullRequest?.id?.['$numberLong']
+              {typeof data?.ciExecutionInfoDTO?.pullRequest?.id === 'string' ||
+              typeof data?.ciExecutionInfoDTO?.pullRequest?.id === 'number'
+                ? data?.ciExecutionInfoDTO?.pullRequest?.id
+                : data?.ciExecutionInfoDTO?.pullRequest?.id?.['$numberLong']
+                ? data?.ciExecutionInfoDTO?.pullRequest?.id?.['$numberLong']
                 : ''}
             </a>
-            <div className={css.state}>{data.ciExecutionInfoDTO.pullRequest.state}</div>
+            <div className={css.state}>{data?.ciExecutionInfoDTO?.pullRequest.state}</div>
           </Layout.Horizontal>
         </>
       )

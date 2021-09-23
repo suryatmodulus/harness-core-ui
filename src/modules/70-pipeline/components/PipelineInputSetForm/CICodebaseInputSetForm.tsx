@@ -12,10 +12,9 @@ export interface CICodebaseInputSetFormProps {
 }
 
 const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseInputSetFormProps): JSX.Element => {
-  const type = get(formik?.values, `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`, '') as
-    | 'branch'
-    | 'tag'
-    | 'PR'
+  const formattedPath = isEmpty(path) ? '' : `${path}.`
+
+  const type = get(formik?.values, `${formattedPath}properties.ci.codebase.build.type`, '') as 'branch' | 'tag' | 'PR'
   const { getString } = useStrings()
   const radioGroupItems = [
     {
@@ -52,32 +51,25 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   return (
     <>
       <FormInput.RadioGroup
-        name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`}
+        name={`${formattedPath}properties.ci.codebase.build.type`}
         items={radioGroupItems}
         radioGroup={{ inline: true }}
         onChange={(e): void => {
           formik?.setFieldValue(
-            `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${
+            `${formattedPath}properties.ci.codebase.build.spec.${
               inputNames[(e.target as HTMLFormElement).value as 'branch' | 'tag' | 'PR']
             }`,
-            get(
-              formik?.values,
-              `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${inputNames[type]}`,
-              ''
-            )
+            get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
           )
 
-          formik?.setFieldValue(
-            `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${inputNames[type]}`,
-            undefined
-          )
+          formik?.setFieldValue(`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, undefined)
         }}
         style={{ marginBottom: 0 }}
       />
       {type && (
         <FormInput.MultiTextInput
           label={inputLabels[type]}
-          name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${inputNames[type]}`}
+          name={`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`}
           multiTextInputProps={{
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]

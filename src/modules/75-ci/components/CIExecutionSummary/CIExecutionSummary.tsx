@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import cx from 'classnames'
 import { Text, Icon, Container, Utils, Layout } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -13,10 +13,6 @@ enum Type {
 
 export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.ReactElement {
   const { getString } = useStrings()
-
-  const repoRef = useRef<HTMLDivElement>(null)
-  const sourceBranchRef = useRef<HTMLDivElement>(null)
-  const targetBranchRef = useRef<HTMLDivElement>(null)
 
   const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
 
@@ -43,37 +39,6 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
       break
   }
 
-  useEffect(() => {
-    const repo = repoRef.current
-    const targetBranch = targetBranchRef.current
-    const sourceBranch = sourceBranchRef.current
-
-    if (type === Type.Branch) {
-      if (repo && sourceBranch) {
-        if (repo.offsetWidth > 200) {
-          repo.style.width = '200px'
-        }
-        if (sourceBranch.offsetWidth > 200) {
-          sourceBranch.style.width = '200px'
-        }
-      }
-    }
-
-    if (type === Type.PullRequest) {
-      if (repo && targetBranch && sourceBranch) {
-        if (repo.offsetWidth > 150) {
-          repo.style.width = '150px'
-        }
-        if (targetBranch.offsetWidth > 150) {
-          targetBranch.style.width = '150px'
-        }
-        if (sourceBranch.offsetWidth > 150) {
-          sourceBranch.style.width = '150px'
-        }
-      }
-    }
-  }, [type])
-
   if (!type) {
     return <></>
   }
@@ -84,14 +49,14 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
       ui = (
         <>
           <div className={cx(css.label, css.multiple)}>
-            <div ref={repoRef} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+            <Container flex>
               <Icon name="repository" size={14} color="primary7" />
-              {data.repoName}
-            </div>
-            <div ref={sourceBranchRef} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+              <div className={css.truncated}>{data.repoName}</div>
+            </Container>
+            <Container flex>
               <Icon name="git-new-branch" size={12} color="primary7" />
-              {data.branch}
-            </div>
+              <div className={css.truncated}>{data.branch}</div>
+            </Container>
           </div>
           <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-3)' }}>
             <Icon name="git-branch-existing" size={14} />
@@ -144,11 +109,11 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
         <Layout.Horizontal flex spacing="small">
           <div className={css.label}>
             <Icon name="repository" size={14} color="primary7" />
-            {data.repoName}
+            <div className={css.truncated}>{data.repoName}</div>
           </div>
           <div className={css.label}>
             <Icon name="tag" size={14} color="primary7" />
-            {data.tag}
+            <div className={css.truncated}>{data.tag}</div>
           </div>
           {/* <Text tooltip={<Container padding="small"> Notes</Container>}>
             <Icon name="more" size={14} />
@@ -203,24 +168,20 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
       ui = (
         <>
           <div className={cx(css.label, css.multiple)}>
-            <div ref={repoRef} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+            <Container flex>
               <Icon name="repository" size={14} color="primary7" />
-              {data.repoName}
-            </div>
-            <div ref={sourceBranchRef} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+              <div className={css.truncated}>{data.repoName}</div>
+            </Container>
+            <Container flex>
               <Icon name="git-new-branch" size={12} color="primary7" />
-              {data?.ciExecutionInfoDTO?.pullRequest.sourceBranch}
-            </div>
+              <div className={css.truncated}>{data?.ciExecutionInfoDTO?.pullRequest.sourceBranch}</div>
+            </Container>
           </div>
           <Icon name="arrow-right" size={14} />
-          <div
-            className={css.label}
-            ref={targetBranchRef}
-            style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-          >
+          <Container className={css.label}>
             <Icon name="git-new-branch" size={12} color="primary7" />
-            {data?.ciExecutionInfoDTO?.pullRequest.targetBranch}
-          </div>
+            <div className={css.truncated}>{data?.ciExecutionInfoDTO?.pullRequest.targetBranch}</div>
+          </Container>
           <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-3)' }}>
             <Icon name="git-branch-existing" size={14} />
             <div style={{ fontSize: 0 }}>
@@ -301,7 +262,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
   }
 
   return (
-    <div className={css.main}>
+    <div className={cx(css.main, { [css.pullRequest]: type === Type.PullRequest })}>
       <Icon className={css.icon} size={18} name="ci-main" />
       {ui}
     </div>

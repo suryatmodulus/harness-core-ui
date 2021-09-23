@@ -55,8 +55,22 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
         name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`}
         items={radioGroupItems}
         radioGroup={{ inline: true }}
-        onChange={() => {
-          formik?.setFieldValue(`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec`, undefined)
+        onChange={(e): void => {
+          formik?.setFieldValue(
+            `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${
+              inputNames[(e.target as HTMLFormElement).value as 'branch' | 'tag' | 'PR']
+            }`,
+            get(
+              formik?.values,
+              `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${inputNames[type]}`,
+              ''
+            )
+          )
+
+          formik?.setFieldValue(
+            `${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${inputNames[type]}`,
+            undefined
+          )
         }}
         style={{ marginBottom: 0 }}
       />
@@ -70,6 +84,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           }}
           style={{ marginBottom: 0 }}
           disabled={readonly}
+          onChange={values => console.log(values)}
         />
       )}
     </>

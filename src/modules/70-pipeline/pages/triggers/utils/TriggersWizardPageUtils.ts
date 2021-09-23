@@ -1064,7 +1064,11 @@ export const parseArtifactsManifests = ({
             )
             if (newAppliedArtifact) {
               appliedArtifact = newAppliedArtifact
-            } else if (artifactRef === 'primary') {
+            } else if (
+              artifactRef === 'primary' &&
+              filteredArtifacts?.primary &&
+              !filteredArtifacts?.primary?.identifier
+            ) {
               appliedArtifact = filteredArtifacts?.primary
             }
           }
@@ -1112,7 +1116,6 @@ export const parseArtifactsManifests = ({
         }
       }
     })
-
     const stageManifests = flatten(stagesManifests)
     return {
       appliedArtifact,
@@ -1728,41 +1731,80 @@ export const getArtifactTableDataFromData = ({
 export function getArtifactSpecObj({
   appliedArtifact,
   selectedArtifact,
-  path = ''
+  path = '',
+  isManifest = true
 }: {
   appliedArtifact: artifactManifestData
   selectedArtifact: artifactManifestData
   path: string
+  isManifest?: boolean
 }): any {
   let newAppliedArtifactSpecObj: any = {}
-  const appliedArtifactSpecEntries = path
-    ? Object.entries({ ...appliedArtifact })
-    : Object.entries({ ...appliedArtifact?.spec })
-  appliedArtifactSpecEntries.forEach((entry: [key: string, val: any]) => {
-    const [key, val] = entry
-    const pathArr = `.spec${path}`.split('.').filter(p => !!p)
-    const pathResult = get(selectedArtifact, pathArr)
+  if (isManifest) {
+    const appliedArtifactSpecEntries = path
+      ? Object.entries({ ...appliedArtifact })
+      : Object.entries({ ...appliedArtifact?.spec })
+    appliedArtifactSpecEntries.forEach((entry: [key: string, val: any]) => {
+      const [key, val] = entry
+      const pathArr = `.spec${path}`.split('.').filter(p => !!p)
+      const pathResult = get(selectedArtifact, pathArr)
 
-    if (val && key && pathResult?.[key]) {
-      newAppliedArtifactSpecObj[key] = pathResult[key]
-    } else if (val && key && selectedArtifact?.spec?.[key]) {
-      newAppliedArtifactSpecObj[key] = selectedArtifact.spec[key]
-    } else if (typeof val === 'object') {
-      const obj = getArtifactSpecObj({
-        appliedArtifact: path ? appliedArtifact[key] : appliedArtifact.spec[key],
-        selectedArtifact,
-        path: `${path}.${key}`
-      })
+      if (val && key && pathResult?.[key]) {
+        newAppliedArtifactSpecObj[key] = pathResult[key]
+      } else if (val && key && selectedArtifact?.spec?.[key]) {
+        newAppliedArtifactSpecObj[key] = selectedArtifact.spec[key]
+      } else if (typeof val === 'object') {
+        const obj = getArtifactSpecObj({
+          appliedArtifact: path ? appliedArtifact[key] : appliedArtifact.spec[key],
+          selectedArtifact,
+          path: `${path}.${key}`
+        })
 
-      if (!isEmpty(obj)) {
-        if (!path) {
-          newAppliedArtifactSpecObj = { ...newAppliedArtifactSpecObj, ...obj }
-        } else {
-          set(newAppliedArtifactSpecObj, `${path.substring(1)}.${key}`, obj)
+        if (!isEmpty(obj)) {
+          if (!path) {
+            newAppliedArtifactSpecObj = { ...newAppliedArtifactSpecObj, ...obj }
+          } else {
+            set(newAppliedArtifactSpecObj, `${path.substring(1)}.${key}`, obj)
+          }
         }
       }
+    })
+  } else {
+    let appliedArtifactSpecEntries
+    if (path) {
+      appliedArtifactSpecEntries = Object.entries({ ...appliedArtifact })
+    } else if (appliedArtifact?.sidecar) {
+      appliedArtifactSpecEntries = Object.entries({ ...appliedArtifact?.sidecar })
+    } else if (appliedArtifact) {
+      appliedArtifactSpecEntries = Object.entries({ ...appliedArtifact })
     }
-  })
+
+    appliedArtifactSpecEntries?.forEach((entry: [key: string, val: any]) => {
+      const [key, val] = entry
+      const pathArr = `${path}`.split('.').filter(p => !!p)
+      const pathResult = get(selectedArtifact, pathArr)
+
+      if (val && key && pathResult?.[key]) {
+        newAppliedArtifactSpecObj[key] = pathResult[key]
+      } else if (val && key && selectedArtifact?.[key]) {
+        newAppliedArtifactSpecObj[key] = selectedArtifact?.[key]
+      } else if (typeof val === 'object') {
+        const obj = getArtifactSpecObj({
+          appliedArtifact: path ? appliedArtifact[key] : appliedArtifact.spec[key],
+          selectedArtifact,
+          path: `${path}.${key}`
+        })
+
+        if (!isEmpty(obj)) {
+          if (!path) {
+            newAppliedArtifactSpecObj = { ...newAppliedArtifactSpecObj, ...obj }
+          } else {
+            set(newAppliedArtifactSpecObj, `${path.substring(1)}.${key}`, obj)
+          }
+        }
+      }
+    })
+  }
   return newAppliedArtifactSpecObj
 }
 

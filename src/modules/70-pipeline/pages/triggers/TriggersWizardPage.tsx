@@ -764,13 +764,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           spec
         }
       } else if (type === TriggerTypes.ARTIFACT) {
-        const { artifactRef, type: artifactType, spec } = source?.spec || {}
-        if (artifactType) {
-          setArtifactManifestType(artifactType)
+        const { artifactRef, type: artType, spec } = source?.spec || {}
+        if (artType) {
+          setArtifactManifestType(artType)
         }
         selectedArtifact = {
           identifier: artifactRef,
-          type: artifactManifestType || artifactType,
+          type: artifactManifestType || artType,
           spec
         }
       }
@@ -1015,7 +1015,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       buildOperator,
       buildValue,
       eventConditions = [],
-      artifactType
+      artifactType: artType
     } = val
 
     if (selectedArtifact?.spec?.chartVersion) {
@@ -1067,7 +1067,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         spec: {
           stageIdentifier: stageId,
           artifactRef: selectedArtifact?.identifier,
-          type: artifactType,
+          type: artType,
           ...artifactSourceSpec
         }
       },

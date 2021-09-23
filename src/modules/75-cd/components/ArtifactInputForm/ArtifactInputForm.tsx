@@ -671,7 +671,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                     }
                   }
                 }
-                // const filteredManifest = allValues?.manifests?.find(item => item.manifest?.identifier === identifier)
+
                 const isSelectedManifest: boolean =
                   isPipelineInputTab &&
                   stageIdentifier === formik?.values?.stageId &&
@@ -827,7 +827,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                               }
                               const sidecarIndex =
                                 initialValues?.artifacts?.sidecars?.findIndex(
-                                  sidecar => sidecar.sidecar?.identifier === identifier
+                                  (sidecar: any) => sidecar.sidecar?.identifier === identifier
                                 ) ?? -1
                               const imagePathCurrent =
                                 getMultiTypeFromValue(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.imagePath) !==

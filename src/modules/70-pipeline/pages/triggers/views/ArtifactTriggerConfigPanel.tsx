@@ -47,9 +47,18 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
       const newAppliedArtifactSpecObj = getArtifactSpecObj({
         appliedArtifact,
         selectedArtifact,
-        path: ''
+        path: '',
+        isManifest
       })
-      formikProps.setFieldValue(`${initialPath}.manifests[0].manifest.spec`, newAppliedArtifactSpecObj)
+      if (isManifest) {
+        formikProps.setFieldValue(`${initialPath}.manifests[0].manifest.spec`, newAppliedArtifactSpecObj)
+      } else {
+        if (appliedArtifact?.sidecar) {
+          formikProps.setFieldValue(`${initialPath}.artifacts.sidecars[0].sidecar`, newAppliedArtifactSpecObj)
+        } else {
+          formikProps.setFieldValue(`${initialPath}.artifacts.primary`, newAppliedArtifactSpecObj)
+        }
+      }
     }
   }, [initialPath, appliedTableArtifact])
 

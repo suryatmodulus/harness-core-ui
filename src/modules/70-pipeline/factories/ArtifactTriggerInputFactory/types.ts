@@ -10,7 +10,7 @@ export interface K8SDirectServiceStep extends ServiceSpec {
 }
 
 export interface KubernetesServiceInputFormProps {
-  initialValues: K8SDirectServiceStep
+  initialValues: K8SDirectServiceStep | any
   onUpdate?: ((data: ServiceSpec) => void) | undefined
   stepViewType?: StepViewType
   template?: ServiceSpec

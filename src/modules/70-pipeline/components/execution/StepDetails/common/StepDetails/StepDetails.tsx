@@ -31,6 +31,7 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
   const timeout = step?.stepParameters?.timeout as any
   const [taskList, setTaskList] = React.useState<Array<TaskExecutableResponse>>([])
   const { openDelegateSelectionLogsModal } = useDelegateSelectionLogsModal()
+  const isServiceDependencyStep = step.stepType === 'dependency-service'
 
   React.useEffect(() => {
     const tasks = step.executableResponses
@@ -48,17 +49,20 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
           <th>{getString('startedAt')}</th>
           <td>{step?.startTs ? new Date(step.startTs).toLocaleString() : '-'}</td>
         </tr>
-        <tr>
-          <th>{getString('endedAt')}</th>
-          <td>{step?.endTs ? new Date(step.endTs).toLocaleString() : '-'}</td>
-        </tr>
-
-        <tr>
-          <th>{getString('pipeline.duration')}</th>
-          <td>
-            <Duration className={css.timer} durationText="" startTime={step?.startTs} endTime={step?.endTs} />
-          </td>
-        </tr>
+        {isServiceDependencyStep ? null : (
+          <tr>
+            <th>{getString('endedAt')}</th>
+            <td>{step?.endTs ? new Date(step.endTs).toLocaleString() : '-'}</td>
+          </tr>
+        )}
+        {isServiceDependencyStep ? null : (
+          <tr>
+            <th>{getString('pipeline.duration')}</th>
+            <td>
+              <Duration className={css.timer} durationText="" startTime={step?.startTs} endTime={step?.endTs} />
+            </td>
+          </tr>
+        )}
         {!!timeout && (
           <tr>
             <th>{getString('pipelineSteps.timeoutLabel')}</th>

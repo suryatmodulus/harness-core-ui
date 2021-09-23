@@ -148,7 +148,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                 class="bp3-input"
                                 name="pipeline.variables[0].value"
                                 type="text"
-                                value=""
+                                value="defaultValue"
                               />
                             </div>
                             <span
@@ -382,7 +382,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                           name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                           placeholder="<+input>"
                                           type="text"
-                                          value=""
+                                          value="<+input>"
                                         />
                                       </div>
                                     </div>

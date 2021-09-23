@@ -324,7 +324,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                           class="bp3-input"
                                           name="pipeline.variables[0].value"
                                           type="text"
-                                          value=""
+                                          value="123"
                                         />
                                       </div>
                                       <span
@@ -394,7 +394,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                           class="bp3-input"
                                           name="pipeline.variables[1].value"
                                           type="text"
-                                          value=""
+                                          value="1"
                                         />
                                       </div>
                                       <span
@@ -472,7 +472,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                               placeholder="Search..."
                                               style="padding-right: 0px;"
                                               type="text"
-                                              value=""
+                                              value="val1"
                                             />
                                             <span
                                               class="bp3-input-action"
@@ -639,7 +639,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                           class="bp3-input"
                                           name="pipeline.properties.ci.codebase.build.spec.branch"
                                           type="text"
-                                          value="<+trigger.branch>"
+                                          value="test"
                                         />
                                       </div>
                                       <span
@@ -749,7 +749,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                               class="bp3-input"
                                               name="pipeline.stages[0].stage.spec.infrastructure.spec.namespace"
                                               type="text"
-                                              value=""
+                                              value="default"
                                             />
                                           </div>
                                           <span
@@ -971,7 +971,9 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                                 >
                                                   <textarea
                                                     name="pipeline.stages[0].stage.spec.execution.steps[0].step.spec.command"
-                                                  />
+                                                  >
+                                                    echo 'from trigger'
+                                                  </textarea>
                                                   <button
                                                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                                                     type="button"

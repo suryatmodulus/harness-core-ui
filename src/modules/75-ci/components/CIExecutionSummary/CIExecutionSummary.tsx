@@ -18,8 +18,6 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
   const sourceBranchRef = useRef<HTMLDivElement>(null)
   const targetBranchRef = useRef<HTMLDivElement>(null)
 
-  console.log(data)
-
   const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
 
   const handleCommitIdClick = (commitId: string): void => {

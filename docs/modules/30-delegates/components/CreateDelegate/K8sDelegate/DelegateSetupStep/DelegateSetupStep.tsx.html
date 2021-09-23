@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.58% </span>
+                <span class="strong">70.63% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>88/118</span>
+                <span class='fraction'>89/126</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">49.08% </span>
+                <span class="strong">43.72% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>80/163</span>
+                <span class='fraction'>80/183</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">72.41% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>21/28</span>
+                <span class='fraction'>21/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>84/112</span>
+                <span class='fraction'>85/119</span>
             </div>
         
             
@@ -475,7 +475,19 @@
 <a name='L416'></a><a href='#L416'>416</a>
 <a name='L417'></a><a href='#L417'>417</a>
 <a name='L418'></a><a href='#L418'>418</a>
-<a name='L419'></a><a href='#L419'>419</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L419'></a><a href='#L419'>419</a>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a>
+<a name='L423'></a><a href='#L423'>423</a>
+<a name='L424'></a><a href='#L424'>424</a>
+<a name='L425'></a><a href='#L425'>425</a>
+<a name='L426'></a><a href='#L426'>426</a>
+<a name='L427'></a><a href='#L427'>427</a>
+<a name='L428'></a><a href='#L428'>428</a>
+<a name='L429'></a><a href='#L429'>429</a>
+<a name='L430'></a><a href='#L430'>430</a>
+<a name='L431'></a><a href='#L431'>431</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -577,8 +589,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -623,6 +643,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -995,20 +1019,28 @@ const getProfile = (data: any, configId: any) =&gt; {
 }
 &nbsp;
 const DelegateSetup: React.FC&lt;StepProps&lt;StepK8Data&gt; &amp; DelegateSetupStepProps&gt; = props =&gt; {
-  const initialValues = props?.prevStepData<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateYaml</span>
-    ? <span class="branch-0 cbranch-no" title="branch not covered" >props?.prevStepData?.delegateYaml</span>
-    : {
-        name: '',
-        identifier: '',
-        description: '',
-        delegateConfigurationId: '',
-        size: DelegateSize.LAPTOP,
-        sesssionIdentifier: '',
-        k8sConfigDetails: {
-          k8sPermissionType: k8sPermissionType.CLUSTER_ADMIN,
-          namespace: ''
-        }
+  let initialValues
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (props?.prevStepData<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateYaml)</span> {
+    const tags = <span class="cstat-no" title="statement not covered" >{}</span>
+<span class="cstat-no" title="statement not covered" >    props?.prevStepData?.delegateYaml?.tags?.forEach(<span class="fstat-no" title="function not covered" >tag </span>=&gt; <span class="cstat-no" title="statement not covered" >set(tags, tag, ''))</span></span>
+<span class="cstat-no" title="statement not covered" >    initialValues = {</span>
+      ...props?.prevStepData?.delegateYaml,
+      tags
+    }
+  } else {
+    initialValues = {
+      name: '',
+      identifier: '',
+      description: '',
+      delegateConfigurationId: '',
+      size: DelegateSize.LAPTOP,
+      sesssionIdentifier: '',
+      k8sConfigDetails: {
+        k8sPermissionType: k8sPermissionType.CLUSTER_ADMIN,
+        namespace: ''
       }
+    }
+  }
 &nbsp;
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
   const { getString } = useStrings()
@@ -1034,13 +1066,17 @@ const DelegateSetup: React.FC&lt;StepProps&lt;StepK8Data&gt; &amp; DelegateSetup
   // const [configurations, setConfigOptions] = React.useState(profileOptions)
   const [selectedCard, setSelectedCard] = React.useState&lt;SelectOption | undefined&gt;()
 &nbsp;
-  const [formData, setInitValues] = React.useState&lt;DelegateSetupDetails&gt;(initialValues)
+  const [formData, setInitValues] = React.useState&lt;DelegateSetupDetails&gt;(initialValues as DelegateSetupDetails)
 &nbsp;
   const [selectedPermission, setSelectedPermission] = React.useState&lt;k8sPermissionType&gt;(
     k8sPermissionType[initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.k</span>8sConfigDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.k</span>8sPermissionType || <span class="branch-1 cbranch-no" title="branch not covered" >k8sPermissionType.CLUSTER_ADMIN]</span>
   )
   const onSubmit = <span class="fstat-no" title="function not covered" >async </span>(values: DelegateSetupDetails) =&gt; {
     const createParams = <span class="cstat-no" title="statement not covered" >values</span>
+<span class="cstat-no" title="statement not covered" >    if (createParams.tags) {</span>
+      const tagsArray = <span class="cstat-no" title="statement not covered" >Object.keys(values.tags || {})</span>
+<span class="cstat-no" title="statement not covered" >      set(createParams, 'tags', tagsArray)</span>
+    }
 <span class="cstat-no" title="statement not covered" >    if (projectIdentifier) {</span>
 <span class="cstat-no" title="statement not covered" >      set(createParams, 'projectIdentifier', projectIdentifier)</span>
     }
@@ -1318,7 +1354,7 @@ export default DelegateSetup
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 23 2021 07:27:42 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 23 2021 08:01:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

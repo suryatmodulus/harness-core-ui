@@ -49,6 +49,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   const [modalState, setModalState] = useState<ModalState>(
     !isEmpty(values?.selectedArtifact) ? ModalState.RUNTIME_INPUT : ModalState.SELECT
   )
+
   const { getString } = useStrings()
 
   const closeAndReset = () => {
@@ -63,6 +64,13 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     }
   }
 
+  const getSelectedArtifactId = () => {
+    if (selectedArtifactId) {
+      return selectedArtifactId
+    } else if (values?.selectedArtifact && !values?.selectedArtifact?.identifier) {
+      return 'primary'
+    }
+  }
   const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
   const ManifestFormDetails = formDetails.component
   const artifactForm = TriggerFactory.getTriggerFormDetails(TriggerFormType.Artifact)
@@ -70,7 +78,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   const filteredArtifact = filterArtifact({
     runtimeData,
     stageId: selectedStageId,
-    artifactId: selectedArtifactId,
+    artifactId: getSelectedArtifactId(),
     isManifest
   })
 
@@ -181,6 +189,9 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 }
 
                 const getArtifacts = () => {
+                  if (!filterFormStages) {
+                    return {}
+                  }
                   if (
                     filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars
                       ?.length
@@ -196,10 +207,10 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 }
 
                 /*
-                                              when we have multiple stages - need to filter undefined values
-                                              in this case formikprops.values.stages will be [undefined, [stage obj]]
-                                              when chartVersion alone is runtime input, stages array could be empty
-                                    */
+                                                    when we have multiple stages - need to filter undefined values
+                                                    in this case formikprops.values.stages will be [undefined, [stage obj]]
+                                                    when chartVersion alone is runtime input, stages array could be empty
+                                          */
                 const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
                 // when stages is empty array, filteredArtifact will be empty object
                 const formFilteredArtifact = isManifest ? getManifests() : getArtifacts()
@@ -208,16 +219,15 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                   if (isManifest) {
                     return merge({}, orginalArtifact, formFilteredArtifact)?.['manifest']
                   } else if (!isManifest) {
-                    if (orginalArtifact?.sidecars?.length) {
+                    if (orginalArtifact?.sidecars?.length && orginalArtifact?.sidecars[0]?.sidecar) {
                       return merge({}, orginalArtifact?.sidecars[0]?.sidecar, formFilteredArtifact?.sidecar)
-                    } else {
-                      return merge({}, orginalArtifact, formFilteredArtifact)
+                    } else if (orginalArtifact?.primary) {
+                      return merge({}, orginalArtifact.primary, formFilteredArtifact)
                     }
                   }
                 }
 
                 const finalArtifact = mergeArtifact()
-
                 if (finalArtifact?.spec?.chartVersion && isManifest) {
                   // hardcode manifest chart version to default
                   finalArtifact.spec.chartVersion = replaceTriggerDefaultBuild({

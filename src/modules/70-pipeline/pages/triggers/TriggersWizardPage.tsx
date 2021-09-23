@@ -237,6 +237,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         onEditInitialValues.pipeline || {}
       )
       const newPipeline = clearRuntimeInput(newOnEditPipeline)
+
       setOnEditInitialValues({ ...onEditInitialValues, pipeline: newPipeline as unknown as PipelineInfoConfig })
       setCurrentPipeline({ pipeline: newPipeline }) // will reset initialValues
       setMergedPipelineKey(1)

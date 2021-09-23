@@ -362,6 +362,50 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
 
   const isPipelineInputTab = fromPipelineInputTriggerTab()
   const isSelectedStage = stageIdentifier === formik?.values?.stageId
+
+  if (isPipelineInputTab && formik?.values?.selectedArtifact && !formik?.values?.selectedArtifact?.identifier) {
+    let selectedArtifact: any = initialValues?.artifacts?.primary
+    if (stageIdentifier === formik?.values?.stageId) {
+      if (selectedArtifact && initialValues && initialValues.artifacts && initialValues?.artifacts?.primary) {
+        const artifactSpec = formik?.values?.selectedArtifact?.spec || {}
+        /*
+         backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
+        */
+        if (artifactSpec.eventConditions) {
+          delete artifactSpec.eventConditions
+        }
+
+        selectedArtifact = {
+          artifact: {
+            identifier: formik?.values?.selectedArtifact?.identifier,
+            type: formik?.values?.selectedArtifact?.type,
+            spec: {
+              ...artifactSpec
+            }
+          }
+        }
+      }
+      if (initialValues?.artifacts?.primary) {
+        initialValues.artifacts['primary'] = selectedArtifact?.artifact
+      }
+    }
+  }
+
+  const isSelectedPrimaryManifest: boolean =
+    isPipelineInputTab &&
+    stageIdentifier === formik?.values?.stageId &&
+    formik?.values?.selectedArtifact &&
+    !formik?.values?.selectedArtifact.identifier
+  const disablePrimaryFields = (fieldName: string, isTag = false) => {
+    if (fromTrigger) {
+      // Trigger Configuration Tab
+      return get(TriggerDefaultFieldList, fieldName) ? true : false
+    } else if (isPipelineInputTab && isSelectedPrimaryManifest && isSelectedStage) {
+      return true
+    }
+    return isTag ? isTagSelectionDisabled(artifacts?.primary?.type || '') : readonly
+  }
+
   return (
     <>
       {get(template, 'artifacts', false) && (
@@ -406,7 +450,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                     orgIdentifier={orgIdentifier}
                     width={445}
                     setRefValue
-                    disabled={readonly}
+                    disabled={disablePrimaryFields(`artifacts.primary.spec.connectorRef`)}
                     multiTypeProps={{
                       allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
                       expressions
@@ -431,7 +475,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                     }}
                     useValue
-                    disabled={readonly}
+                    disabled={disablePrimaryFields(`artifacts.primary.spec.region`)}
                     selectItems={regions}
                     label={getString('regionLabel')}
                     name={`${path}.artifacts.primary.spec.region`}
@@ -441,7 +485,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                   MultiTypeInputType.RUNTIME && (
                   <FormInput.MultiTextInput
                     label={getString('pipeline.imagePathLabel')}
-                    disabled={readonly}
+                    disabled={disablePrimaryFields(`artifacts.primary.spec.imagePath`)}
                     multiTextInputProps={{
                       expressions,
                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -455,7 +499,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                   MultiTypeInputType.RUNTIME && (
                   <ExperimentalInput
                     formik={formik}
-                    disabled={readonly}
+                    disabled={disablePrimaryFields(`artifacts.primary.spec.registryHostname`)}
                     selectItems={gcrUrlList}
                     useValue
                     multiTypeInputProps={{
@@ -487,6 +531,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                   getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
                     <ExperimentalInput
                       formik={formik}
+                      disabled={disablePrimaryFields(`artifacts.primary.spec.tag`, true)}
                       // disabled={fromTrigger ? false : isTagSelectionDisabled(artifacts?.primary?.type || '')}
                       selectItems={
                         dockerLoading || gcrLoading || ecrLoading
@@ -556,7 +601,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                   )}
                 {getMultiTypeFromValue(artifacts?.primary?.spec?.tagRegex) === MultiTypeInputType.RUNTIME && (
                   <FormInput.MultiTextInput
-                    disabled={readonly}
+                    disabled={disablePrimaryFields('artifacts.primary.spec.tagRegex')}
                     multiTextInputProps={{
                       expressions,
                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]

@@ -100,20 +100,28 @@ const getProfile = (data: any, configId: any) => {
 }
 
 const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = props => {
-  const initialValues = props?.prevStepData?.delegateYaml
-    ? props?.prevStepData?.delegateYaml
-    : {
-        name: '',
-        identifier: '',
-        description: '',
-        delegateConfigurationId: '',
-        size: DelegateSize.LAPTOP,
-        sesssionIdentifier: '',
-        k8sConfigDetails: {
-          k8sPermissionType: k8sPermissionType.CLUSTER_ADMIN,
-          namespace: ''
-        }
+  let initialValues
+  if (props?.prevStepData?.delegateYaml) {
+    const tags = {}
+    props?.prevStepData?.delegateYaml?.tags?.forEach(tag => set(tags, tag, ''))
+    initialValues = {
+      ...props?.prevStepData?.delegateYaml,
+      tags
+    }
+  } else {
+    initialValues = {
+      name: '',
+      identifier: '',
+      description: '',
+      delegateConfigurationId: '',
+      size: DelegateSize.LAPTOP,
+      sesssionIdentifier: '',
+      k8sConfigDetails: {
+        k8sPermissionType: k8sPermissionType.CLUSTER_ADMIN,
+        namespace: ''
       }
+    }
+  }
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
@@ -139,13 +147,17 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
   // const [configurations, setConfigOptions] = React.useState(profileOptions)
   const [selectedCard, setSelectedCard] = React.useState<SelectOption | undefined>()
 
-  const [formData, setInitValues] = React.useState<DelegateSetupDetails>(initialValues)
+  const [formData, setInitValues] = React.useState<DelegateSetupDetails>(initialValues as DelegateSetupDetails)
 
   const [selectedPermission, setSelectedPermission] = React.useState<k8sPermissionType>(
     k8sPermissionType[initialValues?.k8sConfigDetails?.k8sPermissionType || k8sPermissionType.CLUSTER_ADMIN]
   )
   const onSubmit = async (values: DelegateSetupDetails) => {
     const createParams = values
+    if (createParams.tags) {
+      const tagsArray = Object.keys(values.tags || {})
+      set(createParams, 'tags', tagsArray)
+    }
     if (projectIdentifier) {
       set(createParams, 'projectIdentifier', projectIdentifier)
     }

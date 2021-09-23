@@ -84,7 +84,6 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           }}
           style={{ marginBottom: 0 }}
           disabled={readonly}
-          onChange={values => console.log(values)}
         />
       )}
     </>

@@ -28,6 +28,8 @@ interface WebhookPipelineInputPanelPropsInterface {
   formikProps?: any
 }
 
+let hasEverRendered = false
+
 const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInterface> = ({
   formikProps
 }): JSX.Element => {
@@ -55,32 +57,36 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
   const { getString } = useStrings()
 
   useEffect(() => {
-    const formikValues = cloneDeep(formikProps.values)
+    if (!hasEverRendered) {
+      const formikValues = cloneDeep(formikProps.values)
 
-    if (formikValues.event === eventTypes.PULL_REQUEST) {
-      formikValues.pipeline = {
-        properties: {
-          ci: {
-            codebase: {
-              build: ciCodebaseBuildPullRequest
+      if (formikValues.event === eventTypes.PULL_REQUEST) {
+        formikValues.pipeline = {
+          properties: {
+            ci: {
+              codebase: {
+                build: ciCodebaseBuildPullRequest
+              }
+            }
+          }
+        }
+      } else {
+        formikValues.pipeline = {
+          properties: {
+            ci: {
+              codebase: {
+                build: ciCodebaseBuild
+              }
             }
           }
         }
       }
-    } else {
-      formikValues.pipeline = {
-        properties: {
-          ci: {
-            codebase: {
-              build: ciCodebaseBuild
-            }
-          }
-        }
-      }
+
+      formikProps.setValues(formikValues)
     }
 
-    formikProps.setValues(formikValues)
-  }, [])
+    hasEverRendered = true
+  }, [hasEverRendered])
 
   useEffect(() => {
     setSelectedInputSets(inputSetSelected)

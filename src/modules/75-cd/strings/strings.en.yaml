@@ -120,3 +120,4 @@ confirmProviderDelete: Are you sure you want to delete the Provider
 duplicateIdError: 'Failed to create Provider: {{ providerName }}. There is already a Provider with identifier {{ providerIdentifier }} present. Please provide a new unique identifier and save again.'
 connectionIssueSuggestion: 'Try these suggestions <ul> <li> Please provide the correct adapter URL of the kubernetes cluster. It can be obtained using &#39;kubectlcluster-info&#39; cli command </li> </ul>'
 connectionIssueInfo: 'Issue could be <ul> <li> Adapter URL provided is not reachable </li> </ul>'
+searchPlaceholder: 'Search by name, description or tag'

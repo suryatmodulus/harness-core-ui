@@ -2524,6 +2524,7 @@ export interface StringsMap {
   'cd.releaseNameValidation': string
   'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string
+  'cd.searchPlaceholder': string
   'cd.secretManagerRequired': string
   'cd.serviceCreated': string
   'cd.serviceDashboard.3months': string

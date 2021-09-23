@@ -1164,7 +1164,12 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   }
 
   const handleArtifactSubmit = async (val: FlatValidArtifactFormikValuesInterface): Promise<void> => {
-    const triggerYaml = getArtifactTriggerYaml({ values: val })
+    let triggerYaml = {}
+    if (val.triggerType === TriggerTypes.ARTIFACT) {
+      triggerYaml = getArtifactTriggerYaml({ values: val })
+    } else if (val.triggerType === TriggerTypes.MANIFEST) {
+      triggerYaml = getManifestTriggerYaml({ values: val })
+    }
     submitTrigger(triggerYaml)
   }
 

@@ -76,16 +76,13 @@
 .lastCommit {
   display: flex;
   align-items: center;
-  column-gap: var(--spacing-3);
-  flex: 0 1 auto;
-  overflow: hidden;
+  padding-left: var(--spacing-7) !important;
   position: relative;
-  padding-left: var(--spacing-7);
 
   .icon {
     position: absolute;
     left: 0;
-    top: 3px;
+    top: 5px;
   }
 
   .message {
@@ -96,44 +93,26 @@
     color: var(--grey-900) !important;
     flex: 0 1 auto;
   }
-}
 
-.commitId {
-  font-size: var(--font-size-small);
-  color: var(--primary-7);
-  display: grid;
-  align-items: center;
-  grid-template-columns: 22px minmax(10px, 1fr);
-  height: 20px;
-  line-height: 18px;
-  border-radius: 5px;
-  border: 0.5px solid var(--grey-200);
-  background-color: var(--grey-50);
-  text-align: center;
-  position: relative;
+  .label {
+    display: flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    font-size: var(--font-size-small) !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    color: var(--primary-7) !important;
+    background-color: var(--primary-1) !important;
+    border-radius: 8px !important;
+    padding: var(--spacing-xsmall) var(--spacing-small) !important;
+    margin: 0 var(--spacing-xsmall);
 
-  &::before {
-    content: '';
-    display: block;
-    width: 1px;
-    background: var(--grey-200);
-    position: absolute;
-    left: 22px;
-    top: 0;
-    bottom: 0;
-  }
+    svg {
+      margin-right: var(--spacing-xsmall);
 
-  :global(.bp3-icon) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--grey-500);
-  }
-
-  .sha {
-    padding: 0 var(--spacing-3);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+      path {
+        fill: currentColor !important;
+      }
+    }
   }
 }

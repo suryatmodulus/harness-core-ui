@@ -9,7 +9,6 @@ declare const styles: {
   readonly user: string
   readonly icon: string
   readonly message: string
-  readonly commitId: string
-  readonly sha: string
+  readonly label: string
 }
 export default styles

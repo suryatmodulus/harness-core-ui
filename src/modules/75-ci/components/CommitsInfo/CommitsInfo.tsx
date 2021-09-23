@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { first } from 'lodash-es'
-import { Text, Button, Icon, Utils } from '@wings-software/uicore'
-import { Collapse, Tooltip } from '@blueprintjs/core'
+import { Text, Button, Icon, Utils, Container } from '@wings-software/uicore'
+import { Collapse } from '@blueprintjs/core'
 
 import type { CIBuildCommit } from 'services/ci'
 import { UserLabel } from '@common/components/UserLabel/UserLabel'
@@ -10,36 +10,35 @@ import { String, useStrings } from 'framework/strings'
 import css from './CommitsInfo.module.scss'
 
 export interface CommitIdProps {
-  commitId?: string
+  commitLink: string
 }
 
-export function CommitId({ commitId }: CommitIdProps): React.ReactElement {
-  const [copied, setCopied] = React.useState(false)
+export function CommitId({ commitLink }: CommitIdProps): React.ReactElement {
+  const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
   const { getString } = useStrings()
 
-  function handleCopy(e: React.SyntheticEvent): void {
+  const handleCommitIdClick = (e: React.SyntheticEvent): void => {
     e.stopPropagation()
-    Utils.copy(commitId || '')
-    setCopied(true)
+    Utils.copy(commitLink)
+    setIsCommitIdCopied(true)
   }
 
-  function onClosed(): void {
-    setCopied(false)
+  const handleCommitIdTooltipClosed = (): void => {
+    setIsCommitIdCopied(false)
   }
 
   return (
-    <Tooltip
-      wrapperTagName="div"
-      targetTagName="div"
-      content={getString(copied ? 'copiedToClipboard' : 'clickToCopy')}
-      onClosed={onClosed}
-      position="top"
+    <Text
+      tooltip={
+        <Container padding="small">{getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}</Container>
+      }
+      tooltipProps={{
+        onClosed: handleCommitIdTooltipClosed
+      }}
+      style={{ cursor: 'pointer' }}
     >
-      <div className={css.commitId} onClick={handleCopy}>
-        <Icon name="clipboard-alt" size={10} />
-        <div className={css.sha}>{commitId?.slice(0, 6)}</div>
-      </div>
-    </Tooltip>
+      <Icon name="copy" size={14} onClick={e => handleCommitIdClick(e)} />
+    </Text>
   )
 }
 
@@ -48,12 +47,20 @@ export interface LastCommitProps {
 }
 
 export function LastCommit({ lastCommit }: LastCommitProps): React.ReactElement {
+  const handleCommitIdClick = (e: React.SyntheticEvent): void => {
+    e.stopPropagation()
+    window.open(lastCommit?.link, '_blank')
+  }
+
   return (
-    <div className={css.lastCommit}>
+    <Text className={css.lastCommit} style={{ cursor: 'pointer' }}>
       <Icon className={css.icon} name="git-commit" size={14} />
       <Text className={css.message}>{lastCommit?.message}</Text>
-      <CommitId commitId={lastCommit?.id} />
-    </div>
+      <a className={css.label} href={lastCommit?.link} rel="noreferrer" target="_blank" onClick={handleCommitIdClick}>
+        {lastCommit?.id?.slice(0, 7)}
+      </a>
+      {lastCommit?.link && <CommitId commitLink={lastCommit.link} />}
+    </Text>
   )
 }
 
@@ -96,7 +103,7 @@ export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null 
                 <div className={css.commit} key={i}>
                   <Text lineClamp={1}>{commit.message}</Text>
                   <UserLabel className={css.user} name={commit.ownerName || ''} iconProps={{ size: 16 }} />
-                  <CommitId commitId={commit.id} />
+                  {commit?.link && <CommitId commitLink={commit.link} />}
                 </div>
               )
             })}

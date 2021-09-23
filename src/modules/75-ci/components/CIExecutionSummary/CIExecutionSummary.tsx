@@ -108,21 +108,32 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 {data.ciExecutionInfoDTO.branch.commits[0].message}
               </Text>
             </div>
-            <Text
-              className={css.commit}
-              tooltip={
-                <Container padding="small">
-                  {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
-                </Container>
-              }
-              tooltipProps={{
-                onClosed: handleCommitIdTooltipClosed
-              }}
-              style={{ cursor: 'pointer' }}
-              onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.branch.commits[0].id)}
-            >
-              <div className={css.label}>{data.ciExecutionInfoDTO.branch.commits[0].id.slice(0, 7)}</div>
-              <Icon name="copy" size={14} />
+            <Text className={css.commit} style={{ cursor: 'pointer' }}>
+              <a
+                className={css.label}
+                href={data.ciExecutionInfoDTO.branch.commits[0].link}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {data.ciExecutionInfoDTO.branch.commits[0].id.slice(0, 7)}
+              </a>
+              <Text
+                tooltip={
+                  <Container padding="small">
+                    {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
+                  </Container>
+                }
+                tooltipProps={{
+                  onClosed: handleCommitIdTooltipClosed
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                <Icon
+                  name="copy"
+                  size={14}
+                  onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.branch.commits[0].link)}
+                />
+              </Text>
             </Text>
           </Layout.Horizontal>
         </>
@@ -143,24 +154,32 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
             <Icon name="more" size={14} />
           </Text> */}
           <Layout.Horizontal flex spacing="small">
-            <Text
-              className={css.commit}
-              tooltip={
-                <Container padding="small">
-                  {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
-                </Container>
-              }
-              tooltipProps={{
-                onClosed: handleCommitIdTooltipClosed
-              }}
-              style={{ cursor: 'pointer' }}
-              onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.branch.commits[0].id)}
-            >
-              <div className={css.label}>
-                <Icon name="git-branch-existing" size={14} color="primary7" />
+            <Text className={css.commit} style={{ cursor: 'pointer' }}>
+              <a
+                className={css.label}
+                href={data.ciExecutionInfoDTO.branch.commits[0].link}
+                rel="noreferrer"
+                target="_blank"
+              >
                 {data.ciExecutionInfoDTO.branch.commits[0].id.slice(0, 7)}
-              </div>
-              <Icon name="copy" size={14} />
+              </a>
+              <Text
+                tooltip={
+                  <Container padding="small">
+                    {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
+                  </Container>
+                }
+                tooltipProps={{
+                  onClosed: handleCommitIdTooltipClosed
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                <Icon
+                  name="copy"
+                  size={14}
+                  onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.branch.commits[0].link)}
+                />
+              </Text>
             </Text>
           </Layout.Horizontal>
         </Layout.Horizontal>
@@ -203,21 +222,32 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
                 {data.ciExecutionInfoDTO.pullRequest.commits[0].message}
               </Text>
             </div>
-            <Text
-              className={css.commit}
-              tooltip={
-                <Container padding="small">
-                  {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
-                </Container>
-              }
-              tooltipProps={{
-                onClosed: handleCommitIdTooltipClosed
-              }}
-              style={{ cursor: 'pointer' }}
-              onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.pullRequest.commits[0].id)}
-            >
-              <div className={css.label}>{data.ciExecutionInfoDTO.pullRequest.commits[0].id.slice(0, 7)}</div>
-              <Icon name="copy" size={14} />
+            <Text className={css.commit} style={{ cursor: 'pointer' }}>
+              <a
+                className={css.label}
+                href={data.ciExecutionInfoDTO.pullRequest.commits[0].link}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {data.ciExecutionInfoDTO.pullRequest.commits[0].id.slice(0, 7)}
+              </a>
+              <Text
+                tooltip={
+                  <Container padding="small">
+                    {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
+                  </Container>
+                }
+                tooltipProps={{
+                  onClosed: handleCommitIdTooltipClosed
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                <Icon
+                  name="copy"
+                  size={14}
+                  onClick={() => handleCommitIdClick(data.ciExecutionInfoDTO.pullRequest.commits[0].link)}
+                />
+              </Text>
             </Text>
           </Layout.Horizontal>
           <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-3)' }}>

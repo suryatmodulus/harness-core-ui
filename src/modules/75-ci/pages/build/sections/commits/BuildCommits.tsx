@@ -92,9 +92,26 @@ const Commits: React.FC<{ commits: CIBuildCommit[] }> = ({ commits }): any => {
   })
 }
 
+const CommitsGroupedByTimestamp: React.FC<{ commitsGroupedByTimestamp: CommitsGroupedByTimestamp[] }> = ({
+  commitsGroupedByTimestamp
+}): any => {
+  const { getString } = useStrings()
+
+  return commitsGroupedByTimestamp.map(({ timeStamp, commits }) => (
+    <div className={css.stack} key={String(timeStamp)}>
+      <div className={css.stackHeader}>
+        <Icon className={css.stackHeaderIcon} name="git-commit" size={20} margin={{ right: 'medium' }} />
+        <Text className={css.stackHeaderText} font="small">
+          {getString('ci.commitsOn')} {moment(timeStamp).format('MMM D, YYYY')}
+        </Text>
+      </div>
+      <Commits commits={commits} />
+    </div>
+  ))
+}
+
 const BuildCommits: React.FC = () => {
   const context = useExecutionContext()
-  const { getString } = useStrings()
 
   const ciData = get(context, 'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci') as CIPipelineModuleInfo
 
@@ -139,26 +156,7 @@ const BuildCommits: React.FC = () => {
             <Accordion.Panel
               id="codebase-commits"
               summary={`${ciData?.repoName} (Codebase)`}
-              details={
-                <>
-                  {codebaseCommitsGroupedByTimestamp.map(({ timeStamp, commits }) => (
-                    <div className={css.stack} key={String(timeStamp)}>
-                      <div className={css.stackHeader}>
-                        <Icon
-                          className={css.stackHeaderIcon}
-                          name="git-commit"
-                          size={20}
-                          margin={{ right: 'medium' }}
-                        />
-                        <Text className={css.stackHeaderText} font="small">
-                          {getString('ci.commitsOn')} {moment(timeStamp).format('MMM D, YYYY')}
-                        </Text>
-                      </div>
-                      <Commits commits={commits} />
-                    </div>
-                  ))}
-                </>
-              }
+              details={<CommitsGroupedByTimestamp commitsGroupedByTimestamp={codebaseCommitsGroupedByTimestamp} />}
             />
           </Accordion>
 
@@ -166,43 +164,12 @@ const BuildCommits: React.FC = () => {
             <Accordion.Panel
               id="trigger-commits"
               summary={`${ciData?.triggerRepoName} (Trigger)`}
-              details={
-                <>
-                  {triggerCommitsGroupedByTimestamp.map(({ timeStamp, commits }) => (
-                    <div className={css.stack} key={String(timeStamp)}>
-                      <div className={css.stackHeader}>
-                        <Icon
-                          className={css.stackHeaderIcon}
-                          name="git-commit"
-                          size={20}
-                          margin={{ right: 'medium' }}
-                        />
-                        <Text className={css.stackHeaderText} font="small">
-                          {getString('ci.commitsOn')} {moment(timeStamp).format('MMM D, YYYY')}
-                        </Text>
-                      </div>
-                      <Commits commits={commits} />
-                    </div>
-                  ))}
-                </>
-              }
+              details={<CommitsGroupedByTimestamp commitsGroupedByTimestamp={triggerCommitsGroupedByTimestamp} />}
             />
           </Accordion>
         </>
       ) : (
-        <>
-          {codebaseCommitsGroupedByTimestamp.map(({ timeStamp, commits }) => (
-            <div className={css.stack} key={String(timeStamp)}>
-              <div className={css.stackHeader}>
-                <Icon className={css.stackHeaderIcon} name="git-commit" size={20} margin={{ right: 'medium' }} />
-                <Text className={css.stackHeaderText} font="small">
-                  {getString('ci.commitsOn')} {moment(timeStamp).format('MMM D, YYYY')}
-                </Text>
-              </div>
-              <Commits commits={commits} />
-            </div>
-          ))}
-        </>
+        <CommitsGroupedByTimestamp commitsGroupedByTimestamp={codebaseCommitsGroupedByTimestamp} />
       )}
     </div>
   )

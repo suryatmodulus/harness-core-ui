@@ -58,7 +58,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
               <div className={css.truncated}>{data.branch}</div>
             </Container>
           </div>
-          <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-3)' }}>
+          <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
             <Icon name="git-branch-existing" size={14} />
             <div style={{ fontSize: 0 }}>
               <Text
@@ -182,7 +182,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
             <Icon name="git-new-branch" size={12} color="primary7" />
             <div className={css.truncated}>{data?.ciExecutionInfoDTO?.pullRequest.targetBranch}</div>
           </Container>
-          <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-3)' }}>
+          <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
             <Icon name="git-branch-existing" size={14} />
             <div style={{ fontSize: 0 }}>
               <Text
@@ -225,7 +225,7 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
               </Text>
             </Text>
           </Layout.Horizontal>
-          <Layout.Horizontal flex spacing="small" style={{ marginLeft: 'var(--spacing-3)' }}>
+          <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
             <Icon name="git-pull" size={14} />
             <div style={{ fontSize: 0 }}>
               <Text

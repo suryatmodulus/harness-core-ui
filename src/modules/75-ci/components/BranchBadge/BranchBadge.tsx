@@ -17,7 +17,7 @@ export function BranchBadge(props: BranchBadgeProps): React.ReactElement {
 
   return (
     <div className={cx(css.main, className)}>
-      {branchName ? (
+      {branchName || tagName ? (
         <Badge>
           <Icon className={css.icon} name={tagName ? 'tag' : 'git-branch'} size={10} />
           <span className={css.branchName}>{tagName || branchName}</span>

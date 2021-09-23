@@ -72,7 +72,7 @@ const DashboardResourceRenderer: React.FC<RbacResourceRendererProps> = ({
 
   const { data: foldersListResponse, loading: fethingFolders } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: 'dashboard/folder',
+    path: 'gateway/dashboard/folder',
     queryParams: { accountId: accountId, page: 1, pageSize: 1000, isAdmin: true }
   })
 

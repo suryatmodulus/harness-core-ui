@@ -21,7 +21,7 @@ const useDeleteFolder = (folder: FolderInterface | undefined, onSuccess: () => v
   const { accountId } = useParams<AccountPathProps>()
   const { mutate: deleteFolder } = useMutate({
     verb: 'DELETE',
-    path: 'dashboard/folder',
+    path: 'gateway/dashboard/folder',
     queryParams: {
       accountId: accountId
     }

@@ -108,13 +108,13 @@ const FirstStep = (props: any): JSX.Element => {
 
   const { data: foldersList } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: 'dashboard/folder',
+    path: 'gateway/dashboard/folder',
     queryParams: { accountId: accountId, page: 1, pageSize: 1000 }
   })
 
   const { mutate: createDashboard, loading } = useMutate({
     verb: 'POST',
-    path: folderId ? 'dashboard/v2/create' : 'dashboard/create',
+    path: folderId ? 'gateway/dashboard/v2/create' : 'gateway/dashboard/create',
     queryParams: { accountId: accountId }
   })
 
@@ -282,7 +282,7 @@ const RenderMenu: Renderer<CellProps<DashboardInterface>> = ({ row }) => {
   const { mutate: cloneDashboard } = useMutate({
     // Inferred from RestfulProvider in index.js
     verb: 'POST',
-    path: 'dashboard/clone',
+    path: 'gateway/dashboard/clone',
     queryParams: {
       accountId: accountId
     }
@@ -422,7 +422,7 @@ const HomePage: React.FC = () => {
     error
   } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: 'dashboard/v1/search',
+    path: 'gateway/dashboard/v1/search',
     queryParams: {
       accountId: accountId,
       folderId: folderId === 'shared' ? '' : folderId,
@@ -437,7 +437,7 @@ const HomePage: React.FC = () => {
 
   const { data: tagsList, loading: fetchingTags } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: 'dashboard/v1/tags',
+    path: 'gateway/dashboard/v1/tags',
     queryParams: {
       accountId: accountId,
       folderId: folderId === 'shared' ? '' : folderId
@@ -447,7 +447,7 @@ const HomePage: React.FC = () => {
   const { mutate: cloneDashboard, loading: cloning } = useMutate({
     // Inferred from RestfulProvider in index.js
     verb: 'POST',
-    path: 'dashboard/clone',
+    path: 'gateway/dashboard/clone',
     queryParams: {
       accountId: accountId
     }
@@ -468,7 +468,7 @@ const HomePage: React.FC = () => {
 
   const { data: folderDetail } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: 'dashboard/folderDetail',
+    path: 'gateway/dashboard/folderDetail',
     queryParams: { accountId: accountId, folderId: folderId === 'shared' ? '' : folderId }
   })
 

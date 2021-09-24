@@ -7,7 +7,11 @@ import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 
-const PolicyControlPage: React.FC = ({ children }) => {
+export interface PolicyControlPageProps {
+  title: string
+}
+
+const PolicyControlPage: React.FC<PolicyControlPageProps> = ({ title, children }) => {
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
 
@@ -15,7 +19,7 @@ const PolicyControlPage: React.FC = ({ children }) => {
     <>
       <Page.Header
         breadcrumbs={<NGBreadcrumbs />}
-        title={getString('governance')}
+        title={title}
         toolbar={
           <TabNavigation
             size={'small'}
@@ -30,11 +34,11 @@ const PolicyControlPage: React.FC = ({ children }) => {
               },
               {
                 label: getString('common.policy.policysets'),
-                to: routes.toServiceAccounts({ accountId, orgIdentifier, projectIdentifier, module })
+                to: routes.toPolicySetsPage({ accountId })
               },
               {
                 label: getString('common.policy.evaluations'),
-                to: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier, module })
+                to: routes.toPolicyEvaluationsPage({ accountId })
               }
             ]}
           />

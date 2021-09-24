@@ -1238,7 +1238,9 @@ const routes = {
   toViewCustomFolder: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/folder/view/${viewId}`),
 
   /****************** Secret Usage************************************************************************************/
-  toPolicyListPage: withAccountId(() => 'settings/governance/policies')
+  toPolicyListPage: withAccountId(() => 'settings/governance/policies'),
+  toPolicySetsPage: withAccountId(() => 'settings/governance/policy-sets'),
+  toPolicyEvaluationsPage: withAccountId(() => 'settings/governance/policy-evaluations')
 }
 
 export default routes

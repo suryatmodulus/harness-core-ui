@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { Text, Icon, Container, Utils, Layout } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import type { ExecutionSummaryProps } from '@pipeline/factories/ExecutionFactory/types'
 import css from './CIExecutionSummary.module.scss'
 
@@ -11,11 +11,31 @@ enum Type {
   PullRequest = 'pull-request'
 }
 
-export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.ReactElement {
-  const { getString } = useStrings()
+function getType(buildType: 'branch' | 'tag' | 'PR'): Type {
+  switch (buildType) {
+    case 'branch':
+      return Type.Branch
+    case 'tag':
+      return Type.Tag
+    case 'PR':
+      return Type.PullRequest
+  }
+}
 
-  const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
-
+function getUIByType(
+  type: Type,
+  {
+    data,
+    getString,
+    isCommitIdCopied,
+    setIsCommitIdCopied
+  }: {
+    data: ExecutionSummaryProps['data']
+    getString: UseStringsReturn['getString']
+    isCommitIdCopied: boolean
+    setIsCommitIdCopied: Dispatch<SetStateAction<boolean>>
+  }
+): React.ReactElement {
   const handleCommitIdClick = (commitId: string): void => {
     Utils.copy(commitId)
     setIsCommitIdCopied(true)
@@ -25,28 +45,9 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
     setIsCommitIdCopied(false)
   }
 
-  let type: Type
-
-  switch (data?.buildType as 'branch' | 'tag' | 'PR') {
-    case 'branch':
-      type = Type.Branch
-      break
-    case 'tag':
-      type = Type.Tag
-      break
-    case 'PR':
-      type = Type.PullRequest
-      break
-  }
-
-  if (!type) {
-    return <></>
-  }
-
-  let ui = null
   switch (type) {
     case Type.Branch:
-      ui = (
+      return (
         <>
           <div className={cx(css.label, css.multiple)}>
             <Container flex>
@@ -103,9 +104,8 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
           </Layout.Horizontal>
         </>
       )
-      break
     case Type.Tag:
-      ui = (
+      return (
         <Layout.Horizontal flex spacing="small">
           <div className={css.label}>
             <Icon name="repository" size={14} color="primary7" />
@@ -163,9 +163,8 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
           </Layout.Horizontal>
         </Layout.Horizontal>
       )
-      break
     case Type.PullRequest:
-      ui = (
+      return (
         <>
           <div className={cx(css.label, css.multiple)}>
             <Container flex>
@@ -254,9 +253,20 @@ export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.React
           </Layout.Horizontal>
         </>
       )
-      break
+  }
+}
+
+export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.ReactElement {
+  const { getString } = useStrings()
+
+  const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
+
+  const type = getType(data?.buildType)
+  if (!type) {
+    return <></>
   }
 
+  const ui = getUIByType(type, { data, getString, isCommitIdCopied, setIsCommitIdCopied })
   if (!ui) {
     return <></>
   }

@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from 'react'
+import React, { useState } from 'react'
 import cx from 'classnames'
 import { Text, Icon, Container, Utils, Layout } from '@wings-software/uicore'
 import { useStrings, UseStringsReturn } from 'framework/strings'
@@ -12,30 +12,39 @@ enum Type {
 }
 
 function getType(buildType: 'branch' | 'tag' | 'PR'): Type {
+  let type: Type
   switch (buildType) {
     case 'branch':
-      return Type.Branch
+      type = Type.Branch
+      break
     case 'tag':
-      return Type.Tag
+      type = Type.Tag
+      break
     case 'PR':
-      return Type.PullRequest
+      type = Type.PullRequest
+      break
   }
+  return type
 }
 
-function getUIByType(
-  type: Type,
-  {
-    data,
-    getString,
-    isCommitIdCopied,
-    setIsCommitIdCopied
-  }: {
-    data: ExecutionSummaryProps['data']
-    getString: UseStringsReturn['getString']
-    isCommitIdCopied: boolean
-    setIsCommitIdCopied: Dispatch<SetStateAction<boolean>>
-  }
-): React.ReactElement {
+const RepoBranch = ({ repo, branch }: { repo: string; branch: string }): React.ReactElement => (
+  <div className={cx(css.label, css.multiple)}>
+    <Container flex>
+      <Icon name="repository" size={14} color="primary7" />
+      <div className={css.truncated}>{repo}</div>
+    </Container>
+    <Container flex>
+      <Icon name="git-new-branch" size={12} color="primary7" />
+      <div className={css.truncated}>{branch}</div>
+    </Container>
+  </div>
+)
+
+const Commit = ({ id, link }: { id: string; link: string }): React.ReactElement => {
+  const { getString } = useStrings()
+
+  const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
+
   const handleCommitIdClick = (commitId: string): void => {
     Utils.copy(commitId)
     setIsCommitIdCopied(true)
@@ -45,20 +54,37 @@ function getUIByType(
     setIsCommitIdCopied(false)
   }
 
+  return (
+    <Text className={css.commit} style={{ cursor: 'pointer' }}>
+      <a className={css.label} href={link} rel="noreferrer" target="_blank">
+        {id.slice(0, 7)}
+      </a>
+      <Text
+        tooltip={
+          <Container padding="small">{getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}</Container>
+        }
+        tooltipProps={{
+          onClosed: handleCommitIdTooltipClosed
+        }}
+        style={{ cursor: 'pointer' }}
+      >
+        <Icon name="copy" size={14} onClick={() => handleCommitIdClick(link)} />
+      </Text>
+    </Text>
+  )
+}
+
+function getUIByType(
+  type: Type,
+  { data, getString }: { data: ExecutionSummaryProps['data']; getString: UseStringsReturn['getString'] }
+): React.ReactElement {
+  let ui
+
   switch (type) {
     case Type.Branch:
-      return (
+      ui = (
         <>
-          <div className={cx(css.label, css.multiple)}>
-            <Container flex>
-              <Icon name="repository" size={14} color="primary7" />
-              <div className={css.truncated}>{data.repoName}</div>
-            </Container>
-            <Container flex>
-              <Icon name="git-new-branch" size={12} color="primary7" />
-              <div className={css.truncated}>{data.branch}</div>
-            </Container>
-          </div>
+          <RepoBranch repo={data.repoName} branch={data.branch} />
           <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
             <Icon name="git-branch-existing" size={14} />
             <div style={{ fontSize: 0 }}>
@@ -74,38 +100,16 @@ function getUIByType(
                 {data?.ciExecutionInfoDTO?.branch.commits[0].message}
               </Text>
             </div>
-            <Text className={css.commit} style={{ cursor: 'pointer' }}>
-              <a
-                className={css.label}
-                href={data?.ciExecutionInfoDTO?.branch.commits[0].link}
-                rel="noreferrer"
-                target="_blank"
-              >
-                {data?.ciExecutionInfoDTO?.branch.commits[0].id.slice(0, 7)}
-              </a>
-              <Text
-                tooltip={
-                  <Container padding="small">
-                    {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
-                  </Container>
-                }
-                tooltipProps={{
-                  onClosed: handleCommitIdTooltipClosed
-                }}
-                style={{ cursor: 'pointer' }}
-              >
-                <Icon
-                  name="copy"
-                  size={14}
-                  onClick={() => handleCommitIdClick(data?.ciExecutionInfoDTO?.branch.commits[0].link)}
-                />
-              </Text>
-            </Text>
+            <Commit
+              id={data?.ciExecutionInfoDTO?.branch.commits[0].id}
+              link={data?.ciExecutionInfoDTO?.branch.commits[0].link}
+            />
           </Layout.Horizontal>
         </>
       )
+      break
     case Type.Tag:
-      return (
+      ui = (
         <Layout.Horizontal flex spacing="small">
           <div className={css.label}>
             <Icon name="repository" size={14} color="primary7" />
@@ -133,49 +137,18 @@ function getUIByType(
                 {data?.ciExecutionInfoDTO?.branch.commits[0].message}
               </Text>
             </div>
-            <Text className={css.commit} style={{ cursor: 'pointer' }}>
-              <a
-                className={css.label}
-                href={data?.ciExecutionInfoDTO?.branch.commits[0].link}
-                rel="noreferrer"
-                target="_blank"
-              >
-                {data?.ciExecutionInfoDTO?.branch.commits[0].id.slice(0, 7)}
-              </a>
-              <Text
-                tooltip={
-                  <Container padding="small">
-                    {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
-                  </Container>
-                }
-                tooltipProps={{
-                  onClosed: handleCommitIdTooltipClosed
-                }}
-                style={{ cursor: 'pointer' }}
-              >
-                <Icon
-                  name="copy"
-                  size={14}
-                  onClick={() => handleCommitIdClick(data?.ciExecutionInfoDTO?.branch.commits[0].link)}
-                />
-              </Text>
-            </Text>
+            <Commit
+              id={data?.ciExecutionInfoDTO?.branch.commits[0].id}
+              link={data?.ciExecutionInfoDTO?.branch.commits[0].link}
+            />
           </Layout.Horizontal>
         </Layout.Horizontal>
       )
+      break
     case Type.PullRequest:
-      return (
+      ui = (
         <>
-          <div className={cx(css.label, css.multiple)}>
-            <Container flex>
-              <Icon name="repository" size={14} color="primary7" />
-              <div className={css.truncated}>{data.repoName}</div>
-            </Container>
-            <Container flex>
-              <Icon name="git-new-branch" size={12} color="primary7" />
-              <div className={css.truncated}>{data?.ciExecutionInfoDTO?.pullRequest.sourceBranch}</div>
-            </Container>
-          </div>
+          <RepoBranch repo={data.repoName} branch={data?.ciExecutionInfoDTO?.pullRequest.sourceBranch} />
           <Icon name="arrow-right" size={14} />
           <Container className={css.label}>
             <Icon name="git-new-branch" size={12} color="primary7" />
@@ -196,33 +169,10 @@ function getUIByType(
                 {data?.ciExecutionInfoDTO?.pullRequest.commits[0].message}
               </Text>
             </div>
-            <Text className={css.commit} style={{ cursor: 'pointer' }}>
-              <a
-                className={css.label}
-                href={data?.ciExecutionInfoDTO?.pullRequest.commits[0].link}
-                rel="noreferrer"
-                target="_blank"
-              >
-                {data?.ciExecutionInfoDTO?.pullRequest.commits[0].id.slice(0, 7)}
-              </a>
-              <Text
-                tooltip={
-                  <Container padding="small">
-                    {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
-                  </Container>
-                }
-                tooltipProps={{
-                  onClosed: handleCommitIdTooltipClosed
-                }}
-                style={{ cursor: 'pointer' }}
-              >
-                <Icon
-                  name="copy"
-                  size={14}
-                  onClick={() => handleCommitIdClick(data?.ciExecutionInfoDTO?.pullRequest.commits[0].link)}
-                />
-              </Text>
-            </Text>
+            <Commit
+              id={data?.ciExecutionInfoDTO?.pullRequest.commits[0].id}
+              link={data?.ciExecutionInfoDTO?.pullRequest.commits[0].link}
+            />
           </Layout.Horizontal>
           <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
             <Icon name="git-pull" size={14} />
@@ -253,20 +203,21 @@ function getUIByType(
           </Layout.Horizontal>
         </>
       )
+      break
   }
+
+  return ui
 }
 
-export function CIExecutionSummary({ data }: ExecutionSummaryProps): React.ReactElement {
+export const CIExecutionSummary = ({ data }: ExecutionSummaryProps): React.ReactElement => {
   const { getString } = useStrings()
-
-  const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
 
   const type = getType(data?.buildType)
   if (!type) {
     return <></>
   }
 
-  const ui = getUIByType(type, { data, getString, isCommitIdCopied, setIsCommitIdCopied })
+  const ui = getUIByType(type, { data, getString })
   if (!ui) {
     return <></>
   }

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -89,27 +89,25 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,26 +118,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
-<span class="cstat-no" title="statement not covered" >import { StepWizard } from '@wings-software/uicore'</span>
-<span class="cstat-no" title="statement not covered" >import { Connectors } from '@connectors/constants'</span>
-<span class="cstat-no" title="statement not covered" >import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'</span>
-<span class="cstat-no" title="statement not covered" >import { useStrings } from 'framework/strings'</span>
-<span class="cstat-no" title="statement not covered" >import ProviderOverviewStep from '../ProviderOverviewStep/ProviderOverviewStep'</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { StepWizard } from '@wings-software/uicore'
+import { Connectors } from '@connectors/constants'
+import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { useStrings } from 'framework/strings'
+import ProviderOverviewStep from '../ProviderOverviewStep/ProviderOverviewStep'
 import type { BaseProviderStepProps } from '../types'
-<span class="cstat-no" title="statement not covered" >import TestConnection from '../TestConnection/TestConnection'</span>
+import TestConnection from '../TestConnection/TestConnection'
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import css from './CreateProvider.module.scss'</span>
+import css from './CreateProvider.module.scss'
 &nbsp;
 type PickedProps = 'isEditMode' | 'onLaunchArgoDashboard' | 'provider' | 'onUpdateMode' | 'onClose'
 &nbsp;
 type CreateArgoProviderProps = Pick&lt;BaseProviderStepProps, PickedProps&gt;
 &nbsp;
-const CreateArgoProvider: React.FC&lt;CreateArgoProviderProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >props </span>=&gt; {</span>
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+const CreateArgoProvider: React.FC&lt;CreateArgoProviderProps&gt; = props =&gt; {
+  const { getString } = useStrings()
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;StepWizard
       icon={getConnectorIconByType(Connectors.ARGO)}
       iconProps={{ size: 50 }}
@@ -152,7 +152,7 @@ const CreateArgoProvider: React.FC&lt;CreateArgoProviderProps&gt; = <span class=
   )
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default CreateArgoProvider</span>
+export default CreateArgoProvider
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -160,7 +160,7 @@ const CreateArgoProvider: React.FC&lt;CreateArgoProviderProps&gt; = <span class=
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Sep 24 2021 06:40:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 24 2021 11:08:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

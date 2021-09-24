@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.06% </span>
+                <span class="strong">89.16% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>74/85</span>
+                <span class='fraction'>74/83</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/12</span>
+                <span class='fraction'>4/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.1% </span>
+                <span class="strong">90.24% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>74/84</span>
+                <span class='fraction'>74/82</span>
             </div>
         
             
@@ -423,7 +423,17 @@
 <a name='L364'></a><a href='#L364'>364</a>
 <a name='L365'></a><a href='#L365'>365</a>
 <a name='L366'></a><a href='#L366'>366</a>
-<a name='L367'></a><a href='#L367'>367</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -750,8 +760,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -800,7 +820,7 @@ import { useGetPerspective } from 'services/ce/'
 import {
   useFetchPerspectiveTimeSeriesQuery,
   QlceViewTimeGroupType,
-  useFetchPerspectiveDetailsSummaryQuery,
+  useFetchPerspectiveDetailsSummaryWithBudgetQuery,
   QlceViewFilterInput,
   QlceViewFilterOperator,
   QlceViewFieldInputInput,
@@ -985,7 +1005,7 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
     }
   })
 &nbsp;
-  const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
+  const [summaryResult] = useFetchPerspectiveDetailsSummaryWithBudgetQuery({
     variables: {
       isClusterQuery: false,
       aggregateFunction: [
@@ -1083,9 +1103,9 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
           showHourlyAggr={isClusterOnly}
         /&gt;
         &lt;PerspectiveSummary
-          data={summaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>erspectiveTrendStats as any}
+          data={<span class="branch-1 cbranch-no" title="branch not covered" >summaryData?.perspectiveTrendStats as any}</span>
           fetching={summaryFetching}
-          forecastedCostData={summaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>erspectiveForecastCost as any}
+          forecastedCostData={<span class="branch-1 cbranch-no" title="branch not covered" >summaryData?.perspectiveForecastCost as any}</span>
         /&gt;
         &lt;Container margin="xlarge" background="white" className={css.chartGridContainer}&gt;
           {!isChartGridEmpty &amp;&amp; (
@@ -1116,8 +1136,18 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
               gridData={<span class="branch-1 cbranch-no" title="branch not covered" >gridData?.perspectiveGrid<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.data as any}</span>
               gridFetching={gridFetching}
               columnSequence={columnSequence}
-              highlightNode={<span class="fstat-no" title="function not covered" >id </span>=&gt; <span class="cstat-no" title="statement not covered" >highlightNode(chartRef, id)}</span>
-              resetNodeState={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >resetNodeState(chartRef)}</span>
+              highlightNode={
+                /* istanbul ignore next */
+                id =&gt; {
+                  highlightNode(chartRef, id)
+                }
+              }
+              resetNodeState={
+                /* istanbul ignore next */
+                () =&gt; {
+                  resetNodeState(chartRef)
+                }
+              }
               setColumnSequence={<span class="fstat-no" title="function not covered" >colSeq </span>=&gt; <span class="cstat-no" title="statement not covered" >setColumnSequence(colSeq)}</span>
               groupBy={groupBy}
               totalItemCount={perspectiveTotalCount || 0}
@@ -1162,7 +1192,7 @@ export default PerspectiveDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Sep 24 2021 06:40:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 24 2021 11:08:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

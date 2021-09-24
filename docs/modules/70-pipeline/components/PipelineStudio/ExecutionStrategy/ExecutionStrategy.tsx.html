@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.72% </span>
+                <span class="strong">90.53% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>88/97</span>
+                <span class='fraction'>86/95</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.78% </span>
+                <span class="strong">74.75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>86/115</span>
+                <span class='fraction'>74/99</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.55% </span>
+                <span class="strong">92.39% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>87/94</span>
+                <span class='fraction'>85/92</span>
             </div>
         
             
@@ -380,7 +380,13 @@
 <a name='L321'></a><a href='#L321'>321</a>
 <a name='L322'></a><a href='#L322'>322</a>
 <a name='L323'></a><a href='#L323'>323</a>
-<a name='L324'></a><a href='#L324'>324</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L324'></a><a href='#L324'>324</a>
+<a name='L325'></a><a href='#L325'>325</a>
+<a name='L326'></a><a href='#L326'>326</a>
+<a name='L327'></a><a href='#L327'>327</a>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -535,9 +541,6 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -560,8 +563,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -667,6 +668,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -680,6 +688,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -692,6 +703,7 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -706,8 +718,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
 import YAML from 'yaml'
 import { Classes, Switch } from '@blueprintjs/core'
-import { Text, Icon, Layout, Button, Card, IconName, Color, ButtonVariation } from '@wings-software/uicore'
-import { get, isEmpty, startCase } from 'lodash-es'
+import { Text, Icon, Layout, Button, Card, IconName, Color, ButtonVariation, Container } from '@wings-software/uicore'
+import { defaultTo, get, isEmpty, set, startCase } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
 import {
@@ -758,13 +770,13 @@ const videoByType: { [key: string]: string } = {
 &nbsp;
 type StrategyType = GetExecutionStrategyYamlQueryParams['strategyType'] | 'BlankCanvas'
 &nbsp;
-export interface ExecutionStrategyRef {
+export interface ExecutionStrategyRefInterface {
   cancelExecutionStrategySelection: () =&gt; void
 }
 &nbsp;
 export type ExecutionStrategyForwardRef =
-  | ((instance: ExecutionStrategyRef | null) =&gt; void)
-  | React.MutableRefObject&lt;ExecutionStrategyRef | null&gt;
+  | ((instance: ExecutionStrategyRefInterface | null) =&gt; void)
+  | React.MutableRefObject&lt;ExecutionStrategyRefInterface | null&gt;
   | null
 &nbsp;
 const ExecutionStrategyRef = (
@@ -855,12 +867,9 @@ const ExecutionStrategyRef = (
     <span class="missing-if-branch" title="else path not taken" >E</span>if (yamlSnippet<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata) {
       updateStage(
         produce(selectedStage, draft =&gt; {
-          const jsonFromYaml = YAML.parse(yamlSnippet<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> as StageElementConfig
-          <span class="missing-if-branch" title="else path not taken" >E</span>if (draft.stage &amp;&amp; draft.stage.spec) {
-            draft.stage.failureStrategies = jsonFromYaml.failureStrategies
-            ;(draft.stage.spec as DeploymentStageConfig).execution =
-              (jsonFromYaml.spec as DeploymentStageConfig)?.execution || {}
-          }
+          const jsonFromYaml = YAML.parse(defaultTo(yamlSnippet<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, '{}')) as StageElementConfig
+          set(draft, 'stage.failureStrategies', jsonFromYaml.failureStrategies)
+          set(draft, 'stage.spec.execution', defaultTo((jsonFromYaml.spec as DeploymentStageConfig)?.execution, {}))
         }).stage as StageElementConfig
       )
     }
@@ -880,11 +889,9 @@ const ExecutionStrategyRef = (
   const cancelSelection = (): void =&gt; {
     updateStage(
       produce(selectedStage, draft =&gt; {
-        const jsonFromYaml = YAML.parse(yamlSnippet<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> as StageElementConfig
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (draft.stage &amp;&amp; draft.stage.spec) {
-          draft.stage.failureStrategies = jsonFromYaml.failureStrategies
-          ;(draft.stage.spec as DeploymentStageConfig).execution = { steps: [], rollbackSteps: [] }
-        }
+        const jsonFromYaml = YAML.parse(defaultTo(yamlSnippet<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, '{}')) as StageElementConfig
+        set(draft, 'stage.failureStrategies', jsonFromYaml.failureStrategies)
+        set(draft, 'stage.spec.execution', { steps: [], rollbackSteps: [] })
       }).stage as StageElementConfig
     ).then(() =&gt; {
       updatePipelineViewState()
@@ -929,97 +936,108 @@ const ExecutionStrategyRef = (
       &lt;/Layout.Vertical&gt;
 &nbsp;
       &lt;Layout.Vertical width={688} className={css.strategyDetailsPanel}&gt;
-        &lt;Layout.Horizontal className={css.header} flex&gt;
-          &lt;Layout.Horizontal&gt;
-            &lt;Text className={css.headerText} data-testid={`${selectedStrategy}-Header`}&gt;
-              {getStrategyNameByType(selectedStrategy)}
-            &lt;/Text&gt;
-            {selectedStrategy === 'Default' &amp;&amp; (
-              &lt;Icon name="blank-canvas-header-icon" size={24} color={Color.PRIMARY_6} /&gt;
-            )}
+        &lt;Container className={css.strategyDetailsBody}&gt;
+          &lt;Layout.Horizontal className={css.header} flex&gt;
+            &lt;Layout.Horizontal&gt;
+              &lt;Text
+                className={css.headerText}
+                data-testid={`${selectedStrategy}DetailsHeader`}
+                tooltipProps={{ dataTooltipId: `${selectedStrategy}DetailsHeader` }}
+              &gt;
+                {getStrategyNameByType(selectedStrategy)}
+              &lt;/Text&gt;
+              {selectedStrategy === 'Default' &amp;&amp; (
+                &lt;Icon name="blank-canvas-header-icon" size={24} color={Color.PRIMARY_6} /&gt;
+              )}
+            &lt;/Layout.Horizontal&gt;
+            &lt;Button
+              variation={ButtonVariation.LINK}
+              href={learnMoreLinkByType[selectedStrategy]}
+              target="_blank"
+              withoutBoxShadow={true}
+            &gt;
+              {getString('learnMore')}
+            &lt;/Button&gt;
           &lt;/Layout.Horizontal&gt;
-          &lt;Button
-            variation={ButtonVariation.LINK}
-            href={learnMoreLinkByType[selectedStrategy]}
-            target="_blank"
-            withoutBoxShadow={true}
-          &gt;
-            {getString('learnMore')}
-          &lt;/Button&gt;
-        &lt;/Layout.Horizontal&gt;
-        &lt;section className={css.preview}&gt;
-          &lt;section className={css.previewContainer}&gt;
-            &lt;section className={css.info} data-testid="info"&gt;
-              {infoByType[selectedStrategy]}
-            &lt;/section&gt;
-            {!isEmpty(videoByType[selectedStrategy]) ? (
-              &lt;section className={css.player} data-testid="player"&gt;
-                &lt;video
-                  key={selectedStrategy}
-                  className={css.videoPlayer}
-                  autoPlay
-                  poster={imageByType[selectedStrategy]}
-                  data-testid="videoPlayer"
-                &gt;
-                  &lt;source src={videoByType[selectedStrategy]} type="video/mp4"&gt;&lt;/source&gt;
-                  &lt;p&gt;{getString('common.videoNotSupportedError')}&lt;/p&gt;
-                &lt;/video&gt;
-                {showPlayButton &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={css.playerControls}&gt;</span>
-                    &lt;Button
-                      minimal
-                      variation={ButtonVariation.ICON}
-                      className={css.playButton}
-                      onClick={toggleVideo}
-                      data-testid="playButton"
-                      icon="play-circle"
-                      iconProps={{ size: 42 }}
-                      withoutCurrentColor
+          &lt;section className={css.preview}&gt;
+            &lt;section className={css.previewContainer}&gt;
+              &lt;section className={css.info} data-testid="info"&gt;
+                {infoByType[selectedStrategy]}
+              &lt;/section&gt;
+              {!isEmpty(videoByType[selectedStrategy]) ? (
+                &lt;section className={css.player} data-testid="player"&gt;
+                  &lt;video
+                    key={selectedStrategy}
+                    className={css.videoPlayer}
+                    autoPlay
+                    poster={imageByType[selectedStrategy]}
+                    data-testid="videoPlayer"
+                  &gt;
+                    &lt;source src={videoByType[selectedStrategy]} type="video/mp4"&gt;&lt;/source&gt;
+                    &lt;Text tooltipProps={{ dataTooltipId: 'videoNotSupportedError' }}&gt;
+                      {getString('common.videoNotSupportedError')}
+                    &lt;/Text&gt;
+                  &lt;/video&gt;
+                  {showPlayButton &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;div className={css.playerControls}&gt;</span>
+                      &lt;Button
+                        minimal
+                        variation={ButtonVariation.ICON}
+                        className={css.playButton}
+                        onClick={toggleVideo}
+                        data-testid="playButton"
+                        icon="play-circle"
+                        iconProps={{ size: 42 }}
+                        withoutCurrentColor
+                      /&gt;
+                    &lt;/div&gt;
+                  )}
+                &lt;/section&gt;
+              ) : (
+                &lt;section className={css.image}&gt;
+                  &lt;img src={imageByType[selectedStrategy]} data-testid="blank-canvas-image" /&gt;
+                &lt;/section&gt;
+              )}
+              {selectedStrategy !== 'Default' &amp;&amp; (
+                &lt;&gt;
+                  &lt;Steps strategy={selectedStrategy} /&gt;
+                  &lt;section className={css.enableVerificationSection}&gt;
+                    &lt;Switch
+                      checked={isVerifyEnabled}
+                      onChange={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setIsVerifyEnabled(<span class="fstat-no" title="function not covered" >prevIsVerifyEnabled </span>=&gt; <span class="cstat-no" title="statement not covered" >!prevIsVerifyEnabled)</span>}</span>
+                      className={cx(Classes.SMALL, css.toggleVerify)}
+                      data-testid="enable-verification-options-switch"
                     /&gt;
-                  &lt;/div&gt;
-                )}
-              &lt;/section&gt;
-            ) : (
-              &lt;section className={css.image}&gt;
-                &lt;img src={imageByType[selectedStrategy]} data-testid="blank-canvas-image" /&gt;
-              &lt;/section&gt;
-            )}
-            {selectedStrategy !== 'Default' &amp;&amp; &lt;Steps strategy={selectedStrategy} /&gt;}
-            {selectedStrategy !== 'Default' &amp;&amp; (
-              &lt;section className={css.enableVerificationSection}&gt;
-                &lt;Text className={css.enableVerification}&gt;{getString('pipeline.enableVerificationOptions')}&lt;/Text&gt;
-                &lt;Switch
-                  checked={isVerifyEnabled}
-                  onChange={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setIsVerifyEnabled(<span class="fstat-no" title="function not covered" >prevIsVerifyEnabled </span>=&gt; <span class="cstat-no" title="statement not covered" >!prevIsVerifyEnabled)</span>}</span>
-                  className={cx(Classes.LARGE, css.toggleVerify)}
-                  data-testid="enable-verification-options-switch"
-                /&gt;
-              &lt;/section&gt;
-            )}
+                    &lt;Text className={css.enableVerification}&gt;{getString('pipeline.enableVerificationOptions')}&lt;/Text&gt;
+                  &lt;/section&gt;
+                &lt;/&gt;
+              )}
+            &lt;/section&gt;
           &lt;/section&gt;
-        &lt;/section&gt;
-        &lt;Button
-          variation={ButtonVariation.PRIMARY}
-          text={getString('pipeline.executionStrategy.useStrategy')}
-          className={css.selectBtn}
-          onClick={() =&gt; {
-            const newStage = produce(selectedStage, draft =&gt; {
-              const jsonFromYaml = YAML.parse(yamlSnippet<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> as StageElementConfig
-              <span class="missing-if-branch" title="else path not taken" >E</span>if (draft.stage &amp;&amp; draft.stage.spec) {
-                draft.stage.failureStrategies = jsonFromYaml.failureStrategies
-                ;(draft.stage.spec as DeploymentStageConfig).execution = (jsonFromYaml.spec as DeploymentStageConfig)
-                  ?.execution ?? { steps: [], rollbackSteps: [] }
-              }
-            }).stage
+        &lt;/Container&gt;
+        &lt;Container className={css.strategyDetailsFooter}&gt;
+          &lt;Button
+            variation={ButtonVariation.PRIMARY}
+            text={getString('pipeline.executionStrategy.useStrategy')}
+            onClick={() =&gt; {
+              const newStage = produce(selectedStage, draft =&gt; {
+                const jsonFromYaml = YAML.parse(yamlSnippet<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> as StageElementConfig
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (draft.stage &amp;&amp; draft.stage.spec) {
+                  draft.stage.failureStrategies = jsonFromYaml.failureStrategies
+                  ;(draft.stage.spec as DeploymentStageConfig).execution = (jsonFromYaml.spec as DeploymentStageConfig)
+                    ?.execution ?? { steps: [], rollbackSteps: [] }
+                }
+              }).stage
 &nbsp;
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (newStage) {
-              updateStage(newStage).then(() =&gt; {
-                updatePipelineViewState()
-              })
-            }
-          }}
-          disabled={isSubmitDisabled}
-        /&gt;
+              <span class="missing-if-branch" title="else path not taken" >E</span>if (newStage) {
+                updateStage(newStage).then(() =&gt; {
+                  updatePipelineViewState()
+                })
+              }
+            }}
+            disabled={isSubmitDisabled}
+          /&gt;
+        &lt;/Container&gt;
       &lt;/Layout.Vertical&gt;
     &lt;/Layout.Horizontal&gt;
   )
@@ -1033,7 +1051,7 @@ export const ExecutionStrategy = React.forwardRef(ExecutionStrategyRef)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Sep 24 2021 06:40:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 24 2021 11:08:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

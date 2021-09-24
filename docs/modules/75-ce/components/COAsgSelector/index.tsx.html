@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.37% </span>
+                <span class="strong">52.94% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/38</span>
+                <span class='fraction'>18/34</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.37% </span>
+                <span class="strong">52.94% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/38</span>
+                <span class='fraction'>18/34</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -241,7 +241,9 @@
 <a name='L182'></a><a href='#L182'>182</a>
 <a name='L183'></a><a href='#L183'>183</a>
 <a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -251,7 +253,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -311,13 +312,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -441,7 +445,6 @@ interface COAsgSelectorprops {
   selectedScalingGroup: ASGMinimal | undefined
   setSelectedAsg: (asg: ASGMinimal) =&gt; void
   search: (t: string) =&gt; void
-  setGatewayDetails: (gatewayDetails: GatewayDetails) =&gt; void
   gatewayDetails: GatewayDetails
   onAsgAddSuccess?: (updatedGatewayDetails: GatewayDetails) =&gt; void
   loading: boolean
@@ -493,15 +496,18 @@ const COAsgSelector: React.FC&lt;COAsgSelectorprops&gt; = props =&gt; {
       desired: desiredCapacityValue,
       on_demand: selectedAsg?.on_demand || desiredCapacityValue
     }
-<span class="cstat-no" title="statement not covered" >    props.setSelectedAsg(newAsg)</span>
-    const updatedGatewayDetails = <span class="cstat-no" title="statement not covered" >{ ...props.gatewayDetails }</span>
-    const updatedRouting = <span class="cstat-no" title="statement not covered" >{ ...props.gatewayDetails.routing }</span>
-<span class="cstat-no" title="statement not covered" >    updatedRouting.instance.scale_group = newAsg /</span>/ eslint-disable-line
-<span class="cstat-no" title="statement not covered" >    updatedRouting.ports = (newAsg as ASGMinimal).target_groups?.map(<span class="fstat-no" title="function not covered" >(t</span>g: TargetGroupMinimal) =&gt;</span>
+    const ports = <span class="cstat-no" title="statement not covered" >(newAsg as ASGMinimal).target_groups?.map(<span class="fstat-no" title="function not covered" >(t</span>g: TargetGroupMinimal) =&gt;</span>
 <span class="cstat-no" title="statement not covered" >      Utils.getTargetGroupObject(tg.port as number, tg.protocol as string)</span>
     ) as PortConfig[]
-<span class="cstat-no" title="statement not covered" >    updatedGatewayDetails.routing = { ...updatedRouting }</span>
-<span class="cstat-no" title="statement not covered" >    props.setGatewayDetails(updatedGatewayDetails)</span>
+<span class="cstat-no" title="statement not covered" >    props.setSelectedAsg(newAsg)</span>
+    const updatedGatewayDetails = <span class="cstat-no" title="statement not covered" >{</span>
+      ...props.gatewayDetails,
+      routing: {
+        ...props.gatewayDetails.routing,
+        instance: { ...props.gatewayDetails.routing.instance, scale_group: newAsg },
+        ports
+      }
+    }
 <span class="cstat-no" title="statement not covered" >    props.onAsgAddSuccess?.(updatedGatewayDetails)</span>
   }
 &nbsp;
@@ -616,7 +622,7 @@ export default COAsgSelector
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 23 2021 19:04:47 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 24 2021 05:26:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

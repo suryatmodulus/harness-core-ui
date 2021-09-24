@@ -906,8 +906,7 @@ const getFilteredManifestsWithOverrides = ({
 const getFilteredArtifactsWithOverrides = ({
   stageObj,
   artifactType,
-  stages,
-  artifactRef
+  stages
 }: {
   stageObj: any
   artifactType: string
@@ -920,15 +919,13 @@ const getFilteredArtifactsWithOverrides = ({
       : null
   const filteredArtifacts =
     stageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars?.filter(
-      (artifactObj: { sidecar: any }) =>
-        artifactObj?.sidecar?.type === artifactType && artifactObj?.sidecar?.identifier === artifactRef
+      (artifactObj: { sidecar: any }) => artifactObj?.sidecar?.type === artifactType
     ) || []
 
   // // filter & add in manifest overrides
   let stageOverridesArtifacts =
     stageObj?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.sidecars?.filter(
-      (artifactObj: { sidecar: any }) =>
-        artifactObj?.sidecar?.type === artifactType && artifactObj?.sidecar?.identifier === artifactRef
+      (artifactObj: { sidecar: any }) => artifactObj?.sidecar?.type === artifactType
     ) || []
   const stageOverridesPrimaryArtifacts =
     stageObj?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.primary?.type === artifactType

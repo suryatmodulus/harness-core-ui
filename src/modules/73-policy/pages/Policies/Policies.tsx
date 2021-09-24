@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import * as moment from 'moment'
 import { ButtonVariation, ExpandingSearchInput, Layout, Button, Text, Color } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useGet } from 'restful-react'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
@@ -13,6 +13,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 import { setPageNumber } from '@common/utils/utils'
+import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 
 import css from './Policies.module.scss'
@@ -45,14 +46,26 @@ const Policies: React.FC = () => {
       accountId: accountId
     }
   })
+  const history = useHistory()
 
   useEffect(() => {
     setPageNumber({ setPage, page, pageItemsCount: policyList?.pageCount || 1000 })
-  }, [policyList])
+  }, [policyList, page])
 
-  const newUserGroupsBtn = (): JSX.Element => (
-    <Button text={getString('common.policy.newPolicy')} variation={ButtonVariation.PRIMARY} icon="plus" />
-  )
+  const newUserGroupsBtn = (): JSX.Element => {
+    const pathname = routes.toPolicyNewPage({ accountId })
+
+    return (
+      <Button
+        text={getString('common.policy.newPolicy')}
+        variation={ButtonVariation.PRIMARY}
+        icon="plus"
+        onClick={() => {
+          history.push({ pathname })
+        }}
+      />
+    )
+  }
 
   const RenderPolicyName: Renderer<CellProps<PoliciesDTO>> = ({ row }) => {
     const record = row.original

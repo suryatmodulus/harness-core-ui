@@ -12,7 +12,7 @@ export interface PolicyControlPageProps {
 }
 
 const PolicyControlPage: React.FC<PolicyControlPageProps> = ({ title = '', children }) => {
-  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
+  const { accountId } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
 
   return (
@@ -26,7 +26,7 @@ const PolicyControlPage: React.FC<PolicyControlPageProps> = ({ title = '', child
             links={[
               {
                 label: getString('overview'),
-                to: routes.toServiceAccounts({ accountId, orgIdentifier, projectIdentifier, module })
+                to: routes.toPolicyDashboardPage({ accountId })
               },
               {
                 label: getString('common.policies'),

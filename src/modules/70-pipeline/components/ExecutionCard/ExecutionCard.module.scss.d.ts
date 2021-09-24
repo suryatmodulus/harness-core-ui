@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly card: string
+  readonly hoverCard: string
   readonly cardLink: string
   readonly content: string
   readonly header: string

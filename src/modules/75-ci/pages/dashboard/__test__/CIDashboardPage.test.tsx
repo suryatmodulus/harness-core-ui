@@ -83,7 +83,8 @@ jest.mock('services/ci', () => ({
             commit: 'Update test.txt',
             commitID: '673c37fbd3d9d903b7bc1fcf5e700b8ab73f0ae3',
             startTs: 1621125462238,
-            endTs: 1621126062238
+            endTs: 1621126062238,
+            planExecutionId: 'planExecutionId' // not yet supported by backend but should render as snapshot
           }
         ],
         active: [

@@ -3,7 +3,7 @@ import { Card, Icon } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Popover } from '@blueprintjs/core'
 import { defaultTo, get, isEmpty } from 'lodash-es'
-
+import cx from 'classnames'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { UserLabel, Duration, TimeAgoPopover } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
@@ -30,10 +30,11 @@ import css from './ExecutionCard.module.scss'
 export interface ExecutionCardProps {
   pipelineExecution: PipelineExecutionSummary
   variant?: CardVariant
+  staticCard?: boolean
 }
 
 export default function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
-  const { pipelineExecution, variant = CardVariant.Default } = props
+  const { pipelineExecution, variant = CardVariant.Default, staticCard = false } = props
   const { orgIdentifier, projectIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
   const history = useHistory()
 
@@ -77,8 +78,13 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
   }
 
   return (
-    <Card elevation={0} className={css.card} data-disabled={disabled} data-variant={variant}>
-      <div className={css.cardLink} onClick={handleClick}>
+    <Card
+      elevation={0}
+      className={cx(css.card, !staticCard && css.hoverCard)}
+      data-disabled={disabled}
+      data-variant={variant}
+    >
+      <div className={cx(!staticCard && css.cardLink)} onClick={handleClick}>
         <div className={css.content}>
           <div className={css.header}>
             <div className={css.info}>

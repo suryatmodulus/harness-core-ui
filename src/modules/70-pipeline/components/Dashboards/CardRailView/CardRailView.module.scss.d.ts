@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
+  readonly headerTitle: string
   readonly header: string
   readonly title: string
   readonly content: string

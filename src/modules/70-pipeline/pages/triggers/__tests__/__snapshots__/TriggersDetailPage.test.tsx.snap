@@ -4,6 +4,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-xlarge StyledProps--padding-bottom-medium StyledProps--padding-right-xlarge StyledProps--background-primary1"
+    style="padding: 12px 24px 10px 24px;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -139,67 +140,65 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
           </span>
         </div>
       </div>
-      <div>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
-          style="align-items: center;"
+      <div
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+        style="align-items: center;"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+          data-icon="github"
         >
-          <span
-            class="bp3-icon StyledProps--main"
-            data-icon="github"
+          <svg
+            height="35"
+            viewBox="0 0 24 24"
+            width="35"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              height="26"
-              viewBox="0 0 24 24"
-              width="26"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-              />
-            </svg>
-          </span>
+            <path
+              d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+            />
+          </svg>
+        </span>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          data-testid="Trigger__1"
+        >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-            data-testid="Trigger__1"
+            class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
           >
             <div
-              class="Layout--vertical StyledProps--main StyledProps--padding-left-small"
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+              style="align-items: center;"
             >
-              <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
-                style="align-items: center;"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="font-size: 20px;"
-                >
-                  Trigger__1
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main"
-                >
-                  enabledLabel
-                </p>
-                <label
-                  class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
-                >
-                  <input
-                    checked=""
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  
-                </label>
-              </div>
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                style="font-size: 20px;"
               >
                 Trigger__1
               </p>
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                enabledLabel
+              </p>
+              <label
+                class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+              >
+                <input
+                  checked=""
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                
+              </label>
             </div>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              Trigger__1
+            </p>
           </div>
         </div>
       </div>
@@ -392,20 +391,20 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
         <div
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold"
+          <span
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--inline StyledProps--color StyledProps--color-grey800"
           >
             pipeline.triggers.lastActivationDetails
-          </p>
+          </span>
           <span
             class="bp3-popover-wrapper"
           >
             <span
               class="bp3-popover-target Text--targetClass"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500"
-                style="display: flex; align-items: center;"
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--font-size-medium StyledProps--inline"
+                style="display: inline-flex; align-items: center;"
                 tabindex="0"
               >
                 <span
@@ -428,12 +427,12 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
                   </svg>
                 </span>
                 failed
-              </p>
+              </span>
             </span>
           </span>
         </div>
         <div
-          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small"
         >
           <div>
             <p

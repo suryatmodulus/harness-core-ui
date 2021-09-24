@@ -54,12 +54,11 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
               <div
                 class="pipelineInputRow"
               >
-                <h2
-                  class="StyledProps--font StyledProps--font-h2 StyledProps--main"
-                  level="2"
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--inline StyledProps--color StyledProps--color-grey800"
                 >
                   pipeline.triggers.pipelineInputLabel
-                </h2>
+                </span>
                 <span
                   class="bp3-popover-wrapper isPopoverParent"
                 >
@@ -216,12 +215,11 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
               <div
                 class="pipelineInputRow"
               >
-                <h2
-                  class="StyledProps--font StyledProps--font-h2 StyledProps--main"
-                  level="2"
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--inline StyledProps--color StyledProps--color-grey800"
                 >
                   pipeline.triggers.pipelineInputLabel
-                </h2>
+                </span>
                 <span
                   class="bp3-popover-wrapper isPopoverParent"
                 >
@@ -274,7 +272,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                     id="Stage.stage1"
                   >
                     <div
-                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-large"
                     >
                       <span
                         class="bp3-icon StyledProps--main"

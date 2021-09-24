@@ -19,12 +19,13 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
             style="align-items: baseline;"
           >
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
-              level="2"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+              style="font-size: 20px;"
             >
               Trigger: customtrigger
-            </h2>
+               
+            </p>
             <p
               class="StyledProps--font StyledProps--main"
             >
@@ -46,7 +47,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="optionBtns positionInHeader"
         >
           <div
             class="item selected"
@@ -69,9 +70,6 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
           class="sideItems"
         />
       </section>
-      <div
-        class="headerLine"
-      />
       <div
         class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
       >
@@ -106,7 +104,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                     data-tab-id="Trigger Configuration"
                     id="bp3-tab-title_Wizard_Trigger Configuration"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -118,21 +116,41 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      1. 
                       pipeline.triggers.triggerConfigurationLabel
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                   <div
@@ -144,7 +162,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                     data-tab-id="Conditions"
                     id="bp3-tab-title_Wizard_Conditions"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -156,21 +174,41 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      2. 
                       conditions
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                   <div
@@ -182,7 +220,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                     data-tab-id="Pipeline Input"
                     id="bp3-tab-title_Wizard_Pipeline Input"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -194,20 +232,19 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      3. 
                       pipeline.triggers.pipelineInputLabel
                     </span>
                   </div>
@@ -231,12 +268,11 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                         <div
                           class="pipelineInputRow"
                         >
-                          <h2
-                            class="StyledProps--font StyledProps--font-h2 StyledProps--main"
-                            level="2"
+                          <span
+                            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--inline StyledProps--color StyledProps--color-grey800"
                           >
                             pipeline.triggers.pipelineInputLabel
-                          </h2>
+                          </span>
                           <span
                             class="bp3-popover-wrapper isPopoverParent"
                           >
@@ -535,7 +571,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                             </div>
                           </div>
                           <div
-                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-large"
                           >
                             <p
                               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
@@ -696,7 +732,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                               id="Stage.Coverage_Report"
                             >
                               <div
-                                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+                                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-large"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
@@ -1030,7 +1066,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
+                class="Layout--horizontal StyledProps--main footer nonYamlViewFooter"
               >
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -1091,7 +1127,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
                   type="button"
                 >
                   <span
@@ -1132,12 +1168,13 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
             style="align-items: baseline;"
           >
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
-              level="2"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+              style="font-size: 20px;"
             >
               Trigger: All Values
-            </h2>
+               
+            </p>
             <p
               class="StyledProps--font StyledProps--main"
             >
@@ -1159,7 +1196,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="optionBtns positionInHeader"
         >
           <div
             class="item selected"
@@ -1182,9 +1219,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           class="sideItems"
         />
       </section>
-      <div
-        class="headerLine"
-      />
       <div
         class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
       >
@@ -1219,7 +1253,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Trigger Configuration"
                     id="bp3-tab-title_Wizard_Trigger Configuration"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -1231,21 +1265,41 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      1. 
                       pipeline.triggers.triggerConfigurationLabel
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                   <div
@@ -1257,7 +1311,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Conditions"
                     id="bp3-tab-title_Wizard_Conditions"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -1269,21 +1323,41 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      2. 
                       conditions
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                   <div
@@ -1295,7 +1369,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Pipeline Input"
                     id="bp3-tab-title_Wizard_Pipeline Input"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -1307,20 +1381,19 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      3. 
                       pipeline.triggers.pipelineInputLabel
                     </span>
                   </div>
@@ -1335,12 +1408,14 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                   <div
                     class="Layout--vertical StyledProps--main webhookConfigurationContainer StyledProps--padding-xxlarge"
                   >
-                    <h2
-                      class="heading"
+                    <span
+                      class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
                     >
                       pipeline.triggers.triggerConfigurationLabel
-                    </h2>
-                    <div>
+                    </span>
+                    <div
+                      class="formContent"
+                    >
                       <div
                         class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
                       >
@@ -1508,12 +1583,15 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           </div>
                         </div>
                       </div>
-                      <h2
-                        class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
-                        level="2"
-                      >
-                        pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
-                      </h2>
+                    </div>
+                    <span
+                      class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+                    >
+                      pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
+                    </span>
+                    <div
+                      class="formContent"
+                    >
                       <section
                         style="width: 650px;"
                       >
@@ -1591,6 +1669,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           <div
                             class="bp3-form-group"
                             data-id="null-4"
+                            style="display: inline-block;"
                           >
                             <label
                               class="bp3-label"
@@ -1691,17 +1770,13 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               </button>
                             </div>
                           </div>
-                          <button
-                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
-                            style="padding: 0px;"
-                            type="button"
+                          <p
+                            class="StyledProps--font StyledProps--main addButton StyledProps--color StyledProps--color-primary7"
+                            data-name="plusAdd"
+                            style="width: 43px;"
                           >
-                            <span
-                              class="bp3-button-text"
-                            >
-                              plusAdd
-                            </span>
-                          </button>
+                            plusAdd
+                          </p>
                           <div
                             class="bp3-form-group"
                           >
@@ -2026,7 +2101,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
+                class="Layout--horizontal StyledProps--main footer nonYamlViewFooter"
               >
                 <button
                   class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
@@ -2058,7 +2133,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
                   type="button"
                 >
                   <span
@@ -2099,12 +2174,13 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
             style="align-items: baseline;"
           >
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
-              level="2"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+              style="font-size: 20px;"
             >
               Trigger: test-github-repo
-            </h2>
+               
+            </p>
             <p
               class="StyledProps--font StyledProps--main"
             >
@@ -2126,7 +2202,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           </div>
         </div>
         <div
-          class="optionBtns"
+          class="optionBtns positionInHeader"
         >
           <div
             class="item selected"
@@ -2149,9 +2225,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
           class="sideItems"
         />
       </section>
-      <div
-        class="headerLine"
-      />
       <div
         class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
       >
@@ -2186,7 +2259,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Trigger Configuration"
                     id="bp3-tab-title_Wizard_Trigger Configuration"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -2198,21 +2271,41 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      1. 
                       pipeline.triggers.triggerConfigurationLabel
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                   <div
@@ -2224,7 +2317,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Conditions"
                     id="bp3-tab-title_Wizard_Conditions"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -2236,21 +2329,41 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      2. 
                       conditions
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                   <div
@@ -2262,7 +2375,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Pipeline Input"
                     id="bp3-tab-title_Wizard_Pipeline Input"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -2274,20 +2387,19 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      3. 
                       pipeline.triggers.pipelineInputLabel
                     </span>
                   </div>
@@ -2302,12 +2414,14 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                   <div
                     class="Layout--vertical StyledProps--main webhookConfigurationContainer StyledProps--padding-xxlarge"
                   >
-                    <h2
-                      class="heading"
+                    <span
+                      class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
                     >
                       pipeline.triggers.triggerConfigurationLabel
-                    </h2>
-                    <div>
+                    </span>
+                    <div
+                      class="formContent"
+                    >
                       <div
                         class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
                       >
@@ -2460,12 +2574,15 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           </label>
                         </div>
                       </div>
-                      <h2
-                        class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
-                        level="2"
-                      >
-                        pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
-                      </h2>
+                    </div>
+                    <span
+                      class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+                    >
+                      pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
+                    </span>
+                    <div
+                      class="formContent"
+                    >
                       <section
                         style="width: 650px;"
                       >
@@ -2543,6 +2660,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           <div
                             class="bp3-form-group"
                             data-id="null-2"
+                            style="display: inline-block;"
                           >
                             <label
                               class="bp3-label"
@@ -2643,17 +2761,13 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               </button>
                             </div>
                           </div>
-                          <button
-                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
-                            style="padding: 0px;"
-                            type="button"
+                          <p
+                            class="StyledProps--font StyledProps--main addButton StyledProps--color StyledProps--color-primary7"
+                            data-name="plusAdd"
+                            style="width: 43px;"
                           >
-                            <span
-                              class="bp3-button-text"
-                            >
-                              plusAdd
-                            </span>
-                          </button>
+                            plusAdd
+                          </p>
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                           >
@@ -2957,7 +3071,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
+                class="Layout--horizontal StyledProps--main footer nonYamlViewFooter"
               >
                 <button
                   class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
@@ -2989,7 +3103,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
                   type="button"
                 >
                   <span
@@ -3030,12 +3144,13 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
             style="align-items: baseline;"
           >
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
-              level="2"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+              style="font-size: 20px;"
             >
               Trigger: test-cron
-            </h2>
+               
+            </p>
             <p
               class="StyledProps--font StyledProps--main"
             >
@@ -3081,9 +3196,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
         />
       </section>
       <div
-        class="headerLine"
-      />
-      <div
         class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
       >
         <div
@@ -3117,7 +3229,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Trigger Overview"
                     id="bp3-tab-title_Wizard_Trigger Overview"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -3129,21 +3241,41 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      1. 
                       pipeline.triggers.triggerOverviewPanel.title
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                   <div
@@ -3155,7 +3287,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Schedule"
                     id="bp3-tab-title_Wizard_Schedule"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -3167,21 +3299,41 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      2. 
                       pipeline.triggers.schedulePanel.title
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                   <div
@@ -3193,7 +3345,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Pipeline Input"
                     id="bp3-tab-title_Wizard_Pipeline Input"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -3205,20 +3357,19 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      3. 
                       pipeline.triggers.pipelineInputLabel
                     </span>
                   </div>
@@ -3233,170 +3384,176 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                   <div
                     class="Layout--vertical Layout--layout-spacing-large StyledProps--main triggerOverviewPanelContainer StyledProps--padding-xxlarge"
                   >
-                    <h2>
+                    <span
+                      class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+                    >
                       pipeline.triggers.triggerOverviewPanel.title
-                    </h2>
+                    </span>
                     <div
-                      class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+                      class="Layout--vertical StyledProps--main formContent"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer TextInput--main"
+                        class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
                       >
                         <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                          class="InputWithIdentifier--txtNameContainer TextInput--main"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
+                          <div
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
-                            ID
-                            :
-                          </p>
-                          <span
-                            class="bp3-popover-wrapper"
-                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                              :
+                            </p>
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                                >
+                                  <span
+                                    class="bp3-editable-text-content"
+                                    style="height: 1px; line-height: 1px; min-width: 0;"
+                                  >
+                                    testcron
+                                  </span>
+                                </div>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="name-0"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="name"
+                            >
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="wizardForm_scheduled_name"
+                              >
+                                name
+                              </span>
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
                             >
                               <div
-                                class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                                class="bp3-input-group"
                               >
-                                <span
-                                  class="bp3-editable-text-content"
-                                  style="height: 1px; line-height: 1px; min-width: 0;"
-                                >
-                                  testcron
-                                </span>
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="name"
+                                  placeholder="common.namePlaceholder"
+                                  type="text"
+                                  value="test-cron"
+                                />
                               </div>
-                            </span>
-                          </span>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="name-0"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="name"
-                          >
-                            <span
-                              class="Tooltip--acenter"
-                              data-tooltip-id="wizardForm_scheduled_name"
-                            >
-                              name
-                            </span>
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="name"
-                                placeholder="common.namePlaceholder"
-                                type="text"
-                                value="test-cron"
-                              />
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                        style="margin-bottom: 0px;"
-                      >
-                        <label
-                          class="Label--main bp3-label descriptionLabel"
-                          data-tooltip-id="triggerOverview_description"
-                        >
-                          optionalField
-                        </label>
                         <div
-                          class="bp3-form-group"
-                          data-id="description-1"
+                          class="StyledProps--font StyledProps--main"
+                          style="margin-bottom: 0px;"
                         >
-                          <div
-                            class="bp3-form-content"
+                          <label
+                            class="Label--main bp3-label descriptionLabel"
+                            data-tooltip-id="triggerOverview_description"
                           >
-                            <textarea
-                              autocomplete="off"
-                              class="bp3-input bp3-fill"
-                              maxlength="1024"
-                              name="description"
-                              placeholder="common.descriptionPlaceholder"
-                            >
-                              desc
-                            </textarea>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main"
-                      >
-                        <label
-                          class="Label--main bp3-label descriptionLabel"
-                          data-tooltip-id="triggerOverview_tags"
-                        >
-                          optionalField
-                        </label>
-                        <div
-                          class="bp3-form-group"
-                          data-id="undefined-2"
-                        >
+                            optionalField
+                          </label>
                           <div
-                            class="bp3-form-content"
+                            class="bp3-form-group"
+                            data-id="description-1"
                           >
                             <div
-                              class="bp3-input bp3-tag-input"
+                              class="bp3-form-content"
+                            >
+                              <textarea
+                                autocomplete="off"
+                                class="bp3-input bp3-fill"
+                                maxlength="1024"
+                                name="description"
+                                placeholder="common.descriptionPlaceholder"
+                              >
+                                desc
+                              </textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          <label
+                            class="Label--main bp3-label descriptionLabel"
+                            data-tooltip-id="triggerOverview_tags"
+                          >
+                            optionalField
+                          </label>
+                          <div
+                            class="bp3-form-group"
+                            data-id="undefined-2"
+                          >
+                            <div
+                              class="bp3-form-content"
                             >
                               <div
-                                class="bp3-tag-input-values"
+                                class="bp3-input bp3-tag-input"
                               >
-                                <span
-                                  class="bp3-tag"
-                                  data-tag-index="0"
+                                <div
+                                  class="bp3-tag-input-values"
                                 >
                                   <span
-                                    class="bp3-text-overflow-ellipsis bp3-fill"
-                                  >
-                                    tag1:value1
-                                  </span>
-                                  <button
-                                    class="bp3-tag-remove"
-                                    type="button"
+                                    class="bp3-tag"
+                                    data-tag-index="0"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-small-cross"
-                                      icon="small-cross"
+                                      class="bp3-text-overflow-ellipsis bp3-fill"
                                     >
-                                      <svg
-                                        data-icon="small-cross"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        width="16"
-                                      >
-                                        <desc>
-                                          small-cross
-                                        </desc>
-                                        <path
-                                          d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                                          fill-rule="evenodd"
-                                        />
-                                      </svg>
+                                      tag1:value1
                                     </span>
-                                  </button>
-                                </span>
-                                <input
-                                  class="bp3-input-ghost"
-                                  data-mentions="kv-tag-input-tags}"
-                                  value=""
-                                />
+                                    <button
+                                      class="bp3-tag-remove"
+                                      type="button"
+                                    >
+                                      <span
+                                        class="bp3-icon bp3-icon-small-cross"
+                                        icon="small-cross"
+                                      >
+                                        <svg
+                                          data-icon="small-cross"
+                                          height="16"
+                                          viewBox="0 0 16 16"
+                                          width="16"
+                                        >
+                                          <desc>
+                                            small-cross
+                                          </desc>
+                                          <path
+                                            d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                            fill-rule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </button>
+                                  </span>
+                                  <input
+                                    class="bp3-input-ghost"
+                                    data-mentions="kv-tag-input-tags}"
+                                    value=""
+                                  />
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -3407,7 +3564,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
+                class="Layout--horizontal StyledProps--main footer nonYamlViewFooter"
               >
                 <button
                   class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
@@ -3439,7 +3596,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
                   type="button"
                 >
                   <span
@@ -3480,12 +3637,13 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
             style="align-items: baseline;"
           >
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
-              level="2"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+              style="font-size: 20px;"
             >
               Trigger: test-cron
-            </h2>
+               
+            </p>
             <p
               class="StyledProps--font StyledProps--main"
             >
@@ -3531,9 +3689,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
         />
       </section>
       <div
-        class="headerLine"
-      />
-      <div
         class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
       >
         <div
@@ -3567,7 +3722,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Trigger Overview"
                     id="bp3-tab-title_Wizard_Trigger Overview"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -3579,21 +3734,41 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      1. 
                       pipeline.triggers.triggerOverviewPanel.title
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                   <div
@@ -3605,7 +3780,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Schedule"
                     id="bp3-tab-title_Wizard_Schedule"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -3617,21 +3792,41 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      2. 
                       pipeline.triggers.schedulePanel.title
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+                      data-name="chevron-right-tab"
+                      icon="chevron-right"
+                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                   <div
@@ -3643,7 +3838,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Pipeline Input"
                     id="bp3-tab-title_Wizard_Pipeline Input"
                     role="tab"
-                    style="width: 218px;"
+                    style="width: 260px;"
                     tabindex="0"
                   >
                     <span
@@ -3655,20 +3850,19 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                       >
                         <svg
                           data-icon="tick-circle"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          width="20"
                         >
                           <desc>
                             tick-circle
                           </desc>
                           <path
-                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            d="M10 20C4.48 20 0 15.52 0 10S4.48 0 10 0s10 4.48 10 10-4.48 10-10 10zm5-14c-.28 0-.53.11-.71.29L8 12.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29.28 0 .53-.11.71-.29l7-7A1.003 1.003 0 0015 6z"
                             fill-rule="evenodd"
                           />
                         </svg>
                       </span>
-                      3. 
                       pipeline.triggers.pipelineInputLabel
                     </span>
                   </div>
@@ -3683,249 +3877,253 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                   <div
                     class="Layout--vertical Layout--layout-spacing-large StyledProps--main schedulePanelContainer StyledProps--padding-xxlarge"
                   >
-                    <h2
-                      class="heading"
+                    <span
+                      class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
                     >
                       pipeline.triggers.schedulePanel.title
-                    </h2>
+                    </span>
                     <div
-                      class="bp3-tabs Tabs--main Tabs--horizontal"
+                      class="Layout--vertical StyledProps--main formContent"
                     >
                       <div
-                        class="bp3-tab-list"
-                        role="tablist"
+                        class="bp3-tabs Tabs--main Tabs--horizontal"
                       >
                         <div
-                          class="bp3-tab-indicator-wrapper"
-                          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                          class="bp3-tab-list"
+                          role="tablist"
                         >
                           <div
-                            class="bp3-tab-indicator"
-                          />
-                        </div>
-                        <div
-                          aria-controls="bp3-tab-panel_Wizard_Custom"
-                          aria-disabled="false"
-                          aria-expanded="true"
-                          aria-selected="true"
-                          class="bp3-tab"
-                          data-tab-id="Custom"
-                          id="bp3-tab-title_Wizard_Custom"
-                          role="tab"
-                          tabindex="0"
-                        >
-                          common.repo_provider.customLabel
-                        </div>
-                      </div>
-                      <div
-                        aria-hidden="false"
-                        aria-labelledby="bp3-tab-title_Wizard_Custom"
-                        class="bp3-tab-panel"
-                        id="bp3-tab-panel_Wizard_Custom"
-                        role="tabpanel"
-                      >
-                        <div
-                          class="bp3-form-group"
-                          style="margin: 0px;"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="expression"
+                            class="bp3-tab-indicator-wrapper"
+                            style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
                           >
-                            <span
-                              class="Tooltip--acenter"
-                              data-tooltip-id="wizardForm_scheduled_expression"
-                            >
-                              pipeline.triggers.schedulePanel.enterCustomCron
-                            </span>
-                             
-                            <span
-                              class="bp3-text-muted"
+                            <div
+                              class="bp3-tab-indicator"
                             />
-                          </label>
+                          </div>
                           <div
-                            class="bp3-form-content"
+                            aria-controls="bp3-tab-panel_Wizard_Custom"
+                            aria-disabled="false"
+                            aria-expanded="true"
+                            aria-selected="true"
+                            class="bp3-tab"
+                            data-tab-id="Custom"
+                            id="bp3-tab-title_Wizard_Custom"
+                            role="tab"
+                            tabindex="0"
                           >
-                            <div
-                              class="bp3-input-group"
+                            common.repo_provider.customLabel
+                          </div>
+                        </div>
+                        <div
+                          aria-hidden="false"
+                          aria-labelledby="bp3-tab-title_Wizard_Custom"
+                          class="bp3-tab-panel"
+                          id="bp3-tab-panel_Wizard_Custom"
+                          role="tabpanel"
+                        >
+                          <div
+                            class="bp3-form-group"
+                            style="margin: 0px;"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="expression"
                             >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="expression"
-                                type="text"
-                                value="0/5 * * * *"
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="wizardForm_scheduled_expression"
+                              >
+                                pipeline.triggers.schedulePanel.enterCustomCron
+                              </span>
+                               
+                              <span
+                                class="bp3-text-muted"
                               />
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="StyledProps--font StyledProps--main spacer"
-                          style="padding-top: 4px; padding-bottom: 0px; margin-left: 0px; width: 100%;"
-                        >
-                          <div
-                            class="StyledProps--font StyledProps--main"
-                          />
-                        </div>
-                        <div
-                          class="StyledProps--font StyledProps--main expressionBreakdown"
-                          data-name="expressionBreakdown"
-                        >
-                          <p
-                            class="StyledProps--font StyledProps--main title"
-                          >
-                            pipeline.triggers.schedulePanel.expressionBreakdown
-                          </p>
-                          <div
-                            class="Layout--horizontal StyledProps--main"
-                          >
+                            </label>
                             <div
-                              class="Layout--vertical StyledProps--main column"
-                              data-name="column"
-                              style="width: 100px;"
+                              class="bp3-form-content"
                             >
                               <div
-                                class="StyledProps--font StyledProps--main label"
+                                class="bp3-input-group"
                               >
-                                <p
-                                  class="StyledProps--font StyledProps--main"
-                                >
-                                  pipeline.triggers.schedulePanel.minutesLabel
-                                </p>
-                              </div>
-                              <div
-                                class="StyledProps--font StyledProps--main value"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main"
-                                >
-                                  0/5
-                                </p>
-                              </div>
-                            </div>
-                            <div
-                              class="Layout--vertical StyledProps--main column"
-                              data-name="column"
-                              style="width: 100px;"
-                            >
-                              <div
-                                class="StyledProps--font StyledProps--main label"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main"
-                                >
-                                  pipeline.triggers.schedulePanel.hoursLabel
-                                </p>
-                              </div>
-                              <div
-                                class="StyledProps--font StyledProps--main value"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main"
-                                >
-                                  *
-                                </p>
-                              </div>
-                            </div>
-                            <div
-                              class="Layout--vertical StyledProps--main column"
-                              data-name="column"
-                              style="width: 125px;"
-                            >
-                              <div
-                                class="StyledProps--font StyledProps--main label"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main"
-                                >
-                                  pipeline.triggers.schedulePanel.dayOfMonthLabel
-                                </p>
-                              </div>
-                              <div
-                                class="StyledProps--font StyledProps--main value"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main"
-                                >
-                                  *
-                                </p>
-                              </div>
-                            </div>
-                            <div
-                              class="Layout--vertical StyledProps--main column"
-                              data-name="column"
-                              style="width: 100px;"
-                            >
-                              <div
-                                class="StyledProps--font StyledProps--main label"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main"
-                                >
-                                  pipeline.triggers.schedulePanel.monthLabel
-                                </p>
-                              </div>
-                              <div
-                                class="StyledProps--font StyledProps--main value"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main"
-                                >
-                                  *
-                                </p>
-                              </div>
-                            </div>
-                            <div
-                              class="Layout--vertical StyledProps--main column"
-                              data-name="column"
-                              style="width: 250px;"
-                            >
-                              <div
-                                class="StyledProps--font StyledProps--main label"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main"
-                                >
-                                  pipeline.triggers.schedulePanel.dayOfWeekLabel
-                                </p>
-                              </div>
-                              <div
-                                class="StyledProps--font StyledProps--main value"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main"
-                                >
-                                  *
-                                </p>
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="expression"
+                                  type="text"
+                                  value="0/5 * * * *"
+                                />
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div
-                          class="StyledProps--font StyledProps--main spacer"
-                          style="padding-top: 4px; padding-bottom: 0px; margin-left: 0px; width: 100%;"
-                        >
                           <div
-                            class="StyledProps--font StyledProps--main"
-                          />
-                        </div>
-                        <div
-                          class="StyledProps--font StyledProps--main expression"
-                          data-name="expression"
-                        >
-                          <p
-                            class="StyledProps--font StyledProps--main label"
+                            class="StyledProps--font StyledProps--main spacer"
+                            style="padding-top: 4px; padding-bottom: 0px; margin-left: 0px; width: 100%;"
                           >
-                            pipeline.triggers.schedulePanel.cronExpression
-                          </p>
+                            <div
+                              class="StyledProps--font StyledProps--main"
+                            />
+                          </div>
                           <div
-                            class="StyledProps--font StyledProps--main field"
+                            class="StyledProps--font StyledProps--main expressionBreakdown"
+                            data-name="expressionBreakdown"
                           >
                             <p
-                              class="StyledProps--font StyledProps--main"
+                              class="StyledProps--font StyledProps--main title"
                             >
-                              0/5 * * * *
+                              pipeline.triggers.schedulePanel.expressionBreakdown
                             </p>
+                            <div
+                              class="Layout--horizontal StyledProps--main"
+                            >
+                              <div
+                                class="Layout--vertical StyledProps--main column"
+                                data-name="column"
+                                style="width: 100px;"
+                              >
+                                <div
+                                  class="StyledProps--font StyledProps--main label"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    pipeline.triggers.schedulePanel.minutesLabel
+                                  </p>
+                                </div>
+                                <div
+                                  class="StyledProps--font StyledProps--main value"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    0/5
+                                  </p>
+                                </div>
+                              </div>
+                              <div
+                                class="Layout--vertical StyledProps--main column"
+                                data-name="column"
+                                style="width: 100px;"
+                              >
+                                <div
+                                  class="StyledProps--font StyledProps--main label"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    pipeline.triggers.schedulePanel.hoursLabel
+                                  </p>
+                                </div>
+                                <div
+                                  class="StyledProps--font StyledProps--main value"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    *
+                                  </p>
+                                </div>
+                              </div>
+                              <div
+                                class="Layout--vertical StyledProps--main column"
+                                data-name="column"
+                                style="width: 125px;"
+                              >
+                                <div
+                                  class="StyledProps--font StyledProps--main label"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    pipeline.triggers.schedulePanel.dayOfMonthLabel
+                                  </p>
+                                </div>
+                                <div
+                                  class="StyledProps--font StyledProps--main value"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    *
+                                  </p>
+                                </div>
+                              </div>
+                              <div
+                                class="Layout--vertical StyledProps--main column"
+                                data-name="column"
+                                style="width: 100px;"
+                              >
+                                <div
+                                  class="StyledProps--font StyledProps--main label"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    pipeline.triggers.schedulePanel.monthLabel
+                                  </p>
+                                </div>
+                                <div
+                                  class="StyledProps--font StyledProps--main value"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    *
+                                  </p>
+                                </div>
+                              </div>
+                              <div
+                                class="Layout--vertical StyledProps--main column"
+                                data-name="column"
+                                style="width: 250px;"
+                              >
+                                <div
+                                  class="StyledProps--font StyledProps--main label"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    pipeline.triggers.schedulePanel.dayOfWeekLabel
+                                  </p>
+                                </div>
+                                <div
+                                  class="StyledProps--font StyledProps--main value"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    *
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="StyledProps--font StyledProps--main spacer"
+                            style="padding-top: 4px; padding-bottom: 0px; margin-left: 0px; width: 100%;"
+                          >
+                            <div
+                              class="StyledProps--font StyledProps--main"
+                            />
+                          </div>
+                          <div
+                            class="StyledProps--font StyledProps--main expression"
+                            data-name="expression"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main label"
+                            >
+                              pipeline.triggers.schedulePanel.cronExpression
+                            </p>
+                            <div
+                              class="StyledProps--font StyledProps--main field"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                              >
+                                0/5 * * * *
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -3934,7 +4132,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
+                class="Layout--horizontal StyledProps--main footer nonYamlViewFooter"
               >
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -3995,7 +4193,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-secondary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
                   type="button"
                 >
                   <span

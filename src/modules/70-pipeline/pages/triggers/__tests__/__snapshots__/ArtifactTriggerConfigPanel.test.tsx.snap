@@ -12,12 +12,14 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
         <div
           class="Layout--vertical StyledProps--main artifactTriggerConfigContainer StyledProps--padding-xxlarge"
         >
-          <h2
-            class="heading"
+          <span
+            class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
           >
             pipeline.triggers.triggerConfigurationLabel
-          </h2>
-          <div>
+          </span>
+          <div
+            class="formContent"
+          >
             <div
               class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
             >
@@ -168,12 +170,15 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                 </label>
               </div>
             </div>
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
-              level="2"
-            >
-              pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
-            </h2>
+          </div>
+          <span
+            class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+          >
+            pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
+          </span>
+          <div
+            class="formContent"
+          >
             <section>
               <div
                 class="StyledProps--font StyledProps--main"
@@ -359,12 +364,14 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots inital Render 1`
         <div
           class="Layout--vertical StyledProps--main artifactTriggerConfigContainer StyledProps--padding-xxlarge"
         >
-          <h2
-            class="heading"
+          <span
+            class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
           >
             pipeline.triggers.triggerConfigurationLabel: pipeline.triggers.onNewArtifactTitle
-          </h2>
-          <div>
+          </span>
+          <div
+            class="formContent"
+          >
             <div
               class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
             >
@@ -545,12 +552,15 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots inital Render 1`
                 </label>
               </div>
             </div>
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
-              level="2"
-            >
-              pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
-            </h2>
+          </div>
+          <span
+            class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+          >
+            pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
+          </span>
+          <div
+            class="formContent"
+          >
             <section>
               <label
                 class="Label--main"

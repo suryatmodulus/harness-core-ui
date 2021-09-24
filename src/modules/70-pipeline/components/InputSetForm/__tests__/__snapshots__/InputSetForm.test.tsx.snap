@@ -616,7 +616,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                           id="Stage.asd"
                         >
                           <div
-                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-large"
                           >
                             <span
                               class="bp3-icon StyledProps--main"
@@ -2107,7 +2107,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                           id="Stage.asd"
                         >
                           <div
-                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-large"
                           >
                             <span
                               class="bp3-icon StyledProps--main"

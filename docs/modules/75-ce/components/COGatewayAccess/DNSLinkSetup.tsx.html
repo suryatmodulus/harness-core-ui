@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.11% </span>
+                <span class="strong">71.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>192/270</span>
+                <span class='fraction'>193/271</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.64% </span>
+                <span class="strong">49.59% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>305/627</span>
+                <span class='fraction'>306/617</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.81% </span>
+                <span class="strong">71.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>186/259</span>
+                <span class='fraction'>187/260</span>
             </div>
         
             
@@ -967,18 +967,7 @@
 <a name='L908'></a><a href='#L908'>908</a>
 <a name='L909'></a><a href='#L909'>909</a>
 <a name='L910'></a><a href='#L910'>910</a>
-<a name='L911'></a><a href='#L911'>911</a>
-<a name='L912'></a><a href='#L912'>912</a>
-<a name='L913'></a><a href='#L913'>913</a>
-<a name='L914'></a><a href='#L914'>914</a>
-<a name='L915'></a><a href='#L915'>915</a>
-<a name='L916'></a><a href='#L916'>916</a>
-<a name='L917'></a><a href='#L917'>917</a>
-<a name='L918'></a><a href='#L918'>918</a>
-<a name='L919'></a><a href='#L919'>919</a>
-<a name='L920'></a><a href='#L920'>920</a>
-<a name='L921'></a><a href='#L921'>921</a>
-<a name='L922'></a><a href='#L922'>922</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L911'></a><a href='#L911'>911</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1022,6 +1011,7 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -1375,18 +1365,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">40x</span>
@@ -1948,6 +1926,7 @@ import LoadBalancerDnsConfig from './LoadBalancerDnsConfig'
 import AzureAPConfig from '../COAccessPointList/AzureAPConfig'
 import CORoutingTable from '../COGatewayConfig/CORoutingTable'
 import COHealthCheckTable from '../COGatewayConfig/COHealthCheckTable'
+import { getDummySupportedResourceFromAG, getDummySupportedResourceFromALB } from './helper'
 import css from './COGatewayAccess.module.scss'
 &nbsp;
 const modalPropsLight: IDialogProps = {
@@ -2130,7 +2109,7 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
     })
 &nbsp;
     submittedAccessPoints<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>orEach(<span class="fstat-no" title="function not covered" >_item </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >      apCoresResponseMap[_item.name as string] = getDummySupportedResourceFromAG(_item)</span>
+<span class="cstat-no" title="statement not covered" >      apCoresResponseMap[_item.name as string] = getDummyResource(_item)</span>
     })
     setApCoreResponseList(_values(apCoresResponseMap))
   }, [apCoresResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse, accessPoints<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse])
@@ -2294,20 +2273,8 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
 <span class="cstat-no" title="statement not covered" >    setSelectedLoadBalancer(undefined)</span>
   }
 &nbsp;
-  const getDummySupportedResourceFromAG = <span class="fstat-no" title="function not covered" >(a</span>g: AccessPoint): AccessPointCore =&gt; {
-<span class="cstat-no" title="statement not covered" >    return {</span>
-      type: 'app_gateway',
-      details: {
-        fe_ip_id: ag.metadata?.fe_ip_id,
-        id: ag.id,
-        name: ag.name,
-        region: ag.region,
-        resource_group: ag.metadata?.resource_group,
-        size: ag.metadata?.size,
-        subnet_id: ag.metadata?.subnet_id,
-        vpc: ag.vpc
-      }
-    }
+  const getDummyResource = <span class="fstat-no" title="function not covered" >(d</span>ata: AccessPoint) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return isAwsProvider ? getDummySupportedResourceFromALB(data) : getDummySupportedResourceFromAG(data)</span>
   }
 &nbsp;
   const [openLoadBalancerModal, hideLoadBalancerModal] = useModalHook(() =&gt; {
@@ -2328,7 +2295,7 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
               <span class="missing-if-branch" title="else path not taken" >E</span>if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
             }}
-            createMode={isCreateMode}
+            mode={isCreateMode ? 'create' : <span class="branch-1 cbranch-no" title="branch not covered" >'import'}</span>
             onSave={savedLb =&gt; {
               setAccessPoint(savedLb)
               <span class="missing-if-branch" title="else path not taken" >E</span>if (isCreateMode) {
@@ -2349,7 +2316,7 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
                 // apCoresRefetch()
               }
             }}
-            createMode={isCreateMode}
+            mode={isCreateMode ? 'create' : 'import'}
             onClose={<span class="fstat-no" title="function not covered" >_clearStatus </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >              if (_clearStatus &amp;&amp; !isCreateMode) {</span>
 <span class="cstat-no" title="statement not covered" >                clearAPData()</span>
@@ -2827,7 +2794,7 @@ export default DNSLinkSetup
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Sep 24 2021 05:26:29 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 24 2021 06:40:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

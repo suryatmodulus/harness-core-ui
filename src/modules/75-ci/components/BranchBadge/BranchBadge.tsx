@@ -19,13 +19,13 @@ export function BranchBadge(props: BranchBadgeProps): React.ReactElement {
     <div className={cx(css.main, className)}>
       {branchName || tagName ? (
         <Badge>
-          <Icon className={css.icon} name={tagName ? 'tag' : 'git-branch'} size={10} />
+          <Icon className={css.icon} name={tagName ? 'tag' : 'git-branch'} size={12} color="primary7" />
           <span className={css.branchName}>{tagName || branchName}</span>
         </Badge>
       ) : null}
       {commitId ? (
         <Badge>
-          <Icon className={css.icon} name="git-commit" size={10} />
+          <Icon className={css.icon} name="git-commit" size={12} color="primary7" />
           <span>{commitId?.slice(0, 7)}</span>
         </Badge>
       ) : null}

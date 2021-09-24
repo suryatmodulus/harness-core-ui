@@ -24,20 +24,33 @@
   }
 
   .prNumber {
-    color: var(--primary-7);
-    font-size: var(--font-size-small);
+    display: flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    font-size: var(--font-size-small) !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    color: var(--primary-7) !important;
+    background-color: var(--primary-1) !important;
+    border-radius: 8px !important;
+    padding: var(--spacing-xsmall) var(--spacing-small) !important;
+
+    svg {
+      margin-right: var(--spacing-xsmall);
+
+      path {
+        fill: currentColor !important;
+      }
+    }
   }
 
   .pullRequestStatus {
-    display: flex;
-    align-items: center;
-    background-color: var(--grey-100);
-    height: var(--spacing-5);
-    border: 1px solid var(--grey-400);
-    color: var(--grey-800);
-    border-radius: 6px;
-    font-size: var(--font-size-xsmall);
-    padding: 0 var(--spacing-3);
+    font-size: var(--font-size-small);
+    font-weight: 600;
     text-transform: uppercase;
+    color: var(--grey-700);
+    background-color: var(--grey-100);
+    border-radius: 8px;
+    padding: var(--spacing-xsmall) var(--spacing-small);
   }
 }

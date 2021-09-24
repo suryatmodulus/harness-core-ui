@@ -57,7 +57,7 @@
   .commit {
     padding-top: var(--spacing-3);
     display: grid;
-    grid-template-columns: minmax(10px, 2fr) minmax(10px, 1fr) minmax(10px, 80px);
+    grid-template-columns: 2fr 1fr 95px;
     column-gap: var(--spacing-3);
     align-items: center;
 
@@ -93,26 +93,32 @@
     color: var(--grey-900) !important;
     flex: 0 1 auto;
   }
+}
 
-  .label {
-    display: flex !important;
-    align-items: center !important;
-    white-space: nowrap !important;
-    font-size: var(--font-size-small) !important;
-    font-weight: 500 !important;
-    text-decoration: none !important;
-    color: var(--primary-7) !important;
-    background-color: var(--primary-1) !important;
-    border-radius: 8px !important;
-    padding: var(--spacing-xsmall) var(--spacing-small) !important;
-    margin: 0 var(--spacing-xsmall);
+.label {
+  display: flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  font-size: var(--font-size-small) !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  color: var(--primary-7) !important;
+  background-color: var(--primary-1) !important;
+  border-radius: 8px !important;
+  padding: var(--spacing-xsmall) var(--spacing-small) !important;
+  margin: 0 var(--spacing-xsmall);
 
-    svg {
-      margin-right: var(--spacing-xsmall);
+  svg {
+    margin-right: var(--spacing-xsmall);
 
-      path {
-        fill: currentColor !important;
-      }
+    path {
+      fill: currentColor !important;
     }
   }
+}
+
+.commitId {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }

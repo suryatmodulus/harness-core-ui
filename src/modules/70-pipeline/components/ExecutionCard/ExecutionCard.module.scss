@@ -184,7 +184,6 @@ $actions-translate: 10px;
     }
     .header {
       .actions {
-        width: $timer-width + $actions-translate;
         transform: translateX($actions-translate);
       }
     }

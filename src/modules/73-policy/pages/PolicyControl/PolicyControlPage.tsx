@@ -8,10 +8,10 @@ import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 
 export interface PolicyControlPageProps {
-  title: string
+  title?: string
 }
 
-const PolicyControlPage: React.FC<PolicyControlPageProps> = ({ title, children }) => {
+const PolicyControlPage: React.FC<PolicyControlPageProps> = ({ title = '', children }) => {
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
 

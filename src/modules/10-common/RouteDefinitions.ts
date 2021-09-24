@@ -1239,6 +1239,7 @@ const routes = {
 
   /****************** Secret Usage************************************************************************************/
   toPolicyListPage: withAccountId(() => 'settings/governance/policies'),
+  toPolicyNewPage: withAccountId(() => 'settings/governance/policies/new'),
   toPolicySetsPage: withAccountId(() => 'settings/governance/policy-sets'),
   toPolicyEvaluationsPage: withAccountId(() => 'settings/governance/policy-evaluations')
 }

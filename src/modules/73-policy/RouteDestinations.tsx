@@ -9,6 +9,7 @@ import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import Policies from './pages/Policies/Policies'
 import PolicyControlPage from './pages/PolicyControl/PolicyControlPage'
 import PolicyEvaluations from './pages/PolicySets/PolicySets'
+import NewPolicy from './pages/NewPolicy/NewPolicy'
 
 export const AccountSideNavProps: SidebarContext = {
   navComponent: AccountSideNav,
@@ -21,6 +22,12 @@ export default (
     <RouteWithLayout path={routes.toPolicyListPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
       <PolicyControlPage title="Policies">
         <Policies />
+      </PolicyControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout path={routes.toPolicyNewPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
+      <PolicyControlPage title="New Policy">
+        <NewPolicy />
       </PolicyControlPage>
     </RouteWithLayout>
 

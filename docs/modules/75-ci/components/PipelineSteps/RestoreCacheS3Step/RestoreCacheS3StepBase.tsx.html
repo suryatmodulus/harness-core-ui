@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/33</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/32</span>
+                <span class='fraction'>33/33</span>
             </div>
         
             
@@ -274,7 +274,12 @@
 <a name='L215'></a><a href='#L215'>215</a>
 <a name='L216'></a><a href='#L216'>216</a>
 <a name='L217'></a><a href='#L217'>217</a>
-<a name='L218'></a><a href='#L218'>218</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -284,6 +289,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
@@ -365,6 +371,10 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -502,6 +512,7 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -673,28 +684,32 @@ export const RestoreCacheS3StepBase = (
                       style={{ marginBottom: 'var(--spacing-medium)' }}
                       disabled={readonly}
                     /&gt;
-                    &lt;FormMultiTypeCheckboxField
-                      name="spec.pathStyle"
-                      label={getString('pathStyle')}
-                      multiTypeTextbox={{
-                        expressions,
-                        disabled: readonly
-                      }}
-                      style={{ marginBottom: 'var(--spacing-medium)' }}
-                      disabled={readonly}
-                      tooltipProps={{ dataTooltipId: 'pathStyle' }}
-                    /&gt;
-                    &lt;FormMultiTypeCheckboxField
-                      name="spec.failIfKeyNotFound"
-                      label={getString('failIfKeyNotFound')}
-                      multiTypeTextbox={{
-                        expressions,
-                        disabled: readonly
-                      }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      disabled={readonly}
-                      tooltipProps={{ dataTooltipId: 'failIfKeyNotFound' }}
-                    /&gt;
+                    &lt;div className={cx(css.formGroup, css.sm)}&gt;
+                      &lt;FormMultiTypeCheckboxField
+                        name="spec.pathStyle"
+                        label={getString('pathStyle')}
+                        multiTypeTextbox={{
+                          expressions,
+                          disabled: readonly
+                        }}
+                        style={{ marginBottom: 'var(--spacing-medium)' }}
+                        disabled={readonly}
+                        tooltipProps={{ dataTooltipId: 'pathStyle' }}
+                      /&gt;
+                    &lt;/div&gt;
+                    &lt;div className={cx(css.formGroup, css.sm)}&gt;
+                      &lt;FormMultiTypeCheckboxField
+                        name="spec.failIfKeyNotFound"
+                        label={getString('failIfKeyNotFound')}
+                        multiTypeTextbox={{
+                          expressions,
+                          disabled: readonly
+                        }}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
+                        disabled={readonly}
+                        tooltipProps={{ dataTooltipId: 'failIfKeyNotFound' }}
+                      /&gt;
+                    &lt;/div&gt;
                     &lt;StepCommonFields disabled={readonly} /&gt;
                   &lt;/&gt;
                 }
@@ -715,7 +730,7 @@ export const RestoreCacheS3StepBaseWithRef = React.forwardRef(RestoreCacheS3Step
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Sep 24 2021 11:08:35 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 24 2021 17:12:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

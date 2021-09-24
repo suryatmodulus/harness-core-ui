@@ -35,7 +35,7 @@ module.exports = {
     '!src/modules/70-pipeline/components/PipelineStudio/PipelineContext/PipelineContext.tsx',
     '!src/modules/70-pipeline/components/PipelineStudio/ExecutionGraph/**'
   ],
-  coverageReporters: ['lcov', 'json-summary'],
+  coverageReporters: ['lcov', 'json-summary', 'json'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
     '^.+\\.js$': 'ts-jest',
@@ -43,7 +43,7 @@ module.exports = {
     '^.+\\.gql$': '<rootDir>/scripts/jest/gql-loader.js'
   },
   moduleDirectories: ['node_modules', 'src'],
-  testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
+  testMatch: ['**/?(*.)+(test).[jt]s?(x)'],
   moduleNameMapper: {
     '\\.s?css$': 'identity-obj-proxy',
     'monaco-editor': '<rootDir>/node_modules/react-monaco-editor',

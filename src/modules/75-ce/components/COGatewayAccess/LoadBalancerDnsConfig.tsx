@@ -1,9 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import { isEmpty as _isEmpty } from 'lodash-es'
 import { Heading } from '@wings-software/uicore'
-import { AccessPoint, useCreateAccessPoint, useGetAccessPoint } from 'services/lw'
+import { AccessPoint, useCreateAccessPoint, useEditAccessPoint, useGetAccessPoint } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
+import type { AccessPointScreenMode } from '@ce/types'
+import { Utils } from '@ce/common/Utils'
+import { PROVIDER_TYPES } from '@ce/constants'
 import LBFormStepFirst, { SubmitFormVal } from './LBFormStepFirst'
 import LBFormStepSecond, { FormValue } from './LBFormStepSecond'
 import css from './COGatewayAccess.module.scss'
@@ -13,7 +17,7 @@ interface LoadBalancerDnsConfigProps {
   cloudAccountId: string | undefined
   onClose?: (clearSelection?: boolean) => void
   onSave?: (savedLoadBalancer: AccessPoint) => void
-  createMode?: boolean
+  mode: AccessPointScreenMode
 }
 
 enum FormStep {
@@ -22,10 +26,10 @@ enum FormStep {
 }
 
 const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
-  const { loadBalancer, cloudAccountId, onClose, createMode = false, onSave } = props
+  const { loadBalancer, cloudAccountId, onClose, onSave, mode } = props
+  const isEditMode = mode === 'edit'
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
-  const lastStep = useRef(FormStep.SECOND)
   const [currentStep, setCurrentStep] = useState<FormStep>(FormStep.FIRST)
   const [newLoadBalancer, setNewLoadBalancer] = useState<AccessPoint>(loadBalancer)
   const [lbCreationInProgress, setLbCreationInProgress] = useState<boolean>(false)
@@ -43,6 +47,10 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
     account_id: accountId
   })
 
+  const { mutate: editLoadBalancer } = useEditAccessPoint({
+    account_id: accountId
+  })
+
   const {
     data: accessPointData,
     refetch,
@@ -57,39 +65,41 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
   })
 
   const moveForward = () => {
-    if (currentStep === lastStep.current) return
     setCurrentStep(currentStep + 1)
   }
 
   const moveBackward = () => {
-    if (currentStep === FormStep.FIRST) return
     setCurrentStep(currentStep - 1)
   }
 
   const handleFirstScreenSubmit = (values: SubmitFormVal) => {
-    const updatedLb = { ...newLoadBalancer }
-    if (!updatedLb.cloud_account_id) {
-      updatedLb.cloud_account_id = currCloudAccountId // eslint-disable-line
-    }
-    if (values.lbName) {
-      updatedLb.name = values.lbName
-      updatedLb.host_name = values.customDomainPrefix // eslint-disable-line
-    }
-    updatedLb.metadata = {
-      ...updatedLb.metadata,
-      dns: {
-        ...(values.dnsProvider === 'route53'
-          ? { route53: { hosted_zone_id: values.hostedZoneId as string } } // eslint-disable-line
-          : { others: values.customDomainPrefix })
+    if (isEditMode) {
+      moveForward()
+    } else {
+      const updatedLb = { ...newLoadBalancer }
+      if (!updatedLb.cloud_account_id) {
+        updatedLb.cloud_account_id = currCloudAccountId // eslint-disable-line
       }
+      if (values.lbName) {
+        updatedLb.name = values.lbName
+        updatedLb.host_name = values.customDomainPrefix // eslint-disable-line
+      }
+      updatedLb.metadata = {
+        ...updatedLb.metadata,
+        dns: {
+          ...(values.dnsProvider === 'route53'
+            ? { route53: { hosted_zone_id: values.hostedZoneId as string } } // eslint-disable-line
+            : { others: values.customDomainPrefix })
+        }
+      }
+      setHostedZoneName(values.hostedZoneName)
+      setNewLoadBalancer(updatedLb)
+      // if (!createMode) {
+      //   saveLb(updatedLb)
+      // } else {
+      // }
+      moveForward()
     }
-    setHostedZoneName(values.hostedZoneName)
-    setNewLoadBalancer(updatedLb)
-    // if (!createMode) {
-    //   saveLb(updatedLb)
-    // } else {
-    // }
-    moveForward()
   }
 
   useEffect(() => {
@@ -105,7 +115,11 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
         } else if (accessPointData?.response?.status == 'created') {
           setLbCreationInProgress(false)
           // props.setAccessPoint(accessPointData?.response as AccessPoint)
-          showSuccess(getString('ce.co.accessPoint.success'))
+          showSuccess(
+            isEditMode
+              ? getString('ce.co.accessPoint.successfulEdition', { name: accessPointData.response.name })
+              : getString('ce.co.accessPoint.success')
+          )
           onSave?.(accessPointData.response)
           onClose?.()
         } else {
@@ -123,8 +137,12 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
   const saveLb = async (lbToSave?: AccessPoint): Promise<void> => {
     setLbCreationInProgress(true)
     try {
-      const result = await createLoadBalancer(lbToSave || newLoadBalancer) // eslint-disable-line
+      const result =
+        isEditMode || !_isEmpty(newLoadBalancer.id)
+          ? await editLoadBalancer(lbToSave || newLoadBalancer)
+          : await createLoadBalancer(lbToSave || newLoadBalancer) // eslint-disable-line
       if (result.response) {
+        setNewLoadBalancer(result.response)
         setLoadBalancerId(result.response.id as string)
       }
     } catch (e) {
@@ -142,7 +160,7 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
       metadata: {
         ...newLoadBalancer.metadata,
         ...(_val.securityGroups && { security_groups: _val.securityGroups.map(_i => _i.value) as string[] }), // eslint-disable-line
-        ...(_val.certificate && { certificate_id: _val.certificate.value as string }) // eslint-disable-line
+        ...(_val.certificate && { certificate_id: _val.certificate }) // eslint-disable-line
       }
     }
     setNewLoadBalancer(updatedLb)
@@ -150,19 +168,21 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
     saveLb()
   }
 
+  const getHeading = () => {
+    return Utils.getLoadBalancerModalHeader(props.mode, PROVIDER_TYPES.AWS, loadBalancer.name as string)
+  }
+
   return (
     <div className={css.loadBalancerDnsConfigDialog}>
       <Heading level={2} className={css.configHeading}>
-        {createMode
-          ? 'Create a new Application Load Balancer'
-          : `The Load Balancer ${loadBalancer?.name || ''} requires additional Configuration`}
+        {getHeading()}
       </Heading>
       <div>
         {currentStep === FormStep.FIRST && (
           <LBFormStepFirst
             cloudAccountId={currCloudAccountId}
             handleCancel={() => onClose?.(true)}
-            createMode={createMode}
+            mode={mode}
             handleSubmit={handleFirstScreenSubmit}
             loadBalancer={newLoadBalancer}
             handleCloudConnectorChange={setCurrCloudAccountId}
@@ -178,6 +198,7 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
             handleSubmit={handleSecondFormSubmission}
             handlePreviousClick={moveBackward}
             isSaving={lbCreationInProgress}
+            mode={mode}
           />
         )}
       </div>

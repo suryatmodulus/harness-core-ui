@@ -2,6 +2,7 @@
   display: flex;
   .labels {
     display: flex;
+    align-items: center;
     flex-direction: row;
     justify-content: space-between;
     background-color: var(--grey-200) !important;
@@ -71,8 +72,8 @@
   border-radius: 4px;
   box-shadow: 0px 0px 4px var(--grey-300);
   .timelineBar {
-    margin-left: 260px;
-    margin-right: var(--spacing-small);
+    padding-left: 27%;
+    padding-top: var(--spacing-small);
   }
   .crossButton {
     position: absolute;

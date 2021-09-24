@@ -209,47 +209,55 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+            class="StyledProps--main"
           >
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+            
+            <div
+              class="RadioButtonGroup--inline"
             >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.resourceNameValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.resourceNameLabel
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.manifestPathValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.manifestPathLabel
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.releaseNameValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.releaseNameLabel
-            </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.resourceNameValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.resourceNameLabel
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.manifestPathValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.releaseNameLabel
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -467,47 +475,55 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+            class="StyledProps--main"
           >
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+            
+            <div
+              class="RadioButtonGroup--inline"
             >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.resourceNameValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.resourceNameLabel
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.manifestPathValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.manifestPathLabel
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.releaseNameValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.releaseNameLabel
-            </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.resourceNameValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.resourceNameLabel
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.manifestPathValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.releaseNameLabel
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -735,47 +751,55 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+            class="StyledProps--main"
           >
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+            
+            <div
+              class="RadioButtonGroup--inline"
             >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.resourceNameValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.resourceNameLabel
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.manifestPathValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.manifestPathLabel
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.releaseNameValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.releaseNameLabel
-            </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.resourceNameValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.resourceNameLabel
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.manifestPathValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.releaseNameLabel
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -991,47 +1015,55 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+            class="StyledProps--main"
           >
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+            
+            <div
+              class="RadioButtonGroup--inline"
             >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.resourceNameValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.resourceNameLabel
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.manifestPathValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.manifestPathLabel
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.deleteResources.type"
-                type="radio"
-                value="pipelineSteps.releaseNameValue"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.releaseNameLabel
-            </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.resourceNameValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.resourceNameLabel
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.manifestPathValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.releaseNameLabel
+              </label>
+            </div>
           </div>
         </div>
       </div>

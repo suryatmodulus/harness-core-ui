@@ -131,7 +131,7 @@ describe('ExecutionStrategy test', () => {
     expect(blankCanvasCard.classList).not.toContain('active')
 
     // Details Panel Header Section
-    const rollingHeader = getByTestId(component, 'Rolling-Header')
+    const rollingHeader = getByTestId(component, 'RollingDetailsHeader')
     expect(rollingHeader.innerHTML).toEqual('Rolling')
     const learnMoreLink: HTMLAnchorElement = getByText(component, 'learnMore').closest('a') as HTMLAnchorElement
     expect(learnMoreLink?.getAttribute('href')).toEqual('pipeline.executionStrategy.strategies.rolling.learnMoreLink')
@@ -189,7 +189,7 @@ describe('ExecutionStrategy test', () => {
     expect(blankCanvasCard.classList).not.toContain('active')
 
     // Details Panel Header Section
-    const rollingHeader = getByTestId(component, 'BlueGreen-Header')
+    const rollingHeader = getByTestId(component, 'BlueGreenDetailsHeader')
     expect(rollingHeader.innerHTML).toEqual('Blue Green')
     const learnMoreLink: HTMLAnchorElement = getByText(component, 'learnMore').closest('a') as HTMLAnchorElement
     expect(learnMoreLink?.getAttribute('href')).toEqual('pipeline.executionStrategy.strategies.blueGreen.learnMoreLink')
@@ -253,7 +253,7 @@ describe('ExecutionStrategy test', () => {
     expect(blankCanvasCard.classList).not.toContain('active')
 
     // Details Panel Header Section
-    const rollingHeader = getByTestId(component, 'Canary-Header')
+    const rollingHeader = getByTestId(component, 'CanaryDetailsHeader')
     expect(rollingHeader.innerHTML).toEqual('Canary')
     const learnMoreLink: HTMLAnchorElement = getByText(component, 'learnMore').closest('a') as HTMLAnchorElement
     expect(learnMoreLink?.getAttribute('href')).toEqual('pipeline.executionStrategy.strategies.canary.learnMoreLink')
@@ -311,7 +311,7 @@ describe('ExecutionStrategy test', () => {
     expect(blankCanvasCard.classList).toContain('active')
 
     // Details Panel Header Section
-    const rollingHeader = getByTestId(component, 'Default-Header')
+    const rollingHeader = getByTestId(component, 'DefaultDetailsHeader')
     expect(rollingHeader.innerHTML).toEqual('pipeline.executionStrategy.strategies.default.displayName')
     const learnMoreLink: HTMLAnchorElement = getByText(component, 'learnMore').closest('a') as HTMLAnchorElement
     expect(learnMoreLink?.getAttribute('href')).toEqual('pipeline.executionStrategy.strategies.default.learnMoreLink')

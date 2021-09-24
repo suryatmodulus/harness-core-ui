@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Layout, Color, Text, Card, Icon } from '@wings-software/uicore'
+import { Layout, Color, Text, Card, Icon, FontVariation } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { String, useStrings } from 'framework/strings'
@@ -44,7 +44,7 @@ const RenderMessage: Renderer<CellProps<DelegateSelectionLogParams>> = ({ row })
       <Text lineClamp={1} color={Color.GREY_800}>
         {rowdata.message}
       </Text>
-      <Text lineClamp={1} color={Color.GREY_400}>
+      <Text lineClamp={1} color={Color.GREY_400} font={FontVariation.SMALL}>
         {rowdata.eventTimestamp ? (
           <String stringID="loggedAt" useRichText vars={{ time: formatDatetoLocale(rowdata.eventTimestamp) }} />
         ) : (
@@ -98,7 +98,7 @@ export default function DelegateSelectionLogsTable({
         disableSortBy: true
       }
     ],
-    []
+    [getString]
   )
 
   return (

@@ -35,6 +35,8 @@ const mockMutateFn = jest.fn().mockReturnValue(Promise.resolve('')) as unknown
 const useDownloadYamlSpy = jest.spyOn(ccmService, 'useCloudCostK8sClusterSetup') as any
 useDownloadYamlSpy.mockReturnValue({ mutate: mockMutateFn } as UseMutateReturn<any, any, any, any, any>)
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
 describe('Create CE K8s Connector Wizard', () => {
   test('Step One', async () => {
     const { container } = render(

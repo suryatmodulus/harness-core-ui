@@ -43,7 +43,11 @@ const splitPaneProps: Partial<Record<ExecutionLayoutState, SplitPaneProps>> = {
   }
 }
 
-const styles: React.CSSProperties = { overflow: 'unset', position: 'static', height: 'min-content' }
+const styles: React.CSSProperties = {
+  overflow: 'unset',
+  position: 'static',
+  height: 'min-content'
+}
 
 export default function ExecutionGraphView(): React.ReactElement {
   const { replaceQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
@@ -136,10 +140,16 @@ export default function ExecutionGraphView(): React.ReactElement {
   }, [layoutState])
 
   const child1 = <ExecutionGraph onSelectedStage={handleStageSelection} />
-  const child2 = <ExecutionStageDetails onStepSelect={handleStepSelection} onStageSelect={handleStageSelection} />
+  const child2 = (
+    <ExecutionStageDetails
+      layout={layoutState}
+      onStepSelect={handleStepSelection}
+      onStageSelect={handleStageSelection}
+    />
+  )
   const child3 = <ExecutionStepDetails />
 
-  const stageGraphPaneStyles = { ...styles }
+  let stageGraphPaneStyles = { ...styles }
 
   if (layoutState === ExecutionLayoutState.RIGHT) {
     Object.assign(stageGraphPaneStyles, {
@@ -147,6 +157,10 @@ export default function ExecutionGraphView(): React.ReactElement {
       top: 'var(--execution-stage-details-height)',
       heigth: 'min-content'
     })
+  } else if (layoutState === ExecutionLayoutState.BOTTOM) {
+    stageGraphPaneStyles = {
+      overflow: 'hidden'
+    }
   }
 
   return (

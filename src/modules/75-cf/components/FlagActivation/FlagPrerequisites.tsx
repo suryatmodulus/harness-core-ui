@@ -137,7 +137,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
           }
           return acc
         }, [] as Prerequisite[])
-        .filter(({ feature, variations }) => Boolean(feature.length && variations.filter(x => x.length).length))
+        .filter(({ feature, variations }) => Boolean(feature.length && variations.filter(x => x?.length).length))
       const prerequisites = validPreqs
         .reduce((acc, prereq) => {
           const { feature, variations } = prereq

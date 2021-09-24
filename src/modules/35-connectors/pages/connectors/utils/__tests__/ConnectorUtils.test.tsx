@@ -1,4 +1,4 @@
-import { EntityTypes } from '@connectors/constants'
+import { EntityTypes, Connectors } from '@connectors/constants'
 import {
   buildAWSPayload,
   buildArtifactoryPayload,
@@ -6,7 +6,17 @@ import {
   removeErrorCode,
   buildKubPayload,
   setupKubFormData,
-  getIconByEntityType
+  setupGithubFormData,
+  buildGithubPayload,
+  setupAzureKeyVaultFormData,
+  buildAzureKeyVaultPayload,
+  setupVaultFormData,
+  buildVaultPayload,
+  getIconByEntityType,
+  getReferredEntityLabelByType,
+  getConnectorDisplayName,
+  getIconByType,
+  isSMConnector
 } from '../ConnectorUtils'
 
 jest.mock('services/cd-ng', () => ({
@@ -366,167 +376,549 @@ describe('Connector Utils', () => {
           }
         }
       })
-    })
-  test('test setupKubFormData', () => {
-    expect(
-      setupKubFormData(
-        {
-          name: 'K8ManualClientId',
-          identifier: 'K8ManualUserPass',
-          description: 'description',
-          tags: {},
-          type: 'K8sCluster',
-          spec: {
-            credential: {
-              type: 'ManualConfig',
-              spec: {
-                masterUrl: 'masterurl',
-                auth: {
-                  type: 'ClientKeyCert',
-                  spec: {
-                    caCertRef: 'account.secretdevxDDUx',
-                    clientCertRef: 'account.secretdevxDDUx',
-                    clientKeyRef: 'account.secretdevxDDUx',
-                    clientKeyPassphraseRef: 'account.secretdevxDDUx',
-                    clientKeyAlgo: 'key algo'
+    }),
+    test('test setupKubFormData', () => {
+      expect(
+        setupKubFormData(
+          {
+            name: 'K8ManualClientId',
+            identifier: 'K8ManualUserPass',
+            description: 'description',
+            tags: {},
+            type: 'K8sCluster',
+            spec: {
+              credential: {
+                type: 'ManualConfig',
+                spec: {
+                  masterUrl: 'masterurl',
+                  auth: {
+                    type: 'ClientKeyCert',
+                    spec: {
+                      caCertRef: 'account.secretdevxDDUx',
+                      clientCertRef: 'account.secretdevxDDUx',
+                      clientKeyRef: 'account.secretdevxDDUx',
+                      clientKeyPassphraseRef: 'account.secretdevxDDUx',
+                      clientKeyAlgo: 'key algo'
+                    }
                   }
+                }
+              },
+              delegateSelectors: []
+            }
+          },
+          'accountId'
+        )
+      ).resolves.toEqual({
+        delegateType: 'ManualConfig',
+        delegateName: '',
+        masterUrl: 'masterurl',
+        authType: 'ClientKeyCert',
+        skipDefaultValidation: false,
+        clientKey: {
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx',
+          accountIdentifier: 'accountId'
+        },
+        clientKeyCertificate: {
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx',
+          accountIdentifier: 'accountId'
+        },
+        clientKeyPassphrase: {
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx',
+          accountIdentifier: 'accountId'
+        },
+        clientKeyCACertificate: {
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx',
+          accountIdentifier: 'accountId'
+        },
+        clientKeyAlgo: 'key algo'
+      })
+
+      expect(
+        setupKubFormData(
+          {
+            name: 'K8ManualOIDC',
+            identifier: 'K8ManualUserPass',
+            description: 'description',
+            tags: {},
+            type: 'K8sCluster',
+            spec: {
+              credential: {
+                type: 'ManualConfig',
+                spec: {
+                  masterUrl: 'masterurl',
+                  auth: {
+                    type: 'OpenIdConnect',
+                    spec: {
+                      oidcIssuerUrl: 'url',
+                      oidcUsername: 'username',
+                      oidcUsernameRef: null,
+                      oidcClientIdRef: 'account.secretdevxDDUx',
+                      oidcPasswordRef: 'account.secretdevxDDUx',
+                      oidcSecretRef: 'account.secretdevxDDUx',
+                      oidcScopes: 'scope'
+                    }
+                  }
+                }
+              },
+              delegateSelectors: []
+            }
+          },
+          'accountId'
+        )
+      ).resolves.toEqual({
+        delegateType: 'ManualConfig',
+        delegateName: '',
+        masterUrl: 'masterurl',
+        authType: 'OpenIdConnect',
+        skipDefaultValidation: false,
+        oidcIssuerUrl: 'url',
+        oidcUsername: { value: 'username', type: 'TEXT' },
+        oidcPassword: {
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx',
+          accountIdentifier: 'accountId'
+        },
+        oidcCleintId: {
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx',
+          accountIdentifier: 'accountId'
+        },
+        oidcCleintSecret: {
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx',
+          accountIdentifier: 'accountId'
+        },
+        oidcScopes: 'scope'
+      })
+
+      expect(
+        setupKubFormData(
+          {
+            name: 'K8Manualservice',
+            identifier: 'K8ManualUserPass',
+            description: 'description',
+            tags: {},
+            type: 'K8sCluster',
+            spec: {
+              credential: {
+                type: 'ManualConfig',
+                spec: {
+                  masterUrl: 'masterurl',
+                  auth: { type: 'ServiceAccount', spec: { serviceAccountTokenRef: 'account.secretdevxDDUx' } }
+                }
+              },
+              delegateSelectors: ['meenakshi-raikwar-mbp']
+            }
+          },
+          'accountId'
+        )
+      ).resolves.toEqual({
+        delegateType: 'ManualConfig',
+        delegateName: '',
+        masterUrl: 'masterurl',
+        authType: 'ServiceAccount',
+        skipDefaultValidation: false,
+        serviceAccountToken: {
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx',
+          accountIdentifier: 'accountId'
+        }
+      })
+    }),
+    test('test setupGithubFormData', () => {
+      expect(
+        setupGithubFormData(
+          {
+            name: 'NG - P024',
+            identifier: 'NG_P024',
+            description: '',
+            tags: {},
+            type: 'Github',
+            spec: {
+              url: 'https://github.com/wings-software',
+              validationRepo: 'https://github.com/wings-software/nextgenui',
+              authentication: {
+                type: 'Http',
+                spec: {
+                  type: 'UsernameToken',
+                  spec: {
+                    username: 'username',
+                    usernameRef: null,
+                    tokenRef: 'account.secretdevxDDUx'
+                  }
+                }
+              },
+              apiAccess: {
+                type: 'Token',
+                spec: {
+                  tokenRef: 'account.secretdevxDDUx'
+                }
+              },
+              delegateSelectors: [],
+              type: 'Account'
+            }
+          },
+          'accountId'
+        )
+      ).resolves.toEqual({
+        authType: 'UsernameToken',
+        username: {
+          type: 'TEXT',
+          value: 'username'
+        },
+        accessToken: {
+          accountIdentifier: 'accountId',
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx'
+        },
+        enableAPIAccess: true,
+        apiAccessToken: {
+          accountIdentifier: 'accountId',
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx'
+        },
+        apiAuthType: 'Token'
+      })
+
+      expect(
+        setupGithubFormData(
+          {
+            name: 'SSH - P024',
+            identifier: 'SSH_P024',
+            description: '',
+            tags: {},
+            type: 'Github',
+            spec: {
+              url: 'git@github.com:wings-software/nextgenui.git',
+              validationRepo: null,
+              authentication: {
+                type: 'Ssh',
+                spec: {
+                  sshKeyRef: 'account.secret_p024_ssh_password'
+                }
+              },
+              apiAccess: null,
+              delegateSelectors: [],
+              type: 'Repo'
+            }
+          },
+          'accountId'
+        )
+      ).resolves.toEqual({
+        sshKey: {
+          accountIdentifier: 'accountId',
+          identifier: 'secret_p024_ssh_password',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secret_p024_ssh_password'
+        },
+        enableAPIAccess: false
+      })
+    }),
+    test('test buildGithubPayload', () => {
+      expect(
+        buildGithubPayload({
+          name: 'SSH - P024',
+          identifier: 'SSH_P024',
+          description: '',
+          orgIdentifier: null,
+          projectIdentifier: null,
+          tags: {},
+          type: 'Github',
+          urlType: 'Repo',
+          url: 'git@github.com:wings-software/nextgenui.git',
+          validationRepo: null,
+          connectionType: 'Ssh',
+          sshKey: {
+            identifier: 'secretdevxDDUx',
+            name: 'secretdevxDDUx',
+            referenceString: 'account.secretdevxDDUx',
+            accountIdentifier: 'zEaak-FLS425IEO7OLzMUg'
+          },
+          enableAPIAccess: false,
+          delegateSelectors: []
+        })
+      ).toEqual({
+        connector: {
+          name: 'SSH - P024',
+          description: '',
+          projectIdentifier: null,
+          orgIdentifier: null,
+          identifier: 'SSH_P024',
+          tags: {},
+          type: 'Github',
+          spec: {
+            delegateSelectors: [],
+            type: 'Repo',
+            url: 'git@github.com:wings-software/nextgenui.git',
+            authentication: {
+              type: 'Ssh',
+              spec: {
+                sshKeyRef: 'account.secretdevxDDUx'
+              }
+            }
+          }
+        }
+      })
+
+      expect(
+        buildGithubPayload({
+          name: 'NG - P024',
+          identifier: 'NG_P024',
+          description: '',
+          orgIdentifier: null,
+          projectIdentifier: null,
+          tags: {},
+          type: 'Github',
+          urlType: 'Account',
+          url: 'https://github.com/wings-software',
+          validationRepo: 'https://github.com/wings-software/nextgenui',
+          connectionType: 'Http',
+          authType: 'UsernameToken',
+          username: {
+            value: 'username',
+            type: 'TEXT'
+          },
+          accessToken: {
+            identifier: 'secretdevxDDUx',
+            name: 'secretdevxDDUx',
+            referenceString: 'account.secretdevxDDUx',
+            accountIdentifier: 'zEaak-FLS425IEO7OLzMUg'
+          },
+          apiAccessToken: {
+            identifier: 'secretdevxDDUx',
+            name: 'secretdevxDDUx',
+            referenceString: 'account.secretdevxDDUx',
+            accountIdentifier: 'zEaak-FLS425IEO7OLzMUg'
+          },
+          enableAPIAccess: true,
+          apiAuthType: 'Token',
+          usernamefieldType: 'TEXT',
+          usernametextField: 'username',
+          delegateSelectors: []
+        })
+      ).toEqual({
+        connector: {
+          name: 'NG - P024',
+          description: '',
+          projectIdentifier: null,
+          orgIdentifier: null,
+          identifier: 'NG_P024',
+          tags: {},
+          type: 'Github',
+          spec: {
+            delegateSelectors: [],
+            type: 'Account',
+            url: 'https://github.com/wings-software',
+            validationRepo: 'https://github.com/wings-software/nextgenui',
+            authentication: {
+              type: 'Http',
+              spec: {
+                type: 'UsernameToken',
+                spec: {
+                  username: 'username',
+                  tokenRef: 'account.secretdevxDDUx'
                 }
               }
             },
-            delegateSelectors: []
-          }
-        },
-        'accountId'
-      )
-    ).resolves.toEqual({
-      delegateType: 'ManualConfig',
-      delegateName: '',
-      masterUrl: 'masterurl',
-      authType: 'ClientKeyCert',
-      skipDefaultValidation: false,
-      clientKey: {
-        identifier: 'secretdevxDDUx',
-        name: 'secretdevxDDUx',
-        referenceString: 'account.secretdevxDDUx',
-        accountIdentifier: 'accountId'
-      },
-      clientKeyCertificate: {
-        identifier: 'secretdevxDDUx',
-        name: 'secretdevxDDUx',
-        referenceString: 'account.secretdevxDDUx',
-        accountIdentifier: 'accountId'
-      },
-      clientKeyPassphrase: {
-        identifier: 'secretdevxDDUx',
-        name: 'secretdevxDDUx',
-        referenceString: 'account.secretdevxDDUx',
-        accountIdentifier: 'accountId'
-      },
-      clientKeyCACertificate: {
-        identifier: 'secretdevxDDUx',
-        name: 'secretdevxDDUx',
-        referenceString: 'account.secretdevxDDUx',
-        accountIdentifier: 'accountId'
-      },
-      clientKeyAlgo: 'key algo'
-    })
-
-    expect(
-      setupKubFormData(
-        {
-          name: 'K8ManualOIDC',
-          identifier: 'K8ManualUserPass',
-          description: 'description',
-          tags: {},
-          type: 'K8sCluster',
-          spec: {
-            credential: {
-              type: 'ManualConfig',
+            apiAccess: {
+              type: 'Token',
               spec: {
-                masterUrl: 'masterurl',
-                auth: {
-                  type: 'OpenIdConnect',
-                  spec: {
-                    oidcIssuerUrl: 'url',
-                    oidcUsername: 'username',
-                    oidcUsernameRef: null,
-                    oidcClientIdRef: 'account.secretdevxDDUx',
-                    oidcPasswordRef: 'account.secretdevxDDUx',
-                    oidcSecretRef: 'account.secretdevxDDUx',
-                    oidcScopes: 'scope'
-                  }
-                }
+                tokenRef: 'account.secretdevxDDUx'
               }
-            },
-            delegateSelectors: []
+            }
           }
+        }
+      })
+    }),
+    test('test setupAzureKeyVaultFormData', () => {
+      expect(
+        setupAzureKeyVaultFormData(
+          {
+            name: 'Vault 2 - P024',
+            identifier: 'Vault_2_P024',
+            description: '',
+            tags: {},
+            type: 'AzureKeyVault',
+            spec: {
+              clientId: '123',
+              secretKey: 'account.secretdevxDDUx',
+              tenantId: '123',
+              vaultName: 'Aman-test',
+              subscription: '123',
+              delegateSelectors: [],
+              default: false
+            }
+          },
+          ''
+        )
+      ).resolves.toEqual({
+        clientId: '123',
+        secretKey: {
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx',
+          accountIdentifier: ''
         },
-        'accountId'
-      )
-    ).resolves.toEqual({
-      delegateType: 'ManualConfig',
-      delegateName: '',
-      masterUrl: 'masterurl',
-      authType: 'OpenIdConnect',
-      skipDefaultValidation: false,
-      oidcIssuerUrl: 'url',
-      oidcUsername: { value: 'username', type: 'TEXT' },
-      oidcPassword: {
-        identifier: 'secretdevxDDUx',
-        name: 'secretdevxDDUx',
-        referenceString: 'account.secretdevxDDUx',
-        accountIdentifier: 'accountId'
-      },
-      oidcCleintId: {
-        identifier: 'secretdevxDDUx',
-        name: 'secretdevxDDUx',
-        referenceString: 'account.secretdevxDDUx',
-        accountIdentifier: 'accountId'
-      },
-      oidcCleintSecret: {
-        identifier: 'secretdevxDDUx',
-        name: 'secretdevxDDUx',
-        referenceString: 'account.secretdevxDDUx',
-        accountIdentifier: 'accountId'
-      },
-      oidcScopes: 'scope'
-    })
-
-    expect(
-      setupKubFormData(
-        {
-          name: 'K8Manualservice',
-          identifier: 'K8ManualUserPass',
-          description: 'description',
+        tenantId: '123',
+        subscription: '123',
+        default: false
+      })
+    }),
+    test('test buildAzureKeyVaultPayload', () => {
+      expect(
+        buildAzureKeyVaultPayload({
+          name: 'Vault 2 - P024',
+          identifier: 'Vault_2_P024',
+          description: '',
+          orgIdentifier: null,
+          projectIdentifier: null,
           tags: {},
-          type: 'K8sCluster',
+          type: 'AzureKeyVault',
+          clientId: '123',
+          secretKey: {
+            identifier: 'secretdevxDDUx',
+            name: 'secretdevxDDUx',
+            referenceString: 'account.secretdevxDDUx',
+            accountIdentifier: 'zEaak-FLS425IEO7OLzMUg'
+          },
+          tenantId: '123',
+          subscription: '123',
+          default: false,
+          delegateSelectors: [],
+          vaultName: 'Aman-test'
+        })
+      ).toEqual({
+        connector: {
+          name: 'Vault 2 - P024',
+          description: '',
+          projectIdentifier: null,
+          identifier: 'Vault_2_P024',
+          orgIdentifier: null,
+          tags: {},
+          type: 'AzureKeyVault',
           spec: {
-            credential: {
-              type: 'ManualConfig',
-              spec: {
-                masterUrl: 'masterurl',
-                auth: { type: 'ServiceAccount', spec: { serviceAccountTokenRef: 'account.secretdevxDDUx' } }
-              }
-            },
-            delegateSelectors: ['meenakshi-raikwar-mbp']
+            clientId: '123',
+            tenantId: '123',
+            default: false,
+            subscription: '123',
+            vaultName: 'Aman-test',
+            delegateSelectors: [],
+            secretKey: 'account.secretdevxDDUx'
           }
+        }
+      })
+    }),
+    test('test setupVaultFormData', () => {
+      expect(
+        setupVaultFormData(
+          {
+            name: 'Vault 1 - P024',
+            identifier: 'Vault_1_P024',
+            description: '',
+            tags: {},
+            type: 'Vault',
+            spec: {
+              authToken: 'account.secretdevxDDUx',
+              basePath: '/harness',
+              vaultUrl: 'https://vaultqa.harness.io',
+              renewalIntervalMinutes: 10,
+              secretEngineManuallyConfigured: false,
+              secretEngineName: 'harness',
+              secretId: null,
+              secretEngineVersion: 2,
+              delegateSelectors: [],
+              default: false,
+              accessType: 'TOKEN',
+              readOnly: false
+            }
+          },
+          'accountId'
+        )
+      ).resolves.toEqual({
+        vaultUrl: 'https://vaultqa.harness.io',
+        basePath: '/harness',
+        readOnly: false,
+        default: false,
+        accessType: 'TOKEN',
+        appRoleId: '',
+        authToken: {
+          accountIdentifier: 'accountId',
+          identifier: 'secretdevxDDUx',
+          name: 'secretdevxDDUx',
+          referenceString: 'account.secretdevxDDUx'
         },
-        'accountId'
-      )
-    ).resolves.toEqual({
-      delegateType: 'ManualConfig',
-      delegateName: '',
-      masterUrl: 'masterurl',
-      authType: 'ServiceAccount',
-      skipDefaultValidation: false,
-      serviceAccountToken: {
-        identifier: 'secretdevxDDUx',
-        name: 'secretdevxDDUx',
-        referenceString: 'account.secretdevxDDUx',
-        accountIdentifier: 'accountId'
-      }
-    })
-  }),
+        sinkPath: '',
+        renewalIntervalMinutes: 10
+      })
+    }),
+    test('test buildVaultPayload', () => {
+      expect(
+        buildVaultPayload({
+          name: 'Vault 1 - P024',
+          identifier: 'Vault_1_P024',
+          description: '',
+          orgIdentifier: null,
+          projectIdentifier: null,
+          tags: {},
+          type: 'Vault',
+          vaultUrl: 'https://vaultqa.harness.io',
+          basePath: '/harness',
+          readOnly: false,
+          default: false,
+          accessType: 'TOKEN',
+          appRoleId: '',
+          authToken: {
+            identifier: 'secretdevxDDUx',
+            name: 'secretdevxDDUx',
+            referenceString: 'account.secretdevxDDUx',
+            accountIdentifier: 'zEaak-FLS425IEO7OLzMUg'
+          },
+          renewalIntervalMinutes: 10,
+          delegateSelectors: [],
+          secretEngine: 'harness@@@2',
+          engineType: 'fetch',
+          secretEngineName: 'harness',
+          secretEngineVersion: 2
+        })
+      ).toEqual({
+        connector: {
+          name: 'Vault 1 - P024',
+          description: '',
+          projectIdentifier: null,
+          identifier: 'Vault_1_P024',
+          orgIdentifier: null,
+          tags: {},
+          type: 'Vault',
+          spec: {
+            useVaultAgent: false,
+            basePath: '/harness',
+            vaultUrl: 'https://vaultqa.harness.io',
+            readOnly: false,
+            default: false,
+            renewalIntervalMinutes: 10,
+            delegateSelectors: [],
+            authToken: 'account.secretdevxDDUx',
+            secretEngineManuallyConfigured: false,
+            secretEngineName: 'harness',
+            secretEngineVersion: '2'
+          }
+        }
+      })
+    }),
     test('test getIconByEntityType', () => {
       expect(getIconByEntityType(EntityTypes.PROJECT as string)).toEqual('nav-project')
       expect(getIconByEntityType(EntityTypes.PIPELINE as string)).toEqual('pipeline')
@@ -535,5 +927,80 @@ describe('Connector Utils', () => {
       expect(getIconByEntityType(EntityTypes.CV_K8_ACTIVITY_SOURCE as string)).toEqual('square')
       expect(getIconByEntityType(EntityTypes.CV_VERIFICATION_JOB as string)).toEqual('confirm')
       expect(getIconByEntityType(EntityTypes.default as string)).toEqual('')
+    }),
+    test('test getReferredEntityLabelByType', () => {
+      expect(getReferredEntityLabelByType(EntityTypes.PROJECT as string)).toEqual('Project')
+      expect(getReferredEntityLabelByType(EntityTypes.PIPELINE as string)).toEqual('Pipeline')
+      expect(getReferredEntityLabelByType(EntityTypes.SECRET as string)).toEqual('Secret')
+      expect(getReferredEntityLabelByType(EntityTypes.CV_CONFIG as string)).toEqual('Monitoring Source')
+      expect(getReferredEntityLabelByType(EntityTypes.CV_K8_ACTIVITY_SOURCE as string)).toEqual('Change Source')
+      expect(getReferredEntityLabelByType(EntityTypes.CV_VERIFICATION_JOB as string)).toEqual('Verification Job')
+      expect(getReferredEntityLabelByType(EntityTypes.default as string)).toEqual('')
+    }),
+    test('test getConnectorDisplayName', () => {
+      expect(getConnectorDisplayName(Connectors.KUBERNETES_CLUSTER)).toEqual('Kubernetes cluster')
+      expect(getConnectorDisplayName(Connectors.GIT)).toEqual('Git')
+      expect(getConnectorDisplayName(Connectors.GITHUB)).toEqual('GitHub')
+      expect(getConnectorDisplayName(Connectors.GITLAB)).toEqual('GitLab')
+      expect(getConnectorDisplayName(Connectors.BITBUCKET)).toEqual('Bitbucket')
+      expect(getConnectorDisplayName(Connectors.DOCKER)).toEqual('Docker Registry')
+      expect(getConnectorDisplayName(Connectors.GCP)).toEqual('GCP')
+      expect(getConnectorDisplayName(Connectors.APP_DYNAMICS)).toEqual('AppDynamics')
+      expect(getConnectorDisplayName(Connectors.SPLUNK)).toEqual('Splunk')
+      expect(getConnectorDisplayName(Connectors.NEW_RELIC)).toEqual('New Relic')
+      expect(getConnectorDisplayName(Connectors.PROMETHEUS)).toEqual('Prometheus')
+      expect(getConnectorDisplayName(Connectors.AWS)).toEqual('AWS')
+      expect(getConnectorDisplayName(Connectors.AWS_CODECOMMIT)).toEqual('AWS CodeCommit')
+      expect(getConnectorDisplayName(Connectors.NEXUS)).toEqual('Nexus')
+      expect(getConnectorDisplayName(Connectors.LOCAL)).toEqual('Local Secret Manager')
+      expect(getConnectorDisplayName(Connectors.VAULT)).toEqual('HashiCorp Vault')
+      expect(getConnectorDisplayName(Connectors.GCP_KMS)).toEqual('GCP KMS')
+      expect(getConnectorDisplayName(Connectors.HttpHelmRepo)).toEqual('HTTP Helm Repo')
+      expect(getConnectorDisplayName(Connectors.AWS_KMS)).toEqual('AWS KMS')
+      expect(getConnectorDisplayName(Connectors.AZURE_KEY_VAULT)).toEqual('Azure Key Vault')
+      expect(getConnectorDisplayName(Connectors.DYNATRACE)).toEqual('Dynatrace')
+      expect(getConnectorDisplayName(Connectors.CEAWS)).toEqual('AWS')
+      expect(getConnectorDisplayName(Connectors.AWS_SECRET_MANAGER)).toEqual('AWS Secret Manager')
+      expect(getConnectorDisplayName(Connectors.CE_AZURE)).toEqual('Azure')
+      expect(getConnectorDisplayName(Connectors.CE_KUBERNETES)).toEqual('Kubernetes')
+      expect(getConnectorDisplayName(Connectors.CE_GCP)).toEqual('GCP')
+      expect(getConnectorDisplayName('')).toEqual('')
+    }),
+    test('test getIconByType', () => {
+      expect(getIconByType(Connectors.KUBERNETES_CLUSTER)).toEqual('service-kubernetes')
+      expect(getIconByType(Connectors.GIT)).toEqual('service-github')
+      expect(getIconByType(Connectors.HttpHelmRepo)).toEqual('service-helm')
+      expect(getIconByType(Connectors.GITHUB)).toEqual('github')
+      expect(getIconByType(Connectors.GITLAB)).toEqual('service-gotlab')
+      expect(getIconByType(Connectors.BITBUCKET)).toEqual('bitbucket-selected')
+      expect(getIconByType(Connectors.VAULT)).toEqual('hashiCorpVault')
+      expect(getIconByType(Connectors.LOCAL)).toEqual('secret-manager')
+      expect(getIconByType(Connectors.APP_DYNAMICS)).toEqual('service-appdynamics')
+      expect(getIconByType(Connectors.SPLUNK)).toEqual('service-splunk')
+      expect(getIconByType(Connectors.NEW_RELIC)).toEqual('service-newrelic')
+      expect(getIconByType(Connectors.PROMETHEUS)).toEqual('service-prometheus')
+      expect(getIconByType(Connectors.DOCKER)).toEqual('service-dockerhub')
+      expect(getIconByType(Connectors.AWS)).toEqual('service-aws')
+      expect(getIconByType(Connectors.CEAWS)).toEqual('service-aws')
+      expect(getIconByType(Connectors.AWS_CODECOMMIT)).toEqual('service-aws-code-deploy')
+      expect(getIconByType(Connectors.NEXUS)).toEqual('service-nexus')
+      expect(getIconByType(Connectors.ARTIFACTORY)).toEqual('service-artifactory')
+      expect(getIconByType(Connectors.GCP)).toEqual('service-gcp')
+      expect(getIconByType(Connectors.Jira)).toEqual('service-jira')
+      expect(getIconByType(Connectors.AWS_KMS)).toEqual('aws-kms')
+      expect(getIconByType(Connectors.AWS_SECRET_MANAGER)).toEqual('aws-secret-manager')
+      expect(getIconByType(Connectors.CE_AZURE)).toEqual('service-azure')
+      expect(getIconByType(Connectors.DATADOG)).toEqual('service-datadog')
+      expect(getIconByType(Connectors.SUMOLOGIC)).toEqual('service-sumologic')
+      expect(getIconByType(Connectors.AZURE_KEY_VAULT)).toEqual('azure-key-vault')
+      expect(getIconByType(Connectors.DYNATRACE)).toEqual('service-dynatrace')
+      expect(getIconByType(Connectors.CE_KUBERNETES)).toEqual('service-kubernetes')
+      expect(getIconByType(Connectors.CE_GCP)).toEqual('service-gcp')
+      expect(getIconByType(Connectors.PAGER_DUTY)).toEqual('service-pagerduty')
+      expect(getIconByType(Connectors.ARGO_CONNECTOR)).toEqual('argo')
+    }),
+    test('test isSMConnector', () => {
+      expect(isSMConnector('AwsSecretManager')).toBeTruthy()
+      expect(isSMConnector()).toBeUndefined()
     })
 })

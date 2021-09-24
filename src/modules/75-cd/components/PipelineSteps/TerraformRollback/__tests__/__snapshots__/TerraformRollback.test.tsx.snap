@@ -918,7 +918,7 @@ exports[`Test TerraformRollback should render edit view with runtime input value
 exports[`Test TerraformRollback should render variable view 1`] = `
 <div>
   <div
-    class="variablesListTable variablePaddingL2"
+    class="variablesListTable variablePaddingL3"
   >
     <div
       class="variableListRow"

@@ -10,7 +10,6 @@ import CreateGithubConnector from '../CreateGithubConnector'
 import {
   mockResponse,
   mockSecret,
-  usernamePassword,
   usernameTokenWithAPIAccessGithubApp,
   usernameTokenWithAPIAccessToken,
   backButtonMock
@@ -140,31 +139,6 @@ describe('Create Github connector Wizard', () => {
     })
     expect(container).toMatchSnapshot() // Form validation for all required fields
     expect(createConnector).toBeCalledTimes(0)
-  })
-
-  test('should edit form for  http and authtype username', async () => {
-    const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateGithubConnector
-          {...commonProps}
-          isEditMode={true}
-          connectorInfo={usernamePassword}
-          mock={mockResponse}
-        />
-      </TestWrapper>
-    )
-
-    expect(container).toMatchSnapshot()
-    await act(async () => {
-      clickSubmit(container)
-    })
-
-    await act(async () => {
-      clickSubmit(container)
-    })
-    // step 3
-    expect(queryByText(container, 'common.git.enableAPIAccess')).toBeTruthy()
-    expect(container).toMatchSnapshot()
   })
 
   test('should render form for edit http and authtype username-token with API access', async () => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Button,
   Heading,
@@ -14,10 +14,12 @@ import { omit as _omit } from 'lodash-es'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'
 import { downloadYamlAsFile } from '@common/utils/downloadYamlUtils'
+import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import { useCloudCostK8sClusterSetup } from 'services/ce'
 import CopyCodeSection from './components/CopyCodeSection'
+import PermissionYAMLPreview from './PermissionYAMLPreview'
 import css from './CEK8sConnector.module.scss'
 
 interface ProvidePermissionsProps {
@@ -38,6 +40,8 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
   const [command] = useState('kubectl apply -f cost-optimisation-crd.yaml')
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const { triggerExtension } = useContext(DialogExtensionContext)
+
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({
     queryParams: { accountIdentifier: accountId }
@@ -89,7 +93,11 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
       <ModalErrorHandler bind={setModalErrorHandler} />
       <Text>
         To provide required permissions to your cluster, please download the YAML below and continue to apply it using
-        instructions given in the next step. You can preview the YAML file here.
+        instructions given in the next step. You can preview the YAML file{' '}
+        <span className={css.previewLink} onClick={() => triggerExtension(<PermissionYAMLPreview />)}>
+          here
+        </span>
+        .
       </Text>
       <div>
         <Text>This YAML file contains:</Text>

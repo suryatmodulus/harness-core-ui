@@ -3,6 +3,7 @@ import { Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import noDataImage from '@cv/assets/noData.svg'
 import ChangesTable from './components/ChangesTable/ChangesTable'
 import type { ChangesAndServiceDependencyInterface } from './ChangesAndServiceDependency.types'
 import css from './ChangesAndServiceDependency.module.scss'
@@ -31,7 +32,7 @@ export default function ChangesAndServiceDependency({
         </Text>
         <Card className={css.noDataContainer}>
           <Container className={css.noData}>
-            <NoDataCard message={getString('pipeline.verification.logs.noAnalysis')} icon="warning-sign" />
+            <NoDataCard message={getString('cv.monitoredServices.noAvailableData')} image={noDataImage} />
           </Container>
         </Card>
       </Container>

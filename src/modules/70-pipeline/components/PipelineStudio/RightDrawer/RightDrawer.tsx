@@ -21,7 +21,7 @@ import { addService, addStepOrGroup, generateRandomString, getStepFromId } from 
 import PipelineVariables from '../PipelineVariables/PipelineVariables'
 import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
-import { ExecutionStrategy, ExecutionStrategyRef } from '../ExecutionStrategy/ExecutionStrategy'
+import { ExecutionStrategy, ExecutionStrategyRefInterface } from '../ExecutionStrategy/ExecutionStrategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
@@ -117,7 +117,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     ? stepsFactory.getStepData((data?.stepConfig?.node as StepElementConfig)?.type)
     : null
   const formikRef = React.useRef<StepFormikRef | null>(null)
-  const executionStrategyRef = React.useRef<ExecutionStrategyRef | null>(null)
+  const executionStrategyRef = React.useRef<ExecutionStrategyRefInterface | null>(null)
   const { getString } = useStrings()
   const isFullScreenDrawer = FullscreenDrawers.includes(type)
   let title: React.ReactNode | null = null

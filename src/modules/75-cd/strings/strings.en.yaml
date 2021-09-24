@@ -62,6 +62,7 @@ pipelineSteps:
     differentService: Deploy different Service
   infraTab:
     deploymentType: Infrastructure type selection is required
+    clusterError: No cluster found with given Connector
 cdLaunchText: Launch CD First Generation
 serviceDashboard:
   activeServiceInstancesLabel: '{{$.common.subscriptions.usage.srvcInst}}'
@@ -99,23 +100,28 @@ serviceDashboard:
   noActiveServiceInstances: No Active Service Instances
   noActiveServices: No Active Services in {{timeRange}}
 gitOps: GitOps
-providerOverview: Provider Overview
-newProvider: New Provider
-providerDetails: Provider Details
+newAdapter: New Adapter
+adapterDetails: Adapter Details
 launchArgo: Launch Argo App Dashboard
 argoAdapterURL: 'Adapter URL'
-noProviderText: 'There are no providers in your project'
-aboutProvider: 'Providers help connect to your ArgoCD Instance and view your Apps.'
-installAdapterHelperText: 'Install Argo CD adapter in your cluster. This adapter allows customers to interact with the ArgoCD server directly from Harness UI with minimal configuration. <ul> <li> Install one adapter per ArgoCD Server. </li> <li> This Adapter should be able to reach the ArgoCD Server. </li> <li> The communication between Harness UI to Harness Argo Adapter takes place over HTTPS for security purposes. </li> </ul>'
-whatIsHarnessAdapter: 'What is a Harness Adapter?'
-aboutHarnessAdapter: 'The Harness Adapter is a service you run in your local network or VPC to establish connectivity between Harness UI and ArgoCD.'
+noAdapterText: 'There are no adapters in your project'
+aboutProvider: 'Adapters help connect to your Argo CD Instance and view your Apps.'
+installAdapterHelperText: 'Install Argo CD adapter in your cluster. This adapter allows customers to interact with the Argo CD server directly from Harness UI with minimal configuration. <ul> <li> Install one adapter per Argo CD Server. </li> <li> This Adapter should be able to reach the Argo CD Server. </li> <li> The communication between Harness UI to Harness Argo Adapter takes place over HTTPS for security purposes. </li> </ul>'
+whatIsHarnessAdapter: 'What is an Adapter?'
+aboutHarnessAdapter: 'The adapter is a service you run in your local network or VPC to establish connectivity between Harness UI and Argo CD.'
 learnMoreAboutHarnessAdapter: 'Learn More about this'
-updating: 'Updating provider {{name}}'
-creating: 'Creating provider {{name}}'
-createdSuccessfully: 'Provider {{name}} created successfully'
-updatedSuccessfully: 'Provider {{name}} updated successfully'
-confirmDeleteTitle: Delete provider
-confirmProviderDelete: Are you sure you want to delete the Provider
-duplicateIdError: 'Failed to create Provider: {{ providerName }}. There is already a Provider with identifier {{ providerIdentifier }} present. Please provide a new unique identifier and save again.'
-connectionIssueSuggestion: 'Try these suggestions <ul> <li> Please provide the correct adapter URL of the kubernetes cluster. It can be obtained using &#39;kubectlcluster-info&#39; cli command </li> </ul>'
-connectionIssueInfo: 'Issue could be <ul> <li> Adapter URL provided is not reachable </li> </ul>'
+updating: 'Updating adapter {{name}}'
+creating: 'Creating adapter {{name}}'
+createdSuccessfully: 'Adapter {{name}} created successfully'
+updatedSuccessfully: 'Adapter {{name}} updated successfully'
+deletedSuccessfully: 'Adapter {{name}} deleted'
+confirmDeleteTitle: Delete Adapter
+confirmProviderDelete: Are you sure you want to delete the Adapter
+duplicateIdError: 'Failed to create Adapter: {{ providerName }}. There is already an Adapter with identifier {{ providerIdentifier }} present. Please provide a new unique identifier and save again.'
+connectionIssueSuggestion: 'Try these suggestions <ul> <li> Install the Adapter. Follow the <a target="_blank" href="https://docs.harness.io/article/bymoar4glr-argo#step_2_install_and_launch_the_ecs_delegate"> steps </a>  </li> <li> Make sure the Adapter URL is reachable from your network </li> </ul>'
+connectionIssueInfo: 'Issue could be <ul> <li> Adapter is not installed or not running </li> </ul>'
+searchPlaceholder: 'Search by name, description or tag'
+gitOpsWizardTitle: 'Adapter'
+notReachable: 'Could not reach the Adapter at URL: '
+adapterDelete: 'Adapter {{adapterName}} deleted'
+testConnectionStepName: 'Trying to reach the Adapter at URL: {{url}}/api/version'

@@ -93,6 +93,7 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] 
           </div>
           <div
             class="main"
+            data-layout="RIGHT"
           >
             <div
               data-testid="execution-stage-diagram-mock"
@@ -209,6 +210,7 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] 
           </div>
           <div
             class="main"
+            data-layout="RIGHT"
           >
             <div
               data-testid="execution-stage-diagram-mock"
@@ -366,6 +368,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
             >
               <div
                 class="main"
+                data-layout="RIGHT"
               >
                 <div
                   data-testid="execution-stage-diagram-mock"

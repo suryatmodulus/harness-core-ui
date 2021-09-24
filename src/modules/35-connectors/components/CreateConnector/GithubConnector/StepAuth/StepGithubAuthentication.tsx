@@ -49,7 +49,6 @@ interface GithubFormInterface {
   connectionType: string
   authType: string
   username: TextReferenceInterface | void
-  password: SecretReferenceInterface | void
   accessToken: SecretReferenceInterface | void
   installationId: string
   applicationId: string
@@ -62,9 +61,8 @@ interface GithubFormInterface {
 
 const defaultInitialFormData: GithubFormInterface = {
   connectionType: GitConnectionType.HTTP,
-  authType: GitAuthTypes.USER_PASSWORD,
+  authType: GitAuthTypes.USER_TOKEN,
   username: undefined,
-  password: undefined,
   accessToken: undefined,
   installationId: '',
   applicationId: '',
@@ -78,17 +76,6 @@ const defaultInitialFormData: GithubFormInterface = {
 const RenderGithubAuthForm: React.FC<FormikProps<GithubFormInterface>> = props => {
   const { getString } = useStrings()
   switch (props.values.authType) {
-    case GitAuthTypes.USER_PASSWORD:
-      return (
-        <>
-          <TextReference
-            name="username"
-            stringId="username"
-            type={props.values.username ? props.values.username?.type : ValueType.TEXT}
-          />
-          <SecretInput name="password" label={getString('password')} />
-        </>
-      )
     case GitAuthTypes.USER_TOKEN:
       return (
         <>
@@ -167,13 +154,9 @@ const StepGithubAuthentication: React.FC<StepProps<StepGithubAuthenticationProps
     const { getString } = useStrings()
     const { prevStepData, nextStep, accountId } = props
     const [initialValues, setInitialValues] = useState(defaultInitialFormData)
-    const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
+    const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(props.isEditMode)
 
     const authOptions: Array<SelectOption> = [
-      {
-        label: getString('usernamePassword'),
-        value: GitAuthTypes.USER_PASSWORD
-      },
       {
         label: getString('usernameToken'),
         value: GitAuthTypes.USER_TOKEN
@@ -181,19 +164,13 @@ const StepGithubAuthentication: React.FC<StepProps<StepGithubAuthenticationProps
     ]
 
     useEffect(() => {
-      if (loadingConnectorSecrets) {
-        if (props.isEditMode) {
-          if (props.connectorInfo) {
-            setupGithubFormData(props.connectorInfo, accountId).then(data => {
-              setInitialValues(data as GithubFormInterface)
-              setLoadingConnectorSecrets(false)
-            })
-          } else {
-            setLoadingConnectorSecrets(false)
-          }
-        }
+      if (props.isEditMode && props.connectorInfo && accountId) {
+        setupGithubFormData(props.connectorInfo, accountId).then(data => {
+          setInitialValues(data as GithubFormInterface)
+          setLoadingConnectorSecrets(false)
+        })
       }
-    }, [loadingConnectorSecrets])
+    }, [props.isEditMode, props.connectorInfo, accountId])
 
     const handleSubmit = (formData: ConnectorConfigDTO) => {
       nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepGithubAuthenticationProps)
@@ -227,12 +204,6 @@ const StepGithubAuthentication: React.FC<StepProps<StepGithubAuthenticationProps
             sshKey: Yup.object().when('connectionType', {
               is: val => val === GitConnectionType.SSH,
               then: Yup.object().required(getString('validation.sshKey')),
-              otherwise: Yup.object().nullable()
-            }),
-            password: Yup.object().when(['connectionType', 'authType'], {
-              is: (connectionType, authType) =>
-                connectionType === GitConnectionType.HTTP && authType === GitAuthTypes.USER_PASSWORD,
-              then: Yup.object().required(getString('validation.password')),
               otherwise: Yup.object().nullable()
             }),
             accessToken: Yup.object().when(['connectionType', 'authType'], {

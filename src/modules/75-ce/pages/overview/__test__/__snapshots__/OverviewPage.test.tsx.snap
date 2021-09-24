@@ -679,19 +679,20 @@ exports[`test cases for Overview Page should be able to render the overview dash
                   >
                     ce.overview.cardtitles.topRecommendation
                   </p>
-                  <a
-                    href="/account/undefined/ce/recommendations"
-                  >
-                    <span
-                      class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-primary7"
-                    >
-                      ce.overview.seeAll
-                    </span>
-                  </a>
                 </div>
                 <div
-                  class="recommendations"
-                />
+                  class="StyledProps--font StyledProps--main noDataContainer"
+                >
+                  <img
+                    class="noDataImg"
+                    src="test-file-stub"
+                  />
+                  <p
+                    class="StyledProps--font StyledProps--main noDataText"
+                  >
+                    ce.pageErrorMsg.noRecommendations
+                  </p>
+                </div>
               </div>
             </div>
           </div>

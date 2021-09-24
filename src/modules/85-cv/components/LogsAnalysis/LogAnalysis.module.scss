@@ -36,9 +36,14 @@
 }
 
 .noData {
-  padding-top: 15% !important;
+  margin-top: var(--spacing-none) !important;
 }
 
 .noDataContainer {
   height: 100%;
+}
+
+.logClusterNoDataImage {
+  height: 100px;
+  width: 200px;
 }

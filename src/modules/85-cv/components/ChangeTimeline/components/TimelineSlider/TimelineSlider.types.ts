@@ -15,6 +15,7 @@ export interface TimelineSliderProps {
   leftContainerOffset?: number
   className?: string
   infoCard?: JSX.Element
+  hideSlider?: boolean
 }
 
 export type SliderAspects = {

@@ -5,6 +5,8 @@ pageErrorMsg:
   recommendationNoData: 'There are no recommendations yet. Recommendations typically take 24 hours to show up. Please check back later.'
   perspectiveNoData: 'There is not data available for the filters applied.'
   noDataMsg: No data found
+  noRecommendations: 'Currently there are no recommendations for your clusters.'
+  recommendationDesc: 'Recommendations are shown only for cluster data (workloads and nodes). Add now to get started.'
 homepage:
   slogan: 'Get granular cloud cost visibility, enable powerful cost optimization through intelligent automation, and set vital budgets and forecasts for cost governance. Take your cloud cost management to the next level with Harness.'
 co:
@@ -189,6 +191,8 @@ co:
     delete:
       withResource: 'Delete with all cloud resources'
       success: 'Deleted successfully'
+    successfulCreation: 'Load Balancer creation request is submitted and will be created in some time.'
+    successfulEdition: 'Load Balancer {{name}} successfully updated'
   dnsSetup:
     autoURL: 'Auto generated URL'
     customURL: 'Custom URL (Example: qa.yourcompany.com)'
@@ -482,7 +486,13 @@ perspectives:
     recipientLabel: Send report to
     searchTimezonePlaceholder: Search Timezone
   budgets:
+    addBudget: Add a budget to this perspective
     title: Budget
+    thisMonth: this month
+    spendExceededBy: Spend exceeded budget by
+    monthToDateSpend: Month to date spend is
+    budgetSmallTxt: budget
+    budgetMonthlyTxt: Budget - Monthly
     desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.
     createNew: + create new Budget
     wizardTitle: New Budget

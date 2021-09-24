@@ -63,6 +63,7 @@ describe('AWS Access Point Configuration screen first', () => {
           handleSubmit={jest.fn()}
           handlePreviousClick={jest.fn()}
           isSaving={false}
+          mode={'create'}
         />
       </TestWrapper>
     )

@@ -38,8 +38,9 @@
   .timelineBarItem {
     flex: 1;
     overflow: hidden;
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-xsmall);
     color: var(--grey-400);
-    white-space: nowrap;
+    padding: var(--spacing-small);
+    white-space: pre-line;
   }
 }

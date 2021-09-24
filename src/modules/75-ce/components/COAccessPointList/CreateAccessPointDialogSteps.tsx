@@ -50,14 +50,14 @@ const CreateAccessPointDialogScreens: React.FC<CreateAccessPointDialogScreensPro
           loadBalancer={initialLoadBalancer}
           cloudAccountId={connectorIdentifier}
           onClose={props.onCancel}
-          createMode={true}
+          mode={'create'}
           onSave={props.onSave}
         />
       ) : (
         <AzureAPConfig
           cloudAccountId={connectorIdentifier}
           onSave={props.onSave}
-          createMode={true}
+          mode={'create'}
           onClose={props.onCancel}
           loadBalancer={initialLoadBalancer}
         />

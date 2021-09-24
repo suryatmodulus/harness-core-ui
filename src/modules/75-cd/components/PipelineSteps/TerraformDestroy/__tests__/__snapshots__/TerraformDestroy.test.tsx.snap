@@ -4331,7 +4331,7 @@ exports[`Test TerraformDestroy should render inputSet View 1`] = `
 exports[`Test TerraformDestroy should render variable view 1`] = `
 <div>
   <div
-    class="variablesListTable variablePaddingL2"
+    class="variablesListTable variablePaddingL3"
   />
   <div
     class="variablesListTable variablePaddingL2"

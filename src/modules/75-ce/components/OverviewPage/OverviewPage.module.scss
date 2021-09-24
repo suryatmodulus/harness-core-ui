@@ -35,6 +35,25 @@
   border-radius: 4px;
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 3px rgba(96, 97, 112, 0.12);
 
+  .noDataContainer {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 230px;
+
+    .noDataImg {
+      width: 175px;
+    }
+
+    .noDataText {
+      margin-top: var(--spacing-xxlarge) !important;
+      display: flex;
+      max-width: 550px;
+      text-align: center;
+    }
+  }
+
   .recommendations {
     overflow-x: scroll;
     display: grid;

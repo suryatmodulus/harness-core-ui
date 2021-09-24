@@ -20,14 +20,15 @@ import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
+import type { ExecutionLayoutState } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
 import ConditionalExecutionTooltipWrapper from '@pipeline/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
 import ResourceConstraintTooltip from './components/ResourceConstraints/ResourceConstraints'
 import css from './ExecutionStageDetails.module.scss'
 
 export interface ExecutionStageDetailsProps {
+  layout: ExecutionLayoutState
   onStepSelect(step?: string): void
-
   onStageSelect(step: string): void
 }
 
@@ -164,7 +165,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const showEndNode = !(isExecutionRunning(stage?.status) || isExecutionPaused(stage?.status))
 
   return (
-    <div className={css.main}>
+    <div className={css.main} data-layout={props.layout}>
       {!isEmpty(selectedStageId) && data.items?.length > 0 && (
         <ExecutionStageDiagram
           selectedIdentifier={selectedStepId}

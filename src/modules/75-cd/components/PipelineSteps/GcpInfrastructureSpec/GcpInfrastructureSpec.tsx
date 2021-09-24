@@ -132,7 +132,8 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
   const {
     data: clusterNamesData,
     refetch: refetchClusterNames,
-    loading: loadingClusterNames
+    loading: loadingClusterNames,
+    error: clusterError
   } = useGetClusterNamesForGcp({
     lazy: true,
     debounce: 300
@@ -299,7 +300,13 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                       items: clusterOptions,
                       itemRenderer: itemRenderer,
                       allowCreatingNewItems: true,
-                      addClearBtn: !(loadingClusterNames || readonly)
+                      addClearBtn: !(loadingClusterNames || readonly),
+                      noResults: (
+                        <Text padding={'small'}>
+                          {get(clusterError, 'data.message', null) ||
+                            getString('cd.pipelineSteps.infraTab.clusterError')}
+                        </Text>
+                      )
                     }
                   }}
                   label={getString('common.cluster')}

@@ -26,7 +26,7 @@ const DialogExtension: React.FC<ExtensionProps> = props => {
   }
   const closeExtension = () => setShowExtension(false)
   return (
-    <div style={{ display: 'flex', maxHeight: 700 }}>
+    <div style={{ display: 'flex', maxHeight: 800 }}>
       <div style={{ width: props.dialogStyles?.width || 1050, position: 'relative' }}>
         <DialogExtensionContext.Provider value={{ triggerExtension, closeExtension }}>
           {props.children}

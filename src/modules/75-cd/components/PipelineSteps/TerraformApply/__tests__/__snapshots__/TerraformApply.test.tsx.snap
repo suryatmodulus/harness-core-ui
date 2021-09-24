@@ -4159,7 +4159,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
 exports[`Test TerraformApply should render variable view 1`] = `
 <div>
   <div
-    class="variablesListTable variablePaddingL2"
+    class="variablesListTable variablePaddingL3"
   >
     <div
       class="variableListRow"
@@ -4224,7 +4224,7 @@ exports[`Test TerraformApply should render variable view 1`] = `
     </div>
   </div>
   <div
-    class="variablesListTable variablePaddingL2"
+    class="variablesListTable variablePaddingL3"
   />
 </div>
 `;

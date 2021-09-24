@@ -69,109 +69,115 @@
 }
 
 .strategyDetailsPanel {
-  height: 100vh;
-  padding: var(--spacing-xxlarge) var(--spacing-huge) var(--spacing-huge) var(--spacing-huge) !important;
-  background-color: white !important;
+  .strategyDetailsBody {
+    height: 100vh;
+    padding: var(--spacing-xxlarge) var(--spacing-huge) var(--spacing-huge) var(--spacing-huge) !important;
+    background-color: var(--grey-0) !important;
+    overflow: scroll;
 
-  .header {
-    padding-bottom: var(--spacing-xlarge) !important;
+    .header {
+      padding-bottom: var(--spacing-xlarge) !important;
 
-    .headerText {
-      font-size: 20px !important;
-      font-weight: 600 !important;
-      color: var(--grey-900) !important;
-      line-height: 28px !important;
-      margin-right: 12px;
-    }
-  }
-  .preview {
-    .previewContainer {
-      .info {
-        margin-bottom: 11px;
-        font-family: inherit;
-        font-style: normal;
-        font-size: 16px;
-        font-weight: normal;
-        line-height: 24px;
-        color: var(--grey-900);
+      .headerText {
+        font-size: 20px !important;
+        font-weight: 600 !important;
+        color: var(--grey-900) !important;
+        line-height: 28px !important;
+        margin-right: 12px;
       }
-
-      .player {
-        transform: translateY(0);
-        margin-bottom: var(--spacing-xxlarge);
-
-        .videoPlayer {
-          width: 500px;
-          height: 400px;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
+    }
+    .preview {
+      .previewContainer {
+        .info {
+          margin-bottom: 11px;
+          font-family: inherit;
+          font-style: normal;
+          font-size: 16px;
+          font-weight: normal;
+          line-height: 24px;
+          color: var(--grey-900);
         }
-        .playerControls {
-          display: flex;
-          position: absolute;
-          bottom: 0;
-          width: 500px;
-          transform: translateY(0);
-          flex-flow: row-reverse;
-          height: 45px;
-          margin-left: 40px;
 
-          .playButton {
+        .player {
+          transform: translateY(0);
+          margin-bottom: var(--spacing-xxlarge);
+
+          .videoPlayer {
+            width: 500px;
+            height: 400px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .playerControls {
+            display: flex;
             position: absolute;
-            :global(.bp3-icon) {
-              color: var(--primary-5);
+            bottom: 0;
+            width: 500px;
+            transform: translateY(0);
+            flex-flow: row-reverse;
+            height: 45px;
+            margin-left: 40px;
+
+            .playButton {
+              position: absolute;
+              :global(.bp3-icon) {
+                color: var(--primary-5);
+              }
+            }
+          }
+          .playerControls > * {
+            flex: 1;
+          }
+        }
+
+        .image {
+          width: 320px;
+          height: 200px;
+          display: block;
+          margin-left: 110px;
+          margin-right: auto;
+          margin-bottom: 42px;
+          margin-top: var(--spacing-huge);
+          img {
+            width: 100%;
+          }
+        }
+
+        .enableVerificationSection {
+          width: 320px;
+          display: flex;
+          margin-right: auto;
+          margin-bottom: 23px;
+
+          .enableVerification {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 20px;
+            letter-spacing: 0.4px;
+            color: black;
+            margin-bottom: 23px;
+            display: flex;
+            align-items: center;
+          }
+          .toggleVerify {
+            :global(input ~ .bp3-control-indicator) {
+              background-color: var(--grey-200) !important;
+            }
+            :global(input:checked ~ .bp3-control-indicator) {
+              background-color: var(--primary-7) !important;
             }
           }
         }
-        .playerControls > * {
-          flex: 1;
-        }
-      }
-
-      .image {
-        width: 320px;
-        height: 200px;
-        display: block;
-        margin-left: 110px;
-        margin-right: auto;
-        margin-bottom: 42px;
-        margin-top: var(--spacing-huge);
-        img {
-          width: 100%;
-        }
-      }
-
-      .enableVerificationSection {
-        width: 320px;
-        display: block;
-        margin-right: auto;
-
-        .enableVerification {
-          font-style: normal;
-          font-weight: 600;
-          font-size: 12px;
-          line-height: 20px;
-          letter-spacing: 0.4px;
-          color: black;
-          margin-bottom: 23px;
-        }
-        .toggleVerify {
-          :global(input ~ .bp3-control-indicator) {
-            background-color: var(--grey-200) !important;
-          }
-          :global(input:checked ~ .bp3-control-indicator) {
-            background-color: var(--primary-7) !important;
-          }
-        }
       }
     }
   }
-  .selectBtn {
-    position: absolute !important;
-    bottom: var(--spacing-huge) !important;
-    &.cancelBtn {
-      margin-left: 94px !important;
-    }
+  .strategyDetailsFooter {
+    width: 100%;
+    position: fixed !important;
+    bottom: 0px !important;
+    background-color: var(--grey-0) !important;
+    padding: 0 var(--spacing-huge) var(--spacing-huge) var(--spacing-huge) !important;
   }
 }

@@ -9,7 +9,7 @@ import { useGetPerspective } from 'services/ce/'
 import {
   useFetchPerspectiveTimeSeriesQuery,
   QlceViewTimeGroupType,
-  useFetchPerspectiveDetailsSummaryQuery,
+  useFetchPerspectiveDetailsSummaryWithBudgetQuery,
   QlceViewFilterInput,
   QlceViewFilterOperator,
   QlceViewFieldInputInput,
@@ -194,7 +194,7 @@ const PerspectiveDetailsPage: React.FC = () => {
     }
   })
 
-  const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
+  const [summaryResult] = useFetchPerspectiveDetailsSummaryWithBudgetQuery({
     variables: {
       isClusterQuery: false,
       aggregateFunction: [
@@ -325,8 +325,18 @@ const PerspectiveDetailsPage: React.FC = () => {
               gridData={gridData?.perspectiveGrid?.data as any}
               gridFetching={gridFetching}
               columnSequence={columnSequence}
-              highlightNode={id => highlightNode(chartRef, id)}
-              resetNodeState={() => resetNodeState(chartRef)}
+              highlightNode={
+                /* istanbul ignore next */
+                id => {
+                  highlightNode(chartRef, id)
+                }
+              }
+              resetNodeState={
+                /* istanbul ignore next */
+                () => {
+                  resetNodeState(chartRef)
+                }
+              }
               setColumnSequence={colSeq => setColumnSequence(colSeq)}
               groupBy={groupBy}
               totalItemCount={perspectiveTotalCount || 0}

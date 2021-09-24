@@ -7,7 +7,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
     style="height: 100vh;"
   >
     <div
-      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <h2
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
@@ -688,7 +688,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
     style="height: 100vh;"
   >
     <div
-      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <h2
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
@@ -1369,7 +1369,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
     style="height: 100vh;"
   >
     <div
-      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
       <h2
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"

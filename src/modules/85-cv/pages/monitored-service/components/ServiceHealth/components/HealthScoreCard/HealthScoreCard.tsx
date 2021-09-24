@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo } from 'react'
-import { Color, Layout, Text } from '@wings-software/uicore'
+import React, { useCallback, useEffect, useMemo } from 'react'
+import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -23,7 +23,11 @@ export default function HealthScoreCard(props: HealthScoreCardProps): JSX.Elemen
     }
   }, [accountId, environmentIdentifier, orgIdentifier, projectIdentifier, serviceIdentifier])
 
-  const { data: healthScoreData, refetch: fetchHealthScore } = useGetMonitoredServiceScoresFromServiceAndEnvironment({
+  const {
+    data: healthScoreData,
+    refetch: fetchHealthScore,
+    loading
+  } = useGetMonitoredServiceScoresFromServiceAndEnvironment({
     lazy: true,
     queryParams: healthScoreQueryParams
   })
@@ -42,18 +46,38 @@ export default function HealthScoreCard(props: HealthScoreCardProps): JSX.Elemen
     return { healthScore: healthScoreValue, color: colorData }
   }, [healthScoreData?.data?.currentHealthScore])
 
-  return (
-    <>
-      {healthScore !== null && healthScore > -1 ? (
-        <Layout.Horizontal className={css.healthScoreCardContainer}>
+  const renderHealthScore = useCallback(() => {
+    if (loading) {
+      return <Icon name={'spinner'} size={16} padding={{ right: 'small' }} />
+    } else if (healthScore !== null && healthScore > -1) {
+      return (
+        <>
           <div className={css.healthScoreCard} style={{ background: color }}>
             {healthScore}
           </div>
           <Text color={Color.BLACK} font={{ size: 'small' }}>
             {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
           </Text>
-        </Layout.Horizontal>
-      ) : null}
-    </>
-  )
+        </>
+      )
+    } else if (healthScore === -2 || healthScore === null) {
+      return (
+        <Container className={css.noDataState}>
+          <Text font={{ size: 'xsmall' }} padding={{ right: 'small' }} flex={{ alignItems: 'center' }}>
+            {getString('cv.monitoredServices.healthScoreDataNotAvailable')}
+          </Text>
+          <Layout.Horizontal className={css.healthScoreCardContainer}>
+            <div className={css.healthScoreCard} style={{ background: color }}></div>
+            <Text color={Color.BLACK} font={{ size: 'small' }}>
+              {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
+            </Text>
+          </Layout.Horizontal>
+        </Container>
+      )
+    } else {
+      return <></>
+    }
+  }, [color, healthScore, loading])
+
+  return <Layout.Horizontal className={css.healthScoreCardContainer}>{renderHealthScore()}</Layout.Horizontal>
 }

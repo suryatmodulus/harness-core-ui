@@ -204,35 +204,42 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+            class="StyledProps--main"
           >
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+            
+            <div
+              class="RadioButtonGroup--inline"
             >
-              <input
-                checked=""
-                name="spec.configuration.command"
-                type="radio"
-                value="Apply"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              filters.apply
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.configuration.command"
-                type="radio"
-                value="Destroy"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.destroy
-            </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  checked=""
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Apply"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                filters.apply
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Destroy"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.destroy
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -1633,35 +1640,42 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+            class="StyledProps--main"
           >
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+            
+            <div
+              class="RadioButtonGroup--inline"
             >
-              <input
-                checked=""
-                name="spec.configuration.command"
-                type="radio"
-                value="Apply"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              filters.apply
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.configuration.command"
-                type="radio"
-                value="Destroy"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.destroy
-            </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  checked=""
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Apply"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                filters.apply
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Destroy"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.destroy
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -2121,35 +2135,42 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+            class="StyledProps--main"
           >
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+            
+            <div
+              class="RadioButtonGroup--inline"
             >
-              <input
-                checked=""
-                name="spec.configuration.command"
-                type="radio"
-                value="Apply"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              filters.apply
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.configuration.command"
-                type="radio"
-                value="Destroy"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.destroy
-            </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  checked=""
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Apply"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                filters.apply
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Destroy"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.destroy
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -2609,35 +2630,42 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+            class="StyledProps--main"
           >
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+            
+            <div
+              class="RadioButtonGroup--inline"
             >
-              <input
-                checked=""
-                name="spec.configuration.command"
-                type="radio"
-                value="Apply"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              filters.apply
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.configuration.command"
-                type="radio"
-                value="Destroy"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.destroy
-            </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  checked=""
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Apply"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                filters.apply
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Destroy"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.destroy
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -3099,35 +3127,42 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+            class="StyledProps--main"
           >
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+            
+            <div
+              class="RadioButtonGroup--inline"
             >
-              <input
-                name="spec.configuration.command"
-                type="radio"
-                value="Apply"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              filters.apply
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                checked=""
-                name="spec.configuration.command"
-                type="radio"
-                value="Destroy"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.destroy
-            </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Apply"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                filters.apply
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  checked=""
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Destroy"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.destroy
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -4046,35 +4081,42 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+            class="StyledProps--main"
           >
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+            
+            <div
+              class="RadioButtonGroup--inline"
             >
-              <input
-                checked=""
-                name="spec.configuration.command"
-                type="radio"
-                value="Apply"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              filters.apply
-            </label>
-            <label
-              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-            >
-              <input
-                name="spec.configuration.command"
-                type="radio"
-                value="Destroy"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-              pipelineSteps.destroy
-            </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  checked=""
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Apply"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                filters.apply
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="spec.configuration.command"
+                  type="radio"
+                  value="Destroy"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                pipelineSteps.destroy
+              </label>
+            </div>
           </div>
         </div>
       </div>

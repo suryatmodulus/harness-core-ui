@@ -43,7 +43,7 @@ exports[`Unit tests for createting monitored source Health source table and envi
                 </svg>
               </span>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 common.accountSettings
               </p>
@@ -53,9 +53,9 @@ exports[`Unit tests for createting monitored source Health source table and envi
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -73,7 +73,7 @@ exports[`Unit tests for createting monitored source Health source table and envi
               href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/dashboard"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               />
             </a>
             <span
@@ -81,9 +81,9 @@ exports[`Unit tests for createting monitored source Health source table and envi
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -101,7 +101,7 @@ exports[`Unit tests for createting monitored source Health source table and envi
               href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 cv.monitoredServices.title
               </p>
@@ -111,9 +111,9 @@ exports[`Unit tests for createting monitored source Health source table and envi
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path

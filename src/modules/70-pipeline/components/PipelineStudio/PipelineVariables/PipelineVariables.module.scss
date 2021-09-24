@@ -263,13 +263,29 @@
 }
 .variable-padding-l2 {
   :global(.variable-name-cell) {
-    padding-left: calc(var(--spacing-xxlarge) + 8px) !important;
+    padding-left: calc(var(--spacing-large) + 4px) !important;
   }
 }
 
 .variable-padding-l3 {
   :global(.variable-name-cell) {
     padding-left: calc(var(--spacing-huge) + 8px) !important;
+  }
+}
+
+.variable-padding--tag-l1 {
+  :global(.variable-name-cell) {
+    padding-left: calc(var(--spacing-large) + 28px) !important;
+  }
+}
+.variable-padding--tag-l2 {
+  :global(.variable-name-cell) {
+    padding-left: var(--spacing-huge) !important;
+  }
+}
+.variable-padding--tag-l3 {
+  :global(.variable-name-cell) {
+    padding-left: calc(var(--spacing-huge) + 16px) !important;
   }
 }
 
@@ -327,5 +343,16 @@
 .addVariableL2 {
   :global(.add-variable) {
     padding-left: 48px !important;
+  }
+}
+
+.variableListSimple {
+  display: grid;
+  padding: var(--spacing-small) 0;
+  grid-template-columns: 1fr 1fr;
+  .tagSection {
+    padding-left: var(--spacing-xxlarge);
+    display: flex;
+    column-gap: var(--spacing-xsmall);
   }
 }

@@ -102,7 +102,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                  class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
                 >
                   common.home
                 </p>
@@ -112,9 +112,9 @@ exports[`Project Page List Create Project and Close 1`] = `
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="12"
+                  height="8"
                   viewBox="0 0 8 14"
-                  width="12"
+                  width="8"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -3434,7 +3434,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                  class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
                 >
                   common.home
                 </p>
@@ -3444,9 +3444,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="12"
+                  height="8"
                   viewBox="0 0 8 14"
-                  width="12"
+                  width="8"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -6766,7 +6766,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                  class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
                 >
                   common.home
                 </p>
@@ -6776,9 +6776,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="12"
+                  height="8"
                   viewBox="0 0 8 14"
-                  width="12"
+                  width="8"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -10098,7 +10098,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                  class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
                 >
                   common.home
                 </p>
@@ -10108,9 +10108,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="12"
+                  height="8"
                   viewBox="0 0 8 14"
-                  width="12"
+                  width="8"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path

@@ -9,7 +9,7 @@ exports[`Azure Access Point Configuration Name field should be disabled and shou
       class="StyledProps--font StyledProps--font-h2 StyledProps--main configHeading"
       level="2"
     >
-      The Application gateway  requires additional Configuration
+      The Application Gateway Mock App Gateway requires additional Configuration
     </h2>
     <div>
       <div

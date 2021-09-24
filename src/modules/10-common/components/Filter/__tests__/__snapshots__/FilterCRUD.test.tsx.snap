@@ -288,34 +288,42 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
+                    class="FormikForm--inlineRadioGroup StyledProps--main"
                   >
-                    <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                    
+                    <div
+                      class=""
                     >
-                      <input
-                        name="filterVisibility"
-                        type="radio"
-                        value="OnlyCreator"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      filters.visibileToOnlyMe
-                    </label>
-                    <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                    >
-                      <input
-                        name="filterVisibility"
-                        type="radio"
-                        value="EveryOne"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      filters.visibleToEveryone
-                    </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="filterVisibility"
+                          type="radio"
+                          value="OnlyCreator"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        filters.visibileToOnlyMe
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          checked=""
+                          class="RadioButton--input"
+                          name="filterVisibility"
+                          type="radio"
+                          value="EveryOne"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        filters.visibleToEveryone
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -876,34 +884,42 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
+                    class="FormikForm--inlineRadioGroup StyledProps--main"
                   >
-                    <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                    
+                    <div
+                      class=""
                     >
-                      <input
-                        name="filterVisibility"
-                        type="radio"
-                        value="OnlyCreator"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      filters.visibileToOnlyMe
-                    </label>
-                    <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                    >
-                      <input
-                        name="filterVisibility"
-                        type="radio"
-                        value="EveryOne"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      filters.visibleToEveryone
-                    </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          checked=""
+                          class="RadioButton--input"
+                          name="filterVisibility"
+                          type="radio"
+                          value="OnlyCreator"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        filters.visibileToOnlyMe
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="filterVisibility"
+                          type="radio"
+                          value="EveryOne"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        filters.visibleToEveryone
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1464,34 +1480,42 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
+                    class="FormikForm--inlineRadioGroup StyledProps--main"
                   >
-                    <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                    
+                    <div
+                      class=""
                     >
-                      <input
-                        name="filterVisibility"
-                        type="radio"
-                        value="OnlyCreator"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      filters.visibileToOnlyMe
-                    </label>
-                    <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                    >
-                      <input
-                        name="filterVisibility"
-                        type="radio"
-                        value="EveryOne"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      filters.visibleToEveryone
-                    </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          checked=""
+                          class="RadioButton--input"
+                          name="filterVisibility"
+                          type="radio"
+                          value="OnlyCreator"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        filters.visibileToOnlyMe
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="filterVisibility"
+                          type="radio"
+                          value="EveryOne"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        filters.visibleToEveryone
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2288,34 +2312,41 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
+                    class="FormikForm--inlineRadioGroup StyledProps--main"
                   >
-                    <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                    
+                    <div
+                      class=""
                     >
-                      <input
-                        name="filterVisibility"
-                        type="radio"
-                        value="OnlyCreator"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      filters.visibileToOnlyMe
-                    </label>
-                    <label
-                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                    >
-                      <input
-                        name="filterVisibility"
-                        type="radio"
-                        value="EveryOne"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      filters.visibleToEveryone
-                    </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="filterVisibility"
+                          type="radio"
+                          value="OnlyCreator"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        filters.visibileToOnlyMe
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="filterVisibility"
+                          type="radio"
+                          value="EveryOne"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        filters.visibleToEveryone
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>

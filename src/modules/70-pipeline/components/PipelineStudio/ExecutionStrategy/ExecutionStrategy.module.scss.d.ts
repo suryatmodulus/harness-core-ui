@@ -11,6 +11,7 @@ declare const styles: {
   readonly strategyType: string
   readonly active: string
   readonly strategyDetailsPanel: string
+  readonly strategyDetailsBody: string
   readonly preview: string
   readonly previewContainer: string
   readonly info: string
@@ -22,7 +23,6 @@ declare const styles: {
   readonly enableVerificationSection: string
   readonly enableVerification: string
   readonly toggleVerify: string
-  readonly selectBtn: string
-  readonly cancelBtn: string
+  readonly strategyDetailsFooter: string
 }
 export default styles

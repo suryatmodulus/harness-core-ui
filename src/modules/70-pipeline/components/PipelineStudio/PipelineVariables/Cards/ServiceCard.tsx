@@ -1,6 +1,7 @@
 import React from 'react'
 import { NestedAccordionPanel } from '@wings-software/uicore'
 
+import { isEmpty, lowerCase } from 'lodash-es'
 import type { ServiceConfig, ServiceSpec } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -8,6 +9,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { useStrings } from 'framework/strings'
+import VariableListTagRow from '@pipeline/components/VariablesListTable/VariableListTagRow'
 import VariableAccordionSummary from '../VariableAccordionSummary'
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
@@ -29,14 +31,24 @@ export interface ServiceCardProps {
 export function ServiceCard(props: ServiceCardProps): React.ReactElement {
   const { serviceConfig, originalServiceConfig, metadataMap, stageIdentifier, onUpdateServiceConfig, readonly } = props
   const { stepsFactory } = usePipelineContext()
-
+  const { getString } = useStrings()
   return (
     <React.Fragment>
       <VariablesListTable
         data={serviceConfig.service}
         originalData={originalServiceConfig.service}
         metadataMap={metadataMap}
+        className={css.variablePaddingL2}
       />
+      {!isEmpty(originalServiceConfig.service?.tags) && (
+        <VariableListTagRow
+          metadataMap={metadataMap}
+          name={lowerCase(getString('tagsLabel'))}
+          tags={originalServiceConfig.service?.tags}
+          fqn=""
+          className={css.variablePaddingTagL3}
+        />
+      )}
       <StepWidget<ServiceSpec>
         factory={stepsFactory}
         initialValues={originalServiceConfig.serviceDefinition?.spec || {}}

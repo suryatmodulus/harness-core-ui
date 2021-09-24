@@ -180,6 +180,8 @@ export const findMatchedResultsInPipeline = (
   pipelineFqns.forEach(({ value: fqn, metaKeyId }, index) => {
     const fqnParts = fqn.split('.') || ''
     const path = pipelineMetaKeys?.[index]?.value || ''
+    //removes pipeline tags from search as we are showing them in popover
+
     if (fqnParts.length && fqnParts[fqnParts.length - 1]?.toLowerCase()?.includes(needle.toLocaleLowerCase())) {
       finalFound.push({ value: fqnParts[fqnParts.length - 1], type: 'key', metaKeyId, path })
     }
@@ -195,6 +197,7 @@ export const findMatchedResultsInPipeline = (
       finalFound.push({ value: valueString, type: 'value', metaKeyId, path })
     }
   })
+
   return finalFound
 }
 

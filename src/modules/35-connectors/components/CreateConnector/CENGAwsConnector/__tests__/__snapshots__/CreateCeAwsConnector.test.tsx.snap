@@ -3,7 +3,7 @@
 exports[`Create Secret Manager Wizard should render form 1`] = `
 <div>
   <div
-    style="display: flex; max-height: 700px;"
+    style="display: flex; max-height: 800px;"
   >
     <div
       style="width: 1190px; position: relative;"
@@ -435,7 +435,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
 exports[`Create Secret Manager Wizard should render form 2`] = `
 <div>
   <div
-    style="display: flex; max-height: 700px;"
+    style="display: flex; max-height: 800px;"
   >
     <div
       style="width: 1190px; position: relative;"
@@ -1113,7 +1113,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
 exports[`Create Secret Manager Wizard should render form 3`] = `
 <div>
   <div
-    style="display: flex; max-height: 700px;"
+    style="display: flex; max-height: 800px;"
   >
     <div
       style="width: 1190px; position: relative;"
@@ -1958,7 +1958,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
 exports[`Create Secret Manager Wizard should render form 4`] = `
 <div>
   <div
-    style="display: flex; max-height: 700px;"
+    style="display: flex; max-height: 800px;"
   >
     <div
       style="width: 1190px; position: relative;"
@@ -2558,7 +2558,7 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
 exports[`Create Secret Manager Wizard should render form 5`] = `
 <div>
   <div
-    style="display: flex; max-height: 700px;"
+    style="display: flex; max-height: 800px;"
   >
     <div
       style="width: 1190px; position: relative;"

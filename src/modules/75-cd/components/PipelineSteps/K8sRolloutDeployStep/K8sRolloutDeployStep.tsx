@@ -173,7 +173,7 @@ const K8RolloutDeployVariableStep: React.FC<K8RolloutDeployVariableStepProps> = 
 }) => {
   return (
     <VariablesListTable
-      className={pipelineVariableCss.variablePaddingL2}
+      className={pipelineVariableCss.variablePaddingL3}
       data={variablesData.spec}
       originalData={initialValues.spec}
       metadataMap={metadataMap}

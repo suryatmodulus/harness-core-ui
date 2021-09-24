@@ -51,3 +51,10 @@ export enum TimeRangeType {
 export enum CCM_PAGE_TYPE {
   Workload = 'WORKLOAD'
 }
+
+export interface YamlDependency {
+  selector: { ruleName: string }
+  wait: number
+}
+
+export type AccessPointScreenMode = 'create' | 'import' | 'edit'

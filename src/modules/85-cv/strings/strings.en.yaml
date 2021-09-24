@@ -549,13 +549,16 @@ monitoredServices:
   monitoredServiceUpdated: Monitoring Service updated
   monitoredServiceToggle: 'Monitored Service successfully {{enabled}}'
   serviceCount: Showing {{serviceCount}} Services
+  noAvailableData: No available data.
+  healthScoreDataNotAvailable: Health score data not available.
   serviceHealth:
     last4Hrs: Last 4 hours
     last24Hrs: Last 24 hours
     last3Days: Last 3 days
     last7Days: '{{ $.common.last7days }}'
     overallHealthScore: Overall Health Score
-    noDataAvailableForHealthScore: No data available for health score
+    noDataAvailableForHealthScore: No healthscore data available in the last {{duration}}
+    pleaseSelectAnotherTimeWindow: Please select another time window.
     selectTimeline: Select a timeline to see metric & logs data
     metricsAndLogs: Metrics & Logs
     lowestHealthScore: Lowest Health Score
@@ -575,7 +578,6 @@ monitoredServices:
     healthMonitoring: Health Monitoring
     changes: Changes (Last 24H)
   changesTable:
-    noData: No change events
     impact: Impact
 changeSource:
   alertText: Alert

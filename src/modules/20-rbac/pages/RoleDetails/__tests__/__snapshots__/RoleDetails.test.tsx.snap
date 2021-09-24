@@ -41,7 +41,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 common.accountSettings
               </p>
@@ -51,9 +51,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -71,7 +71,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               href="/account/dummy/settings/access-control"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 accessControl
               </p>
@@ -81,9 +81,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -101,7 +101,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               href="/account/dummy/settings/access-control/roles"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 roles
               </p>
@@ -111,9 +111,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -530,7 +530,7 @@ exports[`Role Details Page render data 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 common.accountSettings
               </p>
@@ -540,9 +540,9 @@ exports[`Role Details Page render data 1`] = `
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -560,7 +560,7 @@ exports[`Role Details Page render data 1`] = `
               href="/account/dummy/settings/access-control"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 accessControl
               </p>
@@ -570,9 +570,9 @@ exports[`Role Details Page render data 1`] = `
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -590,7 +590,7 @@ exports[`Role Details Page render data 1`] = `
               href="/account/dummy/settings/access-control/roles"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 roles
               </p>
@@ -600,9 +600,9 @@ exports[`Role Details Page render data 1`] = `
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path

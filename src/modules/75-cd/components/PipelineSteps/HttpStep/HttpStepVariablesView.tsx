@@ -30,7 +30,7 @@ export function HttpStepVariablesView(props: HttpStepVariablesViewProps): React.
 
   return (
     <VariablesListTable
-      className={pipelineVariableCss.variablePaddingL2}
+      className={pipelineVariableCss.variablePaddingL3}
       metadataMap={metadataMap}
       data={data}
       originalData={originalData?.spec}

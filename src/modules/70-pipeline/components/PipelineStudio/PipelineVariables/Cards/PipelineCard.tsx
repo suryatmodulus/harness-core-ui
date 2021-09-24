@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, NestedAccordionPanel } from '@wings-software/uicore'
 import cx from 'classnames'
+import { isEmpty, lowerCase } from 'lodash-es'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -13,6 +14,7 @@ import type {
 import { useStrings } from 'framework/strings'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { AllNGVariables } from '@pipeline/utils/types'
+import VariableListTagRow from '@pipeline/components/VariablesListTable/VariableListTagRow'
 import VariableAccordionSummary from '../VariableAccordionSummary'
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
@@ -38,7 +40,15 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
         originalData={pipeline}
         metadataMap={metadataMap}
       />
-
+      {!isEmpty(variablePipeline?.tags) && (
+        <VariableListTagRow
+          metadataMap={metadataMap}
+          name={lowerCase(getString('tagsLabel'))}
+          tags={variablePipeline.tags}
+          fqn="pipeline.tags"
+          className={css.variablePaddingTagL1}
+        />
+      )}
       <NestedAccordionPanel
         noAutoScroll
         isDefaultOpen

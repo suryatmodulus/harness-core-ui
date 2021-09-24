@@ -51,6 +51,7 @@ const getDefaultOptions = (data: DataType, format?: string): Highcharts.Options 
       }
     },
     tooltip: {
+      outside: true,
       formatter: function () {
         let healthScore
         if ((this.point as any)?.riskStatus === RiskValues.NO_DATA) {

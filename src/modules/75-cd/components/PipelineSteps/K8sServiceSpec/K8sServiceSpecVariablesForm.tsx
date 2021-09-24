@@ -54,7 +54,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
           noAutoScroll
           id={`${path}.Artifacts`}
           summary={<VariableAccordionSummary> {getString('artifacts')}</VariableAccordionSummary>}
-          summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL2)}
+          summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
           details={
             variablesData?.artifacts && (
               <>
@@ -116,14 +116,14 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
           addDomId
           id={`${path}.Manifests`}
           summary={<VariableAccordionSummary> {getString('manifests')}</VariableAccordionSummary>}
-          summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL2)}
+          summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
           details={
             !!manifestsVariables?.length && (
               <>
                 {manifestsVariables?.map(({ manifest }, index) => (
                   <VariablesListTable
                     key={index}
-                    className={cx(css.manifestVariablesTable, pipelineVariableCss.variablePaddingL2)}
+                    className={cx(css.manifestVariablesTable, pipelineVariableCss.variablePaddingL3)}
                     data={manifest?.spec?.store?.spec}
                     originalData={initialValues?.manifests?.[index]?.manifest?.spec?.store?.spec}
                     metadataMap={metadataMap}

@@ -44,3 +44,48 @@
   background-color: var(--orange-400);
   padding: 0px 2px;
 }
+
+.variableListRowItem {
+  display: grid;
+  padding: var(--spacing-small) 0;
+  grid-template-columns: 1fr 1fr;
+  .nameSection {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--font-size-small);
+    color: var(--grey-500);
+    display: inline;
+  }
+  .valueSection {
+    padding-left: var(--spacing-xxlarge);
+    display: flex;
+    column-gap: var(--spacing-xsmall);
+    max-width: 410px;
+  }
+}
+
+.variable-border-bottom {
+  position: relative;
+  height: 32px;
+  &:before {
+    position: absolute;
+    width: 100%;
+    bottom: -1px;
+    content: '';
+    border-bottom: solid 1px;
+    border-color: #d9dae599;
+    height: 1px;
+    left: 100%;
+  }
+  &:after {
+    position: absolute;
+    width: 100%;
+    bottom: -1px;
+    content: '';
+    border-bottom: solid 1px;
+    border-color: #d9dae599;
+    height: 1px;
+    right: 0;
+  }
+}

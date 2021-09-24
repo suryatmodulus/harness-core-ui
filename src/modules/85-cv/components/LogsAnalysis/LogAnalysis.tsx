@@ -3,6 +3,7 @@ import { Color, Container, Icon, Pagination, Select, Text } from '@wings-softwar
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import { HealthSourceDropDown } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown'
+import noDataImage from '@cv/assets/noData.svg'
 import { LogAnalysisRow } from './components/LogAnalysisRow/LogAnalysisRow'
 import { getClusterTypes } from './LogAnalysis.utils'
 import type { LogAnalysisProps } from './LogAnalysis.types'
@@ -36,9 +37,10 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
     } else if (!logAnalysisTableData?.length) {
       return (
         <NoDataCard
+          className={styles.noData}
           containerClassName={styles.noDataContainer}
-          message={getString('pipeline.verification.logs.noAnalysis')}
-          icon="warning-sign"
+          message={getString('cv.monitoredServices.noAvailableData')}
+          image={noDataImage}
         />
       )
     } else {
@@ -56,11 +58,13 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
       )
     } else if (!clusterChartData?.resource?.length) {
       return (
-        <Container className={styles.noData}>
+        <Container>
           <NoDataCard
+            className={styles.noData}
             containerClassName={styles.noDataContainer}
-            message={getString('pipeline.verification.logs.noAnalysis')}
-            icon="warning-sign"
+            message={<Text font={{ size: 'small' }}>{getString('cv.monitoredServices.noAvailableData')}</Text>}
+            image={noDataImage}
+            imageClassName={styles.logClusterNoDataImage}
           />
         </Container>
       )

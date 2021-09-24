@@ -80,7 +80,7 @@ const FirstStep = (props: any): JSX.Element => {
   const history = useHistory()
   const { mutate: createFolder, loading } = useMutate({
     verb: 'POST',
-    path: 'dashboard/folder',
+    path: 'gateway/dashboard/folder',
     queryParams: { accountId: accountId }
   })
 
@@ -239,7 +239,7 @@ const FoldersPage: React.FC = () => {
     refetch: reloadFolders
   } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: 'dashboard/v1/folders',
+    path: 'gateway/dashboard/v1/folders',
     queryParams: {
       accountId: accountId,
       searchTerm,

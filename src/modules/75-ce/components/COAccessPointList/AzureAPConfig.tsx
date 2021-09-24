@@ -1,9 +1,13 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import { Heading } from '@wings-software/uicore'
-import { AccessPoint, useCreateAccessPoint } from 'services/lw'
+import { AccessPoint, useCreateAccessPoint, useEditAccessPoint } from 'services/lw'
 // import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
+import { Utils } from '@ce/common/Utils'
+import type { AccessPointScreenMode } from '@ce/types'
+import { PROVIDER_TYPES } from '@ce/constants'
+import { useStrings } from 'framework/strings'
 import AzureAccessPointForm, { AzureApFormVal } from './AzureAccessPointForm'
 import AzureApDnsMapping, { AzureDnsFormVal } from './AzureDnsMapping'
 import css from '../COGatewayAccess/COGatewayAccess.module.scss'
@@ -13,7 +17,7 @@ interface AzureAPConfigProps {
   cloudAccountId: string | undefined
   onClose?: (clearSelection?: boolean) => void
   onSave: (savedLoadBalancer: AccessPoint) => void
-  createMode?: boolean
+  mode: AccessPointScreenMode
 }
 
 enum FormStep {
@@ -22,10 +26,11 @@ enum FormStep {
 }
 
 const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
-  const { loadBalancer, cloudAccountId, createMode = false, onSave } = props
-  // const { getString } = useStrings()
+  const { loadBalancer, cloudAccountId, mode, onSave } = props
+  const isEditMode = mode === 'edit'
+
+  const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
-  const lastStep = useRef(FormStep.SECOND)
   const [currentStep, setCurrentStep] = useState<FormStep>(FormStep.FIRST)
   const [newAp, setNewAp] = useState<AccessPoint>(loadBalancer)
   // const [loadBalancerId, setLoadBalancerId] = useState<string>()
@@ -52,13 +57,15 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
     account_id: accountId
   })
 
+  const { mutate: editLoadBalancer } = useEditAccessPoint({
+    account_id: accountId
+  })
+
   const moveForward = () => {
-    if (currentStep === lastStep.current) return
     setCurrentStep(currentStep + 1)
   }
 
   const moveBackward = () => {
-    if (currentStep === FormStep.FIRST) return
     setCurrentStep(currentStep - 1)
   }
 
@@ -101,10 +108,14 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
   const saveLb = async (lbToSave: AccessPoint): Promise<void> => {
     setLbCreationInProgress(true)
     try {
-      const result = await createLoadBalancer(lbToSave) // eslint-disable-line
+      const result = isEditMode ? await editLoadBalancer(lbToSave) : await createLoadBalancer(lbToSave) // eslint-disable-line
       if (result.response) {
         // setLoadBalancerId(result.response.id as string)
-        showSuccess('Load Balancer creation request is submitted and will be created in some time.')
+        showSuccess(
+          isEditMode
+            ? getString('ce.co.accessPoint.successfulEdition', { name: result.response.name })
+            : getString('ce.co.accessPoint.successfulCreation')
+        )
         props.onSave?.(result.response)
         props.onClose?.()
       }
@@ -159,17 +170,20 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
     }))
     moveBackward()
   }
+
+  const getHeading = () => {
+    return Utils.getLoadBalancerModalHeader(props.mode, PROVIDER_TYPES.AZURE, loadBalancer.name)
+  }
+
   return (
     <div className={css.loadBalancerDnsConfigDialog}>
       <Heading level={2} className={css.configHeading}>
-        {createMode
-          ? 'Create a new Application Gateway'
-          : `The Application gateway ${loadBalancer?.id || ''} requires additional Configuration`}
+        {getHeading()}
       </Heading>
       <div>
         {currentStep === FormStep.FIRST && (
           <AzureApDnsMapping
-            createMode={createMode}
+            mode={mode}
             handleSubmit={handleDnsMappingSubmission}
             loadBalancer={newAp}
             handleCancel={() => props.onClose?.(true)}
@@ -183,7 +197,7 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
             lbCreationInProgress={lbCreationInProgress}
             handleFormSubmit={handleFormSubmit}
             loadBalancer={newAp}
-            isCreateMode={createMode}
+            mode={mode}
           />
         )}
       </div>

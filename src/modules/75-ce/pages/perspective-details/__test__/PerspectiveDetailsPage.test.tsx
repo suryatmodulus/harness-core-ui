@@ -8,9 +8,9 @@ import {
   FetchPerspectiveTimeSeriesDocument,
   FetchPerspectiveDetailsSummaryDocument,
   FetchViewFieldsDocument,
-  FetchperspectiveGridDocument
+  FetchperspectiveGridDocument,
+  FetchPerspectiveBudgetDocument
 } from 'services/ce/services'
-// import { useGetPerspective } from 'services/ce'
 import PerspectiveDetailsPage from '../PerspectiveDetailsPage'
 
 import ChartResponseData from './ChartDataResponse.json'
@@ -20,6 +20,18 @@ import PerspectiveResponseData from './PerspectiveData.json'
 
 jest.mock('services/ce', () => ({
   ...(jest.requireActual('services/ce') as any),
+  useGetLastMonthCost: jest.fn().mockImplementation(() => ({
+    data: { resource: 100 },
+    refetch: jest.fn(),
+    error: null,
+    loading: false
+  })),
+  useGetForecastCost: jest.fn().mockImplementation(() => ({
+    data: { resource: 100 },
+    refetch: jest.fn(),
+    error: null,
+    loading: false
+  })),
   useGetPerspective: jest.fn().mockImplementation(() => {
     return { data: PerspectiveResponseData, refetch: jest.fn(), error: null, loading: false }
   })
@@ -45,6 +57,22 @@ describe('test cases for Perspective details Page', () => {
         }
         if (query === FetchViewFieldsDocument) {
           return fromValue(ViewFieldResponseData)
+        }
+        if (query === FetchPerspectiveBudgetDocument) {
+          return fromValue({
+            data: {
+              budgetSummary: {
+                id: 'OgqEcGrMTY6yw1pLWmjmpQ',
+                name: 'GCP All',
+                budgetAmount: 2000000.0,
+                actualCost: 785774.63,
+                timeLeft: 9,
+                timeUnit: 'days',
+                timeScope: 'monthly',
+                __typename: 'BudgetSummary'
+              }
+            }
+          })
         }
         return fromValue({})
       }

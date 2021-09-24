@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState, useCallback } from 'react'
 import { Select, Table, TextInput } from '@wings-software/uicore'
-import type { CellProps } from 'react-table'
-import debounce from 'lodash-es/debounce'
-import { useCallback } from 'react'
+import type { CellProps, Column } from 'react-table'
+import { debounce } from 'lodash-es'
 import type { HealthCheck } from 'services/lw'
 import type { InstanceDetails } from '../COCreateGateway/models'
 import css from './COGatewayConfig.module.scss'
@@ -21,6 +20,35 @@ const protocols: SelectItem[] = [
     value: 'https'
   }
 ]
+
+const statusRegEx = new RegExp(/^\d{3}-\d{3}$/)
+
+interface StatusRangeInputProps {
+  status_code_from: number
+  status_code_to: number
+  onChange: (val: string) => void
+}
+
+const StatusRangeInput: React.FC<StatusRangeInputProps> = props => {
+  const { status_code_from, status_code_to } = props
+  const [errorFlag, setErrorFlag] = useState(false)
+
+  const getStatusStringFromRange = (from: number | null = null, to: number | null = null) => {
+    return `${from}-${to}`
+  }
+
+  return (
+    <TextInput
+      defaultValue={getStatusStringFromRange(status_code_from as number, status_code_to)}
+      onChange={e => props.onChange((e.target as HTMLInputElement).value)}
+      onBlur={e => {
+        setErrorFlag(!statusRegEx.test((e.target as HTMLInputElement).value))
+      }}
+      errorText={'Please enter from & to values'}
+      intent={errorFlag ? 'danger' : 'none'}
+    />
+  )
+}
 
 interface COHealthCheckTableProps {
   pattern: HealthCheck | null
@@ -85,38 +113,65 @@ const COHealthCheckTable: React.FC<COHealthCheckTableProps> = props => {
       />
     )
   }
+
+  const StatusCell = (tableProps: CellProps<HealthCheck>) => {
+    return (
+      <StatusRangeInput
+        status_code_from={tableProps.row.original.status_code_from || 200}
+        status_code_to={tableProps.row.original.status_code_to || 299}
+        onChange={value => {
+          if (statusRegEx.test(value)) {
+            const [from, to] = value.split('-').map(Number)
+            setHealthCheckPattern([{ ...healthCheckPattern[0], status_code_from: from, status_code_to: to }])
+          }
+        }}
+      />
+    )
+  }
+
+  const columns: Column<HealthCheck>[] = useMemo(
+    () => [
+      {
+        accessor: 'protocol',
+        Header: 'PROTOCOL',
+        width: '16.5%',
+        Cell: ProtocolCell
+      },
+      {
+        accessor: 'path',
+        Header: 'PATH',
+        width: '16.5%',
+        Cell: InputCell,
+        disableSortBy: true
+      },
+      {
+        accessor: 'port',
+        Header: 'PORT',
+        width: '16.5%',
+        Cell: InputCell
+      },
+      {
+        accessor: 'timeout',
+        Header: 'TIMEOUT(SECS)',
+        width: '16.5%',
+        Cell: InputCell
+      },
+      {
+        accessor: 'status_code_from',
+        Header: 'STATUS (from-to)',
+        width: '20%',
+        Cell: StatusCell
+      }
+    ],
+    [healthCheckPattern]
+  )
+
   return (
     <Table<HealthCheck>
       data={healthCheckPattern}
       bpTableProps={{}}
       className={css.healthCheckTable}
-      columns={[
-        {
-          accessor: 'protocol',
-          Header: 'PROTOCOL',
-          width: '16.5%',
-          Cell: ProtocolCell
-        },
-        {
-          accessor: 'path',
-          Header: 'PATH',
-          width: '16.5%',
-          Cell: InputCell,
-          disableSortBy: true
-        },
-        {
-          accessor: 'port',
-          Header: 'PORT',
-          width: '16.5%',
-          Cell: InputCell
-        },
-        {
-          accessor: 'timeout',
-          Header: 'TIMEOUT(SECS)',
-          width: '16.5%',
-          Cell: InputCell
-        }
-      ]}
+      columns={columns}
     />
   )
 }

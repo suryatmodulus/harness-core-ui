@@ -42,6 +42,7 @@
       "@ce/*": ["modules/75-ce/*"]
     }
   },
+  "types": ["cypress"],
   "include": ["src/"],
   "exclude": ["node_modules"]
 }

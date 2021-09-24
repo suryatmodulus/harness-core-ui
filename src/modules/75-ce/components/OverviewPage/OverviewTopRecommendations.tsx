@@ -5,6 +5,7 @@ import { K8sRecommendationFilterDtoInput, RecommendationItemDto, useRecommendati
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import formatCost from '@ce/utils/formatCost'
+import EmptyView from '@ce/images/empty-state.svg'
 import { Loader } from './OverviewPageLayout'
 import css from './OverviewPage.module.scss'
 
@@ -38,17 +39,26 @@ const OverviewTopRecommendations = () => {
           <Text color="grey800" font={{ weight: 'semi-bold', size: 'medium' }}>
             {getString('ce.overview.cardtitles.topRecommendation')}
           </Text>
-          <Link to={routes.toCERecommendations({ ...pathParams })}>
-            <Text inline color="primary7">
-              {getString('ce.overview.seeAll')}
-            </Text>
-          </Link>
+          {recommendationItems.length ? (
+            <Link to={routes.toCERecommendations({ ...pathParams })}>
+              <Text inline color="primary7">
+                {getString('ce.overview.seeAll')}
+              </Text>
+            </Link>
+          ) : null}
         </Layout.Horizontal>
-        <div className={css.recommendations}>
-          {recommendationItems.map((rec, idx) => {
-            return <Recommendation key={idx} data={rec as RecommendationItemDto} />
-          })}
-        </div>
+        {recommendationItems.length ? (
+          <div className={css.recommendations}>
+            {recommendationItems.map((rec, idx) => {
+              return <Recommendation key={idx} data={rec as RecommendationItemDto} />
+            })}
+          </div>
+        ) : (
+          <Container className={css.noDataContainer}>
+            <img className={css.noDataImg} src={EmptyView} />
+            <Text className={css.noDataText}>{getString('ce.pageErrorMsg.noRecommendations')}</Text>
+          </Container>
+        )}
       </Layout.Vertical>
     </div>
   )

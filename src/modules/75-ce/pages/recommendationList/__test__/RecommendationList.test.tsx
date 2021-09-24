@@ -5,7 +5,7 @@ import { fromValue } from 'wonka'
 import type { DocumentNode } from 'graphql'
 
 import { TestWrapper } from '@common/utils/testUtils'
-import { RecommendationFiltersDocument, RecommendationsDocument } from 'services/ce/services'
+import { RecommendationFiltersDocument, RecommendationsDocument, FetchCcmMetaDataDocument } from 'services/ce/services'
 
 import RecommendationList from '../RecommendationList'
 import ResponseData from './ListData.json'
@@ -54,6 +54,130 @@ describe('test cases for Recommendation List Page', () => {
               recommendationStatsV2: { totalMonthlyCost: 0, totalMonthlySaving: 0 },
               recommendationsV2: {
                 items: []
+              }
+            }
+          })
+        }
+        if (query === FetchCcmMetaDataDocument) {
+          return fromValue({
+            data: {
+              ccmMetaData: {
+                k8sClusterConnectorPresent: true,
+                cloudDataPresent: true,
+                awsConnectorsPresent: true,
+                gcpConnectorsPresent: true,
+                azureConnectorsPresent: true,
+                applicationDataPresent: true,
+                inventoryDataPresent: false,
+                clusterDataPresent: true,
+                isSampleClusterPresent: false,
+                defaultAzurePerspectiveId: 'azureId',
+                defaultAwsPerspectiveId: 'awsId',
+                defaultGcpPerspectiveId: 'gcpId',
+                defaultClusterPerspectiveId: 'clusterId',
+                __typename: 'CCMMetaData'
+              }
+            }
+          })
+        }
+      }
+    }
+
+    const { container } = render(
+      <TestWrapper pathParams={params}>
+        <Provider value={responseState as any}>
+          <RecommendationList />
+        </Provider>
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should be able to render page when thr are no k8s connector', async () => {
+    const responseState = {
+      executeQuery: ({ query }: { query: DocumentNode }) => {
+        if (query === RecommendationFiltersDocument) {
+          return fromValue(FilterResponseData)
+        }
+        if (query === RecommendationsDocument) {
+          return fromValue({
+            data: {
+              recommendationStatsV2: { totalMonthlyCost: 0, totalMonthlySaving: 0 },
+              recommendationsV2: {
+                items: []
+              }
+            }
+          })
+        }
+        if (query === FetchCcmMetaDataDocument) {
+          return fromValue({
+            data: {
+              ccmMetaData: {
+                k8sClusterConnectorPresent: false,
+                cloudDataPresent: true,
+                awsConnectorsPresent: true,
+                gcpConnectorsPresent: true,
+                azureConnectorsPresent: true,
+                applicationDataPresent: true,
+                inventoryDataPresent: false,
+                clusterDataPresent: true,
+                isSampleClusterPresent: false,
+                defaultAzurePerspectiveId: 'azureId',
+                defaultAwsPerspectiveId: 'awsId',
+                defaultGcpPerspectiveId: 'gcpId',
+                defaultClusterPerspectiveId: 'clusterId',
+                __typename: 'CCMMetaData'
+              }
+            }
+          })
+        }
+      }
+    }
+
+    const { container } = render(
+      <TestWrapper pathParams={params}>
+        <Provider value={responseState as any}>
+          <RecommendationList />
+        </Provider>
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should be able to render page when thr are k8s connector but no cluster data', async () => {
+    const responseState = {
+      executeQuery: ({ query }: { query: DocumentNode }) => {
+        if (query === RecommendationFiltersDocument) {
+          return fromValue(FilterResponseData)
+        }
+        if (query === RecommendationsDocument) {
+          return fromValue({
+            data: {
+              recommendationStatsV2: { totalMonthlyCost: 0, totalMonthlySaving: 0 },
+              recommendationsV2: {
+                items: []
+              }
+            }
+          })
+        }
+        if (query === FetchCcmMetaDataDocument) {
+          return fromValue({
+            data: {
+              ccmMetaData: {
+                k8sClusterConnectorPresent: true,
+                cloudDataPresent: true,
+                awsConnectorsPresent: true,
+                gcpConnectorsPresent: true,
+                azureConnectorsPresent: true,
+                applicationDataPresent: true,
+                inventoryDataPresent: false,
+                clusterDataPresent: false,
+                isSampleClusterPresent: false,
+                defaultAzurePerspectiveId: 'azureId',
+                defaultAwsPerspectiveId: 'awsId',
+                defaultGcpPerspectiveId: 'gcpId',
+                defaultClusterPerspectiveId: 'clusterId',
+                __typename: 'CCMMetaData'
               }
             }
           })

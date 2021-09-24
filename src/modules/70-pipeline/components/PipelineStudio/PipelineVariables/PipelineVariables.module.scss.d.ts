@@ -39,6 +39,9 @@ declare const styles: {
   readonly variablePaddingL1: string
   readonly variablePaddingL2: string
   readonly variablePaddingL3: string
+  readonly variablePaddingTagL1: string
+  readonly variablePaddingTagL2: string
+  readonly variablePaddingTagL3: string
   readonly customVarPadL1: string
   readonly customVarPadL2: string
   readonly customVarPadL3: string
@@ -48,5 +51,7 @@ declare const styles: {
   readonly descriptionTooltip: string
   readonly addVariableL1: string
   readonly addVariableL2: string
+  readonly variableListSimple: string
+  readonly tagSection: string
 }
 export default styles

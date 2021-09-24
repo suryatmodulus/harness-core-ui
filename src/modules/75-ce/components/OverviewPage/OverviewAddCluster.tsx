@@ -7,7 +7,13 @@ import type { ConnectorInfoDTO } from 'services/cd-ng'
 import AddClusterImage from './images/AddCluster.svg'
 import css from './OverviewPage.module.scss'
 
-const OverviewAddCluster = ({ onAddClusterSuccess }: { onAddClusterSuccess: () => void }) => {
+const OverviewAddCluster = ({
+  onAddClusterSuccess,
+  descriptionText
+}: {
+  onAddClusterSuccess: () => void
+  descriptionText?: string
+}) => {
   const { getString } = useStrings()
   const { openConnectorModal, hideConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
@@ -20,7 +26,13 @@ const OverviewAddCluster = ({ onAddClusterSuccess }: { onAddClusterSuccess: () =
     <div className={css.addCluster}>
       <img src={AddClusterImage} height={150} />
       <Container width={650}>
-        <Text>{getString('ce.overview.addClusterDesc')}</Text>
+        <Text
+          style={{
+            textAlign: 'center'
+          }}
+        >
+          {descriptionText ? descriptionText : getString('ce.overview.addClusterDesc')}
+        </Text>
       </Container>
       <Button
         withoutBoxShadow={true}

@@ -137,35 +137,42 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
                 class="bp3-form-content"
               >
                 <div
-                  class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                  class="StyledProps--main"
                 >
-                  <label
-                    class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                  
+                  <div
+                    class="RadioButtonGroup--inline"
                   >
-                    <input
-                      checked=""
-                      name="tagType"
-                      type="radio"
-                      value="value"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    Value
-                  </label>
-                  <label
-                    class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      name="tagType"
-                      type="radio"
-                      value="regex"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    Regex
-                  </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        checked=""
+                        class="RadioButton--input"
+                        name="tagType"
+                        type="radio"
+                        value="value"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      Value
+                    </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        class="RadioButton--input"
+                        name="tagType"
+                        type="radio"
+                        value="regex"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      Regex
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -473,35 +480,42 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
                 class="bp3-form-content"
               >
                 <div
-                  class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                  class="StyledProps--main"
                 >
-                  <label
-                    class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                  
+                  <div
+                    class="RadioButtonGroup--inline"
                   >
-                    <input
-                      checked=""
-                      name="tagType"
-                      type="radio"
-                      value="value"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    Value
-                  </label>
-                  <label
-                    class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      name="tagType"
-                      type="radio"
-                      value="regex"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    Regex
-                  </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        checked=""
+                        class="RadioButton--input"
+                        name="tagType"
+                        type="radio"
+                        value="value"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      Value
+                    </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        class="RadioButton--input"
+                        name="tagType"
+                        type="radio"
+                        value="regex"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      Regex
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -809,35 +823,42 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
                 class="bp3-form-content"
               >
                 <div
-                  class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                  class="StyledProps--main"
                 >
-                  <label
-                    class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                  
+                  <div
+                    class="RadioButtonGroup--inline"
                   >
-                    <input
-                      checked=""
-                      name="tagType"
-                      type="radio"
-                      value="value"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    Value
-                  </label>
-                  <label
-                    class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      name="tagType"
-                      type="radio"
-                      value="regex"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    Regex
-                  </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        checked=""
+                        class="RadioButton--input"
+                        name="tagType"
+                        type="radio"
+                        value="value"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      Value
+                    </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        class="RadioButton--input"
+                        name="tagType"
+                        type="radio"
+                        value="regex"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      Regex
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>

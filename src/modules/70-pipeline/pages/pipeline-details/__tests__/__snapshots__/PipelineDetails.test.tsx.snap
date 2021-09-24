@@ -63,7 +63,7 @@ exports[`Pipeline Details tests render snapshot view for non pipeline studio rou
                   </svg>
                 </span>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                  class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
                 >
                   test
                 </p>
@@ -73,9 +73,9 @@ exports[`Pipeline Details tests render snapshot view for non pipeline studio rou
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="12"
+                  height="8"
                   viewBox="0 0 8 14"
-                  width="12"
+                  width="8"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -93,7 +93,7 @@ exports[`Pipeline Details tests render snapshot view for non pipeline studio rou
                 href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                  class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
                 >
                   pipelineBreadcrumb
                 </p>
@@ -103,9 +103,9 @@ exports[`Pipeline Details tests render snapshot view for non pipeline studio rou
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="12"
+                  height="8"
                   viewBox="0 0 8 14"
-                  width="12"
+                  width="8"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path

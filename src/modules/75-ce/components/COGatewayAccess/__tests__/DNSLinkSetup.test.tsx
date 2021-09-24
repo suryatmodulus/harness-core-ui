@@ -103,7 +103,8 @@ jest.mock('services/lw', () => ({
   useSecurityGroupsOfInstances: jest.fn().mockImplementation(() => ({
     mutate: jest.fn(() => Promise.resolve({ response: mockedSecurityGroupResponse })),
     loading: false
-  }))
+  })),
+  useEditAccessPoint: jest.fn().mockImplementation(() => ({ mutate: Promise.resolve() }))
 }))
 
 const initialGatewayDetails = {

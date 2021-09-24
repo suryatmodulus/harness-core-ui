@@ -1,6 +1,7 @@
 import React from 'react'
 import { NestedAccordionPanel } from '@wings-software/uicore'
 import cx from 'classnames'
+import { isEmpty, lowerCase } from 'lodash-es'
 import type { PipelineInfrastructure, Infrastructure, ExecutionElementConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -9,6 +10,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
+import VariableListTagRow from '@pipeline/components/VariablesListTable/VariableListTagRow'
 import { ExecutionCardPanel } from './ExecutionCard'
 import type { PipelineVariablesData } from '../types'
 import VariableAccordionSummary from '../VariableAccordionSummary'
@@ -47,6 +49,15 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
         originalData={originalInfrastructure.environment}
         metadataMap={metadataMap}
       />
+      {!isEmpty(originalInfrastructure?.environment?.tags) && (
+        <VariableListTagRow
+          metadataMap={metadataMap}
+          name={lowerCase(getString('tagsLabel'))}
+          tags={originalInfrastructure?.environment?.tags}
+          fqn=""
+          className={css.variablePaddingTagL3}
+        />
+      )}
       <StepWidget<Infrastructure>
         factory={stepsFactory}
         initialValues={originalInfrastructure.infrastructureDefinition?.spec || {}}

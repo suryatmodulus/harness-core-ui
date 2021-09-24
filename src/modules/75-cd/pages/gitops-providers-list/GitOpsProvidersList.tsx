@@ -36,7 +36,7 @@ import { getGitOpsLogo } from '@cd/utils/GitOpsUtils'
 
 import NewProviderModal from './NewProviderModal/NewProviderModal'
 import ProvidersGridView from './ProvidersGridView/ProvidersGridView'
-import providerIllustration from './images/provider-illustration-o.svg'
+import noAdapterIllustration from './images/noAdapterIllustration.svg'
 
 import css from './GitOpsProvidersList.module.scss'
 
@@ -95,7 +95,7 @@ const GitOpsModalContainer: React.FC = () => {
 
       if (deleted) {
         refetchConnectorList({ queryParams: { ...defaultQueryParams, searchTerm, pageIndex: 0 } })
-        showSuccess(`Provider ${provider?.name} deleted`)
+        showSuccess(getString('cd.adapterDelete', { adapterName: provider?.name }))
       }
     } catch (err) {
       showError(err?.data?.message || err?.message)
@@ -248,7 +248,7 @@ const GitOpsModalContainer: React.FC = () => {
         <Layout.Horizontal>
           <RbacButton
             variation={ButtonVariation.PRIMARY}
-            text={getString('cd.newProvider')}
+            text={getString('cd.newAdapter')}
             permission={{
               permission: PermissionIdentifier.CREATE_PROJECT, // change to ADD_NEW_PROVIDER
               resource: {
@@ -269,8 +269,8 @@ const GitOpsModalContainer: React.FC = () => {
         <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
           <ExpandingSearchInput
             alwaysExpanded
-            width={200}
-            placeholder={getString('search')}
+            width={300}
+            placeholder={getString('cd.searchPlaceholder')}
             throttle={200}
             onChange={(query: string) => {
               setSearchTerm(query)
@@ -307,13 +307,12 @@ const GitOpsModalContainer: React.FC = () => {
                 gotoPage={(pageNumber: number) => setPage(pageNumber)}
               />
             ) : (
-              // <Page.NoDataCard icon="nav-dashboard" message={getString('noConnectorFound')} />
               <div className={css.noPipelineSection}>
                 <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}>
-                  <img src={providerIllustration} className={css.image} />
+                  <img src={noAdapterIllustration} className={css.image} />
 
                   <Text className={css.noProviderText} margin={{ top: 'medium', bottom: 'small' }}>
-                    {getString('cd.noProviderText')}
+                    {getString('cd.noAdapterText')}
                   </Text>
                   <Text className={css.aboutProvider} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
                     {getString('cd.aboutProvider')}
@@ -321,7 +320,7 @@ const GitOpsModalContainer: React.FC = () => {
 
                   <RbacButton
                     variation={ButtonVariation.PRIMARY}
-                    text={getString('cd.newProvider')}
+                    text={getString('cd.newAdapter')}
                     permission={{
                       permission: PermissionIdentifier.CREATE_PROJECT, // change to ADD_NEW_PROVIDER
                       resource: {

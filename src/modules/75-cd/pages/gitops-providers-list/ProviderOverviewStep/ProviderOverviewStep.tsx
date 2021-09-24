@@ -185,7 +185,7 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
       ) : null}
 
       <Layout.Vertical spacing="xxlarge" className={css.stepContainer}>
-        <div className={css.heading}>{getString('cd.providerOverview')}</div>
+        <div className={css.heading}>{getString('overview')}</div>
         <Container className={css.connectorForm}>
           <Formik<GitOpsProvider>
             onSubmit={formData => {
@@ -228,6 +228,9 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
                           className={css.formElm}
                           formikProps={formikProps}
                           identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
+                          tooltipProps={{
+                            dataTooltipId: `GitOpsProviderStepFormNameIdDescriptionTags`
+                          }}
                         />
 
                         <FormInput.Text className={css.adapterUrl} name="spec.adapterUrl" label={'Adapter URL'} />

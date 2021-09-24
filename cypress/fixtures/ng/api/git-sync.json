@@ -1,0 +1,13 @@
+[
+  {
+    "identifier": "repo",
+    "name": "repo",
+    "projectIdentifier": "twoWayGitSync",
+    "orgIdentifier": "default",
+    "gitConnectorRef": "account.SunnyAcctScopeRepoTypeGit",
+    "repo": "https://github.com/wings-software/sunnykesh-gitSync",
+    "branch": "master",
+    "gitConnectorType": "Github",
+    "gitSyncFolderConfigDTOs": [{ "rootFolder": "src/.harness/", "isDefault": true }]
+  }
+]

@@ -8,7 +8,7 @@ exports[`Connector details step Test for  create  connector step one required fe
     <div
       class="heading"
     >
-      cd.providerOverview
+      overview
     </div>
     <div
       class="StyledProps--font StyledProps--main connectorForm"
@@ -164,6 +164,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                     >
                       <label
                         class="Label--main bp3-label descriptionLabel"
+                        data-tooltip-id="GitOpsProviderStepFormNameIdDescriptionTags_description"
                       >
                         optionalField
                         <span
@@ -203,6 +204,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                     >
                       <label
                         class="Label--main bp3-label descriptionLabel"
+                        data-tooltip-id="GitOpsProviderStepFormNameIdDescriptionTags_tags"
                       >
                         optionalField
                         <span
@@ -404,7 +406,7 @@ exports[`Connector details step Test for going to next step 1`] = `
     <div
       class="heading"
     >
-      cd.providerOverview
+      overview
     </div>
     <div
       class="StyledProps--font StyledProps--main connectorForm"
@@ -532,6 +534,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                     >
                       <label
                         class="Label--main bp3-label descriptionLabel"
+                        data-tooltip-id="GitOpsProviderStepFormNameIdDescriptionTags_description"
                       >
                         optionalField
                         <span
@@ -571,6 +574,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                     >
                       <label
                         class="Label--main bp3-label descriptionLabel"
+                        data-tooltip-id="GitOpsProviderStepFormNameIdDescriptionTags_tags"
                       >
                         optionalField
                         <span

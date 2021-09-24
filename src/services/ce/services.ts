@@ -154,6 +154,25 @@ export function useFetchOverviewTimeSeriesQuery(
 ) {
   return Urql.useQuery<FetchOverviewTimeSeriesQuery>({ query: FetchOverviewTimeSeriesDocument, ...options })
 }
+export const FetchPerspectiveBudgetDocument = gql`
+  query FetchPerspectiveBudget($perspectiveId: String) {
+    budgetSummary(perspectiveId: $perspectiveId) {
+      id
+      name
+      budgetAmount
+      actualCost
+      timeLeft
+      timeUnit
+      timeScope
+    }
+  }
+`
+
+export function useFetchPerspectiveBudgetQuery(
+  options: Omit<Urql.UseQueryArgs<FetchPerspectiveBudgetQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchPerspectiveBudgetQuery>({ query: FetchPerspectiveBudgetDocument, ...options })
+}
 export const FetchPerspectiveFiltersValueDocument = gql`
   query FetchPerspectiveFiltersValue($filters: [QLCEViewFilterWrapperInput], $offset: Int, $limit: Int) {
     perspectiveFilters(filters: $filters, offset: $offset, limit: $limit) {
@@ -366,6 +385,60 @@ export function useFetchPerspectiveDetailsSummaryQuery(
 ) {
   return Urql.useQuery<FetchPerspectiveDetailsSummaryQuery>({
     query: FetchPerspectiveDetailsSummaryDocument,
+    ...options
+  })
+}
+export const FetchPerspectiveDetailsSummaryWithBudgetDocument = gql`
+  query FetchPerspectiveDetailsSummaryWithBudget(
+    $filters: [QLCEViewFilterWrapperInput]
+    $aggregateFunction: [QLCEViewAggregationInput]
+    $isClusterQuery: Boolean
+  ) {
+    perspectiveTrendStats(filters: $filters, aggregateFunction: $aggregateFunction, isClusterQuery: $isClusterQuery) {
+      cost {
+        statsDescription
+        statsLabel
+        statsTrend
+        statsValue
+        value
+      }
+      idleCost {
+        statsLabel
+        statsValue
+        value
+      }
+      unallocatedCost {
+        statsLabel
+        statsValue
+        value
+      }
+      utilizedCost {
+        statsLabel
+        statsValue
+        value
+      }
+      efficiencyScoreStats {
+        statsLabel
+        statsTrend
+        statsValue
+      }
+    }
+    perspectiveForecastCost(filters: $filters, aggregateFunction: $aggregateFunction, isClusterQuery: $isClusterQuery) {
+      cost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+    }
+  }
+`
+
+export function useFetchPerspectiveDetailsSummaryWithBudgetQuery(
+  options: Omit<Urql.UseQueryArgs<FetchPerspectiveDetailsSummaryWithBudgetQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchPerspectiveDetailsSummaryWithBudgetQuery>({
+    query: FetchPerspectiveDetailsSummaryWithBudgetDocument,
     ...options
   })
 }
@@ -962,6 +1035,24 @@ export type FetchOverviewTimeSeriesQuery = {
   }>
 }
 
+export type FetchPerspectiveBudgetQueryVariables = Exact<{
+  perspectiveId: Maybe<Scalars['String']>
+}>
+
+export type FetchPerspectiveBudgetQuery = {
+  __typename?: 'Query'
+  budgetSummary: Maybe<{
+    __typename?: 'BudgetSummary'
+    id: Maybe<string>
+    name: Maybe<string>
+    budgetAmount: Maybe<number>
+    actualCost: Maybe<number>
+    timeLeft: number
+    timeUnit: Maybe<string>
+    timeScope: Maybe<string>
+  }>
+}
+
 export type FetchPerspectiveFiltersValueQueryVariables = Exact<{
   filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
   offset: Maybe<Scalars['Int']>
@@ -1124,6 +1215,46 @@ export type FetchPerspectiveDetailsSummaryQueryVariables = Exact<{
 }>
 
 export type FetchPerspectiveDetailsSummaryQuery = {
+  __typename?: 'Query'
+  perspectiveTrendStats: Maybe<{
+    __typename?: 'PerspectiveTrendStats'
+    cost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsDescription: string
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      value: Maybe<any>
+    }>
+    idleCost: Maybe<{ __typename?: 'StatsInfo'; statsLabel: string; statsValue: string; value: Maybe<any> }>
+    unallocatedCost: Maybe<{ __typename?: 'StatsInfo'; statsLabel: string; statsValue: string; value: Maybe<any> }>
+    utilizedCost: Maybe<{ __typename?: 'StatsInfo'; statsLabel: string; statsValue: string; value: Maybe<any> }>
+    efficiencyScoreStats: Maybe<{
+      __typename?: 'EfficiencyScoreStats'
+      statsLabel: Maybe<string>
+      statsTrend: Maybe<any>
+      statsValue: Maybe<string>
+    }>
+  }>
+  perspectiveForecastCost: Maybe<{
+    __typename?: 'PerspectiveTrendStats'
+    cost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      statsDescription: string
+    }>
+  }>
+}
+
+export type FetchPerspectiveDetailsSummaryWithBudgetQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>> | Maybe<QlceViewAggregationInput>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
+}>
+
+export type FetchPerspectiveDetailsSummaryWithBudgetQuery = {
   __typename?: 'Query'
   perspectiveTrendStats: Maybe<{
     __typename?: 'PerspectiveTrendStats'
@@ -1600,6 +1731,23 @@ export type Scalars = {
 /** This union of all types of recommendations */
 export type RecommendationDetails = NodeRecommendationDto | WorkloadRecommendationDto
 
+export type AnomalyData = {
+  __typename?: 'AnomalyData'
+  actualAmount: Maybe<Scalars['Float']>
+  anomalyScore: Maybe<Scalars['Float']>
+  comment: Maybe<Scalars['String']>
+  entity: Maybe<EntityInfo>
+  expectedAmount: Maybe<Scalars['Float']>
+  id: Maybe<Scalars['String']>
+  time: Maybe<Scalars['Long']>
+  userFeedback: Maybe<AnomalyFeedback>
+}
+
+export type AnomalyDataList = {
+  __typename?: 'AnomalyDataList'
+  data: Maybe<Array<Maybe<AnomalyData>>>
+}
+
 export type BillingData = {
   __typename?: 'BillingData'
   accountid: Maybe<Scalars['String']>
@@ -1673,6 +1821,17 @@ export type BillingDataDemo = {
   instanceid: Maybe<Scalars['String']>
   instancename: Maybe<Scalars['String']>
   starttime: Maybe<Scalars['Long']>
+}
+
+export type BudgetSummary = {
+  __typename?: 'BudgetSummary'
+  actualCost: Maybe<Scalars['Float']>
+  budgetAmount: Maybe<Scalars['Float']>
+  id: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  timeLeft: Scalars['Int']
+  timeScope: Maybe<Scalars['String']>
+  timeUnit: Maybe<Scalars['String']>
 }
 
 export type CcmMetaData = {
@@ -1800,6 +1959,21 @@ export type EfficiencyScoreStats = {
   statsLabel: Maybe<Scalars['String']>
   statsTrend: Maybe<Scalars['BigDecimal']>
   statsValue: Maybe<Scalars['String']>
+}
+
+export type EntityInfo = {
+  __typename?: 'EntityInfo'
+  awsAccount: Maybe<Scalars['String']>
+  awsService: Maybe<Scalars['String']>
+  clusterId: Maybe<Scalars['String']>
+  clusterName: Maybe<Scalars['String']>
+  gcpProduct: Maybe<Scalars['String']>
+  gcpProject: Maybe<Scalars['String']>
+  gcpSKUDescription: Maybe<Scalars['String']>
+  gcpSKUId: Maybe<Scalars['String']>
+  namespace: Maybe<Scalars['String']>
+  workloadName: Maybe<Scalars['String']>
+  workloadType: Maybe<Scalars['String']>
 }
 
 export type FilterStatsDto = {
@@ -1966,6 +2140,7 @@ export type QlceViewEntityStatsDataPoint = {
   id: Maybe<Scalars['String']>
   instanceDetails: Maybe<InstanceDetails>
   name: Maybe<Scalars['String']>
+  pricingSource: Maybe<Scalars['String']>
   storageDetails: Maybe<StorageDetails>
 }
 
@@ -1987,8 +2162,12 @@ export type QlceViewFieldIdentifierData = {
 /** Query root */
 export type Query = {
   __typename?: 'Query'
+  /** Get Anomalies for perspective */
+  anomaliesForPerspective: Maybe<AnomalyDataList>
   billingData: Maybe<Array<Maybe<BillingData>>>
   billingdata: Maybe<Array<Maybe<BillingDataDemo>>>
+  /** Budget card for perspectives */
+  budgetSummary: Maybe<BudgetSummary>
   /** Fetch CCM MetaData for account */
   ccmMetaData: Maybe<CcmMetaData>
   instancedata: Maybe<InstanceDataDemo>
@@ -2030,6 +2209,12 @@ export type Query = {
 }
 
 /** Query root */
+export type QueryAnomaliesForPerspectiveArgs = {
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>>>
+}
+
+/** Query root */
 export type QueryBillingDataArgs = {
   request: Maybe<GridRequestInput>
 }
@@ -2039,6 +2224,11 @@ export type QueryBillingdataArgs = {
   clusterid: Maybe<Scalars['String']>
   endTime: Maybe<Scalars['OffsetTime']>
   startTime: Maybe<Scalars['OffsetTime']>
+}
+
+/** Query root */
+export type QueryBudgetSummaryArgs = {
+  perspectiveId: Maybe<Scalars['String']>
 }
 
 /** Query root */
@@ -2091,6 +2281,7 @@ export type QueryPerspectiveGridArgs = {
   isClusterQuery: Maybe<Scalars['Boolean']>
   limit: Maybe<Scalars['Int']>
   offset: Maybe<Scalars['Int']>
+  skipRoundOff: Maybe<Scalars['Boolean']>
   sortCriteria: Maybe<Array<Maybe<QlceViewSortCriteriaInput>>>
 }
 
@@ -2334,6 +2525,12 @@ export enum AggregationOperation {
   Sum = 'SUM'
 }
 
+export enum AnomalyFeedback {
+  FalseAnomaly = 'FALSE_ANOMALY',
+  NotResponded = 'NOT_RESPONDED',
+  TrueAnomaly = 'TRUE_ANOMALY'
+}
+
 export enum FilterOperator {
   Equals = 'EQUALS',
   GreaterOrEquals = 'GREATER_OR_EQUALS',
@@ -2359,6 +2556,7 @@ export enum QlceSortOrder {
 }
 
 export enum QlceViewAggregateOperation {
+  Avg = 'AVG',
   Max = 'MAX',
   Min = 'MIN',
   Sum = 'SUM'
@@ -2367,6 +2565,7 @@ export enum QlceViewAggregateOperation {
 export enum QlceViewFilterOperator {
   Equals = 'EQUALS',
   In = 'IN',
+  Like = 'LIKE',
   NotIn = 'NOT_IN',
   NotNull = 'NOT_NULL',
   Null = 'NULL'

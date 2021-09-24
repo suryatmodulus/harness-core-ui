@@ -179,7 +179,7 @@ const TerraformRollbackVariableStep: React.FC<TerraformRollbackVariableStepProps
 }) => {
   return (
     <VariablesListTable
-      className={pipelineVariableCss.variablePaddingL2}
+      className={pipelineVariableCss.variablePaddingL3}
       data={variablesData.spec}
       originalData={initialValues.spec}
       metadataMap={metadataMap}

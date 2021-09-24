@@ -82,3 +82,26 @@ export const DEFAULT_ACCESS_DETAILS = {
   backgroundTasks: { selected: false },
   ipaddress: { selected: false }
 }
+
+export const providerLoadBalancerRefMap: Record<string, string> = {
+  azure: 'Application Gateway',
+  aws: 'Load Balancer'
+}
+
+export const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configStep4']
+
+export const CONFIG_IDLE_TIME_CONSTRAINTS = {
+  MIN: 5,
+  MAX: 480
+}
+
+export enum RESOURCES {
+  INSTANCES = 'INSTANCES',
+  ASG = 'ASG',
+  KUBERNETES = 'KUBERNETES'
+}
+
+export const CONFIG_TOTAL_STEP_COUNTS = {
+  DEFAULT: 4,
+  MODIFIED: 3
+}

@@ -72,47 +72,55 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for ExtendT
               class="bp3-form-content"
             >
               <div
-                class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                class="StyledProps--main"
               >
-                <label
-                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                
+                <div
+                  class=""
                 >
-                  <input
-                    name="experience"
-                    type="radio"
-                    value="10"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  common.extendTrial.feedback.answers.useful
-                </label>
-                <label
-                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                >
-                  <input
-                    name="experience"
-                    type="radio"
-                    value="5"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  common.extendTrial.feedback.answers.needMore
-                </label>
-                <label
-                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                >
-                  <input
-                    name="experience"
-                    type="radio"
-                    value="0"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  common.extendTrial.feedback.answers.improve
-                </label>
+                  <label
+                    class="RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      class="RadioButton--input"
+                      name="experience"
+                      type="radio"
+                      value="10"
+                    />
+                    <span
+                      class="RadioButton--radioIcon"
+                    />
+                    common.extendTrial.feedback.answers.useful
+                  </label>
+                  <label
+                    class="RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      class="RadioButton--input"
+                      name="experience"
+                      type="radio"
+                      value="5"
+                    />
+                    <span
+                      class="RadioButton--radioIcon"
+                    />
+                    common.extendTrial.feedback.answers.needMore
+                  </label>
+                  <label
+                    class="RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      class="RadioButton--input"
+                      name="experience"
+                      type="radio"
+                      value="0"
+                    />
+                    <span
+                      class="RadioButton--radioIcon"
+                    />
+                    common.extendTrial.feedback.answers.improve
+                  </label>
+                </div>
               </div>
               <div
                 class="bp3-form-helper-text"
@@ -249,47 +257,55 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for FeedBac
               class="bp3-form-content"
             >
               <div
-                class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                class="StyledProps--main"
               >
-                <label
-                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                
+                <div
+                  class=""
                 >
-                  <input
-                    name="experience"
-                    type="radio"
-                    value="10"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  common.extendTrial.feedback.answers.useful
-                </label>
-                <label
-                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                >
-                  <input
-                    name="experience"
-                    type="radio"
-                    value="5"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  common.extendTrial.feedback.answers.needMore
-                </label>
-                <label
-                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                >
-                  <input
-                    name="experience"
-                    type="radio"
-                    value="0"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  common.extendTrial.feedback.answers.improve
-                </label>
+                  <label
+                    class="RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      class="RadioButton--input"
+                      name="experience"
+                      type="radio"
+                      value="10"
+                    />
+                    <span
+                      class="RadioButton--radioIcon"
+                    />
+                    common.extendTrial.feedback.answers.useful
+                  </label>
+                  <label
+                    class="RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      class="RadioButton--input"
+                      name="experience"
+                      type="radio"
+                      value="5"
+                    />
+                    <span
+                      class="RadioButton--radioIcon"
+                    />
+                    common.extendTrial.feedback.answers.needMore
+                  </label>
+                  <label
+                    class="RadioButton--radio StyledProps--main"
+                  >
+                    <input
+                      class="RadioButton--input"
+                      name="experience"
+                      type="radio"
+                      value="0"
+                    />
+                    <span
+                      class="RadioButton--radioIcon"
+                    />
+                    common.extendTrial.feedback.answers.improve
+                  </label>
+                </div>
               </div>
               <div
                 class="bp3-form-helper-text"

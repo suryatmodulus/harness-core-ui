@@ -27,7 +27,10 @@ jest.mock('services/cv', () => ({
 
 describe('Unit tests for HealthScoreChart', () => {
   test('Verify if all the fields are rendered correctly inside HealthScoreChart', async () => {
-    const props = { monitoredServiceIdentifier: 'monitored-service-1', duration: TimePeriodEnum.TWENTY_FOUR_HOURS }
+    const props = {
+      monitoredServiceIdentifier: 'monitored-service-1',
+      duration: { value: TimePeriodEnum.TWENTY_FOUR_HOURS, label: '24 Hours' }
+    }
     const { container } = render(<WrapperComponent {...props} />)
     expect(container).toMatchSnapshot()
   })

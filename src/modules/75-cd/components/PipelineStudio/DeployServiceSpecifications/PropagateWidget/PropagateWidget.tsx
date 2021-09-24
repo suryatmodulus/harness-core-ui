@@ -87,7 +87,7 @@ export default function PropagateWidget(props: PropagateWidgetProps): JSX.Elemen
                     font={{ weight: 'semi-bold' }}
                     label={'Propagate from:'}
                     checked={values.setupModeType === setupMode.PROPAGATE}
-                    style={{ flexShrink: 0 }}
+                    className={css.propagateFromRadio}
                   />
                   <FormInput.Select
                     className={css.stageSelectDropDown}

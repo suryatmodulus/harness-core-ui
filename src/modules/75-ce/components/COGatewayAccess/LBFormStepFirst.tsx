@@ -14,6 +14,7 @@ import {
   Text
 } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
+import type { AccessPointScreenMode } from '@ce/types'
 import { useStrings } from 'framework/strings'
 import { VALID_DOMAIN_REGEX } from '@ce/constants'
 import { AccessPoint, useAllHostedZones } from 'services/lw'
@@ -35,15 +36,24 @@ interface LBFormStepFirstProps {
   loadBalancer?: AccessPoint
   handleSubmit?: (formValues: SubmitFormVal) => void
   cloudAccountId: string | undefined
-  createMode?: boolean
+  mode: AccessPointScreenMode
   handleCancel?: () => void
   handleCloudConnectorChange?: (connectorId: string) => void
   isSaving?: boolean
   hostedZone?: string
 }
 
+/**
+ * This component handles 3 modes - create, edit and import
+ * For create mode, every field is accessible and works as expected.
+ * For import mode, name field is disabled only.
+ * For edit mode, everything is disabled and is read only.
+ */
+
 const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
-  const { loadBalancer, handleSubmit, cloudAccountId, createMode, handleCancel, isSaving } = props
+  const { loadBalancer, handleSubmit, cloudAccountId, handleCancel, isSaving, mode } = props
+  const isCreateMode = mode === 'create'
+  const isEditMode = mode === 'edit'
   const { getString } = useStrings()
   const { showError, showWarning } = useToaster()
   const [showOthersInfo, setShowOthersInfo] = useState<boolean>(!loadBalancer?.metadata?.dns?.route53)
@@ -112,15 +122,19 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
   }
 
   const onSubmit = (values: FormVal) => {
-    const hostedZoneName = getHostedZoneName(values.hostedZoneId)
-    const updatedValues = {
-      ...values,
-      ...(values.dnsProvider === 'route53' && {
-        customDomainPrefix: values.customDomainPrefix + hostedZoneName,
-        hostedZoneName
-      })
+    if (isEditMode) {
+      handleSubmit?.({ ...values })
+    } else {
+      const hostedZoneName = getHostedZoneName(values.hostedZoneId)
+      const updatedValues = {
+        ...values,
+        ...(values.dnsProvider === 'route53' && {
+          customDomainPrefix: values.customDomainPrefix + hostedZoneName,
+          hostedZoneName // setting hosted zone name to preserve hostname while navigsting between screens
+        })
+      }
+      handleSubmit?.(updatedValues)
     }
-    handleSubmit?.(updatedValues)
   }
 
   return (
@@ -128,10 +142,11 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
       initialValues={{
         hostedZoneId: loadBalancer?.metadata?.dns?.route53?.hosted_zone_id as string,
         dnsProvider: !showOthersInfo ? 'route53' : 'others',
-        customDomainPrefix:
-          props.hostedZone && loadBalancer?.metadata?.dns?.route53
-            ? (loadBalancer?.host_name?.replace(`${props.hostedZone}`, '') as string)
-            : loadBalancer?.metadata?.dns?.others || '',
+        customDomainPrefix: isEditMode
+          ? (loadBalancer?.host_name as string)
+          : props.hostedZone && loadBalancer?.metadata?.dns?.route53
+          ? (loadBalancer?.host_name?.replace(`${props.hostedZone}`, '') as string)
+          : loadBalancer?.metadata?.dns?.others || '',
         lbName: loadBalancer?.name || ''
       }}
       formName="lbFormFirst"
@@ -143,7 +158,7 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
               name="lbName"
               label="Provide a name for the Load balancer"
               className={css.lbNameInput}
-              disabled={!createMode}
+              disabled={!isCreateMode}
             />
             <Text color={Color.GREY_400} className={css.configInfo}>
               The Application Load Balancer does not have a domain name associated with it. The rule directs traffic to
@@ -165,13 +180,14 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
                       setFieldValue('customDomainPrefix', '')
                       setShowOthersInfo(false)
                     }}
+                    disabled={isEditMode}
                   ></Radio>
                   <FormInput.Select
                     name="hostedZoneId"
                     placeholder={getString('ce.co.accessPoint.select.route53zone')}
                     items={route53HostedZones}
                     style={{ width: '70%', marginBottom: 0 }}
-                    disabled={hostedZonesLoading || values.dnsProvider === 'others'}
+                    disabled={isEditMode || hostedZonesLoading || values.dnsProvider === 'others'}
                   />
                 </Layout.Horizontal>
                 <Radio
@@ -185,10 +201,16 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
                     setShowOthersInfo(true)
                   }}
                   style={{ marginBottom: 'var(--spacing-medium)' }}
+                  disabled={isEditMode}
                 ></Radio>
                 <Layout.Horizontal className={css.customDomainContainer}>
-                  <FormInput.Text name={'customDomainPrefix'} label={'Enter Domain name'} style={{ flex: 2 }} />
-                  {values.hostedZoneId && (
+                  <FormInput.Text
+                    name={'customDomainPrefix'}
+                    label={'Enter Domain name'}
+                    style={{ flex: 2 }}
+                    disabled={isEditMode}
+                  />
+                  {values.hostedZoneId && !isEditMode && (
                     <Text font={{ weight: 'bold', size: 'medium' }}>{getHostedZoneName(values.hostedZoneId)}</Text>
                   )}
                 </Layout.Horizontal>
@@ -234,7 +256,7 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
                 className={css.saveBtn}
               ></Button>
             )}
-            {!createMode && <Button intent="none" text={'Cancel'} onClick={handleCancel}></Button>}
+            {!isCreateMode && <Button intent="none" text={'Cancel'} onClick={handleCancel}></Button>}
           </Layout.Horizontal>
         </FormikForm>
       )}
@@ -252,7 +274,10 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
             .matches(VALID_DOMAIN_REGEX, getString('ce.co.accessPoint.validation.nonValidDomain')),
           otherwise: Yup.string()
             .required(getString('ce.co.accessPoint.validation.domainRequired'))
-            .matches(/^[A-Za-z0-9-]*$/, getString('ce.co.accessPoint.validation.nonValidDomain'))
+            .matches(
+              isEditMode ? VALID_DOMAIN_REGEX : /^[A-Za-z0-9-]*$/,
+              getString('ce.co.accessPoint.validation.nonValidDomain')
+            )
         })
       })}
     ></Formik>

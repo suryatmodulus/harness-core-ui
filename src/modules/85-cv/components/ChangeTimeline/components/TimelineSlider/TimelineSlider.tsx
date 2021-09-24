@@ -27,21 +27,23 @@ import css from './TimelineSlider.module.scss'
 
 export default function TimelineSlider(props: TimelineSliderProps): JSX.Element {
   const {
-    initialSliderWidth: initialWidth,
+    initialSliderWidth,
     className,
     containerWidth: propsContainerWidth,
     leftContainerOffset = 0,
     minSliderWidth,
     onSliderDragEnd,
-    infoCard
+    infoCard,
+    maxSliderWidth,
+    hideSlider
   } = props
   const [containerWidth, setContainerWidth] = useState<number>(0)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
   const [{ width, leftOffset, rightHandlePosition, leftHandlePosition, onClickTransition }, setSliderAspects] =
     useState<SliderAspects>({
-      width: initialWidth,
+      width: initialSliderWidth,
       leftOffset: 0,
-      rightHandlePosition: initialWidth - INITIAL_RIGHT_SLIDER_OFFSET,
+      rightHandlePosition: initialSliderWidth - INITIAL_RIGHT_SLIDER_OFFSET,
       leftHandlePosition: LEFT_SLIDER_OFFSET
     })
 
@@ -59,7 +61,7 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
         onSliderDragEnd?.(calculateSliderDragEndData(updatedSliderAspects, e, containerWidth))
       }
     },
-    [width, leftOffset, rightHandlePosition, leftHandlePosition, containerWidth]
+    [width, leftOffset, rightHandlePosition, leftHandlePosition, containerWidth, hideSlider]
   )
 
   useLayoutEffect(() => {
@@ -80,13 +82,17 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
     return () => sliderContainerRef.current?.parentNode?.removeEventListener('click', onClick, false)
   }, [sliderContainerRef.current, onClick])
 
-  const containerStyles = useMemo(
-    () => ({ width: propsContainerWidth, left: leftContainerOffset }),
-    [propsContainerWidth, leftContainerOffset]
-  )
+  const containerStyles = useMemo(() => {
+    return { width: propsContainerWidth, left: leftContainerOffset }
+  }, [propsContainerWidth, leftContainerOffset])
+
+  if (hideSlider) {
+    return <div className={cx(css.main, className)} ref={sliderContainerRef} style={containerStyles} />
+  }
 
   return (
     <div className={cx(css.main, className)} ref={sliderContainerRef} style={containerStyles}>
+      <Container className={css.mask} width={leftOffset} />
       <Container
         className={css.sliderContainer}
         width={width}
@@ -102,7 +108,7 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
           className={css.leftHandle}
           bounds={LEFT_SLIDER_BOUNDS}
           defaultPosition={{ x: leftHandlePosition, y: 0 }}
-          onDragEnd={e =>
+          onDragEnd={e => {
             onSliderDragEnd?.(
               calculateLeftHandleDragEndData(
                 { width, leftHandlePosition, leftOffset, rightHandlePosition },
@@ -110,11 +116,14 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
                 containerWidth
               )
             )
-          }
+            // re-attach after delay so that unwanted click event is not handled
+            setTimeout(() => sliderContainerRef?.current?.parentNode?.addEventListener('click', onClick, false))
+          }}
           onDrag={e => {
+            sliderContainerRef?.current?.parentNode?.removeEventListener('click', onClick, false)
             e.stopPropagation()
             const draggableEvent = e as MouseEvent
-            if (isLeftHandleWithinBounds({ draggableEvent, leftOffset, minSliderWidth, width })) {
+            if (isLeftHandleWithinBounds({ draggableEvent, leftOffset, minSliderWidth, width, maxSliderWidth })) {
               setSliderAspects(currAspects => calculateSliderAspectsOnLeftHandleDrag(currAspects, draggableEvent))
             }
           }}
@@ -147,9 +156,10 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
           bounds={calculateRightHandleBounds(
             { width, leftHandlePosition, leftOffset, rightHandlePosition },
             containerWidth,
-            minSliderWidth
+            minSliderWidth,
+            maxSliderWidth
           )}
-          onDragEnd={(_, dragData) =>
+          onDragEnd={(_, dragData) => {
             onSliderDragEnd?.(
               calculateRightHandleDragEndData(
                 { width, leftHandlePosition, leftOffset, rightHandlePosition },
@@ -157,8 +167,11 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
                 containerWidth
               )
             )
-          }
+            // re-attach after delay so that unwanted click event is not handled
+            setTimeout(() => sliderContainerRef?.current?.parentNode?.addEventListener('click', onClick, false))
+          }}
           onDrag={(e, dragData) => {
+            sliderContainerRef?.current?.parentNode?.removeEventListener('click', onClick, false)
             e.stopPropagation()
             const draggableEvent = e as MouseEvent
             if (draggableEvent.movementX === 0) return
@@ -166,6 +179,11 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
           }}
         />
       </Container>
+      <Container
+        className={css.mask}
+        width={containerWidth - leftOffset - width}
+        style={{ left: leftOffset + width }}
+      />
     </div>
   )
 }

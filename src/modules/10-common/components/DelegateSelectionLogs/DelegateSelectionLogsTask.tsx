@@ -21,6 +21,23 @@ export function DelegateSelectionLogsTask({ task }: DelegateSelectionLogsTaskPro
   const { getString } = useStrings()
 
   const { data, loading } = useGetSelectionLogsV2({ queryParams: { accountId, taskId: task.taskId } })
+
+  const renderDelegateForTaskText = (): JSX.Element => {
+    return (
+      <Text>
+        {task.delegateName ? (
+          <String
+            stringID="common.delegateForTask"
+            vars={{ delegate: task.delegateName, taskName: task.taskName }}
+            useRichText
+          />
+        ) : (
+          task.taskName
+        )}
+      </Text>
+    )
+  }
+
   if (loading) {
     return <PageSpinner />
   }
@@ -30,18 +47,11 @@ export function DelegateSelectionLogsTask({ task }: DelegateSelectionLogsTaskPro
       {data?.resource?.delegateSelectionLogs && data?.resource?.delegateSelectionLogs.length > 0 ? (
         <>
           <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
-            <Text>
-              {task.delegateName ? (
-                <String
-                  stringID="common.delegateForTask"
-                  vars={{ delegate: task.delegateName, taskName: task.taskName }}
-                  useRichText
-                />
-              ) : (
-                task.taskName
-              )}
-            </Text>
-            <Text>{getString('taskId', { id: task.taskId })}</Text>
+            {renderDelegateForTaskText()}
+            <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
+              <Text font={{ weight: 'bold' }} style={{ whiteSpace: 'pre' }}>{`${getString('taskId')} `}</Text>
+              <Text>{task.taskId}</Text>
+            </Layout.Horizontal>
           </Layout.Horizontal>
 
           <DelegateSelectionLogsTable

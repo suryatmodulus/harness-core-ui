@@ -9,15 +9,7 @@ import type {
   Provider,
   ConnectionMetadata
 } from '@ce/components/COCreateGateway/models'
-import {
-  HealthCheck,
-  PortConfig,
-  Service,
-  ServiceDep,
-  ServiceMetadata,
-  useAllServiceResources,
-  useRouteDetails
-} from 'services/lw'
+import { HealthCheck, Service, ServiceDep, ServiceMetadata, useAllServiceResources, useRouteDetails } from 'services/lw'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { allProviders, GatewayKindType, PROVIDER_TYPES } from '@ce/constants'
@@ -61,8 +53,8 @@ export const CECOEditGatewayPage: React.FC = () => {
       return
     }
     const routing: Routing = {
+      ...(service.routing as Routing),
       instance: { filterText: service.routing?.instance?.filter_text as string },
-      ports: service.routing?.ports as PortConfig[],
       lb: ''
     }
     let selectedInstances: InstanceDetails[] = []

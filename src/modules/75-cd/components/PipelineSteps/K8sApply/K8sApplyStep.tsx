@@ -352,7 +352,7 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
 const K8sApplyVariableStep: React.FC<K8sApplyVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
   return (
     <VariablesListTable
-      className={pipelineVariableCss.variablePaddingL2}
+      className={pipelineVariableCss.variablePaddingL3}
       data={variablesData.spec}
       originalData={initialValues.spec}
       metadataMap={metadataMap}

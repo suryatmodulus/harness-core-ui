@@ -1,0 +1,21 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "defaultBranch": { "branchName": "master", "branchSyncStatus": "SYNCED" },
+    "branches": {
+      "totalPages": 2,
+      "totalItems": 37,
+      "pageItemCount": 20,
+      "pageSize": 20,
+      "content": [
+        { "branchName": "gitSync", "branchSyncStatus": "SYNCED" },
+        { "branchName": "master", "branchSyncStatus": "SYNCED" },
+        { "branchName": "master-patch-234", "branchSyncStatus": "SYNCED" }
+      ],
+      "pageIndex": 0,
+      "empty": false
+    }
+  },
+  "metaData": null,
+  "correlationId": "15ec2ecd-f98c-41f3-97c5-4796e0d9ffac"
+}

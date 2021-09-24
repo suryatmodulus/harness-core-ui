@@ -499,7 +499,11 @@ const COGatewayList: React.FC = () => {
         <>
           {
             <>
-              <Layout.Horizontal flex className={css.header} padding={{ left: 'xlarge', right: 'xlarge' }}>
+              <Layout.Horizontal
+                flex={{ justifyContent: 'flex-start' }}
+                className={css.header}
+                padding={{ left: 'xlarge', right: 'xlarge' }}
+              >
                 <Heading data-tooltip-id="autostoppingRule" level={2} color={Color.GREY_800} font={{ weight: 'bold' }}>
                   {getString('ce.co.breadCrumb.rules')}
                 </Heading>

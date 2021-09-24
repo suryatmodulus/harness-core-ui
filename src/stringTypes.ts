@@ -2471,6 +2471,8 @@ export interface StringsMap {
   'templatesLibrary.versionLog': string
   'cd.aboutHarnessAdapter': string
   'cd.aboutProvider': string
+  'cd.adapterDelete': string
+  'cd.adapterDetails': string
   'cd.addInline': string
   'cd.addRemote': string
   'cd.addTFVarFileLabel': string
@@ -2495,6 +2497,7 @@ export interface StringsMap {
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.deletedSuccessfully': string
   'cd.duplicateIdError': string
   'cd.dynamicProvisioning': string
   'cd.environmentCreated': string
@@ -2504,15 +2507,18 @@ export interface StringsMap {
   'cd.folderPath': string
   'cd.gitFetchTypeRequired': string
   'cd.gitOps': string
+  'cd.gitOpsWizardTitle': string
   'cd.installAdapterHelperText': string
   'cd.launchArgo': string
   'cd.learnMore': string
   'cd.learnMoreAboutHarnessAdapter': string
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
-  'cd.newProvider': string
-  'cd.noProviderText': string
+  'cd.newAdapter': string
+  'cd.noAdapterText': string
+  'cd.notReachable': string
   'cd.pathCannotBeEmpty': string
+  'cd.pipelineSteps.infraTab.clusterError': string
   'cd.pipelineSteps.infraTab.deploymentType': string
   'cd.pipelineSteps.serviceTab.deploymentTypeRequired': string
   'cd.pipelineSteps.serviceTab.differentService': string
@@ -2520,11 +2526,10 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.propagateFrom': string
   'cd.pipelineSteps.serviceTab.propagateStage': string
   'cd.pipelineSteps.serviceTab.stageOverrides': string
-  'cd.providerDetails': string
-  'cd.providerOverview': string
   'cd.releaseNameValidation': string
   'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string
+  'cd.searchPlaceholder': string
   'cd.secretManagerRequired': string
   'cd.serviceCreated': string
   'cd.serviceDashboard.3months': string
@@ -2570,6 +2575,7 @@ export interface StringsMap {
   'cd.steps.common.selectOrEnterClusterPlaceholder': string
   'cd.steps.kubernetesGcpStep.stepName': string
   'cd.terraformVarFiles': string
+  'cd.testConnectionStepName': string
   'cd.tfVarStore': string
   'cd.updatedSuccessfully': string
   'cd.updating': string
@@ -2620,6 +2626,8 @@ export interface StringsMap {
   'ce.co.accessPoint.select.vpc': string
   'ce.co.accessPoint.status': string
   'ce.co.accessPoint.success': string
+  'ce.co.accessPoint.successfulCreation': string
+  'ce.co.accessPoint.successfulEdition': string
   'ce.co.accessPoint.validation.connector': string
   'ce.co.accessPoint.validation.domainRequired': string
   'ce.co.accessPoint.validation.name': string
@@ -2864,9 +2872,14 @@ export interface StringsMap {
   'ce.overview.totalCost': string
   'ce.overview.workload': string
   'ce.pageErrorMsg.noDataMsg': string
+  'ce.pageErrorMsg.noRecommendations': string
   'ce.pageErrorMsg.perspectiveNoData': string
+  'ce.pageErrorMsg.recommendationDesc': string
   'ce.pageErrorMsg.recommendationNoData': string
   'ce.perspectives.budgets.actualSpend': string
+  'ce.perspectives.budgets.addBudget': string
+  'ce.perspectives.budgets.budgetMonthlyTxt': string
+  'ce.perspectives.budgets.budgetSmallTxt': string
   'ce.perspectives.budgets.configureAlerts.actual': string
   'ce.perspectives.budgets.configureAlerts.basedOn': string
   'ce.perspectives.budgets.configureAlerts.budgetAmount': string
@@ -2879,6 +2892,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.createNew': string
   'ce.perspectives.budgets.desc': string
   'ce.perspectives.budgets.forecastedCost': string
+  'ce.perspectives.budgets.monthToDateSpend': string
   'ce.perspectives.budgets.sendAlerts': string
   'ce.perspectives.budgets.setBudgetAmount.budgetType': string
   'ce.perspectives.budgets.setBudgetAmount.lastMonthCost': string
@@ -2887,6 +2901,8 @@ export interface StringsMap {
   'ce.perspectives.budgets.setBudgetAmount.specifiedAmount': string
   'ce.perspectives.budgets.setBudgetAmount.specifyAmount': string
   'ce.perspectives.budgets.setBudgetAmount.title': string
+  'ce.perspectives.budgets.spendExceededBy': string
+  'ce.perspectives.budgets.thisMonth': string
   'ce.perspectives.budgets.title': string
   'ce.perspectives.budgets.wizardTitle': string
   'ce.perspectives.createPerspective.createCustomField': string
@@ -3720,12 +3736,12 @@ export interface StringsMap {
   'cv.metricVerificationModal.viewCalls': string
   'cv.monitoredServices.addNewMonitoredServices': string
   'cv.monitoredServices.changesTable.impact': string
-  'cv.monitoredServices.changesTable.noData': string
   'cv.monitoredServices.deleteMonitoredService': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.editMonitoredServices': string
   'cv.monitoredServices.environmentValidation': string
   'cv.monitoredServices.filterlabel': string
+  'cv.monitoredServices.healthScoreDataNotAvailable': string
   'cv.monitoredServices.monitoredServiceCreated': string
   'cv.monitoredServices.monitoredServiceDetails': string
   'cv.monitoredServices.monitoredServiceName': string
@@ -3736,6 +3752,7 @@ export interface StringsMap {
   'cv.monitoredServices.monitoredServiceUpdated': string
   'cv.monitoredServices.nameValidation': string
   'cv.monitoredServices.newMonitoredServices': string
+  'cv.monitoredServices.noAvailableData': string
   'cv.monitoredServices.noData': string
   'cv.monitoredServices.riskLabel.highRisk': string
   'cv.monitoredServices.riskLabel.lowRisk': string
@@ -3751,6 +3768,7 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.metricsAndLogs': string
   'cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore': string
   'cv.monitoredServices.serviceHealth.overallHealthScore': string
+  'cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow': string
   'cv.monitoredServices.serviceHealth.selectTimeline': string
   'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.table.changes': string

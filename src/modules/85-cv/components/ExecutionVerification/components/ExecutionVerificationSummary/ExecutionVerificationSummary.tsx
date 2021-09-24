@@ -50,6 +50,8 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
     clearInterval(intervalId)
 
     if (step?.status === 'Running' || step?.status === 'AsyncWaiting') {
+      // eslint-disable-next-line
+      // @ts-ignore
       intervalId = setInterval(refetch, POLLING_INTERVAL)
       setPollingIntervalId(intervalId)
     }

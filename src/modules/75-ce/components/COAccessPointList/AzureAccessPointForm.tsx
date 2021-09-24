@@ -28,6 +28,7 @@ import {
   useAllCertificates,
   CertificateData
 } from 'services/lw'
+import type { AccessPointScreenMode } from '@ce/types'
 import CertificateUpload from './CertificateUploadScreen'
 import css from '../COGatewayAccess/COGatewayAccess.module.scss'
 
@@ -52,7 +53,7 @@ interface AzureAccessPointFormProps {
   lbCreationInProgress: boolean
   handleFormSubmit: (val: AzureApFormVal) => void
   loadBalancer: AccessPoint
-  isCreateMode: boolean
+  mode: AccessPointScreenMode
 }
 
 const SKUItems: SelectOption[] = [
@@ -64,8 +65,26 @@ const SKUItems: SelectOption[] = [
 
 const DEFAULT_FUNC_REGION = 'westus2'
 
+type AllFieldsKey = keyof AzureApFormVal & keyof CertificateData
+
+const lbFieldToFormFieldMap: Record<string, keyof AllFieldsKey> = {
+  'metadata.fe_ip_id': 'ip',
+  region: 'region',
+  'metadata.resource_group': 'resourceGroup',
+  'metadata.size': 'sku',
+  'metadata.subnet_id': 'subnet',
+  vpc: 'virtualNetwork',
+  'metadata.certificate_id': 'certificate',
+  'metadata.certificate.name': 'name',
+  'metadata.certificate.password': 'password',
+  'metadata.certificate.content': 'content',
+  'metadata.func_region': 'func_region'
+}
+
 const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
-  const { cloudAccountId, lbCreationInProgress, loadBalancer, isCreateMode } = props
+  const { cloudAccountId, lbCreationInProgress, loadBalancer, mode } = props
+  const isCreateMode = mode === 'create'
+  const isEditMode = mode === 'edit'
   const { accountId } = useParams<{
     accountId: string
     orgIdentifier: string
@@ -93,6 +112,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
       ? { label: loadBalancer.metadata.subnet_name, value: loadBalancer.metadata.subnet_name }
       : undefined
   )
+  const [editableFieldsMap, setEditableFieldsMap] = useState<Record<string, boolean>>({})
 
   const { data: regions, loading: regionsLoading } = useAllRegions({
     account_id: accountId, // eslint-disable-line
@@ -176,6 +196,17 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     },
     lazy: true
   })
+
+  useEffect(() => {
+    if (mode !== 'create') {
+      const editMap: Record<string, boolean> = {}
+      loadBalancer.editables?.forEach(field => {
+        const key = lbFieldToFormFieldMap[field]
+        editMap[key as string] = true
+      })
+      setEditableFieldsMap(editMap)
+    }
+  }, [])
 
   useEffect(() => {
     if (regions?.response?.length == 0) {
@@ -313,6 +344,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
         enforceFocus={false}
       >
         <CertificateUpload
+          editableFieldsMap={editableFieldsMap}
+          mode={props.mode}
           onSubmit={_certificateDetails => {
             showSuccess(`Added ${_certificateDetails.name} successfully`)
             setNewCertificate(_certificateDetails)
@@ -329,7 +362,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
         />
       </Dialog>
     )
-  })
+  }, [editableFieldsMap])
 
   const isFormValid = (validStatus: boolean) => {
     return (
@@ -413,7 +446,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 onChange={regionItem => {
                   setSelectedRegion(regionItem)
                 }}
-                disabled={!isCreateMode || (!_isEmpty(values.region) ? false : regionsLoading)}
+                disabled={isEditMode ? !editableFieldsMap['region'] : !_isEmpty(values.region) ? false : regionsLoading}
               />
             </div>
             <div className={cx(css.formFieldRow, css.flexRow)}>
@@ -422,7 +455,13 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 placeholder={'Select resource group'}
                 name="resourceGroup"
                 items={resourceGroupsOptions}
-                disabled={!isCreateMode || (!_isEmpty(values.resourceGroup) ? false : resourceGroupsLoading)}
+                disabled={
+                  isEditMode
+                    ? !editableFieldsMap['resourceGroup']
+                    : !_isEmpty(values.resourceGroup)
+                    ? false
+                    : resourceGroupsLoading
+                }
                 onChange={resourceItem => {
                   setSelectedResourceGroup(resourceItem)
                 }}
@@ -441,7 +480,9 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                     }}
                     items={certificatesOptions}
                     disabled={
-                      !_isEmpty(values.certificate)
+                      isEditMode
+                        ? !editableFieldsMap['certificate']
+                        : !_isEmpty(values.certificate)
                         ? false
                         : certificatesLoading || !selectedRegion || !selectedResourceGroup
                     }
@@ -475,7 +516,13 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 placeholder={'Select virtual network'}
                 name="virtualNetwork"
                 items={vpcOptions}
-                disabled={!isCreateMode || (!_isEmpty(values.virtualNetwork) ? false : vpcsLoading || !selectedRegion)}
+                disabled={
+                  isEditMode
+                    ? !editableFieldsMap['virtualNetwork']
+                    : !_isEmpty(values.virtualNetwork)
+                    ? false
+                    : vpcsLoading || !selectedRegion
+                }
                 onChange={vpcItem => {
                   setSelectedVpc(vpcItem)
                 }}
@@ -493,7 +540,13 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 selectProps={{
                   allowCreatingNewItems: true
                 }}
-                disabled={!isCreateMode || (!_isEmpty(values.subnet) ? false : subnetsLoading || !selectedVpc)}
+                disabled={
+                  isEditMode
+                    ? !editableFieldsMap['subnet']
+                    : !_isEmpty(values.subnet)
+                    ? false
+                    : subnetsLoading || !selectedVpc
+                }
               />
               {renderRefreshButton(subnetsReload)}
             </div>
@@ -509,10 +562,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 value={newFrontendIp}
                 onChange={_ip => setNewFrontendIp(_ip)}
                 disabled={
-                  !isCreateMode ||
-                  (!_isEmpty(values.ip)
+                  isEditMode
+                    ? !editableFieldsMap['ip']
+                    : !_isEmpty(values.ip)
                     ? false
-                    : publicIpsLoading || !selectedRegion || !selectedVpc || !selectedResourceGroup)
+                    : publicIpsLoading || !selectedRegion || !selectedVpc || !selectedResourceGroup
                 }
               />
               {renderRefreshButton(publicIpsReload)}
@@ -523,7 +577,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 placeholder={'Select SKU'}
                 name="sku"
                 items={SKUItems}
-                disabled={!isCreateMode}
+                disabled={isEditMode && !editableFieldsMap['sku']}
               />
             </div>
             <div className={css.formFieldRow}>
@@ -535,7 +589,13 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 // onChange={regionItem => {
                 //   setSelectedRegion(regionItem)
                 // }}
-                disabled={!_isEmpty(values.func_region) ? false : regionsLoading}
+                disabled={
+                  isEditMode
+                    ? !editableFieldsMap['func_region']
+                    : !_isEmpty(values.func_region)
+                    ? false
+                    : regionsLoading
+                }
               />
             </div>
             <Layout.Horizontal style={{ marginTop: 100 }}>

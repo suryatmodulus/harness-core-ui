@@ -9,8 +9,10 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import noDataImage from '@cv/assets/noData.svg'
 import type { HealthScoreChartProps, SeriesDataPoint, SeriesDataType } from './HealthScoreChart.types'
 import { getSeriesData } from './HealthScoreChart.utils'
+import type { TimePeriodEnum } from '../../ServiceHealth.constants'
 import css from './HealthScoreChart.module.scss'
 
 export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Element {
@@ -26,7 +28,13 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
     error
   } = useGetMonitoredServiceOverAllHealthScore({
     identifier: monitoredServiceIdentifier,
-    queryParams: { accountId, orgIdentifier, projectIdentifier, duration, endTime: Date.now() },
+    queryParams: {
+      accountId,
+      orgIdentifier,
+      projectIdentifier,
+      duration: duration.value as TimePeriodEnum,
+      endTime: Date.now()
+    },
     lazy: true
   })
 
@@ -60,8 +68,20 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
     } else if (!seriesData[0]?.data?.length || seriesData[0].data.every(el => (el as SeriesDataPoint)?.y === 0)) {
       return (
         <NoDataCard
-          message={getString('cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore')}
-          icon="warning-sign"
+          message={
+            <>
+              <Text font={{ size: 'small' }} margin={{ top: 'xxsmall' }}>
+                {getString('cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore', {
+                  duration: duration.label.toLowerCase()
+                })}
+              </Text>
+              <Text font={{ size: 'small' }}>
+                {getString('cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow')}
+              </Text>
+            </>
+          }
+          image={noDataImage}
+          imageClassName={css.noDataImage}
           containerClassName={css.noData}
         />
       )

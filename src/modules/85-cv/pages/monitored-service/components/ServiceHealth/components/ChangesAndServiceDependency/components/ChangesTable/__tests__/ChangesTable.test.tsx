@@ -22,7 +22,7 @@ describe('Change table', () => {
         <ChangesTable startTime={0} endTime={1} serviceIdentifier={'srv'} environmentIdentifier={'env'} />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('cv.monitoredServices.changesTable.noData')).toBeTruthy())
+    await waitFor(() => expect(getByText('cv.monitoredServices.noAvailableData')).toBeTruthy())
     expect(container).toMatchSnapshot()
   })
   test('should render with loading state', async () => {

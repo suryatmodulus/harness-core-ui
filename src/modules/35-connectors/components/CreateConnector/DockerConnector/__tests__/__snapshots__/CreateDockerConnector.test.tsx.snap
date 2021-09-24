@@ -605,61 +605,70 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="StyledProps--font RadioButton--radioGroup RadioButton--inline FormikForm--inlineRadioGroup StyledProps--main"
+                      class="FormikForm--inlineRadioGroup StyledProps--main"
                     >
-                      <label
-                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                      
+                      <div
+                        class="RadioButtonGroup--inline"
                       >
-                        <input
-                          checked=""
-                          name="dockerProviderType"
-                          type="radio"
-                          value="DockerHub"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.docker.dockerHub
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="dockerProviderType"
-                          type="radio"
-                          value="Harbor"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.docker.harbour
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="dockerProviderType"
-                          type="radio"
-                          value="Quay"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.docker.quay
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="dockerProviderType"
-                          type="radio"
-                          value="Other"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.docker.other
-                      </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            checked=""
+                            class="RadioButton--input"
+                            name="dockerProviderType"
+                            type="radio"
+                            value="DockerHub"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.docker.dockerHub
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="dockerProviderType"
+                            type="radio"
+                            value="Harbor"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.docker.harbour
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="dockerProviderType"
+                            type="radio"
+                            value="Quay"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.docker.quay
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="dockerProviderType"
+                            type="radio"
+                            value="Other"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.docker.other
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1523,61 +1532,70 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                     class="bp3-form-content"
                   >
                     <div
-                      class="StyledProps--font RadioButton--radioGroup RadioButton--inline FormikForm--inlineRadioGroup StyledProps--main"
+                      class="FormikForm--inlineRadioGroup StyledProps--main"
                     >
-                      <label
-                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                      
+                      <div
+                        class="RadioButtonGroup--inline"
                       >
-                        <input
-                          checked=""
-                          name="dockerProviderType"
-                          type="radio"
-                          value="DockerHub"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.docker.dockerHub
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="dockerProviderType"
-                          type="radio"
-                          value="Harbor"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.docker.harbour
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="dockerProviderType"
-                          type="radio"
-                          value="Quay"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.docker.quay
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="dockerProviderType"
-                          type="radio"
-                          value="Other"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.docker.other
-                      </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            checked=""
+                            class="RadioButton--input"
+                            name="dockerProviderType"
+                            type="radio"
+                            value="DockerHub"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.docker.dockerHub
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="dockerProviderType"
+                            type="radio"
+                            value="Harbor"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.docker.harbour
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="dockerProviderType"
+                            type="radio"
+                            value="Quay"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.docker.quay
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="dockerProviderType"
+                            type="radio"
+                            value="Other"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.docker.other
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>

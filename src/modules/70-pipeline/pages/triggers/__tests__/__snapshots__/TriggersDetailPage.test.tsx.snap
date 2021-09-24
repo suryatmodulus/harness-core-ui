@@ -56,7 +56,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
               </svg>
             </span>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
             >
               test
             </p>
@@ -66,9 +66,9 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             data-icon="main-chevron-right"
           >
             <svg
-              height="12"
+              height="8"
               viewBox="0 0 8 14"
-              width="12"
+              width="8"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -86,7 +86,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
             >
               pipelines
             </p>
@@ -96,9 +96,9 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             data-icon="main-chevron-right"
           >
             <svg
-              height="12"
+              height="8"
               viewBox="0 0 8 14"
-              width="12"
+              width="8"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -116,7 +116,7 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
             >
               testsdfsdf
             </p>
@@ -126,9 +126,9 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             data-icon="main-chevron-right"
           >
             <svg
-              height="12"
+              height="8"
               viewBox="0 0 8 14"
-              width="12"
+              width="8"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path

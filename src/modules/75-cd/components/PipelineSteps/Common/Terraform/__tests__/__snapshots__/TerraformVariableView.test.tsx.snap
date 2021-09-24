@@ -3,7 +3,7 @@
 exports[`Terraform Variable view  initial render 1`] = `
 <div>
   <div
-    class="variablesListTable variablePaddingL2"
+    class="variablesListTable variablePaddingL3"
   >
     <div
       class="variableListRow"
@@ -68,7 +68,7 @@ exports[`Terraform Variable view  initial render 1`] = `
     </div>
   </div>
   <div
-    class="variablesListTable variablePaddingL2"
+    class="variablesListTable variablePaddingL3"
   />
 </div>
 `;

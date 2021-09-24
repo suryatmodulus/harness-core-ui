@@ -14,7 +14,6 @@ interface COAsgSelectorprops {
   selectedScalingGroup: ASGMinimal | undefined
   setSelectedAsg: (asg: ASGMinimal) => void
   search: (t: string) => void
-  setGatewayDetails: (gatewayDetails: GatewayDetails) => void
   gatewayDetails: GatewayDetails
   onAsgAddSuccess?: (updatedGatewayDetails: GatewayDetails) => void
   loading: boolean
@@ -66,15 +65,18 @@ const COAsgSelector: React.FC<COAsgSelectorprops> = props => {
       desired: desiredCapacityValue,
       on_demand: selectedAsg?.on_demand || desiredCapacityValue
     }
-    props.setSelectedAsg(newAsg)
-    const updatedGatewayDetails = { ...props.gatewayDetails }
-    const updatedRouting = { ...props.gatewayDetails.routing }
-    updatedRouting.instance.scale_group = newAsg // eslint-disable-line
-    updatedRouting.ports = (newAsg as ASGMinimal).target_groups?.map((tg: TargetGroupMinimal) =>
+    const ports = (newAsg as ASGMinimal).target_groups?.map((tg: TargetGroupMinimal) =>
       Utils.getTargetGroupObject(tg.port as number, tg.protocol as string)
     ) as PortConfig[]
-    updatedGatewayDetails.routing = { ...updatedRouting }
-    props.setGatewayDetails(updatedGatewayDetails)
+    props.setSelectedAsg(newAsg)
+    const updatedGatewayDetails = {
+      ...props.gatewayDetails,
+      routing: {
+        ...props.gatewayDetails.routing,
+        instance: { ...props.gatewayDetails.routing.instance, scale_group: newAsg },
+        ports
+      }
+    }
     props.onAsgAddSuccess?.(updatedGatewayDetails)
   }
 

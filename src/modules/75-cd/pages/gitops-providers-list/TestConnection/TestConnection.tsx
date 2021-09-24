@@ -20,7 +20,6 @@ import type { BaseProviderStepProps } from '../types'
 import css from './TestConnection.module.scss'
 
 export enum Status {
-  // WAIT = 'WAIT',
   PROCESS = 'PROCESS',
   DONE = 'DONE',
   ERROR = 'ERROR'
@@ -33,7 +32,15 @@ export default function TestConnection(props: TestConnectionProps): React.ReactE
   const [currentStatus, setCurrentStatus] = useState<Status>(Status.PROCESS)
   const [currentIntent, setCurrentIntent] = useState<Intent>(Intent.NONE)
   const url = (props?.prevStepData?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl
-  const stepName = `Connecting to Adapter URL: ${url}`
+  const stepName = (
+    <String
+      stringID="cd.testConnectionStepName"
+      vars={{
+        url: url
+      }}
+      useRichText
+    />
+  )
 
   const { getString } = useStrings()
   const handleSuccess = (): void => {
@@ -83,13 +90,13 @@ export default function TestConnection(props: TestConnectionProps): React.ReactE
             {(currentStatus === Status.DONE || currentStatus === Status.ERROR) && (
               <div className={cx(css.validationStatus, { [css.success]: currentStatus === Status.DONE })}>
                 {currentStatus === Status.DONE ? (
-                  'Connection Successful'
+                  <> {getString('common.test.connectionSuccessful')} </>
                 ) : (
                   <Card className={css.card}>
                     <Text color={Color.RED_700} font={{ weight: 'semi-bold' }} style={{ marginBottom: '16px' }}>
-                      Could not connect to the Adapter URL: &nbsp;
+                      {getString('cd.notReachable')}
                       <a href={url} target="_blank" rel="noreferrer">
-                        {url}
+                        {url}/api/version
                       </a>
                     </Text>
                     <div className={css.issueInfo}>

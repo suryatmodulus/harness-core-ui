@@ -1,4 +1,5 @@
 import { isEmpty as _isEmpty } from 'lodash-es'
+import type { AccessPoint, AccessPointCore } from 'services/lw'
 import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
 
 export const getSelectedTabId = (accessDetails: ConnectionMetadata): string => {
@@ -55,4 +56,32 @@ export const getHelpText = (selectedTabId: string) => {
     helpTextBase = `${helpTextBase}-${selectedTabId}`
   }
   return helpTextBase
+}
+
+export const getDummySupportedResourceFromAG = (ag: AccessPoint): AccessPointCore => {
+  return {
+    type: 'app_gateway',
+    details: {
+      fe_ip_id: ag.metadata?.fe_ip_id,
+      id: ag.id,
+      name: ag.name,
+      region: ag.region,
+      resource_group: ag.metadata?.resource_group,
+      size: ag.metadata?.size,
+      subnet_id: ag.metadata?.subnet_id,
+      vpc: ag.vpc
+    }
+  }
+}
+
+export const getDummySupportedResourceFromALB = (alb: AccessPoint): AccessPointCore => {
+  return {
+    type: 'alb',
+    details: {
+      albARN: alb.metadata?.albArn,
+      name: alb.name,
+      security_groups: alb.security_groups,
+      vpc: alb.vpc
+    }
+  }
 }

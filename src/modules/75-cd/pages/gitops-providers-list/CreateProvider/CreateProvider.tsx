@@ -20,7 +20,7 @@ const CreateArgoProvider: React.FC<CreateArgoProviderProps> = props => {
     <StepWizard
       icon={getConnectorIconByType(Connectors.ARGO)}
       iconProps={{ size: 50 }}
-      title={'Argo Provider'}
+      title={getString('cd.gitOpsWizardTitle')}
       className={css.stepWizard}
     >
       <ProviderOverviewStep name={getString('overview')} {...props} />

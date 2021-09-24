@@ -205,6 +205,7 @@ export const RunTestsStepBase = (
                   </Text>
                   <Text font={{ size: 'small' }}>{getString('ci.runTestsMavenSetupText1')}</Text>
                   <RadioButtonGroup
+                    name="run-tests-maven-setup"
                     inline={true}
                     selectedValue={mavenSetupQuestionAnswer}
                     onChange={(e: FormEvent<HTMLInputElement>) => {

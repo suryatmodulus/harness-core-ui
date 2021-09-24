@@ -4,6 +4,7 @@ import { isEmpty as _isEmpty } from 'lodash-es'
 import { Menu } from '@blueprintjs/core'
 import { Button, Formik, FormikForm, FormInput, Icon, Layout, SelectOption } from '@wings-software/uicore'
 import { AccessPoint, useAllCertificates, useAllRegions, useAllSecurityGroups, useAllVPCs } from 'services/lw'
+import type { AccessPointScreenMode } from '@ce/types'
 // import {
 //   ConnectorReferenceField,
 //   ConnectorReferenceFieldProps
@@ -19,6 +20,7 @@ interface LBFormStepSecondProps {
   setNewLoadBalancer: (lbPayload: AccessPoint) => void
   handlePreviousClick: () => void
   isSaving: boolean
+  mode: AccessPointScreenMode
 }
 
 export interface FormValue {
@@ -29,12 +31,20 @@ export interface FormValue {
   //   }
   securityGroups?: Array<SelectOption>
   accessPointRegion?: string
-  certificate?: SelectOption
+  certificate?: string
   vpc?: string
 }
 
+const lbFieldToFormFieldMap: Record<string, keyof FormValue> = {
+  'metadata.security_groups': 'securityGroups',
+  'metadata.certificate_id': 'certificate',
+  region: 'accessPointRegion',
+  vpc: 'vpc'
+}
+
 const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
-  const { handleSubmit, loadBalancer, cloudAccountId, setNewLoadBalancer, handlePreviousClick, isSaving } = props
+  const { handleSubmit, loadBalancer, cloudAccountId, setNewLoadBalancer, handlePreviousClick, isSaving, mode } = props
+  const isEditMode = mode === 'edit' || !_isEmpty(loadBalancer.id)
   const { getString } = useStrings()
 
   const [regionOptions, setRegionOptions] = useState<SelectOption[]>([])
@@ -44,6 +54,7 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
   const [selectedCloudAccount] = useState<string>(cloudAccountId)
   const [selectedRegion, setSelectedRegion] = useState<string>(loadBalancer.region as string)
   const [selectedVpc, setSelectedVpc] = useState<string | undefined>(loadBalancer.vpc as string)
+  const [editableFieldsMap, setEditableFieldsMap] = useState<Record<string, boolean>>({})
 
   const { accountId } = useParams<{
     accountId: string
@@ -103,7 +114,18 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
   })
 
   useEffect(() => {
-    if (regions?.response?.length == 0) {
+    if (mode !== 'create') {
+      const editMap: Record<string, boolean> = {}
+      loadBalancer.editables?.forEach(field => {
+        const key = lbFieldToFormFieldMap[field]
+        editMap[key] = true
+      })
+      setEditableFieldsMap(editMap)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (regions?.response?.length === 0) {
       return
     }
     const loaded: SelectOption[] =
@@ -129,7 +151,7 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
   }, [selectedVpc])
 
   useEffect(() => {
-    if (vpcs?.response?.length == 0) {
+    if (vpcs?.response?.length === 0) {
       return
     }
     const loaded: SelectOption[] =
@@ -143,7 +165,7 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
   }, [vpcs])
 
   useEffect(() => {
-    if (securityGroups?.response?.length == 0) {
+    if (securityGroups?.response?.length === 0) {
       return
     }
     const loaded: SelectOption[] =
@@ -157,7 +179,7 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
   }, [securityGroups])
 
   useEffect(() => {
-    if (certificates?.response?.length == 0) {
+    if (certificates?.response?.length === 0) {
       return
     }
     const loaded: SelectOption[] =
@@ -173,46 +195,21 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
   return (
     <Formik<FormValue>
       initialValues={{
-        // cloudConnector: {
-        //   label: '',
-        //   value: loadBalancer.cloud_account_id // eslint-disable-line
-        // },
         vpc: loadBalancer.vpc,
         accessPointRegion: loadBalancer.region,
-        securityGroups: loadBalancer.metadata?.security_groups?.map(x => {
-          return {
-            value: x,
-            label: x
-          }
-        })
-        //   certificate: loadBalancer.metadata?.certificate_id, // eslint-disable-line
+        securityGroups:
+          loadBalancer.metadata?.security_groups?.map(x => {
+            return {
+              value: x,
+              label: x
+            }
+          }) || [],
+        certificate: loadBalancer.metadata?.certificate_id // eslint-disable-line
       }}
       formName="lbFormSecond"
       onSubmit={values => handleSubmit?.(values)}
       render={({ submitForm, setFieldValue }) => (
         <FormikForm>
-          {/* <Layout.Horizontal className={css.formFieldRow}>
-            <ConnectorReferenceField
-              name="cloudConnector"
-              placeholder={getString('ce.co.accessPoint.select.account')}
-              selected={cloudAccountId || (loadBalancer.cloud_account_id as ConnectorReferenceFieldProps['selected'])} // eslint-disable-line
-              onChange={(record, scope) => {
-                const updatedLb = { ...loadBalancer }
-                loadBalancer.cloud_account_id = record?.identifier // eslint-disable-line
-                setNewLoadBalancer(updatedLb)
-                setSelectedCloudAccount(updatedLb.cloud_account_id as string) // eslint-disable-line
-                setFieldValue('cloudConnector', {
-                  label: record.name || '',
-                  value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${record.identifier}`,
-                  scope: scope
-                })
-              }}
-              accountIdentifier={accountId}
-              label={getString('ce.co.accessPoint.select.connector')}
-              category={'CLOUD_COST'}
-              disabled={!!cloudAccountId}
-            />
-          </Layout.Horizontal> */}
           <Layout.Horizontal className={css.formFieldRow}>
             <FormInput.Select
               name="accessPointRegion"
@@ -228,7 +225,9 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
               }}
               //   disabled={regionsLoading || regionOptions.length == 0 || props.isEditMod}
               // TODO: replace it with original one above after testing
-              disabled={regionsLoading || regionOptions.length == 0}
+              disabled={
+                isEditMode ? !editableFieldsMap['accessPointRegion'] : regionsLoading || regionOptions.length === 0
+              }
             />
             <FormInput.Select
               name="certificate"
@@ -236,12 +235,14 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
               placeholder={getString('ce.co.accessPoint.select.certificate')}
               items={certificateOptions}
               onChange={e => {
-                setFieldValue('certificate', e)
+                setFieldValue('certificate', e.value)
                 const updatedLb = { ...loadBalancer }
                 if (updatedLb.metadata) updatedLb.metadata.certificate_id = e.value as string // eslint-disable-line
                 setNewLoadBalancer(updatedLb)
               }}
-              disabled={certificatesLoading || certificateOptions.length == 0}
+              disabled={
+                isEditMode ? !editableFieldsMap['certificate'] : certificatesLoading || certificateOptions.length === 0
+              }
             />
           </Layout.Horizontal>
           <Layout.Horizontal className={css.formFieldRow}>
@@ -257,9 +258,9 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
                 setNewLoadBalancer(updatedLb)
                 setSelectedVpc(updatedLb.vpc)
               }}
-              //   disabled={vpcsLoading || vpcOptions.length == 0 || props.isEditMod}
+              //   disabled={vpcsLoading || vpcOptions.length === 0 || props.isEditMod}
               // TODO: replace it with original one above after testing
-              disabled={vpcsLoading || vpcOptions.length == 0}
+              disabled={isEditMode ? !editableFieldsMap['vpc'] : vpcsLoading || vpcOptions.length === 0}
             />
             <FormInput.MultiSelect
               name="securityGroups"
@@ -288,7 +289,7 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
                   setNewLoadBalancer(updatedLb)
                 }
               }}
-              disabled={sgsLoading || sgOptions.length == 0}
+              disabled={isEditMode ? !editableFieldsMap['securityGroups'] : sgsLoading || sgOptions.length === 0}
             />
           </Layout.Horizontal>
           <Layout.Horizontal style={{ marginTop: 220 }}>

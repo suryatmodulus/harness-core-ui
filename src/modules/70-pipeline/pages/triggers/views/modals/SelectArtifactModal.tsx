@@ -64,6 +64,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
 
   const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
   const ManifestFormDetails = formDetails.component
+
   const filteredArtifact = filterArtifact({
     runtimeData,
     stageId: selectedStageId,
@@ -156,10 +157,10 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 })
 
                 /*
-                                when we have multiple stages - need to filter undefined values
-                                in this case formikprops.values.stages will be [undefined, [stage obj]]
-                                when chartVersion alone is runtime input, stages array could be empty
-                      */
+                                      when we have multiple stages - need to filter undefined values
+                                      in this case formikprops.values.stages will be [undefined, [stage obj]]
+                                      when chartVersion alone is runtime input, stages array could be empty
+                            */
                 const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
                 // when stages is empty array, filteredArtifact will be empty object
                 const formFilteredArtifact =

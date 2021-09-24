@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import YAML from 'yaml'
 import { Classes, Switch } from '@blueprintjs/core'
-import { Text, Icon, Layout, Button, Card, IconName, Color, ButtonVariation } from '@wings-software/uicore'
-import { get, isEmpty, startCase } from 'lodash-es'
+import { Text, Icon, Layout, Button, Card, IconName, Color, ButtonVariation, Container } from '@wings-software/uicore'
+import { defaultTo, get, isEmpty, set, startCase } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
 import {
@@ -53,13 +53,13 @@ const videoByType: { [key: string]: string } = {
 
 type StrategyType = GetExecutionStrategyYamlQueryParams['strategyType'] | 'BlankCanvas'
 
-export interface ExecutionStrategyRef {
+export interface ExecutionStrategyRefInterface {
   cancelExecutionStrategySelection: () => void
 }
 
 export type ExecutionStrategyForwardRef =
-  | ((instance: ExecutionStrategyRef | null) => void)
-  | React.MutableRefObject<ExecutionStrategyRef | null>
+  | ((instance: ExecutionStrategyRefInterface | null) => void)
+  | React.MutableRefObject<ExecutionStrategyRefInterface | null>
   | null
 
 const ExecutionStrategyRef = (
@@ -150,12 +150,9 @@ const ExecutionStrategyRef = (
     if (yamlSnippet?.data) {
       updateStage(
         produce(selectedStage, draft => {
-          const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
-          if (draft.stage && draft.stage.spec) {
-            draft.stage.failureStrategies = jsonFromYaml.failureStrategies
-            ;(draft.stage.spec as DeploymentStageConfig).execution =
-              (jsonFromYaml.spec as DeploymentStageConfig)?.execution || {}
-          }
+          const jsonFromYaml = YAML.parse(defaultTo(yamlSnippet?.data, '{}')) as StageElementConfig
+          set(draft, 'stage.failureStrategies', jsonFromYaml.failureStrategies)
+          set(draft, 'stage.spec.execution', defaultTo((jsonFromYaml.spec as DeploymentStageConfig)?.execution, {}))
         }).stage as StageElementConfig
       )
     }
@@ -175,11 +172,9 @@ const ExecutionStrategyRef = (
   const cancelSelection = (): void => {
     updateStage(
       produce(selectedStage, draft => {
-        const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
-        if (draft.stage && draft.stage.spec) {
-          draft.stage.failureStrategies = jsonFromYaml.failureStrategies
-          ;(draft.stage.spec as DeploymentStageConfig).execution = { steps: [], rollbackSteps: [] }
-        }
+        const jsonFromYaml = YAML.parse(defaultTo(yamlSnippet?.data, '{}')) as StageElementConfig
+        set(draft, 'stage.failureStrategies', jsonFromYaml.failureStrategies)
+        set(draft, 'stage.spec.execution', { steps: [], rollbackSteps: [] })
       }).stage as StageElementConfig
     ).then(() => {
       updatePipelineViewState()
@@ -224,97 +219,108 @@ const ExecutionStrategyRef = (
       </Layout.Vertical>
 
       <Layout.Vertical width={688} className={css.strategyDetailsPanel}>
-        <Layout.Horizontal className={css.header} flex>
-          <Layout.Horizontal>
-            <Text className={css.headerText} data-testid={`${selectedStrategy}-Header`}>
-              {getStrategyNameByType(selectedStrategy)}
-            </Text>
-            {selectedStrategy === 'Default' && (
-              <Icon name="blank-canvas-header-icon" size={24} color={Color.PRIMARY_6} />
-            )}
+        <Container className={css.strategyDetailsBody}>
+          <Layout.Horizontal className={css.header} flex>
+            <Layout.Horizontal>
+              <Text
+                className={css.headerText}
+                data-testid={`${selectedStrategy}DetailsHeader`}
+                tooltipProps={{ dataTooltipId: `${selectedStrategy}DetailsHeader` }}
+              >
+                {getStrategyNameByType(selectedStrategy)}
+              </Text>
+              {selectedStrategy === 'Default' && (
+                <Icon name="blank-canvas-header-icon" size={24} color={Color.PRIMARY_6} />
+              )}
+            </Layout.Horizontal>
+            <Button
+              variation={ButtonVariation.LINK}
+              href={learnMoreLinkByType[selectedStrategy]}
+              target="_blank"
+              withoutBoxShadow={true}
+            >
+              {getString('learnMore')}
+            </Button>
           </Layout.Horizontal>
-          <Button
-            variation={ButtonVariation.LINK}
-            href={learnMoreLinkByType[selectedStrategy]}
-            target="_blank"
-            withoutBoxShadow={true}
-          >
-            {getString('learnMore')}
-          </Button>
-        </Layout.Horizontal>
-        <section className={css.preview}>
-          <section className={css.previewContainer}>
-            <section className={css.info} data-testid="info">
-              {infoByType[selectedStrategy]}
-            </section>
-            {!isEmpty(videoByType[selectedStrategy]) ? (
-              <section className={css.player} data-testid="player">
-                <video
-                  key={selectedStrategy}
-                  className={css.videoPlayer}
-                  autoPlay
-                  poster={imageByType[selectedStrategy]}
-                  data-testid="videoPlayer"
-                >
-                  <source src={videoByType[selectedStrategy]} type="video/mp4"></source>
-                  <p>{getString('common.videoNotSupportedError')}</p>
-                </video>
-                {showPlayButton && (
-                  <div className={css.playerControls}>
-                    <Button
-                      minimal
-                      variation={ButtonVariation.ICON}
-                      className={css.playButton}
-                      onClick={toggleVideo}
-                      data-testid="playButton"
-                      icon="play-circle"
-                      iconProps={{ size: 42 }}
-                      withoutCurrentColor
+          <section className={css.preview}>
+            <section className={css.previewContainer}>
+              <section className={css.info} data-testid="info">
+                {infoByType[selectedStrategy]}
+              </section>
+              {!isEmpty(videoByType[selectedStrategy]) ? (
+                <section className={css.player} data-testid="player">
+                  <video
+                    key={selectedStrategy}
+                    className={css.videoPlayer}
+                    autoPlay
+                    poster={imageByType[selectedStrategy]}
+                    data-testid="videoPlayer"
+                  >
+                    <source src={videoByType[selectedStrategy]} type="video/mp4"></source>
+                    <Text tooltipProps={{ dataTooltipId: 'videoNotSupportedError' }}>
+                      {getString('common.videoNotSupportedError')}
+                    </Text>
+                  </video>
+                  {showPlayButton && (
+                    <div className={css.playerControls}>
+                      <Button
+                        minimal
+                        variation={ButtonVariation.ICON}
+                        className={css.playButton}
+                        onClick={toggleVideo}
+                        data-testid="playButton"
+                        icon="play-circle"
+                        iconProps={{ size: 42 }}
+                        withoutCurrentColor
+                      />
+                    </div>
+                  )}
+                </section>
+              ) : (
+                <section className={css.image}>
+                  <img src={imageByType[selectedStrategy]} data-testid="blank-canvas-image" />
+                </section>
+              )}
+              {selectedStrategy !== 'Default' && (
+                <>
+                  <Steps strategy={selectedStrategy} />
+                  <section className={css.enableVerificationSection}>
+                    <Switch
+                      checked={isVerifyEnabled}
+                      onChange={() => setIsVerifyEnabled(prevIsVerifyEnabled => !prevIsVerifyEnabled)}
+                      className={cx(Classes.SMALL, css.toggleVerify)}
+                      data-testid="enable-verification-options-switch"
                     />
-                  </div>
-                )}
-              </section>
-            ) : (
-              <section className={css.image}>
-                <img src={imageByType[selectedStrategy]} data-testid="blank-canvas-image" />
-              </section>
-            )}
-            {selectedStrategy !== 'Default' && <Steps strategy={selectedStrategy} />}
-            {selectedStrategy !== 'Default' && (
-              <section className={css.enableVerificationSection}>
-                <Text className={css.enableVerification}>{getString('pipeline.enableVerificationOptions')}</Text>
-                <Switch
-                  checked={isVerifyEnabled}
-                  onChange={() => setIsVerifyEnabled(prevIsVerifyEnabled => !prevIsVerifyEnabled)}
-                  className={cx(Classes.LARGE, css.toggleVerify)}
-                  data-testid="enable-verification-options-switch"
-                />
-              </section>
-            )}
+                    <Text className={css.enableVerification}>{getString('pipeline.enableVerificationOptions')}</Text>
+                  </section>
+                </>
+              )}
+            </section>
           </section>
-        </section>
-        <Button
-          variation={ButtonVariation.PRIMARY}
-          text={getString('pipeline.executionStrategy.useStrategy')}
-          className={css.selectBtn}
-          onClick={() => {
-            const newStage = produce(selectedStage, draft => {
-              const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
-              if (draft.stage && draft.stage.spec) {
-                draft.stage.failureStrategies = jsonFromYaml.failureStrategies
-                ;(draft.stage.spec as DeploymentStageConfig).execution = (jsonFromYaml.spec as DeploymentStageConfig)
-                  ?.execution ?? { steps: [], rollbackSteps: [] }
-              }
-            }).stage
+        </Container>
+        <Container className={css.strategyDetailsFooter}>
+          <Button
+            variation={ButtonVariation.PRIMARY}
+            text={getString('pipeline.executionStrategy.useStrategy')}
+            onClick={() => {
+              const newStage = produce(selectedStage, draft => {
+                const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
+                if (draft.stage && draft.stage.spec) {
+                  draft.stage.failureStrategies = jsonFromYaml.failureStrategies
+                  ;(draft.stage.spec as DeploymentStageConfig).execution = (jsonFromYaml.spec as DeploymentStageConfig)
+                    ?.execution ?? { steps: [], rollbackSteps: [] }
+                }
+              }).stage
 
-            if (newStage) {
-              updateStage(newStage).then(() => {
-                updatePipelineViewState()
-              })
-            }
-          }}
-          disabled={isSubmitDisabled}
-        />
+              if (newStage) {
+                updateStage(newStage).then(() => {
+                  updatePipelineViewState()
+                })
+              }
+            }}
+            disabled={isSubmitDisabled}
+          />
+        </Container>
       </Layout.Vertical>
     </Layout.Horizontal>
   )

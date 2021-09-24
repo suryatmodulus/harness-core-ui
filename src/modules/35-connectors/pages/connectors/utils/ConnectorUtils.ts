@@ -1598,6 +1598,7 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return ''
   }
 }
+
 export const getUrlValueByType = (type: ConnectorInfoDTO['type'], connector: ConnectorInfoDTO): string => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:

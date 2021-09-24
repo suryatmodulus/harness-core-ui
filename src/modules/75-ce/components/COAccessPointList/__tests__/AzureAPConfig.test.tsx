@@ -45,7 +45,8 @@ jest.mock('services/lw', () => ({
   useAllCertificates: jest.fn().mockImplementation(() => mockedCertificatesData),
   useAllSecurityGroups: jest
     .fn()
-    .mockImplementation(() => ({ data: { response: [] }, loading: false, refetch: jest.fn() }))
+    .mockImplementation(() => ({ data: { response: [] }, loading: false, refetch: jest.fn() })),
+  useEditAccessPoint: jest.fn().mockImplementation(() => ({ mutate: Promise.resolve() }))
 }))
 
 describe('Azure Access Point Configuration', () => {
@@ -55,7 +56,7 @@ describe('Azure Access Point Configuration', () => {
         <AzureAPConfig
           cloudAccountId={'connectorIdentifier'}
           onSave={jest.fn()}
-          createMode={true}
+          mode={'create'}
           onClose={jest.fn()}
           loadBalancer={initialLoadBalancer}
         />
@@ -91,7 +92,7 @@ describe('Azure Access Point Configuration', () => {
         <AzureAPConfig
           cloudAccountId={'connectorIdentifier'}
           onSave={jest.fn()}
-          createMode={false}
+          mode={'import'}
           onClose={jest.fn()}
           loadBalancer={{ ...initialLoadBalancer, name: 'Mock App Gateway' }}
         />

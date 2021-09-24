@@ -1,3 +1,9 @@
+.ceK8sConnector {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
 .overviewStep {
   .infoSection {
     padding: 15px 20px;
@@ -31,6 +37,13 @@
   ul {
     li {
       margin-bottom: var(--spacing-medium);
+    }
+  }
+  .previewLink {
+    color: var(--primary-7);
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
     }
   }
   .stepBtn {

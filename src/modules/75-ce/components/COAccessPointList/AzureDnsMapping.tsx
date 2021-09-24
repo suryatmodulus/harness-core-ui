@@ -3,6 +3,7 @@ import * as Yup from 'yup'
 import { Button, Color, Formik, FormikForm, FormInput, Layout, Text } from '@wings-software/uicore'
 import type { AccessPoint } from 'services/lw'
 import { VALID_DOMAIN_REGEX } from '@ce/constants'
+import type { AccessPointScreenMode } from '@ce/types'
 import helpTextIcon from '../COGatewayAccess/images/OthersHelpText.svg'
 import css from '../COGatewayAccess/COGatewayAccess.module.scss'
 
@@ -12,14 +13,16 @@ export interface AzureDnsFormVal {
 }
 
 interface AzureApDnsMappingProps {
-  createMode: boolean
+  mode: AccessPointScreenMode
   handleSubmit: (values: AzureDnsFormVal) => void
   loadBalancer: AccessPoint
   handleCancel?: () => void
 }
 
 const AzureApDnsMapping: React.FC<AzureApDnsMappingProps> = props => {
-  const { createMode, handleSubmit, loadBalancer, handleCancel } = props
+  const { handleSubmit, loadBalancer, handleCancel, mode } = props
+  const isCreateMode = mode === 'create'
+  const isEditMode = mode === 'edit'
   return (
     <Formik
       initialValues={{
@@ -35,7 +38,7 @@ const AzureApDnsMapping: React.FC<AzureApDnsMappingProps> = props => {
               name="name"
               label="Provide a name for the Load balancer"
               className={css.lbNameInput}
-              disabled={!createMode}
+              disabled={!isCreateMode}
             />
             <Text color={Color.GREY_400} className={css.configInfo}>
               The Application gateway does not have a domain name associated with it. The rule directs traffic to
@@ -48,6 +51,7 @@ const AzureApDnsMapping: React.FC<AzureApDnsMappingProps> = props => {
                   name={'customDomain'}
                   label={'Enter Domain name'}
                   style={{ width: 300, marginRight: 20 }}
+                  disabled={isEditMode}
                 />
               </Layout.Horizontal>
               <div className={css.othersHelpTextContainer}>
@@ -84,7 +88,7 @@ const AzureApDnsMapping: React.FC<AzureApDnsMappingProps> = props => {
               data-testid={'saveAzureDetails'}
             ></Button>
             {/* )} */}
-            {!createMode && <Button intent="none" text={'Cancel'} onClick={handleCancel}></Button>}
+            {!isCreateMode && <Button intent="none" text={'Cancel'} onClick={handleCancel}></Button>}
           </Layout.Horizontal>
         </FormikForm>
       )}

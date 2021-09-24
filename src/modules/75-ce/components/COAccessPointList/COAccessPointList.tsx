@@ -12,6 +12,7 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { IconName } from '@blueprintjs/icons'
+import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
 // import { Dialog, IconName, IDialogProps } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { AccessPoint, useAccessPointActivity, useAccessPointRules, useAllAccessPoints } from 'services/lw'
@@ -20,7 +21,6 @@ import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { PROVIDER_TYPES } from '@ce/constants'
 import { useStrings } from 'framework/strings'
 // import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
 import DeleteAccessPoint from '../COAccessPointDelete/DeleteAccessPoint'
@@ -28,6 +28,7 @@ import { getRelativeTime } from '../COGatewayList/Utils'
 // import LoadBalancerDnsConfig from '../COGatewayAccess/LoadBalancerDnsConfig'
 import useCreateAccessPointDialog from './COCreateAccessPointDialog'
 import TextWithToolTip, { textWithToolTipStatus } from '../TextWithTooltip/TextWithToolTip'
+import useEditAccessPoint from './EditAccessPoint'
 import css from './COAcessPointList.module.scss'
 
 function NameCell(tableProps: CellProps<AccessPoint>): JSX.Element {
@@ -36,7 +37,7 @@ function NameCell(tableProps: CellProps<AccessPoint>): JSX.Element {
       <Text lineClamp={1} color={Color.BLACK} style={{ fontWeight: 600 }}>
         {tableProps.value}
       </Text>
-      <Text lineClamp={2} color={Color.GREY_400}>
+      <Text lineClamp={1} color={Color.GREY_400}>
         {tableProps.row.original.host_name}
       </Text>
     </div>
@@ -62,6 +63,17 @@ const TableCell: React.FC<CellProps<AccessPoint>> = tableProps => {
     <div style={{ overflowWrap: 'anywhere', paddingRight: 10 }}>
       <Text lineClamp={2}>{tableProps.value}</Text>
     </div>
+  )
+}
+
+const StatusCell = ({ row }: CellProps<AccessPoint>) => {
+  return (
+    <TextWithToolTip
+      messageText={row.original.status}
+      errors={row.original.metadata?.error ? [{ error: row.original.metadata?.error }] : []}
+      status={row.original.status === 'errored' ? textWithToolTipStatus.ERROR : textWithToolTipStatus.SUCCESS}
+      indicatorColor={row.original.status === 'submitted' ? Color.YELLOW_500 : undefined}
+    />
   )
 }
 
@@ -91,26 +103,31 @@ const COLoadBalancerList: React.FC = () => {
     [allAccessPoints]
   )
 
+  const { openEditAccessPointModal } = useEditAccessPoint({})
+
   const [selectedAccessPoints, setSelectedAccessPoints] = useState<AccessPoint[]>([])
+
+  const handleCheckboxChange = (e: { currentTarget: HTMLInputElement }, cellData: AccessPoint) => {
+    const newAccessPoints = [...selectedAccessPoints]
+    if (e.currentTarget.checked) {
+      newAccessPoints.push(cellData)
+    } else if (!e.currentTarget.checked && isSelectedAccessPoint(cellData)) {
+      newAccessPoints.splice(selectedAccessPoints.indexOf(cellData), 1)
+    }
+    setSelectedAccessPoints(newAccessPoints)
+  }
+
   function CheckBoxCell(tableProps: CellProps<AccessPoint>): JSX.Element {
     return (
       <input
         type="checkbox"
         checked={isSelectedAccessPoint(tableProps.row.original)}
-        onChange={e => {
-          if (e.currentTarget.checked) {
-            selectedAccessPoints.push(tableProps.row.original)
-          } else if (!e.currentTarget.checked && isSelectedAccessPoint(tableProps.row.original)) {
-            selectedAccessPoints.splice(selectedAccessPoints.indexOf(tableProps.row.original), 1)
-          }
-          const newAccessPoints = [...selectedAccessPoints]
-          setSelectedAccessPoints(newAccessPoints)
-        }}
+        onChange={e => handleCheckboxChange(e, tableProps.row.original)}
       />
     )
   }
   function isSelectedAccessPoint(item: AccessPoint): boolean {
-    return selectedAccessPoints.findIndex(s => s.id == item.id) >= 0 ? true : false
+    return selectedAccessPoints.findIndex(s => s.id === item.id) >= 0
   }
 
   function ActivityCell(tableProps: CellProps<AccessPoint>): JSX.Element {
@@ -126,18 +143,16 @@ const COLoadBalancerList: React.FC = () => {
     }
     return (
       <>
-        {(details?.response?.created_at as string) ? (
+        {(details?.response?.created_at as string) && (
           <Layout.Horizontal spacing="medium">
             <Icon name="history" />
             <Text lineClamp={3} color={Color.GREY_500}>
               {getRelativeTime(details?.response?.created_at as string, 'YYYY-MM-DDTHH:mm:ssZ')}
             </Text>
           </Layout.Horizontal>
-        ) : !loading ? (
-          '-'
-        ) : (
-          <Icon name="spinner" size={12} color="blue500" />
         )}
+        {!(details?.response?.created_at as string) && !loading && '-'}
+        {loading && <Icon name="spinner" size={12} color="blue500" />}
       </>
     )
   }
@@ -158,77 +173,61 @@ const COLoadBalancerList: React.FC = () => {
     }
     return (
       <>
-        {details?.response?.length ? (
+        {details?.response?.length && (
           <Layout.Horizontal spacing="medium">
             <Text lineClamp={3} color={Color.GREY_500}>
               {details?.response?.length} Rules
             </Text>
           </Layout.Horizontal>
-        ) : !detailsLoading ? (
-          '0 Rules'
-        ) : (
-          <Icon name="spinner" size={12} color="blue500" />
         )}
+        {!details?.response?.length && !detailsLoading && '0 Rules'}
+        {detailsLoading && <Icon name="spinner" size={12} color="blue500" />}
       </>
     )
   }
 
-  // function RenderColumnMenu(tableProps: CellProps<AccessPoint>): JSX.Element {
-  //   const row = tableProps.row
-  //   const data = row.original.id
-  //   const [menuOpen, setMenuOpen] = useState(false)
-  //   const [openModal, hideModal] = useModalHook(() => (
-  //     <Dialog onClose={hideModal} {...modalPropsLight}>
-  //       <CreateAccessPointWizard
-  //         accessPoint={row.original}
-  //         closeModal={hideModal}
-  //         refreshAccessPoints={() => undefined}
-  //         isEditMod={true}
-  //       />
-  //     </Dialog>
-  //   ))
-  //   return (
-  //     <Layout.Horizontal className={css.layout}>
-  //       <Popover
-  //         isOpen={menuOpen}
-  //         onInteraction={nextOpenState => {
-  //           setMenuOpen(nextOpenState)
-  //         }}
-  //         className={Classes.DARK}
-  //         position={Position.BOTTOM_RIGHT}
-  //       >
-  //         <Button
-  //           minimal
-  //           icon="Options"
-  //           onClick={e => {
-  //             e.stopPropagation()
-  //             setMenuOpen(true)
-  //           }}
-  //           data-testid={`menu-${data}`}
-  //         />
-  //         <Menu style={{ minWidth: 'unset' }}>
-  //           <Menu.Item icon="edit" text="Edit" onClick={() => openModal()} />
-  //           <Menu.Item
-  //             icon="trash"
-  //             text="Delete"
-  //             onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-  //               e.stopPropagation()
-  //               alert('you are deleting')
-  //             }}
-  //           />
-  //         </Menu>
-  //       </Popover>
-  //     </Layout.Horizontal>
-  //   )
-  // }
+  const RenderColumnMenu = (tableProps: CellProps<AccessPoint>): JSX.Element => {
+    const row = tableProps.row
+    const columnId = row.original.id
+    const [menuOpen, setMenuOpen] = useState(false)
 
-  const StatusCell = ({ row }: CellProps<AccessPoint>) => {
     return (
-      <TextWithToolTip
-        messageText={row.original.status}
-        errors={row.original.type === PROVIDER_TYPES.AZURE ? [{ error: row.original.metadata?.error }] : []}
-        status={row.original.status === 'errored' ? textWithToolTipStatus.ERROR : textWithToolTipStatus.SUCCESS}
-        indicatorColor={row.original.status === 'submitted' ? Color.YELLOW_500 : undefined}
+      <Layout.Horizontal className={css.layout}>
+        <Popover
+          isOpen={menuOpen}
+          onInteraction={nextOpenState => {
+            setMenuOpen(nextOpenState)
+          }}
+          className={Classes.DARK}
+          position={Position.BOTTOM_RIGHT}
+        >
+          <Button
+            minimal
+            icon="Options"
+            onClick={e => {
+              e.stopPropagation()
+              setMenuOpen(true)
+            }}
+            data-testid={`menu-${columnId}`}
+          />
+          <Menu style={{ minWidth: 'unset' }}>
+            <Menu.Item icon="edit" text="Edit" onClick={() => openEditAccessPointModal(row.original)} />
+          </Menu>
+        </Popover>
+      </Layout.Horizontal>
+    )
+  }
+
+  const handleParentCheckboxChange = (e: { currentTarget: HTMLInputElement }) => {
+    setSelectedAccessPoints(e.currentTarget.checked ? [...allAccessPoints] : [])
+  }
+
+  const getHeader = () => {
+    return (
+      <input
+        type="checkbox"
+        checked={data?.response?.length === selectedAccessPoints.length}
+        onChange={handleParentCheckboxChange}
       />
     )
   }
@@ -308,21 +307,7 @@ const COLoadBalancerList: React.FC = () => {
                   columns={[
                     {
                       //eslint-disable-next-line
-                      Header: () => {
-                        return (
-                          <input
-                            type="checkbox"
-                            checked={data?.response?.length == selectedAccessPoints.length}
-                            onChange={e => {
-                              if (e.currentTarget.checked) {
-                                setSelectedAccessPoints([...allAccessPoints])
-                              } else if (!e.currentTarget.checked) {
-                                setSelectedAccessPoints([])
-                              }
-                            }}
-                          />
-                        )
-                      },
+                      Header: getHeader(),
                       id: 'check',
                       width: '5%',
                       Cell: CheckBoxCell
@@ -330,7 +315,7 @@ const COLoadBalancerList: React.FC = () => {
                     {
                       accessor: 'name',
                       Header: getString('name').toUpperCase(),
-                      width: '20%',
+                      width: '15%',
                       Cell: NameCell
                     },
                     {
@@ -375,14 +360,14 @@ const COLoadBalancerList: React.FC = () => {
                       Header: getString('ce.co.accessPoint.status').toUpperCase(),
                       Cell: StatusCell,
                       width: '10%'
+                    },
+                    {
+                      id: 'menu',
+                      accessor: row => row.id,
+                      width: '5%',
+                      Cell: RenderColumnMenu,
+                      disableSortBy: true
                     }
-                    // {
-                    //   id: 'menu',
-                    //   accessor: row => row.id,
-                    //   width: '5%',
-                    //   Cell: RenderColumnMenu,
-                    //   disableSortBy: true
-                    // }
                   ]}
                 />
               </Page.Body>

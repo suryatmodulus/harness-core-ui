@@ -1,11 +1,13 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly ceK8SConnector: string
   readonly overviewStep: string
   readonly infoSection: string
   readonly selectConnector: string
   readonly providePermissionContainer: string
   readonly heading: string
+  readonly previewLink: string
   readonly stepBtn: string
   readonly successTextContainer: string
   readonly stroke: string

@@ -561,48 +561,56 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                     class="bp3-form-content"
                                   >
                                     <div
-                                      class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                                      class="StyledProps--main"
                                     >
-                                      <label
-                                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                                      
+                                      <div
+                                        class="RadioButtonGroup--inline"
                                       >
-                                        <input
-                                          checked=""
-                                          name="pipeline.properties.ci.codebase.build.type"
-                                          type="radio"
-                                          value="branch"
-                                        />
-                                        <span
-                                          class="bp3-control-indicator"
-                                        />
-                                        gitBranch
-                                      </label>
-                                      <label
-                                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                                      >
-                                        <input
-                                          name="pipeline.properties.ci.codebase.build.type"
-                                          type="radio"
-                                          value="tag"
-                                        />
-                                        <span
-                                          class="bp3-control-indicator"
-                                        />
-                                        gitTag
-                                      </label>
-                                      <label
-                                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                                      >
-                                        <input
-                                          name="pipeline.properties.ci.codebase.build.type"
-                                          type="radio"
-                                          value="PR"
-                                        />
-                                        <span
-                                          class="bp3-control-indicator"
-                                        />
-                                        pipeline.gitPullRequest
-                                      </label>
+                                        <label
+                                          class="RadioButton--radio StyledProps--main"
+                                        >
+                                          <input
+                                            checked=""
+                                            class="RadioButton--input"
+                                            name="pipeline.properties.ci.codebase.build.type"
+                                            type="radio"
+                                            value="branch"
+                                          />
+                                          <span
+                                            class="RadioButton--radioIcon"
+                                          />
+                                          gitBranch
+                                        </label>
+                                        <label
+                                          class="RadioButton--radio StyledProps--main"
+                                        >
+                                          <input
+                                            class="RadioButton--input"
+                                            name="pipeline.properties.ci.codebase.build.type"
+                                            type="radio"
+                                            value="tag"
+                                          />
+                                          <span
+                                            class="RadioButton--radioIcon"
+                                          />
+                                          gitTag
+                                        </label>
+                                        <label
+                                          class="RadioButton--radio StyledProps--main"
+                                        >
+                                          <input
+                                            class="RadioButton--input"
+                                            name="pipeline.properties.ci.codebase.build.type"
+                                            type="radio"
+                                            value="PR"
+                                          />
+                                          <span
+                                            class="RadioButton--radioIcon"
+                                          />
+                                          pipeline.gitPullRequest
+                                        </label>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>

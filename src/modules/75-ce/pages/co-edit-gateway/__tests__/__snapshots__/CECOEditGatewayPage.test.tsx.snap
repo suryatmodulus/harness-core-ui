@@ -73,20 +73,20 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <span
-                class="bp3-icon bp3-icon-symbol-circle StyledProps--main symbol"
-                icon="symbol-circle"
+                class="bp3-icon bp3-icon-tick-circle StyledProps--main greenSymbol"
+                icon="tick-circle"
               >
                 <svg
-                  data-icon="symbol-circle"
+                  data-icon="tick-circle"
                   height="16"
                   viewBox="0 0 16 16"
                   width="16"
                 >
                   <desc>
-                    symbol-circle
+                    tick-circle
                   </desc>
                   <path
-                    d="M8 3.01a5 5 0 100 10 5 5 0 100-10z"
+                    d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
                     fill-rule="evenodd"
                   />
                 </svg>
@@ -617,9 +617,7 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
-        disabled=""
-        tabindex="-1"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span

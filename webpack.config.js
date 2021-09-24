@@ -23,6 +23,23 @@ const ON_PREM = `${process.env.ON_PREM}` === 'true'
 const BUGSNAG_TOKEN = process.env.BUGSNAG_TOKEN
 const BUGSNAG_SOURCEMAPS_UPLOAD = `${process.env.BUGSNAG_SOURCEMAPS_UPLOAD}` === 'true'
 const CONTEXT = process.cwd()
+const isCypress = process.env.CYPRESS
+const babelLoaderConfig = {
+  loader: 'babel-loader'
+}
+const tsLoaderConfig = {
+  loader: 'ts-loader',
+  options: {
+    transpileOnly: true
+  }
+}
+const tsLoaders = []
+if (isCypress) {
+  tsLoaders.push(babelLoaderConfig)
+  tsLoaders.push(tsLoaderConfig)
+} else {
+  tsLoaders.push(tsLoaderConfig)
+}
 const config = {
   context: CONTEXT,
   entry: './src/framework/app/App.tsx',
@@ -72,14 +89,7 @@ const config = {
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader',
-            options: {
-              transpileOnly: true
-            }
-          }
-        ]
+        use: tsLoaders
       },
       {
         test: /\.module\.scss$/,

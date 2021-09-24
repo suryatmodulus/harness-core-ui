@@ -668,48 +668,56 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                    class="StyledProps--main"
                   >
-                    <label
-                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                    
+                    <div
+                      class="RadioButtonGroup--inline"
                     >
-                      <input
-                        checked=""
-                        name="accessType"
-                        type="radio"
-                        value="APP_ROLE"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      connectors.hashiCorpVault.appRole
-                    </label>
-                    <label
-                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                    >
-                      <input
-                        name="accessType"
-                        type="radio"
-                        value="TOKEN"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      token
-                    </label>
-                    <label
-                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                    >
-                      <input
-                        name="accessType"
-                        type="radio"
-                        value="VAULT_AGENT"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      connectors.hashiCorpVault.vaultAgent
-                    </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          checked=""
+                          class="RadioButton--input"
+                          name="accessType"
+                          type="radio"
+                          value="APP_ROLE"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        connectors.hashiCorpVault.appRole
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="accessType"
+                          type="radio"
+                          value="TOKEN"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        token
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="accessType"
+                          type="radio"
+                          value="VAULT_AGENT"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        connectors.hashiCorpVault.vaultAgent
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1217,35 +1225,42 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                      class="StyledProps--main"
                     >
-                      <label
-                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                      
+                      <div
+                        class="RadioButtonGroup--inline"
                       >
-                        <input
-                          checked=""
-                          name="engineType"
-                          type="radio"
-                          value="fetch"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.hashiCorpVault.fetchEngines
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="engineType"
-                          type="radio"
-                          value="manual"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.hashiCorpVault.manuallyConfigureEngine
-                      </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="engineType"
+                            type="radio"
+                            value="fetch"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.hashiCorpVault.fetchEngines
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            checked=""
+                            class="RadioButton--input"
+                            name="engineType"
+                            type="radio"
+                            value="manual"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.hashiCorpVault.manuallyConfigureEngine
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1674,48 +1689,56 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                    class="StyledProps--main"
                   >
-                    <label
-                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                    
+                    <div
+                      class="RadioButtonGroup--inline"
                     >
-                      <input
-                        checked=""
-                        name="accessType"
-                        type="radio"
-                        value="APP_ROLE"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      connectors.hashiCorpVault.appRole
-                    </label>
-                    <label
-                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                    >
-                      <input
-                        name="accessType"
-                        type="radio"
-                        value="TOKEN"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      token
-                    </label>
-                    <label
-                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                    >
-                      <input
-                        name="accessType"
-                        type="radio"
-                        value="VAULT_AGENT"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      connectors.hashiCorpVault.vaultAgent
-                    </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          checked=""
+                          class="RadioButton--input"
+                          name="accessType"
+                          type="radio"
+                          value="APP_ROLE"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        connectors.hashiCorpVault.appRole
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="accessType"
+                          type="radio"
+                          value="TOKEN"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        token
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="accessType"
+                          type="radio"
+                          value="VAULT_AGENT"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        connectors.hashiCorpVault.vaultAgent
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>

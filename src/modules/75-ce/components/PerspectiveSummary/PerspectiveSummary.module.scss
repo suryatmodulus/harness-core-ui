@@ -2,9 +2,39 @@
   width: 180px;
   height: 68px;
 
+  &.budgetCard {
+    width: 220px;
+
+    .addBudgetText {
+      cursor: pointer;
+    }
+
+    .thisMonthText {
+      margin-bottom: 3px !important;
+    }
+
+    .spendText {
+      white-space: nowrap !important;
+    }
+  }
+
   &.loadingContainer {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+.indicatorBar {
+  position: absolute;
+  width: 262px;
+  height: 8px;
+  left: -1px;
+  bottom: -1px;
+  border-radius: 0px 0px 4px 4px;
+
+  &.indicatorBarWithPattern {
+    opacity: 0.8;
+    background: repeating-linear-gradient(-60deg, #e43326, #e43326 2px, #e5e5f7 2px, #e5e5f7 3px);
   }
 }

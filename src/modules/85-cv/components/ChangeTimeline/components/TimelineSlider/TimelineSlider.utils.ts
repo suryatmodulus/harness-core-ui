@@ -6,16 +6,20 @@ export function isLeftHandleWithinBounds({
   draggableEvent,
   leftOffset,
   minSliderWidth,
+  maxSliderWidth,
   width
 }: {
   draggableEvent: MouseEvent
   leftOffset: number
   minSliderWidth: number
+  maxSliderWidth?: number
   width: number
 }): boolean | undefined {
   if (draggableEvent.movementX === 0) return
   const diff = leftOffset + draggableEvent.movementX
-  return diff >= -3 && width - draggableEvent.movementX >= minSliderWidth
+  const updatedWidth = width - draggableEvent.movementX
+  if (maxSliderWidth && updatedWidth > maxSliderWidth) return false
+  return diff >= -3 && updatedWidth >= minSliderWidth
 }
 
 export function isSliderWithinBounds({
@@ -61,7 +65,7 @@ export function determineSliderPlacementForClick({
   return {
     ...sliderAspects,
     leftOffset: containerWidth - sliderAspects.width,
-    onClickTransition: 'left 250ms ease-in-out'
+    onClickTransition: 'left 200ms ease-out'
   }
 }
 
@@ -134,8 +138,12 @@ export function calculateSliderEndPoints(aspects: SliderAspects, containerWidth:
 export function calculateRightHandleBounds(
   sliderAspects: SliderAspects,
   containerWidth: number,
-  minSliderWidth: number
+  minSliderWidth: number,
+  maxSliderWidth?: number
 ): DraggableBounds {
   const { leftOffset, rightHandlePosition, width } = sliderAspects
-  return { right: containerWidth - leftOffset, left: Math.max(rightHandlePosition - width, minSliderWidth) }
+  return {
+    right: Math.min(maxSliderWidth || containerWidth - leftOffset, containerWidth - leftOffset),
+    left: Math.max(rightHandlePosition - width, minSliderWidth)
+  }
 }

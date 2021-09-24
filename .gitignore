@@ -1,5 +1,9 @@
 node_modules
 coverage
+.nyc_output
+reports
+cypress-coverage
+merged-coverage
 .DS_Store
 dist
 tsconfig.tmp

@@ -53,11 +53,22 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
           common.delegateForTask
         </span>
       </p>
-      <p
-        class="StyledProps--font StyledProps--main"
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="justify-content: space-between;"
       >
-        taskId
-      </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold"
+          style="white-space: pre;"
+        >
+          taskId 
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          taskId
+        </p>
+      </div>
     </div>
     <div
       class="bp3-card bp3-elevation-0 Card--card card"
@@ -196,7 +207,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                   Delegate assigned for task execution
                 </p>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                   style="--text-line-clamp: 1;"
                 >
                   <span>
@@ -285,7 +296,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                   Successfully matched required delegate capabilities
                 </p>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
                   style="--text-line-clamp: 1;"
                 >
                   <span>

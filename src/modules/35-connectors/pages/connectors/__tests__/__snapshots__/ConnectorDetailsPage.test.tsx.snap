@@ -41,7 +41,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                 </svg>
               </span>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 common.accountSettings
               </p>
@@ -51,9 +51,9 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -71,7 +71,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
               href="/account/dummy/settings/resources/connectors"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 connectorsLabel
               </p>
@@ -81,9 +81,9 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -549,7 +549,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                 </svg>
               </span>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 common.accountSettings
               </p>
@@ -559,9 +559,9 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -579,7 +579,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
               href="/account/dummy/settings/organizations/dummyOrg/details"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 dummyOrg
               </p>
@@ -589,9 +589,9 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -609,7 +609,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
               href="/account/dummy/settings/organizations/dummyOrg/setup/resources/connectors"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 connectorsLabel
               </p>
@@ -619,9 +619,9 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path

@@ -47,6 +47,7 @@ import LoadBalancerDnsConfig from './LoadBalancerDnsConfig'
 import AzureAPConfig from '../COAccessPointList/AzureAPConfig'
 import CORoutingTable from '../COGatewayConfig/CORoutingTable'
 import COHealthCheckTable from '../COGatewayConfig/COHealthCheckTable'
+import { getDummySupportedResourceFromAG, getDummySupportedResourceFromALB } from './helper'
 import css from './COGatewayAccess.module.scss'
 
 const modalPropsLight: IDialogProps = {
@@ -229,7 +230,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     })
 
     submittedAccessPoints?.forEach(_item => {
-      apCoresResponseMap[_item.name as string] = getDummySupportedResourceFromAG(_item)
+      apCoresResponseMap[_item.name as string] = getDummyResource(_item)
     })
     setApCoreResponseList(_values(apCoresResponseMap))
   }, [apCoresResponse?.response, accessPoints?.response])
@@ -393,20 +394,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     setSelectedLoadBalancer(undefined)
   }
 
-  const getDummySupportedResourceFromAG = (ag: AccessPoint): AccessPointCore => {
-    return {
-      type: 'app_gateway',
-      details: {
-        fe_ip_id: ag.metadata?.fe_ip_id,
-        id: ag.id,
-        name: ag.name,
-        region: ag.region,
-        resource_group: ag.metadata?.resource_group,
-        size: ag.metadata?.size,
-        subnet_id: ag.metadata?.subnet_id,
-        vpc: ag.vpc
-      }
-    }
+  const getDummyResource = (data: AccessPoint) => {
+    return isAwsProvider ? getDummySupportedResourceFromALB(data) : getDummySupportedResourceFromAG(data)
   }
 
   const [openLoadBalancerModal, hideLoadBalancerModal] = useModalHook(() => {
@@ -427,7 +416,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
             }}
-            createMode={isCreateMode}
+            mode={isCreateMode ? 'create' : 'import'}
             onSave={savedLb => {
               setAccessPoint(savedLb)
               if (isCreateMode) {
@@ -448,7 +437,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                 // apCoresRefetch()
               }
             }}
-            createMode={isCreateMode}
+            mode={isCreateMode ? 'create' : 'import'}
             onClose={_clearStatus => {
               if (_clearStatus && !isCreateMode) {
                 clearAPData()

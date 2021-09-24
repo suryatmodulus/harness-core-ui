@@ -1,0 +1,67 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 2,
+    "pageItemCount": 10,
+    "pageSize": 10,
+    "content": [
+      {
+        "projectResponse": {
+          "project": {
+            "orgIdentifier": "default",
+            "identifier": "project1",
+            "name": "Project 1",
+            "color": "#0063f7",
+            "modules": ["CF", "CORE", "CV", "PMS", "CI", "CD", "CE"],
+            "description": "",
+            "tags": {}
+          },
+          "createdAt": null,
+          "lastModifiedAt": 1627545161867
+        },
+        "organization": { "identifier": "default", "name": "Default", "description": "", "tags": {} },
+        "harnessManagedOrg": false,
+        "admins": [
+          {
+            "name": "email@harness.io",
+            "email": "email@harness.io",
+            "uuid": "uuid",
+            "locked": false
+          }
+        ],
+        "collaborators": []
+      },
+      {
+        "projectResponse": {
+          "project": {
+            "orgIdentifier": "org2",
+            "identifier": "project2",
+            "name": "Project 2",
+            "color": "#0063F7",
+            "modules": ["CD", "CI", "CV", "CF", "CE", "CORE", "PMS"],
+            "description": "Big Description",
+            "tags": {}
+          },
+          "createdAt": 1627487806817,
+          "lastModifiedAt": 1627487806817
+        },
+        "organization": { "identifier": "org2", "name": "Org 2", "description": "", "tags": {} },
+        "harnessManagedOrg": false,
+        "admins": [
+          {
+            "name": "email@harness.io",
+            "email": "email@harness.io",
+            "uuid": "uuid",
+            "locked": false
+          }
+        ],
+        "collaborators": []
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "d943121d-2357-4dcd-86a8-40824e9410fb"
+}

@@ -648,6 +648,46 @@
           }
         }
       },
+      "put": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accessPoint",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AccessPoint"
+            }
+          }
+        ],
+        "tags": ["EditAccessPoint"],
+        "summary": "Edit an AccessPoint",
+        "description": "Edit an AccessPoint",
+        "operationId": "EditAccessPoint",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CreateAccessPointResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
       "delete": {
         "description": "Delete Access Points",
         "operationId": "DeleteAccessPoints",
@@ -2229,6 +2269,12 @@
         },
         "timeout": {
           "type": "int"
+        },
+        "status_code_from": {
+          "type": "number"
+        },
+        "status_code_to": {
+          "type": "number"
         }
       }
     },
@@ -2576,6 +2622,12 @@
           }
         },
         "security_groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "editables": {
           "type": "array",
           "items": {
             "type": "string"

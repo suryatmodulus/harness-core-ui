@@ -117,7 +117,7 @@ kubernetesText: Kubernetes
 kubernetesDirectText: Kubernetes Direct
 connector: Connector
 profile: Profile
-taskId: 'TaskId: {{id}}'
+taskId: 'TaskId:'
 preferences: Preferences
 cloudProviders: Cloud Providers
 artifactRepositories: Artifact Repositories

@@ -10,6 +10,7 @@ import { Table } from '@common/components'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import noDataImage from '@cv/assets/noData.svg'
 import type { ChangesTableInterface } from './ChangesTable.types'
 import { renderTime, renderName, renderImpact, renderType, renderChangeType } from './ChangesTable.utils'
 import { defaultPageSize } from './ChangesTable.constants'
@@ -117,7 +118,7 @@ export default function ChangesTable({
       return (
         <Card className={css.cardContainer}>
           <Container className={css.noData}>
-            <NoDataCard message={getString('cv.monitoredServices.changesTable.noData')} icon="warning-sign" />
+            <NoDataCard message={getString('cv.monitoredServices.noAvailableData')} image={noDataImage} />
           </Container>
         </Card>
       )

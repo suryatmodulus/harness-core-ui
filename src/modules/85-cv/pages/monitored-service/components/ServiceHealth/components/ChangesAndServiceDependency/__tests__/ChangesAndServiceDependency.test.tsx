@@ -15,7 +15,7 @@ jest.mock('services/cv', () => ({
 }))
 describe('ChangesAndServiceDependency', () => {
   test('should render', async () => {
-    const { container, getByText } = render(
+    const { container, getAllByText } = render(
       <TestWrapper>
         <ChangesAndServiceDependency
           startTime={0}
@@ -25,8 +25,8 @@ describe('ChangesAndServiceDependency', () => {
         />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('cv.monitoredServices.changesTable.noData')).toBeTruthy())
-    await waitFor(() => expect(getByText('pipeline.verification.logs.noAnalysis')).toBeTruthy())
+
+    await waitFor(() => expect(getAllByText('cv.monitoredServices.noAvailableData')).toHaveLength(2))
     expect(container).toMatchSnapshot()
   })
 })

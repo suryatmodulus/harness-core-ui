@@ -44,7 +44,7 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
                   </svg>
                 </span>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                  class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
                 >
                   common.accountSettings
                 </p>
@@ -54,9 +54,9 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="12"
+                  height="8"
                   viewBox="0 0 8 14"
-                  width="12"
+                  width="8"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -74,7 +74,7 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
                 href="/account/dummy/undefined/orgs/dummy/projects/dummy/services"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                  class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
                 >
                   services
                 </p>
@@ -84,9 +84,9 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="12"
+                  height="8"
                   viewBox="0 0 8 14"
-                  width="12"
+                  width="8"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path

@@ -1,6 +1,6 @@
 import React from 'react'
 import produce from 'immer'
-import { defaultTo, set } from 'lodash-es'
+import { defaultTo, isEmpty, lowerCase, set } from 'lodash-es'
 import { Text, Color, NestedAccordionPanel } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { DeploymentStageConfig, StageElementConfig } from 'services/cd-ng'
@@ -16,6 +16,7 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
+import VariableListTagRow from '@pipeline/components/VariablesListTable/VariableListTagRow'
 import { ServiceCardPanel } from './ServiceCard'
 import { InfrastructureCardPanel } from './InfrastructureCard'
 import { ExecutionCardPanel } from './ExecutionCard'
@@ -51,7 +52,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
       summary={
         <VariableAccordionSummary>
           <Text className={css.stageTitle} color={Color.BLACK}>
-            {`Stage:${originalStage.name}`}
+            {`Stage: ${originalStage.name}`}
           </Text>
         </VariableAccordionSummary>
       }
@@ -64,7 +65,15 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
             originalData={originalStage}
             metadataMap={metadataMap}
           />
-
+          {!isEmpty(originalStage?.tags) && (
+            <VariableListTagRow
+              metadataMap={metadataMap}
+              name={lowerCase(getString('tagsLabel'))}
+              tags={originalStage?.tags}
+              fqn=""
+              className={css.variablePaddingTagL2}
+            />
+          )}
           {originalSpec && (
             <React.Fragment>
               <NestedAccordionPanel

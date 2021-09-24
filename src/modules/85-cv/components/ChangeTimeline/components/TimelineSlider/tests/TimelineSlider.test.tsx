@@ -71,4 +71,17 @@ describe('Unit tests for timeline slider', () => {
       })
     )
   })
+
+  test('Ensure that slider appears only when click event is fired when appearOnClick is passed', async () => {
+    const { container, rerender } = render(
+      <TimelineSlider initialSliderWidth={100} minSliderWidth={50} onSliderDragEnd={jest.fn()} hideSlider={true} />
+    )
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    expect(container.querySelector('[class*="sliderContainer"]')).toBeNull()
+
+    rerender(
+      <TimelineSlider initialSliderWidth={100} minSliderWidth={50} onSliderDragEnd={jest.fn()} hideSlider={false} />
+    )
+    await waitFor(() => expect(container.querySelector('[class*="sliderContainer"]')).not.toBeNull())
+  })
 })

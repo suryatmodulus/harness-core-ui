@@ -91,8 +91,19 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
               placeholder={getString('pipeline.variable.typePlaceholder')}
             />
             <div className="buttons-container">
-              <Button variation={ButtonVariation.PRIMARY} text={getString('save')} onClick={submitForm} /> &nbsp; &nbsp;
-              <Button variation={ButtonVariation.TERTIARY} text={getString('cancel')} onClick={() => closeModal()} />
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                text={getString('save')}
+                onClick={submitForm}
+                data-testid="addVariableSave"
+              />{' '}
+              &nbsp; &nbsp;
+              <Button
+                variation={ButtonVariation.TERTIARY}
+                text={getString('cancel')}
+                onClick={() => closeModal()}
+                data-testid="addVariableCancel"
+              />
             </div>
           </FormikForm>
         )}

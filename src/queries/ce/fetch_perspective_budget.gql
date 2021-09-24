@@ -1,0 +1,11 @@
+query FetchPerspectiveBudget($perspectiveId: String) {
+  budgetSummary(perspectiveId: $perspectiveId) {
+    id
+    name
+    budgetAmount
+    actualCost
+    timeLeft
+    timeUnit
+    timeScope
+  }
+}

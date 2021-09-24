@@ -53,3 +53,5 @@ jest.mock('react-timeago', () => () => 'dummy date')
 jest.mock('@delegates/modals/DelegateModal/useCreateDelegateModal', () => () => ({
   openDelegateModal: noop
 }))
+
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')

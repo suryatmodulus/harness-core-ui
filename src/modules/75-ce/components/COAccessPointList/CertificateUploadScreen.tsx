@@ -4,6 +4,7 @@ import { Button, Formik, FormikForm, FormInput, Heading, Text } from '@wings-sof
 import { useStrings } from 'framework/strings'
 import { Utils } from '@ce/common/Utils'
 import { useToaster } from '@common/exports'
+import type { AccessPointScreenMode } from '@ce/types'
 import uploadFileImage from './images/file-multiple-outline.svg'
 import css from './CertificateUploadScreen.module.scss'
 
@@ -17,6 +18,8 @@ type FormValues = Omit<CertificateData, 'content'>
 
 interface CertificateUploadProps {
   onSubmit: (details: CertificateData) => void
+  editableFieldsMap: Record<string, boolean>
+  mode: AccessPointScreenMode
 }
 
 const CertificateUpload: React.FC<CertificateUploadProps> = props => {
@@ -24,6 +27,7 @@ const CertificateUpload: React.FC<CertificateUploadProps> = props => {
   const { showError } = useToaster()
   const [fileContent, setFileContent] = useState<string>()
   const [fileName, setFileName] = useState<string>('Drag and drop your file here or Browse')
+  const isEditMode = props.mode === 'edit'
 
   const handleFileUpload = async (event: React.FormEvent<HTMLInputElement>) => {
     try {
@@ -48,7 +52,12 @@ const CertificateUpload: React.FC<CertificateUploadProps> = props => {
           {!fileContent && <img src={uploadFileImage} />}
           <Text>{fileName}</Text>
         </div>
-        <input type={'file'} accept={'.pfx'} onChange={handleFileUpload} />
+        <input
+          type={'file'}
+          accept={'.pfx'}
+          onChange={handleFileUpload}
+          disabled={isEditMode && !props.editableFieldsMap['content']}
+        />
       </div>
       <Formik
         formName={'azureCertificateUpload'}
@@ -61,8 +70,16 @@ const CertificateUpload: React.FC<CertificateUploadProps> = props => {
       >
         {({ isValid, submitForm }) => (
           <FormikForm className={css.uploadForm}>
-            <FormInput.Text name={'name'} label={getString('name')} />
-            <FormInput.Text name={'password'} label={getString('password')} />
+            <FormInput.Text
+              name={'name'}
+              label={getString('name')}
+              disabled={isEditMode && !props.editableFieldsMap['name']}
+            />
+            <FormInput.Text
+              name={'password'}
+              label={getString('password')}
+              disabled={isEditMode && !props.editableFieldsMap['password']}
+            />
             <Button text={'Done'} intent={'primary'} disabled={!isValid || !fileContent} onClick={submitForm} />
           </FormikForm>
         )}

@@ -59,7 +59,7 @@ describe('AWS Access Point Configuration screen first', () => {
         <LBFormStepFirst
           cloudAccountId={'currCloudAccountId'}
           handleCancel={jest.fn()}
-          createMode={true}
+          mode={'create'}
           handleSubmit={jest.fn()}
           loadBalancer={initialLoadBalancer}
           handleCloudConnectorChange={jest.fn()}
@@ -91,7 +91,7 @@ describe('AWS Access Point Configuration screen first', () => {
           <LBFormStepFirst
             cloudAccountId={'currCloudAccountId'}
             handleCancel={jest.fn()}
-            createMode={false}
+            mode={'import'}
             handleSubmit={jest.fn()}
             loadBalancer={{ ...initialLoadBalancer, name: 'Mock Access Point' }}
             handleCloudConnectorChange={jest.fn()}

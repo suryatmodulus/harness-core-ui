@@ -637,35 +637,42 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                        class="StyledProps--main"
                       >
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                        
+                        <div
+                          class="RadioButtonGroup--inline"
                         >
-                          <input
-                            checked=""
-                            name="urlType"
-                            type="radio"
-                            value="Account"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          account
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                        >
-                          <input
-                            name="urlType"
-                            type="radio"
-                            value="Repo"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          repository
-                        </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              checked=""
+                              class="RadioButton--input"
+                              name="urlType"
+                              type="radio"
+                              value="Account"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            account
+                          </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              class="RadioButton--input"
+                              name="urlType"
+                              type="radio"
+                              value="Repo"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            repository
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -687,35 +694,42 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                        class="StyledProps--main"
                       >
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                        
+                        <div
+                          class="RadioButtonGroup--inline"
                         >
-                          <input
-                            checked=""
-                            name="connectionType"
-                            type="radio"
-                            value="Http"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          HTTP
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                        >
-                          <input
-                            name="connectionType"
-                            type="radio"
-                            value="Ssh"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          SSH
-                        </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              checked=""
+                              class="RadioButton--input"
+                              name="connectionType"
+                              type="radio"
+                              value="Http"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            HTTP
+                          </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              class="RadioButton--input"
+                              name="connectionType"
+                              type="radio"
+                              value="Ssh"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            SSH
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1115,35 +1129,42 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                        class="StyledProps--main"
                       >
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                        
+                        <div
+                          class="RadioButtonGroup--inline"
                         >
-                          <input
-                            checked=""
-                            name="urlType"
-                            type="radio"
-                            value="Account"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          account
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                        >
-                          <input
-                            name="urlType"
-                            type="radio"
-                            value="Repo"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          repository
-                        </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              checked=""
+                              class="RadioButton--input"
+                              name="urlType"
+                              type="radio"
+                              value="Account"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            account
+                          </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              class="RadioButton--input"
+                              name="urlType"
+                              type="radio"
+                              value="Repo"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            repository
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1165,35 +1186,42 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                        class="StyledProps--main"
                       >
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                        
+                        <div
+                          class="RadioButtonGroup--inline"
                         >
-                          <input
-                            checked=""
-                            name="connectionType"
-                            type="radio"
-                            value="Http"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          HTTP
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                        >
-                          <input
-                            name="connectionType"
-                            type="radio"
-                            value="Ssh"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          SSH
-                        </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              checked=""
+                              class="RadioButton--input"
+                              name="connectionType"
+                              type="radio"
+                              value="Http"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            HTTP
+                          </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              class="RadioButton--input"
+                              name="connectionType"
+                              type="radio"
+                              value="Ssh"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            SSH
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1623,35 +1651,42 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                        class="StyledProps--main"
                       >
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                        
+                        <div
+                          class="RadioButtonGroup--inline"
                         >
-                          <input
-                            checked=""
-                            name="urlType"
-                            type="radio"
-                            value="Account"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          account
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                        >
-                          <input
-                            name="urlType"
-                            type="radio"
-                            value="Repo"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          repository
-                        </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              checked=""
+                              class="RadioButton--input"
+                              name="urlType"
+                              type="radio"
+                              value="Account"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            account
+                          </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              class="RadioButton--input"
+                              name="urlType"
+                              type="radio"
+                              value="Repo"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            repository
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1673,35 +1708,42 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                        class="StyledProps--main"
                       >
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                        
+                        <div
+                          class="RadioButtonGroup--inline"
                         >
-                          <input
-                            checked=""
-                            name="connectionType"
-                            type="radio"
-                            value="Http"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          HTTP
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                        >
-                          <input
-                            name="connectionType"
-                            type="radio"
-                            value="Ssh"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          SSH
-                        </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              class="RadioButton--input"
+                              name="connectionType"
+                              type="radio"
+                              value="Http"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            HTTP
+                          </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              checked=""
+                              class="RadioButton--input"
+                              name="connectionType"
+                              type="radio"
+                              value="Ssh"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            SSH
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2101,35 +2143,42 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                        class="StyledProps--main"
                       >
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                        
+                        <div
+                          class="RadioButtonGroup--inline"
                         >
-                          <input
-                            checked=""
-                            name="urlType"
-                            type="radio"
-                            value="Account"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          account
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                        >
-                          <input
-                            name="urlType"
-                            type="radio"
-                            value="Repo"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          repository
-                        </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              checked=""
+                              class="RadioButton--input"
+                              name="urlType"
+                              type="radio"
+                              value="Account"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            account
+                          </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              class="RadioButton--input"
+                              name="urlType"
+                              type="radio"
+                              value="Repo"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            repository
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2151,35 +2200,42 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                       class="bp3-form-content"
                     >
                       <div
-                        class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                        class="StyledProps--main"
                       >
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                        
+                        <div
+                          class="RadioButtonGroup--inline"
                         >
-                          <input
-                            checked=""
-                            name="connectionType"
-                            type="radio"
-                            value="Http"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          HTTP
-                        </label>
-                        <label
-                          class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                        >
-                          <input
-                            name="connectionType"
-                            type="radio"
-                            value="Ssh"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          SSH
-                        </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              class="RadioButton--input"
+                              name="connectionType"
+                              type="radio"
+                              value="Http"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            HTTP
+                          </label>
+                          <label
+                            class="RadioButton--radio StyledProps--main"
+                          >
+                            <input
+                              checked=""
+                              class="RadioButton--input"
+                              name="connectionType"
+                              type="radio"
+                              value="Ssh"
+                            />
+                            <span
+                              class="RadioButton--radioIcon"
+                            />
+                            SSH
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -75,7 +75,7 @@ const DashboardResourceModalBody: React.FC<RbacResourceModalProps> = ({
 
   const { data: folders, loading: fethingFolders } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: 'dashboard/folder',
+    path: 'gateway/dashboard/folder',
     queryParams: { accountId: accountIdentifier, page: page + 1, pageSize: 10, isAdmin: true }
   })
 

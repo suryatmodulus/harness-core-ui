@@ -41,7 +41,7 @@ interface AppProps {
 }
 
 const Harness = (window.Harness = window.Harness || {})
-const ignoredErrorClasses = ['YAMLSemanticError', 'YAMLSyntaxError']
+const ignoredErrorClasses = ['YAMLSemanticError', 'YAMLSyntaxError', 'AbortError']
 
 function AppWithAuthentication(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()

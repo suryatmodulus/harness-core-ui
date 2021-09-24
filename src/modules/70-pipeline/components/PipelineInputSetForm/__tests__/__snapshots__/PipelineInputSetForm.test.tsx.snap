@@ -111,50 +111,58 @@ exports[`CI enabled CI READONLY mode: CI stage readonly mode 1`] = `
                 class="bp3-form-content"
               >
                 <div
-                  class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                  class="StyledProps--main"
                 >
-                  <label
-                    class="bp3-control bp3-radio bp3-disabled bp3-inline RadioButton--radio StyledProps--main"
+                  
+                  <div
+                    class="RadioButtonGroup--inline"
                   >
-                    <input
-                      disabled=""
-                      name="/dummypath.properties.ci.codebase.build.type"
-                      type="radio"
-                      value="branch"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    gitBranch
-                  </label>
-                  <label
-                    class="bp3-control bp3-radio bp3-disabled bp3-inline RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      disabled=""
-                      name="/dummypath.properties.ci.codebase.build.type"
-                      type="radio"
-                      value="tag"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    gitTag
-                  </label>
-                  <label
-                    class="bp3-control bp3-radio bp3-disabled bp3-inline RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      disabled=""
-                      name="/dummypath.properties.ci.codebase.build.type"
-                      type="radio"
-                      value="PR"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    pipeline.gitPullRequest
-                  </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        class="RadioButton--input"
+                        disabled=""
+                        name="/dummypath.properties.ci.codebase.build.type"
+                        type="radio"
+                        value="branch"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      gitBranch
+                    </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        class="RadioButton--input"
+                        disabled=""
+                        name="/dummypath.properties.ci.codebase.build.type"
+                        type="radio"
+                        value="tag"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      gitTag
+                    </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        class="RadioButton--input"
+                        disabled=""
+                        name="/dummypath.properties.ci.codebase.build.type"
+                        type="radio"
+                        value="PR"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      pipeline.gitPullRequest
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -202,47 +210,55 @@ exports[`CI enabled CI present in one of the stages: CI codebase input set form 
                 class="bp3-form-content"
               >
                 <div
-                  class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                  class="StyledProps--main"
                 >
-                  <label
-                    class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                  
+                  <div
+                    class="RadioButtonGroup--inline"
                   >
-                    <input
-                      name="/dummypath.properties.ci.codebase.build.type"
-                      type="radio"
-                      value="branch"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    gitBranch
-                  </label>
-                  <label
-                    class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      name="/dummypath.properties.ci.codebase.build.type"
-                      type="radio"
-                      value="tag"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    gitTag
-                  </label>
-                  <label
-                    class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      name="/dummypath.properties.ci.codebase.build.type"
-                      type="radio"
-                      value="PR"
-                    />
-                    <span
-                      class="bp3-control-indicator"
-                    />
-                    pipeline.gitPullRequest
-                  </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        class="RadioButton--input"
+                        name="/dummypath.properties.ci.codebase.build.type"
+                        type="radio"
+                        value="branch"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      gitBranch
+                    </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        class="RadioButton--input"
+                        name="/dummypath.properties.ci.codebase.build.type"
+                        type="radio"
+                        value="tag"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      gitTag
+                    </label>
+                    <label
+                      class="RadioButton--radio StyledProps--main"
+                    >
+                      <input
+                        class="RadioButton--input"
+                        name="/dummypath.properties.ci.codebase.build.type"
+                        type="radio"
+                        value="PR"
+                      />
+                      <span
+                        class="RadioButton--radioIcon"
+                      />
+                      pipeline.gitPullRequest
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>

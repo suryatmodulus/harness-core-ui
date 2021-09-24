@@ -887,48 +887,56 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                      class="StyledProps--main"
                     >
-                      <label
-                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      
+                      <div
+                        class=""
                       >
-                        <input
-                          checked=""
-                          name="delegateType"
-                          type="radio"
-                          value="ManualConfig"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.aws.awsAccessKey
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="delegateType"
-                          type="radio"
-                          value="InheritFromDelegate"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.aws.assumeIAMRole
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="delegateType"
-                          type="radio"
-                          value="Irsa"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.aws.useIRSA
-                      </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            checked=""
+                            class="RadioButton--input"
+                            name="delegateType"
+                            type="radio"
+                            value="ManualConfig"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.aws.awsAccessKey
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="delegateType"
+                            type="radio"
+                            value="InheritFromDelegate"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.aws.assumeIAMRole
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="delegateType"
+                            type="radio"
+                            value="Irsa"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.aws.useIRSA
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1725,48 +1733,56 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                      class="StyledProps--main"
                     >
-                      <label
-                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                      
+                      <div
+                        class=""
                       >
-                        <input
-                          checked=""
-                          name="delegateType"
-                          type="radio"
-                          value="ManualConfig"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.aws.awsAccessKey
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="delegateType"
-                          type="radio"
-                          value="InheritFromDelegate"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.aws.assumeIAMRole
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
-                      >
-                        <input
-                          name="delegateType"
-                          type="radio"
-                          value="Irsa"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        connectors.aws.useIRSA
-                      </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            checked=""
+                            class="RadioButton--input"
+                            name="delegateType"
+                            type="radio"
+                            value="ManualConfig"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.aws.awsAccessKey
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="delegateType"
+                            type="radio"
+                            value="InheritFromDelegate"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.aws.assumeIAMRole
+                        </label>
+                        <label
+                          class="RadioButton--radio StyledProps--main"
+                        >
+                          <input
+                            class="RadioButton--input"
+                            name="delegateType"
+                            type="radio"
+                            value="Irsa"
+                          />
+                          <span
+                            class="RadioButton--radioIcon"
+                          />
+                          connectors.aws.useIRSA
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>

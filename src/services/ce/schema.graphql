@@ -16,6 +16,21 @@ directive @specifiedBy("The URL that specifies the behaviour of this scalar." ur
 "This union of all types of recommendations"
 union recommendationDetails = NodeRecommendationDTO | WorkloadRecommendationDTO
 
+type AnomalyData {
+  actualAmount: Float
+  anomalyScore: Float
+  comment: String
+  entity: EntityInfo
+  expectedAmount: Float
+  id: String
+  time: Long
+  userFeedback: AnomalyFeedback
+}
+
+type AnomalyDataList {
+  data: [AnomalyData]
+}
+
 type BillingData {
   accountid: String
   actualidlecost: Float
@@ -87,6 +102,16 @@ type BillingDataDemo {
   instanceid: String
   instancename: String
   starttime: Long
+}
+
+type BudgetSummary {
+  actualCost: Float
+  budgetAmount: Float
+  id: String
+  name: String
+  timeLeft: Int!
+  timeScope: String
+  timeUnit: String
 }
 
 type CCMMetaData {
@@ -206,6 +231,20 @@ type EfficiencyScoreStats {
   statsLabel: String
   statsTrend: BigDecimal
   statsValue: String
+}
+
+type EntityInfo {
+  awsAccount: String
+  awsService: String
+  clusterId: String
+  clusterName: String
+  gcpProduct: String
+  gcpProject: String
+  gcpSKUDescription: String
+  gcpSKUId: String
+  namespace: String
+  workloadName: String
+  workloadType: String
 }
 
 type FilterStatsDTO {
@@ -356,6 +395,7 @@ type QLCEViewEntityStatsDataPoint {
   id: String
   instanceDetails: InstanceDetails
   name: String
+  pricingSource: String
   storageDetails: StorageDetails
 }
 
@@ -374,8 +414,12 @@ type QLCEViewFieldIdentifierData {
 
 "Query root"
 type Query {
+  "Get Anomalies for perspective"
+  anomaliesForPerspective(filters: [QLCEViewFilterWrapperInput], groupBy: [QLCEViewGroupByInput]): AnomalyDataList
   billingData(request: GridRequestInput): [BillingData]
   billingdata(clusterid: String, endTime: OffsetTime, startTime: OffsetTime): [BillingDataDemo]
+  "Budget card for perspectives"
+  budgetSummary(perspectiveId: String): BudgetSummary
   "Fetch CCM MetaData for account"
   ccmMetaData: CCMMetaData
   instancedata(instanceid: String!): InstanceDataDemo
@@ -418,6 +462,7 @@ type Query {
     isClusterQuery: Boolean
     limit: Int
     offset: Int
+    skipRoundOff: Boolean
     sortCriteria: [QLCEViewSortCriteriaInput]
   ): PerspectiveEntityStatsData
   "Overview stats for perspective"
@@ -636,6 +681,12 @@ enum AggregationOperation {
   SUM
 }
 
+enum AnomalyFeedback {
+  FALSE_ANOMALY
+  NOT_RESPONDED
+  TRUE_ANOMALY
+}
+
 enum FilterOperator {
   EQUALS
   GREATER_OR_EQUALS
@@ -661,6 +712,7 @@ enum QLCESortOrder {
 }
 
 enum QLCEViewAggregateOperation {
+  AVG
   MAX
   MIN
   SUM
@@ -669,6 +721,7 @@ enum QLCEViewAggregateOperation {
 enum QLCEViewFilterOperator {
   EQUALS
   IN
+  LIKE
   NOT_IN
   NOT_NULL
   NULL

@@ -1,27 +1,6 @@
 import type { ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
 
-export const usernamePassword: ConnectorInfoDTO = {
-  name: 'GithubWorking1',
-  identifier: 'asasas',
-  description: 'connector before demo',
-  orgIdentifier: '',
-  projectIdentifier: '',
-  tags: {},
-  type: 'Github',
-  spec: {
-    url: 'https://github.com/dev',
-    authentication: {
-      type: 'Http',
-      spec: {
-        type: 'UsernamePassword',
-        spec: { username: 'dev', usernameRef: null, passwordRef: 'account.githubPassword' }
-      }
-    },
-    apiAccess: null,
-    type: 'Account',
-    validationRepo: 'test'
-  }
-}
+const tokenRef = 'account.githubPassword'
 
 export const backButtonMock: ConnectorInfoDTO = {
   name: 'dummy github name',
@@ -36,8 +15,8 @@ export const backButtonMock: ConnectorInfoDTO = {
     authentication: {
       type: 'Http',
       spec: {
-        type: 'UsernamePassword',
-        spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.githubPassword' }
+        type: 'UsernameToken',
+        spec: { username: 'dev', usernameRef: undefined, tokenRef }
       }
     },
     apiAccess: null,
@@ -61,12 +40,12 @@ export const usernameTokenWithAPIAccessGithubApp: ConnectorInfoDTO = {
       type: 'Http',
       spec: {
         type: 'UsernameToken',
-        spec: { username: 'dev', usernameRef: undefined, tokenRef: 'account.githubPassword' }
+        spec: { username: 'dev', usernameRef: undefined, tokenRef }
       }
     },
     apiAccess: {
       type: 'GithubApp',
-      spec: { installationId: '1234', applicationId: '1234', privateKeyRef: 'account.githubPassword' }
+      spec: { installationId: '1234', applicationId: '1234', privateKeyRef: tokenRef }
     },
     type: 'Account',
     validationRepo: 'test'
@@ -88,12 +67,12 @@ export const usernameTokenWithAPIAccessToken: ConnectorInfoDTO = {
       type: 'Http',
       spec: {
         type: 'UsernameToken',
-        spec: { username: 'dev', usernameRef: undefined, tokenRef: 'account.githubPassword' }
+        spec: { username: 'dev', usernameRef: undefined, tokenRef }
       }
     },
     apiAccess: {
       type: 'Token',
-      spec: { tokenRef: 'account.githubPassword' }
+      spec: { tokenRef }
     },
     type: 'Account',
     validationRepo: 'test'

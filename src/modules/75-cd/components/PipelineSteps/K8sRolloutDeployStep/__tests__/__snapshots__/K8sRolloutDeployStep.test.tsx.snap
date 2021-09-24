@@ -589,7 +589,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as new step 1`] = `
 exports[`Test K8sRolloutDeployStep should render variable view 1`] = `
 <div>
   <div
-    class="variablesListTable variablePaddingL2"
+    class="variablesListTable variablePaddingL3"
   >
     <div
       class="variableListRow"

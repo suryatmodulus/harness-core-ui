@@ -149,7 +149,7 @@ export function useTimeseriesDetailsModal(
                 labels: {
                   enabled: true,
                   style: {
-                    fontSize: 'var(--font-size-small)',
+                    fontSize: 'var(--font-size-xsmall)',
                     color: 'var(--grey-300)'
                   }
                 }

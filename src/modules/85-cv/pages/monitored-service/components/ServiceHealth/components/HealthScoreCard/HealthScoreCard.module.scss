@@ -6,12 +6,17 @@
 }
 
 .healthScoreCard {
-  height: 31px;
-  width: 31px;
+  height: 25px;
+  width: 25px;
   border-radius: var(--spacing-xsmall);
   font-size: var(--font-size-small);
   padding-top: var(--spacing-small);
-  color: var(--white);
+  background-color: var(--grey-100) !important;
   text-align: center;
   margin-right: var(--spacing-small);
+}
+
+.noDataState {
+  display: flex;
+  flex-direction: row;
 }

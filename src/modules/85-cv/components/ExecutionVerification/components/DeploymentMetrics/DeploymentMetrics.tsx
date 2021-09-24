@@ -93,6 +93,8 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
     let intervalId = pollingIntervalId
     clearInterval(intervalId)
     if (step?.status === 'Running' || step?.status === 'AsyncWaiting') {
+      // eslint-disable-next-line
+      // @ts-ignore
       intervalId = setInterval(refetch, POLLING_INTERVAL)
       setPollingIntervalId(intervalId)
     }

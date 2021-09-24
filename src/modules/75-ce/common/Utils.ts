@@ -1,7 +1,9 @@
 import { isEmpty as _isEmpty } from 'lodash-es'
 import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
 import type { CcmMetaData } from 'services/ce/services'
-import type { HealthCheck, PortConfig, Service, ServiceDep, YamlDependency } from 'services/lw'
+import type { HealthCheck, PortConfig, Service, ServiceDep } from 'services/lw'
+import type { AccessPointScreenMode, YamlDependency } from '@ce/types'
+import { providerLoadBalancerRefMap, PROVIDER_TYPES } from '@ce/constants'
 
 export class Utils {
   static booleanToString(val: boolean): string {
@@ -37,7 +39,9 @@ export class Utils {
     protocol: 'http',
     path: '/',
     port: 80,
-    timeout: 30
+    timeout: 30,
+    status_code_from: 200,
+    status_code_to: 299
   })
 
   static toBase64 = (file: any): Promise<string> =>
@@ -94,5 +98,19 @@ export class Utils {
       delay_secs: _d.wait,
       dep_id: services.find(_s => _s.name === _d.selector.ruleName)?.id
     }))
+  }
+
+  static getLoadBalancerModalHeader = (
+    mode: AccessPointScreenMode,
+    provider: PROVIDER_TYPES,
+    loadBalancerName = ''
+  ) => {
+    const lbRef = providerLoadBalancerRefMap[provider]
+    const modeToHeaderMap: Record<AccessPointScreenMode, string> = {
+      create: `Create a new ${lbRef}`,
+      import: `The ${lbRef} ${loadBalancerName} requires additional Configuration`,
+      edit: `Edit ${lbRef} ${loadBalancerName}`
+    }
+    return modeToHeaderMap[mode]
   }
 }

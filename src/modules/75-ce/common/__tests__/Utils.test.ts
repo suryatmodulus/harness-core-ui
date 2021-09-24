@@ -38,7 +38,9 @@ describe('Tests for utils methods', () => {
       protocol: 'http',
       path: '/',
       port: 80,
-      timeout: 30
+      timeout: 30,
+      status_code_from: 200,
+      status_code_to: 299
     })
   })
 

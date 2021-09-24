@@ -6,5 +6,6 @@ declare const styles: {
   readonly rowLabel: string
   readonly loading: string
   readonly noData: string
+  readonly noDataImage: string
 }
 export default styles

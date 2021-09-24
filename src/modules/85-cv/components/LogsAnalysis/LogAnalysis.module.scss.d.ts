@@ -9,5 +9,6 @@ declare const styles: {
   readonly logsAnalysisFilters: string
   readonly noData: string
   readonly noDataContainer: string
+  readonly logClusterNoDataImage: string
 }
 export default styles

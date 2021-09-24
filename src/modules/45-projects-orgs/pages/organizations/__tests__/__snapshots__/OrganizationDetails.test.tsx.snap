@@ -41,7 +41,7 @@ exports[`Organization Details Render 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 common.accountSettings
               </p>
@@ -51,9 +51,9 @@ exports[`Organization Details Render 1`] = `
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -71,7 +71,7 @@ exports[`Organization Details Render 1`] = `
               href="/account/testAcc/settings/organizations"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
               >
                 orgsText
               </p>
@@ -81,9 +81,9 @@ exports[`Organization Details Render 1`] = `
               data-icon="main-chevron-right"
             >
               <svg
-                height="12"
+                height="8"
                 viewBox="0 0 8 14"
-                width="12"
+                width="8"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path

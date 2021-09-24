@@ -27,7 +27,7 @@ const DashboardViewPage: React.FC = () => {
     error
   } = useMutate({
     verb: 'POST',
-    path: 'dashboard/v1/signedUrl',
+    path: 'gateway/dashboard/v1/signedUrl',
     queryParams: {
       accountId: accountId,
       src: `/embed/dashboards-next/${viewId}?embed_domain=` + location?.host + '&' + query
@@ -56,13 +56,13 @@ const DashboardViewPage: React.FC = () => {
 
   const { data: folderDetail } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: 'dashboard/folderDetail',
+    path: 'gateway/dashboard/folderDetail',
     queryParams: { accountId: accountId, folderId: folderId === 'shared' ? '' : folderId }
   })
 
   const { data: dashboarDetail } = useGet({
     // Inferred from RestfulProvider in index.js
-    path: `dashboard/${viewId}/detail`,
+    path: `gateway/dashboard/${viewId}/detail`,
     queryParams: { accountId: accountId }
   })
 

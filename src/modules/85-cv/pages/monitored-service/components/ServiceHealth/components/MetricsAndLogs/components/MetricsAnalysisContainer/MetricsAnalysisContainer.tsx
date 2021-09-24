@@ -15,6 +15,7 @@ import { HealthSourceDropDown } from '@cv/components/HealthSourceDropDown/Health
 import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import Card from '@cv/components/Card/Card'
 import { VerificationType } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown.constants'
+import noDataImage from '@cv/assets/noData.svg'
 import {
   MetricTypeOptions,
   PAGE_SIZE,
@@ -24,6 +25,7 @@ import {
 import { generatePointsForTimeSeries, getErrorMessage } from './MetricsAnalysisContainer.utils'
 import type { MetricsAndLogsProps } from '../../MetricsAndLogs.types'
 import MetricAnalysisRow from './components/MetricsAnalysisRow/MetricAnalysisRow'
+
 import css from './MetricsAnalysisContainer.module.scss'
 
 export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JSX.Element {
@@ -156,11 +158,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
     if (!timeSeriesData?.length) {
       return (
         <Container className={css.noData}>
-          <NoDataCard
-            onClick={() => fetchMetricsData()}
-            message={getString('pipeline.verification.noMetrics')}
-            icon="warning-sign"
-          />
+          <NoDataCard message={getString('cv.monitoredServices.noAvailableData')} image={noDataImage} />
         </Container>
       )
     }

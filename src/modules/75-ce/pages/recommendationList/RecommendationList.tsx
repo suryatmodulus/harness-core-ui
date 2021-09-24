@@ -9,7 +9,10 @@ import {
   useRecommendationsQuery,
   useRecommendationsSummaryQuery,
   K8sRecommendationFilterDtoInput,
-  ResourceType
+  ResourceType,
+  useFetchCcmMetaDataQuery,
+  CcmMetaData,
+  Maybe
 } from 'services/ce/services'
 
 import routes from '@common/RouteDefinitions'
@@ -17,7 +20,7 @@ import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import formatCost from '@ce/utils/formatCost'
 import EmptyView from '@ce/images/empty-state.svg'
-// import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
+import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 import RecommendationFilters from '../../components/RecommendationFilters'
 import css from './RecommendationList.module.scss'
@@ -38,6 +41,7 @@ interface RecommendationListProps {
   setCostFilters: React.Dispatch<React.SetStateAction<Record<string, number>>>
   costFilters: Record<string, number>
   fetching: boolean
+  ccmData: Maybe<CcmMetaData> | undefined
   pagination: {
     itemCount: number
     pageSize: number
@@ -45,6 +49,7 @@ interface RecommendationListProps {
     pageIndex: number
     gotoPage: (pageNumber: number) => void
   }
+  onAddClusterSuccess: () => void
 }
 
 const RecommendationsList: React.FC<RecommendationListProps> = ({
@@ -54,7 +59,9 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
   setCostFilters,
   costFilters,
   pagination,
-  fetching
+  fetching,
+  ccmData,
+  onAddClusterSuccess
 }) => {
   const history = useHistory()
   const { accountId } = useParams<{ accountId: string }>()
@@ -74,16 +81,18 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
     )
   }
 
-  // Enable it once clusterData being passed as context
-  // if (!clusterData) {
-  //   return (
-  //     <Card elevation={1} className={css.errorContainer}>
-  //       <OverviewAddCluster />
-  //     </Card>
-  //   )
-  // }
+  if (ccmData && !ccmData.k8sClusterConnectorPresent) {
+    return (
+      <Card elevation={1} className={css.errorContainer}>
+        <OverviewAddCluster
+          onAddClusterSuccess={onAddClusterSuccess}
+          descriptionText={getString('ce.pageErrorMsg.recommendationDesc')}
+        />
+      </Card>
+    )
+  }
 
-  if (!data.length) {
+  if (ccmData && ccmData.k8sClusterConnectorPresent && !ccmData.clusterDataPresent) {
     return (
       <Card elevation={1} className={css.errorContainer}>
         <img src={EmptyView} />
@@ -161,55 +170,62 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
           />
         </Layout.Horizontal>
 
-        <Table<RecommendationItemDto>
-          onRowClick={({ id, resourceType, resourceName }) => {
-            history.push(
-              resourceTypeToRoute[resourceType]({
-                accountId,
-                recommendation: id,
-                recommendationName: resourceName || id
-              })
-            )
-          }}
-          data={data}
-          columns={[
-            {
-              accessor: 'monthlySaving',
-              Header: getString('ce.recommendation.listPage.listTableHeaders.monthlySavings'),
-              Cell: SavingCell,
-              width: '18%'
-            },
-            {
-              accessor: 'resourceName',
-              Header: getString('ce.recommendation.listPage.listTableHeaders.resourceName'),
-              Cell: NameCell,
-              width: '23%'
-            },
-            {
-              accessor: 'resourceType',
-              Header: getString('ce.recommendation.listPage.listTableHeaders.resourceType'),
-              Cell: ResourceTypeCell,
-              width: '18%'
-            },
-            {
-              accessor: 'monthlyCost',
-              Header: getString('ce.recommendation.listPage.listTableHeaders.monthlyCost'),
-              Cell: CostCell,
-              width: '18%'
-            },
-            {
-              Header: getString('ce.recommendation.listPage.listTableHeaders.recommendationType'),
-              Cell: RecommendationTypeCell,
-              width: '18%'
-            }
-            // {
-            //   Header: getString('ce.recommendation.listPage.listTableHeaders.details'),
-            //   Cell: RecommendationDetailsCell,
-            //   width: '15%'
-            // }
-          ]}
-          pagination={pagination}
-        ></Table>
+        {data.length ? (
+          <Table<RecommendationItemDto>
+            onRowClick={({ id, resourceType, resourceName }) => {
+              history.push(
+                resourceTypeToRoute[resourceType]({
+                  accountId,
+                  recommendation: id,
+                  recommendationName: resourceName || id
+                })
+              )
+            }}
+            data={data}
+            columns={[
+              {
+                accessor: 'monthlySaving',
+                Header: getString('ce.recommendation.listPage.listTableHeaders.monthlySavings'),
+                Cell: SavingCell,
+                width: '18%'
+              },
+              {
+                accessor: 'resourceName',
+                Header: getString('ce.recommendation.listPage.listTableHeaders.resourceName'),
+                Cell: NameCell,
+                width: '23%'
+              },
+              {
+                accessor: 'resourceType',
+                Header: getString('ce.recommendation.listPage.listTableHeaders.resourceType'),
+                Cell: ResourceTypeCell,
+                width: '18%'
+              },
+              {
+                accessor: 'monthlyCost',
+                Header: getString('ce.recommendation.listPage.listTableHeaders.monthlyCost'),
+                Cell: CostCell,
+                width: '18%'
+              },
+              {
+                Header: getString('ce.recommendation.listPage.listTableHeaders.recommendationType'),
+                Cell: RecommendationTypeCell,
+                width: '18%'
+              }
+              // {
+              //   Header: getString('ce.recommendation.listPage.listTableHeaders.details'),
+              //   Cell: RecommendationDetailsCell,
+              //   width: '15%'
+              // }
+            ]}
+            pagination={pagination}
+          ></Table>
+        ) : (
+          <Container className={css.errorContainer}>
+            <img src={EmptyView} />
+            <Text className={css.errorText}>{getString('ce.pageErrorMsg.noRecommendations')}</Text>
+          </Container>
+        )}
       </Layout.Vertical>
     </Card>
   ) : null
@@ -222,6 +238,9 @@ const RecommendationList: React.FC = () => {
 
   const modifiedCostFilters = costFilters['minSaving'] ? costFilters : { ...costFilters, minSaving: 0 }
 
+  const [ccmMetaResult, refetchCCMMetaData] = useFetchCcmMetaDataQuery()
+  const { data: ccmData, fetching: fetchingCCMMetaData } = ccmMetaResult
+
   const [result] = useRecommendationsQuery({
     variables: {
       filter: {
@@ -230,7 +249,8 @@ const RecommendationList: React.FC = () => {
         offset: page * 10,
         limit: 10
       } as K8sRecommendationFilterDtoInput
-    }
+    },
+    pause: fetchingCCMMetaData
   })
 
   const [summaryResult] = useRecommendationsSummaryQuery({
@@ -279,7 +299,7 @@ const RecommendationList: React.FC = () => {
           </Text>
         }
       />
-      <Page.Body loading={fetching}>
+      <Page.Body loading={fetching || fetchingCCMMetaData}>
         <Container padding="xlarge" height="100%">
           <Layout.Vertical spacing="large">
             <Layout.Horizontal spacing="medium">
@@ -295,12 +315,16 @@ const RecommendationList: React.FC = () => {
               />
             </Layout.Horizontal>
             <RecommendationsList
+              onAddClusterSuccess={() => {
+                refetchCCMMetaData()
+              }}
+              ccmData={ccmData?.ccmMetaData}
               pagination={pagination}
               setFilters={setFilters}
               filters={filters}
               setCostFilters={setCostFilters}
               costFilters={costFilters}
-              fetching={fetching}
+              fetching={fetching || fetchingCCMMetaData}
               data={recommendationItems as Array<RecommendationItemDto>}
             />
           </Layout.Vertical>

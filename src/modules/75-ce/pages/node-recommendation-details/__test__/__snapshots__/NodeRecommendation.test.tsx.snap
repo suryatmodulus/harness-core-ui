@@ -38,7 +38,7 @@ exports[`test cases for Node Recommendation page should be able to render the pa
               </svg>
             </span>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
             >
               common.accountSettings
             </p>
@@ -48,9 +48,9 @@ exports[`test cases for Node Recommendation page should be able to render the pa
             data-icon="main-chevron-right"
           >
             <svg
-              height="12"
+              height="8"
               viewBox="0 0 8 14"
-              width="12"
+              width="8"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -68,7 +68,7 @@ exports[`test cases for Node Recommendation page should be able to render the pa
             href="/account/undefined/ce/recommendations"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
             >
               ce.recommendation.sideNavText
             </p>
@@ -78,9 +78,9 @@ exports[`test cases for Node Recommendation page should be able to render the pa
             data-icon="main-chevron-right"
           >
             <svg
-              height="12"
+              height="8"
               viewBox="0 0 8 14"
-              width="12"
+              width="8"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -98,7 +98,7 @@ exports[`test cases for Node Recommendation page should be able to render the pa
             href="/"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font-size-small"
             />
           </a>
           <span
@@ -106,9 +106,9 @@ exports[`test cases for Node Recommendation page should be able to render the pa
             data-icon="main-chevron-right"
           >
             <svg
-              height="12"
+              height="8"
               viewBox="0 0 8 14"
-              width="12"
+              width="8"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path

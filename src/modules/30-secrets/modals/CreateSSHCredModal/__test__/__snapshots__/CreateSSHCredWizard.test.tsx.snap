@@ -533,35 +533,42 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                    class="StyledProps--main"
                   >
-                    <label
-                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+                    
+                    <div
+                      class="RadioButtonGroup--inline"
                     >
-                      <input
-                        checked=""
-                        name="authScheme"
-                        type="radio"
-                        value="SSH"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      SSH_KEY
-                    </label>
-                    <label
-                      class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-                    >
-                      <input
-                        name="authScheme"
-                        type="radio"
-                        value="Kerberos"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      kerberos
-                    </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          checked=""
+                          class="RadioButton--input"
+                          name="authScheme"
+                          type="radio"
+                          value="SSH"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        SSH_KEY
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="authScheme"
+                          type="radio"
+                          value="Kerberos"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        kerberos
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>

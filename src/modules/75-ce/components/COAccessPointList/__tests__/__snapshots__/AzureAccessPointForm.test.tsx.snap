@@ -569,7 +569,7 @@ exports[`Azure Access Point Form form in edit mode 1`] = `
             class="formFieldRow"
           >
             <div
-              class="bp3-form-group"
+              class="bp3-form-group bp3-disabled"
               data-id="func_region-7"
             >
               <label
@@ -597,11 +597,12 @@ exports[`Azure Access Point Form form in edit mode 1`] = `
                     class="bp3-popover-target"
                   >
                     <div
-                      class="bp3-input-group"
+                      class="bp3-input-group bp3-disabled"
                     >
                       <input
                         autocomplete="off"
                         class="bp3-input"
+                        disabled=""
                         name="func_region"
                         placeholder="- Select region -"
                         style="padding-right: 0px;"

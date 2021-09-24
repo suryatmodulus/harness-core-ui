@@ -29,7 +29,7 @@ export function StepCard(props: StepCardProps): React.ReactElement {
   return (
     <React.Fragment>
       <VariablesListTable
-        className={css.variablePaddingL2}
+        className={css.variablePaddingL3}
         data={step}
         originalData={originalStep}
         metadataMap={metadataMap}
@@ -63,7 +63,7 @@ export function StepCardPanel(props: StepCardProps): React.ReactElement {
       addDomId
       id={`${props.stepPath}.${props.originalStep.identifier}`}
       summary={<VariableAccordionSummary>{props.originalStep.name}</VariableAccordionSummary>}
-      summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL2)}
+      summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL3)}
       details={<StepCard {...props} />}
     />
   )

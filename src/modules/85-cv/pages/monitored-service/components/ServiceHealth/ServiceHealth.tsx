@@ -124,27 +124,34 @@ export default function ServiceHealth({
                   endTime={changesTableAndSourceCardStartAndEndtime[1]}
                 />
               )}
-            <Container onClick={() => setShowTimelineSlider(true)} className={css.main} ref={containerRef}>
+            <Container
+              onClick={() => {
+                if (!showTimelineSlider) {
+                  setShowTimelineSlider(true)
+                }
+              }}
+              className={css.main}
+              ref={containerRef}
+            >
               <HealthScoreChart
-                duration={selectedTimePeriod.value as TimePeriodEnum}
+                duration={selectedTimePeriod}
                 monitoredServiceIdentifier={monitoredServiceIdentifier as string}
                 setHealthScoreData={setHealthScoreData}
                 timeFormat={timeFormat}
               />
-              {showTimelineSlider ? (
-                <TimelineSlider
-                  initialSliderWidth={sliderDimensions.minWidth}
-                  leftContainerOffset={100}
-                  className={css.slider}
-                  minSliderWidth={sliderDimensions.minWidth}
-                  maxSliderWidth={sliderDimensions.maxWidth}
-                  infoCard={renderInfoCard()}
-                  onSliderDragEnd={({ startXPercentage, endXPercentage }) => {
-                    const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
-                    if (startAndEndtime) onFocusTimeRange?.(startAndEndtime[0], startAndEndtime[1])
-                  }}
-                />
-              ) : null}
+              <TimelineSlider
+                initialSliderWidth={sliderDimensions.minWidth}
+                leftContainerOffset={100}
+                hideSlider={!showTimelineSlider}
+                className={css.slider}
+                minSliderWidth={sliderDimensions.minWidth}
+                maxSliderWidth={sliderDimensions.maxWidth}
+                infoCard={renderInfoCard()}
+                onSliderDragEnd={({ startXPercentage, endXPercentage }) => {
+                  const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
+                  if (startAndEndtime) onFocusTimeRange?.(startAndEndtime[0], startAndEndtime[1])
+                }}
+              />
               <ChangeTimeline timestamps={timestamps} timeFormat={timeFormat} />
             </Container>
           </>

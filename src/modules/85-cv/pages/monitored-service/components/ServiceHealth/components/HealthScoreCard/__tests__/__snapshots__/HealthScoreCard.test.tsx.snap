@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HealthScoreCard Tests should render HealthScoreCard when healthscore is present 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main healthScoreCardContainer"
+  >
+    <div
+      class="healthScoreCard"
+    >
+      2
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
+    >
+      cv.monitoredServices.monitoredServiceTabs.serviceHealth
+    </p>
+  </div>
+</div>
+`;
+
+exports[`HealthScoreCard Tests should render HealthScoreCard with loading state 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main healthScoreCardContainer"
+  >
+    <span
+      class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+      data-icon="spinner"
+    >
+      <svg
+        fill="none"
+        height="16"
+        viewBox="0 0 36 36"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
+          stroke="currentColor"
+          stroke-dasharray="75,100"
+          stroke-linecap="round"
+          stroke-width="2.8"
+          style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
+        />
+      </svg>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`HealthScoreCard Tests should render HealthScoreCard with no data 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main healthScoreCardContainer"
+  >
+    <div
+      class="StyledProps--font StyledProps--main noDataState"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--padding-right-small StyledProps--flex StyledProps--flex-alignItems-center"
+      >
+        cv.monitoredServices.healthScoreDataNotAvailable
+      </p>
+      <div
+        class="Layout--horizontal StyledProps--main healthScoreCardContainer"
+      >
+        <div
+          class="healthScoreCard"
+        />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
+        >
+          cv.monitoredServices.monitoredServiceTabs.serviceHealth
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

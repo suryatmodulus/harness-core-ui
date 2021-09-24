@@ -12,11 +12,12 @@ import {
   PipelineInfrastructure,
   StageElementConfig
 } from 'services/cd-ng'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { InfraProvisioningData } from '@cd/components/PipelineSteps/InfraProvisioning/InfraProvisioning'
 import type { GcpInfrastructureSpec } from '@cd/components/PipelineSteps/GcpInfrastructureSpec/GcpInfrastructureSpec'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
@@ -349,11 +350,17 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           />
         </Card>
         <div className={stageCss.tabHeading} id="infrastructureDefinition">
-          <String stringID="pipelineSteps.deploy.infrastructure.infraDefinition" />
+          <StringWithTooltip
+            tooltipId="pipelineStep.infrastructureDefinition"
+            stringId="pipelineSteps.deploy.infrastructure.infraDefinition"
+          />
         </div>
         <Card className={stageCss.sectionCard}>
           <Text margin={{ bottom: 'medium' }} className={stageCss.info}>
-            {getString('pipelineSteps.deploy.infrastructure.selectMethod')}
+            <StringWithTooltip
+              tooltipId="pipelineStep.infrastructureDefinitionMethod"
+              stringId="pipelineSteps.deploy.infrastructure.selectMethod"
+            />
           </Text>
           <SelectDeploymentType
             isReadonly={isReadonly}

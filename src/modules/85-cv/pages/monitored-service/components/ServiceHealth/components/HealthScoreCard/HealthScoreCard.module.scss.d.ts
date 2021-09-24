@@ -3,5 +3,6 @@
 declare const styles: {
   readonly healthScoreCardContainer: string
   readonly healthScoreCard: string
+  readonly noDataState: string
 }
 export default styles

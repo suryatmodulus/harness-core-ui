@@ -623,35 +623,42 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
           ci.runTestsMavenSetupText1
         </p>
         <div
-          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main StyledProps--margin-bottom-small"
+          class="StyledProps--main StyledProps--margin-bottom-small"
         >
-          <label
-            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
+          
+          <div
+            class="RadioButtonGroup--inline"
           >
-            <input
-              checked=""
-              name="Blueprint3.RadioGroup-0"
-              type="radio"
-              value="yes"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-            Yes
-          </label>
-          <label
-            class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
-          >
-            <input
-              name="Blueprint3.RadioGroup-0"
-              type="radio"
-              value="no"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-            No
-          </label>
+            <label
+              class="RadioButton--radio StyledProps--main"
+            >
+              <input
+                checked=""
+                class="RadioButton--input"
+                name="run-tests-maven-setup"
+                type="radio"
+                value="yes"
+              />
+              <span
+                class="RadioButton--radioIcon"
+              />
+              Yes
+            </label>
+            <label
+              class="RadioButton--radio StyledProps--main"
+            >
+              <input
+                class="RadioButton--input"
+                name="run-tests-maven-setup"
+                type="radio"
+                value="no"
+              />
+              <span
+                class="RadioButton--radioIcon"
+              />
+              No
+            </label>
+          </div>
         </div>
         <div
           class="Text--withDocsTooltip"

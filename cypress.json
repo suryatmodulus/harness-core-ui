@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://localhost:8181",
+  "integrationFolder": "cypress/integration",
+  "experimentalInteractiveRunEvents": true,
+  "viewportWidth": 1500,
+  "viewportHeight": 1000
+}

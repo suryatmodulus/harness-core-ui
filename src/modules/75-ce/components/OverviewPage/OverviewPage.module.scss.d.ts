@@ -8,6 +8,9 @@ declare const styles: {
   readonly cloudCost: string
   readonly topCluster: string
   readonly topRecommendations: string
+  readonly noDataContainer: string
+  readonly noDataImg: string
+  readonly noDataText: string
   readonly recommendations: string
   readonly recommendation: string
   readonly resourceType: string

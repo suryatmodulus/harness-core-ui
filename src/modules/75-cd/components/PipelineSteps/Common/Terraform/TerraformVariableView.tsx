@@ -19,7 +19,7 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
           data={variablesData.spec?.provisionerIdentifier}
           originalData={initialValues.spec?.provisionerIdentifier}
           metadataMap={metadataMap}
-          className={pipelineVariableCss.variablePaddingL2}
+          className={pipelineVariableCss.variablePaddingL3}
         />
         <ConfigVariables {...props} />
 
@@ -30,7 +30,7 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
               data={variablesData.spec?.configuration?.spec?.backendConfig?.spec}
               originalData={initialValues.spec?.configuration?.spec?.backendConfig?.spec}
               metadataMap={metadataMap}
-              className={pipelineVariableCss.variablePaddingL2}
+              className={pipelineVariableCss.variablePaddingL3}
             />
           </>
         )}
@@ -44,7 +44,7 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
               data={variablesData.spec?.configuration?.spec?.environmentVariables?.[index]}
               originalData={initialValues.spec?.configuration?.spec?.environmentVariables?.[index]}
               metadataMap={metadataMap}
-              className={pipelineVariableCss.variablePaddingL2}
+              className={pipelineVariableCss.variablePaddingL3}
             />
           )
         })}
@@ -54,7 +54,7 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
     return (
       <>
         <VariablesListTable
-          className={pipelineVariableCss.variablePaddingL2}
+          className={pipelineVariableCss.variablePaddingL3}
           data={variablesData.spec}
           originalData={initialValues.spec}
           metadataMap={metadataMap}
@@ -64,7 +64,7 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
           data={variablesData.spec?.configuration?.type}
           originalData={initialValues.spec?.configuration?.type}
           metadataMap={metadataMap}
-          className={pipelineVariableCss.variablePaddingL2}
+          className={pipelineVariableCss.variablePaddingL3}
         />
       </>
     )

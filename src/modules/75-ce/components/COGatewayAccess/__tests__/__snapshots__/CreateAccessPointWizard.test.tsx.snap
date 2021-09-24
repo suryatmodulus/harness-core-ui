@@ -1282,36 +1282,44 @@ exports[`Create Access Point Wizard Tests renders for rule creation mode without
                         class="bp3-form-content"
                       >
                         <div
-                          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                          class="StyledProps--main"
                         >
-                          <label
-                            class="bp3-control bp3-radio bp3-disabled bp3-inline RadioButton--radio StyledProps--main"
+                          
+                          <div
+                            class="RadioButtonGroup--inline"
                           >
-                            <input
-                              disabled=""
-                              name="albSelector"
-                              type="radio"
-                              value="new"
-                            />
-                            <span
-                              class="bp3-control-indicator"
-                            />
-                            ce.co.accessPoint.createNewALB
-                          </label>
-                          <label
-                            class="bp3-control bp3-radio bp3-disabled bp3-inline RadioButton--radio StyledProps--main"
-                          >
-                            <input
-                              disabled=""
-                              name="albSelector"
-                              type="radio"
-                              value=""
-                            />
-                            <span
-                              class="bp3-control-indicator"
-                            />
-                            
-                          </label>
+                            <label
+                              class="RadioButton--radio StyledProps--main"
+                            >
+                              <input
+                                class="RadioButton--input"
+                                disabled=""
+                                name="albSelector"
+                                type="radio"
+                                value="new"
+                              />
+                              <span
+                                class="RadioButton--radioIcon"
+                              />
+                              ce.co.accessPoint.createNewALB
+                            </label>
+                            <label
+                              class="RadioButton--radio StyledProps--main"
+                            >
+                              <input
+                                checked=""
+                                class="RadioButton--input"
+                                disabled=""
+                                name="albSelector"
+                                type="radio"
+                                value=""
+                              />
+                              <span
+                                class="RadioButton--radioIcon"
+                              />
+                              
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1807,36 +1815,44 @@ exports[`Create Access Point Wizard Tests renders without crashing 1`] = `
                         class="bp3-form-content"
                       >
                         <div
-                          class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
+                          class="StyledProps--main"
                         >
-                          <label
-                            class="bp3-control bp3-radio bp3-disabled bp3-inline RadioButton--radio StyledProps--main"
+                          
+                          <div
+                            class="RadioButtonGroup--inline"
                           >
-                            <input
-                              disabled=""
-                              name="albSelector"
-                              type="radio"
-                              value="new"
-                            />
-                            <span
-                              class="bp3-control-indicator"
-                            />
-                            ce.co.accessPoint.createNewALB
-                          </label>
-                          <label
-                            class="bp3-control bp3-radio bp3-disabled bp3-inline RadioButton--radio StyledProps--main"
-                          >
-                            <input
-                              disabled=""
-                              name="albSelector"
-                              type="radio"
-                              value=""
-                            />
-                            <span
-                              class="bp3-control-indicator"
-                            />
-                            
-                          </label>
+                            <label
+                              class="RadioButton--radio StyledProps--main"
+                            >
+                              <input
+                                class="RadioButton--input"
+                                disabled=""
+                                name="albSelector"
+                                type="radio"
+                                value="new"
+                              />
+                              <span
+                                class="RadioButton--radioIcon"
+                              />
+                              ce.co.accessPoint.createNewALB
+                            </label>
+                            <label
+                              class="RadioButton--radio StyledProps--main"
+                            >
+                              <input
+                                checked=""
+                                class="RadioButton--input"
+                                disabled=""
+                                name="albSelector"
+                                type="radio"
+                                value=""
+                              />
+                              <span
+                                class="RadioButton--radioIcon"
+                              />
+                              
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>

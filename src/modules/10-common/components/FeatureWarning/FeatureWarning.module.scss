@@ -1,0 +1,22 @@
+.warning {
+  width: fit-content !important;
+  min-width: fit-content !important;
+  padding: var(--spacing-small) var(--spacing-large) !important;
+  border-radius: 20px;
+  background-color: var(--orange-100) !important;
+}
+
+.explorePlans {
+  padding: var(--spacing-small) var(--spacing-large) !important;
+  width: fit-content !important;
+  border: solid 1px;
+  border-radius: 8px;
+  border-color: var(--primary-6);
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.expanded {
+  justify-content: flex-start !important;
+}

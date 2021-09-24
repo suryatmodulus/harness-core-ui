@@ -3,6 +3,7 @@ import cx from 'classnames'
 import { useHistory } from 'react-router'
 import { useParams } from 'react-router-dom'
 import { Color, Layout, Text } from '@wings-software/uicore'
+import type { PopoverPosition } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
@@ -18,6 +19,7 @@ interface FeatureWarningProps {
   module?: Module
   className?: string
   tooltipProps?: {
+    position: PopoverPosition
     [key: string]: string | boolean
   }
 }
@@ -29,6 +31,7 @@ interface ExplorePlansBtnProps {
 interface WarningTextProps {
   tooltip?: ReactElement
   tooltipProps?: {
+    position: PopoverPosition
     [key: string]: string | boolean
   }
 }

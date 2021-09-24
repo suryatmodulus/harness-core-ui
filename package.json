@@ -1,9 +1,9 @@
 {
-  "name": "@wings-software/vue3-component-library",
+  "name": "@wings-software/mf-parent-app-types",
   "description": "Harness Inc",
   "main": "dist/index.js",
   "types": "dist/framework/AppStore/ChildAppTypes.d.ts",
-  "version": "0.0.23",
+  "version": "0.0.1",
   "files": [
     "dist"
   ],
@@ -71,8 +71,10 @@
     "strings:loaders": "node scripts/strings/generateStrings.mjs",
     "fmt": "prettier --write \"./src/**/*.{ts,tsx,css}\"",
     "ui:build": "NODE_ENV=production webpack",
+    "ui:build2": "NODE_ENV=production webpack --config webpack.types.release.config.js",
     "types:copy": "echo 'Adhoc type copy...'; mv dist/src/* dist/; rm -rf dist/src",
-    "build": "yarn ui:build;"
+    "build": "yarn ui:build;",
+    "buildtypes": "yarn ui:build2;"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",

@@ -1,4 +1,3 @@
-
 import React from 'react'
 import type { StringsContextValue } from 'framework/strings/StringsContext'
 import type { PermissionsContextProps } from 'framework/rbac/PermissionsContext'
@@ -54,6 +53,7 @@ export interface CommonComponents {
 export interface RenderChildAppProps {
   parentContextObj: ParentContextObj
   commonComponents: CommonComponents
+  renderUrl:string
 }
 /**
  *
@@ -61,5 +61,5 @@ export interface RenderChildAppProps {
 export type RenderChildApp = (params: RenderChildAppProps) => React.Component
 
 export const TestApp = () => {
-  return <>testing app</>
+  return <>testing child app types</>
 }

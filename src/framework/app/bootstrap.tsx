@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {useHistory } from 'react-router-dom'
-import { useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
 import { TooltipContextProvider } from '@wings-software/uicore'
@@ -143,4 +142,3 @@ export function AppWithoutAuthentication(props: AppProps): React.ReactElement {
     </RestfulProvider>
   )
 }
-

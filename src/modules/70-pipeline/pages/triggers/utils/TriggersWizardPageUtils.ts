@@ -906,11 +906,13 @@ const getFilteredManifestsWithOverrides = ({
 const getFilteredArtifactsWithOverrides = ({
   stageObj,
   artifactType,
-  stages
+  stages,
+  artifactRef
 }: {
   stageObj: any
   artifactType: string
   stages: any
+  artifactRef?: string
 }): any => {
   const primaryArtifact =
     stageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.primary?.type === artifactType
@@ -918,13 +920,15 @@ const getFilteredArtifactsWithOverrides = ({
       : null
   const filteredArtifacts =
     stageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars?.filter(
-      (artifactObj: { sidecar: any }) => artifactObj?.sidecar?.type === artifactType
+      (artifactObj: { sidecar: any }) =>
+        artifactObj?.sidecar?.type === artifactType && artifactObj?.sidecar?.identifier === artifactRef
     ) || []
 
   // // filter & add in manifest overrides
   let stageOverridesArtifacts =
     stageObj?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.sidecars?.filter(
-      (artifactObj: { sidecar: any }) => artifactObj?.sidecar?.type === artifactType
+      (artifactObj: { sidecar: any }) =>
+        artifactObj?.sidecar?.type === artifactType && artifactObj?.sidecar?.identifier === artifactRef
     ) || []
   const stageOverridesPrimaryArtifacts =
     stageObj?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.primary?.type === artifactType
@@ -1056,7 +1060,8 @@ export const parseArtifactsManifests = ({
           const filteredArtifacts = getFilteredArtifactsWithOverrides({
             stageObj: parStg,
             artifactType,
-            stages: inputSetTemplateYamlObj.pipeline.stages
+            stages: inputSetTemplateYamlObj.pipeline.stages,
+            artifactRef
           })
           if (stageId && artifactRef) {
             const newAppliedArtifact = filteredArtifacts?.sidecars?.find(
@@ -1067,6 +1072,7 @@ export const parseArtifactsManifests = ({
             } else if (
               artifactRef === 'primary' &&
               filteredArtifacts?.primary &&
+              Object.entries(filteredArtifacts?.primary).length &&
               !filteredArtifacts?.primary?.identifier
             ) {
               appliedArtifact = filteredArtifacts?.primary
@@ -1646,15 +1652,15 @@ export const getArtifactTableDataFromData = ({
     data?.forEach((stageObject: any) => {
       const dataStageId = stageObject?.stage?.identifier
       // pipelineManifests used to find location from pipeline
-      const pipelineArtifacts = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === dataStageId)
-        ?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
+      const pipelineArtifacts = getArtifacts(pipeline?.stages, dataStageId)
+      console.log(pipelineArtifacts, 'pA')
       const { artifacts = [] } = stageObject?.stage?.spec?.serviceConfig?.serviceDefinition?.spec || {}
 
-      if (artifacts?.primary) {
-        const artifactObj = artifacts?.primary
-        const location = artifacts?.primary?.spec?.imagePath
-        const tag = artifacts?.primary?.spec?.tag
-        const artifactRepository = artifacts?.primary?.spec?.connectorRef
+      if (pipelineArtifacts?.primary) {
+        const artifactObj = pipelineArtifacts?.primary
+        const location = pipelineArtifacts?.primary?.spec?.imagePath
+        const tag = pipelineArtifacts?.primary?.spec?.tag
+        const artifactRepository = pipelineArtifacts?.primary?.spec?.connectorRef
         artifactData.primary = getManifestTableItem({
           stageId: dataStageId,
           manifest: artifactObj,

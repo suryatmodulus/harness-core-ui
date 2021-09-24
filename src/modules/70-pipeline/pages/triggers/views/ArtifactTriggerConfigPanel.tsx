@@ -41,7 +41,13 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
   const isManifest = !!manifestType
   const initialPath = data && stageId && getPathString(data, stageId)
   useEffect(() => {
-    if (!formikProps.values?.stages && initialPath && appliedArtifact && selectedArtifact) {
+    if (
+      !formikProps.values?.stages &&
+      initialPath &&
+      appliedArtifact &&
+      Object.entries(appliedArtifact).length &&
+      selectedArtifact
+    ) {
       // sets stages which is required to edit runtime input of selected artifact
       // when onEdit or from yaml switch
       const newAppliedArtifactSpecObj = getArtifactSpecObj({

@@ -3,29 +3,8 @@ import cx from 'classnames'
 import { Text, Icon, Container, Utils, Layout } from '@wings-software/uicore'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import type { ExecutionSummaryProps } from '@pipeline/factories/ExecutionFactory/types'
+import { getUIType, UIType } from '../common/getUIType'
 import css from './CIExecutionSummary.module.scss'
-
-enum Type {
-  Branch = 'branch',
-  Tag = 'tag',
-  PullRequest = 'pull-request'
-}
-
-function getType(buildType: 'branch' | 'tag' | 'PR'): Type {
-  let type: Type
-  switch (buildType) {
-    case 'branch':
-      type = Type.Branch
-      break
-    case 'tag':
-      type = Type.Tag
-      break
-    case 'PR':
-      type = Type.PullRequest
-      break
-  }
-  return type
-}
 
 const RepoBranch = ({ repo, branch }: { repo: string; branch: string }): React.ReactElement => (
   <div className={cx(css.label, css.multiple)}>
@@ -75,13 +54,13 @@ const Commit = ({ id, link }: { id: string; link: string }): React.ReactElement 
 }
 
 function getUIByType(
-  type: Type,
+  uiType: UIType,
   { data, getString }: { data: ExecutionSummaryProps['data']; getString: UseStringsReturn['getString'] }
 ): React.ReactElement {
   let ui
 
-  switch (type) {
-    case Type.Branch:
+  switch (uiType) {
+    case UIType.Branch:
       ui = (
         <>
           <RepoBranch repo={data.repoName} branch={data.branch} />
@@ -108,7 +87,7 @@ function getUIByType(
         </>
       )
       break
-    case Type.Tag:
+    case UIType.Tag:
       ui = (
         <Layout.Horizontal flex spacing="small">
           <div className={css.label}>
@@ -145,7 +124,7 @@ function getUIByType(
         </Layout.Horizontal>
       )
       break
-    case Type.PullRequest:
+    case UIType.PullRequest:
       ui = (
         <>
           <RepoBranch repo={data.repoName} branch={data?.ciExecutionInfoDTO?.pullRequest.sourceBranch} />
@@ -212,18 +191,18 @@ function getUIByType(
 export const CIExecutionSummary = ({ data }: ExecutionSummaryProps): React.ReactElement => {
   const { getString } = useStrings()
 
-  const type = getType(data?.buildType)
-  if (!type) {
+  const uiType = getUIType(data?.buildType)
+  if (!uiType) {
     return <></>
   }
 
-  const ui = getUIByType(type, { data, getString })
+  const ui = getUIByType(uiType, { data, getString })
   if (!ui) {
     return <></>
   }
 
   return (
-    <div className={cx(css.main, { [css.pullRequest]: type === Type.PullRequest })}>
+    <div className={cx(css.main, { [css.pullRequest]: uiType === UIType.PullRequest })}>
       <Icon className={css.icon} size={18} name="ci-main" />
       {ui}
     </div>

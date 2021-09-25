@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import MonacoEditor from 'react-monaco-editor'
 import {
   ButtonVariation,
@@ -9,7 +9,8 @@ import {
   Text,
   FontVariation,
   TextInput,
-  ButtonSize
+  ButtonSize,
+  FlexExpander
 } from '@wings-software/uicore'
 import { TextArea } from '@blueprintjs/core'
 import { PageHeader } from '@common/components/Page/PageHeader'
@@ -31,6 +32,18 @@ const NewPolicy: React.FC = () => {
   const [input, setInput] = useState('')
   const [output] = useState('')
   const [editName, setEditName] = useState(false)
+  const isInputValid = useMemo(() => {
+    if (!(input || '').trim() || !(regoScript || '').trim()) {
+      return false
+    }
+
+    try {
+      JSON.parse(input)
+      return true
+    } catch (error) {
+      return false
+    }
+  }, [input, regoScript])
 
   const policyNameEditor = (): JSX.Element => {
     return (
@@ -88,6 +101,7 @@ const NewPolicy: React.FC = () => {
               text="Test"
               intent="success"
               size={ButtonSize.SMALL}
+              disabled={!isInputValid}
             />
           </Layout.Horizontal>
         }
@@ -130,6 +144,8 @@ const NewPolicy: React.FC = () => {
                   <Layout.Vertical style={{ height: '100%' }}>
                     <Container padding="medium" flex className={css.inputHeader}>
                       <Text color={Color.WHITE}>Input</Text>
+                      <FlexExpander />
+                      <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL} text="Select Input" />
                     </Container>
                     <Container flex className={css.inputValue}>
                       <TextArea
@@ -140,6 +156,13 @@ const NewPolicy: React.FC = () => {
                         }}
                         value={input}
                         fill
+                        onBlur={() => {
+                          try {
+                            setInput(JSON.stringify(JSON.parse(input), null, 2))
+                          } finally {
+                            // eslint-disable-line no-empty
+                          }
+                        }}
                       />
                     </Container>
                   </Layout.Vertical>

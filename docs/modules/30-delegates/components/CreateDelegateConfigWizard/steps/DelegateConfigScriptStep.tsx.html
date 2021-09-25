@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/14</span>
+                <span class='fraction'>18/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.71% </span>
+                <span class="strong">65.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/14</span>
+                <span class='fraction'>21/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/14</span>
+                <span class='fraction'>18/22</span>
             </div>
         
             
@@ -100,9 +100,35 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -119,11 +145,29 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,8 +188,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
+import set from 'lodash-es/set'
+import { useParams } from 'react-router'
 import { Button, Layout, Color, Container, Heading, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import type { DelegateProfileDetailsNg } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { dataObj } from '../CreateDelegateConfigWizard'
 &nbsp;
 import css from './DelegateConfigSteps.module.scss'
@@ -153,21 +201,39 @@ import css from './DelegateConfigSteps.module.scss'
 interface DelegateConfigScopeStepProps {
   name: string
   previousStep?: (data: dataObj) =&gt; void
-  nextStep?: (obj: dataObj) =&gt; void
+  onFinish: (data: DelegateProfileDetailsNg) =&gt; void
   closeModal?: () =&gt; void
   onSuccess?: () =&gt; void
   prevStepData?: dataObj
 }
 &nbsp;
-const DelegateConfigScopeStep: React.FC&lt;DelegateConfigScopeStepProps&gt; = ({ previousStep, nextStep, prevStepData }) =&gt; {
+const DelegateConfigScopeStep: React.FC&lt;DelegateConfigScopeStepProps&gt; = ({ previousStep, onFinish, prevStepData }) =&gt; {
   const { getString } = useStrings()
+  const { orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
   const [script, setScript] = useState(<span class="branch-1 cbranch-no" title="branch not covered" >prevStepData?.script </span>|| '')
-  const onNext = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    nextStep?.({ ...prevStepData, script })</span>
-  }
+&nbsp;
   const onPreviousStep = <span class="fstat-no" title="function not covered" >(): void =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >    previousStep?.({ ...prevStepData, script })</span>
   }
+&nbsp;
+  const createDelegateProfile = () =&gt; {
+    const delegateProfileData = {
+      identifier: <span class="branch-1 cbranch-no" title="branch not covered" >prevStepData?.identifier,</span>
+      name: <span class="branch-1 cbranch-no" title="branch not covered" >prevStepData?.name,</span>
+      description: <span class="branch-1 cbranch-no" title="branch not covered" >prevStepData?.description,</span>
+      selectors: Object.keys(<span class="branch-1 cbranch-no" title="branch not covered" >prevStepData?.tags </span>|| {}),
+      startupScript: script
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (orgIdentifier) {
+<span class="cstat-no" title="statement not covered" >      set(delegateProfileData, 'orgIdentifier', orgIdentifier)</span>
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (projectIdentifier) {
+<span class="cstat-no" title="statement not covered" >      set(delegateProfileData, 'projectIdentifier', projectIdentifier)</span>
+    }
+&nbsp;
+    onFinish(delegateProfileData)
+  }
+&nbsp;
   return (
     &lt;Layout.Vertical className={css.stepContainer} padding="xxlarge"&gt;
       &lt;Container&gt;
@@ -179,7 +245,7 @@ const DelegateConfigScopeStep: React.FC&lt;DelegateConfigScopeStepProps&gt; = ({
       &lt;/Container&gt;
       &lt;Layout.Horizontal spacing="xsmall"&gt;
         &lt;Button type="button" text={getString('back')} onClick={onPreviousStep} /&gt;
-        &lt;Button type="button" intent="primary" text={getString('saveAndContinue')} onClick={onNext} /&gt;
+        &lt;Button type="button" intent="primary" text={getString('finish')} onClick={createDelegateProfile} /&gt;
       &lt;/Layout.Horizontal&gt;
     &lt;/Layout.Vertical&gt;
   )
@@ -193,7 +259,7 @@ export default DelegateConfigScopeStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Sep 25 2021 10:48:30 GMT+0000 (Greenwich Mean Time)
+                at Sat Sep 25 2021 12:39:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -7,7 +7,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetEnabledFeatureRestrictionDetailByAccountId, useGetFeatureRestrictionDetail } from 'services/cd-ng'
 import type { FeatureIdentifier } from './FeatureIdentifier'
 
-export interface FeatureDetailProps {
+export interface FeatureDetail {
   featureName: string
   enabled: boolean
   limit?: number
@@ -21,10 +21,10 @@ export interface FeatureRequest {
 
 export interface CheckFeatureReturn {
   enabled: boolean
-  featureDetail?: FeatureDetailProps
+  featureDetail?: FeatureDetail
 }
 
-type Features = Map<string, FeatureDetailProps>
+type Features = Map<string, FeatureDetail>
 
 export interface FeatureRequestOptions {
   skipCache?: boolean
@@ -45,7 +45,7 @@ const defaultReturn = {
 }
 
 export const FeaturesContext = createContext<FeaturesContextProps>({
-  features: new Map<string, FeatureDetailProps>(),
+  features: new Map<string, FeatureDetail>(),
   requestFeatures: () => void 0,
   checkFeature: () => {
     return defaultReturn
@@ -61,7 +61,7 @@ export function useFeaturesContext(): FeaturesContextProps {
 }
 
 export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
-  const [features, setFeatures] = useState<Features>(new Map<string, FeatureDetailProps>())
+  const [features, setFeatures] = useState<Features>(new Map<string, FeatureDetail>())
   const [hasErr, setHasErr] = useState<boolean>(false)
 
   const { accountId } = useParams<AccountPathProps>()
@@ -87,7 +87,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
           })
         }
         return acc
-      }, new Map<string, FeatureDetailProps>())
+      }, new Map<string, FeatureDetail>())
       list && setFeatures(list)
     }
   }, [enabledFeatureList])
@@ -141,9 +141,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     }
   }
 
-  const [featureDetailMap, setFeatureDetailMap] = useState<Map<string, FeatureDetailProps>>(
-    new Map<string, FeatureDetailProps>()
-  )
+  const [featureDetailMap, setFeatureDetailMap] = useState<Map<string, FeatureDetail>>(new Map<string, FeatureDetail>())
   const { mutate: getFeatureDetails } = useGetFeatureRestrictionDetail({
     queryParams: {
       accountIdentifier: accountId

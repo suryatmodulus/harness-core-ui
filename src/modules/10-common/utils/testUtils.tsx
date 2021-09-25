@@ -19,7 +19,7 @@ import type { Project } from 'services/cd-ng'
 import { StringsContext } from 'framework/strings'
 
 import { FeaturesContext, FeaturesContextProps } from 'framework/featureStore/FeaturesContext'
-import type { FeatureDetailProps } from 'framework/featureStore/FeaturesContext'
+import type { FeatureDetail } from 'framework/featureStore/FeaturesContext'
 
 import './testUtils.scss'
 import { PermissionsContext, PermissionsContextProps } from 'framework/rbac/PermissionsContext'
@@ -166,7 +166,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
           >
             <FeaturesContext.Provider
               value={{
-                features: new Map<string, FeatureDetailProps>(),
+                features: new Map<string, FeatureDetail>(),
                 requestFeatures: () => void 0,
                 requestLimitFeature: () => void 0,
                 checkFeature: () => {

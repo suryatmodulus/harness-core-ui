@@ -36,14 +36,28 @@ export function getDTOFromRequest(permissionRequest: PermissionRequest, defaultS
   }
 }
 
-export function usePermission(permissionsRequest?: PermissionsRequest, deps: Array<any> = []): Array<boolean> {
+export function usePermission(permissionsRequest: PermissionsRequest, deps: Array<any> = []): Array<boolean> {
   const { requestPermission, checkPermission, cancelRequest } = usePermissionsContext()
   const { accountId: accountIdentifier, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const defaultScope = { accountIdentifier, orgIdentifier, projectIdentifier }
+  const { options } = permissionsRequest
 
   useDeepCompareEffect(() => {
     // generate PermissionRequest for every action user requested
-    permissionsRequest &&
+    permissionsRequest.permissions.forEach(permission => {
+      const permissionCheckDto = getDTOFromRequest(
+        {
+          permission,
+          ...pick(permissionsRequest, ['resourceScope', 'resource'])
+        } as PermissionRequest,
+        defaultScope
+      )
+      // register request in the context
+      requestPermission(permissionCheckDto, options)
+    })
+
+    return () => {
+      // cancel above request when this hook instance is unmounting
       permissionsRequest.permissions.forEach(permission => {
         const permissionCheckDto = getDTOFromRequest(
           {
@@ -52,40 +66,21 @@ export function usePermission(permissionsRequest?: PermissionsRequest, deps: Arr
           } as PermissionRequest,
           defaultScope
         )
-        // register request in the context
-        requestPermission(permissionCheckDto, permissionsRequest?.options)
+        cancelRequest(permissionCheckDto)
       })
-
-    return () => {
-      // cancel above request when this hook instance is unmounting
-      permissionsRequest &&
-        permissionsRequest.permissions.forEach(permission => {
-          const permissionCheckDto = getDTOFromRequest(
-            {
-              permission,
-              ...pick(permissionsRequest, ['resourceScope', 'resource'])
-            } as PermissionRequest,
-            defaultScope
-          )
-          cancelRequest(permissionCheckDto)
-        })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [permissionsRequest?.options, ...deps])
+  }, [options, ...deps])
 
   // hook should return boolean for every action requested, in same order
-  if (permissionsRequest !== undefined) {
-    return permissionsRequest.permissions.map(permission => {
-      const permissionCheckDto = getDTOFromRequest(
-        {
-          permission,
-          ...pick(permissionsRequest, ['resourceScope', 'resource'])
-        } as PermissionRequest,
-        defaultScope
-      )
-      return checkPermission(permissionCheckDto)
-    })
-  }
-
-  return []
+  return permissionsRequest.permissions.map(permission => {
+    const permissionCheckDto = getDTOFromRequest(
+      {
+        permission,
+        ...pick(permissionsRequest, ['resourceScope', 'resource'])
+      } as PermissionRequest,
+      defaultScope
+    )
+    return checkPermission(permissionCheckDto)
+  })
 }

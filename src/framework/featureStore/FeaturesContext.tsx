@@ -3,41 +3,41 @@ import { isEmpty } from 'lodash-es'
 import produce from 'immer'
 
 import { useParams } from 'react-router'
-import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
-import { useGetEnabledFeatureDetailsByAccountId, useGetFeatureDetail } from 'services/cd-ng'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetEnabledFeatureRestrictionDetailByAccountId, useGetFeatureRestrictionDetail } from 'services/cd-ng'
 import type { FeatureIdentifier } from './FeatureIdentifier'
-import FeatureTooltip from './FeatureToolTip'
-import type { FeatureTooltipProps } from './FeatureToolTip'
 
+export interface FeatureDetailProps {
+  featureName: string
+  enabled: boolean
+  limit?: number
+  count?: number
+  apiFail?: boolean
+}
 export interface FeatureRequest {
-  accountIdentifier?: string
   featureName: FeatureIdentifier
   isRateLimit?: boolean
 }
 
 export interface CheckFeatureReturn {
   enabled: boolean
-  toolTip?: React.ReactElement
+  featureDetail?: FeatureDetailProps
 }
 
-type Features = Map<string, boolean>
+type Features = Map<string, FeatureDetailProps>
 
 export interface FeatureRequestOptions {
   skipCache?: boolean
   skipCondition?: (featureRequest: FeatureRequest) => boolean
 }
 
-export interface ToolTipProps {
-  module: Module
-}
-
 export interface FeaturesContextProps {
   // features only cache enabled features
   features: Features
   requestFeatures: (featureRequest: FeatureRequest, options?: FeatureRequestOptions) => void
-  checkFeature: (featureName: string, toolTipProps?: ToolTipProps) => CheckFeatureReturn
+  checkFeature: (featureName: string) => CheckFeatureReturn
   requestLimitFeature: (featureRequest: FeatureRequest) => void
-  checkLimitFeature: (featureName: string, toolTipProps?: ToolTipProps) => CheckFeatureReturn
+  checkLimitFeature: (featureName: string) => CheckFeatureReturn
 }
 
 const defaultReturn = {
@@ -45,7 +45,7 @@ const defaultReturn = {
 }
 
 export const FeaturesContext = createContext<FeaturesContextProps>({
-  features: new Map<string, boolean>(),
+  features: new Map<string, FeatureDetailProps>(),
   requestFeatures: () => void 0,
   checkFeature: () => {
     return defaultReturn
@@ -61,7 +61,7 @@ export function useFeaturesContext(): FeaturesContextProps {
 }
 
 export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
-  const [features, setFeatures] = useState<Features>(new Map<string, boolean>())
+  const [features, setFeatures] = useState<Features>(new Map<string, FeatureDetailProps>())
   const [hasErr, setHasErr] = useState<boolean>(false)
 
   const { accountId } = useParams<AccountPathProps>()
@@ -70,7 +70,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     data: enabledFeatureList,
     refetch: getEnabledFeatures,
     error: gettingEnabledFeaturesError
-  } = useGetEnabledFeatureDetailsByAccountId({
+  } = useGetEnabledFeatureRestrictionDetailByAccountId({
     queryParams: {
       accountIdentifier: accountId
     },
@@ -81,10 +81,13 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     if (!isEmpty(enabledFeatureList)) {
       const list = enabledFeatureList?.data?.reduce((acc, curr) => {
         if (curr?.name) {
-          acc?.set(curr?.name, !!curr?.allowed)
+          acc?.set(curr?.name, {
+            featureName: curr?.name,
+            enabled: !!curr?.allowed
+          })
         }
         return acc
-      }, new Map<string, boolean>())
+      }, new Map<string, FeatureDetailProps>())
       list && setFeatures(list)
     }
   }, [enabledFeatureList])
@@ -122,37 +125,26 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     setHasErr(false)
   }
 
-  function checkFeature(featureName: string, toolTipProps?: ToolTipProps): CheckFeatureReturn {
-    const feature = features.get(featureName)
-    const { module } = toolTipProps || {}
+  function checkFeature(featureName: string): CheckFeatureReturn {
+    const featureDetail = features.get(featureName)
     // absence of featureName means feature disabled
     // api call fails by default set all features to be true
-    const enabled = !!feature || hasErr
-    const toolTip = getToolTip(
-      enabled,
-      {
-        featureName,
-        apiFail: hasErr
-      },
-      module
-    )
+    const enabled = !!featureDetail?.enabled || hasErr
     return {
       enabled,
-      toolTip
+      featureDetail: {
+        ...featureDetail,
+        featureName,
+        enabled,
+        apiFail: hasErr
+      }
     }
-  }
-  interface FeatureDetailProps {
-    featureName: string
-    enabled: boolean
-    limit?: number
-    count?: number
-    apiFail?: boolean
   }
 
   const [featureDetailMap, setFeatureDetailMap] = useState<Map<string, FeatureDetailProps>>(
     new Map<string, FeatureDetailProps>()
   )
-  const { mutate: getFeatureDetails } = useGetFeatureDetail({
+  const { mutate: getFeatureDetails } = useGetFeatureRestrictionDetail({
     queryParams: {
       accountIdentifier: accountId
     }
@@ -164,7 +156,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
 
     try {
       const res = await getFeatureDetails({
-        featureName
+        name: featureName
       })
       const allowed = res?.data?.allowed
       const restriction = res?.data?.restriction
@@ -202,57 +194,14 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     }
   }
 
-  function checkLimitFeature(featureName: string, toolTipProps?: ToolTipProps): CheckFeatureReturn {
-    const { module } = toolTipProps || {}
+  function checkLimitFeature(featureName: string): CheckFeatureReturn {
     // api call fails by default set feature to be true
     const featureDetail = featureDetailMap.get(featureName)
     const enabled = featureDetail?.apiFail || !!featureDetail?.enabled
-    const toolTip = getToolTip(
-      enabled,
-      {
-        featureName,
-        apiFail: featureDetail?.apiFail,
-        limit: featureDetail?.limit,
-        count: featureDetail?.count
-      },
-      module
-    )
     return {
       enabled,
-      toolTip
+      featureDetail
     }
-  }
-
-  function getToolTip(
-    enabled: boolean,
-    toolTipProps: FeatureTooltipProps,
-    module?: Module
-  ): React.ReactElement | undefined {
-    if (toolTipProps.apiFail) {
-      return (
-        <FeatureTooltip
-          featureName={toolTipProps?.featureName || 'TEST1'}
-          apiFail={toolTipProps?.apiFail}
-          limit={toolTipProps?.limit}
-          count={toolTipProps?.count}
-          module={module}
-        />
-      )
-    }
-
-    if (enabled) {
-      return undefined
-    }
-
-    return (
-      <FeatureTooltip
-        featureName={toolTipProps?.featureName || 'TEST1'}
-        apiFail={toolTipProps?.apiFail}
-        limit={toolTipProps?.limit}
-        count={toolTipProps?.count}
-        module={module}
-      />
-    )
   }
 
   return (

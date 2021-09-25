@@ -500,7 +500,6 @@ export interface AddRuleYamlSpec {
   distribution?: DistributionYamlSpec
   priority: number
   serve?: Serve
-  uuid: string
 }
 
 export type AddSegmentToVariationTargetMapYaml = PatchInstruction & {
@@ -748,6 +747,10 @@ export interface AuthenticationSettingsResponse {
 export interface AuthorInfo {
   name?: string
   url?: string
+}
+
+export type AvailabilityRestrictionDTO = RestrictionDTO & {
+  enabled?: boolean
 }
 
 export interface AwsCodeCommitAuthenticationDTO {
@@ -1825,10 +1828,6 @@ export interface EmbeddedUserDetails {
   uuid?: string
 }
 
-export type EnableDisableRestrictionDTO = RestrictionDTO & {
-  enabled?: boolean
-}
-
 export interface EntityDetail {
   entityRef?: EntityReference
   name?: string
@@ -2617,11 +2616,13 @@ export interface FailureStrategyConfig {
   onFailure: OnFailureConfig
 }
 
-export interface FeatureDetailRequestDTO {
-  featureName: 'TEST1' | 'TEST2' | 'TEST3'
+export type FeatureFlagStageConfig = StageInfoConfig & {}
+
+export interface FeatureRestrictionDetailRequestDTO {
+  name: 'TEST1' | 'TEST2' | 'TEST3'
 }
 
-export interface FeatureDetailsDTO {
+export interface FeatureRestrictionDetailsDTO {
   allowed?: boolean
   description?: string
   moduleType?: string
@@ -2629,8 +2630,6 @@ export interface FeatureDetailsDTO {
   restriction?: RestrictionDTO
   restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT'
 }
-
-export type FeatureFlagStageConfig = StageInfoConfig & {}
 
 export interface FeedbackFormDTO {
   accountId?: string
@@ -3780,6 +3779,7 @@ export interface LdapGroupSettings {
 
 export type LdapSettings = SSOSettings & {
   connectionSettings: LdapConnectionSettings
+  cronExpression?: string
   groupSettings?: LdapGroupSettings
   groupSettingsList?: LdapGroupSettings[]
   userSettings?: LdapUserSettings
@@ -4021,10 +4021,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -4485,6 +4484,8 @@ export interface PasswordStrengthPolicy {
 export interface PatchInstruction {
   type?:
     | 'SetFeatureFlagState'
+    | 'SetOnVariation'
+    | 'SetOffVariation'
     | 'AddRule'
     | 'UpdateRule'
     | 'AddTargetsToVariationTargetMap'
@@ -4689,6 +4690,11 @@ export interface ResourceDTO {
     [key: string]: string
   }
   type: string
+}
+
+export interface ResourceGroupDTO {
+  identifier?: string
+  name?: string
 }
 
 export interface ResourceScope {
@@ -4930,9 +4936,9 @@ export interface ResponseExecutionDeploymentInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseFeatureDetailsDTO {
+export interface ResponseFeatureRestrictionDetailsDTO {
   correlationId?: string
-  data?: FeatureDetailsDTO
+  data?: FeatureRestrictionDetailsDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5118,9 +5124,9 @@ export interface ResponseListExecutionStatus {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseListFeatureDetailsDTO {
+export interface ResponseListFeatureRestrictionDetailsDTO {
   correlationId?: string
-  data?: FeatureDetailsDTO[]
+  data?: FeatureRestrictionDetailsDTO[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5822,6 +5828,13 @@ export interface ResponseProjectsDashboardInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseRoleAssignmentAggregateResponse {
+  correlationId?: string
+  data?: RoleAssignmentAggregateResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseRoleAssignmentResponse {
   correlationId?: string
   data?: RoleAssignmentResponse
@@ -6130,6 +6143,17 @@ export interface RetryFailureSpecConfig {
   retryIntervals: string[]
 }
 
+export interface Role {
+  allowedScopeLevels?: string[]
+  description?: string
+  identifier: string
+  name: string
+  permissions?: string[]
+  tags?: {
+    [key: string]: string
+  }
+}
+
 export interface RoleAssignment {
   disabled?: boolean
   identifier?: string
@@ -6137,6 +6161,13 @@ export interface RoleAssignment {
   principal: Principal
   resourceGroupIdentifier: string
   roleIdentifier: string
+}
+
+export interface RoleAssignmentAggregateResponse {
+  resourceGroups?: ResourceGroupDTO[]
+  roleAssignments?: RoleAssignment[]
+  roles?: RoleResponse[]
+  scope?: ScopeDTO
 }
 
 export interface RoleAssignmentFilter {
@@ -6172,6 +6203,14 @@ export interface RoleBinding {
   resourceGroupName?: string
   roleIdentifier: string
   roleName: string
+}
+
+export interface RoleResponse {
+  createdAt?: number
+  harnessManaged?: boolean
+  lastModifiedAt?: number
+  role: Role
+  scope: ScopeDTO
 }
 
 export type S3StoreConfig = StoreConfig & {
@@ -6252,6 +6291,7 @@ export interface SSOSettings {
   lastUpdatedAt: number
   lastUpdatedBy?: EmbeddedUser
   nextIteration?: number
+  nextIterations?: number[]
   type: 'SAML' | 'LDAP' | 'OAUTH'
   url?: string
   uuid: string
@@ -6657,6 +6697,26 @@ export interface SetFeatureFlagStateYamlSpec {
   state: string
 }
 
+export type SetOffVariationYaml = PatchInstruction & {
+  identifier: string
+  spec: SetOffVariationYamlSpec
+  type: 'SetOffVariation'
+}
+
+export interface SetOffVariationYamlSpec {
+  variation: string
+}
+
+export type SetOnVariationYaml = PatchInstruction & {
+  identifier: string
+  spec: SetOnVariationYamlSpec
+  type: 'SetOnVariation'
+}
+
+export interface SetOnVariationYamlSpec {
+  variation: string
+}
+
 export interface SetupUsageDetail {
   [key: string]: any
 }
@@ -6855,6 +6915,7 @@ export interface StepGroupElementConfig {
   failureStrategies?: FailureStrategyConfig[]
   identifier: string
   name?: string
+  rollbackSteps?: ExecutionWrapperConfig[]
   steps: ExecutionWrapperConfig[]
   when?: StepWhenCondition
 }
@@ -7432,6 +7493,8 @@ export type GitSyncSettingsDTORequestBody = GitSyncSettingsDTO
 export type OrganizationRequestRequestBody = OrganizationRequest
 
 export type ProjectRequestRequestBody = ProjectRequest
+
+export type RoleAssignmentFilterRequestBody = RoleAssignmentFilter
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
@@ -13385,6 +13448,157 @@ export const updateSelectorsNgPromise = (
     UpdateSelectorsNgPathParams
   >('PUT', getConfig('ng/api'), `/delegate-profiles/ng/${delegateProfileId}/selectors`, props, signal)
 
+export interface GetFeatureRestrictionDetailQueryParams {
+  accountIdentifier: string
+}
+
+export type GetFeatureRestrictionDetailProps = Omit<
+  MutateProps<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets Feature Restriction Detail
+ */
+export const GetFeatureRestrictionDetail = (props: GetFeatureRestrictionDetailProps) => (
+  <Mutate<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >
+    verb="POST"
+    path={`/enforcement`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetFeatureRestrictionDetailProps = Omit<
+  UseMutateProps<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets Feature Restriction Detail
+ */
+export const useGetFeatureRestrictionDetail = (props: UseGetFeatureRestrictionDetailProps) =>
+  useMutate<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >('POST', `/enforcement`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets Feature Restriction Detail
+ */
+export const getFeatureRestrictionDetailPromise = (
+  props: MutateUsingFetchProps<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >('POST', getConfig('ng/api'), `/enforcement`, props, signal)
+
+export interface GetEnabledFeatureRestrictionDetailByAccountIdQueryParams {
+  accountIdentifier: string
+}
+
+export type GetEnabledFeatureRestrictionDetailByAccountIdProps = Omit<
+  GetProps<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Gets List of Enabled Feature Restriction Detail for The Account
+ */
+export const GetEnabledFeatureRestrictionDetailByAccountId = (
+  props: GetEnabledFeatureRestrictionDetailByAccountIdProps
+) => (
+  <Get<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >
+    path={`/enforcement/enabled`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEnabledFeatureRestrictionDetailByAccountIdProps = Omit<
+  UseGetProps<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Gets List of Enabled Feature Restriction Detail for The Account
+ */
+export const useGetEnabledFeatureRestrictionDetailByAccountId = (
+  props: UseGetEnabledFeatureRestrictionDetailByAccountIdProps
+) =>
+  useGet<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >(`/enforcement/enabled`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets List of Enabled Feature Restriction Detail for The Account
+ */
+export const getEnabledFeatureRestrictionDetailByAccountIdPromise = (
+  props: GetUsingFetchProps<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >(getConfig('ng/api'), `/enforcement/enabled`, props, signal)
+
 export interface ListReferredByEntitiesQueryParams {
   pageIndex?: number
   pageSize?: number
@@ -18342,122 +18556,6 @@ export const getExecutionStrategyYamlPromise = (
     signal
   )
 
-export interface GetFeatureDetailQueryParams {
-  accountIdentifier: string
-}
-
-export type GetFeatureDetailProps = Omit<
-  MutateProps<ResponseFeatureDetailsDTO, Failure | Error, GetFeatureDetailQueryParams, FeatureDetailRequestDTO, void>,
-  'path' | 'verb'
->
-
-/**
- * Gets Feature Detail
- */
-export const GetFeatureDetail = (props: GetFeatureDetailProps) => (
-  <Mutate<ResponseFeatureDetailsDTO, Failure | Error, GetFeatureDetailQueryParams, FeatureDetailRequestDTO, void>
-    verb="POST"
-    path={`/plan-feature`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetFeatureDetailProps = Omit<
-  UseMutateProps<
-    ResponseFeatureDetailsDTO,
-    Failure | Error,
-    GetFeatureDetailQueryParams,
-    FeatureDetailRequestDTO,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Gets Feature Detail
- */
-export const useGetFeatureDetail = (props: UseGetFeatureDetailProps) =>
-  useMutate<ResponseFeatureDetailsDTO, Failure | Error, GetFeatureDetailQueryParams, FeatureDetailRequestDTO, void>(
-    'POST',
-    `/plan-feature`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Gets Feature Detail
- */
-export const getFeatureDetailPromise = (
-  props: MutateUsingFetchProps<
-    ResponseFeatureDetailsDTO,
-    Failure | Error,
-    GetFeatureDetailQueryParams,
-    FeatureDetailRequestDTO,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseFeatureDetailsDTO,
-    Failure | Error,
-    GetFeatureDetailQueryParams,
-    FeatureDetailRequestDTO,
-    void
-  >('POST', getConfig('ng/api'), `/plan-feature`, props, signal)
-
-export interface GetEnabledFeatureDetailsByAccountIdQueryParams {
-  accountIdentifier: string
-}
-
-export type GetEnabledFeatureDetailsByAccountIdProps = Omit<
-  GetProps<ResponseListFeatureDetailsDTO, Failure | Error, GetEnabledFeatureDetailsByAccountIdQueryParams, void>,
-  'path'
->
-
-/**
- * Gets List of Enabled Feature Details for The Account
- */
-export const GetEnabledFeatureDetailsByAccountId = (props: GetEnabledFeatureDetailsByAccountIdProps) => (
-  <Get<ResponseListFeatureDetailsDTO, Failure | Error, GetEnabledFeatureDetailsByAccountIdQueryParams, void>
-    path={`/plan-feature/enabled`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetEnabledFeatureDetailsByAccountIdProps = Omit<
-  UseGetProps<ResponseListFeatureDetailsDTO, Failure | Error, GetEnabledFeatureDetailsByAccountIdQueryParams, void>,
-  'path'
->
-
-/**
- * Gets List of Enabled Feature Details for The Account
- */
-export const useGetEnabledFeatureDetailsByAccountId = (props: UseGetEnabledFeatureDetailsByAccountIdProps) =>
-  useGet<ResponseListFeatureDetailsDTO, Failure | Error, GetEnabledFeatureDetailsByAccountIdQueryParams, void>(
-    `/plan-feature/enabled`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Gets List of Enabled Feature Details for The Account
- */
-export const getEnabledFeatureDetailsByAccountIdPromise = (
-  props: GetUsingFetchProps<
-    ResponseListFeatureDetailsDTO,
-    Failure | Error,
-    GetEnabledFeatureDetailsByAccountIdQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseListFeatureDetailsDTO, Failure | Error, GetEnabledFeatureDetailsByAccountIdQueryParams, void>(
-    getConfig('ng/api'),
-    `/plan-feature/enabled`,
-    props,
-    signal
-  )
-
 export interface ProcessPollingResultNgQueryParams {
   accountId?: string
 }
@@ -18942,7 +19040,7 @@ export type CreateRoleAssignmentProps = Omit<
 >
 
 /**
- * Create Role Assignment
+ * (Stub) Create Role Assignment
  */
 export const CreateRoleAssignment = (props: CreateRoleAssignmentProps) => (
   <Mutate<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>
@@ -18965,7 +19063,7 @@ export type UseCreateRoleAssignmentProps = Omit<
 >
 
 /**
- * Create Role Assignment
+ * (Stub) Create Role Assignment
  */
 export const useCreateRoleAssignment = (props: UseCreateRoleAssignmentProps) =>
   useMutate<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>(
@@ -18975,7 +19073,7 @@ export const useCreateRoleAssignment = (props: UseCreateRoleAssignmentProps) =>
   )
 
 /**
- * Create Role Assignment
+ * (Stub) Create Role Assignment
  */
 export const createRoleAssignmentPromise = (
   props: MutateUsingFetchProps<
@@ -18995,6 +19093,85 @@ export const createRoleAssignmentPromise = (
     void
   >('POST', getConfig('ng/api'), `/roleassignments`, props, signal)
 
+export interface GetRoleAssignmentsAggregateQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetRoleAssignmentsAggregateProps = Omit<
+  MutateProps<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Role Assignments Aggregate
+ */
+export const GetRoleAssignmentsAggregate = (props: GetRoleAssignmentsAggregateProps) => (
+  <Mutate<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/roleassignments/aggregate`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetRoleAssignmentsAggregateProps = Omit<
+  UseMutateProps<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Role Assignments Aggregate
+ */
+export const useGetRoleAssignmentsAggregate = (props: UseGetRoleAssignmentsAggregateProps) =>
+  useMutate<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >('POST', `/roleassignments/aggregate`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get Role Assignments Aggregate
+ */
+export const getRoleAssignmentsAggregatePromise = (
+  props: MutateUsingFetchProps<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/roleassignments/aggregate`, props, signal)
+
 export interface GetFilteredRoleAssignmentListQueryParams {
   pageIndex?: number
   pageSize?: number
@@ -19009,21 +19186,21 @@ export type GetFilteredRoleAssignmentListProps = Omit<
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >,
   'path' | 'verb'
 >
 
 /**
- * Get Filtered Role Assignments
+ * (Stub) Get Filtered Role Assignments
  */
 export const GetFilteredRoleAssignmentList = (props: GetFilteredRoleAssignmentListProps) => (
   <Mutate<
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >
     verb="POST"
@@ -19038,33 +19215,33 @@ export type UseGetFilteredRoleAssignmentListProps = Omit<
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >,
   'path' | 'verb'
 >
 
 /**
- * Get Filtered Role Assignments
+ * (Stub) Get Filtered Role Assignments
  */
 export const useGetFilteredRoleAssignmentList = (props: UseGetFilteredRoleAssignmentListProps) =>
   useMutate<
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >('POST', `/roleassignments/filter`, { base: getConfig('ng/api'), ...props })
 
 /**
- * Get Filtered Role Assignments
+ * (Stub) Get Filtered Role Assignments
  */
 export const getFilteredRoleAssignmentListPromise = (
   props: MutateUsingFetchProps<
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -19073,7 +19250,7 @@ export const getFilteredRoleAssignmentListPromise = (
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >('POST', getConfig('ng/api'), `/roleassignments/filter`, props, signal)
 
@@ -19096,7 +19273,7 @@ export type CreateRoleAssignmentsProps = Omit<
 >
 
 /**
- * Create Multiple Role Assignments
+ * (Stub) Create Multiple Role Assignments
  */
 export const CreateRoleAssignments = (props: CreateRoleAssignmentsProps) => (
   <Mutate<
@@ -19125,7 +19302,7 @@ export type UseCreateRoleAssignmentsProps = Omit<
 >
 
 /**
- * Create Multiple Role Assignments
+ * (Stub) Create Multiple Role Assignments
  */
 export const useCreateRoleAssignments = (props: UseCreateRoleAssignmentsProps) =>
   useMutate<
@@ -19137,7 +19314,7 @@ export const useCreateRoleAssignments = (props: UseCreateRoleAssignmentsProps) =
   >('POST', `/roleassignments/multi/internal`, { base: getConfig('ng/api'), ...props })
 
 /**
- * Create Multiple Role Assignments
+ * (Stub) Create Multiple Role Assignments
  */
 export const createRoleAssignmentsPromise = (
   props: MutateUsingFetchProps<

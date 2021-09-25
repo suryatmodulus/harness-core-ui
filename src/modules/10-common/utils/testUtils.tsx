@@ -18,9 +18,11 @@ import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 import type { Project } from 'services/cd-ng'
 import { StringsContext } from 'framework/strings'
 
+import { FeaturesContext, FeaturesContextProps } from 'framework/featureStore/FeaturesContext'
+import type { FeatureDetailProps } from 'framework/featureStore/FeaturesContext'
+
 import './testUtils.scss'
 import { PermissionsContext, PermissionsContextProps } from 'framework/rbac/PermissionsContext'
-import { FeaturesContext, FeaturesContextProps } from 'framework/featureStore/FeaturesContext'
 
 export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Required<
   UseGetProps<TData, TError, TQueryParams, TPathParams>
@@ -164,7 +166,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
           >
             <FeaturesContext.Provider
               value={{
-                features: new Map<string, boolean>(),
+                features: new Map<string, FeatureDetailProps>(),
                 requestFeatures: () => void 0,
                 requestLimitFeature: () => void 0,
                 checkFeature: () => {
@@ -173,7 +175,6 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
                 checkLimitFeature: () => {
                   return defaultReturn
                 },
-                cancelRequest: () => void 0,
                 ...defaultFeaturesValues
               }}
             >

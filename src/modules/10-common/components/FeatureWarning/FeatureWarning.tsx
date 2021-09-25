@@ -24,7 +24,7 @@ interface FeatureWarningProps {
   }
 }
 
-interface ExplorePlansBtnProps {
+export interface ExplorePlansBtnProps {
   module?: Module
 }
 
@@ -73,11 +73,11 @@ export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningToo
   const { getString } = useStrings()
   return (
     <Layout.Vertical padding="medium">
-      <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_100} padding={{ bottom: 'small' }}>
+      <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'small' }}>
         {getString('common.feature.upgradeRequired.title')}
       </Text>
       <Layout.Vertical spacing="small">
-        <Text font={{ size: 'small' }} color={Color.GREY_200}>
+        <Text font={{ size: 'small' }} color={Color.GREY_700}>
           {getString('common.feature.upgradeRequired.description', { featureName: featureName })}
         </Text>
         <ExplorePlansBtn module={module} />
@@ -88,7 +88,7 @@ export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningToo
 
 export const FeatureWarningWithTooltip = ({ featureName, module, tooltipProps }: FeatureWarningProps): ReactElement => {
   const tooltip = <FeatureWarningTooltip featureName={featureName} module={module} />
-  return <WarningText tooltip={tooltip} tooltipProps={{ isDark: true, position: 'bottom-left', ...tooltipProps }} />
+  return <WarningText tooltip={tooltip} tooltipProps={{ position: 'bottom-left', ...tooltipProps }} />
 }
 
 export const FeatureWarning = ({ module, featureName, className }: FeatureWarningProps): ReactElement => {

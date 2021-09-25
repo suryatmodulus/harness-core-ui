@@ -4,7 +4,7 @@ import { waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { FeaturesProvider } from 'framework/featureStore/FeaturesContext'
-import { useGetEnabledFeatureDetailsByAccountId, useGetFeatureDetail } from 'services/cd-ng'
+import { useGetEnabledFeatureRestrictionDetailByAccountId, useGetFeatureRestrictionDetail } from 'services/cd-ng'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useFeature } from '../useFeatures'
 import mocks from './featuresMocks.json'
@@ -16,8 +16,8 @@ const featureDetailEnabledResponse = mocks['featureDetail-enabled']
 const featureDetailDisabledResponse = mocks['featureDetail-disabled']
 
 jest.mock('services/cd-ng')
-const useGetEnabledFeatureListMock = useGetEnabledFeatureDetailsByAccountId as jest.MockedFunction<any>
-const useGetFeatureDetailsMock = useGetFeatureDetail as jest.MockedFunction<any>
+const useGetEnabledFeatureListMock = useGetEnabledFeatureRestrictionDetailByAccountId as jest.MockedFunction<any>
+const useGetFeatureDetailsMock = useGetFeatureRestrictionDetail as jest.MockedFunction<any>
 
 beforeEach(() => {
   jest.clearAllMocks()

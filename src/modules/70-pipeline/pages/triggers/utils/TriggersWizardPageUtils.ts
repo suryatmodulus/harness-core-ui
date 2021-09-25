@@ -12,6 +12,8 @@ import { ManifestStoreMap, ManifestDataType } from '@pipeline/components/Manifes
 import type { StringKeys, UseStringsReturn } from 'framework/strings'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
+import { ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
+import type { StringsMap } from 'framework/strings/StringsContext'
 
 export const CUSTOM = 'Custom'
 export const AWS_CODECOMMIT = 'AWS_CODECOMMIT'
@@ -1050,7 +1052,7 @@ export const parseArtifactsManifests = ({
       data: stageManifests?.filter((stage: Record<string, unknown>) => !isUndefined(stage))
     }
   } else if (inputSetTemplateYamlObj?.pipeline && artifactType) {
-    let appliedArtifact
+    let appliedArtifact: any
     const stagesManifests = inputSetTemplateYamlObj.pipeline.stages?.map((stageObj: any) => {
       if (stageObj.parallel) {
         return stageObj.parallel.map((parStg: any) => {
@@ -1075,7 +1077,7 @@ export const parseArtifactsManifests = ({
               appliedArtifact = filteredArtifacts?.primary
             }
           }
-          if (filteredArtifacts?.sidecars?.length || filteredArtifacts?.primary) {
+          if (filteredArtifacts?.sidecars?.length || filteredArtifacts?.primary?.type) {
             const filteredStageObj = { ...parStg }
             // adding all manifests to serviceDefinition for UI to render in SelectArtifactModal
 
@@ -1095,7 +1097,7 @@ export const parseArtifactsManifests = ({
           stages: inputSetTemplateYamlObj.pipeline.stages
         })
 
-        if (stageId && artifactRef) {
+        if (stageId && artifactRef && !appliedArtifact) {
           const newAppliedArtifact = filteredArtifacts?.sidecars?.find(
             (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactRef
           )
@@ -1106,7 +1108,7 @@ export const parseArtifactsManifests = ({
           }
         }
 
-        if (filteredArtifacts?.sidecars?.length || filteredArtifacts?.primary) {
+        if (filteredArtifacts?.sidecars?.length || filteredArtifacts?.primary?.type) {
           const filteredStageObj = { ...stageObj }
           // adding all manifests to serviceDefinition for UI to render in SelectArtifactModal
 
@@ -1304,18 +1306,22 @@ export const getDetailsFromPipeline = ({
 export const getArtifactDetailsFromPipeline = ({
   artifacts,
   artifactIdentifier,
-  artifactType
+  artifactType,
+  stageOverrideArtifacts
 }: // stageOverridesArtifacts
 {
   artifacts: { primary: any; sidecars: any[] }
   artifactIdentifier: string
   artifactType: string
-  stageOverridesManifests?: any
+  stageOverrideArtifacts?: any
 }): artifactTableDetails => {
   const details: artifactTableDetails = {}
-  if (artifactType === 'Gcr') {
-    //   const primaryArtifact = artifacts?.primary?.type === artifactType ? artifacts?.primary : null
-    const matchedManifest = artifacts?.sidecars?.find(
+  if (
+    artifactType === ENABLED_ARTIFACT_TYPES.Gcr ||
+    artifactType === ENABLED_ARTIFACT_TYPES.DockerRegistry ||
+    artifactType === ENABLED_ARTIFACT_TYPES.Ecr
+  ) {
+    const matchedManifest = (artifacts?.sidecars || stageOverrideArtifacts?.sidecars)?.find(
       (artifactObj: any) => artifactObj?.sidecar.identifier === artifactIdentifier
     )
 
@@ -1353,19 +1359,18 @@ export const getConnectorNameFromPipeline = ({
 export const getArtifactConnectorNameFromPipeline = ({
   artifacts,
   artifactIdentifier,
-  artifactType
+  artifactType,
+  stageOverrideArtifacts
 }: {
   artifacts: { primary: any; sidecars: any[] }
   artifactIdentifier: string
-  artifactType: string
+  artifactType: StringsMap
+  stageOverrideArtifacts?: any
 }): string | undefined => {
-  // const primaryArtifact = artifacts?.primary.type === artifactType ? artifacts?.primary : null
-  // if (primaryArtifact) {
-  //   return primaryArtifact
-  // }
   if (artifactType) {
-    return artifacts?.sidecars?.find((artifactObj: any) => artifactObj?.sidecar.identifier === artifactIdentifier)
-      ?.sidecar?.spec?.connectorRef
+    return (artifacts?.sidecars || stageOverrideArtifacts?.sidecars)?.find(
+      (artifactObj: any) => artifactObj?.sidecar.identifier === artifactIdentifier
+    )?.sidecar?.spec?.connectorRef
   }
 }
 
@@ -1506,6 +1511,20 @@ const getPipelineOverrideManifests = (pipelineObj: any, stageId: string): any =>
     }
   }
 }
+
+const getPipelineOverrideArtifacts = (pipelineObj: any, stageId: string): any => {
+  let artifactArr
+  for (const item of pipelineObj) {
+    if (Array.isArray(item.parallel)) {
+      artifactArr = getPipelineOverrideArtifacts(item.parallel, stageId)
+    } else if (item && item.stage && item.stage.identifier === stageId) {
+      artifactArr = item?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts
+    }
+    if (artifactArr) {
+      return artifactArr
+    }
+  }
+}
 // data is already filtered w/ correct manifest
 export const getArtifactTableDataFromData = ({
   data,
@@ -1603,17 +1622,20 @@ export const getArtifactTableDataFromData = ({
     // console.log(pipelineArtifacts, 'pa')
     // debugger
     const pipelineArtifacts = getArtifacts(pipeline.stages, stageId)
+    const stageOverrideArtifacts = getPipelineOverrideArtifacts(pipeline.stages, stageId)
     if (appliedArtifact?.sidecar) {
       const { location } = getArtifactDetailsFromPipeline({
         artifacts: pipelineArtifacts,
         artifactIdentifier: appliedArtifact?.sidecar.identifier,
-        artifactType: appliedArtifact?.sidecar.type
+        artifactType: appliedArtifact?.sidecar.type,
+        stageOverrideArtifacts
       })
 
       const artifactRepository = getArtifactConnectorNameFromPipeline({
         artifacts: pipelineArtifacts,
         artifactIdentifier: appliedArtifact?.sidecar.identifier,
-        artifactType: appliedArtifact?.sidecar.type
+        artifactType: appliedArtifact?.sidecar.type,
+        stageOverrideArtifacts
       })
 
       artifactTableData.push(
@@ -1650,7 +1672,7 @@ export const getArtifactTableDataFromData = ({
       const dataStageId = stageObject?.stage?.identifier
       // pipelineManifests used to find location from pipeline
       const pipelineArtifacts = getArtifacts(pipeline?.stages, dataStageId)
-      console.log(pipelineArtifacts, 'pA')
+      const stageOverridesArtifacts = getPipelineOverrideArtifacts(pipeline.stages, dataStageId)
       const { artifacts = [] } = stageObject?.stage?.spec?.serviceConfig?.serviceDefinition?.spec || {}
 
       if (pipelineArtifacts?.primary) {
@@ -1686,13 +1708,15 @@ export const getArtifactTableDataFromData = ({
           const { tag, location } = getArtifactDetailsFromPipeline({
             artifacts: pipelineArtifacts,
             artifactIdentifier: artifactObj?.sidecar?.identifier,
-            artifactType: artifactObj?.sidecar?.type
+            artifactType: artifactObj?.sidecar?.type,
+            stageOverrideArtifacts: stageOverridesArtifacts
           })
 
           const artifactRepository = getArtifactConnectorNameFromPipeline({
             artifacts: pipelineArtifacts,
             artifactIdentifier: artifactObj?.sidecar?.identifier,
-            artifactType: artifactObj?.sidecar?.type
+            artifactType: artifactObj?.sidecar?.type,
+            stageOverrideArtifacts: stageOverridesArtifacts
           })
 
           if (artifactObj?.sidecar) {

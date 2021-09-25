@@ -1,34 +1,164 @@
-import React from 'react'
-import { ButtonVariation, Layout, Button } from '@wings-software/uicore'
-// import { useParams } from 'react-router-dom'
-import { useStrings } from 'framework/strings'
+import React, { useState } from 'react'
+import MonacoEditor from 'react-monaco-editor'
+import {
+  ButtonVariation,
+  Layout,
+  Button,
+  Container,
+  Color,
+  Text,
+  FontVariation,
+  TextInput,
+  ButtonSize
+} from '@wings-software/uicore'
+import { TextArea } from '@blueprintjs/core'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
-// import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-// import css from './NewPolicy.module.scss'
+import { REGO_FORMAT } from '@policy/utils/rego'
+import css from './NewPolicy.module.scss'
+
+const editorOptions = {
+  ignoreTrimWhitespace: true,
+  minimap: { enabled: false },
+  codeLens: false,
+  scrollBeyondLastLine: false,
+  smartSelect: false
+}
 
 const NewPolicy: React.FC = () => {
-  // const { accountId } = useParams<ProjectPathProps>()
-  const { getString } = useStrings()
+  const [name, setName] = useState('My Policy 1')
+  const [regoScript, setRegoScript] = useState('')
+  const [input, setInput] = useState('')
+  const [output] = useState('')
+  const [editName, setEditName] = useState(false)
 
-  const newUserGroupsBtn = (): JSX.Element => (
-    <Button text={getString('common.policy.newPolicy')} variation={ButtonVariation.PRIMARY} icon="plus" />
-  )
+  const policyNameEditor = (): JSX.Element => {
+    return (
+      <Layout.Horizontal spacing="xsmall">
+        <Text
+          font={{ variation: FontVariation.H6 }}
+          icon="chained-pipeline"
+          iconProps={{ style: { paddingRight: 'var(--spacing-small)' } }}
+          className={css.policyNameInputContainer}
+        >
+          {(!editName && name) || ''}
+          {editName && (
+            <TextInput
+              value={name}
+              placeholder={'My Policy 1'}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+              onBlur={() => {
+                setEditName(false)
+              }}
+              onKeyUp={event => {
+                if (event.key === 'Enter') {
+                  setEditName(false)
+                }
+              }}
+              autoFocus
+            />
+          )}
+        </Text>
+        {!editName && (
+          <Button
+            icon="Edit"
+            variation={ButtonVariation.ICON}
+            onClick={() => {
+              setEditName(true)
+            }}
+          />
+        )}
+      </Layout.Horizontal>
+    )
+  }
 
   return (
     <>
       <PageHeader
-        title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>}
+        title={<Layout.Horizontal>{policyNameEditor()}</Layout.Horizontal>}
         toolbar={
-          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
-            <Button variation={ButtonVariation.SECONDARY}>Save</Button>
-            <Button variation={ButtonVariation.SECONDARY}>Discard</Button>
-            <Button variation={ButtonVariation.PRIMARY}>Test</Button>
+          <Layout.Horizontal spacing="small">
+            <Button icon="upload-box" variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL} text="Save" />
+            <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL}>
+              Discard
+            </Button>
+            <Button
+              icon="run-pipeline"
+              variation={ButtonVariation.PRIMARY}
+              text="Test"
+              intent="success"
+              size={ButtonSize.SMALL}
+            />
           </Layout.Horizontal>
         }
       />
       <Page.Body>
-        <div>Hello World</div>
+        <Container className={css.container} padding="medium">
+          <Text className={css.regoLabel}>Rego Script</Text>
+          <Layout.Horizontal spacing="small" className={css.layout}>
+            <Container className={css.leftContainer}>
+              <MonacoEditor
+                width="100%"
+                height="100%"
+                language="rego"
+                theme="vs-dark"
+                value={regoScript}
+                options={editorOptions}
+                onChange={newValue => {
+                  setRegoScript(newValue)
+                }}
+                editorWillMount={monaco => {
+                  monaco.languages.register({ id: 'rego' })
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  ;(monaco.languages.setMonarchTokensProvider as (name: string, format: any) => void)(
+                    'rego',
+                    REGO_FORMAT
+                  )
+
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  // ;(monaco.editor.defineTheme as (name: string, theme: any) => void)('rego-dark', REGO_THEME)
+                }}
+                editorDidMount={editor => {
+                  editor.focus()
+                }}
+              />
+            </Container>
+
+            <Container className={css.rightContainer}>
+              <Layout.Vertical spacing="medium" style={{ height: '100%' }}>
+                <Container style={{ height: '50%' }}>
+                  <Layout.Vertical style={{ height: '100%' }}>
+                    <Container padding="medium" flex className={css.inputHeader}>
+                      <Text color={Color.WHITE}>Input</Text>
+                    </Container>
+                    <Container flex className={css.inputValue}>
+                      <TextArea
+                        growVertically={true}
+                        large={true}
+                        onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                          setInput(event.target.value)
+                        }}
+                        value={input}
+                        fill
+                      />
+                    </Container>
+                  </Layout.Vertical>
+                </Container>
+
+                <Container style={{ height: '50%' }}>
+                  <Layout.Vertical style={{ height: '100%' }}>
+                    <Container padding="medium" flex className={css.inputHeader}>
+                      <Text color={Color.WHITE}>Output</Text>
+                    </Container>
+                    <Container flex className={css.inputValue}>
+                      <TextArea growVertically={true} large={true} readOnly value={output} fill />
+                    </Container>
+                  </Layout.Vertical>
+                </Container>
+              </Layout.Vertical>
+            </Container>
+          </Layout.Horizontal>
+        </Container>
       </Page.Body>
     </>
   )

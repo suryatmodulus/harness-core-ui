@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import MonacoEditor from 'react-monaco-editor'
 import {
   ButtonVariation,
@@ -16,6 +16,7 @@ import { TextArea } from '@blueprintjs/core'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@policy/utils/rego'
+import { useCreatePolicy } from 'services/policy-mgmt'
 import css from './NewPolicy.module.scss'
 
 const editorOptions = {
@@ -44,6 +45,19 @@ const NewPolicy: React.FC = () => {
       return false
     }
   }, [input, regoScript])
+  const { mutate: createPolicy, loading: createPolicyLoading } = useCreatePolicy({})
+  const onSavePolicy = useCallback(() => {
+    createPolicy({
+      name: 'Test Policy 2',
+      rego: '# Test rego script'
+    })
+      .then(_response => {
+        console.log('_response', _response)
+      })
+      .catch(error => {
+        console.log({ error })
+      })
+  }, [createPolicy])
 
   const policyNameEditor = (): JSX.Element => {
     return (
@@ -91,7 +105,14 @@ const NewPolicy: React.FC = () => {
         title={<Layout.Horizontal>{policyNameEditor()}</Layout.Horizontal>}
         toolbar={
           <Layout.Horizontal spacing="small">
-            <Button icon="upload-box" variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL} text="Save" />
+            <Button
+              icon="upload-box"
+              variation={ButtonVariation.SECONDARY}
+              size={ButtonSize.SMALL}
+              text="Save"
+              onClick={onSavePolicy}
+              disabled={!(regoScript || '').trim()}
+            />
             <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL}>
               Discard
             </Button>

@@ -401,37 +401,6 @@
         }
       }
     },
-    "/policysets/{policyset}/policy/{policy}": {
-      "delete": {
-        "description": "Delete the linked policy by ID",
-        "tags": ["policyset"],
-        "operationId": "deleteLinkedPolicy",
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        }
-      },
-      "patch": {
-        "description": "Add a new linked policy",
-        "tags": ["policyset"],
-        "operationId": "addLinkedPolicy",
-        "parameters": [
-          {
-            "name": "Body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/LinkedPolicyInput"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/register": {
       "post": {
         "description": "Return system version information",
@@ -464,18 +433,6 @@
         "responses": {
           "200": {
             "description": ""
-          }
-        }
-      }
-    },
-    "/system/version": {
-      "get": {
-        "description": "Return system version information",
-        "tags": ["version"],
-        "operationId": "version",
-        "responses": {
-          "200": {
-            "$ref": "#/responses/version"
           }
         }
       }

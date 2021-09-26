@@ -162,5 +162,14 @@ module.exports = {
     customProps: {
       base: `{getConfig("ccm/recommendations/api/v1")}`
     }
+  },
+  'policy-mgmt': {
+    output: 'src/services/policy-mgmt/index.tsx',
+    file: 'src/services/policy-mgmt/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config";`,
+    customProps: {
+      base: `{getConfig("policy-mgmt")}`
+    }
   }
 }

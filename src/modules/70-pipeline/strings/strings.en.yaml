@@ -850,3 +850,6 @@ policyEvaluations:
   failureModalTitle: Policy Set Evaluations
   policySetsApplied: '{{pipelineName}}: Policy Sets applied'
   warn: warning
+  successHeading: All policies are passed.
+  evaluatedTime: 'Evaluated {{time}}'
+  policySet: Policy Set

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import MonacoEditor from 'react-monaco-editor'
 import {
   ButtonVariation,
@@ -13,11 +13,15 @@ import {
   FlexExpander
 } from '@wings-software/uicore'
 import { TextArea } from '@blueprintjs/core'
+import { useHistory, useParams } from 'react-router'
+import routes from '@common/RouteDefinitions'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@policy/utils/rego'
-import { useCreatePolicy } from 'services/policy-mgmt'
+import { useCreatePolicy, useEvaluateRaw } from 'services/policy-mgmt'
 import css from './NewPolicy.module.scss'
+
+const RIGHT_CONTAINER_WIDTH = 380
 
 const editorOptions = {
   ignoreTrimWhitespace: true,
@@ -45,19 +49,31 @@ const NewPolicy: React.FC = () => {
       return false
     }
   }, [input, regoScript])
-  const { mutate: createPolicy, loading: createPolicyLoading } = useCreatePolicy({})
+  const { mutate: createPolicy } = useCreatePolicy({})
+  const { mutate: evaluateRawPolicy } = useEvaluateRaw({})
+  const { accountId } = useParams<{ accountId: string }>()
+  const [createPolicyLoading, setCreatePolicyLoading] = useState(false)
+  const history = useHistory()
   const onSavePolicy = useCallback(() => {
-    createPolicy({
-      name: 'Test Policy 2',
-      rego: '# Test rego script'
-    })
-      .then(_response => {
-        console.log('_response', _response)
+    setCreatePolicyLoading(true)
+    createPolicy({ name, rego: regoScript })
+      .then(() => {
+        history.replace(routes.toPolicyListPage({ accountId }))
       })
       .catch(error => {
+        setCreatePolicyLoading(false)
+        // TODO: Show error
         console.log({ error })
       })
-  }, [createPolicy])
+  }, [name, regoScript, createPolicy, setCreatePolicyLoading, accountId, history])
+  const onTest = useCallback(() => {
+    evaluateRawPolicy('{}', { queryParams: { rego: 'public = true' } })
+      .then(_response => console.log(_response))
+      .catch(error => console.error(error))
+  }, [evaluateRawPolicy])
+  const ref = useRef<HTMLDivElement>(null)
+  const [contentHeight, setContentHeight] = useState(0)
+  const [contentWidth, setContentWidth] = useState(0)
 
   const policyNameEditor = (): JSX.Element => {
     return (
@@ -99,6 +115,22 @@ const NewPolicy: React.FC = () => {
     )
   }
 
+  const onResize = (): void => {
+    if (ref.current) {
+      setContentHeight((ref.current as HTMLDivElement)?.offsetHeight)
+      setContentWidth((ref.current as HTMLDivElement)?.offsetWidth - RIGHT_CONTAINER_WIDTH)
+    }
+  }
+
+  useEffect(() => {
+    onResize()
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
+
   return (
     <>
       <PageHeader
@@ -112,10 +144,16 @@ const NewPolicy: React.FC = () => {
               text="Save"
               onClick={onSavePolicy}
               disabled={!(regoScript || '').trim()}
+              loading={createPolicyLoading}
             />
-            <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL}>
-              Discard
-            </Button>
+            <Button
+              variation={ButtonVariation.SECONDARY}
+              size={ButtonSize.SMALL}
+              text="Discard"
+              onClick={() => {
+                history.push(routes.toPolicyListPage({ accountId }))
+              }}
+            />
             <Button
               icon="run-pipeline"
               variation={ButtonVariation.PRIMARY}
@@ -123,6 +161,7 @@ const NewPolicy: React.FC = () => {
               intent="success"
               size={ButtonSize.SMALL}
               disabled={!isInputValid}
+              onClick={onTest}
             />
           </Layout.Horizontal>
         }
@@ -130,11 +169,11 @@ const NewPolicy: React.FC = () => {
       <Page.Body>
         <Container className={css.container} padding="medium">
           <Text className={css.regoLabel}>Rego Script</Text>
-          <Layout.Horizontal spacing="small" className={css.layout}>
+          <Layout.Horizontal spacing="small" className={css.layout} ref={ref}>
             <Container className={css.leftContainer}>
               <MonacoEditor
-                width="100%"
-                height="100%"
+                width={`${contentWidth}px`}
+                height={`${contentHeight}px`}
                 language="rego"
                 theme="vs-dark"
                 value={regoScript}
@@ -170,7 +209,6 @@ const NewPolicy: React.FC = () => {
                     </Container>
                     <Container flex className={css.inputValue}>
                       <TextArea
-                        growVertically={true}
                         large={true}
                         onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
                           setInput(event.target.value)
@@ -184,6 +222,7 @@ const NewPolicy: React.FC = () => {
                             // eslint-disable-line no-empty
                           }
                         }}
+                        style={{ height: '100%' }}
                       />
                     </Container>
                   </Layout.Vertical>
@@ -195,7 +234,7 @@ const NewPolicy: React.FC = () => {
                       <Text color={Color.WHITE}>Output</Text>
                     </Container>
                     <Container flex className={css.inputValue}>
-                      <TextArea growVertically={true} large={true} readOnly value={output} fill />
+                      <TextArea large={true} readOnly value={output} fill style={{ height: '100%' }} />
                     </Container>
                   </Layout.Vertical>
                 </Container>
@@ -209,3 +248,8 @@ const NewPolicy: React.FC = () => {
 }
 
 export default NewPolicy
+
+// TODO:
+// 1- Error handling
+// 2- Adjust height of editor/textarea when resize happens
+// 3- Prompt for policy name if it's not entered, default it to `Untitled Policy`

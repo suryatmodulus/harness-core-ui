@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react'
 import * as moment from 'moment'
 import { ButtonVariation, ExpandingSearchInput, Layout, Button, Text, Color } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import { useGet } from 'restful-react'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
@@ -11,23 +10,12 @@ import { Page } from '@common/exports'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-
+import { Policy, useGetPolicyList } from 'services/policy-mgmt'
 import { setPageNumber } from '@common/utils/utils'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 
 import css from './Policies.module.scss'
-
-export interface PoliciesDTO {
-  account_id?: number
-  created: number
-  id: number
-  name: string
-  org_id?: string
-  project_id?: string
-  rego: string
-  updated: number
-}
 
 const Policies: React.FC = () => {
   const { accountId } = useParams<ProjectPathProps>()
@@ -35,17 +23,7 @@ const Policies: React.FC = () => {
   useDocumentTitle(getString('common.policies'))
   const [page, setPage] = useState(0)
   const [searchTerm, setsearchTerm] = useState<string>('')
-  const {
-    data: policyList,
-    loading: fetchingPolicies,
-    error,
-    refetch
-  } = useGet({
-    path: 'pm/api/v1/policies',
-    queryParams: {
-      accountId: accountId
-    }
-  })
+  const { data: policyList, loading: fetchingPolicies, error, refetch } = useGetPolicyList({}) // TODO: Backend must support accountId
   const history = useHistory()
 
   useEffect(() => {
@@ -67,7 +45,7 @@ const Policies: React.FC = () => {
     )
   }
 
-  const RenderPolicyName: Renderer<CellProps<PoliciesDTO>> = ({ row }) => {
+  const RenderPolicyName: Renderer<CellProps<Policy>> = ({ row }) => {
     const record = row.original
     return (
       <Text color={Color.BLACK} lineClamp={1}>
@@ -80,25 +58,25 @@ const Policies: React.FC = () => {
     return value ? moment.unix(value / 1000).format(StringUtils.DEFAULT_DATE_FORMAT) : null
   }
 
-  const RenderCreatedAt: Renderer<CellProps<PoliciesDTO>> = ({ row }) => {
+  const RenderCreatedAt: Renderer<CellProps<Policy>> = ({ row }) => {
     const record = row.original
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {getValue(record.created)}
+        {getValue(record.created || 0)}
       </Text>
     )
   }
 
-  const RenderLastUpdated: Renderer<CellProps<PoliciesDTO>> = ({ row }) => {
+  const RenderLastUpdated: Renderer<CellProps<Policy>> = ({ row }) => {
     const record = row.original
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {getValue(record.updated)}
+        {getValue(record.updated || 0)}
       </Text>
     )
   }
 
-  const columns: Column<PoliciesDTO>[] = useMemo(
+  const columns: Column<Policy>[] = useMemo(
     () => [
       {
         Header: getString('common.policy.table.name'),
@@ -162,7 +140,7 @@ const Policies: React.FC = () => {
               }
         }
       >
-        <Table<PoliciesDTO>
+        <Table<Policy>
           className={css.table}
           columns={columns}
           data={policyList || []}
@@ -170,9 +148,9 @@ const Policies: React.FC = () => {
 
           pagination={{
             itemCount: policyList?.length || 0,
-            pageSize: policyList?.pageSize || 1000,
-            pageCount: policyList?.pageCount || 0,
-            pageIndex: policyList?.pageIndex || 0,
+            pageSize: 1000, // TODO Backend needs to support pagination
+            pageCount: 100, // TODO Backend needs to support pagination
+            pageIndex: 0, // TODO Backend needs to support pagination
             gotoPage: (pageNumber: number) => setPage(pageNumber)
           }}
         />

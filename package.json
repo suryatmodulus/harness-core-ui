@@ -38,7 +38,7 @@
     "services:resourcegroups": "restful-react import --config restful-react.config.js resourcegroups",
     "services:notifications": "restful-react import --config restful-react.config.js notifications",
     "services:cf": "restful-react import --config restful-react.config.js cf",
-    "services:policy-mgmt": "restful-react import --config restful-react.config.js policy-mgmt",
+    "services:pm": "restful-react import --config restful-react.config.js pm",
     "services:rbac": "restful-react import --config restful-react.config.js rbac",
     "postservices:portal": "prettier --write src/services/portal/index.tsx",
     "postservices:cdng": "prettier --write src/services/cd-ng/index.tsx",

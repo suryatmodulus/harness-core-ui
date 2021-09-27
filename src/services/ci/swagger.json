@@ -596,6 +596,7 @@
             "RESUME_ALL_ALREADY",
             "ROLLBACK_ALREADY",
             "ABORT_ALL_ALREADY",
+            "EXPIRE_ALL_ALREADY",
             "RETRY_FAILED",
             "UNKNOWN_ARTIFACT_TYPE",
             "UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE",
@@ -799,7 +800,9 @@
             "JIRA_CLIENT_ERROR",
             "SCM_NOT_MODIFIED",
             "JIRA_STEP_ERROR",
-            "BUCKET_SERVER_ERROR"
+            "BUCKET_SERVER_ERROR",
+            "GIT_SYNC_ERROR",
+            "TEMPLATE_EXCEPTION"
           ]
         },
         "message": {
@@ -919,6 +922,7 @@
             "RESUME_ALL_ALREADY",
             "ROLLBACK_ALREADY",
             "ABORT_ALL_ALREADY",
+            "EXPIRE_ALL_ALREADY",
             "RETRY_FAILED",
             "UNKNOWN_ARTIFACT_TYPE",
             "UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE",
@@ -1122,7 +1126,9 @@
             "JIRA_CLIENT_ERROR",
             "SCM_NOT_MODIFIED",
             "JIRA_STEP_ERROR",
-            "BUCKET_SERVER_ERROR"
+            "BUCKET_SERVER_ERROR",
+            "GIT_SYNC_ERROR",
+            "TEMPLATE_EXCEPTION"
           ]
         },
         "message": {
@@ -1230,6 +1236,7 @@
             "RESUME_ALL_ALREADY",
             "ROLLBACK_ALREADY",
             "ABORT_ALL_ALREADY",
+            "EXPIRE_ALL_ALREADY",
             "RETRY_FAILED",
             "UNKNOWN_ARTIFACT_TYPE",
             "UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE",
@@ -1433,7 +1440,9 @@
             "JIRA_CLIENT_ERROR",
             "SCM_NOT_MODIFIED",
             "JIRA_STEP_ERROR",
-            "BUCKET_SERVER_ERROR"
+            "BUCKET_SERVER_ERROR",
+            "GIT_SYNC_ERROR",
+            "TEMPLATE_EXCEPTION"
           ]
         },
         "level": {
@@ -1793,37 +1802,13 @@
         "null": {
           "type": "boolean"
         },
-        "long": {
-          "type": "boolean"
-        },
-        "double": {
-          "type": "boolean"
-        },
-        "float": {
-          "type": "boolean"
-        },
-        "int": {
-          "type": "boolean"
-        },
-        "number": {
-          "type": "boolean"
-        },
-        "object": {
-          "type": "boolean"
-        },
-        "binary": {
-          "type": "boolean"
-        },
-        "pojo": {
-          "type": "boolean"
-        },
-        "short": {
-          "type": "boolean"
-        },
         "valueNode": {
           "type": "boolean"
         },
         "containerNode": {
+          "type": "boolean"
+        },
+        "object": {
           "type": "boolean"
         },
         "missingNode": {
@@ -1833,10 +1818,31 @@
           "type": "string",
           "enum": ["ARRAY", "BINARY", "BOOLEAN", "MISSING", "NULL", "NUMBER", "OBJECT", "POJO", "STRING"]
         },
+        "pojo": {
+          "type": "boolean"
+        },
+        "number": {
+          "type": "boolean"
+        },
         "integralNumber": {
           "type": "boolean"
         },
         "floatingPointNumber": {
+          "type": "boolean"
+        },
+        "short": {
+          "type": "boolean"
+        },
+        "int": {
+          "type": "boolean"
+        },
+        "long": {
+          "type": "boolean"
+        },
+        "float": {
+          "type": "boolean"
+        },
+        "double": {
           "type": "boolean"
         },
         "bigDecimal": {
@@ -1849,6 +1855,9 @@
           "type": "boolean"
         },
         "boolean": {
+          "type": "boolean"
+        },
+        "binary": {
           "type": "boolean"
         }
       }
@@ -1870,7 +1879,7 @@
         },
         "moduleType": {
           "type": "string",
-          "enum": ["CD", "CI", "CV", "CF", "CE", "CORE", "PMS"]
+          "enum": ["CD", "CI", "CV", "CF", "CE", "CORE", "PMS", "TEMPLATESERVICE"]
         }
       }
     },
@@ -1908,6 +1917,51 @@
           }
         }
       ]
+    },
+    "AddRuleYaml": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/PatchInstruction"
+        },
+        {
+          "type": "object",
+          "required": ["identifier", "spec", "type"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["AddRule"]
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "spec": {
+              "$ref": "#/definitions/AddRuleYamlSpec"
+            }
+          }
+        }
+      ]
+    },
+    "AddRuleYamlSpec": {
+      "type": "object",
+      "required": ["priority"],
+      "properties": {
+        "priority": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "distribution": {
+          "$ref": "#/definitions/DistributionYamlSpec"
+        },
+        "clauses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Clause"
+          }
+        },
+        "serve": {
+          "$ref": "#/definitions/Serve"
+        }
+      }
     },
     "AddSegmentToVariationTargetMapYaml": {
       "allOf": [
@@ -2069,7 +2123,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["branch", "tag"]
+          "enum": ["branch", "tag", "PR"]
         },
         "spec": {
           "$ref": "#/definitions/BuildSpec"
@@ -2139,6 +2193,48 @@
           }
         }
       ]
+    },
+    "Clause": {
+      "type": "object",
+      "required": ["attribute", "id", "negate", "op", "values"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "attribute": {
+          "type": "string"
+        },
+        "op": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "negate": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ClauseYamlSpec": {
+      "type": "object",
+      "required": ["attribute", "op", "values"],
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "op": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "CleanupStepInfo": {
       "allOf": [
@@ -2381,6 +2477,42 @@
     "DependencySpecType": {
       "type": "object",
       "discriminator": "type"
+    },
+    "Distribution": {
+      "type": "object",
+      "required": ["bucketBy", "variations"],
+      "properties": {
+        "bucketBy": {
+          "type": "string"
+        },
+        "variations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WeightedVariation"
+          }
+        }
+      }
+    },
+    "DistributionYamlSpec": {
+      "type": "object",
+      "required": ["bucketBy"],
+      "properties": {
+        "bucketBy": {
+          "type": "string"
+        },
+        "variations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VariationYamlSpec"
+          }
+        },
+        "clauses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClauseYamlSpec"
+          }
+        }
+      }
     },
     "DockerStepInfo": {
       "allOf": [
@@ -2916,6 +3048,12 @@
             },
             "rejectionCriteria": {
               "$ref": "#/definitions/CriteriaSpecWrapper"
+            },
+            "delegateSelectors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         }
@@ -2943,6 +3081,12 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/JiraField"
+              }
+            },
+            "delegateSelectors": {
+              "type": "array",
+              "items": {
+                "type": "string"
               }
             }
           }
@@ -2983,6 +3127,12 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/JiraField"
+              }
+            },
+            "delegateSelectors": {
+              "type": "array",
+              "items": {
+                "type": "string"
               }
             }
           }
@@ -3300,6 +3450,22 @@
         }
       }
     },
+    "PRBuildSpec": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BuildSpec"
+        },
+        {
+          "type": "object",
+          "required": ["number"],
+          "properties": {
+            "number": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
     "PVCParams": {
       "type": "object",
       "properties": {
@@ -3386,64 +3552,6 @@
         }
       }
     },
-    "ParameterFieldListString": {
-      "type": "object",
-      "properties": {
-        "expressionValue": {
-          "type": "string"
-        },
-        "expression": {
-          "type": "boolean"
-        },
-        "value": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "typeString": {
-          "type": "boolean"
-        },
-        "inputSetValidator": {
-          "$ref": "#/definitions/InputSetValidator"
-        },
-        "jsonResponseField": {
-          "type": "boolean"
-        },
-        "responseField": {
-          "type": "string"
-        }
-      }
-    },
-    "ParameterFieldMapStringString": {
-      "type": "object",
-      "properties": {
-        "expressionValue": {
-          "type": "string"
-        },
-        "expression": {
-          "type": "boolean"
-        },
-        "value": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "typeString": {
-          "type": "boolean"
-        },
-        "inputSetValidator": {
-          "$ref": "#/definitions/InputSetValidator"
-        },
-        "jsonResponseField": {
-          "type": "boolean"
-        },
-        "responseField": {
-          "type": "string"
-        }
-      }
-    },
     "PatchInstruction": {
       "type": "object",
       "discriminator": "type",
@@ -3452,6 +3560,10 @@
           "type": "string",
           "enum": [
             "SetFeatureFlagState",
+            "SetOnVariation",
+            "SetOffVariation",
+            "AddRule",
+            "UpdateRule",
             "AddTargetsToVariationTargetMap",
             "RemoveTargetsToVariationTargetMap",
             "AddSegmentsToVariationTargetMap",
@@ -3884,10 +3996,12 @@
               "type": "string"
             },
             "language": {
-              "type": "string"
+              "type": "string",
+              "enum": ["Java"]
             },
             "buildTool": {
-              "type": "string"
+              "type": "string",
+              "enum": ["Maven", "Bazel", "Gradle"]
             },
             "image": {
               "type": "string"
@@ -3917,10 +4031,16 @@
               "type": "string"
             },
             "outputVariables": {
-              "$ref": "#/definitions/ParameterFieldListString"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/OutputNGVariable"
+              }
             },
             "envVariables": {
-              "$ref": "#/definitions/ParameterFieldMapStringString"
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
             },
             "privileged": {
               "type": "boolean"
@@ -4057,6 +4177,17 @@
         }
       ]
     },
+    "Serve": {
+      "type": "object",
+      "properties": {
+        "distribution": {
+          "$ref": "#/definitions/Distribution"
+        },
+        "variation": {
+          "type": "string"
+        }
+      }
+    },
     "SetFeatureFlagStateYaml": {
       "allOf": [
         {
@@ -4085,6 +4216,70 @@
       "required": ["state"],
       "properties": {
         "state": {
+          "type": "string"
+        }
+      }
+    },
+    "SetOffVariationYaml": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/PatchInstruction"
+        },
+        {
+          "type": "object",
+          "required": ["identifier", "spec", "type"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["SetOffVariation"]
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "spec": {
+              "$ref": "#/definitions/SetOffVariationYamlSpec"
+            }
+          }
+        }
+      ]
+    },
+    "SetOffVariationYamlSpec": {
+      "type": "object",
+      "required": ["variation"],
+      "properties": {
+        "variation": {
+          "type": "string"
+        }
+      }
+    },
+    "SetOnVariationYaml": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/PatchInstruction"
+        },
+        {
+          "type": "object",
+          "required": ["identifier", "spec", "type"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["SetOnVariation"]
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "spec": {
+              "$ref": "#/definitions/SetOnVariationYamlSpec"
+            }
+          }
+        }
+      ]
+    },
+    "SetOnVariationYamlSpec": {
+      "type": "object",
+      "required": ["variation"],
+      "properties": {
+        "variation": {
           "type": "string"
         }
       }
@@ -4189,7 +4384,7 @@
         },
         "timeout": {
           "type": "string",
-          "pattern": "^(((\\d+[smhwd][\\s]?)*(\\d+[smhwd]))|(<\\+input>.*))$"
+          "pattern": "^(([1-9])+\\d+[s])|(((([1-9])+\\d*[mhwd])+([\\s]?\\d+[smhwd])*)|(<\\+input>.*)|(.*<\\+.*>.*))$"
         },
         "failureStrategies": {
           "type": "array",
@@ -4236,12 +4431,6 @@
           },
           "maxItems": 2147483647,
           "minItems": 1
-        },
-        "rollbackSteps": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ExecutionWrapperConfig"
-          }
         }
       }
     },
@@ -4348,6 +4537,50 @@
     },
     "UnitTestReportSpec": {
       "type": "object"
+    },
+    "UpdateRuleYaml": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/PatchInstruction"
+        },
+        {
+          "type": "object",
+          "required": ["identifier", "spec", "type"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["UpdateRule"]
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "spec": {
+              "$ref": "#/definitions/UpdateRuleYamlSpec"
+            }
+          }
+        }
+      ]
+    },
+    "UpdateRuleYamlSpec": {
+      "type": "object",
+      "required": ["bucketBy", "ruleID"],
+      "properties": {
+        "ruleID": {
+          "type": "string"
+        },
+        "bucketBy": {
+          "type": "string"
+        },
+        "variations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VariationYamlSpec"
+          }
+        },
+        "serve": {
+          "$ref": "#/definitions/Serve"
+        }
+      }
     },
     "UploadToArtifactoryStepInfo": {
       "allOf": [
@@ -4464,6 +4697,32 @@
         }
       ]
     },
+    "VariationYamlSpec": {
+      "type": "object",
+      "required": ["variation", "weight"],
+      "properties": {
+        "variation": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "WeightedVariation": {
+      "type": "object",
+      "required": ["variation", "weight"],
+      "properties": {
+        "variation": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "ResponseStepElementConfig": {
       "type": "object",
       "properties": {
@@ -4512,6 +4771,12 @@
           "type": "string"
         },
         "commits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CIBuildCommit"
+          }
+        },
+        "triggerCommits": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/CIBuildCommit"
@@ -4579,6 +4844,12 @@
           "items": {
             "$ref": "#/definitions/CIBuildCommit"
           }
+        },
+        "triggerCommits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CIBuildCommit"
+          }
         }
       }
     },
@@ -4594,7 +4865,16 @@
         "repoName": {
           "type": "string"
         },
+        "triggerRepoName": {
+          "type": "string"
+        },
         "tag": {
+          "type": "string"
+        },
+        "prNumber": {
+          "type": "string"
+        },
+        "buildType": {
           "type": "string"
         }
       }

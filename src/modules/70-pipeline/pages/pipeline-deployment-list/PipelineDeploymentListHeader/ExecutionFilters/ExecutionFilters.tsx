@@ -159,7 +159,7 @@ export function ExecutionFilters(): React.ReactElement {
   function onApply(inputFormData: FormikProps<PipelineExecutionFormType>['values']): void {
     if (!isObjectEmpty(inputFormData)) {
       const filterFromFormData = getValidFilterArguments({ ...inputFormData })
-      updateQueryParams({ filters: JSON.stringify({ ...(filterFromFormData || {}) }) })
+      updateQueryParams({ page: [] as any, filters: JSON.stringify({ ...(filterFromFormData || {}) }) })
       hideFilterDrawer()
     } else {
       // showError(getString('filters.invalidCriteria'))

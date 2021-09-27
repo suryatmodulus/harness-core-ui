@@ -9,6 +9,19 @@ export type AbortFailureActionConfig = FailureStrategyActionConfig & {
   type: 'Abort'
 }
 
+export type AddRuleYaml = PatchInstruction & {
+  identifier: string
+  spec: AddRuleYamlSpec
+  type: 'AddRule'
+}
+
+export interface AddRuleYamlSpec {
+  clauses?: Clause[]
+  distribution?: DistributionYamlSpec
+  priority: number
+  serve?: Serve
+}
+
 export type AddSegmentToVariationTargetMapYaml = PatchInstruction & {
   identifier: string
   spec: AddSegmentToVariationTargetMapYamlSpec
@@ -61,7 +74,7 @@ export type BranchBuildSpec = BuildSpec & {
 
 export interface Build {
   spec: BuildSpec
-  type: 'branch' | 'tag'
+  type: 'branch' | 'tag' | 'PR'
 }
 
 export interface BuildActiveInfo {
@@ -134,6 +147,7 @@ export interface CIBuildBranchHook {
   link?: string
   name?: string
   state?: string
+  triggerCommits?: CIBuildCommit[]
 }
 
 export interface CIBuildCommit {
@@ -156,13 +170,17 @@ export interface CIBuildPRHook {
   state?: string
   targetBranch?: string
   title?: string
+  triggerCommits?: CIBuildCommit[]
 }
 
 export interface CIPipelineModuleInfo {
   branch?: string
+  buildType?: string
   ciExecutionInfoDTO?: CIWebhookInfoDTO
+  prNumber?: string
   repoName?: string
   tag?: string
+  triggerRepoName?: string
 }
 
 export type CIServiceInfo = DependencySpecType & {
@@ -184,6 +202,20 @@ export interface CIWebhookInfoDTO {
   branch?: CIBuildBranchHook
   event?: string
   pullRequest?: CIBuildPRHook
+}
+
+export interface Clause {
+  attribute: string
+  id: string
+  negate: boolean
+  op: string
+  values: string[]
+}
+
+export interface ClauseYamlSpec {
+  attribute: string
+  op: string
+  values: string[]
 }
 
 export type CleanupStepInfo = StepSpecType & {
@@ -291,6 +323,17 @@ export interface DependencyElement {
 
 export interface DependencySpecType {
   [key: string]: any
+}
+
+export interface Distribution {
+  bucketBy: string
+  variations: WeightedVariation[]
+}
+
+export interface DistributionYamlSpec {
+  bucketBy: string
+  clauses?: ClauseYamlSpec[]
+  variations?: VariationYamlSpec[]
 }
 
 export type DockerStepInfo = StepSpecType & {
@@ -417,6 +460,7 @@ export interface Error {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -621,6 +665,8 @@ export interface Error {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -723,6 +769,7 @@ export interface Failure {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -927,6 +974,8 @@ export interface Failure {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -1039,12 +1088,14 @@ export type JexlCriteriaSpec = CriteriaSpec & {
 export type JiraApprovalStepInfo = StepSpecType & {
   approvalCriteria: CriteriaSpecWrapper
   connectorRef: string
+  delegateSelectors?: string[]
   issueKey: string
   rejectionCriteria?: CriteriaSpecWrapper
 }
 
 export type JiraCreateStepInfo = StepSpecType & {
   connectorRef: string
+  delegateSelectors?: string[]
   fields?: JiraField[]
   issueType: string
   projectKey: string
@@ -1057,6 +1108,7 @@ export interface JiraField {
 
 export type JiraUpdateStepInfo = StepSpecType & {
   connectorRef: string
+  delegateSelectors?: string[]
   fields?: JiraField[]
   issueKey: string
   transitionTo?: TransitionTo
@@ -1198,6 +1250,10 @@ export interface OutputNGVariable {
   name?: string
 }
 
+export type PRBuildSpec = BuildSpec & {
+  number: string
+}
+
 export interface PVCParams {
   claimName?: string
   present?: boolean
@@ -1228,30 +1284,8 @@ export interface ParameterFieldInteger {
   value?: number
 }
 
-export interface ParameterFieldListString {
-  expression?: boolean
-  expressionValue?: string
-  inputSetValidator?: InputSetValidator
-  jsonResponseField?: boolean
-  responseField?: string
-  typeString?: boolean
-  value?: string[]
-}
-
-export interface ParameterFieldMapStringString {
-  expression?: boolean
-  expressionValue?: string
-  inputSetValidator?: InputSetValidator
-  jsonResponseField?: boolean
-  responseField?: string
-  typeString?: boolean
-  value?: {
-    [key: string]: string
-  }
-}
-
 export interface PartialSchemaDTO {
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   namespace?: string
   nodeName?: string
   nodeType?: string
@@ -1261,6 +1295,10 @@ export interface PartialSchemaDTO {
 export interface PatchInstruction {
   type?:
     | 'SetFeatureFlagState'
+    | 'SetOnVariation'
+    | 'SetOffVariation'
+    | 'AddRule'
+    | 'UpdateRule'
     | 'AddTargetsToVariationTargetMap'
     | 'RemoveTargetsToVariationTargetMap'
     | 'AddSegmentsToVariationTargetMap'
@@ -1471,6 +1509,7 @@ export interface ResponseMessage {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -1675,6 +1714,8 @@ export interface ResponseMessage {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -1779,13 +1820,15 @@ export type RunStepInfo = StepSpecType & {
 
 export type RunTestsStepInfo = StepSpecType & {
   args: string
-  buildTool: string
+  buildTool: 'Maven' | 'Bazel' | 'Gradle'
   connectorRef: string
-  envVariables?: ParameterFieldMapStringString
+  envVariables?: {
+    [key: string]: string
+  }
   image: string
   imagePullPolicy?: 'Always' | 'Never' | 'IfNotPresent'
-  language: string
-  outputVariables?: ParameterFieldListString
+  language: 'Java'
+  outputVariables?: OutputNGVariable[]
   packages: string
   postCommand?: string
   preCommand?: string
@@ -1829,6 +1872,11 @@ export type SecretNGVariable = NGVariable & {
   value: string
 }
 
+export interface Serve {
+  distribution?: Distribution
+  variation?: string
+}
+
 export type SetFeatureFlagStateYaml = PatchInstruction & {
   identifier: string
   spec: SetFeatureFlagStateYamlSpec
@@ -1837,6 +1885,26 @@ export type SetFeatureFlagStateYaml = PatchInstruction & {
 
 export interface SetFeatureFlagStateYamlSpec {
   state: string
+}
+
+export type SetOffVariationYaml = PatchInstruction & {
+  identifier: string
+  spec: SetOffVariationYamlSpec
+  type: 'SetOffVariation'
+}
+
+export interface SetOffVariationYamlSpec {
+  variation: string
+}
+
+export type SetOnVariationYaml = PatchInstruction & {
+  identifier: string
+  spec: SetOnVariationYamlSpec
+  type: 'SetOnVariation'
+}
+
+export interface SetOnVariationYamlSpec {
+  variation: string
 }
 
 export interface StackTraceElement {
@@ -1889,7 +1957,6 @@ export interface StepGroupElementConfig {
   failureStrategies?: FailureStrategyConfig[]
   identifier: string
   name?: string
-  rollbackSteps?: ExecutionWrapperConfig[]
   steps: ExecutionWrapperConfig[]
   when?: StepWhenCondition
 }
@@ -1940,6 +2007,19 @@ export interface UnitTestReportSpec {
   [key: string]: any
 }
 
+export type UpdateRuleYaml = PatchInstruction & {
+  identifier: string
+  spec: UpdateRuleYamlSpec
+  type: 'UpdateRule'
+}
+
+export interface UpdateRuleYamlSpec {
+  bucketBy: string
+  ruleID: string
+  serve?: Serve
+  variations?: VariationYamlSpec[]
+}
+
 export type UploadToArtifactoryStepInfo = StepSpecType & {
   connectorRef: string
   resources?: ContainerResource
@@ -1975,6 +2055,16 @@ export type UseFromStageInfraYaml = Infrastructure & {
 export interface ValidationError {
   error?: string
   fieldId?: string
+}
+
+export interface VariationYamlSpec {
+  variation: string
+  weight: number
+}
+
+export interface WeightedVariation {
+  variation: string
+  weight: number
 }
 
 export interface GetBuildExecutionQueryParams {

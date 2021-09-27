@@ -30,9 +30,11 @@ export function CommitId({ commitId, commitLink }: CommitIdProps): React.ReactEl
 
   return (
     <Text className={css.commitId} style={{ cursor: 'pointer' }}>
-      <a className={css.label} href={commitLink} rel="noreferrer" target="_blank">
-        {commitId.slice(0, 7)}
-      </a>
+      {commitId && (
+        <a className={css.label} href={commitLink} rel="noreferrer" target="_blank">
+          {commitId.slice(0, 7)}
+        </a>
+      )}
       <Text
         tooltip={
           <Container padding="small">{getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}</Container>

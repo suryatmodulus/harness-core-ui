@@ -242,7 +242,24 @@ export const RunTestsStepBase = (
                   <Text margin={{ top: 'small', bottom: 'small' }} color="grey800">
                     {getString('ci.gradleNotesTitle')}
                   </Text>
-                  <CodeBlock format="pre" snippet={getString('ci.gradleNote1')} />
+                  <CodeBlock
+                    allowCopy
+                    codeToCopy={`tasks.withType(Test) {
+  if(System.getProperty("HARNESS_JAVA_AGENT")) {
+    jvmArgs += [System.getProperty("HARNESS_JAVA_AGENT")]
+  }
+}
+
+gradle.projectsEvaluated {
+        tasks.withType(Test) {
+            filter {
+                setFailOnNoMatchingTests(false)
+            }
+        }
+}`}
+                    format="pre"
+                    snippet={getString('ci.gradleNote1')}
+                  />
                   <Text margin={{ top: 'small' }} color="grey800">
                     {getString('ci.gradleNote2')}
                   </Text>

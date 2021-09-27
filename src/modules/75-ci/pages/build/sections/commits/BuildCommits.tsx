@@ -150,7 +150,7 @@ const BuildCommits: React.FC = () => {
 
   return (
     <div className={css.wrapper}>
-      {triggerCommits?.length > 0 ? (
+      {triggerCommits && triggerCommits.length > 0 ? (
         <>
           <Accordion activeId="codebase-commits">
             <Accordion.Panel

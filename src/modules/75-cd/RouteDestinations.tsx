@@ -108,6 +108,8 @@ import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputF
 
 import { ArtifactInputForm } from './components/ArtifactInputForm/ArtifactInputForm'
 import GitOpsModalContainer from './pages/gitops-providers-list/GitOpsProvidersList'
+import { ManagedGitOpsList } from './pages/managed-gitops-list/ManagedGitOpsList'
+import { ManagedGitOpsApplicaions } from './pages/managed-gitops-applications/ManagedGitOpsApplicaions'
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
@@ -782,6 +784,20 @@ export default (
       path={routes.toGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <GitOpsModalContainer />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toManagedGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <ManagedGitOpsList />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toManagedGitOpsAppliation({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <ManagedGitOpsApplicaions />
     </RouteWithLayout>
   </>
 )

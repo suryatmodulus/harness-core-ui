@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/44</span>
+                <span class='fraction'>45/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.15% </span>
+                <span class="strong">77.6% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>93/119</span>
+                <span class='fraction'>97/125</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/41</span>
+                <span class='fraction'>42/42</span>
             </div>
         
             
@@ -162,7 +162,14 @@
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">79x</span>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,6 +179,10 @@
 <span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">79x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,8 +200,10 @@
 <span class="cline-any cline-yes">91x</span>
 <span class="cline-any cline-yes">91x</span>
 <span class="cline-any cline-yes">67x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
@@ -206,8 +219,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">564x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">474x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">474x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">474x</span>
@@ -221,6 +234,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">474x</span>
+<span class="cline-any cline-yes">263x</span>
 <span class="cline-any cline-yes">263x</span>
 <span class="cline-any cline-yes">263x</span>
 <span class="cline-any cline-yes">263x</span>
@@ -268,7 +282,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { isPlainObject, get, isNil, escape } from 'lodash-es'
+import { isPlainObject, get, isNil, escape, defaultTo } from 'lodash-es'
 import cx from 'classnames'
 &nbsp;
 import { Text, useNestedAccordion } from '@wings-software/uicore'
@@ -276,7 +290,11 @@ import { CopyText } from '@common/components/CopyText/CopyText'
 import type { VariableResponseMapValue } from 'services/pipeline-ng'
 import { toVariableStr } from '@common/utils/StringUtils'
 &nbsp;
-import { getTextWithSearchMarkers, usePipelineVariables } from '../PipelineVariablesContext/PipelineVariablesContext'
+import {
+  getTextWithSearchMarkers,
+  SearchResult,
+  usePipelineVariables
+} from '../PipelineVariablesContext/PipelineVariablesContext'
 import css from './VariablesListTable.module.scss'
 &nbsp;
 export interface VariableListTableProps&lt;T = Record&lt;string, any&gt;&gt; {
@@ -289,13 +307,15 @@ export interface VariableListTableProps&lt;T = Record&lt;string, any&gt;&gt; {
 export function VariablesListTable&lt;T&gt;(props: VariableListTableProps&lt;T&gt;): React.ReactElement | null {
   const { data, metadataMap, originalData, className } = props
   const { searchText, searchIndex, searchResults = [] } = usePipelineVariables()
-  const searchedEntity = searchResults[searchIndex || 0] || {}
+  const searchedEntity = defaultTo(searchResults[searchIndex || 0], {} as SearchResult)
   const tableRef = React.useRef()
   const { openNestedPath } = useNestedAccordion()
   React.useLayoutEffect(() =&gt; {
     if (tableRef.current) {
-      const { testid: accordianId = '', open } =
-        (tableRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>urrent as any)<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>losest<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>.Accordion--panel')?.dataset || {}
+      const { testid: accordianId = '', open } = defaultTo(
+        (tableRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>urrent as any)<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>losest<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>.Accordion--panel')?.dataset,
+        {}
+      )
       if (open === 'false') {
         openNestedPath(accordianId<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eplace('-panel', ''))
         setTimeout(() =&gt; {
@@ -311,8 +331,8 @@ export function VariablesListTable&lt;T&gt;(props: VariableListTableProps&lt;T&g
     &lt;div className={cx(css.variablesListTable, className)} ref={tableRef as any}&gt;
       {Object.entries(data || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>.map(([key, value]) =&gt; {
         if (typeof value !== 'string' || key === 'uuid' || isNil(value)) return null
-&nbsp;
         const metadata = metadataMap[value]
+&nbsp;
         const finalvalue = get(originalData, key)
         let formattedValue
         if (Array.isArray(finalvalue)) {
@@ -326,15 +346,16 @@ export function VariablesListTable&lt;T&gt;(props: VariableListTableProps&lt;T&g
         }
 &nbsp;
         if (isNil(metadata) || isNil(formattedValue)) return null
-        const variableNameParts = metadata.yamlProperties<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ocalName<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit('.') || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
+        const yamlProps = defaultTo(metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlProperties, metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlOutputProperties)
+        const variableNameParts = defaultTo(yamlProps<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ocalName<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit('.'), [])
         const variableName = variableNameParts[variableNameParts<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength - 1]
-        const searchedEntityType = searchedEntity.type || null
+        const searchedEntityType = defaultTo(searchedEntity<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype, null)
         formattedValue = formattedValue.toString()
-        const hasSameMetaKeyId = searchedEntity.metaKeyId === value
+        const hasSameMetaKeyId = searchedEntity<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etaKeyId === value
         const isValidValueMatch = `${formattedValue}`<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>oLowerCase()<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes(<span class="branch-1 cbranch-no" title="branch not covered" >searchText?.toLowerCase() </span>|| '')
         return (
           &lt;div key={key} className={css.variableListRow}&gt;
-            &lt;CopyText className="variable-name-cell" textToCopy={toVariableStr(metadata.yamlProperties<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>qn || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>}&gt;
+            &lt;CopyText className="variable-name-cell" textToCopy={toVariableStr(defaultTo(yamlProps<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>qn, ''))}&gt;
               &lt;span
                 className={cx({
                   'selected-search-text': searchedEntityType === 'key' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >hasSameMetaKeyId</span>
@@ -379,7 +400,7 @@ export function VariablesListTable&lt;T&gt;(props: VariableListTableProps&lt;T&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Sep 27 2021 12:40:32 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 27 2021 13:53:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -81,11 +81,24 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
             />
           </svg>
         </span>
-        <p
-          class="StyledProps--font StyledProps--main message"
+        <div
+          style="font-size: 0px;"
         >
-          fix: [CDNG-11399]: setting page number as 1 for polling (#4731)
-        </p>
+          <span
+            class="bp3-popover-wrapper"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <p
+                class="StyledProps--font StyledProps--main message"
+                tabindex="0"
+              >
+                fix: [CDNG-11399]: setting page number as 1 for polling (#4731)
+              </p>
+            </span>
+          </span>
+        </div>
         <p
           class="StyledProps--font StyledProps--main commitId"
           style="cursor: pointer;"

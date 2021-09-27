@@ -56,7 +56,11 @@ export function LastCommit({ lastCommit }: LastCommitProps): React.ReactElement 
   return (
     <Text className={css.lastCommit} style={{ cursor: 'pointer' }}>
       <Icon className={css.icon} name="git-commit" size={14} />
-      <Text className={css.message}>{lastCommit?.message}</Text>
+      <div style={{ fontSize: 0 }}>
+        <Text className={css.message} tooltip={<Container padding="small">{lastCommit?.message}</Container>}>
+          {lastCommit?.message}
+        </Text>
+      </div>
       {lastCommit?.id && lastCommit?.link && <CommitId commitId={lastCommit.id} commitLink={lastCommit.link} />}
     </Text>
   )
@@ -99,14 +103,14 @@ export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null 
             {commits.slice(1).map((commit, i) => {
               return (
                 <div className={css.commit} key={i}>
-                  <Text lineClamp={1}>{commit.message}</Text>
+                  <div style={{ fontSize: 0 }}>
+                    <Text className={css.commitText} tooltip={<Container padding="small">{commit.message}</Container>}>
+                      {commit.message}
+                    </Text>
+                  </div>
                   <Container flex>
                     <UserLabel className={css.user} name={commit.ownerName || ''} iconProps={{ size: 16 }} />
-                    <TimeAgoPopover
-                      time={defaultTo((commit?.timeStamp || 0) * 1000, 0)}
-                      inline={false}
-                      // className={css.timeAgo}
-                    />
+                    <TimeAgoPopover time={defaultTo((commit?.timeStamp || 0) * 1000, 0)} inline={false} />
                   </Container>
                   {commit?.id && commit?.link && <CommitId commitId={commit.id} commitLink={commit.link} />}
                 </div>

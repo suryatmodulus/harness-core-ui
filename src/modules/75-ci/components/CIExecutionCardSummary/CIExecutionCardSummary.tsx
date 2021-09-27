@@ -35,19 +35,22 @@ function getUIByType(uiType: UIType, { data }: { data: ExecutionSummaryProps['da
       break
     case UIType.Tag:
       ui = (
-        <Layout.Horizontal className={css.alignSelfStart} flex spacing="small">
-          <div className={css.label}>
-            <Icon name="repository" size={14} color="primary7" />
-            <div>{data.repoName}</div>
-          </div>
-          <div className={css.label}>
-            <Icon name="tag" size={14} color="primary7" />
-            <div>{data.tag}</div>
-          </div>
-          {/* <Text tooltip={<Container padding="small"> Notes</Container>}>
+        <>
+          <Layout.Horizontal className={css.alignSelfStart} flex spacing="small">
+            <div className={css.label}>
+              <Icon name="repository" size={14} color="primary7" />
+              <div>{data.repoName}</div>
+            </div>
+            <div className={css.label}>
+              <Icon name="tag" size={14} color="primary7" />
+              <div>{data.tag}</div>
+            </div>
+            {/* <Text tooltip={<Container padding="small"> Notes</Container>}>
             <Icon name="more" size={14} />
           </Text> */}
-        </Layout.Horizontal>
+          </Layout.Horizontal>
+          <CommitsInfo commits={data?.ciExecutionInfoDTO?.branch?.commits} />
+        </>
       )
       break
     case UIType.PullRequest:

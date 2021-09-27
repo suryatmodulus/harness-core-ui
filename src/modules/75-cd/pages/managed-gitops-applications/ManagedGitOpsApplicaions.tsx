@@ -1,6 +1,6 @@
 import React from 'react'
 import { useGet, useMutate } from 'restful-react'
-import { Button, ButtonSize, ButtonVariation, Card, Color, Layout, Text } from '@wings-software/uicore'
+import { Button, ButtonSize, ButtonVariation, Card, Color, Icon, Layout, Text } from '@wings-software/uicore'
 
 import { Page, useToaster } from '@common/exports'
 import { getConfig } from 'services/config'
@@ -10,6 +10,8 @@ function AppCard(props: any): React.ReactElement {
   const { app } = props
   const { mutate: syncApp } = useMutate('POST', getConfig(`gitops-proxy/applications/${app?.metadata?.name}/sync`))
   const { showError, showSuccess } = useToaster()
+  const status = app?.status?.sync?.status
+  const inSync = status === 'Synced'
 
   async function handleSync(): Promise<void> {
     try {
@@ -31,9 +33,16 @@ function AppCard(props: any): React.ReactElement {
       >
         {app?.metadata?.name}
       </Text>
-      <Text lineClamp={1} font="small" color={Color.GREY_600} margin={{ top: 'xsmall' }}>
-        Sync status: {app?.status?.sync?.status}
-      </Text>
+      <div className={css.statusContainer}>
+        <Text lineClamp={1} font="small" color={Color.GREY_600}>
+          Sync status: {status}
+        </Text>
+        <Icon
+          name={inSync ? 'tick-circle' : 'circle-cross'}
+          size={12}
+          color={inSync ? Color.GREEN_500 : Color.RED_500}
+        />
+      </div>
       <Button
         variation={ButtonVariation.SECONDARY}
         size={ButtonSize.SMALL}

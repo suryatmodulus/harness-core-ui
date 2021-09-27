@@ -1,3 +1,10 @@
 .card {
   width: 250px;
 }
+
+.statusContainer {
+  margin-top: var(--spacing-xsmall);
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-2);
+}

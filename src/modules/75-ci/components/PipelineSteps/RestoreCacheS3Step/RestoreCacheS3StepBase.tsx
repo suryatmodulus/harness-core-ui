@@ -9,6 +9,7 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -180,28 +181,32 @@ export const RestoreCacheS3StepBase = (
                       style={{ marginBottom: 'var(--spacing-medium)' }}
                       disabled={readonly}
                     />
-                    <FormMultiTypeCheckboxField
-                      name="spec.pathStyle"
-                      label={getString('pathStyle')}
-                      multiTypeTextbox={{
-                        expressions,
-                        disabled: readonly
-                      }}
-                      style={{ marginBottom: 'var(--spacing-medium)' }}
-                      disabled={readonly}
-                      tooltipProps={{ dataTooltipId: 'pathStyle' }}
-                    />
-                    <FormMultiTypeCheckboxField
-                      name="spec.failIfKeyNotFound"
-                      label={getString('failIfKeyNotFound')}
-                      multiTypeTextbox={{
-                        expressions,
-                        disabled: readonly
-                      }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      disabled={readonly}
-                      tooltipProps={{ dataTooltipId: 'failIfKeyNotFound' }}
-                    />
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.pathStyle"
+                        label={getString('pathStyle')}
+                        multiTypeTextbox={{
+                          expressions,
+                          disabled: readonly
+                        }}
+                        style={{ marginBottom: 'var(--spacing-medium)' }}
+                        disabled={readonly}
+                        tooltipProps={{ dataTooltipId: 'pathStyle' }}
+                      />
+                    </div>
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.failIfKeyNotFound"
+                        label={getString('failIfKeyNotFound')}
+                        multiTypeTextbox={{
+                          expressions,
+                          disabled: readonly
+                        }}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
+                        disabled={readonly}
+                        tooltipProps={{ dataTooltipId: 'failIfKeyNotFound' }}
+                      />
+                    </div>
                     <StepCommonFields disabled={readonly} />
                   </>
                 }

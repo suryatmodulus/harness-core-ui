@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import type { TabId } from '@blueprintjs/core'
 import { useLocation, useParams } from 'react-router-dom'
 import { Container, Tab, Tabs } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
@@ -25,6 +26,8 @@ function MonitoredServicePage(): JSX.Element {
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
+
+  const [selectedTabId, setSelectedTabId] = useState<TabId>(MonitoredServiceEnum.ServiceHealth)
   const { pathname } = useLocation()
   const shouldRenderConfigurations = useMemo(() => {
     return pathname.includes(configurationPath)
@@ -56,8 +59,11 @@ function MonitoredServicePage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit])
 
-  const defaultSelectedTab = useMemo(() => {
-    return shouldRenderConfigurations ? MonitoredServiceEnum.Configurations : MonitoredServiceEnum.ServiceHealth
+  useEffect(() => {
+    const nextTab = shouldRenderConfigurations
+      ? MonitoredServiceEnum.Configurations
+      : MonitoredServiceEnum.ServiceHealth
+    setSelectedTabId(nextTab)
   }, [shouldRenderConfigurations])
 
   if (loading) {
@@ -103,12 +109,13 @@ function MonitoredServicePage(): JSX.Element {
       </MonitoringServicesHeader>
       {isEdit ? (
         <Container className={css.monitoredServiceTabs}>
-          <Tabs id="monitoredServiceTabs" defaultSelectedTabId={defaultSelectedTab}>
+          <Tabs id="monitoredServiceTabs" selectedTabId={selectedTabId} onChange={nextTab => setSelectedTabId(nextTab)}>
             <Tab
               id={MonitoredServiceEnum.ServiceHealth}
               title={getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
               panel={
                 <ServiceHealth
+                  hasChangeSource={!!monitoredServiceData?.data?.monitoredService?.sources?.changeSources?.length}
                   monitoredServiceIdentifier={monitoredServiceData?.data?.monitoredService?.identifier}
                   serviceIdentifier={monitoredServiceData?.data?.monitoredService?.serviceRef as string}
                   environmentIdentifier={monitoredServiceData?.data?.monitoredService?.environmentRef as string}

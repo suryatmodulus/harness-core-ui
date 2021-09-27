@@ -155,10 +155,7 @@ purpose:
     delivery: Delivery
     subtitle: Deploy your services with blazingly fast pipelines.
     continuous: Continuous Delivery
-    description:
-      'Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
-      <br><br>You can access this module via your free trial.
-      Benefits include - Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
+    description: 'Create Pipelines that improve deployment times and manage all release steps in one place.'
     supportedStack: Supported Stack
     1stGen:
       title: CD First Generation
@@ -169,13 +166,14 @@ purpose:
   cv:
     verification: Verification
     subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
-    description: CV description placeholder
+    description: 'Measure overall service health with always-on change impact analysis.'
     continuous: '{{ $.common.changeIntelligence }}'
 
   ci:
     integration: Integration
     subtitle: Commit, build, and test your code at a whole new level.
     continuous: Continuous Integration
+    descriptionOnly: 'Take your software build processes to the next level with Harness Continuous Integration.'
     description:
       'Build, test, and push your code using container-native pipelines with hundreds of standardized extensions.
       <br><br>You can access this module via your free trial.'
@@ -190,7 +188,7 @@ purpose:
     efficiency: Efficiency
     subtitle: Spot and quickly debug inefficiencies and optimize them to reduce costs.
     continuous: Cloud Cost Management
-    descriptionOnly: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc'
+    descriptionOnly: 'Gain cloud cost visibility and optimize costs across projects, environments, deployments, and more.'
     description: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc
       <br><br>You can access this module via your free trial. Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
   cf:
@@ -199,6 +197,7 @@ purpose:
     flags: Flags
     subtitle: Decouple feature releases from deployments and roll out features safely and quickly.
     description: '{{$.common.purpose.cf.subtitle}}'
+    descriptionOnly: 'Automate progressive delivery and feature release pipelines to ship more features with less risk.'
     continuous: Feature Flags
 trialInProgress: Trial in progress
 trialInProgressDescription: A Project contains your pipelines, resources, and team members. Get started by creating your first Project.
@@ -544,3 +543,6 @@ module:
 customPricing: for Custom Pricing
 specified: Specified
 file: File
+selectAVersion:
+  title: Select a version to proceed
+  description: Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.

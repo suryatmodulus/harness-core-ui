@@ -1,12 +1,6 @@
 newDelegateConfigWizard:
   overviewTitle: 'Delegate Configuration Overview'
-  scopeSubtitle: '(Optional) Limit the delegates with this configuration to perform tasks on the following environment types/environments.'
   scriptTitle: 'Initialization Scripts'
-  nonprodEnv: 'Non production environments'
-  prodEnv: 'Production environments'
-  specifyEnvs: 'Specify environments'
-  matchAllEnvs: 'Keep empty to match all environments'
-  specEnvNotPossible: 'Specifying environments is not possible at account and organization level'
   successMessage: 'Succesfully created delegate profile.'
 delegateInstances: ' ({{current}} of {{total}} instances)'
 downloadYAMLFile: 'Download YAML file'

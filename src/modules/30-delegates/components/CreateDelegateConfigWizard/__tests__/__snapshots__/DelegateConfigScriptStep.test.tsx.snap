@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Create Delegate Config Scope render data 1`] = `
+exports[`Create Delegate Config Script step render data 1`] = `
 <div>
   <div
     class="Layout--vertical StyledProps--main stepContainer StyledProps--padding-xxlarge"
@@ -43,7 +43,7 @@ exports[`Create Delegate Config Scope render data 1`] = `
         <span
           class="bp3-button-text"
         >
-          saveAndContinue
+          finish
         </span>
       </button>
     </div>

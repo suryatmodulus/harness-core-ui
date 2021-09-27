@@ -16,6 +16,7 @@ import {
   manifestTypeLabels,
   ManifestDataType
 } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import { ArtifactIconByType, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
 
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
@@ -25,6 +26,10 @@ import css from './TriggersList.module.scss'
 
 interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
+}
+
+const isLocalHost = () => {
+  return location.hostname === 'localhost'
 }
 
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
@@ -39,7 +44,7 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
     }>
   >()
   // This is temporary feature flag for NewArtifact Trigger
-  const NG_NEWARTIFACT_TRIGGER = true
+  const NG_NEWARTIFACT_TRIGGER = isLocalHost()
 
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
@@ -149,6 +154,43 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
     const categoryItems = getCategoryItems(getString)
     /* istanbul ignore next */
     if (NG_NEWARTIFACT_TRIGGER) {
+      categoryItems.categories.splice(
+        1,
+        0,
+        {
+          categoryLabel: getString('pipeline.triggers.artifactTriggerConfigPanel.artifact'),
+          categoryValue: 'Artifact',
+          items: [
+            {
+              itemLabel: ENABLED_ARTIFACT_TYPES.Gcr,
+              value: ENABLED_ARTIFACT_TYPES.Gcr,
+              iconName: ArtifactIconByType.Gcr
+            },
+            {
+              itemLabel: ENABLED_ARTIFACT_TYPES.Ecr,
+              value: ENABLED_ARTIFACT_TYPES.Ecr,
+              iconName: ArtifactIconByType.Ecr
+            },
+            {
+              itemLabel: ENABLED_ARTIFACT_TYPES.DockerRegistry,
+              value: ENABLED_ARTIFACT_TYPES.DockerRegistry,
+              iconName: ArtifactIconByType.DockerRegistry
+            }
+          ]
+        },
+        {
+          categoryLabel: getString('manifestsText'),
+          categoryValue: 'Manifest',
+          items: [
+            {
+              itemLabel: getString(manifestTypeLabels.HelmChart),
+              value: ManifestDataType.HelmChart,
+              iconName: manifestTypeIcons.HelmChart
+            }
+          ]
+        }
+      )
+    } else {
       categoryItems.categories.splice(1, 0, {
         categoryLabel: getString('manifestsText'),
         categoryValue: 'Manifest',

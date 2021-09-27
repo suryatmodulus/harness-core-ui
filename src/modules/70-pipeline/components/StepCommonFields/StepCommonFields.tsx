@@ -94,20 +94,22 @@ const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepC
           style={{ marginBottom: 'var(--spacing-medium)' }}
         />
       )}
-      <MultiTypeTextField
-        label={
-          <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'runAsUser' }}>
-            {getString('pipeline.stepCommonFields.runAsUser')}
-          </Text>
-        }
-        name="spec.runAsUser"
-        multiTextInputProps={{
-          multiTextInputProps: { expressions },
-          disabled,
-          placeholder: '1000'
-        }}
-        style={{ marginBottom: 'var(--spacing-medium)' }}
-      />
+      <div className={cx(css.formGroup, css.sm)}>
+        <MultiTypeTextField
+          label={
+            <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'runAsUser' }}>
+              {getString('pipeline.stepCommonFields.runAsUser')}
+            </Text>
+          }
+          name="spec.runAsUser"
+          multiTextInputProps={{
+            multiTextInputProps: { expressions },
+            disabled,
+            placeholder: '1000'
+          }}
+          style={{ marginBottom: 'var(--spacing-medium)' }}
+        />
+      </div>
       <Text tooltipProps={{ dataTooltipId: 'setContainerResources' }}>
         {getString('pipelineSteps.setContainerResources')}
       </Text>
@@ -139,18 +141,20 @@ const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepC
         />
       </div>
       {!withoutTimeout && (
-        <FormMultiTypeDurationField
-          className={css.removeBpLabelMargin}
-          name="timeout"
-          multiTypeDurationProps={{ expressions }}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'timeout' }}>
-              {getString('pipelineSteps.timeoutLabel')}
-            </Text>
-          }
-          disabled={disabled}
-          style={{ marginBottom: 0 }}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <FormMultiTypeDurationField
+            className={css.removeBpLabelMargin}
+            name="timeout"
+            multiTypeDurationProps={{ expressions }}
+            label={
+              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'timeout' }}>
+                {getString('pipelineSteps.timeoutLabel')}
+              </Text>
+            }
+            disabled={disabled}
+            style={{ marginBottom: 0 }}
+          />
+        </div>
       )}
     </>
   )

@@ -131,6 +131,8 @@ export const CIDashboardPage: React.FC = () => {
                 key={index}
                 variant={CardVariant.Minimal}
                 pipelineExecution={buildInfoToExecutionSummary(build)}
+                staticCard={true}
+                // staticCard={!build?.planExecutionId} // Enable when Backend supports re-routing
               />
             ))}
           </CardRailView>
@@ -152,6 +154,8 @@ export const CIDashboardPage: React.FC = () => {
                 key={index}
                 variant={CardVariant.Minimal}
                 pipelineExecution={buildInfoToExecutionSummary(build)}
+                staticCard={true}
+                // staticCard={!build?.planExecutionId} // Enable when Backend supports re-routing
               />
             ))}
           </CardRailView>

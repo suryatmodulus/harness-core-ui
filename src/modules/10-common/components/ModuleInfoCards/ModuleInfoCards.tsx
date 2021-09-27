@@ -93,6 +93,7 @@ export const getInfoCardsProps = (accountId: string, GTM_CD_ENABLED?: boolean): 
         description: 'common.purpose.cd.newGen.description',
         isNgRoute: true,
         disabled: !GTM_CD_ENABLED,
+        isNew: true,
         footer: {
           title: 'common.purpose.cd.supportedStack',
           icons: [
@@ -199,15 +200,15 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
               {infoCard.isNew && (
                 <Text
                   className={css.new}
-                  background={Color.RED_500}
-                  width={35}
-                  height={15}
+                  background={Color.PRIMARY_5}
+                  width={48}
+                  height={22}
                   color={Color.WHITE}
-                  border={{ radius: 2 }}
-                  font={{ align: 'center', size: 'xsmall', weight: 'light' }}
-                  padding={{ left: 3 }}
+                  border={{ radius: 0 }}
+                  font={{ align: 'center', size: 'small', weight: 'light' }}
+                  margin={{ left: 30 }}
                 >
-                  {getString('common.new')}
+                  {getString('common.new').toUpperCase()}
                 </Text>
               )}
             </Layout.Horizontal>
@@ -239,21 +240,21 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
   return (
     <>
       <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
-        <Heading color={fontColor} font={{ size: 'medium', weight: 'bold' }} padding={{ top: 'xlarge' }}>
+        <Heading color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }} padding={{ top: 'xlarge' }}>
           {getString('common.purpose.howToProceed')}
         </Heading>
-        <a
-          className={css.compareVersion}
-          href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
-          target="_blank"
-          rel="noreferrer"
-        >
-          {getString('common.purpose.compare')}
-        </a>
       </Layout.Horizontal>
       <Layout.Horizontal spacing="small" style={{ ...style }}>
         {infoCards}
       </Layout.Horizontal>
+      <a
+        className={css.compareVersion}
+        href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
+        target="_blank"
+        rel="noreferrer"
+      >
+        {getString('common.purpose.compare')}
+      </a>
     </>
   )
 }

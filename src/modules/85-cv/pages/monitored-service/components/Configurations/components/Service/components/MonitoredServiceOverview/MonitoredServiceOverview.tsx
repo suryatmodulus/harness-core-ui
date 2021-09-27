@@ -1,5 +1,5 @@
-import React from 'react'
-import { Layout, FormInput } from '@wings-software/uicore'
+import React, { useMemo } from 'react'
+import { Layout, FormInput, Utils } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { MonitoredServiceDTO } from 'services/cv'
@@ -24,6 +24,7 @@ export default function MonitoredServiceOverview(props: MonitoredServiceOverview
   const { serviceOptions, setServiceOptions } = useGetHarnessServices()
   const { environmentOptions, setEnvironmentOptions } = useGetHarnessEnvironments()
   const values = formikProps.values || {}
+  const keys = useMemo(() => [Utils.randomId(), Utils.randomId()], [values.serviceRef, values.environmentRef])
 
   return (
     <CardWithOuterTitle title={getString('overview')} className={css.monitoredService}>
@@ -42,6 +43,7 @@ export default function MonitoredServiceOverview(props: MonitoredServiceOverview
               onChange={item => onChangeMonitoredServiceType?.(item.value as MonitoredServiceDTO['type'])}
             />
             <HarnessServiceAsFormField
+              key={keys[0]}
               customRenderProps={{
                 name: 'serviceRef',
                 label: getString('cv.healthSource.serviceLabel')
@@ -62,6 +64,7 @@ export default function MonitoredServiceOverview(props: MonitoredServiceOverview
               }}
             />
             <HarnessEnvironmentAsFormField
+              key={keys[1]}
               customRenderProps={{
                 name: 'environmentRef',
                 label: getString('cv.healthSource.environmentLabel')

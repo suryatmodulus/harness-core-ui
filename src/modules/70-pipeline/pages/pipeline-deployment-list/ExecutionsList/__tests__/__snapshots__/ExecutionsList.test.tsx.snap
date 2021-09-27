@@ -14,7 +14,7 @@ exports[`<ExecutionsList /> test snapshot testing 1`] = `
     class="main"
   >
     <div
-      class="bp3-card bp3-elevation-0 Card--card card"
+      class="bp3-card bp3-elevation-0 Card--card card hoverCard"
       data-disabled="false"
       data-variant="Default"
     >

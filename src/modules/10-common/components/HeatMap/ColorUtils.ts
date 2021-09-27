@@ -1,7 +1,7 @@
 import styles from './HeatMapColors.module.scss'
 
 export const noAnalysisColor = 'var(--grey-200)'
-export const noDataColor = 'var(--grey-300)'
+export const noDataColor = 'var(--grey-100)'
 export const lowRiskColor = 'var(--green-500)'
 export const mediumRiskColor = 'var(--orange-500)'
 export const highRiskColor = 'var(--red-500)'

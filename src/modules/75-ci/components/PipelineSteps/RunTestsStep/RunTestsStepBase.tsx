@@ -278,13 +278,16 @@ export const RunTestsStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <FormMultiTypeCheckboxField
-                      name="spec.runOnlySelectedTests"
-                      label={getString('runOnlySelectedTestsLabel')}
-                      multiTypeTextbox={{ expressions, disabled: readonly }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      disabled={readonly}
-                    />
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.runOnlySelectedTests"
+                        label={getString('runOnlySelectedTestsLabel')}
+                        multiTypeTextbox={{ expressions, disabled: readonly }}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
+                        disabled={readonly}
+                      />
+                    </div>
+
                     <MultiTypeTextField
                       name="spec.testAnnotations"
                       label={

@@ -46,7 +46,7 @@ export default function CardRailView({
   }
 
   const icons = {
-    REPOSITORY: <img src={RepoIconUrl} />,
+    REPOSITORY: <img height={15} width={16} src={RepoIconUrl} />,
     FAILED_BUILD: <img src={FailedBuildIconUrl} />,
     ACTIVE_BUILD: <Icon name="ci-pending-build" className={styles.pendingBuildIcon} />,
     WORKLOAD: '',
@@ -95,10 +95,12 @@ export default function CardRailView({
   return (
     <Container className={styles.main}>
       <Container className={styles.header}>
-        {icons[contentType]}
-        <Text className={styles.title} tooltipProps={{ dataTooltipId: `overview_${contentType}` }}>
-          {titles[contentType]}
-        </Text>
+        <Container className={styles.headerTitle}>
+          {icons[contentType]}
+          <Text className={styles.title} tooltipProps={{ dataTooltipId: `overview_${contentType}` }}>
+            {titles[contentType]}
+          </Text>
+        </Container>
         {titleSideContent}
       </Container>
       <Container

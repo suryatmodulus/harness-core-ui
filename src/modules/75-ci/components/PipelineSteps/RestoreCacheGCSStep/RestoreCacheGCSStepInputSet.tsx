@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
@@ -128,19 +129,21 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
         />
       )}
       {getMultiTypeFromValue(template?.spec?.failIfKeyNotFound) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeCheckboxField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.failIfKeyNotFound`}
-          label={getString('failIfKeyNotFound')}
-          multiTypeTextbox={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-            disabled: readonly
-          }}
-          disabled={readonly}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          setToFalseWhenEmpty={true}
-          tooltipProps={{ dataTooltipId: 'failIfKeyNotFound' }}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <FormMultiTypeCheckboxField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.failIfKeyNotFound`}
+            label={getString('failIfKeyNotFound')}
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              disabled: readonly
+            }}
+            disabled={readonly}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            setToFalseWhenEmpty={true}
+            tooltipProps={{ dataTooltipId: 'failIfKeyNotFound' }}
+          />
+        </div>
       )}
       <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
     </FormikForm>

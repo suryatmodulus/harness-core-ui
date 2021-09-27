@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
@@ -165,31 +166,35 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({
         />
       )}
       {getMultiTypeFromValue(template?.spec?.pathStyle) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeCheckboxField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.pathStyle`}
-          label={getString('pathStyle')}
-          disabled={readonly}
-          multiTypeTextbox={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          setToFalseWhenEmpty={true}
-          tooltipProps={{ dataTooltipId: 'pathStyle' }}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <FormMultiTypeCheckboxField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.pathStyle`}
+            label={getString('pathStyle')}
+            disabled={readonly}
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            setToFalseWhenEmpty={true}
+            tooltipProps={{ dataTooltipId: 'pathStyle' }}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(template?.spec?.failIfKeyNotFound) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeCheckboxField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.failIfKeyNotFound`}
-          label={getString('failIfKeyNotFound')}
-          disabled={readonly}
-          multiTypeTextbox={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          setToFalseWhenEmpty={true}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <FormMultiTypeCheckboxField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.failIfKeyNotFound`}
+            label={getString('failIfKeyNotFound')}
+            disabled={readonly}
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            setToFalseWhenEmpty={true}
+          />
+        </div>
       )}
       <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
     </FormikForm>

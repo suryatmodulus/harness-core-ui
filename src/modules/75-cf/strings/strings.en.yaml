@@ -110,7 +110,7 @@ noResultMatch: No results match your search criteria
 noTarget: There are currently no targets
 noTargetForEnv: There are currently no targets for this environment
 homepage:
-  slogan: 'Take your feature rollout processes to the next level using our Harness Feature Flags.'
+  slogan: '{{ $.common.purpose.cf.descriptionOnly }}'
   learnMore: Learn more about Feature Flags
 clause:
   operators:

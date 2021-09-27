@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
@@ -98,16 +99,18 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
         />
       )}
       {getMultiTypeFromValue(template?.spec?.optimize) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeCheckboxField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.optimize`}
-          label={getString('ci.optimize')}
-          disabled={readonly}
-          multiTypeTextbox={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          setToFalseWhenEmpty={true}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <FormMultiTypeCheckboxField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.optimize`}
+            label={getString('ci.optimize')}
+            disabled={readonly}
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            setToFalseWhenEmpty={true}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(template?.spec?.dockerfile) === MultiTypeInputType.RUNTIME && (
         <MultiTypeTextField

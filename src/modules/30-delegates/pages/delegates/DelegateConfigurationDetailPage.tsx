@@ -16,14 +16,11 @@ import type {
   AccountPathProps
 } from '@common/interfaces/RouteInterfaces'
 import { useUpdateDelegateConfigNgV2, useGetDelegateConfigNgV2, DelegateProfileDetailsNg } from 'services/cd-ng'
-import type { ScopingRuleDetails } from 'services/portal'
 import { PageError } from '@common/components/Page/PageError'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { fullSizeContentStyle } from '@delegates/constants'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useToaster } from '@common/exports'
-import DelegateConfigScopeEdit from '@delegates/components/DelegateConfigScope/DelegateConfigScopeEdit'
-import DelegateConfigScopePreview from '@delegates/components/DelegateConfigScope/DelegateConfigScopePreview'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -32,7 +29,6 @@ import css from './DelegateConfigurationDetailPage.module.scss'
 
 export default function DelegateProfileDetails(): JSX.Element {
   const { getString } = useStrings()
-  const [scopingRules, setScopingRules] = useState([] as ScopingRuleDetails[])
   const { delegateConfigIdentifier, accountId, orgIdentifier, projectIdentifier, module } = useParams<
     Partial<ProjectPathProps & ModulePathParams> & AccountPathProps & DelegateConfigProps
   >()
@@ -44,11 +40,6 @@ export default function DelegateProfileDetails(): JSX.Element {
 
   const { showError, showSuccess } = useToaster()
   const profile = data?.resource
-  useEffect(() => {
-    if (profile) {
-      setScopingRules(profile?.scopingRules || [])
-    }
-  }, [profile])
   const breadcrumbs = [
     {
       label: getString('delegate.delegates'),
@@ -92,7 +83,6 @@ export default function DelegateProfileDetails(): JSX.Element {
         primary,
         approvalRequired,
         startupScript,
-        scopingRules: scopingRules,
         selectors
       })
       if ((response as any)?.responseMessages.length) {
@@ -110,10 +100,6 @@ export default function DelegateProfileDetails(): JSX.Element {
     } finally {
       setShowSpinner(false)
     }
-  }
-
-  const onScopeChange = (newScopingRules: ScopingRuleDetails[]) => {
-    setScopingRules(newScopingRules)
   }
 
   const onValidate = (profileData: DelegateProfileDetailsNg) => {
@@ -139,7 +125,7 @@ export default function DelegateProfileDetails(): JSX.Element {
         }
       }
     },
-    [editMode, toggleEditMode, scopingRules]
+    [editMode, toggleEditMode]
   )
 
   useEffect(() => {
@@ -286,19 +272,6 @@ export default function DelegateProfileDetails(): JSX.Element {
                         />
                       }
                     />
-                  )}
-                </SectionContainer>
-
-                <SectionContainer>
-                  <SectionContainerTitle>{getString('delegate.Scope')}</SectionContainerTitle>
-                  {profile && editMode ? (
-                    <DelegateConfigScopeEdit
-                      onChange={onScopeChange}
-                      scopingRules={scopingRules}
-                      isPreviewOnly={!editMode}
-                    />
-                  ) : (
-                    <DelegateConfigScopePreview scopingRules={scopingRules} />
                   )}
                 </SectionContainer>
               </Layout.Vertical>

@@ -9,6 +9,7 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -34,6 +35,7 @@ import type {
   JFrogArtifactoryStepDataUI
 } from './JFrogArtifactoryStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const JFrogArtifactoryStepBase = (
   { initialValues, onUpdate, isNewStep, readonly }: JFrogArtifactoryStepProps,
@@ -95,13 +97,15 @@ export const JFrogArtifactoryStepBase = (
 
         return (
           <FormikForm>
-            <FormInput.InputWithIdentifier
-              inputName="name"
-              idName="identifier"
-              isIdentifierEditable={isNewStep}
-              inputLabel={getString('pipelineSteps.stepNameLabel')}
-              inputGroupProps={{ disabled: readonly }}
-            />
+            <div className={cx(stepCss.formGroup, stepCss.lg)}>
+              <FormInput.InputWithIdentifier
+                inputName="name"
+                idName="identifier"
+                isIdentifierEditable={isNewStep}
+                inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
+              />
+            </div>
             <FormMultiTypeTextAreaField
               className={css.removeBpLabelMargin}
               name="description"

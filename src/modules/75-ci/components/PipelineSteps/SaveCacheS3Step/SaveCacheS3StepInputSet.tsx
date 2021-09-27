@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
@@ -188,31 +189,35 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
         />
       )}
       {getMultiTypeFromValue(template?.spec?.override) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeCheckboxField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.override`}
-          label={getString('override')}
-          multiTypeTextbox={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-            disabled: readonly
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          setToFalseWhenEmpty={true}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <FormMultiTypeCheckboxField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.override`}
+            label={getString('override')}
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              disabled: readonly
+            }}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            setToFalseWhenEmpty={true}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(template?.spec?.pathStyle) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeCheckboxField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.pathStyle`}
-          label={getString('pathStyle')}
-          multiTypeTextbox={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-            disabled: readonly
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          setToFalseWhenEmpty={true}
-          tooltipProps={{ dataTooltipId: 'pathStyle' }}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <FormMultiTypeCheckboxField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.pathStyle`}
+            label={getString('pathStyle')}
+            multiTypeTextbox={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              disabled: readonly
+            }}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            setToFalseWhenEmpty={true}
+            tooltipProps={{ dataTooltipId: 'pathStyle' }}
+          />
+        </div>
       )}
       <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
     </FormikForm>

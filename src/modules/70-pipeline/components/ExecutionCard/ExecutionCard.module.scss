@@ -9,10 +9,11 @@ $actions-translate: 10px;
   border: none !important;
   overflow: hidden;
 
-  &:hover {
-    box-shadow: var(--card-hover-shadow);
+  &.hoverCard {
+    &:hover {
+      box-shadow: var(--card-hover-shadow);
+    }
   }
-
   .cardLink {
     display: block;
     color: var(--grey-400);

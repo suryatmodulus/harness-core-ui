@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { ShellScriptMonacoField } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
@@ -141,17 +142,19 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
         />
       )}
       {getMultiTypeFromValue(template?.spec?.runOnlySelectedTests) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeCheckboxField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.runOnlySelectedTests`}
-          label={getString('runOnlySelectedTestsLabel')}
-          multiTypeTextbox={{
-            expressions,
-            disabled: readonly,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          setToFalseWhenEmpty={true}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <FormMultiTypeCheckboxField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.runOnlySelectedTests`}
+            label={getString('runOnlySelectedTestsLabel')}
+            multiTypeTextbox={{
+              expressions,
+              disabled: readonly,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            setToFalseWhenEmpty={true}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(template?.spec?.testAnnotations) === MultiTypeInputType.RUNTIME && (
         <MultiTypeTextField

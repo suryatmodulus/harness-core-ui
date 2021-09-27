@@ -581,6 +581,7 @@ monitoredServices:
     impact: Impact
 changeSource:
   alertText: Alert
+  configureChangeSource: Configure Change Sources
   noData: No Change Sources Present
   addChangeSource: Add New Change Source
   selectChangeSource: Select Change Source

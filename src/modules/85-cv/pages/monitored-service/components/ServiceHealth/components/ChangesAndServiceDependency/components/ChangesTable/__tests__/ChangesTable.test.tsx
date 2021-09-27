@@ -19,7 +19,13 @@ describe('Change table', () => {
   test('should render with no data', async () => {
     const { container, getByText } = render(
       <TestWrapper>
-        <ChangesTable startTime={0} endTime={1} serviceIdentifier={'srv'} environmentIdentifier={'env'} />
+        <ChangesTable
+          hasChangeSource
+          startTime={0}
+          endTime={1}
+          serviceIdentifier={'srv'}
+          environmentIdentifier={'env'}
+        />
       </TestWrapper>
     )
     await waitFor(() => expect(getByText('cv.monitoredServices.noAvailableData')).toBeTruthy())
@@ -37,7 +43,13 @@ describe('Change table', () => {
     )
     const { container } = render(
       <TestWrapper>
-        <ChangesTable startTime={0} endTime={1} serviceIdentifier={'srv'} environmentIdentifier={'env'} />
+        <ChangesTable
+          hasChangeSource
+          startTime={0}
+          endTime={1}
+          serviceIdentifier={'srv'}
+          environmentIdentifier={'env'}
+        />
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('span[data-icon="steps-spinner"]')).toBeTruthy())
@@ -57,7 +69,13 @@ describe('Change table', () => {
     )
     const { container, getByText } = render(
       <TestWrapper>
-        <ChangesTable startTime={0} endTime={1} serviceIdentifier={'srv'} environmentIdentifier={'env'} />
+        <ChangesTable
+          hasChangeSource
+          startTime={0}
+          endTime={1}
+          serviceIdentifier={'srv'}
+          environmentIdentifier={'env'}
+        />
       </TestWrapper>
     )
     await waitFor(() =>
@@ -94,7 +112,13 @@ describe('Change table', () => {
     )
     const { container } = render(
       <TestWrapper>
-        <ChangesTable startTime={0} endTime={1} serviceIdentifier={'srv'} environmentIdentifier={'env'} />
+        <ChangesTable
+          hasChangeSource
+          startTime={0}
+          endTime={1}
+          serviceIdentifier={'srv'}
+          environmentIdentifier={'env'}
+        />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

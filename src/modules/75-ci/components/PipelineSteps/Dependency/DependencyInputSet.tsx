@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -93,17 +94,19 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
         />
       )}
       {getMultiTypeFromValue(template?.spec?.privileged) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeCheckboxField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.privileged`}
-          label={getString('ci.privileged')}
-          multiTypeTextbox={{
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-            expressions
-          }}
-          tooltipProps={{ dataTooltipId: 'privileged' }}
-          disabled={readonly}
-          setToFalseWhenEmpty={true}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <FormMultiTypeCheckboxField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.privileged`}
+            label={getString('ci.privileged')}
+            multiTypeTextbox={{
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              expressions
+            }}
+            tooltipProps={{ dataTooltipId: 'privileged' }}
+            disabled={readonly}
+            setToFalseWhenEmpty={true}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(template?.spec?.envVariables as string) === MultiTypeInputType.RUNTIME && (
         <MultiTypeMapInputSet

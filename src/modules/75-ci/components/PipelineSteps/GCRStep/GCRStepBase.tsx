@@ -10,6 +10,7 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
+import cx from 'classnames'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -177,15 +178,17 @@ export const GCRStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <FormMultiTypeCheckboxField
-                      name="spec.optimize"
-                      label={getString('ci.optimize')}
-                      multiTypeTextbox={{
-                        expressions
-                      }}
-                      disabled={readonly}
-                      tooltipProps={{ dataTooltipId: 'optimize' }}
-                    />
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.optimize"
+                        label={getString('ci.optimize')}
+                        multiTypeTextbox={{
+                          expressions
+                        }}
+                        disabled={readonly}
+                        tooltipProps={{ dataTooltipId: 'optimize' }}
+                      />
+                    </div>
                     <MultiTypeTextField
                       name="spec.dockerfile"
                       label={

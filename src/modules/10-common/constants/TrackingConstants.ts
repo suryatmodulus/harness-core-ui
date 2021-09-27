@@ -5,7 +5,9 @@ export enum PageNames {
 }
 
 export enum PurposeActions {
-  ModuleContinue = 'Purpose Continue click'
+  ModuleContinue = 'Purpose Continue click',
+  CDModuleContinue = 'CD Welcome Page Continue Clicked',
+  CDCGModuleSelected = 'CD Current Gen Continue Clicked'
 }
 
 export enum TrialActions {

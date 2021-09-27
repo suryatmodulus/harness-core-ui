@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Redirect, useParams } from 'react-router-dom'
 
+import { ModalProvider } from '@wings-software/uicore'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, orgPathProps, withAccountId } from '@common/utils/routeUtils'
@@ -56,7 +57,9 @@ export default (
       <GenericErrorPage />
     </Route>
     <Route path={routes.toPurpose({ ...accountPathProps })} exact>
-      <WelcomePage />
+      <ModalProvider>
+        <WelcomePage />
+      </ModalProvider>
     </Route>
   </>
 )

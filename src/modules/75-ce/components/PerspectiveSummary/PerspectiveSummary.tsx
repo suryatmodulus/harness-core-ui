@@ -257,9 +257,15 @@ interface PerspectiveSummaryProps {
   data: Maybe<PerspectiveTrendStats> | undefined
   forecastedCostData: Maybe<PerspectiveTrendStats> | undefined
   errors?: any[] | null
+  isDefaultPerspective: boolean
 }
 
-const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({ fetching, data, forecastedCostData }) => {
+const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({
+  fetching,
+  data,
+  forecastedCostData,
+  isDefaultPerspective
+}) => {
   return (
     <Layout.Horizontal margin="xlarge" spacing="large">
       <CostCard
@@ -270,7 +276,7 @@ const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({ fetching, data,
         statsValue={data?.cost?.statsValue}
         isEmpty={!data?.cost}
       />
-      <BudgetCard />
+      {!isDefaultPerspective && <BudgetCard />}
       <CostCard
         fetching={fetching}
         statsLabel={forecastedCostData?.cost?.statsLabel}

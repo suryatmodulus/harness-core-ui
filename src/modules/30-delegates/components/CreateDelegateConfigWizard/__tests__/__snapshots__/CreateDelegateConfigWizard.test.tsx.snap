@@ -49,21 +49,6 @@ exports[`Create Delegate Wizard render data 1`] = `
           delegates.newDelegateConfigWizard.scriptTitle
         </p>
       </div>
-      <div
-        class="StepWizard--navStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          3
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 200px;"
-        >
-          delegate.Scope
-        </p>
-      </div>
     </div>
     <div
       class="StepWizard--stepDetails"

@@ -9,6 +9,7 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -177,15 +178,17 @@ export const ECRStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <FormMultiTypeCheckboxField
-                      name="spec.optimize"
-                      label={getString('ci.optimize')}
-                      multiTypeTextbox={{
-                        expressions
-                      }}
-                      disabled={readonly}
-                      tooltipProps={{ dataTooltipId: 'optimize' }}
-                    />
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.optimize"
+                        label={getString('ci.optimize')}
+                        multiTypeTextbox={{
+                          expressions
+                        }}
+                        disabled={readonly}
+                        tooltipProps={{ dataTooltipId: 'optimize' }}
+                      />
+                    </div>
                     <MultiTypeTextField
                       name="spec.dockerfile"
                       label={

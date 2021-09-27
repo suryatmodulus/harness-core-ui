@@ -73,7 +73,11 @@ jest.mock('services/cv', () => ({
 
 describe('Unit tests for ServiceHealth', () => {
   test('Verify if all the fields are rendered correctly inside ServiceHealth', async () => {
-    const props = { serviceIdentifier: 'service-identifier', environmentIdentifier: 'env-identifier' }
+    const props = {
+      serviceIdentifier: 'service-identifier',
+      environmentIdentifier: 'env-identifier',
+      hasChangeSource: true
+    }
     const { container } = render(<WrapperComponent {...props} />)
     expect(container).toMatchSnapshot()
   })
@@ -146,7 +150,11 @@ describe('Unit tests for ServiceHealth', () => {
   })
 
   test('Verify ChangesSourceCard loads', async () => {
-    const props = { serviceIdentifier: 'service-identifier', environmentIdentifier: 'env-identifier' }
+    const props = {
+      serviceIdentifier: 'service-identifier',
+      environmentIdentifier: 'env-identifier',
+      hasChangeSource: true
+    }
     const { container } = render(<WrapperComponent {...props} />)
     await waitFor(() => expect(container.querySelectorAll('.tickerValue[data-test="tickerValue"]').length).toEqual(4))
     container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach(async (item, index) => {
@@ -155,7 +163,7 @@ describe('Unit tests for ServiceHealth', () => {
   })
 
   test('Verify ChangesSourceCard does not loads', async () => {
-    const props = { serviceIdentifier: '', environmentIdentifier: '' }
+    const props = { serviceIdentifier: '', environmentIdentifier: '', hasChangeSource: true }
     const { container } = render(<WrapperComponent {...props} />)
     await waitFor(() => expect(container.querySelectorAll('.tickerValue[data-test="tickerValue"]').length).toEqual(0))
   })

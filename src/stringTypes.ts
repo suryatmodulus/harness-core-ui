@@ -337,6 +337,7 @@ export interface StringsMap {
   'common.purpose.ce.visibilityCard.description': string
   'common.purpose.cf.continuous': string
   'common.purpose.cf.description': string
+  'common.purpose.cf.descriptionOnly': string
   'common.purpose.cf.feature': string
   'common.purpose.cf.features': string
   'common.purpose.cf.flags': string
@@ -345,6 +346,7 @@ export interface StringsMap {
   'common.purpose.changeSelection': string
   'common.purpose.ci.continuous': string
   'common.purpose.ci.description': string
+  'common.purpose.ci.descriptionOnly': string
   'common.purpose.ci.integration': string
   'common.purpose.ci.subtitle': string
   'common.purpose.compare': string
@@ -388,6 +390,8 @@ export interface StringsMap {
   'common.seeDetails': string
   'common.seeWhatChanged': string
   'common.selectAChannel': string
+  'common.selectAVersion.description': string
+  'common.selectAVersion.title': string
   'common.selectBranch': string
   'common.selectDefaultExperience': string
   'common.selectUserGroups': string
@@ -852,14 +856,8 @@ export interface StringsMap {
   'delegates.harnessDocs': string
   'delegates.lastUpdated': string
   'delegates.newDelegate': string
-  'delegates.newDelegateConfigWizard.matchAllEnvs': string
-  'delegates.newDelegateConfigWizard.nonprodEnv': string
   'delegates.newDelegateConfigWizard.overviewTitle': string
-  'delegates.newDelegateConfigWizard.prodEnv': string
-  'delegates.newDelegateConfigWizard.scopeSubtitle': string
   'delegates.newDelegateConfigWizard.scriptTitle': string
-  'delegates.newDelegateConfigWizard.specEnvNotPossible': string
-  'delegates.newDelegateConfigWizard.specifyEnvs': string
   'delegates.newDelegateConfigWizard.successMessage': string
   'delegates.newDelegateConfiguration': string
   'delegates.noDelegatesInAccount': string
@@ -3659,6 +3657,7 @@ export interface StringsMap {
   'cv.changeSource.PageDuty.selectPagerDutyService': string
   'cv.changeSource.addChangeSource': string
   'cv.changeSource.alertText': string
+  'cv.changeSource.configureChangeSource': string
   'cv.changeSource.connectChangeSource': string
   'cv.changeSource.defineChangeSource': string
   'cv.changeSource.duplicateIdentifier': string

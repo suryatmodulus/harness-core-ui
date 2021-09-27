@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
+import set from 'lodash-es/set'
+import { useParams } from 'react-router'
 import { Button, Layout, Color, Container, Heading, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import type { DelegateProfileDetailsNg } from 'services/cd-ng'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { dataObj } from '../CreateDelegateConfigWizard'
 
 import css from './DelegateConfigSteps.module.scss'
@@ -8,21 +12,39 @@ import css from './DelegateConfigSteps.module.scss'
 interface DelegateConfigScopeStepProps {
   name: string
   previousStep?: (data: dataObj) => void
-  nextStep?: (obj: dataObj) => void
+  onFinish: (data: DelegateProfileDetailsNg) => void
   closeModal?: () => void
   onSuccess?: () => void
   prevStepData?: dataObj
 }
 
-const DelegateConfigScopeStep: React.FC<DelegateConfigScopeStepProps> = ({ previousStep, nextStep, prevStepData }) => {
+const DelegateConfigScopeStep: React.FC<DelegateConfigScopeStepProps> = ({ previousStep, onFinish, prevStepData }) => {
   const { getString } = useStrings()
+  const { orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [script, setScript] = useState(prevStepData?.script || '')
-  const onNext = () => {
-    nextStep?.({ ...prevStepData, script })
-  }
+
   const onPreviousStep = (): void => {
     previousStep?.({ ...prevStepData, script })
   }
+
+  const createDelegateProfile = () => {
+    const delegateProfileData = {
+      identifier: prevStepData?.identifier,
+      name: prevStepData?.name,
+      description: prevStepData?.description,
+      selectors: Object.keys(prevStepData?.tags || {}),
+      startupScript: script
+    }
+    if (orgIdentifier) {
+      set(delegateProfileData, 'orgIdentifier', orgIdentifier)
+    }
+    if (projectIdentifier) {
+      set(delegateProfileData, 'projectIdentifier', projectIdentifier)
+    }
+
+    onFinish(delegateProfileData)
+  }
+
   return (
     <Layout.Vertical className={css.stepContainer} padding="xxlarge">
       <Container>
@@ -34,7 +56,7 @@ const DelegateConfigScopeStep: React.FC<DelegateConfigScopeStepProps> = ({ previ
       </Container>
       <Layout.Horizontal spacing="xsmall">
         <Button type="button" text={getString('back')} onClick={onPreviousStep} />
-        <Button type="button" intent="primary" text={getString('saveAndContinue')} onClick={onNext} />
+        <Button type="button" intent="primary" text={getString('finish')} onClick={createDelegateProfile} />
       </Layout.Horizontal>
     </Layout.Vertical>
   )

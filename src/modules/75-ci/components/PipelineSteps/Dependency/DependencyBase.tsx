@@ -9,6 +9,7 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
@@ -164,15 +165,17 @@ export const DependencyBase = (
                   summary={getString('common.optionalConfig')}
                   details={
                     <>
-                      <FormMultiTypeCheckboxField
-                        name="spec.privileged"
-                        label={getString('ci.privileged')}
-                        multiTypeTextbox={{
-                          expressions
-                        }}
-                        tooltipProps={{ dataTooltipId: 'privileged' }}
-                        disabled={readonly}
-                      />
+                      <div className={cx(css.formGroup, css.sm)}>
+                        <FormMultiTypeCheckboxField
+                          name="spec.privileged"
+                          label={getString('ci.privileged')}
+                          multiTypeTextbox={{
+                            expressions
+                          }}
+                          tooltipProps={{ dataTooltipId: 'privileged' }}
+                          disabled={readonly}
+                        />
+                      </div>
                       <MultiTypeMap
                         name="spec.envVariables"
                         valueMultiTextInputProps={{ expressions }}

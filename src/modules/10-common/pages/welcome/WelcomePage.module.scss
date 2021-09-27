@@ -1,31 +1,40 @@
 .container {
   height: 100vh;
-  background-size: cover !important;
+  width: 100vw;
 }
 
 .card {
   &:hover {
     cursor: pointer;
   }
-  display: inline-grid !important;
-  width: 260px;
-  height: 190px;
+  max-width: 230px;
+  min-height: 350px;
   border-radius: 12px;
+  display: inline-grid !important;
   background-color: rgba(7, 27, 55, 1) !important;
-  margin: var(--spacing-huge);
-  justify-content: center;
-
+  margin: 0;
+  justify-content: space-between;
+  margin-bottom: 30px;
   .icon {
     margin-top: 4px !important;
     margin-right: var(--spacing-xsmall) !important;
   }
 }
 
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 230px;
+  min-height: 450px;
+}
+
 .moduleList {
-  height: 100%;
-  display: inline-grid;
-  grid-template-columns: auto auto auto auto auto;
-  margin-left: -48px !important;
+  max-width: 1150px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .moduleInfo {
@@ -38,7 +47,11 @@
 }
 
 .moduleInfoRight {
-  width: 55%;
+  width: 100%;
+}
+
+.moduleInfoTitle {
+  margin-top: 25% !important;
 }
 
 .continueButton {
@@ -57,12 +70,8 @@
 
 .moduleInfoDescription {
   line-height: 2;
-  color: var(--white) !important;
+  color: var(--black) !important;
   font-size: small;
-}
-
-.moduleInfoCards {
-  background-color: rgba(7, 27, 55, 1) !important;
 }
 
 .changeSelection {
@@ -94,7 +103,13 @@
   margin-right: unset !important;
 }
 
+.iconDescription {
+  padding-top: 50px !important;
+}
+
 .iconContainer {
-  display: block;
+  display: flex;
+  flex-direction: column;
   justify-content: center !important;
+  align-items: center;
 }

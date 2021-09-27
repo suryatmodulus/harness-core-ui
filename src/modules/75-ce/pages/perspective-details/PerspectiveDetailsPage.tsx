@@ -295,6 +295,7 @@ const PerspectiveDetailsPage: React.FC = () => {
           data={summaryData?.perspectiveTrendStats as any}
           fetching={summaryFetching}
           forecastedCostData={summaryData?.perspectiveForecastCost as any}
+          isDefaultPerspective={!!(perspectiveData?.viewType === ViewType.Default)}
         />
         <Container margin="xlarge" background="white" className={css.chartGridContainer}>
           {!isChartGridEmpty && (

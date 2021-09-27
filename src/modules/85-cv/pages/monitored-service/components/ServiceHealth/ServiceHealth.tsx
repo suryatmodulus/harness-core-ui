@@ -27,7 +27,8 @@ import css from './ServiceHealth.module.scss'
 export default function ServiceHealth({
   monitoredServiceIdentifier,
   serviceIdentifier,
-  environmentIdentifier
+  environmentIdentifier,
+  hasChangeSource
 }: ServiceHealthProps): JSX.Element {
   const { getString } = useStrings()
   const [selectedTimePeriod, setSelectedTimePeriod] = useState<SelectOption>({
@@ -157,6 +158,7 @@ export default function ServiceHealth({
           </>
         </Card>
         <ChangesAndServiceDependency
+          hasChangeSource={hasChangeSource}
           serviceIdentifier={serviceIdentifier}
           environmentIdentifier={environmentIdentifier}
           startTime={

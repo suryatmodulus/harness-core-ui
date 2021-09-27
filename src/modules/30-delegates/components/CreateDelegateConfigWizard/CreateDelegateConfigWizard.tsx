@@ -9,7 +9,6 @@ import { useAddDelegateProfileNgV2 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import DelegateConfigOverviewStep from './steps/DelegateConfigOverviewStep'
 import DelegateConfigScriptStep from './steps/DelegateConfigScriptStep'
-import DelegateConfigScopeStep from './steps/DelegateConfigScopeStep'
 
 export interface dataObj {
   name?: string
@@ -49,8 +48,7 @@ export const CreateDelegateConfigWizard: React.FC<CreateDelegateConfigWizardProp
   return (
     <StepWizard className={css.delegateConfigWizard} title="Delegate Configuration">
       <DelegateConfigOverviewStep name={getString('overview')} />
-      <DelegateConfigScriptStep name={getString('delegates.newDelegateConfigWizard.scriptTitle')} />
-      <DelegateConfigScopeStep name={getString('delegate.Scope')} onFinish={onFinish} />
+      <DelegateConfigScriptStep name={getString('delegates.newDelegateConfigWizard.scriptTitle')} onFinish={onFinish} />
     </StepWizard>
   )
 }

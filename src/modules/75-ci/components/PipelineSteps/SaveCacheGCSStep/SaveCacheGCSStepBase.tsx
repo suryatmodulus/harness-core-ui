@@ -9,6 +9,7 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -177,17 +178,19 @@ export const SaveCacheGCSStepBase = (
                       style={{ marginBottom: 'var(--spacing-medium)' }}
                       disabled={readonly}
                     />
-                    <FormMultiTypeCheckboxField
-                      name="spec.override"
-                      label={getString('override')}
-                      multiTypeTextbox={{
-                        expressions,
-                        disabled: readonly
-                      }}
-                      style={{ marginBottom: 'var(--spacing-medium)' }}
-                      disabled={readonly}
-                      tooltipProps={{ dataTooltipId: 'saveCacheOverride' }}
-                    />
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.override"
+                        label={getString('override')}
+                        multiTypeTextbox={{
+                          expressions,
+                          disabled: readonly
+                        }}
+                        style={{ marginBottom: 'var(--spacing-medium)' }}
+                        disabled={readonly}
+                        tooltipProps={{ dataTooltipId: 'saveCacheOverride' }}
+                      />
+                    </div>
                     <StepCommonFields disabled={readonly} />
                   </>
                 }

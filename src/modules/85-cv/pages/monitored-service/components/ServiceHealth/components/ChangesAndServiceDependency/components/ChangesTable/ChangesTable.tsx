@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { useParams } from 'react-router'
+import { Link } from 'react-router-dom'
 import type { Column } from 'react-table'
 import { Text, Icon, Color, Container } from '@wings-software/uicore'
 import Card from '@cv/components/Card/Card'
@@ -10,6 +11,7 @@ import { Table } from '@common/components'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import routes from '@common/RouteDefinitions'
 import noDataImage from '@cv/assets/noData.svg'
 import type { ChangesTableInterface } from './ChangesTable.types'
 import { renderTime, renderName, renderImpact, renderType, renderChangeType } from './ChangesTable.utils'
@@ -19,12 +21,15 @@ import css from './ChangeTable.module.scss'
 export default function ChangesTable({
   startTime,
   endTime,
+  hasChangeSource,
   serviceIdentifier,
   environmentIdentifier
 }: ChangesTableInterface): JSX.Element {
   const [page, setPage] = useState(0)
   const { getString } = useStrings()
-  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
+  const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
+    ProjectPathProps & { identifier: string }
+  >()
   const { data, refetch, loading, error } = useChangeEventList({
     lazy: true,
     accountIdentifier: accountId,
@@ -110,6 +115,25 @@ export default function ChangesTable({
                   }
                 })
               }
+            />
+          </Container>
+        </Card>
+      )
+    } else if (!hasChangeSource) {
+      const configurationsTabRoute = routes.toCVMonitoredServiceConfigurations({
+        accountId,
+        projectIdentifier,
+        orgIdentifier,
+        identifier,
+        module: 'cv'
+      })
+      return (
+        <Card className={css.cardContainer}>
+          <Container className={css.noData}>
+            <NoDataCard
+              button={<Link to={configurationsTabRoute}>{getString('cv.changeSource.configureChangeSource')}</Link>}
+              message={getString('cv.changeSource.noData')}
+              icon="warning-sign"
             />
           </Container>
         </Card>

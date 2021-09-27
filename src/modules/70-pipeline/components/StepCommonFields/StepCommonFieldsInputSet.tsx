@@ -80,19 +80,21 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
         />
       )}
       {isRunAsUserRuntime && (
-        <MultiTypeTextField
-          label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipeline.stepCommonFields.runAsUser')}</Text>}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.runAsUser`}
-          multiTextInputProps={{
-            multiTextInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            },
-            disabled: readonly,
-            placeholder: '1000'
-          }}
-          style={{ marginBottom: 'var(--spacing-medium)' }}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <MultiTypeTextField
+            label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipeline.stepCommonFields.runAsUser')}</Text>}
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.runAsUser`}
+            multiTextInputProps={{
+              multiTextInputProps: {
+                expressions,
+                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              },
+              disabled: readonly,
+              placeholder: '1000'
+            }}
+            style={{ marginBottom: 'var(--spacing-medium)' }}
+          />
+        </div>
       )}
       {(isLimitMemoryRuntime || isLimitCPURuntime) && (
         <>
@@ -145,21 +147,23 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
         </>
       )}
       {!withoutTimeout && isTimeoutRuntime && (
-        <FormMultiTypeDurationField
-          className={css.removeBpLabelMargin}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'timeout' }}>
-              {getString('pipelineSteps.timeoutLabel')}
-            </Text>
-          }
-          name={`${isEmpty(path) ? '' : `${path}.`}timeout`}
-          placeholder={getString('pipelineSteps.timeoutPlaceholder')}
-          multiTypeDurationProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          disabled={readonly}
-        />
+        <div className={cx(css.formGroup, css.sm)}>
+          <FormMultiTypeDurationField
+            className={css.removeBpLabelMargin}
+            label={
+              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'timeout' }}>
+                {getString('pipelineSteps.timeoutLabel')}
+              </Text>
+            }
+            name={`${isEmpty(path) ? '' : `${path}.`}timeout`}
+            placeholder={getString('pipelineSteps.timeoutPlaceholder')}
+            multiTypeDurationProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            disabled={readonly}
+          />
+        </div>
       )}
     </>
   )

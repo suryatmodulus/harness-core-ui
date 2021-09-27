@@ -10,14 +10,6 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
     >
       common.purpose.howToProceed
     </h1>
-    <a
-      class="compareVersion"
-      href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
-      rel="noreferrer"
-      target="_blank"
-    >
-      common.purpose.compare
-    </a>
   </div>
   <div
     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -505,6 +497,12 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             >
               common.purpose.cd.newGen.title
             </p>
+            <p
+              class="StyledProps--font StyledProps--main new StyledProps--background-primary5 StyledProps--color StyledProps--color-white StyledProps--border StyledProps--font-align-center StyledProps--font-size-small StyledProps--font-weight-light"
+              style="width: 48px; height: 22px;"
+            >
+              COMMON.NEW
+            </p>
           </div>
         </div>
       </div>
@@ -967,6 +965,14 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
       </div>
     </div>
   </div>
+  <a
+    class="compareVersion"
+    href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
+    rel="noreferrer"
+    target="_blank"
+  >
+    common.purpose.compare
+  </a>
 </div>
 `;
 
@@ -982,14 +988,6 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
     >
       common.purpose.howToProceed
     </h1>
-    <a
-      class="compareVersion"
-      href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
-      rel="noreferrer"
-      target="_blank"
-    >
-      common.purpose.compare
-    </a>
   </div>
   <div
     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1477,6 +1475,12 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             >
               common.purpose.cd.newGen.title
             </p>
+            <p
+              class="StyledProps--font StyledProps--main new StyledProps--background-primary5 StyledProps--color StyledProps--color-white StyledProps--border StyledProps--font-align-center StyledProps--font-size-small StyledProps--font-weight-light"
+              style="width: 48px; height: 22px;"
+            >
+              COMMON.NEW
+            </p>
           </div>
         </div>
       </div>
@@ -1939,6 +1943,14 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
       </div>
     </div>
   </div>
+  <a
+    class="compareVersion"
+    href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
+    rel="noreferrer"
+    target="_blank"
+  >
+    common.purpose.compare
+  </a>
 </div>
 `;
 
@@ -1952,14 +1964,6 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
     >
       common.purpose.howToProceed
     </h1>
-    <a
-      class="compareVersion"
-      href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
-      rel="noreferrer"
-      target="_blank"
-    >
-      common.purpose.compare
-    </a>
   </div>
   <div
     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -2447,6 +2451,12 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             >
               common.purpose.cd.newGen.title
             </p>
+            <p
+              class="StyledProps--font StyledProps--main new StyledProps--background-primary5 StyledProps--color StyledProps--color-white StyledProps--border StyledProps--font-align-center StyledProps--font-size-small StyledProps--font-weight-light"
+              style="width: 48px; height: 22px;"
+            >
+              COMMON.NEW
+            </p>
           </div>
         </div>
       </div>
@@ -2909,5 +2919,13 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
       </div>
     </div>
   </div>
+  <a
+    class="compareVersion"
+    href="https://ngdocs.harness.io/article/1fjmm4by22-harness-first-gen-vs-harness-next-gen"
+    rel="noreferrer"
+    target="_blank"
+  >
+    common.purpose.compare
+  </a>
 </div>
 `;

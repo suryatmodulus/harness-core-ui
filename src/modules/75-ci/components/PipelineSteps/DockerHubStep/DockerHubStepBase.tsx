@@ -9,6 +9,7 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -152,15 +153,17 @@ export const DockerHubStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <FormMultiTypeCheckboxField
-                      name="spec.optimize"
-                      label={getString('ci.optimize')}
-                      multiTypeTextbox={{
-                        expressions
-                      }}
-                      tooltipProps={{ dataTooltipId: 'optimize' }}
-                      disabled={readonly}
-                    />
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.optimize"
+                        label={getString('ci.optimize')}
+                        multiTypeTextbox={{
+                          expressions
+                        }}
+                        tooltipProps={{ dataTooltipId: 'optimize' }}
+                        disabled={readonly}
+                      />
+                    </div>
                     <MultiTypeTextField
                       name="spec.dockerfile"
                       label={

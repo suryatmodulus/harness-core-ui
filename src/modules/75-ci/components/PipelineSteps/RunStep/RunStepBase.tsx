@@ -201,15 +201,17 @@ export const RunStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <FormMultiTypeCheckboxField
-                      name="spec.privileged"
-                      label={getString('ci.privileged')}
-                      multiTypeTextbox={{
-                        expressions
-                      }}
-                      tooltipProps={{ dataTooltipId: 'privileged' }}
-                      disabled={readonly}
-                    />
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.privileged"
+                        label={getString('ci.privileged')}
+                        multiTypeTextbox={{
+                          expressions
+                        }}
+                        tooltipProps={{ dataTooltipId: 'privileged' }}
+                        disabled={readonly}
+                      />
+                    </div>
                     <MultiTypeList
                       name="spec.reportPaths"
                       placeholder={getString('pipelineSteps.reportPathsPlaceholder')}

@@ -8,6 +8,7 @@ import {
   FormikForm,
   Accordion
 } from '@wings-software/uicore'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -140,15 +141,17 @@ export const PluginStepBase = (
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <FormMultiTypeCheckboxField
-                      name="spec.privileged"
-                      label={getString('ci.privileged')}
-                      multiTypeTextbox={{
-                        expressions
-                      }}
-                      tooltipProps={{ dataTooltipId: 'privileged' }}
-                      disabled={readonly}
-                    />
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.privileged"
+                        label={getString('ci.privileged')}
+                        multiTypeTextbox={{
+                          expressions
+                        }}
+                        tooltipProps={{ dataTooltipId: 'privileged' }}
+                        disabled={readonly}
+                      />
+                    </div>
                     <MultiTypeMap
                       name="spec.settings"
                       valueMultiTextInputProps={{ expressions }}

@@ -9,6 +9,7 @@ import {
   Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -197,28 +198,32 @@ export const SaveCacheS3StepBase = (
                       style={{ marginBottom: 'var(--spacing-medium)' }}
                       disabled={readonly}
                     />
-                    <FormMultiTypeCheckboxField
-                      name="spec.override"
-                      label={getString('override')}
-                      multiTypeTextbox={{
-                        expressions,
-                        disabled: readonly
-                      }}
-                      style={{ marginBottom: 'var(--spacing-medium)' }}
-                      disabled={readonly}
-                      tooltipProps={{ dataTooltipId: 'saveCacheOverride' }}
-                    />
-                    <FormMultiTypeCheckboxField
-                      name="spec.pathStyle"
-                      label={getString('pathStyle')}
-                      multiTypeTextbox={{
-                        expressions,
-                        disabled: readonly
-                      }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      disabled={readonly}
-                      tooltipProps={{ dataTooltipId: 'pathStyle' }}
-                    />
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.override"
+                        label={getString('override')}
+                        multiTypeTextbox={{
+                          expressions,
+                          disabled: readonly
+                        }}
+                        style={{ marginBottom: 'var(--spacing-medium)' }}
+                        disabled={readonly}
+                        tooltipProps={{ dataTooltipId: 'saveCacheOverride' }}
+                      />
+                    </div>
+                    <div className={cx(css.formGroup, css.sm)}>
+                      <FormMultiTypeCheckboxField
+                        name="spec.pathStyle"
+                        label={getString('pathStyle')}
+                        multiTypeTextbox={{
+                          expressions,
+                          disabled: readonly
+                        }}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
+                        disabled={readonly}
+                        tooltipProps={{ dataTooltipId: 'pathStyle' }}
+                      />
+                    </div>
                     <StepCommonFields disabled={readonly} />
                   </>
                 }

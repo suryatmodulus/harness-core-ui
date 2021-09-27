@@ -36,7 +36,7 @@ describe('Welcome Page', () => {
     )
     fireEvent.click(getByTestId('cd'))
     fireEvent.click(getByText('continue'))
-    await waitFor(() => getByText('common.purpose.cd.description'))
+    await waitFor(() => getByText('common.purpose.cd.newGen.description'))
     expect(container).toMatchSnapshot()
   })
 

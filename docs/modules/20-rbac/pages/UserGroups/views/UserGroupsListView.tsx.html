@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.9% </span>
+                <span class="strong">93.98% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>77/82</span>
+                <span class='fraction'>78/83</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.83% </span>
+                <span class="strong">93.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>76/81</span>
+                <span class='fraction'>77/82</span>
             </div>
         
             
@@ -372,7 +372,15 @@
 <a name='L313'></a><a href='#L313'>313</a>
 <a name='L314'></a><a href='#L314'>314</a>
 <a name='L315'></a><a href='#L315'>315</a>
-<a name='L316'></a><a href='#L316'>316</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -413,6 +421,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -619,7 +636,6 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -688,9 +704,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useMemo } from 'react'
-import { Text, Layout, Button, Popover, Color, ButtonVariation } from '@wings-software/uicore'
+import { Text, Layout, Button, Popover, Color, ButtonVariation, Icon, FontVariation } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Classes, Position, Menu, Intent } from '@blueprintjs/core'
+import { Classes, Position, Menu, Intent, PopoverInteractionKind } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import {
   UserGroupAggregateDTO,
@@ -727,29 +743,38 @@ interface UserGroupsListViewProps {
 }
 &nbsp;
 export const UserGroupColumn = (data: UserGroupDTO): React.ReactElement =&gt; {
+  const { getString } = useStrings()
   return (
     &lt;Layout.Vertical&gt;
-      &lt;Text color={Color.BLACK}&gt;{data.name}&lt;/Text&gt;
-      {data.ssoLinked ? (
-        &lt;Layout.Horizontal
-          flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
-          spacing="xsmall"
-          className={css.truncatedText}
-        &gt;
-          &lt;Text icon={'link'} iconProps={{ color: Color.BLUE_500, size: 10 }} color={Color.BLACK}&gt;
-            &lt;String stringID="rbac.userDetails.linkToSSOProviderModal.saml" /&gt;
+      &lt;Layout.Vertical spacing="xsmall" padding={{ left: 'small' }}&gt;
+        &lt;Layout.Horizontal spacing="medium"&gt;
+          &lt;Text color={Color.BLACK} lineClamp={1}&gt;
+            {data.name}
           &lt;/Text&gt;
-          &lt;Text lineClamp={1} width={110}&gt;
-            {data.linkedSsoDisplayName}
-          &lt;/Text&gt;
-          &lt;Text color={Color.BLACK}&gt;
-            &lt;String stringID="rbac.userDetails.linkToSSOProviderModal.group" /&gt;
-          &lt;/Text&gt;
-          &lt;Text lineClamp={1} width={110}&gt;
-            {data.ssoGroupName}
-          &lt;/Text&gt;
+          {data.ssoLinked ? (
+            &lt;Popover interactionKind={PopoverInteractionKind.HOVER}&gt;
+              &lt;Icon name="link" color={Color.BLUE_500} size={10} /&gt;
+              &lt;Layout.Vertical spacing="xsmall" padding="medium"&gt;
+                &lt;Layout.Horizontal spacing="xsmall"&gt;
+                  &lt;Text color={Color.BLACK}&gt;
+                    &lt;String stringID="rbac.userDetails.linkToSSOProviderModal.saml" /&gt;
+                  &lt;/Text&gt;
+                  &lt;Text lineClamp={1}&gt;{data.linkedSsoDisplayName}&lt;/Text&gt;
+                &lt;/Layout.Horizontal&gt;
+                &lt;Layout.Horizontal spacing="xsmall"&gt;
+                  &lt;Text color={Color.BLACK}&gt;
+                    &lt;String stringID="rbac.userDetails.linkToSSOProviderModal.group" /&gt;
+                  &lt;/Text&gt;
+                  &lt;Text lineClamp={1}&gt;{data.ssoGroupName}&lt;/Text&gt;
+                &lt;/Layout.Horizontal&gt;
+              &lt;/Layout.Vertical&gt;
+            &lt;/Popover&gt;
+          ) : null}
         &lt;/Layout.Horizontal&gt;
-      ) : null}
+        &lt;Text color={Color.GREY_600} lineClamp={1} font={{ variation: FontVariation.SMALL }}&gt;
+          {getString('idLabel', { id: data.identifier })}
+        &lt;/Text&gt;
+      &lt;/Layout.Vertical&gt;
     &lt;/Layout.Vertical&gt;
   )
 }
@@ -934,7 +959,6 @@ const UserGroupsListView: React.FC&lt;UserGroupsListViewProps&gt; = props =&gt; 
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()
   const { getString } = useStrings()
   const history = useHistory()
-&nbsp;
   const columns: Column&lt;UserGroupAggregateDTO&gt;[] = useMemo(
     () =&gt; [
       {
@@ -1009,7 +1033,7 @@ export default UserGroupsListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Sep 27 2021 13:53:11 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 27 2021 15:33:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

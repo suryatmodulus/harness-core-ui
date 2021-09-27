@@ -18,7 +18,7 @@ import routes from '@common/RouteDefinitions'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@policy/utils/rego'
-import { useCreatePolicy, useEvaluateRaw } from 'services/policy-mgmt'
+import { useCreatePolicy, useEvaluateRaw } from 'services/pm'
 import css from './NewPolicy.module.scss'
 
 const RIGHT_CONTAINER_WIDTH = 380

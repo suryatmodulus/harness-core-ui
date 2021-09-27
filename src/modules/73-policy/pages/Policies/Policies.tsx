@@ -10,7 +10,7 @@ import { Page } from '@common/exports'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import { Policy, useGetPolicyList } from 'services/policy-mgmt'
+import { Policy, useGetPolicyList } from 'services/pm'
 import { setPageNumber } from '@common/utils/utils'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'

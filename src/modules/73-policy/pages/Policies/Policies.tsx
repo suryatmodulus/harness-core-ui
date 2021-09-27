@@ -27,7 +27,8 @@ const Policies: React.FC = () => {
   const history = useHistory()
 
   useEffect(() => {
-    setPageNumber({ setPage, page, pageItemsCount: policyList?.pageCount || 1000 })
+    // TODO: Update pageItemsCount per API spec (which is not yet ready)
+    setPageNumber({ setPage, page, pageItemsCount: 1000 })
   }, [policyList, page])
 
   const newUserGroupsBtn = (): JSX.Element => {

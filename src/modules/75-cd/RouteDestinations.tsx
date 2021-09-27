@@ -605,6 +605,21 @@ export default (
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CDSideNavProps}
       layout={MinimalLayout}
+      path={routes.toExecutionPolicyEvaluationsView({
+        ...accountPathProps,
+        ...executionPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <ExecutionLandingPage>
+        <div>Policy Evaluations</div>
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      layout={MinimalLayout}
       path={routes.toExecutionInputsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
     >
       <ExecutionLandingPage>

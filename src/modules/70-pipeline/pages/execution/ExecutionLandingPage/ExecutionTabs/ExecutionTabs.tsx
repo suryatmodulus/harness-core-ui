@@ -19,7 +19,8 @@ const TAB_ID_MAP = {
   INPUTS: 'inputs_view',
   ARTIFACTS: 'artifacts_view',
   COMMITS: 'commits_view',
-  TESTS: 'tests_view'
+  TESTS: 'tests_view',
+  POLICY_EVALUATIONS: 'policy_evaluations'
 }
 
 export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): React.ReactElement {
@@ -81,6 +82,12 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
     if (isTestsView) {
       return setSelectedTabId(TAB_ID_MAP.TESTS)
     }
+    const isPolicyEvaluationsView = !!matchPath(location.pathname, {
+      path: routes.toExecutionPolicyEvaluationsView(routeParams)
+    })
+    if (isPolicyEvaluationsView) {
+      return setSelectedTabId(TAB_ID_MAP.POLICY_EVALUATIONS)
+    }
     // Defaults to Pipelines Tab
     return setSelectedTabId(TAB_ID_MAP.PIPELINE)
   }, [location.pathname])
@@ -107,8 +114,21 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           className={css.tabLink}
           activeClassName={css.activeLink}
         >
-          <Icon name="manually-entered-data" size={16} />
+          <Icon name="conditional-when" size={16} />
           <span>{getString('inputs')}</span>
+        </NavLink>
+      )
+    },
+    {
+      id: TAB_ID_MAP.POLICY_EVALUATIONS,
+      title: (
+        <NavLink
+          to={routes.toExecutionPolicyEvaluationsView(params) + location.search}
+          className={css.tabLink}
+          activeClassName={css.activeLink}
+        >
+          <Icon name="manually-entered-data" size={16} />
+          <span>{getString('pipeline.policyEvaluations.title')}</span>
         </NavLink>
       )
     }

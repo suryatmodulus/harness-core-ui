@@ -837,3 +837,16 @@ recentExecutionText: Most Recent Execution
 viewLatestExecution: You are viewing an older execution of this pipeline.
 featureRestriction:
   serviceLimitExceeded: Service License usage has exceeded the Subscribed Services.
+policyEvaluations:
+  title: Policy Evaluations
+  failureHeading: Pipeline execution could not proceed due to the policy evaluation failures.
+  failedToSavePipeline: Pipeline can not be saved due to the policy evaluation failures.
+  successHeading: All policies are passed.
+  evaluatedTime: 'Evaluated '
+  policySets: 'Policy Sets ({{count}})'
+  evaluations: Evaluations {{count}}
+  policySetName: 'Policy Set: {{name}}'
+  emptyPolicySet: This policy set does not have any policies attached to it.
+  failureModalTitle: Policy Set Evaluations
+  policySetsApplied: '{{pipelineName}}: Policy Sets applied'
+  warn: warning

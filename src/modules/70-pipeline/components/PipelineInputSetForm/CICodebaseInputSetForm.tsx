@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FormEvent, useState } from 'react'
 import { get, isEmpty } from 'lodash-es'
 import { FormInput, MultiTypeInputType } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
@@ -11,11 +11,29 @@ export interface CICodebaseInputSetFormProps {
   formik?: FormikContext<any>
 }
 
+const inputNames = {
+  branch: 'branch',
+  tag: 'tag',
+  PR: 'number'
+}
+
+const defaultValues = {
+  branch: '<+trigger.branch>',
+  tag: '<+trigger.tag>',
+  PR: '<+trigger.prNumber>'
+}
+
 const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseInputSetFormProps): JSX.Element => {
+  const [isInputTouched, setIsInputTouched] = useState(false)
+
+  const { getString } = useStrings()
+
+  const { expressions } = useVariablesExpression()
+
   const formattedPath = isEmpty(path) ? '' : `${path}.`
 
   const type = get(formik?.values, `${formattedPath}properties.ci.codebase.build.type`, '') as 'branch' | 'tag' | 'PR'
-  const { getString } = useStrings()
+
   const radioGroupItems = [
     {
       label: getString('gitBranch'),
@@ -34,19 +52,32 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
     }
   ]
 
-  const { expressions } = useVariablesExpression()
-
   const inputLabels = {
     branch: getString('gitBranch'),
     tag: getString('gitTag'),
     PR: getString('pipeline.gitPullRequestNumber')
   }
 
-  const inputNames = {
-    branch: 'branch',
-    tag: 'tag',
-    PR: 'number'
+  const handleTypeChange = (e: FormEvent<HTMLInputElement>): void => {
+    const newType = (e.target as HTMLFormElement).value as 'branch' | 'tag' | 'PR'
+
+    if (!isInputTouched) {
+      formik?.setFieldValue(`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, undefined)
+      formik?.setFieldValue(
+        `${formattedPath}properties.ci.codebase.build.spec.${inputNames[newType]}`,
+        defaultValues[newType]
+      )
+    } else {
+      formik?.setFieldValue(
+        `${formattedPath}properties.ci.codebase.build.spec.${inputNames[newType]}`,
+        get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
+      )
+
+      formik?.setFieldValue(`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, undefined)
+    }
   }
+
+  const handleInputChange = (): void => setIsInputTouched(true)
 
   return (
     <>
@@ -54,28 +85,46 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
         name={`${formattedPath}properties.ci.codebase.build.type`}
         items={radioGroupItems}
         radioGroup={{ inline: true }}
-        onChange={(e): void => {
-          formik?.setFieldValue(
-            `${formattedPath}properties.ci.codebase.build.spec.${
-              inputNames[(e.target as HTMLFormElement).value as 'branch' | 'tag' | 'PR']
-            }`,
-            get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
-          )
-
-          formik?.setFieldValue(`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, undefined)
-        }}
+        onChange={handleTypeChange}
         style={{ marginBottom: 0 }}
       />
-      {type && (
+      {type === 'branch' && (
         <FormInput.MultiTextInput
           label={inputLabels[type]}
-          name={`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`}
+          name={`${formattedPath}properties.ci.codebase.build.spec.branch`}
           multiTextInputProps={{
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
           style={{ marginBottom: 0 }}
           disabled={readonly}
+          onChange={handleInputChange}
+        />
+      )}
+      {type === 'tag' && (
+        <FormInput.MultiTextInput
+          label={inputLabels[type]}
+          name={`${formattedPath}properties.ci.codebase.build.spec.tag`}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
+          style={{ marginBottom: 0 }}
+          disabled={readonly}
+          onChange={handleInputChange}
+        />
+      )}
+      {type === 'PR' && (
+        <FormInput.MultiTextInput
+          label={inputLabels[type]}
+          name={`${formattedPath}properties.ci.codebase.build.spec.number`}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
+          style={{ marginBottom: 0 }}
+          disabled={readonly}
+          onChange={handleInputChange}
         />
       )}
     </>

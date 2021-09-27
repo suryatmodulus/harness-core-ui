@@ -166,7 +166,6 @@ exports[`CI enabled CI READONLY mode: CI stage readonly mode 1`] = `
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
@@ -262,7 +261,6 @@ exports[`CI enabled CI present in one of the stages: CI codebase input set form 
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
       </div>

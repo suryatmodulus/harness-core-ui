@@ -8,7 +8,7 @@ import { useGetEnabledFeatureRestrictionDetailByAccountId, useGetFeatureRestrict
 import type { FeatureIdentifier } from './FeatureIdentifier'
 
 export interface FeatureDetail {
-  featureName: string
+  featureName: FeatureIdentifier
   enabled: boolean
   limit?: number
   count?: number
@@ -24,7 +24,7 @@ export interface CheckFeatureReturn {
   featureDetail?: FeatureDetail
 }
 
-type Features = Map<string, FeatureDetail>
+type Features = Map<FeatureIdentifier, FeatureDetail>
 
 export interface FeatureRequestOptions {
   skipCache?: boolean
@@ -35,9 +35,9 @@ export interface FeaturesContextProps {
   // features only cache enabled features
   features: Features
   requestFeatures: (featureRequest: FeatureRequest, options?: FeatureRequestOptions) => void
-  checkFeature: (featureName: string) => CheckFeatureReturn
+  checkFeature: (featureName: FeatureIdentifier) => CheckFeatureReturn
   requestLimitFeature: (featureRequest: FeatureRequest) => void
-  checkLimitFeature: (featureName: string) => CheckFeatureReturn
+  checkLimitFeature: (featureName: FeatureIdentifier) => CheckFeatureReturn
 }
 
 const defaultReturn = {
@@ -45,7 +45,7 @@ const defaultReturn = {
 }
 
 export const FeaturesContext = createContext<FeaturesContextProps>({
-  features: new Map<string, FeatureDetail>(),
+  features: new Map<FeatureIdentifier, FeatureDetail>(),
   requestFeatures: () => void 0,
   checkFeature: () => {
     return defaultReturn
@@ -61,7 +61,7 @@ export function useFeaturesContext(): FeaturesContextProps {
 }
 
 export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
-  const [features, setFeatures] = useState<Features>(new Map<string, FeatureDetail>())
+  const [features, setFeatures] = useState<Features>(new Map<FeatureIdentifier, FeatureDetail>())
   const [hasErr, setHasErr] = useState<boolean>(false)
 
   const { accountId } = useParams<AccountPathProps>()
@@ -81,13 +81,13 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     if (!isEmpty(enabledFeatureList)) {
       const list = enabledFeatureList?.data?.reduce((acc, curr) => {
         if (curr?.name) {
-          acc?.set(curr?.name, {
-            featureName: curr?.name,
+          acc?.set(curr?.name as FeatureIdentifier, {
+            featureName: curr?.name as FeatureIdentifier,
             enabled: !!curr?.allowed
           })
         }
         return acc
-      }, new Map<string, FeatureDetail>())
+      }, new Map<FeatureIdentifier, FeatureDetail>())
       list && setFeatures(list)
     }
   }, [enabledFeatureList])
@@ -125,7 +125,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     setHasErr(false)
   }
 
-  function checkFeature(featureName: string): CheckFeatureReturn {
+  function checkFeature(featureName: FeatureIdentifier): CheckFeatureReturn {
     const featureDetail = features.get(featureName)
     // absence of featureName means feature disabled
     // api call fails by default set all features to be true
@@ -141,7 +141,9 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     }
   }
 
-  const [featureDetailMap, setFeatureDetailMap] = useState<Map<string, FeatureDetail>>(new Map<string, FeatureDetail>())
+  const [featureDetailMap, setFeatureDetailMap] = useState<Map<FeatureIdentifier, FeatureDetail>>(
+    new Map<FeatureIdentifier, FeatureDetail>()
+  )
   const { mutate: getFeatureDetails } = useGetFeatureRestrictionDetail({
     queryParams: {
       accountIdentifier: accountId
@@ -192,7 +194,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     }
   }
 
-  function checkLimitFeature(featureName: string): CheckFeatureReturn {
+  function checkLimitFeature(featureName: FeatureIdentifier): CheckFeatureReturn {
     // api call fails by default set feature to be true
     const featureDetail = featureDetailMap.get(featureName)
     const enabled = featureDetail?.apiFail || !!featureDetail?.enabled

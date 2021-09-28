@@ -129,7 +129,7 @@ describe('useFeatures', () => {
     expect(resolvedValue.enabled).toBe(true)
   })
 
-  test('useFeature should make the get feature detail call if isRateLimit is true: disabled feature', async () => {
+  test('useFeature should make the get feature detail call if isLimit is true: disabled feature', async () => {
     useGetFeatureDetailsMock.mockImplementation(() => {
       return {
         mutate: getFeatureDetailsMock.mockReturnValue(featureDetailDisabledResponse)

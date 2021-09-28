@@ -12,7 +12,11 @@ import type { ExplorePlansBtnProps } from '@common/components/FeatureWarning/Fea
 
 interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
-  featureRequest?: FeatureRequest
+  featureProps?: FeatureProps
+}
+
+interface FeatureProps {
+  featureRequest: FeatureRequest
   isPermissionPrioritized?: boolean
   featureTooltipProps?: ExplorePlansBtnProps
 }
@@ -24,14 +28,12 @@ interface BtnProps {
 
 const RbacButton: React.FC<ButtonProps> = ({
   permission: permissionRequest,
-  featureRequest,
-  isPermissionPrioritized = false,
-  featureTooltipProps,
+  featureProps,
   tooltipProps,
   ...restProps
 }) => {
   const { enabled: featureEnabled } = useFeature({
-    featureRequest
+    featureRequest: featureProps?.featureRequest
   })
 
   const [canDoAction] = usePermission(
@@ -44,7 +46,7 @@ const RbacButton: React.FC<ButtonProps> = ({
 
   function getBtnProps(): BtnProps {
     // if permission check override the priorirty
-    if (isPermissionPrioritized && permissionRequest && !canDoAction) {
+    if (featureProps?.isPermissionPrioritized && permissionRequest && !canDoAction) {
       return {
         disabled: true,
         tooltip: (
@@ -58,10 +60,15 @@ const RbacButton: React.FC<ButtonProps> = ({
     }
 
     // feature check by default take priority
-    if (featureRequest && !featureEnabled) {
+    if (featureProps?.featureRequest && !featureEnabled) {
       return {
         disabled: true,
-        tooltip: <FeatureWarningTooltip featureName={featureRequest.featureName} module={featureTooltipProps?.module} />
+        tooltip: (
+          <FeatureWarningTooltip
+            featureName={featureProps?.featureRequest.featureName}
+            module={featureProps?.featureTooltipProps?.module}
+          />
+        )
       }
     }
 
@@ -84,7 +91,7 @@ const RbacButton: React.FC<ButtonProps> = ({
     }
   }
 
-  if (!featureRequest && !permissionRequest) {
+  if (!featureProps?.featureRequest && !permissionRequest) {
     return <></>
   }
 

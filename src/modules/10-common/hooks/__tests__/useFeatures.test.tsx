@@ -4,20 +4,30 @@ import { waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { FeaturesProvider } from 'framework/featureStore/FeaturesContext'
-import { useGetEnabledFeatureRestrictionDetailByAccountId, useGetFeatureRestrictionDetail } from 'services/cd-ng'
+import {
+  useGetEnabledFeatureRestrictionDetailByAccountId,
+  useGetFeatureRestrictionDetail,
+  useGetAllFeatureRestrictionMetadata
+} from 'services/cd-ng'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import { useFeature } from '../useFeatures'
 import mocks from './featuresMocks.json'
+import metadata from './featureMetaData.json'
 
 const getFeatureListMock = jest.fn()
 const getFeatureDetailsMock = jest.fn()
 const featureListResponse = mocks.featureList
 const featureDetailEnabledResponse = mocks['featureDetail-enabled']
 const featureDetailDisabledResponse = mocks['featureDetail-disabled']
+const featureMetadataResponse = metadata.featureMetadata
 
 jest.mock('services/cd-ng')
 const useGetEnabledFeatureListMock = useGetEnabledFeatureRestrictionDetailByAccountId as jest.MockedFunction<any>
 const useGetFeatureDetailsMock = useGetFeatureRestrictionDetail as jest.MockedFunction<any>
+const useGetAllFeatureRestrictionMetadataMock = useGetAllFeatureRestrictionMetadata as jest.MockedFunction<any>
+
+let defaultLicenseStoreValues = {}
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -32,6 +42,27 @@ beforeEach(() => {
       mutate: getFeatureDetailsMock.mockReturnValue(featureDetailEnabledResponse)
     }
   })
+  useGetAllFeatureRestrictionMetadataMock.mockImplementation(() => {
+    return {
+      data: featureMetadataResponse
+    }
+  })
+  defaultLicenseStoreValues = {
+    licenseInformation: {
+      CD: {
+        edition: Editions.ENTERPRISE
+      },
+      CI: {
+        edition: Editions.TEAM
+      },
+      CF: {
+        edition: Editions.FREE
+      },
+      CCM: {
+        edition: Editions.ENTERPRISE
+      }
+    }
+  }
 })
 
 describe('useFeatures', () => {
@@ -42,7 +73,11 @@ describe('useFeatures', () => {
       }
     })
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper path={routes.toProjects({ accountId: 'dummy' })} pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultLicenseStoreValues={defaultLicenseStoreValues}
+      >
         <FeaturesProvider>{children}</FeaturesProvider>
       </TestWrapper>
     )
@@ -50,7 +85,8 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST1
+            featureName: FeatureIdentifier.TEST1,
+            moduleType: 'CD'
           },
           options: {
             skipCondition: () => true
@@ -65,7 +101,11 @@ describe('useFeatures', () => {
 
   test('useFeature should make the get feature list call by default: disabled feature', async () => {
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper path={routes.toProjects({ accountId: 'dummy' })} pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultLicenseStoreValues={defaultLicenseStoreValues}
+      >
         <FeaturesProvider>{children}</FeaturesProvider>
       </TestWrapper>
     )
@@ -73,7 +113,8 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST3
+            featureName: FeatureIdentifier.TEST3,
+            moduleType: 'CD'
           }
         }),
       { wrapper }
@@ -85,7 +126,11 @@ describe('useFeatures', () => {
 
   test('feature call should fetch from apiCall when skipCache is true: enabled feature', async () => {
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper path={routes.toProjects({ accountId: 'dummy' })} pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultLicenseStoreValues={defaultLicenseStoreValues}
+      >
         <FeaturesProvider>{children}</FeaturesProvider>
       </TestWrapper>
     )
@@ -93,7 +138,8 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST1
+            featureName: FeatureIdentifier.TEST1,
+            moduleType: 'CD'
           },
           options: {
             skipCache: true
@@ -106,9 +152,13 @@ describe('useFeatures', () => {
     expect((result as any).current.enabled).toBe(true)
   })
 
-  test('useFeature should make the get feature detail call if isRateLimit is true: enabled feature', async () => {
+  test('useFeature should make the get feature detail call if restrictionType is NOT AVAILABILITY: enabled feature', async () => {
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper path={routes.toProjects({ accountId: 'dummy' })} pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultLicenseStoreValues={defaultLicenseStoreValues}
+      >
         <FeaturesProvider>{children}</FeaturesProvider>
       </TestWrapper>
     )
@@ -117,7 +167,7 @@ describe('useFeatures', () => {
         useFeature({
           featureRequest: {
             featureName: FeatureIdentifier.TEST3,
-            isLimit: true
+            moduleType: 'CI'
           }
         }),
       { wrapper }
@@ -129,14 +179,18 @@ describe('useFeatures', () => {
     expect(resolvedValue.enabled).toBe(true)
   })
 
-  test('useFeature should make the get feature detail call if isRateLimit is true: disabled feature', async () => {
+  test('useFeature should make the get feature detail call if restrictionType is NOT AVAILABILITY: disabled feature', async () => {
     useGetFeatureDetailsMock.mockImplementation(() => {
       return {
         mutate: getFeatureDetailsMock.mockReturnValue(featureDetailDisabledResponse)
       }
     })
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper path={routes.toProjects({ accountId: 'dummy' })} pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultLicenseStoreValues={defaultLicenseStoreValues}
+      >
         <FeaturesProvider>{children}</FeaturesProvider>
       </TestWrapper>
     )
@@ -145,7 +199,7 @@ describe('useFeatures', () => {
         useFeature({
           featureRequest: {
             featureName: FeatureIdentifier.TEST3,
-            isLimit: true
+            moduleType: 'CI'
           }
         }),
       { wrapper }
@@ -167,7 +221,11 @@ describe('useFeatures', () => {
     })
 
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper path={routes.toProjects({ accountId: 'dummy' })} pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultLicenseStoreValues={defaultLicenseStoreValues}
+      >
         <FeaturesProvider>{children}</FeaturesProvider>
       </TestWrapper>
     )
@@ -175,7 +233,8 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST3
+            featureName: FeatureIdentifier.TEST3,
+            moduleType: 'CD'
           }
         }),
       { wrapper }
@@ -190,7 +249,11 @@ describe('useFeatures', () => {
       }
     })
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <TestWrapper path={routes.toProjects({ accountId: 'dummy' })} pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultLicenseStoreValues={defaultLicenseStoreValues}
+      >
         <FeaturesProvider>{children}</FeaturesProvider>
       </TestWrapper>
     )
@@ -199,7 +262,7 @@ describe('useFeatures', () => {
         useFeature({
           featureRequest: {
             featureName: FeatureIdentifier.TEST3,
-            isLimit: true
+            moduleType: 'CI'
           }
         }),
       { wrapper }

@@ -1,3 +1,4 @@
+import { RestrictionType } from '@common/constants/SubscriptionTypes'
 import { useDeepCompareEffect } from '@common/hooks'
 import {
   useFeaturesContext,
@@ -12,12 +13,15 @@ interface Props {
 }
 
 export function useFeature(props: Props): CheckFeatureReturn {
-  const { requestFeatures, checkFeature, requestLimitFeature, checkLimitFeature } = useFeaturesContext()
+  const { requestFeatures, checkFeature, requestLimitFeature, checkLimitFeature, getRestrictionType } =
+    useFeaturesContext()
 
   const { featureRequest, options } = props
+  const isLimit = featureRequest && getRestrictionType(featureRequest) !== RestrictionType.AVAILABILITY
+
   useDeepCompareEffect(() => {
     if (featureRequest) {
-      if (featureRequest.isLimit) {
+      if (isLimit) {
         requestLimitFeature(featureRequest)
       } else {
         // cache enabled feature list in the context
@@ -26,14 +30,12 @@ export function useFeature(props: Props): CheckFeatureReturn {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [featureRequest, options])
+  }, [featureRequest, options, isLimit])
 
   if (featureRequest === undefined) {
     return { enabled: true }
   }
 
   // rate limit feature always calls the api in real time
-  return featureRequest.isLimit
-    ? checkLimitFeature(featureRequest.featureName)
-    : checkFeature(featureRequest.featureName)
+  return isLimit ? checkLimitFeature(featureRequest.featureName) : checkFeature(featureRequest.featureName)
 }

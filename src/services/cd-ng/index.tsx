@@ -753,6 +753,10 @@ export type AvailabilityRestrictionDTO = RestrictionDTO & {
   enabled?: boolean
 }
 
+export type AvailabilityRestrictionMetadataDTO = RestrictionMetadataDTO & {
+  enabled?: boolean
+}
+
 export interface AwsCodeCommitAuthenticationDTO {
   spec: AwsCodeCommitCredentialsDTO
   type: 'HTTPS'
@@ -1461,6 +1465,10 @@ export interface CrossAccountAccess {
   externalId?: string
 }
 
+export type CustomRestrictionDTO = RestrictionDTO & { [key: string]: any }
+
+export type CustomRestrictionMetadataDTO = RestrictionMetadataDTO & {}
+
 export interface DOMConfiguration {
   parameterNames?: DOMStringList
 }
@@ -1920,10 +1928,10 @@ export interface Environment {
 export interface EnvironmentRequestDTO {
   color?: string
   description?: string
-  identifier: string
+  identifier?: string
   name?: string
-  orgIdentifier: string
-  projectIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   tags?: {
     [key: string]: string
   }
@@ -2619,16 +2627,25 @@ export interface FailureStrategyConfig {
 export type FeatureFlagStageConfig = StageInfoConfig & {}
 
 export interface FeatureRestrictionDetailRequestDTO {
-  name: 'TEST1' | 'TEST2' | 'TEST3'
+  name: 'TEST1' | 'TEST2' | 'TEST3' | 'TEST4'
 }
 
 export interface FeatureRestrictionDetailsDTO {
   allowed?: boolean
   description?: string
-  moduleType?: string
-  name?: 'TEST1' | 'TEST2' | 'TEST3'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+  name?: 'TEST1' | 'TEST2' | 'TEST3' | 'TEST4'
   restriction?: RestrictionDTO
-  restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT'
+  restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT' | 'CUSTOM'
+}
+
+export interface FeatureRestrictionMetadataDTO {
+  edition?: 'FREE' | 'TEAM' | 'ENTERPRISE'
+  moduleType?: string
+  name?: 'TEST1' | 'TEST2' | 'TEST3' | 'TEST4'
+  restrictionMetadata?: {
+    [key: string]: RestrictionMetadataDTO
+  }
 }
 
 export interface FeedbackFormDTO {
@@ -4021,9 +4038,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -4650,6 +4668,11 @@ export type RateLimitRestrictionDTO = RestrictionDTO & {
   limit?: number
 }
 
+export type RateLimitRestrictionMetadataDTO = RestrictionMetadataDTO & {
+  limit?: number
+  timeUnit?: TimeUnit
+}
+
 export type RemoteTerraformVarFileSpec = TerraformVarFileSpec & {
   store: StoreConfigWrapper
 }
@@ -5127,6 +5150,13 @@ export interface ResponseListExecutionStatus {
 export interface ResponseListFeatureRestrictionDetailsDTO {
   correlationId?: string
   data?: FeatureRestrictionDetailsDTO[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListFeatureRestrictionMetadataDTO {
+  correlationId?: string
+  data?: FeatureRestrictionMetadataDTO[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -6132,6 +6162,10 @@ export interface RestrictionDTO {
   [key: string]: any
 }
 
+export interface RestrictionMetadataDTO {
+  restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT' | 'CUSTOM'
+}
+
 export type RetryFailureActionConfig = FailureStrategyActionConfig & {
   spec: RetryFailureSpecConfig
   type: 'Retry'
@@ -6624,10 +6658,10 @@ export interface ServicePipelineInfo {
 
 export interface ServiceRequestDTO {
   description?: string
-  identifier: string
+  identifier?: string
   name?: string
-  orgIdentifier: string
-  projectIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   tags?: {
     [key: string]: string
   }
@@ -6866,6 +6900,10 @@ export type StaticLimitRestrictionDTO = RestrictionDTO & {
   limit?: number
 }
 
+export type StaticLimitRestrictionMetadataDTO = RestrictionMetadataDTO & {
+  limit?: number
+}
+
 export interface StepCategory {
   name?: string
   stepCategories?: StepCategory[]
@@ -6915,7 +6953,6 @@ export interface StepGroupElementConfig {
   failureStrategies?: FailureStrategyConfig[]
   identifier: string
   name?: string
-  rollbackSteps?: ExecutionWrapperConfig[]
   steps: ExecutionWrapperConfig[]
   when?: StepWhenCondition
 }
@@ -7068,6 +7105,27 @@ export interface TimeBasedDeploymentInfo {
   failedCount?: number
   successCount?: number
   time?: number
+}
+
+export interface TimeUnit {
+  numberOfUnits?: number
+  unit?:
+    | 'NANOS'
+    | 'MICROS'
+    | 'MILLIS'
+    | 'SECONDS'
+    | 'MINUTES'
+    | 'HOURS'
+    | 'HALF_DAYS'
+    | 'DAYS'
+    | 'WEEKS'
+    | 'MONTHS'
+    | 'YEARS'
+    | 'DECADES'
+    | 'CENTURIES'
+    | 'MILLENNIA'
+    | 'ERAS'
+    | 'FOREVER'
 }
 
 export interface TimeValuePair {
@@ -13598,6 +13656,50 @@ export const getEnabledFeatureRestrictionDetailByAccountIdPromise = (
     GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
     void
   >(getConfig('ng/api'), `/enforcement/enabled`, props, signal)
+
+export type GetAllFeatureRestrictionMetadataProps = Omit<
+  GetProps<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Gets All Feature Restriction Metadata
+ */
+export const GetAllFeatureRestrictionMetadata = (props: GetAllFeatureRestrictionMetadataProps) => (
+  <Get<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>
+    path={`/enforcement/metadata`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllFeatureRestrictionMetadataProps = Omit<
+  UseGetProps<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Gets All Feature Restriction Metadata
+ */
+export const useGetAllFeatureRestrictionMetadata = (props: UseGetAllFeatureRestrictionMetadataProps) =>
+  useGet<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>(`/enforcement/metadata`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Gets All Feature Restriction Metadata
+ */
+export const getAllFeatureRestrictionMetadataPromise = (
+  props: GetUsingFetchProps<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListFeatureRestrictionMetadataDTO, Failure | Error, void, void>(
+    getConfig('ng/api'),
+    `/enforcement/metadata`,
+    props,
+    signal
+  )
 
 export interface ListReferredByEntitiesQueryParams {
   pageIndex?: number

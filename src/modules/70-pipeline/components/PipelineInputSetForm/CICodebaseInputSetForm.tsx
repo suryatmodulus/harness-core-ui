@@ -26,6 +26,12 @@ const defaultValues = {
 const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseInputSetFormProps): JSX.Element => {
   const [isInputTouched, setIsInputTouched] = useState(false)
 
+  const [savedValues, setSavedValues] = useState({
+    branch: '',
+    tag: '',
+    PR: ''
+  })
+
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
@@ -61,6 +67,11 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   const handleTypeChange = (e: FormEvent<HTMLInputElement>): void => {
     const newType = (e.target as HTMLFormElement).value as 'branch' | 'tag' | 'PR'
 
+    setSavedValues(previousSavedValues => ({
+      ...previousSavedValues,
+      [type]: get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
+    }))
+
     if (!isInputTouched) {
       formik?.setFieldValue(`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, undefined)
       formik?.setFieldValue(
@@ -70,7 +81,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
     } else {
       formik?.setFieldValue(
         `${formattedPath}properties.ci.codebase.build.spec.${inputNames[newType]}`,
-        get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
+        savedValues[newType] || ''
       )
 
       formik?.setFieldValue(`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, undefined)

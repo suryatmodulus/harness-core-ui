@@ -315,7 +315,7 @@ export const validatePipeline = ({
     getMultiTypeFromValue((template as PipelineInfoConfig)?.properties?.ci?.codebase?.build as unknown as string) ===
       MultiTypeInputType.RUNTIME
   ) {
-    if (isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type)) {
+    if (isEmpty(pipeline?.properties?.ci?.codebase?.build?.type)) {
       set(
         errors,
         'properties.ci.codebase.build.type',
@@ -325,8 +325,8 @@ export const validatePipeline = ({
 
     if (
       isCloneCodebaseEnabledAtLeastAtOneStage &&
-      (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type === 'branch' &&
-      isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.spec?.branch)
+      pipeline?.properties?.ci?.codebase?.build?.type === 'branch' &&
+      isEmpty(pipeline?.properties?.ci?.codebase?.build?.spec?.branch)
     ) {
       set(
         errors,
@@ -337,8 +337,8 @@ export const validatePipeline = ({
 
     if (
       isCloneCodebaseEnabledAtLeastAtOneStage &&
-      (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type === 'tag' &&
-      isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.spec?.tag)
+      pipeline?.properties?.ci?.codebase?.build?.type === 'tag' &&
+      isEmpty(pipeline?.properties?.ci?.codebase?.build?.spec?.tag)
     ) {
       set(
         errors,
@@ -349,8 +349,8 @@ export const validatePipeline = ({
 
     if (
       isCloneCodebaseEnabledAtLeastAtOneStage &&
-      (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type === 'PR' &&
-      isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.spec?.number)
+      pipeline?.properties?.ci?.codebase?.build?.type === 'PR' &&
+      isEmpty(pipeline?.properties?.ci?.codebase?.build?.spec?.number)
     ) {
       set(
         errors,

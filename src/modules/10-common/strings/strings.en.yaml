@@ -519,6 +519,20 @@ policy:
     name: Policy
     lastModified: Last Modified
     createdAt: Created At
+policiesSets:
+  newPolicyset: New Policy Set
+  evaluationCriteria: Policy evaluation criteria
+  policySetSearch: Search Policy Set by name
+  noPolicySet: You have no Policy Set. Click on the button below to create a new one.
+  noPolicySetResult: No policy sets found
+  stepOne:
+    validName: '{{$.validation.nameRequired}}'
+    validId: '{{$.validation.identifierRequired}}'
+    validIdRegex: '{{$.common.validation.formatMustBeAlphanumeric}}'
+  table:
+    name: Policy Set
+    enforced: Enforced
+    entityType: Entity Type
 accountResourcesPage:
   line1: 'Account Resources are shared and available for use within any organization or projects within your account.'
   line2: 'For better isolation of resources, it is recommended that you create resources at the organization or project levels respectively.'

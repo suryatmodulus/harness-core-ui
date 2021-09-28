@@ -332,6 +332,17 @@ export interface StringsMap {
   'common.plusNumber': string
   'common.plusNumberNoSpace': string
   'common.policies': string
+  'common.policiesSets.evaluationCriteria': string
+  'common.policiesSets.newPolicyset': string
+  'common.policiesSets.noPolicySet': string
+  'common.policiesSets.noPolicySetResult': string
+  'common.policiesSets.policySetSearch': string
+  'common.policiesSets.stepOne.validId': string
+  'common.policiesSets.stepOne.validIdRegex': string
+  'common.policiesSets.stepOne.validName': string
+  'common.policiesSets.table.enforced': string
+  'common.policiesSets.table.entityType': string
+  'common.policiesSets.table.name': string
   'common.policy.evaluations': string
   'common.policy.newPolicy': string
   'common.policy.noPolicy': string

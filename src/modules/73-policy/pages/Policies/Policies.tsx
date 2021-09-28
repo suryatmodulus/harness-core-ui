@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import * as moment from 'moment'
-import { ButtonVariation, ExpandingSearchInput, Layout, Button, Text, Color } from '@wings-software/uicore'
+import { ButtonVariation, ExpandingSearchInput, Popover, Layout, Button, Text, Color } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
+import { Classes, Position, Menu } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
-
+import { useToaster, useConfirmationDialog } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import { Policy, useGetPolicyList } from 'services/pm'
+import { Policy, useGetPolicyList, useDeletePolicy } from 'services/pm'
 import { setPageNumber } from '@common/utils/utils'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
+import PolicyIcon from '../PolicySets/PolicySetIcon.svg'
 
 import css from './Policies.module.scss'
 
@@ -49,9 +51,12 @@ const Policies: React.FC = () => {
   const RenderPolicyName: Renderer<CellProps<Policy>> = ({ row }) => {
     const record = row.original
     return (
-      <Text color={Color.BLACK} lineClamp={1}>
-        {record.name}
-      </Text>
+      <Layout.Horizontal spacing="small">
+        <img src={PolicyIcon} />
+        <Text color={Color.BLACK} lineClamp={1} font={{ weight: 'semi-bold' }}>
+          {record.name}
+        </Text>
+      </Layout.Horizontal>
     )
   }
 
@@ -77,13 +82,78 @@ const Policies: React.FC = () => {
     )
   }
 
+  const RenderColumnMenu: Renderer<CellProps<Policy>> = ({ row }) => {
+    const data = row.original
+
+    const [menuOpen, setMenuOpen] = useState(false)
+    const { showSuccess, showError } = useToaster()
+
+    const { mutate: deletePolicy } = useDeletePolicy({})
+
+    const { openDialog: openDeleteDialog } = useConfirmationDialog({
+      contentText: 'Are you sure you want to delete Policy?',
+      titleText: 'Delete Policy',
+      confirmButtonText: getString('delete'),
+      cancelButtonText: getString('cancel'),
+      onCloseDialog: async didConfirm => {
+        if (didConfirm && data) {
+          try {
+            await deletePolicy(data.id.toString())
+            showSuccess('Successfully deleted Policy')
+            refetch()
+          } catch (err) {
+            showError(err?.message)
+          }
+        }
+      }
+    })
+
+    return (
+      <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
+        <Popover
+          isOpen={menuOpen}
+          onInteraction={nextOpenState => {
+            setMenuOpen(nextOpenState)
+          }}
+          className={Classes.DARK}
+          position={Position.BOTTOM_RIGHT}
+        >
+          <Button
+            minimal
+            icon="Options"
+            withoutBoxShadow
+            data-testid={`menu-${data.id}`}
+            onClick={e => {
+              e.stopPropagation()
+              setMenuOpen(true)
+            }}
+          />
+          <Menu>
+            <Button
+              icon="trash"
+              style={{ color: 'var(--white) !important' }}
+              inline={true}
+              variation={ButtonVariation.LINK}
+              text={getString('delete')}
+              onClick={e => {
+                e.stopPropagation()
+                setMenuOpen(false)
+                openDeleteDialog()
+              }}
+            />
+          </Menu>
+        </Popover>
+      </Layout.Horizontal>
+    )
+  }
+
   const columns: Column<Policy>[] = useMemo(
     () => [
       {
         Header: getString('common.policy.table.name'),
 
         accessor: row => row.name,
-        width: '50%',
+        width: '45%',
         Cell: RenderPolicyName
       },
       {
@@ -99,6 +169,15 @@ const Policies: React.FC = () => {
         accessor: row => row.updated,
         width: '25%',
         Cell: RenderLastUpdated
+      },
+      {
+        Header: '',
+        id: 'menu',
+        accessor: row => row.id,
+        width: '5%',
+        Cell: RenderColumnMenu,
+
+        disableSortBy: true
       }
     ],
     []

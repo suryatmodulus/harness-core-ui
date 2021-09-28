@@ -1166,7 +1166,11 @@ export const filterArtifact = ({
     )
   } else {
     if (artifactId === 'primary') {
-      return { primary: filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.primary }
+      return {
+        primary:
+          filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.primary ||
+          filteredStage?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.primary
+      }
     }
     return {
       sidecars:
@@ -1621,6 +1625,7 @@ export const getArtifactTableDataFromData = ({
     //   ?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
     // console.log(pipelineArtifacts, 'pa')
     // debugger
+    debugger
     const pipelineArtifacts = getArtifacts(pipeline.stages, stageId)
     const stageOverrideArtifacts = getPipelineOverrideArtifacts(pipeline.stages, stageId)
     if (appliedArtifact?.sidecar) {
@@ -1649,9 +1654,25 @@ export const getArtifactTableDataFromData = ({
           isManifest: false
         })
       )
-    } else {
+    } else if (pipelineArtifacts?.primary) {
       const primaryArtifact =
         pipelineArtifacts?.primary?.type === appliedArtifact?.type ? pipelineArtifacts?.primary : null
+      const location = primaryArtifact?.spec?.imagePath
+      const artifactRepository = primaryArtifact?.spec?.connectorRef
+      artifactTableData.push(
+        getManifestTableItem({
+          stageId,
+          manifest: appliedArtifact,
+          artifactRepository,
+          location,
+          getString,
+          isStageOverrideManifest: false,
+          isManifest: false
+        })
+      )
+    } else if (stageOverrideArtifacts?.primary) {
+      const primaryArtifact =
+        stageOverrideArtifacts?.primary?.type === appliedArtifact?.type ? stageOverrideArtifacts?.primary : null
       const location = primaryArtifact?.spec?.imagePath
       const artifactRepository = primaryArtifact?.spec?.connectorRef
       artifactTableData.push(
@@ -1680,16 +1701,24 @@ export const getArtifactTableDataFromData = ({
         const location = pipelineArtifacts?.primary?.spec?.imagePath
         const tag = pipelineArtifacts?.primary?.spec?.tag
         const artifactRepository = pipelineArtifacts?.primary?.spec?.connectorRef
-        artifactData.primary = getManifestTableItem({
-          stageId: dataStageId,
-          manifest: artifactObj,
-          artifactRepository,
-          location,
-          buildTag: tag,
-          getString,
-          isStageOverrideManifest: false,
-          isManifest
-        })
+        artifactTableData.push(
+          getManifestTableItem({
+            stageId: dataStageId,
+            manifest: artifactObj,
+            artifactRepository,
+            location,
+            buildTag: tag,
+            getString,
+            isStageOverrideManifest: false,
+            isManifest
+          })
+        )
+      }
+      if (stageOverridesArtifacts?.primary) {
+        const artifactObj = stageOverridesArtifacts?.primary
+        const location = stageOverridesArtifacts?.primary?.spec?.imagePath
+        const tag = stageOverridesArtifacts?.primary?.spec?.tag
+        const artifactRepository = stageOverridesArtifacts?.primary?.spec?.connectorRef
         artifactTableData.push(
           getManifestTableItem({
             stageId: dataStageId,
@@ -1876,17 +1905,31 @@ export function updatePipelineArtifact({
   const pipelineStages = getFilteredStage(newPipelineObj?.stages, stageIdentifier)
   // const pipelineStages = newPipelineObj?.stages.find((item: any) => item.stage.identifier === stageIdentifier)
   const stageArtifacts = pipelineStages?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
+  const stageOverrideArtifacts = pipelineStages?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts
 
   const stageArtifactIdx = stageArtifacts?.sidecars?.findIndex(
     (item: any) => item.sidecar?.identifier === selectedArtifact?.identifier
   )
 
+  const stageOverrideArtifactIdx = stageOverrideArtifacts?.sidecars?.findIndex(
+    (item: any) => item.sidecar?.identifier === selectedArtifact?.identifier
+  )
+
   if (selectedArtifact) {
-    if (stageArtifactIdx >= 0) {
-      const { sidecars } = stageArtifacts
-      sidecars[stageArtifactIdx].sidecar = newArtifact
-    } else if (stageArtifacts?.primary && !newArtifact?.identifier) {
-      stageArtifacts['primary'] = newArtifact
+    if (stageArtifacts?.sidecars || stageArtifacts?.primary) {
+      if (stageArtifactIdx >= 0) {
+        const { sidecars } = stageArtifacts
+        sidecars[stageArtifactIdx].sidecar = newArtifact
+      } else if (stageArtifacts?.primary && !newArtifact?.identifier) {
+        stageArtifacts['primary'] = newArtifact
+      }
+    } else if (stageOverrideArtifacts?.sidecars || stageOverrideArtifacts?.primary) {
+      if (stageOverrideArtifactIdx >= 0) {
+        const { sidecars } = stageOverrideArtifacts
+        sidecars[stageArtifactIdx].sidecar = newArtifact
+      } else if (stageOverrideArtifacts?.primary && !newArtifact?.identifier) {
+        stageOverrideArtifacts['primary'] = newArtifact
+      }
     }
   }
   return newPipelineObj

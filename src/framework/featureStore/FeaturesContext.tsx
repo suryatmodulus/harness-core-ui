@@ -3,6 +3,8 @@ import { isEmpty } from 'lodash-es'
 import produce from 'immer'
 
 import { useParams } from 'react-router'
+import { useToaster } from '@common/components'
+import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetEnabledFeatureRestrictionDetailByAccountId, useGetFeatureRestrictionDetail } from 'services/cd-ng'
 import type { FeatureIdentifier } from './FeatureIdentifier'
@@ -63,6 +65,8 @@ export function useFeaturesContext(): FeaturesContextProps {
 export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const [features, setFeatures] = useState<Features>(new Map<FeatureIdentifier, FeatureDetail>())
   const [hasErr, setHasErr] = useState<boolean>(false)
+  const { showError } = useToaster()
+  const { getString } = useStrings()
 
   const { accountId } = useParams<AccountPathProps>()
 
@@ -96,6 +100,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     if (gettingEnabledFeaturesError) {
       // set err flag to true
       setHasErr(true)
+      showError(gettingEnabledFeaturesError.message || getString('somethingWentWrong'))
     }
   }, [gettingEnabledFeaturesError])
 
@@ -180,7 +185,8 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
           })
         })
       })
-    } catch (ex) {
+    } catch (ex: any) {
+      showError(ex.data?.message || getString('somethingWentWrong'))
       setFeatureDetailMap(oldMap => {
         return produce(oldMap, draft => {
           // update current feature in the map

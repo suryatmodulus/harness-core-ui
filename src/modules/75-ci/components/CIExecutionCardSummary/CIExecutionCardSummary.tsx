@@ -85,6 +85,9 @@ function getUIByType(uiType: UIType, { data }: { data: ExecutionSummaryProps['da
 
 export function CIExecutionCardSummary(props: ExecutionCardInfoProps): React.ReactElement {
   const { data } = props
+  if (!data) {
+    return <></>
+  }
 
   const uiType = getUIType(data)
   if (!uiType) {

@@ -203,6 +203,10 @@ function getUIByType(
 export const CIExecutionSummary = ({ data }: ExecutionSummaryProps): React.ReactElement => {
   const { getString } = useStrings()
 
+  if (!data) {
+    return <></>
+  }
+
   const uiType = getUIType(data)
   if (!uiType) {
     return <></>

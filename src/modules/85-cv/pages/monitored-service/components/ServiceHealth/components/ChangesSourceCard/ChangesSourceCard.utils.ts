@@ -1,5 +1,5 @@
 import { Color } from '@wings-software/uicore'
-import { ChangeSourceCategoryName } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
+import { ChangeSourceCategoryName } from '@cv/pages/monitored-service/components/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 import type { UseStringsReturn } from 'framework/strings'
 import type { CategoryCountDetails, ChangeSummaryDTO } from 'services/cv'
 import type { ChangeSourceCardData, CategoryCountMapInterface } from './ChangesSourceCard.types'

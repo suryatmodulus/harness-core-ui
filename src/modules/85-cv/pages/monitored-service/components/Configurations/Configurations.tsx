@@ -20,7 +20,7 @@ import {
 } from 'services/cv'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner, useToaster, NavigationCheck } from '@common/components'
-import { ChangeSourceCategoryName } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
+import { ChangeSourceCategoryName } from '@cv/pages/monitored-service/components/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 import { useStrings } from 'framework/strings'
 import Service from './components/Service/Service'
 import Dependency from './components/Dependency/Dependency'

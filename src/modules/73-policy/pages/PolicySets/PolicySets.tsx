@@ -73,7 +73,7 @@ const PolicyEvaluations: React.FC = () => {
     error,
     refetch
   } = useGet({
-    path: 'pm/api/v1/policysets',
+    path: 'policy-mgmt/pm/api/v1/policysets',
     queryParams: {
       accountId: accountId
     }

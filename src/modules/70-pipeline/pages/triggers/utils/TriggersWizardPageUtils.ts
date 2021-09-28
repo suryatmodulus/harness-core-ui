@@ -932,7 +932,7 @@ const getFilteredArtifactsWithOverrides = ({
   const stageOverridesPrimaryArtifacts =
     stageObj?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.primary?.type === artifactType
       ? stageObj?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.primary
-      : {}
+      : null
 
   // override can be (1) Reference with partial new values, (2) New manifest
   stageOverridesArtifacts = stageOverridesArtifacts
@@ -1273,6 +1273,7 @@ const getChartVersionAttribute = ({ artifact }: { artifact: ManifestConfigWrappe
 
 const getTag = ({ artifact }: { artifact: ManifestConfigWrapper }): string | undefined =>
   get(artifact, 'sidecar.spec.tag')
+
 interface artifactTableDetails {
   location?: string
   chartVersion?: string
@@ -1299,7 +1300,7 @@ export const getDetailsFromPipeline = ({
         artifact: matchedManifest,
         type: matchedManifest?.manifest?.spec?.store?.type
       })
-      details.tag = getTag({
+      details.chartVersion = getChartVersionAttribute({
         artifact: matchedManifest
       })
     }
@@ -1309,13 +1310,11 @@ export const getDetailsFromPipeline = ({
 
 export const getArtifactDetailsFromPipeline = ({
   artifacts,
-  artifactIdentifier,
   artifactType,
   stageOverrideArtifacts
 }: // stageOverridesArtifacts
 {
   artifacts: { primary: any; sidecars: any[] }
-  artifactIdentifier: string
   artifactType: string
   stageOverrideArtifacts?: any
 }): artifactTableDetails => {
@@ -1326,7 +1325,7 @@ export const getArtifactDetailsFromPipeline = ({
     artifactType === ENABLED_ARTIFACT_TYPES.Ecr
   ) {
     const matchedManifest = (artifacts?.sidecars || stageOverrideArtifacts?.sidecars)?.find(
-      (artifactObj: any) => artifactObj?.sidecar.identifier === artifactIdentifier
+      (artifactObj: any) => artifactObj?.sidecar.type === artifactType
     )
 
     if (matchedManifest) {
@@ -1334,7 +1333,7 @@ export const getArtifactDetailsFromPipeline = ({
         artifact: matchedManifest,
         type: artifactType
       })
-      details.tag = getChartVersionAttribute({
+      details.tag = getTag({
         artifact: matchedManifest
       })
     }
@@ -1470,7 +1469,7 @@ const getManifestTableItem = ({
     disabled: disabled(),
     hasRuntimeInputs,
     isStageOverrideManifest,
-    buildTag
+    buildTag: getRuntimeInputLabel({ str: manifest?.spec?.tag, getString }) || buildTag
   }
 }
 
@@ -1536,6 +1535,7 @@ export const getArtifactTableDataFromData = ({
   stageId,
   isManifest,
   getString,
+  artifactType,
   pipeline
 }: {
   data?: any
@@ -1543,6 +1543,7 @@ export const getArtifactTableDataFromData = ({
   stageId?: string
   isManifest: boolean
   getString?: (key: StringKeys) => string
+  artifactType?: string
   pipeline: PipelineInfoConfig | Record<string, never> | any
 }): {
   appliedTableArtifact?: artifactTableItem[]
@@ -1629,9 +1630,8 @@ export const getArtifactTableDataFromData = ({
     const pipelineArtifacts = getArtifacts(pipeline.stages, stageId)
     const stageOverrideArtifacts = getPipelineOverrideArtifacts(pipeline.stages, stageId)
     if (appliedArtifact?.sidecar) {
-      const { location } = getArtifactDetailsFromPipeline({
+      const { location, tag } = getArtifactDetailsFromPipeline({
         artifacts: pipelineArtifacts,
-        artifactIdentifier: appliedArtifact?.sidecar.identifier,
         artifactType: appliedArtifact?.sidecar.type,
         stageOverrideArtifacts
       })
@@ -1650,6 +1650,7 @@ export const getArtifactTableDataFromData = ({
           artifactRepository,
           location,
           getString,
+          buildTag: tag,
           isStageOverrideManifest: false,
           isManifest: false
         })
@@ -1665,6 +1666,7 @@ export const getArtifactTableDataFromData = ({
           manifest: appliedArtifact,
           artifactRepository,
           location,
+          buildTag: primaryArtifact?.spec?.tag,
           getString,
           isStageOverrideManifest: false,
           isManifest: false
@@ -1681,6 +1683,7 @@ export const getArtifactTableDataFromData = ({
           manifest: appliedArtifact,
           artifactRepository,
           location,
+          buildTag: stageOverrideArtifacts?.primary?.tag,
           getString,
           isStageOverrideManifest: false,
           isManifest: false
@@ -1695,12 +1698,14 @@ export const getArtifactTableDataFromData = ({
       const pipelineArtifacts = getArtifacts(pipeline?.stages, dataStageId)
       const stageOverridesArtifacts = getPipelineOverrideArtifacts(pipeline.stages, dataStageId)
       const { artifacts = [] } = stageObject?.stage?.spec?.serviceConfig?.serviceDefinition?.spec || {}
-
-      if (pipelineArtifacts?.primary) {
-        const artifactObj = pipelineArtifacts?.primary
-        const location = pipelineArtifacts?.primary?.spec?.imagePath
-        const tag = pipelineArtifacts?.primary?.spec?.tag
-        const artifactRepository = pipelineArtifacts?.primary?.spec?.connectorRef
+      const primaryArtifact = pipelineArtifacts?.primary?.type === artifactType ? pipelineArtifacts?.primary : null
+      const stageOverridePrimaryArtifact =
+        stageOverridesArtifacts?.primary?.type === artifactType ? stageOverridesArtifacts?.primary : null
+      if (primaryArtifact) {
+        const artifactObj = primaryArtifact
+        const location = primaryArtifact?.spec?.imagePath
+        const tag = primaryArtifact?.spec?.tag
+        const artifactRepository = primaryArtifact?.spec?.connectorRef
         artifactTableData.push(
           getManifestTableItem({
             stageId: dataStageId,
@@ -1714,11 +1719,11 @@ export const getArtifactTableDataFromData = ({
           })
         )
       }
-      if (stageOverridesArtifacts?.primary) {
-        const artifactObj = stageOverridesArtifacts?.primary
-        const location = stageOverridesArtifacts?.primary?.spec?.imagePath
-        const tag = stageOverridesArtifacts?.primary?.spec?.tag
-        const artifactRepository = stageOverridesArtifacts?.primary?.spec?.connectorRef
+      if (stageOverridePrimaryArtifact) {
+        const artifactObj = stageOverridePrimaryArtifact
+        const location = stageOverridePrimaryArtifact?.spec?.imagePath
+        const tag = stageOverridePrimaryArtifact?.spec?.tag
+        const artifactRepository = stageOverridePrimaryArtifact?.spec?.connectorRef
         artifactTableData.push(
           getManifestTableItem({
             stageId: dataStageId,
@@ -1736,7 +1741,6 @@ export const getArtifactTableDataFromData = ({
         if (artifactObj.sidecar) {
           const { tag, location } = getArtifactDetailsFromPipeline({
             artifacts: pipelineArtifacts,
-            artifactIdentifier: artifactObj?.sidecar?.identifier,
             artifactType: artifactObj?.sidecar?.type,
             stageOverrideArtifacts: stageOverridesArtifacts
           })

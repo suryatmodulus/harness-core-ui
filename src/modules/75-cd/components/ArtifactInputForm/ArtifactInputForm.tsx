@@ -395,7 +395,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     isPipelineInputTab &&
     stageIdentifier === formik?.values?.stageId &&
     formik?.values?.selectedArtifact &&
-    !formik?.values?.selectedArtifact.identifier
+    (!formik?.values?.selectedArtifact.identifier || formik?.values?.selectedArtifact.identifier === 'primary')
   const disablePrimaryFields = (fieldName: string, isTag = false) => {
     if (fromTrigger) {
       // Trigger Configuration Tab

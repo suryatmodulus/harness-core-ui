@@ -103,6 +103,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
           appliedArtifact,
           stageId,
           getString,
+          artifactType,
           pipeline: originalPipeline
         })
       if (newAppliedTableArtifact) {

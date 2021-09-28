@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.43% </span>
+                <span class="strong">82.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>61/74</span>
+                <span class='fraction'>62/75</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.29% </span>
+                <span class="strong">84.51% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>59/70</span>
+                <span class='fraction'>60/71</span>
             </div>
         
             
@@ -373,10 +373,7 @@
 <a name='L314'></a><a href='#L314'>314</a>
 <a name='L315'></a><a href='#L315'>315</a>
 <a name='L316'></a><a href='#L316'>316</a>
-<a name='L317'></a><a href='#L317'>317</a>
-<a name='L318'></a><a href='#L318'>318</a>
-<a name='L319'></a><a href='#L319'>319</a>
-<a name='L320'></a><a href='#L320'>320</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L317'></a><a href='#L317'>317</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -438,6 +435,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -506,8 +504,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -693,8 +689,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import {
   Text,
@@ -761,6 +755,7 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({ data, onSubmit, o
   const [connectionType, setConnectionType] = React.useState('')
   const [connectorUrl, setConnectorUrl] = React.useState('')
   const gitScope = useGitScope()
+  const repositoryNameLabel = getString('common.repositoryName')
 &nbsp;
   const {
     state: { pipeline },
@@ -833,9 +828,7 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({ data, onSubmit, o
           values.cloneCodebase &amp;&amp; {
             connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),
             ...(connectionType === 'Account' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
-              repoName: Yup.string().required(
-                getString('fieldRequired', { field: getString('pipelineSteps.build.create.repositoryNameLabel') })
-              )
+              repoName: Yup.string().required(getString('fieldRequired', { field: repositoryNameLabel }))
             })
           })
       })
@@ -976,16 +969,14 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({ data, onSubmit, o
                   /&gt;
                   {connectionType === 'Repo' ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >                    &lt;&gt;</span>
-                      &lt;Text margin={{ bottom: 'xsmall' }}&gt;
-                        {getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      &lt;/Text&gt;
+                      &lt;Text margin={{ bottom: 'xsmall' }}&gt;{repositoryNameLabel}&lt;/Text&gt;
                       &lt;TextInput name="repoName" value={connectorUrl} style={{ flexGrow: 1 }} disabled /&gt;
                     &lt;/&gt;
                   ) : (
                     &lt;&gt;
                       &lt;FormInput.Text
                         className={css.repositoryUrl}
-                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                        label={repositoryNameLabel}
                         name="repoName"
                         style={{ flexGrow: 1 }}
                         disabled={isReadonly}
@@ -1021,7 +1012,7 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({ data, onSubmit, o
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Sep 28 2021 09:23:58 GMT+0000 (Greenwich Mean Time)
+                at Tue Sep 28 2021 11:23:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

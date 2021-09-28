@@ -1066,7 +1066,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
         spec: {
           stageIdentifier: stageId,
-          artifactRef: selectedArtifact?.identifier,
+          artifactRef: selectedArtifact?.identifier || 'primary',
           type: artType,
           ...artifactSourceSpec
         }

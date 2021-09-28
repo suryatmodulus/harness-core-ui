@@ -12,7 +12,8 @@ import {
   artifactTableItem,
   getPathString,
   getArtifactSpecObj,
-  updatePipelineManifest
+  updatePipelineManifest,
+  updatePipelineArtifact
 } from '../utils/TriggersWizardPageUtils'
 import css from './ArtifactTriggerConfigPanel.module.scss'
 
@@ -174,12 +175,19 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                 icon="main-trash"
                 onClick={_ => {
                   const { pipeline } = formikProps.values
-                  const newPipelineObj = updatePipelineManifest({
-                    pipeline,
-                    stageIdentifier: stageId,
-                    selectedArtifact: formikProps?.values?.selectedArtifact,
-                    newArtifact: {}
-                  })
+                  const newPipelineObj = isManifest
+                    ? updatePipelineManifest({
+                        pipeline,
+                        stageIdentifier: stageId,
+                        selectedArtifact: formikProps?.values?.selectedArtifact,
+                        newArtifact: {}
+                      })
+                    : updatePipelineArtifact({
+                        pipeline,
+                        stageIdentifier: stageId,
+                        selectedArtifact: formikProps?.values?.selectedArtifact,
+                        newArtifact: {}
+                      })
                   formikProps.setValues({
                     ...formikProps.values,
                     pipeline: newPipelineObj,

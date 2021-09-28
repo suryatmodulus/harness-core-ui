@@ -56,9 +56,14 @@ function AppCard(props: any): React.ReactElement {
 }
 
 export function ManagedGitOpsApplicaions(): React.ReactElement {
-  const { data, loading } = useGet(getConfig('gitops-proxy/applications'), {
-    resolve: (res: any) => (typeof res === 'string' ? JSON.parse(res) : res)
-  })
+  const { data, loading } = useGet(
+    getConfig(
+      window.location.hostname === 'pr.harness.io' ? 'ng/gitops-proxy/applications' : 'gitops-proxy/applications'
+    ),
+    {
+      resolve: (res: any) => (typeof res === 'string' ? JSON.parse(res) : res)
+    }
+  )
 
   return (
     <React.Fragment>

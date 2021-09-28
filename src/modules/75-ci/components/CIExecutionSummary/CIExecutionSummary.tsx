@@ -36,7 +36,7 @@ const Commit = ({ id, link }: { id: string; link: string }): React.ReactElement 
   return (
     <Text className={css.commit} style={{ cursor: 'pointer' }}>
       <a className={css.label} href={link} rel="noreferrer" target="_blank">
-        {id.slice(0, 7)}
+        {id?.slice(0, 7)}
       </a>
       <Text
         tooltip={
@@ -64,26 +64,28 @@ function getUIByType(
       ui = (
         <>
           <RepoBranch repo={data.repoName} branch={data.branch} />
-          <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
-            <Icon name="git-branch-existing" size={14} />
-            <div style={{ fontSize: 0 }}>
-              <Text
-                font={{ size: 'small' }}
-                style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-                tooltip={
-                  <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                    {data?.ciExecutionInfoDTO?.branch.commits[0].message}
-                  </Container>
-                }
-              >
-                {data?.ciExecutionInfoDTO?.branch.commits[0].message}
-              </Text>
-            </div>
-            <Commit
-              id={data?.ciExecutionInfoDTO?.branch.commits[0].id}
-              link={data?.ciExecutionInfoDTO?.branch.commits[0].link}
-            />
-          </Layout.Horizontal>
+          {data?.ciExecutionInfoDTO?.branch && (
+            <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
+              <Icon name="git-branch-existing" size={14} />
+              <div style={{ fontSize: 0 }}>
+                <Text
+                  font={{ size: 'small' }}
+                  style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
+                  tooltip={
+                    <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+                      {data?.ciExecutionInfoDTO?.branch.commits[0].message}
+                    </Container>
+                  }
+                >
+                  {data?.ciExecutionInfoDTO?.branch.commits[0].message}
+                </Text>
+              </div>
+              <Commit
+                id={data?.ciExecutionInfoDTO?.branch.commits[0].id}
+                link={data?.ciExecutionInfoDTO?.branch.commits[0].link}
+              />
+            </Layout.Horizontal>
+          )}
         </>
       )
       break
@@ -101,26 +103,28 @@ function getUIByType(
           {/* <Text tooltip={<Container padding="small"> Notes</Container>}>
             <Icon name="more" size={14} />
           </Text> */}
-          <Layout.Horizontal flex spacing="small">
-            <Icon name="git-branch-existing" size={14} />
-            <div style={{ fontSize: 0 }}>
-              <Text
-                font={{ size: 'small' }}
-                style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-                tooltip={
-                  <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                    {data?.ciExecutionInfoDTO?.branch.commits[0].message}
-                  </Container>
-                }
-              >
-                {data?.ciExecutionInfoDTO?.branch.commits[0].message}
-              </Text>
-            </div>
-            <Commit
-              id={data?.ciExecutionInfoDTO?.branch.commits[0].id}
-              link={data?.ciExecutionInfoDTO?.branch.commits[0].link}
-            />
-          </Layout.Horizontal>
+          {data?.ciExecutionInfoDTO?.branch && (
+            <Layout.Horizontal flex spacing="small">
+              <Icon name="git-branch-existing" size={14} />
+              <div style={{ fontSize: 0 }}>
+                <Text
+                  font={{ size: 'small' }}
+                  style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
+                  tooltip={
+                    <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+                      {data?.ciExecutionInfoDTO?.branch.commits[0].message}
+                    </Container>
+                  }
+                >
+                  {data?.ciExecutionInfoDTO?.branch.commits[0].message}
+                </Text>
+              </div>
+              <Commit
+                id={data?.ciExecutionInfoDTO?.branch.commits[0].id}
+                link={data?.ciExecutionInfoDTO?.branch.commits[0].link}
+              />
+            </Layout.Horizontal>
+          )}
         </Layout.Horizontal>
       )
       break
@@ -128,58 +132,66 @@ function getUIByType(
       ui = (
         <>
           <RepoBranch repo={data.repoName} branch={data?.ciExecutionInfoDTO?.pullRequest.sourceBranch} />
-          <Icon name="arrow-right" size={14} />
-          <Container className={css.label}>
-            <Icon name="git-new-branch" size={12} color="primary7" />
-            <div className={css.truncated}>{data?.ciExecutionInfoDTO?.pullRequest.targetBranch}</div>
-          </Container>
-          <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
-            <Icon name="git-branch-existing" size={14} />
-            <div style={{ fontSize: 0 }}>
-              <Text
-                font={{ size: 'small' }}
-                style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-                tooltip={
-                  <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+          {data?.ciExecutionInfoDTO?.pullRequest.targetBranch && (
+            <>
+              <Icon name="arrow-right" size={14} />
+              <Container className={css.label}>
+                <Icon name="git-new-branch" size={12} color="primary7" />
+                <div className={css.truncated}>{data?.ciExecutionInfoDTO?.pullRequest.targetBranch}</div>
+              </Container>
+            </>
+          )}
+          {data?.ciExecutionInfoDTO?.pullRequest && (
+            <>
+              <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
+                <Icon name="git-branch-existing" size={14} />
+                <div style={{ fontSize: 0 }}>
+                  <Text
+                    font={{ size: 'small' }}
+                    style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
+                    tooltip={
+                      <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+                        {data?.ciExecutionInfoDTO?.pullRequest.commits[0].message}
+                      </Container>
+                    }
+                  >
                     {data?.ciExecutionInfoDTO?.pullRequest.commits[0].message}
-                  </Container>
-                }
-              >
-                {data?.ciExecutionInfoDTO?.pullRequest.commits[0].message}
-              </Text>
-            </div>
-            <Commit
-              id={data?.ciExecutionInfoDTO?.pullRequest.commits[0].id}
-              link={data?.ciExecutionInfoDTO?.pullRequest.commits[0].link}
-            />
-          </Layout.Horizontal>
-          <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
-            <Icon name="git-pull" size={14} />
-            <div style={{ fontSize: 0 }}>
-              <Text
-                font={{ size: 'small' }}
-                style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-                tooltip={<Container padding="small">{data?.ciExecutionInfoDTO?.pullRequest.title}</Container>}
-              >
-                {data?.ciExecutionInfoDTO?.pullRequest.title}
-              </Text>
-            </div>
-            <a
-              className={css.label}
-              href={data?.ciExecutionInfoDTO?.pullRequest?.link || ''}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {getString('ci.prSymbol')}
-              {typeof data?.ciExecutionInfoDTO?.pullRequest?.id === 'string' ||
-              typeof data?.ciExecutionInfoDTO?.pullRequest?.id === 'number'
-                ? data?.ciExecutionInfoDTO?.pullRequest?.id
-                : data?.ciExecutionInfoDTO?.pullRequest?.id?.['$numberLong']
-                ? data?.ciExecutionInfoDTO?.pullRequest?.id?.['$numberLong']
-                : ''}
-            </a>
-            <div className={css.state}>{data?.ciExecutionInfoDTO?.pullRequest.state}</div>
-          </Layout.Horizontal>
+                  </Text>
+                </div>
+                <Commit
+                  id={data?.ciExecutionInfoDTO?.pullRequest.commits[0].id}
+                  link={data?.ciExecutionInfoDTO?.pullRequest.commits[0].link}
+                />
+              </Layout.Horizontal>
+              <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
+                <Icon name="git-pull" size={14} />
+                <div style={{ fontSize: 0 }}>
+                  <Text
+                    font={{ size: 'small' }}
+                    style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
+                    tooltip={<Container padding="small">{data?.ciExecutionInfoDTO?.pullRequest.title}</Container>}
+                  >
+                    {data?.ciExecutionInfoDTO?.pullRequest.title}
+                  </Text>
+                </div>
+                <a
+                  className={css.label}
+                  href={data?.ciExecutionInfoDTO?.pullRequest?.link || ''}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {getString('ci.prSymbol')}
+                  {typeof data?.ciExecutionInfoDTO?.pullRequest?.id === 'string' ||
+                  typeof data?.ciExecutionInfoDTO?.pullRequest?.id === 'number'
+                    ? data?.ciExecutionInfoDTO?.pullRequest?.id
+                    : data?.ciExecutionInfoDTO?.pullRequest?.id?.['$numberLong']
+                    ? data?.ciExecutionInfoDTO?.pullRequest?.id?.['$numberLong']
+                    : ''}
+                </a>
+                <div className={css.state}>{data?.ciExecutionInfoDTO?.pullRequest.state}</div>
+              </Layout.Horizontal>
+            </>
+          )}
         </>
       )
       break
@@ -191,7 +203,7 @@ function getUIByType(
 export const CIExecutionSummary = ({ data }: ExecutionSummaryProps): React.ReactElement => {
   const { getString } = useStrings()
 
-  const uiType = getUIType(data?.buildType)
+  const uiType = getUIType(data)
   if (!uiType) {
     return <></>
   }

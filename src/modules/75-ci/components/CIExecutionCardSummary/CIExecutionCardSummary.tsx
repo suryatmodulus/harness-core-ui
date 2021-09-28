@@ -29,7 +29,9 @@ function getUIByType(uiType: UIType, { data }: { data: ExecutionSummaryProps['da
       ui = (
         <>
           <RepoBranch repo={data.repoName} branch={data.branch} />
-          <CommitsInfo commits={data?.ciExecutionInfoDTO?.branch?.commits} />
+          {data?.ciExecutionInfoDTO?.branch?.commits && (
+            <CommitsInfo commits={data?.ciExecutionInfoDTO?.branch?.commits} />
+          )}
         </>
       )
       break
@@ -49,7 +51,9 @@ function getUIByType(uiType: UIType, { data }: { data: ExecutionSummaryProps['da
             <Icon name="more" size={14} />
           </Text> */}
           </Layout.Horizontal>
-          <CommitsInfo commits={data?.ciExecutionInfoDTO?.branch?.commits} />
+          {data?.ciExecutionInfoDTO?.branch?.commits && (
+            <CommitsInfo commits={data?.ciExecutionInfoDTO?.branch?.commits} />
+          )}
         </>
       )
       break
@@ -58,13 +62,19 @@ function getUIByType(uiType: UIType, { data }: { data: ExecutionSummaryProps['da
         <>
           <Layout.Horizontal className={css.alignSelfStart} flex spacing="small">
             <RepoBranch repo={data.repoName} branch={data?.ciExecutionInfoDTO?.pullRequest?.sourceBranch} />
-            <Icon name="arrow-right" size={14} />
-            <Container className={css.label}>
-              <Icon name="git-new-branch" size={12} color="primary7" />
-              <div>{data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}</div>
-            </Container>
+            {data?.ciExecutionInfoDTO?.pullRequest?.targetBranch && (
+              <>
+                <Icon name="arrow-right" size={14} />
+                <Container className={css.label}>
+                  <Icon name="git-new-branch" size={12} color="primary7" />
+                  <div>{data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}</div>
+                </Container>
+              </>
+            )}
           </Layout.Horizontal>
-          <CommitsInfo commits={data?.ciExecutionInfoDTO?.pullRequest?.commits} />
+          {data?.ciExecutionInfoDTO?.pullRequest?.commits && (
+            <CommitsInfo commits={data?.ciExecutionInfoDTO?.pullRequest?.commits} />
+          )}
         </>
       )
       break
@@ -76,7 +86,7 @@ function getUIByType(uiType: UIType, { data }: { data: ExecutionSummaryProps['da
 export function CIExecutionCardSummary(props: ExecutionCardInfoProps): React.ReactElement {
   const { data } = props
 
-  const uiType = getUIType(data?.buildType)
+  const uiType = getUIType(data)
   if (!uiType) {
     return <></>
   }

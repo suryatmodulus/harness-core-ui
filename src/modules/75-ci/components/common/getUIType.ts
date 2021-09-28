@@ -1,23 +1,17 @@
+import type { ExecutionSummaryProps } from '@pipeline/factories/ExecutionFactory/types'
+
 export enum UIType {
   Branch = 'branch',
   Tag = 'tag',
   PullRequest = 'pull-request'
 }
 
-export function getUIType(buildType: 'branch' | 'tag' | 'PR'): UIType {
-  let type: UIType
-
-  switch (buildType) {
-    case 'branch':
-      type = UIType.Branch
-      break
-    case 'tag':
-      type = UIType.Tag
-      break
-    case 'PR':
-      type = UIType.PullRequest
-      break
+export function getUIType(data: ExecutionSummaryProps['data']): UIType {
+  if (data?.tag) {
+    return UIType.Tag
+  } else if (data?.ciExecutionInfoDTO?.pullRequest) {
+    return UIType.PullRequest
+  } else {
+    return UIType.Branch
   }
-
-  return type
 }

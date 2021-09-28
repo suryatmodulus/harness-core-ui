@@ -191,7 +191,7 @@ exports[`BuildInfraSpecifications snapshot test Renders with multiple stages 1`]
                                       class="bp3-popover-wrapper"
                                     >
                                       <span
-                                        class="bp3-popover-target"
+                                        class="bp3-popover-target Text--targetClass"
                                       >
                                         <p
                                           class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
@@ -498,7 +498,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                                   class="bp3-popover-wrapper"
                                 >
                                   <span
-                                    class="bp3-popover-target"
+                                    class="bp3-popover-target Text--targetClass"
                                   >
                                     <p
                                       class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
@@ -798,7 +798,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                                   class="bp3-popover-wrapper"
                                 >
                                   <span
-                                    class="bp3-popover-target"
+                                    class="bp3-popover-target Text--targetClass"
                                   >
                                     <p
                                       class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"

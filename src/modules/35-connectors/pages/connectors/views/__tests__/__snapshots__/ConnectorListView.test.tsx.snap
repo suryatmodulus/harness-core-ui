@@ -10713,7 +10713,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <span
                       class="StyledProps--font StyledProps--main StyledProps--inline"
@@ -12441,7 +12441,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <span
                       class="StyledProps--font StyledProps--main StyledProps--inline"

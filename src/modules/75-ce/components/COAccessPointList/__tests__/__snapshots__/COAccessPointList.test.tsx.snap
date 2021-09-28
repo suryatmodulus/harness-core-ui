@@ -362,7 +362,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
                 class="bp3-popover-wrapper"
               >
                 <span
-                  class="bp3-popover-target"
+                  class="bp3-popover-target Text--targetClass"
                 >
                   <span
                     class="StyledProps--font StyledProps--main StyledProps--inline"

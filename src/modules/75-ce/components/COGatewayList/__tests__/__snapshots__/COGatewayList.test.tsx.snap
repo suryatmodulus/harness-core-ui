@@ -582,7 +582,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <span
                       class="StyledProps--font StyledProps--main StyledProps--inline"
@@ -1263,7 +1263,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <span
                       class="StyledProps--font StyledProps--main StyledProps--inline"
@@ -1944,7 +1944,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <span
                       class="StyledProps--font StyledProps--main StyledProps--inline"

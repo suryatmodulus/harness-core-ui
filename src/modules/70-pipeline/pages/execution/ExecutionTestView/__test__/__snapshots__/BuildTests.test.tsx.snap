@@ -6972,7 +6972,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -7272,7 +7272,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                             class="bp3-popover-wrapper"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-target Text--targetClass"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main text failed StyledProps--color StyledProps--color-red700"
@@ -11014,7 +11014,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -11201,7 +11201,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -11388,7 +11388,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -11575,7 +11575,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -11762,7 +11762,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -11949,7 +11949,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -12136,7 +12136,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -12323,7 +12323,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -12510,7 +12510,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -12697,7 +12697,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -12884,7 +12884,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -13071,7 +13071,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -13258,7 +13258,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -13445,7 +13445,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -20046,7 +20046,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -20346,7 +20346,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                             class="bp3-popover-wrapper"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-target Text--targetClass"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main text failed StyledProps--color StyledProps--color-red700"
@@ -24088,7 +24088,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -24275,7 +24275,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -24462,7 +24462,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -24649,7 +24649,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -24836,7 +24836,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -25023,7 +25023,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -25210,7 +25210,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -25397,7 +25397,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -25584,7 +25584,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -25771,7 +25771,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -25958,7 +25958,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -26145,7 +26145,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -26332,7 +26332,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"
@@ -26519,7 +26519,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main"

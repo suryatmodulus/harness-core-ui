@@ -732,7 +732,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                                       class="bp3-popover-wrapper"
                                                     >
                                                       <span
-                                                        class="bp3-popover-target"
+                                                        class="bp3-popover-target Text--targetClass"
                                                       >
                                                         <p
                                                           class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
@@ -2223,7 +2223,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                                       class="bp3-popover-wrapper"
                                                     >
                                                       <span
-                                                        class="bp3-popover-target"
+                                                        class="bp3-popover-target Text--targetClass"
                                                       >
                                                         <p
                                                           class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"

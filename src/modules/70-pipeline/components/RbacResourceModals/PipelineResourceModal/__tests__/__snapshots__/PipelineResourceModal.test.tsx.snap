@@ -76,7 +76,7 @@ exports[`PipelineModal List View render list view 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
@@ -151,7 +151,7 @@ exports[`PipelineModal List View render list view 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
@@ -226,7 +226,7 @@ exports[`PipelineModal List View render list view 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
@@ -301,7 +301,7 @@ exports[`PipelineModal List View render list view 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"

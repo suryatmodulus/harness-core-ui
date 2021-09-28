@@ -1601,7 +1601,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                       class="bp3-popover-wrapper"
                                     >
                                       <span
-                                        class="bp3-popover-target"
+                                        class="bp3-popover-target Text--targetClass"
                                       >
                                         <p
                                           class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
@@ -2553,7 +2553,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                       class="bp3-popover-wrapper"
                                     >
                                       <span
-                                        class="bp3-popover-target"
+                                        class="bp3-popover-target Text--targetClass"
                                       >
                                         <p
                                           class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"

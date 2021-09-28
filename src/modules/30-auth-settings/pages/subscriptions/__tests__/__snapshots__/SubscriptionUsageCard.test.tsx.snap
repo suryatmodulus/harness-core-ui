@@ -37,7 +37,7 @@ exports[`SubscriptionUsageCard CCM 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -138,7 +138,7 @@ exports[`SubscriptionUsageCard CCM 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -253,7 +253,7 @@ exports[`SubscriptionUsageCard CD 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -353,7 +353,7 @@ exports[`SubscriptionUsageCard CD 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -446,7 +446,7 @@ exports[`SubscriptionUsageCard CD 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -561,7 +561,7 @@ exports[`SubscriptionUsageCard CI 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -661,7 +661,7 @@ exports[`SubscriptionUsageCard CI 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -776,7 +776,7 @@ exports[`SubscriptionUsageCard FF 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -876,7 +876,7 @@ exports[`SubscriptionUsageCard FF 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
@@ -969,7 +969,7 @@ exports[`SubscriptionUsageCard FF 1`] = `
                   class="bp3-popover-wrapper"
                 >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-target Text--targetClass"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"

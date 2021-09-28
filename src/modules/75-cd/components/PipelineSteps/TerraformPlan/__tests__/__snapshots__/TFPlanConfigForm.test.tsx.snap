@@ -57,7 +57,7 @@ exports[`TF Config Form tests edit view loads correctly -with commitId 1`] = `
                             class="bp3-popover-wrapper"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-target Text--targetClass"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
@@ -461,7 +461,7 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
                             class="bp3-popover-wrapper"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-target Text--targetClass"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
@@ -865,7 +865,7 @@ exports[`TF Config Form tests initial render 1`] = `
                             class="bp3-popover-wrapper"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-target Text--targetClass"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"

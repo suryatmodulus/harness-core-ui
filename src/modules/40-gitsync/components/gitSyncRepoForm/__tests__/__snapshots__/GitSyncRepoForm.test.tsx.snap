@@ -736,7 +736,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                               class="bp3-popover-wrapper"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="bp3-popover-target Text--targetClass"
                               >
                                 <p
                                   class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"

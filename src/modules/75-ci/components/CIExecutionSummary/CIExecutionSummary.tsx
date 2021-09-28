@@ -73,16 +73,16 @@ function getUIByType(
                   style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
                   tooltip={
                     <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                      {data?.ciExecutionInfoDTO?.branch.commits[0].message}
+                      {data?.ciExecutionInfoDTO?.branch?.commits[0]?.message}
                     </Container>
                   }
                 >
-                  {data?.ciExecutionInfoDTO?.branch.commits[0].message}
+                  {data?.ciExecutionInfoDTO?.branch?.commits[0]?.message}
                 </Text>
               </div>
               <Commit
-                id={data?.ciExecutionInfoDTO?.branch.commits[0].id}
-                link={data?.ciExecutionInfoDTO?.branch.commits[0].link}
+                id={data?.ciExecutionInfoDTO?.branch?.commits[0]?.id}
+                link={data?.ciExecutionInfoDTO?.branch?.commits[0]?.link}
               />
             </Layout.Horizontal>
           )}
@@ -112,16 +112,16 @@ function getUIByType(
                   style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
                   tooltip={
                     <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                      {data?.ciExecutionInfoDTO?.branch.commits[0].message}
+                      {data?.ciExecutionInfoDTO?.branch?.commits[0]?.message}
                     </Container>
                   }
                 >
-                  {data?.ciExecutionInfoDTO?.branch.commits[0].message}
+                  {data?.ciExecutionInfoDTO?.branch?.commits[0]?.message}
                 </Text>
               </div>
               <Commit
-                id={data?.ciExecutionInfoDTO?.branch.commits[0].id}
-                link={data?.ciExecutionInfoDTO?.branch.commits[0].link}
+                id={data?.ciExecutionInfoDTO?.branch?.commits[0]?.id}
+                link={data?.ciExecutionInfoDTO?.branch?.commits[0]?.link}
               />
             </Layout.Horizontal>
           )}
@@ -131,13 +131,13 @@ function getUIByType(
     case UIType.PullRequest:
       ui = (
         <>
-          <RepoBranch repo={data.repoName} branch={data?.ciExecutionInfoDTO?.pullRequest.sourceBranch} />
-          {data?.ciExecutionInfoDTO?.pullRequest.targetBranch && (
+          <RepoBranch repo={data.repoName} branch={data?.ciExecutionInfoDTO?.pullRequest?.sourceBranch} />
+          {data?.ciExecutionInfoDTO?.pullRequest?.targetBranch && (
             <>
               <Icon name="arrow-right" size={14} />
               <Container className={css.label}>
                 <Icon name="git-new-branch" size={12} color="primary7" />
-                <div className={css.truncated}>{data?.ciExecutionInfoDTO?.pullRequest.targetBranch}</div>
+                <div className={css.truncated}>{data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}</div>
               </Container>
             </>
           )}
@@ -151,16 +151,16 @@ function getUIByType(
                     style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
                     tooltip={
                       <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                        {data?.ciExecutionInfoDTO?.pullRequest.commits[0].message}
+                        {data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.message}
                       </Container>
                     }
                   >
-                    {data?.ciExecutionInfoDTO?.pullRequest.commits[0].message}
+                    {data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.message}
                   </Text>
                 </div>
                 <Commit
-                  id={data?.ciExecutionInfoDTO?.pullRequest.commits[0].id}
-                  link={data?.ciExecutionInfoDTO?.pullRequest.commits[0].link}
+                  id={data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.id}
+                  link={data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.link}
                 />
               </Layout.Horizontal>
               <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
@@ -169,9 +169,9 @@ function getUIByType(
                   <Text
                     font={{ size: 'small' }}
                     style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-                    tooltip={<Container padding="small">{data?.ciExecutionInfoDTO?.pullRequest.title}</Container>}
+                    tooltip={<Container padding="small">{data?.ciExecutionInfoDTO?.pullRequest?.title}</Container>}
                   >
-                    {data?.ciExecutionInfoDTO?.pullRequest.title}
+                    {data?.ciExecutionInfoDTO?.pullRequest?.title}
                   </Text>
                 </div>
                 <a
@@ -188,7 +188,7 @@ function getUIByType(
                     ? data?.ciExecutionInfoDTO?.pullRequest?.id?.['$numberLong']
                     : ''}
                 </a>
-                <div className={css.state}>{data?.ciExecutionInfoDTO?.pullRequest.state}</div>
+                <div className={css.state}>{data?.ciExecutionInfoDTO?.pullRequest?.state}</div>
               </Layout.Horizontal>
             </>
           )}

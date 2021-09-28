@@ -111,6 +111,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
           style={{ marginBottom: 0 }}
+          placeholder={triggerIdentifier ? defaultValues['branch'] : ''}
           disabled={readonly}
           onChange={handleInputChange}
         />
@@ -125,6 +126,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           }}
           style={{ marginBottom: 0 }}
           disabled={readonly}
+          placeholder={triggerIdentifier ? defaultValues['tag'] : ''}
           onChange={handleInputChange}
         />
       )}
@@ -138,6 +140,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           }}
           style={{ marginBottom: 0 }}
           disabled={readonly}
+          placeholder={triggerIdentifier ? defaultValues['PR'] : ''}
           onChange={handleInputChange}
         />
       )}

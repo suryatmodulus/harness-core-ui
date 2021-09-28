@@ -28,7 +28,7 @@ const AVATAR_COLORS = [
   Color.RED_600
 ]
 
-const Commits: React.FC<{ commits: CIBuildCommit[] }> = ({ commits }): any => {
+const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({ commits, showAvatar }): any => {
   const context = useExecutionContext()
 
   const { showSuccess, showError } = useToaster()
@@ -69,7 +69,7 @@ const Commits: React.FC<{ commits: CIBuildCommit[] }> = ({ commits }): any => {
             name={firstName}
             size={'xsmall'}
             backgroundColor={AVATAR_COLORS[index % AVATAR_COLORS.length]}
-            src={commitAuthor?.avatar}
+            src={showAvatar ? commitAuthor?.avatar : undefined}
             hoverCard={false}
           />
           <Text className={css.committed} font="xsmall" margin={{ right: 'xlarge' }}>
@@ -92,9 +92,10 @@ const Commits: React.FC<{ commits: CIBuildCommit[] }> = ({ commits }): any => {
   })
 }
 
-const CommitsGroupedByTimestamp: React.FC<{ commitsGroupedByTimestamp: CommitsGroupedByTimestamp[] }> = ({
-  commitsGroupedByTimestamp
-}): any => {
+const CommitsGroupedByTimestamp: React.FC<{
+  commitsGroupedByTimestamp: CommitsGroupedByTimestamp[]
+  showCommitAuthorAvatar?: boolean
+}> = ({ commitsGroupedByTimestamp, showCommitAuthorAvatar }): any => {
   const { getString } = useStrings()
 
   return commitsGroupedByTimestamp.map(({ timeStamp, commits }) => (
@@ -105,7 +106,7 @@ const CommitsGroupedByTimestamp: React.FC<{ commitsGroupedByTimestamp: CommitsGr
           {getString('ci.commitsOn')} {moment(timeStamp).format('MMM D, YYYY')}
         </Text>
       </div>
-      <Commits commits={commits} />
+      <Commits commits={commits} showAvatar={showCommitAuthorAvatar} />
     </div>
   ))
 }
@@ -169,7 +170,10 @@ const BuildCommits: React.FC = () => {
           </Accordion>
         </>
       ) : (
-        <CommitsGroupedByTimestamp commitsGroupedByTimestamp={codebaseCommitsGroupedByTimestamp} />
+        <CommitsGroupedByTimestamp
+          commitsGroupedByTimestamp={codebaseCommitsGroupedByTimestamp}
+          showCommitAuthorAvatar
+        />
       )}
     </div>
   )

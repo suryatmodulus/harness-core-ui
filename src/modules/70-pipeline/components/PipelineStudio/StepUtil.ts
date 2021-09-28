@@ -346,6 +346,18 @@ export const validatePipeline = ({
         getString?.('fieldRequired', { field: getString?.('gitTag') })
       )
     }
+
+    if (
+      isCloneCodebaseEnabledAtLeastAtOneStage &&
+      (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.type === 'PR' &&
+      isEmpty((pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.build?.spec?.number)
+    ) {
+      set(
+        errors,
+        'properties.ci.codebase.build.spec.number',
+        getString?.('fieldRequired', { field: getString?.('pipeline.gitPullRequestNumber') })
+      )
+    }
   }
 
   if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

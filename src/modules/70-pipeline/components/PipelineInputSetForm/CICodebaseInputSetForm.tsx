@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { get, isEmpty } from 'lodash-es'
 import { FormInput, MultiTypeInputType } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
@@ -24,6 +25,8 @@ const defaultValues = {
 }
 
 const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseInputSetFormProps): JSX.Element => {
+  const { triggerIdentifier } = useParams<Record<string, string>>()
+
   const [isInputTouched, setIsInputTouched] = useState(false)
 
   const [savedValues, setSavedValues] = useState({
@@ -72,7 +75,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
       [type]: get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
     }))
 
-    if (!isInputTouched) {
+    if (!isInputTouched && triggerIdentifier) {
       formik?.setFieldValue(`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, undefined)
       formik?.setFieldValue(
         `${formattedPath}properties.ci.codebase.build.spec.${inputNames[newType]}`,

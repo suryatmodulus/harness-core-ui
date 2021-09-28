@@ -8,7 +8,13 @@ import css from './styles.module.scss'
 
 function AppCard(props: any): React.ReactElement {
   const { app } = props
-  const { mutate: syncApp } = useMutate('POST', getConfig(`gitops-proxy/applications/${app?.metadata?.name}/sync`))
+  let url = `gitops-proxy/applications/${app?.metadata?.name}/sync`
+
+  if (window.location.hostname === 'pr.harness.io') {
+    url = `ng/${url}`
+  }
+
+  const { mutate: syncApp } = useMutate('POST', getConfig(url))
   const { showError, showSuccess } = useToaster()
   const status = app?.status?.sync?.status
   const inSync = status === 'Synced'

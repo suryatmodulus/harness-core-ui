@@ -7,7 +7,7 @@
 
   .mask {
     height: 100% !important;
-    background-color: var(--white) !important;
+    background-color: var(--form-bg) !important;
     opacity: 0.7;
     position: absolute;
     pointer-events: none;
@@ -20,6 +20,7 @@
     border-radius: 3px;
     height: 100% !important;
     position: relative;
+    box-sizing: border-box;
     pointer-events: none;
 
     .leftHandle,
@@ -33,6 +34,7 @@
     .magnifyingGlass {
       width: 100% !important;
       height: 100% !important;
+      box-sizing: border-box;
       pointer-events: initial;
       transform: translate(0, 0) !important;
     }
@@ -43,15 +45,29 @@
       width: 214px;
       position: absolute;
       transform: translate(-8%);
-      bottom: 0;
+      bottom: 15%;
       right: 100%;
       z-index: 8;
       pointer-events: initial;
     }
 
+    .resetButton {
+      position: absolute;
+      color: var(--primary);
+      left: 84%;
+      bottom: -20%;
+      cursor: pointer;
+      pointer-events: initial;
+      font-size: var(--font-size-small) !important;
+    }
+
     .reverseCard {
       transform: translate(8%);
       left: 100%;
+
+      .resetButton {
+        left: 0 !important;
+      }
     }
 
     &::after {

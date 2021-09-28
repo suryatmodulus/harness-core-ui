@@ -4,5 +4,6 @@ declare const styles: {
   readonly cardRow: string
   readonly cardColumn: string
   readonly seperator: string
+  readonly changeSourceIcon: string
 }
 export default styles

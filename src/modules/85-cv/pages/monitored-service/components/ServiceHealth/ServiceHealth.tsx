@@ -5,6 +5,7 @@ import { useStrings } from 'framework/strings'
 import ChangeTimeline from '@cv/components/ChangeTimeline/ChangeTimeline'
 import TimelineSlider from '@cv/components/ChangeTimeline/components/TimelineSlider/TimelineSlider'
 import type { RiskData } from 'services/cv'
+import type { ChangesInfoCardData } from '@cv/components/ChangeTimeline/ChangeTimeline.types'
 import {
   calculateLowestHealthScoreBar,
   calculateStartAndEndTimes,
@@ -14,7 +15,6 @@ import {
   getTimestampsForPeriod
 } from './ServiceHealth.utils'
 import { DEFAULT_MAX_SLIDER_WIDTH, DEFAULT_MIN_SLIDER_WIDTH, TimePeriodEnum } from './ServiceHealth.constants'
-
 import type { ServiceHealthProps } from './ServiceHealth.types'
 import HealthScoreChart from './components/HealthScoreChart/HealthScoreChart'
 import MetricsAndLogs from './components/MetricsAndLogs/MetricsAndLogs'
@@ -54,6 +54,13 @@ export default function ServiceHealth({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTimePeriod?.value])
 
+  useEffect(() => {
+    //changing timeperiod in dropdown should reset the timerange and remove the slider.
+    if (showTimelineSlider) {
+      setTimeRange({ startTime: 0, endTime: 0 })
+    }
+  }, [showTimelineSlider])
+
   // calculating the min and max width for the the timeline slider
   const sliderDimensions = useMemo(() => {
     let dimensions = { minWidth: DEFAULT_MIN_SLIDER_WIDTH, maxWidth: DEFAULT_MAX_SLIDER_WIDTH }
@@ -77,10 +84,12 @@ export default function ServiceHealth({
     setTimeRange({ startTime, endTime })
   }, [])
 
+  const [changeTimelineSummary, setChangeTimelineSummary] = useState<ChangesInfoCardData[] | null>(null)
   const renderInfoCard = useCallback(() => {
     return (
       <AnomaliesCard
         timeRange={timeRange}
+        changeTimelineSummary={changeTimelineSummary || []}
         lowestHealthScoreBarForTimeRange={lowestHealthScoreBarForTimeRange}
         timeFormat={timeFormat}
         serviceIdentifier={serviceIdentifier}
@@ -94,7 +103,8 @@ export default function ServiceHealth({
     monitoredServiceIdentifier,
     serviceIdentifier,
     timeFormat,
-    timeRange
+    timeRange,
+    changeTimelineSummary
   ])
 
   const changesTableAndSourceCardStartAndEndtime = useMemo(
@@ -140,20 +150,31 @@ export default function ServiceHealth({
                 setHealthScoreData={setHealthScoreData}
                 timeFormat={timeFormat}
               />
-              <TimelineSlider
-                initialSliderWidth={sliderDimensions.minWidth}
-                leftContainerOffset={100}
-                hideSlider={!showTimelineSlider}
-                className={css.slider}
-                minSliderWidth={sliderDimensions.minWidth}
-                maxSliderWidth={sliderDimensions.maxWidth}
-                infoCard={renderInfoCard()}
-                onSliderDragEnd={({ startXPercentage, endXPercentage }) => {
-                  const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
-                  if (startAndEndtime) onFocusTimeRange?.(startAndEndtime[0], startAndEndtime[1])
-                }}
+              {showTimelineSlider ? (
+                <TimelineSlider
+                  resetFocus={() => setShowTimelineSlider(false)}
+                  initialSliderWidth={sliderDimensions.minWidth}
+                  leftContainerOffset={100}
+                  hideSlider={!showTimelineSlider}
+                  className={css.slider}
+                  minSliderWidth={sliderDimensions.minWidth}
+                  maxSliderWidth={sliderDimensions.maxWidth}
+                  infoCard={renderInfoCard()}
+                  onSliderDragEnd={({ startXPercentage, endXPercentage }) => {
+                    const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
+                    if (startAndEndtime) onFocusTimeRange?.(startAndEndtime[0], startAndEndtime[1])
+                  }}
+                />
+              ) : null}
+              <ChangeTimeline
+                serviceIdentifier={serviceIdentifier}
+                environmentIdentifier={environmentIdentifier}
+                timeFormat={timeFormat}
+                startTime={timeRange?.startTime as number}
+                endTime={timeRange?.endTime as number}
+                selectedTimePeriod={selectedTimePeriod?.value as string}
+                onSliderMoved={setChangeTimelineSummary}
               />
-              <ChangeTimeline timestamps={timestamps} timeFormat={timeFormat} />
             </Container>
           </>
         </Card>

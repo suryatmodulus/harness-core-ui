@@ -12,3 +12,9 @@
   margin-left: var(--spacing-xsmall);
   margin-right: var(--spacing-xsmall);
 }
+
+.changeSourceIcon {
+  span {
+    transform: rotate(45deg);
+  }
+}

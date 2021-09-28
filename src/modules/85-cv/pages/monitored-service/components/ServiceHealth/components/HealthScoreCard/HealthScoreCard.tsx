@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
-import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetMonitoredServiceScoresFromServiceAndEnvironment } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import type { HealthScoreCardProps } from './HealthScoreCard.types'
+import HealthScoreCardLoading from './components/HealthScoreCardLoading/HealthScoreCardLoading'
+import HealthScoreCardError from './components/HealthScoreError/HealthScoreCardError'
 import css from './HealthScoreCard.module.scss'
 
 export default function HealthScoreCard(props: HealthScoreCardProps): JSX.Element {
@@ -26,7 +28,8 @@ export default function HealthScoreCard(props: HealthScoreCardProps): JSX.Elemen
   const {
     data: healthScoreData,
     refetch: fetchHealthScore,
-    loading
+    loading,
+    error
   } = useGetMonitoredServiceScoresFromServiceAndEnvironment({
     lazy: true,
     queryParams: healthScoreQueryParams
@@ -48,7 +51,9 @@ export default function HealthScoreCard(props: HealthScoreCardProps): JSX.Elemen
 
   const renderHealthScore = useCallback(() => {
     if (loading) {
-      return <Icon name={'spinner'} size={16} padding={{ right: 'small' }} />
+      return <HealthScoreCardLoading />
+    } else if (error) {
+      return <HealthScoreCardError errorMessage={getString('cv.monitoredServices.failedToFetchHealthScore')} />
     } else if (healthScore !== null && healthScore > -1) {
       return (
         <>
@@ -77,6 +82,7 @@ export default function HealthScoreCard(props: HealthScoreCardProps): JSX.Elemen
     } else {
       return <></>
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color, healthScore, loading])
 
   return <Layout.Horizontal className={css.healthScoreCardContainer}>{renderHealthScore()}</Layout.Horizontal>

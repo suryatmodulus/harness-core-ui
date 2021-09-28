@@ -9,6 +9,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetAnomaliesSummary } from 'services/cv'
 import { useToaster } from '@common/exports'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { getChangeSoureIconColor } from '@cv/components/ChangeTimeline/ChangeTimeline.utils'
 import { areAnomaliesAvailable, mapHealthBarRiskStatusToColor } from './AnomaliesCard.utils'
 import type { AnomaliesCardProps } from './Anomalies.types'
 import css from './AnomaliesCard.module.scss'
@@ -17,6 +18,7 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
   const {
     timeRange,
     timeFormat,
+    changeTimelineSummary,
     lowestHealthScoreBarForTimeRange,
     serviceIdentifier,
     environmentIdentifier,
@@ -96,8 +98,19 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
     } else {
       return (
         <Container padding={{ right: 'small', left: 'small' }}>
+          {!anomaliesLoading && isTotalAnomaliesAvailable && (
+            <Text
+              padding={{ right: 'small', top: 'small' }}
+              color={Color.WHITE}
+              font={{ size: 'xsmall', weight: 'bold' }}
+            >
+              {`${getString('cv.monitoredServices.serviceHealth.anamolies')}: ${
+                anomaliesData?.resource?.totalAnomalies
+              }`}
+            </Text>
+          )}
           {isTimeSeriesAnomaliesAvailable && (
-            <Text padding={{ top: 'medium' }} color={Color.WHITE} font={{ size: 'xsmall', weight: 'bold' }}>
+            <Text padding={{ top: 'xsmall' }} color={Color.WHITE} font={{ size: 'xsmall', weight: 'bold' }}>
               {`${getString('pipeline.verification.analysisTab.metrics')} ${
                 anomaliesData?.resource?.timeSeriesAnomalies
               }`}
@@ -124,6 +137,34 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
     isTimeSeriesAnomaliesAvailable
   ])
 
+  const renderChangesData = useCallback(() => {
+    const allZero = changeTimelineSummary?.every(item => item.count === 0)
+    return !allZero ? (
+      <>
+        <Container className={css.cardRow}>
+          <Container className={css.cardColumn} padding={{ left: 'small', right: 'small' }}>
+            {changeTimelineSummary?.map(item => {
+              return (
+                <Text
+                  key={item.key}
+                  icon={'symbol-square'}
+                  className={css.changeSourceIcon}
+                  iconProps={{ size: 10, color: getChangeSoureIconColor(item.key) }}
+                  padding={{ top: 'small' }}
+                  color={Color.WHITE}
+                  font={{ size: 'xsmall' }}
+                >
+                  {`${item?.count}  ${item.key} ${getString('change')}`}
+                </Text>
+              )
+            })}
+          </Container>
+        </Container>
+        <hr className={css.seperator} />
+      </>
+    ) : null
+  }, [changeTimelineSummary])
+
   return (
     <>
       <Container className={css.cardRow}>
@@ -132,17 +173,9 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
             momentTimeformat
           )}`}
         </Text>
-        {!anomaliesLoading && isTotalAnomaliesAvailable && (
-          <Text
-            padding={{ right: 'small', top: 'small' }}
-            color={Color.WHITE}
-            font={{ size: 'xsmall', weight: 'bold' }}
-          >
-            {`${getString('cv.monitoredServices.serviceHealth.anamolies')}: ${anomaliesData?.resource?.totalAnomalies}`}
-          </Text>
-        )}
       </Container>
       <hr className={css.seperator} />
+      {changeTimelineSummary && renderChangesData()}
       <Container className={css.cardRow}>
         {isLowestHealthScoreAvailable && (
           <Container className={css.cardColumn} padding={{ left: 'small', right: 'small' }}>

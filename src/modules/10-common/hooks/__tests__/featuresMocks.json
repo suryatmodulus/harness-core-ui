@@ -1,0 +1,63 @@
+{
+  "featureList": {
+    "status": "SUCCESS",
+    "data": [
+      {
+        "allowed": true,
+        "decription": "TEST1",
+        "moduleType": "cd",
+        "name": "TEST1",
+        "restriction": {
+          "enabled": true,
+          "restrictionType": "ENABLED"
+        }
+      },
+      {
+        "allowed": true,
+        "decription": "TEST2",
+        "moduleType": "ci",
+        "name": "TEST2",
+        "restriction": {
+          "enabled": true,
+          "restrictionType": "ENABLED"
+        }
+      }
+    ],
+    "metaData": null,
+    "correlationId": "937b7ee5-3dd3-4ff1-a797-efb8270482a8"
+  },
+  "featureDetail-enabled": {
+    "status": "SUCCESS",
+    "data": {
+      "allowed": true,
+      "decription": "TEST3",
+      "moduleType": "ce",
+      "name": "TEST3",
+      "restriction": {
+        "limit": 100,
+        "count": 20,
+        "enabled": true,
+        "restrictionType": "RATE_LIMIT"
+      }
+    },
+    "metaData": null,
+    "correlationId": "937b7ee5-3dd3-4ff1-a797-efb8270482a8"
+  },
+  "featureDetail-disabled": {
+    "status": "SUCCESS",
+    "data": {
+      "allowed": false,
+      "decription": "TEST3",
+      "moduleType": "cf",
+      "name": "TEST3",
+      "restriction": {
+        "limit": 100,
+        "count": 100,
+        "enabled": false,
+        "restrictionType": "RATE_LIMIT"
+      }
+    },
+    "metaData": null,
+    "correlationId": "937b7ee5-3dd3-4ff1-a797-efb8270482a8"
+  }
+}

@@ -571,11 +571,26 @@ exports[`UsersPage Test render data 1`] = `
             <div
               class="Layout--vertical StyledProps--main"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                Testing User Group
-              </p>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1;"
+                  >
+                    Testing User Group
+                  </p>
+                </div>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-variation-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -786,11 +801,26 @@ exports[`UsersPage Test render data 1`] = `
             <div
               class="Layout--vertical StyledProps--main"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                dummy
-              </p>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1;"
+                  >
+                    dummy
+                  </p>
+                </div>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-variation-small"
+                  style="--text-line-clamp: 1;"
+                >
+                  idLabel
+                </p>
+              </div>
             </div>
           </div>
           <div
@@ -890,59 +920,52 @@ exports[`UsersPage Test render data 1`] = `
             <div
               class="Layout--vertical StyledProps--main"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-              >
-                Testing User Group With SSO
-              </p>
               <div
-                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main truncatedText StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                 >
-                  <span
-                    class="bp3-icon bp3-icon-link StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue500"
-                    icon="link"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1;"
                   >
-                    <svg
-                      data-icon="link"
-                      height="10"
-                      viewBox="0 0 16 16"
-                      width="10"
+                    Testing User Group With SSO
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
                     >
-                      <desc>
-                        link
-                      </desc>
-                      <path
-                        d="M4.99 11.99c.28 0 .53-.11.71-.29l6-6a1.003 1.003 0 00-1.42-1.42l-6 6a1.003 1.003 0 00.71 1.71zm3.85-2.02L6.4 12.41l-1 1-.01-.01c-.36.36-.85.6-1.4.6-1.1 0-2-.9-2-2 0-.55.24-1.04.6-1.4l-.01-.01 1-1 2.44-2.44c-.33-.1-.67-.16-1.03-.16-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.73.72-1.19 1.71-1.19 2.81 0 2.21 1.79 4 4 4 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02c.73-.72 1.19-1.71 1.19-2.81 0-.35-.06-.69-.15-1.02zm7.15-5.98c0-2.21-1.79-4-4-4-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.72.72-1.19 1.71-1.19 2.81 0 .36.06.69.15 1.02l2.44-2.44 1-1 .01.01c.36-.36.85-.6 1.4-.6 1.1 0 2 .9 2 2 0 .55-.24 1.04-.6 1.4l.01.01-1 1-2.43 2.45c.33.09.67.15 1.02.15 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02a3.92 3.92 0 001.19-2.81z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
+                      <span
+                        class="bp3-icon bp3-icon-link StyledProps--main StyledProps--color StyledProps--color-blue500"
+                        icon="link"
+                        tabindex="0"
+                      >
+                        <svg
+                          data-icon="link"
+                          height="10"
+                          viewBox="0 0 16 16"
+                          width="10"
+                        >
+                          <desc>
+                            link
+                          </desc>
+                          <path
+                            d="M4.99 11.99c.28 0 .53-.11.71-.29l6-6a1.003 1.003 0 00-1.42-1.42l-6 6a1.003 1.003 0 00.71 1.71zm3.85-2.02L6.4 12.41l-1 1-.01-.01c-.36.36-.85.6-1.4.6-1.1 0-2-.9-2-2 0-.55.24-1.04.6-1.4l-.01-.01 1-1 2.44-2.44c-.33-.1-.67-.16-1.03-.16-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.73.72-1.19 1.71-1.19 2.81 0 2.21 1.79 4 4 4 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02c.73-.72 1.19-1.71 1.19-2.81 0-.35-.06-.69-.15-1.02zm7.15-5.98c0-2.21-1.79-4-4-4-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.72.72-1.19 1.71-1.19 2.81 0 .36.06.69.15 1.02l2.44-2.44 1-1 .01.01c.36-.36.85-.6 1.4-.6 1.1 0 2 .9 2 2 0 .55-.24 1.04-.6 1.4l.01.01-1 1-2.43 2.45c.33.09.67.15 1.02.15 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02a3.92 3.92 0 001.19-2.81z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </span>
                   </span>
-                  <span>
-                    rbac.userDetails.linkToSSOProviderModal.saml
-                  </span>
-                </p>
+                </div>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main"
-                  style="--text-line-clamp: 1; width: 110px;"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-variation-small"
+                  style="--text-line-clamp: 1;"
                 >
-                  TEST_LINKED_SSO
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                >
-                  <span>
-                    rbac.userDetails.linkToSSOProviderModal.group
-                  </span>
-                </p>
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main"
-                  style="--text-line-clamp: 1; width: 110px;"
-                >
-                  TEST SSO GROUP NAME
+                  idLabel
                 </p>
               </div>
             </div>
@@ -1156,59 +1179,52 @@ exports[`UsersPage Test render data 1`] = `
             <div
               class="Layout--vertical StyledProps--main"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-              >
-                Testing User Group With SSO no Users
-              </p>
               <div
-                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main truncatedText StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
               >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                 >
-                  <span
-                    class="bp3-icon bp3-icon-link StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue500"
-                    icon="link"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1;"
                   >
-                    <svg
-                      data-icon="link"
-                      height="10"
-                      viewBox="0 0 16 16"
-                      width="10"
+                    Testing User Group With SSO no Users
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
                     >
-                      <desc>
-                        link
-                      </desc>
-                      <path
-                        d="M4.99 11.99c.28 0 .53-.11.71-.29l6-6a1.003 1.003 0 00-1.42-1.42l-6 6a1.003 1.003 0 00.71 1.71zm3.85-2.02L6.4 12.41l-1 1-.01-.01c-.36.36-.85.6-1.4.6-1.1 0-2-.9-2-2 0-.55.24-1.04.6-1.4l-.01-.01 1-1 2.44-2.44c-.33-.1-.67-.16-1.03-.16-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.73.72-1.19 1.71-1.19 2.81 0 2.21 1.79 4 4 4 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02c.73-.72 1.19-1.71 1.19-2.81 0-.35-.06-.69-.15-1.02zm7.15-5.98c0-2.21-1.79-4-4-4-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.72.72-1.19 1.71-1.19 2.81 0 .36.06.69.15 1.02l2.44-2.44 1-1 .01.01c.36-.36.85-.6 1.4-.6 1.1 0 2 .9 2 2 0 .55-.24 1.04-.6 1.4l.01.01-1 1-2.43 2.45c.33.09.67.15 1.02.15 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02a3.92 3.92 0 001.19-2.81z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
+                      <span
+                        class="bp3-icon bp3-icon-link StyledProps--main StyledProps--color StyledProps--color-blue500"
+                        icon="link"
+                        tabindex="0"
+                      >
+                        <svg
+                          data-icon="link"
+                          height="10"
+                          viewBox="0 0 16 16"
+                          width="10"
+                        >
+                          <desc>
+                            link
+                          </desc>
+                          <path
+                            d="M4.99 11.99c.28 0 .53-.11.71-.29l6-6a1.003 1.003 0 00-1.42-1.42l-6 6a1.003 1.003 0 00.71 1.71zm3.85-2.02L6.4 12.41l-1 1-.01-.01c-.36.36-.85.6-1.4.6-1.1 0-2-.9-2-2 0-.55.24-1.04.6-1.4l-.01-.01 1-1 2.44-2.44c-.33-.1-.67-.16-1.03-.16-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.73.72-1.19 1.71-1.19 2.81 0 2.21 1.79 4 4 4 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02c.73-.72 1.19-1.71 1.19-2.81 0-.35-.06-.69-.15-1.02zm7.15-5.98c0-2.21-1.79-4-4-4-1.1 0-2.09.46-2.81 1.19l-.02-.02-1 1 .02.02c-.72.72-1.19 1.71-1.19 2.81 0 .36.06.69.15 1.02l2.44-2.44 1-1 .01.01c.36-.36.85-.6 1.4-.6 1.1 0 2 .9 2 2 0 .55-.24 1.04-.6 1.4l.01.01-1 1-2.43 2.45c.33.09.67.15 1.02.15 1.1 0 2.09-.46 2.81-1.19l.02.02 1-1-.02-.02a3.92 3.92 0 001.19-2.81z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </span>
                   </span>
-                  <span>
-                    rbac.userDetails.linkToSSOProviderModal.saml
-                  </span>
-                </p>
+                </div>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main"
-                  style="--text-line-clamp: 1; width: 110px;"
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-variation-small"
+                  style="--text-line-clamp: 1;"
                 >
-                  TEST_LINKED_SSO
-                </p>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                >
-                  <span>
-                    rbac.userDetails.linkToSSOProviderModal.group
-                  </span>
-                </p>
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main"
-                  style="--text-line-clamp: 1; width: 110px;"
-                >
-                  TEST SSO GROUP NAME
+                  idLabel
                 </p>
               </div>
             </div>

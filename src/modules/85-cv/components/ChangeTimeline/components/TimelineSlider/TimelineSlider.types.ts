@@ -15,6 +15,7 @@ export interface TimelineSliderProps {
   leftContainerOffset?: number
   className?: string
   infoCard?: JSX.Element
+  resetFocus?: () => void
   hideSlider?: boolean
 }
 

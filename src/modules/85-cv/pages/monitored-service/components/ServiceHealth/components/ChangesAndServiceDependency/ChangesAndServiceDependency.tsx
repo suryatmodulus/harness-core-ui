@@ -1,11 +1,9 @@
 import React from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import Card from '@cv/components/Card/Card'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
-import noDataImage from '@cv/assets/noData.svg'
 import ChangesTable from './components/ChangesTable/ChangesTable'
 import type { ChangesAndServiceDependencyInterface } from './ChangesAndServiceDependency.types'
+import MonitoredServiceDependenciesChart from './components/MonitoredServiceDependenciesChart/MonitoredServiceDependenciesChart'
 import css from './ChangesAndServiceDependency.module.scss'
 
 export default function ChangesAndServiceDependency({
@@ -32,11 +30,10 @@ export default function ChangesAndServiceDependency({
         <Text font={{ weight: 'bold', size: 'normal' }} padding={{ bottom: 'medium' }}>
           {getString('pipeline.serviceDependenciesText')}
         </Text>
-        <Card className={css.noDataContainer}>
-          <Container className={css.noData}>
-            <NoDataCard message={getString('cv.monitoredServices.noAvailableData')} image={noDataImage} />
-          </Container>
-        </Card>
+        <MonitoredServiceDependenciesChart
+          serviceIdentifier={serviceIdentifier}
+          envIdentifier={environmentIdentifier}
+        />
       </Container>
     </Container>
   )

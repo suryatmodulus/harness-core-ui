@@ -1,5 +1,5 @@
 import React from 'react'
-import { isPlainObject, get, isNil, escape } from 'lodash-es'
+import { isPlainObject, get, isNil, escape, defaultTo } from 'lodash-es'
 import cx from 'classnames'
 
 import { Text, useNestedAccordion } from '@wings-software/uicore'
@@ -7,7 +7,11 @@ import { CopyText } from '@common/components/CopyText/CopyText'
 import type { VariableResponseMapValue } from 'services/pipeline-ng'
 import { toVariableStr } from '@common/utils/StringUtils'
 
-import { getTextWithSearchMarkers, usePipelineVariables } from '../PipelineVariablesContext/PipelineVariablesContext'
+import {
+  getTextWithSearchMarkers,
+  SearchResult,
+  usePipelineVariables
+} from '../PipelineVariablesContext/PipelineVariablesContext'
 import css from './VariablesListTable.module.scss'
 
 export interface VariableListTableProps<T = Record<string, any>> {
@@ -20,13 +24,15 @@ export interface VariableListTableProps<T = Record<string, any>> {
 export function VariablesListTable<T>(props: VariableListTableProps<T>): React.ReactElement | null {
   const { data, metadataMap, originalData, className } = props
   const { searchText, searchIndex, searchResults = [] } = usePipelineVariables()
-  const searchedEntity = searchResults[searchIndex || 0] || {}
+  const searchedEntity = defaultTo(searchResults[searchIndex || 0], {} as SearchResult)
   const tableRef = React.useRef()
   const { openNestedPath } = useNestedAccordion()
   React.useLayoutEffect(() => {
     if (tableRef.current) {
-      const { testid: accordianId = '', open } =
-        (tableRef?.current as any)?.closest?.('.Accordion--panel')?.dataset || {}
+      const { testid: accordianId = '', open } = defaultTo(
+        (tableRef?.current as any)?.closest?.('.Accordion--panel')?.dataset,
+        {}
+      )
       if (open === 'false') {
         openNestedPath(accordianId?.replace('-panel', ''))
         setTimeout(() => {
@@ -42,8 +48,8 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
     <div className={cx(css.variablesListTable, className)} ref={tableRef as any}>
       {Object.entries(data || {}).map(([key, value]) => {
         if (typeof value !== 'string' || key === 'uuid' || isNil(value)) return null
-
         const metadata = metadataMap[value]
+
         const finalvalue = get(originalData, key)
         let formattedValue
         if (Array.isArray(finalvalue)) {
@@ -57,15 +63,16 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
         }
 
         if (isNil(metadata) || isNil(formattedValue)) return null
-        const variableNameParts = metadata.yamlProperties?.localName?.split('.') || []
+        const yamlProps = defaultTo(metadata?.yamlProperties, metadata?.yamlOutputProperties)
+        const variableNameParts = defaultTo(yamlProps?.localName?.split('.'), [])
         const variableName = variableNameParts[variableNameParts?.length - 1]
-        const searchedEntityType = searchedEntity.type || null
+        const searchedEntityType = defaultTo(searchedEntity?.type, null)
         formattedValue = formattedValue.toString()
-        const hasSameMetaKeyId = searchedEntity.metaKeyId === value
+        const hasSameMetaKeyId = searchedEntity?.metaKeyId === value
         const isValidValueMatch = `${formattedValue}`?.toLowerCase()?.includes(searchText?.toLowerCase() || '')
         return (
           <div key={key} className={css.variableListRow}>
-            <CopyText className="variable-name-cell" textToCopy={toVariableStr(metadata.yamlProperties?.fqn || '')}>
+            <CopyText className="variable-name-cell" textToCopy={toVariableStr(defaultTo(yamlProps?.fqn, ''))}>
               <span
                 className={cx({
                   'selected-search-text': searchedEntityType === 'key' && hasSameMetaKeyId

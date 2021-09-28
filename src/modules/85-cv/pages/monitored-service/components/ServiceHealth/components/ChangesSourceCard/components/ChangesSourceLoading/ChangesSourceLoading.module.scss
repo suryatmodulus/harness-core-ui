@@ -1,0 +1,10 @@
+.loadingContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.loadingBlock {
+  display: flex;
+  flex-direction: row;
+  margin-right: var(--spacing-huge) !important;
+}

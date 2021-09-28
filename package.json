@@ -1,7 +1,7 @@
 {
   "name": "nextgenui",
   "description": "Harness Inc",
-  "version": "0.267.0",
+  "version": "0.268.0",
   "author": "Harness Inc",
   "license": "Harness Inc",
   "private": true,
@@ -19,10 +19,13 @@
     "test:watch": "jest --watch",
     "lint": "eslint  --rulesdir ./scripts/eslint-rules --ext .ts --ext .tsx src",
     "typecheck": "tsc",
+    "cypress:ci": "cypress run --config videoUploadOnPasses=false --browser chrome",
     "cypress:open": "cypress open",
+    "cypress:openCoverage": "CYPRESS_COVERAGE=true cypress open",
     "strings-check": "node ./scripts/yaml-strings-check.js",
     "clean": "rm -rf dist && rm -rf node_modules/.cache",
-    "dev:cypress": "NODE_ENV=development TARGET_LOCALHOST=false CYPRESS=true BASE_URL=https://localhost:8080 webpack serve --progress",
+    "dev:cypress": "NODE_ENV=development TARGET_LOCALHOST=false CYPRESS=true BASE_URL=https://localhost:8080 NODE_OPTIONS=\"--max-old-space-size=6144\" webpack serve --progress",
+    "dev:cypressCoverage": "NODE_ENV=development TARGET_LOCALHOST=false CYPRESS=true CYPRESS_COVERAGE=true BASE_URL=https://localhost:8080 NODE_OPTIONS=\"--max-old-space-size=6144\" webpack serve --progress",
     "dev": "NODE_ENV=development webpack serve --progress",
     "watch": "yarn clean && NODE_ENV=development webpack --watch --progress",
     "services": "npm-run-all services:*",
@@ -186,7 +189,7 @@
     "case": "^1.6.3",
     "circular-dependency-plugin": "^5.2.2",
     "css-loader": "^5.2.1",
-    "cypress": "^8.1.0",
+    "cypress": "^8.4.1",
     "dotenv": "^10.0.0",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
@@ -286,10 +289,5 @@
       ]
     },
     "commonChunkLimit": "70-pipeline"
-  },
-  "nyc": {
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "all": true,
-    "report-dir": "cypress-coverage"
   }
 }

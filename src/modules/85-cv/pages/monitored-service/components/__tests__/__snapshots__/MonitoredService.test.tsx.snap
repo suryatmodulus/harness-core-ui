@@ -417,7 +417,7 @@ exports[`Unit tests for createting monitored source Check discard and save butto
                     <p
                       class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
                     >
-                      cv.changeSource.noData
+                      cv.changeSource.noChangeSource
                     </p>
                     <div
                       class="buttonContainer"
@@ -919,7 +919,7 @@ exports[`Unit tests for createting monitored source Health source table and envi
                     <p
                       class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
                     >
-                      cv.changeSource.noData
+                      cv.changeSource.noChangeSource
                     </p>
                     <div
                       class="buttonContainer"

@@ -18,7 +18,9 @@
 // eslint-disable-next-line no-unused-vars
 const cypressTypeScriptPreprocessor = require('./cy-ts-preprocessor')
 module.exports = (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
-  require('@cypress/code-coverage/task')(on, config)
+  if (process.env.CYPRESS_COVERAGE) {
+    require('@cypress/code-coverage/task')(on, config)
+  }
   on('file:preprocessor', cypressTypeScriptPreprocessor)
   return config
 }

@@ -22,7 +22,7 @@ describe('Test Change Source Table', () => {
         <ChangeSourceTable value={[]} onEdit={onEdit} onSuccess={onSuccess} />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('cv.changeSource.noData')).toBeTruthy())
+    await waitFor(() => expect(getByText('cv.changeSource.noChangeSource')).toBeTruthy())
     expect(container).toMatchSnapshot()
   })
 

@@ -1,0 +1,13 @@
+extends: '@istanbuljs/nyc-config-typescript'
+all: true,
+include:
+  - src/**/*.tsx
+  - src/**/*.ts
+exclude:
+  - src/**/*.test.tsx
+  - src/**/*.test.ts
+  - src/**/*.d.ts
+  - src/**/__tests__/**
+  - src/**/__mocks__/**
+  - src/**/_stories/**
+report-dir: cypress-coverage

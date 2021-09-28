@@ -5,6 +5,7 @@ import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
 // eslint-disable-next-line no-restricted-imports
 import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
+
 import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
 import { SelectArtifactModal } from '../views/modals'
 
@@ -225,6 +226,7 @@ jest.mock('services/portal', () => ({
     return { data: mockRegions, refetch: jest.fn(), error: null, loading: false }
   })
 }))
+
 describe('Select Artifact Modal tests', () => {
   beforeAll(() => {
     TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {

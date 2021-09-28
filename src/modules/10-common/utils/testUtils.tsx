@@ -18,6 +18,9 @@ import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 import type { Project } from 'services/cd-ng'
 import { StringsContext } from 'framework/strings'
 
+import { FeaturesContext, FeaturesContextProps } from 'framework/featureStore/FeaturesContext'
+import type { FeatureDetail } from 'framework/featureStore/FeaturesContext'
+
 import './testUtils.scss'
 import { PermissionsContext, PermissionsContextProps } from 'framework/rbac/PermissionsContext'
 
@@ -50,6 +53,7 @@ export interface TestWrapperProps {
   defaultAppStoreValues?: Partial<AppStoreContextProps>
   defaultLicenseStoreValues?: Partial<LicenseStoreContextProps>
   defaultPermissionValues?: Partial<PermissionsContextProps>
+  defaultFeaturesValues?: Partial<FeaturesContextProps>
   projects?: Project[]
   enableBrowserView?: boolean
   stringsData?: Record<string, string>
@@ -109,6 +113,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
     queryParams = {},
     defaultLicenseStoreValues,
     defaultPermissionValues,
+    defaultFeaturesValues,
     stringsData = {},
     getString = (key: string) => key
   } = props
@@ -118,6 +123,10 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const history = React.useMemo(() => createMemoryHistory({ initialEntries: [routePath] }), [])
+
+  const defaultReturn = {
+    enabled: true
+  }
 
   /** TODO: Try fixing this later. This is causing some tests to fail */
   // React.useEffect(() => {
@@ -155,22 +164,37 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
               ...defaultPermissionValues
             }}
           >
-            <Router history={history}>
-              <ModalProvider>
-                <RestfulProvider base="/">
-                  <BrowserView enable={props.enableBrowserView}>
-                    <Switch>
-                      <Route exact path={path}>
-                        {props.children}
-                      </Route>
-                      <Route>
-                        <CurrentLocation />
-                      </Route>
-                    </Switch>
-                  </BrowserView>
-                </RestfulProvider>
-              </ModalProvider>
-            </Router>
+            <FeaturesContext.Provider
+              value={{
+                features: new Map<string, FeatureDetail>(),
+                requestFeatures: () => void 0,
+                requestLimitFeature: () => void 0,
+                checkFeature: () => {
+                  return defaultReturn
+                },
+                checkLimitFeature: () => {
+                  return defaultReturn
+                },
+                ...defaultFeaturesValues
+              }}
+            >
+              <Router history={history}>
+                <ModalProvider>
+                  <RestfulProvider base="/">
+                    <BrowserView enable={props.enableBrowserView}>
+                      <Switch>
+                        <Route exact path={path}>
+                          {props.children}
+                        </Route>
+                        <Route>
+                          <CurrentLocation />
+                        </Route>
+                      </Switch>
+                    </BrowserView>
+                  </RestfulProvider>
+                </ModalProvider>
+              </Router>
+            </FeaturesContext.Provider>
           </PermissionsContext.Provider>
         </LicenseStoreContext.Provider>
       </AppStoreContext.Provider>

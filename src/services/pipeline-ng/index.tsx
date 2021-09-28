@@ -83,7 +83,7 @@ export type ArtifactTriggerConfig = NGTriggerSpecV2 & {
   artifactRef?: string
   spec?: ArtifactTypeSpec
   stageIdentifier?: string
-  type?: 'GCR'
+  type?: 'Gcr' | 'Ecr' | 'DockerRegistry'
 }
 
 export interface ArtifactTypeSpec {
@@ -493,6 +493,21 @@ export interface Descriptor {
   options?: MessageOptions
 }
 
+export type DockerRegistrySpec = ArtifactTypeSpec & {
+  connectorRef?: string
+  eventConditions?: TriggerEventDataCondition[]
+  imagePath?: string
+  tag?: string
+}
+
+export type EcrSpec = ArtifactTypeSpec & {
+  connectorRef?: string
+  eventConditions?: TriggerEventDataCondition[]
+  imagePath?: string
+  region?: string
+  tag?: string
+}
+
 export interface EdgeLayoutList {
   currentNodeChildren?: string[]
   nextIds?: string[]
@@ -867,6 +882,8 @@ export interface Error {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1425,6 +1442,8 @@ export interface Failure {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -1622,9 +1641,10 @@ export interface FilterProperties {
   }
 }
 
-export type GcrArtifactSpec = ArtifactTypeSpec & {
+export type GcrSpec = ArtifactTypeSpec & {
   connectorRef?: string
   eventConditions?: TriggerEventDataCondition[]
+  imagePath?: string
   registryHostname?: string
   tag?: string
 }
@@ -2723,10 +2743,21 @@ export interface PipelineInputResponse {
   success?: boolean
 }
 
+export interface PipelineOpaEvaluationContext {
+  action?: string
+  pipeline?: { [key: string]: any }
+  user?: UserOpaEvaluationContext
+}
+
 export interface PipelineWrapperResponse {
   label?: string
   pipelineInputResponse?: PipelineInputResponse[]
   status?: 'SUCCESS' | 'FAILURE' | 'IN_PROGRESS' | 'UNKNOWN'
+}
+
+export interface PipelinesCount {
+  newCount?: number
+  totalCount?: number
 }
 
 export interface PlanExecution {
@@ -3046,6 +3077,13 @@ export interface ResponseListGitlabPRAction {
 export interface ResponseListGitlabTriggerEvent {
   correlationId?: string
   data?: ('MergeRequest' | 'Push')[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListStageExecutionResponse {
+  correlationId?: string
+  data?: StageExecutionResponse[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3412,6 +3450,8 @@ export interface ResponseMessage {
     | 'SCM_NOT_MODIFIED'
     | 'JIRA_STEP_ERROR'
     | 'BUCKET_SERVER_ERROR'
+    | 'GIT_SYNC_ERROR'
+    | 'TEMPLATE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -3514,6 +3554,20 @@ export interface ResponsePipelineExecutionDetail {
 export interface ResponsePipelineExecutionInterrupt {
   correlationId?: string
   data?: PipelineExecutionInterrupt
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePipelineOpaEvaluationContext {
+  correlationId?: string
+  data?: PipelineOpaEvaluationContext
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePipelinesCount {
+  correlationId?: string
+  data?: PipelinesCount
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3766,6 +3820,13 @@ export interface StackTraceElement {
 
 export interface StageDetail {
   name?: string
+}
+
+export interface StageExecutionResponse {
+  message?: string
+  stageIdentifier?: string
+  stageName?: string
+  stagesRequired?: string[]
 }
 
 export interface StepCategory {
@@ -4147,6 +4208,11 @@ export interface UnknownFieldSet {
   parserForType?: Parser
   serializedSize?: number
   serializedSizeAsMessageSet?: number
+}
+
+export interface UserOpaEvaluationContext {
+  email?: string
+  name?: string
 }
 
 export interface ValidationError {
@@ -5939,6 +6005,210 @@ export const updateInputSetForPipelinePromise = (
     UpdateInputSetForPipelinePathParams
   >('PUT', getConfig('pipeline/api'), `/inputSets/${inputSetIdentifier}`, props, signal)
 
+export interface GetPipelinesCountQueryParams {
+  accountIdentifier: string
+  orgProjectIdentifiers: string[]
+  startTime: number
+  endTime: number
+}
+
+export type GetPipelinesCountProps = Omit<
+  GetProps<ResponsePipelinesCount, Failure | Error, GetPipelinesCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get pipelines count
+ */
+export const GetPipelinesCount = (props: GetPipelinesCountProps) => (
+  <Get<ResponsePipelinesCount, Failure | Error, GetPipelinesCountQueryParams, void>
+    path={`/landingDashboards/pipelinesCount`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetPipelinesCountProps = Omit<
+  UseGetProps<ResponsePipelinesCount, Failure | Error, GetPipelinesCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get pipelines count
+ */
+export const useGetPipelinesCount = (props: UseGetPipelinesCountProps) =>
+  useGet<ResponsePipelinesCount, Failure | Error, GetPipelinesCountQueryParams, void>(
+    `/landingDashboards/pipelinesCount`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * Get pipelines count
+ */
+export const getPipelinesCountPromise = (
+  props: GetUsingFetchProps<ResponsePipelinesCount, Failure | Error, GetPipelinesCountQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePipelinesCount, Failure | Error, GetPipelinesCountQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/landingDashboards/pipelinesCount`,
+    props,
+    signal
+  )
+
+export interface GetPipelineOpaContextQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  opaAction: string
+}
+
+export type GetPipelineOpaContextProps = Omit<
+  MutateProps<ResponsePipelineOpaEvaluationContext, unknown, GetPipelineOpaContextQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * get pipeline opa context
+ */
+export const GetPipelineOpaContext = (props: GetPipelineOpaContextProps) => (
+  <Mutate<ResponsePipelineOpaEvaluationContext, unknown, GetPipelineOpaContextQueryParams, void, void>
+    verb="POST"
+    path={`/opa/getPipelineOpaContext`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetPipelineOpaContextProps = Omit<
+  UseMutateProps<ResponsePipelineOpaEvaluationContext, unknown, GetPipelineOpaContextQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * get pipeline opa context
+ */
+export const useGetPipelineOpaContext = (props: UseGetPipelineOpaContextProps) =>
+  useMutate<ResponsePipelineOpaEvaluationContext, unknown, GetPipelineOpaContextQueryParams, void, void>(
+    'POST',
+    `/opa/getPipelineOpaContext`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * get pipeline opa context
+ */
+export const getPipelineOpaContextPromise = (
+  props: MutateUsingFetchProps<
+    ResponsePipelineOpaEvaluationContext,
+    unknown,
+    GetPipelineOpaContextQueryParams,
+    void,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponsePipelineOpaEvaluationContext, unknown, GetPipelineOpaContextQueryParams, void, void>(
+    'POST',
+    getConfig('pipeline/api'),
+    `/opa/getPipelineOpaContext`,
+    props,
+    signal
+  )
+
+export interface GetPipelineOpaContextFromEvaluationQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  opaAction: string
+}
+
+export interface GetPipelineOpaContextFromEvaluationPathParams {
+  planExecutionId: string
+}
+
+export type GetPipelineOpaContextFromEvaluationProps = Omit<
+  GetProps<
+    ResponsePipelineOpaEvaluationContext,
+    unknown,
+    GetPipelineOpaContextFromEvaluationQueryParams,
+    GetPipelineOpaContextFromEvaluationPathParams
+  >,
+  'path'
+> &
+  GetPipelineOpaContextFromEvaluationPathParams
+
+/**
+ * get pipeline opa context from evaluation
+ */
+export const GetPipelineOpaContextFromEvaluation = ({
+  planExecutionId,
+  ...props
+}: GetPipelineOpaContextFromEvaluationProps) => (
+  <Get<
+    ResponsePipelineOpaEvaluationContext,
+    unknown,
+    GetPipelineOpaContextFromEvaluationQueryParams,
+    GetPipelineOpaContextFromEvaluationPathParams
+  >
+    path={`/opa/getPipelineOpaContextFromEvaluation/${planExecutionId}`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetPipelineOpaContextFromEvaluationProps = Omit<
+  UseGetProps<
+    ResponsePipelineOpaEvaluationContext,
+    unknown,
+    GetPipelineOpaContextFromEvaluationQueryParams,
+    GetPipelineOpaContextFromEvaluationPathParams
+  >,
+  'path'
+> &
+  GetPipelineOpaContextFromEvaluationPathParams
+
+/**
+ * get pipeline opa context from evaluation
+ */
+export const useGetPipelineOpaContextFromEvaluation = ({
+  planExecutionId,
+  ...props
+}: UseGetPipelineOpaContextFromEvaluationProps) =>
+  useGet<
+    ResponsePipelineOpaEvaluationContext,
+    unknown,
+    GetPipelineOpaContextFromEvaluationQueryParams,
+    GetPipelineOpaContextFromEvaluationPathParams
+  >(
+    (paramsInPath: GetPipelineOpaContextFromEvaluationPathParams) =>
+      `/opa/getPipelineOpaContextFromEvaluation/${paramsInPath.planExecutionId}`,
+    { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
+  )
+
+/**
+ * get pipeline opa context from evaluation
+ */
+export const getPipelineOpaContextFromEvaluationPromise = (
+  {
+    planExecutionId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponsePipelineOpaEvaluationContext,
+    unknown,
+    GetPipelineOpaContextFromEvaluationQueryParams,
+    GetPipelineOpaContextFromEvaluationPathParams
+  > & { planExecutionId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponsePipelineOpaEvaluationContext,
+    unknown,
+    GetPipelineOpaContextFromEvaluationQueryParams,
+    GetPipelineOpaContextFromEvaluationPathParams
+  >(getConfig('pipeline/api'), `/opa/getPipelineOpaContextFromEvaluation/${planExecutionId}`, props, signal)
+
 export interface GetPreflightCheckResponseQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -6728,6 +6998,132 @@ export const rePostPipelineExecuteWithInputSetListPromise = (
     'POST',
     getConfig('pipeline/api'),
     `/pipeline/execute/rerun/${originalExecutionId}/${identifier}/inputSetList`,
+    props,
+    signal
+  )
+
+export interface RetryPipelineQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  moduleType: string
+  planExecutionId: string
+  retryStages: string[]
+  runAllStages?: boolean
+}
+
+export interface RetryPipelinePathParams {
+  identifier: string
+}
+
+export type RetryPipelineProps = Omit<
+  MutateProps<ResponsePlanExecutionResponseDto, unknown, RetryPipelineQueryParams, void, RetryPipelinePathParams>,
+  'path' | 'verb'
+> &
+  RetryPipelinePathParams
+
+/**
+ * Retry a executed pipeline with inputSet pipeline yaml
+ */
+export const RetryPipeline = ({ identifier, ...props }: RetryPipelineProps) => (
+  <Mutate<ResponsePlanExecutionResponseDto, unknown, RetryPipelineQueryParams, void, RetryPipelinePathParams>
+    verb="POST"
+    path={`/pipeline/execute/retry/${identifier}`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseRetryPipelineProps = Omit<
+  UseMutateProps<ResponsePlanExecutionResponseDto, unknown, RetryPipelineQueryParams, void, RetryPipelinePathParams>,
+  'path' | 'verb'
+> &
+  RetryPipelinePathParams
+
+/**
+ * Retry a executed pipeline with inputSet pipeline yaml
+ */
+export const useRetryPipeline = ({ identifier, ...props }: UseRetryPipelineProps) =>
+  useMutate<ResponsePlanExecutionResponseDto, unknown, RetryPipelineQueryParams, void, RetryPipelinePathParams>(
+    'POST',
+    (paramsInPath: RetryPipelinePathParams) => `/pipeline/execute/retry/${paramsInPath.identifier}`,
+    { base: getConfig('pipeline/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Retry a executed pipeline with inputSet pipeline yaml
+ */
+export const retryPipelinePromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RetryPipelineQueryParams,
+    void,
+    RetryPipelinePathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponsePlanExecutionResponseDto, unknown, RetryPipelineQueryParams, void, RetryPipelinePathParams>(
+    'POST',
+    getConfig('pipeline/api'),
+    `/pipeline/execute/retry/${identifier}`,
+    props,
+    signal
+  )
+
+export interface GetStagesExecutionListQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export type GetStagesExecutionListProps = Omit<
+  GetProps<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>,
+  'path'
+>
+
+/**
+ * get list of stages for stage execution
+ */
+export const GetStagesExecutionList = (props: GetStagesExecutionListProps) => (
+  <Get<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>
+    path={`/pipeline/execute/stagesExecutionList`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetStagesExecutionListProps = Omit<
+  UseGetProps<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>,
+  'path'
+>
+
+/**
+ * get list of stages for stage execution
+ */
+export const useGetStagesExecutionList = (props: UseGetStagesExecutionListProps) =>
+  useGet<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>(
+    `/pipeline/execute/stagesExecutionList`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * get list of stages for stage execution
+ */
+export const getStagesExecutionListPromise = (
+  props: GetUsingFetchProps<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListStageExecutionResponse, unknown, GetStagesExecutionListQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/pipeline/execute/stagesExecutionList`,
     props,
     signal
   )

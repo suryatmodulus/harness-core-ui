@@ -10,11 +10,6 @@ exports[`Unit tests for AnomaliesCard Verify if all the fields are rendered corr
     >
       04:13am - 04:13am
     </p>
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-bold"
-    >
-      cv.monitoredServices.serviceHealth.anamolies: 0
-    </p>
   </div>
   <hr
     class="seperator"
@@ -43,7 +38,12 @@ exports[`Unit tests for AnomaliesCard Verify if all the fields are rendered corr
         class="StyledProps--font StyledProps--main StyledProps--padding-right-small StyledProps--padding-left-small"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-bold"
+          class="StyledProps--font StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-bold"
+        >
+          cv.monitoredServices.serviceHealth.anamolies: 0
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-bold"
         >
           pipeline.verification.analysisTab.metrics 0
         </p>

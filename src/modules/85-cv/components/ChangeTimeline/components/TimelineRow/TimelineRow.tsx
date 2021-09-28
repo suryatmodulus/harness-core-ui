@@ -7,8 +7,8 @@ import { getEventTimelineConfig } from './TimelineRow.utils'
 import css from './TimelineRow.module.scss'
 
 export function TimelineRow(props: TimelineRowProps): JSX.Element {
-  const { labelName, labelWidth, timelineSeries } = props
-  const options = useMemo(() => getEventTimelineConfig(timelineSeries || []), [timelineSeries])
+  const { labelName, labelWidth, timelineSeries, min, max } = props
+  const options = useMemo(() => getEventTimelineConfig(timelineSeries || [], { min, max }), [timelineSeries])
 
   return (
     <Container className={css.main}>

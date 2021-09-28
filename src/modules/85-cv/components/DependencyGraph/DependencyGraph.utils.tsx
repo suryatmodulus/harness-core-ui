@@ -144,6 +144,9 @@ export function dependencyGraphOptions(dependencyData: DependencyData): Highchar
         }
       }
     },
+    credits: {
+      enabled: false
+    },
     title: { text: '' },
     plotOptions: {
       networkgraph: {

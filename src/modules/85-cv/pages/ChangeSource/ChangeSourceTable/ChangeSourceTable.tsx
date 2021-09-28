@@ -88,7 +88,7 @@ export default function ChangeSourceTable({ value, onSuccess, onEdit }: ChangeSo
         />
       ) : (
         <Container className={css.noData}>
-          <NoDataCard icon={'join-table'} message={getString('cv.changeSource.noData')} />
+          <NoDataCard icon={'join-table'} message={getString('cv.changeSource.noChangeSource')} />
         </Container>
       )}
     </>

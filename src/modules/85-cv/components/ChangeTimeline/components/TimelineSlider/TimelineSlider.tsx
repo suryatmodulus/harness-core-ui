@@ -1,7 +1,8 @@
 import React, { useLayoutEffect, useMemo, useCallback, useRef, useState } from 'react'
-import { Container } from '@wings-software/uicore'
+import { Container, Text } from '@wings-software/uicore'
 import Draggable from 'react-draggable'
 import cx from 'classnames'
+import { useStrings } from 'framework/strings'
 import { LEFT_TEXTFIELD_WIDTH } from '@cv/pages/monitored-service/components/ServiceHealth/ServiceHealth.constants'
 import type { SliderAspects, TimelineSliderProps } from './TimelineSlider.types'
 import TimelineSliderHandle from './components/TimelineSliderHandle/TimelineSliderHandle'
@@ -34,9 +35,11 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
     minSliderWidth,
     onSliderDragEnd,
     infoCard,
+    resetFocus,
     maxSliderWidth,
     hideSlider
   } = props
+  const { getString } = useStrings()
   const [containerWidth, setContainerWidth] = useState<number>(0)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
   const [{ width, leftOffset, rightHandlePosition, leftHandlePosition, onClickTransition }, setSliderAspects] =
@@ -100,8 +103,13 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
         onClick={e => e.stopPropagation()}
       >
         {infoCard ? (
-          <Container className={cx(css.card, { [css.reverseCard]: leftOffset < LEFT_TEXTFIELD_WIDTH })}>
-            {infoCard}
+          <Container flex>
+            <Container className={cx(css.card, { [css.reverseCard]: leftOffset < LEFT_TEXTFIELD_WIDTH })}>
+              {infoCard}
+              <Text className={css.resetButton} onClick={resetFocus}>
+                {getString('reset')}
+              </Text>
+            </Container>
           </Container>
         ) : null}
         <TimelineSliderHandle

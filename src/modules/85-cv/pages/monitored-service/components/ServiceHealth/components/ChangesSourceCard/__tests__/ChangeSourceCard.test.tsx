@@ -31,9 +31,6 @@ describe('Test ChangeSourcecard', () => {
       </TestWrapper>
     )
     expect(container.querySelectorAll('.iconContainer span[data-icon="main-caret-up"]').length).toEqual(4)
-    container.querySelectorAll('.iconContainer span').forEach(item => {
-      expect(item.className).toContain('StyledProps--color-green600')
-    })
     container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach((item, index) => {
       expect(item.textContent).toEqual(expectedPositiveTextContent[index])
     })
@@ -54,11 +51,7 @@ describe('Test ChangeSourcecard', () => {
         <ChangesSourcecard startTime={0} endTime={0} />
       </TestWrapper>
     )
-
     expect(container.querySelectorAll('.iconContainer span[data-icon="main-caret-down"]').length).toEqual(4)
-    container.querySelectorAll('.iconContainer span').forEach(item => {
-      expect(item.className).toContain('StyledProps--color-red500')
-    })
     container.querySelectorAll('.tickerValue[data-test="tickerValue"]').forEach((item, index) => {
       expect(item.textContent).toEqual(expectedNegativeTextContent[index])
     })
@@ -75,12 +68,12 @@ describe('Test ChangeSourcecard', () => {
           loading: true
         } as any)
     )
-    const { container } = render(
+    const { container, getAllByTestId } = render(
       <TestWrapper>
         <ChangesSourcecard startTime={0} endTime={0} />
       </TestWrapper>
     )
-    expect(container.querySelector('span[data-icon="spinner"]')).toBeTruthy()
+    expect(getAllByTestId('loading-block')).toHaveLength(4)
     expect(container).toMatchSnapshot()
   })
 
@@ -94,13 +87,13 @@ describe('Test ChangeSourcecard', () => {
           loading: false
         } as any)
     )
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper>
         <ChangesSourcecard startTime={0} endTime={0} />
       </TestWrapper>
     )
 
-    expect(container.querySelector('span[icon="error"]')).toBeTruthy()
+    expect(getByText('cv.monitoredServices.failedToFetchSummaryData')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 

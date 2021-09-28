@@ -59,7 +59,9 @@ export enum NodeType {
   FORK = 'NG_FORK',
   INFRASTRUCTURE_SECTION = 'INFRASTRUCTURE_SECTION',
   DEPLOYMENT_STAGE_STEP = 'DEPLOYMENT_STAGE_STEP',
-  APPROVAL_STAGE = 'APPROVAL_STAGE'
+  APPROVAL_STAGE = 'APPROVAL_STAGE',
+  NG_SECTION_WITH_ROLLBACK_INFO = 'NG_SECTION_WITH_ROLLBACK_INFO',
+  NG_EXECUTION = 'NG_EXECUTION'
 }
 
 export const NonSelectableNodes: NodeType[] = [
@@ -71,13 +73,17 @@ export const NonSelectableNodes: NodeType[] = [
 export const TopLevelNodes: NodeType[] = [
   NodeType.NG_SECTION,
   NodeType.ROLLBACK_OPTIONAL_CHILD_CHAIN,
-  NodeType.INFRASTRUCTURE_SECTION
+  NodeType.INFRASTRUCTURE_SECTION,
+  NodeType.NG_SECTION_WITH_ROLLBACK_INFO,
+  NodeType.NG_EXECUTION
 ]
 export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
   SERVICE: 'main-services',
   SERVICE_CONFIG: 'main-services',
   GENERIC_SECTION: 'step-group',
+  NG_SECTION_WITH_ROLLBACK_INFO: 'step-group',
   NG_SECTION: 'step-group',
+  NG_EXECUTION: 'step-group',
   ROLLBACK_OPTIONAL_CHILD_CHAIN: 'step-group',
   INFRASTRUCTURE_SECTION: 'step-group',
   STEP_GROUP: 'step-group',

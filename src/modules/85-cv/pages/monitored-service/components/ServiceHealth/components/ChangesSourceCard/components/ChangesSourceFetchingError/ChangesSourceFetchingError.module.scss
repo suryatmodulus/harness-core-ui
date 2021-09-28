@@ -1,0 +1,10 @@
+.errorContainer {
+  display: flex;
+}
+
+.errorText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: var(--spacing-medium) !important;
+}

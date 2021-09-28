@@ -1,0 +1,1 @@
+export const NUM_OF_LOADING_BLOCKS_TO_SHOW = 4

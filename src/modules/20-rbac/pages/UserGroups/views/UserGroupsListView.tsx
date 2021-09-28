@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Button, Popover, Color, ButtonVariation } from '@wings-software/uicore'
+import { Text, Layout, Button, Popover, Color, ButtonVariation, Icon, FontVariation } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Classes, Position, Menu, Intent } from '@blueprintjs/core'
+import { Classes, Position, Menu, Intent, PopoverInteractionKind } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import {
   UserGroupAggregateDTO,
@@ -38,29 +38,38 @@ interface UserGroupsListViewProps {
 }
 
 export const UserGroupColumn = (data: UserGroupDTO): React.ReactElement => {
+  const { getString } = useStrings()
   return (
     <Layout.Vertical>
-      <Text color={Color.BLACK}>{data.name}</Text>
-      {data.ssoLinked ? (
-        <Layout.Horizontal
-          flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
-          spacing="xsmall"
-          className={css.truncatedText}
-        >
-          <Text icon={'link'} iconProps={{ color: Color.BLUE_500, size: 10 }} color={Color.BLACK}>
-            <String stringID="rbac.userDetails.linkToSSOProviderModal.saml" />
+      <Layout.Vertical spacing="xsmall" padding={{ left: 'small' }}>
+        <Layout.Horizontal spacing="medium">
+          <Text color={Color.BLACK} lineClamp={1}>
+            {data.name}
           </Text>
-          <Text lineClamp={1} width={110}>
-            {data.linkedSsoDisplayName}
-          </Text>
-          <Text color={Color.BLACK}>
-            <String stringID="rbac.userDetails.linkToSSOProviderModal.group" />
-          </Text>
-          <Text lineClamp={1} width={110}>
-            {data.ssoGroupName}
-          </Text>
+          {data.ssoLinked ? (
+            <Popover interactionKind={PopoverInteractionKind.HOVER}>
+              <Icon name="link" color={Color.BLUE_500} size={10} />
+              <Layout.Vertical spacing="xsmall" padding="medium">
+                <Layout.Horizontal spacing="xsmall">
+                  <Text color={Color.BLACK}>
+                    <String stringID="rbac.userDetails.linkToSSOProviderModal.saml" />
+                  </Text>
+                  <Text lineClamp={1}>{data.linkedSsoDisplayName}</Text>
+                </Layout.Horizontal>
+                <Layout.Horizontal spacing="xsmall">
+                  <Text color={Color.BLACK}>
+                    <String stringID="rbac.userDetails.linkToSSOProviderModal.group" />
+                  </Text>
+                  <Text lineClamp={1}>{data.ssoGroupName}</Text>
+                </Layout.Horizontal>
+              </Layout.Vertical>
+            </Popover>
+          ) : null}
         </Layout.Horizontal>
-      ) : null}
+        <Text color={Color.GREY_600} lineClamp={1} font={{ variation: FontVariation.SMALL }}>
+          {getString('idLabel', { id: data.identifier })}
+        </Text>
+      </Layout.Vertical>
     </Layout.Vertical>
   )
 }
@@ -245,7 +254,6 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
   const history = useHistory()
-
   const columns: Column<UserGroupAggregateDTO>[] = useMemo(
     () => [
       {

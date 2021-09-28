@@ -1,3 +1,4 @@
+import type { ChangesInfoCardData } from '@cv/components/ChangeTimeline/ChangeTimeline.types'
 import type { RiskData } from 'services/cv'
 
 export interface IsAnomaliesDataAvailable {
@@ -14,4 +15,5 @@ export interface AnomaliesCardProps {
   serviceIdentifier?: string
   environmentIdentifier?: string
   monitoredServiceIdentifier?: string
+  changeTimelineSummary?: ChangesInfoCardData[]
 }

@@ -125,6 +125,14 @@ export function calculateLowestHealthScoreBar(
   }
 }
 
+export const isChangesInTheRange = (el: any, startTime: number, endTime: number): boolean => {
+  if (el?.startTime && el?.endTime) {
+    return startTime <= el.startTime && el.startTime <= endTime
+  } else {
+    return false
+  }
+}
+
 export const isInTheRange = (el: RiskData, startTime: number, endTime: number): boolean => {
   if (el?.timeRangeParams?.startTime && el?.timeRangeParams?.endTime) {
     return startTime <= el.timeRangeParams.startTime * 1000 && el.timeRangeParams.startTime * 1000 <= endTime

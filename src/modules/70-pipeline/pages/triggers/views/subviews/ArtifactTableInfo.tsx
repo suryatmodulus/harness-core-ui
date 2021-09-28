@@ -316,7 +316,8 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
       {!appliedArtifact && showWarning && (
         <Text style={{ color: '#FF7B26' }}>
           {getString?.('pipeline.triggers.artifactTriggerConfigPanel.chartVersionRuntimeInput', {
-            artifact: artifactOrManifestText.toLowerCase()
+            artifact: artifactOrManifestText.toLowerCase(),
+            runTimeStr: isManifest ? getString('pipeline.manifestType.http.chartVersion') : getString('tagLabel')
           })}
         </Text>
       )}

@@ -24,7 +24,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-down"
             >
               <svg
@@ -53,7 +53,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
                 changes
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 33.3%
               </p>
@@ -81,7 +81,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-down"
             >
               <svg
@@ -110,7 +110,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
                 deploymentText
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 33.3%
               </p>
@@ -138,7 +138,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-down"
             >
               <svg
@@ -167,7 +167,7 @@ exports[`Test ChangeSourcecard should render with negative change 1`] = `
                 infrastructureText
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 33.3%
               </p>
@@ -261,7 +261,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-up"
             >
               <svg
@@ -290,7 +290,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
                 changes
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 50%
               </p>
@@ -318,7 +318,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-up"
             >
               <svg
@@ -347,7 +347,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
                 deploymentText
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 50%
               </p>
@@ -375,7 +375,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
             class="iconContainer"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green600"
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary4"
               data-icon="main-caret-up"
             >
               <svg
@@ -404,7 +404,7 @@ exports[`Test ChangeSourcecard should render with positive change 1`] = `
                 infrastructureText
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-green600"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-primary4"
               >
                 50%
               </p>
@@ -479,25 +479,18 @@ exports[`Test ChangeSourcecard validate error state 1`] = `
   <div
     class="StyledProps--font StyledProps--main tickersRow"
   >
-    <span
-      class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-error"
-      icon="error"
+    <div
+      class="StyledProps--font StyledProps--main errorContainer"
     >
-      <svg
-        data-icon="error"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
+      <img
+        src="test-file-stub"
+      />
+      <p
+        class="StyledProps--font StyledProps--main errorText StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
       >
-        <desc>
-          error
-        </desc>
-        <path
-          d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13h-2v-2h2v2zm0-3h-2v-7h2v7z"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </span>
+        cv.monitoredServices.failedToFetchSummaryData
+      </p>
+    </div>
   </div>
 </div>
 `;
@@ -507,27 +500,98 @@ exports[`Test ChangeSourcecard validate loading 1`] = `
   <div
     class="StyledProps--font StyledProps--main tickersRow"
   >
-    <span
-      class="bp3-icon StyledProps--main"
-      data-icon="spinner"
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-medium"
     >
-      <svg
-        fill="none"
-        height="16"
-        viewBox="0 0 36 36"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="StyledProps--font StyledProps--main loadingContainer"
       >
-        <path
-          d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
-          stroke="currentColor"
-          stroke-dasharray="75,100"
-          stroke-linecap="round"
-          stroke-width="2.8"
-          style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
-        />
-      </svg>
-    </span>
+        <div
+          class="StyledProps--font StyledProps--main loadingBlock"
+          data-testid="loading-block"
+        >
+          <div
+            class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-right-small"
+            style="width: 30px; height: 30px;"
+          />
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <div
+              class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
+              style="width: 72px; height: 5px;"
+            />
+            <div
+              class="StyledProps--font StyledProps--main bp3-skeleton"
+              style="width: 28px; height: 5px;"
+            />
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main loadingBlock"
+          data-testid="loading-block"
+        >
+          <div
+            class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-right-small"
+            style="width: 30px; height: 30px;"
+          />
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <div
+              class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
+              style="width: 72px; height: 5px;"
+            />
+            <div
+              class="StyledProps--font StyledProps--main bp3-skeleton"
+              style="width: 28px; height: 5px;"
+            />
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main loadingBlock"
+          data-testid="loading-block"
+        >
+          <div
+            class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-right-small"
+            style="width: 30px; height: 30px;"
+          />
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <div
+              class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
+              style="width: 72px; height: 5px;"
+            />
+            <div
+              class="StyledProps--font StyledProps--main bp3-skeleton"
+              style="width: 28px; height: 5px;"
+            />
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main loadingBlock"
+          data-testid="loading-block"
+        >
+          <div
+            class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-right-small"
+            style="width: 30px; height: 30px;"
+          />
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <div
+              class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
+              style="width: 72px; height: 5px;"
+            />
+            <div
+              class="StyledProps--font StyledProps--main bp3-skeleton"
+              style="width: 28px; height: 5px;"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;

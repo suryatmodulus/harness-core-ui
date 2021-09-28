@@ -551,6 +551,8 @@ monitoredServices:
   serviceCount: Showing {{serviceCount}} Services
   noAvailableData: No available data.
   healthScoreDataNotAvailable: Health score data not available.
+  failedToFetchHealthScore: Failed to fetch health score data.
+  failedToFetchSummaryData: Failed to fetch summary data
   serviceHealth:
     last4Hrs: Last 4 hours
     last24Hrs: Last 24 hours
@@ -579,10 +581,13 @@ monitoredServices:
     changes: Changes (Last 24H)
   changesTable:
     impact: Impact
+  serviceDependencies:
+    noData: No data available for service dependencies
 changeSource:
   alertText: Alert
+  noChangeSource: No Change Sources Present
+  noData: No changes data available
   configureChangeSource: Configure Change Sources
-  noData: No Change Sources Present
   addChangeSource: Add New Change Source
   selectChangeSource: Select Change Source
   defineChangeSource: Define Change Sources
@@ -594,7 +599,7 @@ changeSource:
   selectChangeSourceProvider: Select change source provider
   selectChangeSourceType: Select change source type
   tooltip:
-    incident: Incident
+    incident: Incidents
   PageDuty:
     pagerDutyService: PagerDuty Service
     selectPagerDutyService: Select PageDuty Service

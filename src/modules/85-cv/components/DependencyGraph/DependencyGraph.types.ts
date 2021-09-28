@@ -1,6 +1,6 @@
 import type { Options } from 'highcharts'
 
-export type NetworkgraphOptions = Omit<Options, 'type'>[]
+export type NetworkgraphOptions = Omit<Options, 'type'>
 
 export interface Node {
   id: string

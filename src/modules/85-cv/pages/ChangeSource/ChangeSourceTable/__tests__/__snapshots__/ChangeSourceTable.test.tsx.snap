@@ -39,7 +39,7 @@ exports[`Test Change Source Table ChangeSource table renders empty with no data 
         <p
           class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
         >
-          cv.changeSource.noData
+          cv.changeSource.noChangeSource
         </p>
         <div
           class="buttonContainer"

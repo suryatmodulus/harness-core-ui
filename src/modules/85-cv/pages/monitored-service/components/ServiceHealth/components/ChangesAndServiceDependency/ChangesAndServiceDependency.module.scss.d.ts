@@ -5,6 +5,5 @@ declare const styles: {
   readonly serviceDependency: string
   readonly cardContainer: string
   readonly noData: string
-  readonly noDataContainer: string
 }
 export default styles

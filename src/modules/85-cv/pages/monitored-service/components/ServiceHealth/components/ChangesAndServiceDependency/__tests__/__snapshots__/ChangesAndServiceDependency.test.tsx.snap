@@ -58,13 +58,13 @@ exports[`ChangesAndServiceDependency should render 1`] = `
         pipeline.serviceDependenciesText
       </p>
       <div
-        class="StyledProps--font StyledProps--main noDataContainer container"
+        class="StyledProps--font StyledProps--main cardContainer container"
       >
         <div
-          class="StyledProps--font StyledProps--main content"
+          class="StyledProps--font StyledProps--main cardContent content"
         >
           <div
-            class="StyledProps--font StyledProps--main noData"
+            class="StyledProps--font StyledProps--main"
           >
             <div
               class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"

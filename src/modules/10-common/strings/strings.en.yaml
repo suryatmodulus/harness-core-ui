@@ -546,3 +546,8 @@ file: File
 selectAVersion:
   title: Select a version to proceed
   description: Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
+explorePlans: Explore Plans
+feature:
+  upgradeRequired:
+    title: Upgrade Required
+    description: 'Requires upgrade to setup {{featureName}}'

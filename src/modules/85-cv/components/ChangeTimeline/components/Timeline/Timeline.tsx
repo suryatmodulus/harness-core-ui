@@ -12,7 +12,13 @@ export function Timeline(props: TimelineProps): JSX.Element {
   return (
     <Container className={css.main}>
       {timelineRows?.map((timelineProps, index) => (
-        <TimelineRow labelWidth={labelWidth} {...timelineProps} key={`${timelineProps.labelName}-${index}`} />
+        <TimelineRow
+          min={timestamps?.[0]}
+          max={timestamps?.[timestamps?.length - 1]}
+          labelWidth={labelWidth}
+          {...timelineProps}
+          key={`${timelineProps.labelName}-${index}`}
+        />
       ))}
       <Container className={css.timelineChartContainer}>
         <Text className={css.timelineLabel} width={labelWidth}>

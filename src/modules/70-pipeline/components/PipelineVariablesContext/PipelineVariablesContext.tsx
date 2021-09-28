@@ -2,7 +2,7 @@ import React from 'react'
 import { parse } from 'yaml'
 import { useParams } from 'react-router-dom'
 
-import { debounce, get, isPlainObject } from 'lodash-es'
+import { debounce, defaultTo, get, isPlainObject } from 'lodash-es'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse, Failure } from 'services/pipeline-ng'
 import { useMutateAsGet } from '@common/hooks'
@@ -127,8 +127,8 @@ export function PipelineVariablesContextProvider(
 
   React.useEffect(() => {
     setPipelineVariablesData({
-      metadataMap: data?.data?.metadataMap || {},
-      variablesPipeline: parse(data?.data?.yaml || '')?.pipeline || {}
+      metadataMap: defaultTo(data?.data?.metadataMap, {}),
+      variablesPipeline: defaultTo(parse(defaultTo(data?.data?.yaml, ''))?.pipeline, {})
     })
   }, [data?.data?.metadataMap, data?.data?.yaml])
 
@@ -178,14 +178,14 @@ export const findMatchedResultsInPipeline = (
 ): SearchResult[] => {
   const finalFound: SearchResult[] = []
   pipelineFqns.forEach(({ value: fqn, metaKeyId }, index) => {
-    const fqnParts = fqn.split('.') || ''
-    const path = pipelineMetaKeys?.[index]?.value || ''
+    const fqnParts = defaultTo(fqn?.split('.'), '')
+    const path = defaultTo(pipelineMetaKeys?.[index]?.value, '')
     //removes pipeline tags from search as we are showing them in popover
 
     if (fqnParts.length && fqnParts[fqnParts.length - 1]?.toLowerCase()?.includes(needle.toLocaleLowerCase())) {
       finalFound.push({ value: fqnParts[fqnParts.length - 1], type: 'key', metaKeyId, path })
     }
-    let valueString = pipelineValues?.[index]?.value || ''
+    let valueString = defaultTo(pipelineValues?.[index]?.value, '')
 
     if (Array.isArray(valueString)) {
       valueString = valueString.map(item => (isPlainObject(item) ? JSON.stringify(item, null, 2) : item)).join(', ')
@@ -255,7 +255,8 @@ export function getPathToMetaKeyMap({
     Object.entries(data).forEach(([key, value]) => {
       if (typeof value === 'string' && metaDataMap[value]) {
         const metaKeyId = value
-        const { yamlProperties } = metaDataMap[value]
+        const { yamlProperties, yamlOutputProperties } = metaDataMap[value]
+        const yamlProps = defaultTo(yamlProperties, yamlOutputProperties)
         const updatedPath = `${path.trim().length === 0 ? '' : `${path}.`}${key}`
 
         if (updatedPath.includes('__uuid')) {
@@ -264,7 +265,7 @@ export function getPathToMetaKeyMap({
         if (path.includes('variables')) {
           //
         } else {
-          pipelineFqns.push({ value: yamlProperties?.fqn, metaKeyId })
+          pipelineFqns.push({ value: yamlProps?.fqn, metaKeyId })
           pipelineMetaKeys.push({ metaKeyId, value: updatedPath })
           const valueAtPath = get(pipeline, updatedPath)
 
@@ -316,9 +317,11 @@ const updateSpecialFields = ({
   key
 }: UpdateSpecialFieldParams): void => {
   const metaKeyId = value
-  const { yamlProperties } = (metaDataMap as any)?.[value]
+  const { yamlProperties, yamlOutputProperties } = (metaDataMap as any)?.[value]
+
+  const yamlProps = defaultTo(yamlProperties, yamlOutputProperties)
   const updatedPath = `${path.trim().length === 0 ? '' : `${path}.`}${key}`
-  pipelineFqns.unshift({ value: yamlProperties?.fqn, metaKeyId })
+  pipelineFqns.unshift({ value: yamlProps?.fqn, metaKeyId })
   pipelineMetaKeys.unshift({ metaKeyId, value: updatedPath })
   const valueAtPath = get(pipeline, updatedPath)
   pipelineValues.unshift({ value: valueAtPath, metaKeyId })
@@ -333,7 +336,7 @@ export interface GetTextWithSearchMarkersProps {
 export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): string {
   const { searchText, txt, className } = props
   if (!searchText) {
-    return txt || ''
+    return defaultTo(txt, '')
   }
 
   if (!txt) {

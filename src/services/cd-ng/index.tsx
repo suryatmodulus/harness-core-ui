@@ -500,7 +500,6 @@ export interface AddRuleYamlSpec {
   distribution?: DistributionYamlSpec
   priority: number
   serve?: Serve
-  uuid: string
 }
 
 export type AddSegmentToVariationTargetMapYaml = PatchInstruction & {
@@ -748,6 +747,10 @@ export interface AuthenticationSettingsResponse {
 export interface AuthorInfo {
   name?: string
   url?: string
+}
+
+export type AvailabilityRestrictionDTO = RestrictionDTO & {
+  enabled?: boolean
 }
 
 export interface AwsCodeCommitAuthenticationDTO {
@@ -2615,6 +2618,19 @@ export interface FailureStrategyConfig {
 
 export type FeatureFlagStageConfig = StageInfoConfig & {}
 
+export interface FeatureRestrictionDetailRequestDTO {
+  name: 'TEST1' | 'TEST2' | 'TEST3'
+}
+
+export interface FeatureRestrictionDetailsDTO {
+  allowed?: boolean
+  description?: string
+  moduleType?: string
+  name?: 'TEST1' | 'TEST2' | 'TEST3'
+  restriction?: RestrictionDTO
+  restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT'
+}
+
 export interface FeedbackFormDTO {
   accountId?: string
   email?: string
@@ -3763,6 +3779,7 @@ export interface LdapGroupSettings {
 
 export type LdapSettings = SSOSettings & {
   connectionSettings: LdapConnectionSettings
+  cronExpression?: string
   groupSettings?: LdapGroupSettings
   groupSettingsList?: LdapGroupSettings[]
   userSettings?: LdapUserSettings
@@ -4004,10 +4021,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -4468,6 +4484,8 @@ export interface PasswordStrengthPolicy {
 export interface PatchInstruction {
   type?:
     | 'SetFeatureFlagState'
+    | 'SetOnVariation'
+    | 'SetOffVariation'
     | 'AddRule'
     | 'UpdateRule'
     | 'AddTargetsToVariationTargetMap'
@@ -4627,6 +4645,11 @@ export type PrometheusConnectorDTO = ConnectorConfigDTO & {
   url: string
 }
 
+export type RateLimitRestrictionDTO = RestrictionDTO & {
+  count?: number
+  limit?: number
+}
+
 export type RemoteTerraformVarFileSpec = TerraformVarFileSpec & {
   store: StoreConfigWrapper
 }
@@ -4667,6 +4690,11 @@ export interface ResourceDTO {
     [key: string]: string
   }
   type: string
+}
+
+export interface ResourceGroupDTO {
+  identifier?: string
+  name?: string
 }
 
 export interface ResourceScope {
@@ -4908,6 +4936,13 @@ export interface ResponseExecutionDeploymentInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseFeatureRestrictionDetailsDTO {
+  correlationId?: string
+  data?: FeatureRestrictionDetailsDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseFieldValues {
   correlationId?: string
   data?: FieldValues
@@ -5085,6 +5120,13 @@ export interface ResponseListExecutionStatus {
     | 'APPROVAL_REJECTED'
     | 'WAITING'
   )[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListFeatureRestrictionDetailsDTO {
+  correlationId?: string
+  data?: FeatureRestrictionDetailsDTO[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5786,6 +5828,13 @@ export interface ResponseProjectsDashboardInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseRoleAssignmentAggregateResponse {
+  correlationId?: string
+  data?: RoleAssignmentAggregateResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseRoleAssignmentResponse {
   correlationId?: string
   data?: RoleAssignmentResponse
@@ -6079,6 +6128,10 @@ export interface RestResponseVoid {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestrictionDTO {
+  [key: string]: any
+}
+
 export type RetryFailureActionConfig = FailureStrategyActionConfig & {
   spec: RetryFailureSpecConfig
   type: 'Retry'
@@ -6090,6 +6143,17 @@ export interface RetryFailureSpecConfig {
   retryIntervals: string[]
 }
 
+export interface Role {
+  allowedScopeLevels?: string[]
+  description?: string
+  identifier: string
+  name: string
+  permissions?: string[]
+  tags?: {
+    [key: string]: string
+  }
+}
+
 export interface RoleAssignment {
   disabled?: boolean
   identifier?: string
@@ -6097,6 +6161,13 @@ export interface RoleAssignment {
   principal: Principal
   resourceGroupIdentifier: string
   roleIdentifier: string
+}
+
+export interface RoleAssignmentAggregateResponse {
+  resourceGroups?: ResourceGroupDTO[]
+  roleAssignments?: RoleAssignment[]
+  roles?: RoleResponse[]
+  scope?: ScopeDTO
 }
 
 export interface RoleAssignmentFilter {
@@ -6132,6 +6203,14 @@ export interface RoleBinding {
   resourceGroupName?: string
   roleIdentifier: string
   roleName: string
+}
+
+export interface RoleResponse {
+  createdAt?: number
+  harnessManaged?: boolean
+  lastModifiedAt?: number
+  role: Role
+  scope: ScopeDTO
 }
 
 export type S3StoreConfig = StoreConfig & {
@@ -6212,6 +6291,7 @@ export interface SSOSettings {
   lastUpdatedAt: number
   lastUpdatedBy?: EmbeddedUser
   nextIteration?: number
+  nextIterations?: number[]
   type: 'SAML' | 'LDAP' | 'OAUTH'
   url?: string
   uuid: string
@@ -6617,6 +6697,26 @@ export interface SetFeatureFlagStateYamlSpec {
   state: string
 }
 
+export type SetOffVariationYaml = PatchInstruction & {
+  identifier: string
+  spec: SetOffVariationYamlSpec
+  type: 'SetOffVariation'
+}
+
+export interface SetOffVariationYamlSpec {
+  variation: string
+}
+
+export type SetOnVariationYaml = PatchInstruction & {
+  identifier: string
+  spec: SetOnVariationYamlSpec
+  type: 'SetOnVariation'
+}
+
+export interface SetOnVariationYamlSpec {
+  variation: string
+}
+
 export interface SetupUsageDetail {
   [key: string]: any
 }
@@ -6759,6 +6859,11 @@ export interface StageWhenCondition {
 export interface StartTrialDTO {
   edition: 'FREE' | 'TEAM' | 'ENTERPRISE'
   moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+}
+
+export type StaticLimitRestrictionDTO = RestrictionDTO & {
+  count?: number
+  limit?: number
 }
 
 export interface StepCategory {
@@ -7199,6 +7304,7 @@ export interface UserInfo {
   signupAction?: string
   token?: string
   twoFactorAuthenticationEnabled?: boolean
+  utmInfo?: UtmInfo
   uuid?: string
 }
 
@@ -7388,11 +7494,13 @@ export type OrganizationRequestRequestBody = OrganizationRequest
 
 export type ProjectRequestRequestBody = ProjectRequest
 
+export type RoleAssignmentFilterRequestBody = RoleAssignmentFilter
+
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = void
+export type SecretRequestWrapperRequestBody = SecretRequestWrapper
 
-export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
+export type SecretRequestWrapper2RequestBody = void
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -13340,6 +13448,157 @@ export const updateSelectorsNgPromise = (
     UpdateSelectorsNgPathParams
   >('PUT', getConfig('ng/api'), `/delegate-profiles/ng/${delegateProfileId}/selectors`, props, signal)
 
+export interface GetFeatureRestrictionDetailQueryParams {
+  accountIdentifier: string
+}
+
+export type GetFeatureRestrictionDetailProps = Omit<
+  MutateProps<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets Feature Restriction Detail
+ */
+export const GetFeatureRestrictionDetail = (props: GetFeatureRestrictionDetailProps) => (
+  <Mutate<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >
+    verb="POST"
+    path={`/enforcement`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetFeatureRestrictionDetailProps = Omit<
+  UseMutateProps<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets Feature Restriction Detail
+ */
+export const useGetFeatureRestrictionDetail = (props: UseGetFeatureRestrictionDetailProps) =>
+  useMutate<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >('POST', `/enforcement`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets Feature Restriction Detail
+ */
+export const getFeatureRestrictionDetailPromise = (
+  props: MutateUsingFetchProps<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetFeatureRestrictionDetailQueryParams,
+    FeatureRestrictionDetailRequestDTO,
+    void
+  >('POST', getConfig('ng/api'), `/enforcement`, props, signal)
+
+export interface GetEnabledFeatureRestrictionDetailByAccountIdQueryParams {
+  accountIdentifier: string
+}
+
+export type GetEnabledFeatureRestrictionDetailByAccountIdProps = Omit<
+  GetProps<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Gets List of Enabled Feature Restriction Detail for The Account
+ */
+export const GetEnabledFeatureRestrictionDetailByAccountId = (
+  props: GetEnabledFeatureRestrictionDetailByAccountIdProps
+) => (
+  <Get<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >
+    path={`/enforcement/enabled`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetEnabledFeatureRestrictionDetailByAccountIdProps = Omit<
+  UseGetProps<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Gets List of Enabled Feature Restriction Detail for The Account
+ */
+export const useGetEnabledFeatureRestrictionDetailByAccountId = (
+  props: UseGetEnabledFeatureRestrictionDetailByAccountIdProps
+) =>
+  useGet<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >(`/enforcement/enabled`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets List of Enabled Feature Restriction Detail for The Account
+ */
+export const getEnabledFeatureRestrictionDetailByAccountIdPromise = (
+  props: GetUsingFetchProps<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseListFeatureRestrictionDetailsDTO,
+    Failure | Error,
+    GetEnabledFeatureRestrictionDetailByAccountIdQueryParams,
+    void
+  >(getConfig('ng/api'), `/enforcement/enabled`, props, signal)
+
 export interface ListReferredByEntitiesQueryParams {
   pageIndex?: number
   pageSize?: number
@@ -18781,7 +19040,7 @@ export type CreateRoleAssignmentProps = Omit<
 >
 
 /**
- * Create Role Assignment
+ * (Stub) Create Role Assignment
  */
 export const CreateRoleAssignment = (props: CreateRoleAssignmentProps) => (
   <Mutate<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>
@@ -18804,7 +19063,7 @@ export type UseCreateRoleAssignmentProps = Omit<
 >
 
 /**
- * Create Role Assignment
+ * (Stub) Create Role Assignment
  */
 export const useCreateRoleAssignment = (props: UseCreateRoleAssignmentProps) =>
   useMutate<ResponseRoleAssignmentResponse, Failure | Error, CreateRoleAssignmentQueryParams, RoleAssignment, void>(
@@ -18814,7 +19073,7 @@ export const useCreateRoleAssignment = (props: UseCreateRoleAssignmentProps) =>
   )
 
 /**
- * Create Role Assignment
+ * (Stub) Create Role Assignment
  */
 export const createRoleAssignmentPromise = (
   props: MutateUsingFetchProps<
@@ -18834,6 +19093,85 @@ export const createRoleAssignmentPromise = (
     void
   >('POST', getConfig('ng/api'), `/roleassignments`, props, signal)
 
+export interface GetRoleAssignmentsAggregateQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetRoleAssignmentsAggregateProps = Omit<
+  MutateProps<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Role Assignments Aggregate
+ */
+export const GetRoleAssignmentsAggregate = (props: GetRoleAssignmentsAggregateProps) => (
+  <Mutate<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/roleassignments/aggregate`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetRoleAssignmentsAggregateProps = Omit<
+  UseMutateProps<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Role Assignments Aggregate
+ */
+export const useGetRoleAssignmentsAggregate = (props: UseGetRoleAssignmentsAggregateProps) =>
+  useMutate<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >('POST', `/roleassignments/aggregate`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get Role Assignments Aggregate
+ */
+export const getRoleAssignmentsAggregatePromise = (
+  props: MutateUsingFetchProps<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseRoleAssignmentAggregateResponse,
+    Failure | Error,
+    GetRoleAssignmentsAggregateQueryParams,
+    RoleAssignmentFilterRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/roleassignments/aggregate`, props, signal)
+
 export interface GetFilteredRoleAssignmentListQueryParams {
   pageIndex?: number
   pageSize?: number
@@ -18848,21 +19186,21 @@ export type GetFilteredRoleAssignmentListProps = Omit<
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >,
   'path' | 'verb'
 >
 
 /**
- * Get Filtered Role Assignments
+ * (Stub) Get Filtered Role Assignments
  */
 export const GetFilteredRoleAssignmentList = (props: GetFilteredRoleAssignmentListProps) => (
   <Mutate<
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >
     verb="POST"
@@ -18877,33 +19215,33 @@ export type UseGetFilteredRoleAssignmentListProps = Omit<
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >,
   'path' | 'verb'
 >
 
 /**
- * Get Filtered Role Assignments
+ * (Stub) Get Filtered Role Assignments
  */
 export const useGetFilteredRoleAssignmentList = (props: UseGetFilteredRoleAssignmentListProps) =>
   useMutate<
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >('POST', `/roleassignments/filter`, { base: getConfig('ng/api'), ...props })
 
 /**
- * Get Filtered Role Assignments
+ * (Stub) Get Filtered Role Assignments
  */
 export const getFilteredRoleAssignmentListPromise = (
   props: MutateUsingFetchProps<
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -18912,7 +19250,7 @@ export const getFilteredRoleAssignmentListPromise = (
     ResponsePageRoleAssignmentResponse,
     Failure | Error,
     GetFilteredRoleAssignmentListQueryParams,
-    RoleAssignmentFilter,
+    RoleAssignmentFilterRequestBody,
     void
   >('POST', getConfig('ng/api'), `/roleassignments/filter`, props, signal)
 
@@ -18935,7 +19273,7 @@ export type CreateRoleAssignmentsProps = Omit<
 >
 
 /**
- * Create Multiple Role Assignments
+ * (Stub) Create Multiple Role Assignments
  */
 export const CreateRoleAssignments = (props: CreateRoleAssignmentsProps) => (
   <Mutate<
@@ -18964,7 +19302,7 @@ export type UseCreateRoleAssignmentsProps = Omit<
 >
 
 /**
- * Create Multiple Role Assignments
+ * (Stub) Create Multiple Role Assignments
  */
 export const useCreateRoleAssignments = (props: UseCreateRoleAssignmentsProps) =>
   useMutate<
@@ -18976,7 +19314,7 @@ export const useCreateRoleAssignments = (props: UseCreateRoleAssignmentsProps) =
   >('POST', `/roleassignments/multi/internal`, { base: getConfig('ng/api'), ...props })
 
 /**
- * Create Multiple Role Assignments
+ * (Stub) Create Multiple Role Assignments
  */
 export const createRoleAssignmentsPromise = (
   props: MutateUsingFetchProps<
@@ -24112,7 +24450,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -24122,7 +24460,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -24135,7 +24473,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -24149,7 +24487,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -24161,7 +24499,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -24170,7 +24508,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -24563,7 +24901,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -24577,7 +24915,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >
     verb="POST"
@@ -24592,7 +24930,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -24606,7 +24944,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -24618,7 +24956,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -24627,7 +24965,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -24762,7 +25100,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -24777,7 +25115,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -24792,7 +25130,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -24807,7 +25145,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -24826,7 +25164,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -24835,7 +25173,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -24854,7 +25192,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -24869,7 +25207,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -24884,7 +25222,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -24899,7 +25237,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -24918,7 +25256,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -24927,7 +25265,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 

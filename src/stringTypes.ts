@@ -145,6 +145,7 @@ export interface StringsMap {
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
   'common.expiryDate': string
+  'common.explorePlans': string
   'common.extendTrial.description': string
   'common.extendTrial.doItLater': string
   'common.extendTrial.expiryDate': string
@@ -156,6 +157,8 @@ export interface StringsMap {
   'common.extendTrial.feedback.title': string
   'common.extendTrial.heading': string
   'common.failureRate': string
+  'common.feature.upgradeRequired.description': string
+  'common.feature.upgradeRequired.title': string
   'common.file': string
   'common.filters.clearFilters': string
   'common.filters.noFilterSaved': string
@@ -3662,6 +3665,7 @@ export interface StringsMap {
   'cv.changeSource.defineChangeSource': string
   'cv.changeSource.duplicateIdentifier': string
   'cv.changeSource.editChangeSource': string
+  'cv.changeSource.noChangeSource': string
   'cv.changeSource.noData': string
   'cv.changeSource.selectChangeSource': string
   'cv.changeSource.selectChangeSourceName': string
@@ -3739,6 +3743,8 @@ export interface StringsMap {
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.editMonitoredServices': string
   'cv.monitoredServices.environmentValidation': string
+  'cv.monitoredServices.failedToFetchHealthScore': string
+  'cv.monitoredServices.failedToFetchSummaryData': string
   'cv.monitoredServices.filterlabel': string
   'cv.monitoredServices.healthScoreDataNotAvailable': string
   'cv.monitoredServices.monitoredServiceCreated': string
@@ -3758,6 +3764,7 @@ export interface StringsMap {
   'cv.monitoredServices.riskLabel.mediumRisk': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceCount': string
+  'cv.monitoredServices.serviceDependencies.noData': string
   'cv.monitoredServices.serviceHealth.anamolies': string
   'cv.monitoredServices.serviceHealth.last24Hrs': string
   'cv.monitoredServices.serviceHealth.last3Days': string

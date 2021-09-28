@@ -1,15 +1,18 @@
 import React, { useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Color, Text, Icon } from '@wings-software/uicore'
+import { Container, Color, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import { useToaster } from '@common/components'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useGetChangeSummary } from 'services/cv'
+
 import type { ChangeSourceCardData, ChangeSourceCardInterfae } from './ChangesSourceCard.types'
 import TickerValue from './components/TickerValue/TickerValue'
 import { calculateChangePercentage, getTickerColor } from './ChangesSourceCard.utils'
+import ChangeSourceFetchingError from './components/ChangesSourceFetchingError/ChangesSourceFetchingError'
+import ChangesSourceLoading from './components/ChangesSourceLoading/ChangesSourceLoading'
 import css from './ChangesSourceCard.module.scss'
 
 export default function ChangeSourceCard(props: ChangeSourceCardInterfae): JSX.Element {
@@ -46,37 +49,43 @@ export default function ChangeSourceCard(props: ChangeSourceCardInterfae): JSX.E
     showError(getErrorMessage(error))
   }
 
-  return (
-    <Container className={css.tickersRow}>
-      {loading || error ? (
-        <>
-          {error && <Icon name={'error'} color={Color.ERROR} size={16} />}
-          {loading && <Icon name={'spinner'} size={16} />}
-        </>
-      ) : (
-        changeSummaryList.map((ticker: ChangeSourceCardData) => {
-          const tickerColor = getTickerColor(ticker.percentage)
-          return (
-            <Container key={ticker.id} className={css.ticker}>
-              <Ticker
-                value={<TickerValue value={ticker.percentage} label={ticker.label} color={tickerColor} />}
-                decreaseMode={ticker.percentage < 0}
-                color={tickerColor}
-                verticalAlign={TickerVerticalAlignment.TOP}
+  const renderContent = (): JSX.Element | JSX.Element[] => {
+    if (loading) {
+      return (
+        <Container padding={{ left: 'medium', top: 'medium' }}>
+          <ChangesSourceLoading />
+        </Container>
+      )
+    } else if (error) {
+      return <ChangeSourceFetchingError errorMessage={getString('cv.monitoredServices.failedToFetchSummaryData')} />
+    } else {
+      return changeSummaryList.map((ticker: ChangeSourceCardData) => {
+        const tickerColor =
+          ticker.label === getString('cv.changeSource.tooltip.incident')
+            ? getTickerColor(ticker.percentage)
+            : Color.PRIMARY_4
+        return (
+          <Container key={ticker.id} className={css.ticker}>
+            <Ticker
+              value={<TickerValue value={ticker.percentage} label={ticker.label} color={tickerColor} />}
+              decreaseMode={ticker.percentage < 0}
+              color={tickerColor}
+              verticalAlign={TickerVerticalAlignment.TOP}
+            >
+              <Text
+                className={css.tickerCount}
+                color={Color.BLACK}
+                font={{ weight: 'bold', size: 'large' }}
+                margin={{ right: 'small' }}
               >
-                <Text
-                  className={css.tickerCount}
-                  color={Color.BLACK}
-                  font={{ weight: 'bold', size: 'large' }}
-                  margin={{ right: 'small' }}
-                >
-                  {ticker.count}
-                </Text>
-              </Ticker>
-            </Container>
-          )
-        })
-      )}
-    </Container>
-  )
+                {ticker.count}
+              </Text>
+            </Ticker>
+          </Container>
+        )
+      })
+    }
+  }
+
+  return <Container className={css.tickersRow}>{renderContent()}</Container>
 }

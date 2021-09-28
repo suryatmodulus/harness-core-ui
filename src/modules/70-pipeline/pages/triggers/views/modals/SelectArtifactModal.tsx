@@ -33,6 +33,16 @@ enum ModalState {
   RUNTIME_INPUT = 'RUNTIME_INPUT'
 }
 
+const getFormComponent = (isManifest: boolean) => {
+  if (isManifest) {
+    const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
+    return formDetails.component
+  } else {
+    const artifactForm = TriggerFactory.getTriggerFormDetails(TriggerFormType.Artifact)
+    return artifactForm.component
+  }
+}
+
 const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   isModalOpen,
   formikProps,
@@ -61,9 +71,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
       formikProps.setFieldValue('stages', undefined)
     }
   }
-
-  const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
-  const ManifestFormDetails = formDetails.component
+  const FormComponent = getFormComponent(isManifest)
 
   const filteredArtifact = filterArtifact({
     runtimeData,
@@ -71,7 +79,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     artifactId: selectedArtifactId,
     isManifest
   })
-  const templateObject = getTemplateObject(filteredArtifact, [])
+  const templateObject = isManifest ? getTemplateObject(filteredArtifact, []) : getTemplateObject([], filteredArtifact)
   const artifactOrManifestText = isManifest
     ? getString('manifestsText')
     : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
@@ -123,7 +131,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
       ) : (
         <>
           <PipelineVariablesContextProvider pipeline={formikProps.values.originalPipeline}>
-            <ManifestFormDetails
+            <FormComponent
               template={templateObject}
               path={getPathString(runtimeData, selectedStageId)}
               allValues={templateObject}
@@ -157,10 +165,10 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 })
 
                 /*
-                                      when we have multiple stages - need to filter undefined values
-                                      in this case formikprops.values.stages will be [undefined, [stage obj]]
-                                      when chartVersion alone is runtime input, stages array could be empty
-                            */
+                                                  when we have multiple stages - need to filter undefined values
+                                                  in this case formikprops.values.stages will be [undefined, [stage obj]]
+                                                  when chartVersion alone is runtime input, stages array could be empty
+                                        */
                 const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
                 // when stages is empty array, filteredArtifact will be empty object
                 const formFilteredArtifact =

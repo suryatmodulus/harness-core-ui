@@ -7,6 +7,7 @@
 .serviceDependency {
   flex: 3;
   align-self: flex-start;
+  height: 500px;
 }
 
 .cardContainer {
@@ -28,8 +29,4 @@
   > div {
     margin-top: 0 !important;
   }
-}
-
-.noDataContainer {
-  height: 500px;
 }

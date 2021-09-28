@@ -1,5 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`HealthScoreCard Tests should render HealthScoreCard error view when fetching health score errors out 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main healthScoreCardContainer"
+  >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--flex"
+    >
+      <span
+        class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--intent-danger StyledProps--margin-right-small"
+        icon="warning-sign"
+      >
+        <svg
+          data-icon="warning-sign"
+          height="12"
+          viewBox="0 0 16 16"
+          width="12"
+        >
+          <desc>
+            warning-sign
+          </desc>
+          <path
+            d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      <p
+        class="StyledProps--font StyledProps--main errorText StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
+      >
+        cv.monitoredServices.failedToFetchHealthScore
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`HealthScoreCard Tests should render HealthScoreCard when healthscore is present 1`] = `
 <div>
   <div
@@ -24,27 +61,23 @@ exports[`HealthScoreCard Tests should render HealthScoreCard with loading state 
   <div
     class="Layout--horizontal StyledProps--main healthScoreCardContainer"
   >
-    <span
-      class="bp3-icon StyledProps--main StyledProps--padding-right-small"
-      data-icon="spinner"
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--flex"
+      data-testid="loading-healthscore"
     >
-      <svg
-        fill="none"
-        height="16"
-        viewBox="0 0 36 36"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-right-small"
+        style="width: 20px; height: 20px;"
+      />
+      <div
+        class="StyledProps--font StyledProps--main"
       >
-        <path
-          d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"
-          stroke="currentColor"
-          stroke-dasharray="75,100"
-          stroke-linecap="round"
-          stroke-width="2.8"
-          style="animation: 1s linear infinite spinner-rotation; transform-origin: 50% 50%; transform-box: fill-box;"
+        <div
+          class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
+          style="width: 90px; height: 5px;"
         />
-      </svg>
-    </span>
+      </div>
+    </div>
   </div>
 </div>
 `;

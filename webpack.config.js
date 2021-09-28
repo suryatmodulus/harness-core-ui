@@ -23,6 +23,7 @@ const ON_PREM = `${process.env.ON_PREM}` === 'true'
 const BUGSNAG_TOKEN = process.env.BUGSNAG_TOKEN
 const BUGSNAG_SOURCEMAPS_UPLOAD = `${process.env.BUGSNAG_SOURCEMAPS_UPLOAD}` === 'true'
 const CONTEXT = process.cwd()
+const isCypressCoverage = process.env.CYPRESS_COVERAGE
 const isCypress = process.env.CYPRESS
 const babelLoaderConfig = {
   loader: 'babel-loader'
@@ -34,7 +35,7 @@ const tsLoaderConfig = {
   }
 }
 const tsLoaders = []
-if (isCypress) {
+if (isCypress && isCypressCoverage) {
   tsLoaders.push(babelLoaderConfig)
   tsLoaders.push(tsLoaderConfig)
 } else {

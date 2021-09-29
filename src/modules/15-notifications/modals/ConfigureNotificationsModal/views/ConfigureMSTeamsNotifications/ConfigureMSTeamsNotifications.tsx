@@ -61,3 +61,98 @@ export const TestMSTeamsNotifications: React.FC<{
     </>
   )
 }
+
+const ConfigureMSTeamsNotifications: React.FC = () => {
+  return <div>Configure MSTeams</div>
+  // const { getString } = useStrings()
+
+  // const handleSubmit = (formData: SlackNotificationData): void => {
+  //   props.onSuccess(convertFormData(formData))
+  // }
+
+  // const convertFormData = (formData: SlackNotificationData) => {
+  //   return {
+  //     type: NotificationType.Slack,
+  //     ...formData
+  //   }
+  // }
+
+  // return (
+  //   <div className={css.body}>
+  //     <Layout.Vertical spacing="large">
+  //       {props.withoutHeading ? null : (
+  //         <>
+  //           <Icon name="service-slack" size={24} />
+  //           <Heading className={css.title}>{getString('notifications.titleSlack')}</Heading>
+  //         </>
+  //       )}
+  //       <Text>{getString('notifications.helpSlack')}</Text>
+  //       <Text>{getString('notifications.infoSlack')}</Text>
+
+  //       <Formik
+  //         onSubmit={handleSubmit}
+  //         formName="configureSlackNotifications"
+  //         validationSchema={Yup.object().shape({
+  //           webhookUrl: Yup.string().test('isValidUrl', getString('validation.urlIsNotValid'), _webhookUrl => {
+  //             // TODO: Create global validation function for url validation
+  //             try {
+  //               const url = new URL(_webhookUrl)
+  //               return url.protocol === 'http:' || url.protocol === 'https:'
+  //             } catch (_) {
+  //               return false
+  //             }
+  //           })
+  //         })}
+  //         initialValues={{
+  //           webhookUrl: '',
+  //           userGroups: [],
+  //           ...props.config
+  //         }}
+  //       >
+  //         {formik => {
+  //           return (
+  //             <FormikForm>
+  //               <FormInput.Text name={'webhookUrl'} label={getString('notifications.labelWebhookUrl')} />
+  //               <Layout.Horizontal margin={{ bottom: 'xxlarge' }} style={{ alignItems: 'center' }}>
+  //                 <TestSlackNotifications data={formik.values} />
+  //               </Layout.Horizontal>
+  //               <UserGroupsInput name="userGroups" label={getString('notifications.labelSlackUserGroups')} />
+  //               {props.isStep ? (
+  //                 <Layout.Horizontal spacing="large" className={css.buttonGroupSlack}>
+  //                   <Button
+  //                     text={getString('back')}
+  //                     variation={ButtonVariation.SECONDARY}
+  //                     onClick={() => {
+  //                       props.onBack?.(convertFormData(formik.values))
+  //                     }}
+  //                   />
+  //                   <Button
+  //                     text={props.submitButtonText || getString('next')}
+  //                     variation={ButtonVariation.PRIMARY}
+  //                     type="submit"
+  //                   />
+  //                 </Layout.Horizontal>
+  //               ) : (
+  //                   <Layout.Horizontal spacing={'medium'} margin={{ top: 'xxlarge' }}>
+  //                     <Button
+  //                       type={'submit'}
+  //                       variation={ButtonVariation.PRIMARY}
+  //                       text={props.submitButtonText || getString('submit')}
+  //                     />
+  //                     <Button
+  //                       text={getString('cancel')}
+  //                       variation={ButtonVariation.SECONDARY}
+  //                       onClick={props.hideModal}
+  //                     />
+  //                   </Layout.Horizontal>
+  //                 )}
+  //             </FormikForm>
+  //           )
+  //         }}
+  //       </Formik>
+  //     </Layout.Vertical>
+  //   </div>
+  // )
+}
+
+export default ConfigureMSTeamsNotifications

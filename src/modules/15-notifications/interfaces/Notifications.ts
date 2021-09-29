@@ -1,7 +1,8 @@
 export enum NotificationType {
   Slack = 'Slack',
   Email = 'Email',
-  PagerDuty = 'PagerDuty'
+  PagerDuty = 'PagerDuty',
+  MSTeams = 'MSTeams'
 }
 
 interface NotificationConfiguration {

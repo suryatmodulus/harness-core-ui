@@ -30,7 +30,7 @@ interface PolicySetEvaluationResponse {
   policyMetadata: PolicyEvaluationResponse[]
 }
 
-const policyPassed = (severity: string): boolean => severity !== 'error'
+const policyPassed = (_severity: string, denyMessages: string[]): boolean => !denyMessages?.length
 
 export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ metadata, accountId: _accountId }) => {
   const failure = !!metadata.deny
@@ -137,7 +137,7 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                           <Text font={{ variation: FontVariation.BODY }} color={Color.PRIMARY_7}>
                             {policyName}
                           </Text>
-                          {!policyPassed(severity) && !!denyMessages?.length && (
+                          {!policyPassed(severity, denyMessages) && !!denyMessages?.length && (
                             <Layout.Horizontal
                               spacing="xsmall"
                               padding={{ left: 'xxxlarge', top: 'xsmall' }}
@@ -155,7 +155,7 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
 
                         <Text className={css.status}>
                           <ExecutionStatusLabel
-                            status={policyPassed(severity) ? 'Success' : 'Failed'}
+                            status={policyPassed(severity, denyMessages) ? 'Success' : 'Failed'}
                             label={deny ? undefined : getString('pipeline.policyEvaluations.passed').toUpperCase()}
                           />
                         </Text>

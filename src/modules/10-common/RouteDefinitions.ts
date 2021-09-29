@@ -1251,6 +1251,11 @@ const routes = {
   toPolicyDashboardPage: withAccountId(() => 'settings/governance/policy-dashboard'),
   toPolicyListPage: withAccountId(() => 'settings/governance/policies'),
   toPolicyNewPage: withAccountId(() => 'settings/governance/policies/new'),
+  toPolicyEditPage: withAccountId(({
+    policyIdentifier
+  }: AccountPathProps & {
+    policyIdentifier: string
+  }) => `settings/governance/policies/edit/${policyIdentifier}`),
   toPolicySetsPage: withAccountId(() => 'settings/governance/policy-sets'),
   toPolicyEvaluationsPage: withAccountId(() => 'settings/governance/policy-evaluations')
 }

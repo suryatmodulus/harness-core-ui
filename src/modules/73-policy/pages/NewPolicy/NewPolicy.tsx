@@ -30,7 +30,9 @@ const editorOptions = {
   minimap: { enabled: false },
   codeLens: false,
   scrollBeyondLastLine: false,
-  smartSelect: false
+  smartSelect: false,
+  tabSize: 2,
+  insertSpaces: true
 }
 
 const NewPolicy: React.FC = () => {
@@ -226,7 +228,7 @@ const NewPolicy: React.FC = () => {
                         onBlur={() => {
                           try {
                             setInput(JSON.stringify(JSON.parse(input), null, 2))
-                          } finally {
+                          } catch {
                             // eslint-disable-line no-empty
                           }
                         }}

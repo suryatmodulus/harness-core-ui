@@ -60,18 +60,20 @@ export const iconMap: Record<ExecutionStatus, IconProps> = {
 export interface ExecutionStatusLabelProps {
   status?: ExecutionStatus
   className?: string
+  label?: string
 }
 
 export default function ExecutionStatusLabel({
   status,
-  className
+  className,
+  label
 }: ExecutionStatusLabelProps): React.ReactElement | null {
   if (!status) return null
 
   return (
     <div className={cx(css.status, css[status.toLowerCase() as keyof typeof css], className)}>
       {iconMap[status] ? <Icon {...iconMap[status]} className={css.icon} /> : null}
-      <String stringID={stringsMap[status] || 'pipeline.executionStatus.Unknown'} />
+      {label ? label : <String stringID={stringsMap[status] || 'pipeline.executionStatus.Unknown'} />}
     </div>
   )
 }

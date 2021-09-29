@@ -42,6 +42,12 @@ export default (
       </PolicyControlPage>
     </RouteWithLayout>
 
+    <RouteWithLayout path={routes.toPolicyEditPage({ ...accountPathProps, policyIdentifier: ':policyIdentifier' })} exact sidebarProps={AccountSideNavProps}>
+      <PolicyControlPage title="Edit Policy">
+        <NewPolicy />
+      </PolicyControlPage>
+    </RouteWithLayout>
+
     <RouteWithLayout path={routes.toPolicySetsPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
       <PolicyControlPage title="Policy Sets">
         <PolicyEvaluations />

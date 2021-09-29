@@ -3,5 +3,6 @@
 declare const styles: {
   readonly userLabel: string
   readonly rightSection: string
+  readonly profilePicture: string
 }
 export default styles

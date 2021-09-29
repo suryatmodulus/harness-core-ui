@@ -60,7 +60,6 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
     >
       <p
         class="StyledProps--font StyledProps--main lastCommit"
-        style="cursor: pointer;"
       >
         <span
           class="bp3-icon bp3-icon-git-commit StyledProps--main icon"
@@ -101,7 +100,6 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
         </div>
         <p
           class="StyledProps--font StyledProps--main commitId"
-          style="cursor: pointer;"
         >
           <a
             class="label"
@@ -349,6 +347,7 @@ exports[`<CIExecutionCardSummary /> tests pull request snapshot 1`] = `
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey900"
+              style="max-width: 500px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
               tabindex="0"
             >
               feat:  [PIE-5]: variables ux update

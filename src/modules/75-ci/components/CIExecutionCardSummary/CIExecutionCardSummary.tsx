@@ -39,7 +39,10 @@ function getUIByType(
         <>
           <RepoBranch repo={data.repoName} branch={data.branch} />
           {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
-            <CommitsInfo commits={data?.ciExecutionInfoDTO?.branch?.commits} />
+            <CommitsInfo
+              commits={data?.ciExecutionInfoDTO?.branch?.commits}
+              authorAvatar={data?.ciExecutionInfoDTO?.author?.avatar}
+            />
           )}
         </>
       )
@@ -61,7 +64,10 @@ function getUIByType(
           </Text> */}
           </Layout.Horizontal>
           {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
-            <CommitsInfo commits={data?.ciExecutionInfoDTO?.branch?.commits} />
+            <CommitsInfo
+              commits={data?.ciExecutionInfoDTO?.branch?.commits}
+              authorAvatar={data?.ciExecutionInfoDTO?.author?.avatar}
+            />
           )}
         </>
       )
@@ -87,6 +93,7 @@ function getUIByType(
               <Text
                 font={{ size: 'small' }}
                 color="grey900"
+                style={{ maxWidth: 500, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
                 tooltip={<Container padding="small">{data?.ciExecutionInfoDTO?.pullRequest?.title}</Container>}
               >
                 {data?.ciExecutionInfoDTO?.pullRequest?.title}
@@ -110,7 +117,10 @@ function getUIByType(
             <div className={css.state}>{data?.ciExecutionInfoDTO?.pullRequest?.state}</div>
           </Layout.Horizontal>
           {data?.ciExecutionInfoDTO?.pullRequest?.commits?.length > 0 && (
-            <CommitsInfo commits={data?.ciExecutionInfoDTO?.pullRequest?.commits} />
+            <CommitsInfo
+              commits={data?.ciExecutionInfoDTO?.pullRequest?.commits}
+              authorAvatar={data?.ciExecutionInfoDTO?.author?.avatar}
+            />
           )}
         </>
       )

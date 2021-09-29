@@ -62,6 +62,7 @@
 .commit {
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   .label {
     margin-right: var(--spacing-xsmall);

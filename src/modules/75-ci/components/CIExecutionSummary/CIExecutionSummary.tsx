@@ -19,35 +19,41 @@ const RepoBranch = ({ repo, branch }: { repo: string; branch: string }): React.R
   </div>
 )
 
-const Commit = ({ id, link }: { id: string; link: string }): React.ReactElement => {
+const Commit = ({ id, link }: { id: string; link?: string }): React.ReactElement => {
   const { getString } = useStrings()
 
   const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
 
-  const handleCommitIdClick = (commitId: string): void => {
-    Utils.copy(commitId)
+  const slicedId = id?.slice(0, 7)
+
+  const handleCopyButtonClick = (): void => {
+    Utils.copy(link || id)
     setIsCommitIdCopied(true)
   }
 
-  const handleCommitIdTooltipClosed = (): void => {
+  const handleCopyButtonTooltipClosed = (): void => {
     setIsCommitIdCopied(false)
   }
 
   return (
-    <Text className={css.commit} style={{ cursor: 'pointer' }}>
-      <a className={css.label} href={link} rel="noreferrer" target="_blank">
-        {id?.slice(0, 7)}
-      </a>
+    <Text className={css.commit}>
+      {link ? (
+        <a className={css.label} href={link} rel="noreferrer" target="_blank">
+          {slicedId}
+        </a>
+      ) : (
+        <span className={css.label}>{slicedId}</span>
+      )}
       <Text
         tooltip={
           <Container padding="small">{getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}</Container>
         }
         tooltipProps={{
-          onClosed: handleCommitIdTooltipClosed
+          onClosed: handleCopyButtonTooltipClosed
         }}
         style={{ cursor: 'pointer' }}
       >
-        <Icon name="copy" size={14} onClick={() => handleCommitIdClick(link)} />
+        <Icon name="copy" size={14} onClick={handleCopyButtonClick} />
       </Text>
     </Text>
   )
@@ -80,10 +86,12 @@ function getUIByType(
                   {data?.ciExecutionInfoDTO?.branch?.commits[0]?.message}
                 </Text>
               </div>
-              <Commit
-                id={data?.ciExecutionInfoDTO?.branch?.commits[0]?.id}
-                link={data?.ciExecutionInfoDTO?.branch?.commits[0]?.link}
-              />
+              {data?.ciExecutionInfoDTO?.branch?.commits[0]?.id && (
+                <Commit
+                  id={data?.ciExecutionInfoDTO?.branch?.commits[0]?.id}
+                  link={data?.ciExecutionInfoDTO?.branch?.commits[0]?.link}
+                />
+              )}
             </Layout.Horizontal>
           )}
         </>
@@ -119,10 +127,12 @@ function getUIByType(
                   {data?.ciExecutionInfoDTO?.branch?.commits[0]?.message}
                 </Text>
               </div>
-              <Commit
-                id={data?.ciExecutionInfoDTO?.branch?.commits[0]?.id}
-                link={data?.ciExecutionInfoDTO?.branch?.commits[0]?.link}
-              />
+              {data?.ciExecutionInfoDTO?.branch?.commits[0]?.id && (
+                <Commit
+                  id={data?.ciExecutionInfoDTO?.branch?.commits[0]?.id}
+                  link={data?.ciExecutionInfoDTO?.branch?.commits[0]?.link}
+                />
+              )}
             </Layout.Horizontal>
           )}
         </Layout.Horizontal>
@@ -159,10 +169,12 @@ function getUIByType(
                       {data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.message}
                     </Text>
                   </div>
-                  <Commit
-                    id={data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.id}
-                    link={data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.link}
-                  />
+                  {data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.id && (
+                    <Commit
+                      id={data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.id}
+                      link={data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.link}
+                    />
+                  )}
                 </Layout.Horizontal>
               )}
               <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>

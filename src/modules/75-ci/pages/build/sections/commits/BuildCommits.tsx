@@ -15,6 +15,8 @@ interface CommitsGroupedByTimestamp {
 }
 
 const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({ commits }): any => {
+  const context = useExecutionContext()
+
   const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
   const { getString } = useStrings()
 
@@ -26,6 +28,12 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
   const handleCommitIdTooltipClosed = (): void => {
     setIsCommitIdCopied(false)
   }
+
+  // NOTE: Not commit author!!!
+  const authorAvatar = get(
+    context,
+    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.author.avatar'
+  )
 
   return commits.map(({ id = '', message = '', timeStamp = 0, ownerName, link }) => {
     const [title, description] = message.split('\n\n')
@@ -44,7 +52,12 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
           )}
         </div>
         <Layout.Horizontal flex={{ alignItems: 'center' }} spacing="medium">
-          <UserLabel className={css.user} name={ownerName || ''} iconProps={{ size: 16 }} />
+          <UserLabel
+            className={css.user}
+            name={ownerName || ''}
+            profilePictureUrl={authorAvatar}
+            iconProps={{ size: 16 }}
+          />
           <TimeAgoPopover time={timeStamp} inline={false} />
           <button className={css.hash}>
             <Text

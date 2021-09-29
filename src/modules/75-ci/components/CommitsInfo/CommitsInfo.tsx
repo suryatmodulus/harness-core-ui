@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { defaultTo, first } from 'lodash-es'
+import { first } from 'lodash-es'
 import { Text, Button, Icon, Utils, Container } from '@wings-software/uicore'
 import { Collapse } from '@blueprintjs/core'
-
 import type { CIBuildCommit } from 'services/ci'
 import { String, useStrings } from 'framework/strings'
 import { UserLabel, TimeAgoPopover } from '@common/exports'
@@ -11,20 +10,22 @@ import css from './CommitsInfo.module.scss'
 
 export interface CommitIdProps {
   commitId: string
-  commitLink: string
+  commitLink?: string
 }
 
 export function CommitId({ commitId, commitLink }: CommitIdProps): React.ReactElement {
   const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
   const { getString } = useStrings()
 
-  const handleCommitIdClick = (e: React.SyntheticEvent): void => {
+  const slicedCommitId = commitId.slice(0, 7)
+
+  const handleCopyButtonClick = (e: React.SyntheticEvent): void => {
     e.stopPropagation()
-    Utils.copy(commitLink)
+    Utils.copy(commitLink || commitId)
     setIsCommitIdCopied(true)
   }
 
-  const handleCommitIdTooltipClosed = (): void => {
+  const handleCopyButtonTooltipClosed = (): void => {
     setIsCommitIdCopied(false)
   }
 
@@ -34,54 +35,57 @@ export function CommitId({ commitId, commitLink }: CommitIdProps): React.ReactEl
   }
 
   return (
-    <Text className={css.commitId} style={{ cursor: 'pointer' }}>
-      {commitId && (
+    <Text className={css.commitId}>
+      {commitLink ? (
         <a className={css.label} href={commitLink} rel="noreferrer" target="_blank" onClick={handleLinkClick}>
-          {commitId.slice(0, 7)}
+          {slicedCommitId}
         </a>
+      ) : (
+        <span className={css.label}>{slicedCommitId}</span>
       )}
       <Text
         tooltip={
           <Container padding="small">{getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}</Container>
         }
         tooltipProps={{
-          onClosed: handleCommitIdTooltipClosed
+          onClosed: handleCopyButtonTooltipClosed
         }}
         style={{ cursor: 'pointer' }}
       >
-        <Icon name="copy" size={14} onClick={handleCommitIdClick} />
+        <Icon name="copy" size={14} onClick={handleCopyButtonClick} />
       </Text>
     </Text>
   )
 }
 
 export interface LastCommitProps {
-  lastCommit?: CIBuildCommit
+  lastCommit: CIBuildCommit
 }
 
 export function LastCommit({ lastCommit }: LastCommitProps): React.ReactElement {
   return (
-    <Text className={css.lastCommit} style={{ cursor: 'pointer' }}>
+    <Text className={css.lastCommit}>
       <Icon className={css.icon} name="git-commit" size={14} />
       <div style={{ fontSize: 0 }}>
-        <Text className={css.message} tooltip={<Container padding="small">{lastCommit?.message}</Container>}>
-          {lastCommit?.message}
+        <Text className={css.message} tooltip={<Container padding="small">{lastCommit.message}</Container>}>
+          {lastCommit.message}
         </Text>
       </div>
-      {lastCommit?.id && lastCommit?.link && <CommitId commitId={lastCommit.id} commitLink={lastCommit.link} />}
+      {lastCommit?.id && <CommitId commitId={lastCommit.id} commitLink={lastCommit.link} />}
     </Text>
   )
 }
 
 export interface CommitsInfoProps {
   commits?: CIBuildCommit[]
+  authorAvatar?: string
 }
 
 export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null {
-  const { commits = [] } = props
-  const lastCommit = first(commits || [])
-
   const [showCommits, setShowCommits] = React.useState(false)
+
+  const { commits = [], authorAvatar } = props
+  const lastCommit = first(commits || [])
 
   function toggleCommits(e: React.SyntheticEvent): void {
     e.stopPropagation()
@@ -116,10 +120,15 @@ export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null 
                     </Text>
                   </div>
                   <Container flex>
-                    <UserLabel className={css.user} name={commit.ownerName || ''} iconProps={{ size: 16 }} />
-                    <TimeAgoPopover time={defaultTo(commit?.timeStamp, 0)} inline={false} />
+                    <UserLabel
+                      className={css.user}
+                      name={commit.ownerName || ''}
+                      profilePictureUrl={authorAvatar}
+                      iconProps={{ size: 16 }}
+                    />
+                    <TimeAgoPopover time={commit.timeStamp || 0} inline={false} />
                   </Container>
-                  {commit?.id && commit?.link && <CommitId commitId={commit.id} commitLink={commit.link} />}
+                  {commit.id && <CommitId commitId={commit.id} commitLink={commit.link} />}
                 </div>
               )
             })}

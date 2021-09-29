@@ -383,7 +383,6 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
       </div>
       <p
         class="StyledProps--font StyledProps--main commit"
-        style="cursor: pointer;"
       >
         <a
           class="label"

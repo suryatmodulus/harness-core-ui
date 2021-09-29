@@ -1,5 +1,7 @@
 .container {
   --rego-label-height: 28px;
+  --right-container-width: 550px;
+
   overflow: hidden;
 
   width: 100%;
@@ -22,7 +24,7 @@
     }
 
     .rightContainer {
-      width: 380px;
+      width: var(--right-container-width);
     }
 
     .policyName {

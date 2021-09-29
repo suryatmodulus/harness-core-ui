@@ -224,6 +224,9 @@ const Policies: React.FC = () => {
           className={css.table}
           columns={columns}
           data={policyList || []}
+          onRowClick={data => {
+            history.push(routes.toPolicyEditPage({ accountId, policyIdentifier: String(data?.id || '') }))
+          }}
           // TODO: enable when page is ready
 
           pagination={{

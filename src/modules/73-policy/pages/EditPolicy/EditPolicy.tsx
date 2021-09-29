@@ -12,7 +12,6 @@ import {
   ButtonSize,
   FlexExpander
 } from '@wings-software/uicore'
-import { omit } from 'lodash-es'
 import { TextArea } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router'
 import { showToaster, getErrorMessage } from '@policy/utils/PmUtils'
@@ -20,10 +19,10 @@ import routes from '@common/RouteDefinitions'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@policy/utils/rego'
-import { useCreatePolicy, useEvaluateRaw } from 'services/pm'
-import css from './NewPolicy.module.scss'
+import { useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
+import css from './EditPolicy.module.scss'
 
-const RIGHT_CONTAINER_WIDTH = 380
+const RIGHT_CONTAINER_WIDTH = 550
 
 const editorOptions = {
   ignoreTrimWhitespace: true,
@@ -35,8 +34,9 @@ const editorOptions = {
   insertSpaces: true
 }
 
-const NewPolicy: React.FC = () => {
-  const [name, setName] = useState('My Policy 1')
+export const EditPolicy: React.FC = () => {
+  const { policyIdentifier } = useParams<{ policyIdentifier: string }>()
+  const [name, setName] = useState(policyIdentifier ? '' : 'My Policy 1')
   const [regoScript, setRegoScript] = useState('')
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
@@ -57,30 +57,44 @@ const NewPolicy: React.FC = () => {
   const { mutate: evaluateRawPolicy } = useEvaluateRaw({})
   const { accountId } = useParams<{ accountId: string }>()
   const [createPolicyLoading, setCreatePolicyLoading] = useState(false)
+  const [testPolicyLoading, setTestPolicyLoading] = useState(false)
   const history = useHistory()
+  const { mutate: updatePolicy } = useUpdatePolicy({ policy: policyIdentifier })
   const onSavePolicy = useCallback(() => {
     setCreatePolicyLoading(true)
-    createPolicy({ name, rego: regoScript })
-      .then(() => {
-        history.replace(routes.toPolicyListPage({ accountId }))
+    const api = policyIdentifier ? updatePolicy : createPolicy
+    api({ name, rego: regoScript })
+      .then(response => {
+        showToaster('Policy saved!')
+        if (!policyIdentifier) {
+          history.replace(routes.toPolicyEditPage({ accountId, policyIdentifier: String(response.id || '') }))
+        }
       })
       .catch(error => {
-        setCreatePolicyLoading(false)
         showToaster(getErrorMessage(error))
       })
-  }, [name, regoScript, createPolicy, setCreatePolicyLoading, accountId, history])
+      .finally(() => {
+        setCreatePolicyLoading(false)
+      })
+  }, [name, regoScript, createPolicy, setCreatePolicyLoading, updatePolicy, policyIdentifier, history, accountId])
   const onTest = useCallback(() => {
+    setTestPolicyLoading(true)
     evaluateRawPolicy({ rego: regoScript, input: JSON.parse(input) })
       .then(response => {
         try {
           const _response = typeof response === 'string' ? JSON.parse(response) : response
-          setOutput(JSON.stringify(omit(_response, ['policy']), null, 2))
+          setOutput(JSON.stringify(_response, null, 2))
         } catch {
           // eslint-disable-line no-empty
         }
       })
       .catch(error => showToaster(getErrorMessage(error)))
+      .finally(() => {
+        setTestPolicyLoading(false)
+      })
   }, [evaluateRawPolicy, regoScript, input])
+  const { data: policyData, refetch: fetchPolicyData } = useGetPolicy({ policy: policyIdentifier, lazy: true })
+  const [loadingPolicy, setLoadingPolicy] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const [contentHeight, setContentHeight] = useState(0)
   const [contentWidth, setContentWidth] = useState(0)
@@ -124,6 +138,57 @@ const NewPolicy: React.FC = () => {
       </Layout.Horizontal>
     )
   }
+  const toolbar = useMemo(() => {
+    return (
+      <Layout.Horizontal spacing="small">
+        {!createPolicyLoading && (
+          <Button
+            icon="upload-box"
+            variation={ButtonVariation.SECONDARY}
+            size={ButtonSize.SMALL}
+            text="Save"
+            onClick={onSavePolicy}
+            disabled={!(regoScript || '').trim()}
+            loading={createPolicyLoading}
+          />
+        )}
+        {createPolicyLoading && (
+          <Button icon="upload-box" variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL} text="Save" loading />
+        )}
+        <Button
+          variation={ButtonVariation.SECONDARY}
+          size={ButtonSize.SMALL}
+          text="Discard"
+          onClick={() => {
+            history.push(routes.toPolicyListPage({ accountId }))
+          }}
+        />
+        {!testPolicyLoading && (
+          <Button
+            icon="run-pipeline"
+            variation={ButtonVariation.PRIMARY}
+            text={'Test'}
+            intent="success"
+            size={ButtonSize.SMALL}
+            disabled={!isInputValid}
+            onClick={onTest}
+            // BUG: dynamic loading is not working, workaround below
+            loading={testPolicyLoading}
+          />
+        )}
+        {testPolicyLoading && (
+          <Button
+            icon="run-pipeline"
+            variation={ButtonVariation.PRIMARY}
+            text={'Test'}
+            intent="success"
+            size={ButtonSize.SMALL}
+            loading
+          />
+        )}
+      </Layout.Horizontal>
+    )
+  }, [history, testPolicyLoading, accountId, createPolicyLoading, isInputValid, onSavePolicy, onTest, regoScript])
 
   const onResize = (): void => {
     if (ref.current) {
@@ -141,42 +206,26 @@ const NewPolicy: React.FC = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (policyIdentifier) {
+      setLoadingPolicy(true)
+      fetchPolicyData().finally(() => {
+        setLoadingPolicy(false)
+      })
+    }
+  }, [policyIdentifier, fetchPolicyData])
+
+  useEffect(() => {
+    if (policyData) {
+      setRegoScript(policyData.rego || '')
+      setName(policyData.name || '')
+    }
+  }, [policyData])
+
   return (
     <>
-      <PageHeader
-        title={<Layout.Horizontal>{policyNameEditor()}</Layout.Horizontal>}
-        toolbar={
-          <Layout.Horizontal spacing="small">
-            <Button
-              icon="upload-box"
-              variation={ButtonVariation.SECONDARY}
-              size={ButtonSize.SMALL}
-              text="Save"
-              onClick={onSavePolicy}
-              disabled={!(regoScript || '').trim()}
-              loading={createPolicyLoading}
-            />
-            <Button
-              variation={ButtonVariation.SECONDARY}
-              size={ButtonSize.SMALL}
-              text="Discard"
-              onClick={() => {
-                history.push(routes.toPolicyListPage({ accountId }))
-              }}
-            />
-            <Button
-              icon="run-pipeline"
-              variation={ButtonVariation.PRIMARY}
-              text="Test"
-              intent="success"
-              size={ButtonSize.SMALL}
-              disabled={!isInputValid}
-              onClick={onTest}
-            />
-          </Layout.Horizontal>
-        }
-      />
-      <Page.Body>
+      <PageHeader title={<Layout.Horizontal>{policyNameEditor()}</Layout.Horizontal>} toolbar={toolbar} />
+      <Page.Body loading={loadingPolicy}>
         <Container className={css.container} padding="medium">
           <Text className={css.regoLabel}>Rego Script</Text>
           <Layout.Horizontal spacing="small" className={css.layout} ref={ref}>
@@ -256,8 +305,6 @@ const NewPolicy: React.FC = () => {
     </>
   )
 }
-
-export default NewPolicy
 
 // TODO:
 // 1- Error handling

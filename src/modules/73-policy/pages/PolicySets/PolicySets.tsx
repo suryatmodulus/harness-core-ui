@@ -114,8 +114,8 @@ const PolicyEvaluations: React.FC = () => {
   const RenderPolicyName: Renderer<CellProps<PoliciesSetDTO>> = ({ row }) => {
     const record = row.original
     return (
-      <Layout.Horizontal spacing="small">
-        <img src={PolicyIcon} />
+      <Layout.Horizontal spacing="small" flex style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+        <img src={PolicyIcon} height="22" />
         <Text color={Color.BLACK} lineClamp={1} font={{ weight: 'semi-bold' }}>
           {record.name}
         </Text>

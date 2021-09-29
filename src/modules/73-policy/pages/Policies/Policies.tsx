@@ -15,7 +15,7 @@ import { Policy, useGetPolicyList, useDeletePolicy } from 'services/pm'
 import { setPageNumber } from '@common/utils/utils'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
-import PolicyIcon from '../PolicySets/PolicySetIcon.svg'
+import PolicyIcon from './Policy.svg'
 
 import css from './Policies.module.scss'
 
@@ -51,8 +51,8 @@ const Policies: React.FC = () => {
   const RenderPolicyName: Renderer<CellProps<Policy>> = ({ row }) => {
     const record = row.original
     return (
-      <Layout.Horizontal spacing="small">
-        <img src={PolicyIcon} />
+      <Layout.Horizontal spacing="small" flex style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+        <img src={PolicyIcon} height="22" />
         <Text color={Color.BLACK} lineClamp={1} font={{ weight: 'semi-bold' }}>
           {record.name}
         </Text>

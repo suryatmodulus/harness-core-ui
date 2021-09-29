@@ -8,6 +8,7 @@ import { NotificationTypeSelectOptions } from '@notifications/constants'
 import ConfigureEmailNotifications from '@notifications/modals/ConfigureNotificationsModal/views/ConfigureEmailNotifications/ConfigureEmailNotifications'
 import ConfigureSlackNotifications from '@notifications/modals/ConfigureNotificationsModal/views/ConfigureSlackNotifications/ConfigureSlackNotifications'
 import ConfigurePagerDutyNotifications from '@notifications/modals/ConfigureNotificationsModal/views/ConfigurePagerDutyNotifications/ConfigurePagerDutyNotifications'
+import ConfigureMSTeamsNotifications from '@notifications/modals/ConfigureNotificationsModal/views/ConfigureMSTeamsNotifications/ConfigureMSTeamsNotifications'
 
 type NotificationMethodsProps = StepProps<NotificationRules> & {
   typeOptions?: SelectOption[]
@@ -47,6 +48,7 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
             }}
           />
         </Layout.Vertical>
+        {method?.value === NotificationType.MSTeams ? <ConfigureMSTeamsNotifications /> : null}
         {method?.value === NotificationType.Email ? (
           <>
             <ConfigureEmailNotifications

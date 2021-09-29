@@ -18,5 +18,9 @@ export const NotificationTypeSelectOptions: SelectOption[] = [
   {
     label: NotificationType.PagerDuty,
     value: NotificationType.PagerDuty
+  },
+  {
+    label: NotificationType.MSTeams,
+    value: NotificationType.MSTeams
   }
 ]

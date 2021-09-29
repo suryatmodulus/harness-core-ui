@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.32% </span>
+                <span class="strong">73.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>305/416</span>
+                <span class='fraction'>306/418</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.9% </span>
+                <span class="strong">73.79% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>303/410</span>
+                <span class='fraction'>304/412</span>
             </div>
         
             
@@ -1555,7 +1555,9 @@
 <a name='L1496'></a><a href='#L1496'>1496</a>
 <a name='L1497'></a><a href='#L1497'>1497</a>
 <a name='L1498'></a><a href='#L1498'>1498</a>
-<a name='L1499'></a><a href='#L1499'>1499</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L1499'></a><a href='#L1499'>1499</a>
+<a name='L1500'></a><a href='#L1500'>1500</a>
+<a name='L1501'></a><a href='#L1501'>1501</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -2305,11 +2307,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2320,6 +2324,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2487,7 +2492,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3802,12 +3806,14 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
       } = triggerResponseJson
 &nbsp;
       let selectedArtifact
+      let triggerType
 &nbsp;
       <span class="missing-if-branch" title="else path not taken" >E</span>if (type === TriggerTypes.MANIFEST) {
         const { manifestRef, type: _manifestType, spec } = source<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
         <span class="missing-if-branch" title="else path not taken" >E</span>if (_manifestType) {
           setArtifactManifestType(_manifestType)
         }
+        triggerType = TriggerTypes.MANIFEST
         selectedArtifact = {
           identifier: manifestRef,
           type: artifactManifestType || _manifestType,
@@ -3818,6 +3824,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
 <span class="cstat-no" title="statement not covered" >        if (_artifactType) {</span>
 <span class="cstat-no" title="statement not covered" >          setArtifactManifestType(_artifactType)</span>
         }
+<span class="cstat-no" title="statement not covered" >        triggerType = TriggerTypes.ARTIFACT</span>
 <span class="cstat-no" title="statement not covered" >        selectedArtifact = {</span>
           identifier: artifactRef,
           type: artifactManifestType || _artifactType,
@@ -3848,7 +3855,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
         description,
         tags,
         pipeline: pipelineJson,
-        triggerType: TriggerTypes.MANIFEST as unknown as NGTriggerSourceV2['type'],
+        triggerType: triggerType as unknown as NGTriggerSourceV2['type'],
         manifestType: selectedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype,
         stageId: source<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tageIdentifier,
         inputSetTemplateYamlObj: parse(template<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSetTemplateYaml || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>,
@@ -4004,7 +4011,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
       },
       inputYaml: stringifyPipelineRuntimeInput
     }
-&nbsp;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (artType) {
 <span class="cstat-no" title="statement not covered" >      if (triggerYaml?.source?.spec &amp;&amp; Object.getOwnPropertyDescriptor(triggerYaml?.source?.spec, 'manifestRef')) {</span>
 <span class="cstat-no" title="statement not covered" >        delete triggerYaml.source.spec.manifestRef</span>
@@ -4558,7 +4564,7 @@ export default TriggersWizardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 29 2021 14:55:06 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 29 2021 22:59:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

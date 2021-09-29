@@ -28,10 +28,15 @@ export function CommitId({ commitId, commitLink }: CommitIdProps): React.ReactEl
     setIsCommitIdCopied(false)
   }
 
+  const handleLinkClick = (event: any): void => {
+    event.stopPropagation()
+    window.open(event.target.href, '_blank')
+  }
+
   return (
     <Text className={css.commitId} style={{ cursor: 'pointer' }}>
       {commitId && (
-        <a className={css.label} href={commitLink} rel="noreferrer" target="_blank">
+        <a className={css.label} href={commitLink} rel="noreferrer" target="_blank" onClick={handleLinkClick}>
           {commitId.slice(0, 7)}
         </a>
       )}

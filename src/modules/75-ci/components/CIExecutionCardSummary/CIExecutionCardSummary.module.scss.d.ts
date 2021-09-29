@@ -5,5 +5,6 @@ declare const styles: {
   readonly alignSelfStart: string
   readonly label: string
   readonly multiple: string
+  readonly state: string
 }
 export default styles

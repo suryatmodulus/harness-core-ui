@@ -44,3 +44,13 @@
     }
   }
 }
+
+.state {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--grey-700);
+  background-color: var(--grey-100);
+  border-radius: 8px;
+  padding: var(--spacing-xsmall) var(--spacing-small);
+}

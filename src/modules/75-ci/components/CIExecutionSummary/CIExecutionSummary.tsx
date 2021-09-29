@@ -64,7 +64,7 @@ function getUIByType(
       ui = (
         <>
           <RepoBranch repo={data.repoName} branch={data.branch} />
-          {data?.ciExecutionInfoDTO?.branch && (
+          {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
             <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
               <Icon name="git-branch-existing" size={14} />
               <div style={{ fontSize: 0 }}>
@@ -103,7 +103,7 @@ function getUIByType(
           {/* <Text tooltip={<Container padding="small"> Notes</Container>}>
             <Icon name="more" size={14} />
           </Text> */}
-          {data?.ciExecutionInfoDTO?.branch && (
+          {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
             <Layout.Horizontal flex spacing="small">
               <Icon name="git-branch-existing" size={14} />
               <div style={{ fontSize: 0 }}>
@@ -143,26 +143,28 @@ function getUIByType(
           )}
           {data?.ciExecutionInfoDTO?.pullRequest && (
             <>
-              <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
-                <Icon name="git-branch-existing" size={14} />
-                <div style={{ fontSize: 0 }}>
-                  <Text
-                    font={{ size: 'small' }}
-                    style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-                    tooltip={
-                      <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
-                        {data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.message}
-                      </Container>
-                    }
-                  >
-                    {data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.message}
-                  </Text>
-                </div>
-                <Commit
-                  id={data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.id}
-                  link={data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.link}
-                />
-              </Layout.Horizontal>
+              {data?.ciExecutionInfoDTO?.pullRequest?.commits?.length > 0 && (
+                <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
+                  <Icon name="git-branch-existing" size={14} />
+                  <div style={{ fontSize: 0 }}>
+                    <Text
+                      font={{ size: 'small' }}
+                      style={{ maxWidth: 150, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
+                      tooltip={
+                        <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+                          {data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.message}
+                        </Container>
+                      }
+                    >
+                      {data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.message}
+                    </Text>
+                  </div>
+                  <Commit
+                    id={data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.id}
+                    link={data?.ciExecutionInfoDTO?.pullRequest?.commits[0]?.link}
+                  />
+                </Layout.Horizontal>
+              )}
               <Layout.Horizontal flex spacing="small" margin={{ left: 'small' }}>
                 <Icon name="git-pull" size={14} />
                 <div style={{ fontSize: 0 }}>

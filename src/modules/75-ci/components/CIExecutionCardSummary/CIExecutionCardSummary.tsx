@@ -1,9 +1,10 @@
 import React from 'react'
 import cx from 'classnames'
-import { Icon, Container, Layout } from '@wings-software/uicore'
+import { Icon, Container, Layout, Text } from '@wings-software/uicore'
 import type { ExecutionSummaryProps } from '@pipeline/factories/ExecutionFactory/types'
 import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactory/types'
 import { CommitsInfo } from '@ci/components/CommitsInfo/CommitsInfo'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import { getUIType, UIType } from '../common/getUIType'
 
 import css from './CIExecutionCardSummary.module.scss'
@@ -21,15 +22,23 @@ const RepoBranch = ({ repo, branch }: { repo: string; branch: string }): React.R
   </div>
 )
 
-function getUIByType(uiType: UIType, { data }: { data: ExecutionSummaryProps['data'] }): React.ReactElement {
+function getUIByType(
+  uiType: UIType,
+  { data, getString }: { data: ExecutionSummaryProps['data']; getString: UseStringsReturn['getString'] }
+): React.ReactElement {
   let ui
+
+  const handleLinkClick = (event: any): void => {
+    event.stopPropagation()
+    window.open(event.target.href, '_blank')
+  }
 
   switch (uiType) {
     case UIType.Branch:
       ui = (
         <>
           <RepoBranch repo={data.repoName} branch={data.branch} />
-          {data?.ciExecutionInfoDTO?.branch?.commits && (
+          {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
             <CommitsInfo commits={data?.ciExecutionInfoDTO?.branch?.commits} />
           )}
         </>
@@ -51,7 +60,7 @@ function getUIByType(uiType: UIType, { data }: { data: ExecutionSummaryProps['da
             <Icon name="more" size={14} />
           </Text> */}
           </Layout.Horizontal>
-          {data?.ciExecutionInfoDTO?.branch?.commits && (
+          {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
             <CommitsInfo commits={data?.ciExecutionInfoDTO?.branch?.commits} />
           )}
         </>
@@ -72,7 +81,35 @@ function getUIByType(uiType: UIType, { data }: { data: ExecutionSummaryProps['da
               </>
             )}
           </Layout.Horizontal>
-          {data?.ciExecutionInfoDTO?.pullRequest?.commits && (
+          <Layout.Horizontal className={css.alignSelfStart} flex spacing="small">
+            <Icon name="git-pull" size={14} />
+            <div style={{ fontSize: 0 }}>
+              <Text
+                font={{ size: 'small' }}
+                color="grey900"
+                tooltip={<Container padding="small">{data?.ciExecutionInfoDTO?.pullRequest?.title}</Container>}
+              >
+                {data?.ciExecutionInfoDTO?.pullRequest?.title}
+              </Text>
+            </div>
+            <a
+              className={css.label}
+              href={data?.ciExecutionInfoDTO?.pullRequest?.link || ''}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleLinkClick}
+            >
+              {getString('ci.prSymbol')}
+              {typeof data?.ciExecutionInfoDTO?.pullRequest?.id === 'string' ||
+              typeof data?.ciExecutionInfoDTO?.pullRequest?.id === 'number'
+                ? data?.ciExecutionInfoDTO?.pullRequest?.id
+                : data?.ciExecutionInfoDTO?.pullRequest?.id?.['$numberLong']
+                ? data?.ciExecutionInfoDTO?.pullRequest?.id?.['$numberLong']
+                : ''}
+            </a>
+            <div className={css.state}>{data?.ciExecutionInfoDTO?.pullRequest?.state}</div>
+          </Layout.Horizontal>
+          {data?.ciExecutionInfoDTO?.pullRequest?.commits?.length > 0 && (
             <CommitsInfo commits={data?.ciExecutionInfoDTO?.pullRequest?.commits} />
           )}
         </>
@@ -84,6 +121,8 @@ function getUIByType(uiType: UIType, { data }: { data: ExecutionSummaryProps['da
 }
 
 export function CIExecutionCardSummary(props: ExecutionCardInfoProps): React.ReactElement {
+  const { getString } = useStrings()
+
   const { data } = props
   if (!data) {
     return <></>
@@ -94,7 +133,7 @@ export function CIExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
     return <></>
   }
 
-  const ui = getUIByType(uiType, { data })
+  const ui = getUIByType(uiType, { data, getString })
   if (!ui) {
     return <></>
   }

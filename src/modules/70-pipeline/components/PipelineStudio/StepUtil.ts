@@ -324,7 +324,6 @@ export const validatePipeline = ({
     }
 
     if (
-      isCloneCodebaseEnabledAtLeastAtOneStage &&
       pipeline?.properties?.ci?.codebase?.build?.type === 'branch' &&
       isEmpty(pipeline?.properties?.ci?.codebase?.build?.spec?.branch)
     ) {
@@ -336,7 +335,6 @@ export const validatePipeline = ({
     }
 
     if (
-      isCloneCodebaseEnabledAtLeastAtOneStage &&
       pipeline?.properties?.ci?.codebase?.build?.type === 'tag' &&
       isEmpty(pipeline?.properties?.ci?.codebase?.build?.spec?.tag)
     ) {
@@ -348,7 +346,6 @@ export const validatePipeline = ({
     }
 
     if (
-      isCloneCodebaseEnabledAtLeastAtOneStage &&
       pipeline?.properties?.ci?.codebase?.build?.type === 'PR' &&
       isEmpty(pipeline?.properties?.ci?.codebase?.build?.spec?.number)
     ) {

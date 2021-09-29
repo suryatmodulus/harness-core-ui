@@ -444,6 +444,7 @@ export interface AccountPermissions {
     | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
     | 'MANAGE_API_KEYS'
     | 'MANAGE_TAGS'
+    | 'MANAGE_ACCOUNT_DEFAULTS'
     | 'MANAGE_CUSTOM_DASHBOARDS'
     | 'CREATE_CUSTOM_DASHBOARDS'
     | 'MANAGE_RESTRICTED_ACCESS'
@@ -639,6 +640,7 @@ export interface AppPermission {
     | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
     | 'MANAGE_API_KEYS'
     | 'MANAGE_TAGS'
+    | 'MANAGE_ACCOUNT_DEFAULTS'
     | 'MANAGE_CUSTOM_DASHBOARDS'
     | 'CREATE_CUSTOM_DASHBOARDS'
     | 'MANAGE_RESTRICTED_ACCESS'
@@ -1753,6 +1755,14 @@ export interface DocumentType {
   textContent?: string
 }
 
+export type DurationRestrictionDTO = RestrictionDTO & {
+  timeUnit?: TimeUnit
+}
+
+export type DurationRestrictionMetadataDTO = RestrictionMetadataDTO & {
+  timeUnit?: TimeUnit
+}
+
 export type DynatraceConnectorDTO = ConnectorConfigDTO & {
   apiTokenRef: string
   delegateSelectors?: string[]
@@ -1928,10 +1938,10 @@ export interface Environment {
 export interface EnvironmentRequestDTO {
   color?: string
   description?: string
-  identifier?: string
+  identifier: string
   name?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  orgIdentifier: string
+  projectIdentifier: string
   tags?: {
     [key: string]: string
   }
@@ -2627,22 +2637,46 @@ export interface FailureStrategyConfig {
 export type FeatureFlagStageConfig = StageInfoConfig & {}
 
 export interface FeatureRestrictionDetailRequestDTO {
-  name: 'TEST1' | 'TEST2' | 'TEST3' | 'TEST4'
+  name:
+    | 'TEST1'
+    | 'TEST2'
+    | 'TEST3'
+    | 'TEST4'
+    | 'TEST5'
+    | 'MULTIPLE_ORGANIZATIONS'
+    | 'MULTIPLE_PROJECTS'
+    | 'SECRET_MANAGERS'
 }
 
 export interface FeatureRestrictionDetailsDTO {
   allowed?: boolean
   description?: string
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
-  name?: 'TEST1' | 'TEST2' | 'TEST3' | 'TEST4'
+  name?:
+    | 'TEST1'
+    | 'TEST2'
+    | 'TEST3'
+    | 'TEST4'
+    | 'TEST5'
+    | 'MULTIPLE_ORGANIZATIONS'
+    | 'MULTIPLE_PROJECTS'
+    | 'SECRET_MANAGERS'
   restriction?: RestrictionDTO
-  restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT' | 'CUSTOM'
+  restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT' | 'CUSTOM' | 'DURATION'
 }
 
 export interface FeatureRestrictionMetadataDTO {
-  edition?: 'FREE' | 'TEAM' | 'ENTERPRISE'
+  edition?: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
   moduleType?: string
-  name?: 'TEST1' | 'TEST2' | 'TEST3' | 'TEST4'
+  name?:
+    | 'TEST1'
+    | 'TEST2'
+    | 'TEST3'
+    | 'TEST4'
+    | 'TEST5'
+    | 'MULTIPLE_ORGANIZATIONS'
+    | 'MULTIPLE_PROJECTS'
+    | 'SECRET_MANAGERS'
   restrictionMetadata?: {
     [key: string]: RestrictionMetadataDTO
   }
@@ -3819,7 +3853,7 @@ export interface LicenseInfo {
 }
 
 export interface LicensesWithSummaryDTO {
-  edition?: 'FREE' | 'TEAM' | 'ENTERPRISE'
+  edition?: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
   licenseType?: 'TRIAL' | 'PAID'
   maxExpiryTime?: number
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -3902,7 +3936,7 @@ export type MicrosoftTeamsConfigDTO = NotificationSettingConfigDTO & {
 export interface ModuleLicenseDTO {
   accountIdentifier?: string
   createdAt?: number
-  edition?: 'FREE' | 'TEAM' | 'ENTERPRISE'
+  edition?: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
   expiryTime?: number
   id?: string
   lastModifiedAt?: number
@@ -4666,6 +4700,7 @@ export type PrometheusConnectorDTO = ConnectorConfigDTO & {
 export type RateLimitRestrictionDTO = RestrictionDTO & {
   count?: number
   limit?: number
+  timeUnit?: TimeUnit
 }
 
 export type RateLimitRestrictionMetadataDTO = RestrictionMetadataDTO & {
@@ -4727,7 +4762,7 @@ export interface ResourceScope {
 }
 
 export interface ResourceScopeDTO {
-  accountIdentifier: string
+  accountIdentifier?: string
   labels?: {
     [key: string]: string
   }
@@ -6163,7 +6198,7 @@ export interface RestrictionDTO {
 }
 
 export interface RestrictionMetadataDTO {
-  restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT' | 'CUSTOM'
+  restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT' | 'CUSTOM' | 'DURATION'
 }
 
 export type RetryFailureActionConfig = FailureStrategyActionConfig & {
@@ -6658,10 +6693,10 @@ export interface ServicePipelineInfo {
 
 export interface ServiceRequestDTO {
   description?: string
-  identifier?: string
+  identifier: string
   name?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  orgIdentifier: string
+  projectIdentifier: string
   tags?: {
     [key: string]: string
   }
@@ -6791,7 +6826,7 @@ export interface SidecarArtifactWrapper {
 
 export interface SignupDTO {
   billingFrequency?: 'MONTHLY' | 'YEARLY'
-  edition?: 'FREE' | 'TEAM' | 'ENTERPRISE'
+  edition?: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
   email?: string
   intent?: string
   password?: string
@@ -6891,7 +6926,7 @@ export interface StageWhenCondition {
 }
 
 export interface StartTrialDTO {
-  edition: 'FREE' | 'TEAM' | 'ENTERPRISE'
+  edition: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
   moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
 }
 
@@ -6953,6 +6988,7 @@ export interface StepGroupElementConfig {
   failureStrategies?: FailureStrategyConfig[]
   identifier: string
   name?: string
+  rollbackSteps?: ExecutionWrapperConfig[]
   steps: ExecutionWrapperConfig[]
   when?: StepWhenCondition
 }
@@ -17586,6 +17622,58 @@ export const getAccountLicensesPromise = (
   getUsingFetch<ResponseAccountLicenseDTO, Failure | Error, GetAccountLicensesQueryParams, void>(
     getConfig('ng/api'),
     `/licenses/account`,
+    props,
+    signal
+  )
+
+export interface StartCommunityLicenseQueryParams {
+  accountIdentifier: string
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+}
+
+export type StartCommunityLicenseProps = Omit<
+  MutateProps<ResponseModuleLicenseDTO, Failure | Error, StartCommunityLicenseQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Starts Community License For A Module
+ */
+export const StartCommunityLicense = (props: StartCommunityLicenseProps) => (
+  <Mutate<ResponseModuleLicenseDTO, Failure | Error, StartCommunityLicenseQueryParams, void, void>
+    verb="POST"
+    path={`/licenses/community`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseStartCommunityLicenseProps = Omit<
+  UseMutateProps<ResponseModuleLicenseDTO, Failure | Error, StartCommunityLicenseQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Starts Community License For A Module
+ */
+export const useStartCommunityLicense = (props: UseStartCommunityLicenseProps) =>
+  useMutate<ResponseModuleLicenseDTO, Failure | Error, StartCommunityLicenseQueryParams, void, void>(
+    'POST',
+    `/licenses/community`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Starts Community License For A Module
+ */
+export const startCommunityLicensePromise = (
+  props: MutateUsingFetchProps<ResponseModuleLicenseDTO, Failure | Error, StartCommunityLicenseQueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseModuleLicenseDTO, Failure | Error, StartCommunityLicenseQueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/licenses/community`,
     props,
     signal
   )

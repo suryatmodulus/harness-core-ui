@@ -3,24 +3,8 @@
     "status": "SUCCESS",
     "data": [
       {
-        "name": "TEST4",
-        "moduleType": "CORE",
-        "restrictionMetadata": {
-          "TEAM": {
-            "restrictionType": "CUSTOM"
-          },
-          "FREE": {
-            "restrictionType": "CUSTOM"
-          },
-          "ENTERPRISE": {
-            "enabled": true,
-            "restrictionType": "AVAILABILITY"
-          }
-        }
-      },
-      {
         "name": "TEST3",
-        "moduleType": "CORE",
+        "moduleType": "CF",
         "restrictionMetadata": {
           "TEAM": {
             "limit": 100,
@@ -50,11 +34,11 @@
         "restrictionMetadata": {
           "TEAM": {
             "limit": 10,
-            "restrictionType": "STATIC_LIMIT"
+            "restrictionType": "RATE_LIMIT"
           },
           "FREE": {
             "enabled": false,
-            "restrictionType": "AVAILABILITY"
+            "restrictionType": "RATE_LIMIT"
           },
           "ENTERPRISE": {
             "enabled": true,

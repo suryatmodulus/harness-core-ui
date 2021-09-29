@@ -5,21 +5,11 @@
       {
         "allowed": true,
         "decription": "TEST1",
-        "moduleType": "cd",
+        "moduleType": "CD",
         "name": "TEST1",
         "restriction": {
           "enabled": true,
-          "restrictionType": "ENABLED"
-        }
-      },
-      {
-        "allowed": true,
-        "decription": "TEST2",
-        "moduleType": "ci",
-        "name": "TEST2",
-        "restriction": {
-          "enabled": true,
-          "restrictionType": "ENABLED"
+          "restrictionType": "AVAILABILITY"
         }
       }
     ],
@@ -31,7 +21,7 @@
     "data": {
       "allowed": true,
       "decription": "TEST3",
-      "moduleType": "ce",
+      "moduleType": "CE",
       "name": "TEST3",
       "restriction": {
         "limit": 100,
@@ -48,7 +38,7 @@
     "data": {
       "allowed": false,
       "decription": "TEST3",
-      "moduleType": "cf",
+      "moduleType": "CF",
       "name": "TEST3",
       "restriction": {
         "limit": 100,

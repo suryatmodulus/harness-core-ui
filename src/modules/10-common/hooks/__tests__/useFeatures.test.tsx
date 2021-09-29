@@ -50,17 +50,20 @@ beforeEach(() => {
   defaultLicenseStoreValues = {
     licenseInformation: {
       CD: {
+        // TEST1, AVAILABILITY, Enabled
         edition: Editions.ENTERPRISE
       },
       CI: {
         edition: Editions.TEAM
       },
       CF: {
+        // TEST3, RATE_LIMIT
         edition: Editions.FREE
       },
       CCM: {
         edition: Editions.ENTERPRISE
       }
+      // TEST2, CORE, AVAILABILITY, disabled
     }
   }
 })
@@ -85,8 +88,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST1,
-            moduleType: 'CD'
+            featureName: FeatureIdentifier.TEST1
           },
           options: {
             skipCondition: () => true
@@ -99,7 +101,7 @@ describe('useFeatures', () => {
     expect((result as any).current.enabled).toBe(false)
   })
 
-  test('useFeature should make the get feature list call by default: disabled feature', async () => {
+  test('useFeature should get highest edition from all module license when moduleType is CORE: disabled feature', async () => {
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
       <TestWrapper
         path={routes.toProjects({ accountId: 'dummy' })}
@@ -113,8 +115,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST3,
-            moduleType: 'CD'
+            featureName: FeatureIdentifier.TEST2
           }
         }),
       { wrapper }
@@ -138,8 +139,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST1,
-            moduleType: 'CD'
+            featureName: FeatureIdentifier.TEST1
           },
           options: {
             skipCache: true
@@ -166,8 +166,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST3,
-            moduleType: 'CI'
+            featureName: FeatureIdentifier.TEST3
           }
         }),
       { wrapper }
@@ -198,8 +197,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST3,
-            moduleType: 'CI'
+            featureName: FeatureIdentifier.TEST3
           }
         }),
       { wrapper }
@@ -233,8 +231,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST3,
-            moduleType: 'CD'
+            featureName: FeatureIdentifier.TEST1
           }
         }),
       { wrapper }
@@ -261,8 +258,7 @@ describe('useFeatures', () => {
       () =>
         useFeature({
           featureRequest: {
-            featureName: FeatureIdentifier.TEST3,
-            moduleType: 'CI'
+            featureName: FeatureIdentifier.TEST3
           }
         }),
       { wrapper }

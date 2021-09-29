@@ -138,7 +138,9 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
     <StringsContext.Provider value={{ data: stringsData as any, getString }}>
       <AppStoreContext.Provider
         value={{
-          featureFlags: {},
+          featureFlags: {
+            FEATURE_ENFORCEMENT_ENABLED: true
+          },
           updateAppStore: () => void 0,
           currentUserInfo: {},
           ...defaultAppStoreValues

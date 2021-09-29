@@ -6,6 +6,8 @@ import {
   FeatureRequest,
   CheckFeatureReturn
 } from 'framework/featureStore/FeaturesContext'
+import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlag } from './useFeatureFlag'
 
 interface Props {
   featureRequest?: FeatureRequest
@@ -16,11 +18,13 @@ export function useFeature(props: Props): CheckFeatureReturn {
   const { requestFeatures, checkFeature, requestLimitFeature, checkLimitFeature, getRestrictionType } =
     useFeaturesContext()
 
+  const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
+
   const { featureRequest, options } = props
   const isLimit = featureRequest && getRestrictionType(featureRequest) !== RestrictionType.AVAILABILITY
 
   useDeepCompareEffect(() => {
-    if (featureRequest) {
+    if (featureEnforced && featureRequest) {
       if (isLimit) {
         requestLimitFeature(featureRequest)
       } else {
@@ -30,9 +34,9 @@ export function useFeature(props: Props): CheckFeatureReturn {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [featureRequest, options, isLimit])
+  }, [featureRequest, options, isLimit, featureEnforced])
 
-  if (featureRequest === undefined) {
+  if (!featureEnforced || featureRequest === undefined) {
     return { enabled: true }
   }
 

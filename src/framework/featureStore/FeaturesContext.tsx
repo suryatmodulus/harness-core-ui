@@ -22,6 +22,7 @@ import type { FeatureIdentifier } from './FeatureIdentifier'
 export interface FeatureDetail {
   featureName: FeatureIdentifier
   enabled: boolean
+  moduleType: ModuleType
   limit?: number
   count?: number
   apiFail?: boolean
@@ -31,7 +32,6 @@ export type ModuleType = FeatureRestrictionDetailsDTO['moduleType']
 
 export interface FeatureRequest {
   featureName: FeatureIdentifier
-  moduleType: ModuleType
 }
 
 export interface CheckFeatureReturn {
@@ -40,6 +40,11 @@ export interface CheckFeatureReturn {
 }
 
 export interface FeatureMetaData {
+  moduleType: ModuleType
+  restrictionMetadataMap: RestrictionMetadataMap
+}
+
+interface RestrictionMetadataMap {
   [key: string]: RestrictionMetadataDTO
 }
 
@@ -118,7 +123,8 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
         if (curr?.name) {
           acc?.set(curr.name as FeatureIdentifier, {
             featureName: curr.name as FeatureIdentifier,
-            enabled: !!curr?.allowed
+            enabled: !!curr.allowed,
+            moduleType: curr.moduleType
           })
         }
         return acc
@@ -131,7 +137,10 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     if (!isEmpty(metadata)) {
       const list = metadata?.data?.reduce((acc, curr) => {
         if (curr?.name && curr?.restrictionMetadata) {
-          acc?.set(curr.name as FeatureIdentifier, curr.restrictionMetadata)
+          acc?.set(curr.name as FeatureIdentifier, {
+            moduleType: curr.moduleType as ModuleType,
+            restrictionMetadataMap: curr.restrictionMetadata
+          })
         }
         return acc
       }, new Map<FeatureIdentifier, FeatureMetaData>())
@@ -181,12 +190,14 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     // absence of featureName means feature disabled
     // api call fails by default set all features to be true
     const enabled = !!featureDetail?.enabled || hasErr
+    const moduleType = featureDetail?.moduleType
     return {
       enabled,
       featureDetail: {
         ...featureDetail,
         featureName,
         enabled,
+        moduleType,
         apiFail: hasErr
       }
     }
@@ -219,6 +230,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
       const enabled = !!allowed
       let limit: number, count: number
       const apiFail = false
+      const moduleType = res?.data?.moduleType
       if (restriction) {
         limit = restriction.limit
         count = restriction.count
@@ -232,11 +244,12 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
             enabled,
             limit,
             count,
-            apiFail
+            apiFail,
+            moduleType
           })
         })
       })
-    } catch (ex: any) {
+    } catch (ex) {
       showError(ex.data?.message || getString('somethingWentWrong'))
       setFeatureDetailMap(oldMap => {
         return produce(oldMap, draft => {
@@ -244,7 +257,8 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
           draft.set(featureName, {
             featureName,
             enabled: true,
-            apiFail: true
+            apiFail: true,
+            moduleType: undefined
           })
         })
       })
@@ -283,7 +297,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     return edition
   }
 
-  function getEdition(moduleType: ModuleType): Editions {
+  function getEdition(moduleType: ModuleType): Editions | undefined {
     // if no license available, reture FREE for default
     if (licenseInformation === undefined || isEmpty(licenseInformation)) {
       return Editions.FREE
@@ -319,15 +333,18 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
       }
     }
 
-    return Editions.FREE
+    return undefined
   }
 
   // find restrictionType by featureName and edition
   function getRestrictionType(featureRequest?: FeatureRequest): RestrictionType | undefined {
     if (featureRequest) {
-      const types = featureMap.get(featureRequest.featureName)
-      const edition = getEdition(featureRequest.moduleType)
-      return types?.[edition]?.restrictionType as RestrictionType
+      const featureMetadata = featureMap.get(featureRequest.featureName)
+      const { moduleType, restrictionMetadataMap } = featureMetadata || {}
+      const edition = getEdition(moduleType)
+      if (edition) {
+        return restrictionMetadataMap?.[edition]?.restrictionType as RestrictionType
+      }
     }
     return undefined
   }

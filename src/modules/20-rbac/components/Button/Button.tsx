@@ -7,8 +7,8 @@ import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import { useFeature } from '@common/hooks/useFeatures'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { FeatureRequest } from 'framework/featureStore/FeaturesContext'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
-import type { ExplorePlansBtnProps } from '@common/components/FeatureWarning/FeatureWarning'
 
 interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
@@ -18,7 +18,6 @@ interface ButtonProps extends CoreButtonProps {
 interface FeatureProps {
   featureRequest: FeatureRequest
   isPermissionPrioritized?: boolean
-  featureTooltipProps?: ExplorePlansBtnProps
 }
 
 interface BtnProps {
@@ -32,7 +31,7 @@ const RbacButton: React.FC<ButtonProps> = ({
   tooltipProps,
   ...restProps
 }) => {
-  const { enabled: featureEnabled } = useFeature({
+  const { enabled: featureEnabled, featureDetail } = useFeature({
     featureRequest: featureProps?.featureRequest
   })
 
@@ -66,7 +65,7 @@ const RbacButton: React.FC<ButtonProps> = ({
         tooltip: (
           <FeatureWarningTooltip
             featureName={featureProps?.featureRequest.featureName}
-            module={featureProps?.featureTooltipProps?.module}
+            module={featureDetail?.moduleType?.toLowerCase() as Module}
           />
         )
       }

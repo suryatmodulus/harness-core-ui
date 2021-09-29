@@ -48,7 +48,43 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
             }}
           />
         </Layout.Vertical>
-        {method?.value === NotificationType.MSTeams ? <ConfigureMSTeamsNotifications /> : null}
+        {method?.value === NotificationType.MSTeams ? (
+          <ConfigureMSTeamsNotifications
+            withoutHeading={true}
+            submitButtonText={getString('finish')}
+            onSuccess={data => {
+              nextStep?.({
+                ...prevStepData,
+                notificationMethod: {
+                  type: method.value.toString(),
+                  spec: {
+                    userGroups: data.userGroups,
+                    webhookUrl: data.microsoftTeamsWebhookUrl
+                  }
+                }
+              })
+            }}
+            hideModal={noop}
+            isStep={true}
+            onBack={data =>
+              previousStep?.({
+                ...prevStepData,
+                notificationMethod: {
+                  type: method.value.toString(),
+                  spec: {
+                    userGroups: data?.userGroups,
+                    webhookUrl: data?.microsoftTeamsWebhookUrl
+                  }
+                }
+              })
+            }
+            config={{
+              type: NotificationType.MSTeams,
+              microsoftTeamsWebhookUrl: prevStepData?.notificationMethod?.spec?.microsoftTeamsWebhookUrl,
+              userGroups: (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.userGroups || []
+            }}
+          />
+        ) : null}
         {method?.value === NotificationType.Email ? (
           <>
             <ConfigureEmailNotifications

@@ -16,8 +16,8 @@ import { Link, useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { CFEntityType, CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
-import { useGetAllFeatures, useGetTargetsAndSegmentsInfo } from 'services/cf'
+import { CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
+import { useGetAllFeatures } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -25,7 +25,7 @@ import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import type { StringsMap } from 'stringTypes'
-import type { FlagConfigurationStepData, FlagConfigurationStepFormData, VariationMapping } from './types'
+import type { FlagConfigurationStepData, FlagConfigurationStepFormData } from './types'
 import FlagChanges from './FlagChanges/FlagChanges'
 
 /**
@@ -86,43 +86,6 @@ export function FlagConfigurationStepWidget(
   )
   const formik = useRef<FormikProps<FlagConfigurationStepFormData> | null>(null)
   const [loadingFromFocus, setLoadingFromFocus] = useState(false)
-  const targetAndTargetGroupIdentifiers = useMemo(() => {
-    const _targetIdentifiers = new Set<string>()
-    const _targetGroupIdentifiers = new Set<string>()
-    const _variationMappings = initialValues.spec.variationMappings || {}
-
-    Object.values(_variationMappings).forEach(variationMapping => {
-      if (String(variationMapping.targets) !== RUNTIME_INPUT_VALUE) {
-        variationMapping.targets?.forEach(({ identifier }) => {
-          _targetIdentifiers.add(identifier)
-        })
-      }
-      if (String(variationMapping.targetGroups) !== RUNTIME_INPUT_VALUE) {
-        variationMapping.targetGroups?.forEach(({ identifier }) => {
-          _targetGroupIdentifiers.add(identifier)
-        })
-      }
-    })
-
-    return {
-      targetIdentifiers: Array.from(_targetIdentifiers),
-      targetGroupIdentifiers: Array.from(_targetGroupIdentifiers)
-    }
-  }, [initialValues.spec.variationMappings])
-  const {
-    loading: loadingTargetsAndSegmentsInfo,
-    data: targetsAndSegmentsInfo,
-    error: errorTargetsAndSegmentsInfo,
-    refetch: refetchTargetsAndSegmentsInfo
-  } = useGetTargetsAndSegmentsInfo({
-    queryParams: {
-      accountIdentifier: accountId,
-      org: orgIdentifier,
-      project: projectIdentifier,
-      environment: environmentIdentifier
-    },
-    lazy: true
-  })
 
   useEffect(() => {
     if (initialValues?.spec?.environment && environments?.length) {
@@ -150,34 +113,6 @@ export function FlagConfigurationStepWidget(
     }
   }, [environments, featuresData, initialValues, formik])
 
-  useEffect(() => {
-    // Fetching target and target group info to fill in names for them in
-    // variation mapping as in a pipeline, mapping has identifiers only
-    if (
-      !targetsAndSegmentsInfo &&
-      !errorTargetsAndSegmentsInfo &&
-      !loadingTargetsAndSegmentsInfo &&
-      (targetAndTargetGroupIdentifiers?.targetIdentifiers?.length ||
-        targetAndTargetGroupIdentifiers?.targetGroupIdentifiers?.length)
-    ) {
-      refetchTargetsAndSegmentsInfo({
-        queryParams: {
-          ...queryParams,
-          targets: targetAndTargetGroupIdentifiers?.targetIdentifiers?.join(','),
-          targetGroups: targetAndTargetGroupIdentifiers?.targetGroupIdentifiers?.join(',')
-        }
-      })
-    }
-  }, [
-    initialValues,
-    refetchTargetsAndSegmentsInfo,
-    targetsAndSegmentsInfo,
-    errorTargetsAndSegmentsInfo,
-    loadingTargetsAndSegmentsInfo,
-    queryParams,
-    targetAndTargetGroupIdentifiers
-  ])
-
   const scheduleSearchByFlagNameTimeoutRef = useRef(0)
   const scheduleSearchByFlagName = useCallback(
     name => {
@@ -192,40 +127,8 @@ export function FlagConfigurationStepWidget(
     [queryParams, refetchFeatures]
   )
 
-  useEffect(() => {
-    // Since target and target group are all identifiers inside a pipeline definition, in order to render
-    // them properly, we need to fetch their info and update their names accordingly
-    if (targetsAndSegmentsInfo?.entities?.length && formik.current) {
-      const variationMappings = get(formik.current.values, 'spec.variationMappings')
-
-      if (variationMappings !== RUNTIME_INPUT_VALUE) {
-        Object.values(variationMappings as Record<string, VariationMapping>).forEach(_variationMapping => {
-          _variationMapping.targets?.forEach(target => {
-            const targetInfo = targetsAndSegmentsInfo.entities?.find(
-              ({ identifier, type }) => identifier === target.identifier && type === CFEntityType.TARGET
-            )
-            if (targetInfo) {
-              target.name = targetInfo.name as string
-            }
-          })
-
-          _variationMapping.targetGroups?.forEach(targetGroup => {
-            const targetGroupInfo = targetsAndSegmentsInfo.entities?.find(
-              ({ identifier, type }) => identifier === targetGroup.identifier && type === CFEntityType.TARGET_GROUP
-            )
-            if (targetGroupInfo) {
-              targetGroup.name = targetGroupInfo.name as string
-            }
-          })
-        })
-
-        formik.current.setFieldValue('spec.variationMappings', variationMappings)
-      }
-    }
-  }, [targetsAndSegmentsInfo, formik.current]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  const loading = !loadingFromFocus && (loadingEnvironments || loadingFeatures || loadingTargetsAndSegmentsInfo)
-  const error = errorEnvironments || errorFeatures || errorTargetsAndSegmentsInfo
+  const loading = !loadingFromFocus && (loadingEnvironments || loadingFeatures)
+  const error = errorEnvironments || errorFeatures
 
   if (loading) {
     return (
@@ -261,8 +164,7 @@ export function FlagConfigurationStepWidget(
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         spec: Yup.object().shape({
           environment: Yup.string().required(stepString('environmentRequired')),
-          featureFlag: Yup.mixed().required(stepString('flagRequired')),
-          state: Yup.mixed().required(stepString('flagState'))
+          featureFlag: Yup.mixed().required(stepString('flagRequired'))
         })
       })}
     >
@@ -272,6 +174,10 @@ export function FlagConfigurationStepWidget(
 
         const formEnvironmentIdentifier = get(_formik.values, 'spec.environment.value')
         const formFeatureFlagIdentifier = get(_formik.values, 'spec.featureFlag.value')
+
+        const currentFeature = featuresData?.features?.find(
+          ({ identifier }) => identifier === formFeatureFlagIdentifier
+        )
 
         return (
           <Layout.Vertical padding={{ right: 'xlarge' }}>
@@ -355,7 +261,11 @@ export function FlagConfigurationStepWidget(
               }}
             />
 
-            <FlagChanges />
+            <FlagChanges
+              feature={currentFeature}
+              spec={initialValues.spec}
+              clearField={(fieldName: string) => _formik.setFieldValue(fieldName, '')}
+            />
           </Layout.Vertical>
         )
       }}

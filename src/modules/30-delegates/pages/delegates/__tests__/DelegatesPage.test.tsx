@@ -6,9 +6,32 @@ import DelegateListing from '../DelegateListing'
 
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegateGroupsNGV2: jest.fn().mockImplementation(args => {
+  useGetDelegateGroupsNGV2WithFilter: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return []
+  })
+}))
+
+jest.mock('services/cd-ng', () => ({
+  useGetFilterList: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  usePostFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  useUpdateFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  useDeleteFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
   })
 }))
 

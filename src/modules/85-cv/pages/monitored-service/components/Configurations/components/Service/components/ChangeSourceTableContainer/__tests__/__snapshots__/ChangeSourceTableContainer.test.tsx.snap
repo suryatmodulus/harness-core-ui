@@ -1,0 +1,202 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test ChangeSourceTable should render 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--margin-xxlarge"
+  >
+    <div
+      class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+    >
+      <p
+        class="StyledProps--font StyledProps--main tableTitle"
+      >
+        cv.navLinks.adminSideNavLinks.activitySources
+      </p>
+      <div
+        class="table changeSourceTableWrapper"
+      >
+        <div
+          class="header"
+          role="row"
+        >
+          <div
+            class="cell sortable"
+            colspan="1"
+            role="columnheader"
+            style="width: 30%;"
+            title="Toggle SortBy"
+          >
+            name
+            <span
+              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
+              icon="double-caret-vertical"
+            >
+              <svg
+                data-icon="double-caret-vertical"
+                height="15"
+                viewBox="0 0 16 16"
+                width="15"
+              >
+                <desc>
+                  double-caret-vertical
+                </desc>
+                <path
+                  d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="cell sortable"
+            colspan="1"
+            role="columnheader"
+            style="width: 35%;"
+            title="Toggle SortBy"
+          >
+            typeLabel
+            <span
+              class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
+              icon="double-caret-vertical"
+            >
+              <svg
+                data-icon="double-caret-vertical"
+                height="15"
+                viewBox="0 0 16 16"
+                width="15"
+              >
+                <desc>
+                  double-caret-vertical
+                </desc>
+                <path
+                  d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="cell sortable"
+            colspan="1"
+            role="columnheader"
+            style="width: 35%;"
+          >
+            source
+          </div>
+        </div>
+        <div
+          class="body"
+        >
+          <div
+            class="row card clickable"
+            role="row"
+          >
+            <div
+              class="cell"
+              role="cell"
+              style="width: 30%;"
+            >
+              adadas
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 35%;"
+            >
+              Deployment
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 35%;"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+              >
+                <span
+                  class="bp3-icon StyledProps--main sourceTypeIcon"
+                  data-icon="cd-main"
+                >
+                  <svg
+                    fill="none"
+                    height="22"
+                    viewBox="0 0 27 29"
+                    width="22"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
+                      fill="url(#cd-main_svg__paint0_linear)"
+                      fill-rule="evenodd"
+                    />
+                    <defs>
+                      <lineargradient
+                        gradientUnits="userSpaceOnUse"
+                        id="cd-main_svg__paint0_linear"
+                        x1="4.551"
+                        x2="19.517"
+                        y1="0"
+                        y2="27.642"
+                      >
+                        <stop
+                          stop-color="#62F91F"
+                        />
+                        <stop
+                          offset="1"
+                          stop-color="#45BD35"
+                        />
+                      </lineargradient>
+                    </defs>
+                  </svg>
+                </span>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="main-more"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 13 3"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            fill="#4d5969"
+                          >
+                            <path
+                              d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <a
+          href="/"
+        >
+          + 
+          cv.changeSource.addChangeSource
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

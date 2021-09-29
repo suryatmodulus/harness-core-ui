@@ -41,7 +41,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       let filters = {}
 
       try {
-        filters = JSON.parse(params.filters || '{}')
+        filters = params.filters ? JSON.parse(params.filters) : undefined
       } catch (_e) {
         // do nothing
       }

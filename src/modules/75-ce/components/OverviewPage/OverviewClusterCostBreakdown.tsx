@@ -10,7 +10,7 @@ import {
   useFetchPerspectiveDetailsSummaryQuery
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
-import { getGMTStartDateTime } from '@ce/utils/momentUtils'
+import { getGMTEndDateTime, getGMTStartDateTime } from '@ce/utils/momentUtils'
 import { getTimeFilters } from '@ce/utils/perspectiveUtils'
 import type { TimeRange } from '@ce/pages/overview/OverviewPage'
 import { CE_COLOR_CONST } from '../CEChart/CEChartOptions'
@@ -46,7 +46,7 @@ const useClusterCostBreakdown = (timeRange: TimeRange) => {
         { operationType: QlceViewAggregateOperation.Max, columnName: 'startTime' },
         { operationType: QlceViewAggregateOperation.Min, columnName: 'startTime' }
       ],
-      filters: [...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTStartDateTime(timeRange.to))]
+      filters: [...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to))]
     }
   })
 

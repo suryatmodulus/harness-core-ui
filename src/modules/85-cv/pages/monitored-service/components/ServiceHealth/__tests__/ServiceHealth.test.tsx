@@ -12,7 +12,8 @@ import {
   calculateStartAndEndTimes,
   calculateLowestHealthScoreBar,
   isInTheRange,
-  getSliderDimensions
+  getSliderDimensions,
+  getDimensionsAsPerContainerWidth
 } from '../ServiceHealth.utils'
 import type { ServiceHealthProps } from '../ServiceHealth.types'
 import { NUMBER_OF_DATA_POINTS, TimePeriodEnum } from '../ServiceHealth.constants'
@@ -162,7 +163,53 @@ describe('Unit tests for ServiceHealth', () => {
       maxWidth: 304,
       minWidth: 76
     }
-    expect(getSliderDimensions(containerWidth)).toEqual(expectedDimensions)
+    expect(getSliderDimensions(containerWidth, TimePeriodEnum.TWENTY_FOUR_HOURS)).toEqual(expectedDimensions)
+  })
+
+  test('Verify if getSliderDimensions method gives max slider width to be 3 bars when selected time period is seven days or 30days', async () => {
+    const containerWidth = 1336
+    const expectedDimensions = {
+      maxWidth: 76,
+      minWidth: 76
+    }
+    expect(getSliderDimensions(containerWidth, TimePeriodEnum.SEVEN_DAYS)).toEqual(expectedDimensions)
+    expect(getSliderDimensions(containerWidth, TimePeriodEnum.THIRTY_DAYS)).toEqual(expectedDimensions)
+  })
+
+  test('Verify if getSliderDimensions method gives max slider width to be 12 bars when selected time period is in hours or 3 days', async () => {
+    const containerWidth = 1336
+    const expectedDimensions = {
+      maxWidth: 304,
+      minWidth: 76
+    }
+    expect(getSliderDimensions(containerWidth, TimePeriodEnum.FOUR_HOURS)).toEqual(expectedDimensions)
+    expect(getSliderDimensions(containerWidth, TimePeriodEnum.TWENTY_FOUR_HOURS)).toEqual(expectedDimensions)
+    expect(getSliderDimensions(containerWidth, TimePeriodEnum.THREE_DAYS)).toEqual(expectedDimensions)
+  })
+
+  test('Verify if getDimensionsAsPerContainerWidth method gives correct results when containerWidth is present', async () => {
+    const defaultMaxSliderWidth = 1336
+    const selectedTimePeriod = {
+      value: TimePeriodEnum.TWENTY_FOUR_HOURS,
+      label: getString('cv.monitoredServices.serviceHealth.last24Hrs')
+    }
+    const containerWidth = 800
+    expect(getDimensionsAsPerContainerWidth(defaultMaxSliderWidth, selectedTimePeriod, containerWidth)).toEqual({
+      maxWidth: 170,
+      minWidth: 42.5
+    })
+  })
+
+  test('Verify if getDimensionsAsPerContainerWidth method gives correct results when containerWidth is not present', async () => {
+    const defaultMaxSliderWidth = 1336
+    const selectedTimePeriod = {
+      value: TimePeriodEnum.TWENTY_FOUR_HOURS,
+      label: getString('cv.monitoredServices.serviceHealth.last24Hrs')
+    }
+    expect(getDimensionsAsPerContainerWidth(defaultMaxSliderWidth, selectedTimePeriod)).toEqual({
+      maxWidth: 1336,
+      minWidth: 75
+    })
   })
 
   test('Verify ChangesSourceCard loads', async () => {

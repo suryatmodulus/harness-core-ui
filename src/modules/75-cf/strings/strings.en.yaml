@@ -112,6 +112,12 @@ noTargetForEnv: There are currently no targets for this environment
 homepage:
   slogan: '{{ $.common.purpose.cf.descriptionOnly }}'
   learnMore: Learn more about Feature Flags
+selectFlagRepo:
+  introText: 'Git Experience has already been enabled for your project. Please confirm your Git setup before creating feature flags.'
+  useExistingRepo: 'Use an Existing Repository'
+  newRepo: 'Set up a New Repository'
+  dialogTitle: 'Set up with Existing Repository'
+  createRepoError: 'Unable to save flags to repository'
 clause:
   operators:
     and: and
@@ -379,12 +385,6 @@ pipeline:
     title: Rollout Strategy
   advanced:
     title: '{{ $.advancedTitle }}'
-  variationMapping:
-    targetTargetGroup: 'Targets/Target Groups {{count}}'
-    selectVariation: Select Variation
-    targetTargetGroupRequired: Target/Target Group is required
-    variationRequired: Variation is required
-    placeholder: Search target or target group by name...
   flagConfiguration:
     fixedInput: Fixed Input List
     runtimeInput: Runtime Input List
@@ -423,6 +423,8 @@ pipeline:
     serveVariationToTargetGroup: Serve Variation to Target Group
     servePercentageRollout: Serve Percentage Rollout
     selectOnOrOff: Select ON or OFF
+    whenTheFlagIsOnServe: 'When the flag is ON, serve:'
+    whenTheFlagIsOffServe: 'When the flag is OFF, serve:'
 segmentDetail:
   directlyAdded: Directly Added
   autoAdded: Automatically Added Through Conditions

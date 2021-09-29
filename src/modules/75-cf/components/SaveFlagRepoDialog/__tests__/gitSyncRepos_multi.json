@@ -1,0 +1,36 @@
+{
+  "gitSyncRepos": [
+    {
+      "identifier": "harnesstest",
+      "name": "harness-test",
+      "projectIdentifier": "chris_git_enabled33",
+      "orgIdentifier": "default",
+      "gitConnectorRef": "chrisconnector2",
+      "repo": "https://github.com/chrisblakely01/harness-test",
+      "branch": "main",
+      "gitConnectorType": "Github",
+      "gitSyncFolderConfigDTOs": [
+        {
+          "rootFolder": "/.harness/",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "identifier": "harnesstest2",
+      "name": "harness-test-2",
+      "projectIdentifier": "chris_git_enabled33",
+      "orgIdentifier": "default",
+      "gitConnectorRef": "chrisconnector3",
+      "repo": "https://github.com/chrisblakely01/harness-test-2",
+      "branch": "main2",
+      "gitConnectorType": "Github",
+      "gitSyncFolderConfigDTOs": [
+        {
+          "rootFolder": "/.harness2/",
+          "isDefault": true
+        }
+      ]
+    }
+  ]
+}

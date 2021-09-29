@@ -95,3 +95,5 @@ export const CFSideNavProps: SidebarContext = {
   title: 'Feature Flags',
   icon: 'cf-main'
 }
+
+export const DEFAULT_FLAG_GIT_REPO_PATH = '/flags.yaml'

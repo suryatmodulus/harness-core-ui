@@ -1,24 +1,22 @@
 import React, { useState, useCallback } from 'react'
 import * as Yup from 'yup'
 import { Formik, FormikContext } from 'formik'
-import { useHistory, useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Text, Color } from '@wings-software/uicore'
 import { PageSpinner, useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
-import routes from '@common/RouteDefinitions'
 import type { MonitoredServiceResponse, ChangeSourceDTO } from 'services/cv'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
 import { ChangeSourceDrawer } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer'
 import SaveAndDiscardButton from '@common/components/SaveAndDiscardButton/SaveAndDiscardButton'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
-import ChangeSourceTable from '@cv/pages/ChangeSource/ChangeSourceTable/ChangeSourceTable'
 import type { MonitoredServiceForm } from './Service.types'
 import MonitoredServiceOverview from './components/MonitoredServiceOverview/MonitoredServiceOverview'
 import { MonitoredServiceType } from './components/MonitoredServiceOverview/MonitoredServiceOverview.constants'
 import { onSave, updateMonitoredServiceDTOOnTypeChange } from './Service.utils'
 import { isUpdated } from '../../Configurations.utils'
+import ChangeSourceTableContainer from './components/ChangeSourceTableContainer/ChangeSourceTableContainer'
 import css from './Service.module.scss'
 
 function Service({
@@ -38,13 +36,10 @@ function Service({
   serviceTabformRef?: any
   onChangeMonitoredServiceType: (updatedValues: MonitoredServiceForm) => void
 }): JSX.Element {
-  const history = useHistory()
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
   const [validMonitoredSource, setValidMonitoredSource] = useState(false)
-  const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
-    ProjectPathProps & { identifier: string }
-  >()
+  const { identifier } = useParams<{ identifier: string }>()
 
   const isEdit = !!identifier
 
@@ -76,15 +71,7 @@ function Service({
           icon={'arrow-left'}
           iconProps={{ color: Color.PRIMARY_7, margin: { right: 'small' } }}
           color={Color.PRIMARY_7}
-          onClick={() => {
-            history.push(
-              routes.toCVMonitoringServices({
-                orgIdentifier: orgIdentifier,
-                projectIdentifier: projectIdentifier,
-                accountId: accountId
-              })
-            )
-          }}
+          onClick={hideDrawer}
         >
           {getString('cv.healthSource.backtoMonitoredService')}
         </Text>
@@ -175,7 +162,9 @@ function Service({
                   formikProps={formik}
                   isEdit={isEdit}
                   onChangeMonitoredServiceType={type => {
-                    if (type === formik.values.type) return
+                    if (type === formik.values.type) {
+                      return
+                    }
                     formik.setFieldValue('type', type)
                     onChangeMonitoredServiceType({
                       isEdit,
@@ -186,23 +175,15 @@ function Service({
                 <Text color={Color.BLACK} className={css.sourceTableLabel}>
                   {getString('cv.healthSource.defineYourSource')}
                 </Text>
-                <CardWithOuterTitle>
-                  <>
-                    <ChangeSourceTable
-                      onEdit={values => {
-                        showDrawer()
-                        setDrawerContentProps({ ...values, hideDrawer })
-                      }}
-                      value={formik?.values?.sources?.changeSources || []}
-                      onSuccess={onSuccessChangeSource}
-                    />
-                    <div>
-                      <Link to={'#'} onClick={() => openChangeSourceDrawer({ formik, onSuccessChangeSource })}>
-                        + {getString('cv.changeSource.addChangeSource')}
-                      </Link>
-                    </div>
-                  </>
-                </CardWithOuterTitle>
+                <ChangeSourceTableContainer
+                  onEdit={values => {
+                    showDrawer()
+                    setDrawerContentProps({ ...values, hideDrawer })
+                  }}
+                  onAddNewChangeSource={() => openChangeSourceDrawer({ formik, onSuccessChangeSource })}
+                  value={formik?.values?.sources?.changeSources || []}
+                  onSuccess={onSuccessChangeSource}
+                />
                 <CardWithOuterTitle>
                   <HealthSourceTable
                     isEdit={isEdit}

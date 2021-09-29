@@ -13,7 +13,7 @@ import type { ExplorePlansBtnProps } from '@common/components/FeatureWarning/Fea
 interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
   featureRequest?: FeatureRequest
-  isFeaturePrioritized?: boolean
+  isPermissionPrioritized?: boolean
   featureTooltipProps?: ExplorePlansBtnProps
 }
 
@@ -25,7 +25,7 @@ interface BtnProps {
 const RbacButton: React.FC<ButtonProps> = ({
   permission: permissionRequest,
   featureRequest,
-  isFeaturePrioritized = false,
+  isPermissionPrioritized = false,
   featureTooltipProps,
   tooltipProps,
   ...restProps
@@ -43,16 +43,8 @@ const RbacButton: React.FC<ButtonProps> = ({
   )
 
   function getBtnProps(): BtnProps {
-    // if feature check prioritized
-    if (featureRequest && isFeaturePrioritized && !featureEnabled) {
-      return {
-        disabled: true,
-        tooltip: <FeatureWarningTooltip featureName={featureRequest.featureName} module={featureTooltipProps?.module} />
-      }
-    }
-
-    // permission check by default take priority
-    if (permissionRequest && !canDoAction) {
+    // if permission check override the priorirty
+    if (isPermissionPrioritized && permissionRequest && !canDoAction) {
       return {
         disabled: true,
         tooltip: (
@@ -65,11 +57,25 @@ const RbacButton: React.FC<ButtonProps> = ({
       }
     }
 
-    // check feature enabled
+    // feature check by default take priority
     if (featureRequest && !featureEnabled) {
       return {
         disabled: true,
         tooltip: <FeatureWarningTooltip featureName={featureRequest.featureName} module={featureTooltipProps?.module} />
+      }
+    }
+
+    // permission check
+    if (permissionRequest && !canDoAction) {
+      return {
+        disabled: true,
+        tooltip: (
+          <RBACTooltip
+            permission={permissionRequest.permission}
+            resourceType={permissionRequest.resource.resourceType}
+            resourceScope={permissionRequest.resourceScope}
+          />
+        )
       }
     }
 

@@ -137,7 +137,7 @@ describe('<CIPipelineDeploymentList /> tests', () => {
       </TestWrapper>
     )
 
-    const runButton = getByText(container, 'runPipelineText')
+    const runButton = getByText(container, 'pipeline.runAPipeline')
     act(() => {
       fireEvent.click(runButton)
     })

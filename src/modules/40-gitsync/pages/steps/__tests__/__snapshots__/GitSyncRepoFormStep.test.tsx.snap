@@ -291,7 +291,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                       class="Layout--vertical StyledProps--main"
                     >
                       <div
-                        class="bp3-form-group"
+                        class="bp3-form-group noSpacing"
                         data-id="repo-2"
                       >
                         <label
@@ -302,7 +302,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                             class="Tooltip--acenter"
                             data-tooltip-id="gitSyncRepoForm_repo"
                           >
-                            repositoryUrlLabel
+                            common.repositoryName
                           </span>
                            
                           <span
@@ -325,6 +325,13 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                           </div>
                         </div>
                       </div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-grey250"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                        title=""
+                      >
+                        
+                      </p>
                     </div>
                   </div>
                   <div
@@ -917,7 +924,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                       class="Layout--vertical StyledProps--main"
                     >
                       <div
-                        class="bp3-form-group bp3-intent-danger"
+                        class="bp3-form-group bp3-intent-danger noSpacing"
                         data-id="repo-2"
                       >
                         <label
@@ -928,7 +935,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                             class="Tooltip--acenter"
                             data-tooltip-id="gitSyncRepoForm_repo"
                           >
-                            repositoryUrlLabel
+                            common.repositoryName
                           </span>
                            
                           <span
@@ -981,6 +988,13 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                           </div>
                         </div>
                       </div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-grey250"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                        title=""
+                      >
+                        
+                      </p>
                     </div>
                   </div>
                   <div

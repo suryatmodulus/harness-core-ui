@@ -661,7 +661,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                     class="Tooltip--acenter"
                     data-tooltip-id="ciEditStage_repoName"
                   >
-                    pipelineSteps.build.create.repositoryNameLabel
+                    common.repositoryName
                   </span>
                    
                   <span

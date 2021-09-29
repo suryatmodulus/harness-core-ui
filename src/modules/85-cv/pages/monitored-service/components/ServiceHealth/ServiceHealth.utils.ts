@@ -5,6 +5,7 @@ import type { RiskData } from 'services/cv'
 import {
   DAYS,
   daysTimeFormat,
+  DEFAULT_MIN_SLIDER_WIDTH,
   HOURS,
   hoursTimeFormat,
   LEFT_TEXTFIELD_WIDTH,
@@ -141,8 +142,30 @@ export const isInTheRange = (el: RiskData, startTime: number, endTime: number): 
   }
 }
 
-export const getSliderDimensions = (containerWidth: number): { minWidth: number; maxWidth: number } => {
+export const getSliderDimensions = (
+  containerWidth: number,
+  selectedTimePeriod: string
+): { minWidth: number; maxWidth: number } => {
+  // This is temporary change , will be removed once BE fix is done.
+  const maxBarsToShow = limitMaxSliderWidth(selectedTimePeriod) ? MIN_BARS_TO_SHOW : MAX_BARS_TO_SHOW
+
   const minWidth = (containerWidth - LEFT_TEXTFIELD_WIDTH) / (NUMBER_OF_DATA_POINTS / MIN_BARS_TO_SHOW)
-  const maxWidth = (containerWidth - LEFT_TEXTFIELD_WIDTH) / (NUMBER_OF_DATA_POINTS / MAX_BARS_TO_SHOW)
+  const maxWidth = (containerWidth - LEFT_TEXTFIELD_WIDTH) / (NUMBER_OF_DATA_POINTS / maxBarsToShow)
   return { minWidth, maxWidth }
+}
+
+export const getDimensionsAsPerContainerWidth = (
+  defaultMaxSliderWidth: number,
+  selectedTimePeriod: SelectOption,
+  containerWidth?: number
+): { minWidth: number; maxWidth: number } => {
+  let dimensions = { minWidth: DEFAULT_MIN_SLIDER_WIDTH, maxWidth: defaultMaxSliderWidth }
+  if (containerWidth) {
+    dimensions = { ...dimensions, ...getSliderDimensions(containerWidth, selectedTimePeriod?.value as string) }
+  }
+  return dimensions
+}
+
+export const limitMaxSliderWidth = (selectedTimePeriod: string): boolean => {
+  return selectedTimePeriod === TimePeriodEnum.SEVEN_DAYS || selectedTimePeriod === TimePeriodEnum.THIRTY_DAYS
 }

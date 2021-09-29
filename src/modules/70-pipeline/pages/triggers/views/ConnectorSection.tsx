@@ -77,7 +77,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
         <>
           <FormInput.Text
             style={{ marginBottom: 'var(--spacing-xsmall)' }}
-            label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+            label={getString('common.repositoryName')}
             placeholder={getString('pipeline.manifestType.repoNamePlaceholder')}
             name="repoName"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLiveRepoName(e.target.value)}

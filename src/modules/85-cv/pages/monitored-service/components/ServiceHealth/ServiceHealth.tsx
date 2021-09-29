@@ -9,10 +9,11 @@ import type { ChangesInfoCardData } from '@cv/components/ChangeTimeline/ChangeTi
 import {
   calculateLowestHealthScoreBar,
   calculateStartAndEndTimes,
-  getSliderDimensions,
+  getDimensionsAsPerContainerWidth,
   getTimeFormat,
   getTimePeriods,
-  getTimestampsForPeriod
+  getTimestampsForPeriod,
+  limitMaxSliderWidth
 } from './ServiceHealth.utils'
 import { DEFAULT_MAX_SLIDER_WIDTH, DEFAULT_MIN_SLIDER_WIDTH, TimePeriodEnum } from './ServiceHealth.constants'
 import type { ServiceHealthProps } from './ServiceHealth.types'
@@ -63,14 +64,18 @@ export default function ServiceHealth({
 
   // calculating the min and max width for the the timeline slider
   const sliderDimensions = useMemo(() => {
-    let dimensions = { minWidth: DEFAULT_MIN_SLIDER_WIDTH, maxWidth: DEFAULT_MAX_SLIDER_WIDTH }
-    const containerWidth = containerRef?.current?.offsetWidth
-    if (containerWidth) {
-      dimensions = { ...dimensions, ...getSliderDimensions(containerWidth) }
-    }
-    return dimensions
+    // This is temporary change , will be removed once BE fix is done.
+    const defaultMaxSliderWidth = limitMaxSliderWidth(selectedTimePeriod?.value as string)
+      ? DEFAULT_MIN_SLIDER_WIDTH
+      : DEFAULT_MAX_SLIDER_WIDTH
+
+    return getDimensionsAsPerContainerWidth(
+      defaultMaxSliderWidth,
+      selectedTimePeriod,
+      containerRef?.current?.offsetWidth
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [containerRef?.current])
+  }, [containerRef?.current, selectedTimePeriod?.value])
 
   const timeFormat = useMemo(() => {
     return getTimeFormat(selectedTimePeriod?.value as string)

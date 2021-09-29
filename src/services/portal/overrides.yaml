@@ -7,6 +7,7 @@ allowpaths:
   - '/setup/delegates/v2/{delegateGroupId}.get'
   - '/setup/delegates/groups/{delegateGroupId}.delete'
   - '/setup/delegates/ng/v2.get'
+  - '/setup/delegates/ng/v2.post'
   - '/setup/delegates/ng/v2/{identifier}.get'
   - '/setup/delegates/v3/groups/{identifier}.delete'
   - '/setup/delegates/downloadUrl.get'
@@ -50,6 +51,7 @@ operationIdOverrides:
   /setup/delegates/v2/{delegateGroupId}.get: getDelegateGroupFromIdV2
   /setup/delegates/groups/{delegateGroupId}.delete: deleteDelegateGroup
   /setup/delegates/ng/v2.get: getDelegateGroupsNGV2
+  /setup/delegates/ng/v2.post: getDelegateGroupsNGV2WithFilter
   /setup/delegates/ng/v2/{identifier}.get: getDelegateGroupByIdentifier
   /setup/delegates/v3/groups/{identifier}.delete: deleteDelegateGroupByIdentifier
   /setup/delegates/downloadUrl.get: getDelegatesDownloadUrl

@@ -172,9 +172,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
       if (sanitizedJSONObj && Object.keys(sanitizedJSONObj).length > 0) {
         const yamlEqOfJSON = yamlStringify(sanitizedJSONObj)
         const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')
-        setCurrentYaml(sanitizedYAML)
-        yamlRef.current = sanitizedYAML
-        verifyYAML(sanitizedYAML)
+        const yamlWithoutCarriageReturns = sanitizedYAML.replace(/(?:\\[rn])+/g, '\n')
+        setCurrentYaml(yamlWithoutCarriageReturns)
+        yamlRef.current = yamlWithoutCarriageReturns
+        verifyYAML(yamlWithoutCarriageReturns)
       } else {
         setCurrentYaml('')
         yamlRef.current = ''
@@ -217,10 +218,11 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   /* #region Handle various interactions with the editor */
 
   const onYamlChange = debounce((updatedYaml: string): void => {
-    setCurrentYaml(updatedYaml)
-    yamlRef.current = updatedYaml
-    verifyYAML(updatedYaml)
-    onChange?.(!(updatedYaml === ''))
+    const yamlWithoutCarriageReturns = updatedYaml.replace(/(?:\\[rn])+/g, '\n')
+    setCurrentYaml(yamlWithoutCarriageReturns)
+    yamlRef.current = yamlWithoutCarriageReturns
+    verifyYAML(yamlWithoutCarriageReturns)
+    onChange?.(!(yamlWithoutCarriageReturns === ''))
   }, 500)
 
   const showNoPermissionError = useCallback(

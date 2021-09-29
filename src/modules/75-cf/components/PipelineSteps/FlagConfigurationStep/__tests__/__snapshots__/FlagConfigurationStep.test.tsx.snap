@@ -441,19 +441,17 @@ exports[`FlagConfigurationStep it should render 1`] = `
             </div>
           </div>
         </div>
-        <div>
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
-            style="padding: 0px;"
-            type="button"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
+          style="align-self: flex-start; padding: 0px;"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
           >
-            <span
-              class="bp3-button-text"
-            >
-              cf.pipeline.flagConfiguration.configureMore
-            </span>
-          </button>
-        </div>
+            cf.pipeline.flagConfiguration.configureMore
+          </span>
+        </button>
       </div>
     </div>
   </div>

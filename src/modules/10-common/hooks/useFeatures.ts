@@ -17,7 +17,7 @@ export function useFeature(props: Props): CheckFeatureReturn {
   const { featureRequest, options } = props
   useDeepCompareEffect(() => {
     if (featureRequest) {
-      if (featureRequest.isRateLimit) {
+      if (featureRequest.isLimit) {
         requestLimitFeature(featureRequest)
       } else {
         // cache enabled feature list in the context
@@ -33,7 +33,7 @@ export function useFeature(props: Props): CheckFeatureReturn {
   }
 
   // rate limit feature always calls the api in real time
-  return featureRequest.isRateLimit
+  return featureRequest.isLimit
     ? checkLimitFeature(featureRequest.featureName)
     : checkFeature(featureRequest.featureName)
 }

@@ -1709,7 +1709,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 class="Tooltip--acenter"
                                 data-tooltip-id="wizardForm_webhook_repoName"
                               >
-                                pipelineSteps.build.create.repositoryNameLabel
+                                common.repositoryName
                               </span>
                                
                               <span

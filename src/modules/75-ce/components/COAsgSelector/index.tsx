@@ -94,10 +94,6 @@ const COAsgSelector: React.FC<COAsgSelectorprops> = props => {
       <Layout.Vertical spacing="large">
         <Container style={{ paddingBottom: 20, borderBottom: '1px solid #CDD3DD' }}>
           <Text font={'large'}>Select Auto scaling group</Text>
-          <Text color={Color.BLUE_700} style={{ marginTop: 10 }}>
-            <Icon name="info-sign" size={16} color={Color.BLUE_700} style={{ marginRight: 7 }}></Icon>
-            <span>{getString('ce.co.autoStoppingRule.configuration.asgSelectionInfoText')}</span>
-          </Text>
         </Container>
         <Layout.Horizontal
           style={{

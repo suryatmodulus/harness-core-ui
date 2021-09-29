@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, getMultiTypeFromValue, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 
 import type { FormikErrors } from 'formik'
 import { get, isEmpty, omit, set } from 'lodash-es'
@@ -15,12 +15,7 @@ import {
   FlagConfigurationStepVariablesView,
   FlagConfigurationStepVariablesViewProps
 } from './FlagConfigurationStepVariablesView'
-import {
-  FlagConfigurationStepData,
-  FlagConfigurationStepFormData,
-  CFPipelineInstructionType,
-  VariationMapping
-} from './types'
+import { FlagConfigurationStepData, FlagConfigurationStepFormData, CFPipelineInstructionType } from './types'
 
 export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepData> {
   renderStep(this: FlagConfigurationStep, props: StepProps<FlagConfigurationStepData>): JSX.Element {
@@ -109,105 +104,69 @@ export class FlagConfigurationStep extends PipelineStep<FlagConfigurationStepDat
     initialValues: FlagConfigurationStepData,
     _forInputSet?: boolean
   ): FlagConfigurationStepFormData {
-    const variationMappingInstructions = initialValues.spec.instructions?.filter(
-      ({ type }) => type === CFPipelineInstructionType.ADD_TARGETS_TO_VARIATION_TARGET_MAP
+    const state = initialValues.spec.instructions.find(
+      ({ type }) => type === CFPipelineInstructionType.SET_FEATURE_FLAG_STATE
+    )?.spec.state
+
+    let defaultRules = undefined
+    const defaultRulesOn = initialValues.spec.instructions.find(
+      ({ type }) => type === CFPipelineInstructionType.SET_DEFAULT_ON_VARIATION
+    )
+    const defaultRulesOff = initialValues.spec.instructions.find(
+      ({ type }) => type === CFPipelineInstructionType.SET_DEFAULT_OFF_VARIATION
     )
 
-    const variationMappings = variationMappingInstructions?.length
-      ? variationMappingInstructions
-          .map(variationMappingInstruction => {
-            const _targets = variationMappingInstruction.spec?.targets
-            const _targetGroups = variationMappingInstruction.spec?.segments
+    if (defaultRulesOn || defaultRulesOff) {
+      defaultRules = {
+        on: defaultRulesOn ? defaultRulesOn.spec.variation : undefined,
+        off: defaultRulesOn ? defaultRulesOn.spec.variation : undefined
+      }
+    }
 
-            return {
-              variationIdentifier: variationMappingInstruction.spec?.variation,
-              instructionType: CFPipelineInstructionType.ADD_TARGETS_TO_VARIATION_TARGET_MAP,
-              ...(_targets?.length
-                ? {
-                    targets: _targets.map
-                      ? _targets.map((identifier: string) => ({ identifier, name: identifier }))
-                      : _targets
-                  }
-                : undefined),
-              ...(_targetGroups?.length
-                ? {
-                    targetGroups: _targetGroups.map
-                      ? _targetGroups.map((identifier: string) => ({ identifier, name: identifier }))
-                      : _targetGroups
-                  }
-                : undefined)
-            }
-          })
-          .reduce((map: Record<string, VariationMapping>, item: VariationMapping) => {
-            map[item.variationIdentifier] = item
-            return map
-          }, {})
-      : undefined
-
-    const formData = {
+    return {
       ...initialValues,
       spec: {
         ...(omit(initialValues.spec, 'instructions') as unknown as FlagConfigurationStepFormData),
         environment: initialValues.spec.environment,
         featureFlag: initialValues.spec.feature,
-        state: initialValues.spec.instructions[0]?.spec?.state,
-        defaultVariation: undefined, // TODO: Not yet supported by backend
-        variationMappings
+        state,
+        defaultRules
       }
     }
-
-    return formData
   }
 
   processFormData(data: StepElementConfig): FlagConfigurationStepData {
     const _data = data as unknown as FlagConfigurationStepFormData
     const instructions: FlagConfigurationStepData['spec']['instructions'] = []
 
-    instructions.push({
-      identifier: `${CFPipelineInstructionType.SET_FEATURE_FLAG_STATE}Identifier`,
-      type: CFPipelineInstructionType.SET_FEATURE_FLAG_STATE,
-      spec: {
-        state: toValue(_data.spec.state) // TODO: handle runtime input
-      }
-    })
+    if (_data.spec.state) {
+      instructions.push({
+        identifier: `${CFPipelineInstructionType.SET_FEATURE_FLAG_STATE}Identifier`,
+        type: CFPipelineInstructionType.SET_FEATURE_FLAG_STATE,
+        spec: {
+          state: toValue(_data.spec.state) // TODO: handle runtime input
+        }
+      })
+    }
 
-    if (_data.spec.variationMappings) {
-      if (String(_data.spec.variationMappings) === RUNTIME_INPUT_VALUE) {
-        instructions.push({
-          identifier: `${CFPipelineInstructionType.ADD_TARGETS_TO_VARIATION_TARGET_MAP}Identifier`,
-          type: CFPipelineInstructionType.ADD_TARGETS_TO_VARIATION_TARGET_MAP,
-          spec: {
-            variation: RUNTIME_INPUT_VALUE,
-            targets: RUNTIME_INPUT_VALUE,
-            segments: RUNTIME_INPUT_VALUE
-          }
-        })
-      } else {
-        Object.values(_data.spec.variationMappings).forEach((variationMapping, index) => {
-          const _targets = variationMapping.targets
-          const _targetGroups = variationMapping.targetGroups
+    if (_data.spec.defaultRules?.on) {
+      instructions.push({
+        identifier: 'SetFeatureFlagOnVariation',
+        type: CFPipelineInstructionType.SET_DEFAULT_ON_VARIATION,
+        spec: {
+          variation: toValue(_data.spec.defaultRules.on)
+        }
+      })
+    }
 
-          if (_targets?.length || _targetGroups?.length) {
-            instructions.push({
-              identifier: `${CFPipelineInstructionType.ADD_TARGETS_TO_VARIATION_TARGET_MAP}Identifier${index}`,
-              type: CFPipelineInstructionType.ADD_TARGETS_TO_VARIATION_TARGET_MAP,
-              spec: {
-                variation: variationMapping.variationIdentifier,
-                targets: _targets?.length
-                  ? _targets.map
-                    ? _targets.map(entry => entry.identifier)
-                    : _targets
-                  : undefined,
-                segments: _targetGroups?.length
-                  ? _targetGroups.map
-                    ? _targetGroups.map(entry => entry.identifier)
-                    : _targetGroups
-                  : undefined
-              }
-            })
-          }
-        })
-      }
+    if (_data.spec.defaultRules?.off) {
+      instructions.push({
+        identifier: 'SetFeatureFlagOffVariation',
+        type: CFPipelineInstructionType.SET_DEFAULT_OFF_VARIATION,
+        spec: {
+          variation: toValue(_data.spec.defaultRules.off)
+        }
+      })
     }
 
     const spec = {

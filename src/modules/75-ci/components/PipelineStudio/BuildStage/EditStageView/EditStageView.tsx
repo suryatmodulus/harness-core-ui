@@ -64,6 +64,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const [connectionType, setConnectionType] = React.useState('')
   const [connectorUrl, setConnectorUrl] = React.useState('')
   const gitScope = useGitScope()
+  const repositoryNameLabel = getString('common.repositoryName')
 
   const {
     state: { pipeline },
@@ -136,9 +137,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
           values.cloneCodebase && {
             connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),
             ...(connectionType === 'Account' && {
-              repoName: Yup.string().required(
-                getString('fieldRequired', { field: getString('pipelineSteps.build.create.repositoryNameLabel') })
-              )
+              repoName: Yup.string().required(getString('fieldRequired', { field: repositoryNameLabel }))
             })
           })
       })
@@ -279,16 +278,14 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                   />
                   {connectionType === 'Repo' ? (
                     <>
-                      <Text margin={{ bottom: 'xsmall' }}>
-                        {getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      </Text>
+                      <Text margin={{ bottom: 'xsmall' }}>{repositoryNameLabel}</Text>
                       <TextInput name="repoName" value={connectorUrl} style={{ flexGrow: 1 }} disabled />
                     </>
                   ) : (
                     <>
                       <FormInput.Text
                         className={css.repositoryUrl}
-                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                        label={repositoryNameLabel}
                         name="repoName"
                         style={{ flexGrow: 1 }}
                         disabled={isReadonly}

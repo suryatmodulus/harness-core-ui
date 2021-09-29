@@ -11,7 +11,7 @@ import {
   ViewFieldIdentifier
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
-import { getGMTStartDateTime } from '@ce/utils/momentUtils'
+import { getGMTEndDateTime, getGMTStartDateTime } from '@ce/utils/momentUtils'
 import { CE_COLOR_CONST } from '../CEChart/CEChartOptions'
 import { HorizontalLayout, LEGEND_LIMIT, ListType, Loader, Stats, TableList } from './OverviewPageLayout'
 import css from './OverviewPage.module.scss'
@@ -39,7 +39,7 @@ const OverviewTopCluster = (props: TopClusterProps) => {
     variables: {
       aggregateFunction: [{ operationType: QlceViewAggregateOperation.Sum, columnName: 'cost' }],
       filters: [
-        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTStartDateTime(timeRange.to)),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         {
           idFilter: {
             field: { fieldId: 'cloudProvider', fieldName: 'Cloud Provider', identifier: ViewFieldIdentifier.Common },

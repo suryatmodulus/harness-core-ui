@@ -269,7 +269,7 @@ git:
   noUserLabel: 'We don’t have your git credentials for the selected folder. Please update the credentials in user profile.'
   addUserCredentialLabel: Update in user profile
   saveResourceLabel: 'Save {{resource}} to Git'
-  selectRepoLabel: Repository name
+  selectRepoLabel: Repository Display Name
   filePath: File Path
   commitMessage: Commit message
   confirmDelete: Are you sure you want to delete {{entity}} {{name}}
@@ -551,3 +551,4 @@ feature:
   upgradeRequired:
     title: Upgrade Required
     description: 'Requires upgrade to setup {{featureName}}'
+repositoryName: Repository Name

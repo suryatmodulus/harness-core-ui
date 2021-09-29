@@ -176,9 +176,7 @@ describe('TriggersWizardPage Triggers tests', () => {
       const { container } = render(<WrapperComponent />)
       await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
       await waitFor(() =>
-        expect(() =>
-          queryByText(document.body, result.current.getString('pipelineSteps.build.create.repositoryNameLabel'))
-        ).not.toBeNull()
+        expect(() => queryByText(document.body, result.current.getString('common.repositoryName'))).not.toBeNull()
       )
       expect(container).toMatchSnapshot()
     })

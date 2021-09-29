@@ -58,6 +58,7 @@ export interface FlatOnEditValuesInterface {
   pipeline: PipelineInfoConfig
   triggerType: NGTriggerSourceV2['type']
   manifestType?: string
+  artifactType?: string
   originalPipeline?: PipelineInfoConfig
   // WEBHOOK-SPECIFIC
   sourceRepo?: GetActionsListQueryParams['sourceRepo']
@@ -1314,7 +1315,7 @@ export interface artifactTableItem {
 
 export const TriggerDefaultFieldList = {
   chartVersion: '<+trigger.manifest.version>',
-  build: '<+trigger.artifact.build'
+  build: '<+trigger.artifact.build>'
 }
 
 export const replaceTriggerDefaultBuild = ({
@@ -1752,5 +1753,36 @@ export function updatePipelineManifest({
     stageArtifacts[stageArtifactIdx].manifest = newArtifact
   }
 
+  return newPipelineObj
+}
+
+export function updatePipelineArtifact({
+  pipeline,
+  stageIdentifier,
+  selectedArtifact,
+  newArtifact = selectedArtifact
+}: {
+  pipeline: any
+  selectedArtifact: artifactManifestData
+  stageIdentifier: string
+  newArtifact: any
+}): any {
+  const newPipelineObj = { ...pipeline }
+  const pipelineStages = getFilteredStage(newPipelineObj?.stages, stageIdentifier)
+  // const pipelineStages = newPipelineObj?.stages.find((item: any) => item.stage.identifier === stageIdentifier)
+  const stageArtifacts = pipelineStages?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
+
+  const stageArtifactIdx = stageArtifacts?.sidecars?.findIndex(
+    (item: any) => item.sidecar?.identifier === selectedArtifact?.identifier
+  )
+
+  if (selectedArtifact) {
+    if (stageArtifactIdx >= 0) {
+      const { sidecars } = stageArtifacts
+      sidecars[stageArtifactIdx].sidecar = newArtifact
+    } else if (stageArtifacts?.primary && !newArtifact?.identifier) {
+      stageArtifacts['primary'] = newArtifact
+    }
+  }
   return newPipelineObj
 }

@@ -6,10 +6,16 @@ import { subSectionNameMap } from '@cf/components/PipelineSteps/FlagConfiguratio
 import DefaultRules from '@cf/components/PipelineSteps/FlagConfigurationStep/FlagChanges/subSections/DefaultRules'
 import FlagChanges, { allSubSections } from '../FlagChanges'
 
-const renderComponent = (): RenderResult =>
+const renderComponent = (clearField = jest.fn()): RenderResult =>
   render(
     <TestWrapper>
-      <FlagChanges />
+      <FlagChanges
+        clearField={clearField}
+        spec={{
+          environment: 'dev',
+          featureFlag: 'Test_Bool_Flag'
+        }}
+      />
     </TestWrapper>
   )
 
@@ -77,7 +83,25 @@ describe('FlagChanges', () => {
     const setFlagSwitchSubSection = screen.getByTestId('flagChanges-setFlagSwitch')
 
     userEvent.click(getByTestId(setFlagSwitchSubSection, 'flagChanges-removeSubSection'))
-    expect(screen.queryByTestId('flagChanges-setFlagSwitch')).not.toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.queryByTestId('flagChanges-setFlagSwitch')).not.toBeInTheDocument()
+    })
+  })
+
+  test('it should call the clearField function when the sub-section is removed', async () => {
+    const clearFieldMock = jest.fn()
+    renderComponent(clearFieldMock)
+
+    userEvent.click(getConfigureMoreButton())
+
+    const setFlagSwitchSubSection = screen.getByTestId('flagChanges-setFlagSwitch')
+
+    expect(clearFieldMock).not.toHaveBeenCalled()
+
+    userEvent.click(getByTestId(setFlagSwitchSubSection, 'flagChanges-removeSubSection'))
+    await waitFor(() => {
+      expect(clearFieldMock).toHaveBeenCalled()
+    })
   })
 
   test('it should replace the sub-section when the sub-section selector is changed', async () => {
@@ -89,7 +113,25 @@ describe('FlagChanges', () => {
     userEvent.click(getByRole(setFlagSwitchSubSection, 'button'))
     userEvent.click(screen.getByText(subSectionNameMap[DefaultRules.name]))
 
-    expect(setFlagSwitchSubSection).not.toBeInTheDocument()
-    expect(screen.getByTestId('flagChanges-defaultRules')).toBeInTheDocument()
+    await waitFor(() => {
+      expect(setFlagSwitchSubSection).not.toBeInTheDocument()
+      expect(screen.getByTestId('flagChanges-defaultRules')).toBeInTheDocument()
+    })
+  })
+
+  test('it should called the clearField function when the sub-section is replaced', async () => {
+    const clearFieldMock = jest.fn()
+    renderComponent(clearFieldMock)
+
+    const setFlagSwitchSubSection = screen.getByTestId('flagChanges-setFlagSwitch')
+
+    expect(clearFieldMock).not.toHaveBeenCalled()
+
+    userEvent.click(getByRole(setFlagSwitchSubSection, 'button'))
+    userEvent.click(screen.getByText(subSectionNameMap[DefaultRules.name]))
+
+    await waitFor(() => {
+      expect(clearFieldMock).toHaveBeenCalled()
+    })
   })
 })

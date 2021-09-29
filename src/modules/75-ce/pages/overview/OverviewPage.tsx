@@ -11,7 +11,12 @@ import {
   useFetchPerspectiveDetailsSummaryQuery
 } from 'services/ce/services'
 import { getTimeFilters } from '@ce/utils/perspectiveUtils'
-import { CE_DATE_FORMAT_INTERNAL, DATE_RANGE_SHORTCUTS, getGMTStartDateTime } from '@ce/utils/momentUtils'
+import {
+  CE_DATE_FORMAT_INTERNAL,
+  DATE_RANGE_SHORTCUTS,
+  getGMTEndDateTime,
+  getGMTStartDateTime
+} from '@ce/utils/momentUtils'
 import { AGGREGATE_FUNCTION } from '@ce/components/PerspectiveGrid/Columns'
 import OverviewClusterCostBreakdown from '@ce/components/OverviewPage/OverviewClusterCostBreakdown'
 import OverviewCloudCost, { OverviewLayout } from '@ce/components/OverviewPage/OverviewCloudCost'
@@ -102,7 +107,7 @@ const OverviewPage: React.FC = () => {
     variables: {
       isClusterQuery: false,
       aggregateFunction: AGGREGATE_FUNCTION.COST_AND_TIME,
-      filters: [...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTStartDateTime(timeRange.to))]
+      filters: [...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to))]
     }
   })
 

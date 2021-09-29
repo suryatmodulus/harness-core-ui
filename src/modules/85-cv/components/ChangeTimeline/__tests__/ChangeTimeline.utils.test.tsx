@@ -46,15 +46,18 @@ describe('Verify Util funcitons', () => {
   test('should create marker object using createMarkerSymbol', () => {
     const deploymentSingleMarker = createMarkerSymbol(
       { count: 1, startTime: 0, endTime: 0 },
-      ChangeSourceTypes.Deployments
+      ChangeSourceTypes.Deployments,
+      (val: string) => val
     )
     const deploymentTwoMarker = createMarkerSymbol(
       { count: 2, startTime: 0, endTime: 0 },
-      ChangeSourceTypes.Deployments
+      ChangeSourceTypes.Deployments,
+      (val: string) => val
     )
     const deploymentMultipleMarker = createMarkerSymbol(
       { count: 4, startTime: 0, endTime: 0 },
-      ChangeSourceTypes.Deployments
+      ChangeSourceTypes.Deployments,
+      (val: string) => val
     )
     expect(deploymentSingleMarker).toEqual(singleDeploymentMarker)
     expect(deploymentTwoMarker).toEqual(twoDeploymentMarker)
@@ -91,12 +94,14 @@ describe('Verify Util funcitons', () => {
       Deployment: mockTimeData,
       Infrastructure: mockTimeData
     }
-    expect(createTimelineSeriesData(categoryTimeline?.Deployment, ChangeSourceTypes.Deployments)).toEqual(
-      mockDeploymentPayload
-    )
-    expect(createTimelineSeriesData(categoryTimeline?.Alert, ChangeSourceTypes.Incidents)).toEqual(mockIncidentPayload)
-    expect(createTimelineSeriesData(categoryTimeline?.Infrastructure, ChangeSourceTypes.Infrastructure)).toEqual(
-      mockInfraPayload
-    )
+    expect(
+      createTimelineSeriesData(categoryTimeline?.Deployment, ChangeSourceTypes.Deployments, (val: string) => val)
+    ).toEqual(mockDeploymentPayload)
+    expect(
+      createTimelineSeriesData(categoryTimeline?.Alert, ChangeSourceTypes.Incidents, (val: string) => val)
+    ).toEqual(mockIncidentPayload)
+    expect(
+      createTimelineSeriesData(categoryTimeline?.Infrastructure, ChangeSourceTypes.Infrastructure, (val: string) => val)
+    ).toEqual(mockInfraPayload)
   })
 })

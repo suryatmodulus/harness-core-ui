@@ -46,8 +46,8 @@ export default function ChangeSourceTable({ value, onSuccess, onEdit }: ChangeSo
           size={22}
         />
         <ContextMenuActions
-          titleText={getString('cv.healthSource.deleteHealthSource')}
-          contentText={getString('cv.healthSource.deleteHealthSourceWarning') + `: ${rowdata.identifier}`}
+          titleText={getString('cv.admin.activitySources.dialogDeleteTitle')}
+          contentText={getString('cv.changeSource.deleteChangeSourceWarning') + `: ${rowdata.identifier}`}
           onDelete={async () => await deleteChangeSource(rowdata)}
           onEdit={() => {
             onEdit({ isEdit: true, tableData, rowdata, onSuccess })

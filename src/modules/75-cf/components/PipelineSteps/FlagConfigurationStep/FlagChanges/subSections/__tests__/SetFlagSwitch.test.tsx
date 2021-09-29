@@ -1,15 +1,15 @@
 import React from 'react'
-import { render, RenderResult, screen } from '@testing-library/react'
+import { render, RenderResult, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Formik } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import SetFlagSwitch from '../SetFlagSwitch'
 
-const renderComponent = (): RenderResult =>
+const renderComponent = (clearField = jest.fn()): RenderResult =>
   render(
     <TestWrapper>
       <Formik formName="test" onSubmit={jest.fn()} initialValues={{}}>
-        <SetFlagSwitch subSectionSelector={<span />} />
+        <SetFlagSwitch subSectionSelector={<span />} clearField={clearField} />
       </Formik>
     </TestWrapper>
   )
@@ -48,5 +48,17 @@ describe('SetFlagSwitch', () => {
     userEvent.click(input)
     userEvent.click(screen.getByText('cf.shared.off'))
     expect(input).toHaveValue('cf.shared.off')
+  })
+
+  test('it should call the clearField function with spec.state when unmounted', async () => {
+    const clearFieldMock = jest.fn()
+    const { unmount } = renderComponent(clearFieldMock)
+
+    expect(clearFieldMock).not.toHaveBeenCalled()
+
+    unmount()
+    await waitFor(() => {
+      expect(clearFieldMock).toHaveBeenCalledWith('spec.state')
+    })
   })
 })

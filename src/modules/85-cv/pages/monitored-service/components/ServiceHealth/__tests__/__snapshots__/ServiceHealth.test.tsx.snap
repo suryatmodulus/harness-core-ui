@@ -359,28 +359,59 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main changeContainer"
+            class="StyledProps--font StyledProps--main main"
           >
             <div
-              class="StyledProps--font StyledProps--main noDataCard noData StyledProps--flex StyledProps--flex-align-center-center"
+              class="StyledProps--font StyledProps--main main"
             >
               <div
-                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-                style="align-items: center; margin-top: -48px; width: 470px;"
+                class="StyledProps--font StyledProps--main timelineRow"
               >
-                <img
-                  class="noDataImage"
-                  src="test-file-stub"
-                />
                 <p
-                  class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
+                  class="StyledProps--font Text--lineclamp StyledProps--main rowLabel"
+                  style="--text-line-clamp: 1; width: 90px;"
                 >
-                  cv.changeSource.noData
+                  deploymentsText
                 </p>
-                <div
-                  class="buttonContainer"
-                />
               </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main main"
+            >
+              <div
+                class="StyledProps--font StyledProps--main timelineRow"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main rowLabel"
+                  style="--text-line-clamp: 1; width: 90px;"
+                >
+                  infrastructureText
+                </p>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main main"
+            >
+              <div
+                class="StyledProps--font StyledProps--main timelineRow"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main rowLabel"
+                  style="--text-line-clamp: 1; width: 90px;"
+                >
+                  cv.changeSource.tooltip.incident
+                </p>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main timelineChartContainer"
+            >
+              <p
+                class="StyledProps--font StyledProps--main timelineLabel"
+                style="width: 90px;"
+              >
+                CV.TIMELINE
+              </p>
             </div>
           </div>
         </div>

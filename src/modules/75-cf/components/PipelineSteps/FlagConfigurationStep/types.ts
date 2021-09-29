@@ -1,13 +1,4 @@
-import type { StepElementConfig, HttpHeaderConfig, StringNGVariable, StepSpecType } from 'services/cd-ng'
-import type { TargetAndSegment } from 'services/cf'
-
-export interface HttpStepHeaderConfig extends HttpHeaderConfig {
-  id: string
-}
-
-export interface HttpStepOutputVariable extends StringNGVariable {
-  id: string
-}
+import type { StepElementConfig, StepSpecType } from 'services/cd-ng'
 
 export interface FeatureFlagConfigurationSpec {
   feature: string
@@ -25,31 +16,18 @@ export interface FlagConfigurationStepData extends StepElementConfig {
 
 export enum CFPipelineInstructionType {
   SET_FEATURE_FLAG_STATE = 'SetFeatureFlagState',
-  ADD_TARGETS_TO_VARIATION_TARGET_MAP = 'AddTargetsToVariationTargetMap'
-}
-
-export type TargetCollection = Array<Required<Omit<TargetAndSegment, 'type'>>>
-export type TargetGroupCollection = Array<Required<Omit<TargetAndSegment, 'type'>>>
-
-export interface VariationMapping {
-  variationIdentifier: string
-  instructionType: CFPipelineInstructionType
-  targets?: TargetCollection
-  targetGroups?: TargetGroupCollection
-}
-
-export interface ConditionalRulesMapping {
-  name: string
-  value: string
+  SET_DEFAULT_ON_VARIATION = 'SetOnVariation',
+  SET_DEFAULT_OFF_VARIATION = 'SetOffVariation'
 }
 
 export interface FlagConfigurationStepFormData extends StepElementConfig {
   spec: {
     environment: string
     featureFlag: string
-    state: string // 'on' | 'off' | '<+input>'
-    defaultVariation?: string // Backend does not support yet
-    variationMappings?: Record<string, VariationMapping>
-    conditionalRulesMapping?: ConditionalRulesMapping // Backend does not support yet
+    state?: string // 'on' | 'off' | '<+input>'
+    defaultRules?: {
+      on: string
+      off: string
+    }
   }
 }

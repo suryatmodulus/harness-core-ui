@@ -6,5 +6,6 @@ declare const styles: {
   readonly rowLabel: string
   readonly tooltipContainer: string
   readonly colorSidePanel: string
+  readonly tooltipLabel: string
 }
 export default styles

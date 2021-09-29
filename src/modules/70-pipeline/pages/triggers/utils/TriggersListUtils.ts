@@ -4,6 +4,7 @@ import { parse } from 'yaml'
 import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDrawer'
 import type { StringKeys } from 'framework/strings'
 import { manifestTypeIcons, ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import { ArtifactIconByType, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { TriggerTypes, AWS_CODECOMMIT, AwsCodeCommit } from './TriggersWizardPageUtils'
 
 export const GitSourceProviders: Record<string, { value: string; iconName: IconName }> = {
@@ -38,6 +39,15 @@ export const getTriggerIcon = ({
   } else if (type === TriggerTypes.MANIFEST && buildType) {
     if (buildType === ManifestDataType.HelmChart) {
       return manifestTypeIcons.HelmChart
+    }
+  } else if (type === TriggerTypes.ARTIFACT && buildType) {
+    switch (buildType) {
+      case ENABLED_ARTIFACT_TYPES.Gcr:
+        return ArtifactIconByType.Gcr
+      case ENABLED_ARTIFACT_TYPES.Ecr:
+        return ArtifactIconByType.Ecr
+      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
+        return ArtifactIconByType.DockerRegistry
     }
   }
   return 'yaml-builder-trigger'

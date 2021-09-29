@@ -132,8 +132,8 @@ export default function ChangesTable({
           <Container className={css.noData}>
             <NoDataCard
               button={<Link to={configurationsTabRoute}>{getString('cv.changeSource.configureChangeSource')}</Link>}
-              message={getString('cv.changeSource.noData')}
-              icon="warning-sign"
+              message={getString('cv.changeSource.noChangeSource')}
+              image={noDataImage}
             />
           </Container>
         </Card>

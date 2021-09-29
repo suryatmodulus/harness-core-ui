@@ -1,6 +1,4 @@
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
-import type { MutateMethod } from 'restful-react'
-import * as Yup from 'yup'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Tooltip, Dialog, Classes, RadioGroup, Radio, PopoverPosition } from '@blueprintjs/core'
 import {
   Button,
@@ -14,16 +12,14 @@ import {
   useModalHook,
   Heading,
   Color,
-  Popover,
   ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
-import { pick, merge, isEmpty, isEqual, omit } from 'lodash-es'
+import { pick, merge, isEmpty, isEqual } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { NameIdDescriptionTags } from '@common/components'
 import type { PipelineInfoConfig, ResponseJsonNode } from 'services/cd-ng'
 import {
   useGetPipeline,
@@ -32,14 +28,9 @@ import {
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   getInputSetForPipelinePromise,
   useGetInputSetsListForPipeline,
-  ResponseInputSetTemplateResponse,
   useCreateInputSetForPipeline,
-  ResponseInputSetResponse,
-  CreateInputSetForPipelineQueryParams,
-  EntityGitDetails,
   useRePostPipelineExecuteWithInputSetYaml
 } from 'services/pipeline-ng'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
@@ -54,11 +45,7 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
-import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
-import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
-import { clearNullUndefined } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { ErrorsStrip } from '@pipeline/components/ErrorsStrip/ErrorsStrip'
 import { useQueryParams } from '@common/hooks'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
@@ -69,9 +56,10 @@ import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import factory from '../PipelineSteps/PipelineStepFactory'
-import { getFormattedErrors, mergeTemplateWithInputSetData } from './RunPipelineHelper'
+import { mergeTemplateWithInputSetData } from './RunPipelineHelper'
 import { StepViewType } from '../AbstractSteps/Step'
 import GitPopover from '../GitPopover/GitPopover'
+import SaveAsInputSet from './SaveAsInputSet'
 import css from './RunPipelineForm.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
@@ -93,222 +81,6 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     removeEmptyObject: false,
     removeEmptyArray: false
   }
-}
-
-interface SaveAsInputSetProps {
-  pipeline?: PipelineInfoConfig
-  currentPipeline?: { pipeline?: PipelineInfoConfig }
-  template: ResponseInputSetTemplateResponse | null
-  values: Values
-  accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
-  canEdit: boolean
-  createInputSetLoading: boolean
-  createInputSet: MutateMethod<ResponseInputSetResponse, void, CreateInputSetForPipelineQueryParams, void>
-  repoIdentifier?: string
-  branch?: string
-  isGitSyncEnabled?: boolean
-  setFormErrors: Dispatch<SetStateAction<FormikErrors<InputSetDTO>>>
-  getInputSetsList: () => void
-}
-
-const SaveAsInputSet = ({
-  pipeline,
-  currentPipeline,
-  template,
-  orgIdentifier,
-  projectIdentifier,
-  accountId,
-  values,
-  canEdit,
-  createInputSet,
-  createInputSetLoading,
-  repoIdentifier,
-  branch,
-  isGitSyncEnabled = false,
-  setFormErrors,
-  getInputSetsList
-}: SaveAsInputSetProps): JSX.Element | null => {
-  const { getString } = useStrings()
-
-  const { showError, showSuccess } = useToaster()
-  const [savedInputSetObj, setSavedInputSetObj] = React.useState<InputSetDTO>({})
-  const [initialGitDetails, setInitialGitDetails] = React.useState<EntityGitDetails>({ repoIdentifier, branch })
-
-  const createUpdateInputSet = async (
-    inputSetObj: InputSetDTO,
-    gitDetails?: SaveToGitFormInterface,
-    payload?: Omit<InputSetDTO, 'repo' | 'branch'>
-  ): Promise<UseSaveSuccessResponse> => {
-    try {
-      const response = await createInputSet(
-        yamlStringify({
-          inputSet: { ...clearNullUndefined(payload || inputSetObj), orgIdentifier, projectIdentifier }
-        }) as any,
-        {
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            projectIdentifier,
-            pipelineIdentifier: pipeline?.identifier as string,
-            pipelineRepoID: repoIdentifier,
-            pipelineBranch: branch,
-            ...(gitDetails ?? {}),
-            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
-          }
-        }
-      )
-      if (response.data?.errorResponse) {
-        const errors = getFormattedErrors(response.data.inputSetErrorWrapper?.uuidToErrorResponseMap)
-        if (Object.keys(errors).length) {
-          setFormErrors(errors)
-        } else {
-          showError(getString('inputSets.inputSetSavedError'), undefined, 'pipeline.save.inputset.error')
-        }
-      } else {
-        showSuccess(getString('inputSets.inputSetSaved'))
-      }
-      return {
-        status: response?.status // nextCallback can be added if required
-      }
-    } catch (e) {
-      showError(e?.data?.message)
-      // throw error here so that it's uncaught in handleSubmit and we don'tr end up reloading the modal
-      throw e
-    }
-  }
-
-  const createUpdateInputSetWithGitDetails = (gitDetails: SaveToGitFormInterface): Promise<UseSaveSuccessResponse> => {
-    return createUpdateInputSet(savedInputSetObj, gitDetails).then(resp => {
-      getInputSetsList()
-      return resp
-    })
-  }
-
-  const { openSaveToGitDialog } = useSaveToGitDialog({
-    onSuccess: (
-      data: SaveToGitFormInterface,
-      _payload?: Omit<InputSetDTO, 'repo' | 'branch'>
-    ): Promise<UseSaveSuccessResponse> => Promise.resolve(createUpdateInputSetWithGitDetails(data))
-  })
-
-  const handleSubmit = React.useCallback(
-    async (inputSetObj: InputSetDTO, gitDetails?: EntityGitDetails) => {
-      setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
-      setInitialGitDetails(gitDetails as EntityGitDetails)
-
-      if (inputSetObj) {
-        if (isGitSyncEnabled) {
-          openSaveToGitDialog({
-            isEditing: false,
-            resource: {
-              type: 'InputSets',
-              name: inputSetObj.name as string,
-              identifier: inputSetObj.identifier as string,
-              gitDetails: gitDetails
-            },
-            payload: omit(inputSetObj, 'repo', 'branch')
-          })
-        } else {
-          createUpdateInputSet(omit(inputSetObj, 'repo', 'branch')).then(() => {
-            getInputSetsList()
-          })
-        }
-      }
-    },
-    [createInputSet, showSuccess, showError, isGitSyncEnabled, pipeline]
-  )
-
-  if (pipeline && currentPipeline && template?.data?.inputSetTemplateYaml) {
-    return (
-      <Popover
-        disabled={!canEdit}
-        content={
-          <div>
-            <Formik<InputSetDTO & GitContextProps>
-              formName="runPipelineForm"
-              onSubmit={input => {
-                handleSubmit(input, { repoIdentifier: input.repo, branch: input.branch })
-              }}
-              validationSchema={Yup.object().shape({
-                name: NameSchema({ requiredErrorMsg: getString('inputSets.nameIsRequired') }),
-                identifier: IdentifierSchema()
-              })}
-              initialValues={
-                {
-                  pipeline: values,
-                  name: '',
-                  identifier: '',
-                  repo: repoIdentifier || '',
-                  branch: branch || ''
-                } as InputSetDTO & GitContextProps
-              }
-            >
-              {createInputSetFormikProps => {
-                const { submitForm: submitFormIs } = createInputSetFormikProps
-                return (
-                  <Layout.Vertical padding="large" width={400}>
-                    <NameIdDescriptionTags
-                      identifierProps={{
-                        inputLabel: getString('inputSets.inputSetName'),
-                        isIdentifierEditable: true,
-                        inputGroupProps: {
-                          disabled: !canEdit
-                        }
-                      }}
-                      descriptionProps={{ disabled: !canEdit }}
-                      tagsProps={{
-                        disabled: !canEdit
-                      }}
-                      formikProps={createInputSetFormikProps}
-                    />
-                    {isGitSyncEnabled && (
-                      <GitSyncStoreProvider>
-                        <GitContextForm
-                          formikProps={createInputSetFormikProps}
-                          gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: false }}
-                        />
-                      </GitSyncStoreProvider>
-                    )}
-                    <Layout.Horizontal spacing="medium">
-                      <Button
-                        variation={ButtonVariation.PRIMARY}
-                        text={createInputSetLoading ? getString('loading') : getString('save')}
-                        type="submit"
-                        disabled={createInputSetLoading}
-                        onClick={event => {
-                          event.stopPropagation()
-                          submitFormIs()
-                        }}
-                      />
-                      <Button
-                        variation={ButtonVariation.SECONDARY}
-                        className={Classes.POPOVER_DISMISS}
-                        text={getString('cancel')}
-                      />
-                    </Layout.Horizontal>
-                  </Layout.Vertical>
-                )
-              }}
-            </Formik>
-          </div>
-        }
-      >
-        <RbacButton
-          variation={ButtonVariation.SECONDARY}
-          text={getString('inputSets.saveAsInputSet')}
-          permission={{
-            permission: PermissionIdentifier.EDIT_PIPELINE,
-            resource: {
-              resourceType: ResourceType.PIPELINE
-            }
-          }}
-        />
-      </Popover>
-    )
-  }
-  return null
 }
 
 function RunPipelineFormBasic({

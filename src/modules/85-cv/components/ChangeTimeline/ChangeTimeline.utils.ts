@@ -3,6 +3,7 @@ import { sumBy } from 'lodash-es'
 import type { PointMarkerOptionsObject, SeriesScatterOptions } from 'highcharts'
 import { Color } from '@wings-software/uicore'
 import type { TimeRangeDetail } from 'services/cv'
+import type { UseStringsReturn } from 'framework/strings'
 import DeploymentWithTwoChanges from '@cv/assets/ChangeTimelineSymbol/Deployment/DeploymentWithTwoChange.svg'
 import DeploymentWithNChanges from '@cv/assets/ChangeTimelineSymbol/Deployment/DeploymentWithNChange.svg'
 import IncidentWithTwoChanges from '@cv/assets/ChangeTimelineSymbol/Incident/IncidentWithTwoChange.svg'
@@ -72,14 +73,19 @@ const getSymbolAndColorByChangeType = (
   }
 }
 
-export const createMarkerSymbol = (timeline: TimeRangeDetail, type: ChangeSourceTypes) => {
+export const createMarkerSymbol = (
+  timeline: TimeRangeDetail,
+  type: ChangeSourceTypes,
+  getString: UseStringsReturn['getString']
+): PointMarkerOptionsObjectCustom => {
   const { count = 0 } = timeline
   const marker: PointMarkerOptionsObjectCustom = {
     custom: {
       count: timeline.count || 0,
       startTime: timeline.startTime || 0,
       endTime: timeline.endTime || 0,
-      color: getChangeSoureIconColor(type)
+      color: getChangeSoureIconColor(type, true),
+      toolTipLabel: `${type}  ${getString('change')}`
     }
   }
   switch (type) {
@@ -133,20 +139,23 @@ export const getStartAndEndTime = (duration: string) => {
 }
 
 export const createTimelineSeriesData = (
-  deployment: TimeRangeDetail[],
-  type: ChangeSourceTypes
+  timeRangeDetail: TimeRangeDetail[] | undefined,
+  type: ChangeSourceTypes,
+  getString: UseStringsReturn['getString']
 ): SeriesScatterOptions => {
   return {
     type: 'scatter',
     name: type,
-    data: deployment.map(timeline => {
-      return {
-        x: timeline.startTime,
-        y: 0,
-        marker: {
-          ...(createMarkerSymbol(timeline, type) as PointMarkerOptionsObject)
-        }
-      }
-    })
+    data: timeRangeDetail?.length
+      ? timeRangeDetail?.map(timeline => {
+          return {
+            x: timeline.startTime,
+            y: 0,
+            marker: {
+              ...(createMarkerSymbol(timeline, type, getString) as PointMarkerOptionsObject)
+            }
+          }
+        })
+      : []
   }
 }

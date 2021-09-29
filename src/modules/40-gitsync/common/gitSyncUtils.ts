@@ -75,6 +75,16 @@ export const getRepoPath = (gitRepo: GitSyncConfig): string => {
   return gitRepo.repo ? gitRepo.repo.replace(GitSuffixRegex, '').split(basePath)?.[1] ?? '' : ''
 }
 
+export const getRepoUrl = (baseUrl: string, repoName: string) => {
+  if (!baseUrl) {
+    return ''
+  }
+  if (baseUrl.endsWith('/')) {
+    return baseUrl + repoName
+  }
+  return `${baseUrl}/${repoName}`
+}
+
 export const getHarnessFolderPathWithSuffix = (folderPath: string, suffix: string) => {
   const sanitizedRootFolder = folderPath.replace(HarnessFolderNameSanityRegex, '/$2')
   return sanitizedRootFolder.endsWith('/')

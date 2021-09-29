@@ -465,7 +465,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   fieldToLabelMapping.set('targetBranch', getString('pipeline.triggers.conditionsPanel.targetBranch'))
   fieldToLabelMapping.set('branch', getString('pipelineSteps.deploy.inputSet.branch'))
   fieldToLabelMapping.set('tag', getString('tagLabel'))
-  fieldToLabelMapping.set('repoNames', getString('pipelineSteps.build.create.repositoryNameLabel'))
+  fieldToLabelMapping.set('repoNames', getString('common.repositoryName'))
   fieldToLabelMapping.set('buildType', getString('filters.executions.buildType'))
   fieldToLabelMapping.set('deploymentTypes', getString('deploymentTypeText'))
   fieldToLabelMapping.set('infrastructureTypes', getString('infrastructureTypeText'))

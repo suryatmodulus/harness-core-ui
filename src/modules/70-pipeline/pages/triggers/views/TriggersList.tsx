@@ -16,7 +16,11 @@ import {
   manifestTypeLabels,
   ManifestDataType
 } from '@pipeline/components/ManifestSelection/Manifesthelper'
-import { ArtifactIconByType, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
+import {
+  ArtifactIconByType,
+  ArtifactTitleIdByType,
+  ENABLED_ARTIFACT_TYPES
+} from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
 
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
@@ -162,17 +166,17 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
           categoryValue: 'Artifact',
           items: [
             {
-              itemLabel: ENABLED_ARTIFACT_TYPES.Gcr,
+              itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.Gcr]),
               value: ENABLED_ARTIFACT_TYPES.Gcr,
               iconName: ArtifactIconByType.Gcr
             },
             {
-              itemLabel: ENABLED_ARTIFACT_TYPES.Ecr,
+              itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.Ecr]),
               value: ENABLED_ARTIFACT_TYPES.Ecr,
               iconName: ArtifactIconByType.Ecr
             },
             {
-              itemLabel: ENABLED_ARTIFACT_TYPES.DockerRegistry,
+              itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.DockerRegistry]),
               value: ENABLED_ARTIFACT_TYPES.DockerRegistry,
               iconName: ArtifactIconByType.DockerRegistry
             }

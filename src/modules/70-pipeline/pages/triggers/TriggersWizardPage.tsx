@@ -175,8 +175,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       const res = getScheduleTriggerYaml({ values })
 
       return { trigger: res }
-    } else if (values.triggerType === TriggerTypes.MANIFEST) {
-      const res = getArtifactTriggerYaml({ values, persistIncomplete: true })
+    } else if (values.triggerType === TriggerTypes.MANIFEST || values.triggerType === TriggerTypes.ARTIFACT) {
+      const res = getArtifactManifestTriggerYaml({ values, persistIncomplete: true })
 
       return { trigger: res }
     }
@@ -268,7 +268,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         triggerResponseYaml: triggerResponse.data.yaml
       })
       setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
-    } else if (triggerResponse?.data?.yaml && triggerResponse.data.type === TriggerTypes.MANIFEST) {
+    } else if (
+      triggerResponse?.data?.yaml &&
+      (triggerResponse.data.type === TriggerTypes.MANIFEST || triggerResponse.data.type === TriggerTypes.ARTIFACT)
+    ) {
       const newOnEditInitialValues = getArtifactTriggerValues({
         triggerResponseYaml: triggerResponse?.data?.yaml
       })
@@ -752,6 +755,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           type: artifactManifestType || _manifestType,
           spec
         }
+      } else if (type === TriggerTypes.ARTIFACT) {
+        const { artifactRef, type: _artifactType, spec } = source?.spec || {}
+        if (_artifactType) {
+          setArtifactManifestType(_artifactType)
+        }
+        selectedArtifact = {
+          identifier: artifactRef,
+          type: artifactManifestType || _artifactType,
+          spec
+        }
       }
 
       let pipelineJson = undefined
@@ -790,6 +803,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           (eventCondition: AddConditionInterface) =>
             eventCondition.key !== EventConditionTypes.BUILD && eventCondition.key !== EventConditionTypes.VERSION
         )
+      }
+      if (type === TriggerTypes.ARTIFACT) {
+        delete newOnEditInitialValues['manifestType']
+        newOnEditInitialValues.artifactType = selectedArtifact?.type
       }
       return newOnEditInitialValues
     } catch (e) {
@@ -836,7 +853,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     })
   }
 
-  const getArtifactTriggerYaml = ({
+  const getArtifactManifestTriggerYaml = ({
     values: val,
     persistIncomplete = false
   }: {
@@ -857,27 +874,43 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       buildOperator,
       buildValue,
       eventConditions = [],
-      manifestType: onEditManifestType
+      manifestType: onEditManifestType,
+      artifactType: artType
     } = val
 
-    if (selectedArtifact?.spec?.chartVersion) {
-      // hardcode manifest chart version to default
-      selectedArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
-        chartVersion: selectedArtifact?.spec?.chartVersion
-      })
-    } else if (!isEmpty(selectedArtifact) && selectedArtifact?.spec?.chartVersion === '') {
-      selectedArtifact.spec.chartVersion = TriggerDefaultFieldList.chartVersion
+    if (manifestType) {
+      if (selectedArtifact?.spec?.chartVersion) {
+        // hardcode manifest chart version to default
+        selectedArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
+          chartVersion: selectedArtifact?.spec?.chartVersion
+        })
+      } else if (!isEmpty(selectedArtifact) && selectedArtifact?.spec?.chartVersion === '') {
+        selectedArtifact.spec.chartVersion = TriggerDefaultFieldList.chartVersion
+      }
+    } else if (artType) {
+      selectedArtifact.spec.tag = TriggerDefaultFieldList.build
     }
-
     const newPipelineObj = { ...pipelineRuntimeInput }
     const filteredStage = newPipelineObj.stages?.find((item: any) => item.stage?.identifier === stageId)
-    const stageArtifacts = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
-    const stageArtifactIdx = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.findIndex(
-      (item: any) => item.manifest?.identifier === selectedArtifact?.identifier
-    )
+    if (manifestType) {
+      const stageArtifacts = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
+      const stageArtifactIdx = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.findIndex(
+        (item: any) => item.manifest?.identifier === selectedArtifact?.identifier
+      )
 
-    if (stageArtifactIdx >= 0) {
-      stageArtifacts[stageArtifactIdx].manifest = selectedArtifact
+      if (stageArtifactIdx >= 0) {
+        stageArtifacts[stageArtifactIdx].manifest = selectedArtifact
+      }
+    } else if (artType) {
+      const stageArtifacts = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts
+      const stageArtifactIdx =
+        filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars?.findIndex(
+          (item: any) => item.sidecar?.identifier === selectedArtifact?.identifier
+        )
+
+      if (stageArtifactIdx >= 0) {
+        stageArtifacts['sidecars'][stageArtifactIdx].sidecar = selectedArtifact
+      }
     }
 
     // actions will be required thru validation
@@ -893,7 +926,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         )
       )
     )
-
     const triggerYaml: NGTriggerConfigV2 = {
       name,
       identifier,
@@ -908,11 +940,20 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         spec: {
           stageIdentifier: stageId,
           manifestRef: selectedArtifact?.identifier,
-          type: onEditManifestType || manifestType,
+          type: onEditManifestType ? onEditManifestType : artType,
           ...artifactSourceSpec
         }
       },
       inputYaml: stringifyPipelineRuntimeInput
+    }
+
+    if (artType) {
+      if (triggerYaml?.source?.spec && Object.getOwnPropertyDescriptor(triggerYaml?.source?.spec, 'manifestRef')) {
+        delete triggerYaml.source.spec.manifestRef
+      }
+      if (triggerYaml?.source?.spec) {
+        triggerYaml.source.spec.artifactRef = selectedArtifact?.identifier
+      }
     }
 
     if (
@@ -1005,7 +1046,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   }
 
   const handleArtifactSubmit = async (val: FlatValidArtifactFormikValuesInterface): Promise<void> => {
-    const triggerYaml = getArtifactTriggerYaml({ values: val })
+    const triggerYaml = getArtifactManifestTriggerYaml({ values: val })
     submitTrigger(triggerYaml)
   }
 

@@ -40,18 +40,17 @@ export const EventTimelineHighChartsConfig: Highcharts.Options = {
   tooltip: {
     outside: true,
     useHTML: true,
-    hideDelay: 50000,
     padding: 0,
     shadow: false,
     borderColor: 'transparent',
     formatter: function (this: any) {
       if (this.series.name) {
-        const { color, x } = this.point
+        const { marker } = this.point
         return renderToStaticMarkup(
           <div className={css.tooltipContainer}>
-            <div className={css.colorSidePanel} style={{ backgroundColor: color }}></div>
-            <div>{this.series.name} </div>
-            <div>{moment(new Date(x)).format(dateFormat)}</div>
+            <div className={css.colorSidePanel} style={{ backgroundColor: marker.custom.color }}></div>
+            <div className={css.tooltipLabel}>{marker.custom.toolTipLabel} </div>
+            <div>{moment(new Date(marker.custom.startTime)).format(dateFormat)}</div>
           </div>
         )
       } else {

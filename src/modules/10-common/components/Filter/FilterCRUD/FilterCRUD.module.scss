@@ -19,7 +19,7 @@
 }
 
 .addNewFilterBtn {
-  justify-content: end;
+  justify-content: flex-start;
   max-height: none !important;
   height: var(--spacing-huge) !important;
   padding-left: var(--spacing-medium) !important;
@@ -50,9 +50,11 @@
 }
 
 .radioBtns {
-  > div > div > label {
-    font-size: var(--font-size-normal) !important;
-    color: var(--white) !important;
+  :global {
+    .RadioButton--radio {
+      color: var(--white) !important;
+      font-size: var(--font-size-normal) !important;
+    }
   }
 }
 

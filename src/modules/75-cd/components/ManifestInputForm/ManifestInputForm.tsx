@@ -281,7 +281,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                           expressions,
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                         }}
-                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                        label={getString('common.repositoryName')}
                         name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
                       />
                     </div>

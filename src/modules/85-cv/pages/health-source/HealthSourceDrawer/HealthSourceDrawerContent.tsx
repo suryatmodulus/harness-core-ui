@@ -10,6 +10,7 @@ import { createHealthSourceDrawerFormData } from './HealthSourceDrawerContent.ut
 import type { HealthSourceDrawerInterface } from './HealthSourceDrawerContent.types'
 import { GCOProduct } from '../connectors/GCOLogsMonitoringSource/GoogleCloudOperationsMonitoringSourceUtils'
 import { SelectGCODashboards } from '../connectors/GCOMetricsHealthSource/components/SelectGCODashboards/SelectGCODashboards'
+import { getSelectedFeature } from './component/defineHealthSource/DefineHealthSource.utils'
 import css from './HealthSourceDrawerContent.module.scss'
 
 function HealthSourceDrawerContent({
@@ -33,7 +34,7 @@ function HealthSourceDrawerContent({
     [rowData, tableData, monitoredServiceRef, serviceRef, environmentRef, isEdit]
   )
 
-  const [selectedProduct, setSelectedProduct] = useState<string | undefined>((sourceData as any).product?.value)
+  const [selectedProduct, setSelectedProduct] = useState<string | undefined>(getSelectedFeature(sourceData)?.value)
   const [tabTitles, ...tabs] = useMemo(() => {
     if (selectedProduct === GCOProduct.CLOUD_METRICS) {
       return [
@@ -68,8 +69,13 @@ function HealthSourceDrawerContent({
   }, [selectedProduct])
 
   const determineMaxTabBySourceType = useCallback(() => {
-    return isEdit ? 1 : 0
-  }, [isEdit])
+    switch (selectedProduct) {
+      case GCOProduct.CLOUD_METRICS:
+        return 2
+      default:
+        return 1
+    }
+  }, [selectedProduct])
 
   const { openDialog: showWarning } = useConfirmationDialog({
     intent: Intent.WARNING,
@@ -97,7 +103,11 @@ function HealthSourceDrawerContent({
         isCloseButtonShown={false}
         portalClassName={'health-source-right-drawer'}
       >
-        <SetupSourceTabs data={sourceData} determineMaxTab={determineMaxTabBySourceType} tabTitles={tabTitles}>
+        <SetupSourceTabs
+          data={sourceData}
+          determineMaxTab={isEdit ? determineMaxTabBySourceType : undefined}
+          tabTitles={tabTitles}
+        >
           {tabs}
         </SetupSourceTabs>
       </Drawer>

@@ -535,15 +535,13 @@ export const RightBar = (): JSX.Element => {
                     />
                     {connectionType === 'Repo' ? (
                       <>
-                        <Text margin={{ bottom: 'xsmall' }}>
-                          {getString('pipelineSteps.build.create.repositoryNameLabel')}
-                        </Text>
+                        <Text margin={{ bottom: 'xsmall' }}>{getString('common.repositoryName')}</Text>
                         <TextInput name="repoName" value={connectorUrl} style={{ flexGrow: 1 }} disabled />
                       </>
                     ) : (
                       <>
                         <FormInput.Text
-                          label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                          label={getString('common.repositoryName')}
                           name="repoName"
                           style={{ flexGrow: 1 }}
                           disabled={isReadonly}

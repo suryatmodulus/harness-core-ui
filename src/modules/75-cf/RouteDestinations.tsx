@@ -19,7 +19,6 @@ import {
 import type { AccountPathProps, ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MinimalLayout } from '@common/layouts'
 import CFHomePage from '@cf/pages/home/CFHomePage'
-import FeatureFlagsPage from '@cf/pages/feature-flags/FeatureFlagsPage'
 import FeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/FeatureFlagsDetailPage'
 import EnvironmentsPage from '@cf/pages/environments/EnvironmentsPage'
 import EnvironmentDetails from '@cf/pages/environment-details/EnvironmentDetails'
@@ -54,6 +53,7 @@ import { OnboardingPage } from './pages/onboarding/OnboardingPage'
 
 import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
 import CFTrialHomePage from './pages/home/CFTrialHomePage'
+import FeatureFlagsLandingPage from './pages/feature-flags/FeatureFlagsLandingPage'
 
 const RedirectToCFHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -146,7 +146,7 @@ const CFRoutes: FC = () => (
       path={routes.toCFFeatureFlags({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <FeatureFlagsPage />
+      <FeatureFlagsLandingPage />
     </RouteWithLayout>
 
     <RouteWithLayout

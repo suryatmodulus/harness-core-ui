@@ -382,6 +382,7 @@ export interface StringsMap {
   'common.repo_provider.gitlabLabel': string
   'common.reportName': string
   'common.reportNameRequired': string
+  'common.repositoryName': string
   'common.resolveConflict': string
   'common.role': string
   'common.saveAndClose': string
@@ -807,6 +808,8 @@ export interface StringsMap {
   'authSettings.usePublicOAuth': string
   'authSettings.whitelistedDomainsDisabled': string
   'authSettings.yourAccountWillBeLockedOut': string
+  'delegates.delGroupStatus.DISABLED': string
+  'delegates.delGroupStatus.WAITING_FOR_APPROVAL': string
   'delegates.delSetup': string
   'delegates.delegateDeleted': string
   'delegates.delegateIdentifier': string
@@ -3350,13 +3353,10 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.variationMappingRuntime': string
   'cf.pipeline.flagConfiguration.viewDetail': string
   'cf.pipeline.flagConfiguration.whatToConfigure': string
+  'cf.pipeline.flagConfiguration.whenTheFlagIsOffServe': string
+  'cf.pipeline.flagConfiguration.whenTheFlagIsOnServe': string
   'cf.pipeline.listing': string
   'cf.pipeline.rollloutStrategy.title': string
-  'cf.pipeline.variationMapping.placeholder': string
-  'cf.pipeline.variationMapping.selectVariation': string
-  'cf.pipeline.variationMapping.targetTargetGroup': string
-  'cf.pipeline.variationMapping.targetTargetGroupRequired': string
-  'cf.pipeline.variationMapping.variationRequired': string
   'cf.rbac.category': string
   'cf.rbac.featureflag.delete': string
   'cf.rbac.featureflag.edit': string
@@ -3385,6 +3385,11 @@ export interface StringsMap {
   'cf.segments.uploadImage': string
   'cf.segments.usingSegment': string
   'cf.segments.usingSegmentWithCount': string
+  'cf.selectFlagRepo.createRepoError': string
+  'cf.selectFlagRepo.dialogTitle': string
+  'cf.selectFlagRepo.introText': string
+  'cf.selectFlagRepo.newRepo': string
+  'cf.selectFlagRepo.useExistingRepo': string
   'cf.selectFlagsModal.empty': string
   'cf.selectFlagsModal.searchPlaceholder': string
   'cf.selectSegmentModal.empty': string
@@ -3664,6 +3669,7 @@ export interface StringsMap {
   'cv.changeSource.configureChangeSource': string
   'cv.changeSource.connectChangeSource': string
   'cv.changeSource.defineChangeSource': string
+  'cv.changeSource.deleteChangeSourceWarning': string
   'cv.changeSource.duplicateIdentifier': string
   'cv.changeSource.editChangeSource': string
   'cv.changeSource.noChangeSource': string
@@ -6246,10 +6252,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.build.create.connectorRequiredError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.build.create.repositoryNameLabel': string
   /**
    * @deprecated migrate this string to module level file
    */

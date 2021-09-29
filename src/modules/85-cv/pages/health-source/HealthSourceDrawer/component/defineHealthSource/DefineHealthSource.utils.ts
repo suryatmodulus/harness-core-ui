@@ -90,3 +90,12 @@ export const getInitialValues = (sourceData: any): any => {
   }
   return initialValues
 }
+
+export const getSelectedFeature = (sourceData: any): any => {
+  const currentHealthSource = sourceData?.healthSourceList?.find(
+    (el: any) => el?.identifier === sourceData?.healthSourceIdentifier
+  )
+  const selectedFeature = currentHealthSource?.spec?.feature
+
+  return selectedFeature ? { label: selectedFeature, value: selectedFeature } : { ...sourceData?.product }
+}

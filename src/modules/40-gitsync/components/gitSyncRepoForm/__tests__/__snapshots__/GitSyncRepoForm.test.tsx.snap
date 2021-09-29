@@ -814,7 +814,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                       class="Layout--vertical StyledProps--main"
                     >
                       <div
-                        class="bp3-form-group bp3-disabled noSpacing"
+                        class="bp3-form-group bp3-disabled"
                         data-id="repo-2"
                       >
                         <label
@@ -825,7 +825,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                             class="Tooltip--acenter"
                             data-tooltip-id="gitSyncRepoForm_repo"
                           >
-                            repositoryUrlLabel
+                            common.repositoryName
                           </span>
                            
                           <span
@@ -849,13 +849,6 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                           </div>
                         </div>
                       </div>
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-grey250"
-                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                        title="wings-software/sunnykesh-gitSync"
-                      >
-                        wings-software/sunnykesh-gitSync
-                      </p>
                     </div>
                     <div
                       class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -1449,7 +1442,7 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                       class="Layout--vertical StyledProps--main"
                     >
                       <div
-                        class="bp3-form-group"
+                        class="bp3-form-group noSpacing"
                         data-id="repo-2"
                       >
                         <label
@@ -1460,7 +1453,7 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                             class="Tooltip--acenter"
                             data-tooltip-id="gitSyncRepoForm_repo"
                           >
-                            repositoryUrlLabel
+                            common.repositoryName
                           </span>
                            
                           <span
@@ -1483,6 +1476,13 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                           </div>
                         </div>
                       </div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-grey250"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                        title=""
+                      >
+                        
+                      </p>
                     </div>
                   </div>
                   <div
@@ -2045,7 +2045,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                       class="Layout--vertical StyledProps--main"
                     >
                       <div
-                        class="bp3-form-group"
+                        class="bp3-form-group noSpacing"
                         data-id="repo-2"
                       >
                         <label
@@ -2056,7 +2056,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                             class="Tooltip--acenter"
                             data-tooltip-id="gitSyncRepoForm_repo"
                           >
-                            repositoryUrlLabel
+                            common.repositoryName
                           </span>
                            
                           <span
@@ -2079,6 +2079,13 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                           </div>
                         </div>
                       </div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-grey250"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                        title=""
+                      >
+                        
+                      </p>
                     </div>
                   </div>
                   <div
@@ -2671,7 +2678,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                       class="Layout--vertical StyledProps--main"
                     >
                       <div
-                        class="bp3-form-group bp3-intent-danger"
+                        class="bp3-form-group bp3-intent-danger noSpacing"
                         data-id="repo-2"
                       >
                         <label
@@ -2682,7 +2689,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                             class="Tooltip--acenter"
                             data-tooltip-id="gitSyncRepoForm_repo"
                           >
-                            repositoryUrlLabel
+                            common.repositoryName
                           </span>
                            
                           <span
@@ -2735,6 +2742,13 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                           </div>
                         </div>
                       </div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-grey250"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                        title=""
+                      >
+                        
+                      </p>
                     </div>
                   </div>
                   <div

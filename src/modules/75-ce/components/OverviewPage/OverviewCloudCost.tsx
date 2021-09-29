@@ -12,7 +12,7 @@ import {
   useFetchperspectiveGridQuery,
   ViewFieldIdentifier
 } from 'services/ce/services'
-import { getGMTStartDateTime } from '@ce/utils/momentUtils'
+import { getGMTEndDateTime, getGMTStartDateTime } from '@ce/utils/momentUtils'
 import type { TimeRange } from '@ce/pages/overview/OverviewPage'
 import routes from '@common/RouteDefinitions'
 import { getTimeFilters } from '@ce/utils/perspectiveUtils'
@@ -166,7 +166,7 @@ const OverviewCloudCost = (props: CloudCostProps) => {
     variables: {
       aggregateFunction: [{ operationType: QlceViewAggregateOperation.Sum, columnName: 'cost' }],
       filters: [
-        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTStartDateTime(timeRange.to)),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         filters as QlceViewFilterWrapperInput
       ],
       isClusterOnly: false,

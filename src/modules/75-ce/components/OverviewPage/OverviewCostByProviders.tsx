@@ -11,7 +11,7 @@ import {
   useFetchOverviewTimeSeriesQuery
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
-import { getGMTStartDateTime } from '@ce/utils/momentUtils'
+import { getGMTEndDateTime, getGMTStartDateTime } from '@ce/utils/momentUtils'
 import { ChartConfigType, transformTimeSeriesData } from '../CloudCostInsightChart/chartUtils'
 import CEChart from '../CEChart/CEChart'
 import { ChartTypes, Loader } from './OverviewPageLayout'
@@ -31,7 +31,7 @@ const OverviewCostByProviders = (props: CostByProvidersProps) => {
   const [result] = useFetchOverviewTimeSeriesQuery({
     variables: {
       aggregateFunction: [{ operationType: QlceViewAggregateOperation.Sum, columnName: 'cost' }],
-      filters: [...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTStartDateTime(timeRange.to))],
+      filters: [...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to))],
       groupBy: [{ timeTruncGroupBy: { resolution: 'DAY' } } as QlceViewGroupByInput]
     }
   })

@@ -9,9 +9,10 @@ export interface TimelineRowProps {
 
 export interface PointMarkerOptionsObjectCustom extends PointMarkerOptionsObject {
   custom: {
-    count: number
+    count?: number
     startTime: number
     endTime: number
     color: string
+    toolTipLabel: string
   }
 }

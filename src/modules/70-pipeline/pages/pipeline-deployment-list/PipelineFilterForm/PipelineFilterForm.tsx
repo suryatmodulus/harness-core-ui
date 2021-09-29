@@ -98,7 +98,7 @@ export default function PipelineFilterForm<
           {(type === 'PipelineExecution' && module === 'ci') || type === 'PipelineSetup' ? (
             <FormInput.Text
               name={'repositoryName'}
-              label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+              label={getString('common.repositoryName')}
               key={'repositoryName'}
               placeholder={getString('pipeline.manifestType.repoNamePlaceholder')}
             />

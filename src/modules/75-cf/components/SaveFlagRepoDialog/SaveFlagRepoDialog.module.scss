@@ -1,0 +1,22 @@
+.modalBody {
+  padding: var(--spacing-xlarge) !important;
+
+  :global {
+    .bp3-label {
+      color: var(--grey-600) !important;
+    }
+
+    .bp3-disabled input {
+      background-color: var(--grey-100) !important;
+    }
+  }
+
+  .formRow {
+    display: flex;
+    :global {
+      .bp3-form-group {
+        flex: 1;
+      }
+    }
+  }
+}

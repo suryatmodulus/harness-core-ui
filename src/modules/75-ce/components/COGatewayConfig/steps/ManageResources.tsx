@@ -224,7 +224,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     try {
       const result = await fetchAllASGs({ Text: '' })
       if (result?.response) {
-        const filteredAsgs = result.response.filter((item: ASGMinimal) => !_isEmpty(item.target_groups))
+        const filteredAsgs = result.response || []
         setAllAsg(filteredAsgs)
         setAsgToShow(filteredAsgs)
       }

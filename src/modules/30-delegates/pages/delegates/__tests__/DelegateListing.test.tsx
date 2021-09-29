@@ -10,23 +10,52 @@ import {
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
+const fetchDelFn = jest.fn().mockImplementation((_sanitizedFilterRequest, { queryParams: { accountId } }) => {
+  let data
+  if (accountId === 'singleDelegateWithoutTags') {
+    data = singleDelegateWithoutTagsResponseMock
+  } else if (accountId === 'multipleDelegates') {
+    data = multipleDelegatesMock
+  } else {
+    data = singleDelegateResponseMock
+  }
+  return data
+})
+
 jest.mock('services/portal', () => ({
-  useGetDelegateGroupsNGV2: ({ queryParams: { accountId } }: any) => {
-    let data
-    if (accountId === 'singleDelegateWithoutTags') {
-      data = singleDelegateWithoutTagsResponseMock
-    } else if (accountId === 'multipleDelegates') {
-      data = multipleDelegatesMock
-    } else {
-      data = singleDelegateResponseMock
-    }
+  useGetDelegateGroupsNGV2WithFilter: jest.fn().mockImplementation(() => {
     return {
-      data,
-      refetch: jest.fn()
+      mutate: fetchDelFn,
+      loading: false
     }
-  },
-  useDeleteDelegateGroupByIdentifier: () => ({
-    mutate: jest.fn()
+  }),
+  useDeleteDelegateGroupByIdentifier: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  })
+}))
+
+jest.mock('services/cd-ng', () => ({
+  useGetFilterList: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  usePostFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  useUpdateFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  useDeleteFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
   })
 }))
 
@@ -48,7 +77,12 @@ describe('Feature flag enabled', () => {
         <DelegatesListing />
       </TestWrapper>
     )
-    fireEvent.click(getAllByText('delegate.DelegateName')[0]!)
+    act(async () => {
+      await waitFor(() => {
+        const delNames = getAllByText('delegate.DelegateName')
+        fireEvent.click(delNames[0]!)
+      })
+    })
     await waitFor(() => {
       expect(document.body.querySelector('.bp3-dialog')).toBeDefined()
     })
@@ -71,7 +105,12 @@ describe('Delegates Listing With Groups', () => {
         <DelegatesListing />
       </TestWrapper>
     )
-    fireEvent.click(getAllByText('connected')[0])
+    act(async () => {
+      await waitFor(() => {
+        const connected = getAllByText('connected')
+        fireEvent.click(connected[0])
+      })
+    })
     await waitFor(() => {
       getByTestId(container, 'location').innerText &&
         expect(getByTestId(container, 'location').innerText).toContain(
@@ -111,6 +150,30 @@ describe('Delegates Listing test actions', () => {
     const optionBtn = container.getElementsByTagName('button')[0]
     act(() => {
       fireEvent.click(optionBtn!)
+    })
+
+    expect(container).toMatchSnapshot()
+  })
+})
+
+describe('Delegate Listing, open filter', () => {
+  test.only('render list and open filter', async () => {
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/resources/delegates"
+        pathParams={{ accountId: 'singleDelegateWithoutTags' }}
+      >
+        <DelegatesListing />
+      </TestWrapper>
+    )
+
+    let buttons: HTMLCollectionOf<HTMLButtonElement>
+    await waitFor(() => {
+      buttons = container.getElementsByTagName('button')
+    })
+
+    act(() => {
+      fireEvent.click(buttons[1]!)
     })
 
     expect(container).toMatchSnapshot()

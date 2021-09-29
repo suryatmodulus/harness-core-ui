@@ -114,7 +114,7 @@ export function ExecutionFilters(): React.ReactElement {
         ['branch', getString('pipelineSteps.deploy.inputSet.branch')],
         ['tag', getString('tagLabel')],
         ['buildType', getString('filters.executions.buildType')],
-        ['repoNames', getString('pipelineSteps.build.create.repositoryNameLabel')],
+        ['repoNames', getString('common.repositoryName')],
         ['serviceDefinitionTypes', getString('deploymentTypeText')],
         ['infrastructureType', getString('infrastructureTypeText')],
         ['serviceIdentifiers', getString('services')],

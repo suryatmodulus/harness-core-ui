@@ -21255,6 +21255,64 @@ export const useGetDelegateGroupsNGV2 = (props: UseGetDelegateGroupsNGV2Props) =
     ...props
   })
 
+export interface GetDelegateGroupsNGV2WithFilterQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+  filterIdentifier?: string
+  searchTerm?: string
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+}
+
+export type GetDelegateGroupsNGV2WithFilterProps = Omit<
+  MutateProps<
+    RestResponseDelegateGroupListing,
+    unknown,
+    GetDelegateGroupsNGV2WithFilterQueryParams,
+    DelegateFilterProperties,
+    void
+  >,
+  'path' | 'verb'
+>
+
+export const GetDelegateGroupsNGV2WithFilter = (props: GetDelegateGroupsNGV2WithFilterProps) => (
+  <Mutate<
+    RestResponseDelegateGroupListing,
+    unknown,
+    GetDelegateGroupsNGV2WithFilterQueryParams,
+    DelegateFilterProperties,
+    void
+  >
+    verb="POST"
+    path={`/setup/delegates/ng/v2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateGroupsNGV2WithFilterProps = Omit<
+  UseMutateProps<
+    RestResponseDelegateGroupListing,
+    unknown,
+    GetDelegateGroupsNGV2WithFilterQueryParams,
+    DelegateFilterProperties,
+    void
+  >,
+  'path' | 'verb'
+>
+
+export const useGetDelegateGroupsNGV2WithFilter = (props: UseGetDelegateGroupsNGV2WithFilterProps) =>
+  useMutate<
+    RestResponseDelegateGroupListing,
+    unknown,
+    GetDelegateGroupsNGV2WithFilterQueryParams,
+    DelegateFilterProperties,
+    void
+  >('POST', `/setup/delegates/ng/v2`, { base: getConfig('api'), ...props })
+
 export interface GetDelegateGroupByIdentifierQueryParams {
   accountId?: string
   orgId?: string

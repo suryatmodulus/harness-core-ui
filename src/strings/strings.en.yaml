@@ -933,7 +933,6 @@ pipelineSteps:
       configureCodebase: 'Configure Codebase'
       configureCodebaseHelperText: 'Connect Harness with your code repo.'
       connectorRequiredError: '{{$.validation.sshConnectorRequired}}'
-      repositoryNameLabel: 'Repository Name'
       repositoryUrlWrongUrlError: 'Please enter a valid URL'
       repositoryUrlRequiredError: 'Repository URL is required'
       setupStage: 'Set Up Stage'

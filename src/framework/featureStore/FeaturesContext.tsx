@@ -16,7 +16,7 @@ export interface FeatureDetail {
 }
 export interface FeatureRequest {
   featureName: FeatureIdentifier
-  isRateLimit?: boolean
+  isLimit?: boolean
 }
 
 export interface CheckFeatureReturn {
@@ -102,7 +102,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
   // this function is called from `useFeature` hook to cache all enabled features
   async function requestFeatures(featureRequest: FeatureRequest, options?: FeatureRequestOptions): Promise<void> {
     // rate limit feature doesn't get cached
-    if (featureRequest.isRateLimit) {
+    if (featureRequest.isLimit) {
       return
     }
 

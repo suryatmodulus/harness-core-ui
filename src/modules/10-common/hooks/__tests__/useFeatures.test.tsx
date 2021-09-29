@@ -117,7 +117,7 @@ describe('useFeatures', () => {
         useFeature({
           featureRequest: {
             featureName: FeatureIdentifier.TEST3,
-            isRateLimit: true
+            isLimit: true
           }
         }),
       { wrapper }
@@ -145,7 +145,7 @@ describe('useFeatures', () => {
         useFeature({
           featureRequest: {
             featureName: FeatureIdentifier.TEST3,
-            isRateLimit: true
+            isLimit: true
           }
         }),
       { wrapper }
@@ -199,7 +199,7 @@ describe('useFeatures', () => {
         useFeature({
           featureRequest: {
             featureName: FeatureIdentifier.TEST3,
-            isRateLimit: true
+            isLimit: true
           }
         }),
       { wrapper }

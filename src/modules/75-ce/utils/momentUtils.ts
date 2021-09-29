@@ -20,7 +20,7 @@ export const getStartDateTime = (str: string) => moment(`${str}T00:00:00`).value
 export const getEndDateTime = (str: string) => moment(`${str}T23:59:59`).valueOf()
 
 export const DATE_RANGE_SHORTCUTS: Record<string, moment.Moment[]> = {
-  LAST_7_DAYS: [todayInUTC().subtract(6, 'days').startOf('day'), yesterdayInUTC().endOf('day')],
+  LAST_7_DAYS: [todayInUTC().subtract(6, 'days').startOf('day'), todayInUTC().endOf('day')],
   LAST_30_DAYS: [todayInUTC().subtract(30, 'days').startOf('day'), todayInUTC().endOf('day')],
   CURRENT_MONTH: [todayInUTC().startOf('month').startOf('day'), todayInUTC().endOf('day')],
   THIS_YEAR: [todayInUTC().startOf('year'), todayInUTC().endOf('day')],

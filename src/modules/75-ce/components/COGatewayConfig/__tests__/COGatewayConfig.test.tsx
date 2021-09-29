@@ -153,6 +153,43 @@ const mockedSecurityGroupResponse = {
 
 const mockedK8sClusterIdentifier = 'mock-kubernetes-id'
 
+const mockedConnector = {
+  connector: {
+    name: 'dms-test',
+    identifier: 'mock-kubernetes-id',
+    description: '',
+    orgIdentifier: null,
+    projectIdentifier: null,
+    tags: {},
+    type: 'CEK8sCluster',
+    spec: {
+      connectorRef: 'cadfsdg',
+      featuresEnabled: ['VISIBILITY']
+    }
+  },
+  createdAt: 1632812028599,
+  lastModifiedAt: 1632812028588,
+  status: {
+    status: 'SUCCESS',
+    errorSummary: null,
+    errors: null,
+    testedAt: 1632812029812,
+    lastTestedAt: 0,
+    lastConnectedAt: 1632812029812
+  },
+  activityDetails: {
+    lastActivityTime: 1632812028609
+  },
+  harnessManaged: false,
+  gitDetails: {
+    objectId: null,
+    branch: null,
+    repoIdentifier: null,
+    rootFolder: null,
+    filePath: null
+  }
+}
+
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/lw', () => ({
@@ -169,6 +206,13 @@ jest.mock('services/lw', () => ({
     .mockImplementation(() => ({ mutate: jest.fn(() => Promise.resolve({ response: [mockedAsg] })), loading: false })),
   useSecurityGroupsOfInstances: jest.fn().mockImplementation(() => ({
     mutate: jest.fn(() => Promise.resolve({ response: mockedSecurityGroupResponse })),
+    loading: false
+  }))
+}))
+
+jest.mock('services/cd-ng', () => ({
+  useGetConnectorListV2: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn(() => Promise.resolve({ data: { content: [mockedConnector] } })),
     loading: false
   }))
 }))

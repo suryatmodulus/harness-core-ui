@@ -1,12 +1,23 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { FormInput } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { FeatureFlagActivationStatus } from '@cf/utils/CFUtils'
 import SubSection, { SubSectionProps } from '../SubSection'
 import css from './SetFlagSwitch.module.scss'
 
-const SetFlagSwitch: FC<SubSectionProps> = props => {
+export interface SetFlagSwitchProps extends SubSectionProps {
+  clearField: (fieldName: string) => void
+}
+
+const SetFlagSwitch: FC<SetFlagSwitchProps> = ({ clearField, ...props }) => {
   const { getString } = useStrings()
+
+  useEffect(
+    () => () => {
+      clearField('spec.state')
+    },
+    []
+  )
 
   return (
     <SubSection data-testid="flagChanges-setFlagSwitch" {...props}>

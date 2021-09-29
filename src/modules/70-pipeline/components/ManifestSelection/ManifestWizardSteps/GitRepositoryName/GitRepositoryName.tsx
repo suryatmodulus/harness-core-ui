@@ -27,7 +27,7 @@ const GitRepositoryName: React.FC<GitRepositoryNameProps> = ({
         <FormInput.MultiTextInput
           multiTextInputProps={{ expressions }}
           placeholder={getString('pipeline.manifestType.repoNamePlaceholder')}
-          label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+          label={getString('common.repositoryName')}
           name="repoName"
           className={helmcss.reponameField}
         />

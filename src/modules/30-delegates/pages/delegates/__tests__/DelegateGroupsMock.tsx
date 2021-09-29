@@ -54,7 +54,7 @@ export const delegateGroupsMock: DelegateGroupDetails[] = [
     activelyConnected: false,
     delegateConfigurationId: 'configId1',
     delegateDescription: 'description1',
-    delegateGroupIdentifier: 'delGroupIdentifier1',
+    delegateGroupIdentifier: 'delGroupIdentifier2',
     delegateInsightsDetails: {},
     delegateInstanceDetails: [],
     delegateType: 'delType1',

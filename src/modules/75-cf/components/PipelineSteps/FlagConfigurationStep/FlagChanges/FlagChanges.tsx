@@ -1,18 +1,23 @@
-import React, { FC, ReactElement, useState, MouseEvent, useMemo } from 'react'
+import React, { FC, useState, MouseEvent, useMemo } from 'react'
 import { Layout, Button, Heading, FontVariation, ButtonVariation } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import type { Feature } from 'services/cf'
+import type { FlagConfigurationStepFormData } from '@cf/components/PipelineSteps/FlagConfigurationStep/types'
 import type { SubSectionProps } from './SubSection'
 import RemoveSubSectionButton from './RemoveSubSectionButton'
 import SubSectionSelector from './SubSectionSelector'
 
 // sub sections
-import SetFlagSwitch from './subSections/SetFlagSwitch'
-import DefaultRules from './subSections/DefaultRules'
+import SetFlagSwitch, { SetFlagSwitchProps } from './subSections/SetFlagSwitch'
+import DefaultRules, { DefaultRulesProps } from './subSections/DefaultRules'
 import ServeVariationToIndividualTarget from './subSections/ServeVariationToIndividualTarget'
 import ServeVariationToTargetGroup from './subSections/ServeVariationToTargetGroup'
 import ServePercentageRollout from './subSections/ServePercentageRollout'
 
-export const allSubSections: FC<SubSectionProps>[] = [
+type SubSectionComponentProps = SubSectionProps & DefaultRulesProps & SetFlagSwitchProps
+export type SubSectionComponent = FC<SubSectionComponentProps>
+
+export const allSubSections: SubSectionComponent[] = [
   SetFlagSwitch,
   DefaultRules,
   ServeVariationToIndividualTarget,
@@ -20,9 +25,32 @@ export const allSubSections: FC<SubSectionProps>[] = [
   ServePercentageRollout
 ]
 
-export default function FlagChanges(): ReactElement {
-  const [subSections, setSubSections] = useState<FC<SubSectionProps>[]>([SetFlagSwitch])
-  const availableSubSections = useMemo<FC<SubSectionProps>[]>(
+export interface FlagChangesProps {
+  feature?: Feature
+  spec: FlagConfigurationStepFormData['spec']
+  clearField: (fieldName: string) => void
+}
+
+const FlagChanges: FC<FlagChangesProps> = ({ feature, spec, clearField }) => {
+  const [subSections, setSubSections] = useState<SubSectionComponent[]>(() => {
+    const initialSubSections: SubSectionComponent[] = []
+
+    Object.entries(spec)
+      .filter(([, val]) => val !== undefined)
+      .forEach(([key]) => {
+        switch (key) {
+          case 'state':
+            initialSubSections.push(SetFlagSwitch)
+            break
+          case 'defaultRules':
+            initialSubSections.push(DefaultRules)
+            break
+        }
+      })
+
+    return initialSubSections.length ? initialSubSections : [SetFlagSwitch]
+  })
+  const availableSubSections = useMemo<SubSectionComponent[]>(
     () => allSubSections.filter(section => !subSections.includes(section)),
     [subSections]
   )
@@ -34,14 +62,14 @@ export default function FlagChanges(): ReactElement {
     setSubSections([...subSections, newSubsection])
   }
 
-  const removeSubSection = (subSection: FC<SubSectionProps>): void => {
+  const removeSubSection = (subSection: SubSectionComponent): void => {
     const newSubSections = [...subSections]
     newSubSections.splice(newSubSections.indexOf(subSection), 1)
 
     setSubSections(newSubSections)
   }
 
-  const swapSubSection = (currentSubSection: FC<SubSectionProps>, newSubSection: FC<SubSectionProps>): void => {
+  const swapSubSection = (currentSubSection: SubSectionComponent, newSubSection: SubSectionComponent): void => {
     const newSubSections = [...subSections]
     newSubSections.splice(newSubSections.indexOf(currentSubSection), 1, newSubSection)
 
@@ -55,14 +83,15 @@ export default function FlagChanges(): ReactElement {
       </Heading>
 
       {subSections.map(SubSection => {
-        const subSectionProps: SubSectionProps = {
+        const subSectionProps: SubSectionComponentProps = {
           subSectionSelector: (
             <SubSectionSelector
               availableSubSections={availableSubSections}
               currentSubSection={SubSection}
               onSubSectionChange={newSubSection => swapSubSection(SubSection, newSubSection)}
             />
-          )
+          ),
+          clearField
         }
 
         if (subSections.length > 1) {
@@ -71,19 +100,23 @@ export default function FlagChanges(): ReactElement {
           )
         }
 
+        if (SubSection === DefaultRules) {
+          subSectionProps.variations = (feature && feature.variations) || []
+        }
+
         return <SubSection key={SubSection.name} {...subSectionProps} />
       })}
 
       {!!availableSubSections.length && (
-        <div>
-          <Button
-            variation={ButtonVariation.LINK}
-            text={getString('cf.pipeline.flagConfiguration.configureMore')}
-            onClick={handleConfigureMore}
-            style={{ padding: 0 }}
-          />
-        </div>
+        <Button
+          variation={ButtonVariation.LINK}
+          text={getString('cf.pipeline.flagConfiguration.configureMore')}
+          onClick={handleConfigureMore}
+          style={{ alignSelf: 'flex-start', padding: 0 }}
+        />
       )}
     </Layout.Vertical>
   )
 }
+
+export default FlagChanges

@@ -1,0 +1,10 @@
+.pageContainer {
+  display: grid;
+  place-items: center;
+  height: inherit;
+  text-align: center;
+
+  .pageContent {
+    width: 45rem;
+  }
+}

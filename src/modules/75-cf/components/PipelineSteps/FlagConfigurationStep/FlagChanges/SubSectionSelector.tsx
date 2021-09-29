@@ -2,13 +2,13 @@ import React, { FC } from 'react'
 import { ButtonSize, ButtonVariation, FontVariation, Heading, Layout } from '@wings-software/uicore'
 import { OptionsMenuButton } from '@common/components'
 import { StringKeys, useStrings } from 'framework/strings'
-import type { SubSectionProps } from './SubSection'
+import type { SubSectionComponent } from './FlagChanges'
 import css from './SubSectionSelector.module.scss'
 
 export interface SubSectionSelectorProps {
-  availableSubSections: FC<SubSectionProps>[]
-  currentSubSection: FC<SubSectionProps>
-  onSubSectionChange: (newSubSection: FC<SubSectionProps>) => void
+  availableSubSections: SubSectionComponent[]
+  currentSubSection: SubSectionComponent
+  onSubSectionChange: (newSubSection: SubSectionComponent) => void
 }
 
 export const subSectionNameMap: Record<string, StringKeys> = {

@@ -112,6 +112,17 @@ export interface FeatureEvaluations {
   evaluations?: FeatureEvaluation[]
 }
 
+export interface FeatureMetric {
+  identifier?: string
+  name?: string
+  results?: Results[]
+  status?: FeatureStatus
+}
+
+export interface FeatureMetrics {
+  metrics?: FeatureMetric[]
+}
+
 export type FeatureState = 'on' | 'off'
 
 export interface FeatureStatus {
@@ -130,6 +141,19 @@ export interface FlagBasicInfo {
 
 export type FlagBasicInfos = Pagination & {
   featureFlags?: FlagBasicInfo[]
+}
+
+export interface GitRepo {
+  branch: string
+  filePath: string
+  objectId: string
+  repoIdentifier: string
+  rootFolder: string
+}
+
+export interface GitRepoResp {
+  repoDetails?: GitRepo
+  repoSet: boolean
 }
 
 /**
@@ -359,6 +383,14 @@ export type FeatureFlagRequestRequestBody = {
 
 export type FeaturePatchRequestRequestBody = PatchOperation
 
+export interface GitRepoRequestRequestBody {
+  branch: string
+  filePath: string
+  objectId?: string
+  repoIdentifier: string
+  rootFolder: string
+}
+
 export interface ProjectRequestRequestBody {
   description?: string
   identifier: string
@@ -452,12 +484,22 @@ export type FeatureEvaluationsResponseResponse = FeatureEvaluations
 /**
  * OK
  */
+export type FeatureMetricsResponseResponse = FeatureMetrics
+
+/**
+ * OK
+ */
 export type FeatureResponseResponse = Feature
 
 /**
  * OK
  */
 export type FeaturesResponseResponse = Features
+
+/**
+ * OK
+ */
+export type GitRepoResponseResponse = GitRepoResp
 
 /**
  * Internal server error
@@ -1703,6 +1745,80 @@ export const useCreateFeatureFlag = (props: UseCreateFeatureFlagProps) =>
     void
   >('POST', `/admin/features`, { base: getConfig('cf'), ...props })
 
+export interface GetFeatureMetricsQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+  /**
+   * Unique feature identifiers
+   */
+  featureIDs: string[]
+}
+
+export type GetFeatureMetricsProps = Omit<
+  GetProps<
+    FeatureMetricsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFeatureMetricsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Retrieve metrics data for a group of features
+ *
+ * Used to retrieve metrics for a collection of features
+ */
+export const GetFeatureMetrics = (props: GetFeatureMetricsProps) => (
+  <Get<
+    FeatureMetricsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFeatureMetricsQueryParams,
+    void
+  >
+    path={`/admin/features/metrics`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetFeatureMetricsProps = Omit<
+  UseGetProps<
+    FeatureMetricsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFeatureMetricsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Retrieve metrics data for a group of features
+ *
+ * Used to retrieve metrics for a collection of features
+ */
+export const useGetFeatureMetrics = (props: UseGetFeatureMetricsProps) =>
+  useGet<
+    FeatureMetricsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFeatureMetricsQueryParams,
+    void
+  >(`/admin/features/metrics`, { base: getConfig('cf'), ...props })
+
 export interface DeleteFeatureFlagQueryParams {
   /**
    * Account
@@ -2514,6 +2630,257 @@ export const useModifyProject = ({ identifier, ...props }: UseModifyProjectProps
     ProjectRequestRequestBody,
     ModifyProjectPathParams
   >('PUT', (paramsInPath: ModifyProjectPathParams) => `/admin/projects/${paramsInPath.identifier}`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface DeleteGitRepoQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export interface DeleteGitRepoPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type DeleteGitRepoProps = Omit<
+  MutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteGitRepoQueryParams,
+    void,
+    DeleteGitRepoPathParams
+  >,
+  'path' | 'verb'
+> &
+  DeleteGitRepoPathParams
+
+/**
+ * Delete Git Repo
+ *
+ * Used to delete a project git repo
+ */
+export const DeleteGitRepo = ({ identifier, ...props }: DeleteGitRepoProps) => (
+  <Mutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteGitRepoQueryParams,
+    void,
+    DeleteGitRepoPathParams
+  >
+    verb="DELETE"
+    path={`/admin/projects/${identifier}/git_repo`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseDeleteGitRepoProps = Omit<
+  UseMutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteGitRepoQueryParams,
+    void,
+    DeleteGitRepoPathParams
+  >,
+  'path' | 'verb'
+> &
+  DeleteGitRepoPathParams
+
+/**
+ * Delete Git Repo
+ *
+ * Used to delete a project git repo
+ */
+export const useDeleteGitRepo = ({ identifier, ...props }: UseDeleteGitRepoProps) =>
+  useMutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteGitRepoQueryParams,
+    void,
+    DeleteGitRepoPathParams
+  >('DELETE', (paramsInPath: DeleteGitRepoPathParams) => `/admin/projects/${paramsInPath.identifier}/git_repo`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface GetGitRepoQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export interface GetGitRepoPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetGitRepoProps = Omit<
+  GetProps<
+    GitRepoResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetGitRepoQueryParams,
+    GetGitRepoPathParams
+  >,
+  'path'
+> &
+  GetGitRepoPathParams
+
+/**
+ * Get project git repo details.
+ *
+ * Used to retrieve project git repo details.
+ */
+export const GetGitRepo = ({ identifier, ...props }: GetGitRepoProps) => (
+  <Get<
+    GitRepoResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetGitRepoQueryParams,
+    GetGitRepoPathParams
+  >
+    path={`/admin/projects/${identifier}/git_repo`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetGitRepoProps = Omit<
+  UseGetProps<
+    GitRepoResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetGitRepoQueryParams,
+    GetGitRepoPathParams
+  >,
+  'path'
+> &
+  GetGitRepoPathParams
+
+/**
+ * Get project git repo details.
+ *
+ * Used to retrieve project git repo details.
+ */
+export const useGetGitRepo = ({ identifier, ...props }: UseGetGitRepoProps) =>
+  useGet<
+    GitRepoResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetGitRepoQueryParams,
+    GetGitRepoPathParams
+  >((paramsInPath: GetGitRepoPathParams) => `/admin/projects/${paramsInPath.identifier}/git_repo`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface CreateGitRepoQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export interface CreateGitRepoPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type CreateGitRepoProps = Omit<
+  MutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateGitRepoQueryParams,
+    GitRepoRequestRequestBody,
+    CreateGitRepoPathParams
+  >,
+  'path' | 'verb'
+> &
+  CreateGitRepoPathParams
+
+/**
+ * Add git repo details
+ *
+ * Used to add repo details to a project.
+ */
+export const CreateGitRepo = ({ identifier, ...props }: CreateGitRepoProps) => (
+  <Mutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateGitRepoQueryParams,
+    GitRepoRequestRequestBody,
+    CreateGitRepoPathParams
+  >
+    verb="POST"
+    path={`/admin/projects/${identifier}/git_repo`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseCreateGitRepoProps = Omit<
+  UseMutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateGitRepoQueryParams,
+    GitRepoRequestRequestBody,
+    CreateGitRepoPathParams
+  >,
+  'path' | 'verb'
+> &
+  CreateGitRepoPathParams
+
+/**
+ * Add git repo details
+ *
+ * Used to add repo details to a project.
+ */
+export const useCreateGitRepo = ({ identifier, ...props }: UseCreateGitRepoProps) =>
+  useMutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateGitRepoQueryParams,
+    GitRepoRequestRequestBody,
+    CreateGitRepoPathParams
+  >('POST', (paramsInPath: CreateGitRepoPathParams) => `/admin/projects/${paramsInPath.identifier}/git_repo`, {
     base: getConfig('cf'),
     pathParams: { identifier },
     ...props

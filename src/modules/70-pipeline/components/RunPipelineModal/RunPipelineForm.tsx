@@ -38,7 +38,7 @@ import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/
 import type { GitQueryParams, InputSetGitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
-import { useStrings } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -111,10 +111,51 @@ function RunPipelineFormBasic({
   const { isGitSyncEnabled } = useAppStore()
   const [triggerValidation, setTriggerValidation] = useState(false)
   const [runClicked, setRunClicked] = useState(false)
+  const [selectedStageData, setSelectedStageData] = React.useState<{
+    selectedStageId?: string
+    stagesRequired?: string[]
+    stageName?: string
+  }>({ selectedStageId: 'All', stagesRequired: [], stageName: '' })
+  const {
+    data: stageExecutionData,
+    // loading,
+    refetch
+  } = useGetStagesExecutionList({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier
+      // branch?: string
+      // repoIdentifier?: string
+      // getDefaultFromOtherRepo?: boolean},
+    },
+    lazy: true
+  })
 
   React.useEffect(() => {
     getInputSetsList()
+    getTemplateFromPipeline()
+    refetch()
   }, [])
+
+  React.useEffect(() => {
+    getTemplateFromPipeline()
+  }, [selectedStageData])
+
+  const executionStageList = useMemo((): SelectOption[] => {
+    let executionStages: SelectOption[] = []
+    executionStages =
+      stageExecutionData?.data?.map((execStage: StageExecutionResponse) => {
+        return {
+          label: defaultTo(execStage?.stageName, ''),
+          value: defaultTo(execStage?.stageIdentifier, '')
+        }
+      }) || []
+    executionStages.unshift({ label: 'All', value: '' })
+
+    return executionStages
+  }, [stageExecutionData?.data])
 
   const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
     queryParams: {
@@ -152,7 +193,11 @@ function RunPipelineFormBasic({
     }
   }, [inputSetYAML])
 
-  const { data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
+  const {
+    data: template,
+    loading: loadingTemplate,
+    refetch: getTemplateFromPipeline
+  } = useGetTemplateFromPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -160,7 +205,11 @@ function RunPipelineFormBasic({
       projectIdentifier,
       repoIdentifier,
       branch
-    }
+      // stageIdentifiers: selectedStageData.selectedStageId
+      //   ? [...selectedStageData.stagesRequired, selectedStageData.selectedStageId]
+      //   : []
+    },
+    lazy: true
   })
   const { data: pipelineResponse, loading: loadingPipeline } = useGetPipeline({
     pipelineIdentifier,
@@ -543,6 +592,35 @@ function RunPipelineFormBasic({
       )
     }
   }
+  const renderStageSelection = (item: SelectOption, props: any): React.ReactElement => {
+    const stageData = stageExecutionData?.data?.[props.index - 1]
+    return (
+      <div
+        onClick={() => {
+          props?.handleClick()
+          setSelectedStageData({
+            selectedStageId: (item.value as string) || '',
+            stagesRequired: stageData?.stagesRequired,
+            stageName: stageData?.stageName
+          })
+        }}
+        className={css.stageSelectionItem}
+        key={(item?.value as string) || ''}
+      >
+        <Radio checked={selectedStageData.selectedStageId === item.value} />
+        <div>
+          <Text className={css.stageName} inline lineClamp={1} width={90}>
+            {item.label}
+          </Text>
+          {stageData?.message && (
+            <Tooltip position="auto" content={stageData?.message}>
+              <Icon intent={Intent.WARNING} className={css.stageWarning} name="warning-sign" inline />
+            </Tooltip>
+          )}
+        </div>
+      </div>
+    )
+  }
 
   const child = (
     <>
@@ -614,6 +692,17 @@ function RunPipelineFormBasic({
                         />
                       </GitSyncStoreProvider>
                     )}
+                    <Select
+                      name={'repo'}
+                      data-id="stageSelect"
+                      value={{
+                        label: `${getString('pipeline.stageOrStages')}: ${selectedStageData.selectedStageId as string}`,
+                        value: ''
+                      }}
+                      items={executionStageList}
+                      className={css.stageDropdown}
+                      itemRenderer={renderStageSelection}
+                    ></Select>
                     <div className={css.optionBtns}>
                       <VisualYamlToggle
                         initialSelectedView={selectedView}
@@ -625,6 +714,18 @@ function RunPipelineFormBasic({
                       />
                     </div>
                   </div>
+                  {selectedStageData?.stagesRequired?.length ? (
+                    <div className={css.infoStrip}>
+                      <Icon intent={Intent.PRIMARY} inline name="info-sign" className={css.iconInfo} />
+                      <String
+                        stringID="pipeline.stagesRequired"
+                        vars={{
+                          stageName: selectedStageData.stageName,
+                          stagesRequired: selectedStageData.stagesRequired.join(', ')
+                        }}
+                      />
+                    </div>
+                  ) : null}
                   <ErrorsStrip formErrors={formErrors} />
                 </>
               )}
@@ -734,7 +835,9 @@ function RunPipelineFormBasic({
                       variation={ButtonVariation.PRIMARY}
                       intent="success"
                       type="submit"
-                      text={getString('runPipeline')}
+                      text={
+                        selectedStageData.selectedStageId ? getString('pipeline.runStages') : getString('runPipeline')
+                      }
                       onClick={event => {
                         event.stopPropagation()
                         setRunClicked(true)

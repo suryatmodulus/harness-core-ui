@@ -87,6 +87,20 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] 
                 <div
                   class="times"
                 />
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main moreInfo"
+                      tabindex="0"
+                    >
+                      common.moreInfo
+                    </p>
+                  </span>
+                </span>
               </div>
               <div />
             </div>
@@ -204,6 +218,20 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] 
                 <div
                   class="times"
                 />
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main moreInfo"
+                      tabindex="0"
+                    >
+                      common.moreInfo
+                    </p>
+                  </span>
+                </span>
               </div>
               <div />
             </div>
@@ -354,6 +382,20 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                 <div
                   class="times"
                 />
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main moreInfo"
+                      tabindex="0"
+                    >
+                      common.moreInfo
+                    </p>
+                  </span>
+                </span>
               </div>
               <div />
             </div>

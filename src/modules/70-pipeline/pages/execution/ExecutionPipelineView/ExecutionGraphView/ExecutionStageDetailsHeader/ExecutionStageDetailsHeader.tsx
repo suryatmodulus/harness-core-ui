@@ -46,6 +46,26 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
   )
   const stageNode = find(allNodeMap, node => node.setupId === selectedStageId)
 
+  const times = (
+    <div className={css.times}>
+      {stage?.startTs ? (
+        <>
+          <div className={css.timeDisplay}>
+            <StrTemplate stringID="startedAt" className={css.timeLabel} />
+            <span>:&nbsp;</span>
+            <time>{stage?.startTs ? new Date(stage?.startTs).toLocaleString() : '-'}</time>
+          </div>
+          <Duration
+            className={css.timeDisplay}
+            durationText={<StrTemplate stringID="common.durationPrefix" className={css.timeLabel} />}
+            startTime={stage?.startTs}
+            endTime={stage?.endTs}
+          />
+        </>
+      ) : null}
+    </div>
+  )
+
   return (
     <div className={css.main}>
       <div className={css.stageDetails}>
@@ -72,44 +92,12 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
               canExecute={canExecute}
             />
           </div>
-          <div className={css.times}>
-            {stage?.startTs ? (
-              <>
-                <div className={css.timeDisplay}>
-                  <StrTemplate stringID="startedAt" className={css.timeLabel} />
-                  <span>:&nbsp;</span>
-                  <time>{stage?.startTs ? new Date(stage?.startTs).toLocaleString() : '-'}</time>
-                </div>
-                <Duration
-                  className={css.timeDisplay}
-                  durationText={<StrTemplate stringID="common.durationPrefix" className={css.timeLabel} />}
-                  startTime={stage?.startTs}
-                  endTime={stage?.endTs}
-                />
-              </>
-            ) : null}
-          </div>
+          {times}
           <Text
             className={css.moreInfo}
             tooltip={
               <Container width={380} padding="large">
-                <div className={css.times}>
-                  {stage?.startTs ? (
-                    <>
-                      <div className={css.timeDisplay}>
-                        <StrTemplate stringID="startedAt" className={css.timeLabel} />
-                        <span>:&nbsp;</span>
-                        <time>{stage?.startTs ? new Date(stage?.startTs).toLocaleString() : '-'}</time>
-                      </div>
-                      <Duration
-                        className={css.timeDisplay}
-                        durationText={<StrTemplate stringID="common.durationPrefix" className={css.timeLabel} />}
-                        startTime={stage?.startTs}
-                        endTime={stage?.endTs}
-                      />
-                    </>
-                  ) : null}
-                </div>
+                {times}
                 <Container flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
                   <Icon name="conditional-when" size={20} margin={{ right: 'medium' }} />
                   <div>

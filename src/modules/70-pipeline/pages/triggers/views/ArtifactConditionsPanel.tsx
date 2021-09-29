@@ -24,9 +24,7 @@ const ArtifactConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = 
           {getString('titleOptional')}
         </Text>
         <Text color={Color.BLACK} style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-large)' }}>
-          {isManifest
-            ? getString('pipeline.triggers.conditionsPanel.subtitle')
-            : getString('pipeline.triggers.conditionsPanel.subtitle')}{' '}
+          {getString('pipeline.triggers.conditionsPanel.subtitle')}
         </Text>
       </Text>
       <Layout.Vertical className={css.formContent}>

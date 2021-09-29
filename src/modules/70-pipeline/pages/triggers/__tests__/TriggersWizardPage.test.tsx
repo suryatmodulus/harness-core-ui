@@ -363,7 +363,10 @@ describe('TriggersWizardPage Triggers tests', () => {
       } as UseMutateReturn<any, any, any, any, any>)
       const { container } = render(<WrapperComponent />)
       await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline.triggers.triggerConfigurationLabel'))
+        queryByText(
+          container,
+          result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
+        )
       )
 
       const enabledSwitch = container.querySelector('[data-name="enabled-switch"]')

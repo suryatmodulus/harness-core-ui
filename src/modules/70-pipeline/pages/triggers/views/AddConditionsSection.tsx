@@ -184,8 +184,11 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
         data-name="plusAdd"
         onClick={() => {
           const emptyRow = { key: '', operator: '', value: '' }
-          if (!addConditions) setFieldValue(fieldId, [emptyRow])
-          else setFieldValue(fieldId, [...addConditions, emptyRow])
+          if (!addConditions) {
+            setFieldValue(fieldId, [emptyRow])
+          } else {
+            setFieldValue(fieldId, [...addConditions, emptyRow])
+          }
         }}
       >
         {getString('plusAdd')}

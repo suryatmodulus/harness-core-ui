@@ -198,7 +198,6 @@ const Wizard: React.FC<WizardProps> = ({
           {wizardLabel}
         </Heading>
       )}
-      {/* {!isYamlView && <div className={css.headerLine}></div>} */}
       <Layout.Horizontal spacing="large" className={css.tabsContainer}>
         <Formik
           {...formikInitialProps}

@@ -1,12 +1,11 @@
-import React from 'react'
-import copy from 'copy-to-clipboard'
+import React, { useState } from 'react'
 import moment from 'moment'
 import { get } from 'lodash-es'
-import { Card, Container, Text, Icon, Avatar, Color, Accordion } from '@wings-software/uicore'
-import { useToaster } from '@common/exports'
+import { Card, Layout, Text, Icon, Accordion, Container, Utils } from '@wings-software/uicore'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
-import { getShortCommitId, getTimeAgo } from '@ci/services/CIUtils'
-import type { CIBuildCommit, CIWebhookInfoDTO, CIPipelineModuleInfo } from 'services/ci'
+import { getShortCommitId } from '@ci/services/CIUtils'
+import type { CIBuildCommit, CIPipelineModuleInfo } from 'services/ci'
+import { UserLabel, TimeAgoPopover } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import css from './BuildCommits.module.scss'
 
@@ -15,42 +14,23 @@ interface CommitsGroupedByTimestamp {
   commits: CIBuildCommit[]
 }
 
-// NOTE: colors here are closest
-// match to provided in mockup.
-// Can be switched once mockup one's
-// will made it to uikit
-const AVATAR_COLORS = [
-  Color.BLUE_700,
-  Color.SEA_GREEN_500,
-  Color.ORANGE_500,
-  Color.PURPLE_900,
-  Color.GREEN_800,
-  Color.RED_600
-]
-
-const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({ commits, showAvatar }): any => {
-  const context = useExecutionContext()
-
-  const { showSuccess, showError } = useToaster()
+const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({ commits }): any => {
+  const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
   const { getString } = useStrings()
 
-  const copy2Clipboard = (text: string): void => {
-    copy(String(text))
-      ? showSuccess(getString('ci.clipboardCopySuccess'))
-      : showError(getString('ci.clipboardCopyFail'), undefined, 'ci.copy.commit.error')
+  const handleCommitIdClick = (commitLink: string): void => {
+    Utils.copy(commitLink)
+    setIsCommitIdCopied(true)
   }
 
-  const ciData = get(
-    context,
-    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO'
-  ) as CIWebhookInfoDTO
-  const commitAuthor = ciData?.author
+  const handleCommitIdTooltipClosed = (): void => {
+    setIsCommitIdCopied(false)
+  }
 
-  return commits.map(({ id = '', message = '', timeStamp: commitTimestamp = 0, ownerId, ownerName }, index) => {
+  return commits.map(({ id = '', message = '', timeStamp = 0, ownerName, link }) => {
     const [title, description] = message.split('\n\n')
     // we should use only first part of a name
     // in order to show a single letter
-    const firstName = (ownerName || commitAuthor!.name)?.split(' ')[0]
     return (
       <Card className={css.commit} key={id}>
         <div>
@@ -63,30 +43,39 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
             </Text>
           )}
         </div>
-        <Container flex>
-          <Avatar
-            className={css.avatar}
-            name={firstName}
-            size={'xsmall'}
-            backgroundColor={AVATAR_COLORS[index % AVATAR_COLORS.length]}
-            src={showAvatar ? commitAuthor?.avatar : undefined}
-            hoverCard={false}
-          />
-          <Text className={css.committed} font="xsmall" margin={{ right: 'xlarge' }}>
-            {ownerId || commitAuthor!.id} {getString('ci.committed')} {getTimeAgo(commitTimestamp)}
-          </Text>
-          <button className={css.hash} onClick={() => copy2Clipboard(id)}>
+        <Layout.Horizontal flex={{ alignItems: 'center' }} spacing="medium">
+          <UserLabel className={css.user} name={ownerName || ''} iconProps={{ size: 16 }} />
+          <TimeAgoPopover time={timeStamp} inline={false} />
+          <button className={css.hash}>
             <Text
               className={css.hashText}
               font={{ size: 'xsmall', weight: 'semi-bold' }}
               padding={{ top: 'xsmall', right: 'small', bottom: 'xsmall', left: 'small' }}
               margin={{ right: 'small' }}
+              onClick={() => window.open(link, '_blank')}
             >
               {getShortCommitId(id)}
             </Text>
-            <Icon className={css.hashIcon} name="clipboard" size={14} margin={{ right: 'small' }} />
+            <Text
+              tooltip={
+                <Container padding="small">
+                  {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
+                </Container>
+              }
+              tooltipProps={{
+                onClosed: handleCommitIdTooltipClosed
+              }}
+            >
+              <Icon
+                className={css.hashIcon}
+                name="clipboard"
+                size={14}
+                margin={{ right: 'small' }}
+                onClick={() => link && handleCommitIdClick(link)}
+              />
+            </Text>
           </button>
-        </Container>
+        </Layout.Horizontal>
       </Card>
     )
   })
@@ -95,7 +84,7 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
 const CommitsGroupedByTimestamp: React.FC<{
   commitsGroupedByTimestamp: CommitsGroupedByTimestamp[]
   showCommitAuthorAvatar?: boolean
-}> = ({ commitsGroupedByTimestamp, showCommitAuthorAvatar }): any => {
+}> = ({ commitsGroupedByTimestamp }): any => {
   const { getString } = useStrings()
 
   return commitsGroupedByTimestamp.map(({ timeStamp, commits }) => (
@@ -106,7 +95,7 @@ const CommitsGroupedByTimestamp: React.FC<{
           {getString('ci.commitsOn')} {moment(timeStamp).format('MMM D, YYYY')}
         </Text>
       </div>
-      <Commits commits={commits} showAvatar={showCommitAuthorAvatar} />
+      <Commits commits={commits} />
     </div>
   ))
 }
@@ -170,10 +159,7 @@ const BuildCommits: React.FC = () => {
           </Accordion>
         </>
       ) : (
-        <CommitsGroupedByTimestamp
-          commitsGroupedByTimestamp={codebaseCommitsGroupedByTimestamp}
-          showCommitAuthorAvatar
-        />
+        <CommitsGroupedByTimestamp commitsGroupedByTimestamp={codebaseCommitsGroupedByTimestamp} />
       )}
     </div>
   )

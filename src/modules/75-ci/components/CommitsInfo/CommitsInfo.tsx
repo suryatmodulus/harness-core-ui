@@ -112,7 +112,7 @@ export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null 
                   </div>
                   <Container flex>
                     <UserLabel className={css.user} name={commit.ownerName || ''} iconProps={{ size: 16 }} />
-                    <TimeAgoPopover time={defaultTo((commit?.timeStamp || 0) * 1000, 0)} inline={false} />
+                    <TimeAgoPopover time={defaultTo(commit?.timeStamp, 0)} inline={false} />
                   </Container>
                   {commit?.id && commit?.link && <CommitId commitId={commit.id} commitLink={commit.link} />}
                 </div>

@@ -64,6 +64,16 @@
   padding-top: var(--spacing-small);
   padding-bottom: var(--spacing-small);
   margin-left: 34px;
+
+  :global(.bp3-popover-wrapper),
+  :global(.bp3-popover-target) {
+    display: block !important;
+  }
+
+  p {
+    --font-size: var(--font-size-small) !important;
+    --intent-color: var(--grey-900) !important;
+  }
 }
 
 .commitTitle {
@@ -77,13 +87,10 @@
   opacity: 0.68;
 }
 
-.avatar {
-  margin-right: var(--spacing-small);
-}
-
-.committed {
-  color: var(--black);
-  opacity: 0.68;
+.user {
+  display: flex;
+  font-size: var(--font-size-small);
+  color: var(--grey-500);
 }
 
 .hash {

@@ -61,12 +61,18 @@
     column-gap: var(--spacing-3);
     align-items: center;
 
+    :global(.bp3-popover-wrapper),
+    :global(.bp3-popover-target) {
+      display: block !important;
+    }
+
     p {
       --font-size: var(--font-size-small);
       --intent-color: var(--grey-900);
     }
 
     .user {
+      display: flex;
       font-size: var(--font-size-small);
       color: var(--grey-500);
     }

@@ -53,7 +53,9 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep }) => {
         }}
         formName="CreatePolicySet"
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('common.policiesSets.stepOne.validName')),
+          name: Yup.string()
+            .trim()
+            .required(getString('common.policiesSets.stepOne.validName')),
           identifier: Yup.string().when('name', {
             is: val => val?.length,
             then: Yup.string()
@@ -129,12 +131,12 @@ const StepTwo: React.FC<{ hideModal: () => void; refetch: () => void; prevStepDa
 
   const { mutate: patchPolicy } = useMutate({
     verb: 'PATCH',
-    path: `policy-mgmt/pm/v1/policysets/${prevStepData?.id}/policy/${policyId}`
+    path: `policy-mgmt/pm/api/v1/policysets/${prevStepData?.id}/policy/${policyId}`
   })
 
   const { mutate: deleteLinkedPolicy } = useMutate({
     verb: 'DELETE',
-    path: `policy-mgmt/pm/v1/policysets/${prevStepData?.id}/policy/${deLinkpolicyId}`
+    path: `policy-mgmt/pm/api/v1/policysets/${prevStepData?.id}/policy/${deLinkpolicyId}`
   })
 
   const handlePatchRequest = async (severitySelected: string) => {

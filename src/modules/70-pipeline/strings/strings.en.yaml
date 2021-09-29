@@ -813,3 +813,4 @@ executionStrategy:
 newPipelineText: New Pipeline
 gitPullRequest: Git Pull Request
 gitPullRequestNumber: Git Pull Request Number
+expressionsEvaluation: Expressions Evaluation

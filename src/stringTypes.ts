@@ -1923,6 +1923,7 @@ export interface StringsMap {
   'pipeline.executionStrategy.strategies.rolling.steps.step3.description': string
   'pipeline.executionStrategy.useStrategy': string
   'pipeline.executionTarget': string
+  'pipeline.expressionsEvaluation': string
   'pipeline.failureStrategies.addedAllStrategies': string
   'pipeline.failureStrategies.errorTypeLabels.AllErrors': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string

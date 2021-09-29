@@ -1,6 +1,7 @@
 import React from 'react'
 import { defaultTo, find } from 'lodash-es'
 
+import { Container, Text, Icon } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import { String as StrTemplate } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
@@ -10,6 +11,7 @@ import type { StageType } from '@pipeline/utils/stageHelpers'
 import { Duration } from '@common/components/Duration/Duration'
 import { ExecutionStatus, isExecutionFailed } from '@pipeline/utils/statusHelpers'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
+import { useStrings } from 'framework/strings'
 
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -19,6 +21,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './ExecutionStageDetailsHeader.module.scss'
 
 export function ExecutionStageDetailsHeader(): React.ReactElement {
+  const { getString } = useStrings()
   const { selectedStageId, pipelineStagesMap, refetch, pipelineExecutionDetail, allNodeMap } = useExecutionContext()
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } =
     useParams<PipelineType<ExecutionPathProps>>()
@@ -87,7 +90,51 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
               </>
             ) : null}
           </div>
-          {/* <StrTemplate className={css.moreInfo} stringID="common.moreInfo" /> */}
+          <Text
+            className={css.moreInfo}
+            tooltip={
+              <Container width={380} padding="large">
+                <div className={css.times}>
+                  {stage?.startTs ? (
+                    <>
+                      <div className={css.timeDisplay}>
+                        <StrTemplate stringID="startedAt" className={css.timeLabel} />
+                        <span>:&nbsp;</span>
+                        <time>{stage?.startTs ? new Date(stage?.startTs).toLocaleString() : '-'}</time>
+                      </div>
+                      <Duration
+                        className={css.timeDisplay}
+                        durationText={<StrTemplate stringID="common.durationPrefix" className={css.timeLabel} />}
+                        startTime={stage?.startTs}
+                        endTime={stage?.endTs}
+                      />
+                    </>
+                  ) : null}
+                </div>
+                <Container flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                  <Icon name="conditional-when" size={20} margin={{ right: 'medium' }} />
+                  <div>
+                    <Text font={{ size: 'small', weight: 'semi-bold' }} color="black" margin={{ bottom: 'xsmall' }}>
+                      {getString('whenCondition')}
+                    </Text>
+                    <Text font={{ size: 'small' }} color="grey900" margin={{ bottom: 'medium' }}>
+                      {`<+environment.name> != ”QA” 
+<+environment.name> = “Dev”`}
+                    </Text>
+                    <Text font={{ size: 'small', weight: 'semi-bold' }} color="black" margin={{ bottom: 'xsmall' }}>
+                      {getString('pipeline.expressionsEvaluation')}
+                    </Text>
+                    <Text font={{ size: 'small' }} color="grey900">
+                      {`<+environment.name> != ”QA” 
+<+environment.name> = “blah”`}
+                    </Text>
+                  </div>
+                </Container>
+              </Container>
+            }
+          >
+            {getString('common.moreInfo')}
+          </Text>
         </div>
         <div>
           {stage && stageDetail?.component

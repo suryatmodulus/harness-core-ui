@@ -6,5 +6,6 @@ declare const styles: {
   readonly firstRow: string
   readonly status: string
   readonly details: string
+  readonly policySetName: string
 }
 export default styles

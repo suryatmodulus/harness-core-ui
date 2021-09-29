@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { Dialog } from '@blueprintjs/core'
 import { get } from 'lodash-es'
-import { Button, ButtonVariation, Color, Container, FontVariation, Layout, Text } from '@wings-software/uicore'
+import ReactTimeago from 'react-timeago'
+import { Button, ButtonVariation, Color, Container, FontVariation, Heading, Layout, Text } from '@wings-software/uicore'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
@@ -14,6 +16,20 @@ export interface PolicySetEvaluationsProps {
   metadata: GovernanceMetadata
 }
 
+interface PolicyEvaluationResponse {
+  policyId: string
+  policyName: string
+  severity: string
+  denyMessages: string[]
+}
+
+interface PolicySetEvaluationResponse {
+  deny: boolean
+  policySetId: string
+  policySetName: string
+  policyMetadata: PolicyEvaluationResponse[]
+}
+
 const policyPassed = (severity: string): boolean => severity !== 'error'
 
 export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ metadata, accountId: _accountId }) => {
@@ -21,13 +37,15 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
   const { getString } = useStrings()
   const [expandedSets, setExpandedSets] = useState<Set<string>>(new Set())
 
-  const details = get(metadata, 'details') as Array<{
-    deny: boolean
-    policySetId: string
-    policyMetadata: Array<{ policyId: string; policyName: string; severity: string; denyMessages: string[] }>
-  }>
+  const details = get(metadata, 'details') as PolicySetEvaluationResponse[]
+  const timestamp = Number(get(metadata, 'timestamp') || 0)
 
-  // console.log({ metadata, accountId, details })
+  useEffect(() => {
+    // Always expand if there's only one item
+    if (details?.length === 1) {
+      setExpandedSets(new Set([details[0].policySetId]))
+    }
+  }, [details])
 
   return (
     <Container padding="xlarge">
@@ -43,9 +61,13 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
       </Text>
 
       {/* Evaluation time */}
-      <Text margin={{ top: 'large' }} font={{ variation: FontVariation.UPPERCASED }}>
-        {getString('pipeline.policyEvaluations.evaluatedTime', { time: '1 minute ago' })}
-      </Text>
+      {(timestamp && (
+        <Text margin={{ top: 'large' }} font={{ variation: FontVariation.UPPERCASED }}>
+          {getString('pipeline.policyEvaluations.evaluatedTime')}
+          <ReactTimeago date={timestamp} live />
+        </Text>
+      )) ||
+        null}
 
       {/* Detail header */}
       <Layout.Horizontal margin={{ top: 'large', bottom: 'medium' }}>
@@ -61,11 +83,7 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
       </Layout.Horizontal>
 
       {/* Data content */}
-      {details.map(({ deny, policyMetadata, policySetId }) => {
-        // TODO: API MUST RETURN policy set name and description
-        const name = 'Policy Set: CD Guardrails'
-        const desc = 'Basic description of the set'
-
+      {details.map(({ deny, policyMetadata, policySetId, policySetName }) => {
         return (
           <Layout.Horizontal
             key={policySetId}
@@ -89,13 +107,15 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
 
             <Container style={{ flexGrow: 1 }}>
               <Layout.Horizontal spacing="xsmall" className={expandedSets.has(policySetId) ? css.firstRow : ''}>
-                <Container style={{ flexGrow: 1 }}>
-                  <Text font={{ variation: FontVariation.BODY2 }}>{name}</Text>
-                  <Text font={{ variation: FontVariation.TINY }}>{desc}</Text>
-                </Container>
+                <Text font={{ variation: FontVariation.BODY2 }} className={css.policySetName}>
+                  {getString('pipeline.policyEvaluations.policySetName', { name: policySetName || policySetId })}
+                </Text>
 
                 <Text font={{ variation: FontVariation.TABLE_HEADERS }} className={css.status}>
-                  <ExecutionStatusLabel status={deny ? 'Failed' : 'Success'} />
+                  <ExecutionStatusLabel
+                    status={deny ? 'Failed' : 'Success'}
+                    label={deny ? undefined : getString('pipeline.policyEvaluations.passed').toUpperCase()}
+                  />
                 </Text>
 
                 <Text font={{ variation: FontVariation.TABLE_HEADERS }} className={css.details}>
@@ -103,38 +123,49 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                 </Text>
               </Layout.Horizontal>
 
-              {expandedSets.has(policySetId) &&
-                policyMetadata?.map(({ policyId, policyName, severity, denyMessages }) => {
-                  return (
-                    <Layout.Horizontal spacing="xsmall" padding={{ top: 'medium' }} key={policyId}>
-                      <Container style={{ flexGrow: 1 }}>
-                        <Text font={{ variation: FontVariation.BODY }} color={Color.PRIMARY_7}>
-                          {policyName}
+              {expandedSets.has(policySetId) && (
+                <>
+                  {!policyMetadata?.length && (
+                    <Text font={{ variation: FontVariation.BODY }} color={Color.GREY_500} padding={{ top: 'medium' }}>
+                      {getString('pipeline.policyEvaluations.emptyPolicySet')}
+                    </Text>
+                  )}
+                  {policyMetadata?.map(({ policyId, policyName, severity, denyMessages }) => {
+                    return (
+                      <Layout.Horizontal spacing="xsmall" padding={{ top: 'medium' }} key={policyId}>
+                        <Container style={{ flexGrow: 1 }}>
+                          <Text font={{ variation: FontVariation.BODY }} color={Color.PRIMARY_7}>
+                            {policyName}
+                          </Text>
+                          {!policyPassed(severity) && !!denyMessages?.length && (
+                            <Layout.Horizontal
+                              spacing="xsmall"
+                              padding={{ left: 'xxxlarge', top: 'xsmall' }}
+                              style={{ alignItems: 'center' }}
+                            >
+                              <Text font={{ variation: FontVariation.UPPERCASED }}>{getString('details')}</Text>
+                              {denyMessages.map(message => (
+                                <Text key={message} font={{ variation: FontVariation.BODY }} color={Color.RED_500}>
+                                  {message}
+                                </Text>
+                              ))}
+                            </Layout.Horizontal>
+                          )}
+                        </Container>
+
+                        <Text className={css.status}>
+                          <ExecutionStatusLabel
+                            status={policyPassed(severity) ? 'Success' : 'Failed'}
+                            label={deny ? undefined : getString('pipeline.policyEvaluations.passed').toUpperCase()}
+                          />
                         </Text>
-                        {!policyPassed(severity) && !!denyMessages?.length && (
-                          <Layout.Horizontal
-                            spacing="xsmall"
-                            padding={{ left: 'xxxlarge', top: 'xsmall' }}
-                            style={{ alignItems: 'center' }}
-                          >
-                            <Text font={{ variation: FontVariation.UPPERCASED }}>{getString('details')}</Text>
-                            {denyMessages.map(message => (
-                              <Text key={message} font={{ variation: FontVariation.BODY }} color={Color.RED_500}>
-                                {message}
-                              </Text>
-                            ))}
-                          </Layout.Horizontal>
-                        )}
-                      </Container>
 
-                      <Text className={css.status}>
-                        <ExecutionStatusLabel status={policyPassed(severity) ? 'Success' : 'Failed'} />
-                      </Text>
-
-                      <Text className={css.details}></Text>
-                    </Layout.Horizontal>
-                  )
-                })}
+                        <Text className={css.details}></Text>
+                      </Layout.Horizontal>
+                    )
+                  })}
+                </>
+              )}
             </Container>
           </Layout.Horizontal>
         )
@@ -161,5 +192,33 @@ export default function ExecutionPolicyEvaluationsView(): React.ReactElement | n
     <div className={css.main}>
       {!!governanceMetadata && <PolicySetEvaluations metadata={governanceMetadata} accountId={accountId} />}
     </div>
+  )
+}
+
+export const PolicyEvaluationsFailureModal: React.FC<Partial<PolicySetEvaluationsProps>> = ({
+  metadata,
+  accountId
+}) => {
+  const [opened, setOpened] = useState(true)
+  if (!accountId || !metadata) {
+    return null
+  }
+
+  return (
+    <Dialog
+      isOpen={opened}
+      onClose={() => setOpened(false)}
+      title={
+        <Heading level={3} font={{ variation: FontVariation.H3 }} padding={{ top: 'medium' }}>
+          Policy Set Evaluations
+        </Heading>
+      }
+      enforceFocus={false}
+      style={{ width: 900, height: 600 }}
+    >
+      <Container style={{ overflow: 'auto' }}>
+        <PolicySetEvaluations metadata={metadata} accountId={accountId} />
+      </Container>
+    </Dialog>
   )
 }

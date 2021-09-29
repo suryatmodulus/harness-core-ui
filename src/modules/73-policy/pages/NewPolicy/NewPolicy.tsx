@@ -12,8 +12,10 @@ import {
   ButtonSize,
   FlexExpander
 } from '@wings-software/uicore'
+import { omit } from 'lodash-es'
 import { TextArea } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router'
+import { showToaster, getErrorMessage } from '@policy/utils/PmUtils'
 import routes from '@common/RouteDefinitions'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
@@ -35,7 +37,7 @@ const NewPolicy: React.FC = () => {
   const [name, setName] = useState('My Policy 1')
   const [regoScript, setRegoScript] = useState('')
   const [input, setInput] = useState('')
-  const [output] = useState('')
+  const [output, setOutput] = useState('')
   const [editName, setEditName] = useState(false)
   const isInputValid = useMemo(() => {
     if (!(input || '').trim() || !(regoScript || '').trim()) {
@@ -62,15 +64,21 @@ const NewPolicy: React.FC = () => {
       })
       .catch(error => {
         setCreatePolicyLoading(false)
-        // TODO: Show error
-        console.log({ error })
+        showToaster(getErrorMessage(error))
       })
   }, [name, regoScript, createPolicy, setCreatePolicyLoading, accountId, history])
   const onTest = useCallback(() => {
-    evaluateRawPolicy('{}', { queryParams: { rego: 'public = true' } })
-      .then(_response => console.log(_response))
-      .catch(error => console.error(error))
-  }, [evaluateRawPolicy])
+    evaluateRawPolicy({ rego: regoScript, input: JSON.parse(input) })
+      .then(response => {
+        try {
+          const _response = typeof response === 'string' ? JSON.parse(response) : response
+          setOutput(JSON.stringify(omit(_response, ['policy']), null, 2))
+        } catch {
+          // eslint-disable-line no-empty
+        }
+      })
+      .catch(error => showToaster(getErrorMessage(error)))
+  }, [evaluateRawPolicy, regoScript, input])
   const ref = useRef<HTMLDivElement>(null)
   const [contentHeight, setContentHeight] = useState(0)
   const [contentWidth, setContentWidth] = useState(0)

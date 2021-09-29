@@ -4,9 +4,11 @@ import React from "react";
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from "restful-react";
 
 import { getConfig } from "../config";
-export const SPEC_VERSION = "1.0.0"; 
+export const SPEC_VERSION = "1.0.0";
 export interface EvaluatedPolicy {
+  deny?: boolean;
   deny_messages?: string[];
+  error?: string;
   output?: {[key: string]: any};
   policy?: LinkedPolicy;
 }
@@ -23,7 +25,9 @@ export interface Evaluation {
 export interface EvaluationDetail {
   deny?: boolean;
   policy_details?: EvaluatedPolicy[];
+  policyset_created?: number;
   policyset_id?: number;
+  policyset_name?: string;
 }
 
 export interface EvaluationSummary {
@@ -104,6 +108,11 @@ export interface PolicySetWithLinkedPolicies {
   updated?: number;
 }
 
+export interface RawEvaluationInput {
+  input?: {[key: string]: any};
+  rego?: string;
+}
+
 export interface Token {
   access_token?: string;
   uri?: string;
@@ -134,7 +143,7 @@ export type PolicySetInputRequestBody = PolicySetInput;
 
 export type UserInputRequestBody = UserInput;
 
-export type EvaluateRawInputRequestBody = string;
+export type EvaluateByIdsInputRequestBody = string;
 
 export type LoginRequestBody = void;
 
@@ -162,34 +171,31 @@ export type UserResponse = User;
 
 export type UserListResponse = User[];
 
-export interface EvaluateRawQueryParams {
-  /**
-   * The rego to be evaluated
-   */
-  rego?: string;
-}
-
-export type EvaluateRawProps = Omit<MutateProps<PolicyResponse, unknown, EvaluateRawQueryParams, EvaluateRawInputRequestBody, void>, "path" | "verb">;
+export type EvaluateRawProps = Omit<MutateProps<PolicyResponse, unknown, void, RawEvaluationInput, void>, "path" | "verb">;
 
 /**
  * Evaluate arbitrary rego policies
+ *
+ * Input must be a JSON structure. It must not be a string containing "double-encoded" JSON.
  */
 export const EvaluateRaw = (props: EvaluateRawProps) => (
-  <Mutate<PolicyResponse, unknown, EvaluateRawQueryParams, EvaluateRawInputRequestBody, void>
+  <Mutate<PolicyResponse, unknown, void, RawEvaluationInput, void>
     verb="POST"
     path={`/evaluate`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
 
-export type UseEvaluateRawProps = Omit<UseMutateProps<PolicyResponse, unknown, EvaluateRawQueryParams, EvaluateRawInputRequestBody, void>, "path" | "verb">;
+export type UseEvaluateRawProps = Omit<UseMutateProps<PolicyResponse, unknown, void, RawEvaluationInput, void>, "path" | "verb">;
 
 /**
  * Evaluate arbitrary rego policies
+ *
+ * Input must be a JSON structure. It must not be a string containing "double-encoded" JSON.
  */
-export const useEvaluateRaw = (props: UseEvaluateRawProps) => useMutate<PolicyResponse, unknown, EvaluateRawQueryParams, EvaluateRawInputRequestBody, void>("POST", `/evaluate`, { base:getConfig("pm/api/v1"),  ...props });
+export const useEvaluateRaw = (props: UseEvaluateRawProps) => useMutate<PolicyResponse, unknown, void, RawEvaluationInput, void>("POST", `/evaluate`, { base:getConfig("pm/api/v1"),  ...props });
 
 
 export interface EvaluateByIdsQueryParams {
@@ -199,27 +205,27 @@ export interface EvaluateByIdsQueryParams {
   ids?: string;
 }
 
-export type EvaluateByIdsProps = Omit<MutateProps<PolicyResponse, unknown, EvaluateByIdsQueryParams, EvaluateRawInputRequestBody, void>, "path" | "verb">;
+export type EvaluateByIdsProps = Omit<MutateProps<PolicyResponse, unknown, EvaluateByIdsQueryParams, EvaluateByIdsInputRequestBody, void>, "path" | "verb">;
 
 /**
  * Evaluate policy sets by policy set ids
  */
 export const EvaluateByIds = (props: EvaluateByIdsProps) => (
-  <Mutate<PolicyResponse, unknown, EvaluateByIdsQueryParams, EvaluateRawInputRequestBody, void>
+  <Mutate<PolicyResponse, unknown, EvaluateByIdsQueryParams, EvaluateByIdsInputRequestBody, void>
     verb="POST"
     path={`/evaluate-by-ids`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
 
-export type UseEvaluateByIdsProps = Omit<UseMutateProps<PolicyResponse, unknown, EvaluateByIdsQueryParams, EvaluateRawInputRequestBody, void>, "path" | "verb">;
+export type UseEvaluateByIdsProps = Omit<UseMutateProps<PolicyResponse, unknown, EvaluateByIdsQueryParams, EvaluateByIdsInputRequestBody, void>, "path" | "verb">;
 
 /**
  * Evaluate policy sets by policy set ids
  */
-export const useEvaluateByIds = (props: UseEvaluateByIdsProps) => useMutate<PolicyResponse, unknown, EvaluateByIdsQueryParams, EvaluateRawInputRequestBody, void>("POST", `/evaluate-by-ids`, { base:getConfig("pm/api/v1"),  ...props });
+export const useEvaluateByIds = (props: UseEvaluateByIdsProps) => useMutate<PolicyResponse, unknown, EvaluateByIdsQueryParams, EvaluateByIdsInputRequestBody, void>("POST", `/evaluate-by-ids`, { base:getConfig("pm/api/v1"),  ...props });
 
 
 export interface EvaluateByTypeQueryParams {
@@ -245,27 +251,27 @@ export interface EvaluateByTypeQueryParams {
   action?: string;
 }
 
-export type EvaluateByTypeProps = Omit<MutateProps<PolicyResponse, unknown, EvaluateByTypeQueryParams, EvaluateRawInputRequestBody, void>, "path" | "verb">;
+export type EvaluateByTypeProps = Omit<MutateProps<PolicyResponse, unknown, EvaluateByTypeQueryParams, EvaluateByIdsInputRequestBody, void>, "path" | "verb">;
 
 /**
  * Evaluate policy sets by policy set type
  */
 export const EvaluateByType = (props: EvaluateByTypeProps) => (
-  <Mutate<PolicyResponse, unknown, EvaluateByTypeQueryParams, EvaluateRawInputRequestBody, void>
+  <Mutate<PolicyResponse, unknown, EvaluateByTypeQueryParams, EvaluateByIdsInputRequestBody, void>
     verb="POST"
     path={`/evaluate-by-type`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
 
-export type UseEvaluateByTypeProps = Omit<UseMutateProps<PolicyResponse, unknown, EvaluateByTypeQueryParams, EvaluateRawInputRequestBody, void>, "path" | "verb">;
+export type UseEvaluateByTypeProps = Omit<UseMutateProps<PolicyResponse, unknown, EvaluateByTypeQueryParams, EvaluateByIdsInputRequestBody, void>, "path" | "verb">;
 
 /**
  * Evaluate policy sets by policy set type
  */
-export const useEvaluateByType = (props: UseEvaluateByTypeProps) => useMutate<PolicyResponse, unknown, EvaluateByTypeQueryParams, EvaluateRawInputRequestBody, void>("POST", `/evaluate-by-type`, { base:getConfig("pm/api/v1"),  ...props });
+export const useEvaluateByType = (props: UseEvaluateByTypeProps) => useMutate<PolicyResponse, unknown, EvaluateByTypeQueryParams, EvaluateByIdsInputRequestBody, void>("POST", `/evaluate-by-type`, { base:getConfig("pm/api/v1"),  ...props });
 
 
 export type GetEvaluationListProps = Omit<GetProps<EvaluationListResponse, unknown, void, void>, "path">;
@@ -277,7 +283,7 @@ export const GetEvaluationList = (props: GetEvaluationListProps) => (
   <Get<EvaluationListResponse, unknown, void, void>
     path={`/evaluations`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -300,7 +306,7 @@ export const DeleteEvaluation = (props: DeleteEvaluationProps) => (
     verb="DELETE"
     path={`/evaluations`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -326,7 +332,7 @@ export const GetEvaluation = ({evaluation, ...props}: GetEvaluationProps) => (
   <Get<EvaluationResponse, unknown, void, GetEvaluationPathParams>
     path={`/evaluations/${evaluation}`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -349,7 +355,7 @@ export const Login = (props: LoginProps) => (
     verb="POST"
     path={`/login`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -371,7 +377,7 @@ export const GetPolicyList = (props: GetPolicyListProps) => (
   <Get<PolicyListResponse, unknown, void, void>
     path={`/policies`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -394,7 +400,7 @@ export const CreatePolicy = (props: CreatePolicyProps) => (
     verb="POST"
     path={`/policies`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -417,7 +423,7 @@ export const DeletePolicy = (props: DeletePolicyProps) => (
     verb="DELETE"
     path={`/policies`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -443,7 +449,7 @@ export const GetPolicy = ({policy, ...props}: GetPolicyProps) => (
   <Get<PolicyResponse, unknown, void, GetPolicyPathParams>
     path={`/policies/${policy}`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -470,7 +476,7 @@ export const UpdatePolicy = ({policy, ...props}: UpdatePolicyProps) => (
     verb="PATCH"
     path={`/policies/${policy}`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -499,7 +505,7 @@ export const GetPolicySetList = (props: GetPolicySetListProps) => (
   <Get<PolicysetListResponse, unknown, GetPolicySetListQueryParams, void>
     path={`/policysets`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -522,7 +528,7 @@ export const CreatePolicySet = (props: CreatePolicySetProps) => (
     verb="POST"
     path={`/policysets`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -545,7 +551,7 @@ export const DeletePolicySet = (props: DeletePolicySetProps) => (
     verb="DELETE"
     path={`/policysets`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -571,7 +577,7 @@ export const GetPolicySet = ({policyset, ...props}: GetPolicySetProps) => (
   <Get<PolicysetResponse, unknown, void, GetPolicySetPathParams>
     path={`/policysets/${policyset}`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -598,7 +604,7 @@ export const UpdatePolicySet = ({policyset, ...props}: UpdatePolicySetProps) => 
     verb="PATCH"
     path={`/policysets/${policyset}`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -621,7 +627,7 @@ export const Register = (props: RegisterProps) => (
     verb="POST"
     path={`/register`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -643,7 +649,7 @@ export const Health = (props: HealthProps) => (
   <Get<void, unknown, void, void>
     path={`/system/health`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -665,7 +671,7 @@ export const GetCurrentUser = (props: GetCurrentUserProps) => (
   <Get<UserResponse, unknown, void, void>
     path={`/user`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -687,7 +693,7 @@ export const GetUserList = (props: GetUserListProps) => (
   <Get<UserListResponse, unknown, void, void>
     path={`/users`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -710,7 +716,7 @@ export const CreateUser = (props: CreateUserProps) => (
     verb="POST"
     path={`/users`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -733,7 +739,7 @@ export const DeleteUser = (props: DeleteUserProps) => (
     verb="DELETE"
     path={`/users`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -759,7 +765,7 @@ export const GetUser = ({user, ...props}: GetUserProps) => (
   <Get<UserResponse, unknown, void, GetUserPathParams>
     path={`/users/${user}`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );
@@ -786,7 +792,7 @@ export const UpdateUser = ({user, ...props}: UpdateUserProps) => (
     verb="PATCH"
     path={`/users/${user}`}
     base={getConfig("pm/api/v1")}
-    
+
     {...props}
   />
 );

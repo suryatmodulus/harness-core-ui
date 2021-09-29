@@ -483,19 +483,25 @@ function RunPipelineFormBasic({
               !isEmpty(valuesPipelineRef.current) ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any) : ''
             )
         const data = response.data
+        const governanceMetadata = data?.planExecution?.governanceMetadata
+
         if (response.status === 'SUCCESS') {
           if (response.data) {
             showSuccess(getString('runPipelineForm.pipelineRunSuccessFully'))
-            history.push(
-              routes.toExecutionPipelineView({
+            history.push({
+              pathname: routes.toExecutionPipelineView({
                 orgIdentifier,
                 pipelineIdentifier,
                 projectIdentifier,
                 executionIdentifier: data?.planExecution?.uuid || '',
                 accountId,
                 module
-              })
-            )
+              }),
+              state: {
+                governanceFailed: !!governanceMetadata?.deny,
+                governanceMetadata
+              }
+            })
             trackEvent(PipelineActions.StartedExecution, { module })
           }
         }

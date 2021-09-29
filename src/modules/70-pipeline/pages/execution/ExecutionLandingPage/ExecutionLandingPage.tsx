@@ -1,9 +1,8 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { get, isEmpty, pickBy } from 'lodash-es'
 
-import { PageSpinner, PageError } from '@wings-software/uicore'
-import { useGetExecutionDetail } from 'services/pipeline-ng'
+import { GovernanceMetadata, useGetExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { ExecutionStatus, isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import {
@@ -18,6 +17,7 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
 import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
+import { PolicyEvaluationsFailureModal } from '@pipeline/pages/execution/ExecutionPolicyEvaluationsView/ExecutionPolicyEvaluationsView'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import useTabVisible from '@common/hooks/useTabVisible'
@@ -45,6 +45,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
   const [selectedStageId, setSelectedStageId] = React.useState('')
   const [selectedStepId, setSelectedStepId] = React.useState('')
   const queryParams = useQueryParams<ExecutionPageQueryParams>()
+  const location = useLocation<{ governanceFailed: boolean; governanceMetadata: GovernanceMetadata }>()
 
   const [stepsGraphCanvasState, setStepsGraphCanvasState] = React.useState<GraphCanvasState>({
     offsetX: 5,
@@ -199,6 +200,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
             >
               {props.children}
             </div>
+            {!!location?.state?.governanceFailed && (
+              <PolicyEvaluationsFailureModal accountId={accountId} metadata={location?.state?.governanceMetadata} />
+            )}
           </div>
         </main>
       )}

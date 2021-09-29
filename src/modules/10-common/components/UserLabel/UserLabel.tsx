@@ -20,43 +20,45 @@ export function UserLabel(props: UserLabelProps): React.ReactElement {
   const { name, email, profilePictureUrl, className, iconProps } = props
 
   return (
-    <Popover
-      interactionKind={PopoverInteractionKind.HOVER}
-      popoverClassName={Classes.DARK}
-      position={Position.BOTTOM_LEFT}
-      content={
-        <Layout.Horizontal
-          padding="medium"
-          height="inherit"
-          flex={{ align: 'center-center' }}
-          onClick={handleClickOnPopoverContent}
-        >
-          {profilePictureUrl ? (
-            <Avatar className={css.profilePicture} size={'small'} src={profilePictureUrl} hoverCard={false} />
-          ) : (
-            <Icon name="user" size={36} />
-          )}
-          <Layout.Vertical className={css.rightSection}>
-            <Text font={{ weight: 'bold' }} color={Color.WHITE}>
-              {name}
-            </Text>
-            {email ? (
-              <Text font={{ size: 'small' }} color={Color.PRIMARY_5}>
-                {email}
+    <div className={css.wrapper}>
+      <Popover
+        interactionKind={PopoverInteractionKind.HOVER}
+        popoverClassName={Classes.DARK}
+        position={Position.BOTTOM_LEFT}
+        content={
+          <Layout.Horizontal
+            padding="medium"
+            height="inherit"
+            flex={{ align: 'center-center' }}
+            onClick={handleClickOnPopoverContent}
+          >
+            {profilePictureUrl ? (
+              <Avatar className={css.profilePicture} size={'small'} src={profilePictureUrl} hoverCard={false} />
+            ) : (
+              <Icon name="user" size={36} />
+            )}
+            <Layout.Vertical className={css.rightSection}>
+              <Text font={{ weight: 'bold' }} color={Color.WHITE}>
+                {name}
               </Text>
-            ) : null}
-          </Layout.Vertical>
-        </Layout.Horizontal>
-      }
-    >
-      <div className={cx(css.userLabel, className)}>
-        {profilePictureUrl ? (
-          <Avatar className={css.profilePicture} size={'xsmall'} src={profilePictureUrl} hoverCard={false} />
-        ) : (
-          <Icon name="user" size={18} {...iconProps} />
-        )}
-        <span>{name}</span>
-      </div>
-    </Popover>
+              {email ? (
+                <Text font={{ size: 'small' }} color={Color.PRIMARY_5}>
+                  {email}
+                </Text>
+              ) : null}
+            </Layout.Vertical>
+          </Layout.Horizontal>
+        }
+      >
+        <div className={cx(css.userLabel, className)}>
+          {profilePictureUrl ? (
+            <Avatar className={css.profilePicture} size={'xsmall'} src={profilePictureUrl} hoverCard={false} />
+          ) : (
+            <Icon name="user" size={18} {...iconProps} />
+          )}
+          <span>{name}</span>
+        </div>
+      </Popover>
+    </div>
   )
 }

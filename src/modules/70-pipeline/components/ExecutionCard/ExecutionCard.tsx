@@ -197,11 +197,20 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
         <div className={css.footer}>
           <div className={css.triggerInfo}>
             <UserLabel
+              className={css.user}
               name={
                 get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.name') ||
                 get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.id') ||
                 get(pipelineExecution, 'executionTriggerInfo.triggeredBy.identifier') ||
                 'Anonymous'
+              }
+              email={
+                get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.email') ||
+                get(pipelineExecution, 'executionTriggerInfo.triggeredBy.extraInfo.email')
+              }
+              profilePictureUrl={
+                get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.avatar') ||
+                get(pipelineExecution, 'executionTriggerInfo.triggeredBy.avatar')
               }
             />
             <String

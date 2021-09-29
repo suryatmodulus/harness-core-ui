@@ -1,3 +1,10 @@
+.wrapper {
+  :global(.bp3-popover-wrapper),
+  :global(.bp3-popover-target) {
+    display: block !important;
+  }
+}
+
 .userLabel {
   display: inline-flex;
   align-items: center;

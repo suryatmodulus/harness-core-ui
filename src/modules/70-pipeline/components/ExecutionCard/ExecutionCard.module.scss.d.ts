@@ -27,5 +27,6 @@ declare const styles: {
   readonly timeAgo: string
   readonly ignoreFailedTooltip: string
   readonly ignoreFailedPopover: string
+  readonly user: string
 }
 export default styles

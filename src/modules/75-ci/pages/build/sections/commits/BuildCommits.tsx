@@ -30,9 +30,9 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
   }
 
   // NOTE: Not commit author!!!
-  const authorAvatar = get(
+  const author = get(
     context,
-    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.author.avatar'
+    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.author'
   )
 
   return commits.map(({ id = '', message = '', timeStamp = 0, ownerName, link }) => {
@@ -55,7 +55,8 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
           <UserLabel
             className={css.user}
             name={ownerName || ''}
-            profilePictureUrl={authorAvatar}
+            email={author.email}
+            profilePictureUrl={author.avatar}
             iconProps={{ size: 16 }}
           />
           <TimeAgoPopover time={timeStamp} inline={false} />

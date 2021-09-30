@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.33% </span>
+                <span class="strong">77.46% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>94/120</span>
+                <span class='fraction'>110/142</span>
             </div>
         
             
@@ -251,7 +251,11 @@
 <a name='L192'></a><a href='#L192'>192</a>
 <a name='L193'></a><a href='#L193'>193</a>
 <a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -287,9 +291,7 @@
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
@@ -355,7 +357,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -443,7 +452,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useContext, useMemo } from 'react'
 import {
@@ -481,9 +489,7 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
   const { onSubmit } = props
   const { getString } = useStrings()
   const { onNext, sourceData } = useContext(SetupSourceTabsContext)
-&nbsp;
   const { orgIdentifier, projectIdentifier, accountId } = useParams&lt;ProjectPathProps &amp; { identifier: string }&gt;()
-&nbsp;
   const { isEdit } = sourceData
 &nbsp;
   const initialValues = useMemo(() =&gt; {
@@ -548,7 +554,12 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                                   className={css.squareCard}
                                   onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                                    formik.setFieldValue('sourceType', connectorTypeName)</span>
-<span class="cstat-no" title="statement not covered" >                                    formik.setFieldValue('product', '')</span>
+<span class="cstat-no" title="statement not covered" >                                    formik.setFieldValue(</span>
+                                      'product',
+                                      getFeatureOption(connectorTypeName, getString).length === 1
+                                        ? getFeatureOption(connectorTypeName, getString)[0]
+                                        : ''
+                                    )
 <span class="cstat-no" title="statement not covered" >                                    formik.setFieldValue(ConnectorRefFieldName, null)</span>
                                   }}
                                 &gt;
@@ -614,7 +625,9 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                   &lt;/Container&gt;
                   &lt;Container margin={{ bottom: 'large' }} width={'400px'}&gt;
                     &lt;Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}&gt;
-                      {getString('cv.healthSource.featureLabel')}
+                      {getFeatureOption(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ourceType, getString).length === 1
+                        ? getString('common.purpose.cf.feature')
+                        : getString('cv.healthSource.featureLabel')}
                     &lt;/Text&gt;
                     &lt;FormInput.Select
                       items={getFeatureOption(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ourceType, getString)}
@@ -623,7 +636,7 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                       })}
                       value={formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>roduct}
                       name="product"
-                      disabled={isEdit}
+                      disabled={isEdit || getFeatureOption(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ourceType, getString).length === 1}
                       onChange={<span class="fstat-no" title="function not covered" >product </span>=&gt; <span class="cstat-no" title="statement not covered" >formik.setFieldValue('product', product)}</span>
                     /&gt;
                   &lt;/Container&gt;
@@ -637,7 +650,6 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
     &lt;/BGColorWrapper&gt;
   )
 }
-&nbsp;
 export default DefineHealthSource
 &nbsp;</pre></td></tr></table></pre>
 
@@ -646,7 +658,7 @@ export default DefineHealthSource
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 29 2021 22:59:39 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 30 2021 04:43:02 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

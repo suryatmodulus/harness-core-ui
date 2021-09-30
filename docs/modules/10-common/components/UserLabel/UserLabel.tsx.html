@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -111,15 +111,23 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">432x</span>
-<span class="cline-any cline-yes">432x</span>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">433x</span>
+<span class="cline-any cline-yes">433x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">432x</span>
+<span class="cline-any cline-yes">433x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">432x</span>
-<span class="cline-any cline-yes">432x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">433x</span>
+<span class="cline-any cline-yes">433x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -127,12 +135,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">432x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">432x</span>
-<span class="cline-any cline-yes">72x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">433x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">433x</span>
+<span class="cline-any cline-yes">89x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,7 +186,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Color, Icon, Layout, Text } from '@wings-software/uicore'
+import { Color, Icon, Layout, Text, Avatar } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import cx from 'classnames'
 &nbsp;
@@ -176,47 +196,57 @@ import css from './UserLabel.module.scss'
 export interface UserLabelProps {
   name: string
   email?: string
-  profilePictureUrl?: string // for future use
+  profilePictureUrl?: string
   className?: string
   iconProps?: Omit&lt;IconProps, 'name'&gt;
 }
 &nbsp;
-const handleClickOnPopoverContent = <span class="fstat-no" title="function not covered" >(e</span>: React.MouseEvent&lt;HTMLElement, MouseEvent&gt;) =&gt; <span class="cstat-no" title="statement not covered" >e.stopPropagation()</span>
+const handleClickOnPopoverContent = <span class="fstat-no" title="function not covered" >(e</span>: React.MouseEvent&lt;HTMLElement, MouseEvent&gt;): void =&gt; <span class="cstat-no" title="statement not covered" >e.stopPropagation()</span>
 &nbsp;
 export function UserLabel(props: UserLabelProps): React.ReactElement {
-  const { name, email, className, iconProps } = props
+  const { name, email, profilePictureUrl, className, iconProps } = props
 &nbsp;
   return (
-    &lt;Popover
-      interactionKind={PopoverInteractionKind.HOVER}
-      popoverClassName={Classes.DARK}
-      position={Position.BOTTOM_LEFT}
-      content={
-        &lt;Layout.Horizontal
-          padding="medium"
-          height="inherit"
-          flex={{ align: 'center-center' }}
-          onClick={handleClickOnPopoverContent}
-        &gt;
-          &lt;Icon name="user" size={36} /&gt;
-          &lt;Layout.Vertical className={css.rightSection}&gt;
-            &lt;Text font={{ weight: 'bold' }} color={Color.WHITE}&gt;
-              {name}
-            &lt;/Text&gt;
-            {email ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;Text font={{ size: 'small' }} color={Color.PRIMARY_5}&gt;</span>
-                {email}
+    &lt;div className={css.wrapper}&gt;
+      &lt;Popover
+        interactionKind={PopoverInteractionKind.HOVER}
+        popoverClassName={Classes.DARK}
+        position={Position.BOTTOM_LEFT}
+        content={
+          &lt;Layout.Horizontal
+            padding="medium"
+            height="inherit"
+            flex={{ align: 'center-center' }}
+            onClick={handleClickOnPopoverContent}
+          &gt;
+            {profilePictureUrl ? (
+              &lt;Avatar className={css.profilePicture} size={'small'} src={profilePictureUrl} hoverCard={false} /&gt;
+            ) : (
+              &lt;Icon name="user" size={36} /&gt;
+            )}
+            &lt;Layout.Vertical className={css.rightSection}&gt;
+              &lt;Text font={{ weight: 'bold' }} color={Color.WHITE}&gt;
+                {name}
               &lt;/Text&gt;
-            ) : null}
-          &lt;/Layout.Vertical&gt;
-        &lt;/Layout.Horizontal&gt;
-      }
-    &gt;
-      &lt;div className={cx(css.userLabel, className)}&gt;
-        &lt;Icon name="user" size={18} {...iconProps} /&gt;
-        &lt;span&gt;{name}&lt;/span&gt;
-      &lt;/div&gt;
-    &lt;/Popover&gt;
+              {email ? (
+                &lt;Text font={{ size: 'small' }} color={Color.PRIMARY_5}&gt;
+                  {email}
+                &lt;/Text&gt;
+              ) : null}
+            &lt;/Layout.Vertical&gt;
+          &lt;/Layout.Horizontal&gt;
+        }
+      &gt;
+        &lt;div className={cx(css.userLabel, className)}&gt;
+          {profilePictureUrl ? (
+            &lt;Avatar className={css.profilePicture} size={'xsmall'} src={profilePictureUrl} hoverCard={false} /&gt;
+          ) : (
+            &lt;Icon name="user" size={18} {...iconProps} /&gt;
+          )}
+          &lt;span&gt;{name}&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/Popover&gt;
+    &lt;/div&gt;
   )
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -226,7 +256,7 @@ export function UserLabel(props: UserLabelProps): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 30 2021 13:48:22 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 30 2021 16:22:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

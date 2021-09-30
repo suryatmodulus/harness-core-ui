@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import * as moment from 'moment'
-import { ButtonVariation, ExpandingSearchInput, Popover, Layout, Button, Text, Color } from '@wings-software/uicore'
+import { ButtonVariation, ExpandingSearchInput, Layout, Button, Text, Color, Utils } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import { Classes, Position, Menu } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
@@ -13,6 +12,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { Policy, useGetPolicyList, useDeletePolicy } from 'services/pm'
 import { setPageNumber } from '@common/utils/utils'
+import { OptionsMenuButton } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 import PolicyIcon from './Policy.svg'
@@ -84,12 +84,8 @@ const Policies: React.FC = () => {
 
   const RenderColumnMenu: Renderer<CellProps<Policy>> = ({ row }) => {
     const data = row.original
-
-    const [menuOpen, setMenuOpen] = useState(false)
     const { showSuccess, showError } = useToaster()
-
     const { mutate: deletePolicy } = useDeletePolicy({})
-
     const { openDialog: openDeleteDialog } = useConfirmationDialog({
       contentText: 'Are you sure you want to delete Policy?',
       titleText: 'Delete Policy',
@@ -109,40 +105,23 @@ const Policies: React.FC = () => {
     })
 
     return (
-      <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
-        <Popover
-          isOpen={menuOpen}
-          onInteraction={nextOpenState => {
-            setMenuOpen(nextOpenState)
-          }}
-          className={Classes.DARK}
-          position={Position.BOTTOM_RIGHT}
-        >
-          <Button
-            minimal
-            icon="Options"
-            withoutBoxShadow
-            data-testid={`menu-${data.id}`}
-            onClick={e => {
-              e.stopPropagation()
-              setMenuOpen(true)
-            }}
-          />
-          <Menu>
-            <Button
-              icon="trash"
-              style={{ color: 'var(--white) !important' }}
-              inline={true}
-              variation={ButtonVariation.LINK}
-              text={getString('delete')}
-              onClick={e => {
-                e.stopPropagation()
-                setMenuOpen(false)
-                openDeleteDialog()
-              }}
-            />
-          </Menu>
-        </Popover>
+      <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} onClick={Utils.stopEvent}>
+        <OptionsMenuButton
+          items={[
+            {
+              icon: 'edit',
+              text: getString('edit'),
+              onClick: () => {
+                history.push(routes.toPolicyEditPage({ accountId, policyIdentifier: String(data?.id || '') }))
+              }
+            },
+            {
+              icon: 'trash',
+              text: getString('delete'),
+              onClick: openDeleteDialog
+            }
+          ]}
+        />
       </Layout.Horizontal>
     )
   }

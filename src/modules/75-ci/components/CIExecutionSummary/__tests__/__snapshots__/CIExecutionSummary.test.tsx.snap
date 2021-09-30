@@ -382,7 +382,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
         </span>
       </div>
       <p
-        class="StyledProps--font StyledProps--main commit"
+        class="StyledProps--font StyledProps--main commitId"
       >
         <a
           class="label"

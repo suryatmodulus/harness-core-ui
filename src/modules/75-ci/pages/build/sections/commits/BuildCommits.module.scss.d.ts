@@ -10,6 +10,7 @@ declare const styles: {
   readonly commitTitle: string
   readonly commitDescription: string
   readonly user: string
+  readonly label: string
   readonly hash: string
   readonly hashText: string
   readonly hashIcon: string

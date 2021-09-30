@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import moment from 'moment'
 import { get } from 'lodash-es'
-import { Card, Layout, Text, Icon, Accordion, Container, Utils } from '@wings-software/uicore'
+import { Card, Layout, Text, Icon, Accordion } from '@wings-software/uicore'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
-import { getShortCommitId } from '@ci/services/CIUtils'
 import type { CIBuildCommit, CIPipelineModuleInfo } from 'services/ci'
 import { UserLabel, TimeAgoPopover } from '@common/exports'
 import { useStrings } from 'framework/strings'
+import { CommitId } from '@ci/components/CommitsInfo/CommitsInfo'
 import css from './BuildCommits.module.scss'
 
 interface CommitsGroupedByTimestamp {
@@ -16,18 +16,6 @@ interface CommitsGroupedByTimestamp {
 
 const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({ commits }): any => {
   const context = useExecutionContext()
-
-  const [isCommitIdCopied, setIsCommitIdCopied] = useState(false)
-  const { getString } = useStrings()
-
-  const handleCommitIdClick = (commitLink: string): void => {
-    Utils.copy(commitLink)
-    setIsCommitIdCopied(true)
-  }
-
-  const handleCommitIdTooltipClosed = (): void => {
-    setIsCommitIdCopied(false)
-  }
 
   // NOTE: Not commit author!!!
   const author = get(
@@ -60,35 +48,7 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
             iconProps={{ size: 16 }}
           />
           <TimeAgoPopover time={timeStamp} inline={false} />
-          <button className={css.hash}>
-            <Text
-              className={css.hashText}
-              font={{ size: 'xsmall', weight: 'semi-bold' }}
-              padding={{ top: 'xsmall', right: 'small', bottom: 'xsmall', left: 'small' }}
-              margin={{ right: 'small' }}
-              onClick={() => window.open(link, '_blank')}
-            >
-              {getShortCommitId(id)}
-            </Text>
-            <Text
-              tooltip={
-                <Container padding="small">
-                  {getString(isCommitIdCopied ? 'copiedToClipboard' : 'clickToCopy')}
-                </Container>
-              }
-              tooltipProps={{
-                onClosed: handleCommitIdTooltipClosed
-              }}
-            >
-              <Icon
-                className={css.hashIcon}
-                name="clipboard"
-                size={14}
-                margin={{ right: 'small' }}
-                onClick={() => link && handleCommitIdClick(link)}
-              />
-            </Text>
-          </button>
+          {id && <CommitId commitId={id} commitLink={link} />}
         </Layout.Horizontal>
       </Card>
     )

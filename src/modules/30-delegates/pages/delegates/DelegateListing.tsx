@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import type { GetDataError } from 'restful-react'
 import { get, set, pick, debounce } from 'lodash-es'
 import type { FormikErrors } from 'formik'
@@ -84,22 +84,26 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
     undefined
   )
 
-  const queryParams: GetDelegateGroupsNGV2WithFilterQueryParams = {
-    accountId,
-    orgId: orgIdentifier,
-    projectId: projectIdentifier,
-    module,
-    pageIndex: page,
-    pageSize: 10,
-    searchTerm: ''
-  } as GetDelegateGroupsNGV2WithFilterQueryParams
+  const queryParams: GetDelegateGroupsNGV2WithFilterQueryParams = useMemo(
+    () =>
+      ({
+        accountId,
+        orgId: orgIdentifier,
+        projectId: projectIdentifier,
+        module,
+        pageIndex: page,
+        pageSize: 10,
+        searchTerm: ''
+      } as GetDelegateGroupsNGV2WithFilterQueryParams),
+    [accountId, module, orgIdentifier, projectIdentifier, page]
+  )
   const { mutate: fetchDelegates, loading: isFetchingDelegates } = useGetDelegateGroupsNGV2WithFilter({ queryParams })
   const { openDelegateModal } = useCreateDelegateModal()
 
   useEffect(() => {
     setPage(0)
     refetchDelegates(queryParams)
-  }, [projectIdentifier, orgIdentifier, fetchDelegates])
+  }, [queryParams])
 
   const {
     loading: isFetchingFilters,

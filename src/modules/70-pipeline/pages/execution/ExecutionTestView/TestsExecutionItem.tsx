@@ -38,12 +38,14 @@ const getColumnText = ({
   col,
   pageIndex,
   itemOrderNumber,
-  row
+  row,
+  failed
 }: {
   col: keyof TestCase | 'order'
   pageIndex: number
   itemOrderNumber: number
   row: { original: TestCase }
+  failed: boolean
 }): string | JSX.Element => {
   if (col === 'order') {
     return PAGE_SIZE * pageIndex + itemOrderNumber + '.'
@@ -59,8 +61,9 @@ const getColumnText = ({
         showMsLessThanOneSecond={true}
       />
     )
-  } else if (col === 'name' || col === 'class_name') {
+  } else if ((col === 'name' && !failed) || col === 'class_name') {
     const textToCopy = row.original[col] || ''
+    // failed will show popover on name so no need to have CopyText on Table view
     return (
       <CopyText iconName="clipboard-alt" textToCopy={textToCopy}>
         {row.original[col]}
@@ -92,7 +95,7 @@ const ColumnText = ({
     lineClamp={!tooltip ? 1 : undefined}
     tooltip={tooltip}
   >
-    {getColumnText({ col, pageIndex, itemOrderNumber, row })}
+    {getColumnText({ col, pageIndex, itemOrderNumber, row, failed })}
   </Text>
 )
 

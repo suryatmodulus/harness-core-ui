@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.33% </span>
+                <span class="strong">71.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/60</span>
+                <span class='fraction'>42/59</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.96% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>47/98</span>
+                <span class='fraction'>49/98</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.25% </span>
+                <span class="strong">35.29% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/16</span>
+                <span class='fraction'>6/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.33% </span>
+                <span class="strong">71.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/60</span>
+                <span class='fraction'>42/59</span>
             </div>
         
             
@@ -270,9 +270,7 @@
 <a name='L211'></a><a href='#L211'>211</a>
 <a name='L212'></a><a href='#L212'>212</a>
 <a name='L213'></a><a href='#L213'>213</a>
-<a name='L214'></a><a href='#L214'>214</a>
-<a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L214'></a><a href='#L214'>214</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -338,14 +336,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -371,7 +369,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -451,7 +448,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -552,15 +548,15 @@ function Service({
     [isEdit]
   )
 &nbsp;
-  const createChangeSourceDrawerHeader = useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    return (</span>
+  const createChangeSourceDrawerHeader = useCallback(() =&gt; {
+    return (
       &lt;&gt;
         &lt;Text
           className={css.breadCrumbLink}
           icon={'arrow-left'}
           iconProps={{ color: Color.PRIMARY_7, margin: { right: 'small' } }}
           color={Color.PRIMARY_7}
-          onClick={hideDrawer}
+          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >hideDrawer()}</span>
         &gt;
           {getString('cv.healthSource.backtoMonitoredService')}
         &lt;/Text&gt;
@@ -572,7 +568,7 @@ function Service({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit])
 &nbsp;
-  const { showDrawer, hideDrawer, setDrawerContentProps } = useDrawer({
+  const { showDrawer, hideDrawer } = useDrawer({
     createHeader: createChangeSourceDrawerHeader,
     createDrawerContent: <span class="fstat-no" title="function not covered" >props </span>=&gt; <span class="cstat-no" title="statement not covered" >&lt;ChangeSourceDrawer {...props} /&gt;</span>
   })
@@ -587,8 +583,7 @@ function Service({
     }) =&gt; {
       // has required fields
 <span class="cstat-no" title="statement not covered" >      if (formik?.values.environmentRef &amp;&amp; formik?.values.name) {</span>
-<span class="cstat-no" title="statement not covered" >        showDrawer()</span>
-<span class="cstat-no" title="statement not covered" >        setDrawerContentProps({</span>
+<span class="cstat-no" title="statement not covered" >        showDrawer({</span>
           hideDrawer,
           tableData: formik?.values?.sources?.changeSources || [],
           onSuccess: onSuccessChangeSource,
@@ -666,8 +661,7 @@ function Service({
                 &lt;/Text&gt;
                 &lt;ChangeSourceTableContainer
                   onEdit={<span class="fstat-no" title="function not covered" >values </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                    showDrawer()</span>
-<span class="cstat-no" title="statement not covered" >                    setDrawerContentProps({ ...values, hideDrawer })</span>
+<span class="cstat-no" title="statement not covered" >                    showDrawer({ ...values, hideDrawer })</span>
                   }}
                   onAddNewChangeSource={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >openChangeSourceDrawer({ formik, onSuccessChangeSource })}</span>
                   value={formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ources?.changeSources || []}
@@ -709,7 +703,7 @@ export default Service
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 30 2021 18:05:24 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 30 2021 19:57:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../prettify.js"></script>

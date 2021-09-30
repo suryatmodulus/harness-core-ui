@@ -14,7 +14,7 @@ interface CommitsGroupedByTimestamp {
   commits: CIBuildCommit[]
 }
 
-const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({ commits }): any => {
+const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({ commits, showAvatar }): any => {
   const context = useExecutionContext()
 
   // NOTE: Not commit author!!!
@@ -44,7 +44,7 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
             className={css.user}
             name={ownerName || ''}
             email={ownerEmail}
-            profilePictureUrl={author?.avatar}
+            profilePictureUrl={showAvatar ? author?.avatar : undefined}
             iconProps={{ size: 16 }}
           />
           <TimeAgoPopover time={timeStamp} inline={false} />
@@ -58,7 +58,7 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
 const CommitsGroupedByTimestamp: React.FC<{
   commitsGroupedByTimestamp: CommitsGroupedByTimestamp[]
   showCommitAuthorAvatar?: boolean
-}> = ({ commitsGroupedByTimestamp }): any => {
+}> = ({ commitsGroupedByTimestamp, showCommitAuthorAvatar }): any => {
   const { getString } = useStrings()
 
   return commitsGroupedByTimestamp.map(({ timeStamp, commits }) => (
@@ -69,7 +69,7 @@ const CommitsGroupedByTimestamp: React.FC<{
           {getString('ci.commitsOn')} {moment(timeStamp).format('MMM D, YYYY')}
         </Text>
       </div>
-      <Commits commits={commits} />
+      <Commits commits={commits} showAvatar={showCommitAuthorAvatar} />
     </div>
   ))
 }
@@ -128,12 +128,20 @@ const BuildCommits: React.FC = () => {
             <Accordion.Panel
               id="trigger-commits"
               summary={`${ciData?.triggerRepoName} (Trigger)`}
-              details={<CommitsGroupedByTimestamp commitsGroupedByTimestamp={triggerCommitsGroupedByTimestamp} />}
+              details={
+                <CommitsGroupedByTimestamp
+                  commitsGroupedByTimestamp={triggerCommitsGroupedByTimestamp}
+                  showCommitAuthorAvatar
+                />
+              }
             />
           </Accordion>
         </>
       ) : (
-        <CommitsGroupedByTimestamp commitsGroupedByTimestamp={codebaseCommitsGroupedByTimestamp} />
+        <CommitsGroupedByTimestamp
+          commitsGroupedByTimestamp={codebaseCommitsGroupedByTimestamp}
+          showCommitAuthorAvatar
+        />
       )}
     </div>
   )

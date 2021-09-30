@@ -11,11 +11,29 @@ const RepoBranch = ({ repo, branch }: { repo: string; branch: string }): React.R
   <div className={cx(css.label, css.multiple)}>
     <Container flex>
       <Icon name="repository" size={14} color="primary7" />
-      <div className={css.truncated}>{repo}</div>
+      <Text
+        className={css.truncated}
+        tooltip={
+          <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+            {repo}
+          </Container>
+        }
+      >
+        {repo}
+      </Text>
     </Container>
     <Container flex>
       <Icon name="git-new-branch" size={12} color="primary7" />
-      <div className={css.truncated}>{branch}</div>
+      <Text
+        className={css.truncated}
+        tooltip={
+          <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+            {branch}
+          </Container>
+        }
+      >
+        {branch}
+      </Text>
     </Container>
   </div>
 )
@@ -67,7 +85,16 @@ function getUIByType(
           </div>
           <div className={css.label}>
             <Icon name="tag" size={14} color="primary7" />
-            <div className={css.truncated}>{data.tag}</div>
+            <Text
+              className={css.truncated}
+              tooltip={
+                <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+                  {data.tag}
+                </Container>
+              }
+            >
+              {data.tag}
+            </Text>
           </div>
           {/* <Text tooltip={<Container padding="small"> Notes</Container>}>
             <Icon name="more" size={14} />
@@ -108,7 +135,16 @@ function getUIByType(
               <Icon name="arrow-right" size={14} />
               <Container className={css.label}>
                 <Icon name="git-new-branch" size={12} color="primary7" />
-                <div className={css.truncated}>{data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}</div>
+                <Text
+                  className={css.truncated}
+                  tooltip={
+                    <Container padding="small" style={{ whiteSpace: 'pre-line' }}>
+                      {data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}
+                    </Container>
+                  }
+                >
+                  {data?.ciExecutionInfoDTO?.pullRequest?.targetBranch}
+                </Text>
               </Container>
             </>
           )}

@@ -64,11 +64,20 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
             />
           </svg>
         </span>
-        <div
-          class="truncated"
+        <span
+          class="bp3-popover-wrapper"
         >
-          jhttp
-        </div>
+          <span
+            class="bp3-popover-target"
+          >
+            <p
+              class="StyledProps--font StyledProps--main truncated"
+              tabindex="0"
+            >
+              jhttp
+            </p>
+          </span>
+        </span>
       </div>
       <div
         class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -89,11 +98,20 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
             />
           </svg>
         </span>
-        <div
-          class="truncated"
+        <span
+          class="bp3-popover-wrapper"
         >
-          aman/fix-sanity
-        </div>
+          <span
+            class="bp3-popover-target"
+          >
+            <p
+              class="StyledProps--font StyledProps--main truncated"
+              tabindex="0"
+            >
+              aman/fix-sanity
+            </p>
+          </span>
+        </span>
       </div>
     </div>
     <span
@@ -134,11 +152,20 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
           />
         </svg>
       </span>
-      <div
-        class="truncated"
+      <span
+        class="bp3-popover-wrapper"
       >
-        master
-      </div>
+        <span
+          class="bp3-popover-target"
+        >
+          <p
+            class="StyledProps--font StyledProps--main truncated"
+            tabindex="0"
+          >
+            master
+          </p>
+        </span>
+      </span>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--margin-left-small"
@@ -264,11 +291,20 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
             />
           </svg>
         </span>
-        <div
-          class="truncated"
+        <span
+          class="bp3-popover-wrapper"
         >
-          portal
-        </div>
+          <span
+            class="bp3-popover-target"
+          >
+            <p
+              class="StyledProps--font StyledProps--main truncated"
+              tabindex="0"
+            >
+              portal
+            </p>
+          </span>
+        </span>
       </div>
       <div
         class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -289,11 +325,20 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
             />
           </svg>
         </span>
-        <div
-          class="truncated"
+        <span
+          class="bp3-popover-wrapper"
         >
-          ownerId-patch-8
-        </div>
+          <span
+            class="bp3-popover-target"
+          >
+            <p
+              class="StyledProps--font StyledProps--main truncated"
+              tabindex="0"
+            >
+              ownerId-patch-8
+            </p>
+          </span>
+        </span>
       </div>
     </div>
     <span
@@ -334,11 +379,20 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
           />
         </svg>
       </span>
-      <div
-        class="truncated"
+      <span
+        class="bp3-popover-wrapper"
       >
-        master
-      </div>
+        <span
+          class="bp3-popover-target"
+        >
+          <p
+            class="StyledProps--font StyledProps--main truncated"
+            tabindex="0"
+          >
+            master
+          </p>
+        </span>
+      </span>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--margin-left-small"

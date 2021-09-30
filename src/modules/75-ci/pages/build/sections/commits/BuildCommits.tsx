@@ -55,8 +55,8 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
           <UserLabel
             className={css.user}
             name={ownerName || ''}
-            email={author.email}
-            profilePictureUrl={author.avatar}
+            email={author?.email}
+            profilePictureUrl={author?.avatar}
             iconProps={{ size: 16 }}
           />
           <TimeAgoPopover time={timeStamp} inline={false} />

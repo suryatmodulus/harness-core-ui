@@ -78,14 +78,13 @@ export function LastCommit({ lastCommit }: LastCommitProps): React.ReactElement 
 
 export interface CommitsInfoProps {
   commits?: CIBuildCommit[]
-  authorEmail?: string
   authorAvatar?: string
 }
 
 export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null {
   const [showCommits, setShowCommits] = React.useState(false)
 
-  const { commits = [], authorEmail, authorAvatar } = props
+  const { commits = [], authorAvatar } = props
   const lastCommit = first(commits || [])
 
   function toggleCommits(e: React.SyntheticEvent): void {
@@ -121,13 +120,15 @@ export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null 
                     </Text>
                   </div>
                   <Container flex>
-                    <UserLabel
-                      className={css.user}
-                      name={commit.ownerName || ''}
-                      email={authorEmail}
-                      profilePictureUrl={authorAvatar}
-                      iconProps={{ size: 16 }}
-                    />
+                    {commit.ownerName && (
+                      <UserLabel
+                        className={css.user}
+                        name={commit.ownerName}
+                        email={commit.ownerEmail}
+                        profilePictureUrl={authorAvatar}
+                        iconProps={{ size: 16 }}
+                      />
+                    )}
                     <TimeAgoPopover time={commit.timeStamp || 0} inline={false} />
                   </Container>
                   {commit.id && <CommitId commitId={commit.id} commitLink={commit.link} />}

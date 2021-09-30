@@ -40,13 +40,15 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
           )}
         </div>
         <Layout.Horizontal flex={{ alignItems: 'center' }} spacing="medium">
-          <UserLabel
-            className={css.user}
-            name={ownerName || ''}
-            email={ownerEmail}
-            profilePictureUrl={showAvatar ? author?.avatar : undefined}
-            iconProps={{ size: 16 }}
-          />
+          {ownerName && (
+            <UserLabel
+              className={css.user}
+              name={ownerName}
+              email={ownerEmail}
+              profilePictureUrl={showAvatar ? author?.avatar : undefined}
+              iconProps={{ size: 16 }}
+            />
+          )}
           <TimeAgoPopover time={timeStamp} inline={false} />
           {id && <CommitId commitId={id} commitLink={link} />}
         </Layout.Horizontal>

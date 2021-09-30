@@ -336,48 +336,6 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
         >
-          <div
-            class="wrapper"
-          >
-            <span
-              class="bp3-popover-wrapper"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="userLabel user"
-                  tabindex="0"
-                >
-                  <div
-                    class="profilePicture Avatar--Avatar Avatar--contentStyle"
-                  >
-                    <span
-                      class="bp3-popover-wrapper Avatar--avatarPopOver"
-                    >
-                      <span
-                        class="bp3-popover-target"
-                      >
-                        <div
-                          class="Avatar--AvatarInner"
-                          style="border-radius: 100%; line-height: 12px; width: 16px; height: 16px; font-size: 7px;"
-                          tabindex="0"
-                        >
-                          <img
-                            alt=""
-                            class="Avatar--imageStyle"
-                            src="https://..."
-                            style="border-radius: 100%; line-height: 12px; width: 12px; height: 12px; font-size: 7px;"
-                          />
-                        </div>
-                      </span>
-                    </span>
-                  </div>
-                  <span />
-                </div>
-              </span>
-            </span>
-          </div>
           <span
             class="bp3-popover-wrapper bp3-dark"
           >

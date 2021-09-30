@@ -41,7 +41,6 @@ function getUIByType(
           {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
             <CommitsInfo
               commits={data?.ciExecutionInfoDTO?.branch?.commits}
-              authorEmail={data?.ciExecutionInfoDTO?.author?.email}
               authorAvatar={data?.ciExecutionInfoDTO?.author?.avatar}
             />
           )}
@@ -67,7 +66,6 @@ function getUIByType(
           {data?.ciExecutionInfoDTO?.branch?.commits?.length > 0 && (
             <CommitsInfo
               commits={data?.ciExecutionInfoDTO?.branch?.commits}
-              authorEmail={data?.ciExecutionInfoDTO?.author?.email}
               authorAvatar={data?.ciExecutionInfoDTO?.author?.avatar}
             />
           )}
@@ -121,7 +119,6 @@ function getUIByType(
           {data?.ciExecutionInfoDTO?.pullRequest?.commits?.length > 0 && (
             <CommitsInfo
               commits={data?.ciExecutionInfoDTO?.pullRequest?.commits}
-              authorEmail={data?.ciExecutionInfoDTO?.author?.email}
               authorAvatar={data?.ciExecutionInfoDTO?.author?.avatar}
             />
           )}

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import MonacoEditor from 'react-monaco-editor'
+import type { editor as EDITOR } from 'monaco-editor/esm/vs/editor/editor.api'
 import {
   ButtonVariation,
   Layout,
@@ -58,6 +59,7 @@ export const EditPolicy: React.FC = () => {
   const { accountId } = useParams<{ accountId: string }>()
   const [createPolicyLoading, setCreatePolicyLoading] = useState(false)
   const [testPolicyLoading, setTestPolicyLoading] = useState(false)
+  const [editor, setEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const history = useHistory()
   const { mutate: updatePolicy } = useUpdatePolicy({ policy: policyIdentifier })
   const onSavePolicy = useCallback(() => {
@@ -219,8 +221,15 @@ export const EditPolicy: React.FC = () => {
     if (policyData) {
       setRegoScript(policyData.rego || '')
       setName(policyData.name || '')
+
+      if (editor) {
+        editor.focus()
+        setTimeout(() => {
+          editor.setSelection(new monaco.Selection(0, 0, 0, 0))
+        }, 0)
+      }
     }
-  }, [policyData])
+  }, [policyData, editor])
 
   return (
     <>
@@ -251,8 +260,8 @@ export const EditPolicy: React.FC = () => {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   // ;(monaco.editor.defineTheme as (name: string, theme: any) => void)('rego-dark', REGO_THEME)
                 }}
-                editorDidMount={editor => {
-                  editor.focus()
+                editorDidMount={_editor => {
+                  setEditor(_editor)
                 }}
               />
             </Container>

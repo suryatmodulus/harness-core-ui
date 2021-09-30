@@ -99,7 +99,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
   useEffect(() => {
     setPage(0)
     refetchDelegates(queryParams)
-  }, [projectIdentifier, orgIdentifier])
+  }, [projectIdentifier, orgIdentifier, fetchDelegates])
 
   const {
     loading: isFetchingFilters,

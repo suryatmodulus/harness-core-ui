@@ -215,7 +215,13 @@
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
 <a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
@@ -372,11 +378,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { FormEvent, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { get, isEmpty } from 'lodash-es'
-import { FormInput, MultiTypeInputType } from '@wings-software/uicore'
+import { FormInput, MultiTypeInputType, Container } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -485,46 +497,52 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
         style={{ marginBottom: 0 }}
       /&gt;
       {type === 'branch' &amp;&amp; (
-        &lt;FormInput.MultiTextInput
-          label={inputLabels[type]}
-          name={`${formattedPath}properties.ci.codebase.build.spec.branch`}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          style={{ marginBottom: 0 }}
-          placeholder={triggerIdentifier ? <span class="branch-0 cbranch-no" title="branch not covered" >defaultValues['branch'] </span>: ''}
-          disabled={readonly}
-          onChange={handleInputChange}
-        /&gt;
+        &lt;Container padding={{ bottom: 'small' }}&gt;
+          &lt;FormInput.MultiTextInput
+            label={inputLabels[type]}
+            name={`${formattedPath}properties.ci.codebase.build.spec.branch`}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            style={{ marginBottom: 0 }}
+            placeholder={triggerIdentifier ? <span class="branch-0 cbranch-no" title="branch not covered" >defaultValues['branch'] </span>: ''}
+            disabled={readonly}
+            onChange={handleInputChange}
+          /&gt;
+        &lt;/Container&gt;
       )}
       {type === 'tag' &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;FormInput.MultiTextInput</span>
-          label={inputLabels[type]}
-          name={`${formattedPath}properties.ci.codebase.build.spec.tag`}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          style={{ marginBottom: 0 }}
-          disabled={readonly}
-          placeholder={triggerIdentifier ? defaultValues['tag'] : ''}
-          onChange={handleInputChange}
-        /&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Container padding={{ bottom: 'small' }}&gt;</span>
+          &lt;FormInput.MultiTextInput
+            label={inputLabels[type]}
+            name={`${formattedPath}properties.ci.codebase.build.spec.tag`}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            style={{ marginBottom: 0 }}
+            disabled={readonly}
+            placeholder={triggerIdentifier ? defaultValues['tag'] : ''}
+            onChange={handleInputChange}
+          /&gt;
+        &lt;/Container&gt;
       )}
       {type === 'PR' &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;FormInput.MultiTextInput</span>
-          label={inputLabels[type]}
-          name={`${formattedPath}properties.ci.codebase.build.spec.number`}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          style={{ marginBottom: 0 }}
-          disabled={readonly}
-          placeholder={triggerIdentifier ? defaultValues['PR'] : ''}
-          onChange={handleInputChange}
-        /&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Container padding={{ bottom: 'small' }}&gt;</span>
+          &lt;FormInput.MultiTextInput
+            label={inputLabels[type]}
+            name={`${formattedPath}properties.ci.codebase.build.spec.number`}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+            style={{ marginBottom: 0 }}
+            disabled={readonly}
+            placeholder={triggerIdentifier ? defaultValues['PR'] : ''}
+            onChange={handleInputChange}
+          /&gt;
+        &lt;/Container&gt;
       )}
     &lt;/&gt;
   )
@@ -538,7 +556,7 @@ export const CICodebaseInputSetForm = connect(CICodebaseInputSetFormInternal)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 30 2021 19:57:16 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 30 2021 20:59:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

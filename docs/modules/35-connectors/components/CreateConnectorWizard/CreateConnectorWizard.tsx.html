@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.83% </span>
+                <span class="strong">72.6% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>51/71</span>
+                <span class='fraction'>53/73</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">35.48% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/30</span>
+                <span class='fraction'>11/31</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.01% </span>
+                <span class="strong">71.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/69</span>
+                <span class='fraction'>51/71</span>
             </div>
         
             
@@ -191,7 +191,9 @@
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
 <a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">112x</span>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">112x</span>
 <span class="cline-any cline-yes">112x</span>
 <span class="cline-any cline-yes">112x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,7 +215,6 @@
 <span class="cline-any cline-yes">112x</span>
 <span class="cline-any cline-yes">112x</span>
 <span class="cline-any cline-yes">112x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">112x</span>
 <span class="cline-any cline-yes">112x</span>
 <span class="cline-any cline-yes">112x</span>
@@ -227,6 +228,7 @@
 <span class="cline-any cline-yes">112x</span>
 <span class="cline-any cline-yes">112x</span>
 <span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-yes">112x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -242,8 +244,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">112x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,7 +256,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -296,6 +298,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -319,7 +323,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">112x</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,7 +351,7 @@ import CreateGcpConnector from '../CreateConnector/GcpConnector/CreateGcpConnect
 import HelmRepoConnector from '../CreateConnector/HelmRepoConnector/HemRepoConnector'
 import JiraConnector from '../CreateConnector/JiraConnector/JiraConnector'
 import CreateAwsKmsConnector from '../CreateConnector/AWSKmsConnector/CreateAwsKmsConnector'
-&nbsp;
+import CreateGcpKmsConnector from '../CreateConnector/GcpKmsConnector/CreateGcpKmsConnector'
 import CreateAwsSecretManagerConnector from '../CreateConnector/AWSSecretManager/CreateAwsSecretManagerConnector'
 import CreateNewRelicConnector from '../CreateConnector/NewRelicConnector/CreateNewRelicConnector'
 import CreatePrometheusConnector from '../CreateConnector/PrometheusConnector/CreatePrometheusConnector'
@@ -429,25 +433,27 @@ export const ConnectorWizard: React.FC&lt;CreateConnectorWizardProps&gt; = props
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateAwsKmsConnector {...commonProps} /&gt;</span>
 <span class="branch-19 cbranch-no" title="branch not covered" >    case Connectors.AWS_SECRET_MANAGER:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateAwsSecretManagerConnector {...commonProps} /&gt;</span>
-<span class="branch-20 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
+    case Connectors.GCP_KMS:
+      return &lt;CreateGcpKmsConnector {...commonProps} /&gt;
+<span class="branch-21 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateCeAzureConnector {...commonProps} /&gt;</span>
-<span class="branch-21 cbranch-no" title="branch not covered" >    case Connectors.CE_KUBERNETES:</span>
+<span class="branch-22 cbranch-no" title="branch not covered" >    case Connectors.CE_KUBERNETES:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateCEK8sConnector {...commonProps} /&gt;</span>
-<span class="branch-22 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
+<span class="branch-23 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateDataDogConnector {...commonProps} /&gt;</span>
-<span class="branch-23 cbranch-no" title="branch not covered" >    case Connectors.AZURE_KEY_VAULT:</span>
+<span class="branch-24 cbranch-no" title="branch not covered" >    case Connectors.AZURE_KEY_VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateAzureKeyVaultConnector {...commonProps} /&gt;</span>
-<span class="branch-24 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
+<span class="branch-25 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateDynatraceConnector {...commonProps} /&gt;</span>
-<span class="branch-25 cbranch-no" title="branch not covered" >    case Connectors.SUMOLOGIC:</span>
+<span class="branch-26 cbranch-no" title="branch not covered" >    case Connectors.SUMOLOGIC:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateSumoLogicConnector {...commonProps} /&gt;</span>
-<span class="branch-26 cbranch-no" title="branch not covered" >    case Connectors.CEAWS:</span>
+<span class="branch-27 cbranch-no" title="branch not covered" >    case Connectors.CEAWS:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CENGAwsConnector {...commonProps} /&gt;</span>
-<span class="branch-27 cbranch-no" title="branch not covered" >    case Connectors.CE_GCP:</span>
+<span class="branch-28 cbranch-no" title="branch not covered" >    case Connectors.CE_GCP:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateCeGcpConnector {...commonProps} /&gt;</span>
-<span class="branch-28 cbranch-no" title="branch not covered" >    case Connectors.PAGER_DUTY:</span>
+<span class="branch-29 cbranch-no" title="branch not covered" >    case Connectors.PAGER_DUTY:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreatePagerDutyConnector {...commonProps} /&gt;</span>
-<span class="branch-29 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-30 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return null</span>
   }
 }
@@ -466,7 +472,7 @@ export const CreateConnectorWizard: React.FC&lt;CreateConnectorWizardProps&gt; =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 30 2021 04:43:02 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 30 2021 05:46:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

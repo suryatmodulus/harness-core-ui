@@ -23,7 +23,7 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
     'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.author'
   )
 
-  return commits.map(({ id = '', message = '', timeStamp = 0, ownerName, link }) => {
+  return commits.map(({ id = '', message = '', timeStamp = 0, ownerName, link, ownerEmail }) => {
     const [title, description] = message.split('\n\n')
     // we should use only first part of a name
     // in order to show a single letter
@@ -43,7 +43,7 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
           <UserLabel
             className={css.user}
             name={ownerName || ''}
-            email={author?.email}
+            email={ownerEmail}
             profilePictureUrl={author?.avatar}
             iconProps={{ size: 16 }}
           />

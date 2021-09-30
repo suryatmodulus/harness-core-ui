@@ -1,9 +1,8 @@
 import React from 'react'
 import { defaultTo, find } from 'lodash-es'
 
-import { Container, Text, Icon } from '@wings-software/uicore'
 import { useParams } from 'react-router'
-import { useStrings, String as StrTemplate } from 'framework/strings'
+import { String as StrTemplate } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import type { StageDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 import factory from '@pipeline/factories/ExecutionFactory'
@@ -20,7 +19,6 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './ExecutionStageDetailsHeader.module.scss'
 
 export function ExecutionStageDetailsHeader(): React.ReactElement {
-  const { getString } = useStrings()
   const { selectedStageId, pipelineStagesMap, refetch, pipelineExecutionDetail, allNodeMap } = useExecutionContext()
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } =
     useParams<PipelineType<ExecutionPathProps>>()
@@ -93,7 +91,8 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
             />
           </div>
           {times}
-          <Text
+          {/* TODO: Need to uncomment and finish */}
+          {/* <Text
             className={css.moreInfo}
             tooltip={
               <Container width={380} padding="large">
@@ -121,7 +120,7 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
             }
           >
             {getString('common.moreInfo')}
-          </Text>
+          </Text> */}
         </div>
         <div>
           {stage && stageDetail?.component

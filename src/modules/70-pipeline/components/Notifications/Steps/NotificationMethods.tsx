@@ -48,7 +48,7 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
             }}
           />
         </Layout.Vertical>
-        {method?.value === NotificationType.MSTeams ? (
+        {method?.value === NotificationType.MsTeams ? (
           <ConfigureMSTeamsNotifications
             withoutHeading={true}
             submitButtonText={getString('finish')}
@@ -79,7 +79,7 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
               })
             }
             config={{
-              type: NotificationType.MSTeams,
+              type: NotificationType.MsTeams,
               microsoftTeamsWebhookUrl: prevStepData?.notificationMethod?.spec?.microsoftTeamsWebhookUrl,
               userGroups: (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.userGroups || []
             }}

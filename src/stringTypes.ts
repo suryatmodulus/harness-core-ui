@@ -501,6 +501,7 @@ export interface StringsMap {
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
   'notifications.eventRequired': string
+  'notifications.helpMSTeams': string
   'notifications.helpPagerDuty': string
   'notifications.helpSlack': string
   'notifications.infoPagerDuty': string
@@ -511,6 +512,7 @@ export interface StringsMap {
   'notifications.labelEmailUserGroups': string
   'notifications.labelMS': string
   'notifications.labelMSTeam': string
+  'notifications.labelMSTeamsUserGroups': string
   'notifications.labelPDKey': string
   'notifications.labelPDUserGroups': string
   'notifications.labelPagerDuty': string

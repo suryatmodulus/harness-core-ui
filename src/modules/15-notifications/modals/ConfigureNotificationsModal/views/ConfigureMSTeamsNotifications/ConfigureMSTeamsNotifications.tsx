@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import * as Yup from 'yup'
-
 import {
   FormikForm,
   FormInput,
@@ -8,7 +6,6 @@ import {
   Layout,
   Icon,
   Text,
-  Heading,
   ButtonProps,
   Formik,
   ButtonVariation
@@ -18,7 +15,7 @@ import { useParams } from 'react-router'
 import cx from 'classnames'
 import { useToaster } from '@common/exports'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { MSTeamsNotificationConfiguration, NotificationType, TestStatus } from '@notifications/interfaces/Notifications'
+import { MSTeamsNotificationConfiguration, TestStatus } from '@notifications/interfaces/Notifications'
 import { useStrings } from 'framework/strings'
 import { MSTeamSettingDTO, useTestNotificationSetting } from 'services/notifications'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
@@ -30,14 +27,14 @@ interface MSTeamsNotificationsData {
   userGroups: string[]
 }
 
-interface ConfigureSlackNotificationsProps {
+interface ConfigureMSTeamsNotificationsProps {
   onSuccess: (config: MSTeamsNotificationConfiguration) => void
   hideModal: () => void
   withoutHeading?: boolean
   isStep?: boolean
   onBack?: (config?: MSTeamsNotificationConfiguration) => void
   submitButtonText?: string
-  config: MSTeamsNotificationConfiguration
+  config?: any
 }
 
 export const TestMSTeamsNotifications: React.FC<{
@@ -90,12 +87,12 @@ export const TestMSTeamsNotifications: React.FC<{
 
 const convertFormData = (formData: any) => {
   return {
-    type: NotificationType.MSTeams,
+    type: 'MSTeams',
     ...formData
   }
 }
 
-const ConfigureMSTeamsNotifications: React.FC<ConfigureSlackNotificationsProps> = props => {
+const ConfigureMSTeamsNotifications: React.FC<ConfigureMSTeamsNotificationsProps> = props => {
   const { getString } = useStrings()
 
   const handleSubmit = (formData: any): void => {
@@ -112,39 +109,21 @@ const ConfigureMSTeamsNotifications: React.FC<ConfigureSlackNotificationsProps> 
   return (
     <div className={css.body}>
       <Layout.Vertical spacing="large">
-        {props.withoutHeading ? null : (
-          <>
-            <Icon name="service-slack" size={24} />
-            <Heading className={css.title}>{getString('notifications.titleSlack')}</Heading>
-          </>
-        )}
-        <Text>{getString('notifications.helpSlack')}</Text>
-        <Text>{getString('notifications.infoSlack')}</Text>
+        <Text>{getString('notifications.helpMSTeams')}</Text>
 
         <Formik
           onSubmit={handleSubmit}
           formName="configureMSTeamsNotifications"
-          validationSchema={Yup.object().shape({
-            webhookUrl: Yup.string().test('isValidUrl', getString('validation.urlIsNotValid'), _webhookUrl => {
-              // TODO: Create global validation function for url validation
-              try {
-                const url = new URL(_webhookUrl)
-                return url.protocol === 'http:' || url.protocol === 'https:'
-              } catch (_) {
-                return false
-              }
-            })
-          })}
           initialValues={{
-            webhookUrl: '',
-            ...props.config
+            microsoftTeamsWebhookUrl: [],
+            userGroups: []
           }}
         >
           {formik => {
             return (
               <FormikForm>
                 <FormInput.KVTagInput
-                  label={getString('notifications.labelWebhookUrl')}
+                  label={getString('notifications.labelMSTeam')}
                   name={'microsoftTeamsWebhookUrl'}
                   isArray={true}
                 />
@@ -152,7 +131,7 @@ const ConfigureMSTeamsNotifications: React.FC<ConfigureSlackNotificationsProps> 
                 <Layout.Horizontal margin={{ bottom: 'xxlarge' }} style={{ alignItems: 'center' }}>
                   <TestMSTeamsNotifications data={formik.values} />
                 </Layout.Horizontal>
-                <UserGroupsInput name="userGroups" label={getString('notifications.labelSlackUserGroups')} />
+                <UserGroupsInput name="userGroups" label={getString('notifications.labelMSTeamsUserGroups')} />
                 {props.isStep ? (
                   <Layout.Horizontal spacing="large" className={css.buttonGroupSlack}>
                     <Button

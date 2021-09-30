@@ -6,12 +6,14 @@ import {
   NotificationType,
   EmailNotificationConfiguration,
   SlackNotificationConfiguration,
-  PagerDutyNotificationConfiguration
+  PagerDutyNotificationConfiguration,
+  MSTeamsNotificationConfiguration
 } from '@notifications/interfaces/Notifications'
 
 import ConfigureEmailNotifications from './views/ConfigureEmailNotifications/ConfigureEmailNotifications'
 import ConfigureSlackNotifications from './views/ConfigureSlackNotifications/ConfigureSlackNotifications'
 import ConfigurePagerDutyNotifications from './views/ConfigurePagerDutyNotifications/ConfigurePagerDutyNotifications'
+import ConfigureMSTeamsNotifications from './views/ConfigureMSTeamsNotifications/ConfigureMSTeamsNotifications'
 
 import css from './ConfigureNotificationsModal.module.scss'
 
@@ -20,6 +22,7 @@ type FormSuccess = (
     | EmailNotificationConfiguration
     | SlackNotificationConfiguration
     | PagerDutyNotificationConfiguration
+    | MSTeamsNotificationConfiguration
 ) => void
 
 export interface UseConfigureNotificationsModalProps {
@@ -46,6 +49,8 @@ const ModalBody: React.FC<ModalBodyProps> = ({ type, onSuccess, hideModal }) => 
       return <ConfigureSlackNotifications onSuccess={onSuccess} hideModal={hideModal} />
     case NotificationType.PagerDuty:
       return <ConfigurePagerDutyNotifications onSuccess={onSuccess} hideModal={hideModal} />
+    case NotificationType.MsTeams:
+      return <ConfigureMSTeamsNotifications onSuccess={onSuccess} hideModal={hideModal} />
   }
 }
 

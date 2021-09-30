@@ -14,7 +14,7 @@ import {
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { SecretRequestWrapper, usePostSecret, SSHAuthDTO, usePutSecret } from 'services/cd-ng'
+import { SecretRequestWrapper, usePostSecret, SSHAuthDTO, usePutSecret, SecretDTOV2 } from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields'
@@ -39,7 +39,7 @@ export interface SSHConfigFormData {
 }
 
 interface StepAuthenticationProps {
-  onSuccess?: () => void
+  onSuccess?: (secret: SecretDTOV2) => void
 }
 
 const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticationProps & SSHCredSharedObj> = ({
@@ -90,7 +90,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
       isEdit ? await editSecret(dataToSubmit) : await createSecret(dataToSubmit)
       setSaving(false)
       isEdit ? showSuccess(getString('ssh.editmessageSuccess')) : showSuccess(getString('ssh.createmessageSuccess'))
-      onSuccess?.()
+      onSuccess?.(dataToSubmit.secret)
       nextStep?.({ ...prevStepData, authData: formData, isEdit: true })
     } catch (err) {
       setSaving(false)

@@ -14,11 +14,31 @@ import {
   filterArtifact,
   getPathString,
   getTemplateObject,
+  PRIMARY_ARTIFACT,
   replaceTriggerDefaultBuild,
   updatePipelineArtifact,
   updatePipelineManifest
 } from '../../utils/TriggersWizardPageUtils'
 import css from './SelectArtifactModal.module.scss'
+
+const getFormComponent = (isManifest: boolean) => {
+  if (isManifest) {
+    const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
+    return formDetails.component
+  } else {
+    const artifactForm = TriggerFactory.getTriggerFormDetails(TriggerFormType.Artifact)
+    return artifactForm.component
+  }
+}
+
+const getArtifactId = (isManifest: boolean, selectedArtifactId: string) => {
+  if (isManifest || selectedArtifactId) {
+    return selectedArtifactId
+  } else if (!isManifest) {
+    return PRIMARY_ARTIFACT
+  }
+  return ''
+}
 
 interface SelectArtifactModalPropsInterface {
   isModalOpen: boolean
@@ -34,16 +54,6 @@ enum ModalState {
   RUNTIME_INPUT = 'RUNTIME_INPUT'
 }
 
-const getFormComponent = (isManifest: boolean) => {
-  if (isManifest) {
-    const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
-    return formDetails.component
-  } else {
-    const artifactForm = TriggerFactory.getTriggerFormDetails(TriggerFormType.Artifact)
-    return artifactForm.component
-  }
-}
-
 const getManifests = (filterFormStages: any) => {
   return filterFormStages && filterFormStages.length
     ? filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests[0]
@@ -51,6 +61,9 @@ const getManifests = (filterFormStages: any) => {
 }
 
 const getArtifacts = (filterFormStages: any) => {
+  if (!filterFormStages) {
+    return {}
+  }
   if (filterFormStages.length) {
     if (filterFormStages[0]?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars?.length) {
       return filterFormStages && filterFormStages.length
@@ -76,6 +89,67 @@ const mergeArtifactManifest = (isManifest: boolean, originalArtifact: any, formF
   return {}
 }
 
+/*isManifest: boolean, selectedStageId: string, selectedArtifactId: string, formikProps: any */
+const onSubmit = ({
+  isManifest,
+  selectedStageId,
+  selectedArtifactId,
+  formikProps
+}: {
+  isManifest: boolean
+  selectedStageId: string
+  selectedArtifactId: string
+  formikProps: any
+}) => {
+  const orginalArtifact = filterArtifact({
+    runtimeData: formikProps.values.originalPipeline?.stages,
+    stageId: selectedStageId,
+    artifactId: getArtifactId(isManifest, selectedArtifactId),
+    isManifest
+  })
+
+  /*
+              when we have multiple stages - need to filter undefined values
+              in this case formikprops.values.stages will be [undefined, [stage obj]]
+              when chartVersion alone is runtime input, stages array could be empty
+  */
+  const filterFormStages = formikProps?.values?.stages?.filter((item: any) => item)
+  // when stages is empty array, filteredArtifact will be empty object
+  const formFilteredArtifact = isManifest ? getManifests(filterFormStages) : getArtifacts(filterFormStages)
+  const finalArtifact = mergeArtifactManifest(isManifest, orginalArtifact, formFilteredArtifact)
+  if (finalArtifact?.spec?.chartVersion && isManifest) {
+    // hardcode manifest chart version to default
+    finalArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
+      chartVersion: finalArtifact.spec.chartVersion
+    })
+  } else if (!isManifest && finalArtifact?.spec?.tag) {
+    finalArtifact.spec.tag = replaceTriggerDefaultBuild({
+      build: finalArtifact?.spec?.tag
+    })
+  }
+
+  const { pipeline, selectedArtifact } = formikProps.values
+  const newPipelineObj = isManifest
+    ? updatePipelineManifest({
+        pipeline,
+        stageIdentifier: selectedStageId,
+        selectedArtifact,
+        newArtifact: clearRuntimeInputValue(finalArtifact)
+      })
+    : updatePipelineArtifact({
+        pipeline,
+        stageIdentifier: selectedStageId,
+        selectedArtifact,
+        newArtifact: clearRuntimeInputValue(finalArtifact)
+      })
+
+  formikProps.setValues({
+    ...formikProps.values,
+    pipeline: newPipelineObj,
+    selectedArtifact: clearRuntimeInputValue(finalArtifact),
+    stageId: selectedStageId
+  })
+}
 const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   isModalOpen,
   formikProps,
@@ -91,6 +165,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   const [modalState, setModalState] = useState<ModalState>(
     !isEmpty(values?.selectedArtifact) ? ModalState.RUNTIME_INPUT : ModalState.SELECT
   )
+
   const { getString } = useStrings()
 
   const closeAndReset = () => {
@@ -104,14 +179,27 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
       formikProps.setFieldValue('stages', undefined)
     }
   }
-  const FormComponent = getFormComponent(isManifest)
 
+  const getSelectedArtifactId = () => {
+    if (selectedArtifactId) {
+      return selectedArtifactId
+    } else if (
+      values?.selectedArtifact &&
+      Object.keys(values?.selectedArtifact).length &&
+      !values?.selectedArtifact?.identifier
+    ) {
+      return PRIMARY_ARTIFACT
+    }
+    return ''
+  }
+  const FormComponent = getFormComponent(isManifest)
   const filteredArtifact = filterArtifact({
     runtimeData,
     stageId: selectedStageId,
-    artifactId: selectedArtifactId,
+    artifactId: getSelectedArtifactId(),
     isManifest
   })
+
   const templateObject = isManifest ? getTemplateObject(filteredArtifact, []) : getTemplateObject([], filteredArtifact)
   const artifactOrManifestText = isManifest
     ? getString('manifestsText')
@@ -190,57 +278,12 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               text={getString('filters.apply')}
               intent="primary"
               onClick={() => {
-                const orginalArtifact = filterArtifact({
-                  runtimeData: formikProps.values.originalPipeline?.stages,
-                  stageId: selectedStageId,
-                  artifactId: selectedArtifactId,
-                  isManifest
+                onSubmit({
+                  isManifest,
+                  selectedStageId,
+                  selectedArtifactId,
+                  formikProps
                 })
-
-                /*
-                          when we have multiple stages - need to filter undefined values
-                          in this case formikprops.values.stages will be [undefined, [stage obj]]
-                          when chartVersion alone is runtime input, stages array could be empty
-                        */
-                const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
-                // when stages is empty array, filteredArtifact will be empty object
-                const formFilteredArtifact = isManifest
-                  ? getManifests(filterFormStages)
-                  : getArtifacts(filterFormStages)
-                const finalArtifact = mergeArtifactManifest(isManifest, orginalArtifact, formFilteredArtifact)
-
-                if (finalArtifact?.spec?.chartVersion) {
-                  // hardcode manifest chart version to default
-                  finalArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
-                    chartVersion: finalArtifact.spec.chartVersion
-                  })
-                } else if (!isManifest && finalArtifact?.spec?.tag) {
-                  finalArtifact.spec.tag = replaceTriggerDefaultBuild({
-                    build: finalArtifact?.spec?.tag
-                  })
-                }
-                const { pipeline, selectedArtifact } = formikProps.values
-                const newPipelineObj = isManifest
-                  ? updatePipelineManifest({
-                      pipeline,
-                      stageIdentifier: selectedStageId,
-                      selectedArtifact,
-                      newArtifact: clearRuntimeInputValue(finalArtifact)
-                    })
-                  : updatePipelineArtifact({
-                      pipeline,
-                      stageIdentifier: selectedStageId,
-                      selectedArtifact,
-                      newArtifact: clearRuntimeInputValue(finalArtifact)
-                    })
-
-                formikProps.setValues({
-                  ...formikProps.values,
-                  pipeline: newPipelineObj,
-                  selectedArtifact: clearRuntimeInputValue(finalArtifact),
-                  stageId: selectedStageId
-                })
-
                 closeModal()
               }}
             />

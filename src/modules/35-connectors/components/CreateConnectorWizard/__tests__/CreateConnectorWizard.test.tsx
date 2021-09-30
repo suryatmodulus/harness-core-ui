@@ -71,6 +71,15 @@ describe('Create connector Wizard', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('should open CreateConnectorWizard for GCP KMS', () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateConnectorWizard type={Connectors.GCP_KMS} {...commonProps} />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
   test('should open CreateConnectorWizard for DOCKER', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>

@@ -73,3 +73,4 @@ secret:
   noSecretsFound: 'No Secrets Found'
   configureSecret: 'Configure Secret'
   updateSuccess: 'Secret updated successfully'
+  newSSHCredential: New SSH Credential

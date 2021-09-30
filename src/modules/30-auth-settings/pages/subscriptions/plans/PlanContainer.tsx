@@ -14,7 +14,8 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { ModuleName } from 'framework/types/ModuleName'
-import { Editions } from '@common/constants/SubscriptionTypes'
+import type { Editions } from '@common/constants/SubscriptionTypes'
+import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import type { TIME_TYPE } from './Plan'
 import Plan from './Plan'
 import css from './Plans.module.scss'
@@ -49,23 +50,27 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
     ci: css.ciColor
   }
 
-  async function handleStartTrial(): Promise<void> {
+  async function handleStartTrial(edition: Editions): Promise<void> {
     trackEvent(TrialActions.StartTrialClick, { category: Category.SIGNUP, module })
     try {
-      const data = await startTrial({ moduleType, edition: Editions.ENTERPRISE })
+      const data = await startTrial({ moduleType, edition })
 
       handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as Module, data?.data)
 
       if (module === ModuleName.CE.toLowerCase()) {
         history.push(routes.toCEOverview({ accountId }))
       } else {
+        let search
+        if (data.data?.licenseType === ModuleLicenseType.TRIAL) {
+          search = '?trial=true'
+        }
         history.push({
           pathname: routes.toModuleHome({ accountId, module: module as Module }),
-          search: '?trial=true'
+          search
         })
       }
-    } catch (error) {
-      showError(error.data?.message)
+    } catch (ex: any) {
+      showError(ex.data?.message)
     }
   }
 
@@ -95,15 +100,17 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
 
   plans?.map((plan: any) => {
     if (plan?.title) {
-      if (plan.title.trim().toLowerCase() === 'enterprise') {
-        if (hasLicense) {
-          plan.buttonText = getString('common.deactivate')
-          plan.onClick = null
-        } else {
-          plan.onClick = handleStartTrial
+      if (hasLicense) {
+        plan.buttonText = getString('common.deactivate')
+        plan.onClick = null
+      } else {
+        plan.buttonText = getString('common.tryNow')
+        const edition = plan.title.toUpperCase() as Editions
+        plan.onClick = () => {
+          handleStartTrial(edition)
         }
-        plan.btnLoading = loading
       }
+      plan.btnLoading = loading
     }
   })
 

@@ -1,9 +1,8 @@
 import React from 'react'
+import { noop } from 'lodash-es'
 import { render, waitFor, fireEvent, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-
 import CreateOrSelectSecret from '../CreateOrSelectSecret'
-
 import connectorsListMockData from './connectorsListMockdata.json'
 import secretsListMockData from './secretsListMockData.json'
 import connectorDetailsMockData from './getConnectorMock.json'
@@ -34,6 +33,7 @@ describe('CreateOrSelectSecret', () => {
           type="SecretText"
           onSuccess={successCallback}
           secretsListMockData={secretsListMockData as any}
+          handleInlineSSHSecretCreation={noop}
         />
       </TestWrapper>
     )

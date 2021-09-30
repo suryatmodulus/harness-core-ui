@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { Dialog } from '@blueprintjs/core'
 import { Button, useModalHook } from '@wings-software/uicore'
-
 import { pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type {
@@ -18,7 +17,7 @@ import CreateSSHCredWizard, { SSHCredSharedObj } from './CreateSSHCredWizard'
 import css from './useCreateSSHCredModal.module.scss'
 
 export interface UseCreateSSHCredModalProps {
-  onSuccess?: () => void
+  onSuccess?: (secret: SecretDTOV2) => void
 }
 
 export interface UseCreateSSHCredModalReturn {

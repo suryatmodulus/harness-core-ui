@@ -45,7 +45,13 @@ const fetchRecords = (
   mock?: ResponsePageSecretResponseWrapper,
   connectorTypeContext?: ConnectorInfoDTO['type']
 ): void => {
-  const secretManagerTypes: ConnectorInfoDTO['type'][] = ['AwsKms', 'AzureKeyVault', 'Vault', 'AwsSecretManager']
+  const secretManagerTypes: ConnectorInfoDTO['type'][] = [
+    'AwsKms',
+    'AzureKeyVault',
+    'Vault',
+    'AwsSecretManager',
+    'GcpKms'
+  ]
   let sourceCategory: ListSecretsV2QueryParams['source_category'] | undefined
   if (connectorTypeContext && secretManagerTypes.includes(connectorTypeContext)) {
     sourceCategory = 'SECRET_MANAGER'

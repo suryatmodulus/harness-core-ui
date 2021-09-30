@@ -61,7 +61,6 @@ import { shouldShowError } from '@common/utils/errorUtils'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
@@ -275,10 +274,10 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
 
   const computeDrawerMap = (catalogueData: ResponseConnectorCatalogueResponse | null): AddDrawerMapInterface => {
     const originalData = catalogueData?.data?.catalogue || []
-    originalData.map(value => {
-      value.category == 'SECRET_MANAGER'
-        ? (value.connectors = ['Vault', 'AwsKms', 'AzureKeyVault', 'AwsSecretManager'])
-        : null
+    originalData.forEach(value => {
+      if (value.category === 'SECRET_MANAGER') {
+        value.connectors = ['Vault', 'AwsKms', 'AzureKeyVault', 'AwsSecretManager', 'GcpKms']
+      }
     })
     const orderedCatalogue: ConnectorCatalogueItem[] | { category: string; connectors: string[] } = []
     connectorCatalogueOrder.forEach(catalogueItem => {

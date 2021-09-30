@@ -1,14 +1,19 @@
 import React from 'react'
-import { fireEvent, act, render } from '@testing-library/react'
+import { fireEvent, act, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import DelegateConfigurations from '../DelegateConfigurations'
+import DelegateConfigurations, { prepareData } from '../DelegateConfigurations'
 import ProfileMock from './ProfilesMock'
 
 const mockGetCallFunction = jest.fn()
 jest.mock('services/cd-ng', () => ({
-  useListDelegateConfigsNgV2: jest.fn().mockImplementation(args => {
+  useListDelegateConfigsNgV2WithFilter: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
-    return { data: ProfileMock, refetch: jest.fn(), error: null, loading: false }
+    return {
+      mutate: jest.fn().mockImplementation(() => ProfileMock),
+      refetch: jest.fn(),
+      error: null,
+      loading: false
+    }
   }),
   useDeleteDelegateConfigNgV2: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
@@ -16,14 +21,45 @@ jest.mock('services/cd-ng', () => ({
   }),
   useAddDelegateProfileNgV2: jest.fn().mockImplementation(() => ({
     mutate: jest.fn()
-  }))
+  })),
+  useGetFilterList: jest.fn().mockImplementation(() => {
+    return {
+      refetch: jest.fn(),
+      loading: false
+    }
+  }),
+  usePostFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  useUpdateFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  useDeleteFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  })
 }))
 
 jest.mock('@common/exports', () => ({
   TimeAgo: jest.fn().mockImplementation(() => <div />),
   useConfirmationDialog: jest.fn().mockImplementation(async ({ onCloseDialog }) => {
     await onCloseDialog(true)
-  })
+  }),
+  useToaster: () => ({
+    showError: jest.fn(),
+    showSuccess: jest.fn()
+  }),
+  StringUtils: {
+    getIdentifierFromName: (name: string) => name
+  },
+  Page: {
+    Body: ({ children }: { children: React.ReactNode }) => <div>{children}</div>
+  }
 }))
 
 describe('Delegates Configurations Page', () => {
@@ -33,6 +69,27 @@ describe('Delegates Configurations Page', () => {
         <DelegateConfigurations />
       </TestWrapper>
     )
+
+    expect(container).toMatchSnapshot()
+  })
+  test('test name search configs', async () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'dummy' }}>
+        <DelegateConfigurations />
+      </TestWrapper>
+    )
+
+    let searchInput: HTMLElement
+
+    await waitFor(() => {
+      searchInput = container.getElementsByTagName('input')[0]
+    })
+
+    act(() => {
+      fireEvent.change(searchInput!, {
+        target: { value: 'primary' }
+      })
+    })
 
     expect(container).toMatchSnapshot()
   })
@@ -50,20 +107,46 @@ describe('Delegates Configurations Page', () => {
 
     expect(container).toMatchSnapshot()
   })
-  test('delete delegate configuration', () => {
+  test('check filter panel', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'dummy' }}>
         <DelegateConfigurations />
       </TestWrapper>
     )
 
-    const allSvgMenus = container.querySelectorAll('svg[data-icon="more"]')
-    const nonPrimaryProfileMenu = allSvgMenus[1]
+    let filterOpenBtn: HTMLElement
+    await waitFor(() => {
+      filterOpenBtn = container.getElementsByTagName('button')[1]
+    })
 
-    fireEvent.click(nonPrimaryProfileMenu!)
+    act(() => {
+      fireEvent.click(filterOpenBtn!)
+    })
 
-    const deleteAction = document.body.querySelector('span[icon="cross"]')
-    fireEvent.click(deleteAction!)
     expect(container).toMatchSnapshot()
+  })
+  test('test prepare data', () => {
+    const preparedData = prepareData(
+      {
+        metadata: { name: 'name1', filterVisibility: 'EveryOne', identifier: 'name1ident' },
+        formValues: { identifier: 'deliprofdent1', name: 'name1', description: '', selectors: [] }
+      },
+      false
+    )
+    const result = {
+      name: 'name1',
+      identifier: 'name1',
+      projectIdentifier: undefined,
+      orgIdentifier: undefined,
+      filterVisibility: 'EveryOne',
+      filterProperties: {
+        filterType: 'DelegateProfile',
+        identifier: 'deliprofdent1',
+        name: 'name1',
+        description: '',
+        selectors: []
+      }
+    }
+    expect(preparedData).toEqual(result)
   })
 })

@@ -207,11 +207,17 @@ describe('Test Pipeline Deployment list', () => {
     fireEvent.click(select)
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option1 = await findByTextGlobal(document.body, 'pipeline.executionFilters.labels.Failed', {
+    const optionFailed = await findByTextGlobal(document.body, 'pipeline.executionFilters.labels.Failed', {
       selector: '[class*="menuItem"]'
     })
 
-    fireEvent.click(option1)
+    fireEvent.click(optionFailed)
+
+    const optionExpired = await findByTextGlobal(document.body, 'pipeline.executionFilters.labels.Expired', {
+      selector: '[class*="menuItem"]'
+    })
+
+    fireEvent.click(optionExpired)
 
     await act(async () => {
       jest.runOnlyPendingTimers()
@@ -221,7 +227,7 @@ describe('Test Pipeline Deployment list', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/orgs/testOrg/projects/testProject/deployments?status=Failed&page=1
+        /account/testAcc/cd/orgs/testOrg/projects/testProject/deployments?status%5B0%5D=Failed&status%5B1%5D=Expired&page=1
       </div>
     `)
 
@@ -237,7 +243,7 @@ describe('Test Pipeline Deployment list', () => {
         size: 20,
         pipelineIdentifier: undefined,
         projectIdentifier: 'testProject',
-        status: 'Failed',
+        status: ['Failed', 'Expired'],
         filterIdentifier: undefined,
         module: 'cd',
         myDeployments: false,
@@ -247,9 +253,9 @@ describe('Test Pipeline Deployment list', () => {
       }
     })
 
-    const option2 = select.getElementsByTagName('button')[0]
+    fireEvent.click(optionFailed)
 
-    fireEvent.click(option2)
+    fireEvent.click(optionExpired)
 
     await act(async () => {
       jest.runOnlyPendingTimers()

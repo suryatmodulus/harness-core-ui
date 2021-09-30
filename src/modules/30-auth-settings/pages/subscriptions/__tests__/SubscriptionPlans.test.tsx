@@ -8,6 +8,7 @@ import { fromValue } from 'wonka'
 import { ModuleName } from 'framework/types/ModuleName'
 import { TestWrapper } from '@common/utils/testUtils'
 import { FetchPlansDocument } from 'services/common/services'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import { useGetLicensesAndSummary, useStartTrialLicense } from 'services/cd-ng'
 import SubscriptionPlans from '../plans/SubscriptionPlans'
 import { plansData } from './plansData'
@@ -48,14 +49,14 @@ describe('Subscription Plans', () => {
           loading: false
         }
       })
-      const { container, getByText } = render(
+      const { container, getAllByText } = render(
         <TestWrapper>
           <Provider value={responseState as any}>
             <SubscriptionPlans module={ModuleName.CI} />
           </Provider>
         </TestWrapper>
       )
-      expect(getByText('common.deactivate')).toBeDefined()
+      expect(getAllByText('common.deactivate')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
   })
@@ -81,14 +82,14 @@ describe('Subscription Plans', () => {
           loading: false
         }
       })
-      const { container, getByText } = render(
+      const { container, getAllByText } = render(
         <TestWrapper>
           <Provider value={responseState as any}>
             <SubscriptionPlans module={ModuleName.CE} />
           </Provider>
         </TestWrapper>
       )
-      expect(getByText('common.deactivate')).toBeDefined()
+      expect(getAllByText('common.deactivate')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
   })
@@ -114,14 +115,14 @@ describe('Subscription Plans', () => {
           loading: false
         }
       })
-      const { container, getByText } = render(
+      const { container, getAllByText } = render(
         <TestWrapper>
           <Provider value={responseState as any}>
             <SubscriptionPlans module={ModuleName.CD} />
           </Provider>
         </TestWrapper>
       )
-      expect(getByText('common.deactivate')).toBeDefined()
+      expect(getAllByText('common.deactivate')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
   })
@@ -147,14 +148,14 @@ describe('Subscription Plans', () => {
           loading: false
         }
       })
-      const { container, getByText } = render(
+      const { container, getAllByText } = render(
         <TestWrapper>
           <Provider value={responseState as any}>
             <SubscriptionPlans module={ModuleName.CF} />
           </Provider>
         </TestWrapper>
       )
-      expect(getByText('common.deactivate')).toBeDefined()
+      expect(getAllByText('common.deactivate')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
   })
@@ -192,7 +193,7 @@ describe('Subscription Plans', () => {
     })
   })
 
-  test('should be able to call start trial when no license', async () => {
+  test('should be able to call start trial when no license: free edition', async () => {
     const data = cloneDeep(plansData)
     const responseState = {
       executeQuery: ({ query }: { query: DocumentNode }) => {
@@ -213,16 +214,20 @@ describe('Subscription Plans', () => {
           loading: false
         }
       })
-      const { getByText } = render(
+      const { getAllByText } = render(
         <TestWrapper>
           <Provider value={responseState as any}>
             <SubscriptionPlans module={ModuleName.CI} />
           </Provider>
         </TestWrapper>
       )
-      expect(getByText('Try Now')).toBeInTheDocument()
-      fireEvent.click(getByText('Try Now'))
-      expect(startTrialMock).toBeCalled()
+      const btns = getAllByText('common.tryNow')
+      expect(btns).toHaveLength(3)
+      fireEvent.click(btns[0])
+      expect(startTrialMock).toBeCalledWith({
+        moduleType: ModuleName.CI,
+        edition: Editions.FREE
+      })
     })
   })
 })

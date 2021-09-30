@@ -1,12 +1,34 @@
-import React from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import moment from 'moment'
-import get from 'lodash-es/get'
+import type { FormikErrors } from 'formik'
+import { pick, get, debounce } from 'lodash-es'
 import { Classes, Menu } from '@blueprintjs/core'
-import { Card, Text, Layout, Container, Button, FlexExpander, Color, Heading, Utils } from '@wings-software/uicore'
-import { useConfirmationDialog } from '@common/exports'
+import {
+  Card,
+  Text,
+  Layout,
+  Container,
+  Button,
+  FlexExpander,
+  Color,
+  Heading,
+  Utils,
+  useModalHook,
+  FormInput,
+  SelectOption,
+  MultiSelectOption,
+  ExpandingSearchInput
+} from '@wings-software/uicore'
+import { PageSpinner } from '@common/components'
+import { shouldShowError } from '@common/utils/errorUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
+import { useConfirmationDialog, Page, useToaster, StringUtils } from '@common/exports'
+import { Filter, FilterRef } from '@common/components/Filter/Filter'
+import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
+import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
+import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import routes from '@common/RouteDefinitions'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import useCreateDelegateConfigModal from '@delegates/modals/DelegateModal/useCreateDelegateConfigModal'
 import type {
   DelegateConfigProps,
@@ -14,12 +36,26 @@ import type {
   ModulePathParams,
   AccountPathProps
 } from '@common/interfaces/RouteInterfaces'
-import type { ScopingRuleDetails } from 'services/portal'
-import { useListDelegateConfigsNgV2, useDeleteDelegateConfigNgV2 } from 'services/cd-ng'
+import type { ScopingRuleDetails, GetDelegateGroupsNGV2WithFilterQueryParams } from 'services/portal'
+import type { FilterDTO, DelegateProfileFilterProperties, ResponsePageFilterDTO } from 'services/cd-ng'
+import {
+  useListDelegateConfigsNgV2WithFilter,
+  useDeleteDelegateConfigNgV2,
+  usePostFilter,
+  useUpdateFilter,
+  useDeleteFilter,
+  useGetFilterList
+} from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
+import {
+  removeNullAndEmpty,
+  isObjectEmpty,
+  UNSAVED_FILTER,
+  flattenObject
+} from '@common/components/Filter/utils/FilterUtils'
 /* RBAC */
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import RbacButton from '@rbac/components/Button/Button'
@@ -32,6 +68,32 @@ import css from './DelegatesPage.module.scss'
 const formatProfileList = (data: any) => {
   const profiles: Array<DelegateProfileDetails> = data?.resource?.response
   return profiles
+}
+
+export const prepareData = (
+  data: FilterDataInterface<DelegateProfileFilterProperties, FilterInterface>,
+  isUpdate: boolean,
+  projectIdentifier?: string,
+  orgIdentifier?: string
+) => {
+  const {
+    metadata: { name: _name, filterVisibility, identifier },
+    formValues: { identifier: delegateProfileIdentifier, name, description, selectors = {} }
+  } = data
+  return {
+    name: _name,
+    identifier: isUpdate ? identifier : StringUtils.getIdentifierFromName(_name),
+    projectIdentifier,
+    orgIdentifier,
+    filterVisibility: filterVisibility,
+    filterProperties: {
+      filterType: 'DelegateProfile',
+      identifier: delegateProfileIdentifier,
+      name,
+      description,
+      selectors: Object.keys(selectors)
+    } as DelegateProfileFilterProperties
+  }
 }
 
 const fullSizeContentStyle: React.CSSProperties = {
@@ -56,27 +118,279 @@ interface DelegateProfileDetails {
   numberOfDelegates?: number
 }
 
-export default function DelegateConfigurations(): JSX.Element {
+interface DelegatesListProps {
+  filtersMockData?: UseGetMockData<ResponsePageFilterDTO>
+}
+
+export const DelegateConfigurations: React.FC<DelegatesListProps> = ({ filtersMockData }): JSX.Element => {
   const { getString } = useStrings()
+  const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
+  const [filters, setFilters] = useState<FilterDTO[]>()
+  const [searchParam, setSearchParam] = useState('')
+  const [page, setPage] = useState(0)
+  const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
+  const [delegateProfiles, setDelegateProfiles] = useState<Array<DelegateProfileDetails>>([])
   const history = useHistory()
+  const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<
     Partial<DelegateConfigProps & ProjectPathProps & ModulePathParams> & AccountPathProps
   >()
-  const { data, loading, error, refetch } = useListDelegateConfigsNgV2({
+
+  const queryParams: GetDelegateGroupsNGV2WithFilterQueryParams = {
+    accountId,
+    orgId: orgIdentifier,
+    projectId: projectIdentifier,
+    module,
+    pageIndex: page,
+    pageSize: 10,
+    searchTerm: ''
+  } as GetDelegateGroupsNGV2WithFilterQueryParams
+
+  const {
+    mutate: getDelegateProfiles,
+    loading: isFetchingDelegateProfiles,
+    error: delegateFetchError
+  } = useListDelegateConfigsNgV2WithFilter({
     accountId,
     queryParams: { orgId: orgIdentifier, projectId: projectIdentifier }
   })
+
+  const getFilterByIdentifier = (identifier: string): FilterDTO | undefined =>
+    /* istanbul ignore if */
+    filters?.find((filter: FilterDTO) => filter.identifier?.toLowerCase() === identifier.toLowerCase())
+
+  useEffect(() => {
+    setPage(0)
+    refetchDelegateProfiles(queryParams)
+  }, [projectIdentifier, orgIdentifier])
+
+  const {
+    loading: isFetchingFilters,
+    data: fetchedFilterResponse,
+    refetch: refetchFilterList
+  } = useGetFilterList({
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      type: 'DelegateProfile'
+    },
+    mock: filtersMockData
+  })
+
+  useEffect(() => {
+    setFilters(fetchedFilterResponse?.data?.content || [])
+    setIsRefreshingFilters(isFetchingFilters)
+  }, [fetchedFilterResponse])
+
   const { showSuccess, showError } = useToaster()
-  const profiles: Array<DelegateProfileDetails> = formatProfileList(data)
   const { openDelegateConfigModal } = useCreateDelegateConfigModal({
     onSuccess: () => {
-      refetch()
+      refetchDelegateProfiles(queryParams, appliedFilter?.filterProperties)
     }
   })
   const { mutate: deleteDelegateProfile } = useDeleteDelegateConfigNgV2({
     accountId,
     queryParams: { orgId: orgIdentifier, projectId: projectIdentifier }
   })
+
+  const reset = (): void => {
+    refetchDelegateProfiles(queryParams)
+    setAppliedFilter(undefined)
+  }
+
+  const debouncedDelegateProfilesSearch = useCallback(
+    debounce((query: string): void => {
+      const filterProps = {
+        identifier: '',
+        name: '',
+        description: '',
+        selectors: []
+      }
+      if (query) {
+        getDelegateProfiles(filterProps)
+      } else {
+        page === 0 ? getDelegateProfiles(filterProps) : setPage(0)
+      }
+    }, 500),
+    [getDelegateProfiles, appliedFilter?.filterProperties]
+  )
+
+  const refetchDelegateProfiles = useCallback(
+    async (params: GetDelegateGroupsNGV2WithFilterQueryParams, filter?): Promise<void> => {
+      const { identifier, name, description, selectors = {} } = filter || {}
+
+      const requestBodyPayload = Object.assign(
+        filter
+          ? {
+              identifier,
+              name,
+              description,
+              selectors: Object.keys(selectors)
+            }
+          : {},
+        {
+          filterType: 'DelegateProfile'
+        }
+      )
+      const sanitizedFilterRequest = removeNullAndEmpty(requestBodyPayload)
+      try {
+        const delProfilesResponse = await getDelegateProfiles(sanitizedFilterRequest, { queryParams: params })
+        const delProfiles = formatProfileList(delProfilesResponse)
+        setDelegateProfiles(delProfiles)
+      } catch (e) {
+        if (shouldShowError(e)) {
+          showError(e.data?.message || e.message)
+        }
+      }
+    },
+    [getDelegateProfiles]
+  )
+
+  const handleSaveOrUpdate = async (
+    isUpdate: boolean,
+    data: FilterDataInterface<DelegateProfileFilterProperties, FilterInterface>
+  ): Promise<void> => {
+    await setIsRefreshingFilters(true)
+    const saveOrUpdateHandler = filterRef.current?.saveOrUpdateFilterHandler
+    if (saveOrUpdateHandler && typeof saveOrUpdateHandler === 'function') {
+      const updatedFilter = await saveOrUpdateHandler(
+        isUpdate,
+        prepareData(data, isUpdate, projectIdentifier, orgIdentifier)
+      )
+      setAppliedFilter(updatedFilter)
+    }
+    await refetchFilterList()
+    setIsRefreshingFilters(false)
+  }
+
+  const handleDelete = async (identifier: string): Promise<void> => {
+    setIsRefreshingFilters(true)
+    const deleteHandler = filterRef.current?.deleteFilterHandler
+    if (deleteHandler && typeof deleteFilter === 'function') {
+      await deleteHandler(identifier)
+    }
+    if (identifier === appliedFilter?.identifier) {
+      reset()
+    }
+    await refetchFilterList()
+    setIsRefreshingFilters(false)
+  }
+
+  const unsavedFilter = {
+    name: UNSAVED_FILTER,
+    identifier: StringUtils.getIdentifierFromName(UNSAVED_FILTER)
+  }
+
+  const handleFilterClick = (identifier: string): void => {
+    if (identifier !== unsavedFilter.identifier) {
+      setAppliedFilter(getFilterByIdentifier(identifier))
+    }
+  }
+
+  const DelegateForm = (): React.ReactElement => {
+    return (
+      <>
+        <FormInput.Text name={'name'} label={getString('delegate.delegateConfiguration')} key={'name'} />
+        <FormInput.Text name={'description'} label={getString('description')} key={'description'} />
+        <FormInput.KVTagInput name={'selectors'} label={getString('delegates.selectors')} key={'selectors'} />
+        <FormInput.Text name={'identifier'} label={getString('identifier')} key={'identifier'} />
+      </>
+    )
+  }
+
+  const { mutate: createFilter } = usePostFilter({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  const { mutate: updateFilter } = useUpdateFilter({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  const { mutate: deleteFilter } = useDeleteFilter({
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      type: 'Delegate'
+    }
+  })
+
+  const [openFilterDrawer, hideFilterDrawer] = useModalHook(() => {
+    const onFilterApply = (formData: Record<string, any>) => {
+      if (!isObjectEmpty(formData)) {
+        const filterFromFormData = { ...formData }
+        const updatedQueryParams = {
+          ...queryParams,
+          searchTerm: searchParam,
+          pageIndex: 0
+        }
+        refetchDelegateProfiles(updatedQueryParams, filterFromFormData)
+        setAppliedFilter({ ...unsavedFilter, filterProperties: filterFromFormData })
+        setPage(0)
+        hideFilterDrawer()
+      } else {
+        showError(getString('filters.invalidCriteria'))
+      }
+    }
+
+    const { name, identifier, description, selectors } = (appliedFilter?.filterProperties as any) || {}
+    const { name: filterName = '', filterVisibility } = appliedFilter || {}
+    return isFetchingDelegateProfiles || isFetchingFilters ? (
+      <PageSpinner />
+    ) : (
+      <Filter<DelegateProfileFilterProperties, FilterDTO>
+        onApply={onFilterApply}
+        onClose={() => {
+          hideFilterDrawer()
+          refetchFilterList()
+        }}
+        filters={filters}
+        initialFilter={{
+          formValues: {
+            name,
+            identifier,
+            description,
+            selectors
+          },
+          metadata: {
+            name: filterName,
+            filterVisibility: filterVisibility,
+            identifier: appliedFilter?.identifier || '',
+            filterProperties: {}
+          }
+        }}
+        onSaveOrUpdate={handleSaveOrUpdate}
+        onDelete={handleDelete}
+        onFilterSelect={handleFilterClick}
+        isRefreshingFilters={isRefreshingFilters}
+        formFields={<DelegateForm />}
+        onValidate={(
+          values: Partial<DelegateProfileFilterProperties>
+        ): FormikErrors<Partial<DelegateProfileFilterProperties>> => {
+          const errors: FormikErrors<{ description?: MultiSelectOption[] }> = {}
+          if (values.description === '') {
+            errors.description = ''
+          }
+          return errors
+        }}
+        dataSvcConfig={
+          new Map<CrudOperation, (...rest: any[]) => Promise<any>>([
+            ['ADD', createFilter],
+            ['UPDATE', updateFilter],
+            ['DELETE', deleteFilter]
+          ])
+        }
+        onSuccessfulCrudOperation={refetchFilterList}
+        ref={filterRef}
+        onClear={reset}
+      />
+    )
+  }, [isRefreshingFilters, filters, appliedFilter, searchParam, queryParams])
 
   const DelegateConfigItem = ({ profile }: { profile: DelegateProfileDetails }) => {
     const { openDialog } = useConfirmationDialog({
@@ -95,8 +409,8 @@ export default function DelegateConfigurations(): JSX.Element {
                   profileName: profile.name
                 })}`
               )
-              ;(profiles as any).reload?.()
-              refetch()
+              ;(delegateProfiles as any).reload?.()
+              refetchDelegateProfiles(queryParams, appliedFilter?.filterProperties)
             }
           } catch (e) {
             showError(e.message)
@@ -268,21 +582,27 @@ export default function DelegateConfigurations(): JSX.Element {
     )
   }
 
-  if (loading) {
-    return (
-      <Container style={fullSizeContentStyle}>
-        <ContainerSpinner />
-      </Container>
-    )
-  }
+  const fieldToLabelMapping = new Map<string, string>()
 
-  if (error) {
-    const message = get(error, 'data.message', error.message)
-    return (
-      <Container style={fullSizeContentStyle}>
-        <PageError message={message} onClick={() => refetch()} />
-      </Container>
-    )
+  const handleFilterSelection = (
+    option: SelectOption,
+    event?: React.SyntheticEvent<HTMLElement, Event> | undefined
+  ): void => {
+    event?.stopPropagation()
+    event?.preventDefault()
+    /* istanbul ignore else */
+    if (option.value) {
+      const selectedFilter = getFilterByIdentifier(option.value?.toString())
+      setAppliedFilter(selectedFilter)
+      const updatedQueryParams = {
+        ...queryParams,
+        searchTerm: searchParam,
+        pageIndex: 0
+      }
+      refetchDelegateProfiles(updatedQueryParams, selectedFilter?.filterProperties)
+    } else {
+      reset()
+    }
   }
 
   const permissionRequestNewConfiguration = {
@@ -311,20 +631,59 @@ export default function DelegateConfigurations(): JSX.Element {
         />
         <FlexExpander />
         <Layout.Horizontal spacing="xsmall">
-          <Button minimal icon="main-search" disabled />
-          <Button minimal icon="settings" disabled />
+          <ExpandingSearchInput
+            alwaysExpanded
+            width={250}
+            placeholder={getString('delegates.searchDelegateName')}
+            throttle={200}
+            onChange={text => {
+              debouncedDelegateProfilesSearch(text)
+              setSearchParam(text.trim())
+            }}
+            className={css.search}
+          />
+          <FilterSelector<FilterDTO>
+            appliedFilter={appliedFilter}
+            filters={filters}
+            onFilterBtnClick={openFilterDrawer}
+            onFilterSelect={handleFilterSelection}
+            fieldToLabelMapping={fieldToLabelMapping}
+            filterWithValidFields={removeNullAndEmpty(
+              pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
+            )}
+          />
         </Layout.Horizontal>
       </Layout.Horizontal>
       <Container
         style={{ width: 'calc(100vw - 270px)', overflow: 'hidden', minHeight: 'calc(100vh - 205px)' }}
         padding="xxlarge"
       >
-        <div className={css.delegateProfilesContainer}>
-          {profiles.map(profile => (
-            <DelegateConfigItem key={profile.uuid} profile={profile} />
-          ))}
-        </div>
+        <Page.Body>
+          {isFetchingDelegateProfiles ? (
+            <Container style={fullSizeContentStyle}>
+              <ContainerSpinner />
+            </Container>
+          ) : delegateFetchError && shouldShowError(delegateFetchError) ? (
+            <div style={{ paddingTop: '200px' }}>
+              <PageError
+                message={(delegateFetchError?.data as Error)?.message || delegateFetchError?.message}
+                onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  reset()
+                }}
+              />
+            </div>
+          ) : (
+            <div className={css.delegateProfilesContainer}>
+              {delegateProfiles.map(profile => (
+                <DelegateConfigItem key={profile.uuid} profile={profile} />
+              ))}
+            </div>
+          )}
+        </Page.Body>
       </Container>
     </Container>
   )
 }
+export default DelegateConfigurations

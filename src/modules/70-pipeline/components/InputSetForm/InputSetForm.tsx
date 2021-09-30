@@ -413,6 +413,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     },
     [isEdit, updateInputSet, createInputSet, showSuccess, showError, isGitSyncEnabled, inputSetResponse, pipeline]
   )
+  const NameIdSchema = Yup.object({
+    name: NameSchema(),
+    identifier: IdentifierSchema()
+  })
   const child = (
     <Container className={css.inputSetForm}>
       <Layout.Vertical spacing="medium">
@@ -420,12 +424,16 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           initialValues={{ ...omit(inputSet, 'gitDetails'), repo: repoIdentifier || '', branch: branch || '' }}
           enableReinitialize={true}
           formName="inputSetForm"
-          validationSchema={Yup.object().shape({
-            name: NameSchema(),
-            identifier: IdentifierSchema()
-          })}
-          validate={values => {
-            const errors: FormikErrors<InputSetDTO> = {}
+          validationSchema={NameIdSchema}
+          validate={async values => {
+            let errors: FormikErrors<InputSetDTO> = {}
+            try {
+              await NameIdSchema.validate(values)
+            } catch (err: any) {
+              if (err.name === 'ValidationError') {
+                errors = { [err.path]: err.message }
+              }
+            }
             if (values.pipeline && template?.data?.inputSetTemplateYaml && pipeline?.data?.yamlPipeline) {
               errors.pipeline = validatePipeline({
                 pipeline: values.pipeline,
@@ -437,6 +445,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
 
               if (isEmpty(errors.pipeline)) delete errors.pipeline
             }
+
             setFormErrors(errors)
             return errors
           }}

@@ -16,7 +16,7 @@ import type { FormikProps } from 'formik'
 import { setupBitbucketFormData, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
-
+import SSHSecretInput from '@secrets/components/SSHSecretInput/SSHSecretInput'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
@@ -202,7 +202,7 @@ const StepBitbucketAuthentication: React.FC<
                   <Text font={{ weight: 'bold' }} className={css.authTitle}>
                     {getString('authentication')}
                   </Text>
-                  <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
+                  <SSHSecretInput name="sshKey" label={getString('SSH_KEY')} />
                 </Container>
               ) : (
                 <Container width={'52%'}>

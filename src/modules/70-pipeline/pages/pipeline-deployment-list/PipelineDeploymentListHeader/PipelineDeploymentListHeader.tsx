@@ -101,7 +101,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
           onChange={e => handleMyDeployments(e.currentTarget.checked)}
           className={cx(css.myDeploymentsCheckbox, { [css.selected]: queryParams.myDeployments })}
         />
-        <StatusSelect value={queryParams.status as ExecutionStatus} onSelect={handleStatusChange} />
+        <StatusSelect value={queryParams.status as ExecutionStatus[]} onSelect={handleStatusChange} />
         {pipelineIdentifier ? null : (
           <NewPipelineSelect
             selectedPipeline={queryParams.pipelineIdentifier}

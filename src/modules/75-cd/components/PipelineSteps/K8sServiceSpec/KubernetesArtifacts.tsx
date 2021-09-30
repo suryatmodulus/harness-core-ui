@@ -10,7 +10,6 @@ import artifactSourceBaseFactory, {
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
 
 export interface KubernetesArtifactsProps {
@@ -25,6 +24,7 @@ export interface KubernetesArtifactsProps {
   initialValues: K8SDirectServiceStep
   readonly: boolean
   expressions?: string[]
+  onUpdate?: ((data: K8SDirectServiceStep) => void) | undefined
 }
 
 export function KubernetesArtifacts(props: KubernetesArtifactsProps) {
@@ -39,6 +39,7 @@ export function KubernetesArtifacts(props: KubernetesArtifactsProps) {
   const isPrimaryArtifactsRuntime = runtimeMode && !!get(props.template, 'artifacts.primary', false)
   const isSidecarRuntime = runtimeMode && !!get(props.template, 'artifacts.sidecars', false)
   const artifactSource = artifactSourceBaseFactory.getArtifactSource(props.type)
+
   return artifactSource ? (
     <>
       {artifactSource.renderContent({

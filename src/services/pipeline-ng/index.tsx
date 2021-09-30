@@ -2766,6 +2766,8 @@ export interface PlanExecution {
   lastUpdatedAt?: number
   metadata?: ExecutionMetadata
   nextIteration?: number
+  nodeId?: string
+  nodeType?: 'PLAN' | 'PLAN_NODE'
   planId?: string
   setupAbstractions?: {
     [key: string]: string
@@ -7335,6 +7337,103 @@ export const postPipelineExecuteWithInputSetListPromise = (
     PostPipelineExecuteWithInputSetListPathParams
   >('POST', getConfig('pipeline/api'), `/pipeline/execute/${identifier}/inputSetList`, props, signal)
 
+export interface RunStagesWithRuntimeInputYamlQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  moduleType: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  useFQNIfError?: boolean
+}
+
+export interface RunStagesWithRuntimeInputYamlPathParams {
+  identifier: string
+}
+
+export type RunStagesWithRuntimeInputYamlProps = Omit<
+  MutateProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RunStagesWithRuntimeInputYamlQueryParams,
+    void,
+    RunStagesWithRuntimeInputYamlPathParams
+  >,
+  'path' | 'verb'
+> &
+  RunStagesWithRuntimeInputYamlPathParams
+
+/**
+ * Execute a pipeline with inputSet pipeline yaml
+ */
+export const RunStagesWithRuntimeInputYaml = ({ identifier, ...props }: RunStagesWithRuntimeInputYamlProps) => (
+  <Mutate<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RunStagesWithRuntimeInputYamlQueryParams,
+    void,
+    RunStagesWithRuntimeInputYamlPathParams
+  >
+    verb="POST"
+    path={`/pipeline/execute/${identifier}/stages`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseRunStagesWithRuntimeInputYamlProps = Omit<
+  UseMutateProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RunStagesWithRuntimeInputYamlQueryParams,
+    void,
+    RunStagesWithRuntimeInputYamlPathParams
+  >,
+  'path' | 'verb'
+> &
+  RunStagesWithRuntimeInputYamlPathParams
+
+/**
+ * Execute a pipeline with inputSet pipeline yaml
+ */
+export const useRunStagesWithRuntimeInputYaml = ({ identifier, ...props }: UseRunStagesWithRuntimeInputYamlProps) =>
+  useMutate<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RunStagesWithRuntimeInputYamlQueryParams,
+    void,
+    RunStagesWithRuntimeInputYamlPathParams
+  >(
+    'POST',
+    (paramsInPath: RunStagesWithRuntimeInputYamlPathParams) => `/pipeline/execute/${paramsInPath.identifier}/stages`,
+    { base: getConfig('pipeline/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Execute a pipeline with inputSet pipeline yaml
+ */
+export const runStagesWithRuntimeInputYamlPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RunStagesWithRuntimeInputYamlQueryParams,
+    void,
+    RunStagesWithRuntimeInputYamlPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RunStagesWithRuntimeInputYamlQueryParams,
+    void,
+    RunStagesWithRuntimeInputYamlPathParams
+  >('POST', getConfig('pipeline/api'), `/pipeline/execute/${identifier}/stages`, props, signal)
+
 export interface PostPipelineExecuteWithInputSetYamlv2QueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -7573,7 +7672,7 @@ export interface GetListOfExecutionsQueryParams {
   sort?: string[]
   filterIdentifier?: string
   module?: string
-  status?:
+  status?: (
     | 'Running'
     | 'AsyncWaiting'
     | 'TaskWaiting'
@@ -7600,6 +7699,7 @@ export interface GetListOfExecutionsQueryParams {
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
     | 'WAITING'
+  )[]
   myDeployments?: boolean
   branch?: string
   repoIdentifier?: string

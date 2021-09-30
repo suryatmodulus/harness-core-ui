@@ -112,3 +112,12 @@ export interface SetupEngineFormData {
   secretEngineName?: string
   secretEngineVersion?: number
 }
+
+export interface GcpKmsConfigFormData {
+  projectId?: string
+  region?: string
+  keyRing?: string
+  keyName?: string
+  credentials?: SecretReference
+  default: boolean
+}

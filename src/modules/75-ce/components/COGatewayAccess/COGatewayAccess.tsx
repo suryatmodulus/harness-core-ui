@@ -119,6 +119,8 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     const yamlRuleName = _data?.metadata?.name
     const updatedName = Utils.getHyphenSpacedString(props.gatewayDetails.name)
     let nameToReplace = updatedName
+    const namespace = _data.metadata?.namespace || 'default'
+
     if (resourceToUpdateWith === 'yaml') {
       nameToReplace = yamlRuleName
     }
@@ -127,9 +129,10 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
       metadata: {
         ..._data.metadata,
         name: nameToReplace,
+        namespace,
         annotations: {
           ..._data.metadata.annotations,
-          'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${nameToReplace}";`
+          'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${namespace}-${nameToReplace}";`
         }
       },
       spec: {

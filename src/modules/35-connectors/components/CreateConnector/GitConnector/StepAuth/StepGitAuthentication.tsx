@@ -5,7 +5,7 @@ import type { FormikProps } from 'formik'
 import { setupGitFormData, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
-
+import SSHSecretInput from '@secrets/components/SSHSecretInput/SSHSecretInput'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
@@ -117,7 +117,7 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
           <Form>
             <Container className={css.stepFormWrapper} width={'52%'}>
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
-                <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
+                <SSHSecretInput name="sshKey" label={getString('SSH_KEY')} />
               ) : (
                 <RenderGitAuthForm {...formikProps} />
               )}

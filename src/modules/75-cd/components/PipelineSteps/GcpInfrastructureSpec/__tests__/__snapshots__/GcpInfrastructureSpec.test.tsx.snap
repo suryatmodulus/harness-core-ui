@@ -429,7 +429,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                             class="bp3-popover-wrapper"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-target Text--targetClass"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
@@ -1223,7 +1223,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                             class="bp3-popover-wrapper"
                           >
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-target Text--targetClass"
                             >
                               <p
                                 class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"

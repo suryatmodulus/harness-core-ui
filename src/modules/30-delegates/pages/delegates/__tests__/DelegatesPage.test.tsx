@@ -11,6 +11,53 @@ jest.mock('services/portal', () => ({
     return []
   })
 }))
+jest.mock('services/cd-ng', () => ({
+  useGetFilterList: jest.fn().mockImplementation(() => {
+    return {
+      loading: false,
+      data: {},
+      refetch: jest.fn()
+    }
+  }),
+  usePostFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  useUpdateFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  useDeleteFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  })
+}))
+
+jest.mock('services/cd-ng', () => ({
+  useGetFilterList: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  usePostFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  useUpdateFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  }),
+  useDeleteFilter: jest.fn().mockImplementation(() => {
+    return {
+      mutate: jest.fn()
+    }
+  })
+}))
 
 jest.mock('services/cd-ng', () => ({
   useGetFilterList: jest.fn().mockImplementation(() => {

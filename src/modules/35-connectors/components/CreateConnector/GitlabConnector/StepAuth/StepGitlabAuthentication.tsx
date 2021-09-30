@@ -16,7 +16,7 @@ import type { FormikProps } from 'formik'
 import { setupGithubFormData, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
-
+import SSHSecretInput from '@secrets/components/SSHSecretInput/SSHSecretInput'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
@@ -101,7 +101,7 @@ const RenderGitlabAuthForm: React.FC<FormikProps<GitlabFormInterface>> = props =
     case GitAuthTypes.KERBEROS:
       return (
         <>
-          <SecretInput name="kerberosKey" type={'SSHKey'} label={getString('kerberos')} />
+          <SSHSecretInput name="kerberosKey" label={getString('kerberos')} />
         </>
       )
     default:
@@ -258,7 +258,7 @@ const StepGitlabAuthentication: React.FC<StepProps<StepGitlabAuthenticationProps
                     <Text font={{ weight: 'bold' }} className={css.authTitle}>
                       {getString('authentication')}
                     </Text>
-                    <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
+                    <SSHSecretInput name="sshKey" label={getString('SSH_KEY')} />
                   </Container>
                 ) : (
                   <Container width={'52%'}>

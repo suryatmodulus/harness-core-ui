@@ -22,6 +22,7 @@ import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
+import SSHSecretInput from '@secrets/components/SSHSecretInput/SSHSecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
 import { GitAuthTypes, GitAPIAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
@@ -255,7 +256,7 @@ const StepGithubAuthentication: React.FC<StepProps<StepGithubAuthenticationProps
                       >
                         {getString('authentication')}
                       </Text>
-                      <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
+                      <SSHSecretInput name="sshKey" label={getString('SSH_KEY')} />
                     </Container>
                   ) : (
                     <Container width={'52%'}>

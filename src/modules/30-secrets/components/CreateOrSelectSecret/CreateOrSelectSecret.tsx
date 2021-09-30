@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Tabs, Tab } from '@blueprintjs/core'
 import { pick } from 'lodash-es'
-import { Text } from '@wings-software/uicore'
+import { Text, Button, ButtonVariation } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
@@ -10,7 +10,6 @@ import { getReference } from '@common/utils/utils'
 import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper, ConnectorInfoDTO } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-
 import css from './CreateOrSelectSecret.module.scss'
 
 export interface SecretReference {
@@ -26,16 +25,19 @@ export interface CreateOrSelectSecretProps {
   onSuccess: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
   connectorTypeContext?: ConnectorInfoDTO['type']
+  handleInlineSSHSecretCreation: () => void
 }
 
 const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({
   type,
   onSuccess,
   secretsListMockData,
-  connectorTypeContext
+  connectorTypeContext,
+  handleInlineSSHSecretCreation
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+
   return (
     <section className={css.main}>
       <Tabs id={'CreateOrSelect'}>
@@ -61,20 +63,31 @@ const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({
           id={'reference'}
           title={<Text padding={'medium'}>{getString('secrets.titleSelect')}</Text>}
           panel={
-            <SecretReference
-              type={type}
-              onSelect={data => {
-                onSuccess({
-                  ...pick(data, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier']),
-                  referenceString: getReference(data.scope, data.identifier) as string
-                })
-              }}
-              accountIdentifier={accountId}
-              orgIdentifier={orgIdentifier}
-              projectIdentifier={projectIdentifier}
-              mock={secretsListMockData}
-              connectorTypeContext={connectorTypeContext}
-            />
+            <>
+              {type === 'SSHKey' ? (
+                <Button
+                  text={getString('secrets.secret.newSSHCredential')}
+                  icon="plus"
+                  onClick={handleInlineSSHSecretCreation}
+                  variation={ButtonVariation.SECONDARY}
+                  margin={{ bottom: 'medium' }}
+                />
+              ) : null}
+              <SecretReference
+                type={type}
+                onSelect={data => {
+                  onSuccess({
+                    ...pick(data, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier']),
+                    referenceString: getReference(data.scope, data.identifier) as string
+                  })
+                }}
+                accountIdentifier={accountId}
+                orgIdentifier={orgIdentifier}
+                projectIdentifier={projectIdentifier}
+                mock={secretsListMockData}
+                connectorTypeContext={connectorTypeContext}
+              />
+            </>
           }
         />
       </Tabs>

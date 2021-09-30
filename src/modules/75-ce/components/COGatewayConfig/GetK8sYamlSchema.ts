@@ -22,7 +22,7 @@ const getK8sYamlSchema = () => ({
       $id: '#/properties/metadata',
       type: 'object',
       title: 'The metadata schema',
-      required: ['name', 'annotations'],
+      required: ['name', 'namespace', 'annotations'],
       properties: {
         name: {
           $id: '#/properties/metadata/properties/name',
@@ -128,7 +128,7 @@ const getK8sYamlSchema = () => ({
                     type: 'object',
                     title: 'Rule Object',
                     description: '',
-                    required: ['host', 'http'],
+                    required: ['http'],
                     properties: {
                       host: {
                         $id: '#/properties/spec/properties/ingress/properties/rules/items/anyOf/0/properties/host',
@@ -255,16 +255,24 @@ const getK8sYamlSchema = () => ({
   additionalProperties: true
 })
 
-const getK8sIngressTemplate = ({ name, idleTime, cloudConnectorId, hideProgressPage, deps }: Record<string, any>) => {
+const getK8sIngressTemplate = ({
+  name,
+  idleTime,
+  cloudConnectorId,
+  hideProgressPage,
+  deps,
+  namespace = 'default'
+}: Record<string, any>) => {
   const modifiedName = Utils.getHyphenSpacedString(name)
   return {
     apiVersion: 'lightwing.lightwing.io/v1',
     kind: 'AutoStoppingRule',
     metadata: {
       name: modifiedName,
+      namespace,
       annotations: {
         'harness.io/cloud-connector-id': cloudConnectorId,
-        'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${modifiedName}";`
+        'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${namespace}-${modifiedName}";`
       }
     },
     spec: {

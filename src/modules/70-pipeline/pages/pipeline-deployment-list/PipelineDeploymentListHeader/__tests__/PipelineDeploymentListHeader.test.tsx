@@ -114,7 +114,7 @@ describe('<PipelineDeploymentListHeader /> test', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/orgs/testOrg/projects/test/pipelines?myDeployments=true&status=Aborted&page=1
+        /account/testAcc/cd/orgs/testOrg/projects/test/pipelines?myDeployments=true&status%5B0%5D=Aborted&page=1
       </div>
     `)
 
@@ -137,7 +137,7 @@ describe('<PipelineDeploymentListHeader /> test', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/orgs/testOrg/projects/test/pipelines?myDeployments=true&status=Aborted&page=1&pipelineIdentifier=pipeline1
+        /account/testAcc/cd/orgs/testOrg/projects/test/pipelines?myDeployments=true&status%5B0%5D=Aborted&page=1&pipelineIdentifier=pipeline1
       </div>
     `)
   })

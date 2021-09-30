@@ -66,27 +66,27 @@ const VerifyConnection: React.FC<VerifyConnectionProps> = ({ identifier, closeMo
               setFinishStatus(status)
             }}
           />
-          {finishStatus ? (
-            <Button
-              text={getString('secrets.createSSHCredWizard.verifyRetest')}
-              minimal
-              intent="primary"
-              margin={{ top: 'medium' }}
-              onClick={() => {
-                setValidationMetadata(undefined)
-              }}
-            />
-          ) : null}
-          <Container margin={{ top: 'large' }}>
-            {finishStatus && closeModal ? (
+          {finishStatus && (
+            <>
               <Button
-                text={getString('finish').toUpperCase()}
+                text={getString('secrets.createSSHCredWizard.verifyRetest')}
+                minimal
+                intent="primary"
+                margin={{ top: 'medium' }}
                 onClick={() => {
-                  closeModal()
+                  setValidationMetadata(undefined)
                 }}
               />
-            ) : null}
-          </Container>
+              <Container margin={{ top: 'large' }}>
+                <Button
+                  text={getString('finish').toUpperCase()}
+                  onClick={() => {
+                    closeModal?.()
+                  }}
+                />
+              </Container>
+            </>
+          )}
         </Container>
       ) : null}
     </>

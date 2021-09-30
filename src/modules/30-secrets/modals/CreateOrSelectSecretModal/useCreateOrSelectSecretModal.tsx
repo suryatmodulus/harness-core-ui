@@ -1,11 +1,9 @@
 import React from 'react'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
-
 import CreateOrSelectSecret from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper, ConnectorInfoDTO } from 'services/cd-ng'
-
 import css from './useCreateOrSelectSecretModal.module.scss'
 
 export interface UseCreateOrSelectSecretModalProps {
@@ -13,6 +11,7 @@ export interface UseCreateOrSelectSecretModalProps {
   onSuccess?: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
   connectorTypeContext?: ConnectorInfoDTO['type']
+  handleInlineSSHSecretCreation?: () => void
 }
 
 export interface UseCreateOrSelectSecretModalReturn {
@@ -42,6 +41,10 @@ const useCreateOrSelectSecretModal = (
             hideModal()
           }}
           connectorTypeContext={props.connectorTypeContext}
+          handleInlineSSHSecretCreation={() => {
+            props.handleInlineSSHSecretCreation?.()
+            hideModal()
+          }}
         />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>

@@ -32,7 +32,7 @@ export interface SecretInputProps {
   name: string
   label?: string
   placeholder?: string
-  type?: SecretResponseWrapper['secret']['type']
+  type?: Exclude<SecretResponseWrapper['secret']['type'], 'SSHKey'>
   onSuccess?: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
   /**
@@ -98,7 +98,7 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
       !isPlainObject(get(formik?.errors, name))) as boolean
 
   const getPlaceHolder = (): string => {
-    return placeholder || getString(type === 'SSHKey' ? 'secrets.selectSecret' : 'createOrSelectSecret')
+    return placeholder || getString('createOrSelectSecret')
   }
   const tooltipContext = React.useContext(FormikTooltipContext)
   const dataTooltipId =

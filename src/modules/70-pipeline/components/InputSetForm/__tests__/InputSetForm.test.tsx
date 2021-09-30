@@ -81,7 +81,7 @@ jest.mock('services/pipeline-ng', () => ({
   useGetPipeline: jest.fn(() => PipelineResponse),
   useGetTemplateFromPipeline: jest.fn(() => TemplateResponse),
   useGetOverlayInputSetForPipeline: jest.fn(() => GetOverlayInputSetEdit),
-  useCreateInputSetForPipeline: jest.fn(() => ({})),
+  useCreateInputSetForPipeline: jest.fn(() => ({ mutate: jest.fn() })),
   useUpdateInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: successResponse })),
   useUpdateOverlayInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: successResponse })),
   useCreateOverlayInputSetForPipeline: jest.fn(() => ({})),
@@ -146,6 +146,47 @@ describe('Render Forms - Snapshot Testing', () => {
     // Close Form
     fireEvent.click(getByText('cancel'))
     expect(container).toMatchSnapshot()
+  })
+
+  test('name id validation on save click', async () => {
+    const { getByText, getAllByDisplayValue } = render(
+      <TestWrapper
+        path={TEST_INPUT_SET_FORM_PATH}
+        pathParams={{
+          accountId: 'testAcc',
+          orgIdentifier: 'testOrg',
+          projectIdentifier: 'test',
+          pipelineIdentifier: 'pipeline',
+          inputSetIdentifier: '-1',
+          module: 'cd'
+        }}
+        defaultAppStoreValues={defaultAppStoreValues}
+      >
+        <PipelineContext.Provider
+          value={
+            {
+              state: { pipeline: { name: '', identifier: '' } } as any,
+              getStageFromPipeline: jest.fn((_stageId, pipeline) => ({ stage: pipeline.stages[0], parent: undefined }))
+            } as any
+          }
+        >
+          <EnhancedInputSetForm />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    jest.runOnlyPendingTimers()
+
+    // find the name field and clear the existing name
+    act(() => {
+      fireEvent.change(getAllByDisplayValue('asd')[0], { target: { value: '' } })
+    })
+
+    // click save
+    act(() => {
+      fireEvent.click(getByText('save'))
+    })
+    // wait for the error
+    await waitFor(() => expect(getByText('common.errorCount')).toBeTruthy())
   })
 
   test('render Overlay Input Set Form view', async () => {

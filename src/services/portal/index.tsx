@@ -20173,6 +20173,8 @@ export type DataCollectionConnectorBundleRequestBody = DataCollectionConnectorBu
 
 export type DelegateRequestBody = Delegate
 
+export type DelegateFilterPropertiesRequestBody = DelegateFilterProperties
+
 export type DelegateGroupDetailsRequestBody = DelegateGroupDetails
 
 export type DelegateParamsRequestBody = DelegateParams
@@ -21272,7 +21274,7 @@ export type GetDelegateGroupsNGV2WithFilterProps = Omit<
     RestResponseDelegateGroupListing,
     unknown,
     GetDelegateGroupsNGV2WithFilterQueryParams,
-    DelegateFilterProperties,
+    DelegateFilterPropertiesRequestBody,
     void
   >,
   'path' | 'verb'
@@ -21283,7 +21285,7 @@ export const GetDelegateGroupsNGV2WithFilter = (props: GetDelegateGroupsNGV2With
     RestResponseDelegateGroupListing,
     unknown,
     GetDelegateGroupsNGV2WithFilterQueryParams,
-    DelegateFilterProperties,
+    DelegateFilterPropertiesRequestBody,
     void
   >
     verb="POST"
@@ -21298,7 +21300,7 @@ export type UseGetDelegateGroupsNGV2WithFilterProps = Omit<
     RestResponseDelegateGroupListing,
     unknown,
     GetDelegateGroupsNGV2WithFilterQueryParams,
-    DelegateFilterProperties,
+    DelegateFilterPropertiesRequestBody,
     void
   >,
   'path' | 'verb'
@@ -21309,7 +21311,7 @@ export const useGetDelegateGroupsNGV2WithFilter = (props: UseGetDelegateGroupsNG
     RestResponseDelegateGroupListing,
     unknown,
     GetDelegateGroupsNGV2WithFilterQueryParams,
-    DelegateFilterProperties,
+    DelegateFilterPropertiesRequestBody,
     void
   >('POST', `/setup/delegates/ng/v2`, { base: getConfig('api'), ...props })
 

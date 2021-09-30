@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Tooltip, Dialog, Classes, RadioGroup, Radio, PopoverPosition } from '@blueprintjs/core'
+import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react'
+import { Tooltip, Dialog, Classes } from '@blueprintjs/core'
 import {
   Button,
   Checkbox,
@@ -8,7 +8,6 @@ import {
   Layout,
   Text,
   NestedAccordionProvider,
-  Icon,
   useModalHook,
   Heading,
   Color,
@@ -60,6 +59,7 @@ import { mergeTemplateWithInputSetData } from './RunPipelineHelper'
 import { StepViewType } from '../AbstractSteps/Step'
 import GitPopover from '../GitPopover/GitPopover'
 import SaveAsInputSet from './SaveAsInputSet'
+import SelectExistingInputsOrProvideNew from './SelectExistingOrProvide'
 import css from './RunPipelineForm.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
@@ -503,6 +503,10 @@ function RunPipelineFormBasic({
     }
   }
 
+  const onExistingProvideRadioChange = (ev: FormEvent<HTMLInputElement>): void => {
+    setExistingProvide((ev.target as HTMLInputElement).value)
+  }
+
   const renderPipelineInputSetForm = () => {
     if (loadingUpdate) {
       return (
@@ -630,60 +634,11 @@ function RunPipelineFormBasic({
                                 className={css.pipelineHeader}
                                 padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
                               >
-                                <div>
-                                  <Layout.Horizontal className={css.runModalSubHeading} id="use-input-set">
-                                    <RadioGroup
-                                      name="existingProvideRadio"
-                                      label={getString(
-                                        'pipeline.triggers.pipelineInputPanel.selectedExisitingOrProvide'
-                                      )}
-                                      inline
-                                      selectedValue={existingProvide}
-                                      onChange={ev => {
-                                        setExistingProvide((ev.target as HTMLInputElement).value)
-                                      }}
-                                    >
-                                      <Radio
-                                        label={getString('pipeline.triggers.pipelineInputPanel.provide')}
-                                        value="provide"
-                                        className={cx(
-                                          css.valueProviderRadio,
-                                          existingProvide === 'provide' ? css.selectedValueProvider : ''
-                                        )}
-                                      />
-                                      <Radio
-                                        label={getString('pipeline.triggers.pipelineInputPanel.existing')}
-                                        value="existing"
-                                        className={cx(
-                                          css.valueProviderRadio,
-                                          existingProvide === 'existing' ? css.selectedValueProvider : ''
-                                        )}
-                                      />
-                                    </RadioGroup>
-                                    <span className={css.helpSection}>
-                                      <Icon name="question" className={css.helpIcon} />
-                                      <Text
-                                        tooltipProps={{
-                                          position: PopoverPosition.BOTTOM
-                                        }}
-                                        tooltip={
-                                          <Text padding="medium" width={400}>
-                                            {getString('pipeline.inputSets.aboutInputSets')}
-                                            <a
-                                              href="https://ngdocs.harness.io/article/3fqwa8et3d-input-sets"
-                                              target="_blank"
-                                              rel="noopener noreferrer"
-                                            >
-                                              {getString('learnMore')}
-                                            </a>
-                                          </Text>
-                                        }
-                                      >
-                                        {getString('pipeline.triggers.pipelineInputPanel.whatAreInputsets')}
-                                      </Text>
-                                    </span>
-                                  </Layout.Horizontal>
-                                </div>
+                                <SelectExistingInputsOrProvideNew
+                                  existingProvide={existingProvide}
+                                  onExistingProvideRadioChange={onExistingProvideRadioChange}
+                                />
+
                                 {!executionView &&
                                   pipeline &&
                                   currentPipeline &&

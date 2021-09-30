@@ -222,7 +222,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                         class="bp3-popover-wrapper"
                       >
                         <span
-                          class="bp3-popover-target"
+                          class="bp3-popover-target Text--targetClass"
                         >
                           <p
                             class="StyledProps--font StyledProps--main"

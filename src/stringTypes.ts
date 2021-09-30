@@ -461,6 +461,7 @@ export interface StringsMap {
   'common.totalSelected': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
+  'common.tryNow': string
   'common.unlimited': string
   'common.unsavedChanges': string
   'common.updating': string
@@ -879,6 +880,7 @@ export interface StringsMap {
   'delegates.reviewScript.docLinkBefore': string
   'delegates.reviewYAML': string
   'delegates.searchDelegateName': string
+  'delegates.selectors': string
   'delegates.totalMemUnit': string
   'delegates.troubleshootOption': string
   'delegates.usedBy': string
@@ -919,6 +921,7 @@ export interface StringsMap {
   'secrets.secret.labelSecretType': string
   'secrets.secret.labelText': string
   'secrets.secret.messageSelectSM': string
+  'secrets.secret.newSSHCredential': string
   'secrets.secret.noSecretsFound': string
   'secrets.secret.placeholderSecretReference': string
   'secrets.secret.placeholderSecretValue': string
@@ -1347,6 +1350,12 @@ export interface StringsMap {
   'connectors.editConnector': string
   'connectors.encryptedAPIKeyLabel': string
   'connectors.encryptedAPIKeyValidation': string
+  'connectors.gcpKms.credentialsFile': string
+  'connectors.gcpKms.credentialsFileRequired': string
+  'connectors.gcpKms.keyName': string
+  'connectors.gcpKms.keyNameRequired': string
+  'connectors.gcpKms.keyRing': string
+  'connectors.gcpKms.keyRingRequired': string
   'connectors.gcrConnectorDetails': string
   'connectors.hashiCorpVault.appRole': string
   'connectors.hashiCorpVault.appRoleId': string
@@ -1414,6 +1423,7 @@ export interface StringsMap {
   'connectors.name_labels.Nexus': string
   'connectors.name_labels.SecretManager': string
   'connectors.name_labels.Splunk': string
+  'connectors.name_labels.gcpKms': string
   'connectors.newArtifactRepository': string
   'connectors.newRelic.accountIdFieldLabel': string
   'connectors.newRelic.accountIdTooltip': string
@@ -1481,6 +1491,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.datadog': string
   'connectors.testConnectionStep.validationText.docker': string
   'connectors.testConnectionStep.validationText.gcp': string
+  'connectors.testConnectionStep.validationText.gcpKms': string
   'connectors.testConnectionStep.validationText.gcr': string
   'connectors.testConnectionStep.validationText.git': string
   'connectors.testConnectionStep.validationText.github': string
@@ -1508,6 +1519,7 @@ export interface StringsMap {
   'connectors.title.datadog': string
   'connectors.title.delegateSelection': string
   'connectors.title.gcpConnector': string
+  'connectors.title.gcpKms': string
   'connectors.title.gitConnector': string
   'connectors.title.githubConnector': string
   'connectors.title.gitlabConnector': string

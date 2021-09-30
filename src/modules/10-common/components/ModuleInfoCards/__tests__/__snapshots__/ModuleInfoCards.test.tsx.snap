@@ -557,7 +557,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -624,7 +624,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -689,7 +689,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -864,7 +864,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -895,7 +895,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -934,7 +934,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -1535,7 +1535,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -1602,7 +1602,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -1667,7 +1667,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -1842,7 +1842,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -1873,7 +1873,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -1912,7 +1912,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -2511,7 +2511,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -2578,7 +2578,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -2643,7 +2643,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -2818,7 +2818,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -2849,7 +2849,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -2888,7 +2888,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-target Text--targetClass"
             >
               <p
                 class="StyledProps--font StyledProps--main"

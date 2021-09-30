@@ -10,15 +10,16 @@ import {
   MultiTypeInputType,
   Text
 } from '@wings-software/uicore'
-import { get } from 'lodash-es'
+import { get, pick } from 'lodash-es'
 import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
-
+import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import useCreateOrSelectSecretModal from '@secrets/modals/CreateOrSelectSecretModal/useCreateOrSelectSecretModal'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { errorCheck } from '@common/utils/formikHelpers'
-
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { getReference } from '@common/utils/utils'
 import css from './MultiTypeSecretInput.module.scss'
 
 export interface MultiTypeSecretInputFixedTypeComponentProps
@@ -75,6 +76,19 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
     isMultiType = true,
     ...restProps
   } = props
+
+  const { openCreateSSHCredModal } = useCreateSSHCredModal({
+    onSuccess: data => {
+      const secret = {
+        ...pick(data, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier']),
+        referenceString: getReference(getScopeFromDTO(data), data.identifier) as string
+      }
+      formik.setFieldValue(name, secret.referenceString)
+      /* istanbul ignore next */
+      onSuccess?.(secret)
+    }
+  })
+
   const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
     {
       type,
@@ -83,7 +97,8 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
         /* istanbul ignore next */
         onSuccess?.(secret)
       },
-      secretsListMockData
+      secretsListMockData,
+      handleInlineSSHSecretCreation: () => openCreateSSHCredModal()
     },
     [name, onSuccess]
   )

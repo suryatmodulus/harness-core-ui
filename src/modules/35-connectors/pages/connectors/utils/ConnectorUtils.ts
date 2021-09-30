@@ -16,7 +16,8 @@ import type {
   AwsSMCredentialSpecManualConfig,
   AwsSMCredentialSpecAssumeSTS,
   VaultConnectorDTO,
-  AzureKeyVaultConnectorDTO
+  AzureKeyVaultConnectorDTO,
+  GcpKmsConnectorDTO
 } from 'services/cd-ng'
 import { FormData, CredTypeValues, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
@@ -652,6 +653,26 @@ export const setupAwsSecretManagerFormData = async (
     default: (connectorInfoSpec as AwsKmsConnectorDTO)?.default || false
   }
 }
+
+export const setupGcpKmsFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const connectorInfoSpec = connectorInfo?.spec as GcpKmsConnectorDTO
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+  const credentials = await setSecretField(connectorInfoSpec.credentials, scopeQueryParams)
+
+  return {
+    projectId: connectorInfoSpec.projectId,
+    region: connectorInfoSpec.region,
+    keyRing: connectorInfoSpec.keyRing,
+    keyName: connectorInfoSpec.keyName,
+    credentials,
+    default: connectorInfoSpec.default
+  }
+}
+
 export const buildAWSPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -983,6 +1004,34 @@ export const buildAWSSecretManagerPayload = (formData: FormData): BuildAWSSecret
     }
   }
 
+  return { connector: savedData }
+}
+
+interface BuildGcpKmsPayloadReturnType {
+  connector: Omit<ConnectorInfoDTO, 'spec'> & {
+    spec: GcpKmsConnectorDTO
+  }
+}
+
+export const buildGcpKmsPayload = (formData: FormData): BuildGcpKmsPayloadReturnType => {
+  const savedData = {
+    type: Connectors.GCP_KMS,
+    name: formData.name,
+    description: formData.description,
+    tags: formData.tags,
+    identifier: formData.identifier,
+    projectIdentifier: formData.projectIdentifier,
+    orgIdentifier: formData.orgIdentifier,
+    spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      credentials: formData.credentials.referenceString,
+      default: formData.default,
+      keyName: formData.keyName,
+      keyRing: formData.keyRing,
+      projectId: formData.projectId,
+      region: formData.region
+    }
+  }
   return { connector: savedData }
 }
 
@@ -1442,6 +1491,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-pagerduty'
     case Connectors.ARGO_CONNECTOR:
       return 'argo'
+    case Connectors.GCP_KMS:
+      return 'gcp-kms'
     default:
       return 'cog'
   }
@@ -1576,6 +1627,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.vault')
     case Connectors.AWS_SECRET_MANAGER:
       return getString('connectors.testConnectionStep.validationText.awsSecretManager')
+    case Connectors.GCP_KMS:
+      return getString('connectors.testConnectionStep.validationText.gcpKms')
     case Connectors.BITBUCKET:
       return getString('connectors.testConnectionStep.validationText.bitbucket')
     case Connectors.GITLAB:
@@ -1706,5 +1759,7 @@ export const saveCurrentStepData = <T>(getCurrentStepData: StepProps<T>['getCurr
 
 export const isSMConnector = (type?: ConnectorInfoDTO['type']): boolean | undefined => {
   if (!type) return
-  return (['AwsKms', 'AzureKeyVault', 'Vault', 'AwsSecretManager'] as ConnectorInfoDTO['type'][]).includes(type)
+  return (['AwsKms', 'AzureKeyVault', 'Vault', 'AwsSecretManager', 'GcpKms'] as ConnectorInfoDTO['type'][]).includes(
+    type
+  )
 }

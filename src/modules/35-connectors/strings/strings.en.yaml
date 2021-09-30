@@ -82,6 +82,7 @@ title:
   azureKeyVault: 'Azure Key Vault'
   sumologic: 'SumoLogic'
   ceAws: 'AWS Connector '
+  gcpKms: GCP Key Management Service
 name_labels:
   Kubernetes: 'Kubernetes Connector Name'
   HttpHelmRepo: 'Helm Http Connector Name'
@@ -91,6 +92,7 @@ name_labels:
   Bitbucket: 'Bitbucket Connector Name'
   Docker: 'Docker Connector Name'
   GCP: 'GCP Connector Name'
+  gcpKms: 'GCP KMS Connector Name'
   AWS: 'AWS Connector Name'
   ECR: ECR Connector Name'
   Nexus: 'Nexus Connector Name'
@@ -138,6 +140,7 @@ testConnectionStep:
     azureKeyVault: Validating Azure key vault authentication and permissions
     jira: Validating Jira authentication and permissions
     sumologic: Validating Sumologic authentication and permissions
+    gcpKms: Validating GCP Key Management Service authentication and permissions
 httpHelm:
   httpHelmRepoUrl: 'Helm Repo URL'
 jira:
@@ -335,6 +338,13 @@ splunk:
   connectorDetailsHeader: Splunk Connection Details
 awsSecretManager:
   secretNamePrefix: Secret Name Prefix
+gcpKms:
+  keyRing: Key Ring
+  keyName: Key Name
+  credentialsFile: GCP KMS Credentials File
+  keyRingRequired: Key Ring is required
+  keyNameRequired: Key Name is required
+  credentialsFileRequired: Credentials file is required
 awsKms:
   accessKeyLabel: 'AWS - Access Key ID'
   secretKeyLabel: 'AWS - Secret Access Key'

@@ -58,7 +58,7 @@ exports[`<CIStageDetails /> tests snapshot test 1`] = `
               class="bp3-popover-wrapper"
             >
               <span
-                class="bp3-popover-target"
+                class="bp3-popover-target Text--targetClass"
               >
                 <p
                   class="StyledProps--font StyledProps--main artifact"

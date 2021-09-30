@@ -1,6 +1,6 @@
 import React from 'react'
-import { DropDown } from '@wings-software/uicore'
-import type { SelectOption } from '@wings-software/uicore'
+import { MultiSelectDropDown, MultiSelectOption } from '@wings-software/uicore'
+import { defaultTo } from 'lodash-es'
 import { ExecutionStatus, ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
 import { StringKeys, useStrings } from 'framework/strings'
 
@@ -45,8 +45,8 @@ const labelMap: Record<AllowedStatus, StringKeys> = {
 }
 
 export interface StatusSelectProps {
-  value?: ExecutionStatus | null
-  onSelect(status: ExecutionStatus | null): void
+  value?: ExecutionStatus[] | null
+  onSelect(status: ExecutionStatus[] | null): void
 }
 
 export default function StatusSelect(props: StatusSelectProps): React.ReactElement {
@@ -58,21 +58,25 @@ export default function StatusSelect(props: StatusSelectProps): React.ReactEleme
       allowedOptions.map(item => ({
         label: getString(labelMap[item]),
         value: item
-      })) as SelectOption[],
+      })) as MultiSelectOption[],
     [allowedOptions, labelMap]
   )
 
   return (
-    <DropDown
+    <MultiSelectDropDown
       buttonTestId="status-select"
-      value={value}
+      value={defaultTo(
+        value?.map(item => ({
+          label: getString(labelMap[item as AllowedStatus]),
+          value: item
+        })),
+        []
+      )}
       onChange={option => {
-        onSelect((option.value as ExecutionStatus) || null)
+        onSelect((option.map(item => item.value) as ExecutionStatus[]) || null)
       }}
       items={getAllowedOptions}
       usePortal={true}
-      filterable={false}
-      addClearBtn={true}
       placeholder={getString('status')}
     />
   )

@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'formik'
 import { Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 
@@ -6,14 +7,12 @@ import { useStrings } from 'framework/strings'
 import type { ServiceSpec } from 'services/cd-ng'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-// import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import type { CustomVariableInputSetExtraProps } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableInputSet'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import artifactSourceBaseFactory from '@cd/factory/ArtifactSourceFactory/ArtifactSourceBaseFactory'
-
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
 import { KubernetesArtifacts } from './KubernetesArtifacts'
 import { KubernetesManifests } from './KubernetesManifests/KubernetesManifests'
@@ -33,7 +32,7 @@ export interface KubernetesInputSetProps {
   formik?: any
 }
 
-export const KubernetesServiceSpecInputSetMode = (props: KubernetesInputSetProps) => {
+const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetProps) => {
   const {
     template,
     path,
@@ -57,6 +56,7 @@ export const KubernetesServiceSpecInputSetMode = (props: KubernetesInputSetProps
         stageIdentifier={stageIdentifier}
         artifacts={allValues?.artifacts}
         formik={formik}
+        onUpdate={onUpdate}
         path={path}
         initialValues={initialValues}
         readonly={readonly}
@@ -117,3 +117,5 @@ export const KubernetesServiceSpecInputSetMode = (props: KubernetesInputSetProps
     </Layout.Vertical>
   )
 }
+
+export const KubernetesServiceSpecInputSetMode = connect(KubernetesServiceSpecInputSetModeFormikForm)

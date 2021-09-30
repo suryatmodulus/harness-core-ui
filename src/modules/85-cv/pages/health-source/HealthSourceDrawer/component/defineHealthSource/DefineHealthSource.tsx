@@ -34,9 +34,7 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
   const { onSubmit } = props
   const { getString } = useStrings()
   const { onNext, sourceData } = useContext(SetupSourceTabsContext)
-
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
-
   const { isEdit } = sourceData
 
   const initialValues = useMemo(() => {
@@ -101,7 +99,12 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                                   className={css.squareCard}
                                   onClick={() => {
                                     formik.setFieldValue('sourceType', connectorTypeName)
-                                    formik.setFieldValue('product', '')
+                                    formik.setFieldValue(
+                                      'product',
+                                      getFeatureOption(connectorTypeName, getString).length === 1
+                                        ? getFeatureOption(connectorTypeName, getString)[0]
+                                        : ''
+                                    )
                                     formik.setFieldValue(ConnectorRefFieldName, null)
                                   }}
                                 >
@@ -167,7 +170,9 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                   </Container>
                   <Container margin={{ bottom: 'large' }} width={'400px'}>
                     <Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}>
-                      {getString('cv.healthSource.featureLabel')}
+                      {getFeatureOption(formik?.values?.sourceType, getString).length === 1
+                        ? getString('common.purpose.cf.feature')
+                        : getString('cv.healthSource.featureLabel')}
                     </Text>
                     <FormInput.Select
                       items={getFeatureOption(formik?.values?.sourceType, getString)}
@@ -176,7 +181,7 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                       })}
                       value={formik?.values?.product}
                       name="product"
-                      disabled={isEdit}
+                      disabled={isEdit || getFeatureOption(formik?.values?.sourceType, getString).length === 1}
                       onChange={product => formik.setFieldValue('product', product)}
                     />
                   </Container>
@@ -190,5 +195,4 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
     </BGColorWrapper>
   )
 }
-
 export default DefineHealthSource

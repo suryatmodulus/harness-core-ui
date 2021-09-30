@@ -12,13 +12,196 @@ import {
   artifactTableItem,
   getPathString,
   getArtifactSpecObj,
-  updatePipelineManifest
+  updatePipelineManifest,
+  updatePipelineArtifact,
+  getArtifactId
 } from '../utils/TriggersWizardPageUtils'
 import css from './ArtifactTriggerConfigPanel.module.scss'
 
 export interface ArtifactTriggerConfigPanelPropsInterface {
   formikProps?: any
   isEdit?: boolean
+}
+
+const artifactStr = 'pipeline.triggers.artifactTriggerConfigPanel.artifact'
+
+const onRemoveSelectedArtifactManifest = ({
+  isManifest,
+  stageId,
+  formikProps
+}: {
+  isManifest: boolean
+  stageId: string
+  formikProps: any
+}) => {
+  const { pipeline } = formikProps.values
+  const newPipelineObj = isManifest
+    ? updatePipelineManifest({
+        pipeline,
+        stageIdentifier: stageId,
+        selectedArtifact: formikProps?.values?.selectedArtifact,
+        newArtifact: {}
+      })
+    : updatePipelineArtifact({
+        pipeline,
+        stageIdentifier: stageId,
+        selectedArtifact: formikProps?.values?.selectedArtifact,
+        newArtifact: {}
+      })
+  formikProps.setValues({
+    ...formikProps.values,
+    pipeline: newPipelineObj,
+    selectedArtifact: undefined,
+    stageId: undefined,
+    stages: undefined // clears all artifact runtime inputs
+  })
+  formikProps.setFieldTouched('selectedArtifact')
+}
+
+const onEdit = ({
+  appliedArtifact,
+  selectedArtifact,
+  initialPath,
+  isManifest,
+  formikProps
+}: {
+  appliedArtifact: any
+  selectedArtifact: any
+  initialPath: string
+  isManifest: boolean
+  formikProps: any
+}) => {
+  const newAppliedArtifactSpecObj = getArtifactSpecObj({
+    appliedArtifact,
+    selectedArtifact,
+    path: '',
+    isManifest
+  })
+  if (isManifest) {
+    formikProps.setFieldValue(`${initialPath}.manifests[0].manifest.spec`, newAppliedArtifactSpecObj)
+  } else {
+    if (appliedArtifact?.sidecar) {
+      formikProps.setFieldValue(`${initialPath}.artifacts.sidecars[0].sidecar`, newAppliedArtifactSpecObj)
+    } else {
+      formikProps.setFieldValue(`${initialPath}.artifacts.primary`, newAppliedArtifactSpecObj)
+    }
+  }
+}
+
+const showAppliedTableArtifact = ({
+  formikProps,
+  appliedTableArtifact,
+  isManifest,
+  editModalOpen,
+  setEditModalOpen,
+  data,
+  stageId
+}: {
+  formikProps: any
+  appliedTableArtifact: any
+  isManifest: boolean
+  editModalOpen: boolean
+  setEditModalOpen: any
+  data: any
+  stageId: string
+}) => {
+  return (
+    <Container style={{ display: 'inline-block', width: '100%' }}>
+      <ArtifactTableInfo
+        formikProps={formikProps}
+        appliedArtifact={appliedTableArtifact}
+        isManifest={isManifest}
+        editArtifact={() => setEditModalOpen(true)}
+      />
+      {editModalOpen && (
+        <SelectArtifactModal
+          isModalOpen={editModalOpen}
+          formikProps={formikProps}
+          closeModal={() => setEditModalOpen(false)}
+          isManifest={isManifest}
+          runtimeData={data}
+        />
+      )}
+
+      <Button
+        style={{ display: 'inline-block' }}
+        minimal
+        data-name="main-delete"
+        icon="main-trash"
+        onClick={_ => {
+          onRemoveSelectedArtifactManifest({
+            isManifest,
+            formikProps,
+            stageId
+          })
+        }}
+      />
+    </Container>
+  )
+}
+
+const showAddArtifactManifest = ({
+  isManifest,
+  getString,
+  allowSelectArtifact,
+  setModalOpen,
+  formikProps,
+  modalOpen,
+  artifactTableData,
+  data
+}: {
+  isManifest: boolean
+  getString: any
+  allowSelectArtifact: boolean
+  setModalOpen: any
+  formikProps: any
+  modalOpen: any
+  artifactTableData: any
+  data: any
+}) => {
+  const artifactOrManifestText = isManifest ? getString('manifestsText') : getString(artifactStr)
+  return (
+    <>
+      <Label
+        style={{
+          fontSize: 13,
+          color: 'var(--form-label)',
+          fontWeight: 'normal',
+          marginBottom: 'var(--spacing-small)'
+        }}
+      >
+        {isManifest ? getString('manifestsText') : getString(artifactStr)}
+      </Label>
+      <Text
+        data-name="plusAdd"
+        style={{
+          cursor: allowSelectArtifact ? 'pointer' : 'not-allowed',
+          color: allowSelectArtifact ? 'var(--primary-7)' : 'var(--form-label)',
+          width: '130px'
+        }}
+        onClick={() => {
+          if (allowSelectArtifact) {
+            setModalOpen(true)
+            formikProps.setFieldTouched('selectedArtifact')
+          }
+        }}
+      >
+        {getString('pipeline.triggers.artifactTriggerConfigPanel.plusSelect', {
+          artifact: artifactOrManifestText
+        })}
+      </Text>
+      {allowSelectArtifact && (
+        <SelectArtifactModal
+          isModalOpen={modalOpen}
+          formikProps={formikProps}
+          artifactTableData={artifactTableData}
+          closeModal={() => setModalOpen(false)}
+          isManifest={isManifest}
+          runtimeData={data}
+        />
+      )}
+    </>
+  )
 }
 
 const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterface> = ({
@@ -41,15 +224,16 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
   const isManifest = !!manifestType
   const initialPath = data && stageId && getPathString(data, stageId)
   useEffect(() => {
-    if (!formikProps.values?.stages && initialPath && appliedArtifact && selectedArtifact) {
+    if (
+      !formikProps.values?.stages &&
+      initialPath &&
+      appliedArtifact &&
+      Object.entries(appliedArtifact).length &&
+      selectedArtifact
+    ) {
       // sets stages which is required to edit runtime input of selected artifact
       // when onEdit or from yaml switch
-      const newAppliedArtifactSpecObj = getArtifactSpecObj({
-        appliedArtifact,
-        selectedArtifact,
-        path: ''
-      })
-      formikProps.setFieldValue(`${initialPath}.manifests[0].manifest.spec`, newAppliedArtifactSpecObj)
+      onEdit({ appliedArtifact, selectedArtifact, initialPath, isManifest, formikProps })
     }
   }, [initialPath, appliedTableArtifact])
 
@@ -60,7 +244,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
         manifestType,
         stageId,
         artifactType,
-        artifactRef: selectedArtifact?.identifier, // artifactRef will represent artifact or manifest
+        artifactRef: getArtifactId(isManifest, selectedArtifact?.identifier), // artifactRef will represent artifact or manifest
         isManifest
       })
       setParsedArtifactsManifests(res)
@@ -79,6 +263,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
           appliedArtifact,
           stageId,
           getString,
+          artifactType,
           pipeline: originalPipeline
         })
       if (newAppliedTableArtifact) {
@@ -91,9 +276,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
 
   const loading = false
   const allowSelectArtifact = !!data?.length
-  const artifactOrManifestText = isManifest
-    ? getString('manifestsText')
-    : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
+  const artifactOrManifestText = isManifest ? getString('manifestsText') : getString(artifactStr)
   const { errors } = formikProps
   return (
     <Layout.Vertical className={css.artifactTriggerConfigContainer} padding="xxlarge">
@@ -127,89 +310,27 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
         </Heading>
         <section style={{ marginTop: 'var(--spacing-small)' }}>
           {appliedTableArtifact ? (
-            <Container style={{ display: 'inline-block', width: '100%' }}>
-              <ArtifactTableInfo
-                formikProps={formikProps}
-                appliedArtifact={appliedTableArtifact}
-                isManifest={isManifest}
-                editArtifact={() => setEditModalOpen(true)}
-              />
-              {editModalOpen && (
-                <SelectArtifactModal
-                  isModalOpen={editModalOpen}
-                  formikProps={formikProps}
-                  closeModal={() => setEditModalOpen(false)}
-                  isManifest={isManifest}
-                  runtimeData={data}
-                />
-              )}
-
-              <Button
-                style={{ display: 'inline-block', color: '' }}
-                minimal
-                data-name="main-delete"
-                icon="main-trash"
-                onClick={_ => {
-                  const { pipeline } = formikProps.values
-                  const newPipelineObj = updatePipelineManifest({
-                    pipeline,
-                    stageIdentifier: stageId,
-                    selectedArtifact: formikProps?.values?.selectedArtifact,
-                    newArtifact: {}
-                  })
-                  formikProps.setValues({
-                    ...formikProps.values,
-                    pipeline: newPipelineObj,
-                    selectedArtifact: undefined,
-                    stageId: undefined,
-                    stages: undefined // clears all artifact runtime inputs
-                  })
-                  formikProps.setFieldTouched('selectedArtifact')
-                }}
-              />
-            </Container>
+            showAppliedTableArtifact({
+              formikProps,
+              appliedTableArtifact,
+              isManifest,
+              editModalOpen,
+              setEditModalOpen,
+              data,
+              stageId
+            })
           ) : (
             <>
-              <Label
-                style={{
-                  fontSize: 13,
-                  color: 'var(--form-label)',
-                  fontWeight: 'normal',
-                  marginBottom: 'var(--spacing-small)'
-                }}
-              >
-                {isManifest
-                  ? getString('manifestsText')
-                  : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')}
-              </Label>
-              <Text
-                data-name="plusAdd"
-                style={{
-                  cursor: allowSelectArtifact ? 'pointer' : 'not-allowed',
-                  color: allowSelectArtifact ? 'var(--primary-7)' : 'var(--form-label)',
-                  width: '130px'
-                }}
-                onClick={() => {
-                  if (allowSelectArtifact) {
-                    setModalOpen(true)
-                    formikProps.setFieldTouched('selectedArtifact')
-                  }
-                }}
-              >
-                {getString('pipeline.triggers.artifactTriggerConfigPanel.plusSelect', {
-                  artifact: artifactOrManifestText
-                })}
-              </Text>
-              {allowSelectArtifact && (
-                <SelectArtifactModal
-                  isModalOpen={modalOpen}
-                  formikProps={formikProps}
-                  artifactTableData={artifactTableData}
-                  closeModal={() => setModalOpen(false)}
-                  isManifest={isManifest}
-                  runtimeData={data}
-                />
-              )}
+              {showAddArtifactManifest({
+                isManifest,
+                getString,
+                allowSelectArtifact,
+                setModalOpen,
+                formikProps,
+                modalOpen,
+                artifactTableData,
+                data
+              })}
               {(formikProps.touched['selectedArtifact'] || formikProps.submitCount > 0) &&
                 !modalOpen &&
                 errors['selectedArtifact'] && (

@@ -7,7 +7,8 @@ import type {
   VaultConnectorDTO,
   AwsKmsConnectorDTO,
   AwsSecretManagerDTO,
-  AzureKeyVaultConnectorDTO
+  AzureKeyVaultConnectorDTO,
+  GcpKmsConnectorDTO
 } from 'services/cd-ng'
 import { StringUtils } from '@common/exports'
 import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
@@ -79,8 +80,9 @@ const getLabelByType = (type: string): string => {
       return 'connectors.name_labels.Splunk'
     case Connectors.Jira:
       return 'connectors.title.jira'
-    case Connectors.VAULT:
     case Connectors.GCP_KMS:
+      return 'connectors.name_labels.gcpKms'
+    case Connectors.VAULT:
     case Connectors.LOCAL:
       return 'connectors.name_labels.SecretManager'
     default:
@@ -414,6 +416,32 @@ const getAwsSecretManagerSchema = (connector: ConnectorInfoDTO): Array<ActivityD
   ]
 }
 
+const getGcpKmsSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  const data = connector.spec as GcpKmsConnectorDTO
+  return [
+    {
+      label: 'pipelineSteps.projectIDLabel',
+      value: data.projectId
+    },
+    {
+      label: 'regionLabel',
+      value: data.region
+    },
+    {
+      label: 'connectors.gcpKms.keyRing',
+      value: data.keyRing
+    },
+    {
+      label: 'connectors.gcpKms.keyName',
+      value: data.keyName
+    },
+    {
+      label: 'connectors.hashiCorpVault.default',
+      value: data.default ? YesOrNo.YES : YesOrNo.NO
+    }
+  ]
+}
+
 const getAzureKeyVaultSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   const data = connector.spec as AzureKeyVaultConnectorDTO
   return [
@@ -583,13 +611,14 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
     case Connectors.ARTIFACTORY:
       return getArtifactorySchema(connector)
     case Connectors.VAULT:
-    case Connectors.GCP_KMS:
     case Connectors.LOCAL:
       return getVaultSchema(connector)
     case Connectors.AWS_KMS:
       return getAwsKmsSchema(connector)
     case Connectors.AWS_SECRET_MANAGER:
       return getAwsSecretManagerSchema(connector)
+    case Connectors.GCP_KMS:
+      return getGcpKmsSchema(connector)
     case Connectors.DATADOG:
       return getDataDogSchema(connector)
     case Connectors.AZURE_KEY_VAULT:

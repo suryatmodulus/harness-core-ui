@@ -6,7 +6,7 @@ exports[`Test ToolTip ToolTip Icon hover opens ToolTip 1`] = `
     class="bp3-popover-wrapper"
   >
     <span
-      class="bp3-popover-target bp3-popover-open"
+      class="bp3-popover-target bp3-popover-open Text--targetClass"
     >
       <span
         class="StyledProps--font StyledProps--main StyledProps--inline"
@@ -45,7 +45,7 @@ exports[`Test ToolTip ToolTip Icon renders succesfully 1`] = `
     class="bp3-popover-wrapper"
   >
     <span
-      class="bp3-popover-target"
+      class="bp3-popover-target Text--targetClass"
     >
       <span
         class="StyledProps--font StyledProps--main StyledProps--inline"

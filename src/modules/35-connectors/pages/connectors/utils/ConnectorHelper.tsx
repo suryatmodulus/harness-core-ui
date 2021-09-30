@@ -54,7 +54,6 @@ export const getHeadingIdByType = (type: string): StringKeys => {
   switch (type) {
     case Connectors.VAULT:
       return 'connectors.hashicorpVaultDetails'
-    case Connectors.GCP_KMS:
     case Connectors.LOCAL:
       return 'connectors.secretManagerDetails'
     case Connectors.APP_DYNAMICS:
@@ -85,6 +84,7 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
     case Connectors.VAULT:
       return 'connectors.title.hashicorpVault'
     case Connectors.GCP_KMS:
+      return 'connectors.title.gcpKms'
     case Connectors.LOCAL:
       return 'connectors.title.secretManager'
     case Connectors.APP_DYNAMICS:
@@ -113,7 +113,6 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
       return 'connectors.title.awsKms'
     case Connectors.AWS_SECRET_MANAGER:
       return 'connectors.title.awsSecretManager'
-
     case Connectors.CE_AZURE:
       return 'connectors.title.ceAzureConnector'
     case Connectors.DATADOG:
@@ -145,6 +144,7 @@ export const getConnectorIconByType = (type: string): IconName => {
     case Connectors.VAULT:
       return 'hashiCorpVault'
     case Connectors.GCP_KMS:
+      return 'gcp-kms'
     case Connectors.LOCAL:
       return 'lock'
     case Connectors.APP_DYNAMICS:

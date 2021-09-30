@@ -99,6 +99,7 @@ import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
 
 import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
+import LandingDashboardFactory from '@common/factories/LandingDashboardFactory'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
@@ -108,6 +109,15 @@ import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputF
 
 import { ArtifactInputForm } from './components/ArtifactInputForm/ArtifactInputForm'
 import GitOpsModalContainer from './pages/gitops-providers-list/GitOpsProvidersList'
+import LandingDashboardCDSection from './components/LandingDashboardCDSection/LandingDashboardCDSection'
+
+LandingDashboardFactory.registerModuleDashboardHandler(ModuleName.CD, {
+  label: 'deploymentsText',
+  icon: 'cd-main',
+  iconProps: { size: 20 },
+  // eslint-disable-next-line react/display-name
+  moduleDashboardRenderer: () => <LandingDashboardCDSection />
+})
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',

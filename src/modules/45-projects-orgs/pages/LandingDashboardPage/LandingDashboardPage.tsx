@@ -20,7 +20,7 @@ import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import welcomeVideo from './images/welcome-anim.mp4'
 import css from './LandingDashboardPage.module.scss'
 
-const modules: Array<ModuleName> = [ModuleName.COMMON]
+const modules: Array<ModuleName> = [ModuleName.COMMON, ModuleName.CD]
 
 enum View {
   Dashboard,
@@ -33,7 +33,7 @@ const LandingDashboardPage: React.FC = () => {
   const history = useHistory()
   const { currentUserInfo } = useAppStore()
   const { getString } = useStrings()
-  const [view, setView] = useState<View>(NG_DASHBOARD_LANDING_PAGE ? View.Dashboard : View.Welcome)
+  const [view, setView] = useState<View>(NG_DASHBOARD_LANDING_PAGE ? View.Dashboard : View.Dashboard)
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onSuccess: () => {

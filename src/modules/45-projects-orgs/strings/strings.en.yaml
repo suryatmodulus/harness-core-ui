@@ -105,7 +105,7 @@ landingDashboard:
   last90Days: Last 90 Days
   last1Year: Last 1 Year
   dashboardTitle: 'Good Morning, {{name}}'
-  title: Top Projects for {{timeRange}}
+  title: Top Projects
   welcomeMessage: "Welcome, {{name}}, let's get you started!"
   welcomeMessageWithoutName: "Welcome, let's get you started!"
 whyCreateProject: Why create a project?

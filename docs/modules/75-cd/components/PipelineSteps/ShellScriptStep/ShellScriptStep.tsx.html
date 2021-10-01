@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.91% </span>
+                <span class="strong">66.29% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>58/88</span>
+                <span class='fraction'>59/89</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.28% </span>
+                <span class="strong">35.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>157/445</span>
+                <span class='fraction'>160/449</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.16% </span>
+                <span class="strong">65% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/19</span>
+                <span class='fraction'>13/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.12% </span>
+                <span class="strong">65.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>56/86</span>
+                <span class='fraction'>57/87</span>
             </div>
         
             
@@ -355,7 +355,17 @@
 <a name='L296'></a><a href='#L296'>296</a>
 <a name='L297'></a><a href='#L297'>297</a>
 <a name='L298'></a><a href='#L298'>298</a>
-<a name='L299'></a><a href='#L299'>299</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
@@ -408,6 +418,15 @@
 <span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -440,6 +459,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -709,8 +729,17 @@ export class ShellScriptStep extends PipelineStep&lt;ShellScriptData&gt; {
   }
 &nbsp;
   renderStep(props: StepProps&lt;ShellScriptData&gt;): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      onChange,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 &nbsp;
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -738,6 +767,7 @@ export class ShellScriptStep extends PipelineStep&lt;ShellScriptData&gt; {
       &lt;ShellScriptWidgetWithRef
         initialValues={this.getInitialValues(initialValues)}
         onUpdate={data =&gt; onUpdate<span class="branch-0 cbranch-no" title="branch not covered" >?.(t</span>his.processFormData(data))}
+        onChange={data =&gt; <span class="branch-1 cbranch-no" title="branch not covered" >onChange?.(this.processFormData(data))}</span>
         stepViewType={stepViewType}
         isNewStep={isNewStep}
         readonly={readonly}
@@ -958,7 +988,7 @@ export class ShellScriptStep extends PipelineStep&lt;ShellScriptData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 01 2021 05:11:49 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 01 2021 06:20:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

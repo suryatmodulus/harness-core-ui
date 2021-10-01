@@ -363,8 +363,15 @@
 <a name='L304'></a><a href='#L304'>304</a>
 <a name='L305'></a><a href='#L305'>305</a>
 <a name='L306'></a><a href='#L306'>306</a>
-<a name='L307'></a><a href='#L307'>307</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -579,25 +586,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -613,7 +606,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -680,7 +692,8 @@ import {
   Container,
   Icon,
   Select,
-  MultiSelectOption
+  MultiSelectOption,
+  ButtonVariation
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Menu, PopoverInteractionKind, Position, Tag } from '@blueprintjs/core'
@@ -885,6 +898,7 @@ const NotificationTable: React.FC&lt;NotificationTableProps&gt; = props =&gt; {
       {
         Header: getString('enabledLabel').toUpperCase(),
         id: 'enabled',
+        className: css.notificationTableHeader,
         accessor: row =&gt; row.notificationRules.enabled,
         onUpdate: onUpdate,
         width: '15%',
@@ -895,6 +909,7 @@ const NotificationTable: React.FC&lt;NotificationTableProps&gt; = props =&gt; {
       {
         Header: getString('notifications.nameOftheRule').toUpperCase(),
         id: 'name',
+        className: css.notificationTableHeader,
         accessor: row =&gt; row.notificationRules.name,
         width: '20%',
         Cell: RenderColumnName,
@@ -903,6 +918,7 @@ const NotificationTable: React.FC&lt;NotificationTableProps&gt; = props =&gt; {
       {
         Header: getString('notifications.pipelineEvents').toUpperCase(),
         id: 'events',
+        className: css.notificationTableHeader,
         accessor: row =&gt; row.notificationRules.pipelineEvents,
         width: '35%',
         Cell: RenderColumnEvents,
@@ -911,8 +927,9 @@ const NotificationTable: React.FC&lt;NotificationTableProps&gt; = props =&gt; {
       {
         Header: getString('notifications.notificationMethod').toUpperCase(),
         id: 'methods',
+        className: css.notificationTableHeader,
         accessor: row =&gt; row.notificationRules.notificationMethod<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype,
-        width: '25%',
+        width: '28%',
         Cell: RenderColumnMethod,
         disableSortBy: true
       },
@@ -920,7 +937,8 @@ const NotificationTable: React.FC&lt;NotificationTableProps&gt; = props =&gt; {
         Header: '',
         id: 'menu',
         accessor: row =&gt; row.notificationRules.notificationMethod<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec,
-        width: '5%',
+        className: css.notificationTableHeader,
+        width: '2%',
         Cell: RenderColumnMenu,
         onUpdate: onUpdate,
         openNotificationModal: openNotificationModal,
@@ -938,7 +956,7 @@ const NotificationTable: React.FC&lt;NotificationTableProps&gt; = props =&gt; {
       &lt;Container&gt;
         &lt;Layout.Horizontal flex className={css.headerActions}&gt;
           &lt;Button
-            intent="primary"
+            variation={ButtonVariation.PRIMARY}
             text={getString('notifications.name')}
             icon="plus"
             id="newNotificationBtn"
@@ -982,7 +1000,7 @@ export default NotificationTable
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 01 2021 05:11:49 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 01 2021 06:20:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

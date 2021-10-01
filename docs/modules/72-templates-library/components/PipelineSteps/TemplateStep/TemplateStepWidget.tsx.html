@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -149,17 +149,9 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -169,18 +161,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,9 +184,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -250,35 +230,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Formik, FormInput } from '@wings-software/uicore'
+import { Color, Formik, FormInput, Layout, MultiTypeInputType, Text } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-&nbsp;
 import { NameSchema } from '@common/utils/Validation'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
+import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
+import type { StepElementConfig } from 'services/cd-ng'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-&nbsp;
+import type { TemplateStepData } from '@pipeline/utils/tempates'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
-export interface TemplateStepData&lt;T = unknown&gt; {
-  identifier: string
-  name: string
-  template: {
-    templateRef: string
-    templateInputs: {
-      type: StepType
-      spec: T
-    }
-  }
-}
 export interface TemplateStepFormData extends TemplateStepData {
   stepType?: any // TODO: step type
 }
@@ -299,9 +276,7 @@ export function TemplateStepWidget(
 ): React.ReactElement {
   const { initialValues, factory, onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
-  //const { expressions } = useVariablesExpression()
-  const stepType = initialValues.template.templateInputs.type
-  // const ref = React.useRef&lt;StepFormikRef&lt;unknown&gt; | null&gt;(null)
+  const stepType = initialValues.template.templateInputs.type as StepType
 &nbsp;
   return (
     &lt;Formik&lt;TemplateStepData /*TemplateStepFormData*/&gt;
@@ -328,17 +303,27 @@ export function TemplateStepWidget(
                   inputGroupProps={{ disabled: readonly }}
                 /&gt;
               &lt;/div&gt;
-              &lt;hr /&gt;
-              &lt;StepWidget
-                factory={factory}
-                initialValues={initialValues.template.templateInputs}
-                readonly={readonly}
-                isNewStep={isNewStep}
-                // onUpdate={onChange}
-                type={stepType}
-                stepViewType={StepViewType.InputSet}
-                inputSetData={{ template: initialValues.template.templateInputs, path: '' }}
-              /&gt;
+              &lt;Layout.Vertical
+                margin={{ top: 'medium' }}
+                padding={{ top: 'large', bottom: 'large' }}
+                border={{ top: true }}
+                spacing={'large'}
+              &gt;
+                &lt;Text style={{ fontSize: 16 }} font={{ weight: 'bold' }} color={Color.BLACK}&gt;
+                  {getString('templatesLibrary.templateInputs')}
+                &lt;/Text&gt;
+                &lt;StepWidget&lt;Partial&lt;StepElementConfig&gt;&gt;
+                  factory={factory}
+                  initialValues={initialValues.template.templateInputs}
+                  template={initialValues.template.templateInputs}
+                  readonly={readonly}
+                  isNewStep={isNewStep}
+                  type={stepType}
+                  path={'template.templateInputs'}
+                  stepViewType={StepViewType.InputSet}
+                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]}
+                /&gt;
+              &lt;/Layout.Vertical&gt;
             &lt;/div&gt;
           &lt;/React.Fragment&gt;
         )
@@ -355,7 +340,7 @@ export const TemplateStepWidgetWithRef = React.forwardRef(TemplateStepWidget)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 01 2021 05:11:49 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 01 2021 06:20:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

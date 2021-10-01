@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">94.12% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>16/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.22% </span>
+                <span class="strong">72.73% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/18</span>
+                <span class='fraction'>16/22</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
@@ -119,10 +119,19 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,7 +150,7 @@
 <span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-yes">71x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-yes">71x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,6 +184,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,7 +201,8 @@
 import { Text, Popover, Container, Layout, Color, Card, Icon } from '@wings-software/uicore'
 import { Classes, IPopoverProps, PopoverInteractionKind, Position } from '@blueprintjs/core'
 &nbsp;
-import { isNil } from 'lodash-es'
+import { isEmpty, isNil } from 'lodash-es'
+import cx from 'classnames'
 import { iconMap } from '@pipeline/components/PipelineStudio/StepPalette/iconMap'
 import type { StepData } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
@@ -193,55 +210,62 @@ import type { AbstractStepFactory } from '../../../AbstractSteps/AbstractStepFac
 import css from './StepPopover.module.scss'
 &nbsp;
 export interface StepPopoverProps {
-  stepData: StepData
+  stepData?: StepData
   stepsFactory: AbstractStepFactory
   popoverProps?: IPopoverProps
   className?: string
 }
 export const StepPopover: React.FC&lt;StepPopoverProps&gt; = props =&gt; {
-  const { stepData, stepsFactory, popoverProps } = props
+  const { stepData, stepsFactory, popoverProps, className } = props
   const { getString } = useStrings()
-  const step = stepsFactory.getStep(stepData.type)
-  const description = stepsFactory.getStepDescription(stepData.type || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
-&nbsp;
-  return (
-    &lt;Popover
-      interactionKind={PopoverInteractionKind.HOVER}
-      position={Position.TOP}
-      className={Classes.DARK}
-      {...popoverProps}
-    &gt;
-      &lt;Card
-        interactive={!isNil(step)}
-        selected={false}
-        className={css.paletteCard}
-        data-testid={`step-card-${stepData.name}`}
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (stepData &amp;&amp; !isEmpty(stepData)) {
+    const step = stepsFactory.getStep(stepData.type)
+    const description = stepsFactory.getStepDescription(stepData.type || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
+    return (
+      &lt;Popover
+        interactionKind={PopoverInteractionKind.HOVER}
+        position={Position.TOP}
+        className={Classes.DARK}
+        {...popoverProps}
       &gt;
-        {stepsFactory.getStepIsHarnessSpecific(stepData.type || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> &amp;&amp; (
-          &lt;Icon size={12} name="harness-logo-white-bg-blue" className={css.stepHarnessLogo} /&gt;
-        )}
-        &lt;Icon
-          name={!isNil(step) ? stepsFactory.getStepIcon(stepData.type || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> : iconMap[stepData.name || <span class="branch-1 cbranch-no" title="branch not covered" >'']</span>}
-          size={25}
-        /&gt;
-      &lt;/Card&gt;
-      {description &amp;&amp; (
-        &lt;Container width={200} padding="medium"&gt;
-          &lt;Text font={{ size: 'small' }} color={Color.GREY_50}&gt;
-            {getString(description)}
-          &lt;/Text&gt;
+        &lt;Card
+          interactive={!isNil(step)}
+          selected={false}
+          className={cx(css.paletteCard, className)}
+          data-testid={`step-card-${stepData.name}`}
+        &gt;
           {stepsFactory.getStepIsHarnessSpecific(stepData.type || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> &amp;&amp; (
-            &lt;Layout.Horizontal margin={{ top: 'small' }} flex={{ justifyContent: 'flex-start' }} spacing={'small'}&gt;
-              &lt;Icon size={12} name="harness-logo-white-bg-blue" /&gt;
-              &lt;Text font={{ size: 'xsmall' }} color={Color.GREY_400}&gt;
-                {getString('pipeline.poweredByHarness')}
-              &lt;/Text&gt;
-            &lt;/Layout.Horizontal&gt;
+            &lt;Icon size={12} name="harness-logo-white-bg-blue" className={css.stepHarnessLogo} /&gt;
           )}
-        &lt;/Container&gt;
-      )}
-    &lt;/Popover&gt;
-  )
+          &lt;Icon
+            name={!isNil(step) ? stepsFactory.getStepIcon(stepData.type || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> : iconMap[stepData.name || <span class="branch-1 cbranch-no" title="branch not covered" >'']</span>}
+            size={25}
+          /&gt;
+        &lt;/Card&gt;
+        {description &amp;&amp; (
+          &lt;Container width={200} padding="medium"&gt;
+            &lt;Text font={{ size: 'small' }} color={Color.GREY_50}&gt;
+              {getString(description)}
+            &lt;/Text&gt;
+            {stepsFactory.getStepIsHarnessSpecific(stepData.type || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> &amp;&amp; (
+              &lt;Layout.Horizontal margin={{ top: 'small' }} flex={{ justifyContent: 'flex-start' }} spacing={'small'}&gt;
+                &lt;Icon size={12} name="harness-logo-white-bg-blue" /&gt;
+                &lt;Text font={{ size: 'xsmall' }} color={Color.GREY_400}&gt;
+                  {getString('pipeline.poweredByHarness')}
+                &lt;/Text&gt;
+              &lt;/Layout.Horizontal&gt;
+            )}
+          &lt;/Container&gt;
+        )}
+      &lt;/Popover&gt;
+    )
+  } else {
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      &lt;Card interactive={true} className={cx(css.paletteCard, css.addStep)} data-testid={`step-card-empty`}&gt;
+        &lt;Icon name={'plus'} size={25} /&gt;
+      &lt;/Card&gt;
+    )
+  }
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -250,7 +274,7 @@ export const StepPopover: React.FC&lt;StepPopoverProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 01 2021 05:11:49 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 01 2021 06:20:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -194,6 +194,7 @@ exports[`Delegate Listing, open filter render list and open filter 1`] = `
     >
       <div
         class="StyledProps--font StyledProps--main delegateListContainer StyledProps--background-grey100"
+        style=""
       >
         <div
           class="StyledProps--font StyledProps--main delegateListContainer StyledProps--background-grey100"

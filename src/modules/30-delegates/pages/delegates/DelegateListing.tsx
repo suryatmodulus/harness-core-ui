@@ -70,6 +70,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<Record<string, string>>()
   const [searchTerm, setSearchTerm] = useState('')
+  const [showDelegateLoader, setShowDelegateLoader] = useState<boolean>(true)
   const [page, setPage] = useState(0)
   const [filters, setFilters] = useState<FilterDTO[]>()
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
@@ -102,6 +103,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
 
   useEffect(() => {
     setPage(0)
+    setShowDelegateLoader(true)
     refetchDelegates(queryParams)
   }, [queryParams])
 
@@ -180,6 +182,8 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
           showError(e.data?.message || e.message)
         }
         setDelegateFetchError(e)
+      } finally {
+        setShowDelegateLoader(false)
       }
     },
     [fetchDelegates]
@@ -191,6 +195,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
 
     if (!isFetchingDelegates && !delegateFetchError && !isFilterOpen) {
       timeoutId = window.setTimeout(() => {
+        setShowDelegateLoader(false)
         refetchDelegates({ ...queryParams, searchTerm }, appliedFilter?.filterProperties)
       }, POLLING_INTERVAL)
     }
@@ -316,6 +321,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
           searchTerm,
           pageIndex: 0
         }
+        setShowDelegateLoader(true)
         refetchDelegates(updatedQueryParams, filterFromFormData)
         setAppliedFilter({ ...unsavedFilter, filterProperties: filterFromFormData })
         setPage(0)
@@ -329,7 +335,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
     const { delegateName, delegateGroupIdentifier, delegateType, description, hostName, status, tags } =
       (appliedFilter?.filterProperties as any) || {}
     const { name = '', filterVisibility } = appliedFilter || {}
-    return isFetchingDelegates || isFetchingFilters ? (
+    return isFetchingFilters ? (
       <PageSpinner />
     ) : (
       <Filter<DelegateFilterProperties, FilterDTO>
@@ -384,6 +390,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
   }, [isRefreshingFilters, filters, appliedFilter, searchTerm, queryParams])
 
   const reset = (): void => {
+    setShowDelegateLoader(true)
     refetchDelegates(queryParams)
     setAppliedFilter(undefined)
     setDelegateFetchError(undefined)
@@ -397,11 +404,8 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
         searchTerm: query,
         pageIndex: 0
       }
-      if (query) {
-        refetchDelegates(updatedQueryParams, appliedFilter?.filterProperties)
-      } else {
-        page === 0 ? refetchDelegates(updatedQueryParams, appliedFilter?.filterProperties) : setPage(0)
-      }
+      setShowDelegateLoader(true)
+      refetchDelegates(updatedQueryParams, appliedFilter?.filterProperties)
     }, 500),
     [refetchDelegates, appliedFilter?.filterProperties]
   )
@@ -425,6 +429,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
         searchTerm,
         pageIndex: 0
       }
+      setShowDelegateLoader(true)
       refetchDelegates(updatedQueryParams, selectedFilter?.filterProperties)
     } else {
       reset()
@@ -509,7 +514,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
         </Layout.Horizontal>
       )}
       <Page.Body>
-        {isFetchingDelegates ? (
+        {showDelegateLoader ? (
           <Container style={fullSizeContentStyle}>
             <ContainerSpinner />
           </Container>

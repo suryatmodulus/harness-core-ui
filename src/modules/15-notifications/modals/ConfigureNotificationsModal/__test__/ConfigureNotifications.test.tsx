@@ -10,6 +10,7 @@ import ConfigureEmailNotifications, {
 } from '../views/ConfigureEmailNotifications/ConfigureEmailNotifications'
 import ConfigureSlackNotifications from '../views/ConfigureSlackNotifications/ConfigureSlackNotifications'
 import ConfigurePagerDutyNotifications from '../views/ConfigurePagerDutyNotifications/ConfigurePagerDutyNotifications'
+import ConfigureMSTeamsNotifications from '../views/ConfigureMSTeamsNotifications/ConfigureMSTeamsNotifications'
 
 const testNotificationMock = jest.fn()
 testNotificationMock.mockImplementation((): Promise<{ status: string }> => {
@@ -65,6 +66,18 @@ describe('ConfigureNotifications', () => {
         userGroups: []
       })
     )
+  })
+
+  test('Microsoft Teams', async () => {
+    const handleSuccess = jest.fn()
+
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/test" pathParams={{ accountId: 'dummy' }}>
+        <ConfigureMSTeamsNotifications hideModal={noop} onSuccess={handleSuccess} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
   })
 
   test('Email', async () => {

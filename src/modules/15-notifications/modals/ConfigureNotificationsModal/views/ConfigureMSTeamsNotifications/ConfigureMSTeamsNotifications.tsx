@@ -111,6 +111,13 @@ const ConfigureMSTeamsNotifications: React.FC<ConfigureMSTeamsNotificationsProps
       <Layout.Vertical spacing="large">
         <Text>{getString('notifications.helpMSTeams')}</Text>
 
+        <a
+          href="https://ngdocs.harness.io/article/xcb28vgn82-send-notifications-to-microsoft-teams"
+          rel="noreferrer"
+          target="_blank"
+        >
+          {getString('learnMore')}
+        </a>
         <Formik
           onSubmit={handleSubmit}
           formName="configureMSTeamsNotifications"

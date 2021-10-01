@@ -144,6 +144,150 @@ exports[`ConfigureNotifications Email 1`] = `
 </div>
 `;
 
+exports[`ConfigureNotifications Microsoft Teams 1`] = `
+<div>
+  <div
+    class="body"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        notifications.helpMSTeams
+      </p>
+      <a
+        href="https://ngdocs.harness.io/article/xcb28vgn82-send-notifications-to-microsoft-teams"
+        rel="noreferrer"
+        target="_blank"
+      >
+        learnMore
+      </a>
+      <div
+        class="OverlaySpinner--overlaySpinner"
+      >
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="bp3-form-group"
+              data-id="microsoftTeamsWebhookUrl-0"
+            >
+              <label
+                class="bp3-label"
+                for="microsoftTeamsWebhookUrl"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="configureMSTeamsNotifications_microsoftTeamsWebhookUrl"
+                >
+                  notifications.labelMSTeam
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input bp3-tag-input"
+                >
+                  <div
+                    class="bp3-tag-input-values"
+                  >
+                    <input
+                      class="bp3-input-ghost"
+                      data-mentions="kv-tag-input-microsoftTeamsWebhookUrl}"
+                      placeholder="Type and press enter to create a tag"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-xxlarge"
+              style="align-items: center;"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  test
+                </span>
+              </button>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="null-1"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout--vertical StyledProps--main"
+                >
+                  <label
+                    class="bp3-label"
+                    data-tooltip-id="configureMSTeamsNotifications_userGroups"
+                  >
+                    notifications.labelMSTeamsUserGroups
+                  </label>
+                  <div
+                    class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main pointer"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+                      >
+                        common.selectUserGroups
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  submit
+                </span>
+              </button>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  cancel
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`ConfigureNotifications PagerDuty 1`] = `
 <div>
   <div

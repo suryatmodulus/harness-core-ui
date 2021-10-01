@@ -30,16 +30,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.81% </span>
+                <span class="strong">37.2% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>905/2527</span>
+                <span class='fraction'>940/2527</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.47% </span>
+                <span class="strong">64.75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>91/139</span>
+                <span class='fraction'>90/139</span>
             </div>
         
             
@@ -3186,16 +3186,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -3422,12 +3422,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -5033,7 +5033,7 @@ export const parseArtifactsManifests = ({
 <span class="cstat-no" title="statement not covered" >            if (newAppliedArtifact) {</span>
 <span class="cstat-no" title="statement not covered" >              appliedArtifact = newAppliedArtifact</span>
             } else <span class="cstat-no" title="statement not covered" >if (</span>
-              artifactRef === 'primary' &amp;&amp;
+              artifactRef === PRIMARY_ARTIFACT &amp;&amp;
               filteredArtifacts?.primary &amp;&amp;
               Object.entries(filteredArtifacts?.primary).length &amp;&amp;
               !filteredArtifacts?.primary?.identifier
@@ -5067,7 +5067,7 @@ export const parseArtifactsManifests = ({
           )
 <span class="cstat-no" title="statement not covered" >          if (newAppliedArtifact) {</span>
 <span class="cstat-no" title="statement not covered" >            appliedArtifact = newAppliedArtifact</span>
-          } else <span class="cstat-no" title="statement not covered" >if (artifactRef === 'primary') {</span>
+          } else <span class="cstat-no" title="statement not covered" >if (artifactRef === PRIMARY_ARTIFACT) {</span>
 <span class="cstat-no" title="statement not covered" >            appliedArtifact = filteredArtifacts?.primary</span>
           }
         }
@@ -5129,17 +5129,17 @@ export const filterArtifact = ({
       )
     )
   } else {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (artifactId === 'primary') {
-<span class="cstat-no" title="statement not covered" >      return {</span>
+    if (artifactId === PRIMARY_ARTIFACT) {
+      return {
         primary:
           filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.primary ||
-          filteredStage?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.primary
+<span class="branch-1 cbranch-no" title="branch not covered" >          filteredStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.stageOverrides<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.artifacts<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.primary</span>
       }
     }
     return {
       sidecars:
-        filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars?.filter(
-          (artifactObj: any) =&gt; artifactObj<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>idecar<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === artifactId
+<span class="branch-1 cbranch-no" title="branch not covered" >        filteredStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceDefinition<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.artifacts<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.sidecars<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.filter(</span>
+<span class="fstat-no" title="function not covered" >          (a</span>rtifactObj: any) =&gt; <span class="cstat-no" title="statement not covered" >artifactObj?.sidecar?.identifier === artifactId</span>
         ) ||
 <span class="branch-1 cbranch-no" title="branch not covered" >        filteredStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.stageOverrides<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.artifacts<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.sidecars<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.filter(</span>
 <span class="fstat-no" title="function not covered" >          (a</span>rtifactObj: any) =&gt; <span class="cstat-no" title="statement not covered" >artifactObj?.sidecar?.identifier === artifactId</span>
@@ -5162,7 +5162,7 @@ export const filterSideCarArtifacts = <span class="fstat-no" title="function not
 &nbsp;
   const { sidecars, primary } = <span class="cstat-no" title="statement not covered" >artifacts</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (artifactId === 'primary') {</span>
+<span class="cstat-no" title="statement not covered" >  if (artifactId === PRIMARY_ARTIFACT) {</span>
 <span class="cstat-no" title="statement not covered" >    return primary</span>
   }
 &nbsp;
@@ -5896,7 +5896,7 @@ export function updatePipelineArtifact({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 01 2021 17:26:55 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 01 2021 18:39:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

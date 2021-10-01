@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.8% </span>
+                <span class="strong">55.7% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>309/544</span>
+                <span class='fraction'>303/544</span>
             </div>
         
             
@@ -801,7 +801,7 @@
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -816,20 +816,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -840,7 +840,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1366,10 +1366,10 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
               //  the selected artifact values
               //  needs to be merged with initialValue manifest values
               if (isPipelineInputTab) {
-                let selectedManifest: ManifestConfigWrapper = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifests?.find(
+                let selectedManifest: ManifestConfigWrapper = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifests<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(
                   (item: ManifestConfigWrapper) =&gt;
                     item<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifest<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
-                ) || {
+                ) || <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
                   manifest: {
                     identifier: '',
                     type: 'HelmChart',
@@ -1381,13 +1381,13 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                   }
                 }
                 const selectedIndex =
-                  initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifests?.findIndex(
+                  initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifests<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>indIndex(
                     (item: ManifestConfigWrapper) =&gt;
                       item<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifest<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
-                  ) || 0
+                  ) || <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
 &nbsp;
                 <span class="missing-if-branch" title="else path not taken" >E</span>if (stageIdentifier === formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tageId) {
-                  if (selectedManifest &amp;&amp; initialValues &amp;&amp; initialValues.manifests &amp;&amp; selectedIndex &gt;= 0) {
+                  <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedManifest &amp;&amp; initialValues &amp;&amp; initialValues.manifests &amp;&amp; selectedIndex &gt;= 0) {
                     const artifactSpec = formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
                     /*
                      backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
@@ -1406,7 +1406,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                       }
                     }
                   }
-                  if (initialValues.manifests &amp;&amp; selectedIndex &gt;= 0 &amp;&amp; initialValues.manifests[selectedIndex]) {
+                  <span class="missing-if-branch" title="else path not taken" >E</span>if (initialValues.manifests &amp;&amp; selectedIndex &gt;= 0 &amp;&amp; initialValues.manifests[selectedIndex]) {
                     initialValues.manifests[selectedIndex] = selectedManifest
                   }
                 }
@@ -1765,7 +1765,7 @@ export const ManifestInputForm = connect(ManifestInputSetForm)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 01 2021 17:26:55 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 01 2021 18:39:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

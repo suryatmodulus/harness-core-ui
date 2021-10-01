@@ -18,6 +18,7 @@ import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
+import { useQueryParams } from '@common/hooks'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
 import { returnLaunchUrl } from '@common/utils/routeUtils'
@@ -51,6 +52,7 @@ export default function CDSideNav(): React.ReactElement {
   const { updateAppStore } = useAppStore()
   const { CD_OVERVIEW_PAGE, ARGO_PHASE1 } = useFeatureFlags()
   const { getString } = useStrings()
+  const { trial } = useQueryParams<{ trial?: boolean }>()
 
   return (
     <Layout.Vertical spacing="small">
@@ -121,6 +123,18 @@ export default function CDSideNav(): React.ReactElement {
                 orgIdentifier: data.orgIdentifier
               })
             )
+          } else if (trial) {
+            // when it's on trial page, forward to pipeline
+            history.push({
+              pathname: routes.toPipelineStudio({
+                orgIdentifier: data.orgIdentifier || '',
+                projectIdentifier: data.identifier || '',
+                pipelineIdentifier: '-1',
+                accountId,
+                module
+              }),
+              search: '?modal=trial'
+            })
           } else {
             history.push(
               routes.toProjectOverview({

@@ -87,7 +87,7 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target Text--targetClass"
+              class="bp3-popover-target"
             >
               <p
                 class="StyledProps--font StyledProps--main message"
@@ -113,7 +113,7 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
             class="bp3-popover-wrapper"
           >
             <span
-              class="bp3-popover-target Text--targetClass"
+              class="bp3-popover-target"
             >
               <p
                 class="StyledProps--font StyledProps--main"
@@ -343,7 +343,7 @@ exports[`<CIExecutionCardSummary /> tests pull request snapshot 1`] = `
           class="bp3-popover-wrapper"
         >
           <span
-            class="bp3-popover-target Text--targetClass"
+            class="bp3-popover-target"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey900"

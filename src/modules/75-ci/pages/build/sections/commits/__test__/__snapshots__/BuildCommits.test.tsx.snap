@@ -124,7 +124,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
               class="bp3-popover-wrapper"
             >
               <span
-                class="bp3-popover-target Text--targetClass"
+                class="bp3-popover-target"
               >
                 <p
                   class="StyledProps--font StyledProps--main"
@@ -252,7 +252,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
               class="bp3-popover-wrapper"
             >
               <span
-                class="bp3-popover-target Text--targetClass"
+                class="bp3-popover-target"
               >
                 <p
                   class="StyledProps--font StyledProps--main"

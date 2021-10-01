@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useEffect } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { get, isEmpty } from 'lodash-es'
 import { FormInput, MultiTypeInputType, Container } from '@wings-software/uicore'
@@ -67,15 +67,13 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
     PR: getString('pipeline.gitPullRequestNumber')
   }
 
-  useEffect(() => {
+  const handleTypeChange = (e: FormEvent<HTMLInputElement>): void => {
+    const newType = (e.target as HTMLFormElement).value as 'branch' | 'tag' | 'PR'
+
     setSavedValues(previousSavedValues => ({
       ...previousSavedValues,
       [type]: get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
     }))
-  }, [type])
-
-  const handleTypeChange = (e: FormEvent<HTMLInputElement>): void => {
-    const newType = (e.target as HTMLFormElement).value as 'branch' | 'tag' | 'PR'
 
     setSavedValues(previousSavedValues => ({
       ...previousSavedValues,

@@ -68,7 +68,7 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
           class="bp3-popover-wrapper"
         >
           <span
-            class="bp3-popover-target Text--targetClass"
+            class="bp3-popover-target"
           >
             <p
               class="StyledProps--font StyledProps--main truncated"
@@ -102,7 +102,7 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
           class="bp3-popover-wrapper"
         >
           <span
-            class="bp3-popover-target Text--targetClass"
+            class="bp3-popover-target"
           >
             <p
               class="StyledProps--font StyledProps--main truncated"
@@ -156,7 +156,7 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
         class="bp3-popover-wrapper"
       >
         <span
-          class="bp3-popover-target Text--targetClass"
+          class="bp3-popover-target"
         >
           <p
             class="StyledProps--font StyledProps--main truncated"
@@ -196,7 +196,7 @@ exports[`CIExecutionSummary tests Shows Fails to Initialize Step - no commits 1`
           class="bp3-popover-wrapper"
         >
           <span
-            class="bp3-popover-target Text--targetClass"
+            class="bp3-popover-target"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small"
@@ -295,7 +295,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
           class="bp3-popover-wrapper"
         >
           <span
-            class="bp3-popover-target Text--targetClass"
+            class="bp3-popover-target"
           >
             <p
               class="StyledProps--font StyledProps--main truncated"
@@ -329,7 +329,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
           class="bp3-popover-wrapper"
         >
           <span
-            class="bp3-popover-target Text--targetClass"
+            class="bp3-popover-target"
           >
             <p
               class="StyledProps--font StyledProps--main truncated"
@@ -383,7 +383,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
         class="bp3-popover-wrapper"
       >
         <span
-          class="bp3-popover-target Text--targetClass"
+          class="bp3-popover-target"
         >
           <p
             class="StyledProps--font StyledProps--main truncated"
@@ -423,7 +423,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
           class="bp3-popover-wrapper"
         >
           <span
-            class="bp3-popover-target Text--targetClass"
+            class="bp3-popover-target"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small"
@@ -450,7 +450,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
           class="bp3-popover-wrapper"
         >
           <span
-            class="bp3-popover-target Text--targetClass"
+            class="bp3-popover-target"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -515,7 +515,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
           class="bp3-popover-wrapper"
         >
           <span
-            class="bp3-popover-target Text--targetClass"
+            class="bp3-popover-target"
           >
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small"

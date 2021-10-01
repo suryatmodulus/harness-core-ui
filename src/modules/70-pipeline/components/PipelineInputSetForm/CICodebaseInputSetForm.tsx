@@ -75,11 +75,6 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
       [type]: get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
     }))
 
-    setSavedValues(previousSavedValues => ({
-      ...previousSavedValues,
-      [type]: get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
-    }))
-
     if (!isInputTouched && triggerIdentifier) {
       formik?.setFieldValue(`${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, undefined)
       formik?.setFieldValue(

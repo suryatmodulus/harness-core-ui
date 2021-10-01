@@ -6,6 +6,7 @@
   }
   .label {
     flex-shrink: 0;
+    margin-left: -4px !important;
   }
   :global {
     .bp3-popover-wrapper {
@@ -34,9 +35,23 @@
     padding: 0px !important;
     &.runBtn {
       width: 62px;
+      color: #42ab45 !important;
     }
     &.viewExecutionsBtn {
       flex-grow: 1;
     }
+  }
+
+  .alignIcon {
+    margin-bottom: 8px !important;
+    margin-top: -7px !important;
+    margin-left: -4px !important;
+  }
+
+  .alignName {
+    margin-left: -4px !important;
+  }
+  .alignButtons {
+    margin-left: -5px !important;
   }
 }

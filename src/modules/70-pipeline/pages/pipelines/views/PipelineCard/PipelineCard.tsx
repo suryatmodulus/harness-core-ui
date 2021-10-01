@@ -205,13 +205,17 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         />
         <Container>
           {!isEmpty(pipelineIcons) && (
-            <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }}>
+            <Layout.Horizontal spacing={'small'} className={css.alignIcon}>
               {pipelineIcons.map(iconObj => (
                 <Icon key={iconObj.icon} name={iconObj.icon} size={14} />
               ))}
             </Layout.Horizontal>
           )}
-          <Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+          <Layout.Horizontal
+            spacing={'medium'}
+            flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
+            className={css.alignName}
+          >
             <Container>
               <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={pipeline.identifier}>
                 {pipeline.name}
@@ -266,7 +270,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           )}
           {(module === 'cd' || !!pipeline.filters?.cd?.serviceNames?.length) && (
             <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
-              <Text font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
+              <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                 {getString('services')}
               </Text>
               {pipeline.filters?.cd?.serviceNames?.length ? (
@@ -396,9 +400,12 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             </>
           )}
           <Layout.Horizontal
-            margin={{ top: pipeline.executionSummaryInfo?.lastExecutionTs ? 'small' : 0 }}
+            margin={{
+              left: pipeline.executionSummaryInfo?.lastExecutionTs ? '-5px' : 0
+            }}
             spacing={'small'}
             flex
+            className={css.alignButtons}
           >
             {!pipeline.executionSummaryInfo?.lastExecutionTs && (
               <Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_400}>
@@ -408,9 +415,8 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             <RbacButton
               data-testid="card-run-pipeline"
               icon="command-start"
-              variation={ButtonVariation.PRIMARY}
+              variation={ButtonVariation.SECONDARY}
               size={ButtonSize.SMALL}
-              intent="success"
               iconProps={{ size: 9 }}
               className={cx(css.cardBtns, css.runBtn)}
               text={getString('runPipelineText')}

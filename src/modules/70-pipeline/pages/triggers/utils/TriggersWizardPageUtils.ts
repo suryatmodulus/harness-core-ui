@@ -1148,6 +1148,10 @@ export const parseArtifactsManifests = ({
 }
 
 const getFilteredStage = (pipelineObj: any, stageId: string): any => {
+  if (!pipelineObj) {
+    return {}
+  }
+
   let filteredStage
   for (const item of pipelineObj) {
     if (Array.isArray(item.parallel)) {
@@ -1243,10 +1247,17 @@ export const filterArtifactIndex = ({
       (manifestObj: any) => manifestObj?.manifest?.identifier === artifactId
     )
   } else {
-    return filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.findIndex(
-      (artifactObj: any) => artifactObj?.artifact?.identifier === artifactId
-    )
+    if (filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars) {
+      return filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts?.sidecars?.findIndex(
+        (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId
+      )
+    } else if (filteredStage?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.sidecars) {
+      return filteredStage?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.sidecars?.findIndex(
+        (artifactObj: any) => artifactObj?.sidecar?.identifier === artifactId
+      )
+    }
   }
+  return -1
 }
 
 export const getStageIdx = (runtimeData: any, stageId: any) => {

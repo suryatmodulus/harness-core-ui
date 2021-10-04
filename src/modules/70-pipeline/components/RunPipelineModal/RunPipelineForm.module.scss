@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   margin: 0 250px;
+  margin-left: 60px;
 }
 
 .run-form {
@@ -164,14 +165,16 @@
   }
   .stageName {
     margin-right: var(--spacing-small) !important;
-    display: inline !important;
+    display: inline-block !important;
   }
   .warningTooltip {
     display: inline;
   }
 }
 .stageDropdown {
-  min-width: 175px;
+  min-width: 150px;
+  max-width: 175px;
+  margin-right: var(--spacing-small);
 }
 .infoStrip {
   display: grid;

@@ -38,7 +38,7 @@ import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/
 import type { GitQueryParams, InputSetGitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -48,6 +48,8 @@ import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlTog
 import { ErrorsStrip } from '@pipeline/components/ErrorsStrip/ErrorsStrip'
 import { useQueryParams } from '@common/hooks'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import InfoStrip from '@common/components/InfoStrip/InfoStrip'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -111,24 +113,23 @@ function RunPipelineFormBasic({
   const { isGitSyncEnabled } = useAppStore()
   const [triggerValidation, setTriggerValidation] = useState(false)
   const [runClicked, setRunClicked] = useState(false)
+
+  const { RUN_INDIVIDUAL_STAGE } = useFeatureFlags()
+
   const [selectedStageData, setSelectedStageData] = React.useState<{
     selectedStageId?: string
     stagesRequired?: string[]
     stageName?: string
-  }>({ selectedStageId: 'All', stagesRequired: [], stageName: '' })
-  const {
-    data: stageExecutionData,
-    // loading,
-    refetch
-  } = useGetStagesExecutionList({
+    message?: string
+  }>({ selectedStageId: '', stagesRequired: [], stageName: 'All' })
+  const { data: stageExecutionData, refetch } = useGetStagesExecutionList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      pipelineIdentifier
-      // branch?: string
-      // repoIdentifier?: string
-      // getDefaultFromOtherRepo?: boolean},
+      pipelineIdentifier,
+      branch,
+      repoIdentifier
     },
     lazy: true
   })
@@ -136,7 +137,9 @@ function RunPipelineFormBasic({
   React.useEffect(() => {
     getInputSetsList()
     getTemplateFromPipeline()
-    refetch()
+    {
+      !RUN_INDIVIDUAL_STAGE && refetch()
+    }
   }, [])
 
   React.useEffect(() => {
@@ -204,10 +207,14 @@ function RunPipelineFormBasic({
       pipelineIdentifier,
       projectIdentifier,
       repoIdentifier,
-      branch
-      // stageIdentifiers: selectedStageData.selectedStageId
-      //   ? [...selectedStageData.stagesRequired, selectedStageData.selectedStageId]
-      //   : []
+      branch,
+      ...(RUN_INDIVIDUAL_STAGE
+        ? {
+            stageIdentifiers: selectedStageData.selectedStageId
+              ? [...(selectedStageData.stagesRequired || []), selectedStageData.selectedStageId]
+              : []
+          }
+        : {})
     },
     lazy: true
   })
@@ -599,9 +606,10 @@ function RunPipelineFormBasic({
         onClick={() => {
           props?.handleClick()
           setSelectedStageData({
-            selectedStageId: (item.value as string) || '',
+            selectedStageId: defaultTo(item.value as string, ''),
             stagesRequired: stageData?.stagesRequired,
-            stageName: stageData?.stageName
+            stageName: defaultTo(stageData?.stageName, item.label),
+            message: stageData?.message
           })
         }}
         className={css.stageSelectionItem}
@@ -609,7 +617,7 @@ function RunPipelineFormBasic({
       >
         <Radio checked={selectedStageData.selectedStageId === item.value} />
         <div>
-          <Text className={css.stageName} inline lineClamp={1} width={90}>
+          <Text className={css.stageName} inline lineClamp={1}>
             {item.label}
           </Text>
           {stageData?.message && (
@@ -621,7 +629,9 @@ function RunPipelineFormBasic({
       </div>
     )
   }
-
+  const renderInfoStrip = (): React.ReactElement | null => {
+    return selectedStageData.message ? <InfoStrip intent={Intent.WARNING} content={selectedStageData.message} /> : null
+  }
   const child = (
     <>
       <Formik<Values>
@@ -692,17 +702,18 @@ function RunPipelineFormBasic({
                         />
                       </GitSyncStoreProvider>
                     )}
-                    <Select
-                      name={'repo'}
-                      data-id="stageSelect"
-                      value={{
-                        label: `${getString('pipeline.stageOrStages')}: ${selectedStageData.selectedStageId as string}`,
-                        value: ''
-                      }}
-                      items={executionStageList}
-                      className={css.stageDropdown}
-                      itemRenderer={renderStageSelection}
-                    ></Select>
+                    {!RUN_INDIVIDUAL_STAGE && (
+                      <Select
+                        data-id="stageSelect"
+                        value={{
+                          label: `${selectedStageData.stageName as string}`,
+                          value: selectedStageData.selectedStageId as string
+                        }}
+                        items={executionStageList}
+                        className={css.stageDropdown}
+                        itemRenderer={renderStageSelection}
+                      ></Select>
+                    )}
                     <div className={css.optionBtns}>
                       <VisualYamlToggle
                         initialSelectedView={selectedView}
@@ -714,21 +725,11 @@ function RunPipelineFormBasic({
                       />
                     </div>
                   </div>
-                  {selectedStageData?.stagesRequired?.length ? (
-                    <div className={css.infoStrip}>
-                      <Icon intent={Intent.PRIMARY} inline name="info-sign" className={css.iconInfo} />
-                      <String
-                        stringID="pipeline.stagesRequired"
-                        vars={{
-                          stageName: selectedStageData.stageName,
-                          stagesRequired: selectedStageData.stagesRequired.join(', ')
-                        }}
-                      />
-                    </div>
-                  ) : null}
+
                   <ErrorsStrip formErrors={formErrors} />
                 </>
               )}
+              {!RUN_INDIVIDUAL_STAGE && renderInfoStrip()}
               {selectedView === SelectedView.VISUAL ? (
                 <div className={executionView ? css.runModalFormContentExecutionView : css.runModalFormContent}>
                   <FormikForm>
@@ -835,9 +836,7 @@ function RunPipelineFormBasic({
                       variation={ButtonVariation.PRIMARY}
                       intent="success"
                       type="submit"
-                      text={
-                        selectedStageData.selectedStageId ? getString('pipeline.runStages') : getString('runPipeline')
-                      }
+                      text={getString('runPipeline')}
                       onClick={event => {
                         event.stopPropagation()
                         setRunClicked(true)

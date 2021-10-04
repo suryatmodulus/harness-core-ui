@@ -229,6 +229,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                 width={232}
                 throttle={200}
                 onChange={(text: string) => filterSteps(text, FilterContext.SEARCH)}
+                autoFocus
               />
             </Layout.Horizontal>
 

@@ -1,0 +1,23 @@
+.info-strip {
+  display: grid;
+  grid-template-columns: 25px 1fr;
+  height: 30px;
+  align-items: center;
+  padding: 0 var(--spacing-medium);
+  border: none;
+  .iconStyle {
+    margin-right: var(--spacing-small);
+  }
+  &.primary {
+    background-color: var(--primary-2);
+    color: var(--primary-7);
+  }
+  &.warning {
+    background-color: var(--orange-50);
+    color: var(--orange-900);
+  }
+  &.danger {
+    background-color: var(--red-100);
+    color: var(--red-500);
+  }
+}

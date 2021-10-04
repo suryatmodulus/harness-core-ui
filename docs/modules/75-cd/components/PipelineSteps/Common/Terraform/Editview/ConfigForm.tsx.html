@@ -301,7 +301,8 @@
 <a name='L242'></a><a href='#L242'>242</a>
 <a name='L243'></a><a href='#L243'>243</a>
 <a name='L244'></a><a href='#L244'>244</a>
-<a name='L245'></a><a href='#L245'>245</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -327,6 +328,7 @@
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -577,6 +579,7 @@ interface ConfigFormProps {
   data?: any
   onHide: (values: any) =&gt; void
   isReadonly?: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 &nbsp;
 export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
@@ -641,7 +644,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
-                  multiTypeProps={{ expressions }}
+                  multiTypeProps={{ expressions, allowableTypes: props.allowableTypes }}
                 /&gt;
 &nbsp;
                 {(connectorValue?.connector?.spec?.connectionType === 'Account' ||
@@ -651,7 +654,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       label={getString('pipelineSteps.repoName')}
                       name="spec.configuration.spec.configFiles.store.spec.repoName"
                       placeholder={getString('pipelineSteps.repoName')}
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                     /&gt;
                     {getMultiTypeFromValue(
                       formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.repoName
@@ -690,7 +693,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                       name="spec.configuration.spec.configFiles.store.spec.branch"
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                     /&gt;
                     {getMultiTypeFromValue(
                       formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch
@@ -719,7 +722,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                       label={getString('pipeline.manifestType.commitId')}
                       placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                       name="spec.configuration.spec.configFiles.store.spec.commitId"
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                     /&gt;
                     {getMultiTypeFromValue(
                       formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId
@@ -745,7 +748,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                     label={getString('cd.folderPath')}
                     placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                     name="spec.configuration.spec.configFiles.store.spec.folderPath"
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                   /&gt;
                   {getMultiTypeFromValue(
                     formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.configuration?.spec?.configFiles?.store?.spec?.folderPath
@@ -796,7 +799,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 07:20:58 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 10:42:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

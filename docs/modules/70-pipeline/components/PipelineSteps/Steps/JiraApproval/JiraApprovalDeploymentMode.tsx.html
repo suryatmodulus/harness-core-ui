@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.46% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/26</span>
+                <span class='fraction'>25/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.46% </span>
+                <span class="strong">67.35% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>66/104</span>
+                <span class='fraction'>66/98</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.46% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/26</span>
+                <span class='fraction'>25/25</span>
             </div>
         
             
@@ -161,7 +161,23 @@
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">36x</span>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
@@ -172,6 +188,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
@@ -190,6 +207,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,9 +234,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,7 +299,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty, set } from 'lodash-es'
+import { isEmpty } from 'lodash-es'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type {
@@ -277,15 +309,16 @@ import type {
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeTextAreaField } from '@common/components'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import type { JiraApprovalDeploymentModeProps } from './types'
 import css from './JiraApproval.module.scss'
 &nbsp;
 const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) =&gt; {
-  const { inputSetData, onUpdate, initialValues } = formContentProps
+  const { inputSetData, initialValues, allowableTypes } = formContentProps
   const template = inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate
   const path = inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath
   const prefix = isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`</span>
@@ -294,67 +327,82 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) =&gt; {
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams&lt;PipelineType&lt;PipelinePathProps &amp; AccountPathProps&gt;&gt;()
   const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
+  const { expressions } = useVariablesExpression()
 &nbsp;
   return (
     &lt;React.Fragment&gt;
       {getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imeout) === MultiTypeInputType.RUNTIME ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;DurationInputFieldForInputSet</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;FormMultiTypeDurationField</span>
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}timeout`}
-          disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
+          multiTypeDurationProps={{
+            enableConfigureOptions: false,
+            allowableTypes,
+            expressions,
+            disabled: isApprovalStepFieldDisabled(readonly)
+          }}
+          disabled={isApprovalStepFieldDisabled(readonly)}
         /&gt;
       ) : null}
 &nbsp;
       {getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) === MultiTypeInputType.RUNTIME ? (
-        &lt;ConnectorReferenceField
-          name={`${prefix}spec.conectorRef`}
+        &lt;FormMultiTypeConnectorField
+          name={`${prefix}spec.connectorRef`}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           selected={(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef as string) || ''}
           placeholder={getString('connectors.selectConnector')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={360}
+          width={385}
+          setRefValue
           disabled={isApprovalStepFieldDisabled(readonly)}
-          type={'Jira'}
-          onChange={<span class="fstat-no" title="function not covered" >(r</span>ecord, scope) =&gt; {
-            const connectorRef =
-<span class="cstat-no" title="statement not covered" >              scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier</span>
-<span class="cstat-no" title="statement not covered" >            set(initialValues, 'spec.connectorRef', connectorRef)</span>
-<span class="cstat-no" title="statement not covered" >            onUpdate?.(initialValues)</span>
+          multiTypeProps={{
+            allowableTypes,
+            expressions
           }}
+          type={'Jira'}
           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         /&gt;
       ) : null}
 &nbsp;
       {getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ssueKey) === MultiTypeInputType.RUNTIME ? (
-        &lt;FormInput.Text
+        &lt;FormInput.MultiTextInput
           label={getString('pipeline.jiraApprovalStep.issueKey')}
-          className={css.deploymentViewMedium}
           name={`${prefix}spec.issueKey`}
-          disabled={isApprovalStepFieldDisabled(readonly)}
-          placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
+          multiTextInputProps={{
+            disabled: isApprovalStepFieldDisabled(readonly),
+            expressions,
+            allowableTypes
+          }}
+          className={css.deploymentViewMedium}
         /&gt;
       ) : null}
 &nbsp;
       {getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovalCriteria<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xpression) === MultiTypeInputType.RUNTIME ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;FormInput.TextArea</span>
-          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')}
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;FormMultiTypeTextAreaField</span>
           className={css.deploymentViewMedium}
+          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')}
           name={`${prefix}spec.approvalCriteria.spec.expression`}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
+          multiTypeTextArea={{
+            expressions,
+            allowableTypes
+          }}
         /&gt;
       ) : null}
 &nbsp;
       {getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ejectionCriteria<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xpression) === MultiTypeInputType.RUNTIME ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;FormInput.TextArea</span>
-          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')}
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;FormMultiTypeTextAreaField</span>
           className={css.deploymentViewMedium}
+          label={getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')}
           name={`${prefix}spec.rejectionCriteria.spec.expression`}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
+          multiTypeTextArea={{
+            expressions,
+            allowableTypes
+          }}
         /&gt;
       ) : null}
     &lt;/React.Fragment&gt;
@@ -376,7 +424,7 @@ export default function JiraApprovalDeploymentMode(props: JiraApprovalDeployment
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 07:20:58 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 10:42:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

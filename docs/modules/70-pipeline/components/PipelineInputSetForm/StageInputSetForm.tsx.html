@@ -706,7 +706,13 @@
 <a name='L647'></a><a href='#L647'>647</a>
 <a name='L648'></a><a href='#L648'>648</a>
 <a name='L649'></a><a href='#L649'>649</a>
-<a name='L650'></a><a href='#L650'>650</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L650'></a><a href='#L650'>650</a>
+<a name='L651'></a><a href='#L651'>651</a>
+<a name='L652'></a><a href='#L652'>652</a>
+<a name='L653'></a><a href='#L653'>653</a>
+<a name='L654'></a><a href='#L654'>654</a>
+<a name='L655'></a><a href='#L655'>655</a>
+<a name='L656'></a><a href='#L656'>656</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -800,10 +806,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1284,6 +1292,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1420,6 +1432,7 @@ function ServiceDependencyForm({
           factory={factory}
           readonly={readonly}
           path={path}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
           template={template}
           initialValues={values || {}}
           allValues={allValues || <span class="branch-1 cbranch-no" title="branch not covered" >{}}</span>
@@ -1467,6 +1480,7 @@ function StepForm({
           factory={factory}
           readonly={readonly}
           path={path}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
           template={template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tep}
           initialValues={values?.step || {}}
           allValues={allValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tep || <span class="branch-1 cbranch-no" title="branch not covered" >{}}</span>
@@ -1708,6 +1722,7 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
                 type={StepType.DeployService}
                 stepViewType={viewType}
                 path={`${path}.serviceConfig`}
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                 readonly={readonly}
                 customStepProps={{ stageIdentifier }}
               /&gt;
@@ -1720,6 +1735,7 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
                     ? (<span class="branch-0 cbranch-no" title="branch not covered" >deploymentStageInputSet?.serviceConfig?.stageOverrides as StageOverridesConfig)</span>
                     : deploymentStageInputSet<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceDefinition<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
                 }
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                 template={
                   isPropagating &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >deploymentStageTemplate</span>
                     ? <span class="branch-0 cbranch-no" title="branch not covered" >deploymentStageTemplate?.serviceConfig?.stageOverrides</span>
@@ -1828,6 +1844,7 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
                 template={deploymentStageTemplate<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nfrastructure || <span class="branch-1 cbranch-no" title="branch not covered" >{}}</span>
                 type={StepType.DeployEnvironment}
                 stepViewType={viewType}
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                 path={`${path}.infrastructure`}
                 readonly={readonly}
               /&gt;
@@ -1837,6 +1854,7 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
                 factory={factory}
                 template={deploymentStageTemplate.infrastructure.infrastructureDefinition.spec}
                 initialValues={deploymentStageInputSet<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nfrastructure<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nfrastructureDefinition<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec || <span class="branch-1 cbranch-no" title="branch not covered" >{}}</span>
+                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                 allValues={
                   deploymentStage<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nfrastructure<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nfrastructureDefinition<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec || /* istanbul ignore next */ {}
                 }
@@ -2011,7 +2029,7 @@ export const StageInputSetForm = connect(StageInputSetFormInternal)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 07:20:58 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 10:42:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

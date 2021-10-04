@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.74% </span>
+                <span class="strong">68.75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>66/86</span>
+                <span class='fraction'>66/96</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -128,7 +128,27 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">36x</span>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
@@ -151,8 +171,24 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,9 +239,11 @@
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
-import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import { useStrings } from 'framework/strings'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeTextAreaField } from '@common/components'
+import { FormMultiTypeUserGroupInput } from '@common/components/UserGroupsInput/FormMultitypeUserGroupInput'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import type { HarnessApprovalDeploymentModeProps } from './types'
 import css from './HarnessApproval.module.scss'
@@ -216,55 +254,71 @@ Provide values for all runtime fields in approval step
 Open the same form in readonly view while viewing already run executions
 */
 export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDeploymentModeProps): JSX.Element {
-  const { inputSetData } = props
+  const { inputSetData, allowableTypes, formik } = props
   const template = inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate
   const path = inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath
   const prefix = isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`</span>
   const readonly = inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eadonly
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
 &nbsp;
   return (
     &lt;React.Fragment&gt;
       {getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imeout) === MultiTypeInputType.RUNTIME ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;DurationInputFieldForInputSet</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;FormMultiTypeDurationField</span>
+          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
           label={getString('pipelineSteps.timeoutLabel')}
-          name={`${prefix}timeout`}
-          disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
+          multiTypeDurationProps={{
+            enableConfigureOptions: false,
+            allowableTypes,
+            expressions,
+            disabled: isApprovalStepFieldDisabled(readonly)
+          }}
+          disabled={isApprovalStepFieldDisabled(readonly)}
         /&gt;
       ) : null}
 &nbsp;
       {getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovalMessage) === MultiTypeInputType.RUNTIME ? (
-        &lt;FormInput.TextArea
+        &lt;FormMultiTypeTextAreaField
           className={cx(css.approvalMessage, css.deploymentViewMedium)}
           label={getString('pipeline.approvalStep.message')}
           name={`${prefix}spec.approvalMessage`}
           disabled={isApprovalStepFieldDisabled(readonly)}
+          multiTypeTextArea={{
+            expressions,
+            allowableTypes
+          }}
         /&gt;
       ) : null}
 &nbsp;
       {typeof template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovers<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>serGroups === 'string' &amp;&amp;
       getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovers<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>serGroups) === MultiTypeInputType.RUNTIME ? (
-        &lt;UserGroupsInput
-          name={`${prefix}spec.approvers.userGroups`}
-          label={getString('common.userGroups')}
-          disabled={isApprovalStepFieldDisabled(readonly)}
-          tooltipProps={{ dataTooltipId: 'harnessApprovalRuntime_userGroups' }}
-          formGroupClass={css.deploymentViewMedium}
-        /&gt;
+        &lt;div className={css.deploymentViewMedium}&gt;
+          &lt;FormMultiTypeUserGroupInput
+            expressions={expressions}
+            formik={formik}
+            allowableTypes={allowableTypes}
+            name={`${prefix}spec.approvers.userGroups`}
+            label={getString('common.userGroups')}
+            disabled={isApprovalStepFieldDisabled(readonly)}
+            tooltipProps={{ dataTooltipId: 'harnessApprovalRuntime_userGroups' }}
+          /&gt;
+        &lt;/div&gt;
       ) : null}
 &nbsp;
       {typeof template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovers<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>inimumCount === 'string' &amp;&amp;
       getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovers<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>inimumCount) === MultiTypeInputType.RUNTIME ? (
-        &lt;FormInput.Text
+        &lt;FormInput.MultiTextInput
           label={getString('pipeline.approvalStep.minimumCount')}
           name={`${prefix}spec.approvers.minimumCount`}
-          disabled={isApprovalStepFieldDisabled(readonly)}
-          className={css.deploymentViewMedium}
-          inputGroup={{
-            type: 'number',
-            min: 1
+          multiTextInputProps={{
+            disabled: isApprovalStepFieldDisabled(readonly),
+            expressions,
+            allowableTypes,
+            inputMode: 'numeric'
           }}
+          className={css.deploymentViewMedium}
         /&gt;
       ) : null}
     &lt;/React.Fragment&gt;
@@ -277,7 +331,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 07:20:58 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 10:42:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.43% </span>
+                <span class="strong">78.85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/51</span>
+                <span class='fraction'>41/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.78% </span>
+                <span class="strong">67.39% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>61/90</span>
+                <span class='fraction'>62/92</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.43% </span>
+                <span class="strong">78.85% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/51</span>
+                <span class='fraction'>41/52</span>
             </div>
         
             
@@ -195,7 +195,21 @@
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">36x</span>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
@@ -212,6 +226,7 @@
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">43x</span>
@@ -296,6 +311,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -304,6 +329,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -326,6 +352,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -336,7 +364,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
-import { FormikErrors, yupToFormErrors } from 'formik'
+import { connect, FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -350,6 +378,7 @@ import { processFormData, processInitialValues } from './helper'
 import JiraUpdateStepModeWithRef from './JiraUpdateStepMode'
 import JiraUpdateDeploymentMode from './JiraUpdateDeploymentMode'
 &nbsp;
+const JiraUpdateDeploymentModeWithFormik = connect(JiraUpdateDeploymentMode)
 export class JiraUpdate extends PipelineStep&lt;JiraUpdateData&gt; {
   constructor() {
     super()
@@ -437,13 +466,24 @@ export class JiraUpdate extends PipelineStep&lt;JiraUpdateData&gt; {
   }
 &nbsp;
   renderStep(this: JiraUpdate, props: StepProps&lt;JiraUpdateData&gt;): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
-      props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly,
+      allowableTypes,
+      onChange
+    } = props
 &nbsp;
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
-        &lt;JiraUpdateDeploymentMode
+        &lt;JiraUpdateDeploymentModeWithFormik
           stepViewType={stepViewType}
+          allowableTypes={allowableTypes}
           initialValues={initialValues}
           onUpdate={<span class="fstat-no" title="function not covered" >(v</span>alues: JiraUpdateData) =&gt; <span class="cstat-no" title="statement not covered" >onUpdate?.(values)}</span>
           inputSetData={inputSetData}
@@ -462,7 +502,9 @@ export class JiraUpdate extends PipelineStep&lt;JiraUpdateData&gt; {
     return (
       &lt;JiraUpdateStepModeWithRef
         ref={formikRef}
-        stepViewType={stepViewType}
+        stepViewType={stepViewType || <span class="branch-1 cbranch-no" title="branch not covered" >StepViewType.Edit}</span>
+        allowableTypes={allowableTypes}
+        onChange={onChange}
         initialValues={processInitialValues(initialValues)}
         onUpdate={(values: JiraUpdateData) =&gt; onUpdate<span class="branch-0 cbranch-no" title="branch not covered" >?.(v</span>alues)}
         isNewStep={isNewStep}
@@ -478,7 +520,7 @@ export class JiraUpdate extends PipelineStep&lt;JiraUpdateData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 07:20:58 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 10:42:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

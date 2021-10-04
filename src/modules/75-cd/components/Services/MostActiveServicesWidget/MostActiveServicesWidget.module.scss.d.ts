@@ -15,5 +15,6 @@ declare const styles: {
   readonly progressBar: string
   readonly label: string
   readonly mostActiveServicesWidgetEmpty: string
+  readonly noActiveServicesHeader: string
 }
 export default styles

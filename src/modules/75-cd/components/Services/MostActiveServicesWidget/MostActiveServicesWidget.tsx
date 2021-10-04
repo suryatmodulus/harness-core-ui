@@ -225,8 +225,8 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
               {title}
             </Text>
           )}
-          <Container margin={{ bottom: 'xlarge' }}>{EnvironmentTypeComponent}</Container>
-          <Layout.Horizontal margin={{ bottom: 'large' }}>{TypeComponent}</Layout.Horizontal>
+          {data.length ? <Container margin={{ bottom: 'xlarge' }}>{EnvironmentTypeComponent}</Container> : null}
+          {data.length ? <Layout.Horizontal margin={{ bottom: 'large' }}>{TypeComponent}</Layout.Horizontal> : null}
           {children}
         </Layout.Vertical>
       </Card>
@@ -258,7 +258,7 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
           <Container margin={{ bottom: 'medium' }}>
             <img width="50" height="50" src={MostActiveServicesEmptyState} style={{ alignSelf: 'center' }} />
           </Container>
-          <Text color={Color.GREY_400}>
+          <Text color={Color.GREY_400} className={css.noActiveServicesHeader}>
             {getString('cd.serviceDashboard.noActiveServices', {
               timeRange: timeRange?.label
             })}

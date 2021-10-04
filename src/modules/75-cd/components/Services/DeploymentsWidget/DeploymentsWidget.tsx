@@ -248,7 +248,14 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
         </Layout.Vertical>
       )
     })()
-    return <DeploymentWidgetContainer>{component}</DeploymentWidgetContainer>
+    return (
+      <DeploymentWidgetContainer>
+        <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+          {getString('deploymentsText')}
+        </Text>
+        {component}
+      </DeploymentWidgetContainer>
+    )
   }
 
   const { deployments, failureRate, frequency, data } = parseData(serviceDeploymentsInfo.data)
@@ -299,6 +306,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const isDeploymentBoost = deployments.change === INVALID_CHANGE_RATE
   return (
     <DeploymentWidgetContainer>
+      sdfdsfds
       <Container data-test="deploymentsWidgetContent">
         <Text font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
           {getString('deploymentsText')}

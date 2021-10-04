@@ -71,10 +71,36 @@ describe('ConfigureNotifications', () => {
   test('Microsoft Teams', async () => {
     const handleSuccess = jest.fn()
 
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/test" pathParams={{ accountId: 'dummy' }}>
         <ConfigureMSTeamsNotifications hideModal={noop} onSuccess={handleSuccess} />
       </TestWrapper>
+    )
+
+    const msTeamKey = container.querySelector('[data-id*="msTeamKeys-0"] input')
+    if (!msTeamKey) {
+      throw Error('Microsoft team keys was not rendered.')
+    }
+
+    fireEvent.change(msTeamKey, { target: { value: 'test' } })
+    await waitFor(() => expect(container.querySelector('[data-id*="msTeamKeys-0"] input')).not.toBeNull())
+    await act(() => {
+      fireEvent.click(getByText('test'))
+      expect(testNotificationMock).toHaveBeenCalledWith({
+        accountId: 'dummy',
+        notificationId: 'MSTeams',
+        recipient: '',
+        type: 'MSTEAMS'
+      })
+    })
+
+    clickSubmit(container)
+    await waitFor(() =>
+      expect(handleSuccess).toHaveBeenCalledWith({
+        type: NotificationType.PagerDuty,
+        key: 'testKey',
+        userGroups: []
+      })
     )
 
     expect(container).toMatchSnapshot()

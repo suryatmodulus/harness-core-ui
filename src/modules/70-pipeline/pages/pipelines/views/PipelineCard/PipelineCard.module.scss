@@ -33,9 +33,15 @@
   }
   .cardBtns {
     padding: 0px !important;
+
     &.runBtn {
       width: 62px;
-      color: #42ab45 !important;
+      &:global {
+        &.Button--button[class*='bp3-button'] {
+          border: solid 1px var(--success) !important;
+          color: var(--success) !important;
+        }
+      }
     }
     &.viewExecutionsBtn {
       flex-grow: 1;

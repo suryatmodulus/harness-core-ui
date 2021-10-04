@@ -51,6 +51,8 @@ const ModalBody: React.FC<ModalBodyProps> = ({ type, onSuccess, hideModal }) => 
       return <ConfigurePagerDutyNotifications onSuccess={onSuccess} hideModal={hideModal} />
     case NotificationType.MsTeams:
       return <ConfigureMSTeamsNotifications onSuccess={onSuccess} hideModal={hideModal} />
+    default:
+      return null
   }
 }
 

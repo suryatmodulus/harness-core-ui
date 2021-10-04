@@ -117,7 +117,9 @@ const ConfigureMSTeamsNotifications: React.FC<ConfigureMSTeamsNotificationsProps
           validationSchema={Yup.object({
             msTeamKeys: Yup.array().test({
               test(value: string[]): boolean | Yup.ValidationError {
-                if (!value) return this.createError({ message: getString('notifications.errors.msTeamUrlRequired') })
+                if (!value) {
+                  return this.createError({ message: getString('notifications.errors.msTeamUrlRequired') })
+                }
 
                 if (value.length === 0) {
                   return this.createError({ message: getString('notifications.errors.msTeamUrlRequired') })

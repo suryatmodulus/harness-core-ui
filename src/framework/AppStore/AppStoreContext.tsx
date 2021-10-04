@@ -45,25 +45,22 @@ export interface AppStoreContextProps {
 
 export const AppStoreContext = React.createContext<AppStoreContextProps>({
   featureFlags: {},
-  currentUserInfo: { email: 'email initial context' },
+  currentUserInfo: {},
   isGitSyncEnabled: false,
   connectivityMode: undefined,
   updateAppStore: () => void 0
 })
 
 export function useAppStore(): AppStoreContextProps {
-  console.log('use app store from App')
-  const context = React.useContext(AppStoreContext)
-  console.log('use app store from APP', context)
-  return context
+  return React.useContext(AppStoreContext)
 }
 
 export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [state, setState] = React.useState<Omit<AppStoreContextProps, 'updateAppStore' | 'strings'>>({
     featureFlags: {},
-    currentUserInfo: { email: 'swaraj testing' },
-    isGitSyncEnabled: true,
+    currentUserInfo: {},
+    isGitSyncEnabled: false,
     connectivityMode: undefined
   })
 
@@ -177,11 +174,9 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     }))
   }, [accountId])
 
-  console.log('userInfo.data outside', userInfo?.data)
   React.useEffect(() => {
     if (userInfo?.data) {
       const user = userInfo.data
-      console.log('userInfo.data inside effect', userInfo?.data)
       setState(prevState => ({
         ...prevState,
         currentUserInfo: user

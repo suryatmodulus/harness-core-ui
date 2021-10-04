@@ -235,28 +235,27 @@ const commonPlugins = [
 ]
 
 const devOnlyPlugins = [
-  new ModuleFederationPlugin({
-    name: 'home',
-    filename: 'remoteEntry.js',
-    remotes: {
-      accesscontrol: 'accesscontrol@http://localhost:9092/remoteEntry.js'
-    },
-    shared: {
-      ...deps,
-      react: {
-        singleton: true,
-        requiredVersion: deps.react
-      },
-      'react-dom': {
-        singleton: true,
-        requiredVersion: deps['react-dom']
-      },
-      'react-router-dom': {
-        singleton: true,
-        requiredVersion: deps['react-router-dom']
-      }
-    }
-  }),
+  // new ModuleFederationPlugin({
+  //   name: 'home',
+  //   filename: 'remoteEntry.js',
+  //   remotes: {
+  //   },
+  //   shared: {
+  //     ...deps,
+  //     react: {
+  //       singleton: true,
+  //       requiredVersion: deps.react
+  //     },
+  //     'react-dom': {
+  //       singleton: true,
+  //       requiredVersion: deps['react-dom']
+  //     },
+  //     'react-router-dom': {
+  //       singleton: true,
+  //       requiredVersion: deps['react-router-dom']
+  //     }
+  //   }
+  // }),
   new webpack.WatchIgnorePlugin({
     paths: [/node_modules(?!\/@wings-software)/, /\.d\.ts$/, /stringTypes\.ts/]
   }),

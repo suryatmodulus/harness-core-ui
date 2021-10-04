@@ -3,9 +3,6 @@ import { Color, Icon, Layout, Text, Popover, IconName } from '@wings-software/ui
 import { Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import css from './ActivityStack.module.scss'
 
-/**
- * 
- */
 export interface ActivityStackItems {
   name: string
   icon: IconName
@@ -14,18 +11,12 @@ export interface ActivityStackItems {
   activity?: string
   updatedBy?: string
 }
-/**
- * 
- */
+
 interface ActivityStackProps {
   items: ActivityStackItems[]
   tooltip: (item: ActivityStackItems) => void
 }
 
-/**
- * 
- * @param param0 
- */
 const ActivityStack: React.FC<ActivityStackProps> = ({ items, tooltip }) => {
   return (
     <>

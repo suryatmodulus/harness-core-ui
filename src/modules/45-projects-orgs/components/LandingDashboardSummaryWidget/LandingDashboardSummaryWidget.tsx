@@ -113,7 +113,7 @@ const getModuleSummaryHeader = (moduleType: ModuleName): JSX.Element | string =>
   }
 
   return (
-    <Layout.Horizontal spacing="small" margin={{ left: 'large' }} style={{ alignItems: 'center' }}>
+    <Layout.Horizontal spacing="small" margin={{ left: 'medium' }} style={{ alignItems: 'center' }}>
       <Icon name={icon}></Icon>
       <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{titleId}</Text>
     </Layout.Horizontal>

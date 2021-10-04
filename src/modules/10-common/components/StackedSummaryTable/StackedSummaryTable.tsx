@@ -21,10 +21,11 @@ export interface StackedSummaryInterface extends StackedSummaryBarData {
 export interface StackedSummaryTableProps {
   columnHeaders: (JSX.Element | string)[]
   summaryData: Array<StackedSummaryInterface>
+  barLength?: number
 }
 
 export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => {
-  const { columnHeaders, summaryData } = props
+  const { columnHeaders, summaryData, barLength } = props
 
   if (!summaryData[0]?.barSectionsData?.length) {
     logger.error(`Ivalid data for StackedSummaryTable, summaryData:${{ summaryData }}`)
@@ -45,6 +46,7 @@ export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => 
     return (
       <StackedSummaryBar
         maxCount={maxCount}
+        barLength={barLength}
         {...pick(row.original, ['barSectionsData', 'trend', 'intent'])}
       ></StackedSummaryBar>
     )

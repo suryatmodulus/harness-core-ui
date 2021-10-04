@@ -91,15 +91,19 @@ const renderSummaryCards = (): JSX.Element => {
 
 const LandingDashboardCDSection: React.FC = () => {
   return (
-    <Layout.Horizontal spacing="large">
-      <Card style={{ width: '60%' }}>
+    <Layout.Horizontal spacing="large" style={{ justifyContent: 'space-between' }}>
+      <Card style={{ minWidth: 850 }}>
         <OverviewChartsWithToggle
           data={generateMockData(30)}
           summaryCards={renderSummaryCards()}
         ></OverviewChartsWithToggle>
       </Card>
-      <Card style={{ width: '37%' }}>
-        <StackedSummaryTable columnHeaders={['SERVICES', 'DEPLOYMENTS']} summaryData={mockDataCD}></StackedSummaryTable>
+      <Card style={{ width: '100%', minWidth: 550 }}>
+        <StackedSummaryTable
+          columnHeaders={['SERVICES', 'DEPLOYMENTS']}
+          summaryData={mockDataCD}
+          barLength={210}
+        ></StackedSummaryTable>
       </Card>
     </Layout.Horizontal>
   )

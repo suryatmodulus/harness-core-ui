@@ -126,7 +126,7 @@ const ConfigureMSTeamsNotifications: React.FC<ConfigureMSTeamsNotificationsProps
                   url: Yup.string().url(getString('notifications.errors.invalidUrl'))
                 })
                 try {
-                  value.map(url => {
+                  value.forEach(url => {
                     stringUrlSchema.validateSync({ url })
                   })
                 } catch (e) {

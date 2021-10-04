@@ -401,7 +401,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           )}
           <Layout.Horizontal
             margin={{
-              left: pipeline.executionSummaryInfo?.lastExecutionTs ? '-5px' : 0
+              left: pipeline.executionSummaryInfo?.lastExecutionTs ? 'small' : 0
             }}
             spacing={'small'}
             flex

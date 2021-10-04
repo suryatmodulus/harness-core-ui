@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/38</span>
+                <span class='fraction'>0/40</span>
             </div>
         
             
@@ -246,8 +246,7 @@
 <a name='L187'></a><a href='#L187'>187</a>
 <a name='L188'></a><a href='#L188'>188</a>
 <a name='L189'></a><a href='#L189'>189</a>
-<a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -325,7 +324,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -515,34 +513,33 @@ const RenderColumnTemplate: Renderer&lt;CellProps&lt;TemplateSummaryResponse&gt;
   const data = <span class="cstat-no" title="statement not covered" >row.original</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Layout.Horizontal spacing="large"&gt;
-      &lt;Layout.Vertical spacing="xsmall" data-testid={data.identifier}&gt;
-        &lt;Text
-          color={Color.GREY_800}
-          tooltipProps={{ position: Position.BOTTOM }}
-          tooltip={
-            &lt;Layout.Vertical spacing="medium" padding="medium" style={{ maxWidth: 400 }}&gt;
-              &lt;Text&gt;{getString('nameLabel', { name: data.name })}&lt;/Text&gt;
-              &lt;Text&gt;{getString('idLabel', { id: data.identifier })}&lt;/Text&gt;
-              &lt;Text&gt;{getString('descriptionLabel', { description: data.description })}&lt;/Text&gt;
-            &lt;/Layout.Vertical&gt;
-          }
-        &gt;
-          {data.name}
-        &lt;/Text&gt;
-        &lt;Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }}&gt;
-          {getString('idLabel', { id: data.identifier })}
-        &lt;/Text&gt;
-      &lt;/Layout.Vertical&gt;
-    &lt;/Layout.Horizontal&gt;
+    &lt;Layout.Vertical spacing="xsmall" data-testid={data.identifier} padding={{ right: 'medium' }}&gt;
+      &lt;Text
+        color={Color.GREY_800}
+        tooltipProps={{ position: Position.BOTTOM }}
+        lineClamp={1}
+        tooltip={
+          &lt;Layout.Vertical spacing="medium" padding="medium" style={{ maxWidth: 400 }}&gt;
+            &lt;Text&gt;{getString('nameLabel', { name: data.name })}&lt;/Text&gt;
+            &lt;Text&gt;{getString('idLabel', { id: data.identifier })}&lt;/Text&gt;
+            &lt;Text&gt;{getString('descriptionLabel', { description: data.description || '-' })}&lt;/Text&gt;
+          &lt;/Layout.Vertical&gt;
+        }
+      &gt;
+        {data.name}
+      &lt;/Text&gt;
+      &lt;Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }}&gt;
+        {getString('idLabel', { id: data.identifier })}
+      &lt;/Text&gt;
+    &lt;/Layout.Vertical&gt;
   )
 }
 &nbsp;
 const RenderColumnLabel: Renderer&lt;CellProps&lt;TemplateSummaryResponse&gt;&gt; = <span class="fstat-no" title="function not covered" >({</span> row }) =&gt; {
   const data = <span class="cstat-no" title="statement not covered" >row.original</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Layout.Horizontal spacing="large"&gt;
-      &lt;Text color={Color.GREY_800} font={{ weight: 'semi-bold' }}&gt;
+    &lt;Layout.Horizontal padding={{ right: 'medium' }}&gt;
+      &lt;Text color={Color.GREY_800} font={{ weight: 'semi-bold' }} lineClamp={1}&gt;
         {data.versionLabel}
       &lt;/Text&gt;
     &lt;/Layout.Horizontal&gt;
@@ -552,7 +549,7 @@ const RenderColumnLabel: Renderer&lt;CellProps&lt;TemplateSummaryResponse&gt;&gt
 const RenderColumnTags: Renderer&lt;CellProps&lt;TemplateSummaryResponse&gt;&gt; = <span class="fstat-no" title="function not covered" >({</span> row }) =&gt; {
   const data = <span class="cstat-no" title="statement not covered" >row.original</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}&gt;
+    &lt;Layout.Horizontal width={'100%'} padding={{ right: 'medium' }} style={{ alignItems: 'center' }}&gt;
       {data.tags &amp;&amp; !isEmpty(data.tags) ? (
         &lt;TemplateTags tags={data.tags} length={3} /&gt;
       ) : (
@@ -634,7 +631,7 @@ export const TemplateListView: React.FC&lt;TemplateListViewProps&gt; = <span cla
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 11:23:12 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 14:09:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

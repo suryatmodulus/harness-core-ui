@@ -88,23 +88,15 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -118,63 +110,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
-<span class="cstat-no" title="statement not covered" >import { Template, TemplateColorMap, TemplateProps } from '@templates-library/components/AbstractTemplate/Template'</span>
+<span class="cstat-no" title="statement not covered" >import { Color } from '@wings-software/uicore'</span>
+<span class="cstat-no" title="statement not covered" >import { Template, TemplateProps } from '@templates-library/components/AbstractTemplate/Template'</span>
 <span class="cstat-no" title="statement not covered" >import { TemplateType } from '@templates-library/utils/templatesUtils'</span>
-import type { StepElementConfig } from 'services/cd-ng'
 <span class="cstat-no" title="statement not covered" >import StepTemplateDiagram, {</span>
   StepTemplateDiagramProps
 } from '@templates-library/components/TemplateStudio/StepTemplate/StepTemplateDiagram/StepTemplateDiagram'
 <span class="cstat-no" title="statement not covered" >import { StepTemplateFormWithRef } from '@templates-library/components/TemplateStudio/StepTemplate/StepTemplateForm/StepTemplateForm'</span>
+import type { NGTemplateInfoConfig } from 'services/template-ng'
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class S</span></span>tepTemplate extends Template&lt;StepElementConfig&gt; {
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class S</span></span>tepTemplate extends Template&lt;NGTemplateInfoConfig&gt; {
 <span class="fstat-no" title="function not covered" >  renderTemplateDiagram(</span>props: StepTemplateDiagramProps): JSX.Element {
 <span class="cstat-no" title="statement not covered" >    return &lt;StepTemplateDiagram {...props} /&gt;</span>
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  renderTemplateForm(</span>props: TemplateProps&lt;StepElementConfig&gt;): JSX.Element {
+<span class="fstat-no" title="function not covered" >  renderTemplateForm(</span>props: TemplateProps&lt;NGTemplateInfoConfig&gt;): JSX.Element {
     const { formikRef, ...rest } = <span class="cstat-no" title="statement not covered" >props</span>
 <span class="cstat-no" title="statement not covered" >    return &lt;StepTemplateFormWithRef ref={formikRef} {...rest} /&gt;</span>
   }
 &nbsp;
   protected <span class="cstat-no" title="statement not covered" >type = TemplateType.Step</span>
   protected <span class="cstat-no" title="statement not covered" >name = 'Step Template'</span>
+  protected <span class="cstat-no" title="statement not covered" >color = Color.PURPLE_700</span>
 &nbsp;
-  protected <span class="cstat-no" title="statement not covered" >primaryColorMap: TemplateColorMap = {</span>
-    primary: '#7D4DD3',
-    secondary: '#6938C0',
-    text: '#EADEFF'
-  }
-&nbsp;
-  protected <span class="cstat-no" title="statement not covered" >secondaryColorMap: TemplateColorMap = {</span>
-    primary: '#E1D0FF',
-    secondary: '#EADEFF',
-    text: '#592BAA'
-  }
-&nbsp;
-  protected <span class="cstat-no" title="statement not covered" >defaultValues: StepElementConfig = {</span>
+  protected <span class="cstat-no" title="statement not covered" >defaultValues: NGTemplateInfoConfig = {</span>
     name: 'Template name',
     identifier: 'Template_name',
-    type: 'ShellScript'
+    versionLabel: '',
+    type: 'Step'
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -184,7 +157,7 @@ import type { StepElementConfig } from 'services/cd-ng'
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 11:23:12 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 14:09:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

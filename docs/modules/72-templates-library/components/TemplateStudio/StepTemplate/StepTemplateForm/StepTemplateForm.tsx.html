@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/41</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/38</span>
+                <span class='fraction'>0/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/40</span>
+                <span class='fraction'>0/42</span>
             </div>
         
             
@@ -147,7 +147,14 @@
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -161,6 +168,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -168,6 +176,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -251,15 +265,22 @@ import type { StepElementConfig } from 'services/cd-ng'
 <span class="cstat-no" title="statement not covered" >import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'</span>
 import type { TemplateProps } from '@templates-library/components/AbstractTemplate/Template'
 import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
+import type { NGTemplateInfoConfig } from 'services/template-ng'
 <span class="cstat-no" title="statement not covered" >import css from './StepTemplateForm.module.scss'</span>
 &nbsp;
-const StepTemplateForm = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>rops: TemplateProps&lt;StepElementConfig&gt;, formikRef: TemplateFormRef) =&gt; {</span>
+const StepTemplateForm = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>rops: TemplateProps&lt;NGTemplateInfoConfig&gt;, formikRef: TemplateFormRef) =&gt; {</span>
   const { formikProps } = <span class="cstat-no" title="statement not covered" >props</span>
   const stepFormikRef = <span class="cstat-no" title="statement not covered" >React.useRef&lt;StepFormikRef | null&gt;(null)</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  React.useImperativeHandle(formikRef, <span class="fstat-no" title="function not covered" >() =</span>&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
 <span class="fstat-no" title="function not covered" >    resetForm(</span>) {
 <span class="cstat-no" title="statement not covered" >      return stepFormikRef.current?.resetForm()</span>
+    },
+<span class="fstat-no" title="function not covered" >    submitForm(</span>) {
+<span class="cstat-no" title="statement not covered" >      return stepFormikRef.current?.submitForm()</span>
+    },
+<span class="fstat-no" title="function not covered" >    getErrors(</span>) {
+<span class="cstat-no" title="statement not covered" >      return stepFormikRef.current?.getErrors() || {}</span>
     }
   }))
 &nbsp;
@@ -271,7 +292,7 @@ const StepTemplateForm = <span class="cstat-no" title="statement not covered" ><
       }
     &gt;
   ): Promise&lt;void&gt; =&gt; {
-    const processNode = <span class="cstat-no" title="statement not covered" >produce(formikProps.values as StepElementConfig, <span class="fstat-no" title="function not covered" >node </span>=&gt; {</span>
+    const processNode = <span class="cstat-no" title="statement not covered" >produce(formikProps.values.spec as StepElementConfig, <span class="fstat-no" title="function not covered" >node </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      if (item.tab !== TabTypes.Advanced) {</span>
 <span class="cstat-no" title="statement not covered" >        if ((item as StepElementConfig).description) {</span>
 <span class="cstat-no" title="statement not covered" >          node.description = (item as StepElementConfig).description</span>
@@ -297,21 +318,21 @@ const StepTemplateForm = <span class="cstat-no" title="statement not covered" ><
         }
       }
       // default strategies can be present without having the need to click on Advanced Tab. For eg. in CV step.
-<span class="cstat-no" title="statement not covered" >      if (Array.isArray(item.failureStrategies)) {</span>
+<span class="cstat-no" title="statement not covered" >      if (Array.isArray(item.failureStrategies) &amp;&amp; !isEmpty(item.failureStrategies)) {</span>
 <span class="cstat-no" title="statement not covered" >        node.failureStrategies = item.failureStrategies</span>
       } else <span class="cstat-no" title="statement not covered" >if (node.failureStrategies) {</span>
 <span class="cstat-no" title="statement not covered" >        delete node.failureStrategies</span>
       }
     })
-<span class="cstat-no" title="statement not covered" >    formikProps?.setValues(processNode)</span>
+<span class="cstat-no" title="statement not covered" >    formikProps?.setFieldValue('spec', processNode)</span>
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Container background={Color.FORM_BG}&gt;
-      {formikProps &amp;&amp; !isEmpty(formikProps.values) &amp;&amp; !!formikProps.values.type &amp;&amp; (
+      {formikProps &amp;&amp; !isEmpty(formikProps.values.spec) &amp;&amp; !!(formikProps.values.spec as StepElementConfig)?.type &amp;&amp; (
         &lt;StepCommands
           className={css.stepForm}
-          step={formikProps.values}
+          step={formikProps.values.spec as StepElementConfig}
           isReadonly={false}
           stepsFactory={factory}
           onChange={onSubmitStep}
@@ -334,7 +355,7 @@ export const <span class="cstat-no" title="statement not covered" >StepTemplateF
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 11:23:12 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 14:09:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

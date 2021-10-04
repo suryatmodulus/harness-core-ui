@@ -140,7 +140,14 @@
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -148,15 +155,22 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -230,16 +244,23 @@
 import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 <span class="cstat-no" title="statement not covered" >import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'</span>
 <span class="cstat-no" title="statement not covered" >import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'</span>
-<span class="cstat-no" title="statement not covered" >import { SaveTemplatePopover } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'</span>
+<span class="cstat-no" title="statement not covered" >import {</span>
+  GetErrorResponse,
+  SaveTemplatePopover
+} from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
 <span class="cstat-no" title="statement not covered" >import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'</span>
 <span class="cstat-no" title="statement not covered" >import { TemplateStudioSubHeaderLeftView } from './views/TemplateStudioSubHeaderLeftView/TemplateStudioSubHeaderLeftView'</span>
 <span class="cstat-no" title="statement not covered" >import css from './TemplateStudioSubHeader.module.scss'</span>
 &nbsp;
 export interface TemplateStudioSubHeaderProps {
   onViewChange: (view: SelectedView) =&gt; boolean
+  getErrors?: () =&gt; Promise&lt;GetErrorResponse&gt;
 }
 &nbsp;
-export const <span class="cstat-no" title="statement not covered" >TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) =&gt; JSX.Element = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>{</span> onViewChange }) =&gt; {</span>
+export const <span class="cstat-no" title="statement not covered" >TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) =&gt; JSX.Element = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>{</span></span>
+  onViewChange,
+  getErrors
+}) =&gt; {
   const { state, fetchTemplate, view, isReadonly } = <span class="cstat-no" title="statement not covered" >React.useContext(TemplateContext)</span>
   const { isUpdated } = <span class="cstat-no" title="statement not covered" >state</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
@@ -286,7 +307,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
             {!isReadonly &amp;&amp; (
               &lt;Container&gt;
                 &lt;Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center' }}&gt;
-                  &lt;SaveTemplatePopover disabled={!isUpdated} /&gt;
+                  &lt;SaveTemplatePopover disabled={!isUpdated} getErrors={getErrors} /&gt;
                   {templateIdentifier !== DefaultNewTemplateId &amp;&amp; (
                     &lt;Button
                       disabled={!isUpdated}
@@ -313,7 +334,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 11:23:12 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 14:09:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

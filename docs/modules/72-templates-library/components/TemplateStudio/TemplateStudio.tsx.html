@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/98</span>
+                <span class='fraction'>0/102</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/84</span>
+                <span class='fraction'>0/93</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/98</span>
+                <span class='fraction'>0/102</span>
             </div>
         
             
@@ -309,7 +309,17 @@
 <a name='L250'></a><a href='#L250'>250</a>
 <a name='L251'></a><a href='#L251'>251</a>
 <a name='L252'></a><a href='#L252'>252</a>
-<a name='L253'></a><a href='#L253'>253</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -336,6 +346,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,6 +359,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -464,7 +478,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -565,7 +585,7 @@
 <span class="cstat-no" title="statement not covered" >import { matchPath, useParams } from 'react-router-dom'</span>
 <span class="cstat-no" title="statement not covered" >import { parse } from 'yaml'</span>
 <span class="cstat-no" title="statement not covered" >import SplitPane from 'react-split-pane'</span>
-<span class="cstat-no" title="statement not covered" >import { debounce, isEmpty, noop, omit, set } from 'lodash-es'</span>
+<span class="cstat-no" title="statement not covered" >import { debounce, isEmpty, noop, omit } from 'lodash-es'</span>
 <span class="cstat-no" title="statement not covered" >import { Container, Layout } from '@wings-software/uicore'</span>
 <span class="cstat-no" title="statement not covered" >import { Formik, FormikProps } from 'formik'</span>
 <span class="cstat-no" title="statement not covered" >import { useHistory } from 'react-router'</span>
@@ -588,10 +608,14 @@ import type { StepElementConfig } from 'services/cd-ng'
 <span class="cstat-no" title="statement not covered" >import { accountPathProps, pipelineModuleParams, templatePathProps } from '@common/utils/routeUtils'</span>
 <span class="cstat-no" title="statement not covered" >import routes from '@common/RouteDefinitions'</span>
 <span class="cstat-no" title="statement not covered" >import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'</span>
+import type { NGTemplateInfoConfig } from 'services/template-ng'
+import type { GetErrorResponse } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
 <span class="cstat-no" title="statement not covered" >import css from './TemplateStudio.module.scss'</span>
 &nbsp;
 export type TemplateFormikRef&lt;T = unknown&gt; = {
   resetForm: FormikProps&lt;T&gt;['resetForm']
+  submitForm: FormikProps&lt;T&gt;['submitForm']
+  getErrors: () =&gt; FormikProps&lt;T&gt;['errors']
 }
 &nbsp;
 export type TemplateFormRef&lt;T = unknown&gt; =
@@ -603,7 +627,7 @@ export type TemplateFormRef&lt;T = unknown&gt; =
   const { state, view, updateTemplateView, updateTemplate, deleteTemplateCache, isReadonly, fetchTemplate, setView } =
 <span class="cstat-no" title="statement not covered" >    React.useContext(TemplateContext)</span>
   const { templateIdentifier } = <span class="cstat-no" title="statement not covered" >useParams&lt;TemplateStudioPathProps&gt;()</span>
-  const { template, templateView, isLoading, isUpdated, yamlHandler, isBETemplateUpdated } = <span class="cstat-no" title="statement not covered" >state</span>
+  const { template, templateView, isLoading, isUpdated, yamlHandler, isBETemplateUpdated, isInitialized } = <span class="cstat-no" title="statement not covered" >state</span>
   const { isYamlEditable } = <span class="cstat-no" title="statement not covered" >templateView</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
   const { templateType } = <span class="cstat-no" title="statement not covered" >useParams&lt;TemplateStudioPathProps&gt;()</span>
@@ -641,9 +665,9 @@ export type TemplateFormRef&lt;T = unknown&gt; =
 <span class="cstat-no" title="statement not covered" >    setSplitPaneSizeDeb.current(size)</span>
   }
 &nbsp;
-  const onUpdate = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(formValues: any) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    set(template, 'spec', omit(formValues, 'name', 'identifier'))</span>
-<span class="cstat-no" title="statement not covered" >    await updateTemplate(template)</span>
+  const onUpdate = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(newTemplate: NGTemplateInfoConfig) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    newTemplate.spec = omit(newTemplate.spec, 'name', 'identifier')</span>
+<span class="cstat-no" title="statement not covered" >    await updateTemplate(newTemplate)</span>
   }
 &nbsp;
   const openStepSelection = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(onSelection: (data: StepElementConfig) =&gt; void) =&gt; {</span>
@@ -719,6 +743,12 @@ export type TemplateFormRef&lt;T = unknown&gt; =
     }, 0)
   }, [templateFormikRef])
 &nbsp;
+  const getErrors = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(): Promise&lt;GetErrorResponse&gt; =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    await templateFormikRef.current?.submitForm()</span>
+    const errors = <span class="cstat-no" title="statement not covered" >templateFormikRef.current?.getErrors()</span>
+<span class="cstat-no" title="statement not covered" >    return { status: 'SUCCESS', errors }</span>
+  }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!isLoading) {</span>
 <span class="cstat-no" title="statement not covered" >      resetForm()</span>
@@ -765,14 +795,14 @@ export type TemplateFormRef&lt;T = unknown&gt; =
         {isLoading &amp;&amp; &lt;PageSpinner /&gt;}
         &lt;Layout.Vertical height={'100%'}&gt;
           {!isLoading &amp;&amp; isEmpty(template) &amp;&amp; &lt;GenericErrorHandler /&gt;}
-          {!isEmpty(template) &amp;&amp; (
+          {isInitialized &amp;&amp; !isEmpty(template) &amp;&amp; (
             &lt;&gt;
-              &lt;TemplateStudioSubHeader onViewChange={onViewChange} /&gt;
+              &lt;TemplateStudioSubHeader onViewChange={onViewChange} getErrors={getErrors} /&gt;
               &lt;Container className={css.canvasContainer}&gt;
-                &lt;Formik&lt;unknown&gt;
+                &lt;Formik&lt;NGTemplateInfoConfig&gt;
                   onSubmit={noop}
                   validate={onUpdate}
-                  initialValues={template.spec}
+                  initialValues={template}
                   enableReinitialize={true}
                 &gt;
                   {<span class="fstat-no" title="function not covered" >formikProps </span>=&gt; {
@@ -820,7 +850,7 @@ export type TemplateFormRef&lt;T = unknown&gt; =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 11:23:12 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 14:09:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

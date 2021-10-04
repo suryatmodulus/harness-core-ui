@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.46% </span>
+                <span class="strong">42.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/13</span>
+                <span class='fraction'>6/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">38.46% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/12</span>
+                <span class='fraction'>5/13</span>
             </div>
         
             
@@ -105,10 +105,16 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,17 +140,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,19 +167,20 @@
 import { IconName, Menu, Position } from '@blueprintjs/core'
 import { Popover } from '@wings-software/uicore'
 import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
+import css from './TemplatesActionPopover.module.scss'
 &nbsp;
 export interface TemplatesActionPopoverProps extends PopoverProps {
   open?: boolean
   items?: {
     icon?: IconName
-    text: string
+    label: string
     onClick: () =&gt; void
   }[]
   setMenuOpen: (flag: boolean) =&gt; void
   className?: string
 }
 export const TemplatesActionPopover = <span class="fstat-no" title="function not covered" >(p</span>rops: React.PropsWithChildren&lt;TemplatesActionPopoverProps&gt;) =&gt; {
-  const { items, open, children, setMenuOpen, className, ...popoverProps } = <span class="cstat-no" title="statement not covered" >props</span>
+  const { items, open, children, setMenuOpen, className, content, ...popoverProps } = <span class="cstat-no" title="statement not covered" >props</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Popover
@@ -179,25 +190,29 @@ export const TemplatesActionPopover = <span class="fstat-no" title="function not
       }}
       position={Position.BOTTOM_RIGHT}
       className={className}
+      popoverClassName={css.popOver}
       {...popoverProps}
     &gt;
       {children}
-      &lt;Menu style={{ minWidth: 'unset' }} onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >e.stopPropagation()}</span>&gt;
-        {items?.map(<span class="fstat-no" title="function not covered" >item </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >          return (</span>
-            &lt;Menu.Item
-              icon={item.icon}
-              text={item.text}
-              key={item.text}
-              onClick={<span class="fstat-no" title="function not covered" >(e</span>: React.MouseEvent) =&gt; {
-<span class="cstat-no" title="statement not covered" >                e.stopPropagation()</span>
-<span class="cstat-no" title="statement not covered" >                item.onClick()</span>
-<span class="cstat-no" title="statement not covered" >                setMenuOpen(false)</span>
-              }}
-            /&gt;
-          )
-        })}
-      &lt;/Menu&gt;
+      {!!content &amp;&amp; content}
+      {items &amp;&amp; (
+        &lt;Menu style={{ minWidth: 'unset' }} onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >e.stopPropagation()}</span>&gt;
+          {items?.map(<span class="fstat-no" title="function not covered" >item </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >            return (</span>
+              &lt;Menu.Item
+                icon={item.icon}
+                text={item.label}
+                key={item.label}
+                onClick={<span class="fstat-no" title="function not covered" >(e</span>: React.MouseEvent) =&gt; {
+<span class="cstat-no" title="statement not covered" >                  e.stopPropagation()</span>
+<span class="cstat-no" title="statement not covered" >                  item.onClick()</span>
+<span class="cstat-no" title="statement not covered" >                  setMenuOpen(false)</span>
+                }}
+              /&gt;
+            )
+          })}
+        &lt;/Menu&gt;
+      )}
     &lt;/Popover&gt;
   )
 }
@@ -208,7 +223,7 @@ export const TemplatesActionPopover = <span class="fstat-no" title="function not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 11:23:12 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 14:09:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

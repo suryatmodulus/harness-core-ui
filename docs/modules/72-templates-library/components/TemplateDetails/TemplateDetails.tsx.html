@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.92% </span>
+                <span class="strong">72% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/48</span>
+                <span class='fraction'>36/50</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.52% </span>
+                <span class="strong">23.42% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>25/111</span>
+                <span class='fraction'>26/111</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/10</span>
+                <span class='fraction'>4/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.56% </span>
+                <span class="strong">74.47% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/45</span>
+                <span class='fraction'>35/47</span>
             </div>
         
             
@@ -268,7 +268,11 @@
 <a name='L209'></a><a href='#L209'>209</a>
 <a name='L210'></a><a href='#L210'>210</a>
 <a name='L211'></a><a href='#L211'>211</a>
-<a name='L212'></a><a href='#L212'>212</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -296,6 +300,7 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -335,7 +340,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -377,10 +389,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -511,11 +519,12 @@ import css from './TemplateDetails.module.scss'
 export interface TemplateDetailsProps {
   templateIdentifier: string
   versionLabel?: string
+  setTemplate?: (template: TemplateSummaryResponse) =&gt; void
   onClose?: () =&gt; void
 }
 &nbsp;
 export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt; {
-  const { templateIdentifier, versionLabel = false, onClose } = props
+  const { templateIdentifier, versionLabel = false, onClose, setTemplate } = props
   const { getString } = useStrings()
   const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams&lt;ProjectPathProps &amp; ModulePathParams&gt;()
@@ -542,13 +551,20 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 &nbsp;
-  const onChangeVersion = React.useCallback(
-<span class="fstat-no" title="function not covered" >    (v</span>ersion: string) =&gt; {
+  const onChange = React.useCallback(
+<span class="fstat-no" title="function not covered" >    (o</span>ption: SelectOption): void =&gt; {
+      const version = <span class="cstat-no" title="statement not covered" >option.value?.toString() || ''</span>
       const newSelectedVersion = <span class="cstat-no" title="statement not covered" >templateData?.data?.content?.find(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.versionLabel === version)</span></span>
 <span class="cstat-no" title="statement not covered" >      setSelectedVersion(newSelectedVersion)</span>
     },
     [<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >templateData?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.content]</span>
   )
+&nbsp;
+  React.useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedVersion) {
+<span class="cstat-no" title="statement not covered" >      setTemplate?.(selectedVersion)</span>
+    }
+  }, [selectedVersion])
 &nbsp;
   React.useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!isEmpty(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >templateData?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.content)</span>) {
@@ -590,10 +606,6 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
     }
   }
 &nbsp;
-  const onChange = <span class="fstat-no" title="function not covered" >(i</span>tem: SelectOption): void =&gt; {
-<span class="cstat-no" title="statement not covered" >    onChangeVersion?.(item.value?.toString() || '')</span>
-  }
-&nbsp;
   return (
     &lt;Container
       height={'100%'}
@@ -609,7 +621,7 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
               &lt;Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}&gt;
                 {selectedVersion.name}
               &lt;/Text&gt;
-              &lt;Button onClick={goToTemplateStudio} variation={ButtonVariation.SECONDARY}&gt;
+              &lt;Button className={css.openInStudio} onClick={goToTemplateStudio} variation={ButtonVariation.SECONDARY}&gt;
                 {getString('templatesLibrary.openInTemplateStudio')}
               &lt;/Button&gt;
             &lt;/Layout.Horizontal&gt;
@@ -637,7 +649,7 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
                   &lt;Text font={{ size: 'small' }} color={Color.GREY_500}&gt;
                     Description
                   &lt;/Text&gt;
-                  &lt;Text color={Color.GREY_700}&gt;{selectedVersion.description ?? '-'}&lt;/Text&gt;
+                  &lt;Text color={Color.GREY_700}&gt;{selectedVersion.description || '-'}&lt;/Text&gt;
                 &lt;/Layout.Vertical&gt;
               &lt;/Container&gt;
               &lt;Container&gt;
@@ -697,7 +709,7 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 11:23:12 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 14:09:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

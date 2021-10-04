@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -126,9 +126,15 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,11 +145,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,6 +206,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import truncate from 'lodash/truncate'
 import cx from 'classnames'
 import { Text, Icon, Container, Layout } from '@wings-software/uicore'
 &nbsp;
@@ -208,6 +219,8 @@ interface CICodebaseHeaderProps {
   tag?: string
   isDetailedView?: boolean
 }
+&nbsp;
+const MAX_LABEL_CHAR_LENGTH = 30
 &nbsp;
 export const CICodebaseHeader: React.FC&lt;CICodebaseHeaderProps&gt; = props =&gt; {
   const { repo = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> branch = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> tag = '', targetBranch = '', isDetailedView } = props
@@ -223,8 +236,9 @@ export const CICodebaseHeader: React.FC&lt;CICodebaseHeaderProps&gt; = props =&g
               color="primary7"
               font={{ size: 'small', weight: 'semi-bold' }}
               className={css.partLabel}
+              title={repo}
             &gt;
-              {repo}
+              {truncate(repo, { length: MAX_LABEL_CHAR_LENGTH })}
             &lt;/Text&gt;
           &lt;/Container&gt;
         ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
@@ -236,8 +250,9 @@ export const CICodebaseHeader: React.FC&lt;CICodebaseHeaderProps&gt; = props =&g
               color="primary7"
               font={{ size: 'small', weight: 'semi-bold' }}
               className={css.partLabel}
+              title={branch}
             &gt;
-              {branch}
+              {truncate(branch, { length: MAX_LABEL_CHAR_LENGTH })}
             &lt;/Text&gt;
           &lt;/Container&gt;
         ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
@@ -247,8 +262,8 @@ export const CICodebaseHeader: React.FC&lt;CICodebaseHeaderProps&gt; = props =&g
           &lt;Icon name="arrow-right" size={14} padding={{ left: 'small', right: 'small' }} /&gt;
           &lt;Container flex padding={{ left: 'medium', right: 'small' }} className={css.label}&gt;
             &lt;Icon name="git-new-branch" size={12} color="primary7" /&gt;
-            &lt;Text lineClamp={1} color="primary7" font={{ size: 'small', weight: 'semi-bold' }}&gt;
-              {targetBranch}
+            &lt;Text lineClamp={1} color="primary7" font={{ size: 'small', weight: 'semi-bold' }} title={targetBranch}&gt;
+              {truncate(targetBranch, { length: MAX_LABEL_CHAR_LENGTH })}
             &lt;/Text&gt;
           &lt;/Container&gt;
         &lt;/Container&gt;
@@ -256,8 +271,8 @@ export const CICodebaseHeader: React.FC&lt;CICodebaseHeaderProps&gt; = props =&g
       {tag ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Container flex className={css.label}&gt;</span>
           &lt;Icon name="tag" size={14} color="primary7" /&gt;
-          &lt;Text lineClamp={1} color="primary7" font={{ size: 'small', weight: 'semi-bold' }}&gt;
-            {tag}
+          &lt;Text lineClamp={1} color="primary7" font={{ size: 'small', weight: 'semi-bold' }} title={tag}&gt;
+            {truncate(tag, { length: MAX_LABEL_CHAR_LENGTH })}
           &lt;/Text&gt;
         &lt;/Container&gt;
       ) : null}
@@ -271,7 +286,7 @@ export const CICodebaseHeader: React.FC&lt;CICodebaseHeaderProps&gt; = props =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 11:23:12 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 14:09:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

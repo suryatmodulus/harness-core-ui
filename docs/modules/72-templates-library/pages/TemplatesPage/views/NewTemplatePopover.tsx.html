@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/72-templates-library/pages/TemplatesPage/views/TeplatesListHeader/NewTemplatePopover.tsx</title>
+    <title>Code coverage report for modules/72-templates-library/pages/TemplatesPage/views/NewTemplatePopover.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">modules/72-templates-library/pages/TemplatesPage/views/TeplatesListHeader</a> NewTemplatePopover.tsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">modules/72-templates-library/pages/TemplatesPage/views</a> NewTemplatePopover.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/25</span>
+                <span class='fraction'>0/26</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -147,11 +147,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,7 +170,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,14 +205,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
 <span class="cstat-no" title="statement not covered" >import { Menu, Position } from '@blueprintjs/core'</span>
-<span class="cstat-no" title="statement not covered" >import { Button, ButtonVariation, Popover } from '@wings-software/uicore'</span>
+<span class="cstat-no" title="statement not covered" >import { Button, ButtonVariation } from '@wings-software/uicore'</span>
 <span class="cstat-no" title="statement not covered" >import { useHistory, useParams } from 'react-router-dom'</span>
 <span class="cstat-no" title="statement not covered" >import { String, useStrings } from 'framework/strings'</span>
 <span class="cstat-no" title="statement not covered" >import { getAllowedTemplateTypes, TemplateType } from '@templates-library/utils/templatesUtils'</span>
 <span class="cstat-no" title="statement not covered" >import routes from '@common/RouteDefinitions'</span>
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 <span class="cstat-no" title="statement not covered" >import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'</span>
-<span class="cstat-no" title="statement not covered" >import css from './NewTemplatePopover.module.scss'</span>
+<span class="cstat-no" title="statement not covered" >import { TemplatesActionPopover } from '@templates-library/components/TemplatesActionPopover/TemplatesActionPopover'</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >N</span>ewTemplatePopover(</span>): React.ReactElement {
   const handleAddTemplate = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >undefined</span></span>
@@ -220,6 +220,7 @@ import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/Rout
   const history = <span class="cstat-no" title="statement not covered" >useHistory()</span>
   const allowedTemplateTypes = <span class="cstat-no" title="statement not covered" >getAllowedTemplateTypes(getString)</span>
   const { projectIdentifier, orgIdentifier, accountId, module } = <span class="cstat-no" title="statement not covered" >useParams&lt;ProjectPathProps &amp; ModulePathParams&gt;()</span>
+  const [menuOpen, setMenuOpen] = <span class="cstat-no" title="statement not covered" >React.useState(false)</span>
 &nbsp;
   const goToTemplateStudio = <span class="cstat-no" title="statement not covered" >React.useCallback(</span>
 <span class="fstat-no" title="function not covered" >    (t</span>emplateType: TemplateType) =&gt; {
@@ -239,12 +240,11 @@ import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/Rout
 &nbsp;
   const renderMenu = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Menu style={{ width: '120px' }} className={css.templateTypeMenu} onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >e.stopPropagation()}</span>&gt;
+      &lt;Menu style={{ width: '120px' }} onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >e.stopPropagation()}</span>&gt;
         {allowedTemplateTypes.map(<span class="fstat-no" title="function not covered" >templateType </span>=&gt; (
 <span class="cstat-no" title="statement not covered" >          &lt;Menu.Item</span>
             text={templateType.label}
             key={templateType.value}
-            className={css.templateTypeMenuItem}
             disabled={templateType.disabled}
             onClick={<span class="fstat-no" title="function not covered" >(e</span>: React.MouseEvent) =&gt; {
 <span class="cstat-no" title="statement not covered" >              e.stopPropagation()</span>
@@ -257,12 +257,12 @@ import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/Rout
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Popover
-      modifiers={{
-        arrow: { enabled: false }
-      }}
+    &lt;TemplatesActionPopover
+      open={menuOpen}
+      minimal={true}
       content={renderMenu()}
       position={Position.BOTTOM}
+      setMenuOpen={setMenuOpen}
     &gt;
       &lt;Button
         icon="plus"
@@ -273,7 +273,7 @@ import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/Rout
       &gt;
         {&lt;String stringID="templatesLibrary.addNewTemplate" /&gt;}
       &lt;/Button&gt;
-    &lt;/Popover&gt;
+    &lt;/TemplatesActionPopover&gt;
   )
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -283,17 +283,17 @@ import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/Rout
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 11:23:12 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 04 2021 14:09:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
-        <script src="../../../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../sorter.js"></script>
-        <script src="../../../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     

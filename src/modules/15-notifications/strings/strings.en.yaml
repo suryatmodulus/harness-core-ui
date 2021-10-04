@@ -41,6 +41,10 @@ emailOrAlias: Email/Alias
 labelPagerDuty: PagerDuty Integration Key
 labelMSTeam: Microsoft Teams Webhook URL
 labelMS: Microsoft Teams
+placeholderMSKeys: Type and press enter to add URL
+errors:
+  msTeamUrlRequired: Microsoft Teams URL is required
+  invalidUrl: Not a valid URL
 msTestSuccess: Microsoft Teams test is successfully executed
 eventRequired: Event is required
 invalidPagerDutyKey: Invalid pagerduty key

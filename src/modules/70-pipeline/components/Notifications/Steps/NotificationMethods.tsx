@@ -59,7 +59,7 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
                   type: method.value.toString(),
                   spec: {
                     userGroups: data.userGroups,
-                    webhookUrl: data.microsoftTeamsWebhookUrl
+                    msTeamKeys: data.msTeamKeys
                   }
                 }
               })
@@ -73,14 +73,14 @@ const NotificationMethods: React.FC<NotificationMethodsProps> = ({
                   type: method.value.toString(),
                   spec: {
                     userGroups: data?.userGroups,
-                    webhookUrl: data?.microsoftTeamsWebhookUrl
+                    msTeamKeys: data?.msTeamKeys
                   }
                 }
               })
             }
             config={{
               type: NotificationType.MsTeams,
-              microsoftTeamsWebhookUrl: prevStepData?.notificationMethod?.spec?.microsoftTeamsWebhookUrl,
+              msTeamKeys: prevStepData?.notificationMethod?.spec?.msTeamKeys,
               userGroups: (prevStepData?.notificationMethod?.spec as PmsSlackChannel)?.userGroups || []
             }}
           />

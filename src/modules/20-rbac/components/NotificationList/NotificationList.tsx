@@ -37,7 +37,7 @@ interface RowData extends NotificationSettingConfigDTO {
   recipient?: string
   slackWebhookUrl?: string
   pagerDutyKey?: string
-  microsoftTeamsWebhookUrl?: string
+  msTeamKeys?: string
 }
 export interface NotificationOption {
   label: string
@@ -93,7 +93,7 @@ const ChannelRow: React.FC<ChannelRow> = ({ data, userGroup, onSubmit, notificat
         }
       case 'MSTEAMS':
         return {
-          name: 'microsoftTeamsWebhookUrl',
+          name: 'msTeamKeys',
           textPlaceholder: getString('notifications.labelMSTeam')
         }
       default:
@@ -173,7 +173,7 @@ const ChannelRow: React.FC<ChannelRow> = ({ data, userGroup, onSubmit, notificat
             is: 'PAGERDUTY',
             then: Yup.string().trim().required(getString('notifications.validationPDKey'))
           }),
-          microsoftTeamsWebhookUrl: Yup.string().when(['type'], {
+          msTeamKeys: Yup.string().when(['type'], {
             is: 'MSTEAMS',
             then: URLValidationSchema()
           })
@@ -253,6 +253,7 @@ const ChannelRow: React.FC<ChannelRow> = ({ data, userGroup, onSubmit, notificat
                         buttonProps={{
                           minimal: true
                         }}
+                        errors={{}}
                         onClick={() => handleTest(formikProps)}
                       />
                     ) : null}

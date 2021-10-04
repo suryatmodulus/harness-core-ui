@@ -500,6 +500,8 @@ export interface StringsMap {
   'notifications.emailOrAlias': string
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
+  'notifications.errors.invalidUrl': string
+  'notifications.errors.msTeamUrlRequired': string
   'notifications.eventRequired': string
   'notifications.helpMSTeams': string
   'notifications.helpPagerDuty': string
@@ -529,6 +531,7 @@ export interface StringsMap {
   'notifications.pagerDutykey': string
   'notifications.pagerDutyuserGroups': string
   'notifications.pipelineEvents': string
+  'notifications.placeholderMSKeys': string
   'notifications.selectPipelineEvents': string
   'notifications.selectStagesPlaceholder': string
   'notifications.slackTestSuccess': string

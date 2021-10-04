@@ -19,7 +19,7 @@ export interface SlackNotificationConfiguration extends NotificationConfiguratio
 }
 
 export interface MSTeamsNotificationConfiguration extends NotificationConfiguration {
-  microsoftTeamsWebhookUrl: string[]
+  msTeamKeys: string[]
 }
 export interface PagerDutyNotificationConfiguration extends NotificationConfiguration {
   key: string

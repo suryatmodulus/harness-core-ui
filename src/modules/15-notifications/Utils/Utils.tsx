@@ -1,13 +1,7 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { NotificationType } from '@notifications/interfaces/Notifications'
-import type {
-  EmailConfigDTO,
-  MicrosoftTeamsConfigDTO,
-  NotificationSettingConfigDTO,
-  PagerDutyConfigDTO,
-  SlackConfigDTO
-} from 'services/cd-ng'
+import type { EmailConfigDTO, NotificationSettingConfigDTO, PagerDutyConfigDTO, SlackConfigDTO } from 'services/cd-ng'
 import { String } from 'framework/strings'
 
 interface NotificationItemDTO {
@@ -53,7 +47,8 @@ export const getNotificationByConfig = (option: NotificationSettingConfigDTO | n
       return {
         label: <String stringID="notifications.labelMS" />,
         icon: 'service-msteams',
-        value: (option as MicrosoftTeamsConfigDTO)?.microsoftTeamsWebhookUrl
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        value: (option as any)?.msTeamKeys
       }
     default:
       return {

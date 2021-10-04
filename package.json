@@ -1,17 +1,18 @@
 {
-  "name": "@wings-software/mf-parent-app-types",
+  "name": "@wings-software/nextgenui",
   "description": "Harness Inc",
   "version": "0.269.0",
   "author": "Harness Inc",
   "license": "Harness Inc",
+  "private": true,
   "homepage": "http://app.harness.io/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wings-software/test-app-publish-.git",
-    "directory": "create-snowpack-app/app-template-react-typescript"
-  },
+  "types": "declarations/microfrontends.d.ts",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wings-software/nextgenui.git"
   },
   "bugs": {
     "url": "https://github.com/wings-software/nextgenui/issues"
@@ -73,7 +74,9 @@
     "strings:loaders": "node scripts/strings/generateStrings.mjs",
     "prepare": "husky install && patch-package",
     "fmt": "prettier --write \"./src/**/*.{ts,tsx,css}\"",
-    "generate-merged-coverage": "node mergedCoverage.js"
+    "generate-merged-coverage": "node mergedCoverage.js",
+    "generate-microfrontend-types": "tsc --project src/microfrontends/tsconfig.json --outFile declarations/microfrontends.js",
+    "postgenerate-microfrontend-types": "prettier --write declarations/*.ts"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",

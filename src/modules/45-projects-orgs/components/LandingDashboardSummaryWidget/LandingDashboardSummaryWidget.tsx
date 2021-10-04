@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Color, FontVariation, Layout, Text } from '@wings-software/uicore'
+import { Card, Color, FontVariation, Icon, IconName, Layout, Text } from '@wings-software/uicore'
 // import { useLandingDashboardContext } from '@common/factories/LandingDashboardContext'
 import GlanceCard from '@common/components/GlanceCard/GlanceCard'
 import { useStrings } from 'framework/strings'
@@ -92,22 +92,40 @@ const renderNoData = (module: ModuleName): JSX.Element => {
   return <div>{{ module }}</div>
 }
 
-const getModuleSummaryHeader = (moduleType: ModuleName): Array<JSX.Element | string> => {
+const getModuleSummaryHeader = (moduleType: ModuleName): JSX.Element | string => {
+  let icon: IconName = 'placeholder'
+  let titleId = ''
+
   switch (moduleType) {
     case ModuleName.CD:
-      return ['PROJECTS', 'DEPLOYMENTS']
+      icon = 'cd-main'
+      titleId = 'DEPLOYMENTS'
+      break
     case ModuleName.CI:
-      return ['PROJECTS', 'BUILDS']
+      icon = 'ci-main'
+      titleId = 'BUILDS'
+      break
     case ModuleName.CF:
-      return ['PROJECTS', 'FEATURE FLAGS']
+      icon = 'cf-main'
+      titleId = 'FEATURE FLAGS'
+      break
     default:
-      return []
   }
+
+  return (
+    <Layout.Horizontal spacing="small" margin={{ left: 'large' }} style={{ alignItems: 'center' }}>
+      <Icon name={icon}></Icon>
+      <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{titleId}</Text>
+    </Layout.Horizontal>
+  )
 }
 
 const renderModuleSummary = (moduleType: ModuleName, data: Array<StackedSummaryInterface>): JSX.Element => {
   return data?.length ? (
-    <StackedSummaryTable columnHeaders={getModuleSummaryHeader(moduleType)} summaryData={data}></StackedSummaryTable>
+    <StackedSummaryTable
+      columnHeaders={['PROJECTS', getModuleSummaryHeader(moduleType)]}
+      summaryData={data}
+    ></StackedSummaryTable>
   ) : (
     renderNoData(moduleType)
   )

@@ -5,7 +5,7 @@ import Table from '@common/components/Table/Table'
 import type { FetchPlansQuery } from 'services/common/services'
 import { useStrings } from 'framework/strings'
 import css from './Plan.module.scss'
-import plansCss from './Plans.module.scss'
+import planCss from './Plan.module.scss'
 
 interface FeatureComparisonProps {
   module: string
@@ -43,7 +43,7 @@ const RenderColumnPlans: Renderer<CellProps<PlanInfo>> = ({ row }) => {
           color={Color.PRIMARY_6}
           rightIcon="main-share"
           rightIconProps={{ color: Color.PRIMARY_6 }}
-          className={plansCss.inline}
+          className={planCss.inline}
         >
           {data.title}
         </Text>
@@ -109,10 +109,10 @@ function getHeader(
     | 'ccFeatureCaption']
 ): React.ReactElement {
   const moduleColorMap: Record<string, string> = {
-    cd: plansCss.cdColor,
-    ce: plansCss.ccmColor,
-    cf: plansCss.ffColor,
-    ci: plansCss.ciColor
+    cd: planCss.cdColor,
+    ce: planCss.ccmColor,
+    cf: planCss.ffColor,
+    ci: planCss.ciColor
   }
   if (featureCaptions && featureCaptions[index]) {
     return (

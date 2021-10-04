@@ -6,10 +6,5 @@ declare const styles: {
   readonly yearly: string
   readonly monthly: string
   readonly primary6: string
-  readonly cdColor: string
-  readonly ciColor: string
-  readonly ccmColor: string
-  readonly ffColor: string
-  readonly inline: string
 }
 export default styles

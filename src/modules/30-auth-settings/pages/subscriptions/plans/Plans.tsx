@@ -29,7 +29,7 @@ const Plans: React.FC<PlansProps> = ({ plans, featureCaption, featureGroup, modu
   const { getString } = useStrings()
   return (
     <Layout.Vertical className={css.plans} spacing="large">
-      <PlansPanel plans={plans} module={module.toLowerCase()} />
+      <PlansPanel plans={plans} module={module} />
       <FeatureComparison featureCaption={featureCaption} featureGroup={featureGroup} module={module.toLowerCase()} />
       <a target="_blank" href={`https://next.harness.io/pricing?module=${moduleParam}`} rel="noreferrer">
         <Text

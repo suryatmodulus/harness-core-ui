@@ -3,12 +3,13 @@ import { Layout, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { FetchPlansQuery } from 'services/common/services'
+import type { ModuleName } from 'framework/types/ModuleName'
 import { TIME_TYPE } from './Plan'
 import PlanContainer from './PlanContainer'
 import css from './Plans.module.scss'
 
 interface PlansPanelProps {
-  module: string
+  module: ModuleName
   plans?: NonNullable<FetchPlansQuery['pricing']>['ciSaasPlans' | 'ffPlans' | 'cdPlans' | 'ccPlans']
 }
 

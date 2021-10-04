@@ -1,9 +1,10 @@
-import React from 'react'
-import { isEmpty } from 'lodash-es'
+import React, { ReactElement } from 'react'
+import { isEmpty, capitalize } from 'lodash-es'
 import { Card, Layout, Text, Button, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContactSalesMktoModal'
 import { useStrings } from 'framework/strings'
+import type { ModuleName } from 'framework/types/ModuleName'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { Maybe } from 'services/common/services'
 import SvgInline from '@common/components/SvgInline/SvgInline'
@@ -26,8 +27,6 @@ interface PlanProps {
     buttonText: Maybe<string>
     primaryButton: Maybe<boolean>
     img: Maybe<{ __typename?: 'UploadFile'; url: string; width: Maybe<number>; height: Maybe<number> }>
-    onClick?: () => Promise<void>
-    btnLoading?: boolean
     support: Maybe<string>
     featureListZone: Maybe<
       Array<
@@ -39,10 +38,20 @@ interface PlanProps {
         }>
       >
     >
+    btnProps?: {
+      buttonText: string
+      btnLoading: boolean
+      onClick?: () => void
+    }
+    currentPlanProps?: {
+      isCurrentPlan?: boolean
+      isTrial?: boolean
+      isPaid?: boolean
+    }
   }>
 
   timeType: TIME_TYPE
-  textColorClassName: string
+  module: ModuleName
 }
 
 export enum TIME_TYPE {
@@ -53,10 +62,38 @@ export enum TIME_TYPE {
 const CENTER_CENTER = 'center-center'
 const CUSTOM_PRICING = 'custom pricing'
 
-const Plan: React.FC<PlanProps> = ({ plan, timeType, textColorClassName }) => {
+const textColorMap: Record<string, string> = {
+  cd: css.cdColor,
+  ce: css.ccmColor,
+  cf: css.ffColor,
+  ci: css.ciColor
+}
+
+const bgColorMap: Record<string, string> = {
+  cd: css.cdBgColor,
+  ce: css.ccmBgColor,
+  cf: css.ffBgColor,
+  ci: css.ciBgColor
+}
+
+const borderMap: Record<string, string> = {
+  cd: css.cdBorder,
+  ce: css.ccmBorder,
+  cf: css.ffBorder,
+  ci: css.ciBorder
+}
+
+const fillMap: Record<string, string> = {
+  cd: css.cdFill,
+  ce: css.ccmFill,
+  cf: css.ffFill,
+  ci: css.ciFill
+}
+
+const Plan: React.FC<PlanProps> = ({ plan, timeType, module }) => {
   const url = `https://cms.harness.io${plan?.img?.url}`
   const hasUnit = !isEmpty(plan?.unit) && plan?.price?.toLowerCase() !== CUSTOM_PRICING
-  const className = cx(css.icon, textColorClassName)
+
   const { openMarketoContactSales, loading: loadingContactSales } = useContactSalesMktoModal({})
   const { getString } = useStrings()
 
@@ -138,43 +175,96 @@ const Plan: React.FC<PlanProps> = ({ plan, timeType, textColorClassName }) => {
     return <PageSpinner />
   }
 
+  const { btnLoading, buttonText, onClick } = plan?.btnProps || {}
+  const { isCurrentPlan, isTrial, isPaid } = plan?.currentPlanProps || {}
+
+  function getPlanHeaderStr(): string {
+    const currentPlanStr = getString('common.plans.currentPlan')
+    if (isTrial) {
+      return currentPlanStr.concat(' (').concat(getString('common.plans.freeTrial')).concat(')')
+    }
+
+    if (isPaid) {
+      return currentPlanStr
+        .concat(' (')
+        .concat(capitalize(timeType))
+        .concat(' ')
+        .concat(getString('common.plans.subscription'))
+        .concat(')')
+    }
+
+    return currentPlanStr
+  }
+
+  const CurrentPlanHeader = (): ReactElement => {
+    return (
+      <span className={cx(css.currentPlanHeader, bgColorClassName)}>
+        <Text
+          icon="deployment-success-legacy"
+          iconProps={{ className: fillClassName }}
+          color={Color.WHITE}
+          flex={{ justifyContent: 'center' }}
+        >
+          {getPlanHeaderStr()}
+        </Text>
+      </span>
+    )
+  }
+
+  const moduleStr = module.toLowerCase()
+  const currentPlanClassName = isCurrentPlan ? css.currentPlan : undefined
+  const currentPlanBodyClassName = isCurrentPlan ? css.currentPlanBody : undefined
+  const iConClassName = cx(css.icon, textColorMap[moduleStr])
+  const textColorClassName = textColorMap[moduleStr]
+  const bgColorClassName = bgColorMap[moduleStr]
+  const fillClassName = fillMap[moduleStr]
+  const borderClassName = isCurrentPlan ? borderMap[moduleStr] : undefined
+
   return (
-    <Card className={cx(css.plan)}>
-      <Layout.Vertical flex={{ align: CENTER_CENTER }} spacing="large">
-        <SvgInline url={url} className={className} />
-        <Text font={{ weight: 'semi-bold', size: 'medium' }} className={textColorClassName}>
-          {plan?.title}
-        </Text>
-        <Layout.Vertical padding={{ top: 'large' }} flex={{ align: CENTER_CENTER }} spacing="medium">
-          <Layout.Horizontal spacing="small">
-            {getPrice()}
-            {hasUnit && (
-              <Layout.Vertical padding={{ left: 'small' }} flex={{ justifyContent: 'center', alignItems: 'start' }}>
-                <Text font={{ size: 'small' }} className={textColorClassName} tooltip={plan?.unitTips || ''}>
-                  {plan?.unit}
-                </Text>
-                <Text font={{ size: 'small' }} color={Color.BLACK}>
-                  {getString('common.perMonth')}
-                </Text>
-              </Layout.Vertical>
-            )}
-          </Layout.Horizontal>
-          {getPriceTips()}
+    <Card className={cx(css.plan, currentPlanClassName, borderClassName)}>
+      <Layout.Vertical flex={{ align: CENTER_CENTER }}>
+        {isCurrentPlan && <CurrentPlanHeader />}
+        <Layout.Vertical
+          flex={{ align: CENTER_CENTER }}
+          spacing="large"
+          padding={{ top: 'xxlarge' }}
+          className={currentPlanBodyClassName}
+        >
+          <SvgInline url={url} className={iConClassName} />
+          <Text font={{ weight: 'semi-bold', size: 'medium' }} className={textColorClassName}>
+            {plan?.title}
+          </Text>
+          <Layout.Vertical padding={{ top: 'large' }} flex={{ align: CENTER_CENTER }} spacing="medium">
+            <Layout.Horizontal spacing="small">
+              {getPrice()}
+              {hasUnit && (
+                <Layout.Vertical padding={{ left: 'small' }} flex={{ justifyContent: 'center', alignItems: 'start' }}>
+                  <Text font={{ size: 'small' }} className={textColorClassName} tooltip={plan?.unitTips || ''}>
+                    {plan?.unit}
+                  </Text>
+                  <Text font={{ size: 'small' }} color={Color.BLACK}>
+                    {getString('common.perMonth')}
+                  </Text>
+                </Layout.Vertical>
+              )}
+            </Layout.Horizontal>
+            {getPriceTips()}
+          </Layout.Vertical>
+          <Button intent="primary" onClick={onClick} loading={btnLoading}>
+            {buttonText}
+          </Button>
+          <Text color={Color.BLACK} padding="large" className={css.desc}>
+            {plan?.desc}
+          </Text>
+          <ul className={css.ul}>
+            {plan?.featureListZone?.map(feature => (
+              <li key={feature?.title} className={css.li}>
+                <Text>{feature?.title}</Text>
+              </li>
+            ))}
+          </ul>
+          <Text className={css.support}>{plan?.support}</Text>
         </Layout.Vertical>
-        <Button intent="primary" onClick={plan?.onClick} loading={plan?.btnLoading}>
-          {plan?.buttonText}
-        </Button>
-        <Text color={Color.BLACK} padding="large" className={css.desc}>
-          {plan?.desc}
-        </Text>
-        <ul className={css.ul}>
-          {plan?.featureListZone?.map(feature => (
-            <li key={feature?.title} className={css.li}>
-              <Text>{feature?.title}</Text>
-            </li>
-          ))}
-        </ul>
-        <Text className={css.support}>{plan?.support}</Text>
       </Layout.Vertical>
     </Card>
   )

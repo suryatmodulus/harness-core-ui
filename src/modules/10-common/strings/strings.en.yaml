@@ -529,6 +529,9 @@ plans:
   title: Upgrade to get the most out of Harness
   featureComparison: Show All Feature Comparison
   faq: View Pricing FAQs
+  currentPlan: Current Plan
+  freeTrial: Free Trial
+  subscription: Subsription
 useTemplate: Use template
 comingSoon: Coming Soon
 deactivate: Deactivate

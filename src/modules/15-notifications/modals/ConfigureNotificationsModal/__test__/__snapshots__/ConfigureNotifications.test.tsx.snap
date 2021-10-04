@@ -173,15 +173,15 @@ exports[`ConfigureNotifications Microsoft Teams 1`] = `
           <div>
             <div
               class="bp3-form-group"
-              data-id="microsoftTeamsWebhookUrl-0"
+              data-id="msTeamKeys-0"
             >
               <label
                 class="bp3-label"
-                for="microsoftTeamsWebhookUrl"
+                for="msTeamKeys"
               >
                 <span
                   class="Tooltip--acenter"
-                  data-tooltip-id="configureMSTeamsNotifications_microsoftTeamsWebhookUrl"
+                  data-tooltip-id="configureMSTeamsNotifications_msTeamKeys"
                 >
                   notifications.labelMSTeam
                 </span>
@@ -201,8 +201,8 @@ exports[`ConfigureNotifications Microsoft Teams 1`] = `
                   >
                     <input
                       class="bp3-input-ghost"
-                      data-mentions="kv-tag-input-microsoftTeamsWebhookUrl}"
-                      placeholder="Type and press enter to create a tag"
+                      data-mentions="kv-tag-input-msTeamKeys}"
+                      placeholder="notifications.placeholderMSKeys"
                       value=""
                     />
                   </div>

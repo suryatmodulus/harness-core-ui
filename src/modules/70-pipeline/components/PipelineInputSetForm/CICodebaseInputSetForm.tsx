@@ -103,7 +103,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   return (
     <>
       <FormInput.RadioGroup
-        name={`${formattedPath}properties.ci.codebase.build.type`}
+        name="ciCodebaseType"
         items={radioGroupItems}
         radioGroup={{ inline: true }}
         onChange={handleTypeChange}

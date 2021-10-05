@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Yup from 'yup'
-import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
+import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy, get } from 'lodash-es'
 import {
   Button,
   Container,
@@ -28,7 +28,7 @@ import {
   ResponsePMSPipelineResponseDTO,
   EntityGitDetails
 } from 'services/pipeline-ng'
-
+import type { Build } from 'services/ci'
 import { useToaster } from '@common/exports'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import type { InputSetGitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -67,6 +67,7 @@ export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipe
   identifier?: string
   repo?: string
   branch?: string
+  ciCodebaseType?: Build['type']
 }
 
 interface SaveInputSetDTO {
@@ -421,7 +422,12 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     <Container className={css.inputSetForm}>
       <Layout.Vertical spacing="medium">
         <Formik<InputSetDTO & GitContextProps>
-          initialValues={{ ...omit(inputSet, 'gitDetails'), repo: repoIdentifier || '', branch: branch || '' }}
+          initialValues={{
+            ...omit(inputSet, 'gitDetails'),
+            repo: repoIdentifier || '',
+            branch: branch || '',
+            ciCodebaseType: get(inputSet, 'pipeline.properties.ci.codebase.build.type')
+          }}
           enableReinitialize={true}
           formName="inputSetForm"
           validationSchema={NameIdSchema}

@@ -75,8 +75,9 @@
     "prepare": "husky install && patch-package",
     "fmt": "prettier --write \"./src/**/*.{ts,tsx,css}\"",
     "generate-merged-coverage": "node mergedCoverage.js",
-    "generate-microfrontend-types": "tsc --project src/microfrontends/tsconfig.json --outFile declarations/microfrontends.js",
-    "postgenerate-microfrontend-types": "prettier --write declarations/*.ts"
+    "generate-microfrontend-types": "tsc --project src/microfrontends/tsconfig.json",
+    "postgenerate-microfrontend-types": "prettier --write declarations/*.ts",
+    "publish-types": "yarn publish declarations"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",

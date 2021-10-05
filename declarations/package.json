@@ -1,0 +1,20 @@
+{
+  "name": "@wings-software/nextgenui-types",
+  "description": "Harness Inc",
+  "version": "0.1.14",
+  "author": "Harness Inc",
+  "license": "Harness Inc",
+  "homepage": "http://app.harness.io/",
+  "types": "./microfrontends/microFrontEndTypes.d.ts",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wings-software/nextgenui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wings-software/nextgenui/issues"
+  },
+  "keywords": []
+}

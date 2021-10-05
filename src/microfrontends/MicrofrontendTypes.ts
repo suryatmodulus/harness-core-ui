@@ -1,7 +1,7 @@
 // import type { UseCreateSecretModalReturn } from '../modules/30-secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
-import type { PermissionsContextProps } from 'framework/rbac/PermissionsContext'
-import type { LicenseStoreContextProps } from 'framework/LicenseStore/LicenseStoreContext'
-import type { AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
+import type { PermissionsContextProps } from '../framework/rbac/PermissionsContext'
+import type { LicenseStoreContextProps } from '../framework/LicenseStore/LicenseStoreContext'
+import type { AppStoreContextProps } from '../framework/AppStore/AppStoreContext'
 
 /**Context names used in parent
  *

@@ -1,14 +1,20 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { Card, Color, Container, FontVariation, Icon, Layout, Select, Text } from '@wings-software/uicore' // Layout
 import { useParams } from 'react-router'
 import { defaultTo, noop } from 'lodash-es'
+import type { GetDataError } from 'restful-react'
 import type { TooltipFormatterContextObject } from 'highcharts'
 import { useLandingDashboardContext, TimeRangeToDays } from '@common/factories/LandingDashboardContext'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
 import { StackedSummaryTable } from '@common/components/StackedSummaryTable/StackedSummaryTable'
-import { useGetDeploymentStatsOverview } from 'services/dashboard-service'
+import {
+  Error,
+  Failure,
+  ResponseExecutionResponseDeploymentsStatsOverview,
+  useGetDeploymentStatsOverview
+} from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 
 import { deploymentStatsSummaryResponse } from './mocks'
@@ -25,8 +31,10 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams<ProjectPathProps>()
   const [range] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
+  const [data, setData] = useState<ResponseExecutionResponseDeploymentsStatsOverview | null>(null)
+  const [error, setError] = useState<GetDataError<Failure | Error> | null>(null)
 
-  const { data, error } = useGetDeploymentStatsOverview({
+  const { data: apiData, error: apiError, mutate } = useGetDeploymentStatsOverview({
     queryParams: {
       accountIdentifier: accountId,
       startTime: range[0],
@@ -35,7 +43,13 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
       sortBy: 'DEPLOYMENTS'
     },
     mock: deploymentStatsSummaryResponse
-  })
+  }, [selectedTimeRange])
+  setData(apiData)
+  setError(apiError)
+
+  useEffect(() => {
+    mutate()
+  }, [selectedTimeRange])
 
   useErrorHandler(error)
 

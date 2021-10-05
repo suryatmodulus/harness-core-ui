@@ -31,7 +31,7 @@ describe('<AdvancedSteps /> tests', () => {
           step={{} as any}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           stepsFactory={{ getStep: jest.fn(() => ({ hasDelegateSelectionVisible: true })) } as any}
-          onChange={jest.fn()}
+          onUpdate={jest.fn()}
         />
       </TestWrapper>
     )
@@ -52,7 +52,7 @@ describe('<AdvancedSteps /> tests', () => {
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           stepsFactory={{ getStep: jest.fn() } as any}
           ref={ref}
-          onChange={onSubmit}
+          onUpdate={onSubmit}
         />
       </TestWrapper>
     )

@@ -508,7 +508,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
-          onChange={value => onSubmitStep(value, DrawerTypes.StepConfig)}
+          onUpdate={value => onSubmitStep(value, DrawerTypes.StepConfig)}
           viewType={StepCommandsViews.Pipeline}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           onUseTemplate={_step =>
@@ -555,7 +555,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           ref={formikRef}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
-          onChange={onServiceDependencySubmit}
+          onUpdate={onServiceDependencySubmit}
           isStepGroup={false}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           withoutTabs
@@ -646,7 +646,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
-          onChange={value => onSubmitStep(value, DrawerTypes.ProvisionerStepConfig)}
+          onUpdate={value => onSubmitStep(value, DrawerTypes.ProvisionerStepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
           stageType={stageType as StageType}

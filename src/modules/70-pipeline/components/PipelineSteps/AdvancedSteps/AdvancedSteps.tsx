@@ -36,7 +36,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
 
   const debouncedUpdate = React.useCallback(
     debounce((data: FormValues): void => {
-      onUpdate?.({ ...data, tab: TabTypes.Advanced })
+      onChange?.({ ...data, tab: TabTypes.Advanced })
     }, 300),
     [onUpdate]
   )
@@ -61,7 +61,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
         when
       }}
       onSubmit={data => {
-        onChange({ ...data, tab: TabTypes.Advanced })
+        onUpdate({ ...data, tab: TabTypes.Advanced })
       }}
       validate={debouncedUpdate}
       formName="pipelineAdvancedSteps"

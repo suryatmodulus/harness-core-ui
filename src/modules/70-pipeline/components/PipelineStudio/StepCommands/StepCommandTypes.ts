@@ -24,8 +24,8 @@ export enum StepCommandsViews {
 
 export interface StepCommandsProps {
   step: StepOrStepGroupOrTemplateStepData
-  onChange: (step: Partial<Values>) => void
-  onUpdate?: (step: Partial<Values>) => void
+  onChange?: (step: Partial<Values>) => void
+  onUpdate: (step: Partial<Values>) => void
   onUseTemplate?: (step: Partial<Values>) => void
   onSaveAsTemplate?: (step: Partial<Values>) => void
   stepsFactory: AbstractStepFactory

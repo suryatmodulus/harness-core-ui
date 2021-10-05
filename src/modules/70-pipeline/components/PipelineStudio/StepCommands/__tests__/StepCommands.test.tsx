@@ -47,7 +47,7 @@ describe('<StepCommands /> tests', () => {
             }
           }}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
-          onChange={jest.fn()}
+          onUpdate={jest.fn()}
           stepsFactory={stepFactory}
           isStepGroup={false}
           isReadonly={false}
@@ -72,7 +72,7 @@ describe('<StepCommands /> tests', () => {
             }
           }}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
-          onChange={jest.fn()}
+          onUpdate={jest.fn()}
           stepsFactory={stepFactory}
           isStepGroup={false}
           isReadonly={false}
@@ -101,7 +101,7 @@ describe('<StepCommands /> tests', () => {
             }
           }}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
-          onChange={jest.fn()}
+          onUpdate={jest.fn()}
           stepsFactory={stepFactory}
           isStepGroup={false}
           isReadonly={false}

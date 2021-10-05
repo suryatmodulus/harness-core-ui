@@ -228,7 +228,7 @@ jest.mock('../../StepCommands/StepCommands', () => {
           }
         },
         submitForm: () =>
-          props.onChange({
+          props.onUpdate({
             identifier: 'step1',
             name: 'step1',
             description: 'test desc',

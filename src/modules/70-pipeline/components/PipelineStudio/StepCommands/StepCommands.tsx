@@ -169,8 +169,8 @@ export function StepCommands(
         initialValues={step}
         readonly={isReadonly}
         isNewStep={isNewStep}
-        onUpdate={onChange}
         onChange={onChange}
+        onUpdate={onUpdate}
         type={stepType}
         stepViewType={stepViewType}
         ref={stepRef}

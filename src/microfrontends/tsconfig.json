@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "noEmit": false,
+    "declaration": true,
+    "outDir": "declarations"
+  },
+  "include": ["MicrofrontendTypes.ts", "../global.d.ts"]
+}

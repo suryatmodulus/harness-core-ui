@@ -15,3 +15,4 @@ yalc.lock
 .env
 junit.xml
 cypress/videos/
+declarations

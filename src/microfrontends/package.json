@@ -1,0 +1,20 @@
+{
+  "name": "@wings-software/microfrontends",
+  "version": "0.0.1",
+  "description": "",
+  "main": "microfrontends.d.ts",
+  "types": "microfrontends.d.ts",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wings-software/nextgenui"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED"
+}

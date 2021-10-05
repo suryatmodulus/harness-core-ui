@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76% </span>
+                <span class="strong">77.03% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>57/75</span>
+                <span class='fraction'>57/74</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">67.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>35/56</span>
+                <span class='fraction'>36/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.42% </span>
+                <span class="strong">72.22% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/19</span>
+                <span class='fraction'>13/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.68% </span>
+                <span class="strong">76.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>56/74</span>
+                <span class='fraction'>56/73</span>
             </div>
         
             
@@ -297,8 +297,7 @@
 <a name='L238'></a><a href='#L238'>238</a>
 <a name='L239'></a><a href='#L239'>239</a>
 <a name='L240'></a><a href='#L240'>240</a>
-<a name='L241'></a><a href='#L241'>241</a>
-<a name='L242'></a><a href='#L242'>242</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L241'></a><a href='#L241'>241</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -316,6 +315,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -384,12 +388,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -547,7 +545,7 @@ import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import type { MonitoredServiceResponse } from 'services/cv'
+import type { ChangeSourceDTO, MonitoredServiceResponse } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { Table } from '@common/components'
@@ -556,7 +554,12 @@ import HealthSources from '@cv/components/PipelineSteps/ContinousVerification/co
 import HealthSourceDrawerContent from '../HealthSourceDrawer/HealthSourceDrawerContent'
 import type { RowData, UpdatedHealthSource } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import type { HealthSourceTableInterface } from './HealthSourceTable.types'
-import { getIconBySourceType, getTypeByFeature, createHealthsourceList } from './HealthSourceTable.utils'
+import {
+  getIconBySourceType,
+  getTypeByFeature,
+  createHealthsourceList,
+  deleteHealthSource
+} from './HealthSourceTable.utils'
 import css from './HealthSourceTable.module.scss'
 &nbsp;
 export default function HealthSourceTable({
@@ -572,7 +575,7 @@ export default function HealthSourceTable({
   onCloseDrawer,
   validMonitoredSource,
   validateMonitoredSource,
-  changeSources
+  changeSources = []
 }: HealthSourceTableInterface): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false)
   const history = useHistory()
@@ -623,14 +626,8 @@ export default function HealthSourceTable({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowData, isEdit])
 &nbsp;
-  const deleteHealthSource = <span class="fstat-no" title="function not covered" >async </span>(selectedRow: RowData): Promise&lt;void&gt; =&gt; {
-    const payload = <span class="cstat-no" title="statement not covered" >{</span>
-      monitoredService: {
-        sources: {
-          healthSources: tableData?.filter(<span class="fstat-no" title="function not covered" >healthSource </span>=&gt; <span class="cstat-no" title="statement not covered" >healthSource.identifier !== selectedRow.identifier)</span>
-        }
-      }
-    }
+  const onDeleteHealthSource = <span class="fstat-no" title="function not covered" >(s</span>electedRow: RowData, changeSourcesData: ChangeSourceDTO[]): void =&gt; {
+    const payload = <span class="cstat-no" title="statement not covered" >deleteHealthSource(selectedRow, changeSourcesData, tableData)</span>
 <span class="cstat-no" title="statement not covered" >    onSuccess(payload as MonitoredServiceResponse)</span>
   }
 &nbsp;
@@ -664,7 +661,7 @@ export default function HealthSourceTable({
         &lt;ContextMenuActions
           titleText={getString('cv.healthSource.deleteHealthSource')}
           contentText={getString('cv.healthSource.deleteHealthSourceWarning') + `: ${rowdata.identifier}`}
-          onDelete={<span class="fstat-no" title="function not covered" >async </span>() =&gt; <span class="cstat-no" title="statement not covered" >await deleteHealthSource(rowdata)}</span>
+          onDelete={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onDeleteHealthSource(rowdata, changeSources)}</span>
           onEdit={() =&gt; {
             const rowFilteredData =
               tableData<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind((healthSource: RowData) =&gt; healthSource.identifier === rowdata.identifier) || <span class="branch-1 cbranch-no" title="branch not covered" >null</span>
@@ -787,7 +784,7 @@ export default function HealthSourceTable({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 05 2021 17:54:40 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 05 2021 21:01:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

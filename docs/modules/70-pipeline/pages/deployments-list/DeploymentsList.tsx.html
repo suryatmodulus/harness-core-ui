@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/20</span>
+                <span class='fraction'>19/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/20</span>
+                <span class='fraction'>19/20</span>
             </div>
         
             
@@ -111,44 +111,44 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,19 +180,19 @@ import { Page } from '@common/exports'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './DeploymentsList.module.scss'
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >DeploymentsList(</span>): React.ReactElement {
-  const { projectIdentifier, orgIdentifier, accountId, module } = <span class="cstat-no" title="statement not covered" >useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()</span>
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+export default function DeploymentsList(): React.ReactElement {
+  const { projectIdentifier, orgIdentifier, accountId, module } = useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()
+  const { getString } = useStrings()
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useDocumentTitle([getString('pipelines'), getString('executionsText')])</span>
+  useDocumentTitle([getString('pipelines'), getString('executionsText')])
 &nbsp;
-  const runPipelineDialogProps: IDialogProps = <span class="cstat-no" title="statement not covered" >{</span>
+  const runPipelineDialogProps: IDialogProps = {
     isOpen: true,
     enforceFocus: false,
     style: { minWidth: 800, minHeight: 280, backgroundColor: 'var(--grey-50)' }
   }
 &nbsp;
-  const [openModal, hideModal] = <span class="cstat-no" title="statement not covered" >useModalHook(</span>
+  const [openModal, hideModal] = useModalHook(
 <span class="fstat-no" title="function not covered" >    () =</span>&gt; (
 <span class="cstat-no" title="statement not covered" >      &lt;Dialog {...runPipelineDialogProps}&gt;</span>
         &lt;PipelineModalListView onClose={hideModal} /&gt;
@@ -201,8 +201,8 @@ export default function <span class="fstat-no" title="function not covered" >Dep
     [projectIdentifier, orgIdentifier, accountId]
   )
 &nbsp;
-  const textIdentifier = <span class="cstat-no" title="statement not covered" >module === 'ci' ? 'buildsText' : 'deploymentsText'</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  const textIdentifier = module === 'ci' ? 'buildsText' : 'deploymentsText'
+  return (
     &lt;div className={css.main}&gt;
       &lt;Page.Header
         title={
@@ -226,7 +226,7 @@ export default function <span class="fstat-no" title="function not covered" >Dep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 05 2021 07:12:47 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 05 2021 07:54:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

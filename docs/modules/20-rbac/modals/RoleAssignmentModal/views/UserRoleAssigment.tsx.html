@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">60.94% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>36/60</span>
+                <span class='fraction'>39/64</span>
             </div>
         
             
@@ -345,11 +345,7 @@
 <a name='L286'></a><a href='#L286'>286</a>
 <a name='L287'></a><a href='#L287'>287</a>
 <a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a>
-<a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a>
-<a name='L292'></a><a href='#L292'>292</a>
-<a name='L293'></a><a href='#L293'>293</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L289'></a><a href='#L289'>289</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -372,14 +368,8 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -390,6 +380,7 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -533,10 +524,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -662,32 +654,27 @@ import { defaultTo } from 'lodash-es'
 import { useToaster } from '@common/components'
 import { useCreateRoleAssignments, RoleAssignment as RBACRoleAssignment } from 'services/rbac'
 import { useStrings } from 'framework/strings'
-import {
-  UserMetadataDTO,
-  useSendInvite,
-  CreateInvite,
-  RoleAssignmentMetadataDTO,
-  ResponseListInviteOperationResponse,
-  useGetUsers
-} from 'services/cd-ng'
+import { UserMetadataDTO, RoleAssignmentMetadataDTO, useGetUsers, useAddUsers, AddUsers } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
   UserItemRenderer,
   handleInvitationResponse,
   getScopeBasedDefaultAssignment,
-  UserTagRenderer
+  UserTagRenderer,
+  InvitationStatus
 } from '@rbac/utils/utils'
 import { getIdentifierFromValue, getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useMutateAsGet } from '@common/hooks/useMutateAsGet'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
-import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
+import RoleAssignmentForm from './RoleAssignmentForm'
 &nbsp;
 interface UserRoleAssignmentData {
   roleBindings?: RoleAssignmentMetadataDTO[]
   user?: UserMetadataDTO
   onSubmit?: () =&gt; void
   onSuccess?: () =&gt; void
+  onUserAdded?: () =&gt; void
   isInvite?: boolean
 }
 &nbsp;
@@ -721,7 +708,7 @@ export interface UserRoleAssignmentValues {
 }
 &nbsp;
 const UserRoleAssignment: React.FC&lt;UserRoleAssignmentData&gt; = props =&gt; {
-  const { user, roleBindings, onSubmit, isInvite, onSuccess } = props
+  const { user, roleBindings, onSubmit, isInvite, onSuccess, onUserAdded } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
   const scope = getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
   const { getString } = useStrings()
@@ -732,7 +719,7 @@ const UserRoleAssignment: React.FC&lt;UserRoleAssignmentData&gt; = props =&gt; {
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 &nbsp;
-  const { mutate: sendInvitation, loading: sending } = useSendInvite({
+  const { mutate: sendInvitation, loading: sending } = useAddUsers({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier,
@@ -811,8 +798,8 @@ const UserRoleAssignment: React.FC&lt;UserRoleAssignmentData&gt; = props =&gt; {
 <span class="cstat-no" title="statement not covered" >      modalErrorHandler?.showDanger(getString('rbac.roleAssignment.assignmentValidation'))</span>
 <span class="cstat-no" title="statement not covered" >      return</span>
     }
-    const dataToSubmit: CreateInvite = {
-      users: values.users<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(val =&gt; val.value.toString()),
+    const dataToSubmit: AddUsers = {
+      emails: values.users<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(val =&gt; val.value.toString()),
       userGroups: values.userGroups<span class="branch-1 cbranch-no" title="branch not covered" >?.map(<span class="fstat-no" title="function not covered" >val </span>=&gt; <span class="cstat-no" title="statement not covered" >getIdentifierFromValue(val))</span>,</span>
       roleBindings: values.assignments.map(value =&gt; {
         return {
@@ -822,18 +809,19 @@ const UserRoleAssignment: React.FC&lt;UserRoleAssignmentData&gt; = props =&gt; {
           resourceGroupName: value.resourceGroup.label,
           managedRole: value.role.managed
         }
-      }),
-      inviteType: InviteType.ADMIN_INITIATED
+      })
     }
 &nbsp;
     try {
       const response = await sendInvitation(dataToSubmit)
+      //TODO: @reetika Extend this to support multiple failures.
       handleInvitationResponse({
-        responseType: response.data<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>] as Pick&lt;ResponseListInviteOperationResponse, 'data'&gt;,
+        responseType: Object.values(defaultTo(response.data<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ddUserResponseMap, {}))<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>] as InvitationStatus,
         getString,
         showSuccess,
         modalErrorHandler,
-        onSubmit
+        onSubmit,
+        onUserAdded
       })
     } catch (err) {
       /* istanbul ignore next */
@@ -940,7 +928,7 @@ export default UserRoleAssignment
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 05 2021 06:38:50 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 05 2021 07:12:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

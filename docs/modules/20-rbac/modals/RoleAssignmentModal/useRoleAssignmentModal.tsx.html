@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.25% </span>
+                <span class="strong">76.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/32</span>
+                <span class='fraction'>26/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>10/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/30</span>
+                <span class='fraction'>24/32</span>
             </div>
         
             
@@ -154,7 +154,15 @@
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
 <a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -169,10 +177,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,6 +194,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-yes">54x</span>
@@ -195,6 +207,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -264,6 +280,7 @@ import css from './useRoleAssignmentModal.module.scss'
 &nbsp;
 export interface UseRoleAssignmentModalProps {
   onSuccess: () =&gt; void
+  onUserAdded?: () =&gt; void
 }
 &nbsp;
 export enum PrincipalType {
@@ -281,7 +298,10 @@ export interface UseRoleAssignmentModalReturn {
   closeRoleAssignmentModal: () =&gt; void
 }
 &nbsp;
-export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProps): UseRoleAssignmentModalReturn =&gt; {
+export const useRoleAssignmentModal = ({
+  onSuccess,
+  onUserAdded
+}: UseRoleAssignmentModalProps): UseRoleAssignmentModalReturn =&gt; {
   const [roleBindings, setRoleBindings] = useState&lt;RoleAssignmentMetadataDTO[]&gt;()
   const [principalInfo, setPrincipalInfo] = useState&lt;UserMetadataDTO | UserGroupDTO | ServiceAccountDTO&gt;()
   const [principal, setPrincipal] = useState&lt;PrincipalType&gt;(PrincipalType.USER)
@@ -295,6 +315,10 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
             isInvite={!principalInfo}
             onSubmit={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >              onSuccess()</span>
+<span class="cstat-no" title="statement not covered" >              hideModal()</span>
+            }}
+            onUserAdded={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >              onUserAdded?.()</span>
 <span class="cstat-no" title="statement not covered" >              hideModal()</span>
             }}
             onSuccess={onSuccess}
@@ -355,7 +379,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 05 2021 06:38:50 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 05 2021 07:12:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

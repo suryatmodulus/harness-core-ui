@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.63% </span>
+                <span class="strong">54.19% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>84/151</span>
+                <span class='fraction'>84/155</span>
             </div>
         
             
@@ -445,16 +445,7 @@
 <a name='L386'></a><a href='#L386'>386</a>
 <a name='L387'></a><a href='#L387'>387</a>
 <a name='L388'></a><a href='#L388'>388</a>
-<a name='L389'></a><a href='#L389'>389</a>
-<a name='L390'></a><a href='#L390'>390</a>
-<a name='L391'></a><a href='#L391'>391</a>
-<a name='L392'></a><a href='#L392'>392</a>
-<a name='L393'></a><a href='#L393'>393</a>
-<a name='L394'></a><a href='#L394'>394</a>
-<a name='L395'></a><a href='#L395'>395</a>
-<a name='L396'></a><a href='#L396'>396</a>
-<a name='L397'></a><a href='#L397'>397</a>
-<a name='L398'></a><a href='#L398'>398</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L389'></a><a href='#L389'>389</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -481,20 +472,12 @@
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -610,7 +593,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -877,24 +859,16 @@ import * as Yup from 'yup'
 import { Menu } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import copy from 'copy-to-clipboard'
-import {
-  Project,
-  useGetCurrentGenUsers,
-  useGetInvites,
-  CreateInvite,
-  useSendInvite,
-  Organization,
-  ResponseListInviteOperationResponse
-} from 'services/cd-ng'
+import { defaultTo } from 'lodash-es'
+import { Project, useGetCurrentGenUsers, useGetInvites, Organization, useAddUsers, AddUsers } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import { useGetRoleList } from 'services/rbac'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmentForm'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
+import { InvitationStatus, UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
 import { handleInvitationResponse } from '@rbac/utils/utils'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
@@ -941,7 +915,7 @@ const Collaborators: React.FC&lt;CollaboratorModalData&gt; = props =&gt; {
     }
   })
 &nbsp;
-  const { mutate: sendInvite, loading } = useSendInvite({
+  const { mutate: sendInvite, loading } = useAddUsers({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier,
@@ -1003,25 +977,24 @@ const Collaborators: React.FC&lt;CollaboratorModalData&gt; = props =&gt; {
 &nbsp;
   const SendInvitation = <span class="fstat-no" title="function not covered" >async </span>(values: MultiSelectOption[]): Promise&lt;void&gt; =&gt; {
     const usersToSubmit = <span class="cstat-no" title="statement not covered" >values?.map(<span class="fstat-no" title="function not covered" >collaborator </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      return collaborator.value</span>
+<span class="cstat-no" title="statement not covered" >      return collaborator.value.toString()</span>
     })
 &nbsp;
-    const dataToSubmit: CreateInvite = <span class="cstat-no" title="statement not covered" >{</span>
-      users: usersToSubmit as string[],
+    const dataToSubmit: AddUsers = <span class="cstat-no" title="statement not covered" >{</span>
+      emails: usersToSubmit,
       roleBindings: [
         {
           roleIdentifier: role.value.toString(),
           roleName: role.label,
           managedRole: role.managed
         }
-      ],
-      inviteType: InviteType.ADMIN_INITIATED
+      ]
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const response = <span class="cstat-no" title="statement not covered" >await sendInvite(dataToSubmit)</span>
 <span class="cstat-no" title="statement not covered" >      handleInvitationResponse({</span>
-        responseType: response.data?.[0] as Pick&lt;ResponseListInviteOperationResponse, 'data'&gt;,
+        responseType: Object.values(defaultTo(response.data?.addUserResponseMap, {}))?.[0] as InvitationStatus,
         getString,
         showSuccess,
         modalErrorHandler,
@@ -1255,7 +1228,7 @@ export default Collaborators
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 05 2021 06:38:50 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 05 2021 07:12:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.3% </span>
+                <span class="strong">89.58% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>84/92</span>
+                <span class='fraction'>86/96</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.58% </span>
+                <span class="strong">63.13% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>124/192</span>
+                <span class='fraction'>125/198</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">80.77% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>20/25</span>
+                <span class='fraction'>21/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">90.53% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>84/91</span>
+                <span class='fraction'>86/95</span>
             </div>
         
             
@@ -425,7 +425,21 @@
 <a name='L366'></a><a href='#L366'>366</a>
 <a name='L367'></a><a href='#L367'>367</a>
 <a name='L368'></a><a href='#L368'>368</a>
-<a name='L369'></a><a href='#L369'>369</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -454,6 +468,8 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -665,6 +681,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -693,6 +714,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
@@ -825,6 +853,8 @@ import css from './UserListView.module.scss'
 &nbsp;
 interface ActiveUserListViewProps {
   searchTerm?: string
+  shouldReload?: boolean
+  onRefetch?: () =&gt; void
   openRoleAssignmentModal: (
     type?: PrincipalType,
     principalInfo?: UserGroupDTO | UserMetadataDTO,
@@ -1032,7 +1062,12 @@ const RenderColumnMenu: Renderer&lt;CellProps&lt;UserAggregate&gt;&gt; = ({ row,
   )
 }
 &nbsp;
-const ActiveUserListView: React.FC&lt;ActiveUserListViewProps&gt; = ({ searchTerm, openRoleAssignmentModal }) =&gt; {
+const ActiveUserListView: React.FC&lt;ActiveUserListViewProps&gt; = ({
+  searchTerm,
+  openRoleAssignmentModal,
+  shouldReload,
+  onRefetch
+}) =&gt; {
   const { getString } = useStrings()
   const history = useHistory()
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()
@@ -1062,6 +1097,13 @@ const ActiveUserListView: React.FC&lt;ActiveUserListViewProps&gt; = ({ searchTer
   useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (searchTerm) <span class="cstat-no" title="statement not covered" >setPage(0)</span>
   }, [searchTerm])
+&nbsp;
+  useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (shouldReload) {
+<span class="cstat-no" title="statement not covered" >      refetch()</span>
+<span class="cstat-no" title="statement not covered" >      onRefetch?.()</span>
+    }
+  }, [shouldReload])
 &nbsp;
   const columns: Column&lt;UserAggregate&gt;[] = useMemo(
     () =&gt; [
@@ -1168,7 +1210,7 @@ export default ActiveUserListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 05 2021 06:38:50 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 05 2021 07:12:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

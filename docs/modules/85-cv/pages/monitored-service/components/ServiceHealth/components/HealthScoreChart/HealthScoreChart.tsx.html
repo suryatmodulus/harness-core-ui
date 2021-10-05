@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.45% </span>
+                <span class="strong">42.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/44</span>
+                <span class='fraction'>17/40</span>
             </div>
         
             
@@ -163,7 +163,8 @@
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -175,6 +176,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -281,16 +283,17 @@ import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import noDataImage from '@cv/assets/noData.svg'
-import type { HealthScoreChartProps, SeriesDataPoint, SeriesDataType } from './HealthScoreChart.types'
+import type { ColumnData } from '@cv/components/ColumnChart/ColumnChart.types'
+import type { HealthScoreChartProps } from './HealthScoreChart.types'
 import { getSeriesData } from './HealthScoreChart.utils'
 import type { TimePeriodEnum } from '../../ServiceHealth.constants'
 import css from './HealthScoreChart.module.scss'
 &nbsp;
 export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Element {
-  const { monitoredServiceIdentifier, duration, setHealthScoreData, timeFormat } = props
+  const { monitoredServiceIdentifier, duration, setHealthScoreData } = props
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams&lt;ProjectPathProps&gt;()
-  const [seriesData, setSeriesData] = useState&lt;SeriesDataType&gt;([{ data: [], showInLegend: false }])
+  const [seriesData, setSeriesData] = useState&lt;ColumnData[]&gt;([])
 &nbsp;
   const {
     data: healthScoreData,
@@ -319,7 +322,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
   useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (healthScoreData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?.healthScores </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isEmpty(healthScoreData?.data?.healthScores))</span> {
       const series = <span class="cstat-no" title="statement not covered" >getSeriesData(healthScoreData.data.healthScores)</span>
-<span class="cstat-no" title="statement not covered" >      setSeriesData([{ data: series as SeriesDataPoint[], showInLegend: false }])</span>
+<span class="cstat-no" title="statement not covered" >      setSeriesData(series)</span>
 <span class="cstat-no" title="statement not covered" >      if (setHealthScoreData) {</span>
 <span class="cstat-no" title="statement not covered" >        setHealthScoreData(healthScoreData.data.healthScores)</span>
       }
@@ -336,7 +339,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
           &lt;Icon name="steps-spinner" color={Color.GREY_400} size={30} /&gt;
         &lt;/Container&gt;
       )
-    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (!seriesData[0]<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength || <span class="branch-1 cbranch-no" title="branch not covered" >seriesData[0].data.every(<span class="fstat-no" title="function not covered" >el </span>=&gt; <span class="cstat-no" title="statement not covered" >(el as SeriesDataPoint)?.y === 0))</span></span> {
+    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (!seriesData<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength || <span class="branch-1 cbranch-no" title="branch not covered" >seriesData.every(<span class="fstat-no" title="function not covered" >el </span>=&gt; <span class="cstat-no" title="statement not covered" >el?.height === 0)</span>)</span> {
       return (
         &lt;NoDataCard
           message={
@@ -357,7 +360,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
         /&gt;
       )
     } else {
-<span class="cstat-no" title="statement not covered" >      return &lt;ColumnChart data={seriesData} timeFormat={timeFormat} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >      return &lt;ColumnChart data={seriesData} leftOffset={90} /&gt;</span>
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, loading, seriesData])
@@ -382,7 +385,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 05 2021 21:01:25 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 05 2021 22:20:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../prettify.js"></script>

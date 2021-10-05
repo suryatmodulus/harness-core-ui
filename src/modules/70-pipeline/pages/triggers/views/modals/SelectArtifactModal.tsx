@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Text, Button } from '@wings-software/uicore'
+import { Layout, Text, Button, ButtonVariation } from '@wings-software/uicore'
 import { merge, isEmpty } from 'lodash-es'
 
 import { Dialog } from '@blueprintjs/core'
@@ -268,6 +268,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               <Button
                 text={getString('back')}
                 icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
                 minimal
                 onClick={() => {
                   setModalState(ModalState.SELECT)
@@ -276,7 +277,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
             )}
             <Button
               text={getString('filters.apply')}
-              intent="primary"
+              variation={ButtonVariation.PRIMARY}
               onClick={() => {
                 onSubmit({
                   isManifest,
@@ -287,9 +288,13 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 closeModal()
               }}
             />
-            <Text className={css.cancel} onClick={closeAndReset}>
-              {getString('cancel')}
-            </Text>
+
+            <Button
+              className={css.cancel}
+              variation={ButtonVariation.TERTIARY}
+              onClick={closeAndReset}
+              text={getString('cancel')}
+            />
           </Layout.Horizontal>
         </>
       )}

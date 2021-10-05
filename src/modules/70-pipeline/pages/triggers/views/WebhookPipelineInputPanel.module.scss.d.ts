@@ -3,6 +3,9 @@
 declare const styles: {
   readonly webhookPipelineInputContainer: string
   readonly heading: string
+  readonly pipelineInputSetForm: string
+  readonly formContentTitle: string
+  readonly formContent: string
   readonly pipelineInputRow: string
   readonly inputsetGrid: string
   readonly inputSetContent: string

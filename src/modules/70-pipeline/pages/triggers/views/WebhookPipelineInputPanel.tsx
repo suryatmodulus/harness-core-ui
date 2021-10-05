@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Text, NestedAccordionProvider, Color } from '@wings-software/uicore'
+import { Layout, Text, NestedAccordionProvider } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { pick, merge, cloneDeep } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
@@ -213,7 +213,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
         <div className={css.inputsetGrid}>
           <div className={css.inputSetContent}>
             <div className={css.pipelineInputRow}>
-              <Text font={{ size: 'medium', weight: 'bold' }} inline={true} color={Color.GREY_800}>
+              <Text className={css.formContentTitle} inline={true}>
                 {getString('pipeline.triggers.pipelineInputLabel')}
               </Text>
               <GitSyncStoreProvider>
@@ -234,15 +234,18 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
               }
               path="pipeline"
               viewType={StepViewType.InputSet}
+              maybeContainerClass={css.pipelineInputSetForm}
             />
           </div>
         </div>
       ) : (
         <Layout.Vertical style={{ padding: '0 var(--spacing-small)' }} margin="large" spacing="large">
-          <h2 className={css.heading} style={{ marginTop: '0!important' }}>
+          <Text className={css.formContentTitle} inline={true}>
             {getString('pipeline.triggers.pipelineInputLabel')}
-          </h2>
-          <Text>{getString('pipeline.triggers.pipelineInputPanel.noRuntimeInputs')}</Text>
+          </Text>
+          <Layout.Vertical className={css.formContent}>
+            <Text>{getString('pipeline.triggers.pipelineInputPanel.noRuntimeInputs')}</Text>
+          </Layout.Vertical>
         </Layout.Vertical>
       )}
     </Layout.Vertical>

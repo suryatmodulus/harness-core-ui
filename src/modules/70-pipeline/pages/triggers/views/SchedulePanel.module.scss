@@ -1,6 +1,6 @@
 .schedulePanelContainer {
   min-width: 800px;
-  padding: var(--spacing-large) var(--spacing-xxlarge) !important;
+  padding: var(--spacing-4) var(--spacing-7) !important;
 
   > [class*='bp3-tabs'][class*='Tabs'] {
     margin-top: 0 !important;
@@ -10,7 +10,7 @@
     font-weight: bold !important;
     font-size: medium !important;
     color: var(--grey-800) !important;
-    margin-bottom: 12px !important;
+    margin-bottom: var(--spacing-4) !important;
   }
 
   .formContent {

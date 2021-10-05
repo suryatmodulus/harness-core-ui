@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, FormInput, SelectOption, Text, Color } from '@wings-software/uicore'
+import { Layout, FormInput, SelectOption, Text, Container } from '@wings-software/uicore'
 import { isEmpty, isUndefined } from 'lodash-es'
 import { useGetGitTriggerEventDetails } from 'services/pipeline-ng'
 import { NameIdDescriptionTags } from '@common/components'
@@ -210,21 +210,23 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                           }}
                         />
                       </div>
-                      <FormInput.CheckBox
-                        name="anyAction"
-                        key={Date.now()}
-                        label={getString('pipeline.triggers.triggerConfigurationPanel.anyActions')}
-                        defaultChecked={(Array.isArray(actions) && actions.length === 0) || false}
-                        className={css.checkboxAlignment}
-                        onClick={(e: React.FormEvent<HTMLInputElement>) => {
-                          formikProps.setFieldTouched('actions', true)
-                          if (e.currentTarget?.checked) {
-                            formikProps.setFieldValue('actions', [])
-                          } else {
-                            formikProps.setFieldValue('actions', undefined)
-                          }
-                        }}
-                      />
+                      <Container className={css.anyActionContainer}>
+                        <FormInput.CheckBox
+                          name="anyAction"
+                          key={Date.now()}
+                          label={getString('pipeline.triggers.triggerConfigurationPanel.anyActions')}
+                          defaultChecked={(Array.isArray(actions) && actions.length === 0) || false}
+                          className={css.checkboxAlignment}
+                          onClick={(e: React.FormEvent<HTMLInputElement>) => {
+                            formikProps.setFieldTouched('actions', true)
+                            if (e.currentTarget?.checked) {
+                              formikProps.setFieldValue('actions', [])
+                            } else {
+                              formikProps.setFieldValue('actions', undefined)
+                            }
+                          }}
+                        />
+                      </Container>
                     </div>
                   )}
                   {autoAbortPreviousExecutionsTypes.includes(event) && (
@@ -235,17 +237,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                         label="Auto-abort Previous Execution"
                         className={css.checkboxAlignment}
                       />
-                      <Text
-                        style={{
-                          marginBottom: 'var(--spacing-medium)',
-                          marginLeft: '29px',
-                          position: 'relative',
-                          top: '-10px'
-                        }}
-                        color={Color.GREY_400}
-                      >
-                        {getAutoAbortDescription({ event, getString })}
-                      </Text>
+                      <Text className={css.autoAbortDescription}>{getAutoAbortDescription({ event, getString })}</Text>
                     </>
                   )}
                 </>

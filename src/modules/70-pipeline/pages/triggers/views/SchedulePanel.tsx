@@ -25,9 +25,7 @@ const SchedulePanel: React.FC<SchedulePanelPropsInterface> = ({
       <Text className={css.formContentTitle} inline={true}>
         {getString('pipeline.triggers.schedulePanel.title')}
       </Text>
-      {/* <Text font={{ size: 'medium', weight: 'bold' }} inline={true} color={Color.GREY_800}>
-        {getString('pipeline.triggers.schedulePanel.title')}
-      </Text> */}
+
       <Layout.Vertical className={css.formContent}>
         <Tabs
           id="Wizard"

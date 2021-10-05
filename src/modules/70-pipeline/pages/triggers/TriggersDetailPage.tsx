@@ -31,6 +31,8 @@ import { getTriggerIcon, getEnabledStatusTriggerValues } from './utils/TriggersL
 import { clearNullUndefined, ResponseStatus } from './utils/TriggersWizardPageUtils'
 import css from './TriggersDetailPage.module.scss'
 
+const loadingHeaderHeight = 43
+
 export interface ConditionInterface {
   key: string
   operator: string
@@ -192,62 +194,67 @@ export default function TriggersDetailPage(): JSX.Element {
       >
         <Layout.Vertical spacing="medium">
           <TriggerBreadcrumbs pipelineResponse={pipeline} />
-          <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-            <Icon
-              name={
-                triggerResponse?.data?.type
-                  ? getTriggerIcon({
-                      type: triggerResponse.data.type,
-                      webhookSourceRepo: triggerResponse?.data?.webhookDetails?.webhookSourceRepo
-                    })
-                  : 'yaml-builder-trigger'
-              }
-              size={35}
-            />
-            <Layout.Horizontal spacing="small" data-testid={triggerResponse?.data?.identifier}>
-              <Layout.Vertical padding={{ left: 'small' }}>
-                <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                  <Text style={{ fontSize: 20 }} color={Color.BLACK}>
-                    {triggerResponse?.data?.name}
-                  </Text>
-                  <Text>{getString('enabledLabel')}</Text>
-                  <Switch
-                    label=""
-                    disabled={isTriggerRbacDisabled}
-                    checked={triggerResponse?.data?.enabled ?? false}
-                    onChange={async () => {
-                      const { values, error } = getEnabledStatusTriggerValues({
-                        data: triggerResponse?.data,
-                        enabled: (triggerResponse?.data && !triggerResponse?.data.enabled) || false,
-                        getString
+          {loadingTrigger && <Container height={loadingHeaderHeight} />}
+          {triggerResponse && !loadingTrigger && (
+            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Icon
+                name={
+                  triggerResponse.data?.type
+                    ? getTriggerIcon({
+                        type: triggerResponse.data.type,
+                        webhookSourceRepo: triggerResponse.data?.webhookDetails?.webhookSourceRepo
                       })
-                      if (error) {
-                        showError(error, undefined, 'pipeline.enable.status.error')
-                        return
-                      }
-                      try {
-                        const { status, data } = await updateTrigger(
-                          yamlStringify({ trigger: clearNullUndefined(values) }) as any
-                        )
-                        if (status === ResponseStatus.SUCCESS) {
-                          showSuccess(
-                            getString('pipeline.triggers.toast.toggleEnable', {
-                              enabled: data?.enabled ? 'enabled' : 'disabled',
-                              name: data?.name
-                            })
-                          )
-                          refetchTrigger()
+                    : 'yaml-builder-trigger'
+                }
+                size={35}
+              />
+              <Layout.Horizontal spacing="small" data-testid={triggerResponse.data?.identifier}>
+                <Layout.Vertical padding={{ left: 'small' }}>
+                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                    <Text style={{ fontSize: 20 }} color={Color.BLACK}>
+                      {triggerResponse.data?.name}
+                    </Text>
+                    <Text>{getString('enabledLabel')}</Text>
+                    <Switch
+                      label=""
+                      disabled={isTriggerRbacDisabled}
+                      checked={triggerResponse.data?.enabled ?? false}
+                      onChange={async () => {
+                        const { values, error } = getEnabledStatusTriggerValues({
+                          data: triggerResponse.data,
+                          enabled: (triggerResponse.data && !triggerResponse.data.enabled) || false,
+                          getString
+                        })
+                        if (error) {
+                          showError(error, undefined, 'pipeline.enable.status.error')
+                          return
                         }
-                      } catch (err) {
-                        showError(err?.data?.message, undefined, 'pipeline.common.trigger.error')
-                      }
-                    }}
-                  />
-                </Layout.Horizontal>
-                <Text>{triggerResponse?.data?.identifier}</Text>
-              </Layout.Vertical>
+                        try {
+                          const { status, data } = await updateTrigger(
+                            yamlStringify({ trigger: clearNullUndefined(values) }) as any
+                          )
+                          if (status === ResponseStatus.SUCCESS) {
+                            showSuccess(
+                              getString('pipeline.triggers.toast.toggleEnable', {
+                                enabled: data?.enabled ? 'enabled' : 'disabled',
+                                name: data?.name
+                              })
+                            )
+                            refetchTrigger()
+                          }
+                        } catch (err) {
+                          showError(err?.data?.message, undefined, 'pipeline.common.trigger.error')
+                        }
+                      }}
+                    />
+                  </Layout.Horizontal>
+                  <Text>
+                    {getString('common.ID')}: {triggerResponse.data?.identifier}
+                  </Text>
+                </Layout.Vertical>
+              </Layout.Horizontal>
             </Layout.Horizontal>
-          </Layout.Horizontal>
+          )}
         </Layout.Vertical>
       </Container>
 
@@ -264,7 +271,7 @@ export default function TriggersDetailPage(): JSX.Element {
               ></VisualYamlToggle>
               <Button
                 variation={ButtonVariation.SECONDARY}
-                icon="Edit"
+                icon="edit"
                 onClick={goToEditWizard}
                 minimal
                 disabled={isTriggerRbacDisabled}

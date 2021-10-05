@@ -2,13 +2,12 @@
 // this is an auto-generated file
 declare const styles: {
   readonly container: string
-  readonly regoLabel: string
-  readonly layout: string
-  readonly leftContainer: string
-  readonly rightContainer: string
-  readonly policyName: string
+  readonly module: string
+  readonly regoContainer: string
+  readonly inputContainer: string
+  readonly outputContainer: string
   readonly inputHeader: string
-  readonly inputValue: string
+  readonly ioEditor: string
   readonly policyNameInputContainer: string
 }
 export default styles

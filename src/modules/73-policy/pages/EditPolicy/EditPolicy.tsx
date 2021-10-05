@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import MonacoEditor from 'react-monaco-editor'
+import SplitPane from 'react-split-pane'
+import cx from 'classnames'
 import type { editor as EDITOR } from 'monaco-editor/esm/vs/editor/editor.api'
 import {
   ButtonVariation,
@@ -13,7 +15,7 @@ import {
   ButtonSize,
   FlexExpander
 } from '@wings-software/uicore'
-import { TextArea } from '@blueprintjs/core'
+import { Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router'
 import { showToaster, getErrorMessage } from '@policy/utils/PmUtils'
 import routes from '@common/RouteDefinitions'
@@ -22,8 +24,6 @@ import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@policy/utils/rego'
 import { useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
 import css from './EditPolicy.module.scss'
-
-const RIGHT_CONTAINER_WIDTH = 550
 
 const editorOptions = {
   ignoreTrimWhitespace: true,
@@ -34,6 +34,9 @@ const editorOptions = {
   tabSize: 2,
   insertSpaces: true
 }
+
+const EDITOR_GAP = 25
+const PAGE_PADDING = 50
 
 export const EditPolicy: React.FC = () => {
   const { policyIdentifier } = useParams<{ policyIdentifier: string }>()
@@ -59,7 +62,9 @@ export const EditPolicy: React.FC = () => {
   const { accountId } = useParams<{ accountId: string }>()
   const [createPolicyLoading, setCreatePolicyLoading] = useState(false)
   const [testPolicyLoading, setTestPolicyLoading] = useState(false)
-  const [editor, setEditor] = useState<EDITOR.IStandaloneCodeEditor>()
+  const [regoEditor, setRegoEditor] = useState<EDITOR.IStandaloneCodeEditor>()
+  const [inputEditor, setInputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
+  const [outputEditor, setOutputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const history = useHistory()
   const { mutate: updatePolicy } = useUpdatePolicy({ policy: policyIdentifier })
   const onSavePolicy = useCallback(() => {
@@ -73,7 +78,7 @@ export const EditPolicy: React.FC = () => {
         }
       })
       .catch(error => {
-        showToaster(getErrorMessage(error))
+        showToaster(getErrorMessage(error), { intent: Intent.DANGER })
       })
       .finally(() => {
         setCreatePolicyLoading(false)
@@ -91,15 +96,13 @@ export const EditPolicy: React.FC = () => {
         }
       })
       .catch(error => showToaster(getErrorMessage(error)))
-      .finally(() => {
-        setTestPolicyLoading(false)
-      })
+      .finally(() => setTestPolicyLoading(false))
   }, [evaluateRawPolicy, regoScript, input])
   const { data: policyData, refetch: fetchPolicyData } = useGetPolicy({ policy: policyIdentifier, lazy: true })
   const [loadingPolicy, setLoadingPolicy] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  const [contentHeight, setContentHeight] = useState(0)
-  const [contentWidth, setContentWidth] = useState(0)
+  const scriptContainerRef = useRef<HTMLDivElement>(null)
+  const inputContainerRef = useRef<HTMLDivElement>(null)
+  const outputContainerRef = useRef<HTMLDivElement>(null)
 
   const policyNameEditor = (): JSX.Element => {
     return (
@@ -143,6 +146,7 @@ export const EditPolicy: React.FC = () => {
   const toolbar = useMemo(() => {
     return (
       <Layout.Horizontal spacing="small">
+        {/* BUG: somehow dynamically showing loading is not working, workaround below */}
         {!createPolicyLoading && (
           <Button
             icon="upload-box"
@@ -174,7 +178,6 @@ export const EditPolicy: React.FC = () => {
             size={ButtonSize.SMALL}
             disabled={!isInputValid}
             onClick={onTest}
-            // BUG: dynamic loading is not working, workaround below
             loading={testPolicyLoading}
           />
         )}
@@ -191,22 +194,31 @@ export const EditPolicy: React.FC = () => {
       </Layout.Horizontal>
     )
   }, [history, testPolicyLoading, accountId, createPolicyLoading, isInputValid, onSavePolicy, onTest, regoScript])
-
-  const onResize = (): void => {
-    if (ref.current) {
-      setContentHeight((ref.current as HTMLDivElement)?.offsetHeight)
-      setContentWidth((ref.current as HTMLDivElement)?.offsetWidth - RIGHT_CONTAINER_WIDTH)
+  const relayoutEditors = useCallback(() => {
+    if (scriptContainerRef.current) {
+      regoEditor?.layout({
+        width: (scriptContainerRef.current?.parentNode as HTMLDivElement)?.offsetWidth - EDITOR_GAP,
+        height: (scriptContainerRef.current?.parentNode as HTMLDivElement)?.offsetHeight - PAGE_PADDING
+      })
+      inputEditor?.layout({
+        width: (inputContainerRef.current as HTMLDivElement)?.offsetWidth,
+        height: (inputContainerRef.current as HTMLDivElement)?.offsetHeight
+      })
+      outputEditor?.layout({
+        width: (outputContainerRef.current as HTMLDivElement)?.offsetWidth,
+        height: (outputContainerRef.current as HTMLDivElement)?.offsetHeight
+      })
     }
-  }
+  }, [regoEditor, inputEditor, outputEditor])
 
   useEffect(() => {
-    onResize()
-    window.addEventListener('resize', onResize)
+    window.addEventListener('resize', relayoutEditors)
+    relayoutEditors()
 
     return () => {
-      window.removeEventListener('resize', onResize)
+      window.removeEventListener('resize', relayoutEditors)
     }
-  }, [])
+  }, [relayoutEditors])
 
   useEffect(() => {
     if (policyIdentifier) {
@@ -222,93 +234,120 @@ export const EditPolicy: React.FC = () => {
       setRegoScript(policyData.rego || '')
       setName(policyData.name || '')
 
-      if (editor) {
-        editor.focus()
+      if (regoEditor) {
+        regoEditor.focus()
         setTimeout(() => {
-          editor.setSelection(new monaco.Selection(0, 0, 0, 0))
+          regoEditor.setSelection(new monaco.Selection(0, 0, 0, 0))
         }, 0)
       }
     }
-  }, [policyData, editor])
+  }, [policyData, regoEditor])
 
   return (
     <>
       <PageHeader title={<Layout.Horizontal>{policyNameEditor()}</Layout.Horizontal>} toolbar={toolbar} />
       <Page.Body loading={loadingPolicy}>
-        <Container className={css.container} padding="medium">
-          <Text className={css.regoLabel}>Rego Script</Text>
-          <Layout.Horizontal spacing="small" className={css.layout} ref={ref}>
-            <Container className={css.leftContainer}>
+        <Container className={css.container}>
+          <SplitPane
+            split="vertical"
+            defaultSize="60%"
+            minSize={400}
+            maxSize={-300}
+            onChange={relayoutEditors}
+            resizerStyle={{ width: '25px', background: 'none', borderLeft: 'none', borderRight: 'none' }}
+            pane2Style={{ margin: 'var(--spacing-xlarge) var(--spacing-xlarge) var(--spacing-xlarge) 0' }}
+          >
+            <Container ref={scriptContainerRef} className={cx(css.module, css.regoContainer)}>
               <MonacoEditor
-                width={`${contentWidth}px`}
-                height={`${contentHeight}px`}
                 language="rego"
-                theme="vs-dark"
+                theme="vs-light"
                 value={regoScript}
                 options={editorOptions}
                 onChange={newValue => {
                   setRegoScript(newValue)
                 }}
                 editorWillMount={monaco => {
+                  // Registering new language
                   monaco.languages.register({ id: 'rego' })
+
+                  // Registering rego language tokens
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   ;(monaco.languages.setMonarchTokensProvider as (name: string, format: any) => void)(
                     'rego',
                     REGO_FORMAT
                   )
-
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  // ;(monaco.editor.defineTheme as (name: string, theme: any) => void)('rego-dark', REGO_THEME)
                 }}
                 editorDidMount={_editor => {
-                  setEditor(_editor)
+                  setRegoEditor(_editor)
                 }}
               />
             </Container>
-
-            <Container className={css.rightContainer}>
-              <Layout.Vertical spacing="medium" style={{ height: '100%' }}>
-                <Container style={{ height: '50%' }}>
-                  <Layout.Vertical style={{ height: '100%' }}>
-                    <Container padding="medium" flex className={css.inputHeader}>
-                      <Text color={Color.WHITE}>Input</Text>
-                      <FlexExpander />
-                      <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL} text="Select Input" />
-                    </Container>
-                    <Container flex className={css.inputValue}>
-                      <TextArea
-                        large={true}
-                        onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-                          setInput(event.target.value)
-                        }}
-                        value={input}
-                        fill
-                        onBlur={() => {
+            <SplitPane
+              split="horizontal"
+              defaultSize="50%"
+              minSize={100}
+              maxSize={-100}
+              onChange={relayoutEditors}
+              resizerStyle={{ height: '25px', background: 'none', borderTop: 'none', borderBottom: 'none' }}
+              pane2Style={{ overflow: 'hidden', flexShrink: 'unset' }}
+            >
+              <Container className={cx(css.module, css.inputContainer)}>
+                <Layout.Vertical style={{ height: '100%' }}>
+                  <Container padding="medium" flex className={css.inputHeader}>
+                    <Text color={Color.WHITE}>Input</Text>
+                    <FlexExpander />
+                    <Layout.Horizontal spacing="small">
+                      <Button
+                        variation={ButtonVariation.ICON}
+                        icon="code"
+                        size={ButtonSize.SMALL}
+                        onClick={() => {
                           try {
                             setInput(JSON.stringify(JSON.parse(input), null, 2))
-                          } catch {
-                            // eslint-disable-line no-empty
+                          } catch (e) {
+                            showToaster(getErrorMessage(e), { intent: Intent.DANGER })
                           }
                         }}
-                        style={{ height: '100%' }}
                       />
-                    </Container>
-                  </Layout.Vertical>
-                </Container>
-
-                <Container style={{ height: '50%' }}>
-                  <Layout.Vertical style={{ height: '100%' }}>
-                    <Container padding="medium" flex className={css.inputHeader}>
-                      <Text color={Color.WHITE}>Output</Text>
-                    </Container>
-                    <Container flex className={css.inputValue}>
-                      <TextArea large={true} readOnly value={output} fill style={{ height: '100%' }} />
-                    </Container>
-                  </Layout.Vertical>
-                </Container>
-              </Layout.Vertical>
-            </Container>
-          </Layout.Horizontal>
+                      <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL} text="Select Input" />
+                    </Layout.Horizontal>
+                  </Container>
+                  <Container flex className={css.ioEditor} ref={inputContainerRef}>
+                    <MonacoEditor
+                      language="json"
+                      theme="vs-light"
+                      value={input}
+                      options={editorOptions}
+                      onChange={newValue => {
+                        setInput(newValue)
+                      }}
+                      editorDidMount={setInputEditor}
+                    />
+                  </Container>
+                </Layout.Vertical>
+              </Container>
+              <Container className={cx(css.module, css.outputContainer)}>
+                <Layout.Vertical style={{ height: '100%' }}>
+                  <Container padding="medium" flex className={css.inputHeader}>
+                    <Text color={Color.WHITE}>Output</Text>
+                    <FlexExpander />
+                  </Container>
+                  <Container flex className={css.ioEditor} ref={outputContainerRef}>
+                    <MonacoEditor
+                      language="json"
+                      theme="vs-light"
+                      value={output}
+                      options={{ ...editorOptions, readOnly: true }}
+                      onChange={newValue => {
+                        setOutput(newValue)
+                      }}
+                      editorDidMount={setOutputEditor}
+                    />
+                  </Container>
+                </Layout.Vertical>
+              </Container>
+            </SplitPane>
+          </SplitPane>
         </Container>
       </Page.Body>
     </>

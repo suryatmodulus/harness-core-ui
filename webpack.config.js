@@ -234,7 +234,7 @@ const commonPlugins = [
   }),
   new MonacoWebpackPlugin({
     // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options
-    languages: ['yaml', 'shell', 'powershell']
+    languages: ['json', 'yaml', 'shell', 'powershell']
   }),
   new GenerateStringTypesPlugin()
 ]

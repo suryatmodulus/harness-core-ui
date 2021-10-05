@@ -412,9 +412,11 @@
 <a name='L353'></a><a href='#L353'>353</a>
 <a name='L354'></a><a href='#L354'>354</a>
 <a name='L355'></a><a href='#L355'>355</a>
-<a name='L356'></a><a href='#L356'>356</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-yes">143x</span>
+<a name='L356'></a><a href='#L356'>356</a>
+<a name='L357'></a><a href='#L357'>357</a>
+<a name='L358'></a><a href='#L358'>358</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -427,11 +429,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-yes">143x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -443,18 +445,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-yes">143x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">143x</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">143x</span>
-<span class="cline-any cline-yes">143x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -491,7 +493,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">143x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-yes">116x</span>
 <span class="cline-any cline-yes">116x</span>
 <span class="cline-any cline-yes">116x</span>
@@ -515,7 +518,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">143x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-yes">173x</span>
 <span class="cline-any cline-yes">173x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -766,7 +770,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">143x</span>
+<span class="cline-any cline-yes">144x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import {
@@ -846,29 +850,31 @@ export interface DelegateSelectorProps {
 &nbsp;
 type InitialFormData = { delegateSelectors: Array&lt;string&gt; }
 &nbsp;
-const NoMatchingDelegateWarning: React.FC&lt;{ delegatesFound: DelegatesFoundState }&gt; = props =&gt; {
-  const { getString } = useStrings()
-  const { delegatesFound } = props
-  if (delegatesFound === DelegatesFoundState.ActivelyConnected) {
-    return &lt;&gt;&lt;/&gt;
+const NoMatchingDelegateWarning: React.FC&lt;{ delegatesFound: DelegatesFoundState; delegateSelectors: string[] }&gt; =
+  props =&gt; {
+    const { getString } = useStrings()
+    const { delegatesFound, delegateSelectors } = props
+    if (delegatesFound === DelegatesFoundState.ActivelyConnected) {
+      return &lt;&gt;&lt;/&gt;
+    }
+    const message =
+      delegatesFound === DelegatesFoundState.NotConnected
+        ? getString('connectors.delegate.noMatchingDelegatesActive')
+        : getString('connectors.delegate.noMatchingDelegate', { tags: delegateSelectors.join(', ') })
+    const dataName =
+      delegatesFound === DelegatesFoundState.NotConnected ? 'delegateNoActiveMatchWarning' : 'delegateNoMatchWarning'
+    return (
+      &lt;Text
+        icon="warning-sign"
+        iconProps={{ margin: { right: 'xsmall' }, color: Color.YELLOW_900 }}
+        font={{ size: 'small', weight: 'semi-bold' }}
+        data-name={dataName}
+        className={css.noDelegateWarning}
+      &gt;
+        {message}
+      &lt;/Text&gt;
+    )
   }
-  const message =
-    delegatesFound === DelegatesFoundState.NotConnected
-      ? getString('connectors.delegate.noMatchingDelegatesActive')
-      : getString('connectors.delegate.noMatchingDelegate')
-  const dataName =
-    delegatesFound === DelegatesFoundState.NotConnected ? 'delegateNoActiveMatchWarning' : 'delegateNoMatchWarning'
-  return (
-    &lt;Text
-      icon="warning-sign"
-      iconProps={{ margin: { right: 'xsmall' }, color: Color.YELLOW_900 }}
-      font={{ size: 'small', weight: 'semi-bold' }}
-      data-name={dataName}
-    &gt;
-      {message}
-    &lt;/Text&gt;
-  )
-}
 &nbsp;
 const DelegateSelectorStep: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; DelegateSelectorProps&gt; = props =&gt; {
   const { showSuccess, showError } = useToaster()
@@ -1112,7 +1118,7 @@ const DelegateSelectorStep: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp
                 rightIcon="chevron-right"
                 data-testid="delegateSaveAndContinue"
               /&gt;
-              &lt;NoMatchingDelegateWarning delegatesFound={delegatesFound} /&gt;
+              &lt;NoMatchingDelegateWarning delegatesFound={delegatesFound} delegateSelectors={delegateSelectors} /&gt;
             &lt;/Layout.Horizontal&gt;
           &lt;/Form&gt;
         &lt;/Formik&gt;
@@ -1129,7 +1135,7 @@ export default DelegateSelectorStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 05 2021 07:54:09 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 05 2021 11:25:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

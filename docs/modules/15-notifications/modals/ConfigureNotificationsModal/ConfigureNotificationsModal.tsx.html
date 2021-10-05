@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">86.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>19/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">86.36% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>19/22</span>
             </div>
         
             
@@ -135,7 +135,14 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,11 +153,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -183,6 +193,10 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -221,12 +235,14 @@ import {
   NotificationType,
   EmailNotificationConfiguration,
   SlackNotificationConfiguration,
-  PagerDutyNotificationConfiguration
+  PagerDutyNotificationConfiguration,
+  MSTeamsNotificationConfiguration
 } from '@notifications/interfaces/Notifications'
 &nbsp;
 import ConfigureEmailNotifications from './views/ConfigureEmailNotifications/ConfigureEmailNotifications'
 import ConfigureSlackNotifications from './views/ConfigureSlackNotifications/ConfigureSlackNotifications'
 import ConfigurePagerDutyNotifications from './views/ConfigurePagerDutyNotifications/ConfigurePagerDutyNotifications'
+import ConfigureMSTeamsNotifications from './views/ConfigureMSTeamsNotifications/ConfigureMSTeamsNotifications'
 &nbsp;
 import css from './ConfigureNotificationsModal.module.scss'
 &nbsp;
@@ -235,6 +251,7 @@ type FormSuccess = (
     | EmailNotificationConfiguration
     | SlackNotificationConfiguration
     | PagerDutyNotificationConfiguration
+    | MSTeamsNotificationConfiguration
 ) =&gt; void
 &nbsp;
 export interface UseConfigureNotificationsModalProps {
@@ -261,6 +278,10 @@ const ModalBody: React.FC&lt;ModalBodyProps&gt; = ({ type, onSuccess, hideModal 
       return &lt;ConfigureSlackNotifications onSuccess={onSuccess} hideModal={hideModal} /&gt;
     case NotificationType.PagerDuty:
       return &lt;ConfigurePagerDutyNotifications onSuccess={onSuccess} hideModal={hideModal} /&gt;
+<span class="branch-3 cbranch-no" title="branch not covered" >    case NotificationType.MsTeams:</span>
+<span class="cstat-no" title="statement not covered" >      return &lt;ConfigureMSTeamsNotifications onSuccess={onSuccess} hideModal={hideModal} /&gt;</span>
+<span class="branch-4 cbranch-no" title="branch not covered" >    default:</span>
+<span class="cstat-no" title="statement not covered" >      return null</span>
   }
 }
 &nbsp;
@@ -298,7 +319,7 @@ export default useConfigureNotificationsModal
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 04 2021 23:02:27 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 05 2021 02:08:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

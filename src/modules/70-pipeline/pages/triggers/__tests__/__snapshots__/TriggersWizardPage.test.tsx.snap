@@ -615,7 +615,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                   </div>
                                 </div>
                                 <div
-                                  class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small"
+                                  class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small StyledProps--padding-top-small"
                                 >
                                   <div
                                     class="bp3-form-group"

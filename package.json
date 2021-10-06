@@ -1,7 +1,7 @@
 {
   "name": "nextgenui",
   "description": "Harness Inc",
-  "version": "0.270.0",
+  "version": "0.17.2",
   "author": "Harness Inc",
   "license": "Harness Inc",
   "private": true,
@@ -71,7 +71,10 @@
     "strings:loaders": "node scripts/strings/generateStrings.mjs",
     "prepare": "husky install && patch-package",
     "fmt": "prettier --write \"./src/**/*.{ts,tsx,css}\"",
-    "generate-merged-coverage": "node mergedCoverage.js"
+    "generate-merged-coverage": "node mergedCoverage.js",
+    "generate-microfrontend-types": "tsc --project src/microfrontends/tsconfig.json; node scripts/types-package-json.js",
+    "postgenerate-microfrontend-types": "prettier --write declarations/*.ts",
+    "publish-types": "yarn generate-microfrontend-types; yarn publish declarations; rm -rf declarations"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",

@@ -43,7 +43,7 @@ if (isCypress && isCypressCoverage) {
 }
 const config = {
   context: CONTEXT,
-  entry: './src/framework/app/App.tsx',
+  entry: './src/framework/app/bootstrap.tsx',
   target: 'web',
   mode: DEV ? 'development' : 'production',
   output: {

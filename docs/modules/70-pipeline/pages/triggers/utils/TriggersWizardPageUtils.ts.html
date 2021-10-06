@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.47% </span>
+                <span class="strong">73.51% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>443/603</span>
+                <span class='fraction'>444/604</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.21% </span>
+                <span class="strong">53.52% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1370/2527</span>
+                <span class='fraction'>1370/2560</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.99% </span>
+                <span class="strong">71.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>401/557</span>
+                <span class='fraction'>401/558</span>
             </div>
         
             
@@ -2001,7 +2001,14 @@
 <a name='L1942'></a><a href='#L1942'>1942</a>
 <a name='L1943'></a><a href='#L1943'>1943</a>
 <a name='L1944'></a><a href='#L1944'>1944</a>
-<a name='L1945'></a><a href='#L1945'>1945</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">45x</span>
+<a name='L1945'></a><a href='#L1945'>1945</a>
+<a name='L1946'></a><a href='#L1946'>1946</a>
+<a name='L1947'></a><a href='#L1947'>1947</a>
+<a name='L1948'></a><a href='#L1948'>1948</a>
+<a name='L1949'></a><a href='#L1949'>1949</a>
+<a name='L1950'></a><a href='#L1950'>1950</a>
+<a name='L1951'></a><a href='#L1951'>1951</a>
+<a name='L1952'></a><a href='#L1952'>1952</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">45x</span>
 <span class="cline-any cline-yes">45x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3229,6 +3236,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">45x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3247,7 +3255,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -5094,7 +5108,7 @@ export const parseArtifactsManifests = ({
 <span class="cstat-no" title="statement not covered" >  return {}</span>
 }
 &nbsp;
-const getFilteredStage = (pipelineObj: any, stageId: string): any =&gt; {
+export const getFilteredStage = (pipelineObj: any, stageId: string): any =&gt; {
   let filteredStage
   for (const item of pipelineObj) {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (Array.isArray(item.parallel)) {
@@ -5171,6 +5185,7 @@ export const filterSideCarArtifacts = <span class="fstat-no" title="function not
     sidecars?.find(<span class="fstat-no" title="function not covered" >(a</span>rtifactObj: any) =&gt; <span class="cstat-no" title="statement not covered" >artifactObj?.sidecar?.identifier === artifactId)</span>
   )
 }
+&nbsp;
 // This is to filter the manifestIndex
 // with the selectedArtifact's index
 export const filterArtifactIndex = <span class="fstat-no" title="function not covered" >({</span>
@@ -5184,14 +5199,20 @@ export const filterArtifactIndex = <span class="fstat-no" title="function not co
   artifactId: any
   isManifest: boolean
 }): number =&gt; {
-  const filteredStage = <span class="cstat-no" title="statement not covered" >(runtimeData || []).find(<span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >item?.stage?.identifier === stageId)</span></span>
+  const filteredStage = <span class="cstat-no" title="statement not covered" >getFilteredStage(runtimeData, stageId)</span>
 <span class="cstat-no" title="statement not covered" >  if (isManifest) {</span>
 <span class="cstat-no" title="statement not covered" >    return filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests.findIndex(</span>
 <span class="fstat-no" title="function not covered" >      (m</span>anifestObj: any) =&gt; <span class="cstat-no" title="statement not covered" >manifestObj?.manifest?.identifier === artifactId</span>
     )
   } else {
-<span class="cstat-no" title="statement not covered" >    return filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.findIndex(</span>
-<span class="fstat-no" title="function not covered" >      (a</span>rtifactObj: any) =&gt; <span class="cstat-no" title="statement not covered" >artifactObj?.artifact?.identifier === artifactId</span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.artifacts.sidecars?.findIndex(
+<span class="fstat-no" title="function not covered" >        (a</span>rtifactObj: any) =&gt; <span class="cstat-no" title="statement not covered" >artifactObj?.sidecar?.identifier === artifactId</span>
+      ) ||
+      filteredStage?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts?.sidecars?.findIndex(
+<span class="fstat-no" title="function not covered" >        (a</span>rtifactObj: any) =&gt; <span class="cstat-no" title="statement not covered" >artifactObj?.sidecar?.identifier === artifactId</span>
+      ) ||
+      -1
     )
   }
 }
@@ -5896,7 +5917,7 @@ export function updatePipelineArtifact({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 06 2021 14:14:58 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 06 2021 19:49:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

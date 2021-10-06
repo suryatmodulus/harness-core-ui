@@ -1369,6 +1369,37 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     }
   )
 
+  const validateCICodebase = (formData: FlatValidArtifactFormikValuesInterface): FormikErrors<Record<string, any>> => {
+    if (isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.type'))) {
+      return {
+        'pipeline.properties.ci.codebase.build.type': getString(
+          'pipeline.failureStrategies.validation.ciCodebaseRequired'
+        )
+      }
+    }
+    const ciCodeBaseType = get(formData, 'pipeline.properties.ci.codebase.build.type')
+    if (ciCodeBaseType === 'branch' && isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.branch'))) {
+      return {
+        'pipeline.properties.ci.codebase.build.spec.branch': getString(
+          'pipeline.failureStrategies.validation.gitBranchRequired'
+        )
+      }
+    } else if (ciCodeBaseType === 'tag' && isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.tag'))) {
+      return {
+        'pipeline.properties.ci.codebase.build.spec.tag': getString(
+          'pipeline.failureStrategies.validation.gitTagRequired'
+        )
+      }
+    } else if (ciCodeBaseType === 'PR' && isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.number'))) {
+      return {
+        'pipeline.properties.ci.codebase.build.spec.number': getString(
+          'pipeline.failureStrategies.validation.gitPRRequired'
+        )
+      }
+    }
+    return {}
+  }
+
   const renderWebhookWizard = (): JSX.Element | undefined => {
     const isEdit = !!onEditInitialValues?.identifier
     if (!wizardMap) return undefined
@@ -1382,6 +1413,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
             getString
           ),
+          validate: (
+            formData: FlatValidArtifactFormikValuesInterface
+          ): FormikErrors<FlatValidArtifactFormikValuesInterface> => validateCICodebase(formData),
+          validateOnChange: true,
           enableReinitialize: true
         }}
         className={css.tabs}
@@ -1430,6 +1465,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             initialValues.triggerType as unknown as NGTriggerSourceV2['type'],
             getString
           ),
+          validate: (
+            formData: FlatValidArtifactFormikValuesInterface
+          ): FormikErrors<FlatValidArtifactFormikValuesInterface> => validateCICodebase(formData),
+          validateOnChange: true,
           enableReinitialize: true
         }}
         className={css.tabs}
@@ -1476,45 +1515,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
             getString
           ),
-          validate: (formData: any): FormikErrors<any> => {
-            if (isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.type'))) {
-              return {
-                'pipeline.properties.ci.codebase.build.type': getString(
-                  'pipeline.failureStrategies.validation.ciCodebaseRequired'
-                )
-              }
-            }
-            const ciCodeBaseType = get(formData, 'pipeline.properties.ci.codebase.build.type')
-            if (
-              ciCodeBaseType === 'branch' &&
-              isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.branch'))
-            ) {
-              return {
-                'pipeline.properties.ci.codebase.build.spec.branch': getString(
-                  'pipeline.failureStrategies.validation.gitBranchRequired'
-                )
-              }
-            } else if (
-              ciCodeBaseType === 'tag' &&
-              isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.tag'))
-            ) {
-              return {
-                'pipeline.properties.ci.codebase.build.spec.tag': getString(
-                  'pipeline.failureStrategies.validation.gitTagRequired'
-                )
-              }
-            } else if (
-              ciCodeBaseType === 'PR' &&
-              isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.number'))
-            ) {
-              return {
-                'pipeline.properties.ci.codebase.build.spec.number': getString(
-                  'pipeline.failureStrategies.validation.gitPRRequired'
-                )
-              }
-            }
-            return {}
-          },
+          validate: (
+            formData: FlatValidArtifactFormikValuesInterface
+          ): FormikErrors<FlatValidArtifactFormikValuesInterface> => validateCICodebase(formData),
           validateOnChange: true,
           enableReinitialize: true
         }}

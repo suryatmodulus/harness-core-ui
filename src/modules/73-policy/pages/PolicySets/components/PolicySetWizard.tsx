@@ -16,46 +16,79 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useMutate } from 'restful-react'
+import { isEqual, pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
+
 import { NameIdDescriptionTags } from '@common/components'
-import { useCreatePolicySet, useGetPolicyList, Policy } from 'services/pm'
+import {
+  useCreatePolicySet,
+  useGetPolicyList,
+  Policy,
+  useUpdatePolicySet,
+  LinkedPolicy,
+  useGetPolicySet,
+  PolicySetWithLinkedPolicies
+} from 'services/pm'
 import { useToaster } from '@common/exports'
 import css from '../PolicySets.module.scss'
+
 type CreatePolicySetWizardProps = StepProps<{ refetch: () => void; hideModal: () => void }> & {
   hideModal?: () => void
   refetch: () => void
+  prevStepData: any
+  policySetData: PolicySetWithLinkedPolicies | any
 }
 
-const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep }) => {
+const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData, prevStepData }) => {
+  const _policySetData = { ...policySetData, ...prevStepData }
+
   const { mutate: createPolicySet } = useCreatePolicySet({})
+  const { mutate: updatePolicySet } = useUpdatePolicySet({ policyset: _policySetData?.id?.toString() })
   const { showSuccess, showError } = useToaster()
+
   const onSubmitFirstStep = async (values: any) => {
     values['enabled'] = true
-    createPolicySet(values)
-      .then(response => {
-        showSuccess(`Successfully created ${values.name} Policy Set`)
-        nextStep?.({ ...values, id: response.id })
-      })
-      .catch(error => showError(error?.message))
+
+    const _fields = pick(_policySetData, ['action', 'enabled', 'name', 'type'])
+    const _clonedValues = pick(values, ['action', 'enabled', 'name', 'type'])
+    // console.log(Object.keys(_clonedValues).length, policySetData?.id, _fields, _clonedValues)
+    if (!isEqual(_fields, _clonedValues)) {
+      if (policySetData?.id || Object.keys(_fields).length === Object.keys(_clonedValues).length) {
+        updatePolicySet(values)
+          .then(response => {
+            showSuccess(`Successfully updated ${values.name} Policy Set`)
+            nextStep?.({ ...values, id: response.id })
+          })
+          .catch(error => showError(error?.message))
+      } else {
+        createPolicySet(values)
+          .then(response => {
+            showSuccess(`Successfully created ${values.name} Policy Set`)
+            nextStep?.({ ...values, id: response.id })
+          })
+          .catch(error => showError(error?.message))
+      }
+    } else {
+      nextStep?.({ ...values, id: _policySetData.id })
+    }
   }
 
   const { getString } = useStrings()
+
   return (
     <Container padding="small" height={500}>
       <Text margin={{ bottom: 'xlarge' }} font={{ size: 'medium' }} color={Color.BLACK}>
         {getString('overview')}
       </Text>
       <Formik
+        enableReinitialize={true}
         onSubmit={values => {
           onSubmitFirstStep(values)
-          //   nextStep?.({ detailsData: values })
         }}
         formName="CreatePolicySet"
         validationSchema={Yup.object().shape({
-          name: Yup.string()
-            .trim()
-            .required(getString('common.policiesSets.stepOne.validName')),
+          name: Yup.string().trim().required(getString('common.policiesSets.stepOne.validName')),
           identifier: Yup.string().when('name', {
             is: val => val?.length,
             then: Yup.string()
@@ -66,8 +99,10 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep }) => {
           })
         })}
         initialValues={{
-          name: '',
-          identifier: ''
+          name: _policySetData?.name || '',
+          identifier: _policySetData?.name || '',
+          type: _policySetData?.type || '',
+          action: _policySetData?.action || ''
         }}
       >
         {formikProps => {
@@ -98,7 +133,7 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep }) => {
                 />
               </Container>
               <Layout.Horizontal>
-                <Button type="submit" intent="primary" text={getString('continue')} style={{ marginTop: '80px' }} />
+                <Button type="submit" intent="primary" text={getString('continue')} style={{ marginTop: '150px' }} />
               </Layout.Horizontal>
             </FormikForm>
           )
@@ -108,26 +143,36 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep }) => {
   )
 }
 
-const StepTwo: React.FC<{ hideModal: () => void; refetch: () => void; prevStepData: { id: string } }> = ({
-  prevStepData,
-  hideModal
-}) => {
+const StepTwo: React.FC<{
+  hideModal: () => void
+  refetch: () => void
+  prevStepData: { id: string }
+  previousStep?: (data: any) => void
+  policySetData: PolicySetWithLinkedPolicies | any
+}> = ({ prevStepData, hideModal, refetch, policySetData, previousStep }) => {
   const { getString } = useStrings()
-  const { data: policies, refetch } = useGetPolicyList({})
+  const { data: policies } = useGetPolicyList({})
   const [policyId, setPolicyId] = React.useState('')
   const [severity, setSeverity] = React.useState('')
+  const [plList, setPlList] = React.useState<SelectOption[]>()
   const [deLinkpolicyId, setDelinkPolicyId] = React.useState('')
+  const [addedPolicies, setAddedPolicies] = React.useState<LinkedPolicy[]>()
   const policyList: SelectOption[] = []
 
   const { showSuccess, showError } = useToaster()
 
   React.useEffect(() => {
     if (policies) {
-      policies.map((v: Policy) => {
+      policies.forEach((v: Policy) => {
         policyList.push({ label: v.name as string, value: v.id?.toString() as string })
       })
+      setPlList(policyList)
     }
   }, [policies])
+
+  const { data, loading: fetchingPolicySet } = useGetPolicySet({
+    policyset: policySetData?.id?.toString() || prevStepData?.id
+  })
 
   const { mutate: patchPolicy } = useMutate({
     verb: 'PATCH',
@@ -154,20 +199,18 @@ const StepTwo: React.FC<{ hideModal: () => void; refetch: () => void; prevStepDa
       handlePatchRequest(severity)
         .then(() => {
           showSuccess('Successfully linked policy with the policy set')
-          refetch()
         })
         .catch(error => {
           showError(error.message || error)
         })
     }
-  }, [policyId && severity])
+  }, [policyId, severity])
 
   React.useEffect(() => {
     if (deLinkpolicyId) {
       handleDeleteRequest()
         .then(() => {
           showSuccess('Successfully delinked policy with the policy set')
-          refetch()
         })
         .catch(error => {
           showError(error.message || error)
@@ -190,18 +233,46 @@ const StepTwo: React.FC<{ hideModal: () => void; refetch: () => void; prevStepDa
     }
   }
 
+  React.useEffect(() => {
+    const _attachedPolicy: LinkedPolicy[] = []
+    if (data && data.policies?.length) {
+      data.policies.forEach((policy: LinkedPolicy) => {
+        const _obj: any = {
+          policy: {
+            value: policy.id?.toString(),
+            label: policy.name
+          },
+          severity: {
+            label: policy.severity == 'error' ? 'Error and exit' : 'Warn & continue',
+            value: policy.severity
+          }
+        }
+        _attachedPolicy.push(_obj)
+      })
+      setAddedPolicies(_attachedPolicy)
+    }
+  }, [data])
+
+  const onPreviousStep = (): void => {
+    previousStep?.({ ...prevStepData })
+  }
+
   return (
     <Container padding="small" height={500}>
       <Text margin={{ bottom: 'xlarge' }} font={{ size: 'medium' }} color={Color.BLACK}>
         {getString('common.policiesSets.evaluationCriteria')}
       </Text>
       <Formik
+        formLoading={fetchingPolicySet || undefined}
+        enableReinitialize={true}
         onSubmit={() => {
           hideModal()
           refetch()
         }}
         formName="patchPolicy"
-        initialValues={{}}
+        initialValues={{
+          attachedPolicies: addedPolicies
+        }}
       >
         {() => {
           return (
@@ -210,12 +281,13 @@ const StepTwo: React.FC<{ hideModal: () => void; refetch: () => void; prevStepDa
                 <FieldArray
                   label="Applies to Pipeline on the following events"
                   addLabel="Add Policy"
+                  key={Math.random().toString(36).substring(2, 8)}
                   name="attachedPolicies"
-                  onChange={data => handleChangeValue(data)}
+                  onChange={_data => handleChangeValue(_data)}
                   insertRowAtBeginning={false}
                   isDeleteOfRowAllowed={() => true}
-                  onDeleteOfRow={async data => {
-                    setDelinkPolicyId(data?.policy?.value)
+                  onDeleteOfRow={async onDeleteData => {
+                    setDelinkPolicyId(onDeleteData?.policy?.value)
                     return true
                   }}
                   containerProps={{ className: css.containerProps }}
@@ -226,7 +298,7 @@ const StepTwo: React.FC<{ hideModal: () => void; refetch: () => void; prevStepDa
                       renderer: (value, _index, handleChange) => (
                         <Layout.Vertical flex={{ alignItems: 'end' }} spacing="xsmall">
                           <Select
-                            items={policyList}
+                            items={plList?.length ? plList : []}
                             value={value}
                             inputProps={{
                               placeholder: 'Select Policy'
@@ -258,7 +330,8 @@ const StepTwo: React.FC<{ hideModal: () => void; refetch: () => void; prevStepDa
                   ]}
                 />
 
-                <Layout.Horizontal>
+                <Layout.Horizontal spacing="medium">
+                  <Button type="button" text={getString('back')} onClick={onPreviousStep} />
                   <Button type="submit" intent="primary" text={getString('finish')} />
                 </Layout.Horizontal>
               </Container>

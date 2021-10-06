@@ -54,7 +54,7 @@ const PolicyEvaluations: React.FC = () => {
   useDocumentTitle(getString('common.policies'))
   const [page, setPage] = useState(0)
   const [searchTerm, setsearchTerm] = useState<string>('')
-
+  const [policySetData, setPolicySetData] = React.useState<any>()
   const modalProps: IDialogProps = {
     isOpen: true,
     enforceFocus: false,
@@ -86,7 +86,7 @@ const PolicyEvaluations: React.FC = () => {
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog {...modalProps}>
-        <PolicySetWizard hideModal={hideModal} refetch={refetch}></PolicySetWizard>
+        <PolicySetWizard hideModal={hideModal} refetch={refetch} policySetData={policySetData}></PolicySetWizard>
         <Button
           minimal
           className={css.closeIcon}
@@ -99,7 +99,7 @@ const PolicyEvaluations: React.FC = () => {
         />
       </Dialog>
     ),
-    []
+    [policySetData]
   )
 
   const newUserGroupsBtn = (): JSX.Element => (
@@ -107,7 +107,10 @@ const PolicyEvaluations: React.FC = () => {
       text={getString('common.policiesSets.newPolicyset')}
       variation={ButtonVariation.PRIMARY}
       icon="plus"
-      onClick={() => showModal()}
+      onClick={() => {
+        setPolicySetData({})
+        showModal()
+      }}
     />
   )
 
@@ -223,14 +226,21 @@ const PolicyEvaluations: React.FC = () => {
             }}
           />
           <Menu>
-            <Button
+            <Menu.Item
+              icon="edit"
+              text={getString('edit')}
+              onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+                event.stopPropagation()
+                setMenuOpen(false)
+                setPolicySetData(row.original)
+                showModal()
+              }}
+            />
+            <Menu.Item
               icon="trash"
-              style={{ color: 'var(--white) !important' }}
-              inline={true}
-              variation={ButtonVariation.LINK}
               text={getString('delete')}
-              onClick={e => {
-                e.stopPropagation()
+              onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+                event.stopPropagation()
                 setMenuOpen(false)
                 openDeleteDialog()
               }}

@@ -2,114 +2,151 @@
 // TODO: This file is just a place-holder
 //
 import React, { useState, useEffect, useMemo } from 'react'
-import * as moment from 'moment'
-import { ButtonVariation, ExpandingSearchInput, Layout, Button, Text, Color } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
-import { useGet } from 'restful-react'
+// import * as moment from 'moment'
+import { Text, Color, Layout, Icon } from '@wings-software/uicore'
+// import { useParams } from 'react-router-dom'
+// import { useGet } from 'restful-react'
+import ReactTimeago from 'react-timeago'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
-import { StringUtils } from '@common/exports'
-import { PageHeader } from '@common/components/Page/PageHeader'
+// import { StringUtils } from '@common/exports'
 import { Page } from '@common/exports'
 
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+// import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 import { setPageNumber } from '@common/utils/utils'
 import Table from '@common/components/Table/Table'
 
+import { useGetEvaluationList, Evaluation, EvaluationDetail } from 'services/pm'
+
 import css from './PolicyEvaluations.module.scss'
 
-export interface PoliciesDTO {
-  account_id?: number
-  created: number
-  id: number
-  name: string
-  org_id?: string
-  project_id?: string
-  rego: string
-  updated: number
-}
-
-const PolicySets: React.FC = () => {
-  const { accountId } = useParams<ProjectPathProps>()
+const PolicyEvaluations: React.FC = () => {
   const { getString } = useStrings()
   useDocumentTitle(getString('common.policies'))
   const [page, setPage] = useState(0)
-  const [searchTerm, setsearchTerm] = useState<string>('')
-  const {
-    data: policyList,
-    loading: fetchingPolicies,
-    error,
-    refetch
-  } = useGet({
-    path: 'pm/api/v1/policies',
-    queryParams: {
-      accountId: accountId
-    }
-  })
+
+  const { data: evaluationsList, loading: fetchingEvaluations, error, refetch } = useGetEvaluationList({})
 
   useEffect(() => {
-    setPageNumber({ setPage, page, pageItemsCount: policyList?.pageCount || 1000 })
-  }, [policyList])
+    setPageNumber({ setPage, page, pageItemsCount: 1000 })
+  }, [evaluationsList])
 
-  const newUserGroupsBtn = (): JSX.Element => (
-    <Button text={getString('common.policy.newPolicy')} variation={ButtonVariation.PRIMARY} icon="plus" />
-  )
-
-  const RenderPolicyName: Renderer<CellProps<PoliciesDTO>> = ({ row }) => {
+  const RenderPipelineName: Renderer<CellProps<Evaluation>> = ({ row }) => {
     const record = row.original
+
+    return (
+      <Layout.Vertical spacing="small">
+        <Text color={Color.BLACK} lineClamp={1} font={{ weight: 'semi-bold' }}>
+          {record.summary?.input?.pipeline.name}
+        </Text>
+        <Text color={Color.BLACK} lineClamp={1}>
+          {record.summary?.input?.pipeline.projectIdentifier} / {record.summary?.input?.pipeline.orgIdentifier}
+        </Text>
+      </Layout.Vertical>
+    )
+  }
+
+  const RenderEntityType: Renderer<CellProps<Evaluation>> = () => {
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {record.name}
+        {'Pipeline'}
       </Text>
     )
   }
 
-  const getValue = (value: number) => {
-    return value ? moment.unix(value / 1000).format(StringUtils.DEFAULT_DATE_FORMAT) : null
-  }
-
-  const RenderCreatedAt: Renderer<CellProps<PoliciesDTO>> = ({ row }) => {
+  const RenderEvaluatedon: Renderer<CellProps<Evaluation>> = ({ row }) => {
     const record = row.original
+
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {getValue(record.created)}
+        <ReactTimeago date={record.created as number} />
       </Text>
     )
   }
 
-  const RenderLastUpdated: Renderer<CellProps<PoliciesDTO>> = ({ row }) => {
+  const RenderPolicySets: Renderer<CellProps<Evaluation>> = ({ row }) => {
     const record = row.original
+
+    return (
+      <>
+        {record?.summary?.details?.map((data: EvaluationDetail, index: number) => {
+          return (
+            <span key={(data.policyset_name || '') + index} className={css.pill}>
+              {data.policyset_name}
+            </span>
+          )
+        })}
+      </>
+    )
+  }
+
+  const RenderAction: Renderer<CellProps<Evaluation>> = ({ row }) => {
+    const record = row.original
+
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {getValue(record.updated)}
+        {record.summary?.input?.action === 'onrun' ? 'Run' : 'Save'}
       </Text>
     )
   }
 
-  const columns: Column<PoliciesDTO>[] = useMemo(
+  const RenderStatus: Renderer<CellProps<Evaluation>> = ({ row }) => {
+    const record = row.original
+
+    return (
+      <>
+        {record.summary?.deny ? (
+          <span className={css.pillDanger}>
+            <Icon name="deployment-failed-new" size={12} style={{ marginRight: 'var(--spacing-small)' }} /> FAILED
+          </span>
+        ) : (
+          <span className={css.pillSuccess}>
+            <Icon name="tick-circle" size={12} style={{ marginRight: 'var(--spacing-small)' }} /> PASSED
+          </span>
+        )}
+      </>
+    )
+  }
+
+  const columns: Column<Evaluation>[] = useMemo(
     () => [
       {
-        Header: getString('common.policy.table.name'),
-
-        accessor: row => row.name,
-        width: '50%',
-        Cell: RenderPolicyName
+        Header: 'Entity',
+        accessor: row => row.summary?.input?.pipeline.name,
+        width: '20%',
+        Cell: RenderPipelineName
       },
       {
-        Header: getString('common.policy.table.createdAt'),
-
-        accessor: row => row.updated,
-        width: '25%',
-        Cell: RenderCreatedAt
+        Header: 'Entity Type',
+        accessor: row => row.summary?.input?.pipeline.name,
+        width: '13%',
+        Cell: RenderEntityType
       },
       {
-        Header: getString('common.policy.table.lastModified'),
-
-        accessor: row => row.updated,
-        width: '25%',
-        Cell: RenderLastUpdated
+        Header: 'Execution',
+        accessor: row => row.summary?.input?.pipeline.name,
+        width: '30%',
+        Cell: RenderPolicySets
+      },
+      {
+        Header: 'Evaluated on',
+        accessor: row => row.summary?.input?.pipeline.name,
+        width: '20%',
+        Cell: RenderEvaluatedon
+      },
+      {
+        Header: 'Action',
+        accessor: row => row.summary?.input?.pipeline.name,
+        width: '10%',
+        Cell: RenderAction
+      },
+      {
+        Header: 'Status',
+        accessor: row => row.summary?.input?.pipeline.name,
+        width: '7%',
+        Cell: RenderStatus
       }
     ],
     []
@@ -117,52 +154,27 @@ const PolicySets: React.FC = () => {
 
   return (
     <>
-      <PageHeader
-        title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>}
-        toolbar={
-          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
-            <ExpandingSearchInput
-              alwaysExpanded
-              placeholder={getString('common.policy.policySearch')}
-              onChange={text => {
-                setsearchTerm(text.trim())
-                setPage(0)
-              }}
-              width={250}
-            />
-          </Layout.Horizontal>
-        }
-      />
       <Page.Body
-        loading={fetchingPolicies}
+        loading={fetchingEvaluations}
         error={(error?.data as Error)?.message || error?.message}
         retryOnError={() => refetch()}
-        noData={
-          !searchTerm
-            ? {
-                when: () => !policyList?.length,
-                icon: 'nav-project',
-                message: getString('common.policy.noPolicy'),
-                button: newUserGroupsBtn()
-              }
-            : {
-                when: () => !policyList?.length,
-                icon: 'nav-project',
-                message: getString('common.policy.noPolicyResult')
-              }
-        }
+        noData={{
+          when: () => !evaluationsList?.length,
+          icon: 'nav-project',
+          message: getString('common.policy.noPolicyResult')
+        }}
       >
-        <Table<PoliciesDTO>
+        <Table<Evaluation>
           className={css.table}
           columns={columns}
-          data={policyList || []}
+          data={evaluationsList as Evaluation[]}
           // TODO: enable when page is ready
 
           pagination={{
-            itemCount: policyList?.length || 0,
-            pageSize: policyList?.pageSize || 1000,
-            pageCount: policyList?.pageCount || 0,
-            pageIndex: policyList?.pageIndex || 0,
+            itemCount: evaluationsList?.length || 0,
+            pageSize: 1000,
+            pageCount: 0,
+            pageIndex: 0,
             gotoPage: (pageNumber: number) => setPage(pageNumber)
           }}
         />
@@ -171,4 +183,4 @@ const PolicySets: React.FC = () => {
   )
 }
 
-export default PolicySets
+export default PolicyEvaluations

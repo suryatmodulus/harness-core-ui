@@ -83,7 +83,7 @@ const Policies: React.FC = () => {
   }
 
   const RenderColumnMenu: Renderer<CellProps<Policy>> = ({ row }) => {
-    const data = row.original
+    const data = row
     const { showSuccess, showError } = useToaster()
     const { mutate: deletePolicy } = useDeletePolicy({})
     const { openDialog: openDeleteDialog } = useConfirmationDialog({

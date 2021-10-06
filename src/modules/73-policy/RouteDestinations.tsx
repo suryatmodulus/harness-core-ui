@@ -8,7 +8,8 @@ import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import Policies from './pages/Policies/Policies'
 import PolicyControlPage from './pages/PolicyControl/PolicyControlPage'
-import PolicyEvaluations from './pages/PolicySets/PolicySets'
+import PolicySets from './pages/PolicySets/PolicySets'
+import PolicyEvaluations from './pages/PolicyEvaluations/PolicyEvaluations'
 import { EditPolicy } from './pages/EditPolicy/EditPolicy'
 import PolicyDashboard from './pages/PolicyDashboard/PolicyDashboard'
 
@@ -42,7 +43,11 @@ export default (
       </PolicyControlPage>
     </RouteWithLayout>
 
-    <RouteWithLayout path={routes.toPolicyEditPage({ ...accountPathProps, policyIdentifier: ':policyIdentifier' })} exact sidebarProps={AccountSideNavProps}>
+    <RouteWithLayout
+      path={routes.toPolicyEditPage({ ...accountPathProps, policyIdentifier: ':policyIdentifier' })}
+      exact
+      sidebarProps={AccountSideNavProps}
+    >
       <PolicyControlPage title="Edit Policy">
         <EditPolicy />
       </PolicyControlPage>
@@ -50,7 +55,7 @@ export default (
 
     <RouteWithLayout path={routes.toPolicySetsPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
       <PolicyControlPage title="Policy Sets">
-        <PolicyEvaluations />
+        <PolicySets />
       </PolicyControlPage>
     </RouteWithLayout>
 

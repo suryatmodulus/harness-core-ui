@@ -25,6 +25,9 @@ import { REGO_FORMAT } from '@policy/utils/rego'
 import { useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
 import css from './EditPolicy.module.scss'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type TestOutputResponse = any
+
 const editorOptions = {
   ignoreTrimWhitespace: true,
   minimap: { enabled: false },
@@ -38,12 +41,19 @@ const editorOptions = {
 const EDITOR_GAP = 25
 const PAGE_PADDING = 50
 
+const deselectAll = (editor?: EDITOR.IStandaloneCodeEditor): void => {
+  editor?.focus()
+  setTimeout(() => {
+    editor?.setSelection(new monaco.Selection(0, 0, 0, 0))
+  }, 0)
+}
+
 export const EditPolicy: React.FC = () => {
   const { policyIdentifier } = useParams<{ policyIdentifier: string }>()
   const [name, setName] = useState(policyIdentifier ? '' : 'My Policy 1')
   const [regoScript, setRegoScript] = useState('')
   const [input, setInput] = useState('')
-  const [output, setOutput] = useState('')
+  const [output, setOutput] = useState<TestOutputResponse>()
   const [editName, setEditName] = useState(false)
   const isInputValid = useMemo(() => {
     if (!(input || '').trim() || !(regoScript || '').trim()) {
@@ -84,22 +94,9 @@ export const EditPolicy: React.FC = () => {
         setCreatePolicyLoading(false)
       })
   }, [name, regoScript, createPolicy, setCreatePolicyLoading, updatePolicy, policyIdentifier, history, accountId])
-  const onTest = useCallback(() => {
-    setTestPolicyLoading(true)
-    evaluateRawPolicy({ rego: regoScript, input: JSON.parse(input) })
-      .then(response => {
-        try {
-          const _response = typeof response === 'string' ? JSON.parse(response) : response
-          setOutput(JSON.stringify(_response, null, 2))
-        } catch {
-          // eslint-disable-line no-empty
-        }
-      })
-      .catch(error => showToaster(getErrorMessage(error)))
-      .finally(() => setTestPolicyLoading(false))
-  }, [evaluateRawPolicy, regoScript, input])
   const { data: policyData, refetch: fetchPolicyData } = useGetPolicy({ policy: policyIdentifier, lazy: true })
   const [loadingPolicy, setLoadingPolicy] = useState(false)
+  const [testFailure, setTestFailure] = useState<boolean | undefined>()
   const scriptContainerRef = useRef<HTMLDivElement>(null)
   const inputContainerRef = useRef<HTMLDivElement>(null)
   const outputContainerRef = useRef<HTMLDivElement>(null)
@@ -143,6 +140,45 @@ export const EditPolicy: React.FC = () => {
       </Layout.Horizontal>
     )
   }
+  const layoutEditors = useCallback(() => {
+    if (scriptContainerRef.current) {
+      regoEditor?.layout({
+        width: (scriptContainerRef.current?.parentNode as HTMLDivElement)?.offsetWidth - EDITOR_GAP,
+        height: (scriptContainerRef.current?.parentNode as HTMLDivElement)?.offsetHeight - PAGE_PADDING
+      })
+      inputEditor?.layout({
+        width: (inputContainerRef.current as HTMLDivElement)?.offsetWidth,
+        height: (inputContainerRef.current as HTMLDivElement)?.offsetHeight
+      })
+      outputEditor?.layout({
+        width: (outputContainerRef.current as HTMLDivElement)?.offsetWidth,
+        height: (outputContainerRef.current as HTMLDivElement)?.offsetHeight
+      })
+    }
+  }, [regoEditor, inputEditor, outputEditor])
+  const resetOutput = useCallback(() => {
+    setOutput('')
+    setTestFailure(undefined)
+    layoutEditors()
+  }, [setOutput, setTestFailure, layoutEditors])
+  const onTest = useCallback(() => {
+    resetOutput()
+    setTestPolicyLoading(true)
+    evaluateRawPolicy({ rego: regoScript, input: JSON.parse(input) })
+      .then(response => {
+        try {
+          const _response = typeof response === 'string' ? JSON.parse(response) : response
+          setOutput(_response)
+          deselectAll(outputEditor)
+          setTestFailure(_response.deny)
+          layoutEditors()
+        } catch {
+          // eslint-disable-line no-empty
+        }
+      })
+      .catch(error => showToaster(getErrorMessage(error)))
+      .finally(() => setTestPolicyLoading(false))
+  }, [evaluateRawPolicy, regoScript, input, outputEditor, setTestFailure, layoutEditors, resetOutput])
   const toolbar = useMemo(() => {
     return (
       <Layout.Horizontal spacing="small">
@@ -194,31 +230,14 @@ export const EditPolicy: React.FC = () => {
       </Layout.Horizontal>
     )
   }, [history, testPolicyLoading, accountId, createPolicyLoading, isInputValid, onSavePolicy, onTest, regoScript])
-  const relayoutEditors = useCallback(() => {
-    if (scriptContainerRef.current) {
-      regoEditor?.layout({
-        width: (scriptContainerRef.current?.parentNode as HTMLDivElement)?.offsetWidth - EDITOR_GAP,
-        height: (scriptContainerRef.current?.parentNode as HTMLDivElement)?.offsetHeight - PAGE_PADDING
-      })
-      inputEditor?.layout({
-        width: (inputContainerRef.current as HTMLDivElement)?.offsetWidth,
-        height: (inputContainerRef.current as HTMLDivElement)?.offsetHeight
-      })
-      outputEditor?.layout({
-        width: (outputContainerRef.current as HTMLDivElement)?.offsetWidth,
-        height: (outputContainerRef.current as HTMLDivElement)?.offsetHeight
-      })
-    }
-  }, [regoEditor, inputEditor, outputEditor])
 
   useEffect(() => {
-    window.addEventListener('resize', relayoutEditors)
-    relayoutEditors()
-
+    window.addEventListener('resize', layoutEditors)
+    layoutEditors()
     return () => {
-      window.removeEventListener('resize', relayoutEditors)
+      window.removeEventListener('resize', layoutEditors)
     }
-  }, [relayoutEditors])
+  }, [layoutEditors])
 
   useEffect(() => {
     if (policyIdentifier) {
@@ -233,13 +252,7 @@ export const EditPolicy: React.FC = () => {
     if (policyData) {
       setRegoScript(policyData.rego || '')
       setName(policyData.name || '')
-
-      if (regoEditor) {
-        regoEditor.focus()
-        setTimeout(() => {
-          regoEditor.setSelection(new monaco.Selection(0, 0, 0, 0))
-        }, 0)
-      }
+      deselectAll(regoEditor)
     }
   }, [policyData, regoEditor])
 
@@ -253,7 +266,7 @@ export const EditPolicy: React.FC = () => {
             defaultSize="60%"
             minSize={400}
             maxSize={-300}
-            onChange={relayoutEditors}
+            onChange={layoutEditors}
             resizerStyle={{ width: '25px', background: 'none', borderLeft: 'none', borderRight: 'none' }}
             pane2Style={{ margin: 'var(--spacing-xlarge) var(--spacing-xlarge) var(--spacing-xlarge) 0' }}
           >
@@ -287,7 +300,7 @@ export const EditPolicy: React.FC = () => {
               defaultSize="50%"
               minSize={100}
               maxSize={-100}
-              onChange={relayoutEditors}
+              onChange={layoutEditors}
               resizerStyle={{ height: '25px', background: 'none', borderTop: 'none', borderBottom: 'none' }}
               pane2Style={{ overflow: 'hidden', flexShrink: 'unset' }}
             >
@@ -300,6 +313,7 @@ export const EditPolicy: React.FC = () => {
                       <Button
                         variation={ButtonVariation.ICON}
                         icon="code"
+                        tooltip="Format Input"
                         size={ButtonSize.SMALL}
                         onClick={() => {
                           try {
@@ -328,19 +342,52 @@ export const EditPolicy: React.FC = () => {
               </Container>
               <Container className={cx(css.module, css.outputContainer)}>
                 <Layout.Vertical style={{ height: '100%' }}>
-                  <Container padding="medium" flex className={css.inputHeader}>
+                  <Container
+                    padding="medium"
+                    flex
+                    className={css.inputHeader}
+                    style={{ paddingRight: 'var(--spacing-small)' }}
+                  >
                     <Text color={Color.WHITE}>Output</Text>
                     <FlexExpander />
+                    <Button
+                      variation={ButtonVariation.ICON}
+                      icon="trash"
+                      tooltip="Clear Output"
+                      size={ButtonSize.SMALL}
+                      onClick={resetOutput}
+                    />
                   </Container>
+                  {(testFailure == false || testFailure === true) && (
+                    <Container background={testFailure ? Color.RED_100 : Color.GREEN_100} padding="medium">
+                      <Text
+                        icon={testFailure ? 'warning-sign' : 'tick-circle'}
+                        iconProps={{
+                          style: { color: testFailure ? 'var(--red-500)' : 'var(--green-500)' },
+                          padding: { right: 'small' }
+                        }}
+                        font={{ variation: FontVariation.BODY1 }}
+                        padding={{ bottom: 'small' }}
+                      >
+                        {testFailure ? 'Policy failed to be evaluated' : 'Policy evaluated successfully'}
+                      </Text>
+                      {output?.deny_messages?.map((message: string) => (
+                        <Text
+                          padding={{ left: 'xlarge' }}
+                          key={message}
+                          font={{ variation: FontVariation.FORM_MESSAGE_DANGER }}
+                        >
+                          - {message}
+                        </Text>
+                      ))}
+                    </Container>
+                  )}
                   <Container flex className={css.ioEditor} ref={outputContainerRef}>
                     <MonacoEditor
                       language="json"
                       theme="vs-light"
-                      value={output}
+                      value={output ? JSON.stringify(output, null, 2) : ''}
                       options={{ ...editorOptions, readOnly: true }}
-                      onChange={newValue => {
-                        setOutput(newValue)
-                      }}
                       editorDidMount={setOutputEditor}
                     />
                   </Container>
@@ -353,8 +400,3 @@ export const EditPolicy: React.FC = () => {
     </>
   )
 }
-
-// TODO:
-// 1- Error handling
-// 2- Adjust height of editor/textarea when resize happens
-// 3- Prompt for policy name if it's not entered, default it to `Untitled Policy`

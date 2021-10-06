@@ -1316,7 +1316,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       spacing="medium"
       style={{ paddingLeft: 'var(--spacing-xlarge)', paddingTop: 'var(--spacing-xsmall)', alignItems: 'baseline' }}
     >
-      <Text color={Color.GREY_700} style={{ fontSize: 20 }}>
+      <Text color={Color.GREY_800} font={{ weight: 'bold' }} style={{ fontSize: 20 }}>
         {wizardMap?.wizardLabel}{' '}
       </Text>
       {selectedView !== SelectedView.YAML ? (

@@ -23,7 +23,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
     <Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge">
       <Text font={{ size: 'medium', weight: 'bold' }} inline={true} color={Color.GREY_800}>
         {getString('conditions')}{' '}
-        <Text style={{ display: 'inline-block' }} color={Color.GREY_500}>
+        <Text font={{ size: 'medium' }} style={{ display: 'inline-block' }} color={Color.GREY_500}>
           {getString('titleOptional')}
         </Text>
         <Text color={Color.BLACK} style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-large)' }}>
@@ -31,7 +31,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         </Text>
       </Text>
       {sourceRepo !== GitSourceProviders.CUSTOM.value && (
-        <Layout.Vertical className={css.formContent}>
+        <Layout.Vertical className={css.formContent} style={{ marginBottom: 'var(--spacing-4)!important' }}>
           <section>
             <ConditionsRowHeaders getString={getString} />
             {event !== eventTypes.PUSH && event !== eventTypes.TAG && (
@@ -94,7 +94,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
       <Layout.Vertical className={css.formContent}>
         <Text className={css.sectionHeader}>{getString('pipeline.triggers.conditionsPanel.jexlCondition')}</Text>
         <FormInput.Text
-          style={{ width: '100%' }}
+          style={{ width: '100%', marginBottom: '0' }}
           name="jexlCondition"
           label=""
           placeholder={getString('pipeline.triggers.conditionsPanel.jexlConditionPlaceholder')}

@@ -13,5 +13,6 @@ declare const styles: {
   readonly autoAbortDescription: string
   readonly checkboxAlignment: string
   readonly multiSelect: string
+  readonly bottomMarginZero: string
 }
 export default styles

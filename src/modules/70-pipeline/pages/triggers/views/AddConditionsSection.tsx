@@ -63,7 +63,7 @@ export const ConditionRow = ({
   const operatorValue = formikProps?.values?.[operatorKey]
   return (
     <div className={cx(css.conditionsRow, css.predefinedRows)}>
-      <Text color={Color.GREY_600}>{label}</Text>
+      <Text color={Color.GREY_800}>{label}</Text>
       <FormInput.Select
         style={{ alignSelf: valueError ? 'baseline' : 'center' }}
         className={css.operatorContainer}

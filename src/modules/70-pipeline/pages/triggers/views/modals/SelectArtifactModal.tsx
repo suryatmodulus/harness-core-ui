@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Layout, Text, Button, ButtonVariation } from '@wings-software/uicore'
+import { Layout, Button, ButtonVariation } from '@wings-software/uicore'
 import { merge, isEmpty } from 'lodash-es'
-
+import cx from 'classnames'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
@@ -207,7 +207,8 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
 
   return (
     <Dialog
-      className={`${css.selectArtifactModal} padded-dialog`}
+      className={cx(css.selectArtifactModal, 'padded-dialog', modalState !== ModalState.SELECT && css.runtimeInputs)}
+      // className={`${css.selectArtifactModal} padded-dialog${modalState !== ModalState.SELECT?` ${css.runtimeInputs}`}
       isOpen={isModalOpen}
       enforceFocus={false}
       title={
@@ -237,16 +238,19 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
           <Layout.Horizontal spacing="medium" className={css.footer}>
             <Button
               text={getString('select')}
-              intent="primary"
+              variation={ButtonVariation.PRIMARY}
               disabled={!selectedArtifactId}
               data-name="selectBtn"
               onClick={() => {
                 setModalState(ModalState.RUNTIME_INPUT)
               }}
             />
-            <Text className={css.cancel} onClick={closeAndReset}>
-              {getString('cancel')}
-            </Text>
+            <Button
+              className={css.cancel}
+              variation={ButtonVariation.TERTIARY}
+              onClick={closeAndReset}
+              text={getString('cancel')}
+            />
           </Layout.Horizontal>
         </>
       ) : (
@@ -288,7 +292,6 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 closeModal()
               }}
             />
-
             <Button
               className={css.cancel}
               variation={ButtonVariation.TERTIARY}

@@ -19,6 +19,7 @@ interface ArtifactTableInfoInterface {
   formikProps: any
   appliedArtifact?: any
   editArtifact?: () => void
+  removeArtifact?: () => void
 }
 
 interface RenderColumnSelectColumn {
@@ -37,6 +38,7 @@ export interface RenderColumnRow {
 }
 interface RenderColumnEditColumn {
   editArtifact: () => void
+  removeArtifact: () => void
 }
 
 const RenderColumnSelect = ({ row, column }: { row: RenderColumnRow; column: RenderColumnSelectColumn }) => {
@@ -164,6 +166,13 @@ const RenderColumnEdit = ({ column }: { column: RenderColumnEditColumn }) => {
           icon="edit"
           onClick={() => column.editArtifact()}
         />
+        <Button
+          style={{ display: 'inline-block' }}
+          minimal
+          data-name="main-delete"
+          icon="main-trash"
+          onClick={() => column.removeArtifact()}
+        />
       </Layout.Horizontal>
     </>
   )
@@ -179,7 +188,8 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
     formikProps,
     isManifest,
     editArtifact,
-    artifactTableData
+    artifactTableData,
+    removeArtifact
   } = props
 
   const { getString } = useStrings()
@@ -217,7 +227,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
       {
         Header: artifactOrManifestText?.toUpperCase(),
         accessor: 'artifactLabel',
-        width: appliedArtifact ? '45%' : '27%',
+        width: appliedArtifact ? '45%' : '25%',
         Cell: RenderColumnArtifactLabel,
         className: 'className',
         class: 'class',
@@ -265,7 +275,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
       columns.push({
         Header: getString?.('version').toUpperCase(),
         accessor: 'version',
-        width: '16%',
+        width: '13%',
         Cell: RenderColumnVersion,
         disableSortBy: true
       })
@@ -273,7 +283,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
       columns.push({
         Header: getString?.('pipeline.triggers.artifactTriggerConfigPanel.buildTag').toUpperCase(),
         accessor: 'buildTag',
-        width: '16%',
+        width: '13%',
         Cell: RenderColumnBuildTag,
         disableSortBy: true
       })
@@ -282,7 +292,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
     columns.push({
       Header: getString?.('pipeline.triggers.artifactTriggerConfigPanel.hasRuntimeInputs').toUpperCase(),
       accessor: 'hasRuntimeInputs',
-      width: '9%',
+      width: '14%',
       Cell: RenderColumnHasRuntimeInputs,
       disableSortBy: true
     })
@@ -295,6 +305,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
       appliedArtifact,
       formikProps,
       editArtifact,
+      removeArtifact,
       Cell: RenderColumnEdit
     })
   }

@@ -20,7 +20,7 @@ const ArtifactConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = 
     <Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge">
       <Text font={{ size: 'medium', weight: 'bold' }} inline={true} color={Color.GREY_800}>
         {getString('conditions')}{' '}
-        <Text style={{ display: 'inline-block' }} color={Color.GREY_500}>
+        <Text font={{ size: 'medium' }} style={{ display: 'inline-block' }} color={Color.GREY_500}>
           {getString('titleOptional')}
         </Text>
         <Text color={Color.BLACK} style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-large)' }}>

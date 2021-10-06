@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, FormInput, SelectOption, Text, Container } from '@wings-software/uicore'
+import cx from 'classnames'
 import { isEmpty, isUndefined } from 'lodash-es'
 import { useGetGitTriggerEventDetails } from 'services/pipeline-ng'
 import { NameIdDescriptionTags } from '@common/components'
@@ -111,7 +112,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
 
       <div className={css.formContent}>
         <NameIdDescriptionTags
-          className={css.nameIdDescriptionTags}
+          className={cx(css.nameIdDescriptionTags, css.bottomMarginZero)}
           formikProps={formikProps}
           identifierProps={{
             isIdentifierEditable: !isEdit
@@ -126,10 +127,11 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
         {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}
       </Text>
       <div className={css.formContent}>
-        <section style={{ width: '650px', marginTop: 'var(--spacing-small)' }}>
+        <section style={{ width: '650px' }}>
           <FormInput.Select
             label={getString('pipeline.triggers.triggerConfigurationPanel.payloadType')}
             name="sourceRepo"
+            className={cx(sourceRepo === GitSourceProviders.CUSTOM.value && css.bottomMarginZero)}
             items={getSourceRepoOptions(getString)}
             onChange={e => {
               if (e.value === GitSourceProviders.CUSTOM.value) {

@@ -14,17 +14,24 @@
       }
     }
   }
+
   [role*='columnheader'] {
     color: #9293ab !important;
   }
+
   [class*='header'] {
     padding-left: 0;
     padding-right: 0;
   }
+
+  [role='row'] {
+    border-bottom: solid 1px var(--grey-100);
+    margin-bottom: 0;
+  }
 }
 
 .appliedArtifact {
-  width: 690px;
+  width: 100%;
   display: inline-block;
   > div:not(first-child) {
     > div {
@@ -40,6 +47,13 @@
         box-shadow: none !important;
       }
     }
+  }
+  [role='row'] {
+    border-bottom: solid 1px var(--grey-100);
+    margin-bottom: 0;
+  }
+  > [role='row'] {
+    padding-top: 0;
   }
 }
 

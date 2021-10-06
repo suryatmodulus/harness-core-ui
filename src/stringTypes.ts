@@ -1974,8 +1974,12 @@ export interface StringsMap {
   'pipeline.failureStrategies.tabHasErrors': string
   'pipeline.failureStrategies.title': string
   'pipeline.failureStrategies.validation.actionRequired': string
+  'pipeline.failureStrategies.validation.ciCodebaseRequired': string
   'pipeline.failureStrategies.validation.errorsMinimum': string
   'pipeline.failureStrategies.validation.errorsRequired': string
+  'pipeline.failureStrategies.validation.gitBranchRequired': string
+  'pipeline.failureStrategies.validation.gitPRRequired': string
+  'pipeline.failureStrategies.validation.gitTagRequired': string
   'pipeline.failureStrategies.validation.onRetryFailureRequired': string
   'pipeline.failureStrategies.validation.onTimeoutRequired': string
   'pipeline.failureStrategies.validation.retryCountInteger': string

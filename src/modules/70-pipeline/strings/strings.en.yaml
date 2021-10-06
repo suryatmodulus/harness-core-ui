@@ -251,6 +251,10 @@ failureStrategies:
     timeoutRequired: Timeout is required
     onRetryFailureRequired: Retry failure action is required
     onTimeoutRequired: Post timeout action is required
+    ciCodebaseRequired: CI Codebase is required
+    gitBranchRequired: Git Branch is required
+    gitTagRequired: Git Tag is required
+    gitPRRequired: Git Pull Request is required
 selectOrCreatePipeline:
   pipelineNameRequired: Please select a pipeline
   setupHeader: Create or Select a Pipeline

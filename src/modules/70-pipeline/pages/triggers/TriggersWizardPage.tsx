@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { get } from 'lodash-es'
+import type { FormikErrors } from 'formik'
 import { useHistory, useParams } from 'react-router-dom'
 import { Layout, SelectOption, Heading, Text, Switch } from '@wings-software/uicore'
 import { parse } from 'yaml'
@@ -1474,6 +1476,28 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
             getString
           ),
+          validate: (formData: any): FormikErrors<any> => {
+            if (isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.type'))) {
+              return {
+                'pipeline.properties.ci.codebase.build.type': getString(
+                  'pipeline.failureStrategies.validation.ciCodebaseRequired'
+                )
+              }
+            }
+            const ciCodeBaseType = get(formData, 'pipeline.properties.ci.codebase.build.type')
+            if (
+              ciCodeBaseType === 'branch' &&
+              isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.branch'))
+            ) {
+              return {
+                'pipeline.properties.ci.codebase.build.spec.branch': getString(
+                  'pipeline.failureStrategies.validation.gitBranchRequired'
+                )
+              }
+            }
+            return {}
+          },
+          validateOnChange: true,
           enableReinitialize: true
         }}
         className={css.tabs}

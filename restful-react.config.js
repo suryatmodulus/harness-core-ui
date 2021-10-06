@@ -30,7 +30,7 @@ module.exports = {
   },
   'pipeline-ng': {
     output: 'src/services/pipeline-ng/index.tsx',
-    url: 'https://qa.harness.io/prod1/pipeline/api/swagger.json',
+    url: 'https://pr.harness.io/run-stage-api/pipeline/api/swagger.json',
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
     customProps: {

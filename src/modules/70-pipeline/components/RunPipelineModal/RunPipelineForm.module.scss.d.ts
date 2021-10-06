@@ -30,7 +30,6 @@ declare const styles: {
   readonly stageSelectionItem: string
   readonly stageWarning: string
   readonly stageName: string
-  readonly warningTooltip: string
   readonly stageDropdown: string
   readonly infoStrip: string
   readonly iconInfo: string

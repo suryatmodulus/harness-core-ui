@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react'
+import React, { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Tooltip, Dialog, Classes } from '@blueprintjs/core'
 import {
   Button,
@@ -11,12 +11,16 @@ import {
   useModalHook,
   Heading,
   Color,
-  ButtonVariation
+  ButtonVariation,
+  SelectOption,
+  Icon,
+  Select,
+  Intent
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
-import { pick, merge, isEmpty, isEqual } from 'lodash-es'
+import { pick, merge, isEmpty, isEqual, defaultTo } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { PipelineInfoConfig, ResponseJsonNode } from 'services/cd-ng'
@@ -28,7 +32,10 @@ import {
   getInputSetForPipelinePromise,
   useGetInputSetsListForPipeline,
   useCreateInputSetForPipeline,
-  useRePostPipelineExecuteWithInputSetYaml
+  useRePostPipelineExecuteWithInputSetYaml,
+  StageExecutionResponse,
+  useGetStagesExecutionList,
+  useRunStagesWithRuntimeInputYaml
 } from 'services/pipeline-ng'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -46,7 +53,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { ErrorsStrip } from '@pipeline/components/ErrorsStrip/ErrorsStrip'
-import { useQueryParams } from '@common/hooks'
+import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import InfoStrip from '@common/components/InfoStrip/InfoStrip'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -138,7 +145,7 @@ function RunPipelineFormBasic({
     getInputSetsList()
     getTemplateFromPipeline()
     {
-      !RUN_INDIVIDUAL_STAGE && refetch()
+      RUN_INDIVIDUAL_STAGE && refetch()
     }
   }, [])
 
@@ -195,19 +202,20 @@ function RunPipelineFormBasic({
       setCurrentPipeline(parsedYAML)
     }
   }, [inputSetYAML])
-
   const {
     data: template,
     loading: loadingTemplate,
     refetch: getTemplateFromPipeline
-  } = useGetTemplateFromPipeline({
+  } = useMutateAsGet(useGetTemplateFromPipeline, {
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
       repoIdentifier,
-      branch,
+      branch
+    },
+    body: {
       ...(RUN_INDIVIDUAL_STAGE
         ? {
             stageIdentifiers: selectedStageData.selectedStageId
@@ -244,7 +252,22 @@ function RunPipelineFormBasic({
       }
     }
   })
-
+  const { mutate: runStage, loading: runStageLoading } = useRunStagesWithRuntimeInputYaml({
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      moduleType: module,
+      repoIdentifier,
+      branch
+    },
+    identifier: pipelineIdentifier,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/yaml'
+      }
+    }
+  })
   const { executionId } = useQueryParams<{ executionId?: string }>()
 
   const { mutate: reRunPipeline, loading: reRunLoading } = useRePostPipelineExecuteWithInputSetYaml({
@@ -424,16 +447,17 @@ function RunPipelineFormBasic({
       if (Object.keys(formErrors).length) {
         return
       }
+      const runIndidualStage = selectedStageData.selectedStageId !== ''
       valuesPipelineRef.current = valuesPipeline
       if (!skipPreFlightCheck && !forceSkipFlightCheck) {
         // Not skipping pre-flight check - open the new modal
         showPreflightCheckModal()
         return
       }
-
+      const runPipelineMethod = runIndidualStage ? runStage : runPipeline
       try {
         const response = isEmpty(executionId)
-          ? await runPipeline(
+          ? await runPipelineMethod(
               !isEmpty(valuesPipelineRef.current) ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any) : ''
             )
           : await reRunPipeline(
@@ -462,6 +486,7 @@ function RunPipelineFormBasic({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       runPipeline,
+      runStage,
       showWarning,
       showSuccess,
       pipelineIdentifier,
@@ -472,7 +497,8 @@ function RunPipelineFormBasic({
       onClose,
       accountId,
       skipPreFlightCheck,
-      formErrors
+      formErrors,
+      selectedStageData
     ]
   )
 
@@ -551,7 +577,7 @@ function RunPipelineFormBasic({
     existingProvide
   ])
 
-  if (loadingPipeline || loadingTemplate || runLoading || inputSetLoading || reRunLoading) {
+  if (loadingPipeline || loadingTemplate || runLoading || runStageLoading || inputSetLoading || reRunLoading) {
     return <PageSpinner />
   }
 
@@ -615,17 +641,14 @@ function RunPipelineFormBasic({
         className={css.stageSelectionItem}
         key={(item?.value as string) || ''}
       >
-        <Radio checked={selectedStageData.selectedStageId === item.value} />
-        <div>
-          <Text className={css.stageName} inline lineClamp={1}>
-            {item.label}
-          </Text>
-          {stageData?.message && (
+        <Text className={css.stageName} lineClamp={1}>
+          {item.label}
+        </Text>
+        {/* {stageData?.message && (
             <Tooltip position="auto" content={stageData?.message}>
               <Icon intent={Intent.WARNING} className={css.stageWarning} name="warning-sign" inline />
             </Tooltip>
-          )}
-        </div>
+          )} */}
       </div>
     )
   }
@@ -702,7 +725,7 @@ function RunPipelineFormBasic({
                         />
                       </GitSyncStoreProvider>
                     )}
-                    {!RUN_INDIVIDUAL_STAGE && (
+                    {RUN_INDIVIDUAL_STAGE && (
                       <Select
                         data-id="stageSelect"
                         value={{
@@ -729,7 +752,7 @@ function RunPipelineFormBasic({
                   <ErrorsStrip formErrors={formErrors} />
                 </>
               )}
-              {!RUN_INDIVIDUAL_STAGE && renderInfoStrip()}
+              {RUN_INDIVIDUAL_STAGE && renderInfoStrip()}
               {selectedView === SelectedView.VISUAL ? (
                 <div className={executionView ? css.runModalFormContentExecutionView : css.runModalFormContent}>
                   <FormikForm>

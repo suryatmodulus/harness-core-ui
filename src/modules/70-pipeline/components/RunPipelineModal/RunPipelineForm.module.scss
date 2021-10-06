@@ -156,8 +156,6 @@
 
 .stageSelectionItem {
   display: grid;
-  grid-template-columns: 30px 1fr;
-
   padding: var(--spacing-small);
   cursor: pointer;
   .stageWarning {
@@ -165,10 +163,6 @@
   }
   .stageName {
     margin-right: var(--spacing-small) !important;
-    display: inline-block !important;
-  }
-  .warningTooltip {
-    display: inline;
   }
 }
 .stageDropdown {

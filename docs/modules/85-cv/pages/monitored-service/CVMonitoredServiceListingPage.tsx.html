@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.12% </span>
+                <span class="strong">83.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/77</span>
+                <span class='fraction'>67/80</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.96% </span>
+                <span class="strong">50.96% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>47/96</span>
+                <span class='fraction'>53/104</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/13</span>
+                <span class='fraction'>11/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.89% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>63/76</span>
+                <span class='fraction'>65/78</span>
             </div>
         
             
@@ -450,7 +450,15 @@
 <a name='L391'></a><a href='#L391'>391</a>
 <a name='L392'></a><a href='#L392'>392</a>
 <a name='L393'></a><a href='#L393'>393</a>
-<a name='L394'></a><a href='#L394'>394</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L394'></a><a href='#L394'>394</a>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a>
+<a name='L401'></a><a href='#L401'>401</a>
+<a name='L402'></a><a href='#L402'>402</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -489,14 +497,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -545,7 +557,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -771,6 +782,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -881,6 +897,7 @@ import {
   calculateChangePercentage
 } from './CVMonitoredServiceListingPage.utils'
 import { Views } from './CVMonitoredServiceListingPage.constants'
+import MonitoredServiceCategory from './components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
 import css from './CVMonitoredServiceListingPage.module.scss'
 &nbsp;
 const ServiceCount = styled(Text)`
@@ -888,10 +905,13 @@ const ServiceCount = styled(Text)`
   border-bottom: 1px solid var(--grey-200) !important;
 `
 &nbsp;
+const CategoryProps: Renderer&lt;CellProps&lt;MonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; (
+  &lt;MonitoredServiceCategory type={row<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>riginal<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype} abbrText verticalAlign /&gt;
+)
+&nbsp;
 const PageBody = styled(Page.Body)`
   margin: var(--spacing-xxxlarge) !important;
 `
-&nbsp;
 function CVMonitoredServiceListingPage(): JSX.Element {
   const { getString } = useStrings()
   const history = useHistory()
@@ -938,7 +958,6 @@ function CVMonitoredServiceListingPage(): JSX.Element {
   })
 &nbsp;
   const { content = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> pageSize = <span class="branch-0 cbranch-no" title="branch not covered" >0,</span> pageIndex = <span class="branch-0 cbranch-no" title="branch not covered" >0,</span> totalPages = <span class="branch-0 cbranch-no" title="branch not covered" >0,</span> totalItems = <span class="branch-0 cbranch-no" title="branch not covered" >0 </span>} = data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata ?? (<span class="branch-1 cbranch-no" title="branch not covered" >{} as any)</span>
-&nbsp;
   const onDelete = async (identifier?: string): Promise&lt;void&gt; =&gt; {
     try {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (identifier) {
@@ -1186,6 +1205,11 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 sortable={true}
                 columns={[
                   {
+                    Header: ' ',
+                    width: '2.5%',
+                    Cell: CategoryProps
+                  },
+                  {
                     Header: getString('cv.monitoredServices.table.serviceName'),
                     width: '20%',
                     Cell: RenderServiceName
@@ -1243,7 +1267,7 @@ export default CVMonitoredServiceListingPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 06 2021 04:57:40 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 06 2021 06:07:58 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

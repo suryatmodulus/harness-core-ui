@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.68% </span>
+                <span class="strong">73.96% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>70/95</span>
+                <span class='fraction'>71/96</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.04% </span>
+                <span class="strong">28.26% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/54</span>
+                <span class='fraction'>13/46</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.12% </span>
+                <span class="strong">73.4% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>68/93</span>
+                <span class='fraction'>69/94</span>
             </div>
         
             
@@ -619,9 +619,9 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -820,7 +820,7 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
   }
 &nbsp;
   return (
-    &lt;Layout.Horizontal style={{ justifyContent: 'flex-end' }}&gt;
+    &lt;Layout.Horizontal className={css.itemActionContainer}&gt;
       &lt;Popover
         isOpen={menuOpen}
         onInteraction={<span class="fstat-no" title="function not covered" >nextOpenState </span>=&gt; {
@@ -927,6 +927,7 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
   const isConnected = delegate.activelyConnected
   const text = isConnected ? getString('connected') : getString('delegate.notConnected')
   const color: Color = isConnected ? Color.GREEN_600 : Color.GREY_400
+  const allSelectors = Object.keys(delegate.groupImplicitSelectors || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>
 &nbsp;
   return (
     &lt;Card elevation={2} interactive={true} onClick={onDelegateClick} className={css.delegateItemContainer}&gt;
@@ -935,20 +936,19 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
         &lt;Layout.Horizontal width="25%" data-testid={delegate.groupHostName}&gt;
           &lt;Layout.Vertical padding={{ left: 'small' }}&gt;
             &lt;Layout.Horizontal spacing="small" data-testid={delegate.groupName}&gt;
-              &lt;Text color={Color.BLACK}&gt;
-                {delegate.groupName}
-                {getString('delegates.delegateInstances', {
-                  current: delegate.delegateInstanceDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength,
-                  total: delegate<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>izeDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eplicas
-                })}
-              &lt;/Text&gt;
+              &lt;Text color={Color.BLACK}&gt;{delegate.groupName}&lt;/Text&gt;
             &lt;/Layout.Horizontal&gt;
-            &lt;Text color={Color.GREY_400}&gt;{delegate.groupHostName}&lt;/Text&gt;
+            &lt;div className={css.groupHostName}&gt;{delegate.groupHostName}&lt;/div&gt;
           &lt;/Layout.Vertical&gt;
         &lt;/Layout.Horizontal&gt;
 &nbsp;
         &lt;Container className={css.connectivity} width="25%"&gt;
-          {delegate.groupImplicitSelectors &amp;&amp; &lt;TagsViewer tags={Object.keys(delegate.groupImplicitSelectors)} /&gt;}
+          {delegate.groupImplicitSelectors &amp;&amp; (
+            &lt;&gt;
+              &lt;TagsViewer key="tags" tags={allSelectors.slice(0, 3)} /&gt;
+              &lt;span key="hidenTags"&gt;{allSelectors.length &gt; 3 ? <span class="branch-0 cbranch-no" title="branch not covered" >'+' + (allSelectors.length - 3) </span>: ''}&lt;/span&gt;
+            &lt;/&gt;
+          )}
         &lt;/Container&gt;
 &nbsp;
         &lt;Layout.Horizontal width="calc(15% - 8px)"&gt;{RenderActivityColumn(delegate)}&lt;/Layout.Horizontal&gt;
@@ -958,12 +958,12 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
         &lt;/Layout.Horizontal&gt;
 &nbsp;
         &lt;Layout.Vertical width="calc(15% - 14px)"&gt;
-          &lt;Text icon="full-circle" iconProps={{ size: 6, color }}&gt;
+          &lt;Text icon="full-circle" iconProps={{ size: 6, color, padding: 'small' }}&gt;
             {text}
           &lt;/Text&gt;
           {!isConnected &amp;&amp; (
-            &lt;Text
-              color={Color.BLUE_400}
+            &lt;div
+              className={css.troubleshootLink}
               onClick={e =&gt; {
                 e.preventDefault()
                 e.stopPropagation()
@@ -971,7 +971,7 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
               }}
             &gt;
               {getString('delegates.troubleshootOption')}
-            &lt;/Text&gt;
+            &lt;/div&gt;
           )}
         &lt;/Layout.Vertical&gt;
 &nbsp;
@@ -988,7 +988,7 @@ export default DelegateListingItem
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 06 2021 06:07:58 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 06 2021 07:57:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

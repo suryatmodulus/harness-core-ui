@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.81% </span>
+                <span class="strong">77.14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/69</span>
+                <span class='fraction'>54/70</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.47% </span>
+                <span class="strong">76.81% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>52/68</span>
+                <span class='fraction'>53/69</span>
             </div>
         
             
@@ -274,20 +274,24 @@
 <a name='L215'></a><a href='#L215'>215</a>
 <a name='L216'></a><a href='#L216'>216</a>
 <a name='L217'></a><a href='#L217'>217</a>
-<a name='L218'></a><a href='#L218'>218</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -297,6 +301,7 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -348,6 +353,7 @@
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -494,6 +500,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
 import moment from 'moment'
 import cx from 'classnames'
+import { capitalize } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Text, Layout, Button, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -519,6 +526,7 @@ interface TrialBannerProps {
   expiryTime?: number
   licenseType?: string
   module: ModuleName
+  edition?: Editions
   setHasBanner?: (value: boolean) =&gt; void
   refetch?: () =&gt; void
 }
@@ -530,7 +538,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const { showError, showSuccess } = useToaster()
   const [display, setDisplay] = useState(true)
-  const { module, expiryTime, licenseType, setHasBanner, refetch } = trialBannerProps
+  const { module, expiryTime, licenseType, edition, setHasBanner, refetch } = trialBannerProps
   const days = Math.round(moment(expiryTime).diff(moment.now(), 'days', true))
   const isExpired = days &lt; 0
   const expiredDays = Math.abs(days)
@@ -576,7 +584,8 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
       {getString('common.banners.trial.description', {
         module: descriptionModule,
         days,
-        moduleDescription
+        moduleDescription,
+        edition: capitalize(edition)
       })}
     &lt;/Text&gt;
   )
@@ -629,7 +638,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
       })
 <span class="cstat-no" title="statement not covered" >      handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as any, data?.data)</span>
 <span class="cstat-no" title="statement not covered" >      openExtendTrialOrFeedbackModal()</span>
-    } catch (error) {
+    } catch (error: any) {
 <span class="cstat-no" title="statement not covered" >      showError(error.data?.message || error.message)</span>
     }
   }
@@ -715,7 +724,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 06 2021 13:32:29 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 06 2021 14:14:58 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

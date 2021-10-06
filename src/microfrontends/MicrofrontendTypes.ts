@@ -1,3 +1,7 @@
+// eslint-disable-next-line import/order
+// import { CustomModuleLoader } from './CustomModuleLoader'
+// let moduleLoader = new CustomModuleLoader()
+
 // import type { UseCreateSecretModalReturn } from '../modules/30-secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import type { PermissionsContextProps } from 'framework/rbac/PermissionsContext'
 import type { LicenseStoreContextProps } from 'framework/LicenseStore/LicenseStoreContext'

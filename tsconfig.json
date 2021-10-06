@@ -43,6 +43,6 @@
     }
   },
   "types": ["cypress"],
-  "include": ["src/"],
+  "include": ["src/microfrontends/MicrofrontendTypes.ts", "src/global.d.ts"],
   "exclude": ["node_modules"]
 }

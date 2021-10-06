@@ -72,7 +72,7 @@
     "prepare": "husky install && patch-package",
     "fmt": "prettier --write \"./src/**/*.{ts,tsx,css}\"",
     "generate-merged-coverage": "node mergedCoverage.js",
-    "generate-microfrontend-types": "tsc --project src/microfrontends/tsconfig.json --outFile declarations/microfrontends.js",
+    "generate-microfrontend-types": "tsc --project src/microfrontends/tsconfig.json",
     "postgenerate-microfrontend-types": "cp src/microfrontends/package.json declarations && prettier --write declarations/*.ts"
   },
   "dependencies": {
@@ -152,6 +152,7 @@
     "@graphql-codegen/typescript-operations": "^1.17.15",
     "@graphql-codegen/typescript-urql": "^2.0.6",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@stavalfi/babel-plugin-module-resolver-loader": "^1.4.0",
     "@stoplight/prism-cli": "^4.3.1",
     "@stoplight/prism-http": "^4.3.1",
     "@storybook/addon-actions": "^6.3.1",

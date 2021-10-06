@@ -1494,6 +1494,24 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
                   'pipeline.failureStrategies.validation.gitBranchRequired'
                 )
               }
+            } else if (
+              ciCodeBaseType === 'tag' &&
+              isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.tag'))
+            ) {
+              return {
+                'pipeline.properties.ci.codebase.build.spec.tag': getString(
+                  'pipeline.failureStrategies.validation.gitTagRequired'
+                )
+              }
+            } else if (
+              ciCodeBaseType === 'PR' &&
+              isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.number'))
+            ) {
+              return {
+                'pipeline.properties.ci.codebase.build.spec.number': getString(
+                  'pipeline.failureStrategies.validation.gitPRRequired'
+                )
+              }
             }
             return {}
           },

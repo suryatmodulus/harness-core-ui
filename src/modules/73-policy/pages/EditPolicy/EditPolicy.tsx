@@ -11,7 +11,6 @@ import {
   Color,
   Text,
   FontVariation,
-  TextInput,
   ButtonSize,
   FlexExpander
 } from '@wings-software/uicore'
@@ -22,11 +21,12 @@ import routes from '@common/RouteDefinitions'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@policy/utils/rego'
-import { useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
+import { PolicyInput, useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
+import { EditPolicyMetadataButton } from './EditPolicyMetadataButton'
 import css from './EditPolicy.module.scss'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type TestOutputResponse = any
+type PolicyTestOutputResponse = any
 
 const editorOptions = {
   ignoreTrimWhitespace: true,
@@ -49,12 +49,16 @@ const deselectAll = (editor?: EDITOR.IStandaloneCodeEditor): void => {
 }
 
 export const EditPolicy: React.FC = () => {
-  const { policyIdentifier } = useParams<{ policyIdentifier: string }>()
-  const [name, setName] = useState(policyIdentifier ? '' : 'My Policy 1')
+  const { accountId, policyIdentifier: policyIdentifierFromURL } =
+    useParams<{ accountId: string; policyIdentifier: string }>()
+  const [isEdit] = useState(!!policyIdentifierFromURL)
+  const [policyIdentifier, setPolicyIdentifier] = useState(policyIdentifierFromURL)
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
   const [regoScript, setRegoScript] = useState('')
   const [input, setInput] = useState('')
-  const [output, setOutput] = useState<TestOutputResponse>()
-  const [editName, setEditName] = useState(false)
+  const [output, setOutput] = useState<PolicyTestOutputResponse>()
+  const [shouldOpenMetadataModal, setShouldOpenMetatDataModal] = useState(!isEdit)
   const isInputValid = useMemo(() => {
     if (!(input || '').trim() || !(regoScript || '').trim()) {
       return false
@@ -69,7 +73,6 @@ export const EditPolicy: React.FC = () => {
   }, [input, regoScript])
   const { mutate: createPolicy } = useCreatePolicy({})
   const { mutate: evaluateRawPolicy } = useEvaluateRaw({})
-  const { accountId } = useParams<{ accountId: string }>()
   const [createPolicyLoading, setCreatePolicyLoading] = useState(false)
   const [testPolicyLoading, setTestPolicyLoading] = useState(false)
   const [regoEditor, setRegoEditor] = useState<EDITOR.IStandaloneCodeEditor>()
@@ -79,11 +82,12 @@ export const EditPolicy: React.FC = () => {
   const { mutate: updatePolicy } = useUpdatePolicy({ policy: policyIdentifier })
   const onSavePolicy = useCallback(() => {
     setCreatePolicyLoading(true)
-    const api = policyIdentifier ? updatePolicy : createPolicy
-    api({ name, rego: regoScript })
+    const api = isEdit ? updatePolicy : createPolicy
+    api({ account: accountId, identifier: policyIdentifier, name, description, rego: regoScript } as PolicyInput)
       .then(response => {
         showToaster('Policy saved!')
-        if (!policyIdentifier) {
+        if (!isEdit) {
+          // TODO response.id should be changed to response.identifier when Backend is ready
           history.replace(routes.toPolicyEditPage({ accountId, policyIdentifier: String(response.id || '') }))
         }
       })
@@ -93,7 +97,18 @@ export const EditPolicy: React.FC = () => {
       .finally(() => {
         setCreatePolicyLoading(false)
       })
-  }, [name, regoScript, createPolicy, setCreatePolicyLoading, updatePolicy, policyIdentifier, history, accountId])
+  }, [
+    isEdit,
+    name,
+    regoScript,
+    createPolicy,
+    setCreatePolicyLoading,
+    updatePolicy,
+    policyIdentifier,
+    history,
+    accountId,
+    description
+  ])
   const { data: policyData, refetch: fetchPolicyData } = useGetPolicy({ policy: policyIdentifier, lazy: true })
   const [loadingPolicy, setLoadingPolicy] = useState(false)
   const [testFailure, setTestFailure] = useState<boolean | undefined>()
@@ -101,42 +116,33 @@ export const EditPolicy: React.FC = () => {
   const inputContainerRef = useRef<HTMLDivElement>(null)
   const outputContainerRef = useRef<HTMLDivElement>(null)
 
-  const policyNameEditor = (): JSX.Element => {
+  const PolicyNameGroup = (): JSX.Element => {
     return (
       <Layout.Horizontal spacing="xsmall">
         <Text
           font={{ variation: FontVariation.H6 }}
-          icon="chained-pipeline"
+          icon="governance"
           iconProps={{ style: { paddingRight: 'var(--spacing-small)' } }}
           className={css.policyNameInputContainer}
         >
-          {(!editName && name) || ''}
-          {editName && (
-            <TextInput
-              value={name}
-              placeholder={'My Policy 1'}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-              onBlur={() => {
-                setEditName(false)
-              }}
-              onKeyUp={event => {
-                if (event.key === 'Enter') {
-                  setEditName(false)
-                }
-              }}
-              autoFocus
-            />
-          )}
+          {name} {/*policyIdentifier ? ` (ID: ${policyIdentifier})` : ''*/}
         </Text>
-        {!editName && (
-          <Button
-            icon="Edit"
-            variation={ButtonVariation.ICON}
-            onClick={() => {
-              setEditName(true)
-            }}
-          />
-        )}
+        <EditPolicyMetadataButton
+          isEdit={isEdit}
+          shouldOpenModal={shouldOpenMetadataModal}
+          identifier={policyIdentifier}
+          modalTitle={policyIdentifier ? 'Edit Policy' : 'New Policy'}
+          name={name}
+          description={description}
+          onApply={formData => {
+            setPolicyIdentifier(formData.identifier)
+            setName(formData.name)
+            setDescription(formData.description)
+          }}
+          onClose={() => {
+            setShouldOpenMetatDataModal(false)
+          }}
+        />
       </Layout.Horizontal>
     )
   }
@@ -161,7 +167,7 @@ export const EditPolicy: React.FC = () => {
     setTestFailure(undefined)
     layoutEditors()
   }, [setOutput, setTestFailure, layoutEditors])
-  const onTest = useCallback(() => {
+  const onTestPolicy = useCallback(() => {
     resetOutput()
     setTestPolicyLoading(true)
     evaluateRawPolicy({ rego: regoScript, input: JSON.parse(input) })
@@ -176,7 +182,7 @@ export const EditPolicy: React.FC = () => {
           // eslint-disable-line no-empty
         }
       })
-      .catch(error => showToaster(getErrorMessage(error)))
+      .catch(error => showToaster(getErrorMessage(error), { intent: Intent.DANGER }))
       .finally(() => setTestPolicyLoading(false))
   }, [evaluateRawPolicy, regoScript, input, outputEditor, setTestFailure, layoutEditors, resetOutput])
   const toolbar = useMemo(() => {
@@ -213,7 +219,7 @@ export const EditPolicy: React.FC = () => {
             intent="success"
             size={ButtonSize.SMALL}
             disabled={!isInputValid}
-            onClick={onTest}
+            onClick={onTestPolicy}
             loading={testPolicyLoading}
           />
         )}
@@ -229,7 +235,7 @@ export const EditPolicy: React.FC = () => {
         )}
       </Layout.Horizontal>
     )
-  }, [history, testPolicyLoading, accountId, createPolicyLoading, isInputValid, onSavePolicy, onTest, regoScript])
+  }, [history, testPolicyLoading, accountId, createPolicyLoading, isInputValid, onSavePolicy, onTestPolicy, regoScript])
 
   useEffect(() => {
     window.addEventListener('resize', layoutEditors)
@@ -240,25 +246,38 @@ export const EditPolicy: React.FC = () => {
   }, [layoutEditors])
 
   useEffect(() => {
-    if (policyIdentifier) {
+    if (isEdit) {
       setLoadingPolicy(true)
-      fetchPolicyData().finally(() => {
-        setLoadingPolicy(false)
-      })
+      fetchPolicyData().finally(() => setLoadingPolicy(false))
     }
-  }, [policyIdentifier, fetchPolicyData])
+  }, [isEdit, fetchPolicyData])
 
   useEffect(() => {
     if (policyData) {
       setRegoScript(policyData.rego || '')
+
+      // TODO Remove casting when BE supports identifier
+      setPolicyIdentifier((policyData as { identifier: string }).identifier || String(policyData.id || ''))
+
+      setRegoScript(policyData.rego || '')
       setName(policyData.name || '')
+
+      // TODO Remove casting when BE supports description
+      setDescription((policyData as { desription: string }).desription || '')
       deselectAll(regoEditor)
     }
   }, [policyData, regoEditor])
 
   return (
     <>
-      <PageHeader title={<Layout.Horizontal>{policyNameEditor()}</Layout.Horizontal>} toolbar={toolbar} />
+      <PageHeader
+        title={
+          <Layout.Horizontal>
+            <PolicyNameGroup />
+          </Layout.Horizontal>
+        }
+        toolbar={toolbar}
+      />
       <Page.Body loading={loadingPolicy}>
         <Container className={css.container}>
           <SplitPane
@@ -298,8 +317,8 @@ export const EditPolicy: React.FC = () => {
             <SplitPane
               split="horizontal"
               defaultSize="50%"
-              minSize={100}
-              maxSize={-100}
+              minSize={38}
+              maxSize={-54}
               onChange={layoutEditors}
               resizerStyle={{ height: '25px', background: 'none', borderTop: 'none', borderBottom: 'none' }}
               pane2Style={{ overflow: 'hidden', flexShrink: 'unset' }}
@@ -315,6 +334,7 @@ export const EditPolicy: React.FC = () => {
                         icon="code"
                         tooltip="Format Input"
                         size={ButtonSize.SMALL}
+                        disabled={!(input || '').trim()}
                         onClick={() => {
                           try {
                             setInput(JSON.stringify(JSON.parse(input), null, 2))
@@ -356,6 +376,7 @@ export const EditPolicy: React.FC = () => {
                       tooltip="Clear Output"
                       size={ButtonSize.SMALL}
                       onClick={resetOutput}
+                      disabled={!output}
                     />
                   </Container>
                   {(testFailure == false || testFailure === true) && (
@@ -366,10 +387,17 @@ export const EditPolicy: React.FC = () => {
                           style: { color: testFailure ? 'var(--red-500)' : 'var(--green-500)' },
                           padding: { right: 'small' }
                         }}
-                        font={{ variation: FontVariation.BODY1 }}
+                        font={{ variation: output?.error ? FontVariation.YAML : FontVariation.BODY1 }}
                         padding={{ bottom: 'small' }}
+                        className={css.outputError}
                       >
-                        {testFailure ? 'Policy failed to be evaluated' : 'Policy evaluated successfully'}
+                        {output?.error ? (
+                          <pre>{output?.error}</pre>
+                        ) : testFailure ? (
+                          'Policy failed to be evaluated'
+                        ) : (
+                          'Policy evaluated successfully'
+                        )}
                       </Text>
                       {output?.deny_messages?.map((message: string) => (
                         <Text

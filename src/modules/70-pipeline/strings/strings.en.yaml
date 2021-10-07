@@ -823,3 +823,4 @@ runAllParallelstages: Run all parallel stages
 runFailedStages: Run only failed stages
 runPipelineForm:
   notifyOnlyMe: Notify only me about execution status
+singleStageExecution: 'SINGLE STAGE EXECUTION:'

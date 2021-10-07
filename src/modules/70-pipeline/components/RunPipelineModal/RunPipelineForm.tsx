@@ -13,7 +13,6 @@ import {
   Color,
   ButtonVariation,
   SelectOption,
-  Icon,
   Select,
   Intent
 } from '@wings-software/uicore'
@@ -128,7 +127,7 @@ function RunPipelineFormBasic({
     stagesRequired?: string[]
     stageName?: string
     message?: string
-  }>({ selectedStageId: '', stagesRequired: [], stageName: 'All' })
+  }>({ selectedStageId: '', stagesRequired: [], stageName: 'All Stages' })
   const { data: stageExecutionData, refetch } = useGetStagesExecutionList({
     queryParams: {
       accountIdentifier: accountId,
@@ -216,13 +215,9 @@ function RunPipelineFormBasic({
       branch
     },
     body: {
-      ...(RUN_INDIVIDUAL_STAGE
-        ? {
-            stageIdentifiers: selectedStageData.selectedStageId
-              ? [...(selectedStageData.stagesRequired || []), selectedStageData.selectedStageId]
-              : []
-          }
-        : {})
+      stageIdentifiers: selectedStageData.selectedStageId
+        ? [...(selectedStageData.stagesRequired || []), selectedStageData.selectedStageId]
+        : []
     },
     lazy: true
   })
@@ -261,12 +256,7 @@ function RunPipelineFormBasic({
       repoIdentifier,
       branch
     },
-    identifier: pipelineIdentifier,
-    requestOptions: {
-      headers: {
-        'content-type': 'application/yaml'
-      }
-    }
+    identifier: pipelineIdentifier
   })
   const { executionId } = useQueryParams<{ executionId?: string }>()
 
@@ -338,7 +328,10 @@ function RunPipelineFormBasic({
         const fetchData = async (): Promise<void> => {
           try {
             const data = await mergeInputSet({
-              inputSetReferences: selectedInputSets.map(item => item.value as string)
+              inputSetReferences: selectedInputSets.map(item => item.value as string),
+              stageIdentifiers: selectedStageData.selectedStageId
+                ? [...(selectedStageData.stagesRequired || []), selectedStageData.selectedStageId]
+                : []
             })
             if (data?.data?.pipelineYaml) {
               const inputSetPortion = parse(data.data.pipelineYaml) as {
@@ -454,12 +447,23 @@ function RunPipelineFormBasic({
         showPreflightCheckModal()
         return
       }
-      const runPipelineMethod = runIndidualStage ? runStage : runPipeline
+
       try {
         const response = isEmpty(executionId)
-          ? await runPipelineMethod(
-              !isEmpty(valuesPipelineRef.current) ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any) : ''
-            )
+          ? runIndidualStage
+            ? await runStage({
+                runtimeInputYaml: !isEmpty(valuesPipelineRef.current)
+                  ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any)
+                  : '',
+                stageIdentifiers: selectedStageData.selectedStageId
+                  ? [...(selectedStageData.stagesRequired || []), selectedStageData.selectedStageId]
+                  : []
+              })
+            : await runPipeline(
+                !isEmpty(valuesPipelineRef.current)
+                  ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any)
+                  : ''
+              )
           : await reRunPipeline(
               !isEmpty(valuesPipelineRef.current) ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any) : ''
             )
@@ -637,6 +641,7 @@ function RunPipelineFormBasic({
             stageName: defaultTo(stageData?.stageName, item.label),
             message: stageData?.message
           })
+          setSkipPreFlightCheck(true)
         }}
         className={css.stageSelectionItem}
         key={(item?.value as string) || ''}
@@ -655,6 +660,7 @@ function RunPipelineFormBasic({
   const renderInfoStrip = (): React.ReactElement | null => {
     return selectedStageData.message ? <InfoStrip intent={Intent.WARNING} content={selectedStageData.message} /> : null
   }
+
   const child = (
     <>
       <Formik<Values>

@@ -19,7 +19,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
-import { useQueryParams } from '@common/hooks'
+import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { InputSetListView } from './InputSetListView'
 import css from './InputSetList.module.scss'
 
@@ -56,7 +56,7 @@ const InputSetList: React.FC = (): JSX.Element => {
     debounce: 300
   })
 
-  const { data: template } = useGetTemplateFromPipeline({
+  const { data: template } = useMutateAsGet(useGetTemplateFromPipeline, {
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -64,6 +64,9 @@ const InputSetList: React.FC = (): JSX.Element => {
       projectIdentifier,
       repoIdentifier,
       branch
+    },
+    body: {
+      stageIdentifiers: []
     }
   })
 

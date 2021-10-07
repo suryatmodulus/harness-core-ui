@@ -16,6 +16,7 @@ import { useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { useMutateAsGet } from '@common/hooks'
 import {
   ciCodebaseBuild,
   ciCodebaseBuildPullRequest,
@@ -128,12 +129,15 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     pipelineIdentifier: string
     triggerIdentifier: string
   }>()
-  const { data: template, loading } = useGetTemplateFromPipeline({
+  const { data: template, loading } = useMutateAsGet(useGetTemplateFromPipeline, {
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier
+    },
+    body: {
+      stageIdentifiers: []
     }
   })
   const [selectedInputSets, setSelectedInputSets] = useState<InputSetSelectorProps['value']>(inputSetSelected)

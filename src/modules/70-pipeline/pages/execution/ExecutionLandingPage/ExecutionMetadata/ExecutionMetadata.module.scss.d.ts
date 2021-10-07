@@ -3,5 +3,8 @@
 declare const styles: {
   readonly main: string
   readonly trigger: string
+  readonly singleExecutionTag: string
+  readonly userLabelContainer: string
+  readonly metaContainer: string
 }
 export default styles

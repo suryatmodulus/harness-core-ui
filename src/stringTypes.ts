@@ -2208,6 +2208,7 @@ export interface StringsMap {
   'pipeline.selectStagePlaceholder': string
   'pipeline.serviceDependenciesText': string
   'pipeline.serviceDependencyText': string
+  'pipeline.singleStageExecution': string
   'pipeline.sslVerify': string
   'pipeline.stagetoRetryFrom': string
   'pipeline.startTime': string

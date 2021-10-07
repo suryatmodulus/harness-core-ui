@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Icon } from '@wings-software/uicore'
+import { Text, Icon, Tag } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { hasCDStage, hasCIStage, StageType } from '@pipeline/utils/stageHelpers'
@@ -35,7 +35,7 @@ const ExecutionMetadataTrigger = () => {
     )
   } else {
     return (
-      <div style={{ fontSize: 0 }}>
+      <div className={css.userLabelContainer}>
         <UserLabel
           name={
             pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier ||
@@ -53,26 +53,39 @@ const ExecutionMetadataTrigger = () => {
 export default function ExecutionMetadata(): React.ReactElement {
   const { pipelineExecutionDetail, pipelineStagesMap } = useExecutionContext()
   const { pipelineExecutionSummary } = pipelineExecutionDetail || {}
-
+  const { getString } = useStrings()
   const HAS_CD = hasCDStage(pipelineExecutionSummary)
   const HAS_CI = hasCIStage(pipelineExecutionSummary)
   const ciData = factory.getSummary(StageType.BUILD)
   const cdData = factory.getSummary(StageType.DEPLOY)
-
+  const renderSingleStageExecutionInfo = (): React.ReactElement | null => {
+    return pipelineExecutionSummary?.stagesExecution ? (
+      <Tag className={css.singleExecutionTag}>{`${getString('pipeline.singleStageExecution')} 
+                ${
+                  pipelineExecutionSummary.stagesExecuted && pipelineExecutionSummary?.stagesExecuted?.length > 0
+                    ? pipelineExecutionSummary.stagesExecuted[pipelineExecutionSummary.stagesExecuted.length - 1]
+                    : ''
+                }
+                 `}</Tag>
+    ) : null
+  }
   return (
     <div className={css.main}>
-      {HAS_CI && ciData
-        ? React.createElement(ciData.component, {
-            data: pipelineExecutionSummary?.moduleInfo?.ci,
-            nodeMap: pipelineStagesMap
-          })
-        : null}
-      {HAS_CD && cdData
-        ? React.createElement(cdData.component, {
-            data: pipelineExecutionSummary?.moduleInfo?.cd,
-            nodeMap: pipelineStagesMap
-          })
-        : null}
+      <div className={css.metaContainer}>
+        {renderSingleStageExecutionInfo()}
+        {HAS_CI && ciData
+          ? React.createElement(ciData.component, {
+              data: pipelineExecutionSummary?.moduleInfo?.ci,
+              nodeMap: pipelineStagesMap
+            })
+          : null}
+        {HAS_CD && cdData
+          ? React.createElement(cdData.component, {
+              data: pipelineExecutionSummary?.moduleInfo?.cd,
+              nodeMap: pipelineStagesMap
+            })
+          : null}
+      </div>
       <ExecutionMetadataTrigger />
     </div>
   )

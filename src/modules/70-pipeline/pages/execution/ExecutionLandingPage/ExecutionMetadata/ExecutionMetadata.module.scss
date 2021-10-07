@@ -11,3 +11,19 @@
     align-items: center;
   }
 }
+
+.singleExecutionTag {
+  background-color: var(--primary-1) !important;
+  color: var(--primary-8);
+  font-weight: bold;
+  border: solid 1px var(--primary-2);
+}
+.userLabelContainer {
+  display: flex;
+  align-items: center;
+}
+
+.meta-container {
+  display: flex;
+  gap: var(--spacing-small);
+}

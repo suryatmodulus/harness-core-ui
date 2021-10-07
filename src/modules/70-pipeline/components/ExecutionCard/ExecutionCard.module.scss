@@ -233,3 +233,10 @@ $actions-translate: 10px;
 .user {
   display: flex;
 }
+.singleExecutionTag {
+  background-color: var(--primary-1) !important;
+  color: var(--primary-8);
+  font-weight: bold;
+  border: solid 1px var(--primary-2);
+  margin-bottom: var(--spacing-small);
+}

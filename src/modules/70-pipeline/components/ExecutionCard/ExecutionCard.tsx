@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon } from '@wings-software/uicore'
+import { Card, Icon, Tag } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Popover } from '@blueprintjs/core'
 import { defaultTo, get, isEmpty } from 'lodash-es'
@@ -8,7 +8,7 @@ import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { UserLabel, Duration, TimeAgoPopover } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
-import { String } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
@@ -37,7 +37,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
   const { pipelineExecution, variant = CardVariant.Default, staticCard = false } = props
   const { orgIdentifier, projectIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
   const history = useHistory()
-
+  const { getString } = useStrings()
   const HAS_CD = hasCDStage(pipelineExecution)
   const HAS_CI = hasCIStage(pipelineExecution)
   const cdInfo = executionFactory.getCardInfo(StageType.DEPLOY)
@@ -160,6 +160,15 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
           </div>
           <div className={css.main}>
             <div className={css.modulesContainer}>
+              {pipelineExecution?.stagesExecution && (
+                <Tag className={css.singleExecutionTag}>{`${getString('pipeline.singleStageExecution')} 
+                ${
+                  pipelineExecution.stagesExecuted && pipelineExecution?.stagesExecuted?.length > 0
+                    ? pipelineExecution.stagesExecuted[pipelineExecution.stagesExecuted.length - 1]
+                    : ''
+                }
+                 `}</Tag>
+              )}
               {HAS_CI && ciInfo ? (
                 <div className={css.moduleData}>
                   <Icon name={ciInfo.icon} size={20} className={css.moduleIcon} />

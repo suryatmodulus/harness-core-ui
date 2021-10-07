@@ -28,5 +28,6 @@ declare const styles: {
   readonly ignoreFailedTooltip: string
   readonly ignoreFailedPopover: string
   readonly user: string
+  readonly singleExecutionTag: string
 }
 export default styles

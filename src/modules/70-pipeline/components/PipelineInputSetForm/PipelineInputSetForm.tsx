@@ -231,7 +231,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
         }
       })
     }
-  }, [])
+  }, [props.template])
   return (
     <PipelineVariablesContextProvider pipeline={props.originalPipeline}>
       <PipelineInputSetFormInternal {...props} template={template} />

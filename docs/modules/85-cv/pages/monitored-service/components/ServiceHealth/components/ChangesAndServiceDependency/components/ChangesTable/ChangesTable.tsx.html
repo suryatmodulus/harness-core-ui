@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.11% </span>
+                <span class="strong">91.49% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/45</span>
+                <span class='fraction'>43/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88% </span>
+                <span class="strong">75.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>22/25</span>
+                <span class='fraction'>22/29</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.18% </span>
+                <span class="strong">91.49% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/44</span>
+                <span class='fraction'>43/47</span>
             </div>
         
             
@@ -246,13 +246,20 @@
 <a name='L187'></a><a href='#L187'>187</a>
 <a name='L188'></a><a href='#L188'>188</a>
 <a name='L189'></a><a href='#L189'>189</a>
-<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,6 +271,7 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -292,7 +300,11 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -436,6 +448,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState, useMemo } from 'react'
+import { noop } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -455,6 +468,7 @@ import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
 import type { ChangesTableInterface } from './ChangesTable.types'
 import { renderTime, renderName, renderImpact, renderType, renderChangeType } from './ChangesTable.utils'
 import { defaultPageSize } from './ChangesTable.constants'
+import ChangeCard from './components/ChangeCard/ChangeCard'
 import css from './ChangeTable.module.scss'
 &nbsp;
 export default function ChangesTable({
@@ -479,9 +493,13 @@ export default function ChangesTable({
   const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.resource ?? ({} as any)
 &nbsp;
   const drawerOptions = {
-    size: '530px'
+    size: '530px',
+    onClose: noop
   } as IDrawerProps
-  const { showDrawer } = useDrawer({ createDrawerContent: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >&lt;&gt; &lt;/&gt;,</span> drawerOptions })
+  const { showDrawer } = useDrawer({
+    createDrawerContent: <span class="fstat-no" title="function not covered" >props </span>=&gt; <span class="cstat-no" title="statement not covered" >&lt;ChangeCard activityId={props?.id} /&gt;,</span>
+    drawerOptions
+  })
 &nbsp;
   useEffect(() =&gt; {
     setPage(0)
@@ -631,7 +649,7 @@ export default function ChangesTable({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 07 2021 22:04:01 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 07 2021 22:54:34 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../prettify.js"></script>

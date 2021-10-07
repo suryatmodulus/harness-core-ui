@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/22</span>
+                <span class='fraction'>23/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>6/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/7</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
+                <span class="strong">91.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/21</span>
+                <span class='fraction'>22/24</span>
             </div>
         
             
@@ -119,16 +119,7 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,31 +140,26 @@
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,13 +182,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uicore'
-import { Dialog, Classes } from '@blueprintjs/core'
-import cx from 'classnames'
+import { useModalHook, Dialog } from '@wings-software/uicore'
 &nbsp;
 import type { UserGroupDTO } from 'services/cd-ng'
 import UserGroupForm from '@rbac/modals/UserGroupModal/views/UserGroupForm'
-import css from './useUserGroupModal.module.scss'
+import { useStrings } from 'framework/strings'
 &nbsp;
 export interface UseUserGroupModalProps {
   onSuccess: () =&gt; void
@@ -217,16 +201,20 @@ export interface UseUserGroupModalReturn {
 export const useUserGroupModal = ({ onSuccess }: UseUserGroupModalProps): UseUserGroupModalReturn =&gt; {
   const [userGroupData, setUserGroupData] = useState&lt;UserGroupDTO&gt;()
   const [isAddMember, setIsAddMember] = useState&lt;boolean&gt;(false)
+  const { getString } = useStrings()
+  const getTitle = (): string =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!!userGroupData &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isAddMember)</span> {
+<span class="cstat-no" title="statement not covered" >      return getString('rbac.userGroupPage.editUserGroup')</span>
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (isAddMember) {
+<span class="cstat-no" title="statement not covered" >      return getString('rbac.userGroupPage.addMembers')</span>
+    }
+    return getString('rbac.userGroupPage.newUserGroup')
+  }
+&nbsp;
   const [showModal, hideModal] = useModalHook(
     () =&gt; (
-      &lt;Dialog
-        isOpen={true}
-        enforceFocus={false}
-        onClose={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >          hideModal()</span>
-        }}
-        className={cx(css.dialog, Classes.DIALOG)}
-      &gt;
+      &lt;Dialog isOpen={true} enforceFocus={false} title={getTitle()} onClose={hideModal}&gt;
         &lt;UserGroupForm
           data={userGroupData}
           isEdit={!!userGroupData &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isAddMember}</span>
@@ -235,16 +223,7 @@ export const useUserGroupModal = ({ onSuccess }: UseUserGroupModalProps): UseUse
             onSuccess()
             hideModal()
           }}
-        /&gt;
-&nbsp;
-        &lt;Button
-          minimal
-          icon="cross"
-          iconProps={{ size: 18 }}
-          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >            hideModal()</span>
-          }}
-          className={css.crossIcon}
+          onCancel={hideModal}
         /&gt;
       &lt;/Dialog&gt;
     ),
@@ -271,7 +250,7 @@ export const useUserGroupModal = ({ onSuccess }: UseUserGroupModalProps): UseUse
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 07 2021 09:56:47 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 07 2021 12:46:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

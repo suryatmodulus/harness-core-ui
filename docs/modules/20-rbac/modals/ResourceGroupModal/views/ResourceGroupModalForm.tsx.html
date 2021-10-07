@@ -183,12 +183,7 @@
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
 <a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L127'></a><a href='#L127'>127</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,6 +209,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -265,8 +261,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -292,10 +286,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,12 +337,13 @@ import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import css from './ResourceGroupModal.module.scss'
 interface ResourceGroupModalData {
   data?: ResourceGroupDTO
-  onSubmit?: (resourceGroup: ResourceGroupDTO) =&gt; void
   editMode: boolean
+  onSubmit?: (resourceGroup: ResourceGroupDTO) =&gt; void
+  onCancel?: () =&gt; void
 }
 &nbsp;
 const ResourceGroupForm: React.FC&lt;ResourceGroupModalData&gt; = props =&gt; {
-  const { onSubmit, data, editMode } = props
+  const { onSubmit, data, editMode, onCancel } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -396,56 +387,50 @@ const ResourceGroupForm: React.FC&lt;ResourceGroupModalData&gt; = props =&gt; {
     }
   }
   return (
-    &lt;Layout.Vertical padding="xxxlarge"&gt;
-      &lt;Layout.Vertical spacing="large"&gt;
-        &lt;Formik&lt;ResourceGroupDTO&gt;
-          initialValues={{
-            identifier: '',
-            name: '',
-            description: '',
-            tags: {},
-            color: DEFAULT_COLOR,
-            accountIdentifier: accountId,
-            orgIdentifier,
-            projectIdentifier,
-            ...(editMode &amp;&amp; data)
-          }}
-          formName="resourceGroupModalForm"
-          validationSchema={Yup.object().shape({
-            name: NameSchema(),
-            identifier: IdentifierSchema(),
-            color: Yup.string().trim().required()
-          })}
-          onSubmit={values =&gt; {
-            modalErrorHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ide()
-            handleSubmit(values)
-          }}
-        &gt;
-          {formikProps =&gt; {
-            return (
-              &lt;Form&gt;
-                &lt;Container className={css.modal}&gt;
-                  &lt;ModalErrorHandler bind={setModalErrorHandler} /&gt;
-                  &lt;NameIdDescriptionTags
-                    formikProps={formikProps}
-                    identifierProps={{ isIdentifierEditable: !editMode }}
-                  /&gt;
-                  &lt;FormInput.ColorPicker label={getString('rbac.resourceGroup.color')} name="color" /&gt;
-                &lt;/Container&gt;
-                &lt;Layout.Horizontal&gt;
-                  &lt;Button
-                    variation={ButtonVariation.PRIMARY}
-                    text={getString('common.apply')}
-                    type="submit"
-                    disabled={saving || updating}
-                  /&gt;
-                &lt;/Layout.Horizontal&gt;
-              &lt;/Form&gt;
-            )
-          }}
-        &lt;/Formik&gt;
-      &lt;/Layout.Vertical&gt;
-    &lt;/Layout.Vertical&gt;
+    &lt;Formik&lt;ResourceGroupDTO&gt;
+      initialValues={{
+        identifier: '',
+        name: '',
+        description: '',
+        tags: {},
+        color: DEFAULT_COLOR,
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier,
+        ...(editMode &amp;&amp; data)
+      }}
+      formName="resourceGroupModalForm"
+      validationSchema={Yup.object().shape({
+        name: NameSchema(),
+        identifier: IdentifierSchema(),
+        color: Yup.string().trim().required()
+      })}
+      onSubmit={values =&gt; {
+        modalErrorHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ide()
+        handleSubmit(values)
+      }}
+    &gt;
+      {formikProps =&gt; {
+        return (
+          &lt;Form&gt;
+            &lt;Container className={css.modal}&gt;
+              &lt;ModalErrorHandler bind={setModalErrorHandler} /&gt;
+              &lt;NameIdDescriptionTags formikProps={formikProps} identifierProps={{ isIdentifierEditable: !editMode }} /&gt;
+              &lt;FormInput.ColorPicker label={getString('rbac.resourceGroup.color')} name="color" /&gt;
+            &lt;/Container&gt;
+            &lt;Layout.Horizontal spacing="small"&gt;
+              &lt;Button
+                variation={ButtonVariation.PRIMARY}
+                text={getString('save')}
+                type="submit"
+                disabled={saving || updating}
+              /&gt;
+              &lt;Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={onCancel} /&gt;
+            &lt;/Layout.Horizontal&gt;
+          &lt;/Form&gt;
+        )
+      }}
+    &lt;/Formik&gt;
   )
 }
 &nbsp;
@@ -457,7 +442,7 @@ export default ResourceGroupForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 07 2021 09:56:47 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 07 2021 12:46:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

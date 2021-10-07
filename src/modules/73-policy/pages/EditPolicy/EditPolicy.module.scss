@@ -50,6 +50,7 @@
 }
 
 .outputError {
-  max-height: 200px;
+  white-space: pre !important;
+  max-height: 250px;
   overflow: auto;
 }

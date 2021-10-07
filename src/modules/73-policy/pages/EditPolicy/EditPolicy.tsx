@@ -23,6 +23,7 @@ import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@policy/utils/rego'
 import { PolicyInput, useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
 import { EditPolicyMetadataButton } from './EditPolicyMetadataButton'
+import type { PolicyMetadata } from './EditPolicyMetadataButton'
 import css from './EditPolicy.module.scss'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -134,7 +135,7 @@ export const EditPolicy: React.FC = () => {
           modalTitle={policyIdentifier ? 'Edit Policy' : 'New Policy'}
           name={name}
           description={description}
-          onApply={formData => {
+          onApply={(formData: PolicyMetadata) => {
             setPolicyIdentifier(formData.identifier)
             setName(formData.name)
             setDescription(formData.description)
@@ -390,14 +391,13 @@ export const EditPolicy: React.FC = () => {
                         font={{ variation: output?.error ? FontVariation.YAML : FontVariation.BODY1 }}
                         padding={{ bottom: 'small' }}
                         className={css.outputError}
+                        tag={output?.error ? 'pre' : undefined}
                       >
-                        {output?.error ? (
-                          <pre>{output?.error}</pre>
-                        ) : testFailure ? (
-                          'Policy failed to be evaluated'
-                        ) : (
-                          'Policy evaluated successfully'
-                        )}
+                        {output?.error
+                          ? output?.error
+                          : testFailure
+                          ? 'Policy failed to be evaluated'
+                          : 'Policy evaluated successfully'}
                       </Text>
                       {output?.deny_messages?.map((message: string) => (
                         <Text

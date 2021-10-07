@@ -54,11 +54,11 @@ describe('Signup Page', () => {
         </TestWrapper>
       )
       fireEvent.input(queryByNameAttribute('email', container)!, {
-        target: { value: 'harness_test_mailu@hotmail.com' },
+        target: { value: 'random@hotmail.com' },
         bubbles: true
       })
       fireEvent.input(queryByNameAttribute('password', container)!, {
-        target: { value: '12345678asas' },
+        target: { value: '12345678' },
         bubbles: true
       })
       fireEvent.click(getByText('signUp.signUp'))

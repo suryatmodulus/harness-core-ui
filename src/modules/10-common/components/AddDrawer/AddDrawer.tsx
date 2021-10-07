@@ -8,7 +8,8 @@ import {
   Button,
   IconName,
   Color,
-  Heading
+  Heading,
+  Container
 } from '@wings-software/uicore'
 import { cloneDeep, uniqBy } from 'lodash-es'
 import { Drawer, IDrawerProps, Position } from '@blueprintjs/core'
@@ -95,7 +96,6 @@ export interface AddDrawerMapInterface {
   drawerSubLabel?: string
   showAllLabel?: string
   categories: CategoryInterface[]
-  searchPlaceholder?: string
 }
 
 export interface AddDrawerProps {
@@ -165,13 +165,27 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
   }
   return (
     <Drawer onClose={onClose} {...defaultDrawerValues[drawerContext].defaultDrawerProps} {...drawerProps}>
+      <Button
+        minimal
+        className={css.almostFullScreenCloseTriggerBtn}
+        icon="cross"
+        withoutBoxShadow
+        onClick={() => {
+          onClose()
+        }}
+      />
       <div className={css.stepPalette}>
         <div className={css.stepInside}>
           <section className={css.stepsRenderer}>
             <Layout.Vertical padding="large" spacing="large">
               <Layout.Horizontal className={css.paletteCardHeader} spacing="medium">
                 <Layout.Vertical spacing="small">
-                  <Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }} className={css.title}>
+                  <Heading
+                    level={2}
+                    color={Color.GREY_800}
+                    font={{ weight: 'bold', size: 'medium' }}
+                    className={css.title}
+                  >
                     {addDrawerMap.drawerLabel}
                   </Heading>
                   {addDrawerMap.drawerSubLabel && (
@@ -180,9 +194,10 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
                 </Layout.Vertical>
 
                 <ExpandingSearchInput
-                  alwaysExpanded
+                  flip
+                  autoFocus
                   width={232}
-                  placeholder={addDrawerMap.searchPlaceholder || getString('search')}
+                  placeholder={getString('search')}
                   throttle={200}
                   onChange={(text: string) => filterSteps(text, filterContext.SEARCH)}
                 />
@@ -253,26 +268,35 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
             </Layout.Vertical>
           </section>
           <section className={css.categoriesRenderer}>
-            <Layout.Horizontal padding="medium" style={{ justifyContent: 'flex-end', padding: '0' }}>
-              <Button intent="primary" minimal icon="cross" onClick={onClose} />
-            </Layout.Horizontal>
-            <section className={css.primaryCategories}>
-              <section
-                className={cx(
-                  css.showAllBtn,
-                  showRecentlyUsed && selectedCategory === primaryTypes.SHOW_ALL
-                    ? css.active
-                    : /* istanbul ignore next */ ''
-                )}
-                onClick={() => {
-                  filterSteps(primaryTypes.SHOW_ALL)
-                }}
-                key={primaryTypes.SHOW_ALL}
-              >
-                {addDrawerMap.showAllLabel || getString('showAll')} (
-                {getAllItemsCount(originalData) || originalData?.length})
+            <section className={css.headerContainer}>
+              <Layout.Horizontal flex>
+                <Container flex className={css.libraryHeader}>
+                  <Icon size={14} name="library" className={`${css.paletteIcon} ${css.library}`} />
+                  <Text color={Color.WHITE} style={{ fontSize: 14 }}>
+                    {addDrawerMap.drawerLabel}
+                  </Text>
+                </Container>
+              </Layout.Horizontal>
+              <section className={css.primaryCategories}>
+                <section
+                  className={cx(
+                    css.showAllBtn,
+                    showRecentlyUsed && selectedCategory === primaryTypes.SHOW_ALL
+                      ? css.active
+                      : /* istanbul ignore next */ ''
+                  )}
+                  onClick={() => {
+                    filterSteps(primaryTypes.SHOW_ALL)
+                  }}
+                  key={primaryTypes.SHOW_ALL}
+                >
+                  <Text color={Color.WHITE} style={{ fontSize: 11, fontWeight: 'bold' }}>
+                    {addDrawerMap.showAllLabel || getString('showAll')} (
+                  </Text>
+                  {getAllItemsCount(originalData) || originalData?.length})
+                </section>
+                {showRecentlyUsed ? <section>{getString('recentlyUsed')} (0)</section> : null}
               </section>
-              {showRecentlyUsed ? <section>{getString('recentlyUsed')} (0)</section> : null}
             </section>
             <hr className={css.separator} />
             <section className={css.secCategories}>

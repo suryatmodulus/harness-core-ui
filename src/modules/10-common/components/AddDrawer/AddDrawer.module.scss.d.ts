@@ -4,6 +4,7 @@ declare const styles: {
   readonly expandedInput: string
   readonly stepInside: string
   readonly paletteCardHeader: string
+  readonly title: string
   readonly stepPalette: string
   readonly stepsRenderer: string
   readonly categorySteps: string
@@ -20,9 +21,12 @@ declare const styles: {
   readonly separator: string
   readonly primaryCategories: string
   readonly secCategories: string
-  readonly title: string
   readonly category: string
   readonly offset: string
   readonly active: string
+  readonly almostFullScreenCloseTriggerBtn: string
+  readonly showRighDrawer: string
+  readonly fullScreen: string
+  readonly paletteIcon: string
 }
 export default styles

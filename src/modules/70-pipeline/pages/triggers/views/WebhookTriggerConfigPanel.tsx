@@ -162,6 +162,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
             <>
               {sourceRepo && <ConnectorSection formikProps={formikProps} />}
               <FormInput.Select
+                className={cx(!event && css.bottomMarginZero)}
                 key={event}
                 label={getString('pipeline.triggers.triggerConfigurationPanel.event')}
                 name="event"

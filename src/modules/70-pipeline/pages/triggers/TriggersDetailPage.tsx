@@ -214,9 +214,9 @@ export default function TriggersDetailPage(): JSX.Element {
                     <Text style={{ fontSize: 20 }} color={Color.BLACK}>
                       {triggerResponse.data?.name}
                     </Text>
-                    <Text>{getString('enabledLabel')}</Text>
                     <Switch
-                      label=""
+                      style={{ paddingLeft: '46px' }}
+                      label={getString('enabledLabel')}
                       disabled={isTriggerRbacDisabled}
                       checked={triggerResponse.data?.enabled ?? false}
                       onChange={async () => {

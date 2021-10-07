@@ -1321,9 +1321,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       </Text>
       {selectedView !== SelectedView.YAML ? (
         <>
-          <Text>{getString('enabledLabel')}</Text>
           <Switch
-            label=""
+            style={{ paddingLeft: '46px' }}
+            label={getString('enabledLabel')}
             disabled={isTriggerRbacDisabled}
             data-name="enabled-switch"
             key={Date.now()}
@@ -1386,8 +1386,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }}
         className={css.tabs}
         wizardMap={wizardMap}
-        tabWidth="260px"
-        tabChevronOffset="235px"
+        tabWidth="200px"
+        tabChevronOffset="178px"
         onHide={returnToTriggersPage}
         wizardType="webhook"
         // defaultTabId="Conditions"
@@ -1436,8 +1436,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }}
         className={css.tabs}
         wizardMap={wizardMap}
-        tabWidth="260px"
-        tabChevronOffset="235px"
+        tabWidth="200px"
+        tabChevronOffset="178px"
         onHide={returnToTriggersPage}
         // defaultTabId="Schedule"
         submitLabel={
@@ -1483,8 +1483,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }}
         className={css.tabs}
         wizardMap={wizardMap}
-        tabWidth="260px"
-        tabChevronOffset="235px"
+        tabWidth="200px"
+        tabChevronOffset="178px"
         onHide={returnToTriggersPage}
         // defaultTabId="Conditions"
         submitLabel={

@@ -371,14 +371,13 @@ triggers:
   addNewTrigger: Add New Trigger
   triggersLabel: 'Triggers'
   triggersSubLabel: 'All Trigger Types'
-  searchPlaceholder: 'Search Triggers'
   noTriggersFound: 'No Triggers Found'
   newTrigger: + New Trigger
   newTriggerWithoutPlus: New Trigger
   pipelineExecutionInput: Pipeline Execution Input
   lastActivationDetails: Last Activation Details
   lastActivationAt: 'Last activation at'
-  showAllTriggers: 'Show all Triggers'
+  showAllTriggers: 'Show All Triggers'
   onNewWebhookTitle: 'On New Webhook'
   onNewArtifactTitleWhole: 'On New Artifact'
   onNewManifestTitleWhole: 'On New Manifest'

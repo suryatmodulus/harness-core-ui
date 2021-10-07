@@ -408,7 +408,7 @@ const getPanels = ({
     return [
       {
         id: 'Trigger Configuration',
-        tabTitle: getString('pipeline.triggers.triggerConfigurationLabel'),
+        tabTitle: getString('configuration'),
         requiredFields: ['name', 'identifier'], // conditional required validations checkValidTriggerConfiguration
         checkValidPanel: checkValidTriggerConfiguration
       },
@@ -427,7 +427,7 @@ const getPanels = ({
     return [
       {
         id: 'Trigger Overview',
-        tabTitle: getString('pipeline.triggers.triggerOverviewPanel.title'),
+        tabTitle: getString('overview'),
         checkValidPanel: checkValidOverview,
         requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
       },
@@ -447,7 +447,7 @@ const getPanels = ({
     return [
       {
         id: 'Trigger Configuration',
-        tabTitle: getString('pipeline.triggers.triggerConfigurationLabel'),
+        tabTitle: getString('configuration'),
         checkValidPanel: checkValidArtifactTrigger,
         requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
       },

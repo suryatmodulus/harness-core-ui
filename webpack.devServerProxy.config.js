@@ -52,6 +52,10 @@ module.exports = {
   '/dashboard': {
     target: targetLocalHost ? 'http://localhost:5000' : baseUrl
   },
+  '/ng-dashboard/api': {
+    target: targetLocalHost ? 'http://localhost:7100' : baseUrl,
+    pathRewrite: { '^/ng-dashboard/api': 'ng-dashboard' }
+  },
   '/ccm/api': {
     target: targetLocalHost ? 'http://localhost:5000' : baseUrl
   },

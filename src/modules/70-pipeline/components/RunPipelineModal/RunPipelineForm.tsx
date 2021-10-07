@@ -127,7 +127,7 @@ function RunPipelineFormBasic({
     stagesRequired?: string[]
     stageName?: string
     message?: string
-  }>({ selectedStageId: '', stagesRequired: [], stageName: 'All Stages' })
+  }>({ selectedStageId: '', stagesRequired: [], stageName: getString('pipeline.allStages') })
   const { data: stageExecutionData, refetch } = useGetStagesExecutionList({
     queryParams: {
       accountIdentifier: accountId,
@@ -161,7 +161,7 @@ function RunPipelineFormBasic({
           value: defaultTo(execStage?.stageIdentifier, '')
         }
       }) || []
-    executionStages.unshift({ label: 'All', value: '' })
+    executionStages.unshift({ label: getString('pipeline.allStages'), value: '' })
 
     return executionStages
   }, [stageExecutionData?.data])

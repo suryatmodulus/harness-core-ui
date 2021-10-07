@@ -1786,6 +1786,7 @@ export interface StringsMap {
   'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
+  'pipeline.allStages': string
   'pipeline.and': string
   'pipeline.approvalStage.settingUpStage': string
   'pipeline.approvalStep.addApproverInputs': string

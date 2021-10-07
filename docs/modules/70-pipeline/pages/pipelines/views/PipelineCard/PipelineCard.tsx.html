@@ -504,14 +504,7 @@
 <a name='L445'></a><a href='#L445'>445</a>
 <a name='L446'></a><a href='#L446'>446</a>
 <a name='L447'></a><a href='#L447'>447</a>
-<a name='L448'></a><a href='#L448'>448</a>
-<a name='L449'></a><a href='#L449'>449</a>
-<a name='L450'></a><a href='#L450'>450</a>
-<a name='L451'></a><a href='#L451'>451</a>
-<a name='L452'></a><a href='#L452'>452</a>
-<a name='L453'></a><a href='#L453'>453</a>
-<a name='L454'></a><a href='#L454'>454</a>
-<a name='L455'></a><a href='#L455'>455</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L448'></a><a href='#L448'>448</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -846,10 +839,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -898,9 +887,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1172,17 +1158,13 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
         /&gt;
         &lt;Container&gt;
           {!isEmpty(pipelineIcons) &amp;&amp; (
-            &lt;Layout.Horizontal spacing={'small'} className={css.alignIcon}&gt;
+            &lt;Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }}&gt;
               {pipelineIcons.map(iconObj =&gt; (
                 &lt;Icon key={iconObj.icon} name={iconObj.icon} size={14} /&gt;
               ))}
             &lt;/Layout.Horizontal&gt;
           )}
-          &lt;Layout.Horizontal
-            spacing={'medium'}
-            flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
-            className={css.alignName}
-          &gt;
+          &lt;Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}&gt;
             &lt;Container&gt;
               &lt;Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={pipeline.identifier}&gt;
                 {pipeline.name}
@@ -1237,7 +1219,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
           )}
           {(module === 'cd' || <span class="branch-1 cbranch-no" title="branch not covered" >!!pipeline.filters?.cd?.serviceNames?.length) </span>&amp;&amp; (
             &lt;Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}&gt;
-              &lt;Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}&gt;
+              &lt;Text font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}&gt;
                 {getString('services')}
               &lt;/Text&gt;
               {pipeline.filters<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>d<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceNames<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? (
@@ -1367,12 +1349,9 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
             &lt;/&gt;
           )}
           &lt;Layout.Horizontal
-            margin={{
-              left: pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs ? 'small' : <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
-            }}
+            margin={{ top: pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs ? 'small' : <span class="branch-1 cbranch-no" title="branch not covered" >0 </span>}}
             spacing={'small'}
             flex
-            className={css.alignButtons}
           &gt;
             {!pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >              &lt;Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_400}&gt;</span>
@@ -1426,7 +1405,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 07 2021 04:49:56 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 07 2021 06:18:10 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

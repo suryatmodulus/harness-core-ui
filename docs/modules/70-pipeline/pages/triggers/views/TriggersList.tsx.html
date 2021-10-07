@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.68% </span>
+                <span class="strong">92.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>38/41</span>
+                <span class='fraction'>35/38</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/9</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.68% </span>
+                <span class="strong">92.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>38/41</span>
+                <span class='fraction'>35/38</span>
             </div>
         
             
@@ -288,28 +288,7 @@
 <a name='L229'></a><a href='#L229'>229</a>
 <a name='L230'></a><a href='#L230'>230</a>
 <a name='L231'></a><a href='#L231'>231</a>
-<a name='L232'></a><a href='#L232'>232</a>
-<a name='L233'></a><a href='#L233'>233</a>
-<a name='L234'></a><a href='#L234'>234</a>
-<a name='L235'></a><a href='#L235'>235</a>
-<a name='L236'></a><a href='#L236'>236</a>
-<a name='L237'></a><a href='#L237'>237</a>
-<a name='L238'></a><a href='#L238'>238</a>
-<a name='L239'></a><a href='#L239'>239</a>
-<a name='L240'></a><a href='#L240'>240</a>
-<a name='L241'></a><a href='#L241'>241</a>
-<a name='L242'></a><a href='#L242'>242</a>
-<a name='L243'></a><a href='#L243'>243</a>
-<a name='L244'></a><a href='#L244'>244</a>
-<a name='L245'></a><a href='#L245'>245</a>
-<a name='L246'></a><a href='#L246'>246</a>
-<a name='L247'></a><a href='#L247'>247</a>
-<a name='L248'></a><a href='#L248'>248</a>
-<a name='L249'></a><a href='#L249'>249</a>
-<a name='L250'></a><a href='#L250'>250</a>
-<a name='L251'></a><a href='#L251'>251</a>
-<a name='L252'></a><a href='#L252'>252</a>
-<a name='L253'></a><a href='#L253'>253</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L232'></a><a href='#L232'>232</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -341,10 +320,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -357,9 +332,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -446,20 +418,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -595,10 +553,6 @@ interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) =&gt; void
 }
 &nbsp;
-const canEnableArtifactTrigger = () =&gt; {
-  return ['localhost', 'qa.harness.io', 'pr.harness.io'].includes(location.hostname)
-}
-&nbsp;
 export default function TriggersList(props: TriggersListPropsInterface &amp; GitQueryParams): JSX.Element {
   const { onNewTriggerClick, repoIdentifier, branch } = props
 &nbsp;
@@ -610,9 +564,6 @@ export default function TriggersList(props: TriggersListPropsInterface &amp; Git
       pipelineIdentifier: string
     }&gt;
   &gt;()
-  // This is temporary feature flag for NewArtifact Trigger
-  const NG_NEWARTIFACT_TRIGGER = canEnableArtifactTrigger()
-&nbsp;
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
 &nbsp;
@@ -699,45 +650,31 @@ export default function TriggersList(props: TriggersListPropsInterface &amp; Git
 &nbsp;
     const categoryItems = <span class="cstat-no" title="statement not covered" >getCategoryItems(getString)</span>
     /* istanbul ignore next */
-    if (NG_NEWARTIFACT_TRIGGER) {
-      categoryItems.categories.splice(
-        1,
-        0,
-        {
-          categoryLabel: getString('pipeline.triggers.artifactTriggerConfigPanel.artifact'),
-          categoryValue: 'Artifact',
-          items: [
-            {
-              itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.Gcr]),
-              value: ENABLED_ARTIFACT_TYPES.Gcr,
-              iconName: ArtifactIconByType.Gcr
-            },
-            {
-              itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.Ecr]),
-              value: ENABLED_ARTIFACT_TYPES.Ecr,
-              iconName: ArtifactIconByType.Ecr
-            },
-            {
-              itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.DockerRegistry]),
-              value: ENABLED_ARTIFACT_TYPES.DockerRegistry,
-              iconName: ArtifactIconByType.DockerRegistry
-            }
-          ]
-        },
-        {
-          categoryLabel: getString('manifestsText'),
-          categoryValue: 'Manifest',
-          items: [
-            {
-              itemLabel: getString(manifestTypeLabels.HelmChart),
-              value: ManifestDataType.HelmChart,
-              iconName: manifestTypeIcons.HelmChart
-            }
-          ]
-        }
-      )
-    } else {
-      categoryItems.categories.splice(1, 0, {
+    categoryItems.categories.splice(
+      1,
+      0,
+      {
+        categoryLabel: getString('pipeline.triggers.artifactTriggerConfigPanel.artifact'),
+        categoryValue: 'Artifact',
+        items: [
+          {
+            itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.Gcr]),
+            value: ENABLED_ARTIFACT_TYPES.Gcr,
+            iconName: ArtifactIconByType.Gcr
+          },
+          {
+            itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.Ecr]),
+            value: ENABLED_ARTIFACT_TYPES.Ecr,
+            iconName: ArtifactIconByType.Ecr
+          },
+          {
+            itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.DockerRegistry]),
+            value: ENABLED_ARTIFACT_TYPES.DockerRegistry,
+            iconName: ArtifactIconByType.DockerRegistry
+          }
+        ]
+      },
+      {
         categoryLabel: getString('manifestsText'),
         categoryValue: 'Manifest',
         items: [
@@ -747,8 +684,8 @@ export default function TriggersList(props: TriggersListPropsInterface &amp; Git
             iconName: manifestTypeIcons.HelmChart
           }
         ]
-      })
-    }
+      }
+    )
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;AddDrawer
@@ -820,7 +757,7 @@ export default function TriggersList(props: TriggersListPropsInterface &amp; Git
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 06 2021 19:49:22 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 07 2021 04:14:49 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

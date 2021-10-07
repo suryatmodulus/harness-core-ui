@@ -15,16 +15,20 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
           <div
             class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--margin-large"
           >
-            <h2
-              class="heading"
+            <span
+              class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
             >
               pipeline.triggers.pipelineInputLabel
-            </h2>
-            <p
-              class="StyledProps--font StyledProps--main"
+            </span>
+            <div
+              class="Layout--vertical StyledProps--main formContent"
             >
-              pipeline.triggers.pipelineInputPanel.noRuntimeInputs
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                pipeline.triggers.pipelineInputPanel.noRuntimeInputs
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -55,7 +59,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                 class="pipelineInputRow"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--inline StyledProps--color StyledProps--color-grey800"
+                  class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
                 >
                   pipeline.triggers.pipelineInputLabel
                 </span>
@@ -100,9 +104,12 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                     </div>
                   </span>
                 </span>
+                <div
+                  class="divider"
+                />
               </div>
               <div
-                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container"
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container pipelineInputSetForm"
               >
                 <div
                   class="subheading"
@@ -216,7 +223,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                 class="pipelineInputRow"
               >
                 <span
-                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--inline StyledProps--color StyledProps--color-grey800"
+                  class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
                 >
                   pipeline.triggers.pipelineInputLabel
                 </span>
@@ -261,9 +268,12 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                     </div>
                   </span>
                 </span>
+                <div
+                  class="divider"
+                />
               </div>
               <div
-                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container"
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container pipelineInputSetForm"
               >
                 <div
                   class="Layout--vertical StyledProps--main"

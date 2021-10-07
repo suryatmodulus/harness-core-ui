@@ -20,19 +20,15 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
             style="align-items: baseline;"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
               style="font-size: 20px;"
             >
               Trigger: customtrigger
                
             </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              enabledLabel
-            </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+              style="padding-left: 46px;"
             >
               <input
                 checked=""
@@ -42,7 +38,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
               <span
                 class="bp3-control-indicator"
               />
-              
+              enabledLabel
             </label>
           </div>
         </div>
@@ -104,7 +100,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                     data-tab-id="Trigger Configuration"
                     id="bp3-tab-title_Wizard_Trigger Configuration"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -129,13 +125,13 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                           />
                         </svg>
                       </span>
-                      pipeline.triggers.triggerConfigurationLabel
+                      configuration
                     </span>
                     <span
                       class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
                       data-name="chevron-right-tab"
                       icon="chevron-right"
-                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                      style="position: absolute; left: 178px; cursor: auto; height: 20px;"
                     >
                       <svg
                         data-icon="chevron-right"
@@ -162,7 +158,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                     data-tab-id="Conditions"
                     id="bp3-tab-title_Wizard_Conditions"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -193,7 +189,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                       class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
                       data-name="chevron-right-tab"
                       icon="chevron-right"
-                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                      style="position: absolute; left: 178px; cursor: auto; height: 20px;"
                     >
                       <svg
                         data-icon="chevron-right"
@@ -220,7 +216,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                     data-tab-id="Pipeline Input"
                     id="bp3-tab-title_Wizard_Pipeline Input"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -269,7 +265,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                           class="pipelineInputRow"
                         >
                           <span
-                            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--inline StyledProps--color StyledProps--color-grey800"
+                            class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
                           >
                             pipeline.triggers.pipelineInputLabel
                           </span>
@@ -314,9 +310,12 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                               </div>
                             </span>
                           </span>
+                          <div
+                            class="divider"
+                          />
                         </div>
                         <div
-                          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container"
+                          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container pipelineInputSetForm"
                         >
                           <div
                             class="subheading"
@@ -1169,19 +1168,15 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
             style="align-items: baseline;"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
               style="font-size: 20px;"
             >
               Trigger: All Values
                
             </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              enabledLabel
-            </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+              style="padding-left: 46px;"
             >
               <input
                 checked=""
@@ -1191,7 +1186,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
               <span
                 class="bp3-control-indicator"
               />
-              
+              enabledLabel
             </label>
           </div>
         </div>
@@ -1253,7 +1248,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Trigger Configuration"
                     id="bp3-tab-title_Wizard_Trigger Configuration"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -1278,13 +1273,13 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           />
                         </svg>
                       </span>
-                      pipeline.triggers.triggerConfigurationLabel
+                      configuration
                     </span>
                     <span
                       class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
                       data-name="chevron-right-tab"
                       icon="chevron-right"
-                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                      style="position: absolute; left: 178px; cursor: auto; height: 20px;"
                     >
                       <svg
                         data-icon="chevron-right"
@@ -1311,7 +1306,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Conditions"
                     id="bp3-tab-title_Wizard_Conditions"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -1342,7 +1337,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
                       data-name="chevron-right-tab"
                       icon="chevron-right"
-                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                      style="position: absolute; left: 178px; cursor: auto; height: 20px;"
                     >
                       <svg
                         data-icon="chevron-right"
@@ -1369,7 +1364,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Pipeline Input"
                     id="bp3-tab-title_Wizard_Pipeline Input"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -1417,7 +1412,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       class="formContent"
                     >
                       <div
-                        class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+                        class="StyledProps--font StyledProps--main main nameIdDescriptionTags bottomMarginZero"
                       >
                         <div
                           class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -2035,28 +2030,32 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             </div>
                           </div>
                           <div
-                            class="bp3-form-group"
+                            class="StyledProps--font StyledProps--main anyActionContainer"
                           >
                             <div
-                              class="bp3-form-content"
+                              class="bp3-form-group"
                             >
-                              <label
-                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
+                              <div
+                                class="bp3-form-content"
                               >
-                                <input
-                                  name="anyAction"
-                                  type="checkbox"
-                                />
-                                <span
-                                  class="bp3-control-indicator"
-                                />
-                                <span
-                                  class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                  data-tooltip-id="wizardForm_webhook_anyAction"
+                                <label
+                                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
                                 >
-                                  pipeline.triggers.triggerConfigurationPanel.anyActions
-                                </span>
-                              </label>
+                                  <input
+                                    name="anyAction"
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    class="bp3-control-indicator"
+                                  />
+                                  <span
+                                    class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                                    data-tooltip-id="wizardForm_webhook_anyAction"
+                                  >
+                                    pipeline.triggers.triggerConfigurationPanel.anyActions
+                                  </span>
+                                </label>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -2090,8 +2089,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           </div>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                          style="margin-left: 29px; position: relative; top: -10px;"
+                          class="StyledProps--font StyledProps--main autoAbortDescription"
                         >
                           pipeline.triggers.triggerConfigurationPanel.autoAbortIssueComment
                         </p>
@@ -2175,19 +2173,15 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
             style="align-items: baseline;"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
               style="font-size: 20px;"
             >
               Trigger: test-github-repo
                
             </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              enabledLabel
-            </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+              style="padding-left: 46px;"
             >
               <input
                 checked=""
@@ -2197,7 +2191,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
               <span
                 class="bp3-control-indicator"
               />
-              
+              enabledLabel
             </label>
           </div>
         </div>
@@ -2259,7 +2253,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Trigger Configuration"
                     id="bp3-tab-title_Wizard_Trigger Configuration"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -2284,13 +2278,13 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           />
                         </svg>
                       </span>
-                      pipeline.triggers.triggerConfigurationLabel
+                      configuration
                     </span>
                     <span
                       class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
                       data-name="chevron-right-tab"
                       icon="chevron-right"
-                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                      style="position: absolute; left: 178px; cursor: auto; height: 20px;"
                     >
                       <svg
                         data-icon="chevron-right"
@@ -2317,7 +2311,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Conditions"
                     id="bp3-tab-title_Wizard_Conditions"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -2348,7 +2342,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
                       data-name="chevron-right-tab"
                       icon="chevron-right"
-                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                      style="position: absolute; left: 178px; cursor: auto; height: 20px;"
                     >
                       <svg
                         data-icon="chevron-right"
@@ -2375,7 +2369,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     data-tab-id="Pipeline Input"
                     id="bp3-tab-title_Wizard_Pipeline Input"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -2423,7 +2417,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       class="formContent"
                     >
                       <div
-                        class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+                        class="StyledProps--font StyledProps--main main nameIdDescriptionTags bottomMarginZero"
                       >
                         <div
                           class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -3005,28 +2999,32 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             </div>
                           </div>
                           <div
-                            class="bp3-form-group"
+                            class="StyledProps--font StyledProps--main anyActionContainer"
                           >
                             <div
-                              class="bp3-form-content"
+                              class="bp3-form-group"
                             >
-                              <label
-                                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
+                              <div
+                                class="bp3-form-content"
                               >
-                                <input
-                                  name="anyAction"
-                                  type="checkbox"
-                                />
-                                <span
-                                  class="bp3-control-indicator"
-                                />
-                                <span
-                                  class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                  data-tooltip-id="wizardForm_webhook_anyAction"
+                                <label
+                                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkboxAlignment StyledProps--main StyledProps--inline"
                                 >
-                                  pipeline.triggers.triggerConfigurationPanel.anyActions
-                                </span>
-                              </label>
+                                  <input
+                                    name="anyAction"
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    class="bp3-control-indicator"
+                                  />
+                                  <span
+                                    class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                                    data-tooltip-id="wizardForm_webhook_anyAction"
+                                  >
+                                    pipeline.triggers.triggerConfigurationPanel.anyActions
+                                  </span>
+                                </label>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -3060,8 +3058,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           </div>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-                          style="margin-left: 29px; position: relative; top: -10px;"
+                          class="StyledProps--font StyledProps--main autoAbortDescription"
                         >
                           pipeline.triggers.triggerConfigurationPanel.autoAbortPR
                         </p>
@@ -3145,19 +3142,15 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
             style="align-items: baseline;"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
               style="font-size: 20px;"
             >
               Trigger: test-cron
                
             </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              enabledLabel
-            </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+              style="padding-left: 46px;"
             >
               <input
                 checked=""
@@ -3167,7 +3160,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
               <span
                 class="bp3-control-indicator"
               />
-              
+              enabledLabel
             </label>
           </div>
         </div>
@@ -3229,7 +3222,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Trigger Overview"
                     id="bp3-tab-title_Wizard_Trigger Overview"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -3254,13 +3247,13 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                           />
                         </svg>
                       </span>
-                      pipeline.triggers.triggerOverviewPanel.title
+                      overview
                     </span>
                     <span
                       class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
                       data-name="chevron-right-tab"
                       icon="chevron-right"
-                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                      style="position: absolute; left: 178px; cursor: auto; height: 20px;"
                     >
                       <svg
                         data-icon="chevron-right"
@@ -3287,7 +3280,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Schedule"
                     id="bp3-tab-title_Wizard_Schedule"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -3318,7 +3311,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                       class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
                       data-name="chevron-right-tab"
                       icon="chevron-right"
-                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                      style="position: absolute; left: 178px; cursor: auto; height: 20px;"
                     >
                       <svg
                         data-icon="chevron-right"
@@ -3345,7 +3338,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Pipeline Input"
                     id="bp3-tab-title_Wizard_Pipeline Input"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -3638,19 +3631,15 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
             style="align-items: baseline;"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
               style="font-size: 20px;"
             >
               Trigger: test-cron
                
             </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              enabledLabel
-            </p>
             <label
               class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+              style="padding-left: 46px;"
             >
               <input
                 checked=""
@@ -3660,7 +3649,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
               <span
                 class="bp3-control-indicator"
               />
-              
+              enabledLabel
             </label>
           </div>
         </div>
@@ -3722,7 +3711,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Trigger Overview"
                     id="bp3-tab-title_Wizard_Trigger Overview"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -3747,13 +3736,13 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                           />
                         </svg>
                       </span>
-                      pipeline.triggers.triggerOverviewPanel.title
+                      overview
                     </span>
                     <span
                       class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
                       data-name="chevron-right-tab"
                       icon="chevron-right"
-                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                      style="position: absolute; left: 178px; cursor: auto; height: 20px;"
                     >
                       <svg
                         data-icon="chevron-right"
@@ -3780,7 +3769,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Schedule"
                     id="bp3-tab-title_Wizard_Schedule"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span
@@ -3811,7 +3800,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                       class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
                       data-name="chevron-right-tab"
                       icon="chevron-right"
-                      style="position: absolute; left: 235px; cursor: auto; height: 20px;"
+                      style="position: absolute; left: 178px; cursor: auto; height: 20px;"
                     >
                       <svg
                         data-icon="chevron-right"
@@ -3838,7 +3827,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     data-tab-id="Pipeline Input"
                     id="bp3-tab-title_Wizard_Pipeline Input"
                     role="tab"
-                    style="width: 260px;"
+                    style="width: 200px;"
                     tabindex="0"
                   >
                     <span

@@ -226,6 +226,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
                   selectedValueClass={css.inputSetSelectedValue}
                 />
               </GitSyncStoreProvider>
+              <div className={css.divider} />
             </div>
             <PipelineInputSetForm
               originalPipeline={originalPipeline}

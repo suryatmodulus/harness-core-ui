@@ -13,5 +13,6 @@ declare const styles: {
   readonly inputSetcard: string
   readonly errorHeader: string
   readonly inputSetSelectedValue: string
+  readonly divider: string
 }
 export default styles

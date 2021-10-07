@@ -18,7 +18,7 @@ import type { AddConditionInterface } from '../views/AddConditionsSection'
 export const CUSTOM = 'Custom'
 export const AWS_CODECOMMIT = 'AWS_CODECOMMIT'
 export const AwsCodeCommit = 'AwsCodeCommit'
-export const PRIMARY_ARTIFACT = 'Primary'
+export const PRIMARY_ARTIFACT = 'primary'
 
 export const getArtifactId = (isManifest?: boolean, selectedArtifactId?: string) => {
   if (isManifest || selectedArtifactId) {

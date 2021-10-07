@@ -8,7 +8,8 @@ module.exports = {
       isolatedModules: true,
       diagnostics: false
     },
-    __DEV__: false
+    __DEV__: false,
+    __ON_PREM__: `${process.env.ON_PREM}` === 'true'
   },
   setupFilesAfterEnv: ['<rootDir>/scripts/jest/setup-file.js', 'fake-indexeddb/auto', 'jest-canvas-mock'],
   collectCoverageFrom: [

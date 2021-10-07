@@ -510,7 +510,7 @@ exports[`Signup Page handleSubmit should show error when api fails 1`] = `
                           name="email"
                           placeholder="signUp.form.emailPlaceholder"
                           type="text"
-                          value="random@hotmail.com"
+                          value="harness_test_0.8633301290115785@hotmail.com"
                         />
                       </div>
                     </div>

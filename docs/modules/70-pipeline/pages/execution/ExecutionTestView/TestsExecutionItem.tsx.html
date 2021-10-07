@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.66% </span>
+                <span class="strong">91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>86/97</span>
+                <span class='fraction'>91/100</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.78% </span>
+                <span class="strong">74.26% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>145/202</span>
+                <span class='fraction'>150/202</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.59% </span>
+                <span class="strong">78.95% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/17</span>
+                <span class='fraction'>15/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.54% </span>
+                <span class="strong">90.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>85/96</span>
+                <span class='fraction'>90/99</span>
             </div>
         
             
@@ -491,18 +491,8 @@
 <a name='L432'></a><a href='#L432'>432</a>
 <a name='L433'></a><a href='#L433'>433</a>
 <a name='L434'></a><a href='#L434'>434</a>
-<a name='L435'></a><a href='#L435'>435</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L435'></a><a href='#L435'>435</a>
+<a name='L436'></a><a href='#L436'>436</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -510,6 +500,15 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -789,16 +788,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">61x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -924,13 +927,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { get, throttle } from 'lodash-es'
+import { get } from 'lodash-es'
 import { Button, Color, Icon, Container, Text, useIsMounted, Layout } from '@wings-software/uicore'
-import { ResizeSensor } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } from 'services/ti-service'
@@ -947,7 +948,6 @@ const NOW = Date.now()
 const PAGE_SIZE = 10
 const COPY_CLIPBOARD_ICON_WIDTH = 16
 const SAFETY_TABLE_WIDTH = 216
-const THROTTLE_TIME = 300
 &nbsp;
 export interface TestExecutionEntryProps {
   buildIdentifier: string
@@ -1222,14 +1222,19 @@ export const TestsExecutionItem: React.FC&lt;TestExecutionEntryProps&gt; = ({
     }
   }, [])
 &nbsp;
-  const onResize = useCallback(
-    throttle(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >      if (tableRef?.current) {</span>
-<span class="cstat-no" title="statement not covered" >        setTableWidth(tableRef.current.clientWidth)</span>
+  useEffect(() =&gt; {
+    const onResize = (): void =&gt; {
+      if (tableRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>urrent) {
+        setTableWidth(tableRef.current.clientWidth)
       }
-    }, THROTTLE_TIME),
-    []
-  )
+    }
+    onResize()
+    window.addEventListener('resize', onResize)
+&nbsp;
+    return () =&gt; {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
 &nbsp;
   return (
     &lt;Container className={cx(css.widget, css.testSuite, expanded &amp;&amp; css.expanded)} padding="medium" ref={containerRef}&gt;
@@ -1316,43 +1321,41 @@ export const TestsExecutionItem: React.FC&lt;TestExecutionEntryProps&gt; = ({
             &lt;/Container&gt;
           )}
           {!loading &amp;&amp; !error &amp;&amp; (
-            &lt;ResizeSensor onResize={onResize}&gt;
-              &lt;Container ref={tableRef}&gt;
-                &lt;Table&lt;TestCase&gt;
-                  className={cx(css.testSuiteTable, !!onShowCallGraphForClass &amp;&amp; css.clickable)}
-                  columns={columns}
-                  data={data<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
-                  getRowClassName={row =&gt; (row.original === selectedRow ? css.rowSelected : '')}
-                  sortable
-                  resizable={true}
-                  onRowClick={
-                    onShowCallGraphForClass
-                      ? <span class="fstat-no" title="function not covered" >row </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                          setSelectedRow(row)</span>
-<span class="cstat-no" title="statement not covered" >                          onShowCallGraphForClass(row.class_name as string)</span>
+            &lt;Container ref={tableRef}&gt;
+              &lt;Table&lt;TestCase&gt;
+                className={cx(css.testSuiteTable, !!onShowCallGraphForClass &amp;&amp; css.clickable)}
+                columns={columns}
+                data={data<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
+                getRowClassName={row =&gt; (row.original === selectedRow ? css.rowSelected : '')}
+                sortable
+                resizable={true}
+                onRowClick={
+                  onShowCallGraphForClass
+                    ? <span class="fstat-no" title="function not covered" >row </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                        setSelectedRow(row)</span>
+<span class="cstat-no" title="statement not covered" >                        onShowCallGraphForClass(row.class_name as string)</span>
+                      }
+                    : undefined
+                }
+                pagination={
+                  (data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalItems || <span class="branch-1 cbranch-no" title="branch not covered" >0)</span> &gt; PAGE_SIZE
+                    ? {
+                        itemCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalItems || <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
+                        pageSize: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ageSize || <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
+                        pageCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalPages || <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
+                        pageIndex,
+                        gotoPage: <span class="fstat-no" title="function not covered" >pageIdx </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                          setPageIndex(pageIdx)</span>
+<span class="cstat-no" title="statement not covered" >                          refetchData({</span>
+                            ...queryParams,
+                            pageIndex: pageIdx
+                          })
                         }
-                      : undefined
-                  }
-                  pagination={
-                    (data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalItems || <span class="branch-1 cbranch-no" title="branch not covered" >0)</span> &gt; PAGE_SIZE
-                      ? {
-                          itemCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalItems || <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
-                          pageSize: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ageSize || <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
-                          pageCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalPages || <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
-                          pageIndex,
-                          gotoPage: <span class="fstat-no" title="function not covered" >pageIdx </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                            setPageIndex(pageIdx)</span>
-<span class="cstat-no" title="statement not covered" >                            refetchData({</span>
-                              ...queryParams,
-                              pageIndex: pageIdx
-                            })
-                          }
-                        }
-                      : <span class="branch-1 cbranch-no" title="branch not covered" >undefined</span>
-                  }
-                /&gt;
-              &lt;/Container&gt;
-            &lt;/ResizeSensor&gt;
+                      }
+                    : <span class="branch-1 cbranch-no" title="branch not covered" >undefined</span>
+                }
+              /&gt;
+            &lt;/Container&gt;
           )}
         &lt;/&gt;
       )}
@@ -1366,7 +1369,7 @@ export const TestsExecutionItem: React.FC&lt;TestExecutionEntryProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 07 2021 15:33:58 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 07 2021 17:12:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

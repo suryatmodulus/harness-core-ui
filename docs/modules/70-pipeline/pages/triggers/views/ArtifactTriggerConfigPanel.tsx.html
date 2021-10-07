@@ -412,7 +412,18 @@
 <a name='L353'></a><a href='#L353'>353</a>
 <a name='L354'></a><a href='#L354'>354</a>
 <a name='L355'></a><a href='#L355'>355</a>
-<a name='L356'></a><a href='#L356'>356</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L356'></a><a href='#L356'>356</a>
+<a name='L357'></a><a href='#L357'>357</a>
+<a name='L358'></a><a href='#L358'>358</a>
+<a name='L359'></a><a href='#L359'>359</a>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -575,6 +586,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">50x</span>
 <span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -766,9 +779,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
-import { Layout, Heading, Text, Label, Button, Container, Color } from '@wings-software/uicore'
+import { Layout, Heading, Text, Label, Button, Container, Color, HarnessDocTooltip } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
@@ -938,9 +960,11 @@ const showAddArtifactManifest = ({
           fontWeight: 'normal',
           marginBottom: 'var(--spacing-small)'
         }}
+        data-tooltip-id="artifactManifestLabel"
       &gt;
         {isManifest ? getString('manifestsText') : getString(artifactStr)}
       &lt;/Label&gt;
+      &lt;HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} /&gt;
       &lt;Text
         data-name="plusAdd"
         style={{
@@ -1054,13 +1078,16 @@ const ArtifactTriggerConfigPanel: React.FC&lt;ArtifactTriggerConfigPanelPropsInt
           &lt;PageSpinner /&gt;
         &lt;/div&gt;
       )}
-      &lt;h2 className={css.heading}&gt;{`${getString('pipeline.triggers.triggerConfigurationLabel')}${
+      &lt;h2 className={css.heading} data-tooltip-id="artifactManifestLabel"&gt;{`${getString(
+        'pipeline.triggers.triggerConfigurationLabel'
+      )}${
         !isEdit
           ? `: ${getString('pipeline.triggers.onNewArtifactTitle', {
               artifact: artifactOrManifestText
             })}`
           : ''
       }`}&lt;/h2&gt;
+      &lt;HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} /&gt;
       &lt;div style={{ backgroundColor: 'var(--white)' }}&gt;
         &lt;NameIdDescriptionTags
           className={css.nameIdDescriptionTags}
@@ -1072,11 +1099,17 @@ const ArtifactTriggerConfigPanel: React.FC&lt;ArtifactTriggerConfigPanelPropsInt
             dataTooltipId: 'artifactTrigger'
           }}
         /&gt;
-        &lt;Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}&gt;
+        &lt;Heading
+          className={css.listenOnNewWebhook}
+          style={{ marginTop: '0!important' }}
+          level={2}
+          data-tooltip-id="listenOnNewArtifactManifest"
+        &gt;
           {getString('pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact', {
             artifact: artifactOrManifestText
           })}
         &lt;/Heading&gt;
+        &lt;HarnessDocTooltip tooltipId="listenOnNewArtifactManifest" useStandAlone={true} /&gt;
         &lt;section style={{ marginTop: 'var(--spacing-small)' }}&gt;
           {appliedTableArtifact ? (
             showAppliedTableArtifact({
@@ -1129,7 +1162,7 @@ export default ArtifactTriggerConfigPanel
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 07 2021 15:33:58 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 07 2021 17:12:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

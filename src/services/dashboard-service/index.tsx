@@ -46,13 +46,14 @@ export interface CountWithSuccessFailureDetails {
 }
 
 export interface DeploymentsOverview {
-  failedCount?: number
-  manualInterventionsCount?: number
-  pendingApprovalsCount?: number
-  runningCount?: number
+  failed24HrsExecutions?: PipelineExecutionDashboardInfo[]
+  pendingApprovalExecutions?: PipelineExecutionDashboardInfo[]
+  pendingManualInterventionExecutions?: PipelineExecutionDashboardInfo[]
+  runningExecutions?: PipelineExecutionDashboardInfo[]
 }
 
 export interface DeploymentsStatsOverview {
+  deploymentsOverview?: DeploymentsOverview
   deploymentsStatsSummary?: DeploymentsStatsSummary
   mostActiveServicesList?: MostActiveServicesList
 }
@@ -61,8 +62,6 @@ export interface DeploymentsStatsSummary {
   countAndChangeRate?: CountChangeDetails
   deploymentRateAndChangeRate?: RateAndRateChangeInfo
   deploymentStats?: TimeBasedStats[]
-  deploymentsOverview?: DeploymentsOverview
-  failureCountAndChangeRate?: CountChangeDetails
   failureRateAndChangeRate?: RateAndRateChangeInfo
 }
 
@@ -706,6 +705,16 @@ export interface OrgInfo {
   orgName?: string
 }
 
+export interface PipelineExecutionDashboardInfo {
+  accountIdentifier?: string
+  identifier?: string
+  name?: string
+  orgIdentifier?: string
+  planExecutionId?: string
+  projectIdentifier?: string
+  startTs?: number
+}
+
 export interface ProjectInfo {
   projectIdentifier?: string
   projectName?: string
@@ -1058,7 +1067,7 @@ export interface ResponseString {
 }
 
 export interface ServiceInfo {
-  serviceInfo?: string
+  serviceIdentifier?: string
   serviceName?: string
 }
 
@@ -1121,7 +1130,7 @@ export type GetNGDashboardHealthStatusProps = Omit<GetProps<ResponseString, unkn
  * Get health status for Dashboard Aggregator Service
  */
 export const GetNGDashboardHealthStatus = (props: GetNGDashboardHealthStatusProps) => (
-  <Get<ResponseString, unknown, void, void> path={`/health`} base={getConfig('dashboardService/api')} {...props} />
+  <Get<ResponseString, unknown, void, void> path={`/health`} base={getConfig('ng-dashboard/api')} {...props} />
 )
 
 export type UseGetNGDashboardHealthStatusProps = Omit<UseGetProps<ResponseString, unknown, void, void>, 'path'>
@@ -1130,7 +1139,7 @@ export type UseGetNGDashboardHealthStatusProps = Omit<UseGetProps<ResponseString
  * Get health status for Dashboard Aggregator Service
  */
 export const useGetNGDashboardHealthStatus = (props: UseGetNGDashboardHealthStatusProps) =>
-  useGet<ResponseString, unknown, void, void>(`/health`, { base: getConfig('dashboardService/api'), ...props })
+  useGet<ResponseString, unknown, void, void>(`/health`, { base: getConfig('ng-dashboard/api'), ...props })
 
 /**
  * Get health status for Dashboard Aggregator Service
@@ -1138,7 +1147,7 @@ export const useGetNGDashboardHealthStatus = (props: UseGetNGDashboardHealthStat
 export const getNGDashboardHealthStatusPromise = (
   props: GetUsingFetchProps<ResponseString, unknown, void, void>,
   signal?: RequestInit['signal']
-) => getUsingFetch<ResponseString, unknown, void, void>(getConfig('dashboardService/api'), `/health`, props, signal)
+) => getUsingFetch<ResponseString, unknown, void, void>(getConfig('ng-dashboard/api'), `/health`, props, signal)
 
 export interface GetDeploymentStatsOverviewQueryParams {
   accountIdentifier: string
@@ -1164,7 +1173,7 @@ export type GetDeploymentStatsOverviewProps = Omit<
 export const GetDeploymentStatsOverview = (props: GetDeploymentStatsOverviewProps) => (
   <Get<ResponseExecutionResponseDeploymentsStatsOverview, Failure | Error, GetDeploymentStatsOverviewQueryParams, void>
     path={`/overview/deployment-stats`}
-    base={getConfig('dashboardService/api')}
+    base={getConfig('ng-dashboard/api')}
     {...props}
   />
 )
@@ -1188,7 +1197,7 @@ export const useGetDeploymentStatsOverview = (props: UseGetDeploymentStatsOvervi
     Failure | Error,
     GetDeploymentStatsOverviewQueryParams,
     void
-  >(`/overview/deployment-stats`, { base: getConfig('dashboardService/api'), ...props })
+  >(`/overview/deployment-stats`, { base: getConfig('ng-dashboard/api'), ...props })
 
 /**
  * Get deployment stats summary
@@ -1207,7 +1216,7 @@ export const getDeploymentStatsOverviewPromise = (
     Failure | Error,
     GetDeploymentStatsOverviewQueryParams,
     void
-  >(getConfig('dashboardService/api'), `/overview/deployment-stats`, props, signal)
+  >(getConfig('ng-dashboard/api'), `/overview/deployment-stats`, props, signal)
 
 export interface GetCountsQueryParams {
   accountIdentifier: string
@@ -1226,7 +1235,7 @@ export type GetCountsProps = Omit<
 export const GetCounts = (props: GetCountsProps) => (
   <Get<ResponseExecutionResponseCountOverview, Failure | Error, GetCountsQueryParams, void>
     path={`/overview/resources-overview-count`}
-    base={getConfig('dashboardService/api')}
+    base={getConfig('ng-dashboard/api')}
     {...props}
   />
 )
@@ -1242,7 +1251,7 @@ export type UseGetCountsProps = Omit<
 export const useGetCounts = (props: UseGetCountsProps) =>
   useGet<ResponseExecutionResponseCountOverview, Failure | Error, GetCountsQueryParams, void>(
     `/overview/resources-overview-count`,
-    { base: getConfig('dashboardService/api'), ...props }
+    { base: getConfig('ng-dashboard/api'), ...props }
   )
 
 /**
@@ -1253,7 +1262,7 @@ export const getCountsPromise = (
   signal?: RequestInit['signal']
 ) =>
   getUsingFetch<ResponseExecutionResponseCountOverview, Failure | Error, GetCountsQueryParams, void>(
-    getConfig('dashboardService/api'),
+    getConfig('ng-dashboard/api'),
     `/overview/resources-overview-count`,
     props,
     signal
@@ -1276,7 +1285,7 @@ export type GetTopProjectsProps = Omit<
 export const GetTopProjects = (props: GetTopProjectsProps) => (
   <Get<ResponseExecutionResponseTopProjectsPanel, Failure | Error, GetTopProjectsQueryParams, void>
     path={`/overview/top-projects`}
-    base={getConfig('dashboardService/api')}
+    base={getConfig('ng-dashboard/api')}
     {...props}
   />
 )
@@ -1292,7 +1301,7 @@ export type UseGetTopProjectsProps = Omit<
 export const useGetTopProjects = (props: UseGetTopProjectsProps) =>
   useGet<ResponseExecutionResponseTopProjectsPanel, Failure | Error, GetTopProjectsQueryParams, void>(
     `/overview/top-projects`,
-    { base: getConfig('dashboardService/api'), ...props }
+    { base: getConfig('ng-dashboard/api'), ...props }
   )
 
 /**
@@ -1308,7 +1317,7 @@ export const getTopProjectsPromise = (
   signal?: RequestInit['signal']
 ) =>
   getUsingFetch<ResponseExecutionResponseTopProjectsPanel, Failure | Error, GetTopProjectsQueryParams, void>(
-    getConfig('dashboardService/api'),
+    getConfig('ng-dashboard/api'),
     `/overview/top-projects`,
     props,
     signal

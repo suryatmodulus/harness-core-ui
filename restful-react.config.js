@@ -54,9 +54,9 @@ module.exports = {
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig, getUsingFetch, GetUsingFetchProps } from "../config";`,
     customProps: {
-      base: `{getConfig("dashboardService/api")}`
+      base: `{getConfig("ng-dashboard/api")}`
     },
-    customGenerator: arg => customGenerator(arg, "getConfig('dashboardService/api')")
+    customGenerator: arg => customGenerator(arg, "getConfig('ng-dashboard/api')")
   },
   logs: {
     output: 'src/services/logs/index.tsx',

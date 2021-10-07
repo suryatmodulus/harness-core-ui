@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { get, throttle } from 'lodash-es'
+import { get } from 'lodash-es'
 import { Button, Color, Icon, Container, Text, useIsMounted, Layout } from '@wings-software/uicore'
-import { ResizeSensor } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } from 'services/ti-service'
@@ -20,7 +19,6 @@ const NOW = Date.now()
 const PAGE_SIZE = 10
 const COPY_CLIPBOARD_ICON_WIDTH = 16
 const SAFETY_TABLE_WIDTH = 216
-const THROTTLE_TIME = 300
 
 export interface TestExecutionEntryProps {
   buildIdentifier: string
@@ -295,14 +293,19 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     }
   }, [])
 
-  const onResize = useCallback(
-    throttle(() => {
+  useEffect(() => {
+    const onResize = (): void => {
       if (tableRef?.current) {
         setTableWidth(tableRef.current.clientWidth)
       }
-    }, THROTTLE_TIME),
-    []
-  )
+    }
+    onResize()
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
 
   return (
     <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium" ref={containerRef}>
@@ -389,43 +392,41 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
             </Container>
           )}
           {!loading && !error && (
-            <ResizeSensor onResize={onResize}>
-              <Container ref={tableRef}>
-                <Table<TestCase>
-                  className={cx(css.testSuiteTable, !!onShowCallGraphForClass && css.clickable)}
-                  columns={columns}
-                  data={data?.content || []}
-                  getRowClassName={row => (row.original === selectedRow ? css.rowSelected : '')}
-                  sortable
-                  resizable={true}
-                  onRowClick={
-                    onShowCallGraphForClass
-                      ? row => {
-                          setSelectedRow(row)
-                          onShowCallGraphForClass(row.class_name as string)
+            <Container ref={tableRef}>
+              <Table<TestCase>
+                className={cx(css.testSuiteTable, !!onShowCallGraphForClass && css.clickable)}
+                columns={columns}
+                data={data?.content || []}
+                getRowClassName={row => (row.original === selectedRow ? css.rowSelected : '')}
+                sortable
+                resizable={true}
+                onRowClick={
+                  onShowCallGraphForClass
+                    ? row => {
+                        setSelectedRow(row)
+                        onShowCallGraphForClass(row.class_name as string)
+                      }
+                    : undefined
+                }
+                pagination={
+                  (data?.data?.totalItems || 0) > PAGE_SIZE
+                    ? {
+                        itemCount: data?.data?.totalItems || 0,
+                        pageSize: data?.data?.pageSize || 0,
+                        pageCount: data?.data?.totalPages || 0,
+                        pageIndex,
+                        gotoPage: pageIdx => {
+                          setPageIndex(pageIdx)
+                          refetchData({
+                            ...queryParams,
+                            pageIndex: pageIdx
+                          })
                         }
-                      : undefined
-                  }
-                  pagination={
-                    (data?.data?.totalItems || 0) > PAGE_SIZE
-                      ? {
-                          itemCount: data?.data?.totalItems || 0,
-                          pageSize: data?.data?.pageSize || 0,
-                          pageCount: data?.data?.totalPages || 0,
-                          pageIndex,
-                          gotoPage: pageIdx => {
-                            setPageIndex(pageIdx)
-                            refetchData({
-                              ...queryParams,
-                              pageIndex: pageIdx
-                            })
-                          }
-                        }
-                      : undefined
-                  }
-                />
-              </Container>
-            </ResizeSensor>
+                      }
+                    : undefined
+                }
+              />
+            </Container>
           )}
         </>
       )}

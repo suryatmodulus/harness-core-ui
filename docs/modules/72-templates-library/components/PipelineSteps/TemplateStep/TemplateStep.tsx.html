@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/50</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -116,9 +116,26 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -129,6 +146,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -159,6 +178,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,11 +209,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
 import type { FormikErrors } from 'formik'
-import type { IconName } from '@wings-software/uicore'
+<span class="cstat-no" title="statement not covered" >import { IconName, MultiTypeInputType } from '@wings-software/uicore'</span>
+<span class="cstat-no" title="statement not covered" >import { isEmpty } from 'lodash-es'</span>
 <span class="cstat-no" title="statement not covered" >import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'</span>
 <span class="cstat-no" title="statement not covered" >import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'</span>
 <span class="cstat-no" title="statement not covered" >import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'</span>
 import type { TemplateStepData } from '@pipeline/utils/tempates'
+<span class="cstat-no" title="statement not covered" >import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'</span>
+import type { StepElementConfig } from 'services/cd-ng'
 <span class="cstat-no" title="statement not covered" >import { TemplateStepWidgetWithRef } from './TemplateStepWidget'</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export class T</span>emplateStep extends PipelineStep&lt;TemplateStepData&gt; {
@@ -214,10 +249,23 @@ import type { TemplateStepData } from '@pipeline/utils/tempates'
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  renderStep(</span>this: TemplateStep, props: StepProps&lt;TemplateStepData&gt;): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, formikRef, isNewStep, readonly, factory } = <span class="cstat-no" title="statement not covered" >props</span>
+    const { initialValues, onUpdate, stepViewType, formikRef, isNewStep, readonly, factory, inputSetData } = <span class="cstat-no" title="statement not covered" >props</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {</span>
-<span class="cstat-no" title="statement not covered" >      return &lt;div /&gt;</span>
+      const prefix = <span class="cstat-no" title="statement not covered" >isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`</span>
+<span class="cstat-no" title="statement not covered" >      return (</span>
+        &lt;StepWidget&lt;Partial&lt;StepElementConfig&gt;&gt;
+          factory={factory}
+          initialValues={initialValues.template?.templateInputs || {}}
+          allValues={inputSetData?.allValues?.template?.templateInputs}
+          template={inputSetData?.template}
+          readonly={!!inputSetData?.readonly}
+          type={initialValues.template?.templateInputs.type as StepType}
+          path={`${prefix}template.templateInputs`}
+          stepViewType={StepViewType.InputSet}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+        /&gt;
+      )
     } else <span class="cstat-no" title="statement not covered" >if (stepViewType === StepViewType.InputVariable) {</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;div /&gt;</span>
     }
@@ -241,7 +289,7 @@ import type { TemplateStepData } from '@pipeline/utils/tempates'
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 07 2021 06:18:10 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 07 2021 07:35:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

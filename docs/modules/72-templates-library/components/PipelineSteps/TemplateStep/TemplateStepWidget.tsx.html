@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.22% </span>
+                <span class="strong">55.17% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/36</span>
+                <span class='fraction'>32/58</span>
             </div>
         
             
@@ -194,7 +194,8 @@
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -272,6 +273,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -338,7 +340,7 @@ import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useParams } from 'react-router'
 import { parse } from 'yaml'
-import { isEmpty } from 'lodash-es'
+import { set } from 'lodash-es'
 import { NameSchema } from '@common/utils/Validation'
 import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -370,7 +372,7 @@ export function TemplateStepWidget(
 ): React.ReactElement {
   const { initialValues, factory, onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
-  const stepType = initialValues.template.templateInputs.type as StepType
+  const stepType = initialValues.template<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplateInputs.type as StepType
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
   const [inputSetTemplate, setTnputSetTemplate] = React.useState&lt;Partial&lt;StepElementConfig&gt;&gt;()
   const { showError } = useToaster()
@@ -381,12 +383,12 @@ export function TemplateStepWidget(
     refetch,
     loading
   } = useGetTemplateInputSetYaml({
-    templateIdentifier: initialValues.template.templateRef,
+    templateIdentifier: initialValues.template<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplateRef || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      versionLabel: initialValues.template.versionLabel
+      versionLabel: initialValues.template<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ersionLabel || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
     }
   })
 &nbsp;
@@ -399,11 +401,11 @@ export function TemplateStepWidget(
   }, [templateInputYaml<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
 &nbsp;
   React.useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isEmpty(initialValues.template.templateInputs) &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!!inputSetTemplate)</span> {
-<span class="cstat-no" title="statement not covered" >      initialValues.template.templateInputs = inputSetTemplate</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (inputSetTemplate &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!loading)</span> {
+<span class="cstat-no" title="statement not covered" >      set(initialValues, 'template.templateInputs', inputSetTemplate)</span>
 <span class="cstat-no" title="statement not covered" >      onUpdate?.(initialValues)</span>
     }
-  }, [initialValues.template.templateInputs, inputSetTemplate])
+  }, [inputSetTemplate, loading])
 &nbsp;
   return (
     &lt;Formik&lt;TemplateStepData /*TemplateStepFormData*/&gt;
@@ -415,6 +417,7 @@ export function TemplateStepWidget(
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') })
       })}
+      enableReinitialize={true}
     &gt;
       {(formik: FormikProps&lt;TemplateStepData&gt;) =&gt; {
         setFormikRef(formikRef, formik)
@@ -443,7 +446,7 @@ export function TemplateStepWidget(
                     &lt;/Text&gt;
                     &lt;StepWidget&lt;Partial&lt;StepElementConfig&gt;&gt;
                       factory={factory}
-                      initialValues={initialValues.template.templateInputs}
+                      initialValues={initialValues.template<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplateInputs || <span class="branch-1 cbranch-no" title="branch not covered" >{}}</span>
                       template={inputSetTemplate}
                       readonly={readonly}
                       isNewStep={isNewStep}
@@ -475,7 +478,7 @@ export const TemplateStepWidgetWithRef = React.forwardRef(TemplateStepWidget)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 07 2021 06:18:10 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 07 2021 07:35:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

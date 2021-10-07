@@ -386,10 +386,9 @@ export const EditPolicy: React.FC = () => {
                         icon={testFailure ? 'warning-sign' : 'tick-circle'}
                         iconProps={{
                           style: { color: testFailure ? 'var(--red-500)' : 'var(--green-500)' },
-                          padding: { right: 'small' }
+                          padding: { right: 'medium' }
                         }}
                         font={{ variation: output?.error ? FontVariation.YAML : FontVariation.BODY1 }}
-                        padding={{ bottom: 'small' }}
                         className={css.outputError}
                         tag={output?.error ? 'pre' : undefined}
                       >
@@ -399,9 +398,9 @@ export const EditPolicy: React.FC = () => {
                           ? 'Policy failed to be evaluated'
                           : 'Policy evaluated successfully'}
                       </Text>
-                      {output?.deny_messages?.map((message: string) => (
+                      {output?.deny_messages?.map((message: string, index: number) => (
                         <Text
-                          padding={{ left: 'xlarge' }}
+                          padding={{ left: 'xxlarge', top: index === 0 ? 'small' : undefined }}
                           key={message}
                           font={{ variation: FontVariation.FORM_MESSAGE_DANGER }}
                         >

@@ -134,7 +134,7 @@ const SignupPage: React.FC = () => {
             </FormikForm>
           </Formik>
         </Container>
-        <AuthFooter page={AuthPage.SignUp} />
+        {!__ON_PREM__ && <AuthFooter page={AuthPage.SignUp} />}
       </AuthLayout>
     </>
   )

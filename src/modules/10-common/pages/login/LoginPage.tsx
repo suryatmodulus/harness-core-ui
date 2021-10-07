@@ -134,7 +134,7 @@ const LoginPage: React.FC = () => {
           </Formik>
         </Container>
 
-        <AuthFooter page={AuthPage.SignIn} />
+        {!__ON_PREM__ && <AuthFooter page={AuthPage.SignIn} />}
 
         <Layout.Horizontal margin={{ top: 'xxxlarge' }} spacing="xsmall">
           <Text>{getString('signUp.noAccount')}</Text>

@@ -14,7 +14,8 @@ import {
   ButtonVariation,
   SelectOption,
   Select,
-  Intent
+  Intent,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
@@ -119,7 +120,6 @@ function RunPipelineFormBasic({
   const { isGitSyncEnabled } = useAppStore()
   const [triggerValidation, setTriggerValidation] = useState(false)
   const [runClicked, setRunClicked] = useState(false)
-
   const { RUN_INDIVIDUAL_STAGE } = useFeatureFlags()
 
   const [selectedStageData, setSelectedStageData] = React.useState<{
@@ -143,9 +143,7 @@ function RunPipelineFormBasic({
   React.useEffect(() => {
     getInputSetsList()
     getTemplateFromPipeline()
-    {
-      RUN_INDIVIDUAL_STAGE && refetch()
-    }
+    RUN_INDIVIDUAL_STAGE && refetch()
   }, [])
 
   React.useEffect(() => {
@@ -215,9 +213,7 @@ function RunPipelineFormBasic({
       branch
     },
     body: {
-      stageIdentifiers: selectedStageData.selectedStageId
-        ? [...(selectedStageData.stagesRequired || []), selectedStageData.selectedStageId]
-        : []
+      stageIdentifiers: selectedStageData.selectedStageId ? [selectedStageData.selectedStageId] : []
     },
     lazy: true
   })
@@ -329,9 +325,7 @@ function RunPipelineFormBasic({
           try {
             const data = await mergeInputSet({
               inputSetReferences: selectedInputSets.map(item => item.value as string),
-              stageIdentifiers: selectedStageData.selectedStageId
-                ? [...(selectedStageData.stagesRequired || []), selectedStageData.selectedStageId]
-                : []
+              stageIdentifiers: selectedStageData.selectedStageId ? [selectedStageData.selectedStageId] : []
             })
             if (data?.data?.pipelineYaml) {
               const inputSetPortion = parse(data.data.pipelineYaml) as {
@@ -455,9 +449,7 @@ function RunPipelineFormBasic({
                 runtimeInputYaml: !isEmpty(valuesPipelineRef.current)
                   ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any)
                   : '',
-                stageIdentifiers: selectedStageData.selectedStageId
-                  ? [...(selectedStageData.stagesRequired || []), selectedStageData.selectedStageId]
-                  : []
+                stageIdentifiers: selectedStageData.selectedStageId ? [selectedStageData.selectedStageId] : []
               })
             : await runPipeline(
                 !isEmpty(valuesPipelineRef.current)
@@ -660,12 +652,13 @@ function RunPipelineFormBasic({
   const renderInfoStrip = (): React.ReactElement | null => {
     return selectedStageData.message ? <InfoStrip intent={Intent.WARNING} content={selectedStageData.message} /> : null
   }
-
   const child = (
     <>
       <Formik<Values>
         initialValues={
-          (pipeline && currentPipeline && template?.data?.inputSetTemplateYaml
+          (isEmpty(yamlTemplate)
+            ? {}
+            : pipeline && currentPipeline && template?.data?.inputSetTemplateYaml
             ? currentPipeline?.pipeline
               ? clearRuntimeInput(currentPipeline.pipeline)
               : {}
@@ -689,7 +682,7 @@ function RunPipelineFormBasic({
                 const validatedErrors =
                   (validatePipeline({
                     pipeline: values as PipelineInfoConfig,
-                    template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
+                    template: selectedStageData.selectedStageId ? yamlTemplate : yamlTemplate?.pipeline,
                     originalPipeline: pipeline,
                     getString,
                     viewType: StepViewType.DeploymentForm
@@ -720,8 +713,10 @@ function RunPipelineFormBasic({
                       font={{ weight: 'bold' }}
                       color={Color.BLACK_100}
                       className={css.runModalHeaderTitle}
+                      data-tooltip-id="runPipelineFormTitle"
                     >
                       {getString('runPipeline')}
+                      <HarnessDocTooltip tooltipId="runPipelineFormTitle" useStandAlone={true} />
                     </Heading>
                     {isGitSyncEnabled && (
                       <GitSyncStoreProvider>
@@ -901,6 +896,7 @@ function RunPipelineFormBasic({
                     </div>
                   </Layout.Horizontal>
                   <SaveAsInputSet
+                    key="saveasinput"
                     pipeline={pipeline}
                     currentPipeline={currentPipeline}
                     values={values}

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.1% </span>
+                <span class="strong">26.54% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>83/318</span>
+                <span class='fraction'>86/324</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.39% </span>
+                <span class="strong">9.05% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>60/639</span>
+                <span class='fraction'>60/663</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.4% </span>
+                <span class="strong">25.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>80/315</span>
+                <span class='fraction'>83/321</span>
             </div>
         
             
@@ -901,11 +901,22 @@
 <a name='L842'></a><a href='#L842'>842</a>
 <a name='L843'></a><a href='#L843'>843</a>
 <a name='L844'></a><a href='#L844'>844</a>
-<a name='L845'></a><a href='#L845'>845</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L845'></a><a href='#L845'>845</a>
+<a name='L846'></a><a href='#L846'>846</a>
+<a name='L847'></a><a href='#L847'>847</a>
+<a name='L848'></a><a href='#L848'>848</a>
+<a name='L849'></a><a href='#L849'>849</a>
+<a name='L850'></a><a href='#L850'>850</a>
+<a name='L851'></a><a href='#L851'>851</a>
+<a name='L852'></a><a href='#L852'>852</a>
+<a name='L853'></a><a href='#L853'>853</a>
+<a name='L854'></a><a href='#L854'>854</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -1089,6 +1100,8 @@
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1114,6 +1127,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1133,6 +1149,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1752,7 +1770,9 @@ import { cloneDeep, debounce, isEmpty, isNil } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useToaster } from '@common/components/Toaster/useToaster'
+import { StageActions } from '@common/constants/TrackingConstants'
 import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
@@ -1932,6 +1952,8 @@ const StageBuilder: React.FC&lt;unknown&gt; = (): JSX.Element =&gt; {
   const setSelectionRef = React.useRef(setSelection)
   setSelectionRef.current = setSelection
 &nbsp;
+  const { trackEvent } = useTelemetry()
+&nbsp;
   const { getString } = useStrings()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState&lt;
     DynamicPopoverHandlerBinding&lt;PopoverData&gt; | undefined
@@ -1953,11 +1975,14 @@ const StageBuilder: React.FC&lt;unknown&gt; = (): JSX.Element =&gt; {
     onCloseDialog: <span class="fstat-no" title="function not covered" >async </span>(isConfirmed: boolean) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (deleteId &amp;&amp; isConfirmed) {</span>
         const cloned = <span class="cstat-no" title="statement not covered" >cloneDeep(pipeline)</span>
-        const isRemove = <span class="cstat-no" title="statement not covered" >removeNodeFromPipeline(getStageFromPipeline(deleteId, cloned), cloned, stageMap)</span>
+        const stageToDelete = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(deleteId, cloned)</span>
+        const isRemove = <span class="cstat-no" title="statement not covered" >removeNodeFromPipeline(stageToDelete, cloned, stageMap)</span>
         const isStripped = <span class="cstat-no" title="statement not covered" >mayBeStripCIProps(cloned)</span>
 <span class="cstat-no" title="statement not covered" >        if (isRemove || isStripped) {</span>
 <span class="cstat-no" title="statement not covered" >          updatePipeline(cloned)</span>
 <span class="cstat-no" title="statement not covered" >          showSuccess(getString('deleteStageSuccess'))</span>
+          // call telemetry
+<span class="cstat-no" title="statement not covered" >          trackEvent(StageActions.DeleteStage, { stageType: stageToDelete?.stage?.stage?.type || '' })</span>
         } else {
 <span class="cstat-no" title="statement not covered" >          showError(getString('deleteStageFailure'), undefined, 'pipeline.delete.stage.error')</span>
         }
@@ -1977,6 +2002,8 @@ const StageBuilder: React.FC&lt;unknown&gt; = (): JSX.Element =&gt; {
     openSetupAfterAdd?: boolean,
     pipelineTemp?: PipelineInfoConfig
   ): void =&gt; {
+    // call telemetry
+<span class="cstat-no" title="statement not covered" >    trackEvent(StageActions.SetupStage, { stageType: newStage?.stage?.type || '' })</span>
 <span class="cstat-no" title="statement not covered" >    if (!pipeline.stages) {</span>
 <span class="cstat-no" title="statement not covered" >      pipeline.stages = []</span>
     }
@@ -2596,7 +2623,7 @@ export default StageBuilder
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 08 2021 10:56:16 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 08 2021 15:13:36 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

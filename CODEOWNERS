@@ -1,6 +1,6 @@
 .github/ @wings-software/ui-council
 .eslintrc.yml @wings-software/ui-council
-.prettierignore @wings-software/ui-council
+.prettierignore @wings-software/ui-councilasd
 .prettierrc.yml @wings-software/ui-council
 package.json @wings-software/ui-council
 tsconfig.json @wings-software/ui-council

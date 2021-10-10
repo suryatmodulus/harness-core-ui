@@ -1,5 +1,14 @@
 import React, { useState } from 'react'
-import { Container, FormInput, Icon, Label, DataTooltipInterface, HarnessDocTooltip } from '@wings-software/uicore'
+import {
+  Container,
+  FormInput,
+  Icon,
+  Label,
+  DataTooltipInterface,
+  HarnessDocTooltip,
+  Button,
+  ButtonVariation
+} from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import { isEmpty } from 'lodash-es'
 import { Classes, IInputGroupProps, ITagInputProps } from '@blueprintjs/core'
@@ -58,12 +67,11 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
         {isOptional ? getString('optionalField', { name: getString('description') }) : getString('description')}
         {props.dataTooltipId ? <HarnessDocTooltip useStandAlone={true} tooltipId={props.dataTooltipId} /> : null}
         {!isDescriptionOpen && (
-          <Icon
-            className={css.editOpen}
+          <Button
+            variation={ButtonVariation.ICON}
+            icon="Edit"
             data-name="edit"
             data-testid="description-edit"
-            size={12}
-            name="Edit"
             onClick={() => {
               setDescriptionOpen(true)
               setDescriptionFocus(true)
@@ -96,12 +104,11 @@ export const Tags = (props: TagsComponentProps): JSX.Element => {
         {isOptional ? getString('optionalField', { name: getString('tagsLabel') }) : getString('tagsLabel')}
         {props.dataTooltipId ? <HarnessDocTooltip useStandAlone={true} tooltipId={props.dataTooltipId} /> : null}
         {!isTagsOpen && (
-          <Icon
-            className={css.editOpen}
+          <Button
+            variation={ButtonVariation.ICON}
+            icon="Edit"
             data-name="edit"
-            data-testid="tags-edit"
-            size={12}
-            name="Edit"
+            data-testid="description-edit"
             onClick={() => {
               setTagsOpen(true)
             }}

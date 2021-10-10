@@ -156,3 +156,10 @@
     margin-top: var(--spacing-xsmall);
   }
 }
+
+.label {
+  color: var(--grey-600) !important;
+  margin-bottom: var(--spacing-xsmall) !important;
+  font-weight: 500 !important;
+  font-size: var(--form-input-font-size) !important;
+}

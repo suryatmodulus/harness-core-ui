@@ -1,7 +1,7 @@
 import React from 'react'
 import { cloneDeep, isEmpty, isEqual, set } from 'lodash-es'
 import produce from 'immer'
-import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
+import { Tabs, Tab, Icon, Button, Layout, Color, ButtonVariation } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
@@ -145,53 +145,63 @@ export default function BuildStageSetupShell(): JSX.Element {
     }
   }
 
-  const navBtns = (
-    <Layout.Horizontal spacing="medium" className={css.footer}>
-      <Button
-        text={getString('ci.previous')}
-        icon="chevron-left"
-        disabled={selectedTabId === BuildTabs.OVERVIEW}
-        onClick={() =>
-          handleTabChange(
-            selectedTabId === BuildTabs.ADVANCED
-              ? BuildTabs.EXECUTION
-              : selectedTabId === BuildTabs.EXECUTION
-              ? BuildTabs.INFRASTRUCTURE
-              : BuildTabs.OVERVIEW
-          )
-        }
-      />
-      {selectedTabId === BuildTabs.ADVANCED ? (
-        <Button
-          text="Done"
-          intent="primary"
-          onClick={() => {
-            updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
-          }}
-        />
-      ) : (
-        <Button
-          text={selectedTabId === BuildTabs.EXECUTION ? getString('ci.save') : getString('ci.next')}
-          intent="primary"
-          rightIcon="chevron-right"
-          onClick={() => {
-            if (selectedTabId === BuildTabs.EXECUTION) {
-              updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
-            } else {
-              handleTabChange(selectedTabId === BuildTabs.OVERVIEW ? BuildTabs.INFRASTRUCTURE : BuildTabs.EXECUTION)
+  const NavBtns: React.FC<{ hidePreviousBtn?: boolean }> = props => {
+    const { hidePreviousBtn } = props
+    return (
+      <Layout.Horizontal spacing="medium" className={css.footer}>
+        {hidePreviousBtn ? null : (
+          <Button
+            variation={ButtonVariation.SECONDARY}
+            text={getString('ci.previous')}
+            icon="chevron-left"
+            disabled={selectedTabId === BuildTabs.OVERVIEW}
+            onClick={() =>
+              handleTabChange(
+                selectedTabId === BuildTabs.ADVANCED
+                  ? BuildTabs.EXECUTION
+                  : selectedTabId === BuildTabs.EXECUTION
+                  ? BuildTabs.INFRASTRUCTURE
+                  : BuildTabs.OVERVIEW
+              )
             }
-          }}
-        />
-      )}
-    </Layout.Horizontal>
-  )
+          />
+        )}
+        {selectedTabId === BuildTabs.ADVANCED ? (
+          <Button
+            text="Done"
+            variation={ButtonVariation.PRIMARY}
+            onClick={() => {
+              updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
+            }}
+          />
+        ) : (
+          <Button
+            text={selectedTabId === BuildTabs.EXECUTION ? getString('ci.save') : getString('ci.next')}
+            variation={ButtonVariation.PRIMARY}
+            rightIcon="chevron-right"
+            onClick={() => {
+              if (selectedTabId === BuildTabs.EXECUTION) {
+                updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
+              } else {
+                handleTabChange(selectedTabId === BuildTabs.OVERVIEW ? BuildTabs.INFRASTRUCTURE : BuildTabs.EXECUTION)
+              }
+            }}
+          />
+        )}
+      </Layout.Horizontal>
+    )
+  }
 
   return (
     <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>
       <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}>
         <Tab
           id={BuildTabs.OVERVIEW}
-          panel={<BuildStageSpecifications>{navBtns}</BuildStageSpecifications>}
+          panel={
+            <BuildStageSpecifications>
+              <NavBtns hidePreviousBtn={true} />
+            </BuildStageSpecifications>
+          }
           title={
             <span className={css.tab}>
               <Icon name="ci-main" height={14} size={14} />
@@ -199,14 +209,6 @@ export default function BuildStageSetupShell(): JSX.Element {
             </span>
           }
           data-testid={getString('overview')}
-        />
-        <Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
         />
         <Tab
           id={BuildTabs.INFRASTRUCTURE}
@@ -220,16 +222,12 @@ export default function BuildStageSetupShell(): JSX.Element {
               {getString('ci.infraLabel')}
             </span>
           }
-          panel={<BuildInfraSpecifications>{navBtns}</BuildInfraSpecifications>}
+          panel={
+            <BuildInfraSpecifications>
+              <NavBtns />
+            </BuildInfraSpecifications>
+          }
           data-testid={getString('ci.infraLabel')}
-        />
-        <Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
         />
         <Tab
           id={BuildTabs.EXECUTION}
@@ -345,14 +343,6 @@ export default function BuildStageSetupShell(): JSX.Element {
           }
           data-testid={getString('ci.executionLabel')}
         />
-        <Icon
-          name="chevron-right"
-          height={20}
-          size={20}
-          margin={{ right: 'small', left: 'small' }}
-          color={'grey400'}
-          style={{ alignSelf: 'center' }}
-        />
         <Tab
           id={BuildTabs.ADVANCED}
           title={
@@ -361,7 +351,11 @@ export default function BuildStageSetupShell(): JSX.Element {
               {getString('ci.advancedLabel')}
             </span>
           }
-          panel={<BuildAdvancedSpecifications>{navBtns}</BuildAdvancedSpecifications>}
+          panel={
+            <BuildAdvancedSpecifications>
+              <NavBtns />
+            </BuildAdvancedSpecifications>
+          }
           data-testid={getString('ci.advancedLabel')}
         />
       </Tabs>

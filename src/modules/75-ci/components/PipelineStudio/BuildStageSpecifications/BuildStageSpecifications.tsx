@@ -8,7 +8,8 @@ import {
   Card,
   Accordion,
   HarnessDocTooltip,
-  MultiTypeInputType
+  MultiTypeInputType,
+  Container
 } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { isEqual, debounce, cloneDeep, defaultTo, uniqBy } from 'lodash-es'
@@ -221,15 +222,17 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                 </div>
                 <Card className={cx(css.sectionCard)} disabled={isReadonly}>
                   <FormikForm>
-                    <NameIdDescriptionTags
-                      formikProps={formik}
-                      identifierProps={{
-                        isIdentifierEditable: false,
-                        inputGroupProps: { disabled: isReadonly }
-                      }}
-                      descriptionProps={{ disabled: isReadonly }}
-                      tagsProps={{ disabled: isReadonly }}
-                    />
+                    <Container className={css.stageNameAndDescription}>
+                      <NameIdDescriptionTags
+                        formikProps={formik}
+                        identifierProps={{
+                          isIdentifierEditable: false,
+                          inputGroupProps: { disabled: isReadonly }
+                        }}
+                        descriptionProps={{ disabled: isReadonly }}
+                        tagsProps={{ disabled: isReadonly }}
+                      />
+                    </Container>
 
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <Switch
@@ -259,11 +262,12 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                         )
                       }}
                       disabled={isReadonly}
+                      buttonCss={css.addSharedPathsBtn}
                     />
                   </FormikForm>
                 </Card>
 
-                <Accordion className={css.accordionTitle} activeId="advanced">
+                <Accordion className={css.accordionTitle} activeId="">
                   <Accordion.Panel
                     id="advanced"
                     addDomId={true}

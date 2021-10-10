@@ -36,6 +36,7 @@ export interface MultiTypeListProps {
   formik?: FormikContext<any>
   style?: React.CSSProperties
   disabled?: boolean
+  buttonCss?: string
 }
 
 export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => {
@@ -48,6 +49,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
     configureOptionsProps,
     formik,
     disabled,
+    buttonCss,
     ...restProps
   } = props
 
@@ -113,6 +115,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
                   data-testid={`add-${name}`}
                   onClick={() => push({ id: uuid('', nameSpace()), value: '' })}
                   disabled={disabled}
+                  className={buttonCss}
                 />
               </Card>
             )}

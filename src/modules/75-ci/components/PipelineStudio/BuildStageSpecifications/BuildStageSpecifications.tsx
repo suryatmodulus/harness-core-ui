@@ -256,7 +256,10 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                       multiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text tooltipProps={{ dataTooltipId: 'stageSpecificationsSharedPaths' }}>
+                          <Text
+                            className={css.label}
+                            tooltipProps={{ dataTooltipId: 'stageSpecificationsSharedPaths' }}
+                          >
                             {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
                           </Text>
                         )

@@ -42,5 +42,6 @@ declare const styles: {
   readonly accordionTitle: string
   readonly stageNameAndDescription: string
   readonly addSharedPathsBtn: string
+  readonly label: string
 }
 export default styles

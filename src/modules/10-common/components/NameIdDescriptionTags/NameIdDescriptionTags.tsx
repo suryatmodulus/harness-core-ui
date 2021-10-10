@@ -108,7 +108,7 @@ export const Tags = (props: TagsComponentProps): JSX.Element => {
             variation={ButtonVariation.ICON}
             icon="Edit"
             data-name="edit"
-            data-testid="description-edit"
+            data-testid="tags-edit"
             onClick={() => {
               setTagsOpen(true)
             }}

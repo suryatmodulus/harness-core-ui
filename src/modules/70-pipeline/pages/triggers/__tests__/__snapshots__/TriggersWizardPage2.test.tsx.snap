@@ -1582,183 +1582,20 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                         pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
                       </h2>
                       <section>
-                        <div
-                          class="StyledProps--font StyledProps--main"
-                          style="display: inline-block; width: 100%;"
+                        <label
+                          class="Label--main"
+                          data-tooltip-id="artifactManifestLabel"
+                          style="font-size: 13px; font-weight: normal;"
                         >
-                          <div
-                            class="table appliedArtifact"
-                          >
-                            <div
-                              class="header"
-                              role="row"
-                            >
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 45%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                  MANIFESTSTEXT
-                                </p>
-                              </div>
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 25%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                  PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
-                                </p>
-                              </div>
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 18%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                  COMMON.LOCATION
-                                </p>
-                              </div>
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 10%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                   
-                                </p>
-                              </div>
-                            </div>
-                            <div
-                              class="body"
-                            >
-                              <div
-                                class="row card clickable"
-                                role="row"
-                              >
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 45%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal StyledProps--main"
-                                  >
-                                    <p
-                                      class="StyledProps--font Text--lineclamp StyledProps--main"
-                                      style="--text-line-clamp: 1; width: 296px;"
-                                    >
-                                      stage: s3manifestid
-                                    </p>
-                                  </div>
-                                </div>
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 25%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal StyledProps--main"
-                                  >
-                                    <p
-                                      class="StyledProps--font Text--lineclamp StyledProps--main"
-                                      style="--text-line-clamp: 1; width: 159px;"
-                                    >
-                                      pipeline.triggers.artifactTriggerConfigPanel.runtimeInput
-                                    </p>
-                                  </div>
-                                </div>
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 18%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal StyledProps--main"
-                                  >
-                                    <p
-                                      class="StyledProps--font Text--lineclamp StyledProps--main"
-                                      style="min-height: 18px; --text-line-clamp: 1; width: 110px;"
-                                    />
-                                  </div>
-                                </div>
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 10%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                                    style="justify-content: center;"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                                      data-name="select-artifact-edit"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon bp3-icon-edit StyledProps--main"
-                                        icon="edit"
-                                      >
-                                        <svg
-                                          data-icon="edit"
-                                          height="16"
-                                          viewBox="0 0 16 16"
-                                          width="16"
-                                        >
-                                          <desc>
-                                            edit
-                                          </desc>
-                                          <path
-                                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                            data-name="main-delete"
-                            style="display: inline-block;"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="main-trash"
-                            >
-                              <svg
-                                height="16"
-                                viewBox="0 0 11 14"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                                  fill="#4d5969"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </div>
+                          manifestsText
+                        </label>
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                          data-name="plusAdd"
+                          style="cursor: not-allowed; width: 130px;"
+                        >
+                          pipeline.triggers.artifactTriggerConfigPanel.plusSelect
+                        </p>
                       </section>
                     </div>
                   </div>
@@ -2216,183 +2053,20 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                         pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
                       </h2>
                       <section>
-                        <div
-                          class="StyledProps--font StyledProps--main"
-                          style="display: inline-block; width: 100%;"
+                        <label
+                          class="Label--main"
+                          data-tooltip-id="artifactManifestLabel"
+                          style="font-size: 13px; font-weight: normal;"
                         >
-                          <div
-                            class="table appliedArtifact"
-                          >
-                            <div
-                              class="header"
-                              role="row"
-                            >
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 45%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                  MANIFESTSTEXT
-                                </p>
-                              </div>
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 25%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                  PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
-                                </p>
-                              </div>
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 18%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                  COMMON.LOCATION
-                                </p>
-                              </div>
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 10%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                   
-                                </p>
-                              </div>
-                            </div>
-                            <div
-                              class="body"
-                            >
-                              <div
-                                class="row card clickable"
-                                role="row"
-                              >
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 45%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal StyledProps--main"
-                                  >
-                                    <p
-                                      class="StyledProps--font Text--lineclamp StyledProps--main"
-                                      style="--text-line-clamp: 1; width: 296px;"
-                                    >
-                                      stage: s3manifestid
-                                    </p>
-                                  </div>
-                                </div>
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 25%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal StyledProps--main"
-                                  >
-                                    <p
-                                      class="StyledProps--font Text--lineclamp StyledProps--main"
-                                      style="--text-line-clamp: 1; width: 159px;"
-                                    >
-                                      pipeline.triggers.artifactTriggerConfigPanel.runtimeInput
-                                    </p>
-                                  </div>
-                                </div>
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 18%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal StyledProps--main"
-                                  >
-                                    <p
-                                      class="StyledProps--font Text--lineclamp StyledProps--main"
-                                      style="min-height: 18px; --text-line-clamp: 1; width: 110px;"
-                                    />
-                                  </div>
-                                </div>
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 10%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                                    style="justify-content: center;"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                                      data-name="select-artifact-edit"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon bp3-icon-edit StyledProps--main"
-                                        icon="edit"
-                                      >
-                                        <svg
-                                          data-icon="edit"
-                                          height="16"
-                                          viewBox="0 0 16 16"
-                                          width="16"
-                                        >
-                                          <desc>
-                                            edit
-                                          </desc>
-                                          <path
-                                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                            data-name="main-delete"
-                            style="display: inline-block;"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="main-trash"
-                            >
-                              <svg
-                                height="16"
-                                viewBox="0 0 11 14"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                                  fill="#4d5969"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </div>
+                          manifestsText
+                        </label>
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                          data-name="plusAdd"
+                          style="cursor: not-allowed; width: 130px;"
+                        >
+                          pipeline.triggers.artifactTriggerConfigPanel.plusSelect
+                        </p>
                       </section>
                     </div>
                   </div>
@@ -3423,185 +3097,20 @@ exports[`Manifest Trigger Tests on click of edit artifact - submits thru the rig
                         pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
                       </h2>
                       <section>
-                        <div
-                          class="StyledProps--font StyledProps--main"
-                          style="display: inline-block; width: 100%;"
+                        <label
+                          class="Label--main"
+                          data-tooltip-id="artifactManifestLabel"
+                          style="font-size: 13px; font-weight: normal;"
                         >
-                          <div
-                            class="table appliedArtifact"
-                          >
-                            <div
-                              class="header"
-                              role="row"
-                            >
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 45%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                  PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACT
-                                </p>
-                              </div>
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 25%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                  PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
-                                </p>
-                              </div>
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 18%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                  COMMON.LOCATION
-                                </p>
-                              </div>
-                              <div
-                                class="cell"
-                                colspan="1"
-                                role="columnheader"
-                                style="width: 10%;"
-                              >
-                                <p
-                                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
-                                >
-                                   
-                                </p>
-                              </div>
-                            </div>
-                            <div
-                              class="body"
-                            >
-                              <div
-                                class="row card clickable"
-                                role="row"
-                              >
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 45%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal StyledProps--main disabledRow"
-                                  >
-                                    <p
-                                      class="StyledProps--font Text--lineclamp StyledProps--main"
-                                      style="--text-line-clamp: 1; width: 296px;"
-                                    >
-                                      stagea: primary
-                                    </p>
-                                  </div>
-                                </div>
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 25%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal StyledProps--main disabledRow"
-                                  >
-                                    <p
-                                      class="StyledProps--font Text--lineclamp StyledProps--main"
-                                      style="--text-line-clamp: 1; width: 159px;"
-                                    >
-                                      testgcp1a
-                                    </p>
-                                  </div>
-                                </div>
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 18%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal StyledProps--main disabledRow"
-                                  >
-                                    <p
-                                      class="StyledProps--font Text--lineclamp StyledProps--main"
-                                      style="min-height: 18px; --text-line-clamp: 1; width: 110px;"
-                                    >
-                                      pipeline.triggers.artifactTriggerConfigPanel.runtimeInput
-                                    </p>
-                                  </div>
-                                </div>
-                                <div
-                                  class="cell"
-                                  role="cell"
-                                  style="width: 10%;"
-                                >
-                                  <div
-                                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                                    style="justify-content: center;"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                                      data-name="select-artifact-edit"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon bp3-icon-edit StyledProps--main"
-                                        icon="edit"
-                                      >
-                                        <svg
-                                          data-icon="edit"
-                                          height="16"
-                                          viewBox="0 0 16 16"
-                                          width="16"
-                                        >
-                                          <desc>
-                                            edit
-                                          </desc>
-                                          <path
-                                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                            data-name="main-delete"
-                            style="display: inline-block;"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="main-trash"
-                            >
-                              <svg
-                                height="16"
-                                viewBox="0 0 11 14"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                                  fill="#4d5969"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </div>
+                          pipeline.triggers.artifactTriggerConfigPanel.artifact
+                        </label>
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                          data-name="plusAdd"
+                          style="cursor: not-allowed; width: 130px;"
+                        >
+                          pipeline.triggers.artifactTriggerConfigPanel.plusSelect
+                        </p>
                       </section>
                     </div>
                   </div>
@@ -4766,11 +4275,6 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
                           style="cursor: not-allowed; width: 130px;"
                         >
                           pipeline.triggers.artifactTriggerConfigPanel.plusSelect
-                        </p>
-                        <p
-                          class="StyledProps--font StyledProps--main StyledProps--margin-small StyledProps--intent-warning"
-                        >
-                          pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound
                         </p>
                       </section>
                     </div>

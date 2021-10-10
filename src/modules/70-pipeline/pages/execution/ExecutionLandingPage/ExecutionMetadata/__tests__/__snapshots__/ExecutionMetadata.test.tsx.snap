@@ -6,6 +6,9 @@ exports[`<ExecutionMetadata.test /> tests Branch type 1`] = `
     class="main"
   >
     <div
+      class="metaContainer"
+    />
+    <div
       class="trigger"
     >
       <span
@@ -47,6 +50,9 @@ exports[`<ExecutionMetadata.test /> tests Pull Request type 1`] = `
   <div
     class="main"
   >
+    <div
+      class="metaContainer"
+    />
     <div
       class="trigger"
     >
@@ -90,7 +96,10 @@ exports[`<ExecutionMetadata.test /> tests Tag type 1`] = `
     class="main"
   >
     <div
-      style="font-size: 0px;"
+      class="metaContainer"
+    />
+    <div
+      class="userLabelContainer"
     >
       <div
         class="wrapper"

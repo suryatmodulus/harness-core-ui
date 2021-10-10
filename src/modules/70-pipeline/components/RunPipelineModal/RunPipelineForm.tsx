@@ -13,9 +13,9 @@ import {
   Color,
   ButtonVariation,
   SelectOption,
-  Select,
   Intent,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  DropDown
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
@@ -72,6 +72,7 @@ import SelectExistingInputsOrProvideNew from './SelectExistingOrProvide'
 import css from './RunPipelineForm.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
+export const ALL_STAGE_VALUE = 'all'
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
   inputSetSelected?: InputSetSelectorProps['value']
   inputSetYAML?: string
@@ -127,7 +128,7 @@ function RunPipelineFormBasic({
     stagesRequired?: string[]
     stageName?: string
     message?: string
-  }>({ selectedStageId: '', stagesRequired: [], stageName: getString('pipeline.allStages') })
+  }>({ selectedStageId: ALL_STAGE_VALUE, stagesRequired: [], stageName: getString('pipeline.allStages') })
   const { data: stageExecutionData, refetch } = useGetStagesExecutionList({
     queryParams: {
       accountIdentifier: accountId,
@@ -159,7 +160,7 @@ function RunPipelineFormBasic({
           value: defaultTo(execStage?.stageIdentifier, '')
         }
       }) || []
-    executionStages.unshift({ label: getString('pipeline.allStages'), value: '' })
+    executionStages.unshift({ label: getString('pipeline.allStages'), value: ALL_STAGE_VALUE })
 
     return executionStages
   }, [stageExecutionData?.data])
@@ -213,7 +214,7 @@ function RunPipelineFormBasic({
       branch
     },
     body: {
-      stageIdentifiers: selectedStageData.selectedStageId ? [selectedStageData.selectedStageId] : []
+      stageIdentifiers: selectedStageData.selectedStageId === ALL_STAGE_VALUE ? [] : [selectedStageData.selectedStageId]
     },
     lazy: true
   })
@@ -325,7 +326,9 @@ function RunPipelineFormBasic({
           try {
             const data = await mergeInputSet({
               inputSetReferences: selectedInputSets.map(item => item.value as string),
-              stageIdentifiers: selectedStageData.selectedStageId ? [selectedStageData.selectedStageId] : []
+              stageIdentifiers: (selectedStageData.selectedStageId === ALL_STAGE_VALUE
+                ? []
+                : [selectedStageData.selectedStageId]) as string[]
             })
             if (data?.data?.pipelineYaml) {
               const inputSetPortion = parse(data.data.pipelineYaml) as {
@@ -434,7 +437,7 @@ function RunPipelineFormBasic({
       if (Object.keys(formErrors).length) {
         return
       }
-      const runIndidualStage = selectedStageData.selectedStageId !== ''
+      const runIndidualStage = selectedStageData.selectedStageId !== ALL_STAGE_VALUE
       valuesPipelineRef.current = valuesPipeline
       if (!skipPreFlightCheck && !forceSkipFlightCheck) {
         // Not skipping pre-flight check - open the new modal
@@ -449,7 +452,9 @@ function RunPipelineFormBasic({
                 runtimeInputYaml: !isEmpty(valuesPipelineRef.current)
                   ? (yamlStringify({ pipeline: valuesPipelineRef.current }) as any)
                   : '',
-                stageIdentifiers: selectedStageData.selectedStageId ? [selectedStageData.selectedStageId] : []
+                stageIdentifiers: (selectedStageData.selectedStageId === ALL_STAGE_VALUE
+                  ? []
+                  : [selectedStageData.selectedStageId]) as string[]
               })
             : await runPipeline(
                 !isEmpty(valuesPipelineRef.current)
@@ -621,34 +626,18 @@ function RunPipelineFormBasic({
       )
     }
   }
-  const renderStageSelection = (item: SelectOption, props: any): React.ReactElement => {
-    const stageData = stageExecutionData?.data?.[props.index - 1]
-    return (
-      <div
-        onClick={() => {
-          props?.handleClick()
-          setSelectedStageData({
-            selectedStageId: defaultTo(item.value as string, ''),
-            stagesRequired: stageData?.stagesRequired,
-            stageName: defaultTo(stageData?.stageName, item.label),
-            message: stageData?.message
-          })
-          setSkipPreFlightCheck(true)
-        }}
-        className={css.stageSelectionItem}
-        key={(item?.value as string) || ''}
-      >
-        <Text className={css.stageName} lineClamp={1}>
-          {item.label}
-        </Text>
-        {/* {stageData?.message && (
-            <Tooltip position="auto" content={stageData?.message}>
-              <Icon intent={Intent.WARNING} className={css.stageWarning} name="warning-sign" inline />
-            </Tooltip>
-          )} */}
-      </div>
-    )
+  const onStageSelect = (item: SelectOption): void => {
+    const stageData = stageExecutionData?.data?.find(stage => stage.stageIdentifier === item.value)
+
+    setSelectedStageData({
+      selectedStageId: item.value as string,
+      stagesRequired: stageData?.stagesRequired,
+      stageName: defaultTo(stageData?.stageName, item.label),
+      message: stageData?.message
+    })
+    setSkipPreFlightCheck(true)
   }
+
   const renderInfoStrip = (): React.ReactElement | null => {
     return selectedStageData.message ? <InfoStrip intent={Intent.WARNING} content={selectedStageData.message} /> : null
   }
@@ -682,7 +671,8 @@ function RunPipelineFormBasic({
                 const validatedErrors =
                   (validatePipeline({
                     pipeline: values as PipelineInfoConfig,
-                    template: selectedStageData.selectedStageId ? yamlTemplate : yamlTemplate?.pipeline,
+                    template:
+                      selectedStageData.selectedStageId === ALL_STAGE_VALUE ? yamlTemplate?.pipeline : yamlTemplate,
                     originalPipeline: pipeline,
                     getString,
                     viewType: StepViewType.DeploymentForm
@@ -727,16 +717,14 @@ function RunPipelineFormBasic({
                       </GitSyncStoreProvider>
                     )}
                     {RUN_INDIVIDUAL_STAGE && (
-                      <Select
-                        data-id="stageSelect"
-                        value={{
-                          label: `${selectedStageData.stageName as string}`,
-                          value: selectedStageData.selectedStageId as string
-                        }}
+                      <DropDown
+                        buttonTestId={'stage-select'}
+                        onChange={onStageSelect}
+                        value={selectedStageData.selectedStageId as string}
                         items={executionStageList}
-                        className={css.stageDropdown}
-                        itemRenderer={renderStageSelection}
-                      ></Select>
+                        minWidth={150}
+                        usePortal={true}
+                      />
                     )}
                     <div className={css.optionBtns}>
                       <VisualYamlToggle
@@ -897,6 +885,7 @@ function RunPipelineFormBasic({
                   </Layout.Horizontal>
                   <SaveAsInputSet
                     key="saveasinput"
+                    disabled={selectedStageData.selectedStageId !== ALL_STAGE_VALUE}
                     pipeline={pipeline}
                     currentPipeline={currentPipeline}
                     values={values}
@@ -921,7 +910,6 @@ function RunPipelineFormBasic({
       </Formik>
     </>
   )
-
   return executionView ? (
     <div className={css.runFormExecutionView}>{child}</div>
   ) : (

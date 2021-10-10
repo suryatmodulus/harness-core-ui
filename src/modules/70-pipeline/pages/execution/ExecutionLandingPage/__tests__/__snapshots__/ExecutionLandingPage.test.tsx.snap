@@ -322,7 +322,10 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
           class="main"
         >
           <div
-            style="font-size: 0px;"
+            class="metaContainer"
+          />
+          <div
+            class="userLabelContainer"
           >
             <div
               class="wrapper"

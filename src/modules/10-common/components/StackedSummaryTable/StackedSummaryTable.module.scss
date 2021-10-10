@@ -1,4 +1,11 @@
 .overviewSummary {
+  min-width: 350px;
+  flex-grow: 1;
+
+  &:not(:last-child) {
+    border-right: thin solid var(--grey-100);
+  }
+
   [role='row'] {
     border: none !important;
   }

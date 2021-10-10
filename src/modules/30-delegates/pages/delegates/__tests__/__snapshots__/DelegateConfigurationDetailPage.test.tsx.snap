@@ -199,31 +199,35 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
               class="StyledProps--font StyledProps--main entry"
             >
               <p
-                class="StyledProps--font StyledProps--main"
-                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                data-tooltip-id="delegateConfig_name"
               >
                 delegate.CONFIGURATION_NAME
               </p>
-              <div
-                class="TextInput--main"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
               >
                 <div
-                  class="bp3-input-group"
+                  class="TextInput--main"
                 >
-                  <input
-                    class="bp3-input"
-                    type="text"
-                    value="Primary"
-                  />
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      class="bp3-input"
+                      type="text"
+                      value="Primary"
+                    />
+                  </div>
                 </div>
-              </div>
+              </p>
             </div>
             <div
               class="StyledProps--font StyledProps--main entry"
             >
               <p
-                class="StyledProps--font StyledProps--main"
-                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                data-tooltip-id="delegateConfig_identifier"
               >
                 delegates.delegateIdentifier
               </p>
@@ -232,59 +236,67 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
               class="StyledProps--font StyledProps--main entry"
             >
               <p
-                class="StyledProps--font StyledProps--main"
-                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                data-tooltip-id="delegateConfig_description"
               >
                 description
               </p>
-              <div
-                class="TextInput--main"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
               >
                 <div
-                  class="bp3-input-group"
+                  class="TextInput--main"
                 >
-                  <input
-                    class="bp3-input"
-                    type="text"
-                    value="The primary profile for the account"
-                  />
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      class="bp3-input"
+                      type="text"
+                      value="The primary profile for the account"
+                    />
+                  </div>
                 </div>
-              </div>
+              </p>
             </div>
             <div
               class="StyledProps--font StyledProps--main entry"
             >
               <p
-                class="StyledProps--font StyledProps--main"
-                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                data-tooltip-id="delegateConfig_tags"
               >
                 tagsLabel
               </p>
-              <div
-                class="bp3-popover-wrapper TagInput--tagInput bp3-fill"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
               >
                 <div
-                  class="bp3-popover-target"
+                  class="bp3-popover-wrapper TagInput--tagInput bp3-fill"
                 >
                   <div
-                    class=""
+                    class="bp3-popover-target"
                   >
                     <div
-                      class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
+                      class=""
                     >
                       <div
-                        class="bp3-tag-input-values"
+                        class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
                       >
-                        <input
-                          class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                          placeholder="delegate.enterTags"
-                          value=""
-                        />
+                        <div
+                          class="bp3-tag-input-values"
+                        >
+                          <input
+                            class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                            placeholder="delegate.enterTags"
+                            value=""
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </p>
             </div>
           </div>
         </div>
@@ -510,14 +522,13 @@ exports[`Delegates Profile Detail initial render 1`] = `
               class="StyledProps--font StyledProps--main entry"
             >
               <p
-                class="StyledProps--font StyledProps--main"
-                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                data-tooltip-id="delegateConfig_name"
               >
                 delegate.CONFIGURATION_NAME
               </p>
               <p
-                class="StyledProps--font StyledProps--main"
-                style="font-size: 14px; line-height: 24px; color: rgb(34, 39, 45); letter-spacing: -0.01px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
               >
                 Primary
               </p>
@@ -526,8 +537,8 @@ exports[`Delegates Profile Detail initial render 1`] = `
               class="StyledProps--font StyledProps--main entry"
             >
               <p
-                class="StyledProps--font StyledProps--main"
-                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                data-tooltip-id="delegateConfig_identifier"
               >
                 delegates.delegateIdentifier
               </p>
@@ -536,14 +547,13 @@ exports[`Delegates Profile Detail initial render 1`] = `
               class="StyledProps--font StyledProps--main entry"
             >
               <p
-                class="StyledProps--font StyledProps--main"
-                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
+                data-tooltip-id="delegateConfig_description"
               >
                 description
               </p>
               <p
-                class="StyledProps--font StyledProps--main"
-                style="font-size: 14px; line-height: 24px; color: rgb(34, 39, 45); letter-spacing: -0.01px;"
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-body"
               >
                 The primary profile for the account
               </p>

@@ -14,5 +14,6 @@ declare const styles: {
   readonly summaryPopover: string
   readonly loading: string
   readonly expandSearch: string
+  readonly connectorEmptyStateImg: string
 }
 export default styles

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
   Button,
-  Color,
   Container,
   Formik,
   FormikForm as Form,
@@ -75,64 +74,55 @@ const ServiceAccountForm: React.FC<ServiceAccountModalData> = props => {
     }
   }
   return (
-    <Layout.Vertical padding={{ bottom: 'xxxlarge', right: 'xxxlarge', left: 'xxxlarge' }}>
-      <Layout.Vertical spacing="large">
-        <Text color={Color.BLACK} font="medium">
-          {isEdit
-            ? getString('rbac.serviceAccounts.form.editServiceAccount')
-            : getString('rbac.serviceAccounts.newServiceAccount')}
-        </Text>
-        <Formik
-          initialValues={{
-            identifier: '',
-            name: '',
-            description: '',
-            email: '',
-            tags: {},
-            accountIdentifier: accountId,
-            orgIdentifier,
-            projectIdentifier,
-            ...serviceAccountData
-          }}
-          formName="serviceAccountForm"
-          validationSchema={Yup.object().shape({
-            name: NameSchema(),
-            identifier: IdentifierSchema()
-          })}
-          onSubmit={values => {
-            modalErrorHandler?.hide()
-            handleSubmit(values)
-          }}
-        >
-          {formikProps => {
-            return (
-              <Form>
-                <Container className={css.form}>
-                  <ModalErrorHandler bind={setModalErrorHandler} />
-                  <FormInput.InputWithIdentifier isIdentifierEditable={!isEdit} />
-                  <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="small">
-                    <Layout.Vertical>
-                      <Label>{getString('email')}</Label>
-                      <TextInput disabled value={formikProps.values.identifier.toLowerCase()} />
-                    </Layout.Vertical>
-                    <Text margin={{ top: 'xsmall' }}>{getString('rbac.serviceAccounts.email')}</Text>
-                  </Layout.Horizontal>
-                  <DescriptionTags formikProps={formikProps} />
-                </Container>
-                <Layout.Horizontal>
-                  <Button
-                    variation={ButtonVariation.PRIMARY}
-                    text={getString('save')}
-                    type="submit"
-                    disabled={saving || updating}
-                  />
-                </Layout.Horizontal>
-              </Form>
-            )
-          }}
-        </Formik>
-      </Layout.Vertical>
-    </Layout.Vertical>
+    <Formik
+      initialValues={{
+        identifier: '',
+        name: '',
+        description: '',
+        email: '',
+        tags: {},
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier,
+        ...serviceAccountData
+      }}
+      formName="serviceAccountForm"
+      validationSchema={Yup.object().shape({
+        name: NameSchema(),
+        identifier: IdentifierSchema()
+      })}
+      onSubmit={values => {
+        modalErrorHandler?.hide()
+        handleSubmit(values)
+      }}
+    >
+      {formikProps => {
+        return (
+          <Form>
+            <Container className={css.form}>
+              <ModalErrorHandler bind={setModalErrorHandler} />
+              <FormInput.InputWithIdentifier isIdentifierEditable={!isEdit} />
+              <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="small">
+                <Layout.Vertical>
+                  <Label>{getString('email')}</Label>
+                  <TextInput disabled value={formikProps.values.identifier.toLowerCase()} />
+                </Layout.Vertical>
+                <Text margin={{ top: 'xsmall' }}>{getString('rbac.serviceAccounts.email')}</Text>
+              </Layout.Horizontal>
+              <DescriptionTags formikProps={formikProps} />
+            </Container>
+            <Layout.Horizontal>
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                text={getString('save')}
+                type="submit"
+                disabled={saving || updating}
+              />
+            </Layout.Horizontal>
+          </Form>
+        )
+      }}
+    </Formik>
   )
 }
 

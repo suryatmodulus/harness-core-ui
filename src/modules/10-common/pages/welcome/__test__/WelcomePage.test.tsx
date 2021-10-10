@@ -37,7 +37,10 @@ describe('Welcome Page', () => {
     fireEvent.click(getByTestId('cd'))
     fireEvent.click(getByText('continue'))
     await waitFor(() => getByText('common.purpose.cd.newGen.description'))
+    fireEvent.click(getByText('common.purpose.cd.newGen.description'))
     expect(container).toMatchSnapshot()
+    fireEvent.click(getByText('common.purpose.cd.1stGen.description'))
+    fireEvent.click(getByTestId('continueCg'))
   })
 
   test('Should go to module home page when select non cd module and continue', async () => {

@@ -192,7 +192,7 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
   )
   return (
     <>
-      <div className={css.item}>
+      <div className={cx(css.item, { [css.itemWithGit]: !!item.record.gitDetails?.repoIdentifier })}>
         <Layout.Horizontal spacing="small" margin={{ right: 'small' }} className={css.connectorInfo}>
           <Icon name={getIconByType(item.record.type)} size={30}></Icon>
           <div className={css.connectorNameId}>

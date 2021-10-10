@@ -15,3 +15,5 @@ yalc.lock
 .env
 junit.xml
 cypress/videos/
+src/microfrontends/types
+src/microfrontends/declarations

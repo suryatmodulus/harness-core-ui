@@ -9,10 +9,10 @@ interface TagViewerProps {
 const TagViewer: React.FC<TagViewerProps> = ({ tag, style }) => (
   <Text
     style={{
-      padding: '3px var(--spacing-small)',
+      padding: '4px var(--spacing-small)',
       display: 'inline-block',
-      color: 'var(--black)',
-      background: 'rgba(147, 210, 249, 0.43)',
+      color: 'var(--primary-9)',
+      background: 'var(--grey-100)',
       borderRadius: '4px',
       fontSize: '10px',
       ...style

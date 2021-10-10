@@ -1,5 +1,5 @@
 .header {
-  padding: var(--spacing-large) !important;
+  padding: var(--spacing-large) var(--spacing-xlarge) !important;
   border-bottom: 1px solid var(--grey-300);
   background: var(--white) !important;
 }
@@ -90,4 +90,8 @@
 
 .expandSearch {
   margin-right: var(--spacing-medium);
+}
+
+.connectorEmptyStateImg {
+  width: 320px;
 }

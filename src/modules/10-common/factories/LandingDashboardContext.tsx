@@ -10,6 +10,13 @@ export enum DashboardTimeRange {
   '1Year' = '1Year'
 }
 
+export enum TimeRangeToDays {
+  '30Days' = 30,
+  '60Days' = 60,
+  '90Days' = 90,
+  '1Year' = 365
+}
+
 interface LandingDashboardContextProps {
   selectedTimeRange: DashboardTimeRange
   selectTimeRange: (timeRange: DashboardTimeRange) => void

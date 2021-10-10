@@ -32,5 +32,8 @@ declare const styles: {
   readonly delegateItemSubcontainer: string
   readonly emptyStateContainer: string
   readonly emptyStateText: string
+  readonly groupHostName: string
+  readonly troubleshootLink: string
+  readonly itemActionContainer: string
 }
 export default styles

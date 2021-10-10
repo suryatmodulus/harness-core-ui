@@ -56,10 +56,19 @@ exports[`open and close Harness Environment Modal Rendering should open and clos
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="deployEnv_identifier"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ID
+                </p>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
                 :
               </p>
               <span

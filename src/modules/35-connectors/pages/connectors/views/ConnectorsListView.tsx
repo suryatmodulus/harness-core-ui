@@ -659,6 +659,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
       className={css.table}
       columns={columns}
       data={listData}
+      name="ConnectorsListView"
       onRowClick={connector => {
         const url = routes.toConnectorDetails({ ...params, connectorId: connector.connector?.identifier })
         const gitInfo: EntityGitDetails = connector.gitDetails ?? {}

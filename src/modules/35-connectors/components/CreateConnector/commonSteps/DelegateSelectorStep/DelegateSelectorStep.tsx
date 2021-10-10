@@ -10,7 +10,8 @@ import {
   FormikForm as Form,
   StepProps,
   Color,
-  FontVariation
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 // import * as Yup from 'yup'
 import { noop, omit } from 'lodash-es'
@@ -335,6 +336,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                 icon="chevron-left"
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="awsBackButton"
+                variation={ButtonVariation.SECONDARY}
               />
               <Button
                 type="submit"

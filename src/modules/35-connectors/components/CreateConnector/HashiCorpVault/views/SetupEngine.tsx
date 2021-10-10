@@ -13,7 +13,8 @@ import {
   Color,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  FontVariation
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -259,7 +260,12 @@ const SetupEngine: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps>
                 ) : null}
               </Container>
               <Layout.Horizontal spacing="medium">
-                <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
+                <Button
+                  variation={ButtonVariation.SECONDARY}
+                  icon="chevron-left"
+                  text={getString('back')}
+                  onClick={() => previousStep?.(prevStepData)}
+                />
                 <Button
                   type="submit"
                   intent="primary"

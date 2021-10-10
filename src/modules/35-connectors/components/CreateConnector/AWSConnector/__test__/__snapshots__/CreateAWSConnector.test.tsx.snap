@@ -145,10 +145,19 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
                       <div
                         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="connectorDetailsStepFormAws_identifier"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ID
+                          </p>
+                        </div>
                         <p
                           class="StyledProps--font StyledProps--main"
                         >
-                          ID
                           :
                         </p>
                         <span
@@ -494,10 +503,19 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
                       <div
                         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="connectorDetailsStepFormAws_identifier"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ID
+                          </p>
+                        </div>
                         <p
                           class="StyledProps--font StyledProps--main"
                         >
-                          ID
                           :
                         </p>
                         <span
@@ -1386,10 +1404,19 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
                       <div
                         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="connectorDetailsStepFormAws_identifier"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ID
+                          </p>
+                        </div>
                         <p
                           class="StyledProps--font StyledProps--main"
                         >
-                          ID
                           :
                         </p>
                         <span

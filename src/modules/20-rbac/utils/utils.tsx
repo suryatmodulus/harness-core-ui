@@ -11,7 +11,7 @@ import {
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
 import type { StringsMap } from 'stringTypes'
-import type { AccessControlCheckError } from 'services/cd-ng'
+import type { AccessControlCheckError, RoleAssignmentMetadataDTO } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type {
   Assignment,
@@ -28,6 +28,12 @@ import css from './utils.module.scss'
 
 export interface UserItem extends MultiSelectOption {
   email?: string
+}
+
+export enum PrincipalType {
+  USER = 'USER',
+  USER_GROUP = 'USER_GROUP',
+  SERVICE = 'SERVICE_ACCOUNT'
 }
 
 export const getRoleIcon = (roleIdentifier: string): IconName => {
@@ -209,4 +215,26 @@ export const getRBACErrorMessage = (error: ErrorHandlerProps): string | React.Re
     }
   }
   return getErrorInfoFromErrorObject(error)
+}
+
+export const getAssignments = (roleBindings: RoleAssignmentMetadataDTO[]): Assignment[] => {
+  return (
+    roleBindings?.map(roleAssignment => {
+      return {
+        role: {
+          label: roleAssignment.roleName,
+          value: roleAssignment.roleIdentifier,
+          managed: roleAssignment.managedRole,
+          assignmentIdentifier: roleAssignment.identifier,
+          managedRoleAssignment: roleAssignment.managedRoleAssignment
+        },
+        resourceGroup: {
+          label: roleAssignment.resourceGroupName || '',
+          value: roleAssignment.resourceGroupIdentifier || '',
+          managedRoleAssignment: roleAssignment.managedRoleAssignment,
+          assignmentIdentifier: roleAssignment.identifier
+        }
+      }
+    }) || []
+  )
 }

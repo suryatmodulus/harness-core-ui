@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import {
   Button,
-  Color,
   Formik,
   FormikForm as Form,
   Layout,
   ModalErrorHandlerBinding,
-  Text,
   SelectOption,
   FormInput,
   ModalErrorHandler,
@@ -40,6 +38,7 @@ interface UserRoleAssignmentData {
   onSubmit?: () => void
   onSuccess?: () => void
   onUserAdded?: () => void
+  onCancel?: () => void
   isInvite?: boolean
 }
 
@@ -73,7 +72,7 @@ export interface UserRoleAssignmentValues {
 }
 
 const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
-  const { user, roleBindings, onSubmit, isInvite, onSuccess, onUserAdded } = props
+  const { user, roleBindings, onSubmit, isInvite, onSuccess, onUserAdded, onCancel } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const scope = getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
   const { getString } = useStrings()
@@ -214,74 +213,68 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   const formValues = isInvite ? inviteValues : addRoleValues
 
   return (
-    <Layout.Vertical padding="xxxlarge">
-      <Layout.Vertical spacing="large">
-        <Text color={Color.BLACK} font="medium">
-          {formValues.title}
-        </Text>
-        <Formik<UserRoleAssignmentValues>
-          initialValues={{
-            users: user ? [{ label: defaultTo(user.name, user.email), value: user.email }] : [],
-            assignments: assignments
-          }}
-          formName="userRoleAssignementForm"
-          validationSchema={Yup.object().shape({
-            users: Yup.array().min(1, getString('rbac.userRequired')).max(15, getString('rbac.userUpperLimit')),
-            assignments: Yup.array().of(
-              Yup.object().shape({
-                role: Yup.object().nullable().required(),
-                resourceGroup: Yup.object().nullable().required()
-              })
-            )
-          })}
-          onSubmit={values => {
-            modalErrorHandler?.hide()
-            formValues.handleSubmit(values)
-          }}
-        >
-          {formik => {
-            return (
-              <Form>
-                <ModalErrorHandler bind={setModalErrorHandler} />
-                <FormInput.MultiSelect
-                  name="users"
-                  label={formValues.label}
-                  items={users}
-                  tagInputProps={{
-                    values: users,
-                    placeholder: getString('rbac.roleAssignment.userPlaceHolder')
-                  }}
-                  multiSelectProps={{
-                    allowCreatingNewItems: true,
-                    onQueryChange: val => {
-                      setQuery(val)
-                      refetchUsers()
-                    },
-                    tagRenderer: UserTagRenderer,
-                    itemRender: UserItemRenderer
-                  }}
-                  disabled={!isInvite}
-                />
-                {formValues.userGroupField}
-                <RoleAssignmentForm
-                  noRoleAssignmentsText={getString('rbac.usersPage.noDataText')}
-                  formik={formik}
-                  onSuccess={onSuccess}
-                />
-                <Layout.Horizontal>
-                  <Button
-                    variation={ButtonVariation.PRIMARY}
-                    text={getString('save')}
-                    type="submit"
-                    disabled={saving || sending}
-                  />
-                </Layout.Horizontal>
-              </Form>
-            )
-          }}
-        </Formik>
-      </Layout.Vertical>
-    </Layout.Vertical>
+    <Formik<UserRoleAssignmentValues>
+      initialValues={{
+        users: user ? [{ label: defaultTo(user.name, user.email), value: user.email }] : [],
+        assignments: assignments
+      }}
+      formName="userRoleAssignementForm"
+      validationSchema={Yup.object().shape({
+        users: Yup.array().min(1, getString('rbac.userRequired')).max(15, getString('rbac.userUpperLimit')),
+        assignments: Yup.array().of(
+          Yup.object().shape({
+            role: Yup.object().nullable().required(),
+            resourceGroup: Yup.object().nullable().required()
+          })
+        )
+      })}
+      onSubmit={values => {
+        modalErrorHandler?.hide()
+        formValues.handleSubmit(values)
+      }}
+    >
+      {formik => {
+        return (
+          <Form>
+            <ModalErrorHandler bind={setModalErrorHandler} />
+            <FormInput.MultiSelect
+              name="users"
+              label={formValues.label}
+              items={users}
+              tagInputProps={{
+                values: users,
+                placeholder: getString('rbac.roleAssignment.userPlaceHolder')
+              }}
+              multiSelectProps={{
+                allowCreatingNewItems: true,
+                onQueryChange: val => {
+                  setQuery(val)
+                  refetchUsers()
+                },
+                tagRenderer: UserTagRenderer,
+                itemRender: UserItemRenderer
+              }}
+              disabled={!isInvite}
+            />
+            {formValues.userGroupField}
+            <RoleAssignmentForm
+              noRoleAssignmentsText={getString('rbac.usersPage.noDataText')}
+              formik={formik}
+              onSuccess={onSuccess}
+            />
+            <Layout.Horizontal spacing="small">
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                text={getString('common.apply')}
+                type="submit"
+                disabled={saving || sending}
+              />
+              <Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={onCancel} />
+            </Layout.Horizontal>
+          </Form>
+        )
+      }}
+    </Formik>
   )
 }
 

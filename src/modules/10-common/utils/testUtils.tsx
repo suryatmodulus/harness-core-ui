@@ -19,8 +19,8 @@ import type { Project } from 'services/cd-ng'
 import { StringsContext } from 'framework/strings'
 
 import { FeaturesContext, FeaturesContextProps } from 'framework/featureStore/FeaturesContext'
-import type { FeatureDetail } from 'framework/featureStore/FeaturesContext'
-
+import type { FeatureDetail, FeatureMetaData } from 'framework/featureStore/FeaturesContext'
+import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import './testUtils.scss'
 import { PermissionsContext, PermissionsContextProps } from 'framework/rbac/PermissionsContext'
 
@@ -138,7 +138,9 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
     <StringsContext.Provider value={{ data: stringsData as any, getString }}>
       <AppStoreContext.Provider
         value={{
-          featureFlags: {},
+          featureFlags: {
+            FEATURE_ENFORCEMENT_ENABLED: true
+          },
           updateAppStore: () => void 0,
           currentUserInfo: {},
           ...defaultAppStoreValues
@@ -166,7 +168,8 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
           >
             <FeaturesContext.Provider
               value={{
-                features: new Map<string, FeatureDetail>(),
+                features: new Map<FeatureIdentifier, FeatureDetail>(),
+                featureMap: new Map<FeatureIdentifier, FeatureMetaData>(),
                 requestFeatures: () => void 0,
                 requestLimitFeature: () => void 0,
                 checkFeature: () => {
@@ -174,6 +177,9 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
                 },
                 checkLimitFeature: () => {
                   return defaultReturn
+                },
+                getRestrictionType: () => {
+                  return undefined
                 },
                 ...defaultFeaturesValues
               }}

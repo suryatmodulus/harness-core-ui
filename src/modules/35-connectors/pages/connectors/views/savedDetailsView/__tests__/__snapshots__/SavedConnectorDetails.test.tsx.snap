@@ -3,10 +3,10 @@
 exports[`Saved Connector Details render for AWS schema 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -108,7 +108,7 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -177,10 +177,10 @@ exports[`Saved Connector Details render for AWS schema 1`] = `
 exports[`Saved Connector Details render for Artifactory schema 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -225,7 +225,7 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -312,10 +312,10 @@ exports[`Saved Connector Details render for Artifactory schema 1`] = `
 exports[`Saved Connector Details render for Docker schema 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -404,7 +404,7 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -491,10 +491,10 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
 exports[`Saved Connector Details render for GCP schema 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -596,7 +596,7 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -647,10 +647,10 @@ exports[`Saved Connector Details render for GCP schema 1`] = `
 exports[`Saved Connector Details render for GitHttp schema 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -739,7 +739,7 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -844,10 +844,10 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
 exports[`Saved Connector Details render for Inline K8s schema 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -936,7 +936,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -987,10 +987,10 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
 exports[`Saved Connector Details render for Manual K8s schema 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -1053,7 +1053,7 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -1158,10 +1158,10 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
 exports[`Saved Connector Details render for Nexus schema 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -1224,7 +1224,7 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -1329,10 +1329,10 @@ exports[`Saved Connector Details render for Nexus schema 1`] = `
 exports[`Saved Connector Details render for Vault schema 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main detailsSectionContainer"
+    class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
   >
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -1421,7 +1421,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main detailsSection"
+      class="bp3-card bp3-elevation-0 Card--card detailsSection"
     >
       <p
         class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -1454,7 +1454,7 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
 exports[`Saved Connector Details render for connector activity details 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main detailsSection"
+    class="bp3-card bp3-elevation-0 Card--card detailsSection"
   >
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"

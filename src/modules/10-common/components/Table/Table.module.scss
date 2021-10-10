@@ -5,7 +5,7 @@
     font-weight: bold;
     font-size: 11px;
     color: var(--grey-800);
-    display: block;
+    display: flex;
     padding: var(--spacing-medium);
     text-transform: uppercase;
   }
@@ -17,6 +17,8 @@
 
   .cell.sortable {
     cursor: pointer;
+    display: flex;
+    align-items: center;
   }
 
   .body {
@@ -24,10 +26,11 @@
   }
 
   .row {
-    display: block;
+    display: flex;
     padding: var(--spacing-medium);
     background-color: white;
     border: 1px solid transparent;
+    position: relative;
   }
 
   .card {

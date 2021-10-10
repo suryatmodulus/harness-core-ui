@@ -72,7 +72,7 @@ exports[`Delegate Listing, open filter render list and open filter 1`] = `
           <input
             class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
-            placeholder="delegates.searchDelegateName"
+            placeholder="search"
             style="padding-right: 38px;"
             type="search"
             value=""
@@ -193,11 +193,11 @@ exports[`Delegate Listing, open filter render list and open filter 1`] = `
       data-name="page-body"
     >
       <div
-        class="StyledProps--font StyledProps--main delegateListContainer StyledProps--background-grey100"
+        class="StyledProps--font StyledProps--main delegateListContainer"
         style=""
       >
         <div
-          class="StyledProps--font StyledProps--main delegateListContainer StyledProps--background-grey100"
+          class="StyledProps--font StyledProps--main"
         >
           <div
             class="Layout--horizontal StyledProps--main delegateListHeader"
@@ -330,14 +330,13 @@ exports[`Delegate Listing, open filter render list and open filter 1`] = `
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                     >
                       delegate-1
-                      delegates.delegateInstances
                     </p>
                   </div>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                  <div
+                    class="groupHostName"
                   >
                     groupHostName1
-                  </p>
+                  </div>
                 </div>
               </div>
               <div
@@ -348,6 +347,7 @@ exports[`Delegate Listing, open filter render list and open filter 1`] = `
                   class="StyledProps--font StyledProps--main"
                   style="display: inline-flex; flex-wrap: wrap;"
                 />
+                <span />
               </div>
               <div
                 class="Layout--horizontal StyledProps--main"
@@ -396,7 +396,7 @@ exports[`Delegate Listing, open filter render list and open filter 1`] = `
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green600"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-small StyledProps--color StyledProps--color-green600"
                     icon="full-circle"
                   >
                     <svg
@@ -422,8 +422,7 @@ exports[`Delegate Listing, open filter render list and open filter 1`] = `
                 style="width: 5%;"
               >
                 <div
-                  class="Layout--horizontal StyledProps--main"
-                  style="justify-content: flex-end;"
+                  class="Layout--horizontal StyledProps--main itemActionContainer"
                 >
                   <span
                     class="bp3-popover-wrapper bp3-dark"

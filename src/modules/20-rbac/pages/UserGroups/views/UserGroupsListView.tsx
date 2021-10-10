@@ -15,7 +15,7 @@ import Table from '@common/components/Table/Table'
 import { useStrings, String } from 'framework/strings'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
-import { PrincipalType } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
+import { PrincipalType } from '@rbac/utils/utils'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -296,6 +296,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
     <Table<UserGroupAggregateDTO>
       className={css.table}
       columns={columns}
+      name="UserGroupsListView"
       data={data?.data?.content || []}
       onRowClick={userGroup => {
         history.push(

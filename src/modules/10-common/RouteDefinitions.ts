@@ -29,7 +29,7 @@ import type {
   GitQueryParams,
   ModuleHomeParams,
   InputSetGitQueryParams,
-  ModuleCardPathParams,
+  SubscriptionQueryParams,
   ServiceAccountPathProps,
   ServicePathProps,
   TemplateStudioPathProps,
@@ -54,11 +54,18 @@ const routes = {
     }
   ),
   toUser: withAccountId(() => '/user'),
-  toSubscriptions: withAccountId(({ moduleCard }: ModuleCardPathParams) => {
-    if (moduleCard) {
-      return `/settings/subscriptions?moduleCard=${moduleCard}`
+  toSubscriptions: withAccountId(({ moduleCard, tab }: SubscriptionQueryParams) => {
+    const url = '/settings/subscriptions'
+    if (moduleCard && tab) {
+      return url.concat(`?moduleCard=${moduleCard}&&tab=${tab}`)
     }
-    return '/settings/subscriptions'
+    if (moduleCard) {
+      return url.concat(`?moduleCard=${moduleCard}`)
+    }
+    if (tab) {
+      return url.concat(`?tab=${tab}`)
+    }
+    return url
   }),
   toAccountSettings: withAccountId(() => '/settings'),
   toAccountSettingsOverview: withAccountId(() => '/settings/overview'),
@@ -856,6 +863,19 @@ const routes = {
   toGitSyncEntitiesAdmin: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `git-sync/entities`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toGitSyncErrors: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `git-sync/errors`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,

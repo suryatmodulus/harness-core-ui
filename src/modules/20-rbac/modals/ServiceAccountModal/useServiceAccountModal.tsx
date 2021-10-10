@@ -1,11 +1,8 @@
 import React, { useCallback, useState } from 'react'
-import { useModalHook } from '@wings-software/uicore'
-import { Dialog, Classes } from '@blueprintjs/core'
-import cx from 'classnames'
-
+import { useModalHook, Dialog } from '@wings-software/uicore'
 import type { ServiceAccountDTO } from 'services/cd-ng'
+import { useStrings } from 'framework/strings'
 import ServiceAccountForm from './views/ServiceAccountForm'
-import css from './useServiceAccountModal.module.scss'
 
 export interface useServiceAccountModalProps {
   onSuccess: (serviceAccount: ServiceAccountDTO) => void
@@ -19,14 +16,18 @@ export interface useServiceAccountModalReturn {
 
 export const useServiceAccountModal = ({ onSuccess }: useServiceAccountModalProps): useServiceAccountModalReturn => {
   const [serviceAccountData, setServiceAccountData] = useState<ServiceAccountDTO>()
+  const { getString } = useStrings()
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
         isOpen={true}
         enforceFocus={false}
         onClose={hideModal}
-        className={cx(css.dialog, Classes.DIALOG)}
-        title=""
+        title={
+          serviceAccountData
+            ? getString('rbac.serviceAccounts.newServiceAccount')
+            : getString('rbac.serviceAccounts.form.editServiceAccount')
+        }
       >
         <ServiceAccountForm
           data={serviceAccountData}

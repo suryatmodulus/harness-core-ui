@@ -12,7 +12,6 @@ import {
   useDeleteServiceAccount
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { PrincipalType } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { TagsPopover, useToaster } from '@common/components'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
@@ -22,6 +21,7 @@ import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
+import { PrincipalType } from '@rbac/utils/utils'
 import css from './ServiceAccountsListView.module.scss'
 
 interface ServiceAccountsListViewProps {
@@ -265,6 +265,7 @@ const ServiceAccountsListView: React.FC<ServiceAccountsListViewProps> = ({
       data={data?.content || []}
       columns={columns}
       className={css.table}
+      name="ServiceAccountsListView"
       onRowClick={serviceAcc => {
         history.push(
           routes.toServiceAccountDetails({

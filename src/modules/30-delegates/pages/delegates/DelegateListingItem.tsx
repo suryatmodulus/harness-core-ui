@@ -145,7 +145,7 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
   }
 
   return (
-    <Layout.Horizontal style={{ justifyContent: 'flex-end' }}>
+    <Layout.Horizontal className={css.itemActionContainer}>
       <Popover
         isOpen={menuOpen}
         onInteraction={nextOpenState => {
@@ -252,6 +252,7 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
   const isConnected = delegate.activelyConnected
   const text = isConnected ? getString('connected') : getString('delegate.notConnected')
   const color: Color = isConnected ? Color.GREEN_600 : Color.GREY_400
+  const allSelectors = Object.keys(delegate.groupImplicitSelectors || {})
 
   return (
     <Card elevation={2} interactive={true} onClick={onDelegateClick} className={css.delegateItemContainer}>
@@ -260,20 +261,19 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
         <Layout.Horizontal width="25%" data-testid={delegate.groupHostName}>
           <Layout.Vertical padding={{ left: 'small' }}>
             <Layout.Horizontal spacing="small" data-testid={delegate.groupName}>
-              <Text color={Color.BLACK}>
-                {delegate.groupName}
-                {getString('delegates.delegateInstances', {
-                  current: delegate.delegateInstanceDetails?.length,
-                  total: delegate?.sizeDetails?.replicas
-                })}
-              </Text>
+              <Text color={Color.BLACK}>{delegate.groupName}</Text>
             </Layout.Horizontal>
-            <Text color={Color.GREY_400}>{delegate.groupHostName}</Text>
+            <div className={css.groupHostName}>{delegate.groupHostName}</div>
           </Layout.Vertical>
         </Layout.Horizontal>
 
         <Container className={css.connectivity} width="25%">
-          {delegate.groupImplicitSelectors && <TagsViewer tags={Object.keys(delegate.groupImplicitSelectors)} />}
+          {delegate.groupImplicitSelectors && (
+            <>
+              <TagsViewer key="tags" tags={allSelectors.slice(0, 3)} />
+              <span key="hidenTags">{allSelectors.length > 3 ? '+' + (allSelectors.length - 3) : ''}</span>
+            </>
+          )}
         </Container>
 
         <Layout.Horizontal width="calc(15% - 8px)">{RenderActivityColumn(delegate)}</Layout.Horizontal>
@@ -283,12 +283,12 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
         </Layout.Horizontal>
 
         <Layout.Vertical width="calc(15% - 14px)">
-          <Text icon="full-circle" iconProps={{ size: 6, color }}>
+          <Text icon="full-circle" iconProps={{ size: 6, color, padding: 'small' }}>
             {text}
           </Text>
           {!isConnected && (
-            <Text
-              color={Color.BLUE_400}
+            <div
+              className={css.troubleshootLink}
               onClick={e => {
                 e.preventDefault()
                 e.stopPropagation()
@@ -296,7 +296,7 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
               }}
             >
               {getString('delegates.troubleshootOption')}
-            </Text>
+            </div>
           )}
         </Layout.Vertical>
 

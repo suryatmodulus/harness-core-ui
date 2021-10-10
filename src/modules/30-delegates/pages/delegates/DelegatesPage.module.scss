@@ -34,7 +34,6 @@
 
 .delegateTable {
   padding: var(--spacing-small) var(--spacing-xlarge);
-  background-color: var(--grey-100);
 }
 
 .activity {
@@ -64,6 +63,14 @@
 
 .connectivity {
   margin-right: var(--spacing-xsmall) !important;
+  display: flex;
+  > div {
+    width: auto !important;
+  }
+  > span {
+    font-size: x-small;
+    margin: auto var(--spacing-xsmall);
+  }
 }
 
 .search {
@@ -142,6 +149,7 @@
 
 .delegateListContainer {
   padding: var(--spacing-large) !important;
+  background: var(--grey-100) !important;
 }
 
 .delegateListHeader {
@@ -179,4 +187,20 @@
   color: var(--grey-600);
   margin: 40px 0;
   font-size: var(--font-size-medium);
+}
+
+.groupHostName {
+  font-weight: 400;
+  font-size: var(--font-size-small);
+  color: var(--grey-400);
+}
+
+.troubleshootLink {
+  color: var(--blue-500);
+  margin-left: var(--spacing-large);
+  font-size: x-small;
+}
+
+.itemActionContainer {
+  justify-content: flex-end;
 }

@@ -55,6 +55,7 @@ const ModuleInfo: React.FC<ModuleProps> = ({ module = 'cd' }) => {
               history.push(routes.toModuleHome({ accountId, module: moduleLinkArg, source: 'purpose' }))
             )
           }}
+          data-testid="continueNg"
         >
           {getString('continue')}
         </Button>
@@ -62,8 +63,9 @@ const ModuleInfo: React.FC<ModuleProps> = ({ module = 'cd' }) => {
     }
 
     return (
-      <div
+      <Button
         className={css.continueButton}
+        intent="primary"
         onClick={async () => {
           trackEvent(PurposeActions.CDCGModuleSelected, { category: Category.SIGNUP, module: ModuleName.CD })
 
@@ -77,9 +79,10 @@ const ModuleInfo: React.FC<ModuleProps> = ({ module = 'cd' }) => {
             window.location.href = route
           }
         }}
+        data-testid="continueCg"
       >
         {getString('continue')}
-      </div>
+      </Button>
     )
   }
 

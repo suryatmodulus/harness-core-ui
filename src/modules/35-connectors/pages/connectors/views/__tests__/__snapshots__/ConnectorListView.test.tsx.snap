@@ -9971,7 +9971,16 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         role="columnheader"
         style="width: 25%;"
       >
-        CONNECTOR
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewname"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            CONNECTOR
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -9979,7 +9988,16 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         role="columnheader"
         style="width: 25%;"
       >
-        DETAILS
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewdetails"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            DETAILS
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -9987,7 +10005,16 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         role="columnheader"
         style="width: 15%;"
       >
-        LASTACTIVITY
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewactivity"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            LASTACTIVITY
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -9995,7 +10022,16 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         role="columnheader"
         style="width: 15%;"
       >
-        CONNECTIVITYSTATUS
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewstatus"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            CONNECTIVITYSTATUS
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -10003,7 +10039,16 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         role="columnheader"
         style="width: 15%;"
       >
-        LASTUPDATED
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewlastModifiedAt"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            LASTUPDATED
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -10011,7 +10056,16 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         role="columnheader"
         style="width: 5%;"
       >
-        
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewaction"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            
+          </p>
+        </div>
       </div>
     </div>
     <div
@@ -11550,7 +11604,16 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         role="columnheader"
         style="width: 17%;"
       >
-        CONNECTOR
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewname"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            CONNECTOR
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -11558,7 +11621,16 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         role="columnheader"
         style="width: 25%;"
       >
-        DETAILS
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewdetails"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            DETAILS
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -11566,7 +11638,16 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         role="columnheader"
         style="width: 20%;"
       >
-        COMMON.GITSYNC.REPODETAILS
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewgitDetails"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            COMMON.GITSYNC.REPODETAILS
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -11574,7 +11655,16 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         role="columnheader"
         style="width: 10%;"
       >
-        LASTACTIVITY
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewactivity"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            LASTACTIVITY
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -11582,7 +11672,16 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         role="columnheader"
         style="width: 15%;"
       >
-        CONNECTIVITYSTATUS
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewstatus"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            CONNECTIVITYSTATUS
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -11590,7 +11689,16 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         role="columnheader"
         style="width: 8%;"
       >
-        LASTUPDATED
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewlastModifiedAt"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            LASTUPDATED
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -11598,7 +11706,16 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         role="columnheader"
         style="width: 5%;"
       >
-        
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ConnectorsListViewaction"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            
+          </p>
+        </div>
       </div>
     </div>
     <div

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import type { IconName } from '@wings-software/uicore'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -37,6 +37,9 @@ const SelectModuleList: React.FC<SelectModuleListProps> = ({ onModuleClick, modu
   const { mutate: updateDefaultExperience, loading: updatingDefaultExperience } = useUpdateAccountDefaultExperienceNG({
     accountIdentifier: accountId
   })
+
+  const [dimensions, setDimensions] = useState({ width: window.innerWidth, height: innerHeight })
+  const ref = useRef<HTMLDivElement>(null)
 
   const handleModuleSelection = (module: Module): void => {
     setSelected(module)
@@ -92,7 +95,40 @@ const SelectModuleList: React.FC<SelectModuleListProps> = ({ onModuleClick, modu
     )
   })
 
-  return <div className={css.moduleList}>{moduleListElements}</div>
+  useLayoutEffect(() => {
+    const resize = () => {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight })
+    }
+    window.addEventListener('resize', resize)
+    resize()
+    const removeListner = () => window.removeEventListener('resize', resize)
+
+    return removeListner
+  }, [])
+
+  const wWI = dimensions.width
+  const wHI = dimensions.height
+  const scaleW = Math.max(wWI / 1920, 1)
+  const scaleH = Math.max(wHI / 1080, 1)
+  const scale = Math.min(scaleH, scaleW)
+
+  let topMarginAdd = 0
+  let leftMarginAdd = 0
+  if (scale > 1 && ref !== null && ref !== undefined) {
+    const height = ref?.current?.clientHeight
+    const width = ref?.current?.clientWidth
+    topMarginAdd = height ? (height * (scale - 1)) / 3 : 0
+    leftMarginAdd = width ? (width * (scale - 1)) / 3 : 0
+  }
+  return (
+    <div
+      ref={ref}
+      className={css.moduleList}
+      style={{ transform: `scale(${scale}) translate(${leftMarginAdd}px,${topMarginAdd}px)` }}
+    >
+      {moduleListElements}
+    </div>
+  )
 }
 
 export default SelectModuleList

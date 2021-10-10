@@ -75,7 +75,7 @@ describe('Role Details Page', () => {
       let form = findDialogContainer()
       expect(form).toBeTruthy()
       act(() => {
-        fireEvent.click(form?.querySelector('[icon="cross"]')!)
+        fireEvent.click(form?.querySelector('[data-icon="Stroke"]')!)
       })
       form = findDialogContainer()
       expect(form).not.toBeTruthy()

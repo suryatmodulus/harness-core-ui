@@ -167,8 +167,9 @@ export interface ServiceAccountPathProps {
   serviceAccountIdentifier: string
 }
 
-export interface ModuleCardPathParams {
+export interface SubscriptionQueryParams {
   moduleCard?: Module
+  tab?: 'OVERVIEW' | 'PLANS' | 'BILLING'
 }
 
 export interface TemplateStudioQueryParams {

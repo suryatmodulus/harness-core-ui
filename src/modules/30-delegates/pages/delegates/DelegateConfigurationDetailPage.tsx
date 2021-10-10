@@ -208,6 +208,7 @@ export default function DelegateProfileDetails(): JSX.Element {
 
                   {/* Name */}
                   <SectionLabelValuePair
+                    dataTooltipId="delegateConfig_name"
                     label={getString('delegate.CONFIGURATION_NAME')}
                     value={
                       editMode ? (
@@ -225,16 +226,22 @@ export default function DelegateProfileDetails(): JSX.Element {
                   />
 
                   <SectionLabelValuePair
+                    dataTooltipId="delegateConfig_identifier"
                     label={getString('delegates.delegateIdentifier')}
                     value={profile?.identifier}
                   />
 
                   {/* Description */}
                   {!editMode && profile?.description && (
-                    <SectionLabelValuePair label={getString('description')} value={formData.description} />
+                    <SectionLabelValuePair
+                      dataTooltipId="delegateConfig_description"
+                      label={getString('description')}
+                      value={formData.description}
+                    />
                   )}
                   {editMode && (
                     <SectionLabelValuePair
+                      dataTooltipId="delegateConfig_description"
                       label={getString('description')}
                       value={
                         <TextInput
@@ -250,12 +257,14 @@ export default function DelegateProfileDetails(): JSX.Element {
                   {/* Tags */}
                   {!editMode && profile?.selectors && (
                     <SectionLabelValuePair
+                      dataTooltipId="delegateConfig_tags"
                       label={getString('tagsLabel')}
                       value={<TagsViewer tags={formData.selectors || []} />}
                     />
                   )}
                   {editMode && (
                     <SectionLabelValuePair
+                      dataTooltipId="delegateConfig_tags"
                       label={getString('tagsLabel')}
                       value={
                         <SimpleTagInput

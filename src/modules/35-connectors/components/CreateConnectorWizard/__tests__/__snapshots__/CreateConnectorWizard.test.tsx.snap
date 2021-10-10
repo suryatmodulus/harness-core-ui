@@ -141,10 +141,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormArtifactory_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -528,10 +537,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormBitbucket_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -904,10 +922,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormDockerRegistry_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -1333,10 +1360,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormGcp_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -1724,10 +1760,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP KMS 1
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormGcpKms_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -2110,10 +2155,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormGit_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -2495,10 +2549,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormGithub_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -2905,10 +2968,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormGitlab_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -3292,10 +3364,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormNexus_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -3679,10 +3760,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormVault_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -4060,10 +4150,19 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="connectorDetailsStepFormK8sCluster_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span

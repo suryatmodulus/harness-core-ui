@@ -151,10 +151,19 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       <div
                         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="connectorDetailsStepFormBitbucket_identifier"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ID
+                          </p>
+                        </div>
                         <p
                           class="StyledProps--font StyledProps--main"
                         >
-                          ID
                           :
                         </p>
                         <span

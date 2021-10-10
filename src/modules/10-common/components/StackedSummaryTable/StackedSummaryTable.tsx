@@ -1,7 +1,7 @@
 import React from 'react'
 import { pick } from 'lodash-es'
 import type { Renderer, CellProps, Column } from 'react-table'
-import { Color, Text } from '@wings-software/uicore'
+import { Color, FontVariation, Text } from '@wings-software/uicore'
 import {
   getStackedSummaryBarCount,
   StackedSummaryBar,
@@ -19,12 +19,13 @@ export interface StackedSummaryInterface extends StackedSummaryBarData {
 }
 
 export interface StackedSummaryTableProps {
-  columnHeaders: JSX.Element[] | string[]
+  columnHeaders: (JSX.Element | string)[]
   summaryData: Array<StackedSummaryInterface>
+  barLength?: number
 }
 
 export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => {
-  const { columnHeaders, summaryData } = props
+  const { columnHeaders, summaryData, barLength } = props
 
   if (!summaryData[0]?.barSectionsData?.length) {
     logger.error(`Ivalid data for StackedSummaryTable, summaryData:${{ summaryData }}`)
@@ -34,13 +35,18 @@ export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => 
   const maxCount = getStackedSummaryBarCount(summaryData[0].barSectionsData)
 
   const RenderStackedSummaryBarLabelColumn: Renderer<CellProps<StackedSummaryInterface>> = ({ row }) => {
-    return <Text color={Color.PRIMARY_7}>{row.original?.label}</Text>
+    return (
+      <Text font={{ variation: FontVariation.BODY2 }} color={Color.PRIMARY_7}>
+        {row.original?.label}
+      </Text>
+    )
   }
 
   const RenderStackedSummaryBarCountColumn: Renderer<CellProps<StackedSummaryInterface>> = ({ row }) => {
     return (
       <StackedSummaryBar
         maxCount={maxCount}
+        barLength={barLength}
         {...pick(row.original, ['barSectionsData', 'trend', 'intent'])}
       ></StackedSummaryBar>
     )
@@ -50,13 +56,13 @@ export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => 
     {
       Header: () => columnHeaders[0],
       accessor: 'label',
-      width: '30%',
+      width: '40%',
       Cell: RenderStackedSummaryBarLabelColumn
     },
     {
       Header: () => columnHeaders[1],
       accessor: 'trend',
-      width: '70%',
+      width: '60%',
       Cell: RenderStackedSummaryBarCountColumn
     }
   ]

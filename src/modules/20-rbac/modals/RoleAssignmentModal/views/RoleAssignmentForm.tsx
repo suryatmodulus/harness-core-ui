@@ -11,7 +11,7 @@ import { errorCheck } from '@common/utils/formikHelpers'
 import { useToaster } from '@common/components'
 import { isAssignmentFieldDisabled } from '@rbac/utils/utils'
 import type { Assignment, RoleOption, UserRoleAssignmentValues } from './UserRoleAssigment'
-import type { UserGroupRoleAssignmentValues } from './UserGroupRoleAssignment'
+import type { RoleAssignmentValues } from './RoleAssignment'
 import css from './RoleAssignmentForm.module.scss'
 
 export enum InviteType {
@@ -21,7 +21,7 @@ export enum InviteType {
 
 interface RoleAssignmentFormProps {
   noRoleAssignmentsText: string
-  formik: FormikProps<UserRoleAssignmentValues | UserGroupRoleAssignmentValues>
+  formik: FormikProps<UserRoleAssignmentValues | RoleAssignmentValues>
   onSuccess?: () => void
 }
 

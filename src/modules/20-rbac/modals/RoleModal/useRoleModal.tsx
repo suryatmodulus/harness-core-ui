@@ -1,11 +1,8 @@
 import React, { useCallback, useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uicore'
-import { Dialog, Classes } from '@blueprintjs/core'
-import cx from 'classnames'
-
+import { useModalHook, Dialog } from '@wings-software/uicore'
+import { String } from 'framework/strings'
 import type { Role } from 'services/rbac'
 import RoleForm from './views/RoleForm'
-import css from './useRoleModal.module.scss'
 
 export interface UseRoleModalProps {
   onSuccess: (role: Role) => void
@@ -21,7 +18,12 @@ export const useRoleModal = ({ onSuccess }: UseRoleModalProps): UseRoleModalRetu
   const [roleData, setRoleData] = useState<Role>()
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} enforceFocus={false} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
+      <Dialog
+        isOpen={true}
+        title={roleData ? <String stringID="editRole" /> : <String stringID="newRole" />}
+        enforceFocus={false}
+        onClose={hideModal}
+      >
         <RoleForm
           data={roleData}
           isEdit={!!roleData}
@@ -29,9 +31,8 @@ export const useRoleModal = ({ onSuccess }: UseRoleModalProps): UseRoleModalRetu
             onSuccess(role)
             hideModal()
           }}
+          onCancel={hideModal}
         />
-
-        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
     [roleData, onSuccess]

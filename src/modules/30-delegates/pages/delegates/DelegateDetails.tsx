@@ -13,10 +13,8 @@ import type {
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
 import { useGetDelegateGroupByIdentifier, useGetV2, DelegateProfile } from 'services/portal'
-import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { DelegateOverview } from './DelegateOverview'
-import { DelegateAdvanced } from './DelegateAdvanced'
 import css from './DelegateDetails.module.scss'
 
 export default function DelegateDetails(): JSX.Element {
@@ -66,9 +64,6 @@ export default function DelegateDetails(): JSX.Element {
           {delegate?.groupName}
         </Text>
         <Text color={Color.GREY_400}>{delegate?.groupHostName}</Text>
-        <Container>
-          <TagsViewer tags={Object.keys(delegate?.groupImplicitSelectors || {})} style={{ background: '#CDF4FE' }} />
-        </Container>
       </Layout.Vertical>
     )
   }
@@ -96,9 +91,9 @@ export default function DelegateDetails(): JSX.Element {
   return (
     <>
       <Container
-        height={143}
+        height={116}
         padding={{ top: 'large', right: 'xlarge', bottom: 'large', left: 'xlarge' }}
-        style={{ backgroundColor: 'rgba(219, 241, 255, .46)' }}
+        className={css.detailsContainer}
       >
         {renderTitle()}
       </Container>
@@ -107,9 +102,8 @@ export default function DelegateDetails(): JSX.Element {
           <Layout.Horizontal spacing="large">
             <Container className={css.cardContainer}>
               {delegate && delegateProfile && (
-                <Layout.Vertical spacing="large" width={550}>
+                <Layout.Vertical spacing="large" width="50%">
                   <DelegateOverview delegate={delegate} delegateProfile={delegateProfile} />
-                  <DelegateAdvanced delegate={delegate} delegateProfile={delegateProfile} />
                 </Layout.Vertical>
               )}
             </Container>

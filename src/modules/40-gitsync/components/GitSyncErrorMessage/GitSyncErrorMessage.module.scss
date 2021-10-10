@@ -1,0 +1,23 @@
+.gitSyncErrorMessage {
+  margin-bottom: var(--spacing-medium);
+  .section {
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--grey-100);
+      margin-bottom: var(--spacing-small) !important;
+      padding-bottom: var(--spacing-small) !important;
+    }
+  }
+  .errorItemTitle {
+    margin-bottom: var(--spacing-tiny) !important;
+  }
+  .errorItemViewContent {
+    cursor: pointer;
+  }
+  .errorItemErrorFixed {
+    align-self: flex-end;
+    border-radius: 4px;
+  }
+  .timestamp {
+    border-left: 1px solid var(--grey-100);
+  }
+}

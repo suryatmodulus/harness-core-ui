@@ -347,9 +347,9 @@ subscriptions:
   expiryCountdown: expires in {{ days }} days
   expired: expired {{ days }} days ago
   banner:
-    enterprise: '{{ module }} Enterprise trial'
-  enterpriseTrial: Enterprise (14 day trial)
-  enterprisePaid: Enterprise
+    trial: '{{ module }} {{edition}} trial'
+  trial: '{{edition}} (14 day trial)'
+  paid: '{{edition}}'
   noActiveSubscription: No Active Subscription
   usage:
     header: Activity & Usage
@@ -371,7 +371,7 @@ banners:
     success: Verification email re-sent
   trial:
     success: Email verification success!
-    description: Your Enterprise {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
+    description: Your {{edition}} {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
     provideFeedback: Provide Feedback
     feedbackSuccess: Thanks for sending feedback!
     expired:
@@ -536,6 +536,7 @@ plans:
   manageSubscription: Manage Subscription
 useTemplate: Use template
 comingSoon: Coming Soon
+comingSoon2: Coming Soon!
 tryNow: Try Now
 recommended: 'Recommended'
 azure: Azure
@@ -559,3 +560,10 @@ feature:
     description: 'Requires upgrade to setup {{featureName}}'
 repositoryName: Repository Name
 mostActiveServices: Most active services
+allErrors: All Errors
+connectivityErrors: Connectivity Errors
+apply: '{{ $.filters.apply }}'
+ON: 'ON'
+OFF: 'OFF'
+viewContent: View Content
+delete: Delete {{ name }}?

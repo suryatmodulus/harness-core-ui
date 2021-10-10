@@ -12,7 +12,8 @@ import {
   SelectOption,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
-  FontVariation
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
@@ -183,7 +184,12 @@ const SetupVault: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps> 
             </Layout.Horizontal>
           </Container>
           <Layout.Horizontal spacing="medium">
-            <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
+            <Button
+              variation={ButtonVariation.SECONDARY}
+              text={getString('back')}
+              icon="chevron-left"
+              onClick={() => previousStep?.(prevStepData)}
+            />
             <Button
               type="submit"
               intent="primary"

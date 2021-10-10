@@ -61,6 +61,7 @@ import { shouldShowError } from '@common/utils/errorUtils'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
@@ -77,6 +78,7 @@ import {
   getOptionsForMultiSelect,
   validateForm
 } from './utils/RequestUtils'
+import ConnectorsEmptyState from './images/connectors-empty-state.png'
 import css from './ConnectorsPage.module.scss'
 
 interface ConnectorsListProps {
@@ -274,21 +276,15 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
 
   const computeDrawerMap = (catalogueData: ResponseConnectorCatalogueResponse | null): AddDrawerMapInterface => {
     const originalData = catalogueData?.data?.catalogue || []
-    originalData.forEach(value => {
-      if (value.category === 'SECRET_MANAGER') {
-        value.connectors = ['Vault', 'AwsKms', 'AzureKeyVault', 'AwsSecretManager', 'GcpKms']
-      }
+    originalData.map(value => {
+      value.category == 'SECRET_MANAGER'
+        ? (value.connectors = ['Vault', 'AwsKms', 'AzureKeyVault', 'AwsSecretManager'])
+        : null
     })
     const orderedCatalogue: ConnectorCatalogueItem[] | { category: string; connectors: string[] } = []
     connectorCatalogueOrder.forEach(catalogueItem => {
       const catalogueEntry = originalData.find(item => item['category'] === catalogueItem)
       if (catalogueEntry && !(projectIdentifier != undefined && catalogueEntry.category == 'CLOUD_COST')) {
-        // ArgoConnector should not be displayed
-        if (catalogueEntry.category === 'CLOUD_PROVIDER') {
-          const updatedConnectorsList = catalogueEntry.connectors?.filter(connector => connector !== 'ArgoConnector')
-          catalogueEntry.connectors = updatedConnectorsList
-        }
-
         // CLOUD_COST should not be displayed at project level drawer
         orderedCatalogue.push(catalogueEntry)
       }
@@ -640,80 +636,83 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     <>
       <Page.Header title={getString('connectorsLabel')} breadcrumbs={<NGBreadcrumbs />} />
       <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
-        <Layout.Horizontal flex className={css.header}>
-          <Layout.Horizontal spacing="small">
-            <RbacButton
-              variation={ButtonVariation.PRIMARY}
-              text={getString('newConnector')}
-              icon="plus"
-              permission={{
-                permission: PermissionIdentifier.UPDATE_CONNECTOR,
-                resource: {
-                  resourceType: ResourceType.CONNECTOR
-                }
-              }}
-              onClick={openDrawer}
-              id="newConnectorBtn"
-              data-test="newConnectorButton"
-            />
-            <RbacButton
-              margin={{ left: 'small' }}
-              text={getString('createViaYaml')}
-              permission={{
-                permission: PermissionIdentifier.UPDATE_CONNECTOR,
-                resource: {
-                  resourceType: ResourceType.CONNECTOR
-                },
-                resourceScope: {
-                  accountIdentifier: accountId,
-                  orgIdentifier,
-                  projectIdentifier
-                }
-              }}
-              onClick={rerouteBasedOnContext}
-              id="newYamlConnectorBtn"
-              data-test="createViaYamlButton"
-              variation={ButtonVariation.SECONDARY}
-            />
-            {isGitSyncEnabled && (
-              <GitSyncStoreProvider>
-                <GitFilters
-                  onChange={filter => {
-                    setGitFilter(filter)
-                    setPage(0)
-                  }}
-                  className={css.gitFilter}
-                />
-              </GitSyncStoreProvider>
-            )}
-          </Layout.Horizontal>
-
-          <Layout.Horizontal margin={{ left: 'small' }}>
-            <Container data-name="connectorSeachContainer">
-              <ExpandingSearchInput
-                alwaysExpanded
-                width={200}
-                placeholder={getString('search')}
-                throttle={200}
-                onChange={(query: string) => {
-                  debouncedConnectorSearch(encodeURIComponent(query))
-                  setSearchTerm(query)
+        {connectors?.content?.length || searchTerm || loading ? (
+          <Layout.Horizontal flex className={css.header}>
+            <Layout.Horizontal spacing="small">
+              <RbacButton
+                variation={ButtonVariation.PRIMARY}
+                text={getString('newConnector')}
+                icon="plus"
+                permission={{
+                  permission: PermissionIdentifier.UPDATE_CONNECTOR,
+                  resource: {
+                    resourceType: ResourceType.CONNECTOR
+                  }
                 }}
-                className={css.expandSearch}
+                onClick={openDrawer}
+                id="newConnectorBtn"
+                data-test="newConnectorButton"
               />
-            </Container>
-            <FilterSelector<FilterDTO>
-              appliedFilter={appliedFilter}
-              filters={filters}
-              onFilterBtnClick={openFilterDrawer}
-              onFilterSelect={handleFilterSelection}
-              fieldToLabelMapping={fieldToLabelMapping}
-              filterWithValidFields={removeNullAndEmpty(
-                pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
+              <RbacButton
+                margin={{ left: 'small' }}
+                text={getString('createViaYaml')}
+                permission={{
+                  permission: PermissionIdentifier.UPDATE_CONNECTOR,
+                  resource: {
+                    resourceType: ResourceType.CONNECTOR
+                  },
+                  resourceScope: {
+                    accountIdentifier: accountId,
+                    orgIdentifier,
+                    projectIdentifier
+                  }
+                }}
+                onClick={rerouteBasedOnContext}
+                id="newYamlConnectorBtn"
+                data-test="createViaYamlButton"
+                variation={ButtonVariation.SECONDARY}
+              />
+              {isGitSyncEnabled && (
+                <GitSyncStoreProvider>
+                  <GitFilters
+                    onChange={filter => {
+                      setGitFilter(filter)
+                      setPage(0)
+                    }}
+                    className={css.gitFilter}
+                  />
+                </GitSyncStoreProvider>
               )}
-            />
+            </Layout.Horizontal>
+
+            <Layout.Horizontal margin={{ left: 'small' }}>
+              <Container data-name="connectorSeachContainer">
+                <ExpandingSearchInput
+                  alwaysExpanded
+                  width={200}
+                  placeholder={getString('search')}
+                  throttle={200}
+                  onChange={(query: string) => {
+                    debouncedConnectorSearch(encodeURIComponent(query))
+                    setSearchTerm(query)
+                  }}
+                  className={css.expandSearch}
+                />
+              </Container>
+              <FilterSelector<FilterDTO>
+                appliedFilter={appliedFilter}
+                filters={filters}
+                onFilterBtnClick={openFilterDrawer}
+                onFilterSelect={handleFilterSelection}
+                fieldToLabelMapping={fieldToLabelMapping}
+                filterWithValidFields={removeNullAndEmpty(
+                  pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
+                )}
+              />
+            </Layout.Horizontal>
           </Layout.Horizontal>
-        </Layout.Horizontal>
+        ) : null}
+
         <Page.Body className={css.listBody}>
           {loading ? (
             <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
@@ -738,7 +737,13 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
               gotoPage={pageNumber => setPage(pageNumber)}
             />
           ) : (
-            <Page.NoDataCard icon="nav-dashboard" message={getString('noConnectorFound')} />
+            <Page.NoDataCard
+              onClick={openDrawer}
+              imageClassName={css.connectorEmptyStateImg}
+              buttonText={!searchTerm ? getString('connectors.createConnector') : undefined}
+              image={ConnectorsEmptyState}
+              message={searchTerm ? getString('noConnectorFound') : getString('connectors.connectorEmptyState')}
+            />
           )}
         </Page.Body>
       </Layout.Vertical>

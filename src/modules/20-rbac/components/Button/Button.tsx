@@ -7,14 +7,17 @@ import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import { useFeature } from '@common/hooks/useFeatures'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { FeatureRequest } from 'framework/featureStore/FeaturesContext'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
-import type { ExplorePlansBtnProps } from '@common/components/FeatureWarning/FeatureWarning'
 
 interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
-  featureRequest?: FeatureRequest
+  featureProps?: FeatureProps
+}
+
+interface FeatureProps {
+  featureRequest: FeatureRequest
   isPermissionPrioritized?: boolean
-  featureTooltipProps?: ExplorePlansBtnProps
 }
 
 interface BtnProps {
@@ -24,14 +27,12 @@ interface BtnProps {
 
 const RbacButton: React.FC<ButtonProps> = ({
   permission: permissionRequest,
-  featureRequest,
-  isPermissionPrioritized = false,
-  featureTooltipProps,
+  featureProps,
   tooltipProps,
   ...restProps
 }) => {
-  const { enabled: featureEnabled } = useFeature({
-    featureRequest
+  const { enabled: featureEnabled, featureDetail } = useFeature({
+    featureRequest: featureProps?.featureRequest
   })
 
   const [canDoAction] = usePermission(
@@ -44,7 +45,7 @@ const RbacButton: React.FC<ButtonProps> = ({
 
   function getBtnProps(): BtnProps {
     // if permission check override the priorirty
-    if (isPermissionPrioritized && permissionRequest && !canDoAction) {
+    if (featureProps?.isPermissionPrioritized && permissionRequest && !canDoAction) {
       return {
         disabled: true,
         tooltip: (
@@ -58,10 +59,15 @@ const RbacButton: React.FC<ButtonProps> = ({
     }
 
     // feature check by default take priority
-    if (featureRequest && !featureEnabled) {
+    if (featureProps?.featureRequest && !featureEnabled) {
       return {
         disabled: true,
-        tooltip: <FeatureWarningTooltip featureName={featureRequest.featureName} module={featureTooltipProps?.module} />
+        tooltip: (
+          <FeatureWarningTooltip
+            featureName={featureProps?.featureRequest.featureName}
+            module={featureDetail?.moduleType?.toLowerCase() as Module}
+          />
+        )
       }
     }
 
@@ -84,7 +90,7 @@ const RbacButton: React.FC<ButtonProps> = ({
     }
   }
 
-  if (!featureRequest && !permissionRequest) {
+  if (!featureProps?.featureRequest && !permissionRequest) {
     return <></>
   }
 

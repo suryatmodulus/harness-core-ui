@@ -13,11 +13,12 @@ import { PageError } from '@common/components/Page/PageError'
 import type { ModulePathParams, ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
-import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
+import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import ApiKeyList from '@rbac/components/ApiKeyList/ApiKeyList'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PrincipalType } from '@rbac/utils/utils'
 import css from './ServiceAccountDetails.module.scss'
 
 const ServiceAccountDetails: React.FC = () => {

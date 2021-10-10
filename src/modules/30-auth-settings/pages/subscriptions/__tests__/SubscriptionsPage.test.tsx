@@ -74,7 +74,7 @@ describe('Subscriptions Page', () => {
 
     expect(getByText('common.subscriptions.title')).toBeTruthy()
     expect(getByText('common.subscriptions.expiryCountdown')).toBeTruthy()
-    expect(getByText('common.subscriptions.enterpriseTrial')).toBeTruthy()
+    expect(getByText('common.subscriptions.trial')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 
@@ -113,7 +113,7 @@ describe('Subscriptions Page', () => {
 
     expect(getByText('common.subscriptions.title')).toBeTruthy()
     expect(getByText('common.subscriptions.expiryCountdown')).toBeTruthy()
-    expect(getByText('common.subscriptions.enterpriseTrial')).toBeTruthy()
+    expect(getByText('common.subscriptions.trial')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 
@@ -225,7 +225,7 @@ describe('Subscriptions Page', () => {
 
     expect(getByText('common.subscriptions.title')).toBeTruthy()
     expect(getByText('common.subscriptions.expired')).toBeTruthy()
-    expect(getByText('common.subscriptions.enterpriseTrial')).toBeTruthy()
+    expect(getByText('common.subscriptions.trial')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 

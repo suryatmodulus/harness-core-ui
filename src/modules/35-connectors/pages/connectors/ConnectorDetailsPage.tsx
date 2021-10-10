@@ -181,11 +181,11 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
 
   const renderTitle = useMemo(
     () => (
-      <Layout.Vertical padding={{ left: 'xsmall' }}>
+      <Layout.Vertical>
         {RenderBreadCrumb(props)}
         <Layout.Horizontal spacing="small">
           <Icon
-            margin={{ left: 'xsmall', right: 'xsmall' }}
+            margin={{ right: 'xsmall' }}
             name={getIconByType(connectorData?.data?.connector?.type || data?.connector?.type)}
             size={35}
           ></Icon>

@@ -1,0 +1,71 @@
+{
+  "featureMetadata": {
+    "status": "SUCCESS",
+    "data": [
+      {
+        "name": "TEST3",
+        "moduleType": "CF",
+        "restrictionMetadata": {
+          "TEAM": {
+            "limit": 100,
+            "timeUnit": {
+              "unit": "DAYS",
+              "numberOfUnits": 1
+            },
+            "restrictionType": "RATE_LIMIT"
+          },
+          "FREE": {
+            "limit": 10,
+            "timeUnit": {
+              "unit": "DAYS",
+              "numberOfUnits": 1
+            },
+            "restrictionType": "RATE_LIMIT"
+          },
+          "ENTERPRISE": {
+            "enabled": false,
+            "restrictionType": "AVAILABILITY"
+          }
+        }
+      },
+      {
+        "name": "TEST2",
+        "moduleType": "CORE",
+        "restrictionMetadata": {
+          "TEAM": {
+            "limit": 10,
+            "restrictionType": "RATE_LIMIT"
+          },
+          "FREE": {
+            "enabled": false,
+            "restrictionType": "RATE_LIMIT"
+          },
+          "ENTERPRISE": {
+            "enabled": true,
+            "restrictionType": "AVAILABILITY"
+          }
+        }
+      },
+      {
+        "name": "TEST1",
+        "moduleType": "CD",
+        "restrictionMetadata": {
+          "TEAM": {
+            "enabled": true,
+            "restrictionType": "AVAILABILITY"
+          },
+          "FREE": {
+            "enabled": false,
+            "restrictionType": "AVAILABILITY"
+          },
+          "ENTERPRISE": {
+            "enabled": true,
+            "restrictionType": "AVAILABILITY"
+          }
+        }
+      }
+    ],
+    "metaData": null,
+    "correlationId": "36ed2035-a76b-4bc9-8532-7dc38bab9919"
+  }
+}

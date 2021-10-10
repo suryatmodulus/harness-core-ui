@@ -3,8 +3,8 @@
 exports[`Delegates Details Page render data 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xlarge StyledProps--padding-bottom-large StyledProps--padding-left-xlarge"
-    style="background-color: rgba(219, 241, 255, 0.46); height: 143px;"
+    class="StyledProps--font StyledProps--main detailsContainer StyledProps--padding-top-large StyledProps--padding-right-xlarge StyledProps--padding-bottom-large StyledProps--padding-left-xlarge"
+    style="height: 116px;"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -123,14 +123,6 @@ exports[`Delegates Details Page render data 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
       />
-      <div
-        class="StyledProps--font StyledProps--main"
-      >
-        <div
-          class="StyledProps--font StyledProps--main"
-          style="display: inline-flex; flex-wrap: wrap;"
-        />
-      </div>
     </div>
   </div>
   <div

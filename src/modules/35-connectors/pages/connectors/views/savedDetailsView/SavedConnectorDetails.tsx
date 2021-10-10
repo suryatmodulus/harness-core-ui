@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Tag, Text, Color, Container, Icon, IconName } from '@wings-software/uicore'
+import { Layout, Tag, Text, Color, Container, Icon, IconName, Card } from '@wings-software/uicore'
 import moment from 'moment'
 import { Connectors } from '@connectors/constants'
 import type {
@@ -728,7 +728,7 @@ export const getActivityDetails = (data: ActivityDetailsData): Array<ActivityDet
 export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props => {
   const { getString } = useStrings()
   return (
-    <Container className={css.detailsSection}>
+    <Card className={css.detailsSection}>
       <Text font={{ weight: 'bold', size: 'medium' }} color={Color.GREY_700} padding={{ bottom: '10px' }}>
         {props.title}
       </Text>
@@ -771,7 +771,7 @@ export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props =
           )
         }
       })}
-    </Container>
+    </Card>
   )
 }
 
@@ -782,7 +782,7 @@ const SavedConnectorDetails: React.FC<SavedConnectorDetailsProps> = props => {
   const commonCredentialsDetailsSchema = getCommonCredentialsDetailsSchema(props.connector)
 
   return (
-    <Layout.Horizontal className={css.detailsSectionContainer}>
+    <Layout.Horizontal className={css.detailsSectionContainer} spacing="xlarge">
       <RenderDetailsSection title={getString('overview')} data={connectorDetailsSchema} />
       <RenderDetailsSection
         title={getString('credentials')}

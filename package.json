@@ -70,7 +70,9 @@
     "strings:loaders": "node scripts/strings/generateStrings.mjs",
     "prepare": "husky install && patch-package",
     "fmt": "prettier --write \"./src/**/*.{ts,tsx,css}\"",
-    "generate-merged-coverage": "node mergedCoverage.js"
+    "generate-merged-coverage": "node mergedCoverage.js",
+    "generate-microfrontend-types": "webpack --config src/microfrontends/webpack.config.js",
+    "publish-types": "yarn generate-microfrontend-types; yarn publish src/microfrontends;"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",
@@ -88,7 +90,7 @@
     "@wings-software/monaco-yaml": "2.4.36",
     "@wings-software/ng-tooltip": "~1.30.26",
     "@wings-software/telemetry": "^1.0.36",
-    "@wings-software/uicore": "0.1.386",
+    "@wings-software/uicore": "0.1.390",
     "anser": "^2.0.1",
     "ansi-to-react": "^6.0.7",
     "classnames": "^2.2.6",
@@ -184,6 +186,7 @@
     "@urql/devtools": "^2.0.3",
     "@wings-software/css-types-loader": "^2.1.0",
     "@wings-software/jarvis": "0.11.0",
+    "@zerollup/ts-transform-paths": "^1.7.18",
     "assert": "^2.0.0",
     "babel-loader": "^8.2.2",
     "cache-loader": "^4.1.0",

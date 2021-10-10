@@ -3,11 +3,11 @@
 exports[`Connector Details Page Edit and save connector YAML 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-xlarge"
     style="height: inherit;"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      class="Layout--vertical StyledProps--main"
       style="width: 100%;"
     >
       <div
@@ -98,10 +98,19 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="saveToGitForm_identifier"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                    </p>
+                  </div>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
                     :
                   </p>
                   <span
@@ -613,11 +622,11 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
 exports[`Connector Details Page Edit details test 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-xlarge"
     style="height: inherit;"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      class="Layout--vertical StyledProps--main"
       style="width: 67%;"
     >
       <div
@@ -710,11 +719,11 @@ exports[`Connector Details Page Edit details test 1`] = `
 exports[`Connector Details Page Rendering connector details with DockerRegistry: DockerRegistry 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-xlarge"
     style="height: inherit;"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      class="Layout--vertical StyledProps--main"
       style="width: 67%;"
     >
       <div
@@ -780,10 +789,10 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
           style="width: 100%; height: 100%;"
         >
           <div
-            class="Layout--horizontal StyledProps--main detailsSectionContainer"
+            class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
           >
             <div
-              class="StyledProps--font StyledProps--main detailsSection"
+              class="bp3-card bp3-elevation-0 Card--card detailsSection"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -792,7 +801,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
               </p>
             </div>
             <div
-              class="StyledProps--font StyledProps--main detailsSection"
+              class="bp3-card bp3-elevation-0 Card--card detailsSection"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -886,11 +895,11 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
 exports[`Connector Details Page Rendering connector details with K8sCluster: K8sCluster 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-xlarge"
     style="height: inherit;"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      class="Layout--vertical StyledProps--main"
       style="width: 67%;"
     >
       <div
@@ -956,10 +965,10 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
           style="width: 100%; height: 100%;"
         >
           <div
-            class="Layout--horizontal StyledProps--main detailsSectionContainer"
+            class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
           >
             <div
-              class="StyledProps--font StyledProps--main detailsSection"
+              class="bp3-card bp3-elevation-0 Card--card detailsSection"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -968,7 +977,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
               </p>
             </div>
             <div
-              class="StyledProps--font StyledProps--main detailsSection"
+              class="bp3-card bp3-elevation-0 Card--card detailsSection"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -1062,11 +1071,11 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
 exports[`Connector Details Page Rendering connector details: view text 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    class="Layout--horizontal StyledProps--main StyledProps--padding-xlarge"
     style="height: inherit;"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-small"
+      class="Layout--vertical StyledProps--main"
       style="width: 67%;"
     >
       <div
@@ -1132,10 +1141,10 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
           style="width: 100%; height: 100%;"
         >
           <div
-            class="Layout--horizontal StyledProps--main detailsSectionContainer"
+            class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main detailsSectionContainer"
           >
             <div
-              class="StyledProps--font StyledProps--main detailsSection"
+              class="bp3-card bp3-elevation-0 Card--card detailsSection"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"
@@ -1144,7 +1153,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
               </p>
             </div>
             <div
-              class="StyledProps--font StyledProps--main detailsSection"
+              class="bp3-card bp3-elevation-0 Card--card detailsSection"
             >
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-grey700"

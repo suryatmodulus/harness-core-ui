@@ -25,6 +25,7 @@ jest.spyOn(cdngServices, 'useDeleteFilter').mockImplementation(() => ({ mutate: 
 jest.spyOn(cdngServices, 'useGetTestConnectionResult').mockImplementation(() => Promise.resolve() as any)
 jest.spyOn(cdngServices, 'useDeleteConnector').mockImplementation(() => Promise.resolve() as any)
 jest.spyOn(cdngServices, 'getListOfBranchesByGitConfigPromise').mockImplementation(() => fetchBranches())
+jest.useFakeTimers()
 
 describe('Connectors Page Test', () => {
   const props = {
@@ -70,6 +71,8 @@ describe('Connectors Page Test', () => {
         <ConnectorsPage {...props} />
       </TestWrapper>
     )
+
+    await waitFor(() => screen.getByText('createViaYaml'))
     const createViaYamlButton = screen.getByText('createViaYaml')
     fireEvent.click(createViaYamlButton)
     expect(container.querySelector('[data-testid="location"]')?.textContent).toMatch(
@@ -106,17 +109,18 @@ describe('Connectors Page Test', () => {
         <ConnectorsPage {...renderProps} />
       </TestWrapper>
     )
-    await act(async () => {
-      const filterSelector = getByTestId('filter-select')
-      expect(filterSelector).toBeTruthy()
-      fireEvent.click(filterSelector)
-      await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-      const menuItems = document.querySelectorAll('[class*="menuItem"]')
-      expect(menuItems?.length).toBe(filters.data.content.length)
-      fireEvent.click(menuItems[0])
-      expect(getByTestId('dropdown-value')).toHaveTextContent(filters.data.content[0].name)
-      expect(parseInt((container.querySelector('[class*="fieldCount"]') as HTMLElement).innerHTML)).toBe(1)
-    })
+
+    await waitFor(() => getByTestId('filter-select'))
+    const filterSelector = getByTestId('filter-select')
+    expect(filterSelector).toBeTruthy()
+    fireEvent.click(filterSelector)
+    await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
+    const menuItems = document.querySelectorAll('[class*="menuItem"]')
+    expect(menuItems?.length).toBe(filters.data.content.length)
+    fireEvent.click(menuItems[0])
+    expect(getByTestId('dropdown-value')).toHaveTextContent(filters.data.content[0].name)
+    expect(parseInt((container.querySelector('[class*="fieldCount"]') as HTMLElement).innerHTML)).toBe(1)
+
     // expect(container).toMatchSnapshot()
   })
 
@@ -126,26 +130,23 @@ describe('Connectors Page Test', () => {
         <ConnectorsPage {...renderProps} />
       </TestWrapper>
     )
-    await act(async () => {
-      const filterBtn = container.querySelector('#ngfilterbtn')!
-      fireEvent.click(filterBtn)
-      await waitFor(() => {
-        const portal = document.getElementsByClassName('bp3-portal')[0]
-        expect(portal).toBeTruthy()
-        expect(portal).toMatchSnapshot('New Filter')
-      })
-    })
+    await waitFor(() => container.querySelector('#ngfilterbtn')!)
+    const filterBtn = container.querySelector('#ngfilterbtn')!
+    fireEvent.click(filterBtn)
+    const portal = document.getElementsByClassName('bp3-portal')[0]
+    expect(portal).toBeTruthy()
+    expect(portal).toMatchSnapshot('New Filter')
   })
 
   test('Render and check create connector panel', async () => {
     const { container } = setup()
+
+    await waitFor(() => container?.querySelector('#newConnectorBtn'))
     const newConnectorBtn = container?.querySelector('#newConnectorBtn')
     fireEvent.click(newConnectorBtn!)
-    await act(async () => {
-      const portal = document.getElementsByClassName('bp3-portal')[0]
-      expect(portal).toBeTruthy()
-      expect(portal).toMatchSnapshot('Connectors')
-    })
+    const portal = document.getElementsByClassName('bp3-portal')[0]
+    expect(portal).toBeTruthy()
+    expect(portal).toMatchSnapshot('Connectors')
   })
 
   //Disabling as this has been reported as flaky multiple times
@@ -153,6 +154,7 @@ describe('Connectors Page Test', () => {
   test.skip('should verify that new connector button and create via yaml button are not disabled if connector edit permission is provided', async () => {
     jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
     const { container } = setup()
+    await waitFor(() => container.querySelector('[data-test="newConnectorButton"]'))
     const newConnectorButton = container.querySelector('[data-test="newConnectorButton"]')
     const createViaYamlButton = container.querySelector('[data-test="createViaYamlButton"]')
     expect(newConnectorButton?.getAttribute('disabled')).toBe(null)
@@ -162,14 +164,17 @@ describe('Connectors Page Test', () => {
   test('should verify that new connector button and create via yaml button are disabled if connector edit permission is not provided', async () => {
     jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [false])
     const { container } = setup()
-    const newConnectorButton = container.querySelector('[data-test="newConnectorButton"]')
+
+    await waitFor(() => container.querySelector('[data-test="createViaYamlButton"]'))
     const createViaYamlButton = container.querySelector('[data-test="createViaYamlButton"]')
+    const newConnectorButton = container.querySelector('[data-test="newConnectorButton"]')
     expect(newConnectorButton?.getAttribute('disabled')).toBe('')
     expect(createViaYamlButton?.getAttribute('disabled')).toBe('')
   })
 
   test('should confirm that searching the expandable search input calls the api', async () => {
-    const getConnectorsListV2 = jest.fn()
+    const getConnectorsListV2 = jest.fn().mockResolvedValue(props.mockData.data)
+
     jest.spyOn(cdngServices, 'useGetConnectorListV2').mockImplementation(() => ({ mutate: getConnectorsListV2 } as any))
     const { container } = render(
       <TestWrapper
@@ -179,6 +184,8 @@ describe('Connectors Page Test', () => {
         <ConnectorsPage {...renderProps} />
       </TestWrapper>
     )
+
+    await waitFor(() => container.querySelector('[data-name="connectorSeachContainer"]'))
     const query = 'abcd'
     const searchContainer = container.querySelector('[data-name="connectorSeachContainer"]')
     const searchIcon = searchContainer?.querySelector('span[data-icon="thinner-search"]')
@@ -209,6 +216,6 @@ describe('Connectors Page Test', () => {
       fireEvent.change(searchInput!, { target: { value: query } })
     })
     await waitFor(() => expect(searchInput?.value).toBe(query))
-    await waitFor(() => expect(getConnectorsListV2).toBeCalledTimes(4))
+    await waitFor(() => expect(getConnectorsListV2).toBeCalledTimes(3))
   })
 })

@@ -8,7 +8,6 @@ import {
   Layout,
   FlexExpander,
   ExpandingSearchInput,
-  Color,
   useModalHook,
   SelectOption,
   FormInput,
@@ -488,7 +487,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
             <ExpandingSearchInput
               alwaysExpanded
               width={250}
-              placeholder={getString('delegates.searchDelegateName')}
+              placeholder={getString('search')}
               throttle={200}
               onChange={text => {
                 debouncedDelegateSearch(text)
@@ -529,9 +528,9 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
             />
           </div>
         ) : (
-          <Container className={css.delegateListContainer} background={Color.GREY_100}>
+          <Container className={css.delegateListContainer}>
             {delegateGroups.length ? (
-              <Container className={css.delegateListContainer} background={Color.GREY_100}>
+              <Container>
                 <DelegateListingHeader />
                 {delegateGroups.map((delegate: DelegateGroupDetails) => (
                   <DelegateListingItem

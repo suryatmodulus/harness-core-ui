@@ -6,6 +6,7 @@ declare const styles: {
   readonly connectorInfo: string
   readonly connectorNameId: string
   readonly editBtn: string
+  readonly itemWithGit: string
   readonly gitInfo: string
   readonly gitText: string
   readonly iconCheck: string

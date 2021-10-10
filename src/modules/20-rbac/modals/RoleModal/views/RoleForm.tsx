@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import {
   Button,
-  Color,
   Container,
   Formik,
   FormikForm as Form,
   Layout,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  Text,
   ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
@@ -24,10 +22,11 @@ interface RoleModalData {
   data?: Role
   isEdit?: boolean
   onSubmit?: (role: Role) => void
+  onCancel?: () => void
 }
 
 const RoleForm: React.FC<RoleModalData> = props => {
-  const { data: roleData, onSubmit, isEdit } = props
+  const { data: roleData, onSubmit, isEdit, onCancel } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -70,53 +69,44 @@ const RoleForm: React.FC<RoleModalData> = props => {
     }
   }
   return (
-    <Layout.Vertical padding="xxxlarge">
-      <Layout.Vertical spacing="large">
-        <Text color={Color.BLACK} font="medium">
-          {isEdit ? getString('editRole') : getString('newRole')}
-        </Text>
-        <Formik
-          initialValues={{
-            identifier: '',
-            name: '',
-            description: '',
-            tags: {},
-            ...roleData
-          }}
-          formName="roleForm"
-          validationSchema={Yup.object().shape({
-            name: NameSchema(),
-            identifier: IdentifierSchema()
-          })}
-          onSubmit={values => {
-            modalErrorHandler?.hide()
-            handleSubmit(values)
-          }}
-        >
-          {formikProps => {
-            return (
-              <Form>
-                <Container className={css.roleForm}>
-                  <ModalErrorHandler bind={setModalErrorHandler} />
-                  <NameIdDescriptionTags
-                    formikProps={formikProps}
-                    identifierProps={{ isIdentifierEditable: !isEdit }}
-                  />
-                </Container>
-                <Layout.Horizontal>
-                  <Button
-                    variation={ButtonVariation.PRIMARY}
-                    text={getString('save')}
-                    type="submit"
-                    disabled={saving || updating}
-                  />
-                </Layout.Horizontal>
-              </Form>
-            )
-          }}
-        </Formik>
-      </Layout.Vertical>
-    </Layout.Vertical>
+    <Formik
+      initialValues={{
+        identifier: '',
+        name: '',
+        description: '',
+        tags: {},
+        ...roleData
+      }}
+      formName="roleForm"
+      validationSchema={Yup.object().shape({
+        name: NameSchema(),
+        identifier: IdentifierSchema()
+      })}
+      onSubmit={values => {
+        modalErrorHandler?.hide()
+        handleSubmit(values)
+      }}
+    >
+      {formikProps => {
+        return (
+          <Form>
+            <Container className={css.roleForm}>
+              <ModalErrorHandler bind={setModalErrorHandler} />
+              <NameIdDescriptionTags formikProps={formikProps} identifierProps={{ isIdentifierEditable: !isEdit }} />
+            </Container>
+            <Layout.Horizontal spacing="small">
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                text={getString('save')}
+                type="submit"
+                disabled={saving || updating}
+              />
+              <Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={onCancel} />
+            </Layout.Horizontal>
+          </Form>
+        )
+      }}
+    </Formik>
   )
 }
 

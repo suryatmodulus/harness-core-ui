@@ -57,6 +57,8 @@ showInstructions: Show instructions
 apiKey: '{{$.common.apikey}}'
 costVisibility: Cost Visibility
 delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM role, service account, etc)'
+createConnector: 'Create a Connector'
+connectorEmptyState: 'There are no connectors in your project'
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'

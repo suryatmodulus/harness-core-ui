@@ -9,8 +9,8 @@ import {
   Icon,
   FormError,
   DataTooltipInterface,
-  HarnessDocTooltip,
-  FormikTooltipContext
+  FormikTooltipContext,
+  FontVariation
 } from '@wings-software/uicore'
 
 import { get } from 'lodash-es'
@@ -126,10 +126,9 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
     >
       <Layout.Vertical>
         {label ? (
-          <label data-tooltip-id={dataTooltipId} className="bp3-label">
+          <Text tooltipProps={{ dataTooltipId }} font={{ variation: FontVariation.FORM_LABEL }}>
             {label}
-            <HarnessDocTooltip tooltipId={dataTooltipId} useStandAlone={true} />
-          </label>
+          </Text>
         ) : null}
         <Container
           border

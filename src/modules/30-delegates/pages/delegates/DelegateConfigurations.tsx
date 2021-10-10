@@ -634,7 +634,7 @@ export const DelegateConfigurations: React.FC<DelegatesListProps> = ({ filtersMo
           <ExpandingSearchInput
             alwaysExpanded
             width={250}
-            placeholder={getString('delegates.searchDelegateName')}
+            placeholder={getString('search')}
             throttle={200}
             onChange={text => {
               debouncedDelegateProfilesSearch(text)

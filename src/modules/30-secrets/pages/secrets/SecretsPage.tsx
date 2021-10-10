@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Layout, Popover, Icon, ExpandingSearchInput, Container, ButtonVariation, Color } from '@wings-software/uicore'
+import {
+  Layout,
+  Popover,
+  Icon,
+  ExpandingSearchInput,
+  Container,
+  ButtonVariation,
+  Color,
+  ButtonSize
+} from '@wings-software/uicore'
 import { Menu, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useListSecretsV2, ResponsePageSecretResponseWrapper, Error } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
@@ -30,6 +39,7 @@ interface SecretsPageProps {
 }
 interface CreateSecretBtnProp {
   setOpenPopOverProp: (val: boolean) => void
+  size?: ButtonSize
 }
 
 const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
@@ -70,13 +80,14 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
       refetch()
     }
   })
-  const CreateSecretBtn: React.FC<CreateSecretBtnProp> = ({ setOpenPopOverProp }) => {
+  const CreateSecretBtn: React.FC<CreateSecretBtnProp> = ({ setOpenPopOverProp, size }) => {
     return (
       <RbacButton
         intent="primary"
-        text={getString('secretType')}
+        text={getString('createSecretYAML.newSecret')}
         icon="plus"
         rightIcon="chevron-down"
+        size={size}
         permission={{
           permission: PermissionIdentifier.UPDATE_SECRET,
           resource: {
@@ -125,56 +136,62 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
           />
         }
       />
-      <Layout.Horizontal flex className={css.header}>
-        <Layout.Horizontal spacing="small">
-          <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
-            <CreateSecretBtn setOpenPopOverProp={setOpenPopOver} />
-            {openPopOver && <CreateSecretBtnMenu />}
-          </Popover>
 
-          <RbacButton
-            text={getString('createViaYaml')}
-            minimal
-            onClick={
-              /* istanbul ignore next */ () => {
-                history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
+      {secretsResponse?.data?.content?.length || searchTerm || loading || error ? (
+        <Layout.Horizontal flex className={css.header}>
+          <Layout.Horizontal spacing="small">
+            <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
+              <CreateSecretBtn setOpenPopOverProp={setOpenPopOver} />
+              {openPopOver && <CreateSecretBtnMenu />}
+            </Popover>
+
+            <RbacButton
+              text={getString('createViaYaml')}
+              minimal
+              onClick={
+                /* istanbul ignore next */ () => {
+                  history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
+                }
               }
-            }
-            permission={{
-              permission: PermissionIdentifier.UPDATE_SECRET,
-              resource: {
-                resourceType: ResourceType.SECRET
-              },
-              resourceScope: {
-                accountIdentifier: accountId,
-                orgIdentifier,
-                projectIdentifier
-              }
+              permission={{
+                permission: PermissionIdentifier.UPDATE_SECRET,
+                resource: {
+                  resourceType: ResourceType.SECRET
+                },
+                resourceScope: {
+                  accountIdentifier: accountId,
+                  orgIdentifier,
+                  projectIdentifier
+                }
+              }}
+              variation={ButtonVariation.SECONDARY}
+            />
+          </Layout.Horizontal>
+          <ExpandingSearchInput
+            alwaysExpanded
+            onChange={text => {
+              setSearchTerm(text.trim())
+              setPage(0)
             }}
-            variation={ButtonVariation.SECONDARY}
+            width={250}
           />
         </Layout.Horizontal>
-        <ExpandingSearchInput
-          alwaysExpanded
-          onChange={text => {
-            setSearchTerm(text.trim())
-            setPage(0)
-          }}
-          width={250}
-        />
-      </Layout.Horizontal>
+      ) : null}
+
       <Page.Body
         className={css.body}
         noData={{
-          when: () => !loading && !searchTerm && !secretsResponse?.data?.content?.length,
+          when: () => !loading && !secretsResponse?.data?.content?.length,
           image: SecretEmptyState,
-          message: getString('secrets.noSecrets', { resourceName: projectIdentifier ? 'project' : 'organization' }),
-          button: (
+          message: searchTerm
+            ? getString('secrets.secret.noSecretsFound')
+            : getString('secrets.noSecrets', { resourceName: projectIdentifier ? 'project' : 'organization' }),
+          button: !searchTerm ? (
             <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
-              <CreateSecretBtn setOpenPopOverProp={setEmptyStateOpenPopOver} />
+              <CreateSecretBtn size={ButtonSize.LARGE} setOpenPopOverProp={setEmptyStateOpenPopOver} />
               {emptyStateOpenPopOver && <CreateSecretBtnMenu />}
             </Popover>
-          )
+          ) : undefined
         }}
       >
         {loading ? (

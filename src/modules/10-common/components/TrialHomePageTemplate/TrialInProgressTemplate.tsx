@@ -5,6 +5,7 @@ import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, PageNames } from '@common/constants/TrackingConstants'
+import type { Editions } from '@common/constants/SubscriptionTypes'
 import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanner'
 import { Page } from '../Page/Page'
 import css from './TrialInProgressTemplate.module.scss'
@@ -13,6 +14,7 @@ interface TrialBannerProps {
   expiryTime?: number
   licenseType?: string
   module: ModuleName
+  edition?: Editions
   refetch?: () => void
 }
 interface TrialInProgressTemplateProps {

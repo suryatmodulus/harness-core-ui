@@ -70,10 +70,19 @@ exports[`Save to git form rendering form to git save form without git credential
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="saveToGitForm_identifier"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                    </p>
+                  </div>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
                     :
                   </p>
                   <span
@@ -597,10 +606,19 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="saveToGitForm_identifier"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                    </p>
+                  </div>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
                     :
                   </p>
                   <span
@@ -1122,10 +1140,19 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="saveToGitForm_identifier"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                    </p>
+                  </div>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
                     :
                   </p>
                   <span

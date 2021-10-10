@@ -72,7 +72,7 @@ exports[`Delegates Configurations Page check filter panel 1`] = `
           <input
             class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
-            placeholder="delegates.searchDelegateName"
+            placeholder="search"
             style="padding-right: 38px;"
             type="search"
             value=""
@@ -503,7 +503,7 @@ exports[`Delegates Configurations Page render data 1`] = `
           <input
             class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
-            placeholder="delegates.searchDelegateName"
+            placeholder="search"
             style="padding-right: 38px;"
             type="search"
             value=""
@@ -705,7 +705,7 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
           <input
             class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
-            placeholder="delegates.searchDelegateName"
+            placeholder="search"
             style="padding-right: 38px;"
             type="search"
             value=""
@@ -879,7 +879,7 @@ exports[`Delegates Configurations Page test name search configs 1`] = `
           <input
             class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
-            placeholder="delegates.searchDelegateName"
+            placeholder="search"
             style="padding-right: 38px;"
             type="search"
             value="primary"

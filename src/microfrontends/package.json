@@ -1,0 +1,22 @@
+{
+  "name": "@wings-software/microfrontends",
+  "version": "0.0.12",
+  "description": "",
+  "types": "types/microfrontends/microfrontendTypes.d.ts",
+  "author": "Harness Inc",
+  "license": "Harness Inc",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "files": [
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wings-software/nextgenui"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": []
+}

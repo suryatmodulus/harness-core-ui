@@ -1,0 +1,8 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "inputSetTemplateYaml": "pipeline:\n  identifier: \"NN\"\n  stages:\n  - stage:\n      identifier: \"S2\"\n      type: \"Deployment\"\n      spec:\n        serviceConfig:\n          serviceDefinition:\n            type: \"Kubernetes\"\n            spec:\n              artifacts:\n                primary:\n                  type: \"Ecr\"\n                  spec:\n                    connectorRef: \"<+input>\"\n                    imagePath: \"<+input>\"\n                    region: \"<+input>\"\n                    tag: \"<+input>\"\n        infrastructure:\n          infrastructureDefinition:\n            type: \"KubernetesDirect\"\n            spec:\n              connectorRef: \"<+input>\"\n              namespace: \"<+input>\"\n"
+  },
+  "metaData": null,
+  "correlationId": "b5a40df2-baae-48a0-8dbb-f71c69ca7515"
+}

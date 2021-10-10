@@ -104,7 +104,7 @@ const WelcomePage: React.FC = () => {
   const { openVersionSelectionModal } = useVersionSelectionModal()
 
   const body = (
-    <Layout.Vertical>
+    <Layout.Vertical width={'80vw'}>
       <Heading color={Color.WHITE} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}>
         {getString('common.purpose.welcome')}
       </Heading>

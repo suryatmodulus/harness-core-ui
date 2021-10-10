@@ -1,6 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly detailsContainer: string
   readonly main: string
   readonly panel: string
   readonly information: string
@@ -13,7 +14,9 @@ declare const styles: {
   readonly advancedCard: string
   readonly cardContainer: string
   readonly cardValue: string
-  readonly addSpacing: string
+  readonly tagsContainer: string
   readonly labelSeparator: string
+  readonly tagTitle: string
+  readonly delegateDetailsContainer: string
 }
 export default styles

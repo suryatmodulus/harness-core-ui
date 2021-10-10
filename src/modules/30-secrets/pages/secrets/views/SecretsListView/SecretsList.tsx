@@ -254,6 +254,7 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
       className={css.table}
       columns={columns}
       data={data}
+      name="SecretsListView"
       onRowClick={secret => {
         history.push(`${pathname}/${secret.secret?.identifier}`)
       }}

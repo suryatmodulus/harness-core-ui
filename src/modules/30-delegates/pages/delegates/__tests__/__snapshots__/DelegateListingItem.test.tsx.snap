@@ -49,14 +49,13 @@ exports[`Delegates Listing With Groups click on delegate item action 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             >
               Group1
-              delegates.delegateInstances
             </p>
           </div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+          <div
+            class="groupHostName"
           >
             groupHostName1
-          </p>
+          </div>
         </div>
       </div>
       <div
@@ -67,6 +66,7 @@ exports[`Delegates Listing With Groups click on delegate item action 1`] = `
           class="StyledProps--font StyledProps--main"
           style="display: inline-flex; flex-wrap: wrap;"
         />
+        <span />
       </div>
       <div
         class="Layout--horizontal StyledProps--main"
@@ -87,7 +87,7 @@ exports[`Delegates Listing With Groups click on delegate item action 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
+            class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-small StyledProps--color StyledProps--color-grey400"
             icon="full-circle"
           >
             <svg
@@ -107,19 +107,18 @@ exports[`Delegates Listing With Groups click on delegate item action 1`] = `
           </span>
           delegate.notConnected
         </p>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400"
+        <div
+          class="troubleshootLink"
         >
           delegates.troubleshootOption
-        </p>
+        </div>
       </div>
       <div
         class="Layout--vertical StyledProps--main"
         style="width: 5%;"
       >
         <div
-          class="Layout--horizontal StyledProps--main"
-          style="justify-content: flex-end;"
+          class="Layout--horizontal StyledProps--main itemActionContainer"
         >
           <span
             class="bp3-popover-wrapper bp3-dark"
@@ -258,14 +257,13 @@ exports[`Delegates Listing With Groups render data 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             >
               delegate-1
-              delegates.delegateInstances
             </p>
           </div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+          <div
+            class="groupHostName"
           >
             groupHostName1
-          </p>
+          </div>
         </div>
       </div>
       <div
@@ -276,6 +274,7 @@ exports[`Delegates Listing With Groups render data 1`] = `
           class="StyledProps--font StyledProps--main"
           style="display: inline-flex; flex-wrap: wrap;"
         />
+        <span />
       </div>
       <div
         class="Layout--horizontal StyledProps--main"
@@ -324,7 +323,7 @@ exports[`Delegates Listing With Groups render data 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green600"
+            class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-small StyledProps--color StyledProps--color-green600"
             icon="full-circle"
           >
             <svg
@@ -350,8 +349,7 @@ exports[`Delegates Listing With Groups render data 1`] = `
         style="width: 5%;"
       >
         <div
-          class="Layout--horizontal StyledProps--main"
-          style="justify-content: flex-end;"
+          class="Layout--horizontal StyledProps--main itemActionContainer"
         >
           <span
             class="bp3-popover-wrapper bp3-dark"

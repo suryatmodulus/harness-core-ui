@@ -11,12 +11,11 @@ exports[`Render with tooltip context hook if formname is empty: tooltipId formna
       <div
         class="Layout--vertical StyledProps--main"
       >
-        <label
-          class="bp3-label"
-          data-tooltip-id=""
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
         >
           testing
-        </label>
+        </p>
         <div
           class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
         >
@@ -47,12 +46,16 @@ exports[`Render with tooltip context hook if tooltip ID taken from form name: to
       <div
         class="Layout--vertical StyledProps--main"
       >
-        <label
-          class="bp3-label"
+        <div
+          class="Text--withDocsTooltip"
           data-tooltip-id="ugFormName_userGroups"
         >
-          testing
-        </label>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+          >
+            testing
+          </p>
+        </div>
         <div
           class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
         >
@@ -297,12 +300,16 @@ exports[`Rendering should render 1`] = `
       <div
         class="Layout--vertical StyledProps--main"
       >
-        <label
-          class="bp3-label"
+        <div
+          class="Text--withDocsTooltip"
           data-tooltip-id="ugInput"
         >
-          testing
-        </label>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+          >
+            testing
+          </p>
+        </div>
         <div
           class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
         >

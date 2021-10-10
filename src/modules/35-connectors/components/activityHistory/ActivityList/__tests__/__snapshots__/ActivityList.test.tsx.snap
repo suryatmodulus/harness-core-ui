@@ -18,7 +18,11 @@ exports[`Activity List render all activity 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          TIMELABEL
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            TIMELABEL
+          </p>
         </div>
         <div
           class="cell"
@@ -26,7 +30,11 @@ exports[`Activity List render all activity 1`] = `
           role="columnheader"
           style="width: 50%;"
         >
-          ACTIVITY
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            ACTIVITY
+          </p>
         </div>
         <div
           class="cell"
@@ -34,7 +42,11 @@ exports[`Activity List render all activity 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          STATUS
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            STATUS
+          </p>
         </div>
       </div>
       <div
@@ -1421,7 +1433,11 @@ exports[`Activity List render only connectivity check activity 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          TIMELABEL
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            TIMELABEL
+          </p>
         </div>
         <div
           class="cell"
@@ -1429,7 +1445,11 @@ exports[`Activity List render only connectivity check activity 1`] = `
           role="columnheader"
           style="width: 50%;"
         >
-          ACTIVITY
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            ACTIVITY
+          </p>
         </div>
         <div
           class="cell"
@@ -1437,7 +1457,11 @@ exports[`Activity List render only connectivity check activity 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          STATUS
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            STATUS
+          </p>
         </div>
       </div>
       <div

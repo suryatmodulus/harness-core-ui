@@ -3,10 +3,13 @@ import cx from 'classnames'
 
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
-import { Button, Card, Color, Container, Icon, IconName, Layout, Text, Heading } from '@wings-software/uicore'
+import { useHistory } from 'react-router'
+import { Card, Color, Container, Icon, IconName, Layout, Text, Heading } from '@wings-software/uicore'
 import { useQueryParams } from '@common/hooks'
 import { Page } from '@common/exports'
+import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { useStrings } from 'framework/strings'
@@ -21,11 +24,8 @@ import {
 
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import type { SubscriptionTab } from './SubscriptionTab'
-import { SUBSCRIPTION_TABS, SUBSCRIPTION_TAB_NAMES } from './SubscriptionTab'
+import SubscriptionTab from './SubscriptionTab'
 
-import SubscriptionOverview from './overview/SubscriptionOverview'
-import SubscriptionPlans from './plans/SubscriptionPlans'
 import css from './SubscriptionsPage.module.scss'
 
 export interface TrialInformation {
@@ -33,6 +33,8 @@ export interface TrialInformation {
   expiryDate: string
   isExpired: boolean
   expiredDays: number
+  edition: Editions
+  isFree: boolean
 }
 interface ModuleSelectCard {
   icon: IconName
@@ -79,8 +81,9 @@ const SubscriptionsPage: React.FC = () => {
   const { showSuccess } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
   const { moduleCard } = useQueryParams<{ moduleCard?: ModuleName }>()
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, PLANS_ENABLED } = useFeatureFlags()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const history = useHistory()
 
   const ACTIVE_MODULE_SELECT_CARDS = MODULE_SELECT_CARDS.reduce(
     (accumulator: ModuleSelectCard[], card: ModuleSelectCard) => {
@@ -88,29 +91,19 @@ const SubscriptionsPage: React.FC = () => {
 
       switch (module) {
         case ModuleName.CD:
-          if (CDNG_ENABLED) {
-            accumulator.push(card)
-          }
+          CDNG_ENABLED && accumulator.push(card)
           return accumulator
         case ModuleName.CV:
-          if (CVNG_ENABLED) {
-            accumulator.push(card)
-          }
+          CVNG_ENABLED && accumulator.push(card)
           return accumulator
         case ModuleName.CI:
-          if (CING_ENABLED) {
-            accumulator.push(card)
-          }
+          CING_ENABLED && accumulator.push(card)
           return accumulator
         case ModuleName.CE:
-          if (CENG_ENABLED) {
-            accumulator.push(card)
-          }
+          CENG_ENABLED && accumulator.push(card)
           return accumulator
         case ModuleName.CF:
-          if (CFNG_ENABLED) {
-            accumulator.push(card)
-          }
+          CFNG_ENABLED && accumulator.push(card)
           return accumulator
         default:
           return accumulator
@@ -123,7 +116,6 @@ const SubscriptionsPage: React.FC = () => {
     ACTIVE_MODULE_SELECT_CARDS.find(card => card.module === moduleCard?.toUpperCase()) || ACTIVE_MODULE_SELECT_CARDS[0]
 
   const [selectedModuleCard, setSelectedModuleCard] = useState<ModuleSelectCard>(initialModule)
-  const [selectedSubscriptionTab, setSelectedSubscriptionTab] = useState<SubscriptionTab>(SUBSCRIPTION_TABS[0])
 
   const {
     data: accountData,
@@ -146,8 +138,9 @@ const SubscriptionsPage: React.FC = () => {
     accountIdentifier: accountId
   })
 
-  const latestModuleLicense =
-    licenseData?.data && licenseData.data.length > 0 ? licenseData?.data?.[licenseData?.data?.length - 1] : undefined
+  const hasLicense = licenseData?.data && licenseData.data.length > 0
+
+  const latestModuleLicense = hasLicense ? licenseData?.data?.[licenseData.data.length - 1] : undefined
 
   const { contactSales } = useQueryParams<{ contactSales?: string }>()
 
@@ -187,7 +180,8 @@ const SubscriptionsPage: React.FC = () => {
     const cards = ACTIVE_MODULE_SELECT_CARDS.map(cardData => {
       function handleCardClick(): void {
         setSelectedModuleCard(cardData)
-        setSelectedSubscriptionTab(SUBSCRIPTION_TABS[0])
+        // reset default tab
+        history.push(routes.toSubscriptions({ accountId, moduleCard: cardData.module.toLowerCase() as Module }))
       }
 
       const isSelected = cardData === selectedModuleCard
@@ -222,96 +216,18 @@ const SubscriptionsPage: React.FC = () => {
   const time = moment(expiryTime)
   const days = Math.round(time.diff(moment.now(), 'days', true))
   const expiryDate = time.format('DD MMM YYYY')
-  const isExpired = days < 0
+  const isExpired = expiryTime !== -1 && days < 0
   const expiredDays = Math.abs(days)
+  const edition = latestModuleLicense?.edition as Editions
+  const isFree = edition === Editions.FREE
 
   const trialInformation: TrialInformation = {
     days,
     expiryDate,
     isExpired,
-    expiredDays
-  }
-
-  function getBanner(): React.ReactElement | null {
-    if (!isExpired && latestModuleLicense?.licenseType !== 'TRIAL' && expiredDays > 14) {
-      return null
-    }
-
-    const moduleStr = getString(`common.module.${selectedModuleCard.module.toLowerCase()}` as keyof StringsMap)
-    const moduleEnterpriseMessage = getString('common.subscriptions.banner.enterprise', {
-      module: moduleStr
-    })
-    const expiryMessage = isExpired
-      ? getString('common.subscriptions.expired', {
-          days: expiredDays
-        })
-      : getString('common.subscriptions.expiryCountdown', {
-          days
-        })
-
-    const bannerMessage = `${moduleEnterpriseMessage} ${expiryMessage}`
-    const bannerClassnames = cx(css.banner, isExpired ? css.expired : css.expiryCountdown)
-    const color = isExpired ? Color.RED_700 : Color.ORANGE_700
-
-    return (
-      <Container
-        padding="medium"
-        intent="warning"
-        width={350}
-        flex={{
-          justifyContent: 'start'
-        }}
-        className={bannerClassnames}
-        font={{
-          align: 'center'
-        }}
-      >
-        <Icon name={'warning-sign'} size={15} className={css.bannerIcon} color={color} />
-        <Text color={color}>{bannerMessage}</Text>
-      </Container>
-    )
-  }
-
-  function getSubscriptionTabButtons(): React.ReactElement[] {
-    const tabs = SUBSCRIPTION_TABS.map(tab => {
-      function handleTabClick(): void {
-        setSelectedSubscriptionTab(tab)
-      }
-
-      const isSelected = tab === selectedSubscriptionTab
-      const buttonClassnames = cx(css.subscriptionTabButton, isSelected && css.selected)
-
-      return (
-        <Button className={buttonClassnames} key={tab.label} round onClick={handleTabClick}>
-          {getString(tab.label)}
-        </Button>
-      )
-    })
-
-    // show Plans tab only when feature flag is on
-    if (!PLANS_ENABLED) {
-      tabs.splice(1, 1)
-    }
-
-    return tabs
-  }
-
-  function getTabComponent(): React.ReactElement | null {
-    switch (selectedSubscriptionTab.name) {
-      case SUBSCRIPTION_TAB_NAMES.PLANS:
-        return <SubscriptionPlans module={selectedModuleCard.module} />
-      case SUBSCRIPTION_TAB_NAMES.OVERVIEW:
-      default:
-        return (
-          <SubscriptionOverview
-            accountName={accountData?.data?.name}
-            module={selectedModuleCard.module}
-            licenseData={latestModuleLicense}
-            trialInformation={trialInformation}
-            refetchGetLicense={refetchGetLicense}
-          />
-        )
-    }
+    expiredDays,
+    edition,
+    isFree
   }
 
   const innerContent =
@@ -320,13 +236,14 @@ const SubscriptionsPage: React.FC = () => {
         <ContainerSpinner />
       </Container>
     ) : (
-      <React.Fragment>
-        {licenseData?.data && licenseData.data.length > 0 && getBanner()}
-        <Layout.Horizontal className={css.subscriptionTabButtons} spacing="medium">
-          {getSubscriptionTabButtons()}
-        </Layout.Horizontal>
-        {getTabComponent()}
-      </React.Fragment>
+      <SubscriptionTab
+        accountName={accountData?.data?.name}
+        trialInfo={trialInformation}
+        hasLicense={hasLicense}
+        selectedModule={selectedModuleCard.module}
+        licenseData={latestModuleLicense}
+        refetchGetLicense={refetchGetLicense}
+      />
     )
 
   return (

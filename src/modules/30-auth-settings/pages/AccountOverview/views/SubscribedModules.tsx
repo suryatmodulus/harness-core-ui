@@ -6,12 +6,13 @@ import moment from 'moment'
 import { useParams, Link } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
-import type { AccountPathProps, ModuleCardPathParams } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, SubscriptionQueryParams } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { StringsMap } from 'framework/strings/StringsContext'
 import { useGetAccountLicenses } from 'services/cd-ng'
 import type { ModuleLicenseDTO } from 'services/cd-ng'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import css from '../AccountOverview.module.scss'
 
 interface ModuleCardProps {
@@ -57,6 +58,11 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
   const { accountId } = useParams<AccountPathProps>()
   const getPlanDescription = (): string => {
     const days = Math.round(moment(module.expiryTime).diff(moment(module.createdAt), 'days', true)).toString()
+
+    if (module.edition === Editions.FREE) {
+      return capitalize(module.edition)
+    }
+
     return capitalize(module.edition)
       .concat('(')
       .concat(days)
@@ -106,7 +112,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
         <Link
           to={routes.toSubscriptions({
             accountId,
-            moduleCard: module.moduleType as ModuleCardPathParams['moduleCard']
+            moduleCard: module.moduleType as SubscriptionQueryParams['moduleCard']
           })}
           className={css.manageBtn}
         >

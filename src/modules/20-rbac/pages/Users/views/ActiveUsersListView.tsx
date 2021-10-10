@@ -16,7 +16,8 @@ import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog, useToaster, Page } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
-import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
+import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
+import { PrincipalType } from '@rbac/utils/utils'
 import { useMutateAsGet } from '@common/hooks'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
@@ -356,6 +357,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({
         className={css.table}
         columns={columns}
         data={data?.data?.content || []}
+        name="ActiveUsersListView"
         pagination={{
           itemCount: data?.data?.totalItems || 0,
           pageSize: data?.data?.pageSize || 10,

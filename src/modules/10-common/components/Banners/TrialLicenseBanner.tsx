@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import moment from 'moment'
 import cx from 'classnames'
+import { capitalize } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Text, Layout, Button, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -26,6 +27,7 @@ interface TrialBannerProps {
   expiryTime?: number
   licenseType?: string
   module: ModuleName
+  edition?: Editions
   setHasBanner?: (value: boolean) => void
   refetch?: () => void
 }
@@ -37,7 +39,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const { showError, showSuccess } = useToaster()
   const [display, setDisplay] = useState(true)
-  const { module, expiryTime, licenseType, setHasBanner, refetch } = trialBannerProps
+  const { module, expiryTime, licenseType, edition, setHasBanner, refetch } = trialBannerProps
   const days = Math.round(moment(expiryTime).diff(moment.now(), 'days', true))
   const isExpired = days < 0
   const expiredDays = Math.abs(days)
@@ -83,7 +85,8 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
       {getString('common.banners.trial.description', {
         module: descriptionModule,
         days,
-        moduleDescription
+        moduleDescription,
+        edition: capitalize(edition)
       })}
     </Text>
   )
@@ -136,7 +139,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
       })
       handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as any, data?.data)
       openExtendTrialOrFeedbackModal()
-    } catch (error) {
+    } catch (error: any) {
       showError(error.data?.message || error.message)
     }
   }

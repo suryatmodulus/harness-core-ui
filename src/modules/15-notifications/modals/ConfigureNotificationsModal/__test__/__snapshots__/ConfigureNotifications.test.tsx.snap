@@ -54,7 +54,7 @@ exports[`ConfigureNotifications Email 1`] = `
             </div>
             <div
               class="bp3-form-group"
-              data-id="null-1"
+              data-id="undefined-1"
             >
               <div
                 class="bp3-form-content"
@@ -62,12 +62,16 @@ exports[`ConfigureNotifications Email 1`] = `
                 <div
                   class="Layout--vertical StyledProps--main"
                 >
-                  <label
-                    class="bp3-label"
+                  <div
+                    class="Text--withDocsTooltip"
                     data-tooltip-id="configureEmailNotifications_userGroups"
                   >
-                    notifications.labelSlackUserGroups
-                  </label>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+                    >
+                      notifications.labelSlackUserGroups
+                    </p>
+                  </div>
                   <div
                     class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
                   >
@@ -114,6 +118,387 @@ exports[`ConfigureNotifications Email 1`] = `
             </div>
             <div
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  submit
+                </span>
+              </button>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  cancel
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConfigureNotifications Microsoft Teams - edit case 1`] = `
+<div>
+  <div
+    class="body"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        notifications.helpMSTeams
+      </p>
+      <a
+        href="https://ngdocs.harness.io/article/xcb28vgn82-send-notifications-to-microsoft-teams"
+        rel="noreferrer"
+        target="_blank"
+      >
+        learnMore
+      </a>
+      <div
+        class="OverlaySpinner--overlaySpinner"
+      >
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="bp3-form-group"
+              data-id="msTeamKeys-0"
+            >
+              <label
+                class="bp3-label"
+                for="msTeamKeys"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="configureMSTeamsNotifications_msTeamKeys"
+                >
+                  notifications.labelMSTeam
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input bp3-tag-input"
+                >
+                  <div
+                    class="bp3-tag-input-values"
+                  >
+                    <span
+                      class="bp3-tag"
+                      data-tag-index="0"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        test-1
+                      </span>
+                      <button
+                        class="bp3-tag-remove"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-cross"
+                          icon="small-cross"
+                        >
+                          <svg
+                            data-icon="small-cross"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              small-cross
+                            </desc>
+                            <path
+                              d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                    <input
+                      class="bp3-input-ghost"
+                      data-mentions="kv-tag-input-msTeamKeys}"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-xxlarge"
+              style="align-items: center;"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  test
+                </span>
+              </button>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="undefined-1"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout--vertical StyledProps--main"
+                >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="configureMSTeamsNotifications_userGroups"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+                    >
+                      notifications.labelMSTeamsUserGroups
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main pointer"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+                      >
+                        common.selectUserGroups
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  submit
+                </span>
+              </button>
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  cancel
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ConfigureNotifications Microsoft Teams - edit case 2`] = `
+<div>
+  <div
+    class="body"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        notifications.helpMSTeams
+      </p>
+      <a
+        href="https://ngdocs.harness.io/article/xcb28vgn82-send-notifications-to-microsoft-teams"
+        rel="noreferrer"
+        target="_blank"
+      >
+        learnMore
+      </a>
+      <div
+        class="OverlaySpinner--overlaySpinner"
+      >
+        <form
+          class="FormikForm--main"
+        >
+          <div>
+            <div
+              class="bp3-form-group"
+              data-id="msTeamKeys-0"
+            >
+              <label
+                class="bp3-label"
+                for="msTeamKeys"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="configureMSTeamsNotifications_msTeamKeys"
+                >
+                  notifications.labelMSTeam
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input bp3-tag-input"
+                >
+                  <div
+                    class="bp3-tag-input-values"
+                  >
+                    <span
+                      class="bp3-tag"
+                      data-tag-index="0"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        test-1
+                      </span>
+                      <button
+                        class="bp3-tag-remove"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-cross"
+                          icon="small-cross"
+                        >
+                          <svg
+                            data-icon="small-cross"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              small-cross
+                            </desc>
+                            <path
+                              d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                    <input
+                      class="bp3-input-ghost"
+                      data-mentions="kv-tag-input-msTeamKeys}"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-xxlarge"
+              style="align-items: center;"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  test
+                </span>
+              </button>
+              <span
+                class="bp3-icon bp3-icon-cross StyledProps--main statusIcon red"
+                icon="cross"
+              >
+                <svg
+                  data-icon="cross"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    cross
+                  </desc>
+                  <path
+                    d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="undefined-1"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout--vertical StyledProps--main"
+                >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="configureMSTeamsNotifications_userGroups"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+                    >
+                      notifications.labelMSTeamsUserGroups
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main pointer"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+                      >
+                        common.selectUserGroups
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-xxlarge"
             >
               <button
                 class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
@@ -203,7 +588,7 @@ exports[`ConfigureNotifications Microsoft Teams 1`] = `
                       class="bp3-input-ghost"
                       data-mentions="kv-tag-input-msTeamKeys}"
                       placeholder="notifications.placeholderMSKeys"
-                      value=""
+                      value="test"
                     />
                   </div>
                 </div>
@@ -223,10 +608,29 @@ exports[`ConfigureNotifications Microsoft Teams 1`] = `
                   test
                 </span>
               </button>
+              <span
+                class="bp3-icon bp3-icon-cross StyledProps--main statusIcon red"
+                icon="cross"
+              >
+                <svg
+                  data-icon="cross"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    cross
+                  </desc>
+                  <path
+                    d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
             </div>
             <div
               class="bp3-form-group"
-              data-id="null-1"
+              data-id="undefined-1"
             >
               <div
                 class="bp3-form-content"
@@ -234,12 +638,16 @@ exports[`ConfigureNotifications Microsoft Teams 1`] = `
                 <div
                   class="Layout--vertical StyledProps--main"
                 >
-                  <label
-                    class="bp3-label"
+                  <div
+                    class="Text--withDocsTooltip"
                     data-tooltip-id="configureMSTeamsNotifications_userGroups"
                   >
-                    notifications.labelMSTeamsUserGroups
-                  </label>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+                    >
+                      notifications.labelMSTeamsUserGroups
+                    </p>
+                  </div>
                   <div
                     class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
                   >
@@ -389,7 +797,7 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
           </div>
           <div
             class="bp3-form-group"
-            data-id="null-1"
+            data-id="undefined-1"
           >
             <div
               class="bp3-form-content"
@@ -397,12 +805,11 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
               <div
                 class="Layout--vertical StyledProps--main"
               >
-                <label
-                  class="bp3-label"
-                  data-tooltip-id=""
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
                 >
                   notifications.labelSlackUserGroups
-                </label>
+                </p>
                 <div
                   class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
                 >
@@ -577,7 +984,7 @@ exports[`ConfigureNotifications Slack 1`] = `
             </div>
             <div
               class="bp3-form-group"
-              data-id="null-1"
+              data-id="undefined-1"
             >
               <div
                 class="bp3-form-content"
@@ -585,12 +992,16 @@ exports[`ConfigureNotifications Slack 1`] = `
                 <div
                   class="Layout--vertical StyledProps--main"
                 >
-                  <label
-                    class="bp3-label"
+                  <div
+                    class="Text--withDocsTooltip"
                     data-tooltip-id="configureSlackNotifications_userGroups"
                   >
-                    notifications.labelSlackUserGroups
-                  </label>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+                    >
+                      notifications.labelSlackUserGroups
+                    </p>
+                  </div>
                   <div
                     class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
                   >

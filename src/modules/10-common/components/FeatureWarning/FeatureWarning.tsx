@@ -43,7 +43,7 @@ const ExplorePlansBtn = ({ module }: ExplorePlansBtnProps): ReactElement => {
   return (
     <Text
       className={css.explorePlans}
-      onClick={() => history.push(routes.toSubscriptions({ accountId, moduleCard: module }))}
+      onClick={() => history.push(routes.toSubscriptions({ accountId, moduleCard: module, tab: 'PLANS' }))}
       color={Color.PRIMARY_6}
     >
       {getString('common.explorePlans')}

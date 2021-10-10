@@ -5032,10 +5032,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/uicore@0.1.386":
-  version "0.1.386"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.386/88912de81f4a92efeec5b0fb25df7415d5233d5707240db106977c6b4581a38e#4b595d6e49adad1e255f9f2ac9451de928e0ee68"
-  integrity sha512-x6caHyGZX8oD10Zl1RkX5rb/MpirkGBGdM+FfiyCaqXb+WJsL2APBMtHXUER7k7wT8NDgWrTEOvdGBh3ffwE+Q==
+"@wings-software/uicore@0.1.390":
+  version "0.1.390"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.390/c51fae247fbdfe3501791573631fe7718bddcec992e40120cd4f4bf7759db14d#38032c9f958b5cd317775f7cdf02830ea57bfd93"
+  integrity sha512-+YsWtkGBxFL4EeHpC+D9an6YTkMeARy3ofBzOWlnpLPnAzkS5RJ29w2AWSXW37op3iZSlQa82VaH0aTLGnIM0w==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -5051,6 +5051,20 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@yarnpkg/lockfile/-/lockfile-1.1.0.tgz#e77a97fbd345b76d83245edcd17d393b1b41fb31"
   integrity sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==
+
+"@zerollup/ts-helpers@^1.7.18":
+  version "1.7.18"
+  resolved "https://registry.yarnpkg.com/@zerollup/ts-helpers/-/ts-helpers-1.7.18.tgz#747177f6d5abc06c3a0f5dffe7362d365cf0391d"
+  integrity sha512-S9zN+y+i5yN/evfWquzSO3lubqPXIsPQf6p9OiPMpRxDx/0totPLF39XoRw48Dav5dSvbIE8D2eAPpXXJxvKwg==
+  dependencies:
+    resolve "^1.12.0"
+
+"@zerollup/ts-transform-paths@^1.7.18":
+  version "1.7.18"
+  resolved "https://registry.yarnpkg.com/@zerollup/ts-transform-paths/-/ts-transform-paths-1.7.18.tgz#72f705c66690879e51d53c73dc76c4e2518a8c50"
+  integrity sha512-YPVUxvWQVzRx1OBN0Pmkd58+R9FcfUJuwTaPUSoi5rKxuXMtxevTXdfi0w5mEaIH8b0DfL+wg0wFDHiJE+S2zA==
+  dependencies:
+    "@zerollup/ts-helpers" "^1.7.18"
 
 JSONStream@^1.0.3:
   version "1.3.5"

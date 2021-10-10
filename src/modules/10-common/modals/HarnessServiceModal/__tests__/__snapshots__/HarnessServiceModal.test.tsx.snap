@@ -17,10 +17,19 @@ exports[`Test HarnessServicetModal should validate create mode save 1`] = `
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
           >
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="deployService_identifier"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ID
+              </p>
+            </div>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
               :
             </p>
             <span
@@ -234,10 +243,19 @@ exports[`Test HarnessServicetModal should validate edit mode snapshot 1`] = `
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
           >
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="deployService_identifier"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ID
+              </p>
+            </div>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
               :
             </p>
             <span
@@ -421,10 +439,19 @@ exports[`Test HarnessServicetModal validation are present if submited with empty
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
           >
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="deployService_identifier"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ID
+              </p>
+            </div>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              ID
               :
             </p>
             <span

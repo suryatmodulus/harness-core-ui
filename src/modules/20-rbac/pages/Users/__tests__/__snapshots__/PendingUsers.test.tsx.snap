@@ -124,7 +124,16 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          users
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="PendingUsersListViewuser"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              users
+            </p>
+          </div>
         </div>
         <div
           class="cell"
@@ -132,7 +141,16 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           role="columnheader"
           style="width: 35%;"
         >
-          rbac.usersPage.roleBinding
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="PendingUsersListViewroleBinding"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              rbac.usersPage.roleBinding
+            </p>
+          </div>
         </div>
         <div
           class="cell"
@@ -140,7 +158,16 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          status
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="PendingUsersListViewstatus"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              status
+            </p>
+          </div>
         </div>
         <div
           class="cell"
@@ -148,7 +175,16 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           role="columnheader"
           style="width: 20%;"
         >
-          email
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="PendingUsersListViewemail"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              email
+            </p>
+          </div>
         </div>
         <div
           class="cell"
@@ -156,7 +192,16 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           role="columnheader"
           style="width: 5%;"
         >
-          
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="PendingUsersListViewmenu"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              
+            </p>
+          </div>
         </div>
       </div>
       <div

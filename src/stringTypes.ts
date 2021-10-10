@@ -5,6 +5,8 @@
 export interface StringsMap {
   'common.ID': string
   'common.My': string
+  'common.OFF': string
+  'common.ON': string
   'common.PermissibleActions': string
   'common.accViewer': string
   'common.accessKey': string
@@ -25,8 +27,10 @@ export interface StringsMap {
   'common.addAccountName': string
   'common.addVariable': string
   'common.advanced': string
+  'common.allErrors': string
   'common.apiKeys': string
   'common.apikey': string
+  'common.apply': string
   'common.approve': string
   'common.artifactTag': string
   'common.at': string
@@ -92,6 +96,7 @@ export interface StringsMap {
   'common.clientId': string
   'common.cluster': string
   'common.comingSoon': string
+  'common.comingSoon2': string
   'common.comments': string
   'common.confictOccured': string
   'common.configureOptions.advancedHelp': string
@@ -112,6 +117,7 @@ export interface StringsMap {
   'common.configureOptions.validationErrors.regExNotValid': string
   'common.configureOptions.values': string
   'common.confirmText': string
+  'common.connectivityErrors': string
   'common.createPipeline': string
   'common.creating': string
   'common.current': string
@@ -128,6 +134,7 @@ export interface StringsMap {
   'common.default': string
   'common.defaultExperience': string
   'common.delegateForTask': string
+  'common.delete': string
   'common.descriptionPlaceholder': string
   'common.disable': string
   'common.discard': string
@@ -419,12 +426,10 @@ export interface StringsMap {
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
   'common.subscribed': string
-  'common.subscriptions.banner.enterprise': string
+  'common.subscriptions.banner.trial': string
   'common.subscriptions.ccm.cloudSpend': string
   'common.subscriptions.cd.services': string
   'common.subscriptions.ci.developers': string
-  'common.subscriptions.enterprisePaid': string
-  'common.subscriptions.enterpriseTrial': string
   'common.subscriptions.expired': string
   'common.subscriptions.expiryCountdown': string
   'common.subscriptions.featureFlags.mau': string
@@ -434,10 +439,12 @@ export interface StringsMap {
   'common.subscriptions.overview.expiry': string
   'common.subscriptions.overview.plan': string
   'common.subscriptions.overview.subscribe': string
+  'common.subscriptions.paid': string
   'common.subscriptions.tabs.billing': string
   'common.subscriptions.tabs.overview': string
   'common.subscriptions.tabs.plans': string
   'common.subscriptions.title': string
+  'common.subscriptions.trial': string
   'common.subscriptions.usage.ccmUsers': string
   'common.subscriptions.usage.cdUsers': string
   'common.subscriptions.usage.ciUsers': string
@@ -497,6 +504,7 @@ export interface StringsMap {
   'common.validation.yamlFilePath': string
   'common.valuePlaceholder': string
   'common.videoNotSupportedError': string
+  'common.viewContent': string
   'common.viewText': string
   'common.webhookURL': string
   'common.welcome': string
@@ -619,6 +627,7 @@ export interface StringsMap {
   'rbac.serviceAccounts.confirmDelete': string
   'rbac.serviceAccounts.confirmDeleteTitle': string
   'rbac.serviceAccounts.email': string
+  'rbac.serviceAccounts.emptyStateDescription': string
   'rbac.serviceAccounts.form.createSuccess': string
   'rbac.serviceAccounts.form.editServiceAccount': string
   'rbac.serviceAccounts.form.editSuccess': string
@@ -676,6 +685,7 @@ export interface StringsMap {
   'rbac.userGroupPage.noUserGroups': string
   'rbac.userGroupPage.search': string
   'rbac.userGroupPage.successMessage': string
+  'rbac.userGroupPage.userGroupEmptyState': string
   'rbac.userGroupPage.userList.deleteConfirmation': string
   'rbac.userGroupPage.userList.deleteFailureMessage': string
   'rbac.userGroupPage.userList.deleteSuccessMessage': string
@@ -821,6 +831,7 @@ export interface StringsMap {
   'authSettings.usePublicOAuth': string
   'authSettings.whitelistedDomainsDisabled': string
   'authSettings.yourAccountWillBeLockedOut': string
+  'delegates.GBRam': string
   'delegates.delGroupStatus.DISABLED': string
   'delegates.delGroupStatus.WAITING_FOR_APPROVAL': string
   'delegates.delSetup': string
@@ -891,7 +902,6 @@ export interface StringsMap {
   'delegates.reviewScript.docLinkAfter': string
   'delegates.reviewScript.docLinkBefore': string
   'delegates.reviewYAML': string
-  'delegates.searchDelegateName': string
   'delegates.selectors': string
   'delegates.totalMemUnit': string
   'delegates.troubleshootOption': string
@@ -941,6 +951,7 @@ export interface StringsMap {
   'secrets.secret.saving': string
   'secrets.secret.secretActivity': string
   'secrets.secret.secretCreated': string
+  'secrets.secret.secretNotFound': string
   'secrets.secret.titleCreateFile': string
   'secrets.secret.titleCreateText': string
   'secrets.secret.titleEditFile': string
@@ -1323,8 +1334,10 @@ export interface StringsMap {
   'connectors.connectorAlreadyExist': string
   'connectors.connectorDetails': string
   'connectors.connectorDetailsHeader': string
+  'connectors.connectorEmptyState': string
   'connectors.connectorNotFound': string
   'connectors.costVisibility': string
+  'connectors.createConnector': string
   'connectors.createFromYaml': string
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string

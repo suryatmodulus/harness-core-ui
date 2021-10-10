@@ -52,6 +52,7 @@ export const stageMockData: Array<PipelineStageProps> = [
     icon: 'chained-pipeline',
     hoverIcon: 'chained-pipeline',
     isDisabled: true,
+    isComingSoon: true,
     title: 'Chained Pipeline',
     description: 'pipeline.pipelineSteps.chainedPipeline',
     isHidden: false,
@@ -64,6 +65,7 @@ export const stageMockData: Array<PipelineStageProps> = [
     hoverIcon: 'custom-stage-icon',
     isDisabled: true,
     title: 'Custom Stage',
+    isComingSoon: true,
     description: 'pipeline.pipelineSteps.customStage',
     isHidden: false,
     isApproval: false

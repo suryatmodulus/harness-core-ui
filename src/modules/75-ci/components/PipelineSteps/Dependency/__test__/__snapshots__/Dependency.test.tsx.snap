@@ -19,10 +19,19 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
               >
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyBase_identifier"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    ID
+                  </p>
+                </div>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
                   :
                 </p>
                 <span
@@ -468,10 +477,19 @@ exports[`Dependency Edit view edit mode works 1`] = `
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
               >
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyBase_identifier"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    ID
+                  </p>
+                </div>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
                   :
                 </p>
                 <span
@@ -917,10 +935,19 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
               >
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyBase_identifier"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    ID
+                  </p>
+                </div>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
                   :
                 </p>
                 <span
@@ -1366,10 +1393,19 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
               >
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyBase_identifier"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    ID
+                  </p>
+                </div>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
                   :
                 </p>
                 <span
@@ -1835,10 +1871,19 @@ exports[`Dependency Edit view should render properly 1`] = `
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
               >
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyBase_identifier"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    ID
+                  </p>
+                </div>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
                   :
                 </p>
                 <span

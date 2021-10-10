@@ -17,7 +17,7 @@ import {
   useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, isNil, noop, omit } from 'lodash-es'
+import { defaultTo, get, isEmpty, isNil, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -252,7 +252,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
     if (!isNil(environments)) {
       const newEnvironment = {
         description: value.description,
-        identifier: value.identifier,
+        identifier: defaultTo(value.identifier, ''),
         name: value.name || '',
         tags: value.tags,
         type: value.type

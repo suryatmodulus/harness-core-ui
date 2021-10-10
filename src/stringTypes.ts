@@ -1619,6 +1619,7 @@ export interface StringsMap {
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.entitiesByRepositories': string
+  'gitsync.errorFixed': string
   'gitsync.fetchingBranches': string
   'gitsync.folderDetails': string
   'gitsync.gitEnabledBlockedTooltip': string
@@ -1967,10 +1968,8 @@ export interface StringsMap {
   'pipeline.executionTarget': string
   'pipeline.expressionsEvaluation': string
   'pipeline.failureStrategies.addedAllStrategies': string
-  'pipeline.failureStrategies.errorTypeLabels.AllErrors': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
   'pipeline.failureStrategies.errorTypeLabels.Authorization': string
-  'pipeline.failureStrategies.errorTypeLabels.Connectivity': string
   'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning': string
   'pipeline.failureStrategies.errorTypeLabels.Timeout': string
   'pipeline.failureStrategies.errorTypeLabels.Unknown': string
@@ -1992,8 +1991,12 @@ export interface StringsMap {
   'pipeline.failureStrategies.tabHasErrors': string
   'pipeline.failureStrategies.title': string
   'pipeline.failureStrategies.validation.actionRequired': string
+  'pipeline.failureStrategies.validation.ciCodebaseRequired': string
   'pipeline.failureStrategies.validation.errorsMinimum': string
   'pipeline.failureStrategies.validation.errorsRequired': string
+  'pipeline.failureStrategies.validation.gitBranchRequired': string
+  'pipeline.failureStrategies.validation.gitPRRequired': string
+  'pipeline.failureStrategies.validation.gitTagRequired': string
   'pipeline.failureStrategies.validation.onRetryFailureRequired': string
   'pipeline.failureStrategies.validation.onTimeoutRequired': string
   'pipeline.failureStrategies.validation.retryCountInteger': string
@@ -2026,6 +2029,7 @@ export interface StringsMap {
   'pipeline.inputSets.aboutInputSets': string
   'pipeline.inputSets.applyInputSet': string
   'pipeline.inputSets.applyInputSets': string
+  'pipeline.inputSets.applyingInputSet': string
   'pipeline.inputSets.applyingInputSets': string
   'pipeline.inputSets.inputSetPlaceholder': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
@@ -2177,7 +2181,9 @@ export interface StringsMap {
   'pipeline.overrideSets.overrideSetPlaceholder': string
   'pipeline.pipelineSteps.approvalStageDescription': string
   'pipeline.pipelineSteps.chainedPipeline': string
+  'pipeline.pipelineSteps.chainedPipelineDescription': string
   'pipeline.pipelineSteps.customStage': string
+  'pipeline.pipelineSteps.customStageDescription': string
   'pipeline.pipelineSteps.deployStageDescription': string
   'pipeline.pipelineSteps.featureStageDescription': string
   'pipeline.poweredByHarness': string
@@ -3474,8 +3480,6 @@ export interface StringsMap {
   'cf.shared.getStarted': string
   'cf.shared.individual': string
   'cf.shared.lastEvaluated': string
-  'cf.shared.off': string
-  'cf.shared.on': string
   'cf.shared.pleaseSelectVariation': string
   'cf.shared.prerequisites': string
   'cf.shared.quickGuide': string
@@ -3737,6 +3741,8 @@ export interface StringsMap {
   'cv.changeSource.PageDuty.selectPagerDutyService': string
   'cv.changeSource.addChangeSource': string
   'cv.changeSource.alertText': string
+  'cv.changeSource.changeSourceCard.information': string
+  'cv.changeSource.changeSourceCard.triggred': string
   'cv.changeSource.configureChangeSource': string
   'cv.changeSource.connectChangeSource': string
   'cv.changeSource.defineChangeSource': string
@@ -3746,6 +3752,7 @@ export interface StringsMap {
   'cv.changeSource.incident': string
   'cv.changeSource.noChangeSource': string
   'cv.changeSource.noData': string
+  'cv.changeSource.noDataAvaiableForCard': string
   'cv.changeSource.noDataAvailableForChangeScore': string
   'cv.changeSource.selectChangeSource': string
   'cv.changeSource.selectChangeSourceName': string
@@ -3819,9 +3826,10 @@ export interface StringsMap {
   'cv.metricVerificationModal.viewCalls': string
   'cv.monitoredServices.addNewMonitoredServices': string
   'cv.monitoredServices.changesTable.impact': string
-  'cv.monitoredServices.deleteMonitoredService': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
+  'cv.monitoredServices.deleteService': string
   'cv.monitoredServices.editMonitoredServices': string
+  'cv.monitoredServices.editService': string
   'cv.monitoredServices.environmentValidation': string
   'cv.monitoredServices.failedToFetchHealthScore': string
   'cv.monitoredServices.failedToFetchSummaryData': string
@@ -3843,7 +3851,6 @@ export interface StringsMap {
   'cv.monitoredServices.riskLabel.lowRisk': string
   'cv.monitoredServices.riskLabel.mediumRisk': string
   'cv.monitoredServices.serviceAndEnvironment': string
-  'cv.monitoredServices.serviceCount': string
   'cv.monitoredServices.serviceDependencies.noData': string
   'cv.monitoredServices.serviceHealth.anamolies': string
   'cv.monitoredServices.serviceHealth.last24Hrs': string
@@ -3861,6 +3868,7 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.observe': string
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy': string
   'cv.monitoredServices.serviceValidation': string
+  'cv.monitoredServices.showingAllServices': string
   'cv.monitoredServices.table.changes': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string
@@ -4904,14 +4912,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.delegateSizeUpto': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateSpecificTags': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateTagDescription': string
   /**
    * @deprecated migrate this string to module level file
    */

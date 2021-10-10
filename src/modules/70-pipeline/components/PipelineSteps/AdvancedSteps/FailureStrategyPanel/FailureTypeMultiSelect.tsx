@@ -19,11 +19,11 @@ interface Option {
 }
 
 const stringsMap: Record<FailureErrorType, StringKeys> = {
-  AllErrors: 'pipeline.failureStrategies.errorTypeLabels.AllErrors',
+  AllErrors: 'common.allErrors',
   Unknown: 'pipeline.failureStrategies.errorTypeLabels.Unknown',
   Authentication: 'pipeline.failureStrategies.errorTypeLabels.Authentication',
   Authorization: 'pipeline.failureStrategies.errorTypeLabels.Authorization',
-  Connectivity: 'pipeline.failureStrategies.errorTypeLabels.Connectivity',
+  Connectivity: 'common.connectivityErrors',
   DelegateProvisioning: 'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning',
   Timeout: 'pipeline.failureStrategies.errorTypeLabels.Timeout',
   Verification: 'pipeline.failureStrategies.errorTypeLabels.Verification'

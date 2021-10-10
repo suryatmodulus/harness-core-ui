@@ -2,7 +2,9 @@ import type { SelectOption } from '@wings-software/uicore'
 
 export const MonitoredServiceType = {
   INFRASTRUCTURE: 'Infrastructure',
-  APPLICATION: 'Application'
+  APPLICATION: 'Application',
+  APP: 'APP',
+  INFRA: 'INFRA'
 }
 
 export const MonitoredServiceTypeOptions: SelectOption[] = [

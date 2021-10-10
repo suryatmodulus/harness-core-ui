@@ -137,6 +137,7 @@ export class StageBuilderModel extends DiagramModel {
             name: node.stage.name,
             isInComplete: node.stage.name === EmptyStageName || hasErrors,
             width: 90,
+            selected: isSelected,
             draggable: !isReadonly,
             canDelete: !(selectedStageId === node.stage.identifier || isReadonly),
             conditionalExecutionEnabled: node.stage.when

@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Right Drawer tests FlowControl tests should render fine 1`] = `
+<div>
+  <div
+    class="drawer-mock"
+  >
+    <button
+      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main almostFullScreenCloseBtn Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-cross StyledProps--main"
+        icon="cross"
+      >
+        <svg
+          data-icon="cross"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+        >
+          <desc>
+            cross
+          </desc>
+          <path
+            d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+    <div
+      class="container"
+    >
+      <div
+        class="header"
+      >
+        stage1
+        : 
+        pipeline.barriers.flowControl
+      </div>
+      <div>
+        <div
+          class="Accordion--accordion"
+        >
+          <div
+            class="Accordion--panel"
+            data-open="true"
+            data-testid="syncBarriers-panel"
+          >
+            <div
+              class="Accordion--summary"
+              data-testid="syncBarriers-summary"
+            >
+              <div
+                class="Accordion--chevron"
+              />
+              <div
+                class=""
+              >
+                <div
+                  class="syncBarrierTitle"
+                >
+                  pipeline.barriers.syncBarriers
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-collapse Accordion--collapse"
+              style="height: auto; overflow-y: visible; transition: none;"
+            >
+              <div
+                aria-hidden="false"
+                class="bp3-collapse-body"
+                style="transform: translateY(0); transition: none;"
+              >
+                <div
+                  class="Accordion--details"
+                  data-testid="syncBarriers-details"
+                >
+                  <div
+                    class="OverlaySpinner--overlaySpinner"
+                  >
+                    <div>
+                      <div
+                        class="barrierList"
+                      />
+                      <button
+                        class="bp3-button Button--button StyledProps--font StyledProps--main addbarrier StyledProps--intent-primary Button--withLeftIcon Button--variation Button--variation-link"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-plus StyledProps--main"
+                          icon="plus"
+                        >
+                          <svg
+                            data-icon="plus"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              plus
+                            </desc>
+                            <path
+                              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          class="bp3-button-text"
+                        >
+                          <span>
+                            pipeline.barriers.addBarrier
+                          </span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

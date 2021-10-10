@@ -5,7 +5,7 @@ import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useParams } from 'react-router'
 import { parse } from 'yaml'
-import { isEmpty } from 'lodash-es'
+import { set } from 'lodash-es'
 import { NameSchema } from '@common/utils/Validation'
 import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -37,7 +37,7 @@ export function TemplateStepWidget(
 ): React.ReactElement {
   const { initialValues, factory, onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
-  const stepType = initialValues.template.templateInputs.type as StepType
+  const stepType = initialValues.template?.templateInputs.type as StepType
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [inputSetTemplate, setTnputSetTemplate] = React.useState<Partial<StepElementConfig>>()
   const { showError } = useToaster()
@@ -48,12 +48,12 @@ export function TemplateStepWidget(
     refetch,
     loading
   } = useGetTemplateInputSetYaml({
-    templateIdentifier: initialValues.template.templateRef,
+    templateIdentifier: initialValues.template?.templateRef || '',
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      versionLabel: initialValues.template.versionLabel
+      versionLabel: initialValues.template?.versionLabel || ''
     }
   })
 
@@ -66,11 +66,11 @@ export function TemplateStepWidget(
   }, [templateInputYaml?.data])
 
   React.useEffect(() => {
-    if (isEmpty(initialValues.template.templateInputs) && !!inputSetTemplate) {
-      initialValues.template.templateInputs = inputSetTemplate
+    if (inputSetTemplate && !loading) {
+      set(initialValues, 'template.templateInputs', inputSetTemplate)
       onUpdate?.(initialValues)
     }
-  }, [initialValues.template.templateInputs, inputSetTemplate])
+  }, [inputSetTemplate, loading])
 
   return (
     <Formik<TemplateStepData /*TemplateStepFormData*/>
@@ -82,6 +82,7 @@ export function TemplateStepWidget(
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') })
       })}
+      enableReinitialize={true}
     >
       {(formik: FormikProps<TemplateStepData>) => {
         setFormikRef(formikRef, formik)
@@ -110,7 +111,7 @@ export function TemplateStepWidget(
                     </Text>
                     <StepWidget<Partial<StepElementConfig>>
                       factory={factory}
-                      initialValues={initialValues.template.templateInputs}
+                      initialValues={initialValues.template?.templateInputs || {}}
                       template={inputSetTemplate}
                       readonly={readonly}
                       isNewStep={isNewStep}

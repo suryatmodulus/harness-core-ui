@@ -14,10 +14,19 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -1065,10 +1074,19 @@ exports[`Test TerraformDestroy expand backend Spec config 1`] = `
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -2145,10 +2163,19 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -3196,10 +3223,19 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -3520,10 +3556,19 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -3844,10 +3889,19 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -4480,10 +4534,19 @@ exports[`Test TerraformDestroy should submit form for inheritfromplan config 1`]
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span

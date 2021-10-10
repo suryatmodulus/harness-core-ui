@@ -19,6 +19,7 @@ import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { useToaster } from '@common/components'
+import type { Editions } from '@common/constants/SubscriptionTypes'
 import CDTrialHomePage from './CDTrialHomePage'
 import bgImageURL from './images/cd.svg'
 
@@ -61,6 +62,7 @@ export const CDHomePage: React.FC = () => {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
     module: ModuleName.CD,
+    edition: data?.data?.edition as Editions,
     refetch: refetchLicense
   }
 

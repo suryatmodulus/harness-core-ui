@@ -1,0 +1,37 @@
+.main {
+  position: relative;
+  height: 100px !important;
+  width: 100% !important;
+  .bar {
+    position: absolute;
+    bottom: 0;
+    height: 0;
+    transition: height 550ms ease-out;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    width: 12px !important;
+    display: inline-block;
+  }
+}
+
+.chartPopover {
+  padding: var(--spacing-small) !important;
+  background-color: var(--grey-700) !important;
+  :global {
+    .bp3-popover-arrow-fill {
+      fill: var(--grey-700) !important;
+    }
+    .bp3-popover-content {
+      background-color: var(--grey-700) !important;
+    }
+  }
+
+  .timeRange {
+    color: var(--white) !important;
+  }
+  .healthScore {
+    font-weight: bold !important;
+    display: inline-block;
+    margin-left: var(--spacing-xsmall) !important;
+  }
+}

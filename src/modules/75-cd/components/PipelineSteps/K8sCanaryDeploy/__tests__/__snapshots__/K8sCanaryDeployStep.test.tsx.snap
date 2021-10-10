@@ -14,10 +14,19 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="k8CanaryDeploy_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -364,10 +373,19 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="k8CanaryDeploy_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -759,10 +777,19 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="k8CanaryDeploy_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -1373,10 +1400,19 @@ exports[`Test K8sCanaryDeployStep should submit with valid payload for instance 
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="k8CanaryDeploy_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -1723,10 +1759,19 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="k8CanaryDeploy_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span
@@ -2073,10 +2118,19 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
         >
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="k8CanaryDeploy_identifier"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              ID
+            </p>
+          </div>
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ID
             :
           </p>
           <span

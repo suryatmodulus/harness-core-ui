@@ -181,6 +181,9 @@ const RetryPipeline = ({
         : (selectedStage?.value as string)?.split(' | ')) as string[],
       runAllStages: isAllStage
     },
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    },
     identifier: pipelineId,
     requestOptions: {
       headers: {
@@ -408,6 +411,7 @@ const RetryPipeline = ({
         )
         const retryPipelineData = response.data
         if (response.status === 'SUCCESS') {
+          onClose()
           if (retryPipelineData && retryPipelineData.planExecution?.uuid) {
             showSuccess(getString('runPipelineForm.pipelineRunSuccessFully'))
             history.push(

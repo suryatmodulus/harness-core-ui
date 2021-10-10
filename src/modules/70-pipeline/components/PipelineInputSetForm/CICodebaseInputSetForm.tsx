@@ -110,7 +110,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
         style={{ marginBottom: 0 }}
       />
       {type === 'branch' && (
-        <Container padding={{ bottom: 'small' }}>
+        <Container padding={{ bottom: 'small', top: 'small' }}>
           <FormInput.MultiTextInput
             label={inputLabels[type]}
             name={`${formattedPath}properties.ci.codebase.build.spec.branch`}

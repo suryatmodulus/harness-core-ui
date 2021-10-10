@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test PagerDuty Change Source PagerDuty ChangeSource renders in create mode 1`] = `
+exports[`Test PagerDuty Change Source PagerDuty ChangeSource shows empty service message 1`] = `
 <div>
   <div
     class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -32,19 +32,60 @@ exports[`Test PagerDuty Change Source PagerDuty ChangeSource renders in create m
             class="bp3-form-content"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
+              class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
               data-testid="cr-field-spec.connectorRef"
+              disabled=""
               style="width: 400px;"
+              tabindex="-1"
               type="button"
             >
               <span
                 class="bp3-button-text"
               >
-                <span
-                  class="placeholder"
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                 >
-                  cv.healthSource.connectors.selectConnector
-                </span>
+                  <p
+                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                  />
+                  <div
+                    class="rightStatus"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                      data-testid="crf-status"
+                      icon="full-circle"
+                    >
+                      <svg
+                        data-icon="full-circle"
+                        height="6"
+                        viewBox="0 0 16 16"
+                        width="6"
+                      >
+                        <desc>
+                          full-circle
+                        </desc>
+                        <path
+                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="Tag--main"
+                    >
+                      <span
+                        class="bp3-tag bp3-minimal tag"
+                      >
+                        <span
+                          class="bp3-text-overflow-ellipsis bp3-fill"
+                        >
+                          project
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-down StyledProps--main"
@@ -93,7 +134,7 @@ exports[`Test PagerDuty Change Source PagerDuty ChangeSource renders in create m
             class="bp3-popover-wrapper Select--main bp3-fill"
           >
             <div
-              class="bp3-popover-target"
+              class="bp3-popover-target bp3-popover-open"
             >
               <div
                 class="bp3-input-group"
@@ -130,6 +171,35 @@ exports[`Test PagerDuty Change Source PagerDuty ChangeSource renders in create m
                     </svg>
                   </span>
                 </span>
+              </div>
+            </div>
+            <div
+              class="bp3-overlay bp3-overlay-open bp3-overlay-inline"
+            >
+              <div
+                class="bp3-transition-container bp3-popover-appear bp3-popover-appear-active"
+                style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(NaNpx, NaNpx, 0);"
+              >
+                <div
+                  class="bp3-popover bp3-minimal bp3-select-popover"
+                  style="transform-origin: center top;"
+                >
+                  <div
+                    class="bp3-popover-content"
+                  >
+                    <div>
+                      <ul
+                        class="bp3-menu"
+                      >
+                        <li
+                          class="Select--menuItem Select--disabled"
+                        >
+                          No matching results found
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

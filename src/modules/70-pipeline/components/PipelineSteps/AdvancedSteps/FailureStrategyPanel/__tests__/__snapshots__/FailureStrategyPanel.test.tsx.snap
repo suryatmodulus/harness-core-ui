@@ -158,7 +158,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
           <span
             class="bp3-control-indicator"
           />
-          pipeline.failureStrategies.errorTypeLabels.AllErrors
+          common.allErrors
         </label>
       </div>
       <div
@@ -693,7 +693,7 @@ exports[`<FailureStrategyPanel /> tests removing a strategy works 1`] = `
           <span
             class="bp3-control-indicator"
           />
-          pipeline.failureStrategies.errorTypeLabels.AllErrors
+          common.allErrors
         </label>
       </div>
     </div>
@@ -889,7 +889,7 @@ exports[`<FailureStrategyPanel /> tests when AllErrors is selected, select is di
         <span
           class="bp3-control-indicator"
         />
-        pipeline.failureStrategies.errorTypeLabels.AllErrors
+        common.allErrors
       </label>
     </div>
   </div>

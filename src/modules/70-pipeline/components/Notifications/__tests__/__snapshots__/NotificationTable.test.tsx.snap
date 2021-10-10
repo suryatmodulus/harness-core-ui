@@ -99,7 +99,11 @@ exports[`Notification Table test render 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          ENABLEDLABEL
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            ENABLEDLABEL
+          </p>
         </div>
         <div
           class="cell"
@@ -107,7 +111,11 @@ exports[`Notification Table test render 1`] = `
           role="columnheader"
           style="width: 20%;"
         >
-          NOTIFICATIONS.NAMEOFTHERULE
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            NOTIFICATIONS.NAMEOFTHERULE
+          </p>
         </div>
         <div
           class="cell"
@@ -115,7 +123,11 @@ exports[`Notification Table test render 1`] = `
           role="columnheader"
           style="width: 35%;"
         >
-          NOTIFICATIONS.PIPELINEEVENTS
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            NOTIFICATIONS.PIPELINEEVENTS
+          </p>
         </div>
         <div
           class="cell"
@@ -123,7 +135,11 @@ exports[`Notification Table test render 1`] = `
           role="columnheader"
           style="width: 28%;"
         >
-          NOTIFICATIONS.NOTIFICATIONMETHOD
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            NOTIFICATIONS.NOTIFICATIONMETHOD
+          </p>
         </div>
         <div
           class="cell"
@@ -131,7 +147,11 @@ exports[`Notification Table test render 1`] = `
           role="columnheader"
           style="width: 2%;"
         >
-          
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            
+          </p>
         </div>
       </div>
       <div

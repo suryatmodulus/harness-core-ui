@@ -4326,6 +4326,87 @@ export const changeEventTimelinePromise = (
     signal
   )
 
+export interface GetChangeEventDetailPathParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  activityId: string
+}
+
+export type GetChangeEventDetailProps = Omit<
+  GetProps<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams>,
+  'path'
+> &
+  GetChangeEventDetailPathParams
+
+/**
+ * get ChangeEvent detail
+ */
+export const GetChangeEventDetail = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  activityId,
+  ...props
+}: GetChangeEventDetailProps) => (
+  <Get<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams>
+    path={`/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/${activityId}`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetChangeEventDetailProps = Omit<
+  UseGetProps<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams>,
+  'path'
+> &
+  GetChangeEventDetailPathParams
+
+/**
+ * get ChangeEvent detail
+ */
+export const useGetChangeEventDetail = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  activityId,
+  ...props
+}: UseGetChangeEventDetailProps) =>
+  useGet<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams>(
+    (paramsInPath: GetChangeEventDetailPathParams) =>
+      `/account/${paramsInPath.accountIdentifier}/org/${paramsInPath.orgIdentifier}/project/${paramsInPath.projectIdentifier}/change-event/${paramsInPath.activityId}`,
+    {
+      base: getConfig('cv/api'),
+      pathParams: { accountIdentifier, orgIdentifier, projectIdentifier, activityId },
+      ...props
+    }
+  )
+
+/**
+ * get ChangeEvent detail
+ */
+export const getChangeEventDetailPromise = (
+  {
+    accountIdentifier,
+    orgIdentifier,
+    projectIdentifier,
+    activityId,
+    ...props
+  }: GetUsingFetchProps<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams> & {
+    accountIdentifier: string
+    orgIdentifier: string
+    projectIdentifier: string
+    activityId: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams>(
+    getConfig('cv/api'),
+    `/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/${activityId}`,
+    props,
+    signal
+  )
+
 export interface GetActivitySourceQueryParams {
   accountId: string
   orgIdentifier: string

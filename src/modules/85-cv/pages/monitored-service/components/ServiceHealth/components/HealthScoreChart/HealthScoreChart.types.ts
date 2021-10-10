@@ -9,9 +9,4 @@ export interface HealthScoreChartProps {
   timeFormat?: string
 }
 
-export interface SeriesDataPoint {
-  y?: number
-  color?: string
-}
-
 export type SeriesDataType = Omit<SeriesColumnOptions, 'type'>[]

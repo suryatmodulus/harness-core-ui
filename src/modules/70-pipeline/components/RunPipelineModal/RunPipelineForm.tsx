@@ -251,6 +251,7 @@ function RunPipelineFormBasic({
     setSelectedInputSets(inputSetSelected)
   }, [inputSetSelected])
 
+  const [loadingInputSetUpdate, setLoadingInputSetUpdate] = useState(false)
   React.useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
       const parsedTemplate = parse(template?.data?.inputSetTemplateYaml) as { pipeline: PipelineInfoConfig }
@@ -274,6 +275,7 @@ function RunPipelineFormBasic({
         fetchData()
       } else if (selectedInputSets && selectedInputSets.length === 1) {
         const fetchData = async (): Promise<void> => {
+          setLoadingInputSetUpdate(true)
           const data = await getInputSetForPipelinePromise({
             inputSetIdentifier: selectedInputSets[0].value as string,
             queryParams: {
@@ -285,6 +287,7 @@ function RunPipelineFormBasic({
               branch: selectedInputSets[0]?.gitDetails?.branch
             }
           })
+          setLoadingInputSetUpdate(false)
           if (data?.data?.inputSetYaml) {
             if (selectedInputSets[0].type === 'INPUT_SET') {
               const inputSetPortion = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
@@ -310,23 +313,24 @@ function RunPipelineFormBasic({
     pipelineIdentifier
   ])
 
-  const { mutate: mergeInputSet, loading: loadingUpdate } = useGetMergeInputSetFromPipelineTemplateWithListInput({
-    queryParams: {
-      accountIdentifier: accountId,
-      projectIdentifier,
-      orgIdentifier,
-      pipelineIdentifier,
-      ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
-        ? {
-            pipelineRepoID: repoIdentifier,
-            pipelineBranch: branch,
-            repoIdentifier,
-            branch,
-            getDefaultFromOtherRepo: true
-          }
-        : {})
-    }
-  })
+  const { mutate: mergeInputSet, loading: loadingMergeInputSetUpdate } =
+    useGetMergeInputSetFromPipelineTemplateWithListInput({
+      queryParams: {
+        accountIdentifier: accountId,
+        projectIdentifier,
+        orgIdentifier,
+        pipelineIdentifier,
+        ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
+          ? {
+              pipelineRepoID: repoIdentifier,
+              pipelineBranch: branch,
+              repoIdentifier,
+              branch,
+              getDefaultFromOtherRepo: true
+            }
+          : {})
+      }
+    })
 
   const pipeline: PipelineInfoConfig | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
 
@@ -508,11 +512,16 @@ function RunPipelineFormBasic({
   }
 
   const renderPipelineInputSetForm = () => {
-    if (loadingUpdate) {
+    const showSpinner = loadingMergeInputSetUpdate || loadingInputSetUpdate
+    if (showSpinner) {
       return (
         <PageSpinner
           className={css.inputSetsUpdatingSpinner}
-          message={getString('pipeline.inputSets.applyingInputSets')}
+          message={
+            loadingMergeInputSetUpdate
+              ? getString('pipeline.inputSets.applyingInputSets')
+              : getString('pipeline.inputSets.applyingInputSet')
+          }
         />
       )
     }
@@ -578,7 +587,8 @@ function RunPipelineFormBasic({
           if (typeof errors !== undefined && runClicked) {
             setFormErrors(errors)
           }
-          return errors
+          // https://github.com/formium/formik/issues/1392
+          throw errors
         }}
       >
         {({ submitForm, values }) => {
@@ -728,6 +738,7 @@ function RunPipelineFormBasic({
                       onClick={event => {
                         event.stopPropagation()
                         setRunClicked(true)
+
                         if ((!selectedInputSets || selectedInputSets.length === 0) && existingProvide === 'existing') {
                           setExistingProvide('provide')
                         } else {

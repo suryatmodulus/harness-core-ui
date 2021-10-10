@@ -1,5 +1,6 @@
 import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
+import type { ChangeSourceDTO, Sources } from 'services/cv'
 import { Connectors } from '@connectors/constants'
 import type { UseStringsReturn } from 'framework/strings'
 import { HealthSourceTypes } from '../types'
@@ -82,4 +83,19 @@ export const createHealthsourceList = (
     updatedHealthSources = [healthSourcesPayload]
   }
   return updatedHealthSources
+}
+
+export const deleteHealthSource = (
+  selectedRow: RowData,
+  changeSourcesData: ChangeSourceDTO[],
+  tableData: RowData[]
+): { monitoredService: { sources: Sources } } => {
+  return {
+    monitoredService: {
+      sources: {
+        healthSources: tableData?.filter(healthSource => healthSource.identifier !== selectedRow.identifier),
+        changeSources: changeSourcesData
+      }
+    }
+  }
 }

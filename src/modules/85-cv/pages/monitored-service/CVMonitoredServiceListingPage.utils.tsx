@@ -1,10 +1,9 @@
 import React from 'react'
 import { isNull, isNumber } from 'lodash-es'
 import Highcharts, { PointOptionsObject } from 'highcharts'
-import { Text, Layout, SelectOption, Color } from '@wings-software/uicore'
+import { Text, Layout, SelectOption, Color, Tag } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import type { Renderer, CellProps } from 'react-table'
-import { PageSpinner } from '@common/components'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import type {
   ChangeSummaryDTO,
@@ -101,26 +100,11 @@ export const RenderHealthScore: Renderer<CellProps<MonitoredServiceListItemDTO>>
   const { riskStatus, healthScore = -2 } = rowdata?.currentHealthScore || {}
   const color = getRiskColorValue(riskStatus)
   return (
-    <Layout.Horizontal className={css.healthScoreCardContainer}>
-      <div className={css.healthScoreCard} style={{ background: color }}>
+    <Layout.Horizontal className={css.healthScoreCardContainer} spacing="small">
+      <Tag className={css.healthScoreCard} style={{ backgroundColor: color }}>
         {healthScore > -1 ? healthScore : ''}
-      </div>
-      <Text>{riskStatus && getLabelMapping(riskStatus, getString)}</Text>
-    </Layout.Horizontal>
-  )
-}
-
-export const RenderTags: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
-  const rowdata = row?.original
-  const tagskeys = rowdata?.tags ? Object.keys(rowdata?.tags) : []
-  return (
-    <Layout.Horizontal className={css.tagsText}>
-      {tagskeys.map((tag, index) => (
-        <>
-          <Text key={tag}>{tag} </Text>
-          {index !== tagskeys.length - 1 && <Text>,</Text>}
-        </>
-      ))}
+      </Tag>
+      <Text color={Color.BLACK}>{riskStatus && getLabelMapping(riskStatus, getString)}</Text>
     </Layout.Horizontal>
   )
 }
@@ -166,8 +150,4 @@ export const calculateChangePercentage = (changeSummary: ChangeSummaryDTO): { co
     }
   }
   return DefaultChangePercentage
-}
-
-export const showPageSpinner = (loading: boolean, isDeleting: boolean): JSX.Element => {
-  return loading || isDeleting ? <PageSpinner /> : <></>
 }

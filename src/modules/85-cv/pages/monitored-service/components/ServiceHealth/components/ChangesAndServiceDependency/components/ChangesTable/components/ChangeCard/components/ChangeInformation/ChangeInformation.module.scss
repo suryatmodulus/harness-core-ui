@@ -1,0 +1,38 @@
+.infoContainer,
+.timeLabel {
+  margin: var(--spacing-large) 0 !important;
+}
+
+.summaryTitle {
+  margin: var(--spacing-small) 0 !important;
+  font-size: small !important;
+  font-weight: bold !important;
+}
+
+.summaryTable {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: var(--spacing-xxxlarge) !important;
+  grid-row-gap: var(--spacing-small) !important;
+
+  .summaryRow {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: var(--spacing-medium) !important;
+  }
+
+  .summaryCell {
+    padding-right: var(--spacing-small) !important;
+  }
+
+  .summaryKey {
+    font-size: small !important;
+    font-weight: normal !important;
+    text-transform: capitalize;
+  }
+
+  .summaryValue {
+    font-size: small !important;
+    font-weight: 500 !important;
+  }
+}

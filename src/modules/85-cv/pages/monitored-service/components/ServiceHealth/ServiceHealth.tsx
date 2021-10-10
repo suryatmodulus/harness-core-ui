@@ -72,13 +72,24 @@ export default function ServiceHealth({
   }, [selectedTimePeriod?.value])
 
   const lowestHealthScoreBarForTimeRange = useMemo(() => {
-    setTimestamps(getTimestampsForPeriod(healthScoreData))
     return calculateLowestHealthScoreBar(timeRange?.startTime, timeRange?.endTime, healthScoreData)
   }, [timeRange?.startTime, timeRange?.endTime, healthScoreData])
+
+  useEffect(() => {
+    setTimestamps(getTimestampsForPeriod(healthScoreData))
+  }, [healthScoreData])
 
   const onFocusTimeRange = useCallback((startTime: number, endTime: number) => {
     setTimeRange({ startTime, endTime })
   }, [])
+
+  const onSliderDragEnd = useCallback(
+    ({ startXPercentage, endXPercentage }) => {
+      const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
+      if (startAndEndtime) onFocusTimeRange?.(startAndEndtime[0], startAndEndtime[1])
+    },
+    [onFocusTimeRange, timestamps]
+  )
 
   const [changeTimelineSummary, setChangeTimelineSummary] = useState<ChangesInfoCardData[] | null>(null)
   const renderInfoCard = useCallback(() => {
@@ -149,16 +160,13 @@ export default function ServiceHealth({
               <TimelineSlider
                 resetFocus={() => setShowTimelineSlider(false)}
                 initialSliderWidth={sliderDimensions.minWidth}
-                leftContainerOffset={100}
+                leftContainerOffset={90}
                 hideSlider={!showTimelineSlider}
                 className={css.slider}
                 minSliderWidth={sliderDimensions.minWidth}
                 maxSliderWidth={sliderDimensions.maxWidth}
                 infoCard={renderInfoCard()}
-                onSliderDragEnd={({ startXPercentage, endXPercentage }) => {
-                  const startAndEndtime = calculateStartAndEndTimes(startXPercentage, endXPercentage, timestamps)
-                  if (startAndEndtime) onFocusTimeRange?.(startAndEndtime[0], startAndEndtime[1])
-                }}
+                onSliderDragEnd={onSliderDragEnd}
               />
               <ChangeTimeline
                 serviceIdentifier={serviceIdentifier}

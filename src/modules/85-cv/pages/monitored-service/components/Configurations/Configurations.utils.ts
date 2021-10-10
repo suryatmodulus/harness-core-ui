@@ -79,6 +79,10 @@ export const onTabChange = async ({
   setCachedInitialValue: (value: React.SetStateAction<MonitoredServiceForm | null>) => void
   getString: UseStringsReturn['getString']
 }): Promise<void> => {
+  //TODO:  This is temporary fix, need to be fixed in dependency tab
+  if (selectedTabID !== getString('service')) {
+    setselectedTabID(nextTab as string)
+  }
   const tabRef = selectedTabID === getString('service') ? serviceTabformRef : dependencyTabformRef
   const validResponse = await tabRef?.current?.validateForm()
   if (validResponse && !Object.keys(validResponse).length) {

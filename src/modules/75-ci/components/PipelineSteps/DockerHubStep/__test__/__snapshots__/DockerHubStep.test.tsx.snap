@@ -18,10 +18,19 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="dockerHubStep_identifier"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ID
+                </p>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
                 :
               </p>
               <span
@@ -725,10 +734,19 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="dockerHubStep_identifier"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ID
+                </p>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
                 :
               </p>
               <span
@@ -1198,10 +1216,19 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="dockerHubStep_identifier"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ID
+                </p>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
                 :
               </p>
               <span

@@ -4,6 +4,7 @@ import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDi
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseStringsReturn } from 'framework/strings'
 import type { ExecutionWrapperConfig } from 'services/cd-ng'
+import type { TemplateStepData } from '@pipeline/utils/tempates'
 import {
   DiagramModel,
   CreateNewModel,
@@ -276,7 +277,10 @@ export class ExecutionStepModel extends DiagramModel {
 
     let { startX, startY, prevNodes } = props
     if (node.step) {
-      const stepType = node?.step?.type
+      const isTemplateStep = !!(node.step as TemplateStepData)?.template
+      const stepType = isTemplateStep
+        ? (node?.step as TemplateStepData)?.template?.templateInputs?.type || ''
+        : node?.step?.type
       const nodeType = getExecutionPipelineNodeType(node?.step?.type) || ExecutionPipelineNodeType.NORMAL
       const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))
 
@@ -335,7 +339,7 @@ export class ExecutionStepModel extends DiagramModel {
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
                 : false,
-              isTemplate: !!(node.step as any)?.['step-template'],
+              isTemplate: isTemplateStep,
               draggable: !isReadonly,
               canDelete: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
@@ -542,13 +546,7 @@ export class ExecutionStepModel extends DiagramModel {
           prevNodes = [stepGroupLayer.startNode]
         }
         this.useStepGroupLayer(stepGroupLayer)
-        let steps = node.stepGroup.steps
-        if (stepState?.isStepGroupRollback) {
-          if (!node.stepGroup.rollbackSteps) {
-            node.stepGroup.rollbackSteps = []
-          }
-          steps = node.stepGroup.rollbackSteps
-        }
+        const steps = node.stepGroup.steps
         // Check if step group has nodes
         if (steps?.length > 0) {
           steps.forEach((nodeP, index: number) => {

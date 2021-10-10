@@ -265,8 +265,8 @@ describe('Unit tests for TimelineSlider Utils', () => {
         500
       )
     ).toEqual({
-      endX: 550,
-      endXPercentage: 1.1,
+      endX: 500,
+      endXPercentage: 1,
       startX: 400,
       startXPercentage: 0.8
     })

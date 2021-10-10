@@ -12,7 +12,9 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
         <div
           class="Layout--vertical Layout--layout-spacing-large StyledProps--main triggerOverviewPanelContainer StyledProps--padding-xxlarge"
         >
-          <h2>
+          <h2
+            data-tooltip-id="triggerOverview"
+          >
             pipeline.triggers.triggerOverviewPanel.title
           </h2>
           <div
@@ -24,10 +26,19 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
               >
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="wrapperComponentForm_identifier"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    ID
+                  </p>
+                </div>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  ID
                   :
                 </p>
                 <span

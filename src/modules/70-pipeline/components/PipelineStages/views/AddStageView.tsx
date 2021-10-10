@@ -2,6 +2,9 @@ import React from 'react'
 import { Card, Icon, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
+import { ComingSoonIcon } from '@common/components/ComingSoonIcon/ComingSoonIcon'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { StageActions } from '@common/constants/TrackingConstants'
 import type { PipelineStageProps } from '../PipelineStage'
 import EmptyStageView from './EmptyStageView'
 import StageHoverView from './StageHoverView'
@@ -20,12 +23,13 @@ export interface SelectedAddStageTypeData {
   type?: string
   icon?: IconName
   hoverIcon?: IconName
+  isComingSoon?: boolean
 }
 
 export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel = false, stages }) => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
   const [selectedType, setSelectedType] = React.useState<SelectedAddStageTypeData | undefined>(undefined)
-
   return (
     <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>
       <div className={css.stageTypeSection}>
@@ -37,7 +41,7 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
                 <div>
                   <Card
                     data-testid={`stage-${stage.type}`}
-                    onMouseOver={() => !stage.isDisabled && selectedType?.type !== stage.type && setSelectedType(stage)}
+                    onMouseOver={() => selectedType?.type !== stage.type && setSelectedType(stage)}
                     onMouseLeave={() => setSelectedType(undefined)}
                     interactive={true}
                     disabled={stage.isDisabled}
@@ -46,10 +50,15 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
                       if (stage.isDisabled) {
                         e.stopPropagation()
                       } else {
+                        // call telemetry
+                        trackEvent(StageActions.SelectStage, { stageType: stage.type })
                         callback(stage.type)
                       }
                     }}
                   >
+                    {stage.isComingSoon && (
+                      <ComingSoonIcon className={css.comingSoon} active={selectedType?.type === stage.type} />
+                    )}
                     <Icon name={stage.icon} size={24} {...stage.iconsProps} style={stage.iconsStyle} />
                   </Card>
                   <div className={cx(css.cardTitle, { [css.selected]: selectedType?.type === stage.type })}>

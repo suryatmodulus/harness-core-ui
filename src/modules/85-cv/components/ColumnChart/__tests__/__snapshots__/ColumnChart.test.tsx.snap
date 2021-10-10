@@ -3,7 +3,80 @@
 exports[`Unit tests for ColumnChart Verify if all the fields are rendered correctly inside ColumnChart 1`] = `
 <div>
   <div
-    class="highcharts"
-  />
+    class="main"
+  >
+    <div
+      class="bar"
+      style="left: 0px; height: 45px;"
+    >
+      <span
+        class="bp3-popover-wrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="width: 12px; height: 90px;"
+            tabindex="0"
+          />
+        </span>
+      </span>
+    </div>
+    <div
+      class="bar"
+      style="left: 0px; height: 89px;"
+    >
+      <span
+        class="bp3-popover-wrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="width: 12px; height: 90px;"
+            tabindex="0"
+          />
+        </span>
+      </span>
+    </div>
+    <div
+      class="bar"
+      style="left: 0px; height: 90px;"
+    >
+      <span
+        class="bp3-popover-wrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="width: 12px; height: 90px;"
+            tabindex="0"
+          />
+        </span>
+      </span>
+    </div>
+    <div
+      class="bar"
+      style="left: 0px; height: 40px;"
+    >
+      <span
+        class="bp3-popover-wrapper"
+      >
+        <span
+          class="bp3-popover-target"
+        >
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="width: 12px; height: 90px;"
+            tabindex="0"
+          />
+        </span>
+      </span>
+    </div>
+  </div>
 </div>
 `;

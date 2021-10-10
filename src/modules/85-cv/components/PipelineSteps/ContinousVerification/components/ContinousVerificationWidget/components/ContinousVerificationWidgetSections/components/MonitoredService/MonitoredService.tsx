@@ -16,7 +16,7 @@ import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable/HealthS
 import type { RowData } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { MonitoredServiceProps } from './MonitoredService.types'
-import { getNewSpecs, isAnExpression } from './MonitoredService.utils'
+import { getNewSpecs, getServiceIdentifier, isAnExpression } from './MonitoredService.utils'
 import { MONITORED_SERVICE_EXPRESSION } from './MonitoredService.constants'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './MonitoredService.module.scss'
@@ -33,7 +33,8 @@ export default function MonitoredService({
   const { getString } = useStrings()
   const {
     state: {
-      selectionState: { selectedStageId }
+      selectionState: { selectedStageId },
+      pipeline
     },
     getStageFromPipeline
   } = usePipelineContext()
@@ -42,10 +43,9 @@ export default function MonitoredService({
     selectedStage?.stage?.spec?.infrastructure?.environment?.identifier ||
     selectedStage?.stage?.spec?.infrastructure?.environmentRef ||
     ''
-  const serviceIdentifier =
-    selectedStage?.stage?.spec?.serviceConfig?.service?.identifier ||
-    selectedStage?.stage?.spec?.serviceConfig?.serviceRef ||
-    ''
+  const serviceIdentifier = useMemo(() => {
+    return getServiceIdentifier(selectedStage, pipeline)
+  }, [pipeline, selectedStage])
 
   const createServiceQueryParams = useMemo(
     () => ({

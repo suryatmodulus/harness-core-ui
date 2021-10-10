@@ -2,18 +2,16 @@ import React, { useState, useCallback, useMemo } from 'react'
 import { Layout, Color, Text, Button, SelectOption, Select, Container } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams, useHistory, Link } from 'react-router-dom'
-import styled from '@emotion/styled'
 import cx from 'classnames'
 import { Page, useToaster } from '@common/exports'
-import { PageSpinner, Table } from '@common/components'
+import { Table } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { DependencyGraph } from '@cv/components/DependencyGraph/DependencyGraph'
-import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
+import { HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
 import {
   useListMonitoredService,
   useDeleteMonitoredService,
@@ -25,27 +23,23 @@ import {
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
 import { getDependencyData } from '@cv/components/DependencyGraph/DependencyGraph.utils'
+import ToggleMonitoring from '@cv/pages/monitored-service/components/toggleMonitoring/ToggleMonitoring'
+import ImageDeleteService from '@cv/assets/delete-service.svg'
 import { MonitoringServicesHeader } from './monitoredService.styled'
 import {
-  showPageSpinner,
   RenderHealthTrend,
   RenderHealthScore,
-  RenderTags,
   getFilterAndEnvironmentValue,
   getEnvironmentOptions,
   calculateChangePercentage
 } from './CVMonitoredServiceListingPage.utils'
 import { Views } from './CVMonitoredServiceListingPage.constants'
+import MonitoredServiceCategory from './components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
 import css from './CVMonitoredServiceListingPage.module.scss'
 
-const ServiceCount = styled(Text)`
-  padding-bottom: var(--spacing-xxlarge) !important;
-  border-bottom: 1px solid var(--grey-200) !important;
-`
-
-const PageBody = styled(Page.Body)`
-  margin: var(--spacing-xxxlarge) !important;
-`
+const CategoryProps: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => (
+  <MonitoredServiceCategory type={row?.original?.type} abbrText verticalAlign />
+)
 
 function CVMonitoredServiceListingPage(): JSX.Element {
   const { getString } = useStrings()
@@ -63,7 +57,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     }
   })
 
-  const { data, loading, refetch } = useListMonitoredService({
+  const { data, loading, refetch, error } = useListMonitoredService({
     queryParams: {
       offset: page,
       pageSize: 10,
@@ -75,7 +69,12 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     debounce: 400
   })
 
-  const { data: serviceDependencyGraphData, loading: serviceDependencyGraphLoading } = useGetServiceDependencyGraph({
+  const {
+    data: serviceDependencyGraphData,
+    loading: serviceDependencyGraphLoading,
+    refetch: refetchServiceDependencyGraphData,
+    error: serviceDependencyGraphError
+  } = useGetServiceDependencyGraph({
     queryParams: {
       accountId: params.accountId,
       projectIdentifier: params.projectIdentifier,
@@ -92,7 +91,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     }
   })
 
-  const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
+  const { content, pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
 
   const onDelete = async (identifier?: string): Promise<void> => {
     try {
@@ -112,35 +111,6 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     }
   }
 
-  const MonitoredServiceActions: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
-    const rowdata = row?.original
-    return (
-      <Layout.Horizontal>
-        <ContextMenuActions
-          titleText={getString('cv.monitoredServices.deleteMonitoredService')}
-          contentText={getString('cv.monitoredServices.deleteMonitoredServiceWarning') + `: ${rowdata.identifier}`}
-          onDelete={async () => await onDelete(rowdata.identifier)}
-          onEdit={() => {
-            history.push({
-              pathname: routes.toCVMonitoredServiceConfigurations({
-                accountId: params.accountId,
-                projectIdentifier: params.projectIdentifier,
-                orgIdentifier: params.orgIdentifier,
-                identifier: rowdata.identifier,
-                module: 'cv'
-              })
-            })
-          }}
-          onToggleMonitoredServiceData={{
-            refetch,
-            identifier: rowdata?.identifier as string,
-            enabled: !!rowdata?.healthMonitoringEnabled
-          }}
-        />
-      </Layout.Horizontal>
-    )
-  }
-
   const RenderServiceName: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
     const rowData = row?.original
     return (
@@ -154,7 +124,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             module: 'cv'
           })}
         >
-          <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'normal' }}>
+          <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'normal', weight: 'semi-bold' }}>
             {rowData.serviceName}
           </Text>
         </Link>
@@ -167,7 +137,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             module: 'cv'
           })}
         >
-          <Text color={Color.PRIMARY_7} margin={{ bottom: 'small' }} font={{ align: 'left', size: 'xsmall' }}>
+          <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'xsmall' }}>
             {rowData.environmentName}
           </Text>
         </Link>
@@ -189,13 +159,14 @@ function CVMonitoredServiceListingPage(): JSX.Element {
       const { color, percentage } = calculateChangePercentage(rowData?.changeSummary)
 
       return (
-        <Layout.Horizontal spacing={'medium'}>
+        <Layout.Horizontal spacing={'medium'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
           <Text
             tooltip={getString('deploymentText')}
             inline
             icon={'nav-project'}
             font={{ weight: 'semi-bold' }}
-            iconProps={{ size: 16 }}
+            iconProps={{ size: 16, color: Color.GREY_700 }}
+            color={Color.BLACK}
           >
             {deploymentCount}
           </Text>
@@ -204,7 +175,8 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             inline
             icon="infrastructure"
             font={{ weight: 'semi-bold' }}
-            iconProps={{ size: 16 }}
+            iconProps={{ size: 26, color: Color.GREY_700 }}
+            color={Color.BLACK}
           >
             {infraCount}
           </Text>
@@ -214,6 +186,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             icon="warning-outline"
             font={{ weight: 'semi-bold' }}
             iconProps={{ size: 16 }}
+            color={Color.BLACK}
           >
             {alertCount}
           </Text>
@@ -222,7 +195,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             icon="symbol-triangle-up"
             color={color}
             font={{ size: 'xsmall' }}
-            iconProps={{ size: 12, color: color }}
+            iconProps={{ size: 10, color: color }}
           >
             {percentage}
           </Text>
@@ -234,24 +207,62 @@ function CVMonitoredServiceListingPage(): JSX.Element {
   }, [])
 
   const renderDependencyData = useCallback(() => {
-    if (serviceDependencyGraphLoading) {
-      return <PageSpinner />
-    } else if (dependencyData) {
-      return (
-        <Container>
-          <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 550 } }} />
-          <Container margin={{ top: 'xxxlarge' }}>
-            <ServiceDependenciesLegend />
-          </Container>
+    return dependencyData ? (
+      <Container padding="xxxlarge">
+        <DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 550 } }} />
+        <Container margin={{ top: 'xxxlarge' }}>
+          <ServiceDependenciesLegend />
         </Container>
-      )
-    } else {
-      return <></>
-    }
-  }, [dependencyData, serviceDependencyGraphLoading])
+      </Container>
+    ) : (
+      <></>
+    )
+  }, [dependencyData])
+
+  const RenderStatusToggle: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
+    const rowData = row?.original
+
+    return (
+      <Layout.Horizontal flex={{ alignItems: 'center' }}>
+        <ToggleMonitoring
+          refetch={refetch}
+          identifier={rowData?.identifier as string}
+          enable={!!rowData?.healthMonitoringEnabled}
+        />
+        <ContextMenuActions
+          titleText={getString('common.delete', { name: rowData.serviceName })}
+          contentText={
+            <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <Text color={Color.GREY_800}>
+                {getString('cv.monitoredServices.deleteMonitoredServiceWarning', { name: rowData.serviceName })}
+              </Text>
+              <div>
+                <img src={ImageDeleteService} width="204px" height="202px" />
+              </div>
+            </Layout.Horizontal>
+          }
+          confirmButtonText={getString('yes')}
+          deleteLabel={getString('cv.monitoredServices.deleteService')}
+          onDelete={async () => await onDelete(rowData.identifier)}
+          editLabel={getString('cv.monitoredServices.editService')}
+          onEdit={() => {
+            history.push({
+              pathname: routes.toCVMonitoredServiceConfigurations({
+                accountId: params.accountId,
+                projectIdentifier: params.projectIdentifier,
+                orgIdentifier: params.orgIdentifier,
+                identifier: rowData.identifier,
+                module: 'cv'
+              })
+            })
+          }}
+        />
+      </Layout.Horizontal>
+    )
+  }
 
   return (
-    <BGColorWrapper>
+    <>
       <MonitoringServicesHeader height={'80px'}>
         <HorizontalLayout alignItem={'flex-end'}>
           <div>
@@ -326,33 +337,56 @@ function CVMonitoredServiceListingPage(): JSX.Element {
           </HorizontalLayout>
         </HorizontalLayout>
       </MonitoringServicesHeader>
-      <PageBody>
-        {selectedView === Views.GRAPH ? (
-          renderDependencyData()
-        ) : selectedView === Views.LIST ? (
-          <>
-            <ServiceCount font={{ size: 'medium' }}>
-              {getString('cv.monitoredServices.serviceCount', { serviceCount: content.length })}
-            </ServiceCount>
 
-            {showPageSpinner(loading, isDeleting)}
-            {content.length > 0 ? (
+      {selectedView === Views.GRAPH ? (
+        <Page.Body
+          loading={serviceDependencyGraphLoading}
+          error={getErrorMessage(serviceDependencyGraphError)}
+          retryOnError={() => refetchServiceDependencyGraphData()}
+          noData={{
+            when: () => !dependencyData,
+            message: getString('cv.monitoredServices.noData')
+          }}
+        >
+          {renderDependencyData()}
+        </Page.Body>
+      ) : (
+        <Page.Body
+          loading={loading || isDeleting}
+          error={getErrorMessage(error)}
+          retryOnError={() => refetch()}
+          noData={{
+            when: () => !content?.length,
+            icon: 'join-table',
+            message: getString('cv.monitoredServices.noData')
+          }}
+        >
+          {content?.length ? (
+            <Container padding="xxxlarge">
+              <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'large' }}>
+                {getString('cv.monitoredServices.showingAllServices', { serviceCount: content.length })}
+              </Text>
               <Table
                 sortable={true}
                 columns={[
                   {
-                    Header: getString('cv.monitoredServices.table.serviceName'),
-                    width: '20%',
+                    Header: ' ',
+                    width: '2.5%',
+                    Cell: CategoryProps
+                  },
+                  {
+                    Header: getString('name'),
+                    width: '17.5%',
                     Cell: RenderServiceName
                   },
                   {
                     Header: getString('cv.monitoredServices.table.changes'),
-                    width: '20%',
+                    width: '25%',
                     Cell: RenderServiceChanges
                   },
                   {
                     Header: getString('cv.monitoredServices.table.lastestHealthTrend'),
-                    width: '20%',
+                    width: '25%',
                     Cell: RenderHealthTrend
                   },
                   {
@@ -361,14 +395,9 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                     Cell: RenderHealthScore
                   },
                   {
-                    Header: getString('tagLabel'),
+                    Header: getString('enabledLabel'),
                     width: '10%',
-                    Cell: RenderTags
-                  },
-                  {
-                    Header: getString('pipeline.triggers.triggerConfigurationPanel.actions'),
-                    width: '10%',
-                    Cell: MonitoredServiceActions
+                    Cell: RenderStatusToggle
                   }
                 ]}
                 data={content}
@@ -380,13 +409,11 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                   gotoPage: setPage
                 }}
               />
-            ) : (
-              <NoDataCard icon={'join-table'} message={getString('cv.monitoredServices.noData')} />
-            )}
-          </>
-        ) : null}
-      </PageBody>
-    </BGColorWrapper>
+            </Container>
+          ) : null}
+        </Page.Body>
+      )}
+    </>
   )
 }
 

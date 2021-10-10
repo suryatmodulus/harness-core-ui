@@ -5,5 +5,6 @@ declare const styles: {
   readonly categoryName: string
   readonly application: string
   readonly infrastructure: string
+  readonly monitoredServiceCategoryVertical: string
 }
 export default styles

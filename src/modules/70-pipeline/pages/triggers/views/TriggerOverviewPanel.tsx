@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import { HarnessDocTooltip, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -28,7 +28,8 @@ const TriggerOverviewPanel: React.FC<TriggerOverviewPanelPropsInterface> = ({
           <PageSpinner />
         </div>
       )}
-      <h2>{getString('pipeline.triggers.triggerOverviewPanel.title')}</h2>
+      <h2 data-tooltip-id="triggerOverview">{getString('pipeline.triggers.triggerOverviewPanel.title')}</h2>
+      <HarnessDocTooltip tooltipId="triggerOverview" useStandAlone={true} />
       <NameIdDescriptionTags
         className={css.nameIdDescriptionTags}
         formikProps={formikProps}

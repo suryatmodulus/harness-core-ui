@@ -204,6 +204,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           <Icon
             size={28}
             name={options.icon}
+            inverse={props.node.isSelected() || options.selected}
             {...options.iconProps}
             style={{ pointerEvents: 'none', ...options.iconStyle }}
           />

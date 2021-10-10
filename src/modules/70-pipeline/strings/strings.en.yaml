@@ -232,11 +232,9 @@ failureStrategies:
   errorTypeLabels:
     Authentication: Authentication Errors
     Authorization: Authorization Errors
-    Connectivity: Connectivity Errors
     Timeout: Timeout Errors
     Verification: Verification Failures
     DelegateProvisioning: Delegate Provisioning Errors
-    AllErrors: All Errors
     Unknown: Unknown Errors
   validation:
     errorsRequired: At least one failure type is required
@@ -252,6 +250,10 @@ failureStrategies:
     timeoutRequired: Timeout is required
     onRetryFailureRequired: Retry failure action is required
     onTimeoutRequired: Post timeout action is required
+    ciCodebaseRequired: CI Codebase is required
+    gitBranchRequired: Git Branch is required
+    gitTagRequired: Git Tag is required
+    gitPRRequired: Git Pull Request is required
 selectOrCreatePipeline:
   pipelineNameRequired: Please select a pipeline
   setupHeader: Create or Select a Pipeline
@@ -621,7 +623,8 @@ uniqueIdentifier: Identifier must be unique
 inputSets:
   applyInputSet: Apply Input Set
   applyInputSets: Apply Input Sets
-  applyingInputSets: Applying Inputs Sets
+  applyingInputSets: Applying Input Sets
+  applyingInputSet: Applying Input Set
   noRuntimeInputsCurrently: No runtime inputs in the pipeline currently
   noRuntimeInputsWhileExecution: No runtime inputs were present in the pipeline during this execution
   inputSetPlaceholder: Enter Input Sets
@@ -634,6 +637,8 @@ addStage:
 pipelineSteps:
   customStage: Custom Stage
   chainedPipeline: Chained Pipeline
+  customStageDescription: A blank canvas for custom processes.
+  chainedPipelineDescription: Run a Pipeline as a stage in another Pipeline.
   deployStageDescription: Deploy services, Serverless functions, or other workloads.
   featureStageDescription: Enable or disable functionality remotely without redeploying code.
   approvalStageDescription: Approve or reject changes during Pipeline progress.

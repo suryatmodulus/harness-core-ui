@@ -21,7 +21,11 @@ exports[`HealthSource table check delete and edit row 1`] = `
         style="width: 30%;"
         title="Toggle SortBy"
       >
-        name
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          name
+        </p>
         <span
           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
           icon="double-caret-vertical"
@@ -48,7 +52,11 @@ exports[`HealthSource table check delete and edit row 1`] = `
         role="columnheader"
         style="width: 35%;"
       >
-        typeLabel
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          typeLabel
+        </p>
       </div>
       <div
         class="cell sortable"
@@ -57,7 +65,11 @@ exports[`HealthSource table check delete and edit row 1`] = `
         style="width: 35%;"
         title="Toggle SortBy"
       >
-        source
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          source
+        </p>
         <span
           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
           icon="double-caret-vertical"

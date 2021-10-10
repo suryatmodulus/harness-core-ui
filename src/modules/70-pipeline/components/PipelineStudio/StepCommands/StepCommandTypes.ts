@@ -58,6 +58,6 @@ export type Values = StepOrStepGroupOrTemplateStepData & {
   template?: {
     templateRef: string
     versionLabel: string
-    templateInputs: Partial<StepElementConfig>
+    templateInputs: Omit<StepElementConfig, 'name' | 'identifier'>
   }
 }

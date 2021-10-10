@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import produce from 'immer'
 import * as Yup from 'yup'
-import { Icon, Accordion, Tag, Text, Formik, ButtonVariation } from '@wings-software/uicore'
+import { Accordion, Tag, Text, Formik, ButtonVariation } from '@wings-software/uicore'
 import { set, debounce, cloneDeep } from 'lodash-es'
 import { FieldArray } from 'formik'
 import { Tooltip } from '@blueprintjs/core'
@@ -153,20 +153,13 @@ export const FlowControl: React.FC = (): JSX.Element => {
   return (
     <div className={css.container}>
       <div className={css.header}>
-        <Icon name="settings" size={14} className={css.headerIcon} />
-
-        <div className={css.gridColumn}>
-          <String stringID="pipeline.barriers.flowControl" className={css.title} />
-          <span>
-            {getString('total')} : {barriers.length}
-          </span>
-        </div>
+        {pipeline?.name}: {getString('pipeline.barriers.flowControl')}
       </div>
       <div>
         <Accordion activeId="syncBarriers">
           <Accordion.Panel
             id="syncBarriers"
-            summary={getString('pipeline.barriers.syncBarriers')}
+            summary={<div className={css.syncBarrierTitle}>{getString('pipeline.barriers.syncBarriers')}</div>}
             details={
               <BarrierList
                 list={barriers}
@@ -250,7 +243,7 @@ const BarrierList: React.FC<BarrierListProps> = ({
                         <div>
                           {barrier.stages?.map((stage: StageDetail) => (
                             <Tag className={cx(css.tag, css.spaceRight)} key={stage.name}>
-                              <Text lineClamp={1} width={50}>
+                              <Text lineClamp={1} width={50} className={css.tagText}>
                                 {stage.name}
                               </Text>
                             </Tag>

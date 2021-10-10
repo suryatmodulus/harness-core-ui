@@ -25,8 +25,8 @@ const SetFlagSwitch: FC<SetFlagSwitchProps> = ({ clearField, ...props }) => {
         className={css.hideLabelText}
         name="spec.state"
         items={[
-          { label: getString('cf.shared.on'), value: FeatureFlagActivationStatus.ON },
-          { label: getString('cf.shared.off'), value: FeatureFlagActivationStatus.OFF }
+          { label: getString('common.ON'), value: FeatureFlagActivationStatus.ON },
+          { label: getString('common.OFF'), value: FeatureFlagActivationStatus.OFF }
         ]}
         label={getString('cf.pipeline.flagConfiguration.switchTo')}
         placeholder={getString('cf.pipeline.flagConfiguration.selectOnOrOff')}

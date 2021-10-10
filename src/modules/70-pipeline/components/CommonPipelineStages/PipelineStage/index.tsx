@@ -14,13 +14,15 @@ const getStageAttributes = (_getString: UseStringsReturn['getString']): StageAtt
   openExecutionStrategy: false
 })
 
-const getStageEditorImplementation = (isEnabled: boolean, _getString: UseStringsReturn['getString']) => (
+const getStageEditorImplementation = (isEnabled: boolean, _getString: UseStringsReturn['getString']): JSX.Element => (
   <PipelineStage
     icon={'chained-pipeline'}
     name={_getString('pipeline.pipelineSteps.chainedPipeline')}
-    title=""
-    description=""
+    title={_getString('pipeline.pipelineSteps.chainedPipeline')}
+    description={_getString('pipeline.pipelineSteps.chainedPipelineDescription')}
     type={StageType.PIPELINE}
+    isComingSoon={true}
+    hoverIcon="chained-pipeline-hover"
     isDisabled={!isEnabled}
     isApproval={false}
   />

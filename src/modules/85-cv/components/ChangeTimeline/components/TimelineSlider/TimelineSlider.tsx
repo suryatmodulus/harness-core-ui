@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo, useCallback, useRef, useState } from 'react'
+import React, { useLayoutEffect, useMemo, useCallback, useRef, useState, useEffect } from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import Draggable from 'react-draggable'
 import cx from 'classnames'
@@ -57,14 +57,15 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
         clickEventX: e.clientX,
         containerOffset: sliderContainerRef.current.getBoundingClientRect().x,
         containerWidth,
-        sliderAspects: { width, leftOffset, rightHandlePosition, leftHandlePosition }
+        sliderAspects: { width, leftOffset, rightHandlePosition, leftHandlePosition },
+        isSliderHidden: hideSlider
       })
       if (updatedSliderAspects) {
         setSliderAspects(updatedSliderAspects)
         onSliderDragEnd?.(calculateSliderDragEndData(updatedSliderAspects, e, containerWidth))
       }
     },
-    [width, leftOffset, rightHandlePosition, leftHandlePosition, containerWidth, hideSlider]
+    [width, leftOffset, rightHandlePosition, leftHandlePosition, containerWidth, hideSlider, onSliderDragEnd]
   )
 
   useLayoutEffect(() => {
@@ -84,6 +85,17 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
 
     return () => sliderContainerRef.current?.parentNode?.removeEventListener('click', onClick, false)
   }, [sliderContainerRef.current, onClick])
+
+  useEffect(() => {
+    if (hideSlider) {
+      setSliderAspects({
+        width: initialSliderWidth,
+        leftOffset: 0,
+        rightHandlePosition: initialSliderWidth - INITIAL_RIGHT_SLIDER_OFFSET,
+        leftHandlePosition: LEFT_SLIDER_OFFSET
+      })
+    }
+  }, [hideSlider])
 
   const containerStyles = useMemo(() => {
     return { width: propsContainerWidth, left: leftContainerOffset }
@@ -106,7 +118,13 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
           <Container flex>
             <Container className={cx(css.card, { [css.reverseCard]: leftOffset < LEFT_TEXTFIELD_WIDTH })}>
               {infoCard}
-              <Text className={css.resetButton} onClick={resetFocus}>
+              <Text
+                className={css.resetButton}
+                onClick={e => {
+                  e.stopPropagation()
+                  resetFocus?.()
+                }}
+              >
                 {getString('reset')}
               </Text>
             </Container>
@@ -149,6 +167,7 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
             )
           }}
           onDrag={e => {
+            sliderContainerRef?.current?.parentNode?.removeEventListener('click', onClick, false)
             e.stopPropagation()
             const draggableEvent = e as MouseEvent
             if (isSliderWithinBounds({ draggableEvent, leftOffset, width, containerWidth })) {

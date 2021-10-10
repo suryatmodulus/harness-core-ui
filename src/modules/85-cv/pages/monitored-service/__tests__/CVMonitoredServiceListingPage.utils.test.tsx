@@ -10,7 +10,6 @@ import {
 } from './MonitoreService.mock'
 import { HistoricalTrendChartOption, DefaultChangePercentage } from '../CVMonitoredServiceListingPage.constants'
 import {
-  RenderTags,
   RenderHealthScore,
   RenderHealthTrend,
   createTrendDataWithZone,
@@ -97,11 +96,6 @@ describe('Test util functions', () => {
             Header: 'RenderHealthScore',
             width: '20%',
             Cell: RenderHealthScore
-          },
-          {
-            Header: 'RenderTags',
-            width: '10%',
-            Cell: RenderTags
           }
         ]}
         data={[rowData.original]}
@@ -110,8 +104,5 @@ describe('Test util functions', () => {
 
     await waitFor(() => expect(container.querySelector('.highcharts-container')).toBeTruthy())
     await waitFor(() => expect(getByText('cv.monitoredServices.riskLabel.mediumRisk')).toBeTruthy())
-    await waitFor(() => expect(getByText('tag1')).toBeTruthy())
-    await waitFor(() => expect(getByText('tag2')).toBeTruthy())
-    await waitFor(() => expect(getByText('tag3')).toBeTruthy())
   })
 })

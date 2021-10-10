@@ -7123,7 +7123,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         role="columnheader"
                         style="width: 50px;"
                       >
-                        #
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                        >
+                          #
+                        </p>
                         <div
                           class="resizer"
                           draggable="false"
@@ -7138,7 +7142,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="width: 216px;"
                         title="Toggle SortBy"
                       >
-                        PIPELINE.TESTSREPORTS.TESTCASENAME
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                        >
+                          PIPELINE.TESTSREPORTS.TESTCASENAME
+                        </p>
                         <span
                           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                           icon="double-caret-vertical"
@@ -7172,7 +7180,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="width: 216px;"
                         title="Toggle SortBy"
                       >
-                        PIPELINE.TESTSREPORTS.CLASSNAME
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                        >
+                          PIPELINE.TESTSREPORTS.CLASSNAME
+                        </p>
                         <span
                           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                           icon="double-caret-vertical"
@@ -7206,7 +7218,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="width: 100px;"
                         title="Toggle SortBy"
                       >
-                        pipeline.testsReports.result
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                        >
+                          pipeline.testsReports.result
+                        </p>
                         <span
                           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                           icon="double-caret-vertical"
@@ -7240,7 +7256,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="width: 100px;"
                         title="Toggle SortBy"
                       >
-                        PIPELINE.DURATION
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                        >
+                          PIPELINE.DURATION
+                        </p>
                         <span
                           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                           icon="double-caret-vertical"
@@ -20231,7 +20251,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         role="columnheader"
                         style="width: 50px;"
                       >
-                        #
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                        >
+                          #
+                        </p>
                         <div
                           class="resizer"
                           draggable="false"
@@ -20246,7 +20270,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="width: 216px;"
                         title="Toggle SortBy"
                       >
-                        PIPELINE.TESTSREPORTS.TESTCASENAME
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                        >
+                          PIPELINE.TESTSREPORTS.TESTCASENAME
+                        </p>
                         <span
                           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                           icon="double-caret-vertical"
@@ -20280,7 +20308,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="width: 216px;"
                         title="Toggle SortBy"
                       >
-                        PIPELINE.TESTSREPORTS.CLASSNAME
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                        >
+                          PIPELINE.TESTSREPORTS.CLASSNAME
+                        </p>
                         <span
                           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                           icon="double-caret-vertical"
@@ -20314,7 +20346,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="width: 100px;"
                         title="Toggle SortBy"
                       >
-                        pipeline.testsReports.result
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                        >
+                          pipeline.testsReports.result
+                        </p>
                         <span
                           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                           icon="double-caret-vertical"
@@ -20348,7 +20384,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="width: 100px;"
                         title="Toggle SortBy"
                       >
-                        PIPELINE.DURATION
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                        >
+                          PIPELINE.DURATION
+                        </p>
                         <span
                           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                           icon="double-caret-vertical"

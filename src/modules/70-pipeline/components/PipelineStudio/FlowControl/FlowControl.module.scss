@@ -1,17 +1,37 @@
 .container {
   padding: var(--spacing-small) var(--spacing-large);
+  height: 100%;
+  background: #fbfdff;
+  box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16);
   :global {
     .bp3-collapse-body {
       max-height: calc(100vh - 250px);
     }
   }
+  .syncBarrierTitle {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #22222a;
+  }
   .header {
     display: grid;
-    grid-template-columns: 50px 1fr 50px;
-    border-bottom: var(--grey-200) !important;
-    background: var(--white) !important;
+    grid-template-columns: 1fr;
+    border-bottom: 1px solid #e4e4eb !important;
+    background: transparent !important;
     align-items: center;
     margin-bottom: var(--spacing-large);
+    margin-top: var(--spacing-large);
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    height: 30px;
+    /* identical to box height, or 140% */
+
+    color: #000000;
     .grid-column {
       display: grid;
       grid-auto-flow: row;
@@ -49,23 +69,37 @@
   grid-auto-flow: row;
   gap: var(--spacing-medium);
   .rowItem {
+    background: #ffffff;
+    box-shadow: 0px 0px 1px rgb(40 41 61 / 4%), 0px 2px 4px rgb(96 97 112 / 16%);
+    border-radius: 4px;
     display: grid;
     grid-template-columns: 1fr 1fr 100px;
     align-items: center;
     padding: var(--spacing-medium);
-    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
     border-radius: 4px;
-    background: #fff;
 
     .rowHeader {
       color: #22272d !important;
     }
     .tag {
-      background: var(--primary-2);
+      background: #cce3ff;
+      border-radius: 4px;
       color: var(--black-color-3);
       margin-bottom: var(--spacing-xsmall) !important;
       display: inline-block !important;
       padding: var(--spacing-xsmall);
+    }
+    .tagText {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 10px;
+      line-height: 12px;
+      display: flex;
+      align-items: center;
+
+      /* Gray Scale / Gray Scale 700 */
+
+      color: #383946;
     }
     .space-right {
       margin-right: var(--spacing-small);

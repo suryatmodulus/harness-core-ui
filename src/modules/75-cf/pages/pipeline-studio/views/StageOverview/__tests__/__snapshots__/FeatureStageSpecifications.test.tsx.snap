@@ -37,6 +37,10 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                     class="StyledProps--font StyledProps--main"
                   >
                     ID
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
                     :
                   </p>
                   <span

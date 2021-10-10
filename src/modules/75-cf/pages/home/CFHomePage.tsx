@@ -16,6 +16,7 @@ import type { Module, AccountPathProps } from '@common/interfaces/RouteInterface
 import { useQueryParams } from '@common/hooks'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import type { Editions } from '@common/constants/SubscriptionTypes'
 import bgImageURL from './ff.svg'
 
 const CFHomePage: React.FC = () => {
@@ -58,6 +59,7 @@ const CFHomePage: React.FC = () => {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
     module: ModuleName.CF,
+    edition: data?.data?.edition as Editions,
     refetch
   }
 

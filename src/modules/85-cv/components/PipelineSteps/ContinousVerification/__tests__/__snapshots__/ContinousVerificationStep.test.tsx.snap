@@ -500,10 +500,19 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="cvData_identifier"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ID
+                </p>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
                 :
               </p>
               <span
@@ -829,7 +838,11 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
               role="columnheader"
               style="width: 60%;"
             >
-              Source
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Source
+              </p>
             </div>
             <div
               class="cell"
@@ -837,7 +850,11 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
               role="columnheader"
               style="width: 40%;"
             >
-              Type
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Type
+              </p>
             </div>
           </div>
           <div
@@ -942,10 +959,19 @@ exports[`Test ContinousVerificationStep Step should render editView when current
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="cvData_identifier"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ID
+                </p>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
                 :
               </p>
               <span
@@ -1303,7 +1329,11 @@ exports[`Test ContinousVerificationStep Step should render editView when current
               role="columnheader"
               style="width: 60%;"
             >
-              Source
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Source
+              </p>
             </div>
             <div
               class="cell"
@@ -1311,7 +1341,11 @@ exports[`Test ContinousVerificationStep Step should render editView when current
               role="columnheader"
               style="width: 40%;"
             >
-              Type
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Type
+              </p>
             </div>
           </div>
           <div
@@ -1705,10 +1739,19 @@ exports[`Test ContinousVerificationStep Step should render editView when current
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="cvData_identifier"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ID
+                </p>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
                 :
               </p>
               <span

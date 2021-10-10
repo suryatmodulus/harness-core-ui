@@ -41,21 +41,30 @@ export function determineSliderPlacementForClick({
   clickEventX,
   containerOffset,
   containerWidth,
-  sliderAspects
+  sliderAspects,
+  isSliderHidden
 }: {
   clickEventX: number
   containerOffset: number
   containerWidth: number
+  isSliderHidden?: boolean
   sliderAspects: SliderAspects
 }): SliderAspects | undefined {
   const offset = clickEventX - containerOffset
-  if (
-    offset < 0 ||
-    offset > containerWidth ||
-    (offset >= sliderAspects.leftOffset - SLIDER_HANDLE_WIDTH &&
-      offset <= sliderAspects.leftOffset + sliderAspects.width + SLIDER_HANDLE_WIDTH)
-  )
+
+  // ensure click is within contanier bounds
+  if (offset < 0 || offset > containerWidth) {
     return
+  }
+
+  // when slider is visible ensure the click is outside of slider dimensions
+  if (
+    !isSliderHidden &&
+    offset >= sliderAspects.leftOffset - SLIDER_HANDLE_WIDTH &&
+    offset <= sliderAspects.leftOffset + sliderAspects.width + SLIDER_HANDLE_WIDTH
+  ) {
+    return
+  }
 
   for (let percentageValue = 0.5; percentageValue >= 0; percentageValue -= 0.01) {
     const centerOffset = offset - sliderAspects.width * percentageValue
@@ -127,11 +136,13 @@ export function calculateSliderDragEndData(
 }
 
 export function calculateSliderEndPoints(aspects: SliderAspects, containerWidth: number): SliderEndpoints {
+  const startX = Math.max(0, aspects.leftOffset)
+  const endX = Math.min(containerWidth, aspects.width + aspects.leftOffset)
   return {
-    startX: aspects.leftOffset,
-    endX: aspects.width + aspects.leftOffset,
-    startXPercentage: aspects.leftOffset / containerWidth,
-    endXPercentage: (aspects.width + aspects.leftOffset) / containerWidth
+    startX,
+    endX,
+    startXPercentage: startX / containerWidth,
+    endXPercentage: endX / containerWidth
   }
 }
 

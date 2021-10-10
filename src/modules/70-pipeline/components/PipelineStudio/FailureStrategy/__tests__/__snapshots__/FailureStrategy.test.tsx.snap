@@ -182,7 +182,7 @@ exports[`<Failure Strategy/> tests renders ok with data 1`] = `
             <span
               class="bp3-control-indicator"
             />
-            pipeline.failureStrategies.errorTypeLabels.AllErrors
+            common.allErrors
           </label>
         </div>
       </div>
@@ -481,7 +481,7 @@ exports[`<Failure Strategy/> tests renders ok with no data 1`] = `
             <span
               class="bp3-control-indicator"
             />
-            pipeline.failureStrategies.errorTypeLabels.AllErrors
+            common.allErrors
           </label>
         </div>
       </div>

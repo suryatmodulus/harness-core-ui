@@ -22,8 +22,8 @@ export default function TimelineRowLoading() {
     for (let i = 1; i <= 14; i++) {
       loadingFields.push(
         <>
-          <LoadingBlock />
-          {i < 14 && <LoadingCircle />}
+          <LoadingBlock key={`${i}block`} />
+          {i < 14 && <LoadingCircle key={`${i}circle`} />}
         </>
       )
     }

@@ -1,7 +1,5 @@
 continuous: '{{$.common.purpose.cf.continuous}}'
 shared:
-  on: ON
-  off: OFF
   individual: Individual
   target: '{{ $.pipelineSteps.targetLabel }}'
   targets: '{{ $.pipeline.targets.title }}'

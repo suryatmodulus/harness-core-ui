@@ -39,10 +39,19 @@ exports[`Connector details step Test for  create  connector step one required fe
                       <div
                         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="GitOpsProviderStepFormundefined_identifier"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ID
+                          </p>
+                        </div>
                         <p
                           class="StyledProps--font StyledProps--main"
                         >
-                          ID
                           :
                         </p>
                         <span
@@ -437,10 +446,19 @@ exports[`Connector details step Test for going to next step 1`] = `
                       <div
                         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                       >
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="GitOpsProviderStepFormundefined_identifier"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            ID
+                          </p>
+                        </div>
                         <p
                           class="StyledProps--font StyledProps--main"
                         >
-                          ID
                           :
                         </p>
                         <span

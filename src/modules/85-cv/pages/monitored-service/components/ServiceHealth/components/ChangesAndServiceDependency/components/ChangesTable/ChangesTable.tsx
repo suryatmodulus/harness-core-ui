@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react'
+import { noop } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -18,6 +19,7 @@ import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
 import type { ChangesTableInterface } from './ChangesTable.types'
 import { renderTime, renderName, renderImpact, renderType, renderChangeType } from './ChangesTable.utils'
 import { defaultPageSize } from './ChangesTable.constants'
+import ChangeCard from './components/ChangeCard/ChangeCard'
 import css from './ChangeTable.module.scss'
 
 export default function ChangesTable({
@@ -42,9 +44,13 @@ export default function ChangesTable({
   const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.resource ?? ({} as any)
 
   const drawerOptions = {
-    size: '530px'
+    size: '530px',
+    onClose: noop
   } as IDrawerProps
-  const { showDrawer } = useDrawer({ createDrawerContent: () => <> </>, drawerOptions })
+  const { showDrawer } = useDrawer({
+    createDrawerContent: props => <ChangeCard activityId={props?.id} />,
+    drawerOptions
+  })
 
   useEffect(() => {
     setPage(0)

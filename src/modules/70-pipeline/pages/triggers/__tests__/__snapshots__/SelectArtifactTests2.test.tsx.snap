@@ -51,7 +51,11 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         role="columnheader"
         style="width: 5%;"
       >
-        
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          
+        </p>
       </div>
       <div
         class="cell"
@@ -59,7 +63,11 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         role="columnheader"
         style="width: 27%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACT
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACT
+        </p>
       </div>
       <div
         class="cell"
@@ -67,7 +75,11 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         role="columnheader"
         style="width: 25%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+        </p>
       </div>
       <div
         class="cell"
@@ -75,7 +87,11 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         role="columnheader"
         style="width: 18%;"
       >
-        COMMON.LOCATION
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          COMMON.LOCATION
+        </p>
       </div>
       <div
         class="cell"
@@ -83,7 +99,11 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         role="columnheader"
         style="width: 16%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.BUILDTAG
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.BUILDTAG
+        </p>
       </div>
       <div
         class="cell"
@@ -91,7 +111,11 @@ exports[`Select Artifact - For Artifact tests initial render 1`] = `
         role="columnheader"
         style="width: 9%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
+        </p>
       </div>
     </div>
     <div
@@ -387,7 +411,11 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         role="columnheader"
         style="width: 5%;"
       >
-        
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          
+        </p>
       </div>
       <div
         class="cell"
@@ -395,7 +423,11 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         role="columnheader"
         style="width: 27%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACT
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACT
+        </p>
       </div>
       <div
         class="cell"
@@ -403,7 +435,11 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         role="columnheader"
         style="width: 25%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+        </p>
       </div>
       <div
         class="cell"
@@ -411,7 +447,11 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         role="columnheader"
         style="width: 18%;"
       >
-        COMMON.LOCATION
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          COMMON.LOCATION
+        </p>
       </div>
       <div
         class="cell"
@@ -419,7 +459,11 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         role="columnheader"
         style="width: 16%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.BUILDTAG
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.BUILDTAG
+        </p>
       </div>
       <div
         class="cell"
@@ -427,7 +471,11 @@ exports[`Select Artifact - For Artifact tests on click of select button 1`] = `
         role="columnheader"
         style="width: 9%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
+        </p>
       </div>
     </div>
     <div
@@ -618,7 +666,11 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         role="columnheader"
         style="width: 5%;"
       >
-        
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          
+        </p>
       </div>
       <div
         class="cell"
@@ -626,7 +678,11 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         role="columnheader"
         style="width: 27%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACT
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACT
+        </p>
       </div>
       <div
         class="cell"
@@ -634,7 +690,11 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         role="columnheader"
         style="width: 25%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+        </p>
       </div>
       <div
         class="cell"
@@ -642,7 +702,11 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         role="columnheader"
         style="width: 18%;"
       >
-        COMMON.LOCATION
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          COMMON.LOCATION
+        </p>
       </div>
       <div
         class="cell"
@@ -650,7 +714,11 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         role="columnheader"
         style="width: 16%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.BUILDTAG
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.BUILDTAG
+        </p>
       </div>
       <div
         class="cell"
@@ -658,7 +726,11 @@ exports[`Select Artifact - For Artifact tests when selected tag is not runtime i
         role="columnheader"
         style="width: 9%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
+        </p>
       </div>
     </div>
     <div

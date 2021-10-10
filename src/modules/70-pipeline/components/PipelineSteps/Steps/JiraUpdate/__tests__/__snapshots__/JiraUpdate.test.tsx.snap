@@ -1039,10 +1039,19 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
             >
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="jiraUpdate_identifier"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ID
+                </p>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                ID
                 :
               </p>
               <span

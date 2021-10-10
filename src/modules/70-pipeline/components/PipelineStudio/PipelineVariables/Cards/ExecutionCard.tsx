@@ -76,11 +76,6 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
                 steps: stepGroup.steps,
                 originalSteps: originalSteps?.[i]?.stepGroup?.steps,
                 parentPath: `${parentPath}.steps`
-              }) as StepRenderData[]),
-              ...(addToCards({
-                steps: stepGroup.rollbackSteps,
-                originalSteps: originalSteps?.[i]?.stepGroup?.rollbackSteps,
-                parentPath: `${parentPath}.rollbackSteps`
               }) as StepRenderData[])
             ],
             name: stepGroup.name || '',

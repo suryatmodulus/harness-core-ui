@@ -5,21 +5,45 @@ import type { MonitoredServiceDTO } from 'services/cv'
 import { MonitoredServiceType } from '@cv/pages/monitored-service/components/Configurations/components/Service/components/MonitoredServiceOverview/MonitoredServiceOverview.constants'
 import css from './MonitoredServiceCategory.module.scss'
 
-export default function MonitoredServiceCategory({ type }: { type?: MonitoredServiceDTO['type'] }): JSX.Element {
+export default function MonitoredServiceCategory({
+  type,
+  abbrText,
+  verticalAlign
+}: {
+  type?: MonitoredServiceDTO['type']
+  abbrText?: boolean
+  verticalAlign?: boolean
+}): JSX.Element {
   switch (type) {
     case 'Infrastructure':
       return (
-        <Container className={cx(css.monitoredServiceCategory, css.infrastructure)}>
-          <Text className={css.categoryName} iconProps={{ size: 18, color: Color.PURPLE_500 }} icon="infrastructure">
-            {MonitoredServiceType.INFRASTRUCTURE}
+        <Container
+          className={cx(
+            css.monitoredServiceCategory,
+            verticalAlign && css.monitoredServiceCategoryVertical,
+            css.infrastructure
+          )}
+        >
+          <Text
+            className={css.categoryName}
+            iconProps={{ size: verticalAlign ? 13 : 18, color: Color.PURPLE_500 }}
+            icon="infrastructure"
+          >
+            {abbrText ? MonitoredServiceType.INFRA : MonitoredServiceType.INFRASTRUCTURE}
           </Text>
         </Container>
       )
     case 'Application':
       return (
-        <Container className={cx(css.monitoredServiceCategory, css.application)}>
+        <Container
+          className={cx(
+            css.monitoredServiceCategory,
+            verticalAlign && css.monitoredServiceCategoryVertical,
+            css.application
+          )}
+        >
           <Text className={css.categoryName} iconProps={{ size: 13, color: Color.PRIMARY_8 }} icon="dashboard">
-            {MonitoredServiceType.APPLICATION}
+            {abbrText ? MonitoredServiceType.APP : MonitoredServiceType.APPLICATION}
           </Text>
         </Container>
       )

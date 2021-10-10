@@ -127,9 +127,13 @@ exports[`Test Access Point List Renders without errors 1`] = `
             role="columnheader"
             style="width: 5%;"
           >
-            <input
-              type="checkbox"
-            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              <input
+                type="checkbox"
+              />
+            </p>
           </div>
           <div
             class="cell"
@@ -137,7 +141,11 @@ exports[`Test Access Point List Renders without errors 1`] = `
             role="columnheader"
             style="width: 15%;"
           >
-            NAME
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              NAME
+            </p>
           </div>
           <div
             class="cell"
@@ -145,7 +153,11 @@ exports[`Test Access Point List Renders without errors 1`] = `
             role="columnheader"
             style="width: 15%;"
           >
-            CE.CO.ACCESSPOINT.CLOUDACCOUNT
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              CE.CO.ACCESSPOINT.CLOUDACCOUNT
+            </p>
           </div>
           <div
             class="cell"
@@ -153,7 +165,11 @@ exports[`Test Access Point List Renders without errors 1`] = `
             role="columnheader"
             style="width: 8%;"
           >
-            CE.CO.ACCESSPOINT.DNSPROVIDER
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              CE.CO.ACCESSPOINT.DNSPROVIDER
+            </p>
           </div>
           <div
             class="cell"
@@ -161,7 +177,11 @@ exports[`Test Access Point List Renders without errors 1`] = `
             role="columnheader"
             style="width: 10%;"
           >
-            CE.CO.ACCESSPOINT.ASSSOCIATEDRULES
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              CE.CO.ACCESSPOINT.ASSSOCIATEDRULES
+            </p>
           </div>
           <div
             class="cell"
@@ -169,7 +189,11 @@ exports[`Test Access Point List Renders without errors 1`] = `
             role="columnheader"
             style="width: 10%;"
           >
-            Region
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              Region
+            </p>
           </div>
           <div
             class="cell"
@@ -177,7 +201,11 @@ exports[`Test Access Point List Renders without errors 1`] = `
             role="columnheader"
             style="width: 12%;"
           >
-            VPC
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              VPC
+            </p>
           </div>
           <div
             class="cell"
@@ -185,7 +213,11 @@ exports[`Test Access Point List Renders without errors 1`] = `
             role="columnheader"
             style="width: 10%;"
           >
-            CE.CO.ACCESSPOINT.LASTACTIVITY
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              CE.CO.ACCESSPOINT.LASTACTIVITY
+            </p>
           </div>
           <div
             class="cell"
@@ -193,7 +225,11 @@ exports[`Test Access Point List Renders without errors 1`] = `
             role="columnheader"
             style="width: 10%;"
           >
-            CE.CO.ACCESSPOINT.STATUS
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              CE.CO.ACCESSPOINT.STATUS
+            </p>
           </div>
           <div
             class="cell"
@@ -201,7 +237,11 @@ exports[`Test Access Point List Renders without errors 1`] = `
             role="columnheader"
             style="width: 5%;"
           >
-             
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+               
+            </p>
           </div>
         </div>
         <div

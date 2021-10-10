@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pipeline with updated runtime input and pipeline variables 1`] = `
+exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Trigger has pipeline with updated runtime input and pipeline variables 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
@@ -233,6 +233,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                         >
                           <h2
                             class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+                            data-tooltip-id="pipelineInputLabel"
                             level="2"
                           >
                             pipeline.triggers.pipelineInputLabel
@@ -615,7 +616,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                   </div>
                                 </div>
                                 <div
-                                  class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small"
+                                  class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small StyledProps--padding-top-small"
                                 >
                                   <div
                                     class="bp3-form-group"
@@ -1337,8 +1338,10 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                   >
                     <h2
                       class="heading"
+                      data-tooltip-id="triggerConfigurationLabel"
                     >
                       pipeline.triggers.triggerConfigurationLabel
+                      
                     </h2>
                     <div>
                       <div
@@ -1350,10 +1353,19 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           <div
                             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="wizardForm_webhook_identifier"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                              >
+                                ID
+                              </p>
+                            </div>
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
                               :
                             </p>
                             <span
@@ -1510,6 +1522,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       </div>
                       <h2
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+                        data-tooltip-id="listenOnNewWebhook"
                         level="2"
                       >
                         pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
@@ -2304,8 +2317,10 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                   >
                     <h2
                       class="heading"
+                      data-tooltip-id="triggerConfigurationLabel"
                     >
                       pipeline.triggers.triggerConfigurationLabel
+                      
                     </h2>
                     <div>
                       <div
@@ -2317,10 +2332,19 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           <div
                             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="wizardForm_webhook_identifier"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                              >
+                                ID
+                              </p>
+                            </div>
                             <p
                               class="StyledProps--font StyledProps--main"
                             >
-                              ID
                               :
                             </p>
                             <span
@@ -2462,6 +2486,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                       </div>
                       <h2
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+                        data-tooltip-id="listenOnNewWebhook"
                         level="2"
                       >
                         pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
@@ -2656,6 +2681,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           </button>
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                            data-tooltip-id="repoUrl"
                           >
                             repositoryUrlLabel
                           </p>
@@ -3233,7 +3259,9 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                   <div
                     class="Layout--vertical Layout--layout-spacing-large StyledProps--main triggerOverviewPanelContainer StyledProps--padding-xxlarge"
                   >
-                    <h2>
+                    <h2
+                      data-tooltip-id="triggerOverview"
+                    >
                       pipeline.triggers.triggerOverviewPanel.title
                     </h2>
                     <div
@@ -3245,10 +3273,19 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                         >
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="wizardForm_scheduled_identifier"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                            </p>
+                          </div>
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            ID
                             :
                           </p>
                           <span
@@ -3685,6 +3722,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                   >
                     <h2
                       class="heading"
+                      data-tooltip-id="schedulePanel"
                     >
                       pipeline.triggers.schedulePanel.title
                     </h2>
@@ -3773,6 +3811,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         >
                           <p
                             class="StyledProps--font StyledProps--main title"
+                            data-tooltip-id="expressionBreakdown"
                           >
                             pipeline.triggers.schedulePanel.expressionBreakdown
                           </p>
@@ -3915,6 +3954,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         >
                           <p
                             class="StyledProps--font StyledProps--main label"
+                            data-tooltip-id="cronExpression"
                           >
                             pipeline.triggers.schedulePanel.cronExpression
                           </p>

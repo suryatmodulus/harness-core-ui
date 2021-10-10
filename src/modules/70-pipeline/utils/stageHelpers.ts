@@ -14,13 +14,15 @@ export enum StageType {
 }
 
 export const changeEmptyValuesToRunTimeInput = (inputset: any): InputSetDTO => {
-  Object.keys(inputset).map(key => {
-    if (typeof inputset[key] === 'object') {
-      changeEmptyValuesToRunTimeInput(inputset[key])
-    } else if (inputset[key] === '') {
-      inputset[key] = '<+input>'
-    }
-  })
+  if (inputset) {
+    Object.keys(inputset).map(key => {
+      if (typeof inputset[key] === 'object') {
+        changeEmptyValuesToRunTimeInput(inputset[key])
+      } else if (inputset[key] === '') {
+        inputset[key] = '<+input>'
+      }
+    })
+  }
   return inputset
 }
 

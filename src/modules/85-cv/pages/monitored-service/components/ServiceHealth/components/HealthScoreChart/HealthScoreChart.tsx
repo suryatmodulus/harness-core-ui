@@ -10,16 +10,17 @@ import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import noDataImage from '@cv/assets/noData.svg'
-import type { HealthScoreChartProps, SeriesDataPoint, SeriesDataType } from './HealthScoreChart.types'
+import type { ColumnData } from '@cv/components/ColumnChart/ColumnChart.types'
+import type { HealthScoreChartProps } from './HealthScoreChart.types'
 import { getSeriesData } from './HealthScoreChart.utils'
 import type { TimePeriodEnum } from '../../ServiceHealth.constants'
 import css from './HealthScoreChart.module.scss'
 
 export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Element {
-  const { monitoredServiceIdentifier, duration, setHealthScoreData, timeFormat } = props
+  const { monitoredServiceIdentifier, duration, setHealthScoreData } = props
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
-  const [seriesData, setSeriesData] = useState<SeriesDataType>([{ data: [], showInLegend: false }])
+  const [seriesData, setSeriesData] = useState<ColumnData[]>([])
 
   const {
     data: healthScoreData,
@@ -48,7 +49,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
   useEffect(() => {
     if (healthScoreData?.data?.healthScores && !isEmpty(healthScoreData?.data?.healthScores)) {
       const series = getSeriesData(healthScoreData.data.healthScores)
-      setSeriesData([{ data: series as SeriesDataPoint[], showInLegend: false }])
+      setSeriesData(series)
       if (setHealthScoreData) {
         setHealthScoreData(healthScoreData.data.healthScores)
       }
@@ -65,7 +66,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
           <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
         </Container>
       )
-    } else if (!seriesData[0]?.data?.length || seriesData[0].data.every(el => (el as SeriesDataPoint)?.y === 0)) {
+    } else if (!seriesData?.length || seriesData.every(el => el?.height === 0)) {
       return (
         <NoDataCard
           message={
@@ -86,7 +87,7 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
         />
       )
     } else {
-      return <ColumnChart data={seriesData} timeFormat={timeFormat} />
+      return <ColumnChart data={seriesData} leftOffset={90} />
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, loading, seriesData])

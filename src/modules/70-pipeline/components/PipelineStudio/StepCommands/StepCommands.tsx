@@ -195,8 +195,8 @@ export function StepCommands(
           <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
             <Icon size={11} color={Color.WHITE} name={'template-library'} />
             <Text font={{ size: 'small' }} color={Color.WHITE}>
-              {`Using Template: ${(step as TemplateStepData)?.template.templateRef} (${
-                (step as TemplateStepData)?.template.versionLabel
+              {`Using Template: ${(step as TemplateStepData)?.template?.templateRef} (${
+                (step as TemplateStepData)?.template?.versionLabel
               })`}
             </Text>
           </Layout.Horizontal>

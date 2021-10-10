@@ -66,7 +66,7 @@ export default function ExecutionGraphView(): React.ReactElement {
     } else {
       const selectedStep = allNodeMap?.[step]
 
-      if (isExecutionNotStarted(selectedStep?.status)) {
+      if (isExecutionNotStarted(selectedStep?.status) || isExecutionSkipped(selectedStep?.status)) {
         return
       }
 

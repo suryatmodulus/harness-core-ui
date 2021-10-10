@@ -1,10 +1,12 @@
 import React, { useCallback, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Switch, Container } from '@wings-software/uicore'
+import { Container } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { RestResponseHealthMonitoringFlagResponse, useSetHealthMonitoringFlag } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
 import { useStrings } from 'framework/strings'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 
 export default function ToggleMonitoring({
   identifier,
@@ -19,16 +21,15 @@ export default function ToggleMonitoring({
   const { showError, showSuccess, clear } = useToaster()
   const { getString } = useStrings()
   const [isEnabled, setIsEnabled] = useState(enable)
-  const { mutate: toggleMonitoringService } = useSetHealthMonitoringFlag({
+  const { mutate: toggleMonitoringService, loading } = useSetHealthMonitoringFlag({
     identifier
   })
 
-  const onToggleMonitoringSource = useCallback(async (event: React.FormEvent<HTMLInputElement>): Promise<void> => {
-    event.stopPropagation()
+  const onToggleMonitoringSource = useCallback(async (checked: boolean): Promise<void> => {
     try {
       const output: RestResponseHealthMonitoringFlagResponse = await toggleMonitoringService(undefined, {
         queryParams: {
-          enable: event?.currentTarget?.checked,
+          enable: checked,
           accountId: params.accountId,
           projectIdentifier: params.projectIdentifier,
           orgIdentifier: params.orgIdentifier
@@ -43,7 +44,7 @@ export default function ToggleMonitoring({
       )
     } catch (err) {
       clear()
-      showError(err?.data?.message)
+      showError(getErrorMessage(err))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -51,7 +52,7 @@ export default function ToggleMonitoring({
   return (
     <>
       <Container onClick={e => e.stopPropagation()}>
-        <Switch checked={isEnabled} onChange={onToggleMonitoringSource} />
+        <ToggleOnOff checked={isEnabled} beforeOnChange={onToggleMonitoringSource} loading={loading} />
       </Container>
     </>
   )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Heading, Text, Label, Button, Container, Color } from '@wings-software/uicore'
+import { Layout, Heading, Text, Label, Button, Container, Color, HarnessDocTooltip } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
@@ -169,9 +169,11 @@ const showAddArtifactManifest = ({
           fontWeight: 'normal',
           marginBottom: 'var(--spacing-small)'
         }}
+        data-tooltip-id="artifactManifestLabel"
       >
         {isManifest ? getString('manifestsText') : getString(artifactStr)}
       </Label>
+      <HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} />
       <Text
         data-name="plusAdd"
         style={{
@@ -285,13 +287,16 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
           <PageSpinner />
         </div>
       )}
-      <h2 className={css.heading}>{`${getString('pipeline.triggers.triggerConfigurationLabel')}${
+      <h2 className={css.heading} data-tooltip-id="artifactManifestLabel">{`${getString(
+        'pipeline.triggers.triggerConfigurationLabel'
+      )}${
         !isEdit
           ? `: ${getString('pipeline.triggers.onNewArtifactTitle', {
               artifact: artifactOrManifestText
             })}`
           : ''
       }`}</h2>
+      <HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} />
       <div style={{ backgroundColor: 'var(--white)' }}>
         <NameIdDescriptionTags
           className={css.nameIdDescriptionTags}
@@ -303,11 +308,17 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
             dataTooltipId: 'artifactTrigger'
           }}
         />
-        <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
+        <Heading
+          className={css.listenOnNewWebhook}
+          style={{ marginTop: '0!important' }}
+          level={2}
+          data-tooltip-id="listenOnNewArtifactManifest"
+        >
           {getString('pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact', {
             artifact: artifactOrManifestText
           })}
         </Heading>
+        <HarnessDocTooltip tooltipId="listenOnNewArtifactManifest" useStandAlone={true} />
         <section style={{ marginTop: 'var(--spacing-small)' }}>
           {appliedTableArtifact ? (
             showAppliedTableArtifact({

@@ -20,12 +20,14 @@ import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectMo
 import type { Project } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { Page } from '@common/components/Page/Page'
+import type { Editions } from '@common/constants/SubscriptionTypes'
 import css from './HomePageTemplate.module.scss'
 
 export interface TrialBannerProps {
   expiryTime?: number
   licenseType?: string
   module: ModuleName
+  edition?: Editions
   refetch?: () => void
 }
 

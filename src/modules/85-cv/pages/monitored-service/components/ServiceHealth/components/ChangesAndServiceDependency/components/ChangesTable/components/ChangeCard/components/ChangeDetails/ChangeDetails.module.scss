@@ -1,0 +1,9 @@
+.gridContainer {
+  display: grid;
+  grid-gap: var(--padding-button) !important;
+  margin: var(--spacing-large) 0 !important;
+  grid-template-columns: auto auto;
+}
+.gridItem {
+  text-transform: capitalize;
+}

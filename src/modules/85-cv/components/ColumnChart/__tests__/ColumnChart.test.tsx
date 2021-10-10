@@ -13,14 +13,11 @@ const WrapperComponent = (props: ColumnChartProps): JSX.Element => {
   )
 }
 
-jest.mock('highcharts-react-official', () => () => <div className="highcharts"></div>)
-
 describe('Unit tests for ColumnChart', () => {
   test('Verify if all the fields are rendered correctly inside ColumnChart', async () => {
-    const props = { data: mockSeriesData }
-    const { container } = render(<WrapperComponent {...props} />)
+    const { container } = render(<WrapperComponent data={mockSeriesData.data} />)
     expect(container).toMatchSnapshot()
 
-    await waitFor(() => expect(container.querySelector('[class*="highcharts"]')).not.toBeNull())
+    await waitFor(() => expect(container.querySelectorAll('[class*="bar"]').length).toBe(4))
   })
 })

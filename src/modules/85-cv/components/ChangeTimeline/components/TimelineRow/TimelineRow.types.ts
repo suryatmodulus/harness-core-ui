@@ -1,10 +1,30 @@
-import type { PointMarkerOptionsObject, SeriesScatterOptions } from 'highcharts'
+import type { PointMarkerOptionsObject } from 'highcharts'
+
+export interface TimelineData {
+  endTime: number
+  icon: {
+    height: number
+    width: number
+    fillColor?: string
+    url: string
+  }
+  tooltip?: {
+    message: string
+    sideBorderColor: string
+  }
+  startTime: number
+}
+
+export interface TimelineDataPoint extends TimelineData {
+  leftOffset: number
+}
 export interface TimelineRowProps {
   labelWidth?: number
-  timelineSeries?: SeriesScatterOptions[]
+  data: TimelineData[]
   labelName: string
-  min?: number
-  max?: number
+  leftOffset?: number
+  startTimestamp?: number
+  endTimestamp?: number
   isLoading?: boolean
   noDataMessage?: string | null
 }

@@ -3,6 +3,6 @@ import { PipelineStage as CommonStage } from '@pipeline/components/PipelineStage
 
 export class PipelineStage extends CommonStage {
   render(): JSX.Element {
-    return <div>WIP</div>
+    return <div />
   }
 }

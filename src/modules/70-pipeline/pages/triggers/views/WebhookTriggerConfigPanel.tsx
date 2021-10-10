@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, FormInput, SelectOption, Text, Heading, Color } from '@wings-software/uicore'
+import { Layout, FormInput, SelectOption, Text, Heading, Color, HarnessDocTooltip } from '@wings-software/uicore'
 import { isEmpty, isUndefined } from 'lodash-es'
 import { useGetGitTriggerEventDetails } from 'services/pipeline-ng'
 import { NameIdDescriptionTags } from '@common/components'
@@ -103,9 +103,11 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
           <PageSpinner />
         </div>
       )}
-      <h2 className={css.heading}>{`${getString('pipeline.triggers.triggerConfigurationLabel')}${
-        !isEdit ? `: ${getString('pipeline.triggers.onNewWebhookTitle')}` : ''
-      }`}</h2>
+      <h2 className={css.heading} data-tooltip-id="triggerConfigurationLabel">
+        {getString('pipeline.triggers.triggerConfigurationLabel')}
+        {!isEdit ? `: ${getString('pipeline.triggers.onNewWebhookTitle')}` : ''}
+      </h2>
+      <HarnessDocTooltip tooltipId="triggerConfigurationLabel" useStandAlone={true} />
       <div style={{ backgroundColor: 'var(--white)' }}>
         <NameIdDescriptionTags
           className={css.nameIdDescriptionTags}
@@ -117,9 +119,15 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
             dataTooltipId: 'webhookTrigger'
           }}
         />
-        <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
+        <Heading
+          className={css.listenOnNewWebhook}
+          style={{ marginTop: '0!important' }}
+          level={2}
+          data-tooltip-id="listenOnNewWebhook"
+        >
           {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}
         </Heading>
+        <HarnessDocTooltip tooltipId="listenOnNewWebhook" useStandAlone={true} />
         <section style={{ width: '650px', marginTop: 'var(--spacing-small)' }}>
           <FormInput.Select
             label={getString('pipeline.triggers.triggerConfigurationPanel.payloadType')}

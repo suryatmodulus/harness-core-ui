@@ -36,6 +36,7 @@ import { useGetLicensesAndSummary } from 'services/cd-ng'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import type { TrialBannerProps } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
+import type { Editions } from '@common/constants/SubscriptionTypes'
 import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 
@@ -156,6 +157,7 @@ const OverviewPage: React.FC = () => {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
     module: ModuleName.CE,
+    edition: data?.data?.edition as Editions,
     refetch
   }
 

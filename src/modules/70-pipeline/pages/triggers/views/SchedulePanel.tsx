@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Tabs, Tab } from '@wings-software/uicore'
+import { Layout, Tabs, Tab, HarnessDocTooltip } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { MinutesTab, HourlyTab, DailyTab, WeeklyTab, MonthlyTab, YearlyTab, CustomTab } from './subviews'
@@ -22,7 +22,10 @@ const SchedulePanel: React.FC<SchedulePanelPropsInterface> = ({
 
   return (
     <Layout.Vertical className={cx(css.schedulePanelContainer)} spacing="large" padding="xxlarge">
-      <h2 className={css.heading}>{getString('pipeline.triggers.schedulePanel.title')}</h2>
+      <h2 className={css.heading} data-tooltip-id="schedulePanel">
+        {getString('pipeline.triggers.schedulePanel.title')}
+      </h2>
+      <HarnessDocTooltip tooltipId="schedulePanel" useStandAlone={true} />
       <Tabs
         id="Wizard"
         onChange={(val: string) => {

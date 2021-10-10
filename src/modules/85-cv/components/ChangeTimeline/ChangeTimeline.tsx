@@ -35,7 +35,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
     orgIdentifier
   })
 
-  const { interval, startTimeRoundedOffToNearest30min, endTimeRoundedOffToNearest30min } = useMemo(
+  const { startTimeRoundedOffToNearest30min, endTimeRoundedOffToNearest30min } = useMemo(
     () => getStartAndEndTime((selectedTimePeriod?.value as string) || ''),
     [selectedTimePeriod]
   )
@@ -74,13 +74,12 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
 
   return (
     <Timeline
+      isLoading={loading}
+      rowOffset={90}
       timelineRows={[
         {
           labelName: getString('deploymentsText'),
-          timelineSeries: [
-            createTimelineSeriesData(categoryTimeline?.Deployment, ChangeSourceTypes.Deployments, getString)
-          ],
-          isLoading: loading,
+          data: createTimelineSeriesData(ChangeSourceTypes.Deployments, getString, categoryTimeline?.Deployment),
           noDataMessage: createNoDataMessage(
             categoryTimeline?.Deployment,
             ChangeSourceTypes.Deployments,
@@ -90,10 +89,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
         },
         {
           labelName: getString('infrastructureText'),
-          timelineSeries: [
-            createTimelineSeriesData(categoryTimeline?.Infrastructure, ChangeSourceTypes.Infrastructure, getString)
-          ],
-          isLoading: loading,
+          data: createTimelineSeriesData(ChangeSourceTypes.Infrastructure, getString, categoryTimeline?.Infrastructure),
           noDataMessage: createNoDataMessage(
             categoryTimeline?.Infrastructure,
             ChangeSourceTypes.Infrastructure,
@@ -103,8 +99,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
         },
         {
           labelName: getString('cv.changeSource.tooltip.incidents'),
-          timelineSeries: [createTimelineSeriesData(categoryTimeline?.Alert, ChangeSourceTypes.Incidents, getString)],
-          isLoading: loading,
+          data: createTimelineSeriesData(ChangeSourceTypes.Incidents, getString, categoryTimeline?.Alert),
           noDataMessage: createNoDataMessage(
             categoryTimeline?.Alert,
             ChangeSourceTypes.Incidents,
@@ -113,7 +108,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
           )
         }
       ]}
-      timestamps={[startTimeRoundedOffToNearest30min - interval, endTimeRoundedOffToNearest30min + interval]}
+      timestamps={[startTimeRoundedOffToNearest30min, endTimeRoundedOffToNearest30min]}
       timeFormat={timeFormat}
       labelWidth={90}
     />

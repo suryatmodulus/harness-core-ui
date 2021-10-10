@@ -118,18 +118,6 @@ describe('Monitored Service list', () => {
     await waitFor(() => expect(getByText('EnvironmentName 3')).toBeDefined())
   })
 
-  test('Test tags renders', async () => {
-    const { getByText } = render(
-      <TestWrapper {...testWrapperProps}>
-        <CVMonitoredServiceListingPage />
-      </TestWrapper>
-    )
-
-    await waitFor(() => expect(getByText('tag1')).toBeDefined())
-    await waitFor(() => expect(getByText('tag2')).toBeDefined())
-    await waitFor(() => expect(getByText('tag3')).toBeDefined())
-  })
-
   test('delete flow works correctly', async () => {
     jest.spyOn(cvServices, 'useListMonitoredService').mockImplementation(
       () =>

@@ -6,7 +6,7 @@ import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import type { MonitoredServiceResponse } from 'services/cv'
+import type { ChangeSourceDTO, MonitoredServiceResponse } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { Table } from '@common/components'
@@ -15,7 +15,12 @@ import HealthSources from '@cv/components/PipelineSteps/ContinousVerification/co
 import HealthSourceDrawerContent from '../HealthSourceDrawer/HealthSourceDrawerContent'
 import type { RowData, UpdatedHealthSource } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import type { HealthSourceTableInterface } from './HealthSourceTable.types'
-import { getIconBySourceType, getTypeByFeature, createHealthsourceList } from './HealthSourceTable.utils'
+import {
+  getIconBySourceType,
+  getTypeByFeature,
+  createHealthsourceList,
+  deleteHealthSource
+} from './HealthSourceTable.utils'
 import css from './HealthSourceTable.module.scss'
 
 export default function HealthSourceTable({
@@ -31,7 +36,7 @@ export default function HealthSourceTable({
   onCloseDrawer,
   validMonitoredSource,
   validateMonitoredSource,
-  changeSources
+  changeSources = []
 }: HealthSourceTableInterface): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false)
   const history = useHistory()
@@ -82,14 +87,8 @@ export default function HealthSourceTable({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowData, isEdit])
 
-  const deleteHealthSource = async (selectedRow: RowData): Promise<void> => {
-    const payload = {
-      monitoredService: {
-        sources: {
-          healthSources: tableData?.filter(healthSource => healthSource.identifier !== selectedRow.identifier)
-        }
-      }
-    }
+  const onDeleteHealthSource = (selectedRow: RowData, changeSourcesData: ChangeSourceDTO[]): void => {
+    const payload = deleteHealthSource(selectedRow, changeSourcesData, tableData)
     onSuccess(payload as MonitoredServiceResponse)
   }
 
@@ -123,7 +122,7 @@ export default function HealthSourceTable({
         <ContextMenuActions
           titleText={getString('cv.healthSource.deleteHealthSource')}
           contentText={getString('cv.healthSource.deleteHealthSourceWarning') + `: ${rowdata.identifier}`}
-          onDelete={async () => await deleteHealthSource(rowdata)}
+          onDelete={() => onDeleteHealthSource(rowdata, changeSources)}
           onEdit={() => {
             const rowFilteredData =
               tableData?.find((healthSource: RowData) => healthSource.identifier === rowdata.identifier) || null

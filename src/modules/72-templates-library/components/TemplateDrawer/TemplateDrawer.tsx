@@ -8,6 +8,7 @@ import { TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/Pipelin
 import { updateStepWithinStage } from '@pipeline/components/PipelineStudio/RightDrawer/RightDrawer'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
+import type { StepElementConfig } from 'services/cd-ng'
 import { TemplateSelector } from '../TemplateSelector/TemplateSelector'
 import css from './TemplateDrawer.module.scss'
 
@@ -80,7 +81,9 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
                 template: {
                   templateRef: template.identifier || '',
                   versionLabel: template.versionLabel || '',
-                  templateInputs: {}
+                  templateInputs: {
+                    type: (node as StepElementConfig).type
+                  }
                 }
               }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, FormInput, Text } from '@wings-software/uicore'
+import { Layout, FormInput, Text, HarnessDocTooltip } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { eventTypes } from '../utils/TriggersWizardPageUtils'
@@ -21,13 +21,15 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
   const { getString } = useStrings()
   return (
     <Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge">
-      <h2 className={css.heading}>
+      <h2 className={css.heading} data-tooltip-id="conditionsOptional">
         {getString('conditions')}{' '}
         <Text style={{ display: 'inline-block' }} color="grey400">
           {getString('titleOptional')}
         </Text>
       </h2>
-      <Text>{getString('pipeline.triggers.conditionsPanel.subtitle')}</Text>
+      <HarnessDocTooltip tooltipId="conditionsOptional" useStandAlone={true} />
+      <Text data-tooltip-id="conditionsSubtitle">{getString('pipeline.triggers.conditionsPanel.subtitle')}</Text>
+      <HarnessDocTooltip tooltipId="conditionsSubtitle" useStandAlone={true} />
       {sourceRepo !== GitSourceProviders.CUSTOM.value && (
         <section>
           {event !== eventTypes.PUSH && event !== eventTypes.TAG && (

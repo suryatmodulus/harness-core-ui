@@ -32,10 +32,6 @@ interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
 }
 
-const canEnableArtifactTrigger = () => {
-  return ['localhost', 'qa.harness.io', 'pr.harness.io'].includes(location.hostname)
-}
-
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
   const { onNewTriggerClick, repoIdentifier, branch } = props
 
@@ -47,9 +43,6 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
       pipelineIdentifier: string
     }>
   >()
-  // This is temporary feature flag for NewArtifact Trigger
-  const NG_NEWARTIFACT_TRIGGER = canEnableArtifactTrigger()
-
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
 
@@ -136,45 +129,31 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
 
     const categoryItems = getCategoryItems(getString)
     /* istanbul ignore next */
-    if (NG_NEWARTIFACT_TRIGGER) {
-      categoryItems.categories.splice(
-        1,
-        0,
-        {
-          categoryLabel: getString('pipeline.triggers.artifactTriggerConfigPanel.artifact'),
-          categoryValue: 'Artifact',
-          items: [
-            {
-              itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.Gcr]),
-              value: ENABLED_ARTIFACT_TYPES.Gcr,
-              iconName: ArtifactIconByType.Gcr
-            },
-            {
-              itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.Ecr]),
-              value: ENABLED_ARTIFACT_TYPES.Ecr,
-              iconName: ArtifactIconByType.Ecr
-            },
-            {
-              itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.DockerRegistry]),
-              value: ENABLED_ARTIFACT_TYPES.DockerRegistry,
-              iconName: ArtifactIconByType.DockerRegistry
-            }
-          ]
-        },
-        {
-          categoryLabel: getString('manifestsText'),
-          categoryValue: 'Manifest',
-          items: [
-            {
-              itemLabel: getString(manifestTypeLabels.HelmChart),
-              value: ManifestDataType.HelmChart,
-              iconName: manifestTypeIcons.HelmChart
-            }
-          ]
-        }
-      )
-    } else {
-      categoryItems.categories.splice(1, 0, {
+    categoryItems.categories.splice(
+      1,
+      0,
+      {
+        categoryLabel: getString('pipeline.triggers.artifactTriggerConfigPanel.artifact'),
+        categoryValue: 'Artifact',
+        items: [
+          {
+            itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.Gcr]),
+            value: ENABLED_ARTIFACT_TYPES.Gcr,
+            iconName: ArtifactIconByType.Gcr
+          },
+          {
+            itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.Ecr]),
+            value: ENABLED_ARTIFACT_TYPES.Ecr,
+            iconName: ArtifactIconByType.Ecr
+          },
+          {
+            itemLabel: getString(ArtifactTitleIdByType[ENABLED_ARTIFACT_TYPES.DockerRegistry]),
+            value: ENABLED_ARTIFACT_TYPES.DockerRegistry,
+            iconName: ArtifactIconByType.DockerRegistry
+          }
+        ]
+      },
+      {
         categoryLabel: getString('manifestsText'),
         categoryValue: 'Manifest',
         items: [
@@ -184,8 +163,8 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
             iconName: manifestTypeIcons.HelmChart
           }
         ]
-      })
-    }
+      }
+    )
 
     return (
       <AddDrawer

@@ -12,6 +12,7 @@ export interface PipelineStageProps<T = Record<string, unknown>> {
   description: string
   isHidden?: boolean
   isApproval: boolean
+  isComingSoon?: boolean // Default to false
   stageProps?: T
   iconsStyle?: React.CSSProperties
   iconsProps?: Omit<IconProps, 'name'>

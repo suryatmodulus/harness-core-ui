@@ -158,7 +158,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
           <span
             class="bp3-control-indicator"
           />
-          pipeline.failureStrategies.errorTypeLabels.AllErrors
+          common.allErrors
         </label>
       </div>
     </div>

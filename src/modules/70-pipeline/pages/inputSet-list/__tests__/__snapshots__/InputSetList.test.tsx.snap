@@ -101,7 +101,11 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           role="columnheader"
           style="width: 30%;"
         >
-          INPUTSETS.INPUTSETLABEL
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            INPUTSETS.INPUTSETLABEL
+          </p>
         </div>
         <div
           class="cell"
@@ -109,7 +113,11 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           role="columnheader"
           style="width: 35%;"
         >
-          DESCRIPTION
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            DESCRIPTION
+          </p>
         </div>
         <div
           class="cell"
@@ -117,7 +125,11 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           role="columnheader"
           style="width: 30%;"
         >
-          ACTION
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            ACTION
+          </p>
         </div>
         <div
           class="cell"
@@ -125,7 +137,11 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           role="columnheader"
           style="width: 5%;"
         >
-          
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            
+          </p>
         </div>
       </div>
       <div

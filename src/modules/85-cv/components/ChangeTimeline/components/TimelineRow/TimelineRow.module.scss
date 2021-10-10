@@ -14,29 +14,57 @@
     > div {
       flex: 1;
     }
+
+    .timeline {
+      position: relative;
+      hr {
+        border: none;
+        border-bottom: 2px solid var(--grey-100);
+      }
+      .event {
+        position: absolute;
+        top: 0;
+
+        .singleEvent {
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+}
+
+.timelineRowPopover {
+  background-color: var(--grey-700) !important;
+  position: relative;
+  bottom: 10px;
+  :global {
+    .bp3-popover-arrow-fill {
+      fill: var(--grey-700) !important;
+    }
+    .bp3-popover-content {
+      background-color: var(--grey-700) !important;
+    }
   }
 }
 
 .tooltipContainer {
-  height: 30px;
   display: flex;
-  color: white;
-  min-width: 220px;
-  background-color: var(--grey-700);
+  min-width: 200px;
   justify-content: space-between;
   align-items: center;
-  padding-right: var(--spacing-4);
-  border-radius: 5px;
+
+  > p {
+    font-size: var(--font-size-small) !important;
+    margin-right: var(--spacing-4) !important;
+    color: var(--white) !important;
+  }
 
   .colorSidePanel {
     width: 4px;
-    margin-right: var(--spacing-4);
+    margin-right: var(--spacing-4) !important;
     min-height: 30px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-  }
-  .tooltipLabel {
-    margin-right: var(--spacing-4);
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
   }
 }
 

@@ -69,7 +69,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             role="columnheader"
             style="width: 25%;"
           >
-            PIPELINE.TRIGGERS.TRIGGERLABEL
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              PIPELINE.TRIGGERS.TRIGGERLABEL
+            </p>
           </div>
           <div
             class="cell"
@@ -77,7 +81,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             role="columnheader"
             style="width: 16%;"
           >
-            STATUS
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              STATUS
+            </p>
           </div>
           <div
             class="cell"
@@ -85,11 +93,15 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             role="columnheader"
             style="width: 18%;"
           >
-            <div
-              class="textCentered"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
             >
-              ACTIVITY
-            </div>
+              <div
+                class="textCentered"
+              >
+                ACTIVITY
+              </div>
+            </p>
           </div>
           <div
             class="cell"
@@ -97,11 +109,15 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             role="columnheader"
             style="width: 18%;"
           >
-            <div
-              class="textCentered"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
             >
-              pipeline.triggers.lastActivationLabel
-            </div>
+              <div
+                class="textCentered"
+              >
+                pipeline.triggers.lastActivationLabel
+              </div>
+            </p>
           </div>
           <div
             class="cell"
@@ -109,11 +125,15 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             role="columnheader"
             style="width: 10%;"
           >
-            <div
-              class="textCentered"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
             >
-              EXECUTION.TRIGGERTYPE.WEBHOOK
-            </div>
+              <div
+                class="textCentered"
+              >
+                EXECUTION.TRIGGERTYPE.WEBHOOK
+              </div>
+            </p>
           </div>
           <div
             class="cell"
@@ -121,11 +141,15 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             role="columnheader"
             style="width: 10%;"
           >
-            <div
-              class="textCentered"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
             >
-              ENABLEDLABEL
-            </div>
+              <div
+                class="textCentered"
+              >
+                ENABLEDLABEL
+              </div>
+            </p>
           </div>
           <div
             class="cell"
@@ -133,7 +157,11 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             role="columnheader"
             style="width: 3%;"
           >
-            
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              
+            </p>
           </div>
         </div>
         <div

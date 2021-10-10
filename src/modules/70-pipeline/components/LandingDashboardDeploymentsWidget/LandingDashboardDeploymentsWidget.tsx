@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { Card, Color, Container, FontVariation, Icon, Layout, Select, Text } from '@wings-software/uicore' // Layout
 import { useParams } from 'react-router'
 import { defaultTo, noop } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
+import { useLandingDashboardContext, TimeRangeToDays } from '@common/factories/LandingDashboardContext'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
@@ -21,11 +22,11 @@ interface SummaryCardData {
 
 const LandingDashboardDeploymentsWidget: React.FC = () => {
   const { getString } = useStrings()
-  // const { selectedTimeRange } = useLandingDashboardContext()
+  const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams<ProjectPathProps>()
-  const [range] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
+  const [range] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
 
-  const { data, error } = useGetDeploymentStatsOverview({
+  const { data, error, refetch } = useGetDeploymentStatsOverview({
     queryParams: {
       accountIdentifier: accountId,
       startTime: range[0],
@@ -34,7 +35,12 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
       sortBy: 'DEPLOYMENTS'
     },
     mock: deploymentStatsSummaryResponse
+    // lazy: true
   })
+
+  useEffect(() => {
+    refetch()
+  }, [selectedTimeRange])
 
   useErrorHandler(error)
 

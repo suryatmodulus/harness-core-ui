@@ -1,10 +1,13 @@
 import React from 'react'
 import type { FormikErrors } from 'formik'
-import type { IconName } from '@wings-software/uicore'
+import { IconName, MultiTypeInputType } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
+import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
+import type { StepElementConfig } from 'services/cd-ng'
 import { TemplateStepWidgetWithRef } from './TemplateStepWidget'
 
 export class TemplateStep extends PipelineStep<TemplateStepData> {
@@ -37,10 +40,23 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
   }
 
   renderStep(this: TemplateStep, props: StepProps<TemplateStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, formikRef, isNewStep, readonly, factory } = props
+    const { initialValues, onUpdate, stepViewType, formikRef, isNewStep, readonly, factory, inputSetData } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
-      return <div />
+      const prefix = isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`
+      return (
+        <StepWidget<Partial<StepElementConfig>>
+          factory={factory}
+          initialValues={initialValues.template?.templateInputs || {}}
+          allValues={inputSetData?.allValues?.template?.templateInputs}
+          template={inputSetData?.template}
+          readonly={!!inputSetData?.readonly}
+          type={initialValues.template?.templateInputs.type as StepType}
+          path={`${prefix}template.templateInputs`}
+          stepViewType={StepViewType.InputSet}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+        />
+      )
     } else if (stepViewType === StepViewType.InputVariable) {
       return <div />
     }

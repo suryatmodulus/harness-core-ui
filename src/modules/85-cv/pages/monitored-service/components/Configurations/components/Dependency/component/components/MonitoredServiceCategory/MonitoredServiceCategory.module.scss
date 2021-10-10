@@ -31,3 +31,25 @@
     }
   }
 }
+
+.monitoredServiceCategoryVertical {
+  height: 100%;
+  align-items: flex-end;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  position: absolute;
+  top: 0;
+  left: -5px;
+
+  &.application {
+    .categoryName {
+      align-items: flex-end !important;
+    }
+  }
+
+  &.infrastructure {
+    .categoryName {
+      align-items: flex-end !important;
+    }
+  }
+}

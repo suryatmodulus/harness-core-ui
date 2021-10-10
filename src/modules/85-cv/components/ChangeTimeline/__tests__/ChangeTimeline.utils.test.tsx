@@ -3,9 +3,6 @@ import type { StringKeys } from 'framework/strings'
 import {
   mockTimeData,
   changeTimelineResponse,
-  singleDeploymentMarker,
-  twoDeploymentMarker,
-  multipleDeploymentMarker,
   datetimeMock,
   startTimeToEndTimeMock,
   mockDeploymentPayload,
@@ -17,7 +14,6 @@ import {
 import {
   createTooltipLabel,
   createChangeInfoCardData,
-  createMarkerSymbol,
   getStartAndEndTime,
   createTimelineSeriesData,
   createNoDataMessage
@@ -52,27 +48,6 @@ describe('Verify Util funcitons', () => {
     expect(changeInfoCardDataMultipleValue).toEqual(infoCardDataMultipleValue)
   })
 
-  test('should create marker object using createMarkerSymbol', () => {
-    const deploymentSingleMarker = createMarkerSymbol(
-      { count: 1, startTime: 0, endTime: 0 },
-      ChangeSourceTypes.Deployments,
-      (val: string) => val
-    )
-    const deploymentTwoMarker = createMarkerSymbol(
-      { count: 2, startTime: 0, endTime: 0 },
-      ChangeSourceTypes.Deployments,
-      (val: string) => val
-    )
-    const deploymentMultipleMarker = createMarkerSymbol(
-      { count: 4, startTime: 0, endTime: 0 },
-      ChangeSourceTypes.Deployments,
-      (val: string) => val
-    )
-    expect(deploymentSingleMarker).toEqual(singleDeploymentMarker)
-    expect(deploymentTwoMarker).toEqual(twoDeploymentMarker)
-    expect(deploymentMultipleMarker).toEqual(multipleDeploymentMarker)
-  })
-
   test('should return correct start and endtime for getStartAndEndTime', () => {
     Date.now = jest.fn(() => datetimeMock)
     expect(getStartAndEndTime(TimePeriodEnum.FOUR_HOURS)).toEqual({
@@ -104,21 +79,21 @@ describe('Verify Util funcitons', () => {
       Infrastructure: mockTimeData
     }
     expect(
-      createTimelineSeriesData(categoryTimeline?.Deployment, ChangeSourceTypes.Deployments, (val: string) => val)
+      createTimelineSeriesData(ChangeSourceTypes.Deployments, (val: string) => val, categoryTimeline?.Deployment)
     ).toEqual(mockDeploymentPayload)
     expect(
-      createTimelineSeriesData(categoryTimeline?.Alert, ChangeSourceTypes.Incidents, (val: string) => val)
+      createTimelineSeriesData(ChangeSourceTypes.Incidents, (val: string) => val, categoryTimeline?.Alert)
     ).toEqual(mockIncidentPayload)
     expect(
-      createTimelineSeriesData(categoryTimeline?.Infrastructure, ChangeSourceTypes.Infrastructure, (val: string) => val)
+      createTimelineSeriesData(ChangeSourceTypes.Infrastructure, (val: string) => val, categoryTimeline?.Infrastructure)
     ).toEqual(mockInfraPayload)
   })
 
   test('Shoudl valdiate createTooltipLabel', () => {
     expect(createTooltipLabel(1, ChangeSourceTypes.Deployments, getString)).toEqual('1 deploymentText')
     expect(createTooltipLabel(4, ChangeSourceTypes.Deployments, getString)).toEqual('4 Deployments')
-    expect(createTooltipLabel(1, ChangeSourceTypes.Incidents, getString)).toEqual('1 cv.changeSource.tooltip.incidents')
-    expect(createTooltipLabel(4, ChangeSourceTypes.Incidents, getString)).toEqual('4 cv.changeSource.incident')
+    expect(createTooltipLabel(1, ChangeSourceTypes.Incidents, getString)).toEqual('1 cv.changeSource.incident')
+    expect(createTooltipLabel(4, ChangeSourceTypes.Incidents, getString)).toEqual('4 cv.changeSource.tooltip.incidents')
     expect(createTooltipLabel(1, ChangeSourceTypes.Infrastructure, getString)).toEqual('1 infrastructureText change')
     expect(createTooltipLabel(4, ChangeSourceTypes.Infrastructure, getString)).toEqual('4 infrastructureText changes')
   })

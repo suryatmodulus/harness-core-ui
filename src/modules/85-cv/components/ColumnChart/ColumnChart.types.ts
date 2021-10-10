@@ -1,9 +1,15 @@
-import type { SeriesColumnOptions } from 'highcharts'
-
-export type DataType = Omit<SeriesColumnOptions, 'type'>[]
+export type ColumnData = {
+  timeRange: {
+    startTime: number
+    endTime: number
+  }
+  color: string
+  healthScore?: number
+  riskStatus: string
+  height: number
+}
 
 export interface ColumnChartProps {
-  data: DataType
-  options?: Highcharts.Options
-  timeFormat?: string
+  data: ColumnData[]
+  leftOffset?: number
 }

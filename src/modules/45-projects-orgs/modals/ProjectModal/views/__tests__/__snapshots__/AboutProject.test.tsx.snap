@@ -35,10 +35,19 @@ exports[`About Project test create project  1`] = `
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="projectsForm_identifier"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                    </p>
+                  </div>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
                     :
                   </p>
                   <span
@@ -448,10 +457,19 @@ exports[`About Project test create project  2`] = `
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="projectsForm_identifier"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                    </p>
+                  </div>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
                     :
                   </p>
                   <span
@@ -960,10 +978,19 @@ exports[`About Project test edit project  1`] = `
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="projectsForm_identifier"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                    </p>
+                  </div>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
                     :
                   </p>
                   <span
@@ -1288,10 +1315,19 @@ exports[`About Project test edit project  2`] = `
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                 >
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="projectsForm_identifier"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      ID
+                    </p>
+                  </div>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    ID
                     :
                   </p>
                   <span

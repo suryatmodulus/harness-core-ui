@@ -1,82 +1,57 @@
-import React, { useMemo } from 'react'
-import HighchartsReact from 'highcharts-react-official'
-import { merge } from 'lodash-es'
-import Highcharts, { SeriesColumnOptions } from 'highcharts'
-import moment from 'moment'
-import { RiskValues } from '@cv/utils/CommonUtils'
-import type { ColumnChartProps, DataType } from './ColumnChart.types'
-import { getTimeFormat } from '../ChangeTimeline/components/TimestampChart/TimestampChart.utils'
-
-const getDefaultOptions = (data: DataType, format?: string): Highcharts.Options => {
-  const timeFormat = getTimeFormat(format)
-  return {
-    chart: {
-      type: 'column',
-      height: 150,
-      backgroundColor: 'transparent'
-    },
-    title: {
-      text: ''
-    },
-    credits: {
-      enabled: false
-    },
-    xAxis: {
-      title: {
-        text: null
-      },
-      labels: {
-        enabled: false
-      },
-      tickLength: 0,
-      lineWidth: 2,
-      lineColor: 'var(--grey-100)',
-      gridLineWidth: 0
-    },
-    yAxis: {
-      visible: false
-    },
-    plotOptions: {
-      column: {
-        pointPadding: 0,
-        borderWidth: 3,
-        borderRadius: 4,
-        pointWidth: 12,
-        animation: true,
-        events: {
-          legendItemClick: function () {
-            return false
-          }
-        }
-      }
-    },
-    tooltip: {
-      outside: true,
-      formatter: function () {
-        let healthScore
-        if ((this.point as any)?.riskStatus === RiskValues.NO_DATA) {
-          healthScore = `<p>No Data</p><br/>`
-        } else if ((this.point as any)?.healthScore <= 8) {
-          healthScore = `<p>Health Score: ${(this.point as any)?.healthScore}</p><br/>`
-        } else {
-          healthScore = `<p>Health Score: ${this.y}</p><br/>`
-        }
-        return ` ${healthScore}
-        <p>Start time: ${moment(new Date((this.point as any)?.timeRange?.startTime)).format(timeFormat)}, &nbsp;</p>
-        <p>End time: ${moment(new Date((this.point as any)?.timeRange?.endTime)).format(timeFormat)}</p>
-        `
-      }
-    },
-    series: data as SeriesColumnOptions[]
-  }
-}
-
-const getParsedOptions = (defaultOptions: Highcharts.Options, options: Highcharts.Options): Highcharts.Options =>
-  merge(defaultOptions, options)
+import React, { useLayoutEffect, useRef, useState } from 'react'
+import { PopoverInteractionKind, PopoverPosition } from '@blueprintjs/core'
+import { Text, Container, Popover } from '@wings-software/uicore'
+import { mapHealthBarRiskStatusToColor } from '@cv/pages/monitored-service/components/ServiceHealth/components/AnomaliesCard/AnomaliesCard.utils'
+import type { ColumnChartProps } from './ColumnChart.types'
+import { getTimestamps } from './ColumnChart.utils'
+import { COLUMN_WIDTH, COLUMN_HEIGHT, TOTAL_COLUMNS } from './ColumnChart.constants'
+import css from './ColumnChart.module.scss'
 
 export default function ColumnChart(props: ColumnChartProps): JSX.Element {
-  const { data, options = {}, timeFormat } = props
-  const defaultOptions = useMemo(() => getDefaultOptions(data, timeFormat), [data])
-  const parsedOptions = useMemo(() => getParsedOptions(defaultOptions, options), [defaultOptions, options])
-  return <HighchartsReact highcharts={Highcharts} options={parsedOptions} />
+  const { data, leftOffset = 0 } = props
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [cellPositions, setCellPositions] = useState<number[]>(Array(TOTAL_COLUMNS).fill(null))
+  useLayoutEffect(() => {
+    if (!containerRef?.current) return
+    const parentWidth = (containerRef.current.parentElement?.getBoundingClientRect().width || 0) - leftOffset
+    setCellPositions(getTimestamps(parentWidth, data))
+  }, [containerRef?.current, data])
+
+  return (
+    <div ref={containerRef} className={css.main}>
+      {cellPositions.map((position, index) => {
+        const cell = data?.[index] || {}
+        return (
+          <div
+            key={index}
+            style={{
+              backgroundColor: cell.color,
+              left: position || 0,
+              height: Math.floor(((cell.height || 0) / 100) * COLUMN_HEIGHT)
+            }}
+            className={css.bar}
+          >
+            <Popover
+              content={
+                <>
+                  <Text lineClamp={1} className={css.timeRange}>{`${new Date(
+                    cell.timeRange?.startTime
+                  ).toLocaleString()} - ${new Date(cell.timeRange?.endTime).toLocaleString()}`}</Text>
+                  <Text inline>Health Score:</Text>
+                  <Text className={css.healthScore} color={mapHealthBarRiskStatusToColor(cell.riskStatus as string)}>
+                    {cell?.healthScore}
+                  </Text>
+                </>
+              }
+              position={PopoverPosition.TOP}
+              popoverClassName={css.chartPopover}
+              interactionKind={PopoverInteractionKind.HOVER}
+            >
+              <Container height={COLUMN_HEIGHT} width={COLUMN_WIDTH} />
+            </Popover>
+          </div>
+        )
+      })}
+    </div>
+  )
 }

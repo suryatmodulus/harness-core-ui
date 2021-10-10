@@ -237,6 +237,10 @@ exports[`Unit tests for createting monitored source Check discard and save butto
                       class="StyledProps--font StyledProps--main"
                     >
                       ID
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
                       :
                     </p>
                     <span
@@ -739,6 +743,10 @@ exports[`Unit tests for createting monitored source Health source table and envi
                       class="StyledProps--font StyledProps--main"
                     >
                       ID
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
                       :
                     </p>
                     <span

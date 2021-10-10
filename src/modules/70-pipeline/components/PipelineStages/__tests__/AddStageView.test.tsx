@@ -141,7 +141,9 @@ describe('Add Stage View', () => {
     })
 
     expect(container.getElementsByClassName('hoverStageSection')).toBeTruthy()
-    const emptyStageDescription = await waitFor(() => findByText('pipeline.addStage.description'))
+    const emptyStageDescription = await waitFor(() => findByText('pipeline.pipelineSteps.chainedPipeline'))
     expect(emptyStageDescription).toBeDefined()
+    const comingSoonText = findByText('common.comingSoon2')
+    expect(comingSoonText).toBeDefined()
   })
 })

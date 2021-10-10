@@ -26,13 +26,13 @@ describe('SetFlagSwitch', () => {
     const input = getInput()
     expect(input).toBeInTheDocument()
 
-    expect(screen.queryByText('cf.shared.on')).not.toBeInTheDocument()
-    expect(screen.queryByText('cf.shared.off')).not.toBeInTheDocument()
+    expect(screen.queryByText('common.ON')).not.toBeInTheDocument()
+    expect(screen.queryByText('common.OFF')).not.toBeInTheDocument()
 
     userEvent.click(input)
 
-    expect(screen.getByText('cf.shared.on')).toBeInTheDocument()
-    expect(screen.getByText('cf.shared.off')).toBeInTheDocument()
+    expect(screen.getByText('common.ON')).toBeInTheDocument()
+    expect(screen.getByText('common.OFF')).toBeInTheDocument()
   })
 
   test('it should properly set the value of the input on selection', async () => {
@@ -42,12 +42,12 @@ describe('SetFlagSwitch', () => {
     expect(input).not.toHaveValue()
 
     userEvent.click(input)
-    userEvent.click(screen.getByText('cf.shared.on'))
-    expect(input).toHaveValue('cf.shared.on')
+    userEvent.click(screen.getByText('common.ON'))
+    expect(input).toHaveValue('common.ON')
 
     userEvent.click(input)
-    userEvent.click(screen.getByText('cf.shared.off'))
-    expect(input).toHaveValue('cf.shared.off')
+    userEvent.click(screen.getByText('common.OFF'))
+    expect(input).toHaveValue('common.OFF')
   })
 
   test('it should call the clearField function with spec.state when unmounted', async () => {

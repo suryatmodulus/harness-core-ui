@@ -77,6 +77,29 @@ export const GetParseableManifestTriggerResponse: UseGetReturnData<ResponseNGTri
   }
 }
 
+export const GetParseableArtifactTriggerResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+      enabled: false,
+      identifier: 'GCRPrimaryprimarytrigger',
+      name: 'GCRPrimary-primary-trigger',
+      orgIdentifier: 'default',
+      projectIdentifier: 'test',
+      targetIdentifier: 'TestPipelineABC',
+      type: 'Artifact',
+      version: 1,
+      yaml: 'trigger:\n    name: GCRPrimary-primary-trigger\n    identifier: GCRPrimaryprimarytrigger\n    enabled: true\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: test\n    pipelineIdentifier: TestPipelineABC\n    source:\n        type: Artifact\n        spec:\n            stageIdentifier: stagea\n            type: Gcr\n            spec:\n                connectorRef: testgcp1a\n                imagePath: sdfds\n                registryHostname: ""\n                tag: <+trigger.artifact.build>\n                eventConditions:\n                    - key: build\n                      operator: Equals\n                      value: sdfdsf\n            artifactRef: primary\n    inputYaml: |\n        pipeline:\n            identifier: TestPipelineABC\n            stages:\n                - stage:\n                      identifier: stagea\n                      type: Deployment\n                      spec:\n                          serviceConfig:\n                              serviceDefinition:\n                                  type: Kubernetes\n                                  spec:\n                                      manifests:\n                                          - manifest:\n                                                identifier: sdfds\n                                                type: HelmChart\n                                                spec:\n                                                    store:\n                                                        type: S3\n                                                        spec:\n                                                            bucketName: ""\n                                                            folderPath: ""\n                                                    chartName: ""\n                                          - manifest:\n                                                identifier: testhelmmanifest\n                                                type: HelmChart\n                                                spec:\n                                                    chartName: ""\n                                                    chartVersion: ""\n                                          - manifest:\n                                                identifier: werewr\n                                                type: HelmChart\n                                                spec:\n                                                    chartVersion: ""\n                                      artifacts:\n                                          sidecars:\n                                              - sidecar:\n                                                    identifier: testsideid\n                                                    type: Gcr\n                                                    spec:\n                                                        connectorRef: ""\n                                                        imagePath: ""\n                                                        registryHostname: ""\n                                                        tag: ""\n                                              - sidecar:\n                                                    identifier: artifactgcrida\n                                                    type: Gcr\n                                                    spec:\n                                                        imagePath: ""\n                                                        registryHostname: ""\n                                                        tag: ""\n                                              - sidecar:\n                                                    identifier: sdfsdf\n                                                    type: DockerRegistry\n                                                    spec:\n                                                        tag: ""\n                                          primary:\n                                              type: Gcr\n                                              spec:\n                                                  connectorRef: testgcp1a\n                                                  imagePath: sdfds\n                                                  registryHostname: ""\n                                                  tag: sdfdafd\n            properties:\n                ci:\n                    codebase:\n                        build:\n                            type: branch\n                            spec:\n                                branch: <+trigger.branch>\n'
+    },
+    metaData: null as unknown as undefined,
+    correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
+  }
+}
+
 export const GetTriggerWithEventConditionsResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
   loading: false,
   refetch: jest.fn(),

@@ -1,5 +1,14 @@
 import React from 'react'
-import { FormInput, Text, Icon, Heading, Color, Button, ButtonVariation } from '@wings-software/uicore'
+import {
+  FormInput,
+  Text,
+  Icon,
+  Heading,
+  Color,
+  Button,
+  ButtonVariation,
+  HarnessDocTooltip
+} from '@wings-software/uicore'
 import cx from 'classnames'
 import { FieldArray } from 'formik'
 import { useStrings } from 'framework/strings'
@@ -50,7 +59,10 @@ export const ConditionRow = ({
   return (
     <div className={css.conditionsRow}>
       <div>
-        <Text style={{ fontSize: 16 }}>{label}</Text>
+        <Text style={{ fontSize: 16 }} data-tooltip-id={name}>
+          {label}
+        </Text>
+        <HarnessDocTooltip tooltipId={name} useStandAlone={true} />
       </div>
       <FormInput.Select
         style={{ alignSelf: valueError ? 'baseline' : 'center' }}
@@ -115,9 +127,10 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
   const addConditions = formikValues?.[fieldId] || []
   return (
     <section data-name={fieldId}>
-      <Heading level={2} font={{ weight: 'bold' }}>
+      <Heading level={2} font={{ weight: 'bold' }} data-tooltip-id={fieldId}>
         {title}
       </Heading>
+      <HarnessDocTooltip tooltipId={fieldId} useStandAlone={true} />
       <FieldArray
         name={fieldId}
         render={() => (

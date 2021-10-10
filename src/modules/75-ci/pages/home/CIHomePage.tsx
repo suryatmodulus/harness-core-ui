@@ -17,6 +17,7 @@ import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import type { Editions } from '@common/constants/SubscriptionTypes'
 import bgImageURL from './images/ci.svg'
 
 const CIHomePage: React.FC = () => {
@@ -88,6 +89,7 @@ const CIHomePage: React.FC = () => {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
     module: ModuleName.CI,
+    edition: data?.data?.edition as Editions,
     refetch
   }
 

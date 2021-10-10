@@ -158,7 +158,7 @@ exports[`Failure Strategy: ManualIntervention strategy works with simple fallbac
           <span
             class="bp3-control-indicator"
           />
-          pipeline.failureStrategies.errorTypeLabels.AllErrors
+          common.allErrors
         </label>
       </div>
     </div>

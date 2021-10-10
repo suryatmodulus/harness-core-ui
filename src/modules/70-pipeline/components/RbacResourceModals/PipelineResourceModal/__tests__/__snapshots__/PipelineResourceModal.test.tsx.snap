@@ -18,7 +18,11 @@ exports[`PipelineModal List View render list view 1`] = `
           role="columnheader"
           style="width: 5%;"
         >
-           
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+             
+          </p>
         </div>
         <div
           class="cell"
@@ -26,7 +30,11 @@ exports[`PipelineModal List View render list view 1`] = `
           role="columnheader"
           style="width: 40%;"
         >
-          common.pipeline
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            common.pipeline
+          </p>
         </div>
         <div
           class="cell"
@@ -34,7 +42,11 @@ exports[`PipelineModal List View render list view 1`] = `
           role="columnheader"
           style="width: 55%;"
         >
-          lastExecutionTs
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            lastExecutionTs
+          </p>
         </div>
       </div>
       <div

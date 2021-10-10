@@ -6,7 +6,9 @@ import { deploymentStatsSummaryResponse } from '../mocks'
 import LandingDashboardDeploymentsWidget from '../LandingDashboardDeploymentsWidget'
 
 jest.mock('services/dashboard-service', () => ({
-  useGetDeploymentStatsOverview: jest.fn(() => deploymentStatsSummaryResponse)
+  useGetDeploymentStatsOverview: jest.fn().mockImplementation(() => {
+    return { data: deploymentStatsSummaryResponse.data, refetch: jest.fn(), error: null, loading: false }
+  })
 }))
 
 describe('LandingDashboardDeploymentsWidget tests', () => {

@@ -1350,7 +1350,11 @@ exports[`test cases for Recommendation List Page should be able to render the li
                   role="columnheader"
                   style="width: 18%;"
                 >
-                  ce.recommendation.listPage.listTableHeaders.monthlySavings
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                  >
+                    ce.recommendation.listPage.listTableHeaders.monthlySavings
+                  </p>
                 </div>
                 <div
                   class="cell"
@@ -1358,7 +1362,11 @@ exports[`test cases for Recommendation List Page should be able to render the li
                   role="columnheader"
                   style="width: 23%;"
                 >
-                  ce.recommendation.listPage.listTableHeaders.resourceName
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                  >
+                    ce.recommendation.listPage.listTableHeaders.resourceName
+                  </p>
                 </div>
                 <div
                   class="cell"
@@ -1366,7 +1374,11 @@ exports[`test cases for Recommendation List Page should be able to render the li
                   role="columnheader"
                   style="width: 18%;"
                 >
-                  ce.recommendation.listPage.listTableHeaders.resourceType
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                  >
+                    ce.recommendation.listPage.listTableHeaders.resourceType
+                  </p>
                 </div>
                 <div
                   class="cell"
@@ -1374,7 +1386,11 @@ exports[`test cases for Recommendation List Page should be able to render the li
                   role="columnheader"
                   style="width: 18%;"
                 >
-                  ce.recommendation.listPage.listTableHeaders.monthlyCost
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                  >
+                    ce.recommendation.listPage.listTableHeaders.monthlyCost
+                  </p>
                 </div>
                 <div
                   class="cell"
@@ -1382,7 +1398,11 @@ exports[`test cases for Recommendation List Page should be able to render the li
                   role="columnheader"
                   style="width: 18%;"
                 >
-                  ce.recommendation.listPage.listTableHeaders.recommendationType
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                  >
+                    ce.recommendation.listPage.listTableHeaders.recommendationType
+                  </p>
                 </div>
               </div>
               <div

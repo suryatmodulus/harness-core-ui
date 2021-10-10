@@ -699,8 +699,6 @@ delegate:
   delegateTags: 'Delegate Tags'
   ReturnToDelegates: 'Return to list of Delegates'
   tagsFromDelegateConfig: 'Tags inherited from the Delegate configuration'
-  delegateSpecificTags: 'Delegate-specific Tags'
-  delegateTagDescription: 'Use Delegate Tags to select this Delegate for executing certain steps in a Pipeline'
   LastHeartBeat: 'Last HeartBeat'
   delegates_4_ways_title: 'Delegates are worker processes that run on your infrastructure to execute tasks on behalf of the Harness platform. You can run these Delegates in one of 4 ways:'
   kubernetes:

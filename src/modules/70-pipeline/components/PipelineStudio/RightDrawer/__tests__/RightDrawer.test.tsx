@@ -544,7 +544,7 @@ describe('Right Drawer tests', () => {
           isParallelNodeClicked: false
         } as any)
 
-      const { findByText } = render(
+      const { findByText, container } = render(
         <PipelineContext.Provider value={pipelineContextMock}>
           <TestWrapper>
             <RightDrawer />
@@ -552,7 +552,8 @@ describe('Right Drawer tests', () => {
         </PipelineContext.Provider>
       )
 
-      const flowControlHeader = await findByText('pipeline.barriers.flowControl')
+      expect(container).toMatchSnapshot()
+      const flowControlHeader = await findByText('pipeline.barriers.syncBarriers')
       expect(flowControlHeader).toBeInTheDocument()
     })
   })

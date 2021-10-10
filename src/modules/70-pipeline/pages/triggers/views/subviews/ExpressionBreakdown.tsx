@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Container, Text } from '@wings-software/uicore'
+import { Layout, Container, Text, HarnessDocTooltip } from '@wings-software/uicore'
 import { isUndefined } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
@@ -85,7 +85,10 @@ const ExpressionBreakdown: React.FC<ExpressionBreakdownPropsInterface> = ({
   const hideValuesRow = selectedScheduleTab === scheduleTabsId.CUSTOM && isUndefined(minutesValue)
   return (
     <Container data-name="expressionBreakdown" className={css.expressionBreakdown}>
-      <Text className={css.title}>{getString('pipeline.triggers.schedulePanel.expressionBreakdown')}</Text>
+      <Text className={css.title} data-tooltip-id="expressionBreakdown">
+        {getString('pipeline.triggers.schedulePanel.expressionBreakdown')}
+      </Text>
+      <HarnessDocTooltip tooltipId="expressionBreakdown" useStandAlone={true} />
       <Layout.Horizontal>
         <Column
           width={ColumnWidth.SMALL}

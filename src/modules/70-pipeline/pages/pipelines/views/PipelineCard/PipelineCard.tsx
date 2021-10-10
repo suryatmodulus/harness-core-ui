@@ -406,12 +406,13 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               </Text>
             )}
             <RbacButton
+              withoutCurrentColor
               data-testid="card-run-pipeline"
               icon="command-start"
-              variation={ButtonVariation.PRIMARY}
+              variation={ButtonVariation.SECONDARY}
               size={ButtonSize.SMALL}
               intent="success"
-              iconProps={{ size: 9 }}
+              iconProps={{ size: 9, color: Color.SUCCESS }}
               className={cx(css.cardBtns, css.runBtn)}
               text={getString('runPipelineText')}
               permission={{

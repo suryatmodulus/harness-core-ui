@@ -582,9 +582,7 @@ describe('TriggersWizardPage Triggers tests', () => {
       // does not equal for comparison due to yaml spaces
       expect(mockUpdate).toBeCalledWith(updateCronTriggerReplaceOnlyTwoSpace)
     })
-  })
 
-  describe('Missed Tests', () => {
     test('OnEdit Render - Show all fields filled with any actions checked', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {

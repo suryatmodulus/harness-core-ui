@@ -8,59 +8,32 @@ import type { TimelineSliderProps } from '../../TimelineSlider/TimelineSlider.ty
 const TimelineRows: TimelineProps['timelineRows'] = [
   {
     labelName: 'Deployments',
-    timelineSeries: [
-      {
-        type: 'scatter',
-        marker: {
-          fillColor: 'var(--primary-4)',
-          symbol: 'diamond'
-        },
-        data: [
-          { x: 1628750040001, y: 0 },
-          { x: 1628750940001, y: 0 },
-          { x: 1628751840001, y: 0 },
-          { x: 1628752740001, y: 0 },
-          { x: 1628753640001, y: 0 }
-        ]
-      }
+    data: [
+      { startTime: 1628750040001, endTime: 1628750040001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628750940001, endTime: 1628750940001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628751840001, endTime: 1628751840001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628752740001, endTime: 1628752740001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628753640001, endTime: 1628753640001, icon: { height: 0, width: 12, url: '' } }
     ]
   },
   {
     labelName: 'Infrastructure',
-    timelineSeries: [
-      {
-        type: 'scatter',
-        marker: {
-          fillColor: 'var(--purple-400)',
-          symbol: 'diamond'
-        },
-        data: [
-          { x: 1628750040001, y: 0 },
-          { x: 1628750940001, y: 0 },
-          { x: 1628751840001, y: 0 },
-          { x: 1628752740001, y: 0 },
-          { x: 1628753640001, y: 0 }
-        ]
-      }
+    data: [
+      { startTime: 1628750040001, endTime: 1628750040001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628750940001, endTime: 1628750940001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628751840001, endTime: 1628751840001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628752740001, endTime: 1628752740001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628753640001, endTime: 1628753640001, icon: { height: 0, width: 12, url: '' } }
     ]
   },
   {
     labelName: 'Incidents',
-    timelineSeries: [
-      {
-        type: 'scatter',
-        marker: {
-          fillColor: 'var(--orange-500)',
-          symbol: 'diamond'
-        },
-        data: [
-          { x: 1628750040001, y: 0 },
-          { x: 1628750940001, y: 0 },
-          { x: 1628751840001, y: 0 },
-          { x: 1628752740001, y: 0 },
-          { x: 1628753640001, y: 0 }
-        ]
-      }
+    data: [
+      { startTime: 1628750040001, endTime: 1628750040001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628750940001, endTime: 1628750940001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628751840001, endTime: 1628751840001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628752740001, endTime: 1628752740001, icon: { height: 0, width: 12, url: '' } },
+      { startTime: 1628753640001, endTime: 1628753640001, icon: { height: 0, width: 12, url: '' } }
     ]
   }
 ]
@@ -94,6 +67,5 @@ describe('Unit tests for Timeline', () => {
     )
 
     await waitFor(() => expect(container.querySelectorAll('[class*="timelineRow"]').length).toBe(3))
-    expect(container.querySelectorAll('[class*="highcharts-point"]').length).toBe(15)
   })
 })

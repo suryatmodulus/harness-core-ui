@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { get } from 'lodash-es'
+import type { FormikErrors } from 'formik'
 import { useHistory, useParams } from 'react-router-dom'
 import { Layout, SelectOption, Heading, Text, Switch } from '@wings-software/uicore'
 import { parse } from 'yaml'
@@ -1367,6 +1369,44 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     }
   )
 
+  const validateCICodebase = (formData: FlatValidArtifactFormikValuesInterface): FormikErrors<Record<string, any>> => {
+    const pipeline = get(formData, 'originalPipeline') as PipelineInfoConfig
+    const isCloneCodebaseEnabledAtLeastAtOneStage = pipeline?.stages?.some(stage =>
+      get(stage, 'stage.spec.cloneCodebase')
+    )
+    if (!isCloneCodebaseEnabledAtLeastAtOneStage) {
+      return {}
+    }
+    if (isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.type'))) {
+      return {
+        'pipeline.properties.ci.codebase.build.type': getString(
+          'pipeline.failureStrategies.validation.ciCodebaseRequired'
+        )
+      }
+    }
+    const ciCodeBaseType = get(formData, 'pipeline.properties.ci.codebase.build.type')
+    if (ciCodeBaseType === 'branch' && isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.branch'))) {
+      return {
+        'pipeline.properties.ci.codebase.build.spec.branch': getString(
+          'pipeline.failureStrategies.validation.gitBranchRequired'
+        )
+      }
+    } else if (ciCodeBaseType === 'tag' && isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.tag'))) {
+      return {
+        'pipeline.properties.ci.codebase.build.spec.tag': getString(
+          'pipeline.failureStrategies.validation.gitTagRequired'
+        )
+      }
+    } else if (ciCodeBaseType === 'PR' && isEmpty(get(formData, 'pipeline.properties.ci.codebase.build.spec.number'))) {
+      return {
+        'pipeline.properties.ci.codebase.build.spec.number': getString(
+          'pipeline.failureStrategies.validation.gitPRRequired'
+        )
+      }
+    }
+    return {}
+  }
+
   const renderWebhookWizard = (): JSX.Element | undefined => {
     const isEdit = !!onEditInitialValues?.identifier
     if (!wizardMap) return undefined
@@ -1380,6 +1420,12 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
             getString
           ),
+          validate: (
+            formData: FlatValidArtifactFormikValuesInterface
+          ): FormikErrors<FlatValidArtifactFormikValuesInterface> => {
+            return validateCICodebase(formData)
+          },
+          validateOnChange: true,
           enableReinitialize: true
         }}
         className={css.tabs}
@@ -1428,6 +1474,12 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             initialValues.triggerType as unknown as NGTriggerSourceV2['type'],
             getString
           ),
+          validate: (
+            formData: FlatValidArtifactFormikValuesInterface
+          ): FormikErrors<FlatValidArtifactFormikValuesInterface> => {
+            return validateCICodebase(formData)
+          },
+          validateOnChange: true,
           enableReinitialize: true
         }}
         className={css.tabs}
@@ -1474,6 +1526,12 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
             getString
           ),
+          validate: (
+            formData: FlatValidArtifactFormikValuesInterface
+          ): FormikErrors<FlatValidArtifactFormikValuesInterface> => {
+            return validateCICodebase(formData)
+          },
+          validateOnChange: true,
           enableReinitialize: true
         }}
         className={css.tabs}

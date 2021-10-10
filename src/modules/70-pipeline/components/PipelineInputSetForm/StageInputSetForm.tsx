@@ -20,6 +20,7 @@ import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeTe
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { TemplateStepData } from '@pipeline/utils/tempates'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -96,6 +97,7 @@ function StepForm({
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { expressions } = useVariablesExpression()
+  const isTemplateStep = !!(allValues?.step as TemplateStepData)?.template
   return (
     <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
       <Label>
@@ -115,7 +117,7 @@ function StepForm({
           template={template?.step}
           initialValues={values?.step || {}}
           allValues={allValues?.step || {}}
-          type={(allValues?.step?.type as StepType) || ''}
+          type={isTemplateStep ? StepType.Template : (allValues?.step?.type as StepType) || ''}
           onUpdate={onUpdate}
           stepViewType={viewType}
         />
@@ -259,23 +261,6 @@ function ExecutionWrapperInputSetForm(props: {
                       viewType={viewType}
                     />
                   </CollapseForm>
-                  {nodep.stepGroup.rollbackSteps && (
-                    <CollapseForm
-                      header={stepGroup?.stepGroup?.name + ' (Rollback)' || ''}
-                      headerProps={{ font: { size: 'normal' } }}
-                      headerColor="var(--black)"
-                    >
-                      <ExecutionWrapperInputSetForm
-                        stepsTemplate={nodep.stepGroup.rollbackSteps}
-                        formik={formik}
-                        readonly={readonly}
-                        path={`${path}[${index}].parallel[${indexp}].stepGroup.rollbackSteps`}
-                        allValues={stepGroup?.stepGroup?.rollbackSteps}
-                        values={initialValues?.stepGroup?.rollbackSteps}
-                        viewType={viewType}
-                      />
-                    </CollapseForm>
-                  )}
                 </>
               )
             }
@@ -300,23 +285,6 @@ function ExecutionWrapperInputSetForm(props: {
                   viewType={viewType}
                 />
               </CollapseForm>
-              {item.stepGroup.rollbackSteps && (
-                <CollapseForm
-                  header={stepGroup?.stepGroup?.name + ' (Rollback)' || ''}
-                  headerProps={{ font: { size: 'normal' } }}
-                  headerColor="var(--black)"
-                >
-                  <ExecutionWrapperInputSetForm
-                    stepsTemplate={item.stepGroup.rollbackSteps}
-                    formik={formik}
-                    readonly={readonly}
-                    path={`${path}[${index}].stepGroup.rollbackSteps`}
-                    allValues={stepGroup?.stepGroup?.rollbackSteps}
-                    values={initialValues?.stepGroup?.rollbackSteps}
-                    viewType={viewType}
-                  />
-                </CollapseForm>
-              )}
             </>
           )
         }

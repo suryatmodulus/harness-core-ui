@@ -58,6 +58,7 @@ import { HomeSideNavProps, AccountSideNavProps } from '@common/RouteDestinations
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
+import GitSyncErrors from '@gitsync/pages/errors/GitSyncErrors'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import LandingDashboardFactory from '@common/factories/LandingDashboardFactory'
@@ -553,6 +554,15 @@ export default (
     >
       <GitSyncPage>
         <GitSyncEntityTab />
+      </GitSyncPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toGitSyncErrors({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncErrors />
       </GitSyncPage>
     </RouteWithLayout>
   </>

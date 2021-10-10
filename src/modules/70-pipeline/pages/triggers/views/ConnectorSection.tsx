@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormInput, Text, Color, TextInput, Button, ButtonVariation } from '@wings-software/uicore'
+import { FormInput, Text, Color, TextInput, Button, ButtonVariation, HarnessDocTooltip } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { Connectors, connectorUrlType } from '@connectors/constants'
@@ -63,7 +63,11 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
     if (connectorURLType === connectorUrlType.REPO) {
       return (
         <>
-          <Text margin={{ bottom: 'xsmall' }}>{getString('repositoryUrlLabel')}</Text>
+          <Text margin={{ bottom: 'xsmall' }} data-tooltip-id="repoUrl">
+            {getString('repositoryUrlLabel')}
+          </Text>
+          <HarnessDocTooltip tooltipId="repoUrl" useStandAlone={true} />
+
           <TextInput
             style={{ marginBottom: 'var(--spacing-medium)', borderColor: 'var(--bp3-intent-color, #dddddd)' }}
             value={connectorUrl}

@@ -1,0 +1,18 @@
+.tabContainer {
+  :global {
+    .bp3-tab-list {
+      background-color: var(--white) !important;
+      border-bottom: 1px solid var(--grey-200);
+    }
+  }
+
+  .gitSyncErrorsHeaderSides {
+    flex-grow: 1;
+    padding: 0 var(--spacing-7) !important;
+    margin: var(--spacing-2) 0 !important;
+  }
+
+  .searchInput {
+    margin-right: var(--spacing-small);
+  }
+}

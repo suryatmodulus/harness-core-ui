@@ -7,13 +7,12 @@
 
 .healthScoreCard {
   height: 31px;
-  width: 31px;
-  border-radius: var(--spacing-xsmall);
+  min-width: 34px;
+  border-radius: var(--spacing-xsmall) !important;
   font-size: var(--font-size-small);
-  padding-top: var(--spacing-small);
   color: var(--white);
   text-align: center;
-  margin-right: var(--spacing-small);
+  font-weight: bold;
 }
 
 .tagsText {

@@ -565,7 +565,11 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
               role="columnheader"
               style="width: 35%;"
             >
-              CF.SHARED.SEGMENT
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                CF.SHARED.SEGMENT
+              </p>
             </div>
             <div
               class="cell"
@@ -573,7 +577,11 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
               role="columnheader"
               style="width: 35%;"
             >
-              IDENTIFIER
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                IDENTIFIER
+              </p>
             </div>
             <div
               class="cell"
@@ -581,7 +589,11 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
               role="columnheader"
               style="width: 30%;"
             >
-              CF.TARGETS.CREATEDDATE
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                CF.TARGETS.CREATEDDATE
+              </p>
             </div>
           </div>
           <div

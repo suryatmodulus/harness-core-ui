@@ -40,6 +40,11 @@ export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => 
                   label: getString('entities'),
                   to: routes.toGitSyncEntitiesAdmin({ projectIdentifier, orgIdentifier, accountId, module })
                 }
+                // disabling till the feature is in dev, can still be accessed via url
+                // {
+                //   label: getString('errors'),
+                //   to: routes.toGitSyncErrors({ projectIdentifier, orgIdentifier, accountId, module })
+                // }
               ]}
             />
           ) : null

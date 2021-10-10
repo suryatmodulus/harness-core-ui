@@ -282,7 +282,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                       <TextInput name="repoName" value={connectorUrl} style={{ flexGrow: 1 }} disabled />
                     </>
                   ) : (
-                    <>
+                    <Container className={css.repoInfo}>
                       <FormInput.Text
                         className={css.repositoryUrl}
                         label={repositoryNameLabel}
@@ -297,7 +297,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                             (formikProps.values.repoName ? formikProps.values.repoName : '')}
                         </Text>
                       ) : null}
-                    </>
+                    </Container>
                   )}
                 </div>
               )}

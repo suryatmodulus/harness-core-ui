@@ -251,7 +251,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                           data-tooltip-id="stageSpecificationsSharedPaths"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main"
+                            class="StyledProps--font StyledProps--main label"
                           >
                             pipelineSteps.build.stageSpecifications.sharedPaths
                           </p>

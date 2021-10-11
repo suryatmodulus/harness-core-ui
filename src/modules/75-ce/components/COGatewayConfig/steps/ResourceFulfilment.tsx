@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { CardSelect, Formik, FormikForm, FormInput, Layout, Text } from '@wings-software/uicore'
 import type { FormikContext } from 'formik'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
-import { CONFIG_STEP_IDS } from '@ce/constants'
+import { CONFIG_STEP_IDS, RESOURCES } from '@ce/constants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings } from 'framework/strings'
 import { Utils } from '@ce/common/Utils'
@@ -18,6 +18,7 @@ interface ResourceFulfilmentProps {
   setGatewayDetails: (details: GatewayDetails) => void
   setDrawerOpen: (status: boolean) => void
   totalStepsCount: number
+  selectedResource?: RESOURCES | null
 }
 
 interface CardData {
@@ -41,6 +42,8 @@ const instanceTypeCardData: CardData[] = [
     providers: ['aws', 'azure']
   }
 ]
+
+const allowedResources = [RESOURCES.INSTANCES, RESOURCES.ASG]
 
 const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
   const { getString } = useStrings()
@@ -103,6 +106,10 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
     } else if (instanceType === 'SPOT') {
       handleSpotChange(formik, val)
     }
+  }
+
+  if (props.selectedResource && !(allowedResources.indexOf(props.selectedResource) > -1)) {
+    return null
   }
 
   return (

@@ -7,7 +7,7 @@ import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import type { Service } from 'services/lw'
 import { CONFIG_IDLE_TIME_CONSTRAINTS, CONFIG_STEP_IDS, CONFIG_TOTAL_STEP_COUNTS, RESOURCES } from '@ce/constants'
 import DefineRule from './steps/DefineRule'
-import ManageResources from './steps/ManageResources'
+import ManageResources from './steps/ManageResources/ManageResources'
 import ResourceFulfilment from './steps/ResourceFulfilment'
 import AdvancedConfiguration from './steps/AdvancedConfiguration'
 import { getSelectedResourceFromGatewayDetails, isActiveStep } from './helper'
@@ -143,14 +143,13 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             selectedResource={selectedResource}
             setSelectedResource={setSelectedResource}
           />
-          {selectedResource !== RESOURCES.KUBERNETES && (
-            <ResourceFulfilment
-              gatewayDetails={props.gatewayDetails}
-              setGatewayDetails={props.setGatewayDetails}
-              setDrawerOpen={setDrawerOpen}
-              totalStepsCount={totalStepsCount}
-            />
-          )}
+          <ResourceFulfilment
+            gatewayDetails={props.gatewayDetails}
+            setGatewayDetails={props.setGatewayDetails}
+            setDrawerOpen={setDrawerOpen}
+            totalStepsCount={totalStepsCount}
+            selectedResource={selectedResource}
+          />
           <AdvancedConfiguration
             gatewayDetails={props.gatewayDetails}
             setGatewayDetails={props.setGatewayDetails}

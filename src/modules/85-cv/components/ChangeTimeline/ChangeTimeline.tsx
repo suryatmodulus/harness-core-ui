@@ -43,8 +43,8 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
   useEffect(() => {
     refetch({
       queryParams: {
-        serviceIdentifiers: [serviceIdentifier],
-        envIdentifiers: [environmentIdentifier],
+        serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
+        envIdentifiers: Array.isArray(environmentIdentifier) ? environmentIdentifier : [environmentIdentifier],
         startTime: startTimeRoundedOffToNearest30min,
         endTime: endTimeRoundedOffToNearest30min
       }

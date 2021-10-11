@@ -29,6 +29,7 @@ import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
 import DeploymentDrilldownView from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView'
 import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView'
 import CVServicesPage from '@cv/pages/services/CVServicesPage'
+import { Changes } from '@cv/pages/changes/Changes'
 import CVMonitoredServiceListingPage from '@cv/pages/monitored-service/CVMonitoredServiceListingPage'
 import MonitoredServicePage from '@cv/pages/monitored-service/MonitoredServicePage'
 import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
@@ -185,6 +186,13 @@ export default (
       path={routes.toCVServices({ ...accountPathProps, ...projectPathProps })}
     >
       <CVServicesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVChanges({ ...accountPathProps, ...projectPathProps })}
+    >
+      <Changes />
     </RouteWithLayout>
     <RouteWithLayout
       exact

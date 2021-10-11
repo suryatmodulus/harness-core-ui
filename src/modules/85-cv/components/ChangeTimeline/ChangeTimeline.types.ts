@@ -3,8 +3,8 @@ import type { ChangeSourceTypes } from './ChangeTimeline.constants'
 
 export interface ChangeTimelineProps {
   timeFormat?: string
-  serviceIdentifier: string
-  environmentIdentifier: string
+  serviceIdentifier: any
+  environmentIdentifier: any
   startTime?: number
   endTime?: number
   onSliderMoved?: React.Dispatch<React.SetStateAction<ChangesInfoCardData[] | null>>

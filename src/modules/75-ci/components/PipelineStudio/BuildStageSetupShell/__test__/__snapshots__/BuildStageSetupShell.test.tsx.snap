@@ -444,7 +444,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                 data-tooltip-id="stageSpecificationsSharedPaths"
                               >
                                 <p
-                                  class="StyledProps--font StyledProps--main"
+                                  class="StyledProps--font StyledProps--main label"
                                 >
                                   pipelineSteps.build.stageSpecifications.sharedPaths
                                 </p>

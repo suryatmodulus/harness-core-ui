@@ -247,36 +247,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -286,36 +291,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>
@@ -643,36 +653,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -682,36 +697,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>
@@ -1028,36 +1048,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -1067,36 +1092,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>
@@ -1466,36 +1496,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -1505,36 +1540,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>
@@ -1866,36 +1906,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP KMS 1
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -1905,36 +1950,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP KMS 1
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>
@@ -2261,36 +2311,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -2300,36 +2355,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>
@@ -2655,36 +2715,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -2694,36 +2759,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>
@@ -3074,36 +3144,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -3113,36 +3188,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>
@@ -3470,36 +3550,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -3509,36 +3594,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>
@@ -3866,36 +3956,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -3905,36 +4000,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>
@@ -4256,36 +4356,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="description-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                       <div
@@ -4295,36 +4400,41 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                           class="Label--main bp3-label descriptionLabel"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon StyledProps--main editOpen"
-                            data-icon="Edit"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
                             data-name="edit"
                             data-testid="tags-edit"
+                            type="button"
                           >
-                            <svg
-                              height="12"
-                              viewBox="0 0 12 12"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="Edit"
                             >
-                              <g
-                                fill="none"
-                                fill-rule="evenodd"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                              <svg
+                                height="16"
+                                viewBox="0 0 12 12"
+                                width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <path
-                                  d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                                  stroke="#555770"
-                                />
-                                <path
-                                  d="M6.583 5.146l2.063-2.063"
-                                  opacity="0.3"
-                                  stroke="#606170"
-                                />
-                              </g>
-                            </svg>
-                          </span>
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
                         </label>
                       </div>
                     </div>

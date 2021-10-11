@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92% </span>
+                <span class="strong">68% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/25</span>
+                <span class='fraction'>17/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.87% </span>
+                <span class="strong">67.74% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>78/93</span>
+                <span class='fraction'>63/93</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.65% </span>
+                <span class="strong">73.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/23</span>
+                <span class='fraction'>17/23</span>
             </div>
         
             
@@ -155,11 +155,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -198,19 +198,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,27 +238,27 @@ export function VerificationActivityRiskCard(props: VerificationActivityRiskCard
   const { activityWithRisks, onClickKubernetesEvent, navigationUrlOnCardClick } = props
   const { getString } = useStrings()
   const history = useHistory()
-  const onClickCard = navigationUrlOnCardClick ? <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >history.push(navigationUrlOnCardClick) </span>: undefined
+  const onClickCard = navigationUrlOnCardClick ? <span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >history.push(navigationUrlOnCardClick) </span></span>: undefined
   return (
     &lt;Container
-      className={cx(css.main, navigationUrlOnCardClick ? css.highlightOnHover : undefined)}
+      className={cx(css.main, navigationUrlOnCardClick ? <span class="branch-0 cbranch-no" title="branch not covered" >css.highlightOnHover </span>: undefined)}
       onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onClickCard?.()}</span>
     &gt;
       &lt;CVProgressBar
-        value={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource?.progressPercentage}
-        status={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource?.status}
+        value={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rogressPercentage}
+        status={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus}
       /&gt;
       {activityWithRisks &amp;&amp; (
         &lt;VerificationStatusBar
-          status={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource?.status}
-          startTime={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource?.activityStartTime as number}
-          remainingTimeMs={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource?.remainingTimeMs as number}
-          cumulativeRisk={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource?.overallRisk as number}
-          scoresBeforeChanges={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource?.preActivityRisks || []}
-          scoresAfterChanges={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource?.postActivityRisks || []}
+          status={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus}
+          startTime={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctivityStartTime as number}
+          remainingTimeMs={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>emainingTimeMs as number}
+          cumulativeRisk={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>verallRisk as number}
+          scoresBeforeChanges={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>reActivityRisks || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
+          scoresAfterChanges={activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ostActivityRisks || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
         /&gt;
       )}
-      {activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource?.activityType === 'KUBERNETES' &amp;&amp; onClickKubernetesEvent &amp;&amp; (
+      {activityWithRisks<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctivityType === 'KUBERNETES' &amp;&amp; onClickKubernetesEvent &amp;&amp; (
         &lt;Link
           minimal
           withoutHref
@@ -271,26 +271,26 @@ export function VerificationActivityRiskCard(props: VerificationActivityRiskCard
   )
 }
 &nbsp;
-export function VerificationActivityRiskCardWithApi({
+export function <span class="fstat-no" title="function not covered" >VerificationActivityRiskCardWithApi(</span>{
   selectedActivityId,
   navigateToURLOnCardClick
 }: {
   selectedActivityId?: string
   navigateToURLOnCardClick?: string
 }): JSX.Element {
-  const { accountId } = useParams&lt;ProjectPathProps&gt;()
-  const { data: activityWithRisks, refetch } = useGetActivityVerificationResult({
-    activityId: selectedActivityId || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+  const { accountId } = <span class="cstat-no" title="statement not covered" >useParams&lt;ProjectPathProps&gt;()</span>
+  const { data: activityWithRisks, refetch } = <span class="cstat-no" title="statement not covered" >useGetActivityVerificationResult({</span>
+    activityId: selectedActivityId || '',
     queryParams: { accountId },
     lazy: true
   })
 &nbsp;
-  useEffect(() =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedActivityId) refetch()
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (selectedActivityId) <span class="cstat-no" title="statement not covered" >refetch()</span></span>
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedActivityId])
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;VerificationActivityRiskCard
       activityWithRisks={activityWithRisks}
       navigationUrlOnCardClick={navigateToURLOnCardClick}
@@ -304,7 +304,7 @@ export function VerificationActivityRiskCardWithApi({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 11 2021 07:18:58 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 11 2021 08:49:43 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -50,15 +50,14 @@ module.exports = {
   },
   'dashboard-service': {
     output: 'src/services/dashboard-service/index.tsx',
-    url: 'http://localhost:7100/swagger.json',
+    url: 'https://pr.harness.io/ng-aggregation-dashboard/ng-dashboard/swagger.json',
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig, getUsingFetch, GetUsingFetchProps } from "../config";`,
     customProps: {
       base: `{getConfig("ng-dashboard/api")}`
     },
     customGenerator: arg => customGenerator(arg, "getConfig('ng-dashboard/api')")
-  },
-  logs: {
+  },  logs: {
     output: 'src/services/logs/index.tsx',
     file: 'src/services/logs/swagger.json',
     transformer: 'scripts/swagger-transform.js',

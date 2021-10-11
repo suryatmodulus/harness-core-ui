@@ -11,7 +11,7 @@ import { StackedSummaryTable } from '@common/components/StackedSummaryTable/Stac
 import { useGetDeploymentStatsOverview } from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 
-import { deploymentStatsSummaryResponse } from './mocks'
+// import { deploymentStatsSummaryResponse } from './mocks'
 import css from './LandingDashboardDeploymentsWidget.module.scss'
 
 interface SummaryCardData {
@@ -34,7 +34,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
       groupBy: 'DAY',
       sortBy: 'DEPLOYMENTS'
     },
-    mock: deploymentStatsSummaryResponse
+    // mock: deploymentStatsSummaryResponse
     // lazy: true
   })
 
@@ -76,8 +76,8 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
       },
       {
         title: getString('common.failureRate'),
-        count: `${data?.data?.response?.deploymentsStatsSummary?.failureCountAndChangeRate?.count}%`,
-        trend: `${data?.data?.response?.deploymentsStatsSummary?.failureCountAndChangeRate?.countChangeAndCountChangeRateInfo?.countChangeRate}%`
+        count: `${data?.data?.response?.deploymentsStatsSummary?.failureRateAndChangeRate?.rate}%`,
+        trend: `${data?.data?.response?.deploymentsStatsSummary?.failureRateAndChangeRate?.rateChangeRate}%`
       },
       {
         title: getString('pipeline.deploymentFrequency'),
@@ -181,10 +181,10 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   return (
     <div className={css.main}>
       <Card className={css.badgesContainer}>
-        {data?.data?.response?.deploymentsStatsSummary?.deploymentsOverview &&
-          Object.keys(data?.data?.response?.deploymentsStatsSummary?.deploymentsOverview).map(key =>
+        {data?.data?.response?.deploymentsOverview &&
+          Object.keys(data?.data?.response?.deploymentsOverview).map(key =>
             // eslint-disable-next-line
-            getBadge(key, (data?.data?.response?.deploymentsStatsSummary?.deploymentsOverview as any)[key])
+            getBadge(key, (data?.data?.response?.deploymentsOverview as any)[key])
           )}
       </Card>
       <div className={css.chartCardsContainer}>

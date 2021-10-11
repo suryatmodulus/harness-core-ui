@@ -29,7 +29,7 @@ enum View {
 
 const LandingDashboardPage: React.FC = () => {
   const { accountId } = useParams<AccountPathProps>()
-  const { NG_DASHBOARD_LANDING_PAGE } = useFeatureFlags()
+  const { NG_DASHBOARD_LANDING_PAGE } = { NG_DASHBOARD_LANDING_PAGE: true } || useFeatureFlags()
   const history = useHistory()
   const { currentUserInfo } = useAppStore()
   const { getString } = useStrings()

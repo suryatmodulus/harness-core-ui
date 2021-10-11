@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.5% </span>
+                <span class="strong">78.05% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/40</span>
+                <span class='fraction'>32/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.67% </span>
+                <span class="strong">54.35% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>67/150</span>
+                <span class='fraction'>75/138</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.95% </span>
+                <span class="strong">81.58% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>30/38</span>
+                <span class='fraction'>31/38</span>
             </div>
         
             
@@ -185,18 +185,7 @@
 <a name='L126'></a><a href='#L126'>126</a>
 <a name='L127'></a><a href='#L127'>127</a>
 <a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -210,6 +199,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -265,22 +255,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -350,6 +328,7 @@ import { HealthCheck, Service, ServiceDep, ServiceMetadata, useAllServiceResourc
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { allProviders, GatewayKindType, PROVIDER_TYPES } from '@ce/constants'
+import { resourceToInstanceObject } from './helper'
 &nbsp;
 export const CECOEditGatewayPage: React.FC = () =&gt; {
   const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier } = useParams&lt;
@@ -401,25 +380,13 @@ export const CECOEditGatewayPage: React.FC = () =&gt; {
     } else <span class="missing-if-branch" title="else path not taken" >E</span>if (isK8sRule) {
       routing.k8s = {
         RuleJson: service.routing<span class="branch-0 cbranch-no" title="branch not covered" >?.k</span>8s<span class="branch-0 cbranch-no" title="branch not covered" >?.R</span>uleJson as string,
-        ConnectorID: service.metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.k</span>ubernetes_connector_id as string
+        ConnectorID: service.metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.k</span>ubernetes_connector_id as string,
+        Namespace: (service.routing<span class="branch-0 cbranch-no" title="branch not covered" >?.k</span>8s<span class="branch-0 cbranch-no" title="branch not covered" >?.N</span>amespace as string) || 'default'
       }
     } else {
 <span class="cstat-no" title="statement not covered" >      providerType = resources?.response?.[0]?.provider_type || providerType</span>
       const selectedResources = <span class="cstat-no" title="statement not covered" >resources?.response ? resources?.response : []</span>
-<span class="cstat-no" title="statement not covered" >      selectedInstances = selectedResources.map(<span class="fstat-no" title="function not covered" >item </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        return {</span>
-          name: item.name ? item.name : '',
-          id: item.id ? item.id : '',
-          ipv4: item.ipv4 ? item.ipv4[0] : '',
-          region: item.region ? item.region : '',
-          type: item.type ? item.type : '',
-          tags: '',
-          launch_time: item.launch_time ? item.launch_time : '', // eslint-disable-line
-          status: item.status ? item.status : '',
-          vpc: item.metadata ? item.metadata['VpcID'] : '',
-          ...(providerType === PROVIDER_TYPES.AZURE &amp;&amp; { metadata: { resourceGroup: item.metadata?.resourceGroup } })
-        }
-      })
+<span class="cstat-no" title="statement not covered" >      selectedInstances = selectedResources.map(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >resourceToInstanceObject(providerType, item))</span></span>
     }
     const gwDetails: GatewayDetails = {
       id: service.id,
@@ -481,7 +448,7 @@ export default CECOEditGatewayPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 11 2021 08:49:43 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 11 2021 11:39:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

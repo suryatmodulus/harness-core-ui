@@ -1,4 +1,12 @@
-import type { AccessPoint, ASGMinimal, HealthCheck, PortConfig, ServiceDep, ServiceMetadata } from 'services/lw'
+import type {
+  AccessPoint,
+  ASGMinimal,
+  ContainerSvc,
+  HealthCheck,
+  PortConfig,
+  ServiceDep,
+  ServiceMetadata
+} from 'services/lw'
 
 interface Instance {
   filterText: string
@@ -19,6 +27,7 @@ export interface Routing {
     Namespace: string
   }
   custom_domain_providers?: { [key: string]: any }
+  container_svc?: ContainerSvc
 }
 
 interface ServiceOpts {

@@ -102,7 +102,8 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     const resourcesFetchMap: Record<string, () => void> = {
       [RESOURCES.INSTANCES]: refreshInstances,
       [RESOURCES.ASG]: fetchAndSetAsgItems,
-      [RESOURCES.KUBERNETES]: fetchAndSetConnectors
+      [RESOURCES.KUBERNETES]: fetchAndSetConnectors,
+      [RESOURCES.ECS]: fetchAndSetContainers
     }
     if (props.selectedResource) {
       resourcesFetchMap[props.selectedResource]?.()
@@ -146,6 +147,16 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     }
   }
 
+  const resetSelectedEcsDetails = () => {
+    if (!_isEmpty(props.gatewayDetails.routing.container_svc)) {
+      const updatedGatewayDetails: GatewayDetails = {
+        ...props.gatewayDetails,
+        routing: { ...props.gatewayDetails.routing, container_svc: undefined }
+      }
+      props.setGatewayDetails(updatedGatewayDetails)
+    }
+  }
+
   const clearResourceDetailsFromGateway = (resourceType: RESOURCES) => {
     const resourceToFunctionalityMap: Record<string, () => void> = {
       [RESOURCES.INSTANCES]: () => {
@@ -154,6 +165,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         // remove details related to AsG
         resetSelectedAsgDetails()
         resetKubernetesConnectorDetails()
+        resetSelectedEcsDetails()
       },
       [RESOURCES.ASG]: () => {
         // set total no. of steps to default (4)
@@ -161,15 +173,20 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         // remove details related to instances
         resetSelectedInstancesDetails()
         resetKubernetesConnectorDetails()
+        resetSelectedEcsDetails()
       },
       [RESOURCES.KUBERNETES]: () => {
         // set total no. of steps to modified (3)
         props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.MODIFIED)
         resetSelectedInstancesDetails()
         resetSelectedAsgDetails()
+        resetSelectedEcsDetails()
       },
       [RESOURCES.ECS]: () => {
         props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.MODIFIED)
+        resetSelectedInstancesDetails()
+        resetSelectedAsgDetails()
+        resetKubernetesConnectorDetails()
       }
     }
 
@@ -244,6 +261,14 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         prevSelectedConnector && setSelectedConnector(prevSelectedConnector)
       }
     } catch (e) {
+      showError(e.data?.message || e.message)
+    }
+  }
+
+  const fetchAndSetContainers = async () => {
+    try {
+      console.log('somethign') // eslint-disable-line
+    } catch (e: any) {
       showError(e.data?.message || e.message)
     }
   }

@@ -1,44 +1,58 @@
-import React from 'react'
-import { Card, FontVariation, Layout, Text } from '@wings-software/uicore'
-import { useLandingDashboardContext } from '@common/factories/LandingDashboardContext'
-import GlanceCard from '@common/components/GlanceCard/GlanceCard'
+import React, { useState } from 'react'
+import { Card, Color, Container, FontVariation, Icon, Layout, Text } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+import { TimeRangeToDays, useLandingDashboardContext } from '@common/factories/LandingDashboardContext'
 import { useStrings } from 'framework/strings'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetTopProjects } from 'services/dashboard-service'
 import TimeRangeSelect from '../TimeRangeSelect/TimeRangeSelect'
 
+import DashboardAPIErrorWidget from '../DashboardAPIErrorWidget/DashboardAPIErrorWidget'
+import OverviewGlanceCards from '../OverviewGlanceCards/OverviewGlanceCards'
 import css from './LandingDashboardSummaryWidget.module.scss'
 
 const LandingDashboardSummaryWidget: React.FC = () => {
   const { selectedTimeRange } = useLandingDashboardContext()
   const { getString } = useStrings()
+  const { accountId } = useParams<ProjectPathProps>()
+  const [range] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
+
+  const {
+    data: response,
+    loading,
+    error,
+    refetch
+  } = useGetTopProjects({
+    queryParams: {
+      accountIdentifier: accountId,
+      startTime: range[0],
+      endTime: range[1]
+    }
+  })
 
   return (
     <div style={{ position: 'relative' }}>
       <TimeRangeSelect className={css.timeRangeSelect} />
-      <Layout.Horizontal spacing="large">
-        <Layout.Horizontal spacing="large">
-          <Layout.Vertical spacing="large">
-            <GlanceCard
-              title="Projects"
-              iconName="nav-project"
-              iconSize={16}
-              number={48}
-              delta="+1%"
-              styling
-              intent="success"
-              href={'/'}
-            />
-            <GlanceCard title="Environments" iconName="infrastructure" number={63} delta="-6%" intent="danger" />
-          </Layout.Vertical>
-          <Layout.Vertical spacing="large">
-            <GlanceCard title="Services" iconName="services" number={6} delta="6" intent="success" href={'/'} />
-            <GlanceCard title="Pipelines" iconName="pipeline" iconSize={38} number={460} delta="-6" intent="danger" />
-          </Layout.Vertical>
-        </Layout.Horizontal>
-        <Card style={{ width: '100%' }}>
-          <Layout.Vertical>
+      <Layout.Horizontal className={css.atGlanceWrapper} spacing="large">
+        <OverviewGlanceCards range={range} />
+        <Card style={{ width: '100%', height: '252px' }}>
+          <Layout.Vertical style={{ height: '100%' }}>
             <Text font={{ variation: FontVariation.CARD_TITLE }}>
-              {getString('projectsOrgs.landingDashboard.title', { timeRange: selectedTimeRange })}
+              {getString('projectsOrgs.landingDashboard.title')}
             </Text>
+            {loading ? (
+              <Container className={css.topProjectsWrapper}>
+                <Icon name="spinner" size={24} color={Color.PRIMARY_7} flex={{ alignItems: 'center' }} />
+              </Container>
+            ) : error || response?.data?.executionStatus === 'SUCCESS' ? (
+              <DashboardAPIErrorWidget
+                className={css.topProjectsWrapper}
+                callback={refetch}
+                iconProps={{ size: 90 }}
+              ></DashboardAPIErrorWidget>
+            ) : (
+              <></>
+            )}
           </Layout.Vertical>
         </Card>
       </Layout.Horizontal>

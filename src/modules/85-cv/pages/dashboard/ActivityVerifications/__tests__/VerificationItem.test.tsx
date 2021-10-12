@@ -1,6 +1,5 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import * as cvService from 'services/cv'
@@ -87,7 +86,7 @@ describe('VerificationItem', () => {
       .spyOn(cvService, 'useGetVerificationsPopoverSummary')
       .mockReturnValue({
         refetch: refetchMock as unknown
-      } as UseGetReturn<any, any, any, any>)
+      } as any)
     const { container, getByText } = render(
       <TestWrapper
         path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
@@ -111,7 +110,7 @@ describe('VerificationItem', () => {
     useGetVerificationsPopoverSummarySpy.mockReturnValue({
       data: MockPopoverSummaryResponse,
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     fireEvent.mouseOver(progressIndicator)
     await waitFor(() => expect(document.body.querySelector('[class*="tooltipSubHeader"]')).not.toBeNull())
     expect(useGetVerificationsPopoverSummarySpy).toHaveBeenCalledWith({

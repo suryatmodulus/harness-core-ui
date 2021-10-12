@@ -1,5 +1,4 @@
 import React from 'react'
-import type { UseGetReturn } from 'restful-react'
 import { Container } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { renderHook } from '@testing-library/react-hooks'
@@ -22,7 +21,7 @@ describe('Unit tests for CVAnalysisTabs', () => {
     const useGetDataSourceTypesSpy = jest.spyOn(cvService, 'useGetDataSourcetypes')
     useGetDataSourceTypesSpy.mockReturnValue({
       loading: true
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText } = render(
       <TestWrapper>
@@ -44,7 +43,7 @@ describe('Unit tests for CVAnalysisTabs', () => {
     const useGetDataSourceTypesSpy = jest.spyOn(cvService, 'useGetDataSourcetypes')
     useGetDataSourceTypesSpy.mockReturnValue({
       error: { message: 'mockError' }
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container } = render(
       <TestWrapper>
@@ -87,7 +86,7 @@ describe('Unit tests for CVAnalysisTabs', () => {
           }
         ]
       }
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText } = render(
       <TestWrapper>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import get from 'lodash-es/get'
-import type { UseGetReturn } from 'restful-react'
 import { Container } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
@@ -190,11 +189,11 @@ describe('VerificationInstancePostDeploymentView', () => {
     jest.spyOn(cvService, 'useGetActivityVerificationResult').mockReturnValue({
       data: MockData,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     jest.spyOn(cvService, 'useGetEventDetails').mockReturnValue({
       data: MockDetailsData
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container } = render(
       <TestWrapper>
@@ -219,27 +218,27 @@ describe('VerificationInstancePostDeploymentView', () => {
   test('Ensure that logs tab is rendered properly', async () => {
     jest.spyOn(cvService, 'useGetActivityVerificationResult').mockReturnValue({
       data: MockData
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     jest.spyOn(cvService, 'useGetEventDetails').mockReturnValue({
       error: { message: 'mockError' },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const refetchMock = jest.fn()
     jest.spyOn(cvService, 'useGetActivityLogs').mockReturnValue({
       data: MockLogData,
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     jest.spyOn(cvService, 'useGetActivityMetrics').mockReturnValue({
       data: MockTimeSeriesData,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     jest.spyOn(cvService, 'useGetTagCountForActivity').mockReturnValue({
       data: null
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText } = render(
       <TestWrapper>

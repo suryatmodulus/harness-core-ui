@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import { CategoryRiskCards, CategoryRiskCardsWithApi } from '../CategoryRiskCards'
@@ -73,9 +72,7 @@ describe('Category Risk Cards unit tests', () => {
   })
 
   test('Ensure that when noConfig flag is set, overall riskScoree is rendered correctly', async () => {
-    jest
-      .spyOn(cvService, 'useGetCategoryRiskMap')
-      .mockReturnValue({ data: MockEmptyResponse } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetCategoryRiskMap').mockReturnValue({ data: MockEmptyResponse } as any)
     const { container } = render(
       <TestWrapper>
         <CategoryRiskCardsWithApi />
@@ -88,9 +85,7 @@ describe('Category Risk Cards unit tests', () => {
   })
 
   test('Ensure that when there is no analysis cards are rendered correctly', async () => {
-    jest
-      .spyOn(cvService, 'useGetCategoryRiskMap')
-      .mockReturnValue({ data: MockNoAnalysisResponse } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetCategoryRiskMap').mockReturnValue({ data: MockNoAnalysisResponse } as any)
     const { container, getByText } = render(
       <TestWrapper>
         <CategoryRiskCardsWithApi />

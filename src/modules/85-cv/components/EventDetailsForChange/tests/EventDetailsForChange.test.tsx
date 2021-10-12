@@ -232,7 +232,7 @@ describe('Unit tests for EventDetailsForChange', () => {
   test('Ensure that when view json is clicked the json is rendered', async () => {
     jest
       .spyOn(cvService, 'useGetEventDetails')
-      .mockReturnValue({ data: MockEventData, refetch: jest.fn() as unknown } as UseGetReturn<any, any, any, any>)
+      .mockReturnValue({ data: MockEventData, refetch: jest.fn() as unknown } as any)
     jest
       .spyOn(cvService, 'useGetActivityVerificationResult')
       .mockReturnValue({ data: MockActivityVerificationResult, refetch: jest.fn() as unknown } as UseGetReturn<
@@ -274,7 +274,7 @@ describe('Unit tests for EventDetailsForChange', () => {
     // click on a different activity and expect right side to update
     jest
       .spyOn(cvService, 'useGetActivityVerificationResult')
-      .mockReturnValue({ data: Mock5KubeEvents, refetch: jest.fn() as unknown } as UseGetReturn<any, any, any, any>)
+      .mockReturnValue({ data: Mock5KubeEvents, refetch: jest.fn() as unknown } as any)
     fireEvent.click(activities[2])
     await waitFor(() =>
       expect(document.querySelectorAll('[class*="activityItem"]')?.[2]?.getAttribute('class')).toContain(
@@ -287,13 +287,13 @@ describe('Unit tests for EventDetailsForChange', () => {
     jest.spyOn(cvService, 'useGetActivityVerificationResult').mockReturnValue({
       data: MockActivityVerificationResult,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const refetchMock = jest.fn()
     jest.spyOn(cvService, 'useGetEventDetails').mockReturnValue({
       error: { data: { detailedMessage: 'mockError' } } as any,
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     render(
       <TestWrapper>
@@ -320,7 +320,7 @@ describe('Unit tests for EventDetailsForChange', () => {
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
       data: MockDeploymentResponse,
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     render(
       <TestWrapper>

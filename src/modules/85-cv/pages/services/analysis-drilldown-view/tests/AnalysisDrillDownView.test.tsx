@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
 import { Container } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
@@ -46,7 +45,7 @@ describe('Unit tests for Analysis Drill down view', () => {
           }
         ]
       }
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     const { container } = render(
       <TestWrapper>
         <AnalysisDrillDownView startTime={Date.now()} endTime={Date.now()} />

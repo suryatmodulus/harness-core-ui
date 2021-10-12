@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
@@ -2107,7 +2106,7 @@ describe('Unit test for ActivityDashboardPage', () => {
   test('Ensure data is rendered when api returns value', async () => {
     jest.spyOn(Date, 'now').mockReturnValue(1608298320000)
     const useListActivitiesForDashboardSpy = jest.spyOn(cvService, 'useListActivitiesForDashboard')
-    useListActivitiesForDashboardSpy.mockReturnValue({ data: MockResponse } as UseGetReturn<any, any, any, any>)
+    useListActivitiesForDashboardSpy.mockReturnValue({ data: MockResponse } as any)
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <ActivityDashboardPage />

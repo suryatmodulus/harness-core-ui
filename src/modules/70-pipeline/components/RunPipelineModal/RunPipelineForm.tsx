@@ -80,6 +80,7 @@ export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & G
   executionView?: boolean
   mockData?: ResponseJsonNode
   executionInputSetTemplateYaml?: string
+  stagesExecuted?: string[]
 }
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
@@ -105,7 +106,8 @@ function RunPipelineFormBasic({
   executionView,
   branch,
   repoIdentifier,
-  executionInputSetTemplateYaml = ''
+  executionInputSetTemplateYaml = '',
+  stagesExecuted
 }: RunPipelineFormProps & InputSetGitQueryParams): React.ReactElement {
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
@@ -161,7 +163,15 @@ function RunPipelineFormBasic({
         }
       }) || []
     executionStages.unshift({ label: getString('pipeline.allStages'), value: ALL_STAGE_VALUE })
-
+    if (stagesExecuted?.length) {
+      const selectedStage = stageExecutionData?.data?.find(stageData => stageData.stageIdentifier === stagesExecuted[0])
+      selectedStage &&
+        setSelectedStageData({
+          selectedStageId: stagesExecuted[0],
+          stageName: selectedStage.stageName,
+          stagesRequired: selectedStage.stagesRequired
+        })
+    }
     return executionStages
   }, [stageExecutionData?.data])
 
@@ -718,6 +728,7 @@ function RunPipelineFormBasic({
                     )}
                     {RUN_INDIVIDUAL_STAGE && (
                       <DropDown
+                        disabled={(stagesExecuted as string[])?.length > 0}
                         buttonTestId={'stage-select'}
                         onChange={onStageSelect}
                         value={selectedStageData.selectedStageId as string}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor, queryByText, fireEvent, act, getByText } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
-import type { UseGetReturn, UseMutateReturn } from 'restful-react'
+import type { UseMutateReturn } from 'restful-react'
 import { useStrings } from 'framework/strings'
 import * as pipelineNg from 'services/pipeline-ng'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
@@ -122,20 +122,12 @@ describe('Manifest Trigger Tests', () => {
       }
     })
 
-    jest
-      .spyOn(pipelineNg, 'useGetGitTriggerEventDetails')
-      .mockReturnValue(GetManifestTriggerResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetGitTriggerEventDetails').mockReturnValue(GetManifestTriggerResponse as any)
 
-    jest
-      .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
-      .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
-    jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-      .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTrigger')
-      .mockReturnValue(GetManifestTriggerResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetInputSetsListForPipeline').mockReturnValue(GetInputSetsResponse as any)
+    jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTemplateFromPipeline').mockReturnValue(GetTemplateFromPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTrigger').mockReturnValue(GetManifestTriggerResponse as any)
     jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
       mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
     } as UseMutateReturn<any, any, any, any, any>)
@@ -188,18 +180,10 @@ describe('Manifest Trigger Tests', () => {
       error: null,
       mutate: jest.fn().mockImplementation(() => PostCreateVariables)
     }))
-    jest
-      .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
-      .mockReturnValue(GetManifestInputSetsResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetPipeline')
-      .mockReturnValue(GetManifestPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-      .mockReturnValue(GetManifestTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTrigger')
-      .mockReturnValue(GetManifestTriggerResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetInputSetsListForPipeline').mockReturnValue(GetManifestInputSetsResponse as any)
+    jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetManifestPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTemplateFromPipeline').mockReturnValue(GetManifestTemplateFromPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTrigger').mockReturnValue(GetManifestTriggerResponse as any)
     jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
       mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
     } as UseMutateReturn<any, any, any, any, any>)
@@ -249,18 +233,10 @@ describe('Manifest Trigger Tests', () => {
       error: null,
       mutate: jest.fn().mockImplementation(() => PostCreateVariables)
     }))
-    jest
-      .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
-      .mockReturnValue(GetManifestInputSetsResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetPipeline')
-      .mockReturnValue(GetManifestPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-      .mockReturnValue(GetManifestTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTrigger')
-      .mockReturnValue(GetManifestTriggerResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetInputSetsListForPipeline').mockReturnValue(GetManifestInputSetsResponse as any)
+    jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetManifestPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTemplateFromPipeline').mockReturnValue(GetManifestTemplateFromPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTrigger').mockReturnValue(GetManifestTriggerResponse as any)
     jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
       mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
     } as UseMutateReturn<any, any, any, any, any>)
@@ -308,18 +284,12 @@ describe('Manifest Trigger Tests', () => {
       error: null,
       mutate: jest.fn().mockImplementation(() => PostCreateVariables)
     }))
-    jest
-      .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
-      .mockReturnValue(GetManifestInputSetsResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetPipeline')
-      .mockReturnValue(GetManifestPipelineResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetInputSetsListForPipeline').mockReturnValue(GetManifestInputSetsResponse as any)
+    jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetManifestPipelineResponse as any)
     jest
       .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-      .mockReturnValue(GetParseableTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTrigger')
-      .mockReturnValue(GetParseableManifestTriggerResponse as UseGetReturn<any, any, any, any>)
+      .mockReturnValue(GetParseableTemplateFromPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTrigger').mockReturnValue(GetParseableManifestTriggerResponse as any)
     jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
       mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
     } as UseMutateReturn<any, any, any, any, any>)
@@ -388,18 +358,12 @@ describe('Manifest Trigger Tests', () => {
       error: null,
       mutate: jest.fn().mockImplementation(() => PostCreateVariables)
     }))
-    jest
-      .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
-      .mockReturnValue(GetManifestInputSetsResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetPipeline')
-      .mockReturnValue(GetManifestPipelineResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetInputSetsListForPipeline').mockReturnValue(GetManifestInputSetsResponse as any)
+    jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetManifestPipelineResponse as any)
     jest
       .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-      .mockReturnValue(GetParseableTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTrigger')
-      .mockReturnValue(GetParseableManifestTriggerResponse as UseGetReturn<any, any, any, any>)
+      .mockReturnValue(GetParseableTemplateFromPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTrigger').mockReturnValue(GetParseableManifestTriggerResponse as any)
     jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
       mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
     } as UseMutateReturn<any, any, any, any, any>)
@@ -480,18 +444,10 @@ describe('Manifest Trigger Tests', () => {
       error: null,
       mutate: jest.fn().mockImplementation(() => PostCreateVariables)
     }))
-    jest
-      .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
-      .mockReturnValue(GetManifestInputSetsResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetPipeline')
-      .mockReturnValue(GetManifestPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-      .mockReturnValue(GetManifestTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTrigger')
-      .mockReturnValue(GetTriggerWithEventConditionsResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetInputSetsListForPipeline').mockReturnValue(GetManifestInputSetsResponse as any)
+    jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetManifestPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTemplateFromPipeline').mockReturnValue(GetManifestTemplateFromPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTrigger').mockReturnValue(GetTriggerWithEventConditionsResponse as any)
     jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
       mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
     } as UseMutateReturn<any, any, any, any, any>)
@@ -529,18 +485,12 @@ describe('Manifest Trigger Tests', () => {
       error: null,
       mutate: jest.fn().mockImplementation(() => PostCreateVariables)
     }))
-    jest
-      .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
-      .mockReturnValue(GetManifestInputSetsResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetPipeline')
-      .mockReturnValue(GetArtifactPipelineResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetInputSetsListForPipeline').mockReturnValue(GetManifestInputSetsResponse as any)
+    jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetArtifactPipelineResponse as any)
     jest
       .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-      .mockReturnValue(GetParseableArtifactTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTrigger')
-      .mockReturnValue(GetParseableArtifactTriggerResponse as UseGetReturn<any, any, any, any>)
+      .mockReturnValue(GetParseableArtifactTemplateFromPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTrigger').mockReturnValue(GetParseableArtifactTriggerResponse as any)
     jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
       mutate: jest.fn().mockReturnValue(GetMergeInputSetArtifactTemplateWithListInputResponse) as unknown
     } as UseMutateReturn<any, any, any, any, any>)

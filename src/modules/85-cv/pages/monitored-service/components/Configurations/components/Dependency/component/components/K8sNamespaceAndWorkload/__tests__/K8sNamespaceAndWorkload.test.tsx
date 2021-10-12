@@ -7,9 +7,7 @@ import K8sNamespaceAndWorkload from '../K8sNamespaceAndWorkload'
 
 describe('Unit tests for K8sNamespaceAndWorkload', () => {
   test('Ensure that loading placeholder is displayed for namespace', async () => {
-    jest
-      .spyOn(cvService, 'useGetNamespaces')
-      .mockReturnValue({ loading: true, refetch: jest.fn() as unknown } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetNamespaces').mockReturnValue({ loading: true, refetch: jest.fn() as unknown } as any)
     const { container } = render(
       <TestWrapper>
         <K8sNamespaceAndWorkload onChange={jest.fn()} connectorIdentifier="1234_connectorIdentifier" />
@@ -24,10 +22,8 @@ describe('Unit tests for K8sNamespaceAndWorkload', () => {
     jest.spyOn(cvService, 'useGetNamespaces').mockReturnValue({
       data: { data: { content: ['namespace1', 'namespace2'] } },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(cvService, 'useGetWorkloads')
-      .mockReturnValue({ loading: true, refetch: jest.fn() as unknown } as UseGetReturn<any, any, any, any>)
+    } as any)
+    jest.spyOn(cvService, 'useGetWorkloads').mockReturnValue({ loading: true, refetch: jest.fn() as unknown } as any)
 
     const { container, getByText } = render(
       <TestWrapper>
@@ -67,7 +63,7 @@ describe('Unit tests for K8sNamespaceAndWorkload', () => {
     jest.spyOn(cvService, 'useGetNamespaces').mockReturnValue({
       data: { data: { content: ['namespace1', 'namespace2'] } },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     jest
       .spyOn(cvService, 'useGetWorkloads')
       .mockReturnValue({ error: { message: 'mockError' }, refetch: jest.fn() as unknown } as UseGetReturn<
@@ -98,12 +94,12 @@ describe('Unit tests for K8sNamespaceAndWorkload', () => {
     jest.spyOn(cvService, 'useGetNamespaces').mockReturnValue({
       data: { data: { content: ['namespace1', 'namespace2'] } },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     jest.spyOn(cvService, 'useGetWorkloads').mockReturnValue({
       data: { data: { content: ['workload1', 'workload2'] } },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText } = render(
       <TestWrapper>
@@ -130,12 +126,12 @@ describe('Unit tests for K8sNamespaceAndWorkload', () => {
     jest.spyOn(cvService, 'useGetNamespaces').mockReturnValue({
       data: { data: { content: ['namespace1', 'namespace2'] } },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     jest.spyOn(cvService, 'useGetWorkloads').mockReturnValue({
       data: { data: { content: ['workload1', 'workload2'] } },
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, rerender } = render(
       <TestWrapper>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import { ThirdPartyCallLogModal } from '../ThirdPartyCallLogs'
@@ -135,7 +134,7 @@ const MockResponse = {
 
 describe('Unit tests for Third Party call logs', () => {
   test('Ensure when loading spinner is displayed', async () => {
-    jest.spyOn(cvService, 'useGetOnboardingLogs').mockReturnValue({ loading: true } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetOnboardingLogs').mockReturnValue({ loading: true } as any)
     const onHideFn = jest.fn()
     render(
       <TestWrapper>
@@ -152,9 +151,7 @@ describe('Unit tests for Third Party call logs', () => {
   })
 
   test('Ensure when api error exists,  error is displayed', async () => {
-    jest
-      .spyOn(cvService, 'useGetOnboardingLogs')
-      .mockReturnValue({ error: { data: { message: 'mockerror' } } } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetOnboardingLogs').mockReturnValue({ error: { data: { message: 'mockerror' } } } as any)
     const onHideFn = jest.fn()
     const { getByText } = render(
       <TestWrapper>
@@ -171,9 +168,7 @@ describe('Unit tests for Third Party call logs', () => {
   })
 
   test('Ensure modal renders correctly given api mock data', async () => {
-    jest
-      .spyOn(cvService, 'useGetOnboardingLogs')
-      .mockReturnValue({ data: MockResponse } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetOnboardingLogs').mockReturnValue({ data: MockResponse } as any)
     const onHideFn = jest.fn()
     const { getByText } = render(
       <TestWrapper>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import LogAnalysisView from '../LogAnalysisView'
@@ -16,7 +15,7 @@ describe('Unit tests for log analysis view', () => {
         }
       },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText } = render(
       <TestWrapper>
@@ -36,7 +35,7 @@ describe('Unit tests for log analysis view', () => {
     useGetAllLogsSpy.mockReturnValue({
       error: { message: 'mockError' },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { getByText } = render(
       <TestWrapper>
@@ -56,7 +55,7 @@ describe('Unit tests for log analysis view', () => {
     useGetAllLogsSpy.mockReturnValue({
       loading: true,
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container } = render(
       <TestWrapper>

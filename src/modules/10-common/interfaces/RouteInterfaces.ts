@@ -27,6 +27,7 @@ export interface RunPipelineQueryParams extends GitQueryParams, InputSetGitQuery
   inputSetType?: string
   inputSetLabel?: string
   inputSetValue?: string
+  stagesExecuted?: string[]
 }
 
 export interface ProjectPathProps extends OrgPathProps {

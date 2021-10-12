@@ -65,7 +65,7 @@ describe('SelectServiceCard', () => {
 
     jest
       .spyOn(cvService, 'useGetWorkloads')
-      .mockReturnValue({ data: { data: { content: ['workload1', 'workload2'] } } } as UseGetReturn<any, any, any, any>)
+      .mockReturnValue({ data: { data: { content: ['workload1', 'workload2'] } } } as any)
 
     const { container, getByText } = render(
       <TestWrapper>

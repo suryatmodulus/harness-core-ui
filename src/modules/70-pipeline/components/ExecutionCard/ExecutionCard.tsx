@@ -150,7 +150,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                     projectIdentifier,
                     module,
                     repoIdentifier: pipelineExecution?.gitDetails?.repoIdentifier,
-                    branch: pipelineExecution?.gitDetails?.branch
+                    branch: pipelineExecution?.gitDetails?.branch,
+                    stagesExecuted: pipelineExecution?.stagesExecuted
                   }}
                   canEdit={canEdit}
                   canExecute={canExecute}

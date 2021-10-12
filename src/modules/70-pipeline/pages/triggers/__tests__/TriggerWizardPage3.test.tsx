@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
-import type { UseGetReturn, UseMutateReturn } from 'restful-react'
+import type { UseMutateReturn } from 'restful-react'
 import { useStrings } from 'framework/strings'
 import * as pipelineNg from 'services/pipeline-ng'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
@@ -105,15 +105,11 @@ describe('Artifact Trigger Tests', () => {
       mutate: jest.fn().mockImplementation(() => PostCreateVariables)
     }))
 
-    jest
-      .spyOn(pipelineNg, 'useGetPipeline')
-      .mockReturnValue(GetArtifactPipelineResponse as UseGetReturn<any, any, any, any>)
+    jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetArtifactPipelineResponse as any)
     jest
       .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-      .mockReturnValue(GetParseableArtifactTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(pipelineNg, 'useGetTrigger')
-      .mockReturnValue(GetParseableArtifactTriggerResponse as UseGetReturn<any, any, any, any>)
+      .mockReturnValue(GetParseableArtifactTemplateFromPipelineResponse as any)
+    jest.spyOn(pipelineNg, 'useGetTrigger').mockReturnValue(GetParseableArtifactTriggerResponse as any)
     jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
       mutate: jest.fn().mockReturnValue(GetMergeInputSetArtifactTemplateWithListInputResponse) as unknown
     } as UseMutateReturn<any, any, any, any, any>)

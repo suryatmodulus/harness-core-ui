@@ -1,5 +1,4 @@
 import React from 'react'
-import type { UseGetReturn } from 'restful-react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps, accountPathProps } from '@common/utils/routeUtils'
@@ -80,13 +79,13 @@ describe('Unit tests for Metric Analysis view', () => {
       data: { resource: { content: [] } },
       refetch: nonAnomalousRefetch as any,
       cancel: jest.fn() as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     useGetAnomalousMetricDashboardData.mockReturnValue({
       data: { resource: { content: [] } },
       refetch: anomalousRefetch as any,
       cancel: jest.fn() as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container } = render(
       <TestWrapper
@@ -131,13 +130,13 @@ describe('Unit tests for Metric Analysis view', () => {
       data: MockAnomalousData,
       refetch: nonAnomalousRefetch as any,
       cancel: jest.fn() as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     useGetAnomalousMetricDashboardData.mockReturnValue({
       data: { resource: { content: [] } },
       refetch: anomalousRefetch as any,
       cancel: jest.fn() as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText } = render(
       <TestWrapper
@@ -171,7 +170,7 @@ describe('Unit tests for Metric Analysis view', () => {
       error: { message: 'mockErrorMessage' },
       refetch: anomalousRefetch as any,
       cancel: jest.fn() as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     fireEvent.click(menuItem[0])
     await waitFor(() => expect(anomalousRefetch).toHaveBeenCalledTimes(1))
     await waitFor(() => expect(getByText('mockErrorMessage')).not.toBeNull())
@@ -189,13 +188,13 @@ describe('Unit tests for Metric Analysis view', () => {
       data: MockAnomalousData,
       refetch: nonAnomalousRefetch as any,
       cancel: jest.fn() as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     useGetAnomalousMetricDashboardData.mockReturnValue({
       data: { resource: [] },
       refetch: anomalousRefetch as any,
       cancel: jest.fn() as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText, rerender } = render(
       <TestWrapper
@@ -229,7 +228,7 @@ describe('Unit tests for Metric Analysis view', () => {
       error: { message: 'mockErrorMessage' },
       refetch: anomalousRefetch as any,
       cancel: jest.fn() as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     fireEvent.click(menuItem[0])
     await waitFor(() => expect(nonAnomalousRefetch).toHaveBeenCalledTimes(1))
     expect(getByText('mockErrorMessage')).not.toBeNull()
@@ -239,7 +238,7 @@ describe('Unit tests for Metric Analysis view', () => {
       data: MockAnomalousData,
       refetch: nonAnomalousRefetch as any,
       cancel: jest.fn() as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     // re-render while error is there and ensure that all metrics is still the option in the drop down
     rerender(

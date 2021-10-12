@@ -1,6 +1,5 @@
 import React from 'react'
 import { waitFor, fireEvent } from '@testing-library/dom'
-import type { UseGetReturn } from 'restful-react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
@@ -30,7 +29,7 @@ describe('Unit tests for VerifyExection', () => {
   test('Ensure content is rendered correctly based on api response', async () => {
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
       data: SampleResponse
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     const { container, getByText } = render(
       <TestWrapper>
         <ExecutionVerificationSummary step={{}} />
@@ -69,7 +68,7 @@ describe('Unit tests for VerifyExection', () => {
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
       loading: true,
       refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     const { container } = render(
       <TestWrapper>
         <ExecutionVerificationSummary step={{ progressData: { activityId: '1234_id' as any } }} />
@@ -84,7 +83,7 @@ describe('Unit tests for VerifyExection', () => {
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
       error: { data: { message: 'mockError' } },
       refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     const { container, getByText } = render(
       <TestWrapper>
         <ExecutionVerificationSummary step={{ progressData: { activityId: 'asadasd_' as any } }} />
@@ -100,7 +99,7 @@ describe('Unit tests for VerifyExection', () => {
     const refetchFn = jest.fn()
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
       refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     const { container } = render(
       <TestWrapper>
         <ExecutionVerificationSummary step={{}} />
@@ -114,7 +113,7 @@ describe('Unit tests for VerifyExection', () => {
     const refetchFn = jest.fn()
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
       refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     const { rerender, container, getByText } = render(
       <TestWrapper>
         <ExecutionVerificationSummary step={{ failureInfo: { message: 'mockError' } }} />
@@ -137,7 +136,7 @@ describe('Unit tests for VerifyExection', () => {
     const refetchFn = jest.fn()
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
       refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
     const { container } = render(
       <TestWrapper>
         <ExecutionVerificationSummary step={{ status: ExecutionStatusEnum.InterventionWaiting }} />

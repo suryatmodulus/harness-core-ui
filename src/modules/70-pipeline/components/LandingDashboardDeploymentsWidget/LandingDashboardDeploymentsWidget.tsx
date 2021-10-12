@@ -13,6 +13,7 @@ import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 
 // import { deploymentStatsSummaryResponse } from './mocks'
 import css from './LandingDashboardDeploymentsWidget.module.scss'
+import DashboardNoDataWidget from '@projects-orgs/components/DashboardNoDataWidget/DashboardNoDataWidget'
 
 interface SummaryCardData {
   title: string
@@ -33,7 +34,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
       endTime: range[1],
       groupBy: 'DAY',
       sortBy: 'DEPLOYMENTS'
-    },
+    }
     // mock: deploymentStatsSummaryResponse
     // lazy: true
   })
@@ -178,7 +179,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
     }
   }
 
-  return (
+  return data?.data?.response?.deploymentsStatsSummary?.countAndChangeRate?.count ? (
     <div className={css.main}>
       <Card className={css.badgesContainer}>
         {data?.data?.response?.deploymentsOverview &&
@@ -224,6 +225,10 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
         </Card>
       </div>
     </div>
+  ) : (
+    <Card>
+      <DashboardNoDataWidget label="No Deployments"></DashboardNoDataWidget>
+    </Card>
   )
 }
 

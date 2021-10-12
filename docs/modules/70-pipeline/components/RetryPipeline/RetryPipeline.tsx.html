@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.54% </span>
+                <span class="strong">18.27% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>38/205</span>
+                <span class='fraction'>38/208</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/405</span>
+                <span class='fraction'>0/408</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.54% </span>
+                <span class="strong">18.27% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>38/205</span>
+                <span class='fraction'>38/208</span>
             </div>
         
             
@@ -840,7 +840,15 @@
 <a name='L781'></a><a href='#L781'>781</a>
 <a name='L782'></a><a href='#L782'>782</a>
 <a name='L783'></a><a href='#L783'>783</a>
-<a name='L784'></a><a href='#L784'>784</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L784'></a><a href='#L784'>784</a>
+<a name='L785'></a><a href='#L785'>785</a>
+<a name='L786'></a><a href='#L786'>786</a>
+<a name='L787'></a><a href='#L787'>787</a>
+<a name='L788'></a><a href='#L788'>788</a>
+<a name='L789'></a><a href='#L789'>789</a>
+<a name='L790'></a><a href='#L790'>790</a>
+<a name='L791'></a><a href='#L791'>791</a>
+<a name='L792'></a><a href='#L792'>792</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -921,6 +929,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -978,6 +989,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1309,6 +1321,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1318,8 +1331,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1455,6 +1470,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1698,6 +1714,9 @@ import { mergeTemplateWithInputSetData } from '../RunPipelineModal/RunPipelineHe
 import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import css from './RetryPipeline.module.scss'
 &nbsp;
+export interface ParallelStageOption extends SelectOption {
+  isLastIndex: boolean
+}
 interface RetryPipelineProps {
   executionIdentifier: string
   pipelineIdentifier: string
@@ -1756,6 +1775,7 @@ const RetryPipeline = <span class="fstat-no" title="function not covered" >({</s
   const [selectedStage, setSelectedStage] = <span class="cstat-no" title="statement not covered" >useState&lt;SelectOption | null&gt;(null)</span>
   const [selectedInputSets, setSelectedInputSets] = <span class="cstat-no" title="statement not covered" >useState&lt;InputSetSelectorProps['value']&gt;(getInputSetSelected())</span>
   const [isParallelStage, setIsParallelStage] = <span class="cstat-no" title="statement not covered" >useState(false)</span>
+  const [isLastIndex, setIsLastIndex] = <span class="cstat-no" title="statement not covered" >useState(false)</span>
   const [isAllStage, setIsAllStage] = <span class="cstat-no" title="statement not covered" >useState(true)</span>
   const [inputSetTemplateYaml, setInputSetTemplateYaml] = <span class="cstat-no" title="statement not covered" >useState('')</span>
   const [skipPreFlightCheck, setSkipPreFlightCheck] = <span class="cstat-no" title="statement not covered" >useState(false)</span>
@@ -1794,7 +1814,7 @@ const RetryPipeline = <span class="fstat-no" title="function not covered" >({</s
     }
   })
 &nbsp;
-  const { mutate: retryPipeline } = <span class="cstat-no" title="statement not covered" >useRetryPipeline({</span>
+  const { mutate: retryPipeline, loading: loadingRetry } = <span class="cstat-no" title="statement not covered" >useRetryPipeline({</span>
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -2094,6 +2114,9 @@ const RetryPipeline = <span class="fstat-no" title="function not covered" >({</s
 &nbsp;
   const handleStageChange = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>alue: SelectOption): void =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (value.label.includes('|')) {</span>
+<span class="cstat-no" title="statement not covered" >      if ((value as ParallelStageOption).isLastIndex) {</span>
+<span class="cstat-no" title="statement not covered" >        setIsLastIndex(true)</span>
+      }
 <span class="cstat-no" title="statement not covered" >      setIsParallelStage(true)</span>
     } else {
 <span class="cstat-no" title="statement not covered" >      setIsParallelStage(false)</span>
@@ -2169,7 +2192,7 @@ const RetryPipeline = <span class="fstat-no" title="function not covered" >({</s
     }
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (loadingPipeline || loadingTemplate || inputSetLoading) {</span>
+<span class="cstat-no" title="statement not covered" >  if (loadingPipeline || loadingTemplate || inputSetLoading || loadingRetry) {</span>
 <span class="cstat-no" title="statement not covered" >    return &lt;PageSpinner /&gt;</span>
   }
 &nbsp;
@@ -2256,6 +2279,7 @@ const RetryPipeline = <span class="fstat-no" title="function not covered" >({</s
                       isParallelStage={isParallelStage}
                       handleStageType={handleStageType}
                       isAllStage={isAllStage}
+                      isLastIndex={isLastIndex}
                     /&gt;
                   )}
                   {noRuntimeInputs ? (
@@ -2413,7 +2437,7 @@ export default RetryPipeline
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 12 2021 10:38:37 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 12 2021 11:39:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

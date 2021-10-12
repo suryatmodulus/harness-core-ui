@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/16</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/16</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -96,24 +96,7 @@
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a>
-<a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">126x</span>
-<span class="cline-any cline-yes">126x</span>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">126x</span>
 <span class="cline-any cline-yes">126x</span>
 <span class="cline-any cline-yes">126x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,20 +113,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">126x</span>
-<span class="cline-any cline-yes">252x</span>
-<span class="cline-any cline-yes">252x</span>
-<span class="cline-any cline-yes">252x</span>
+<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-yes">250x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">252x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">250x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,20 +130,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">250x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { SetStateAction, Dispatch } from 'react'
-import cx from 'classnames'
 import { useStrings } from 'framework/strings'
-import css from './VisualYamlToggle.module.scss'
+import { Toggle, ToggleProps } from '@common/components/Toggle/Toggle'
 &nbsp;
 export enum SelectedView {
   VISUAL = 'VISUAL',
@@ -186,41 +153,26 @@ interface VisualYamlToggleInterface {
 &nbsp;
 export default function VisualYamlToggle(props: VisualYamlToggleInterface): JSX.Element {
   const { initialSelectedView, beforeOnChange, disableYaml = false, className = '' } = props
-  const [selectedView, setSelectedView] = React.useState&lt;SelectedView&gt;(initialSelectedView || SelectedView.VISUAL)
   const { getString } = useStrings()
 &nbsp;
-  return (
-    &lt;div className={cx(css.optionBtns, className)}&gt;
-      &lt;div
-        data-name="visual-btn"
-        className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-        onClick={() =&gt; {
-          <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedView === SelectedView.VISUAL) {
-<span class="cstat-no" title="statement not covered" >            return</span>
-          }
-          beforeOnChange(SelectedView.VISUAL, setSelectedView)
-        }}
-        tabIndex={0}
-        role="button"
-      &gt;
-        {getString('visual')}
-      &lt;/div&gt;
-      &lt;div
-        data-name="yaml-btn"
-        className={cx(css.item, {
-          [css.selected]: selectedView === SelectedView.YAML,
-          [css.disabledMode]: disableYaml
-        })}
-        onClick={() =&gt; {
-          beforeOnChange(SelectedView.YAML, setSelectedView)
-        }}
-        tabIndex={0}
-        role="button"
-      &gt;
-        {getString('yaml')}
-      &lt;/div&gt;
-    &lt;/div&gt;
-  )
+  const toggleProps: ToggleProps&lt;SelectedView&gt; = {
+    initialSelectedView,
+    options: [
+      {
+        label: getString('visual'),
+        value: SelectedView.VISUAL
+      },
+      {
+        label: getString('yaml'),
+        value: SelectedView.YAML
+      }
+    ],
+    beforeOnChange,
+    disableSwitch: disableYaml,
+    className
+  }
+&nbsp;
+  return &lt;Toggle {...toggleProps} /&gt;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -229,7 +181,7 @@ export default function VisualYamlToggle(props: VisualYamlToggleInterface): JSX.
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 12 2021 10:38:37 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 12 2021 11:39:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/40</span>
+                <span class='fraction'>0/45</span>
             </div>
         
             
@@ -126,20 +126,19 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,6 +148,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,6 +172,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -199,22 +215,26 @@
 import { Color, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
 import { Radio, RadioGroup } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import type { RetryInfo } from 'services/pipeline-ng'
+import type { RetryGroup, RetryInfo } from 'services/pipeline-ng'
+import type { ParallelStageOption } from './RetryPipeline'
 import css from './RetryPipeline.module.scss'
 &nbsp;
 interface SelectStagetoRetryProps {
   stageResponse?: RetryInfo
-  selectedStage: SelectOption | null
+  selectedStage: SelectOption | ParallelStageOption | null
   isParallelStage: boolean
   isAllStage: boolean
-  handleStageChange: (value: SelectOption) =&gt; void
+  isLastIndex: boolean
+  handleStageChange: (value: SelectOption | ParallelStageOption) =&gt; void
   handleStageType: (e: FormEvent&lt;HTMLInputElement&gt;) =&gt; void
 }
+&nbsp;
 const SelectStagetoRetry = <span class="fstat-no" title="function not covered" >({</span>
   stageResponse,
   selectedStage,
   isParallelStage,
   isAllStage,
+  isLastIndex,
   handleStageChange,
   handleStageType
 }: SelectStagetoRetryProps): React.ReactElement | null =&gt; {
@@ -222,13 +242,17 @@ const SelectStagetoRetry = <span class="fstat-no" title="function not covered" >
   const [stageList, setStageList] = <span class="cstat-no" title="statement not covered" >useState&lt;SelectOption[]&gt;([])</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (stageResponse) {</span>
-      const stageListValues = <span class="cstat-no" title="statement not covered" >stageResponse?.groups?.map(<span class="fstat-no" title="function not covered" >stageGroup </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (stageResponse?.groups?.length) {</span>
+      const stageListValues = <span class="cstat-no" title="statement not covered" >stageResponse.groups.map(<span class="fstat-no" title="function not covered" >(s</span>tageGroup, idx) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (stageGroup.info?.length === 1) {</span>
 <span class="cstat-no" title="statement not covered" >          return { label: stageGroup.info[0].name, value: stageGroup.info[0].identifier }</span>
         } else {
           const parallelStagesLabel = <span class="cstat-no" title="statement not covered" >stageGroup.info?.map(<span class="fstat-no" title="function not covered" >stageName </span>=&gt; <span class="cstat-no" title="statement not covered" >stageName.name)</span>.join(' | ')</span>
-<span class="cstat-no" title="statement not covered" >          return { label: parallelStagesLabel, value: parallelStagesLabel }</span>
+<span class="cstat-no" title="statement not covered" >          return {</span>
+            label: parallelStagesLabel,
+            value: parallelStagesLabel,
+            isLastIndex: idx === (stageResponse.groups as RetryGroup[])?.length - 1
+          }
         }
       })
 <span class="cstat-no" title="statement not covered" >      setStageList(stageListValues as SelectOption[])</span>
@@ -251,7 +275,7 @@ const SelectStagetoRetry = <span class="fstat-no" title="function not covered" >
           flex={{ justifyContent: 'flex-start', alignItems: 'flex-end' }}
         &gt;
           &lt;Select value={selectedStage} items={stageList} onChange={handleStageChange} className={css.selectStage} /&gt;
-          {isParallelStage &amp;&amp; (
+          {isParallelStage &amp;&amp; isLastIndex &amp;&amp; (
             &lt;RadioGroup inline selectedValue={isAllStage ? 'allparallel' : 'failedStages'} onChange={handleStageType}&gt;
               &lt;Radio label={getString('pipeline.runAllParallelstages')} value="allparallel" /&gt;
               &lt;Radio label={getString('pipeline.runFailedStages')} value="failedStages" /&gt;
@@ -271,7 +295,7 @@ export default SelectStagetoRetry
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 12 2021 10:38:37 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 12 2021 11:39:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

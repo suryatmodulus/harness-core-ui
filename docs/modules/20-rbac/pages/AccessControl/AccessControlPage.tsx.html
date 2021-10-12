@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -109,17 +109,30 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -130,6 +143,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,6 +172,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,47 +198,64 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { useParams } from 'react-router-dom'
 import { TabNavigation } from '@wings-software/uicore'
+import { useLocation, matchPath } from 'react-router-dom'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import ScopedTitle from '@common/components/Title/ScopedTitle'
+&nbsp;
+interface AccessControlLink {
+  label: string
+  to: string
+  title: string
+}
 &nbsp;
 const AccessControlPage: React.FC = ({ children }) =&gt; {
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()
   const { getString } = useStrings()
+  const { pathname } = useLocation()
+&nbsp;
+  const accessControlLinks: AccessControlLink[] = [
+    {
+      label: getString('users'),
+      to: routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module }),
+      title: getString('rbac.accessControlTitle.users')
+    },
+    {
+      label: getString('common.userGroups'),
+      to: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module }),
+      title: getString('rbac.accessControlTitle.userGroups')
+    },
+    {
+      label: getString('rbac.serviceAccounts.label'),
+      to: routes.toServiceAccounts({ accountId, orgIdentifier, projectIdentifier, module }),
+      title: getString('rbac.accessControlTitle.serviceAccounts')
+    },
+    {
+      label: getString('resourceGroups'),
+      to: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier, module }),
+      title: getString('rbac.accessControlTitle.resourceGroups')
+    },
+    {
+      label: getString('roles'),
+      to: routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module }),
+      title: getString('rbac.accessControlTitle.roles')
+    }
+  ]
+&nbsp;
+  const getScopedTitle = (): string =&gt; {
+    return accessControlLinks.find(nav =&gt; matchPath(pathname, nav.to))<span class="branch-1 cbranch-no" title="branch not covered" >?.title </span>|| getString('accessControl')
+  }
 &nbsp;
   return (
     &lt;&gt;
       &lt;Page.Header
         breadcrumbs={&lt;NGBreadcrumbs /&gt;}
-        title={getString('accessControl')}
+        title={&lt;ScopedTitle title={getScopedTitle()} /&gt;}
         toolbar={
-          &lt;TabNavigation
-            size={'small'}
-            links={[
-              {
-                label: getString('users'),
-                to: routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module })
-              },
-              {
-                label: getString('common.userGroups'),
-                to: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module })
-              },
-              {
-                label: getString('rbac.serviceAccounts.label'),
-                to: routes.toServiceAccounts({ accountId, orgIdentifier, projectIdentifier, module })
-              },
-              {
-                label: getString('resourceGroups'),
-                to: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier, module })
-              },
-              {
-                label: getString('roles'),
-                to: routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module })
-              }
-            ]}
-          /&gt;
+          &lt;TabNavigation size={'small'} links={accessControlLinks.map(link =&gt; ({ label: link.label, to: link.to }))} /&gt;
         }
       /&gt;
       &lt;Page.Body&gt;{children}&lt;/Page.Body&gt;
@@ -220,7 +271,7 @@ export default AccessControlPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 12 2021 14:55:41 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 12 2021 15:45:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

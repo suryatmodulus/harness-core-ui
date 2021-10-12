@@ -16,7 +16,7 @@ import {
 } from '@wings-software/uicore'
 import { Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router'
-import { showToaster, getErrorMessage } from '@policy/utils/PmUtils'
+import { showToaster, getErrorMessage, isEvaluationFailed } from '@policy/utils/PmUtils'
 import routes from '@common/RouteDefinitions'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
@@ -84,12 +84,11 @@ export const EditPolicy: React.FC = () => {
   const onSavePolicy = useCallback(() => {
     setCreatePolicyLoading(true)
     const api = isEdit ? updatePolicy : createPolicy
-    api({ account: accountId, identifier: policyIdentifier, name, description, rego: regoScript } as PolicyInput)
+    api({ account: accountId, key: policyIdentifier, name, description, rego: regoScript } as PolicyInput)
       .then(response => {
         showToaster('Policy saved!')
         if (!isEdit) {
-          // TODO response.id should be changed to response.identifier when Backend is ready
-          history.replace(routes.toPolicyEditPage({ accountId, policyIdentifier: String(response.id || '') }))
+          history.replace(routes.toPolicyEditPage({ accountId, policyIdentifier: String(response.key || '') }))
         }
       })
       .catch(error => {
@@ -177,7 +176,7 @@ export const EditPolicy: React.FC = () => {
           const _response = typeof response === 'string' ? JSON.parse(response) : response
           setOutput(_response)
           deselectAll(outputEditor)
-          setTestFailure(_response.deny)
+          setTestFailure(isEvaluationFailed(_response.status))
           layoutEditors()
         } catch {
           // eslint-disable-line no-empty
@@ -256,10 +255,7 @@ export const EditPolicy: React.FC = () => {
   useEffect(() => {
     if (policyData) {
       setRegoScript(policyData.rego || '')
-
-      // TODO Remove casting when BE supports identifier
-      setPolicyIdentifier((policyData as { identifier: string }).identifier || String(policyData.id || ''))
-
+      setPolicyIdentifier(policyData.key || '')
       setRegoScript(policyData.rego || '')
       setName(policyData.name || '')
 

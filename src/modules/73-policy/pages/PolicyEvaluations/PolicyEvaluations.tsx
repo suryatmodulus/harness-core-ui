@@ -19,6 +19,7 @@ import { setPageNumber } from '@common/utils/utils'
 import Table from '@common/components/Table/Table'
 
 import { useGetEvaluationList, Evaluation, EvaluationDetail } from 'services/pm'
+import { isEvaluationFailed } from '@policy/utils/PmUtils'
 
 import css from './PolicyEvaluations.module.scss'
 
@@ -31,7 +32,7 @@ const PolicyEvaluations: React.FC = () => {
 
   useEffect(() => {
     setPageNumber({ setPage, page, pageItemsCount: 1000 })
-  }, [evaluationsList])
+  }, [evaluationsList, page])
 
   const RenderPipelineName: Renderer<CellProps<Evaluation>> = ({ row }) => {
     const record = row.original
@@ -39,10 +40,10 @@ const PolicyEvaluations: React.FC = () => {
     return (
       <Layout.Vertical spacing="small">
         <Text color={Color.BLACK} lineClamp={1} font={{ weight: 'semi-bold' }}>
-          {record.summary?.input?.pipeline.name}
+          {record.input?.pipeline.name}
         </Text>
         <Text color={Color.BLACK} lineClamp={1}>
-          {record.summary?.input?.pipeline.projectIdentifier} / {record.summary?.input?.pipeline.orgIdentifier}
+          {record?.input?.pipeline.projectIdentifier} / {record?.input?.pipeline.orgIdentifier}
         </Text>
       </Layout.Vertical>
     )
@@ -71,10 +72,10 @@ const PolicyEvaluations: React.FC = () => {
 
     return (
       <>
-        {record?.summary?.details?.map((data: EvaluationDetail, index: number) => {
+        {record?.details?.map((data: EvaluationDetail, index: number) => {
           return (
-            <span key={(data.policyset_name || '') + index} className={css.pill}>
-              {data.policyset_name}
+            <span key={(data.name || '') + index} className={css.pill}>
+              {data.name}
             </span>
           )
         })}
@@ -87,7 +88,7 @@ const PolicyEvaluations: React.FC = () => {
 
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {record.summary?.input?.action === 'onrun' ? 'Run' : 'Save'}
+        {record?.input?.action === 'onrun' ? 'Run' : 'Save'}
       </Text>
     )
   }
@@ -97,7 +98,7 @@ const PolicyEvaluations: React.FC = () => {
 
     return (
       <>
-        {record.summary?.deny ? (
+        {isEvaluationFailed(record?.status) ? (
           <span className={css.pillDanger}>
             <Icon name="deployment-failed-new" size={12} style={{ marginRight: 'var(--spacing-small)' }} /> FAILED
           </span>
@@ -114,37 +115,37 @@ const PolicyEvaluations: React.FC = () => {
     () => [
       {
         Header: 'Entity',
-        accessor: row => row.summary?.input?.pipeline.name,
+        accessor: row => row?.input?.pipeline.name,
         width: '20%',
         Cell: RenderPipelineName
       },
       {
         Header: 'Entity Type',
-        accessor: row => row.summary?.input?.pipeline.name,
+        accessor: row => row?.input?.pipeline.name,
         width: '13%',
         Cell: RenderEntityType
       },
       {
         Header: 'Execution',
-        accessor: row => row.summary?.input?.pipeline.name,
+        accessor: row => row?.input?.pipeline.name,
         width: '30%',
         Cell: RenderPolicySets
       },
       {
         Header: 'Evaluated on',
-        accessor: row => row.summary?.input?.pipeline.name,
+        accessor: row => row?.input?.pipeline.name,
         width: '20%',
         Cell: RenderEvaluatedon
       },
       {
         Header: 'Action',
-        accessor: row => row.summary?.input?.pipeline.name,
+        accessor: row => row?.input?.pipeline.name,
         width: '10%',
         Cell: RenderAction
       },
       {
         Header: 'Status',
-        accessor: row => row.summary?.input?.pipeline.name,
+        accessor: row => row?.input?.pipeline.name,
         width: '7%',
         Cell: RenderStatus
       }

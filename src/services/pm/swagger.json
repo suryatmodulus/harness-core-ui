@@ -614,9 +614,6 @@
     "EvaluatedPolicy": {
       "type": "object",
       "properties": {
-        "deny": {
-          "type": "boolean"
-        },
         "deny_messages": {
           "type": "array",
           "items": {
@@ -630,61 +627,14 @@
           "type": "object"
         },
         "policy": {
-          "$ref": "#/definitions/LinkedPolicy"
+          "$ref": "#/definitions/Policy"
+        },
+        "status": {
+          "$ref": "#/definitions/EvaluationStatus"
         }
       }
     },
     "Evaluation": {
-      "type": "object",
-      "properties": {
-        "account_id": {
-          "type": "string"
-        },
-        "created": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "org_id": {
-          "type": "string"
-        },
-        "project_id": {
-          "type": "string"
-        },
-        "summary": {
-          "$ref": "#/definitions/EvaluationSummary"
-        }
-      }
-    },
-    "EvaluationDetail": {
-      "type": "object",
-      "properties": {
-        "deny": {
-          "type": "boolean"
-        },
-        "policy_details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/EvaluatedPolicy"
-          }
-        },
-        "policyset_created": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "policyset_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "policyset_name": {
-          "type": "string"
-        }
-      }
-    },
-    "EvaluationSummary": {
       "type": "object",
       "properties": {
         "account_id": {
@@ -697,14 +647,15 @@
           "type": "integer",
           "format": "int64"
         },
-        "deny": {
-          "type": "boolean"
-        },
         "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/EvaluationDetail"
-          }
+          "$ref": "#/definitions/EvaluationDetails"
+        },
+        "entity": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
         },
         "input": {
           "type": "object"
@@ -715,10 +666,46 @@
         "project_id": {
           "type": "string"
         },
+        "status": {
+          "$ref": "#/definitions/EvaluationStatus"
+        },
         "type": {
           "type": "string"
         }
       }
+    },
+    "EvaluationDetail": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EvaluatedPolicy"
+          }
+        },
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/EvaluationStatus"
+        }
+      }
+    },
+    "EvaluationDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/EvaluationDetail"
+      }
+    },
+    "EvaluationStatus": {
+      "type": "string"
     },
     "LinkedPolicy": {
       "type": "object",
@@ -730,9 +717,8 @@
           "type": "integer",
           "format": "int64"
         },
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "key": {
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -747,7 +733,7 @@
           "type": "string"
         },
         "severity": {
-          "type": "string"
+          "$ref": "#/definitions/Severity"
         },
         "updated": {
           "type": "integer",
@@ -759,7 +745,7 @@
       "type": "object",
       "properties": {
         "severity": {
-          "type": "string"
+          "$ref": "#/definitions/Severity"
         }
       }
     },
@@ -773,9 +759,8 @@
           "type": "integer",
           "format": "int64"
         },
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "key": {
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -822,9 +807,8 @@
         "enabled": {
           "type": "boolean"
         },
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "key": {
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -856,6 +840,12 @@
         "name": {
           "type": "string"
         },
+        "policies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LinkedPolicy"
+          }
+        },
         "type": {
           "type": "string"
         }
@@ -877,9 +867,8 @@
         "enabled": {
           "type": "boolean"
         },
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "key": {
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -915,6 +904,9 @@
           "type": "string"
         }
       }
+    },
+    "Severity": {
+      "type": "string"
     },
     "Token": {
       "type": "object",

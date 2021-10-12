@@ -94,7 +94,7 @@ const Policies: React.FC = () => {
       onCloseDialog: async didConfirm => {
         if (didConfirm && data) {
           try {
-            await deletePolicy(data.id.toString())
+            await deletePolicy(data.original.key as string)
             showSuccess('Successfully deleted Policy')
             refetch()
           } catch (err) {
@@ -152,7 +152,7 @@ const Policies: React.FC = () => {
       {
         Header: '',
         id: 'menu',
-        accessor: row => row.id,
+        accessor: row => row.key,
         width: '5%',
         Cell: RenderColumnMenu,
 
@@ -204,7 +204,7 @@ const Policies: React.FC = () => {
           columns={columns}
           data={policyList || []}
           onRowClick={data => {
-            history.push(routes.toPolicyEditPage({ accountId, policyIdentifier: String(data?.id || '') }))
+            history.push(routes.toPolicyEditPage({ accountId, policyIdentifier: String(data?.key || '') }))
           }}
           // TODO: enable when page is ready
 

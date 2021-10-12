@@ -58,14 +58,14 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
         updatePolicySet(values)
           .then(response => {
             showSuccess(`Successfully updated ${values.name} Policy Set`)
-            nextStep?.({ ...values, id: response.id })
+            nextStep?.({ ...values, id: response.key })
           })
           .catch(error => showError(error?.message))
       } else {
         createPolicySet(values)
           .then(response => {
             showSuccess(`Successfully created ${values.name} Policy Set`)
-            nextStep?.({ ...values, id: response.id })
+            nextStep?.({ ...values, id: response.key })
           })
           .catch(error => showError(error?.message))
       }
@@ -164,7 +164,7 @@ const StepTwo: React.FC<{
   React.useEffect(() => {
     if (policies) {
       policies.forEach((v: Policy) => {
-        policyList.push({ label: v.name as string, value: v.id?.toString() as string })
+        policyList.push({ label: v.name as string, value: v.key?.toString() as string })
       })
       setPlList(policyList)
     }
@@ -239,7 +239,7 @@ const StepTwo: React.FC<{
       data.policies.forEach((policy: LinkedPolicy) => {
         const _obj: any = {
           policy: {
-            value: policy.id?.toString(),
+            value: policy.key?.toString(),
             label: policy.name
           },
           severity: {

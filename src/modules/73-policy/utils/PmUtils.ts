@@ -12,3 +12,11 @@ export function showToaster(message: string, props?: Partial<IToastProps>): IToa
 // eslint-disable-next-line
 export const getErrorMessage = (error: any): string =>
   get(error, 'data.error', get(error, 'data.message', error?.message))
+
+export const EvaluationStatus = {
+  DENY: 'deny',
+  ERROR: 'error'
+} as const
+
+export const isEvaluationFailed = (status?: string): boolean =>
+  status === EvaluationStatus.DENY || status === EvaluationStatus.ERROR

@@ -72,5 +72,10 @@ module.exports = {
   '/gitops': {
     pathRewrite: { '^/gitops': '' },
     target: process.env.GITOPS_URL || 'https://localhost:8183'
+  },
+  '/policy-mgmt': {
+    target: 'https://pr.harness.io/policy-mgmt2/pm/api/v1',
+    pathRewrite: { '^/policy-mgmt2': '' },
+    logLevel: 'debug'
   }
 }

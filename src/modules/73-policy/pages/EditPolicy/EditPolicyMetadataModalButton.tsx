@@ -13,7 +13,7 @@ import {
 import * as yup from 'yup'
 import { Dialog } from '@blueprintjs/core'
 import { Description } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
-import css from './EditPolicyMetadataButton.module.scss'
+import css from './EditPolicyMetadataModalButton.module.scss'
 
 export interface PolicyMetadata {
   identifier: string
@@ -29,7 +29,7 @@ export interface EditPolicyMetadataButtonProps extends PolicyMetadata {
   onClose?: () => void
 }
 
-export const EditPolicyMetadataButton: React.FC<EditPolicyMetadataButtonProps & ButtonProps> = ({
+export const EditPolicyMetadataModalButton: React.FC<EditPolicyMetadataButtonProps & ButtonProps> = ({
   modalTitle,
   isEdit,
   shouldOpenModal,

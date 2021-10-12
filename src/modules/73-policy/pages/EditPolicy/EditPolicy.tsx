@@ -22,8 +22,8 @@ import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@policy/utils/rego'
 import { PolicyInput, useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
-import { EditPolicyMetadataButton } from './EditPolicyMetadataButton'
-import type { PolicyMetadata } from './EditPolicyMetadataButton'
+import { EditPolicyMetadataModalButton } from './EditPolicyMetadataModalButton'
+import type { PolicyMetadata } from './EditPolicyMetadataModalButton'
 import css from './EditPolicy.module.scss'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -128,7 +128,7 @@ export const EditPolicy: React.FC = () => {
         >
           {name} {/*policyIdentifier ? ` (ID: ${policyIdentifier})` : ''*/}
         </Text>
-        <EditPolicyMetadataButton
+        <EditPolicyMetadataModalButton
           isEdit={isEdit}
           shouldOpenModal={shouldOpenMetadataModal}
           identifier={policyIdentifier}

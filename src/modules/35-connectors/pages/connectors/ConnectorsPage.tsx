@@ -636,7 +636,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     <>
       <Page.Header title={getString('connectorsLabel')} breadcrumbs={<NGBreadcrumbs />} />
       <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
-        {connectors?.content?.length || searchTerm || loading ? (
+        {connectors?.content?.length || searchTerm || loading || appliedFilter ? (
           <Layout.Horizontal flex className={css.header}>
             <Layout.Horizontal spacing="small">
               <RbacButton

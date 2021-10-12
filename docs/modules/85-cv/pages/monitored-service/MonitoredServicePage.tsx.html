@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.1% </span>
+                <span class="strong">87.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/42</span>
+                <span class='fraction'>34/39</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10.23% </span>
+                <span class="strong">7.14% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/88</span>
+                <span class='fraction'>6/84</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.24% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>37/41</span>
+                <span class='fraction'>34/38</span>
             </div>
         
             
@@ -190,25 +190,13 @@
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L134'></a><a href='#L134'>134</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -225,8 +213,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -277,14 +263,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -352,7 +330,6 @@ import { Container, Tab, Tabs } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
 import { useGetMonitoredService } from 'services/cv'
 import { PageSpinner } from '@common/components'
@@ -368,8 +345,6 @@ import css from './MonitoredServicePage.module.scss'
 &nbsp;
 function MonitoredServicePage(): JSX.Element {
   const { getString } = useStrings()
-  const { selectedProject } = useAppStore()
-  const project = selectedProject
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams&lt;
     ProjectPathProps &amp; { identifier: string }
   &gt;()
@@ -432,14 +407,6 @@ function MonitoredServicePage(): JSX.Element {
                   projectIdentifier: projectIdentifier,
                   accountId: accountId
                 }),
-                label: <span class="branch-1 cbranch-no" title="branch not covered" >project?.name as string</span>
-              },
-              {
-                url: routes.toCVMonitoringServices({
-                  orgIdentifier: orgIdentifier,
-                  projectIdentifier: projectIdentifier,
-                  accountId: accountId
-                }),
                 label: getString('cv.monitoredServices.title')
               }
             ]}
@@ -496,7 +463,7 @@ export default MonitoredServicePage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 11 2021 12:59:10 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 12 2021 04:21:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

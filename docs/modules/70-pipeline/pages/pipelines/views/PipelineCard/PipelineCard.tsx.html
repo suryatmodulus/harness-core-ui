@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.61% </span>
+                <span class="strong">84.13% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>51/61</span>
+                <span class='fraction'>53/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50.86% </span>
+                <span class="strong">51.26% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>118/232</span>
+                <span class='fraction'>122/238</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.05% </span>
+                <span class="strong">83.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/59</span>
+                <span class='fraction'>51/61</span>
             </div>
         
             
@@ -504,7 +504,12 @@
 <a name='L445'></a><a href='#L445'>445</a>
 <a name='L446'></a><a href='#L446'>446</a>
 <a name='L447'></a><a href='#L447'>447</a>
-<a name='L448'></a><a href='#L448'>448</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L448'></a><a href='#L448'>448</a>
+<a name='L449'></a><a href='#L449'>449</a>
+<a name='L450'></a><a href='#L450'>450</a>
+<a name='L451'></a><a href='#L451'>451</a>
+<a name='L452'></a><a href='#L452'>452</a>
+<a name='L453'></a><a href='#L453'>453</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -518,6 +523,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -538,6 +545,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -688,7 +696,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">111x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">111x</span>
 <span class="cline-any cline-yes">111x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -885,6 +893,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -965,11 +975,13 @@ import {
   ButtonVariation,
   ButtonSize
 } from '@wings-software/uicore'
+&nbsp;
 import { Classes, Intent, Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
+import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import { TimeAgoPopover } from '@common/exports'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -985,6 +997,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
 import { getIconsForPipeline } from '../../PipelineListUtils'
+&nbsp;
 import css from './PipelineCard.module.scss'
 &nbsp;
 interface PipelineDTO extends PMSPipelineSummaryResponse {
@@ -1135,7 +1148,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
   })
 &nbsp;
   const pipelineIcons = getIconsForPipeline(pipeline)
-&nbsp;
+  const status = pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionStatus
   return (
     &lt;Card className={css.pipelineCard} interactive onClick={() =&gt; goToPipelineStudio(pipeline)}&gt;
       &lt;Container padding={'xlarge'} border={{ bottom: true }}&gt;
@@ -1291,17 +1304,19 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
                     }}
                     time={pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs}
                   /&gt;
-                  &lt;Icon
-                    name={
-                      pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionStatus === 'Success'
-                        ? 'deployment-success-legacy'
-                        : 'warning-sign'
-                    }
-                    intent={
-                      pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionStatus !== 'Success' ? Intent.DANGER : Intent.NONE
-                    }
-                    size={12}
-                  /&gt;
+                  {isExecutionComplete(status) ? (
+                    &lt;Icon
+                      name={
+                        pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionStatus === 'Success'
+                          ? 'deployment-success-legacy'
+                          : 'warning-sign'
+                      }
+                      intent={
+                        pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionStatus !== 'Success' ? Intent.DANGER : Intent.NONE
+                      }
+                      size={12}
+                    /&gt;
+                  ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
                 &lt;/Layout.Horizontal&gt;
               &lt;/Layout.Horizontal&gt;
               &lt;Layout.Horizontal
@@ -1405,7 +1420,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 12 2021 04:21:05 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 12 2021 06:36:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

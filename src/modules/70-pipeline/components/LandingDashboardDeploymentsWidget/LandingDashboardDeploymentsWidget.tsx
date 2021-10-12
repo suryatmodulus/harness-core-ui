@@ -12,8 +12,8 @@ import { useGetDeploymentStatsOverview } from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 
 // import { deploymentStatsSummaryResponse } from './mocks'
-import css from './LandingDashboardDeploymentsWidget.module.scss'
 import DashboardNoDataWidget from '@projects-orgs/components/DashboardNoDataWidget/DashboardNoDataWidget'
+import css from './LandingDashboardDeploymentsWidget.module.scss'
 
 interface SummaryCardData {
   title: string
@@ -226,8 +226,15 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
       </div>
     </div>
   ) : (
-    <Card>
-      <DashboardNoDataWidget label="No Deployments"></DashboardNoDataWidget>
+    <Card style={{ height: '360px' }}>
+      <DashboardNoDataWidget
+        label={
+          <Text color={Color.GREY_400} style={{ fontSize: '14px' }} margin="medium">
+            {'No Deployments'}
+          </Text>
+        }
+        getStartedLink="/account/kmpySmUISimoRrJL6NL73w/cd/home"
+      ></DashboardNoDataWidget>
     </Card>
   )
 }

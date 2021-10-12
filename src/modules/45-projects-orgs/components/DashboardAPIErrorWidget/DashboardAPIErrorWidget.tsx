@@ -3,17 +3,17 @@ import { Color, FontVariation, Icon, Layout, Text } from '@wings-software/uicore
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useStrings } from 'framework/strings'
 
-interface LandingDashboardWidgetWrapperProps {
+interface DashboardAPIErrorWidgetProps {
   className?: string
   iconProps?: Omit<IconProps, 'name'>
   callback?: (options?: Record<string, any>) => Promise<void>
 }
 
-const renderRetryLinks = (callback?: LandingDashboardWidgetWrapperProps.callback): JSX.Element => {
+const renderRetryLinks = (callback?: DashboardAPIErrorWidgetProps.callback): JSX.Element => {
   return <Text>{`Suggestions: Retry or refresh your page.`}</Text>
 }
 
-const DashboardAPIErrorWidget: React.FC<LandingDashboardWidgetWrapperProps> = props => {
+const DashboardAPIErrorWidget: React.FC<DashboardAPIErrorWidgetProps> = props => {
   const { getString } = useStrings()
 
   return (

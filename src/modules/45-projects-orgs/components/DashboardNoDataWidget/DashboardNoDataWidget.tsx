@@ -1,13 +1,14 @@
 import React from 'react'
-import { Color, FontVariation, Icon, Layout, Text } from '@wings-software/uicore'
+import { Color, Icon, Layout, Text } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import { NavLink } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 
 interface DashboardNoDataWidgetProps {
   className?: string
   iconProps?: Omit<IconProps, 'name'>
-  label: string
-  getStartedLink?: string
+  label: JSX.Element
+  getStartedLink: string
 }
 
 const DashboardNoDataWidget: React.FC<DashboardNoDataWidgetProps> = props => {
@@ -15,9 +16,11 @@ const DashboardNoDataWidget: React.FC<DashboardNoDataWidgetProps> = props => {
 
   return (
     <Layout.Vertical className={props.className} background={Color.YELLOW_50} flex={{ justifyContent: 'center' }}>
-      <Icon name="no-deployments" size={120} {...props.iconProps} margin={{ bottom: 'large' }}></Icon>
-      <Text>{props.label}</Text>
-      <Text>{'Get Started'}</Text>
+      <Icon name="no-deployments" size={215} {...props.iconProps}></Icon>
+      {props.label}
+      <NavLink to={props.getStartedLink}>
+        <Text color={Color.PRIMARY_7}>{'Get Started'}</Text>
+      </NavLink>
     </Layout.Vertical>
   )
 }

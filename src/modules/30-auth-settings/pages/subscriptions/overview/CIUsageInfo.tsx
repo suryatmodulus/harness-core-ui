@@ -17,7 +17,7 @@ const ActiveInstanceCard: React.FC<{ subscribedInst: number; activeInst: number 
   const { getString } = useStrings()
   const leftHeader = getString('common.subscriptions.usage.developers')
   //TO-DO: replace with tooltip
-  const tooltip = 'Active Instance tooltip placeholder'
+  const tooltipId = 'Active Instance tooltip placeholder'
   const rightHeader = getString('common.subscriptions.usage.last60days')
   const hasBar = true
   const leftFooter = getString('common.subscribed')
@@ -26,7 +26,7 @@ const ActiveInstanceCard: React.FC<{ subscribedInst: number; activeInst: number 
     subscribed: subscribedInst,
     usage: activeInst,
     leftHeader,
-    tooltip,
+    tooltipId,
     rightHeader,
     hasBar,
     leftFooter,
@@ -39,7 +39,7 @@ const ActiveUsers: React.FC<{ subscribedUsers: number; activeUsers: number }> = 
   const { getString } = useStrings()
   const leftHeader = getString('common.subscriptions.usage.ciUsers')
   //TO-DO: replace with tooltip
-  const tooltip = 'Users tooltip placeholder'
+  const tooltipId = 'Users tooltip placeholder'
   const rightHeader = getString('common.subscriptions.usage.last60days')
   const hasBar = true
   const leftFooter = getString('common.totalHarnessUser')
@@ -47,7 +47,7 @@ const ActiveUsers: React.FC<{ subscribedUsers: number; activeUsers: number }> = 
     subscribed: subscribedUsers,
     usage: activeUsers,
     leftHeader,
-    tooltip,
+    tooltipId,
     rightHeader,
     hasBar,
     leftFooter

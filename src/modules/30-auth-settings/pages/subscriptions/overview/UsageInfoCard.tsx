@@ -1,18 +1,15 @@
 import React from 'react'
-import { Card, Color, Layout, Text } from '@wings-software/uicore'
-import { Position } from '@blueprintjs/core'
+import { Card, Color, Layout, Text, HarnessDocTooltip } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import PercentageBar from './PercentageBar'
 import css from './SubscriptionUsageCard.module.scss'
 
-function getInfoIcon(tooltip: string): React.ReactElement {
+function getLeftHeader(leftHeader: string, tooltipId: string): React.ReactElement {
   return (
-    <Text
-      icon="deployment-incomplete-legacy"
-      iconProps={{ size: 15 }}
-      tooltip={tooltip}
-      tooltipProps={{ isDark: true, position: Position.BOTTOM }}
-    />
+    <Layout.Horizontal spacing="xsmall">
+      <Text font={{ size: 'small' }}>{leftHeader}</Text>
+      <HarnessDocTooltip tooltipId={tooltipId} useStandAlone />
+    </Layout.Horizontal>
   )
 }
 
@@ -59,7 +56,7 @@ interface UsageInfoCardProps {
   subscribed?: number
   usage: number
   leftHeader: string
-  tooltip: string
+  tooltipId: string
   rightHeader?: string
   hasBar: boolean
   leftFooter?: string
@@ -85,7 +82,7 @@ const UsageInfoCard: React.FC<UsageInfoCardProps> = ({
   subscribed,
   usage,
   leftHeader,
-  tooltip,
+  tooltipId,
   rightHeader,
   hasBar,
   leftFooter,
@@ -98,10 +95,7 @@ const UsageInfoCard: React.FC<UsageInfoCardProps> = ({
     <Card className={css.innerCard}>
       <Layout.Vertical>
         <Layout.Horizontal flex={{ alignItems: 'baseline', justifyContent: 'space-between' }}>
-          <Layout.Horizontal spacing="xsmall">
-            <Text font={{ size: 'small' }}>{leftHeader}</Text>
-            {getInfoIcon(tooltip)}
-          </Layout.Horizontal>
+          {getLeftHeader(leftHeader, tooltipId)}
           <Text font={{ size: 'xsmall' }}>{rightHeader}</Text>
         </Layout.Horizontal>
         <Text font={{ size: 'large', weight: 'bold' }} color={Color.BLACK}>

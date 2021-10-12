@@ -18,7 +18,7 @@ const FeatureFlagsUsersCard: React.FC<{ subscribedUsers: number; activeUsers: nu
   const { getString } = useStrings()
   const leftHeader = getString('common.subscriptions.usage.ffUsers')
   //TO-DO: replace with tooltip
-  const tooltip = 'Active Instance tooltip placeholder'
+  const tooltipId = 'Active Instance tooltip placeholder'
   const rightHeader = getString('common.subscriptions.usage.last60days')
   const hasBar = true
   const leftFooter = getString('common.subscribed')
@@ -27,7 +27,7 @@ const FeatureFlagsUsersCard: React.FC<{ subscribedUsers: number; activeUsers: nu
     subscribed: subscribedUsers,
     usage: activeUsers,
     leftHeader,
-    tooltip,
+    tooltipId,
     rightHeader,
     hasBar,
     leftFooter,
@@ -44,7 +44,7 @@ const MonthlyActiveUsers: React.FC<{ subscribedMonthlyUsers: number; activeMonth
   const { getString } = useStrings()
   const leftHeader = getString('common.subscriptions.usage.monthlyUsers')
   //TO-DO: replace with tooltip
-  const tooltip = 'Users tooltip placeholder'
+  const tooltipId = 'Users tooltip placeholder'
   const rightHeader = month
   const hasBar = true
   const leftFooter = getString('common.subscribed')
@@ -52,7 +52,7 @@ const MonthlyActiveUsers: React.FC<{ subscribedMonthlyUsers: number; activeMonth
     subscribed: subscribedMonthlyUsers,
     usage: activeMonthlyUsers,
     leftHeader,
-    tooltip,
+    tooltipId,
     rightHeader,
     hasBar,
     leftFooter
@@ -64,10 +64,10 @@ const FeatureFlags: React.FC<{ featureFlags: number }> = ({ featureFlags }) => {
   const { getString } = useStrings()
   const leftHeader = getString('common.purpose.cf.continuous')
   //TO-DO: replace with tooltip
-  const tooltip = 'Users tooltip placeholder'
+  const tooltipId = 'Users tooltip placeholder'
   const rightHeader = getString('common.current')
   const hasBar = false
-  const props = { usage: featureFlags, leftHeader, tooltip, rightHeader, hasBar }
+  const props = { usage: featureFlags, leftHeader, tooltipId, rightHeader, hasBar }
   return <UsageInfoCard {...props} />
 }
 

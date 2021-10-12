@@ -18,7 +18,7 @@ const ActiveCloudSpend: React.FC<{ activeCloudSpend: number; subscribedCloudSpen
   const { getString } = useStrings()
   const leftHeader = getString('common.subscriptions.usage.cloudSpend')
   //TO-DO: replace with tooltip
-  const tooltip = 'Active Cloud tooltip placeholder'
+  const tooltipId = 'Active Cloud tooltip placeholder'
   const rightHeader = getString('common.subscriptions.usage.last60days')
   const hasBar = true
   const leftFooter = getString('common.subscribed')
@@ -27,7 +27,7 @@ const ActiveCloudSpend: React.FC<{ activeCloudSpend: number; subscribedCloudSpen
     subscribed: subscribedCloudSpend,
     usage: activeCloudSpend,
     leftHeader,
-    tooltip,
+    tooltipId,
     rightHeader,
     hasBar,
     leftFooter,
@@ -44,7 +44,7 @@ const ActiveUsers: React.FC<{ subscribedCCMUsers: number; activeCCMUsers: number
   const { getString } = useStrings()
   const leftHeader = getString('common.subscriptions.usage.ccmUsers')
   //TO-DO: replace with tooltip
-  const tooltip = 'Active Clould Users tooltip placeholder'
+  const tooltipId = 'Active Clould Users tooltip placeholder'
   const rightHeader = getString('common.subscriptions.usage.last60days')
   const hasBar = true
   const leftFooter = getString('common.totalHarnessUser')
@@ -52,7 +52,7 @@ const ActiveUsers: React.FC<{ subscribedCCMUsers: number; activeCCMUsers: number
     subscribed: subscribedCCMUsers,
     usage: activeCCMUsers,
     leftHeader,
-    tooltip,
+    tooltipId,
     rightHeader,
     hasBar,
     leftFooter

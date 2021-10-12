@@ -14,7 +14,7 @@ const ActiveInstanceCard: React.FC<{ subscribedIns: number; activeIns: number }>
   const { getString } = useStrings()
 
   const leftHeader = getString('common.subscriptions.usage.srvcInst')
-  const tooltip = 'Active Instance tooltip placeholder'
+  const tooltipId = 'ff_ffListing_heading'
   const rightHeader = getString('common.subscriptions.usage.last60days')
   const hasBar = true
   const leftFooter = getString('common.subscribed')
@@ -23,7 +23,7 @@ const ActiveInstanceCard: React.FC<{ subscribedIns: number; activeIns: number }>
     subscribed: subscribedIns,
     usage: activeIns,
     leftHeader,
-    tooltip,
+    tooltipId,
     rightHeader,
     hasBar,
     leftFooter,
@@ -40,7 +40,7 @@ const ActiveServices: React.FC<{ subscribedService: number; activeService: numbe
 
   const leftHeader = getString('common.subscriptions.usage.services')
   //TO-DO: replace with tooltip
-  const tooltip = 'Services tooltip placeholder'
+  const tooltipId = 'Services tooltip placeholder'
   const rightHeader = getString('common.subscriptions.usage.last60days')
   const hasBar = true
   const leftFooter = getString('total')
@@ -48,7 +48,7 @@ const ActiveServices: React.FC<{ subscribedService: number; activeService: numbe
     subscribed: subscribedService,
     usage: activeService,
     leftHeader,
-    tooltip,
+    tooltipId,
     rightHeader,
     hasBar,
     leftFooter
@@ -61,7 +61,7 @@ const ActiveUsers: React.FC<{ subscribedUsers: number; activeUsers: number }> = 
 
   const leftHeader = getString('common.subscriptions.usage.cdUsers')
   //TO-DO: replace with tooltip
-  const tooltip = 'Active CD Users tooltip placeholder'
+  const tooltipId = 'Active CD Users tooltip placeholder'
   const rightHeader = getString('common.subscriptions.usage.last60days')
   const hasBar = true
   const leftFooter = getString('common.totalHarnessUser')
@@ -69,7 +69,7 @@ const ActiveUsers: React.FC<{ subscribedUsers: number; activeUsers: number }> = 
     subscribed: subscribedUsers,
     usage: activeUsers,
     leftHeader,
-    tooltip,
+    tooltipId,
     rightHeader,
     hasBar,
     leftFooter

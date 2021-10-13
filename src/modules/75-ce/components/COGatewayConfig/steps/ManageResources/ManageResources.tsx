@@ -183,7 +183,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         resetSelectedEcsDetails()
       },
       [RESOURCES.ECS]: () => {
-        props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.MODIFIED)
+        props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.DEFAULT)
         resetSelectedInstancesDetails()
         resetSelectedAsgDetails()
         resetKubernetesConnectorDetails()

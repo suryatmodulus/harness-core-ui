@@ -310,7 +310,7 @@ const COEcsSelector: React.FC<COEcsSelectorProps> = props => {
           )}
           {!loading && (!selectedRegion || !selectedContainer) && (
             <Layout.Horizontal flex={{ justifyContent: 'center' }}>
-              <Text icon={'execution-warning'} font={{ size: 'medium' }}>
+              <Text icon={'execution-warning'} font={{ size: 'medium' }} iconProps={{ size: 20 }}>
                 {getString('ce.co.autoStoppingRule.configuration.ecsModal.emptyDescription')}
               </Text>
             </Layout.Horizontal>

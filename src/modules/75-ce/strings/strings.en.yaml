@@ -80,6 +80,7 @@ co:
         subTitle: 'AutoStopping has full spot interruption handling and on-demand fall back capabilities built'
         asgSubTitle: 'The selected Auto Scaling group has been created using mixed instances as shown below. You can choose to go with the same or convert all of them to spot or on demand.'
         policyNotEnabled: 'Mixed instance policy is not enabled'
+        invalidValueErrorMsg: 'Please enter valid input'
       step4:
         setup: 'Set up'
         advancedConfiguration: 'Advanced Configuration'

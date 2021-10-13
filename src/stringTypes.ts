@@ -2814,6 +2814,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step2.title': string
   'ce.co.autoStoppingRule.configuration.step3.asgSubTitle': string
   'ce.co.autoStoppingRule.configuration.step3.asgTitle': string
+  'ce.co.autoStoppingRule.configuration.step3.invalidValueErrorMsg': string
   'ce.co.autoStoppingRule.configuration.step3.policyNotEnabled': string
   'ce.co.autoStoppingRule.configuration.step3.subTitle': string
   'ce.co.autoStoppingRule.configuration.step3.title': string

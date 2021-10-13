@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-import { get as _get } from 'lodash-es'
+import React, { useCallback, useState } from 'react'
+import { get as _get, defaultTo as _defaultTo, debounce as _debounce, isEmpty as _isEmpty } from 'lodash-es'
 import * as Yup from 'yup'
-import { CardSelect, Formik, FormikForm, FormInput, Layout, Text } from '@wings-software/uicore'
+import { CardSelect, Container, Formik, FormikForm, FormInput, Layout, Text } from '@wings-software/uicore'
 import type { FormikContext } from 'formik'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import { CONFIG_STEP_IDS, RESOURCES } from '@ce/constants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings } from 'framework/strings'
 import { Utils } from '@ce/common/Utils'
+import { useToaster } from '@common/exports'
 import COGatewayConfigStep from '../COGatewayConfigStep'
 import odIcon from '../images/ondemandIcon.svg'
 import spotIcon from '../images/spotIcon.svg'
@@ -43,11 +44,12 @@ const instanceTypeCardData: CardData[] = [
   }
 ]
 
-const allowedResources = [RESOURCES.INSTANCES, RESOURCES.ASG]
+const allowedResources = [RESOURCES.INSTANCES, RESOURCES.ASG, RESOURCES.ECS]
 
 const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const { showError } = useToaster()
 
   const [selectedInstanceType, setSelectedInstanceType] = useState<CardData | null>(
     props.gatewayDetails.fullfilment
@@ -108,6 +110,24 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
     }
   }
 
+  const handleEcsTaskCountUpdate = useCallback(
+    _debounce((updatedCount: string) => {
+      try {
+        const updatedGatewayDetails: GatewayDetails = {
+          ...props.gatewayDetails,
+          routing: {
+            ...props.gatewayDetails.routing,
+            container_svc: { ...props.gatewayDetails.routing.container_svc, task_count: +updatedCount }
+          }
+        }
+        props.setGatewayDetails(updatedGatewayDetails)
+      } catch (e) {
+        showError(getString('ce.co.autoStoppingRule.configuration.step3.invalidValueErrorMsg'))
+      }
+    }, 700),
+    [props.gatewayDetails.routing.container_svc]
+  )
+
   if (props.selectedResource && !(allowedResources.indexOf(props.selectedResource) > -1)) {
     return null
   }
@@ -129,7 +149,7 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
       totalStepsCount={props.totalStepsCount}
       id={CONFIG_STEP_IDS[2]}
     >
-      {!props.gatewayDetails.routing?.instance?.scale_group && (
+      {(!props.selectedResource || props.selectedResource === RESOURCES.INSTANCES) && (
         <Layout.Vertical>
           <CardSelect
             data={instanceTypeCardData.filter(_instanceType =>
@@ -162,24 +182,24 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
           </Layout.Horizontal>
         </Layout.Vertical>
       )}
-      {props.gatewayDetails.routing?.instance?.scale_group && (
+      {props.selectedResource === RESOURCES.ASG && (
         <Layout.Horizontal className={css.asgInstanceSelectionContianer}>
           <div className={css.asgInstanceDetails}>
             <Text className={css.asgDetailRow}>
               <span>Desired capacity: </span>
               <span>
-                {props.gatewayDetails.routing?.instance?.scale_group.desired ||
+                {props.gatewayDetails.routing?.instance?.scale_group?.desired ||
                   (props.gatewayDetails.routing.instance.scale_group?.on_demand || 0) +
                     (props.gatewayDetails.routing.instance.scale_group?.spot || 0)}
               </span>
             </Text>
             <Text className={css.asgDetailRow}>
               <span>Min capacity: </span>
-              <span>{props.gatewayDetails.routing?.instance?.scale_group.min}</span>
+              <span>{props.gatewayDetails.routing?.instance?.scale_group?.min}</span>
             </Text>
             <Text className={css.asgDetailRow}>
               <span>Max capacity: </span>
-              <span>{props.gatewayDetails.routing?.instance?.scale_group.max}</span>
+              <span>{props.gatewayDetails.routing?.instance?.scale_group?.max}</span>
             </Text>
           </div>
           <div className={css.asgInstanceFormContainer}>
@@ -187,7 +207,7 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
               initialValues={{
                 odInstance:
                   props.gatewayDetails.routing.instance.scale_group?.on_demand ||
-                  props.gatewayDetails.routing?.instance?.scale_group.desired,
+                  props.gatewayDetails.routing?.instance?.scale_group?.desired,
                 spotInstance: _get(props.gatewayDetails.routing.instance.scale_group, 'spot', 0)
               }}
               formName="odInstance"
@@ -240,15 +260,44 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
                   .required()
                   .positive()
                   .min(0)
-                  .max(props.gatewayDetails.routing?.instance?.scale_group.max as number),
+                  .max(props.gatewayDetails.routing?.instance?.scale_group?.max as number),
                 spotInstance: Yup.number()
                   .positive()
                   .min(0)
-                  .max(props.gatewayDetails.routing?.instance?.scale_group.max as number)
+                  .max(props.gatewayDetails.routing?.instance?.scale_group?.max as number)
               })}
             ></Formik>
           </div>
         </Layout.Horizontal>
+      )}
+      {props.selectedResource === RESOURCES.ECS && (
+        <Container>
+          <Formik
+            initialValues={{
+              taskCount: _defaultTo(props.gatewayDetails.routing.container_svc?.task_count, 0)
+            }}
+            formName=""
+            onSubmit={_ => {
+              return
+            }}
+            validationSchema={Yup.object().shape({
+              taskCount: Yup.number().required().positive().min(0)
+            })}
+          >
+            {_formikProps => (
+              <FormikForm>
+                <FormInput.Text
+                  name={'taskCount'}
+                  inputGroup={{ type: 'number', pattern: '[0-9]*' }}
+                  label={<Text>Task Count</Text>}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleEcsTaskCountUpdate(e.target.value)}
+                  style={{ maxWidth: 200 }}
+                  disabled={_isEmpty(props.gatewayDetails.routing.container_svc)}
+                />
+              </FormikForm>
+            )}
+          </Formik>
+        </Container>
       )}
     </COGatewayConfigStep>
   )

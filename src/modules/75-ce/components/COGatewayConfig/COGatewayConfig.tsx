@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
-import { debounce as _debounce, isEmpty as _isEmpty } from 'lodash-es'
+import { debounce as _debounce, isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { Container, Layout, Button } from '@wings-software/uicore'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
@@ -63,7 +63,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     return (
       (props.gatewayDetails.selectedInstances.length > 0 ||
         !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group) ||
-        !_isEmpty(props.gatewayDetails.metadata.kubernetes_connector_id)) &&
+        !_isEmpty(props.gatewayDetails.metadata.kubernetes_connector_id) ||
+        !_isEmpty(props.gatewayDetails.routing.container_svc)) &&
       props.gatewayDetails.name !== '' &&
       props.gatewayDetails.idleTimeMins >= CONFIG_IDLE_TIME_CONSTRAINTS.MIN &&
       props.gatewayDetails.idleTimeMins <= CONFIG_IDLE_TIME_CONSTRAINTS.MAX &&
@@ -76,6 +77,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           (props.gatewayDetails.routing.instance.scale_group?.on_demand as number) <=
             (props.gatewayDetails.routing.instance.scale_group.max as number) &&
           (props.gatewayDetails.routing.instance.scale_group?.spot as number) >= 0
+        : true) &&
+      (selectedResource === RESOURCES.ECS
+        ? _defaultTo(props.gatewayDetails.routing.container_svc?.task_count, 0) > -1
         : true)
     )
   }
@@ -90,7 +94,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     props.gatewayDetails.deps,
     selectedResource,
     props.gatewayDetails.metadata.kubernetes_connector_id,
-    props.gatewayDetails.routing?.instance?.scale_group
+    props.gatewayDetails.routing?.instance?.scale_group,
+    props.gatewayDetails.routing?.container_svc
   ])
 
   return (

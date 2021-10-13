@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/85-cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeCard/components/ChangeDetails/ChangeDetails.utils.ts</title>
+    <title>Code coverage report for modules/85-cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeEventCard/components/DeploymentTimeDuration/DeploymentTimeDuration.utils.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../../../../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../../../../../../../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../../../../../../../../../index.html">All files</a> / <a href="index.html">modules/85-cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeCard/components/ChangeDetails</a> ChangeDetails.utils.ts</h1>
+        <h1><a href="../../../../../../../../../../../../../../index.html">All files</a> / <a href="index.html">modules/85-cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeEventCard/components/DeploymentTimeDuration</a> DeploymentTimeDuration.utils.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/11</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/14</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/9</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -76,43 +76,52 @@
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { ChangeEventDTO } from 'services/cv'
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import moment from 'moment'
+export const durationAsString = (start: number, end: number): string =&gt; {
+  const duration = moment.duration(moment(end).diff(moment(start)))
 &nbsp;
-export const createDetailsTitle = (type?: string, category?: string) =&gt; {
-  switch (category) {
-    case category:
-      return `${type} ${category} `
-<span class="branch-1 cbranch-no" title="branch not covered" >    default:</span>
-<span class="cstat-no" title="statement not covered" >      return ''</span>
-  }
-}
+  //Get Days
+  const days = Math.floor(duration.asDays())
+  const daysFormatted = days ? `${days}d ` : ''
 &nbsp;
-export const getOnClickOptions = (detailsItem: { name: string | ChangeEventDTO['type']; url?: string }) =&gt; {
-  if (typeof detailsItem !== 'string' &amp;&amp; detailsItem<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>rl) {
-    return {
-      onClick: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >window.open(detailsItem?.url, '_blank')</span>
-    }
-  }
-  return {}
+  //Get Hours
+  const hours = duration.hours()
+  const hoursFormatted = hours ? `${hours}h ` : ''
+&nbsp;
+  //Get Minutes
+  const minutes = duration.minutes()
+  const minutesFormatted = minutes ? `${minutes}m ` : ''
+&nbsp;
+  //Get Seconds
+  const seconds = duration.seconds()
+  const secondsFormatted = seconds ? `${seconds}s ` : ''
+&nbsp;
+  return [daysFormatted, hoursFormatted, minutesFormatted, secondsFormatted].join('')
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -121,7 +130,7 @@ export const getOnClickOptions = (detailsItem: { name: string | ChangeEventDTO['
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 13 2021 08:58:00 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 13 2021 10:38:43 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../../../../../prettify.js"></script>

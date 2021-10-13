@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import ReactTimeago from 'react-timeago'
@@ -8,6 +8,7 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { useStrings } from 'framework/strings'
+import routes from '@common/RouteDefinitions'
 import type { GovernanceMetadata } from 'services/pipeline-ng'
 import css from './ExecutionPolicyEvaluationsView.module.scss'
 
@@ -17,7 +18,7 @@ export interface PolicySetEvaluationsProps {
 }
 
 interface PolicyEvaluationResponse {
-  policyId: string
+  identifier: string
   policyName: string
   severity: string
   denyMessages: string[]
@@ -35,8 +36,9 @@ const policyPassed = (_severity: string, denyMessages: string[]): boolean => !de
 export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ metadata, accountId: _accountId }) => {
   const failure = !!metadata.deny
   const { getString } = useStrings()
+  const history = useHistory()
+  const { accountId } = useParams<{ accountId: string }>()
   const [expandedSets, setExpandedSets] = useState<Set<string>>(new Set())
-
   const details = get(metadata, 'details') as PolicySetEvaluationResponse[]
   const timestamp = Number(get(metadata, 'timestamp') || 0)
 
@@ -119,7 +121,14 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                 </Text>
 
                 <Text font={{ variation: FontVariation.TABLE_HEADERS }} className={css.details}>
-                  <Button variation={ButtonVariation.ICON} icon="main-link" />
+                  <Button
+                    variation={ButtonVariation.ICON}
+                    icon="main-link"
+                    onClick={() => {
+                      // TODO: Update to evaluation detailed page when it's built
+                      history.push(routes.toPolicyEvaluationsPage({ accountId }))
+                    }}
+                  />
                 </Text>
               </Layout.Horizontal>
 
@@ -130,12 +139,14 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                       {getString('pipeline.policyEvaluations.emptyPolicySet')}
                     </Text>
                   )}
-                  {policyMetadata?.map(({ policyId, policyName, severity, denyMessages }) => {
+                  {policyMetadata?.map(({ identifier, policyName, severity, denyMessages }) => {
                     return (
-                      <Layout.Horizontal spacing="xsmall" padding={{ top: 'medium' }} key={policyId}>
+                      <Layout.Horizontal spacing="xsmall" padding={{ top: 'medium' }} key={identifier}>
                         <Container style={{ flexGrow: 1 }}>
                           <Text font={{ variation: FontVariation.BODY }} color={Color.PRIMARY_7}>
-                            {policyName}
+                            <Link to={routes.toPolicyEditPage({ accountId, policyIdentifier: identifier })}>
+                              {policyName}
+                            </Link>
                           </Text>
                           {!policyPassed(severity, denyMessages) && !!denyMessages?.length && (
                             <Layout.Horizontal
@@ -144,11 +155,13 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                               style={{ alignItems: 'center' }}
                             >
                               <Text font={{ variation: FontVariation.UPPERCASED }}>{getString('details')}</Text>
-                              {denyMessages.map(message => (
-                                <Text key={message} font={{ variation: FontVariation.BODY }} color={Color.RED_500}>
-                                  {message}
-                                </Text>
-                              ))}
+                              <Container padding={{ left: 'small' }}>
+                                {denyMessages.map(message => (
+                                  <Text key={message} font={{ variation: FontVariation.BODY }} color={Color.RED_500}>
+                                    - {message}
+                                  </Text>
+                                ))}
+                              </Container>
                             </Layout.Horizontal>
                           )}
                         </Container>

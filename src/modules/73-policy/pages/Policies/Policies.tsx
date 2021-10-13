@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import * as moment from 'moment'
-import { ButtonVariation, ExpandingSearchInput, Layout, Button, Text, Color, Utils } from '@wings-software/uicore'
+import { ButtonVariation, Layout, Button, Text, Color, Utils } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
@@ -10,22 +10,56 @@ import { Page } from '@common/exports'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import { Policy, useGetPolicyList, useDeletePolicy } from 'services/pm'
+import { Policy, useDeletePolicy } from 'services/pm'
+import { useGet } from 'restful-react'
 import { setPageNumber } from '@common/utils/utils'
 import { OptionsMenuButton } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 import PolicyIcon from './Policy.svg'
+import parseLinkHeader from 'parse-link-header'
 
 import css from './Policies.module.scss'
+
+let page: number = 0
+let totalPages = 0
+const pageSize = 10
 
 const Policies: React.FC = () => {
   const { accountId } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   useDocumentTitle(getString('common.policies'))
-  const [page, setPage] = useState(0)
-  const [searchTerm, setsearchTerm] = useState<string>('')
-  const { data: policyList, loading: fetchingPolicies, error, refetch } = useGetPolicyList({}) // TODO: Backend must support accountId
+  const [, setPage] = useState(0)
+  // const [searchTerm, setsearchTerm] = useState<string>('')
+
+  const {
+    data: policyList,
+    loading: fetchingPolicies,
+    error,
+    refetch,
+    response
+  } = useGet({
+    path: 'pm/api/v1/policies',
+    queryParams: {
+      accountId: accountId,
+      per_page: pageSize,
+      page: page + 1
+    }
+  })
+
+  if (response?.headers) {
+    for (let pair of response?.headers?.entries()) {
+      // accessing the entries
+      if (pair[0] == 'link') {
+        const links = parseLinkHeader(pair[1])
+
+        if (links && links['last']?.['page']) {
+          totalPages = parseInt(links['last']?.['page'])
+        }
+      }
+    }
+  }
+
   const history = useHistory()
 
   useEffect(() => {
@@ -166,38 +200,30 @@ const Policies: React.FC = () => {
     <>
       <PageHeader
         title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>}
-        toolbar={
-          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
-            <ExpandingSearchInput
-              alwaysExpanded
-              placeholder={getString('common.policy.policySearch')}
-              onChange={text => {
-                setsearchTerm(text.trim())
-                setPage(0)
-              }}
-              width={250}
-            />
-          </Layout.Horizontal>
-        }
+        // toolbar={
+        //   <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
+        //     <ExpandingSearchInput
+        //       alwaysExpanded
+        //       placeholder={getString('common.policy.policySearch')}
+        //       onChange={text => {
+        //         setsearchTerm(text.trim())
+        //         setPage(0)
+        //       }}
+        //       width={250}
+        //     />
+        //   </Layout.Horizontal>
+        // }
       />
       <Page.Body
         loading={fetchingPolicies}
         error={(error?.data as Error)?.message || error?.message}
         retryOnError={() => refetch()}
-        noData={
-          !searchTerm
-            ? {
-                when: () => !policyList?.length,
-                icon: 'nav-project',
-                message: getString('common.policy.noPolicy'),
-                button: newUserGroupsBtn()
-              }
-            : {
-                when: () => !policyList?.length,
-                icon: 'nav-project',
-                message: getString('common.policy.noPolicyResult')
-              }
-        }
+        noData={{
+          when: () => !policyList?.length,
+          icon: 'nav-project',
+          message: getString('common.policy.noPolicy'),
+          button: newUserGroupsBtn()
+        }}
       >
         <Table<Policy>
           className={css.table}
@@ -209,11 +235,14 @@ const Policies: React.FC = () => {
           // TODO: enable when page is ready
 
           pagination={{
-            itemCount: policyList?.length || 0,
-            pageSize: 1000, // TODO Backend needs to support pagination
-            pageCount: 100, // TODO Backend needs to support pagination
-            pageIndex: 0, // TODO Backend needs to support pagination
-            gotoPage: (pageNumber: number) => setPage(pageNumber)
+            itemCount: totalPages ? totalPages * pageSize : 1,
+            pageSize: pageSize, // TODO Backend needs to support pagination
+            pageCount: totalPages, // TODO Backend needs to support pagination
+            pageIndex: page, // TODO Backend needs to support pagination
+            gotoPage: (pageNumber: number) => {
+              page = pageNumber
+              refetch()
+            }
           }}
         />
       </Page.Body>

@@ -40,37 +40,45 @@ type CreatePolicySetWizardProps = StepProps<{ refetch: () => void; hideModal: ()
   policySetData: PolicySetWithLinkedPolicies | any
 }
 
+interface PolicyDetail extends Policy {
+  key?: string
+}
+
+interface LinkedPolicyExtended extends LinkedPolicy {
+  key?: string
+}
+
 const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData, prevStepData }) => {
   const _policySetData = { ...policySetData, ...prevStepData }
 
   const { mutate: createPolicySet } = useCreatePolicySet({})
-  const { mutate: updatePolicySet } = useUpdatePolicySet({ policyset: _policySetData?.id?.toString() })
+  const { mutate: updatePolicySet } = useUpdatePolicySet({ policyset: _policySetData?.key?.toString() })
   const { showSuccess, showError } = useToaster()
 
   const onSubmitFirstStep = async (values: any) => {
     values['enabled'] = true
-
-    const _fields = pick(_policySetData, ['action', 'enabled', 'name', 'type'])
-    const _clonedValues = pick(values, ['action', 'enabled', 'name', 'type'])
+    values['key'] = values['identifier']
+    const _fields = pick(_policySetData, ['action', 'enabled', 'name', 'type', 'key'])
+    const _clonedValues = pick(values, ['action', 'enabled', 'name', 'type', 'key'])
     // console.log(Object.keys(_clonedValues).length, policySetData?.id, _fields, _clonedValues)
     if (!isEqual(_fields, _clonedValues)) {
       if (policySetData?.id || Object.keys(_fields).length === Object.keys(_clonedValues).length) {
         updatePolicySet(values)
           .then(response => {
             showSuccess(`Successfully updated ${values.name} Policy Set`)
-            nextStep?.({ ...values, id: response.key })
+            nextStep?.({ ...values, id: (response as any)?.key })
           })
           .catch(error => showError(error?.message))
       } else {
         createPolicySet(values)
           .then(response => {
             showSuccess(`Successfully created ${values.name} Policy Set`)
-            nextStep?.({ ...values, id: response.key })
+            nextStep?.({ ...values, id: (response as any)?.key })
           })
           .catch(error => showError(error?.message))
       }
     } else {
-      nextStep?.({ ...values, id: _policySetData.id })
+      nextStep?.({ ...values, id: _policySetData.key })
     }
   }
 
@@ -100,7 +108,7 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
         })}
         initialValues={{
           name: _policySetData?.name || '',
-          identifier: _policySetData?.name || '',
+          identifier: _policySetData?.key || '',
           type: _policySetData?.type || '',
           action: _policySetData?.action || ''
         }}
@@ -163,7 +171,7 @@ const StepTwo: React.FC<{
 
   React.useEffect(() => {
     if (policies) {
-      policies.forEach((v: Policy) => {
+      policies.forEach((v: PolicyDetail) => {
         policyList.push({ label: v.name as string, value: v.key?.toString() as string })
       })
       setPlList(policyList)
@@ -171,17 +179,17 @@ const StepTwo: React.FC<{
   }, [policies])
 
   const { data, loading: fetchingPolicySet } = useGetPolicySet({
-    policyset: policySetData?.id?.toString() || prevStepData?.id
+    policyset: policySetData?.key?.toString() || prevStepData?.id
   })
 
   const { mutate: patchPolicy } = useMutate({
     verb: 'PATCH',
-    path: `policy-mgmt/pm/api/v1/policysets/${prevStepData?.id}/policy/${policyId}`
+    path: `pm/api/v1/policysets/${prevStepData?.id}/policy/${policyId}`
   })
 
   const { mutate: deleteLinkedPolicy } = useMutate({
     verb: 'DELETE',
-    path: `policy-mgmt/pm/api/v1/policysets/${prevStepData?.id}/policy/${deLinkpolicyId}`
+    path: `pm/api/v1/policysets/${prevStepData?.id}/policy/${deLinkpolicyId}`
   })
 
   const handlePatchRequest = async (severitySelected: string) => {
@@ -234,9 +242,9 @@ const StepTwo: React.FC<{
   }
 
   React.useEffect(() => {
-    const _attachedPolicy: LinkedPolicy[] = []
+    const _attachedPolicy: LinkedPolicyExtended[] = []
     if (data && data.policies?.length) {
-      data.policies.forEach((policy: LinkedPolicy) => {
+      data.policies.forEach((policy: LinkedPolicyExtended) => {
         const _obj: any = {
           policy: {
             value: policy.key?.toString(),

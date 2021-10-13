@@ -5,7 +5,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import * as moment from 'moment'
 import {
   ButtonVariation,
-  ExpandingSearchInput,
+  // ExpandingSearchInput,
   Layout,
   Toggle,
   Button,
@@ -18,10 +18,12 @@ import { Classes, Position, Menu, Dialog, IDialogProps } from '@blueprintjs/core
 import { useParams } from 'react-router-dom'
 import { useGet } from 'restful-react'
 import type { CellProps, Renderer, Column } from 'react-table'
+import parseLinkHeader from 'parse-link-header'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import { useUpdatePolicySet, useDeletePolicySet } from 'services/pm'
 
 import { useStrings } from 'framework/strings'
+
 import { StringUtils } from '@common/exports'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
@@ -46,15 +48,22 @@ export interface PoliciesSetDTO {
   project_id: string
   type: string
   updated: number
+  key: string
 }
+
+let page = 0
+let totalPages = 0
+const pageSize = 10
 
 const PolicyEvaluations: React.FC = () => {
   const { accountId } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   useDocumentTitle(getString('common.policies'))
-  const [page, setPage] = useState(0)
-  const [searchTerm, setsearchTerm] = useState<string>('')
+  const [, setPage] = useState(0)
+  // const [searchTerm, setsearchTerm] = useState<string>('')
+
   const [policySetData, setPolicySetData] = React.useState<any>()
+
   const modalProps: IDialogProps = {
     isOpen: true,
     enforceFocus: false,
@@ -71,16 +80,32 @@ const PolicyEvaluations: React.FC = () => {
     data: policyList,
     loading: fetchingPolicieSets,
     error,
-    refetch
+    refetch,
+    response
   } = useGet({
-    path: 'policy-mgmt/pm/api/v1/policysets',
+    path: 'pm/api/v1/policysets',
     queryParams: {
-      accountId: accountId
+      accountId: accountId,
+      per_page: pageSize,
+      page: page + 1
     }
   })
 
+  if (response?.headers) {
+    for (const pair of response?.headers?.entries()) {
+      // accessing the entries
+      if (pair[0] == 'link') {
+        const links = parseLinkHeader(pair[1])
+
+        if (links && links['last']?.['page']) {
+          totalPages = parseInt(links['last']?.['page'])
+        }
+      }
+    }
+  }
+
   useEffect(() => {
-    setPageNumber({ setPage, page, pageItemsCount: policyList?.pageCount || 1000 })
+    setPageNumber({ setPage, page, pageItemsCount: totalPages * pageSize })
   }, [policyList])
 
   const [showModal, hideModal] = useModalHook(
@@ -195,7 +220,7 @@ const PolicyEvaluations: React.FC = () => {
       onCloseDialog: async didConfirm => {
         if (didConfirm && data) {
           try {
-            await deletePolicySet(data.id.toString())
+            await deletePolicySet(data?.key.toString())
             showSuccess('Successfully deleted Policy Set')
             refetch()
           } catch (err) {
@@ -305,51 +330,44 @@ const PolicyEvaluations: React.FC = () => {
     <>
       <PageHeader
         title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>}
-        toolbar={
-          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
-            <ExpandingSearchInput
-              alwaysExpanded
-              placeholder={getString('common.policiesSets.policySetSearch')}
-              onChange={text => {
-                setsearchTerm(text.trim())
-                setPage(0)
-              }}
-              width={250}
-            />
-          </Layout.Horizontal>
-        }
+        // toolbar={
+        //   <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
+        //     <ExpandingSearchInput
+        //       alwaysExpanded
+        //       placeholder={getString('common.policiesSets.policySetSearch')}
+        //       onChange={text => {
+        //         setsearchTerm(text.trim())
+        //         page = 0
+        //       }}
+        //       width={250}
+        //     />
+        //   </Layout.Horizontal>
+        // }
       />
       <Page.Body
         loading={fetchingPolicieSets}
         error={(error?.data as Error)?.message || error?.message}
         retryOnError={() => refetch()}
-        noData={
-          !searchTerm
-            ? {
-                when: () => !policyList?.length,
-                icon: 'nav-project',
-                message: getString('common.policiesSets.noPolicySet'),
-                button: newUserGroupsBtn()
-              }
-            : {
-                when: () => !policyList?.length,
-                icon: 'nav-project',
-                message: getString('common.policiesSets.noPolicySetResult')
-              }
-        }
+        noData={{
+          when: () => !policyList?.length,
+          icon: 'nav-project',
+          message: getString('common.policiesSets.noPolicySet'),
+          button: newUserGroupsBtn()
+        }}
       >
         <Table<PoliciesSetDTO>
           className={css.table}
           columns={columns}
           data={policyList || []}
-          // TODO: enable when page is ready
-
           pagination={{
-            itemCount: policyList?.length || 0,
-            pageSize: policyList?.pageSize || 1000,
-            pageCount: policyList?.pageCount || 0,
-            pageIndex: policyList?.pageIndex || 0,
-            gotoPage: (pageNumber: number) => setPage(pageNumber)
+            itemCount: totalPages ? totalPages * pageSize : 1,
+            pageSize: pageSize,
+            pageCount: totalPages,
+            pageIndex: page,
+            gotoPage: (pageNumber: number) => {
+              page = pageNumber
+              refetch()
+            }
           }}
         />
       </Page.Body>

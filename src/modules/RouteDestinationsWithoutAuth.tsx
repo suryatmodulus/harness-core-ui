@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 import routes from '@common/RouteDefinitions'
-import SessionToken from 'framework/utils/SessionToken'
+import AppStorage from 'framework/utils/AppStorage'
 import LoginPage from '@common/pages/login/LoginPage'
 import SignupPage from '@common/pages/signup/SignupPage'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
@@ -11,7 +11,7 @@ import { returnUrlParams } from '@common/utils/routeUtils'
 
 const RedirectToHome: React.FC = () => {
   const history = useHistory()
-  const accountId = SessionToken.accountId()
+  const accountId = AppStorage.get('acctId')
   if (accountId) {
     return <Redirect to={routes.toHome({ accountId })} />
   } else {

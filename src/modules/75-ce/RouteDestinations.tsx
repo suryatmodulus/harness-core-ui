@@ -9,7 +9,7 @@ import { RouteWithLayout } from '@common/router'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 import { MinimalLayout } from '@common/layouts'
-import SessionToken from 'framework/utils/SessionToken'
+// import SessionToken from 'framework/utils/SessionToken'
 
 import CESideNav from '@ce/components/CESideNav/CESideNav'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -77,18 +77,18 @@ const licenseRedirectData: LicenseRedirectProps = {
 }
 
 const CERoutes: React.FC = () => {
-  const token = SessionToken.getToken()
+  // const token = SessionToken.getToken()
   const { accountId } = useParams<AccountPathProps>()
 
-  const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
-    const headers: RequestInit['headers'] = {}
+  // const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
+  //   const headers: RequestInit['headers'] = {}
 
-    if (token && token.length > 0) {
-      headers.Authorization = `Bearer ${token}`
-    }
+  //   if (token && token.length > 0) {
+  //     headers.Authorization = `Bearer ${token}`
+  //   }
 
-    return { headers }
-  }, [token])
+  //   return { headers }
+  // }, [token])
 
   const urqlClient = React.useCallback(() => {
     const url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}&routingId=${accountId}`)
@@ -98,13 +98,13 @@ const CERoutes: React.FC = () => {
     // }
     return createClient({
       url: url,
-      fetchOptions: () => {
-        return getRequestOptions()
-      },
+      // fetchOptions: () => {
+      //   return getRequestOptions()
+      // },
       exchanges: [dedupExchange, requestPolicyExchange({}), cacheExchange, fetchExchange],
       requestPolicy: 'cache-first'
     })
-  }, [token, accountId])
+  }, [accountId])
 
   return (
     <Provider value={urqlClient()}>

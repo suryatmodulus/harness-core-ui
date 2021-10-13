@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { FocusStyleManager } from '@blueprintjs/core'
 import { TooltipContextProvider } from '@wings-software/uicore'
 import { tooltipDictionary } from '@wings-software/ng-tooltip'
 import { setAutoFreeze, enableMapSet } from 'immer'
-import SessionToken from 'framework/utils/SessionToken'
+// import SessionToken from 'framework/utils/SessionToken'
 
 import { AppStoreProvider } from 'framework/AppStore/AppStoreContext'
 import { LicenseStoreProvider } from 'framework/LicenseStore/LicenseStoreContext'
@@ -20,7 +20,7 @@ import { StringsContextProvider } from 'framework/strings/StringsContextProvider
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
 import { NGTooltipEditorPortal } from 'framework/tooltip/TooltipEditor'
 import AppStorage from 'framework/utils/AppStorage'
-import { useRefreshToken } from 'services/portal'
+// import { useRefreshToken } from 'services/portal'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 import './App.scss'
@@ -43,21 +43,21 @@ interface AppProps {
 const Harness = (window.Harness = window.Harness || {})
 
 export function AppWithAuthentication(props: AppProps): React.ReactElement {
-  const token = SessionToken.getToken()
+  // const token = SessionToken.getToken()
   // always use accountId from URL, and not from local storage
   // if user lands on /, they'll first get redirected to a path with accountId
   const { accountId } = useParams<AccountPathProps>()
   const history = useHistory()
 
-  const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
-    const headers: RequestInit['headers'] = {}
+  // const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
+  //   const headers: RequestInit['headers'] = {}
 
-    if (token && token.length > 0) {
-      headers.Authorization = `Bearer ${token}`
-    }
+  //   if (token && token.length > 0) {
+  //     headers.Authorization = `Bearer ${token}`
+  //   }
 
-    return { headers }
-  }, [token])
+  //   return { headers }
+  // }, [token])
 
   const getQueryParams = React.useCallback(() => {
     return {
@@ -65,39 +65,39 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
     }
   }, [accountId])
 
-  const {
-    data: refreshTokenResponse,
-    refetch: refreshToken,
-    loading: refreshingToken
-  } = useRefreshToken({
-    lazy: true,
-    requestOptions: getRequestOptions()
-  })
+  // const {
+  //   data: refreshTokenResponse,
+  //   refetch: refreshToken,
+  //   loading: refreshingToken
+  // } = useRefreshToken({
+  //   lazy: true
+  //   requestOptions: getRequestOptions()
+  // })
 
-  useEffect(() => {
-    if (!token) {
-      history.push({
-        pathname: routes.toRedirect(),
-        search: returnUrlParams(getLoginPageURL({ returnUrl: window.location.href }))
-      })
-    }
-  }, [history, token])
+  // useEffect(() => {
+  //   if (!token) {
+  //     history.push({
+  //       pathname: routes.toRedirect(),
+  //       search: returnUrlParams(getLoginPageURL({ returnUrl: window.location.href }))
+  //     })
+  //   }
+  // }, [history, token])
 
-  useEffect(() => {
-    if (refreshTokenResponse?.resource) {
-      AppStorage.set('token', refreshTokenResponse.resource)
-      AppStorage.set('lastTokenSetTime', +new Date())
-    }
-  }, [refreshTokenResponse])
+  // useEffect(() => {
+  //   if (refreshTokenResponse?.resource) {
+  //     AppStorage.set('token', refreshTokenResponse.resource)
+  //     AppStorage.set('lastTokenSetTime', +new Date())
+  //   }
+  // }, [refreshTokenResponse])
 
-  const checkAndRefreshToken = (): void => {
-    const currentTime = +new Date()
-    const lastTokenSetTime = SessionToken.getLastTokenSetTime() as number
-    const refreshInterval = 60 * 60 * 1000 // one hour in milliseconds
-    if (currentTime - lastTokenSetTime > refreshInterval && !refreshingToken) {
-      refreshToken()
-    }
-  }
+  // const checkAndRefreshToken = (): void => {
+  //   const currentTime = +new Date()
+  //   const lastTokenSetTime = SessionToken.getLastTokenSetTime() as number
+  //   const refreshInterval = 60 * 60 * 1000 // one hour in milliseconds
+  //   if (currentTime - lastTokenSetTime > refreshInterval && !refreshingToken) {
+  //     refreshToken()
+  //   }
+  // }
 
   const [showTooltipEditor, setShowTooltipEditor] = useState(false)
   Harness.openNgTooltipEditor = () => setShowTooltipEditor(true)
@@ -105,7 +105,7 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
   return (
     <RestfulProvider
       base="/"
-      requestOptions={getRequestOptions}
+      // requestOptions={getRequestOptions}
       queryParams={getQueryParams()}
       queryParamStringifyOptions={{ skipNulls: true }}
       onResponse={response => {
@@ -118,7 +118,7 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
           return
         }
 
-        checkAndRefreshToken()
+        // checkAndRefreshToken()
       }}
     >
       <StringsContextProvider initialStrings={props.strings}>

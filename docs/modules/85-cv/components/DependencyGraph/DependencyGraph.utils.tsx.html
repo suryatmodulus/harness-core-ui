@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">80.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>52/65</span>
+                <span class='fraction'>53/66</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.64% </span>
+                <span class="strong">73.28% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>95/129</span>
+                <span class='fraction'>96/131</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.03% </span>
+                <span class="strong">81.36% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>47/58</span>
+                <span class='fraction'>48/59</span>
             </div>
         
             
@@ -302,12 +302,17 @@
 <a name='L243'></a><a href='#L243'>243</a>
 <a name='L244'></a><a href='#L244'>244</a>
 <a name='L245'></a><a href='#L245'>245</a>
-<a name='L246'></a><a href='#L246'>246</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">394x</span>
@@ -350,6 +355,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">197x</span>
 <span class="cline-any cline-yes">1182x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">197x</span>
@@ -552,7 +560,8 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { HarnessIcons, Utils } from '@wings-software/uicore'
 import { serviceIcon, statusColors } from '@cv/components/DependencyGraph/DependencyGraph.constants'
 import type { Node, DependencyData, GraphData } from '@cv/components/DependencyGraph/DependencyGraph.types'
-import type { Edge, RestResponseServiceDependencyGraphDTO } from 'services/cv'
+import type { Edge, RestResponseServiceDependencyGraphDTO, ServiceSummaryDetails } from 'services/cv'
+import { getRiskColorValue, getSecondaryRiskColorValue, RiskValues } from '@cv/utils/CommonUtils'
 &nbsp;
 function replaceFill(logo: any, primaryColor: string) {
   <span class="missing-if-branch" title="else path not taken" >E</span>if (Object.prototype.hasOwnProperty.call(logo, 'props')) {
@@ -592,10 +601,13 @@ export function formatNodes(nodes?: Node[], data?: Edge[]) {
     return color.substring(4, color.length - 1)
   }
 &nbsp;
-  function hexSvg(status: string, icon: string) {
+  function hexSvg(status: ServiceSummaryDetails['riskLevel'], icon: string) {
     const selectedColor = statusColors.filter(colors =&gt; {
       return colors.status === status
-    })<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>]
+    })<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>] || <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
+      primary: getRiskColorValue(RiskValues.NO_DATA, false),
+      secondary: getSecondaryRiskColorValue(RiskValues.NO_DATA, false)
+    }
 &nbsp;
     const styles = getComputedStyle(document.body)
     const primaryColor = styles.getPropertyValue(getColorCode(Utils.getRealCSSColor(selectedColor<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rimary)))
@@ -688,7 +700,7 @@ export function formatNodes(nodes?: Node[], data?: Edge[]) {
             className: `PointData ${missing || <span class="branch-1 cbranch-no" title="branch not covered" >''.replace(' ', '')}</span> Status_NO_ANALYSIS`,
             marker: {
               symbol: `url(data:image/svg+xml;utf8,${encodeURIComponent(
-                renderToStaticMarkup(hexSvg('NO_ANALYSIS', serviceIcon))
+                renderToStaticMarkup(hexSvg(RiskValues.NO_ANALYSIS, serviceIcon))
               )})`
             }
           }
@@ -799,7 +811,7 @@ export function dependencyGraphOptions(dependencyData: DependencyData): Highchar
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 13 2021 05:25:20 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 13 2021 05:56:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

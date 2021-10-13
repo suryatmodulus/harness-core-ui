@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/12</span>
+                <span class='fraction'>10/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">23.08% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/12</span>
+                <span class='fraction'>3/13</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">72.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/10</span>
+                <span class='fraction'>8/11</span>
             </div>
         
             
@@ -136,9 +136,21 @@
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">92x</span>
@@ -159,7 +171,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,36 +240,48 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type Highcharts from 'highcharts'
-import { RiskValues } from './ClusterChart.constants'
-import type { Risk } from './ClusterChart.types'
+import type { LogAnalysisClusterChartDTO } from 'services/cv'
+import { RiskValues, getRiskColorValue, getSecondaryRiskColorValue } from '@cv/utils/CommonUtils'
 &nbsp;
-export const mapRisk = (risk?: Risk): Highcharts.PointOptionsObject =&gt; {
+export const mapRisk = (risk: LogAnalysisClusterChartDTO['risk']): Highcharts.PointOptionsObject =&gt; {
   switch (risk) {
-    case RiskValues.LOW:
+    case RiskValues.HEALTHY:
       return {
-        color: 'var(--green-50)',
+        color: getSecondaryRiskColorValue(RiskValues.HEALTHY),
         marker: {
           lineWidth: 1,
-          lineColor: 'var(--green-450)',
+          lineColor: getRiskColorValue(RiskValues.HEALTHY),
           radius: 8
         }
       }
-    case RiskValues.MEDIUM:
+    case RiskValues.NEED_ATTENTION:
       return {
-        color: 'var(--yellow-500)',
+        color: getSecondaryRiskColorValue(RiskValues.NEED_ATTENTION),
         marker: {
-          radius: 7
+          lineWidth: 1,
+          lineColor: getRiskColorValue(RiskValues.NEED_ATTENTION),
+          radius: 8
         }
       }
-    case RiskValues.HIGH:
+    case RiskValues.UNHEALTHY:
       return {
-        color: 'var(--red-500)',
+        color: getSecondaryRiskColorValue(RiskValues.UNHEALTHY),
         marker: {
-          radius: 7,
-          lineColor: 'var(--black-100)'
+          lineWidth: 1,
+          lineColor: getRiskColorValue(RiskValues.UNHEALTHY),
+          radius: 8
         }
       }
-<span class="branch-3 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-3 cbranch-no" title="branch not covered" >    case RiskValues.OBSERVE:</span>
+<span class="cstat-no" title="statement not covered" >      return {</span>
+        color: getSecondaryRiskColorValue(RiskValues.OBSERVE),
+        marker: {
+          lineWidth: 1,
+          lineColor: getRiskColorValue(RiskValues.OBSERVE),
+          radius: 8
+        }
+      }
+<span class="branch-4 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return {}</span>
   }
 }
@@ -301,7 +337,7 @@ export const chartOptions = (series: Highcharts.SeriesScatterOptions[]) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 13 2021 05:25:20 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 13 2021 05:56:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -40,10 +40,10 @@ const PolicyEvaluations: React.FC = () => {
     return (
       <Layout.Vertical spacing="small">
         <Text color={Color.BLACK} lineClamp={1} font={{ weight: 'semi-bold' }}>
-          {record.input?.pipeline.name}
+          {record.input?.pipeline?.name}
         </Text>
         <Text color={Color.BLACK} lineClamp={1}>
-          {record?.input?.pipeline.projectIdentifier} / {record?.input?.pipeline.orgIdentifier}
+          {record?.input?.pipeline?.projectIdentifier} / {record?.input?.pipeline?.orgIdentifier}
         </Text>
       </Layout.Vertical>
     )
@@ -115,37 +115,37 @@ const PolicyEvaluations: React.FC = () => {
     () => [
       {
         Header: 'Entity',
-        accessor: row => row?.input?.pipeline.name,
+        accessor: row => row,
         width: '20%',
         Cell: RenderPipelineName
       },
       {
         Header: 'Entity Type',
-        accessor: row => row?.input?.pipeline.name,
+        accessor: row => row,
         width: '13%',
         Cell: RenderEntityType
       },
       {
         Header: 'Execution',
-        accessor: row => row?.input?.pipeline.name,
+        accessor: row => row,
         width: '30%',
         Cell: RenderPolicySets
       },
       {
         Header: 'Evaluated on',
-        accessor: row => row?.input?.pipeline.name,
+        accessor: row => row,
         width: '20%',
         Cell: RenderEvaluatedon
       },
       {
         Header: 'Action',
-        accessor: row => row?.input?.pipeline.name,
+        accessor: row => row,
         width: '10%',
         Cell: RenderAction
       },
       {
         Header: 'Status',
-        accessor: row => row?.input?.pipeline.name,
+        accessor: row => row,
         width: '7%',
         Cell: RenderStatus
       }

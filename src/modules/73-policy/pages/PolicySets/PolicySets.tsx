@@ -48,7 +48,7 @@ export interface PoliciesSetDTO {
   project_id: string
   type: string
   updated: number
-  key: string
+  identifier: string
 }
 
 let page = 0
@@ -220,7 +220,7 @@ const PolicyEvaluations: React.FC = () => {
       onCloseDialog: async didConfirm => {
         if (didConfirm && data) {
           try {
-            await deletePolicySet(data?.key.toString())
+            await deletePolicySet(data?.identifier.toString())
             showSuccess('Successfully deleted Policy Set')
             refetch()
           } catch (err) {

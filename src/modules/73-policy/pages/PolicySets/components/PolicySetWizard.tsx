@@ -40,45 +40,37 @@ type CreatePolicySetWizardProps = StepProps<{ refetch: () => void; hideModal: ()
   policySetData: PolicySetWithLinkedPolicies | any
 }
 
-interface PolicyDetail extends Policy {
-  key?: string
-}
-
-interface LinkedPolicyExtended extends LinkedPolicy {
-  key?: string
-}
-
 const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData, prevStepData }) => {
   const _policySetData = { ...policySetData, ...prevStepData }
 
   const { mutate: createPolicySet } = useCreatePolicySet({})
-  const { mutate: updatePolicySet } = useUpdatePolicySet({ policyset: _policySetData?.key?.toString() })
+  const { mutate: updatePolicySet } = useUpdatePolicySet({ policyset: _policySetData?.identifier?.toString() })
   const { showSuccess, showError } = useToaster()
 
   const onSubmitFirstStep = async (values: any) => {
     values['enabled'] = true
-    values['key'] = values['identifier']
-    const _fields = pick(_policySetData, ['action', 'enabled', 'name', 'type', 'key'])
-    const _clonedValues = pick(values, ['action', 'enabled', 'name', 'type', 'key'])
+
+    const _fields = pick(_policySetData, ['action', 'enabled', 'name', 'type', 'identifier'])
+    const _clonedValues = pick(values, ['action', 'enabled', 'name', 'type', 'identifier'])
     // console.log(Object.keys(_clonedValues).length, policySetData?.id, _fields, _clonedValues)
     if (!isEqual(_fields, _clonedValues)) {
       if (policySetData?.id || Object.keys(_fields).length === Object.keys(_clonedValues).length) {
         updatePolicySet(values)
           .then(response => {
             showSuccess(`Successfully updated ${values.name} Policy Set`)
-            nextStep?.({ ...values, id: (response as any)?.key })
+            nextStep?.({ ...values, id: response?.identifier })
           })
           .catch(error => showError(error?.message))
       } else {
         createPolicySet(values)
           .then(response => {
             showSuccess(`Successfully created ${values.name} Policy Set`)
-            nextStep?.({ ...values, id: (response as any)?.key })
+            nextStep?.({ ...values, id: response?.identifier })
           })
           .catch(error => showError(error?.message))
       }
     } else {
-      nextStep?.({ ...values, id: _policySetData.key })
+      nextStep?.({ ...values, id: _policySetData.identifier })
     }
   }
 
@@ -108,7 +100,7 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
         })}
         initialValues={{
           name: _policySetData?.name || '',
-          identifier: _policySetData?.key || '',
+          identifier: _policySetData?.identifier || '',
           type: _policySetData?.type || '',
           action: _policySetData?.action || ''
         }}
@@ -171,15 +163,15 @@ const StepTwo: React.FC<{
 
   React.useEffect(() => {
     if (policies) {
-      policies.forEach((v: PolicyDetail) => {
-        policyList.push({ label: v.name as string, value: v.key?.toString() as string })
+      policies.forEach((v: Policy) => {
+        policyList.push({ label: v.name as string, value: v.identifier?.toString() as string })
       })
       setPlList(policyList)
     }
   }, [policies])
 
   const { data, loading: fetchingPolicySet } = useGetPolicySet({
-    policyset: policySetData?.key?.toString() || prevStepData?.id
+    policyset: policySetData?.identifier?.toString() || prevStepData?.id
   })
 
   const { mutate: patchPolicy } = useMutate({
@@ -242,12 +234,12 @@ const StepTwo: React.FC<{
   }
 
   React.useEffect(() => {
-    const _attachedPolicy: LinkedPolicyExtended[] = []
+    const _attachedPolicy: LinkedPolicy[] = []
     if (data && data.policies?.length) {
-      data.policies.forEach((policy: LinkedPolicyExtended) => {
+      data.policies.forEach((policy: LinkedPolicy) => {
         const _obj: any = {
           policy: {
-            value: policy.key?.toString(),
+            value: policy.identifier?.toString(),
             label: policy.name
           },
           severity: {

@@ -88,7 +88,7 @@ export const EditPolicy: React.FC = () => {
       .then(response => {
         showToaster('Policy saved!')
         if (!isEdit) {
-          history.replace(routes.toPolicyEditPage({ accountId, policyIdentifier: String(response.key || '') }))
+          history.replace(routes.toPolicyEditPage({ accountId, policyIdentifier: String(response.identifier || '') }))
         }
       })
       .catch(error => {
@@ -255,7 +255,7 @@ export const EditPolicy: React.FC = () => {
   useEffect(() => {
     if (policyData) {
       setRegoScript(policyData.rego || '')
-      setPolicyIdentifier(policyData.key || '')
+      setPolicyIdentifier(policyData.identifier || '')
       setRegoScript(policyData.rego || '')
       setName(policyData.name || '')
 

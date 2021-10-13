@@ -437,6 +437,67 @@
         }
       }
     },
+    "/policysets/{policyset}/policy/{policy}": {
+      "delete": {
+        "description": "Delete the linked policy by ID",
+        "tags": [
+          "policyset"
+        ],
+        "operationId": "deleteLinkedPolicy",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "policyset",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "policy",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "description": "Add a new linked policy",
+        "tags": [
+          "policyset"
+        ],
+        "operationId": "addLinkedPolicy",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "policyset",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "policy",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/LinkedPolicyInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/register": {
       "post": {
         "description": "Return system version information",
@@ -630,7 +691,12 @@
           "$ref": "#/definitions/Policy"
         },
         "status": {
-          "$ref": "#/definitions/EvaluationStatus"
+          "type": "string",
+          "enum": [
+            "error",
+            "warning",
+            "pass"
+          ]
         }
       }
     },
@@ -667,7 +733,12 @@
           "type": "string"
         },
         "status": {
-          "$ref": "#/definitions/EvaluationStatus"
+          "type": "string",
+          "enum": [
+            "error",
+            "warning",
+            "pass"
+          ]
         },
         "type": {
           "type": "string"
@@ -687,14 +758,19 @@
             "$ref": "#/definitions/EvaluatedPolicy"
           }
         },
-        "key": {
+        "identifier": {
           "type": "string"
         },
         "name": {
           "type": "string"
         },
         "status": {
-          "$ref": "#/definitions/EvaluationStatus"
+          "type": "string",
+          "enum": [
+            "error",
+            "warning",
+            "pass"
+          ]
         }
       }
     },
@@ -703,9 +779,6 @@
       "items": {
         "$ref": "#/definitions/EvaluationDetail"
       }
-    },
-    "EvaluationStatus": {
-      "type": "string"
     },
     "LinkedPolicy": {
       "type": "object",
@@ -717,7 +790,7 @@
           "type": "integer",
           "format": "int64"
         },
-        "key": {
+        "identifier": {
           "type": "string"
         },
         "name": {
@@ -733,7 +806,11 @@
           "type": "string"
         },
         "severity": {
-          "$ref": "#/definitions/Severity"
+          "type": "string",
+          "enum": [
+            "error",
+            "warning"
+          ]
         },
         "updated": {
           "type": "integer",
@@ -745,7 +822,11 @@
       "type": "object",
       "properties": {
         "severity": {
-          "$ref": "#/definitions/Severity"
+          "type": "string",
+          "enum": [
+            "error",
+            "warning"
+          ]
         }
       }
     },
@@ -759,7 +840,7 @@
           "type": "integer",
           "format": "int64"
         },
-        "key": {
+        "identifier": {
           "type": "string"
         },
         "name": {
@@ -807,7 +888,7 @@
         "enabled": {
           "type": "boolean"
         },
-        "key": {
+        "identifier": {
           "type": "string"
         },
         "name": {
@@ -867,7 +948,7 @@
         "enabled": {
           "type": "boolean"
         },
-        "key": {
+        "identifier": {
           "type": "string"
         },
         "name": {
@@ -904,9 +985,6 @@
           "type": "string"
         }
       }
-    },
-    "Severity": {
-      "type": "string"
     },
     "Token": {
       "type": "object",
@@ -968,6 +1046,14 @@
           "type": "string"
         },
         "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Version": {
+      "type": "object",
+      "properties": {
+        "version": {
           "type": "string"
         }
       }
@@ -1059,6 +1145,12 @@
         "items": {
           "$ref": "#/definitions/User"
         }
+      }
+    },
+    "version": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/Version"
       }
     }
   },

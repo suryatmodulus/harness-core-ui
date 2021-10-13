@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import * as moment from 'moment'
+import parseLinkHeader from 'parse-link-header'
 import { ButtonVariation, Layout, Button, Text, Color, Utils } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
+import { useGet } from 'restful-react'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
@@ -11,17 +13,15 @@ import { useToaster, useConfirmationDialog } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { Policy, useDeletePolicy } from 'services/pm'
-import { useGet } from 'restful-react'
 import { setPageNumber } from '@common/utils/utils'
 import { OptionsMenuButton } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 import PolicyIcon from './Policy.svg'
-import parseLinkHeader from 'parse-link-header'
 
 import css from './Policies.module.scss'
 
-let page: number = 0
+let page = 0
 let totalPages = 0
 const pageSize = 10
 
@@ -48,7 +48,7 @@ const Policies: React.FC = () => {
   })
 
   if (response?.headers) {
-    for (let pair of response?.headers?.entries()) {
+    for (const pair of response?.headers?.entries()) {
       // accessing the entries
       if (pair[0] == 'link') {
         const links = parseLinkHeader(pair[1])
@@ -128,7 +128,7 @@ const Policies: React.FC = () => {
       onCloseDialog: async didConfirm => {
         if (didConfirm && data) {
           try {
-            await deletePolicy(data.original.key as string)
+            await deletePolicy(data.original.identifier as string)
             showSuccess('Successfully deleted Policy')
             refetch()
           } catch (err) {
@@ -186,7 +186,7 @@ const Policies: React.FC = () => {
       {
         Header: '',
         id: 'menu',
-        accessor: row => row.key,
+        accessor: row => row.identifier,
         width: '5%',
         Cell: RenderColumnMenu,
 
@@ -230,7 +230,7 @@ const Policies: React.FC = () => {
           columns={columns}
           data={policyList || []}
           onRowClick={data => {
-            history.push(routes.toPolicyEditPage({ accountId, policyIdentifier: String(data?.key || '') }))
+            history.push(routes.toPolicyEditPage({ accountId, policyIdentifier: String(data?.identifier || '') }))
           }}
           // TODO: enable when page is ready
 

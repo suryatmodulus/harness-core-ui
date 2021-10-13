@@ -9,7 +9,7 @@ import { FeatureFlag } from '@common/featureFlags'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import COK8sClusterSelector from '@ce/components/COK8sClusterSelector/COK8sClusterSelector'
 import { ConnectorInfoDTO, ConnectorResponse, useGetConnectorListV2 } from 'services/cd-ng'
-import { ASGMinimal, PortConfig, useAllResourcesOfAccount, useGetAllASGs } from 'services/lw'
+import { ASGMinimal, PortConfig, useAllResourcesOfAccount, useGetAllASGs, ContainerSvc } from 'services/lw'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
@@ -24,6 +24,7 @@ import ResourceSelectionModal from '../../ResourceSelectionModal'
 import { DisplaySelectedConnector } from './DisplaySelectedConnector'
 import { DisplaySelectedASG } from './DisplaySelectedASG'
 import { DisplaySelectedInstances } from './DisplaySelectedInstances'
+import { DisplaySelectedEcsService } from './DisplaySelectedEcsService'
 import css from '../../COGatewayConfig.module.scss'
 
 interface ManageResourcesProps {
@@ -475,6 +476,9 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         )}
         {!_isEmpty(selectedAsg) && <DisplaySelectedASG data={[selectedAsg as ASGMinimal]} />}
         {!_isEmpty(selectedConnector) && <DisplaySelectedConnector data={[selectedConnector as ConnectorResponse]} />}
+        {!_isEmpty(props.gatewayDetails.routing.container_svc) && (
+          <DisplaySelectedEcsService data={[props.gatewayDetails.routing.container_svc as ContainerSvc]} />
+        )}
       </Layout.Vertical>
     </COGatewayConfigStep>
   )

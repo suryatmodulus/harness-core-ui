@@ -5,9 +5,10 @@ import { isEmpty as _isEmpty } from 'lodash-es'
 import { Heading, Container, Layout, Text, Table, Color, Icon, IconName } from '@wings-software/uicore'
 import type { ConnectionMetadata, GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import { Utils } from '@ce/common/Utils'
-import type { HealthCheck, PortConfig, ServiceDep } from 'services/lw'
+import type { ContainerSvc, HealthCheck, PortConfig, ServiceDep } from 'services/lw'
 import { getFulfilmentIcon } from '../COGatewayList/Utils'
 import KubernetesRuleYamlEditor from '../COGatewayConfig/KubernetesRuleYamlEditor'
+import { DisplaySelectedEcsService } from '../COGatewayConfig/steps/ManageResources/DisplaySelectedEcsService'
 import css from './COGatewayReview.module.scss'
 
 interface COGatewayReviewProps {
@@ -57,6 +58,7 @@ const ReviewDetailsSection: React.FC<ReviewDetailsSectionProps> = props => {
 
 const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
   const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
+  const hasSelectedInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
   return (
     <Layout.Vertical padding="large" className={css.page}>
       <Text className={css.reviewHeading}>Cloud account details</Text>
@@ -93,9 +95,9 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
           isEditable
           onEdit={() => props.onEdit({ id: 'configuration', metaData: { activeStepCount: 2 } })}
         >
-          <Heading level={2}>Instance details</Heading>
-          {!!props.gatewayDetails.selectedInstances.length && (
+          {hasSelectedInstances && (
             <>
+              <Heading level={2}>Instance details</Heading>
               <Text style={{ margin: '20px 0 10px' }}>Instances</Text>
               <Table<InstanceDetails>
                 data={props.gatewayDetails.selectedInstances}
@@ -149,18 +151,26 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
               />
             </>
           )}
-          <Layout.Horizontal spacing={'large'} className={css.equalSpacing} style={{ marginTop: 20 }}>
-            <Text>Instance fulfilment</Text>
-            <Layout.Horizontal spacing={'small'}>
-              <img
-                className={css.fulFilmentIcon}
-                src={getFulfilmentIcon(props.gatewayDetails.fullfilment)}
-                alt=""
-                aria-hidden
-              />
-              <Text>{props.gatewayDetails.fullfilment}</Text>
+          {!_isEmpty(props.gatewayDetails.routing.container_svc) && (
+            <>
+              <Heading level={2}>Service details</Heading>
+              <DisplaySelectedEcsService data={[props.gatewayDetails.routing.container_svc as ContainerSvc]} />
+            </>
+          )}
+          {hasSelectedInstances && (
+            <Layout.Horizontal spacing={'large'} className={css.equalSpacing} style={{ marginTop: 20 }}>
+              <Text>Instance fulfilment</Text>
+              <Layout.Horizontal spacing={'small'}>
+                <img
+                  className={css.fulFilmentIcon}
+                  src={getFulfilmentIcon(props.gatewayDetails.fullfilment)}
+                  alt=""
+                  aria-hidden
+                />
+                <Text>{props.gatewayDetails.fullfilment || 'ondemand'}</Text>
+              </Layout.Horizontal>
             </Layout.Horizontal>
-          </Layout.Horizontal>
+          )}
         </ReviewDetailsSection>
       )}
       {props.gatewayDetails.opts && (

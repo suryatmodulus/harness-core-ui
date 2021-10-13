@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/24</span>
+                <span class='fraction'>20/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.19% </span>
+                <span class="strong">73.68% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>42/59</span>
+                <span class='fraction'>42/57</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/24</span>
+                <span class='fraction'>20/24</span>
             </div>
         
             
@@ -158,19 +158,7 @@
 <a name='L99'></a><a href='#L99'>99</a>
 <a name='L100'></a><a href='#L100'>100</a>
 <a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">213x</span>
-<span class="cline-any cline-yes">213x</span>
+<a name='L102'></a><a href='#L102'>102</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">213x</span>
 <span class="cline-any cline-yes">213x</span>
 <span class="cline-any cline-yes">213x</span>
 <span class="cline-any cline-yes">213x</span>
@@ -191,12 +179,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">213x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,11 +216,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1159x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -278,31 +258,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">213x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { ReactElement } from 'react'
 import { pick } from 'lodash-es'
 import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-software/uicore'
-import { PopoverInteractionKind } from '@blueprintjs/core'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import { useFeature } from '@common/hooks/useFeatures'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { FeatureRequest } from 'framework/featureStore/FeaturesContext'
+import type { FeatureProps } from 'framework/featureStore/FeaturesContext'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 &nbsp;
 interface ButtonProps extends CoreButtonProps {
   permission?: Omit&lt;PermissionsRequest, 'permissions'&gt; &amp; { permission: PermissionIdentifier }
   featureProps?: FeatureProps
+  iconClassName?: string
 }
-&nbsp;
-interface FeatureProps {
-  featureRequest: FeatureRequest
-  isPermissionPrioritized?: boolean
-}
-&nbsp;
 interface BtnProps {
   disabled: boolean
   tooltip?: ReactElement
@@ -312,6 +284,7 @@ const RbacButton: React.FC&lt;ButtonProps&gt; = ({
   permission: permissionRequest,
   featureProps,
   tooltipProps,
+  iconClassName,
   ...restProps
 }) =&gt; {
   const { enabled: featureEnabled, featureDetail } = useFeature({
@@ -343,14 +316,10 @@ const RbacButton: React.FC&lt;ButtonProps&gt; = ({
 &nbsp;
     // feature check by default take priority
     <span class="missing-if-branch" title="if path not taken" >I</span>if (featureProps?.featureRequest &amp;&amp; !featureEnabled) {
+      const module = <span class="cstat-no" title="statement not covered" >featureDetail?.moduleType &amp;&amp; (featureDetail.moduleType.toLowerCase() as Module)</span>
 <span class="cstat-no" title="statement not covered" >      return {</span>
         disabled: true,
-        tooltip: (
-          &lt;FeatureWarningTooltip
-            featureName={featureProps?.featureRequest.featureName}
-            module={featureDetail?.moduleType?.toLowerCase() as Module}
-          /&gt;
-        )
+        tooltip: &lt;FeatureWarningTooltip featureName={featureProps?.featureRequest.featureName} module={module} /&gt;
       }
     }
 &nbsp;
@@ -385,9 +354,7 @@ const RbacButton: React.FC&lt;ButtonProps&gt; = ({
       {...restProps}
       disabled={restProps.disabled || disabled}
       tooltip={disabled ? tooltip : restProps.tooltip ? restProps.tooltip : undefined}
-      tooltipProps={
-        disabled ? { hoverCloseDelay: 50, interactionKind: PopoverInteractionKind.HOVER_TARGET_ONLY } : tooltipProps
-      }
+      tooltipProps={disabled ? { hoverCloseDelay: 50 } : tooltipProps}
     /&gt;
   )
 }
@@ -400,7 +367,7 @@ export default RbacButton
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 13 2021 14:43:11 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 13 2021 15:09:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

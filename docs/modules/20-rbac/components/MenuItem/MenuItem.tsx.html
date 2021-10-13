@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>17/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">68.75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>11/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/13</span>
+                <span class='fraction'>17/19</span>
             </div>
         
             
@@ -109,14 +109,28 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">52x</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -132,13 +146,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">385x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">385x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">385x</span>
+<span class="cline-any cline-yes">385x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">385x</span>
+<span class="cline-any cline-yes">385x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,16 +185,20 @@
 import { pick } from 'lodash-es'
 import { IMenuItemProps, Menu, MenuItem, PopoverInteractionKind } from '@blueprintjs/core'
 import { Popover } from '@wings-software/uicore'
-import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
+import { useFeature } from '@common/hooks/useFeatures'
+import type { FeatureProps } from 'framework/featureStore/FeaturesContext'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { Module } from '@common/interfaces/RouteInterfaces'
+import { getTooltip } from '@rbac/utils/utils'
 import css from './MenuItem.module.scss'
 &nbsp;
 export interface RbacMenuItemProps extends IMenuItemProps {
   permission: Omit&lt;PermissionsRequest, 'permissions'&gt; &amp; { permission: PermissionIdentifier }
+  featureProps?: FeatureProps
 }
 &nbsp;
-const RbacMenuItem: React.FC&lt;RbacMenuItemProps&gt; = ({ permission: permissionRequest, ...restProps }) =&gt; {
+const RbacMenuItem: React.FC&lt;RbacMenuItemProps&gt; = ({ permission: permissionRequest, featureProps, ...restProps }) =&gt; {
   const [canDoAction] = usePermission(
     {
       ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),
@@ -183,7 +207,19 @@ const RbacMenuItem: React.FC&lt;RbacMenuItemProps&gt; = ({ permission: permissio
     [permissionRequest]
   )
 &nbsp;
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (canDoAction) return &lt;Menu.Item {...restProps} /&gt;
+  const { enabled: featureEnabled, featureDetail } = useFeature({
+    featureRequest: <span class="branch-1 cbranch-no" title="branch not covered" >featureProps?.featureRequest</span>
+  })
+&nbsp;
+  const module = <span class="branch-1 cbranch-no" title="branch not covered" >featureDetail?.moduleType </span>&amp;&amp; (<span class="branch-1 cbranch-no" title="branch not covered" >featureDetail.moduleType.toLowerCase() as Module)</span>
+&nbsp;
+  const tooltipProps = getTooltip({ permissionRequest, featureProps, canDoAction, featureEnabled, module })
+  const { tooltip } = tooltipProps
+&nbsp;
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (canDoAction &amp;&amp; featureEnabled) {
+    return &lt;Menu.Item {...restProps} /&gt;
+  }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Popover
       openOnTargetFocus={false}
@@ -191,13 +227,7 @@ const RbacMenuItem: React.FC&lt;RbacMenuItemProps&gt; = ({ permission: permissio
       usePortal
       interactionKind={PopoverInteractionKind.HOVER_TARGET_ONLY}
       hoverCloseDelay={50}
-      content={
-        &lt;RBACTooltip
-          permission={permissionRequest.permission}
-          resourceType={permissionRequest.resource.resourceType}
-          resourceScope={permissionRequest.resourceScope}
-        /&gt;
-      }
+      content={tooltip}
       className={css.popover}
       inheritDarkTheme={false}
     &gt;
@@ -220,7 +250,7 @@ export default RbacMenuItem
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 13 2021 14:43:11 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 13 2021 15:09:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">94.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/13</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/16</span>
+                <span class='fraction'>21/28</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
+                <span class="strong">94.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/12</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
@@ -103,7 +103,19 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">32x</span>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-yes">32x</span>
@@ -111,11 +123,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">605x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -126,23 +146,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">605x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">605x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">605x</span>
+<span class="cline-any cline-yes">605x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">605x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">605x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">605x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,16 +176,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { pick } from 'lodash-es'
 import { AvatarGroup, AvatarGroupProps } from '@wings-software/uicore'
-import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
+import { useFeature } from '@common/hooks/useFeatures'
+import type { FeatureProps } from 'framework/featureStore/FeaturesContext'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { Module } from '@common/interfaces/RouteInterfaces'
+import { getTooltip } from '@rbac/utils/utils'
 &nbsp;
 interface RbacAvatarGroupProps extends AvatarGroupProps {
   permission: Omit&lt;PermissionsRequest, 'permissions'&gt; &amp; { permission: PermissionIdentifier }
   disabled?: boolean
+  featureProps?: FeatureProps
 }
 &nbsp;
-const RbacAvatarGroup: React.FC&lt;RbacAvatarGroupProps&gt; = ({ permission: permissionRequest, ...restProps }) =&gt; {
+const RbacAvatarGroup: React.FC&lt;RbacAvatarGroupProps&gt; = ({
+  permission: permissionRequest,
+  featureProps,
+  ...restProps
+}) =&gt; {
   const [canDoAction] = usePermission(
     {
       ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),
@@ -170,25 +202,29 @@ const RbacAvatarGroup: React.FC&lt;RbacAvatarGroupProps&gt; = ({ permission: per
     [permissionRequest]
   )
 &nbsp;
+  const { enabled: featureEnabled, featureDetail } = useFeature({
+    featureRequest: <span class="branch-1 cbranch-no" title="branch not covered" >featureProps?.featureRequest</span>
+  })
+&nbsp;
+  const module = <span class="branch-1 cbranch-no" title="branch not covered" >featureDetail?.moduleType </span>&amp;&amp; (<span class="branch-1 cbranch-no" title="branch not covered" >featureDetail.moduleType.toLowerCase() as Module)</span>
+&nbsp;
+  const tooltipProps = getTooltip({ permissionRequest, featureProps, canDoAction, featureEnabled, module })
+  const { tooltip } = tooltipProps
+&nbsp;
   const disabledTooltip = restProps.onAddTooltip &amp;&amp; restProps.disabled ? restProps.onAddTooltip : undefined
+&nbsp;
+  const enabled = canDoAction &amp;&amp; featureEnabled
 &nbsp;
   return (
     &lt;AvatarGroup
       {...restProps}
-      onAddTooltip={
-        canDoAction ? (
-          disabledTooltip
-        ) : (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;RBACTooltip</span>
-            permission={permissionRequest.permission}
-            resourceType={permissionRequest.resource.resourceType}
-            resourceScope={permissionRequest.resourceScope}
-          /&gt;
-        )
-      }
+      onAddTooltip={enabled ? disabledTooltip : <span class="branch-1 cbranch-no" title="branch not covered" >tooltip}</span>
       onAdd={event =&gt; {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (canDoAction &amp;&amp; !restProps.disabled) restProps.onAdd<span class="branch-0 cbranch-no" title="branch not covered" >?.(e</span>vent)
-        else <span class="cstat-no" title="statement not covered" >event.stopPropagation()</span>
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (enabled &amp;&amp; !restProps.disabled) {
+          restProps.onAdd<span class="branch-0 cbranch-no" title="branch not covered" >?.(e</span>vent)
+        } else {
+<span class="cstat-no" title="statement not covered" >          event.stopPropagation()</span>
+        }
       }}
     /&gt;
   )
@@ -202,7 +238,7 @@ export default RbacAvatarGroup
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 13 2021 14:43:11 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 13 2021 15:09:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

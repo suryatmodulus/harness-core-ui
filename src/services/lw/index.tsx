@@ -897,6 +897,8 @@ export interface AccessPointResourcesQueryParams {
   region: string
   resource_group_name?: string
   accountIdentifier: string
+  service?: string
+  cluster?: string
 }
 
 export interface AccessPointResourcesPathParams {

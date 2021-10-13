@@ -752,6 +752,18 @@
           "in": "query",
           "required": true,
           "type": "string"
+        },
+        {
+          "name": "service",
+          "in": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "cluster",
+          "in": "query",
+          "required": false,
+          "type": "string"
         }
       ],
       "get": {

@@ -11,14 +11,17 @@ import {
   Text,
   HarnessDocTooltip
 } from '@wings-software/uicore'
-import { isEmpty as _isEmpty, map as _map } from 'lodash-es'
+import { useParams } from 'react-router'
+import { isEmpty as _isEmpty, map as _map, defaultTo as _defaultTo } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import { Utils } from '@ce/common/Utils'
 import { useToaster } from '@common/exports'
 import { DEFAULT_ACCESS_DETAILS } from '@ce/constants'
-import type { Service } from 'services/lw'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageSpinner } from '@common/components'
+import { Service, useDescribeServiceInContainerServiceCluster } from 'services/lw'
 import DNSLinkSetup from './DNSLinkSetup'
 import SSHSetup from './SSHSetup'
 import IPSetup from './IPAddressSetup'
@@ -40,6 +43,7 @@ interface COGatewayAccessProps {
 
 const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
@@ -55,12 +59,24 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     props.gatewayDetails.routing.k8s?.RuleJson ? JSON.parse(props.gatewayDetails.routing.k8s.RuleJson) : undefined
   )
 
+  const { data: serviceDescribeData, loading: serviceDataLoading } = useDescribeServiceInContainerServiceCluster({
+    account_id: accountId,
+    cluster_name: _defaultTo(props.gatewayDetails.routing.container_svc?.cluster, ''),
+    service_name: _defaultTo(props.gatewayDetails.routing.container_svc?.service, ''),
+    queryParams: {
+      accountIdentifier: accountId,
+      cloud_account_id: props.gatewayDetails.cloudAccount.id,
+      region: _defaultTo(props.gatewayDetails.routing.container_svc?.region, '')
+    }
+  })
+
   const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
 
   useEffect(() => {
     let validStatus = false
-
-    if (accessDetails.dnsLink.selected) {
+    if (serviceDescribeData?.response?.loadbalanced === false) {
+      validStatus = true
+    } else if (accessDetails.dnsLink.selected) {
       validStatus = getValidStatusForDnsLink(props.gatewayDetails)
     } else {
       validStatus =
@@ -89,7 +105,9 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     props.gatewayDetails.customDomains,
     props.gatewayDetails.accessPointID,
     props.gatewayDetails.routing.ports,
-    yamlData
+    yamlData,
+    props.gatewayDetails.routing.container_svc,
+    serviceDescribeData?.response
   ])
 
   useEffect(() => {
@@ -177,6 +195,28 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   }
 
   const tooltipId = isAwsProvider ? 'awsSetupAccess' : 'azureSetupAccess'
+
+  const shouldShowSshOption = _isEmpty(props.gatewayDetails.routing.container_svc)
+
+  if (serviceDataLoading) {
+    return (
+      <Layout.Horizontal>
+        <PageSpinner />
+      </Layout.Horizontal>
+    )
+  }
+
+  if (
+    !serviceDataLoading &&
+    !_isEmpty(serviceDescribeData?.response) &&
+    serviceDescribeData?.response?.loadbalanced === false
+  ) {
+    return (
+      <Container className={css.page}>
+        <Text>{'Not required'}</Text>
+      </Container>
+    )
+  }
 
   return (
     <Container className={css.page}>
@@ -272,15 +312,17 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                   className={css.checkbox}
                   defaultChecked={accessDetails.dnsLink.selected}
                 />
-                <Checkbox
-                  label="SSH / RDP"
-                  id="ssh"
-                  onChange={val => {
-                    setAccessDetails({ ...accessDetails, ssh: { selected: val.currentTarget.checked } })
-                  }}
-                  className={css.checkbox}
-                  defaultChecked={accessDetails.ssh.selected}
-                />
+                {shouldShowSshOption && (
+                  <Checkbox
+                    label="SSH / RDP"
+                    id="ssh"
+                    onChange={val => {
+                      setAccessDetails({ ...accessDetails, ssh: { selected: val.currentTarget.checked } })
+                    }}
+                    className={css.checkbox}
+                    defaultChecked={accessDetails.ssh.selected}
+                  />
+                )}
               </Layout.Vertical>
               {/* <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
               <Checkbox

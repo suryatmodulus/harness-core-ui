@@ -3,6 +3,8 @@ continuous: '{{$.common.purpose.ce.continuous}}'
 trialCta: 'Start 14 day CCM trial'
 common:
   newBudget: 'New Budget'
+allRegions: 'All Regions'
+allClusters: 'All Clusters'
 pageErrorMsg:
   recommendationNoData: 'There are no recommendations yet. Recommendations typically take 24 hours to show up. Please check back later.'
   perspectiveNoData: 'There is not data available for the filters applied.'
@@ -50,6 +52,7 @@ co:
         selectProvider: 'Select the cloud provider account in which the workloads you want AutoStopping to manage are running.'
     configuration:
       asgSelectionInfoText: 'Only ASGs with non-empty target groups will be shown here'
+      addSelectedBtnText: 'Add Selected'
       step1:
         title: 'Define your AutoStopping rule'
         subTitle: 'Provide a friendly name to identify the resources managed by this rule and specify the idle time.'
@@ -65,10 +68,12 @@ co:
           instance: 'Add an instance to be managed by the AutoStopping Rule. You can choose to add multiple instances to a single Rule.'
           asg: 'Add an ASG to be managed by the AutoStopping Rule. You can choose only one ASG to a single Rule'
           kubernetes: 'Add a cluster to be managed by the AutoStopping Rule.'
+          ecs: 'Add ECS Service to be managed by AutoStopping Rule'
         addResourceCta:
           instance: 'Add an instance'
           asg: 'Add a auto-scaling group'
           kubernetes: 'Add a cluster'
+          ecs: 'Add an ECS Service'
       step3:
         title: 'Choose to convert the selected instance(s) to spot or remain on-demand. '
         asgTitle: 'Choose the on-demand vs spot ratio for your Auto Scaling group'
@@ -80,6 +85,9 @@ co:
         advancedConfiguration: 'Advanced Configuration'
       instanceModal:
         description: 'AutoStopping Rules can manage multiple VMs as long as they are all within the same cloud provider region.'
+      ecsModal:
+        title: 'Select ECS Service'
+        emptyDescription: 'Select a Region and a Cluster to see all services.'
     review:
       configDetails: 'Configuration Details'
     setupAccess:

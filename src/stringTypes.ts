@@ -2737,6 +2737,8 @@ export interface StringsMap {
   'ce.budgets.listPage.timePeriodRemaining': string
   'ce.budgets.listPage.title': string
   'ce.budgets.sideNavText': string
+  'ce.allClusters': string
+  'ce.allRegions': string
   'ce.ceTrialHomePage.modal.description': string
   'ce.ceTrialHomePage.modal.title': string
   'ce.ceTrialHomePage.modal.welcome': string
@@ -2790,7 +2792,10 @@ export interface StringsMap {
   'ce.co.accessPoint.validation.subnets': string
   'ce.co.accessPoint.validation.vpc': string
   'ce.co.autoStopping': string
+  'ce.co.autoStoppingRule.configuration.addSelectedBtnText': string
   'ce.co.autoStoppingRule.configuration.asgSelectionInfoText': string
+  'ce.co.autoStoppingRule.configuration.ecsModal.emptyDescription': string
+  'ce.co.autoStoppingRule.configuration.ecsModal.title': string
   'ce.co.autoStoppingRule.configuration.instanceModal.description': string
   'ce.co.autoStoppingRule.configuration.step1.form.idleTime.label': string
   'ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder': string
@@ -2798,9 +2803,11 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step1.subTitle': string
   'ce.co.autoStoppingRule.configuration.step1.title': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg': string
+  'ce.co.autoStoppingRule.configuration.step2.addResourceCta.ecs': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.instance': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.kubernetes': string
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.asg': string
+  'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.ecs': string
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance': string
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.kubernetes': string
   'ce.co.autoStoppingRule.configuration.step2.subTitle': string

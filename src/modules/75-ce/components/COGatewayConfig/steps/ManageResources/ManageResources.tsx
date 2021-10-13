@@ -14,6 +14,7 @@ import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import COInstanceSelector from '@ce/components/COInstanceSelector/COInstanceSelector'
+import COEcsSelector from '@ce/components/COEcsSelector/COEcsSelector'
 import COAsgSelector from '@ce/components/COAsgSelector'
 import { Connectors } from '@connectors/constants'
 import { Utils } from '@ce/common/Utils'
@@ -102,8 +103,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     const resourcesFetchMap: Record<string, () => void> = {
       [RESOURCES.INSTANCES]: refreshInstances,
       [RESOURCES.ASG]: fetchAndSetAsgItems,
-      [RESOURCES.KUBERNETES]: fetchAndSetConnectors,
-      [RESOURCES.ECS]: fetchAndSetContainers
+      [RESOURCES.KUBERNETES]: fetchAndSetConnectors
     }
     if (props.selectedResource) {
       resourcesFetchMap[props.selectedResource]?.()
@@ -265,14 +265,6 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     }
   }
 
-  const fetchAndSetContainers = async () => {
-    try {
-      console.log('somethign') // eslint-disable-line
-    } catch (e: any) {
-      showError(e.data?.message || e.message)
-    }
-  }
-
   const [openClusterModal, closeClusterModal] = useModalHook(() => {
     return (
       <ResourceSelectionModal
@@ -357,6 +349,26 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     )
   }, [filteredInstances, selectedInstances, loadingInstances, props.gatewayDetails])
 
+  const [openEcsModal, closeEcsModal] = useModalHook(
+    () => (
+      <ResourceSelectionModal
+        closeBtnTestId={'close-ecs-modal'}
+        onClose={() => {
+          closeEcsModal()
+        }}
+      >
+        <COEcsSelector
+          gatewayDetails={props.gatewayDetails}
+          setGatewayDetails={props.setGatewayDetails}
+          onServiceAddSuccess={() => {
+            closeEcsModal()
+          }}
+        />
+      </ResourceSelectionModal>
+    ),
+    [props.gatewayDetails]
+  )
+
   const handleAsgSearch = (text: string) => {
     if (!text) {
       setAsgToShow(allAsg)
@@ -390,7 +402,8 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     const modalCbMap: Record<string, () => void> = {
       [RESOURCES.INSTANCES]: openInstancesModal,
       [RESOURCES.ASG]: openAsgModal,
-      [RESOURCES.KUBERNETES]: openClusterModal
+      [RESOURCES.KUBERNETES]: openClusterModal,
+      [RESOURCES.ECS]: openEcsModal
     }
     if (resource) {
       modalCbMap[resource]?.()
@@ -479,7 +492,8 @@ const DisplayResourceInfo: React.FC<DisplayResourceInfoProps> = props => {
     const textMap: Record<string, string> = {
       [RESOURCES.INSTANCES]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance'),
       [RESOURCES.ASG]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.asg'),
-      [RESOURCES.KUBERNETES]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.kubernetes')
+      [RESOURCES.KUBERNETES]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.kubernetes'),
+      [RESOURCES.ECS]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.ecs')
     }
     return textMap[resource]
   }
@@ -488,7 +502,8 @@ const DisplayResourceInfo: React.FC<DisplayResourceInfoProps> = props => {
     const textMap: Record<string, string> = {
       [RESOURCES.INSTANCES]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.instance')}`,
       [RESOURCES.ASG]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg')}`,
-      [RESOURCES.KUBERNETES]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.kubernetes')}`
+      [RESOURCES.KUBERNETES]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.kubernetes')}`,
+      [RESOURCES.ECS]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.ecs')}`
     }
     return textMap[resource]
   }

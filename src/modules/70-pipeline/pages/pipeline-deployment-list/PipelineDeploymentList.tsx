@@ -205,7 +205,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
                   </Text>
                   <RbacButton
                     intent="primary"
-                    text={getString('pipeline.runAPipeline')}
+                    text={getString('common.createPipeline')}
                     onClick={props.onRunPipeline}
                     permission={{
                       permission: PermissionIdentifier.EXECUTE_PIPELINE,

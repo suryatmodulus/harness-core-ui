@@ -145,7 +145,9 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -165,19 +167,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-yes">59x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">39x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">59x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,7 +238,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Layout, Tabs, Tab, HarnessDocTooltip } from '@wings-software/uicore'
+import { Layout, Tabs, Tab, Text, HarnessDocTooltip } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { MinutesTab, HourlyTab, DailyTab, WeeklyTab, MonthlyTab, YearlyTab, CustomTab } from './subviews'
@@ -257,66 +261,68 @@ const SchedulePanel: React.FC&lt;SchedulePanelPropsInterface&gt; = ({
 &nbsp;
   return (
     &lt;Layout.Vertical className={cx(css.schedulePanelContainer)} spacing="large" padding="xxlarge"&gt;
-      &lt;h2 className={css.heading} data-tooltip-id="schedulePanel"&gt;
+      &lt;Text className={css.formContentTitle} inline={true} data-tooltip-id="schedulePanel"&gt;
         {getString('pipeline.triggers.schedulePanel.title')}
-      &lt;/h2&gt;
+      &lt;/Text&gt;
       &lt;HarnessDocTooltip tooltipId="schedulePanel" useStandAlone={true} /&gt;
-      &lt;Tabs
-        id="Wizard"
-        onChange={(val: string) =&gt; {
-          const newDefaultValues = selectedScheduleTab !== val ? getDefaultExpressionBreakdownValues(val) : <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
-          formikProps.setValues({ ...values, ...newDefaultValues, selectedScheduleTab: val })
-        }}
-        defaultSelectedTabId={selectedScheduleTab}
-      &gt;
-        {!isEdit &amp;&amp; (
+      &lt;Layout.Vertical className={css.formContent}&gt;
+        &lt;Tabs
+          id="Wizard"
+          onChange={(val: string) =&gt; {
+            const newDefaultValues = selectedScheduleTab !== val ? getDefaultExpressionBreakdownValues(val) : <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
+            formikProps.setValues({ ...values, ...newDefaultValues, selectedScheduleTab: val })
+          }}
+          defaultSelectedTabId={selectedScheduleTab}
+        &gt;
+          {!isEdit &amp;&amp; (
+            &lt;Tab
+              id={scheduleTabsId.MINUTES}
+              title={getString('pipeline.triggers.schedulePanel.minutesLabel')}
+              panel={&lt;MinutesTab formikProps={formikProps} /&gt;}
+            /&gt;
+          )}
+          {!isEdit &amp;&amp; (
+            &lt;Tab
+              id={scheduleTabsId.HOURLY}
+              title={getString('pipeline.triggers.schedulePanel.hourlyTabTitle')}
+              panel={&lt;HourlyTab formikProps={formikProps} /&gt;}
+            /&gt;
+          )}
+          {!isEdit &amp;&amp; (
+            &lt;Tab
+              id={scheduleTabsId.DAILY}
+              title={getString('pipeline.triggers.schedulePanel.dailyTabTitle')}
+              panel={&lt;DailyTab formikProps={formikProps} /&gt;}
+            /&gt;
+          )}
+          {!isEdit &amp;&amp; (
+            &lt;Tab
+              id={scheduleTabsId.WEEKLY}
+              title={getString('pipeline.triggers.schedulePanel.weeklyTabTitle')}
+              panel={&lt;WeeklyTab formikProps={formikProps} /&gt;}
+            /&gt;
+          )}
+          {!isEdit &amp;&amp; (
+            &lt;Tab
+              id={scheduleTabsId.MONTHLY}
+              title={getString('pipeline.triggers.schedulePanel.monthlyTabTitle')}
+              panel={&lt;MonthlyTab formikProps={formikProps} /&gt;}
+            /&gt;
+          )}
+          {!isEdit &amp;&amp; (
+            &lt;Tab
+              id={scheduleTabsId.YEARLY}
+              title={getString('pipeline.triggers.schedulePanel.yearlyTabTitle')}
+              panel={&lt;YearlyTab formikProps={formikProps} /&gt;}
+            /&gt;
+          )}
           &lt;Tab
-            id={scheduleTabsId.MINUTES}
-            title={getString('pipeline.triggers.schedulePanel.minutesLabel')}
-            panel={&lt;MinutesTab formikProps={formikProps} /&gt;}
+            id={scheduleTabsId.CUSTOM}
+            title={getString('common.repo_provider.customLabel')}
+            panel={&lt;CustomTab formikProps={formikProps} /&gt;}
           /&gt;
-        )}
-        {!isEdit &amp;&amp; (
-          &lt;Tab
-            id={scheduleTabsId.HOURLY}
-            title={getString('pipeline.triggers.schedulePanel.hourlyTabTitle')}
-            panel={&lt;HourlyTab formikProps={formikProps} /&gt;}
-          /&gt;
-        )}
-        {!isEdit &amp;&amp; (
-          &lt;Tab
-            id={scheduleTabsId.DAILY}
-            title={getString('pipeline.triggers.schedulePanel.dailyTabTitle')}
-            panel={&lt;DailyTab formikProps={formikProps} /&gt;}
-          /&gt;
-        )}
-        {!isEdit &amp;&amp; (
-          &lt;Tab
-            id={scheduleTabsId.WEEKLY}
-            title={getString('pipeline.triggers.schedulePanel.weeklyTabTitle')}
-            panel={&lt;WeeklyTab formikProps={formikProps} /&gt;}
-          /&gt;
-        )}
-        {!isEdit &amp;&amp; (
-          &lt;Tab
-            id={scheduleTabsId.MONTHLY}
-            title={getString('pipeline.triggers.schedulePanel.monthlyTabTitle')}
-            panel={&lt;MonthlyTab formikProps={formikProps} /&gt;}
-          /&gt;
-        )}
-        {!isEdit &amp;&amp; (
-          &lt;Tab
-            id={scheduleTabsId.YEARLY}
-            title={getString('pipeline.triggers.schedulePanel.yearlyTabTitle')}
-            panel={&lt;YearlyTab formikProps={formikProps} /&gt;}
-          /&gt;
-        )}
-        &lt;Tab
-          id={scheduleTabsId.CUSTOM}
-          title={getString('common.repo_provider.customLabel')}
-          panel={&lt;CustomTab formikProps={formikProps} /&gt;}
-        /&gt;
-      &lt;/Tabs&gt;
+        &lt;/Tabs&gt;
+      &lt;/Layout.Vertical&gt;
     &lt;/Layout.Vertical&gt;
   )
 }
@@ -328,7 +334,7 @@ export default SchedulePanel
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 13 2021 02:37:36 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 13 2021 05:25:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

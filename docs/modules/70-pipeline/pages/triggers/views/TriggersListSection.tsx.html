@@ -671,7 +671,14 @@
 <a name='L612'></a><a href='#L612'>612</a>
 <a name='L613'></a><a href='#L613'>613</a>
 <a name='L614'></a><a href='#L614'>614</a>
-<a name='L615'></a><a href='#L615'>615</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L615'></a><a href='#L615'>615</a>
+<a name='L616'></a><a href='#L616'>616</a>
+<a name='L617'></a><a href='#L617'>617</a>
+<a name='L618'></a><a href='#L618'>618</a>
+<a name='L619'></a><a href='#L619'>619</a>
+<a name='L620'></a><a href='#L620'>620</a>
+<a name='L621'></a><a href='#L621'>621</a>
+<a name='L622'></a><a href='#L622'>622</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -836,9 +843,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">42x</span>
 <span class="cline-any cline-yes">42x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1276,6 +1289,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1452,7 +1466,13 @@ const RenderColumnMenu: Renderer&lt;CellProps&lt;NGTriggerDetailsResponse&gt;&gt
 &nbsp;
 const RenderCenteredColumnHeader = (header: string): JSX.Element =&gt; &lt;div className={css.textCentered}&gt;{header}&lt;/div&gt;
 &nbsp;
-const RenderColumnTrigger: Renderer&lt;CellProps&lt;NGTriggerDetailsResponse&gt;&gt; = ({ row }) =&gt; {
+const RenderColumnTrigger: Renderer&lt;CellProps&lt;NGTriggerDetailsResponse&gt;&gt; = ({
+  row,
+  column
+}: {
+  row: RenderColumnRow
+  column: { getString: (str: string) =&gt; string }
+}) =&gt; {
   const data = row.original
   return (
     &lt;&gt;
@@ -1473,11 +1493,11 @@ const RenderColumnTrigger: Renderer&lt;CellProps&lt;NGTriggerDetailsResponse&gt;
           &lt;Layout.Horizontal spacing="small" data-testid={data.identifier}&gt;
             &lt;Text color={Color.BLACK} lineClamp={1} width={!isEmpty(data.tags) ? '270px' : '300px'}&gt;
               {data.name}
-              {!isEmpty(data.tags) ? &lt;TagsPopover tags={data.tags as tagsType} /&gt; : null}
+              {!isEmpty(data.tags) ? &lt;TagsPopover className={css.tags} tags={data.tags as tagsType} /&gt; : null}
             &lt;/Text&gt;
           &lt;/Layout.Horizontal&gt;
           &lt;Text color={Color.GREY_400} lineClamp={1} width="300px"&gt;
-            {data.identifier}
+            {column.getString('common.ID')}: {data.identifier}
           &lt;/Text&gt;
         &lt;/Layout.Vertical&gt;
       &lt;/Layout.Horizontal&gt;
@@ -1543,9 +1563,9 @@ const RenderColumnActivity: Renderer&lt;CellProps&lt;NGTriggerDetailsResponse&gt
   <span class="missing-if-branch" title="if path not taken" >I</span>if (numDays === 0) <span class="cstat-no" title="statement not covered" >return undefined</span>
   const numActivations = sum(executions)
   return (
-    &lt;Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall"&gt;
+    &lt;Layout.Horizontal flex={{ align: 'center-center' }} style={{ justifyContent: 'flex-start' }} spacing="xsmall"&gt;
       &lt;span className={css.activityChart}&gt;{numActivations !== 0 &amp;&amp; &lt;SparkChart data={executions} /&gt;}&lt;/span&gt;
-      &lt;Container style={{ textAlign: 'start', paddingLeft: 'var(--spacing-xsmall)' }}&gt;
+      &lt;Container style={{ textAlign: 'start' }}&gt;
         &lt;span&gt;{column.getString('pipeline.triggers.activityActivation', { numActivations })}&lt;/span&gt;
         &lt;Text&gt;{column.getString('pipeline.triggers.activityDays', { numDays })}&lt;/Text&gt;
       &lt;/Container&gt;
@@ -1559,12 +1579,12 @@ const RenderColumnLastActivation: Renderer&lt;CellProps&lt;NGTriggerDetailsRespo
   const lastExecutionSuccessful = data.lastTriggerExecutionDetails?.lastExecutionSuccessful
 &nbsp;
   return (
-    &lt;Layout.Horizontal style={{ justifyContent: 'center' }} spacing="small" data-testid={data.identifier}&gt;
+    &lt;Layout.Horizontal style={{ justifyContent: 'flex-start' }} spacing="small" data-testid={data.identifier}&gt;
       &lt;div className={css.activityStatement}&gt;
         {!isUndefined(lastExecutionTime) &amp;&amp; !isUndefined(lastExecutionSuccessful) ? (
           &lt;&gt;
             &lt;Layout.Horizontal style={{ alignItems: 'center' }}&gt;
-              &lt;Container style={{ textAlign: 'end', marginLeft: 'var(--spacing-small)' }}&gt;
+              &lt;Container style={{ textAlign: 'start' }}&gt;
                 &lt;Text&gt;{lastExecutionTime ? &lt;ReactTimeago date={lastExecutionTime} /&gt; : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>&lt;/Text&gt;
               &lt;/Container&gt;
               &lt;Icon
@@ -1602,7 +1622,7 @@ const RenderWebhookIcon = ({
 }): JSX.Element =&gt; {
   const [optionsOpen, setOptionsOpen] = React.useState(false)
   if (!type || type !== TriggerTypes.WEBHOOK || !webhookUrl) {
-    return &lt;Text color={Color.GREY_400}&gt;N/A&lt;/Text&gt;
+    return &lt;Text color={Color.GREY_400}&gt;{column.getString('na')}&lt;/Text&gt;
   }
 &nbsp;
   if (webhookSourceRepo?.toLowerCase() === GitSourceProviders.CUSTOM.value.toLowerCase()) {
@@ -1814,18 +1834,19 @@ export const TriggersListSection: React.FC&lt;TriggersListSectionProps&gt; = ({
         Header: getString('pipeline.triggers.triggerLabel').toUpperCase(),
         accessor: 'name',
         width: '25%',
-        Cell: RenderColumnTrigger
+        Cell: RenderColumnTrigger,
+        getString
       },
       {
         Header: 'STATUS',
         accessor: 'status',
-        width: '16%',
+        width: '20%',
         disableSortBy: true,
         Cell: RenderColumnStatus,
         getString
       },
       {
-        Header: RenderCenteredColumnHeader(getString('activity').toUpperCase()),
+        Header: getString('activity').toUpperCase(),
         accessor: 'activity',
         width: '18%',
         Cell: RenderColumnActivity,
@@ -1833,9 +1854,9 @@ export const TriggersListSection: React.FC&lt;TriggersListSectionProps&gt; = ({
         getString
       },
       {
-        Header: RenderCenteredColumnHeader(getString('pipeline.triggers.lastActivationLabel')),
+        Header: getString('pipeline.triggers.lastActivationLabel'),
         accessor: 'lastExecutionTime',
-        width: '18%',
+        width: '14%',
         Cell: RenderColumnLastActivation,
         disableSortBy: true
       },
@@ -1906,7 +1927,7 @@ export const TriggersListSection: React.FC&lt;TriggersListSectionProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 13 2021 02:37:36 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 13 2021 05:25:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -410,20 +410,7 @@
 <a name='L351'></a><a href='#L351'>351</a>
 <a name='L352'></a><a href='#L352'>352</a>
 <a name='L353'></a><a href='#L353'>353</a>
-<a name='L354'></a><a href='#L354'>354</a>
-<a name='L355'></a><a href='#L355'>355</a>
-<a name='L356'></a><a href='#L356'>356</a>
-<a name='L357'></a><a href='#L357'>357</a>
-<a name='L358'></a><a href='#L358'>358</a>
-<a name='L359'></a><a href='#L359'>359</a>
-<a name='L360'></a><a href='#L360'>360</a>
-<a name='L361'></a><a href='#L361'>361</a>
-<a name='L362'></a><a href='#L362'>362</a>
-<a name='L363'></a><a href='#L363'>363</a>
-<a name='L364'></a><a href='#L364'>364</a>
-<a name='L365'></a><a href='#L365'>365</a>
-<a name='L366'></a><a href='#L366'>366</a>
-<a name='L367'></a><a href='#L367'>367</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L354'></a><a href='#L354'>354</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -538,25 +525,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -782,15 +762,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
-import { Layout, Heading, Text, Label, Button, Container, Color, HarnessDocTooltip } from '@wings-software/uicore'
+import { Layout, Text, Label, Container, Color, HarnessDocTooltip } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
@@ -903,6 +877,13 @@ const showAppliedTableArtifact = ({
         appliedArtifact={appliedTableArtifact}
         isManifest={isManifest}
         editArtifact={() =&gt; setEditModalOpen(true)}
+        removeArtifact={() =&gt;
+          onRemoveSelectedArtifactManifest({
+            isManifest,
+            formikProps,
+            stageId
+          })
+        }
       /&gt;
       {editModalOpen &amp;&amp; (
         &lt;SelectArtifactModal
@@ -913,20 +894,6 @@ const showAppliedTableArtifact = ({
           runtimeData={data}
         /&gt;
       )}
-&nbsp;
-      &lt;Button
-        style={{ display: 'inline-block' }}
-        minimal
-        data-name="main-delete"
-        icon="main-trash"
-        onClick={_ =&gt; {
-          onRemoveSelectedArtifactManifest({
-            isManifest,
-            formikProps,
-            stageId
-          })
-        }}
-      /&gt;
     &lt;/Container&gt;
   )
 }
@@ -949,7 +916,7 @@ const showAddArtifactManifest = ({
   modalOpen: any
   artifactTableData: any
   data: any
-}) =&gt; {
+}): JSX.Element =&gt; {
   const artifactOrManifestText = isManifest ? getString('manifestsText') : getString(artifactStr)
   return (
     &lt;&gt;
@@ -1078,17 +1045,16 @@ const ArtifactTriggerConfigPanel: React.FC&lt;ArtifactTriggerConfigPanelPropsInt
           &lt;PageSpinner /&gt;
         &lt;/div&gt;
       )}
-      &lt;h2 className={css.heading} data-tooltip-id="artifactManifestLabel"&gt;{`${getString(
-        'pipeline.triggers.triggerConfigurationLabel'
-      )}${
-        !isEdit
+      &lt;Text className={css.formContentTitle} inline={true} data-tooltip-id="artifactManifestLabel"&gt;
+        {getString('pipeline.triggers.triggerConfigurationLabel')}
+        {!isEdit
           ? `: ${getString('pipeline.triggers.onNewArtifactTitle', {
               artifact: artifactOrManifestText
             })}`
-          : ''
-      }`}&lt;/h2&gt;
+          : ''}
+      &lt;/Text&gt;
       &lt;HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} /&gt;
-      &lt;div style={{ backgroundColor: 'var(--white)' }}&gt;
+      &lt;div className={css.formContent}&gt;
         &lt;NameIdDescriptionTags
           className={css.nameIdDescriptionTags}
           formikProps={formikProps}
@@ -1099,57 +1065,52 @@ const ArtifactTriggerConfigPanel: React.FC&lt;ArtifactTriggerConfigPanelPropsInt
             dataTooltipId: 'artifactTrigger'
           }}
         /&gt;
-        &lt;Heading
-          className={css.listenOnNewWebhook}
-          style={{ marginTop: '0!important' }}
-          level={2}
-          data-tooltip-id="listenOnNewArtifactManifest"
-        &gt;
-          {getString('pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact', {
-            artifact: artifactOrManifestText
-          })}
-        &lt;/Heading&gt;
-        &lt;HarnessDocTooltip tooltipId="listenOnNewArtifactManifest" useStandAlone={true} /&gt;
-        &lt;section style={{ marginTop: 'var(--spacing-small)' }}&gt;
-          {appliedTableArtifact ? (
-            showAppliedTableArtifact({
-              formikProps,
-              appliedTableArtifact,
+      &lt;/div&gt;
+      &lt;Text className={css.formContentTitle} inline={true} data-tooltip-id="listenOnNewArtifactManifest"&gt;
+        {getString('pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact', {
+          artifact: artifactOrManifestText
+        })}
+      &lt;/Text&gt;
+      &lt;HarnessDocTooltip tooltipId="listenOnNewArtifactManifest" useStandAlone={true} /&gt;
+      &lt;div className={css.formContent}&gt;
+        {appliedTableArtifact ? (
+          showAppliedTableArtifact({
+            formikProps,
+            appliedTableArtifact,
+            isManifest,
+            editModalOpen,
+            setEditModalOpen,
+            data,
+            stageId
+          })
+        ) : (
+          &lt;&gt;
+            {showAddArtifactManifest({
               isManifest,
-              editModalOpen,
-              setEditModalOpen,
-              data,
-              stageId
-            })
-          ) : (
-            &lt;&gt;
-              {showAddArtifactManifest({
-                isManifest,
-                getString,
-                allowSelectArtifact,
-                setModalOpen,
-                formikProps,
-                modalOpen,
-                artifactTableData,
-                data
-              })}
-              {(formikProps.touched['selectedArtifact'] || formikProps.submitCount &gt; 0) &amp;&amp;
-                !modalOpen &amp;&amp;
-                errors['selectedArtifact'] &amp;&amp; (
-<span class="branch-4 cbranch-no" title="branch not covered" >                  &lt;Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}&gt;</span>
-                    {errors['selectedArtifact']}
-                  &lt;/Text&gt;
-                )}
-            &lt;/&gt;
-          )}
-          {inputSetTemplateYamlObj &amp;&amp; !appliedArtifact &amp;&amp; !allowSelectArtifact &amp;&amp; (
-            &lt;Text margin="small" intent="warning"&gt;
-              {getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound', {
-                artifact: artifactOrManifestText
-              })}
-            &lt;/Text&gt;
-          )}
-        &lt;/section&gt;
+              getString,
+              allowSelectArtifact,
+              setModalOpen,
+              formikProps,
+              modalOpen,
+              artifactTableData,
+              data
+            })}
+            {(formikProps.touched['selectedArtifact'] || formikProps.submitCount &gt; 0) &amp;&amp;
+              !modalOpen &amp;&amp;
+              errors['selectedArtifact'] &amp;&amp; (
+<span class="branch-4 cbranch-no" title="branch not covered" >                &lt;Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}&gt;</span>
+                  {errors['selectedArtifact']}
+                &lt;/Text&gt;
+              )}
+          &lt;/&gt;
+        )}
+        {inputSetTemplateYamlObj &amp;&amp; !appliedArtifact &amp;&amp; !allowSelectArtifact &amp;&amp; (
+          &lt;Text margin="small" intent="warning"&gt;
+            {getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound', {
+              artifact: artifactOrManifestText
+            })}
+          &lt;/Text&gt;
+        )}
       &lt;/div&gt;
     &lt;/Layout.Vertical&gt;
   )
@@ -1162,7 +1123,7 @@ export default ArtifactTriggerConfigPanel
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 13 2021 02:37:36 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 13 2021 05:25:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

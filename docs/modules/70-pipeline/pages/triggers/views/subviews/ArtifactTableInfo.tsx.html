@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.92% </span>
+                <span class="strong">96.97% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>63/65</span>
+                <span class='fraction'>64/66</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.88% </span>
+                <span class="strong">96.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>62/64</span>
+                <span class='fraction'>63/65</span>
             </div>
         
             
@@ -385,13 +385,26 @@
 <a name='L326'></a><a href='#L326'>326</a>
 <a name='L327'></a><a href='#L327'>327</a>
 <a name='L328'></a><a href='#L328'>328</a>
-<a name='L329'></a><a href='#L329'>329</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a>
+<a name='L331'></a><a href='#L331'>331</a>
+<a name='L332'></a><a href='#L332'>332</a>
+<a name='L333'></a><a href='#L333'>333</a>
+<a name='L334'></a><a href='#L334'>334</a>
+<a name='L335'></a><a href='#L335'>335</a>
+<a name='L336'></a><a href='#L336'>336</a>
+<a name='L337'></a><a href='#L337'>337</a>
+<a name='L338'></a><a href='#L338'>338</a>
+<a name='L339'></a><a href='#L339'>339</a>
+<a name='L340'></a><a href='#L340'>340</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -556,7 +569,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -686,6 +707,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">63x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -693,10 +715,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -734,6 +756,7 @@ interface ArtifactTableInfoInterface {
   formikProps: any
   appliedArtifact?: any
   editArtifact?: () =&gt; void
+  removeArtifact?: () =&gt; void
 }
 &nbsp;
 interface RenderColumnSelectColumn {
@@ -752,6 +775,7 @@ export interface RenderColumnRow {
 }
 interface RenderColumnEditColumn {
   editArtifact: () =&gt; void
+  removeArtifact: () =&gt; void
 }
 &nbsp;
 const RenderColumnSelect = ({ row, column }: { row: RenderColumnRow; column: RenderColumnSelectColumn }) =&gt; {
@@ -879,6 +903,13 @@ const RenderColumnEdit = ({ column }: { column: RenderColumnEditColumn }) =&gt; 
           icon="edit"
           onClick={() =&gt; column.editArtifact()}
         /&gt;
+        &lt;Button
+          style={{ display: 'inline-block' }}
+          minimal
+          data-name="main-delete"
+          icon="main-trash"
+          onClick={() =&gt; column.removeArtifact()}
+        /&gt;
       &lt;/Layout.Horizontal&gt;
     &lt;/&gt;
   )
@@ -894,7 +925,8 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element =&gt;
     formikProps,
     isManifest,
     editArtifact,
-    artifactTableData
+    artifactTableData,
+    removeArtifact
   } = props
 &nbsp;
   const { getString } = useStrings()
@@ -932,7 +964,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element =&gt;
       {
         Header: artifactOrManifestText<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>oUpperCase(),
         accessor: 'artifactLabel',
-        width: appliedArtifact ? '45%' : '27%',
+        width: appliedArtifact ? '45%' : '25%',
         Cell: RenderColumnArtifactLabel,
         className: 'className',
         class: 'class',
@@ -980,7 +1012,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element =&gt;
       columns.push({
         Header: getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>version').toUpperCase(),
         accessor: 'version',
-        width: '16%',
+        width: '13%',
         Cell: RenderColumnVersion,
         disableSortBy: true
       })
@@ -988,7 +1020,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element =&gt;
       columns.push({
         Header: getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>pipeline.triggers.artifactTriggerConfigPanel.buildTag').toUpperCase(),
         accessor: 'buildTag',
-        width: '16%',
+        width: '13%',
         Cell: RenderColumnBuildTag,
         disableSortBy: true
       })
@@ -997,7 +1029,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element =&gt;
     columns.push({
       Header: getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>pipeline.triggers.artifactTriggerConfigPanel.hasRuntimeInputs').toUpperCase(),
       accessor: 'hasRuntimeInputs',
-      width: '9%',
+      width: '14%',
       Cell: RenderColumnHasRuntimeInputs,
       disableSortBy: true
     })
@@ -1010,6 +1042,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element =&gt;
       appliedArtifact,
       formikProps,
       editArtifact,
+      removeArtifact,
       Cell: RenderColumnEdit
     })
   }
@@ -1048,7 +1081,7 @@ export default ArtifactTableInfo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 13 2021 02:37:36 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 13 2021 05:25:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

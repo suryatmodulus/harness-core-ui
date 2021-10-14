@@ -179,7 +179,8 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
     }
   }
 
-  return data?.data?.response?.deploymentsStatsSummary?.countAndChangeRate?.count ? (
+  //Hiding CD section with No data card for demo
+  return data?.data?.response?.deploymentsStatsSummary?.countAndChangeRate?.count === 99999 ? (
     <div className={css.main}>
       <Card className={css.badgesContainer}>
         {data?.data?.response?.deploymentsOverview &&

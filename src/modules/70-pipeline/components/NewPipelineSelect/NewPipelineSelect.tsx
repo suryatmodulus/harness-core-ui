@@ -18,7 +18,7 @@ export default function NewPipelineSelect(props: NewPipelineSelectProps): React.
   const [query, setQuery] = React.useState('')
   const { getString } = useStrings()
 
-  const { mutate: reloadPipelines, cancel } = useGetPipelineList({
+  const { mutate: reloadPipelines } = useGetPipelineList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -31,14 +31,11 @@ export default function NewPipelineSelect(props: NewPipelineSelectProps): React.
 
   function dummyPromise(): Promise<SelectOption[]> {
     return new Promise<SelectOption[]>(resolve => {
-      cancel()
       reloadPipelines({ filterType: 'PipelineSetup' }).then(result => {
-        if (result?.data?.content) {
-          const selectItems = result.data?.content?.map(item => {
-            return { label: item.name || '', value: item.identifier || '' }
-          }) as SelectOption[]
-          resolve(selectItems)
-        }
+        const selectItems = result?.data?.content?.map(item => {
+          return { label: item.name || '', value: item.identifier || '' }
+        }) as SelectOption[]
+        resolve(selectItems || [])
       })
     })
   }

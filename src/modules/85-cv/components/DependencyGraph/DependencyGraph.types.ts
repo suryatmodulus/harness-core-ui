@@ -1,12 +1,12 @@
 import type { Options } from 'highcharts'
-import type { Edge } from 'services/cv'
+import type { Edge, ServiceSummaryDetails } from 'services/cv'
 
 export type NetworkgraphOptions = Omit<Options, 'type'>
 export interface Node {
   icon?: string
   name: string
   id: string
-  status: string
+  status: ServiceSummaryDetails['riskLevel']
 }
 
 export interface GraphData {

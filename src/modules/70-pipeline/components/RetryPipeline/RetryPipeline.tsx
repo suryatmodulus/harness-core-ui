@@ -73,6 +73,9 @@ import { mergeTemplateWithInputSetData } from '../RunPipelineModal/RunPipelineHe
 import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import css from './RetryPipeline.module.scss'
 
+export interface ParallelStageOption extends SelectOption {
+  isLastIndex: boolean
+}
 interface RetryPipelineProps {
   executionIdentifier: string
   pipelineIdentifier: string
@@ -99,7 +102,7 @@ const RetryPipeline = ({
   const { inputSetType, inputSetValue, inputSetLabel, inputSetRepoIdentifier, inputSetBranch } = useQueryParams<
     GitQueryParams & RunPipelineQueryParams
   >()
-  const planExecutionIdentifier = executionId ? executionId : executionIdentifier
+  const planExecutionIdentifier = executionIdentifier ?? executionId
   const pipelineId = pipelineIdf ? pipelineIdf : pipelineIdentifier
 
   const getInputSetSelected = (): InputSetValue[] => {
@@ -131,6 +134,7 @@ const RetryPipeline = ({
   const [selectedStage, setSelectedStage] = useState<SelectOption | null>(null)
   const [selectedInputSets, setSelectedInputSets] = useState<InputSetSelectorProps['value']>(getInputSetSelected())
   const [isParallelStage, setIsParallelStage] = useState(false)
+  const [isLastIndex, setIsLastIndex] = useState(false)
   const [isAllStage, setIsAllStage] = useState(true)
   const [inputSetTemplateYaml, setInputSetTemplateYaml] = useState('')
   const [skipPreFlightCheck, setSkipPreFlightCheck] = useState(false)
@@ -169,7 +173,7 @@ const RetryPipeline = ({
     }
   })
 
-  const { mutate: retryPipeline } = useRetryPipeline({
+  const { mutate: retryPipeline, loading: loadingRetry } = useRetryPipeline({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -180,6 +184,9 @@ const RetryPipeline = ({
         ? [selectedStage?.value]
         : (selectedStage?.value as string)?.split(' | ')) as string[],
       runAllStages: isAllStage
+    },
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
     },
     identifier: pipelineId,
     requestOptions: {
@@ -286,8 +293,8 @@ const RetryPipeline = ({
     /* istanbul ignore else */ if (inputSetData?.data?.inputSetYaml) {
       setInputSetYaml(inputSetData.data?.inputSetYaml)
     }
-    /* istanbul ignore else */ if (inputSetData?.data?.inputSetTemplateYaml) {
-      setInputSetTemplateYaml(inputSetData.data.inputSetTemplateYaml)
+    /* istanbul ignore else */ if (inputSetData?.data?.latestTemplateYaml) {
+      setInputSetTemplateYaml(inputSetData.data.latestTemplateYaml)
     }
   }, [inputSetData])
 
@@ -408,6 +415,7 @@ const RetryPipeline = ({
         )
         const retryPipelineData = response.data
         if (response.status === 'SUCCESS') {
+          onClose()
           if (retryPipelineData && retryPipelineData.planExecution?.uuid) {
             showSuccess(getString('runPipelineForm.pipelineRunSuccessFully'))
             history.push(
@@ -465,6 +473,9 @@ const RetryPipeline = ({
 
   const handleStageChange = (value: SelectOption): void => {
     if (value.label.includes('|')) {
+      if ((value as ParallelStageOption).isLastIndex) {
+        setIsLastIndex(true)
+      }
       setIsParallelStage(true)
     } else {
       setIsParallelStage(false)
@@ -540,7 +551,7 @@ const RetryPipeline = ({
     }
   }
 
-  if (loadingPipeline || loadingTemplate || inputSetLoading) {
+  if (loadingPipeline || loadingTemplate || inputSetLoading || loadingRetry) {
     return <PageSpinner />
   }
 
@@ -627,6 +638,7 @@ const RetryPipeline = ({
                       isParallelStage={isParallelStage}
                       handleStageType={handleStageType}
                       isAllStage={isAllStage}
+                      isLastIndex={isLastIndex}
                     />
                   )}
                   {noRuntimeInputs ? (

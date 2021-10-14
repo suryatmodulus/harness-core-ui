@@ -1,19 +1,13 @@
 import React, { useState } from 'react'
 import { IDrawerProps, Position, Drawer } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Container, Heading, Text, Color, Link, Icon, Button } from '@wings-software/uicore'
+import { Container, Text, Color, Icon, Button } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
-import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import { PageError } from '@common/components/Page/PageError'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import {
-  useGetEventDetails,
-  KubernetesActivityDetail,
-  ActivityVerificationResultDTO,
-  useGetDeploymentActivitySummary
-} from 'services/cv'
+import { ActivityVerificationResultDTO, useGetDeploymentActivitySummary } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import VerificationStatusCard from '@cv/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/VerificationStatusCard/VerificationStatusCard'
@@ -22,14 +16,6 @@ import { VerificationActivityRiskCardWithApi } from '../VerificationActivityRisk
 import type { EventData } from '../ActivitiesTimelineView/ActivitiesTimelineView'
 import css from './EventDetailsForChange.module.scss'
 
-type SummaryCardInfo = {
-  kind?: string
-  eventCount?: number
-  namespace?: string
-  workload?: string
-  sourceName?: string
-  connectorIdentifier?: string
-}
 interface EventDetailsForChangeProps {
   onCloseCallback: () => void
   selectedActivityInfo?: {
@@ -39,25 +25,10 @@ interface EventDetailsForChangeProps {
   selectedActivities?: EventData[]
 }
 
-interface KeyValuePairProps {
-  name: string
-  value?: string
-}
-
-interface EventsListProps {
-  events: KubernetesActivityDetail[]
-}
-
 interface KubernetesContentProps {
   selectedActivityId: string
   displayJSON: boolean
   onViewJSONClick: () => void
-}
-
-interface ChangeSourceSummaryCardProps {
-  onViewJSONClick: () => void
-  displayViewJSONOption: boolean
-  data: SummaryCardInfo
 }
 
 interface ActivitiesListProps {
@@ -99,131 +70,14 @@ function getDrawerHeading(getString: UseStringsReturn['getString'], selectedActi
   )}`
 }
 
-function KeyValuePair(props: KeyValuePairProps): JSX.Element {
-  const { name, value } = props
-  return (
-    <Container width="100%" className={css.keyValPair}>
-      <Text font={{ size: 'small' }} lineClamp={1} className={css.key}>
-        {name}
-      </Text>
-      <Text color={Color.BLACK} lineClamp={1}>
-        {value}
-      </Text>
-    </Container>
-  )
-}
-
-function KuberenetesChangeSourceSummaryCard(props: ChangeSourceSummaryCardProps): JSX.Element {
-  const { onViewJSONClick, displayViewJSONOption, data } = props
-  const { getString } = useStrings()
-  return (
-    <Container className={css.summaryCard}>
-      <Container className={css.changeSourceDetails}>
-        <Heading level={2} className={css.heading} color={Color.BLACK}>
-          {getString('cv.changesPage.changeSourceDetails')}
-        </Heading>
-        <KeyValuePair name={getString('source')} value={data?.sourceName} />
-        <KeyValuePair name={getString('connector')} value={data?.connectorIdentifier} />
-      </Container>
-      <Container className={css.changeSummary}>
-        <Container flex>
-          <Heading level={2} className={css.heading} color={Color.BLACK}>
-            {getString('cv.changesPage.changeSummary')}
-          </Heading>
-          {displayViewJSONOption && (
-            <Container className={css.viewJson}>
-              <Link minimal withoutHref text={getString('viewJSON')} onClick={() => onViewJSONClick()} />
-              <Icon name="view-json" size={25} />
-            </Container>
-          )}
-        </Container>
-        <Container className={css.summaryRow}>
-          <KeyValuePair name={getString('pipelineSteps.workload')} value={data?.workload} />
-          <KeyValuePair name={getString('kind')} value={data?.kind} />
-        </Container>
-        <Container className={css.summaryRow}>
-          <KeyValuePair name={getString('pipelineSteps.build.infraSpecifications.namespace')} value={data?.namespace} />
-          <KeyValuePair
-            name={getString('cv.changesPage.eventCount')}
-            value={data?.eventCount ? data.eventCount.toString() : ''}
-          />
-        </Container>
-      </Container>
-    </Container>
-  )
-}
-
-function KubernetesEventsList(props: EventsListProps): JSX.Element {
-  const { events } = props
-  const { getString } = useStrings()
-  return (
-    <ul className={css.eventsList}>
-      <li className={cx(css.listHeader, css.listItem)}>
-        <Text className={css.creationDate}>{getString('creationTimestamp').toLocaleUpperCase()}</Text>
-        <Text className={css.type}>{getString('typeLabel').toLocaleUpperCase()}</Text>
-        <Text className={css.reason}>{getString('reason').toLocaleUpperCase()}</Text>
-        <Text className={css.message}>{getString('message').toLocaleUpperCase()}</Text>
-      </li>
-      {events?.map((event, index) => (
-        <li className={css.listItem} key={index}>
-          <Text className={css.creationDate} lineClamp={1}>
-            {event?.timeStamp ? new Date(event.timeStamp).toLocaleString() : ''}
-          </Text>
-          <Text className={css.type} lineClamp={1}>
-            {event?.eventType}
-          </Text>
-          <Text className={css.reason} lineClamp={1}>
-            {event?.reason}
-          </Text>
-          <Text className={css.message} lineClamp={3}>
-            {event?.message}
-          </Text>
-        </li>
-      ))}
-    </ul>
-  )
-}
-
 function KubernetesContent(props: KubernetesContentProps): JSX.Element {
-  const { selectedActivityId, displayJSON, onViewJSONClick } = props
+  const { selectedActivityId } = props
   const {
     projectIdentifier,
     orgIdentifier,
     accountId,
     activityId: routeActivityId
   } = useParams<ProjectPathProps & { activityId?: string }>()
-  const { loading, data, error, refetch } = useGetEventDetails({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, activityId: selectedActivityId }
-  })
-
-  const { namespace, connectorIdentifier, kind, workload, sourceName, details = [] } = data?.data || { details: [] }
-  if (loading) {
-    return <Icon name="steps-spinner" size={25} color={Color.GREY_600} className={css.contentSpinner} />
-  }
-
-  if (error) {
-    return <PageError message={getErrorMessage(error)} onClick={() => refetch()} className={css.contentError} />
-  }
-
-  if (displayJSON && selectedActivityId) {
-    const concatenedJSON = details?.map(detail => detail?.eventJson).filter(json => (json ? json.length > 0 : false))
-    return (
-      <Container className={css.eventsEditor} height="100%">
-        <MonacoEditor
-          language="json"
-          value={JSON.stringify(concatenedJSON, null, 4)?.replace(/\\n/g, '\r\n')}
-          options={
-            {
-              readOnly: true,
-              wordBasedSuggestions: false,
-              fontFamily: "'Roboto Mono', monospace",
-              fontSize: 13
-            } as any
-          }
-        />
-      </Container>
-    )
-  }
 
   return (
     <Container className={css.kubernetesContent}>
@@ -240,19 +94,6 @@ function KubernetesContent(props: KubernetesContentProps): JSX.Element {
               })
         }
       />
-      <KuberenetesChangeSourceSummaryCard
-        onViewJSONClick={onViewJSONClick}
-        displayViewJSONOption={Boolean(selectedActivityId)}
-        data={{
-          namespace,
-          kind,
-          workload,
-          eventCount: details?.length ?? undefined,
-          connectorIdentifier,
-          sourceName
-        }}
-      />
-      <KubernetesEventsList events={loading ? [] : details} />
     </Container>
   )
 }

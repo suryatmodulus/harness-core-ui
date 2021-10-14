@@ -65,12 +65,15 @@ exports[`Access Control Page render data 1`] = `
           </div>
         </div>
       </div>
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
+      <div
+        class="Layout--horizontal StyledProps--main"
       >
-        accessControl
-      </h2>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+        >
+          account accessControl
+        </p>
+      </div>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main TabNavigation--container"

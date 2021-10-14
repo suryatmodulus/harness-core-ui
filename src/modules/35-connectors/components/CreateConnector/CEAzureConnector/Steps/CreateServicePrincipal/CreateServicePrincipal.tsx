@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { pick } from 'lodash-es'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import {
   Button,
   Heading,

@@ -14,9 +14,11 @@ import {
 } from './ChangeSourceCard.mock'
 import { calculateChangePercentage } from '../ChangesSourceCard.utils'
 
+const serviceIdentifier = 'service101'
+const environmentIdentifier = 'environment101'
 describe('Test ChangeSourcecard', () => {
   test('should render with positive change', async () => {
-    jest.spyOn(cvService, 'useGetChangeSummary').mockImplementation(
+    jest.spyOn(cvService, 'useChangeEventSummary').mockImplementation(
       () =>
         ({
           data: { resource: { ...changeSummaryWithPositiveChange } },
@@ -27,7 +29,12 @@ describe('Test ChangeSourcecard', () => {
     )
     const { container } = render(
       <TestWrapper>
-        <ChangesSourcecard startTime={0} endTime={0} />
+        <ChangesSourcecard
+          startTime={0}
+          endTime={0}
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+        />
       </TestWrapper>
     )
     expect(container.querySelectorAll('.iconContainer span[data-icon="main-caret-up"]').length).toEqual(4)
@@ -37,7 +44,7 @@ describe('Test ChangeSourcecard', () => {
     expect(container).toMatchSnapshot()
   })
   test('should render with negative change', async () => {
-    jest.spyOn(cvService, 'useGetChangeSummary').mockImplementation(
+    jest.spyOn(cvService, 'useChangeEventSummary').mockImplementation(
       () =>
         ({
           data: { resource: { ...changeSummaryWithNegativeChange } },
@@ -48,7 +55,12 @@ describe('Test ChangeSourcecard', () => {
     )
     const { container } = render(
       <TestWrapper>
-        <ChangesSourcecard startTime={0} endTime={0} />
+        <ChangesSourcecard
+          startTime={0}
+          endTime={0}
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+        />
       </TestWrapper>
     )
     expect(container.querySelectorAll('.iconContainer span[data-icon="main-caret-down"]').length).toEqual(4)
@@ -59,7 +71,7 @@ describe('Test ChangeSourcecard', () => {
   })
 
   test('validate loading', async () => {
-    jest.spyOn(cvService, 'useGetChangeSummary').mockImplementation(
+    jest.spyOn(cvService, 'useChangeEventSummary').mockImplementation(
       () =>
         ({
           data: null,
@@ -70,7 +82,12 @@ describe('Test ChangeSourcecard', () => {
     )
     const { container, getAllByTestId } = render(
       <TestWrapper>
-        <ChangesSourcecard startTime={0} endTime={0} />
+        <ChangesSourcecard
+          startTime={0}
+          endTime={0}
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+        />
       </TestWrapper>
     )
     expect(getAllByTestId('loading-block')).toHaveLength(4)
@@ -78,7 +95,7 @@ describe('Test ChangeSourcecard', () => {
   })
 
   test('validate error state', async () => {
-    jest.spyOn(cvService, 'useGetChangeSummary').mockImplementation(
+    jest.spyOn(cvService, 'useChangeEventSummary').mockImplementation(
       () =>
         ({
           data: null,
@@ -89,7 +106,12 @@ describe('Test ChangeSourcecard', () => {
     )
     const { container, getByText } = render(
       <TestWrapper>
-        <ChangesSourcecard startTime={0} endTime={0} />
+        <ChangesSourcecard
+          startTime={0}
+          endTime={0}
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+        />
       </TestWrapper>
     )
 

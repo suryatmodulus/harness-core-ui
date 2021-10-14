@@ -1,35 +1,35 @@
-import { Color } from '@wings-software/uicore'
+import { RiskValues, getRiskColorValue, getSecondaryRiskColorValue } from '@cv/utils/CommonUtils'
 
 export const statusColors = [
   {
-    status: 'HIGH',
-    primary: Color.RED_500,
-    secondary: Color.RED_50
+    status: RiskValues.UNHEALTHY,
+    primary: getRiskColorValue(RiskValues.UNHEALTHY, false),
+    secondary: getSecondaryRiskColorValue(RiskValues.UNHEALTHY, false)
   },
   {
-    status: 'TBD',
-    primary: Color.YELLOW_500,
-    secondary: Color.YELLOW_50
+    status: RiskValues.OBSERVE,
+    primary: getRiskColorValue(RiskValues.OBSERVE, false),
+    secondary: getSecondaryRiskColorValue(RiskValues.OBSERVE, false)
   },
   {
-    status: 'MEDIUM',
-    primary: Color.ORANGE_500,
-    secondary: Color.ORANGE_50
+    status: RiskValues.NEED_ATTENTION,
+    primary: getRiskColorValue(RiskValues.NEED_ATTENTION, false),
+    secondary: getSecondaryRiskColorValue(RiskValues.NEED_ATTENTION, false)
   },
   {
-    status: 'LOW',
-    primary: Color.GREEN_500,
-    secondary: Color.GREEN_50
+    status: RiskValues.HEALTHY,
+    primary: getRiskColorValue(RiskValues.HEALTHY, false),
+    secondary: getSecondaryRiskColorValue(RiskValues.HEALTHY, false)
   },
   {
-    status: 'NO_ANALYSIS',
-    primary: Color.GREY_500,
-    secondary: Color.GREY_50
+    status: RiskValues.NO_ANALYSIS,
+    primary: getRiskColorValue(RiskValues.NO_ANALYSIS, false),
+    secondary: getSecondaryRiskColorValue(RiskValues.NO_ANALYSIS, false)
   },
   {
-    status: 'NO_DATA',
-    primary: Color.GREY_500,
-    secondary: Color.GREY_50
+    status: RiskValues.NO_DATA,
+    primary: getRiskColorValue(RiskValues.NO_DATA, false),
+    secondary: getSecondaryRiskColorValue(RiskValues.NO_DATA, false)
   }
 ]
 

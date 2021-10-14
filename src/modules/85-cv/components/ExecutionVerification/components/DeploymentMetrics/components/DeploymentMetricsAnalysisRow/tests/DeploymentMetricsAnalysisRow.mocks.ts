@@ -1,3 +1,4 @@
+import { RiskValues } from '@cv/utils/CommonUtils'
 import type { DeploymentMetricsAnalysisRowProps } from '../DeploymentMetricsAnalysisRow'
 
 export const InputData: DeploymentMetricsAnalysisRowProps[] = [
@@ -27,7 +28,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623184825713, y: 172 },
           { x: 1623184954284, y: 170.66666666666666 }
         ],
-        risk: 'HIGH',
+        risk: RiskValues.UNHEALTHY,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       },
       {
@@ -38,7 +39,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623184825713, y: 172 },
           { x: 1623184954284, y: 170.66666666666666 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       },
       {
@@ -49,7 +50,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623184825713, y: 172 },
           { x: 1623184954284, y: 170.66666666666666 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.HEALTHY,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       },
       {
@@ -60,7 +61,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623184825713, y: 172 },
           { x: 1623184954284, y: 170.66666666666666 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NEED_ATTENTION,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       },
       {
@@ -71,7 +72,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623184825713, y: 172 },
           { x: 1623184954284, y: 170.66666666666666 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.OBSERVE,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       },
       {
@@ -82,7 +83,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623184825713, y: 172 },
           { x: 1623184954284, y: 170.66666666666666 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       },
       {
@@ -93,7 +94,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623184825713, y: 172 },
           { x: 1623184954284, y: 170.66666666666666 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.HEALTHY,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       },
       {
@@ -104,7 +105,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623184825713, y: 172 },
           { x: 1623184954284, y: 170.66666666666666 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NEED_ATTENTION,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       }
     ],
@@ -123,7 +124,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623187140000, y: 6 },
           { x: 1623188040000, y: 5.333333333333333 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       }
     ],
@@ -142,7 +143,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623187140000, y: 3 },
           { x: 1623188040000, y: 2.6666666666666665 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       }
     ],
@@ -161,7 +162,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623187140000, y: 3.6666666666666665 },
           { x: 1623188040000, y: 3.6666666666666665 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       }
     ],
@@ -180,7 +181,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623187140000, y: 2.6666666666666665 },
           { x: 1623188040000, y: 3 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       }
     ],
@@ -199,7 +200,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623187140000, y: 1 },
           { x: 1623188040000, y: 1 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       }
     ],
@@ -218,7 +219,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623187140000, y: 3 },
           { x: 1623188040000, y: 3 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       }
     ],
@@ -237,7 +238,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623187140000, y: 145.66666666666666 },
           { x: 1623188040000, y: 152.66666666666666 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       }
     ],
@@ -256,7 +257,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623187140000, y: 3 },
           { x: 1623188040000, y: 3 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       }
     ],
@@ -275,7 +276,7 @@ export const InputData: DeploymentMetricsAnalysisRowProps[] = [
           { x: 1623187140000, y: 0 },
           { x: 1623188040000, y: 0 }
         ],
-        risk: 'NO_DATA',
+        risk: RiskValues.NO_DATA,
         name: 'harness-test-appd-ng-demo-deployment-canary-84dfb494bf-7w5sx'
       }
     ],

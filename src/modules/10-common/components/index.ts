@@ -26,6 +26,7 @@ import { FormMultiTypeRadioGroupField, MultiTypeRadioGroup } from './MultiTypeRa
 import { InstanceDropdownField, FormInstanceDropdown } from './InstanceDropdownField/InstanceDropdownField'
 import { DelegateSelectors } from './DelegateSelectors/DelegateSelectors'
 import WizardWithProgress from './WizardWithProgress/WizardWithProgress'
+import DetailPageCard from './DetailPageCard/DetailPageCard'
 import CopyToClipBoard from './CopyToClipBoard/CopyToClipBoard'
 import { OptionsMenuButton, MenuDivider } from './OptionsMenuButton/OptionsMenuButton'
 import { TimeSeriesAreaChart } from './TimeSeriesAreaChart/TimeSeriesAreaChart'
@@ -63,6 +64,7 @@ export {
   UserLabel,
   DelegateSelectors,
   WizardWithProgress,
+  DetailPageCard,
   OptionsMenuButton,
   MenuDivider,
   TimeSeriesAreaChart

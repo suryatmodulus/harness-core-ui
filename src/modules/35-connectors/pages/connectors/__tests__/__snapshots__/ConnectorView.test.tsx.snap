@@ -734,7 +734,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -742,7 +742,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -910,7 +910,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -918,7 +918,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -1086,7 +1086,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -1094,7 +1094,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >

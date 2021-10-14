@@ -1,8 +1,10 @@
+import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
+
 export const mockedHealthScoreData = {
   healthScores: [
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -10,7 +12,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -18,7 +20,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -26,7 +28,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -34,7 +36,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -42,7 +44,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -50,7 +52,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -58,7 +60,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -66,7 +68,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -74,7 +76,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -82,7 +84,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -90,7 +92,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -98,7 +100,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -106,7 +108,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -114,7 +116,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -129,7 +131,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -137,7 +139,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -145,7 +147,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -153,7 +155,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -161,7 +163,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -169,7 +171,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -177,7 +179,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -185,7 +187,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -193,7 +195,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -201,7 +203,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: null,
-      riskStatus: 'NO_DATA',
+      riskStatus: RiskValues.NO_DATA,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -209,7 +211,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -217,7 +219,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -225,7 +227,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -233,7 +235,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -241,7 +243,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -249,7 +251,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -257,7 +259,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -265,7 +267,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -273,7 +275,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -281,7 +283,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -289,7 +291,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -297,7 +299,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -305,7 +307,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -313,7 +315,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -321,7 +323,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -329,7 +331,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -337,7 +339,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -345,7 +347,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -353,7 +355,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -361,7 +363,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -369,7 +371,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -377,7 +379,7 @@ export const mockedHealthScoreData = {
     },
     {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 123123123,
         endTime: 3453454
@@ -388,332 +390,332 @@ export const mockedHealthScoreData = {
 
 export const mockedSeriesData = [
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--grey-200)',
+    color: getRiskColorValue(RiskValues.NO_DATA),
     healthScore: null,
     height: 8,
-    riskStatus: 'NO_DATA',
+    riskStatus: RiskValues.NO_DATA,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   },
   {
-    color: 'var(--green-500)',
+    color: getRiskColorValue(RiskValues.HEALTHY),
     healthScore: 100,
     height: 100,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     timeRange: { endTime: 3453454000, startTime: 123123123000 }
   }
 ]

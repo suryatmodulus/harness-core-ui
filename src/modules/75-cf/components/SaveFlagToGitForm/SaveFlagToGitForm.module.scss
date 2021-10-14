@@ -1,0 +1,18 @@
+.save-flag-to-git-form {
+  :global {
+    .bp3-disabled input {
+      background-color: var(--grey-100) !important;
+    }
+  }
+
+  .name-id-input {
+    margin-bottom: 0;
+  }
+}
+
+.formRow {
+  display: flex;
+  > * {
+    flex: 1;
+  }
+}

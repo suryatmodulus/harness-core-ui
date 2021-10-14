@@ -6,7 +6,7 @@ import css from './ServiceDependenciesLegend.module.scss'
 
 export default function ServiceDependenciesLegend(): JSX.Element {
   const { getString } = useStrings()
-  const servicesStates = getServicesStates(getString)
+  const servicesStates = getServicesStates()
 
   return (
     <Container className={css.dependenciesLegendsContainer}>
@@ -15,7 +15,7 @@ export default function ServiceDependenciesLegend(): JSX.Element {
           <Container flex key={state.identifier}>
             <Container style={{ backgroundColor: state.color }} className={css.serviceState}></Container>
             <Text margin={{ right: 'small' }} font={{ size: 'xsmall' }}>
-              {state.label}
+              {getString(state.label)}
             </Text>
           </Container>
         )

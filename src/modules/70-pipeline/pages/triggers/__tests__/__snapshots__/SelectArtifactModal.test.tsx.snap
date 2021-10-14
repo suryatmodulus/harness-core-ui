@@ -2,7 +2,7 @@
 
 exports[`Select Artifact Modal tests inital Render 1`] = `
 <div
-  class="bp3-dialog selectArtifactModal padded-dialog"
+  class="bp3-dialog selectArtifactModal padded-dialog runtimeInputs"
 >
   <div
     class="bp3-dialog-header"
@@ -46,7 +46,7 @@ exports[`Select Artifact Modal tests inital Render 1`] = `
     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
   >
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
       type="button"
     >
       <span
@@ -55,11 +55,16 @@ exports[`Select Artifact Modal tests inital Render 1`] = `
         filters.apply
       </span>
     </button>
-    <p
-      class="StyledProps--font StyledProps--main cancel"
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
+      type="button"
     >
-      cancel
-    </p>
+      <span
+        class="bp3-button-text"
+      >
+        cancel
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -115,15 +120,11 @@ exports[`Select Artifact Modal tests when selected manifest-chart is not runtime
         role="columnheader"
         style="width: 5%;"
       >
-        
-      </div>
-      <div
-        class="cell"
-        colspan="1"
-        role="columnheader"
-        style="width: 27%;"
-      >
-        MANIFESTSTEXT
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          
+        </p>
       </div>
       <div
         class="cell"
@@ -131,7 +132,23 @@ exports[`Select Artifact Modal tests when selected manifest-chart is not runtime
         role="columnheader"
         style="width: 25%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          MANIFESTSTEXT
+        </p>
+      </div>
+      <div
+        class="cell"
+        colspan="1"
+        role="columnheader"
+        style="width: 25%;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACTREPOSITORY
+        </p>
       </div>
       <div
         class="cell"
@@ -139,23 +156,35 @@ exports[`Select Artifact Modal tests when selected manifest-chart is not runtime
         role="columnheader"
         style="width: 18%;"
       >
-        COMMON.LOCATION
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          COMMON.LOCATION
+        </p>
       </div>
       <div
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 16%;"
+        style="width: 13%;"
       >
-        VERSION
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          VERSION
+        </p>
       </div>
       <div
         class="cell"
         colspan="1"
         role="columnheader"
-        style="width: 9%;"
+        style="width: 14%;"
       >
-        PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+        >
+          PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
+        </p>
       </div>
     </div>
     <div
@@ -197,7 +226,7 @@ exports[`Select Artifact Modal tests when selected manifest-chart is not runtime
         <div
           class="cell"
           role="cell"
-          style="width: 27%;"
+          style="width: 25%;"
         >
           <div
             class="Layout--horizontal StyledProps--main disabledRow"
@@ -245,7 +274,7 @@ exports[`Select Artifact Modal tests when selected manifest-chart is not runtime
         <div
           class="cell"
           role="cell"
-          style="width: 16%;"
+          style="width: 13%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main disabledRow"
@@ -261,7 +290,7 @@ exports[`Select Artifact Modal tests when selected manifest-chart is not runtime
         <div
           class="cell"
           role="cell"
-          style="width: 9%;"
+          style="width: 14%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main disabledRow"
@@ -287,7 +316,7 @@ exports[`Select Artifact Modal tests when selected manifest-chart is not runtime
     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
   >
     <button
-      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
       data-name="selectBtn"
       disabled=""
       tabindex="-1"
@@ -299,11 +328,16 @@ exports[`Select Artifact Modal tests when selected manifest-chart is not runtime
         select
       </span>
     </button>
-    <p
-      class="StyledProps--font StyledProps--main cancel"
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main cancel Button--with-current-color Button--variation Button--variation-tertiary"
+      type="button"
     >
-      cancel
-    </p>
+      <span
+        class="bp3-button-text"
+      >
+        cancel
+      </span>
+    </button>
   </div>
 </div>
 `;

@@ -24,6 +24,7 @@ import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuAct
 import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
 import { getDependencyData } from '@cv/components/DependencyGraph/DependencyGraph.utils'
 import ToggleMonitoring from '@cv/pages/monitored-service/components/toggleMonitoring/ToggleMonitoring'
+import ImageDeleteService from '@cv/assets/delete-service.svg'
 import { MonitoringServicesHeader } from './monitoredService.styled'
 import {
   RenderHealthTrend,
@@ -196,7 +197,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
             font={{ size: 'xsmall' }}
             iconProps={{ size: 10, color: color }}
           >
-            {percentage}
+            {`${percentage}%`}
           </Text>
         </Layout.Horizontal>
       )
@@ -229,8 +230,18 @@ function CVMonitoredServiceListingPage(): JSX.Element {
           enable={!!rowData?.healthMonitoringEnabled}
         />
         <ContextMenuActions
-          titleText={getString('cv.monitoredServices.deleteMonitoredService')}
-          contentText={getString('cv.monitoredServices.deleteMonitoredServiceWarning') + `: ${rowData.identifier}`}
+          titleText={getString('common.delete', { name: rowData.serviceName })}
+          contentText={
+            <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <Text color={Color.GREY_800}>
+                {getString('cv.monitoredServices.deleteMonitoredServiceWarning', { name: rowData.serviceName })}
+              </Text>
+              <div>
+                <img src={ImageDeleteService} width="204px" height="202px" />
+              </div>
+            </Layout.Horizontal>
+          }
+          confirmButtonText={getString('yes')}
           deleteLabel={getString('cv.monitoredServices.deleteService')}
           onDelete={async () => await onDelete(rowData.identifier)}
           editLabel={getString('cv.monitoredServices.editService')}

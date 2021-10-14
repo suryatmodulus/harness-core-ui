@@ -63,7 +63,7 @@ function StageForm({
   const icon = stageTypeToIconMap[allValues?.stage?.type || 'Deployment']
   return (
     <div id={`Stage.${allValues?.stage?.identifier}`}>
-      <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'medium', right: 0, bottom: 0 }}>
+      <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'large', right: 0, bottom: 0 }}>
         <Icon name={icon} size={18} />
         <Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
           Stage: {allValues?.stage?.name || ''}
@@ -164,7 +164,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
           getMultiTypeFromValue(template?.properties?.ci?.codebase?.build as unknown as string) ===
             MultiTypeInputType.RUNTIME && (
             <>
-              <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'medium', right: 0, bottom: 0 }}>
+              <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'large', right: 0, bottom: 0 }}>
                 <Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
                   {getString('ciCodebase')}
                 </Text>

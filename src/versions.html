@@ -50,9 +50,19 @@
         const BASE_URL = window.location.pathname.replace(/ng\/static\/versions\.html$/, '')
         const versionAPIs = [
           {
+            url: 'version.txt',
+            label: 'CG UI',
+            id: 'cg_ui'
+          },
+          {
             url: 'ng/static/version.json',
             label: 'NG UI',
             id: 'ng_ui'
+          },
+          {
+            url: window.location.origin + '/auth/version.json',
+            label: 'Auth UI',
+            id: 'ng_auth_ui'
           },
           {
             label: 'NG Manager',
@@ -89,11 +99,11 @@
             url: 'ci/version',
             id: 'ci'
           },
-          {
-            label: 'Test Inteliigence',
-            url: 'ti-service/version',
-            id: 'ti'
-          },
+          // {
+          //   label: 'Test Inteliigence',
+          //   url: 'ti-service/version',
+          //   id: 'ti'
+          // },
           {
             label: 'CV',
             url: 'cv/api/version',
@@ -114,6 +124,11 @@
             url: 'ccm/api/version',
             id: 'ccm'
           }
+          // {
+          //   label: 'Learning Engine',
+          //   url: '',
+          //   id: 'le'
+          // }
         ]
         const tbody = document.getElementById('tbody')
         const fragment = document.createDocumentFragment()
@@ -138,11 +153,19 @@
         // start making API calls
         versionAPIs.forEach(row => {
           const col = document.getElementById(row.id)
-          fetch(BASE_URL + row.url)
-            .then(res => res.json())
+          fetch(row.url.startsWith('http') ? row.url : BASE_URL + row.url)
+            .then(res => (row.id === 'cg_ui' ? res.text() : res.json()))
             .then(
               data => {
-                console.log(data)
+                if (row.id === 'cg_ui' && typeof data === 'string') {
+                  const version = data.match(/Build: (\d+)/)
+
+                  if (version && version[1]) {
+                    col.innerHTML = version[1]
+                  }
+                  return
+                }
+
                 if (data.version) {
                   // for NGUI
                   col.innerHTML = data.version

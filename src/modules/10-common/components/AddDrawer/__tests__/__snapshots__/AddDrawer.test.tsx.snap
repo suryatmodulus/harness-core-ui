@@ -32,6 +32,30 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
         style="width: 700px;"
         tabindex="0"
       >
+        <button
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main almostFullScreenCloseTriggerBtn Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-cross StyledProps--main"
+            icon="cross"
+          >
+            <svg
+              data-icon="cross"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                cross
+              </desc>
+              <path
+                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
         <div
           class="stepPalette"
         >
@@ -51,7 +75,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <h2
-                      class="StyledProps--font StyledProps--font-h2 StyledProps--main title StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+                      class="StyledProps--font StyledProps--font-h2 StyledProps--main title StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold StyledProps--font-size-medium"
                       level="2"
                     >
                       Triggers
@@ -63,9 +87,9 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                     </p>
                   </div>
                   <div
-                    class="bp3-input-group ui-search-box ExpandingSearchInput--main   ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
+                    class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip  ExpandingSearchInput--light"
                     data-name=""
-                    style="width: 232px; max-width: 232px;"
+                    style="max-width: 232px; width: 232px;"
                   >
                     <span
                       class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
@@ -89,7 +113,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                     <input
                       class="bp3-input  ExpandingSearchInput--filter"
                       dir="auto"
-                      placeholder="Search"
+                      placeholder="search"
                       style="padding-right: 38px;"
                       type="search"
                       value=""
@@ -418,45 +442,57 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
             <section
               class="categoriesRenderer"
             >
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-medium"
-                style="justify-content: flex-end; padding: 0px;"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon bp3-icon-cross StyledProps--main"
-                    icon="cross"
-                  >
-                    <svg
-                      data-icon="cross"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        cross
-                      </desc>
-                      <path
-                        d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </div>
               <section
-                class="primaryCategories"
+                class="headerContainer"
               >
-                <section
-                  class="showAllBtn"
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--flex"
                 >
-                  Show all Triggers
-                   (
-                  6
-                  )
+                  <div
+                    class="StyledProps--font StyledProps--main libraryHeader StyledProps--flex"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main paletteIcon library"
+                      data-icon="library"
+                    >
+                      <svg
+                        fill="none"
+                        height="14"
+                        width="14"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 11.393c0 .32-.178.57-.396.57H.396c-.216 0-.396-.255-.396-.57V.607c0-.32.178-.57.396-.57h1.208c.216 0 .396.255.396.57v10.786zm2.967.57c.218 0 .396-.25.396-.57V.608c0-.315-.18-.57-.396-.57H3.759c-.218 0-.396.25-.396.57v10.786c0 .315.18.57.396.57h1.208zm4.491.019l.847-.252a.564.564 0 00.391-.696L7.94.614a.56.56 0 00-.682-.403L6.41.462a.564.564 0 00-.391.696l2.755 10.42c.082.303.39.482.683.404z"
+                          fill="#fff"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                      style="font-size: 14px;"
+                    >
+                      Triggers
+                    </p>
+                  </div>
+                </div>
+                <section
+                  class="primaryCategories"
+                >
+                  <section
+                    class="showAllBtn"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
+                      style="font-size: 11px; font-weight: bold;"
+                    >
+                      Show all Triggers
+                       (
+                    </p>
+                    6
+                    )
+                  </section>
                 </section>
               </section>
               <hr

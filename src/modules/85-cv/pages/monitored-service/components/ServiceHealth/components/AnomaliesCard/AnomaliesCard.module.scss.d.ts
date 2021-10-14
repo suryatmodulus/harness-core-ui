@@ -5,5 +5,6 @@ declare const styles: {
   readonly cardColumn: string
   readonly seperator: string
   readonly changeSourceIcon: string
+  readonly anomaliesContainer: string
 }
 export default styles

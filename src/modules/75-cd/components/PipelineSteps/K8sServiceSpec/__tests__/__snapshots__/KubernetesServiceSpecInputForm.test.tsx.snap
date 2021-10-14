@@ -25,6 +25,7 @@ exports[`DOCKER renders the primary artifact form if all the attributes are runt
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
+          data-name="primary"
         >
           <div
             class="connectorLabel"
@@ -391,6 +392,7 @@ exports[`DOCKER renders the primary artifact form in readonly mode: primary arti
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
+          data-name="primary"
         >
           <div
             class="connectorLabel"
@@ -766,6 +768,7 @@ exports[`DOCKER renders the tag component if other values are fixed: fetch tags 
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
+          data-name="primary"
         >
           <div
             class="bp3-form-group"
@@ -894,6 +897,7 @@ exports[`ECR renders the primary artifact form if all the attributes are runtime
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
+          data-name="primary"
         >
           <div
             class="connectorLabel"
@@ -1260,6 +1264,7 @@ exports[`ECR renders the primary artifact form in readonly mode: ecr - primary a
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
+          data-name="primary"
         >
           <div
             class="connectorLabel"
@@ -1635,6 +1640,7 @@ exports[`ECR renders the tag component if other values are fixed: fetch tags ecr
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
+          data-name="primary"
         >
           <div
             class="bp3-form-group"
@@ -1763,6 +1769,7 @@ exports[`GCR renders the primary artifact form if all the attributes are runtime
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
+          data-name="primary"
         >
           <div
             class="connectorLabel"
@@ -2129,6 +2136,7 @@ exports[`GCR renders the primary artifact form in readonly mode: ecr - primary a
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
+          data-name="primary"
         >
           <div
             class="connectorLabel"
@@ -2504,6 +2512,7 @@ exports[`GCR renders the tag component if other values are fixed: fetch tags gcr
         </p>
         <div
           class="Layout--vertical StyledProps--main inputWidth"
+          data-name="primary"
         >
           <div
             class="bp3-form-group"
@@ -2722,6 +2731,7 @@ exports[`MANIFEST renders the K8 manifest: manifest form skeleton 1`] = `
       </div>
       <div
         class="Layout--vertical StyledProps--main inputWidth layoutVerticalSpacing"
+        data-name="manifest"
       >
         <p
           class="StyledProps--font StyledProps--main inputheader"

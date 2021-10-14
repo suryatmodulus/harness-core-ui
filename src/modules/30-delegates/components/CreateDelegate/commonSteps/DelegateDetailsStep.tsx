@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Layout, StepProps, Button, Color, Text, Container, Link } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { DelegateSizeDetails, useGetDelegateSizes } from 'services/portal'

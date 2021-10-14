@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useModalHook, Button, StepWizard } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import type { GitSyncConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

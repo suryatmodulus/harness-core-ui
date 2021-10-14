@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch should render Switch  1`] = `
+<div>
+  <label
+    class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+  >
+    <input
+      type="checkbox"
+    />
+    <span
+      class="bp3-control-indicator"
+    />
+  </label>
+</div>
+`;

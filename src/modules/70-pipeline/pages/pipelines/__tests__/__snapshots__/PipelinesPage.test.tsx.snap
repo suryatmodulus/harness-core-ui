@@ -2066,7 +2066,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           role="columnheader"
           style="width: 35%;"
         >
-          COMMON.PIPELINE
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            COMMON.PIPELINE
+          </p>
         </div>
         <div
           class="cell"
@@ -2074,7 +2078,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          ACTIVITY
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            ACTIVITY
+          </p>
         </div>
         <div
           class="cell"
@@ -2082,7 +2090,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          LASTEXECUTIONTS
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            LASTEXECUTIONTS
+          </p>
         </div>
         <div
           class="cell"
@@ -2090,7 +2102,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          RUNPIPELINETEXT
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            RUNPIPELINETEXT
+          </p>
         </div>
         <div
           class="cell"
@@ -2098,7 +2114,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           role="columnheader"
           style="width: 5%;"
         >
-          
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            
+          </p>
         </div>
       </div>
       <div

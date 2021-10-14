@@ -3,41 +3,45 @@
   flex-direction: column;
   position: relative;
   height: 100%;
-  background: #fbfcfd;
+  background: var(--form-bg);
+
+  [class*='OverlaySpinner'] {
+    width: 100%;
+  }
+
   .tabsContainer {
-    background: #fbfcfd;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 
     :global {
       [class*='FormikForm'] > div > [class*='bp3-tabs'] {
         .bp3-tab {
           margin: var(--spacing-small) 0 !important;
-          min-width: 140px;
-          padding: 0 var(--spacing-medium);
+          min-width: 105px; // see trigger Schedule tab
+          padding: 0 var(--spacing-medium) 0 0;
           text-align: center;
         }
         > .bp3-tab-list {
-          background-color: var(--white);
-          position: fixed;
-          justify-content: center;
-          width: 800px;
-          border-bottom: 0;
-          border-bottom-color: transparent !important;
+          position: sticky;
+          top: 58px;
           z-index: 1;
           border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+          background-color: var(--white);
+          padding-bottom: 3px;
+          padding-left: 0;
+
+          [class*='bp3-tab-indicator-wrapper'] {
+            width: 154px !important;
+            left: 23px;
+          }
         }
         > .bp3-tab-panel {
-          padding-top: var(--spacing-huge);
-          margin-top: 0;
-          z-index: 0;
-          background-color: #fbfcfd;
-          > div {
-            background-color: var(--white);
-            margin-top: 20px;
-            border-left: none;
-            border-right: none;
-            box-shadow: 0px 0.5px 2px rgba(96, 97, 112, 0.16);
+          width: 1000px;
+        }
+
+        &:hover {
+          [data-name='chevron-right-tab'] svg path {
+            fill: var(--grey-400) !important;
           }
         }
       }
@@ -46,24 +50,35 @@
       span[class*='bp3-icon'] {
         margin-right: var(--spacing-small);
       }
+      &:hover {
+        .panelIndexCircle {
+          border-color: var(--primary-7);
+        }
+        .panelIndexNumber {
+          color: var(--primary-7);
+        }
+      }
     }
     .tabPanel {
-      width: 800px;
+      width: 1000px;
     }
 
     .yamlContainer {
       padding: var(--spacing-xlarge);
     }
   }
-
+  .positionInHeader {
+    position: relative;
+    top: -10px;
+  }
   .footer {
     position: fixed;
     bottom: 0px;
     width: 100%;
-    background-color: var(--white);
+    padding: var(--spacing-medium) 0 !important;
+    background-color: var(--form-bg) !important;
     z-index: 1;
     align-items: center;
-    padding: var(--spacing-medium) var(--spacing-xxlarge) !important;
     p:hover {
       cursor: pointer;
       color: var(--grey-700);
@@ -71,15 +86,13 @@
     .cancel {
       margin-left: var(--spacing-xlarge) !important;
     }
+    > button:not(:first-child) {
+      margin-left: 12px !important;
+    }
   }
-}
-.headerLine {
-  height: 51px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.13);
-  position: fixed;
-  width: 100%;
-  background-color: var(--white);
-  z-index: 1;
+  .nonYamlViewFooter {
+    padding: var(--spacing-medium) var(--spacing-xlarge) !important;
+  }
 }
 
 .transparentBlock {
@@ -90,11 +103,10 @@
 
 .footerLine {
   height: 63px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
   bottom: 0;
   position: fixed;
   width: 100%;
-  background-color: var(--white);
+  background-color: var(--form-bg) !important;
 }
 
 .extendedNav {
@@ -105,10 +117,26 @@
   justify-content: space-between;
   background-color: var(--white);
   border-bottom: 1px solid rgba(0, 0, 0, 0.13);
-  padding: var(--spacing-xsmall) 0;
+  padding: var(--spacing-small) 0 var(--spacing-large) 0;
   align-items: center;
 }
 
 .sideItems {
   width: 500px;
+}
+
+.panelIndexCircle {
+  color: var(--grey-500);
+  border: 1px solid var(--grey-500);
+  border-radius: 100%;
+  display: inline-block;
+  margin-right: var(--spacing-small);
+  width: 21px;
+}
+.panelIndexNumber {
+  color: var(--grey-700);
+}
+
+.activeIndex {
+  border-color: var(--grey-800);
 }

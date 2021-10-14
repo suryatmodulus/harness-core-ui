@@ -165,7 +165,13 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
 
 const RenderCenteredColumnHeader = (header: string): JSX.Element => <div className={css.textCentered}>{header}</div>
 
-const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row }) => {
+const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
+  row,
+  column
+}: {
+  row: RenderColumnRow
+  column: { getString: (str: string) => string }
+}) => {
   const data = row.original
   return (
     <>
@@ -186,11 +192,11 @@ const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ ro
           <Layout.Horizontal spacing="small" data-testid={data.identifier}>
             <Text color={Color.BLACK} lineClamp={1} width={!isEmpty(data.tags) ? '270px' : '300px'}>
               {data.name}
-              {!isEmpty(data.tags) ? <TagsPopover tags={data.tags as tagsType} /> : null}
+              {!isEmpty(data.tags) ? <TagsPopover className={css.tags} tags={data.tags as tagsType} /> : null}
             </Text>
           </Layout.Horizontal>
           <Text color={Color.GREY_400} lineClamp={1} width="300px">
-            {data.identifier}
+            {column.getString('common.ID')}: {data.identifier}
           </Text>
         </Layout.Vertical>
       </Layout.Horizontal>
@@ -256,9 +262,9 @@ const RenderColumnActivity: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   if (numDays === 0) return undefined
   const numActivations = sum(executions)
   return (
-    <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
+    <Layout.Horizontal flex={{ align: 'center-center' }} style={{ justifyContent: 'flex-start' }} spacing="xsmall">
       <span className={css.activityChart}>{numActivations !== 0 && <SparkChart data={executions} />}</span>
-      <Container style={{ textAlign: 'start', paddingLeft: 'var(--spacing-xsmall)' }}>
+      <Container style={{ textAlign: 'start' }}>
         <span>{column.getString('pipeline.triggers.activityActivation', { numActivations })}</span>
         <Text>{column.getString('pipeline.triggers.activityDays', { numDays })}</Text>
       </Container>
@@ -272,12 +278,12 @@ const RenderColumnLastActivation: Renderer<CellProps<NGTriggerDetailsResponse>> 
   const lastExecutionSuccessful = data.lastTriggerExecutionDetails?.lastExecutionSuccessful
 
   return (
-    <Layout.Horizontal style={{ justifyContent: 'center' }} spacing="small" data-testid={data.identifier}>
+    <Layout.Horizontal style={{ justifyContent: 'flex-start' }} spacing="small" data-testid={data.identifier}>
       <div className={css.activityStatement}>
         {!isUndefined(lastExecutionTime) && !isUndefined(lastExecutionSuccessful) ? (
           <>
             <Layout.Horizontal style={{ alignItems: 'center' }}>
-              <Container style={{ textAlign: 'end', marginLeft: 'var(--spacing-small)' }}>
+              <Container style={{ textAlign: 'start' }}>
                 <Text>{lastExecutionTime ? <ReactTimeago date={lastExecutionTime} /> : null}</Text>
               </Container>
               <Icon
@@ -315,7 +321,7 @@ const RenderWebhookIcon = ({
 }): JSX.Element => {
   const [optionsOpen, setOptionsOpen] = React.useState(false)
   if (!type || type !== TriggerTypes.WEBHOOK || !webhookUrl) {
-    return <Text color={Color.GREY_400}>N/A</Text>
+    return <Text color={Color.GREY_400}>{column.getString('na')}</Text>
   }
 
   if (webhookSourceRepo?.toLowerCase() === GitSourceProviders.CUSTOM.value.toLowerCase()) {
@@ -527,18 +533,19 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         Header: getString('pipeline.triggers.triggerLabel').toUpperCase(),
         accessor: 'name',
         width: '25%',
-        Cell: RenderColumnTrigger
+        Cell: RenderColumnTrigger,
+        getString
       },
       {
         Header: 'STATUS',
         accessor: 'status',
-        width: '16%',
+        width: '20%',
         disableSortBy: true,
         Cell: RenderColumnStatus,
         getString
       },
       {
-        Header: RenderCenteredColumnHeader(getString('activity').toUpperCase()),
+        Header: getString('activity').toUpperCase(),
         accessor: 'activity',
         width: '18%',
         Cell: RenderColumnActivity,
@@ -546,9 +553,9 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         getString
       },
       {
-        Header: RenderCenteredColumnHeader(getString('pipeline.triggers.lastActivationLabel')),
+        Header: getString('pipeline.triggers.lastActivationLabel'),
         accessor: 'lastExecutionTime',
-        width: '18%',
+        width: '14%',
         Cell: RenderColumnLastActivation,
         disableSortBy: true
       },

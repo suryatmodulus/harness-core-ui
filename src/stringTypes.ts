@@ -134,6 +134,7 @@ export interface StringsMap {
   'common.default': string
   'common.defaultExperience': string
   'common.delegateForTask': string
+  'common.delete': string
   'common.descriptionPlaceholder': string
   'common.disable': string
   'common.discard': string
@@ -165,6 +166,7 @@ export interface StringsMap {
   'common.feature.upgradeRequired.description': string
   'common.feature.upgradeRequired.title': string
   'common.file': string
+  'common.files': string
   'common.filters.clearFilters': string
   'common.filters.noFilterSaved': string
   'common.filters.noMatchingFilterData': string
@@ -296,6 +298,7 @@ export interface StringsMap {
   'common.newLines': string
   'common.newVersion': string
   'common.noAPIKeys': string
+  'common.noDelegateForTask': string
   'common.noRefData': string
   'common.note': string
   'common.noteAccountSwitch': string
@@ -379,6 +382,7 @@ export interface StringsMap {
   'common.recommended': string
   'common.references': string
   'common.refresh': string
+  'common.refreshPage': string
   'common.reject': string
   'common.releaseName': string
   'common.remove': string
@@ -457,6 +461,7 @@ export interface StringsMap {
   'common.subscriptions.usage.srvcInst': string
   'common.successfullCreate': string
   'common.successfullUpdate': string
+  'common.suggestionsLabel': string
   'common.supportedModals': string
   'common.switchAccount': string
   'common.switchAccountError': string
@@ -503,6 +508,7 @@ export interface StringsMap {
   'common.validation.yamlFilePath': string
   'common.valuePlaceholder': string
   'common.videoNotSupportedError': string
+  'common.viewContent': string
   'common.viewText': string
   'common.webhookURL': string
   'common.welcome': string
@@ -557,6 +563,11 @@ export interface StringsMap {
   'notifications.validationSubject': string
   'notifications.validationTo': string
   'notifications.validationWebhook': string
+  'rbac.accessControlTitle.resourceGroups': string
+  'rbac.accessControlTitle.roles': string
+  'rbac.accessControlTitle.serviceAccounts': string
+  'rbac.accessControlTitle.userGroups': string
+  'rbac.accessControlTitle.users': string
   'rbac.account': string
   'rbac.accountScope': string
   'rbac.activeUsers': string
@@ -1287,7 +1298,6 @@ export interface StringsMap {
   'connectors.ceGcp.billingExtention.link2': string
   'connectors.ceGcp.billingExtention.otherLinks': string
   'connectors.ceGcp.billingExtention.prerequisite': string
-  'connectors.ceGcp.billingExtention.readMore': string
   'connectors.ceGcp.billingExtention.step1': string
   'connectors.ceGcp.billingExtention.step2': string
   'connectors.ceGcp.billingExtention.step3.p1': string
@@ -1313,18 +1323,37 @@ export interface StringsMap {
   'connectors.ceGcp.testConnection.step1': string
   'connectors.ceGcp.testConnection.step2': string
   'connectors.ceGcp.testConnection.step3': string
+  'connectors.ceK8.chooseRequirements.description': string
+  'connectors.ceK8.chooseRequirements.fixFeaturesDescription': string
+  'connectors.ceK8.chooseRequirements.heading': string
+  'connectors.ceK8.chooseRequirements.optimization.description': string
+  'connectors.ceK8.chooseRequirements.optimization.heading': string
+  'connectors.ceK8.chooseRequirements.optimization.subheading': string
+  'connectors.ceK8.chooseRequirements.subheading': string
+  'connectors.ceK8.chooseRequirements.visibility.description': string
+  'connectors.ceK8.chooseRequirements.visibility.heading': string
+  'connectors.ceK8.chooseRequirements.visibility.subheading': string
   'connectors.ceK8.infoText': string
+  'connectors.ceK8.overview.createNewConnectorCta': string
+  'connectors.ceK8.providePermissionsStep.applyDelegateText': string
+  'connectors.ceK8.providePermissionsStep.downloadComplete': string
+  'connectors.ceK8.providePermissionsStep.downloadYamlBtnText': string
+  'connectors.ceK8.providePermissionsStep.downloadYamlText': string
+  'connectors.ceK8.providePermissionsStep.fileDescription.heading': string
+  'connectors.ceK8.providePermissionsStep.fileDescription.info1': string
+  'connectors.ceK8.providePermissionsStep.fileDescription.info2': string
+  'connectors.ceK8.providePermissionsStep.fileDescription.info3': string
+  'connectors.ceK8.providePermissionsStep.fileDescription.info4': string
+  'connectors.ceK8.providePermissionsStep.heading': string
+  'connectors.ceK8.providePermissionsStep.info': string
+  'connectors.ceK8.providePermissionsStep.successfulCommandExec': string
+  'connectors.ceK8.secretCreationStep.creationCommand': string
+  'connectors.ceK8.secretCreationStep.namespaceCommand': string
+  'connectors.ceK8.secretCreationStep.step1': string
+  'connectors.ceK8.secretCreationStep.step2': string
+  'connectors.ceK8.secretCreationStep.step3': string
+  'connectors.ceK8.secretCreationStep.step4': string
   'connectors.ceK8.selectConnectorLabel': string
-  'connectors.ceK8S.chooseRequirements.description': string
-  'connectors.ceK8S.chooseRequirements.fixFeaturesDescription': string
-  'connectors.ceK8S.chooseRequirements.heading': string
-  'connectors.ceK8S.chooseRequirements.optimization.description': string
-  'connectors.ceK8S.chooseRequirements.optimization.heading': string
-  'connectors.ceK8S.chooseRequirements.optimization.subheading': string
-  'connectors.ceK8S.chooseRequirements.subheading': string
-  'connectors.ceK8S.chooseRequirements.visibility.description': string
-  'connectors.ceK8S.chooseRequirements.visibility.heading': string
-  'connectors.ceK8S.chooseRequirements.visibility.subheading': string
   'connectors.click': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
@@ -1334,6 +1363,7 @@ export interface StringsMap {
   'connectors.connectorDetailsHeader': string
   'connectors.connectorEmptyState': string
   'connectors.connectorNotFound': string
+  'connectors.connectorsTitle': string
   'connectors.costVisibility': string
   'connectors.createConnector': string
   'connectors.createFromYaml': string
@@ -1463,6 +1493,7 @@ export interface StringsMap {
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
   'connectors.prometheusLabel': string
+  'connectors.readMore': string
   'connectors.reportNameRequired': string
   'connectors.roleARN': string
   'connectors.scopeError': string
@@ -1617,6 +1648,7 @@ export interface StringsMap {
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.entitiesByRepositories': string
+  'gitsync.errorFixed': string
   'gitsync.fetchingBranches': string
   'gitsync.folderDetails': string
   'gitsync.gitEnabledBlockedTooltip': string
@@ -1676,6 +1708,7 @@ export interface StringsMap {
   'dashboards.sideNav.noDashboard': string
   'projectsOrgs.aboutProject': string
   'projectsOrgs.aboutTitle': string
+  'projectsOrgs.apiError': string
   'projectsOrgs.blank': string
   'projectsOrgs.capsAllValue': string
   'projectsOrgs.collaborator': string
@@ -1988,8 +2021,12 @@ export interface StringsMap {
   'pipeline.failureStrategies.tabHasErrors': string
   'pipeline.failureStrategies.title': string
   'pipeline.failureStrategies.validation.actionRequired': string
+  'pipeline.failureStrategies.validation.ciCodebaseRequired': string
   'pipeline.failureStrategies.validation.errorsMinimum': string
   'pipeline.failureStrategies.validation.errorsRequired': string
+  'pipeline.failureStrategies.validation.gitBranchRequired': string
+  'pipeline.failureStrategies.validation.gitPRRequired': string
+  'pipeline.failureStrategies.validation.gitTagRequired': string
   'pipeline.failureStrategies.validation.onRetryFailureRequired': string
   'pipeline.failureStrategies.validation.onTimeoutRequired': string
   'pipeline.failureStrategies.validation.retryCountInteger': string
@@ -2427,7 +2464,6 @@ export interface StringsMap {
   'pipeline.triggers.schedulePanel.weeklyTabTitle': string
   'pipeline.triggers.schedulePanel.yearlyTabTitle': string
   'pipeline.triggers.scheduledLabel': string
-  'pipeline.triggers.searchPlaceholder': string
   'pipeline.triggers.showAllTriggers': string
   'pipeline.triggers.toast.successfulCreate': string
   'pipeline.triggers.toast.successfulUpdate': string
@@ -2514,6 +2550,7 @@ export interface StringsMap {
   'templatesLibrary.createNewModal.versionPlaceholder': string
   'templatesLibrary.deleteTemplate': string
   'templatesLibrary.editModal.heading': string
+  'templatesLibrary.entityType': string
   'templatesLibrary.errorWhileDeleting': string
   'templatesLibrary.errorWhileSaving': string
   'templatesLibrary.errorWhileUpdating': string
@@ -2526,6 +2563,7 @@ export interface StringsMap {
   'templatesLibrary.selectTemplateToPreview': string
   'templatesLibrary.stageTemplate': string
   'templatesLibrary.templateInputs': string
+  'templatesLibrary.templateScope': string
   'templatesLibrary.templateSettings': string
   'templatesLibrary.templateSettingsModal.defaultVersionLabel': string
   'templatesLibrary.templateSettingsModal.scopeLabel': string
@@ -2541,7 +2579,10 @@ export interface StringsMap {
   'templatesLibrary.updateTemplateModal.info': string
   'templatesLibrary.useTemplate': string
   'templatesLibrary.versionLog': string
+  'cd.GitOpsServerDelete': string
+  'cd.aboutGitOpsServer': string
   'cd.aboutHarnessAdapter': string
+  'cd.aboutHarnessManagedGitOpsServer': string
   'cd.aboutProvider': string
   'cd.adapterDelete': string
   'cd.adapterDetails': string
@@ -2555,21 +2596,28 @@ export interface StringsMap {
   'cd.cdTrialHomePage.startTrial.description': string
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
+  'cd.componentsInstalled': string
   'cd.configFilePlaceHolder': string
   'cd.configIdentifer': string
   'cd.configurationFile': string
   'cd.confirmDeleteTitle': string
+  'cd.confirmGitOpsServerDelete': string
+  'cd.confirmGitOpsServerDeleteTitle': string
   'cd.confirmProviderDelete': string
   'cd.connectionIssueInfo': string
   'cd.connectionIssueSuggestion': string
   'cd.contentRequired': string
   'cd.continuous': string
+  'cd.createdGitOpsServerSuccessfully': string
   'cd.createdSuccessfully': string
   'cd.creating': string
+  'cd.creatingGitOpsServer': string
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.deletedGitOpsServerSuccessfully': string
   'cd.deletedSuccessfully': string
+  'cd.duplicateGitOpsServerIdError': string
   'cd.duplicateIdError': string
   'cd.dynamicProvisioning': string
   'cd.environmentCreated': string
@@ -2580,6 +2628,7 @@ export interface StringsMap {
   'cd.gitFetchTypeRequired': string
   'cd.gitOps': string
   'cd.gitOpsWizardTitle': string
+  'cd.harnessManagedGitOpsWizardTitle': string
   'cd.installAdapterHelperText': string
   'cd.launchArgo': string
   'cd.learnMore': string
@@ -2587,7 +2636,9 @@ export interface StringsMap {
   'cd.manifestPathsCannotBeEmpty': string
   'cd.namespaceValidation': string
   'cd.newAdapter': string
+  'cd.newGitOpsServer': string
   'cd.noAdapterText': string
+  'cd.noGitOpsServerText': string
   'cd.notReachable': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.infraTab.clusterError': string
@@ -2599,6 +2650,7 @@ export interface StringsMap {
   'cd.pipelineSteps.serviceTab.propagateStage': string
   'cd.pipelineSteps.serviceTab.stageOverrides': string
   'cd.releaseNameValidation': string
+  'cd.requiredPermissions': string
   'cd.resourceCannotBeEmpty': string
   'cd.scriptRequired': string
   'cd.searchPlaceholder': string
@@ -2639,6 +2691,7 @@ export interface StringsMap {
   'cd.serviceDashboard.year': string
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
+  'cd.setupGitOpsServerStep': string
   'cd.specifyTfVarStore': string
   'cd.stepName': string
   'cd.steps.common.clusterDetails': string
@@ -2648,12 +2701,28 @@ export interface StringsMap {
   'cd.terraformVarFiles': string
   'cd.testConnectionStepName': string
   'cd.tfVarStore': string
+  'cd.updatedGitOpsServerSuccessfully': string
   'cd.updatedSuccessfully': string
   'cd.updating': string
+  'cd.updatingGitOpsServer': string
   'cd.varFile': string
   'cd.varFileDetails': string
   'cd.whatIsHarnessAdapter': string
+  'cd.whatIsHarnessManagedGitOpsServer': string
   'cd.workloadRequired': string
+  'ce.budgets.listPage.budgetCount': string
+  'ce.budgets.listPage.forecastAlert': string
+  'ce.budgets.listPage.mtdAlert': string
+  'ce.budgets.listPage.newBudget': string
+  'ce.budgets.listPage.overBudgetText': string
+  'ce.budgets.listPage.searchText': string
+  'ce.budgets.listPage.tableHeaders.alerts': string
+  'ce.budgets.listPage.tableHeaders.budgetAmount': string
+  'ce.budgets.listPage.tableHeaders.monthToDate': string
+  'ce.budgets.listPage.tableHeaders.name': string
+  'ce.budgets.listPage.timePeriodRemaining': string
+  'ce.budgets.listPage.title': string
+  'ce.budgets.sideNavText': string
   'ce.ceTrialHomePage.modal.description': string
   'ce.ceTrialHomePage.modal.title': string
   'ce.ceTrialHomePage.modal.welcome': string
@@ -2848,6 +2917,7 @@ export interface StringsMap {
   'ce.co.rulesTableHeaders.status': string
   'ce.co.setupCloudProvider': string
   'ce.co.sshSetup': string
+  'ce.common.newBudget': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string
   'ce.connector.AWS.crossAccountRole.instructionLabel': string
@@ -3185,6 +3255,8 @@ export interface StringsMap {
   'cf.creationModal.flagOff': string
   'cf.creationModal.flagOn': string
   'cf.creationModal.flagType': string
+  'cf.creationModal.git.autoCommitMessage': string
+  'cf.creationModal.git.flagName': string
   'cf.creationModal.idIsRequired': string
   'cf.creationModal.jsonType': string
   'cf.creationModal.mustBeNumber': string
@@ -3729,11 +3801,20 @@ export interface StringsMap {
   'cv.analysisScreens.totalClusters': string
   'cv.anomalous': string
   'cv.anomalousMetrics': string
+  'cv.changeSource.HarnessCDCurrentGen.selectHarnessAppId': string
+  'cv.changeSource.HarnessCDCurrentGen.selectHarnessEnv': string
+  'cv.changeSource.HarnessCDCurrentGen.selectHarnessService': string
   'cv.changeSource.PageDuty.pagerDutyEmptyService': string
   'cv.changeSource.PageDuty.pagerDutyService': string
   'cv.changeSource.PageDuty.selectPagerDutyService': string
   'cv.changeSource.addChangeSource': string
   'cv.changeSource.alertText': string
+  'cv.changeSource.changeSourceCard.ago': string
+  'cv.changeSource.changeSourceCard.deploymentHealth': string
+  'cv.changeSource.changeSourceCard.finished': string
+  'cv.changeSource.changeSourceCard.information': string
+  'cv.changeSource.changeSourceCard.triggred': string
+  'cv.changeSource.changeSourceCard.viewPipeline': string
   'cv.changeSource.configureChangeSource': string
   'cv.changeSource.connectChangeSource': string
   'cv.changeSource.defineChangeSource': string
@@ -3743,6 +3824,7 @@ export interface StringsMap {
   'cv.changeSource.incident': string
   'cv.changeSource.noChangeSource': string
   'cv.changeSource.noData': string
+  'cv.changeSource.noDataAvaiableForCard': string
   'cv.changeSource.noDataAvailableForChangeScore': string
   'cv.changeSource.selectChangeSource': string
   'cv.changeSource.selectChangeSourceName': string
@@ -3816,7 +3898,6 @@ export interface StringsMap {
   'cv.metricVerificationModal.viewCalls': string
   'cv.monitoredServices.addNewMonitoredServices': string
   'cv.monitoredServices.changesTable.impact': string
-  'cv.monitoredServices.deleteMonitoredService': string
   'cv.monitoredServices.deleteMonitoredServiceWarning': string
   'cv.monitoredServices.deleteService': string
   'cv.monitoredServices.editMonitoredServices': string
@@ -3838,12 +3919,10 @@ export interface StringsMap {
   'cv.monitoredServices.newMonitoredServices': string
   'cv.monitoredServices.noAvailableData': string
   'cv.monitoredServices.noData': string
-  'cv.monitoredServices.riskLabel.highRisk': string
-  'cv.monitoredServices.riskLabel.lowRisk': string
-  'cv.monitoredServices.riskLabel.mediumRisk': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceDependencies.noData': string
   'cv.monitoredServices.serviceHealth.anamolies': string
+  'cv.monitoredServices.serviceHealth.healthScore': string
   'cv.monitoredServices.serviceHealth.last24Hrs': string
   'cv.monitoredServices.serviceHealth.last3Days': string
   'cv.monitoredServices.serviceHealth.last4Hrs': string
@@ -4051,6 +4130,7 @@ export interface StringsMap {
   'cv.onboarding.activitySources.changeSourceInfo': string
   'cv.onboarding.activitySources.dontHaveChangeSource': string
   'cv.onboarding.activitySources.infrastructureProvider': string
+  'cv.onboarding.changeSourceTypes.HarnessCDCurrentGen.name': string
   'cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon': string
   'cv.onboarding.changeSourceTypes.HarnessCDNextGen.name': string
   'cv.onboarding.defaultChangeSource': string

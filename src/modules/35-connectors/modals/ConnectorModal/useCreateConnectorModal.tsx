@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { CreateConnectorWizard } from '@connectors/components/CreateConnectorWizard/CreateConnectorWizard'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'

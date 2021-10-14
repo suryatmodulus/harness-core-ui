@@ -201,17 +201,12 @@ exports[`Run Step Edit View edit mode works 1`] = `
               class="Tooltip--acenter bp3-label"
               data-tooltip-id="ciRunStep_spec.connectorRef"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="connector"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
-                >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                pipelineSteps.connectorLabel
+              </p>
             </span>
           </div>
           <div
@@ -801,17 +796,12 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
               class="Tooltip--acenter bp3-label"
               data-tooltip-id="ciRunStep_spec.connectorRef"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="connector"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
-                >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                pipelineSteps.connectorLabel
+              </p>
             </span>
           </div>
           <div
@@ -1361,17 +1351,12 @@ exports[`Run Step Edit View should render properly 1`] = `
               class="Tooltip--acenter bp3-label"
               data-tooltip-id="ciRunStep_spec.connectorRef"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="connector"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
-                >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                pipelineSteps.connectorLabel
+              </p>
             </span>
           </div>
           <div

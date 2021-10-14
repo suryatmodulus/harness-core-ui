@@ -66,5 +66,11 @@ export enum PermissionIdentifier {
   EDIT_DASHBOARD = 'core_dashboards_edit',
 
   // GITOPS
-  ADD_NEW_PROVIDER = 'ff_add_new_provider'
+  ADD_NEW_PROVIDER = 'ff_add_new_provider',
+
+  // Template Permissions
+  VIEW_TEMPLATE = 'core_template_view',
+  EDIT_TEMPLATE = 'core_template_edit',
+  DELETE_TEMPLATE = 'core_template_delete',
+  ACCESS_TEMPLATE = 'core_template_access'
 }

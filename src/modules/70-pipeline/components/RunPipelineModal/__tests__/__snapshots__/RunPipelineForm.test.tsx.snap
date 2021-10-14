@@ -134,7 +134,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
             >
               <div
                 class="item selected"
-                data-name="visual-btn"
+                data-name="toggle-option-one"
                 role="button"
                 tabindex="0"
               >
@@ -142,7 +142,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
               </div>
               <div
                 class="item"
-                data-name="yaml-btn"
+                data-name="toggle-option-two"
                 role="button"
                 tabindex="0"
               >

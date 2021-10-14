@@ -1,9 +1,4 @@
-import {
-  DeploymentNodeAnalysisResult,
-  DeploymentNodeSubPartSize,
-  DefaultNodeSubPartSize,
-  HexagonSizes
-} from './DeploymentNodes.constants'
+import { DeploymentNodeSubPartSize, DefaultNodeSubPartSize, HexagonSizes } from './DeploymentNodes.constants'
 
 export type HexagonCoordinates = { x: number; y: number }
 
@@ -33,20 +28,4 @@ export function getHexagonSubPartSize(containerWidth: number): DeploymentNodeSub
   }
 
   return DefaultNodeSubPartSize
-}
-
-export function mapNodeHealthStatusToColor(nodeHealth: DeploymentNodeAnalysisResult['risk']): string {
-  switch (nodeHealth) {
-    case 'HIGH':
-      return 'var(--red-500)'
-    case 'LOW':
-      return 'var(--green-500)'
-    case 'MEDIUM':
-      return 'var(--yellow-500)'
-    case 'NO_ANALYSIS':
-    case 'NO_DATA':
-      return 'var(--grey-300)'
-    default:
-      return ''
-  }
 }

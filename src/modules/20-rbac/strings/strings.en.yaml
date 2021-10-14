@@ -186,3 +186,9 @@ updateNotificationSuccess: Notification preferences updated successfully
 userRequired: User is Required
 userUpperLimit: Addition of more than 15 users is not allowed
 resourceSelectorErrorMessage: Add atleast one specific resource for the following types [{{resources}}]
+accessControlTitle:
+  users: 'Access Control: Users'
+  userGroups: 'Access Control: User Groups'
+  serviceAccounts: 'Access Control: Service Acccounts'
+  resourceGroups: 'Access Control: Resource Groups'
+  roles: 'Access Control: Roles'

@@ -1,8 +1,23 @@
 .triggerOverviewPanelContainer {
-  min-width: 800px;
-  padding: var(--spacing-large) var(--spacing-xxlarge) !important;
+  min-width: 1000px;
+  padding: var(--spacing-4) var(--spacing-7) !important;
+
+  .formContentTitle {
+    font-weight: bold !important;
+    font-size: medium !important;
+    color: var(--grey-800) !important;
+    margin-bottom: var(--spacing-4) !important;
+  }
+
+  .formContent {
+    background-color: var(--white) !important;
+    padding: var(--spacing-large) !important;
+    box-shadow: 0px 0px 1px rgb(40 41 61 / 8%), 0px 0.5px 2px rgb(96 97 112 / 16%);
+    margin-bottom: var(--spacing-xlarge);
+  }
 
   .nameIdDescriptionTags {
     width: 324px;
+    margin-bottom: 0 !important;
   }
 }

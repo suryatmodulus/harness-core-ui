@@ -1,10 +1,13 @@
 import { isNumber } from 'lodash-es'
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
+import { getRiskColorValue } from '@cv/utils/CommonUtils'
+import type { TimeSeriesMetricDataDTO } from 'services/cv'
 import type { SeriesConfig } from './TimeseriesRow'
 
-export function transformAnalysisDataToChartSeries(analysisData: any[]): SeriesConfig[] {
+export function transformAnalysisDataToChartSeries(
+  analysisData: TimeSeriesMetricDataDTO['metricDataList'] = []
+): SeriesConfig[] {
   const highchartsLineData = []
-  analysisData.sort((a, b) => a.timestamp - b.timestamp)
+  analysisData.sort((a, b) => (a.timestamp ?? 0) - (b.timestamp ?? 0))
   let currentRiskColor: string | null = getRiskColorValue(analysisData?.[0].risk)
   const zones: Highcharts.SeriesZonesOptionsObject[] = [{ value: undefined, color: currentRiskColor }]
 

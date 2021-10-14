@@ -15,6 +15,7 @@ import {
   dependencyGraphOptions,
   getDependencyData
 } from '@cv/components/DependencyGraph/DependencyGraph.utils'
+import { RiskValues } from '@cv/utils/CommonUtils'
 
 describe('Unit tests for DependencyGraph', () => {
   test('Ensure Graph Component renders', async () => {
@@ -29,26 +30,26 @@ describe('Unit tests for DependencyGraph', () => {
 
   test('Ensure the correct number of LOW nodes have been rendered', () => {
     const { container } = render(<DependencyGraph dependencyData={{ data: graphData, nodes }} />)
-    const LOWNodes = nodes.filter(node => node.status === 'LOW')
-    expect(container.getElementsByClassName('Status_LOW').length).toBe(LOWNodes.length)
+    const LOWNodes = nodes.filter(node => node.status === RiskValues.HEALTHY)
+    expect(container.getElementsByClassName(`Status_${RiskValues.HEALTHY}`).length).toBe(LOWNodes.length)
   })
 
   test('Ensure the correct number of MEDIUM nodes have been rendered', () => {
     const { container } = render(<DependencyGraph dependencyData={{ data: graphData, nodes }} />)
-    const LOWNodes = nodes.filter(node => node.status === 'MEDIUM')
-    expect(container.getElementsByClassName('Status_MEDIUM').length).toBe(LOWNodes.length)
+    const LOWNodes = nodes.filter(node => node.status === RiskValues.NEED_ATTENTION)
+    expect(container.getElementsByClassName(`Status_${RiskValues.NEED_ATTENTION}`).length).toBe(LOWNodes.length)
   })
 
   test('Ensure the correct number of TBD nodes have been rendered', () => {
     const { container } = render(<DependencyGraph dependencyData={{ data: graphData, nodes }} />)
-    const LOWNodes = nodes.filter(node => node.status === 'TBD')
-    expect(container.getElementsByClassName('Status_TBD').length).toBe(LOWNodes.length)
+    const LOWNodes = nodes.filter(node => node.status === RiskValues.OBSERVE)
+    expect(container.getElementsByClassName(`Status_${RiskValues.OBSERVE}`).length).toBe(LOWNodes.length)
   })
 
   test('Ensure the correct number of red nodes have been rendered', () => {
     const { container } = render(<DependencyGraph dependencyData={{ data: graphData, nodes }} />)
-    const LOWNodes = nodes.filter(node => node.status === 'HIGH')
-    expect(container.getElementsByClassName('Status_HIGH').length).toBe(LOWNodes.length)
+    const LOWNodes = nodes.filter(node => node.status === RiskValues.UNHEALTHY)
+    expect(container.getElementsByClassName(`Status_${RiskValues.UNHEALTHY}`).length).toBe(LOWNodes.length)
   })
 
   test('Ensure the formatNodes function returns correctly formatted nodes', () => {

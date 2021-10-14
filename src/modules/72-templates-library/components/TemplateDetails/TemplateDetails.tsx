@@ -12,7 +12,7 @@ import {
   Tag,
   Text
 } from '@wings-software/uicore'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'

@@ -19,15 +19,16 @@ import {
 } from '@wings-software/uicore'
 import { FieldArray } from 'formik'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
-import type { FeatureFlagRequestRequestBody, Variation } from 'services/cf'
+import type { Variation } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { FeatureFlagMutivariateKind, useValidateVariationValues } from '@cf/utils/CFUtils'
+
+import type { FlagWizardFormValues } from './FlagWizard'
 import css from './FlagElemVariations.module.scss'
 
-interface FlagElemVariationsProps {
+export interface FlagElemMultivariateProps extends StepProps<Partial<FlagWizardFormValues>> {
   toggleFlagType: (newFlag: string) => void
   flagTypeOptions: SelectOption[]
-  onWizardStepSubmit: (data: FeatureFlagRequestRequestBody) => void
   projectIdentifier?: string | number | null | undefined
   // FIXME: Check for the right type
   setModalErrorHandler: Dispatch<SetStateAction<any>>
@@ -40,16 +41,14 @@ interface FlagMultivariateSelectOptions {
   value: string
 }
 
-// FIXME: Change any for StepProps
-const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> = props => {
+const FlagElemMultivariate: React.FC<FlagElemMultivariateProps> = props => {
   const {
     toggleFlagType,
     flagTypeOptions,
     prevStepData,
+    currentStep,
+    totalSteps,
     previousStep,
-    // nextStep,
-    onWizardStepSubmit,
-    projectIdentifier,
     setModalErrorHandler,
     isLoadingCreateFeatureFlag
   } = props
@@ -64,6 +63,8 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
     { id: 'variation1', label: 'Variation 1', value: 'variation1' },
     { id: 'variation2', label: 'Variation 2', value: 'variation2' }
   ])
+
+  const isLastStep = currentStep?.() === totalSteps?.()
 
   const handleNewFlagType = (newFlagTypeVal: string): void => {
     toggleFlagType(newFlagTypeVal)
@@ -145,14 +146,13 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
         return validateVariationValues(values.variations, values.kind)
       }}
       onSubmit={vals => {
-        const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
         // TODO: Convert values in data.variations to proper type when backend supports it
         // Right now everything is string
-        onWizardStepSubmit(data)
+        props.nextStep?.({ ...vals, ...prevStepData })
       }}
     >
       {formikProps => (
-        <Form>
+        <Form data-testid="create-multivariate-flag-form">
           <FormikEffect onChange={onFormikEffect} formik={formikProps} />
           <Container flex height="100%" style={{ flexDirection: 'column', alignItems: 'baseline' }}>
             <Container style={{ flexGrow: 1, overflow: 'auto' }} width="100%" padding={{ left: 'xsmall' }}>
@@ -176,6 +176,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                     <label className={Classes.LABEL}>{getString('cf.creationModal.dataType')}</label>
                     <Container className={Classes.FORM_CONTENT}>
                       <Select
+                        name="dataTypes"
                         value={kindToSelectValue(formikProps.values.kind)}
                         items={flagVariationOptions}
                         className={css.spacingSelectVariation}
@@ -192,7 +193,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                     {arrayProps => {
                       return (
                         <>
-                          {formikProps.values?.variations?.map((_: HTMLElement, index: number) => (
+                          {formikProps.values?.variations?.map((_: Variation, index: number) => (
                             <Layout.Horizontal
                               key={`flagElem-${index}`}
                               style={{
@@ -220,6 +221,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                               <Container width={5} />
                               <Container flex={{ align: 'center-center' }} height={70}>
                                 <Button
+                                  data-testid={`delete_icon_${index}`}
                                   minimal
                                   icon="trash"
                                   style={{
@@ -288,21 +290,12 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
               <Button
                 type="submit"
                 intent="primary"
-                text={getString('cf.creationModal.saveAndClose')}
+                rightIcon={isLastStep ? undefined : 'chevron-right'}
+                text={isLastStep ? getString('cf.creationModal.saveAndClose') : getString('next')}
                 disabled={isLoadingCreateFeatureFlag}
                 loading={isLoadingCreateFeatureFlag}
               />
               <FlexExpander />
-              {/* <Button
-                type="submit"
-                text={getString('cf.creationModal.testFlagOption')}
-                onClick={() => {
-                  nextStep?.({ ...prevStepData })
-                }}
-                rightIcon="chevron-right"
-                minimal
-                className={css.testFfBtn}
-              /> */}
             </Layout.Horizontal>
           </Container>
         </Form>

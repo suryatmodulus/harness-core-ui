@@ -21,7 +21,7 @@ const renderComponent = (props: Partial<SaveFlagRepoDialogProps> = {}): RenderRe
   )
 }
 
-describe('SaveFlagRepoDialogForm', () => {
+describe('SaveFlagRepoDialog', () => {
   test('it should render modal correctly', async () => {
     renderComponent()
 

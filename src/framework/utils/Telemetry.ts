@@ -6,8 +6,7 @@ const stubTelemetry = {
   page: () => void 0
 }
 
-const TelemetryInstance = __ON_PREM__
-  ? stubTelemetry
-  : new Telemetry(window.segmentToken || 'exa6lo7CnJXqKnR83itMpHYLY5fiajft')
+const TelemetryInstance =
+  __ON_PREM__ || __DEV__ ? stubTelemetry : new Telemetry(window.segmentToken || 'exa6lo7CnJXqKnR83itMpHYLY5fiajft')
 
 export default TelemetryInstance

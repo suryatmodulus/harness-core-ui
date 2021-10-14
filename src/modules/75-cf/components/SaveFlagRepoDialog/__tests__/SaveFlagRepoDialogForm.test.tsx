@@ -3,21 +3,14 @@ import { render, screen, waitFor, RenderResult } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
 import SaveFlagRepoDialogForm, { SaveFlagRepoDialogFormProps } from '../SaveFlagRepoDialogForm'
+import gitSyncReposMock from './gitSyncRepos_multi.json'
+
+jest.mock('framework/GitRepoStore/GitSyncStoreContext', () => ({
+  useGitSyncStore: () => gitSyncReposMock
+}))
 
 const renderComponent = (props: Partial<SaveFlagRepoDialogFormProps> = {}): RenderResult => {
   const componentProps = {
-    initialFormData: props.initialFormData || {
-      repoIdentifier: 'harnesstest',
-      rootFolder: '',
-      branch: 'main',
-      filePath: 'flags.yaml'
-    },
-    repoSelectOptions: props.repoSelectOptions || [{ label: 'harnesstest', value: 'harnesstest' }],
-    rootFolderSelectOptions: props.rootFolderSelectOptions || [
-      { label: '/.harness/', value: '/.harness/' },
-      { label: '/.testFolder/', value: '/.testFolder/' }
-    ],
-    handleRepoOptionChange: props.handleRepoOptionChange || jest.fn(),
     onSubmit: props.onSubmit || jest.fn(),
     onClose: props.onClose || jest.fn()
   }
@@ -37,10 +30,10 @@ describe('SaveFlagRepoDialogForm', () => {
     renderComponent()
 
     expect(screen.getByTestId('save-flag-repo-dialog-form')).toHaveFormValues({
-      repoIdentifier: 'harnesstest',
+      repoIdentifier: 'harness-test',
       branch: 'main',
       rootFolder: '',
-      filePath: 'flags.yaml'
+      filePath: '/flags.yaml'
     })
 
     userEvent.click(document.getElementsByName('rootFolder')[0])
@@ -61,7 +54,7 @@ describe('SaveFlagRepoDialogForm', () => {
     await waitFor(() =>
       expect(onSubmitMock).toHaveBeenCalledWith({
         branch: 'main',
-        filePath: 'flags.yaml',
+        filePath: '/flags.yaml',
         repoIdentifier: 'harnesstest',
         rootFolder: '/.testFolder/'
       })

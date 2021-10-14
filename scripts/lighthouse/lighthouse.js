@@ -95,6 +95,7 @@ async function run() {
     let page = await browser.newPage()
     await page.setDefaultNavigationTimeout(300000) // 5 minutes timeout
     await page.goto(passedUrl)
+    await page.waitForXPath("//div[contains(text(),'Sign in')]")
     const emailInput = await page.$('#email')
     await emailInput.type(emailId)
     const passwordInput = await page.$('#password')

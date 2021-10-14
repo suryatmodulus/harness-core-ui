@@ -1,5 +1,5 @@
 import React from 'react'
-import { Color, FontVariation, Icon, Layout, Text } from '@wings-software/uicore'
+import { Color, Icon, Layout, Text } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { useStrings } from 'framework/strings'
 
@@ -22,11 +22,11 @@ const DashboardAPIErrorWidget: React.FC<DashboardAPIErrorWidgetProps> = props =>
 
   const getSuggestionText = (): JSX.Element => {
     return (
-      <Layout.Horizontal>
-        <Text padding="xsmall">{'Suggestions: '}</Text>
-        <Text padding="xsmall">{renderRetryLinks('Retry', props.callback)}</Text>
-        <Text padding={{ top: 'xsmall' }}>{'or'}</Text>
-        <Text padding="xsmall">{renderRetryLinks('refresh your page.')}</Text>
+      <Layout.Horizontal spacing="xsmall">
+        <Text>{getString('common.suggestionsLabel')}</Text>
+        <Text>{renderRetryLinks(getString('retry'), props.callback)}</Text>
+        <Text>{getString('or')}</Text>
+        <Text>{renderRetryLinks(getString('common.refreshPage'))}</Text>
       </Layout.Horizontal>
     )
   }
@@ -40,7 +40,7 @@ const DashboardAPIErrorWidget: React.FC<DashboardAPIErrorWidgetProps> = props =>
         color={Color.ORANGE_700}
         font={{ size: 'medium' }}
       >
-        {'Unable to fetch data due to a network error.'}
+        {getString('projectsOrgs.apiError')}
       </Text>
       {getSuggestionText()}
     </Layout.Vertical>

@@ -5,7 +5,9 @@ import { cloneDeep, debounce, isEmpty, isNil } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useToaster } from '@common/components/Toaster/useToaster'
+import { StageActions } from '@common/constants/TrackingConstants'
 import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
@@ -185,6 +187,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
   const setSelectionRef = React.useRef(setSelection)
   setSelectionRef.current = setSelection
 
+  const { trackEvent } = useTelemetry()
+
   const { getString } = useStrings()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
@@ -206,11 +210,14 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     onCloseDialog: async (isConfirmed: boolean) => {
       if (deleteId && isConfirmed) {
         const cloned = cloneDeep(pipeline)
-        const isRemove = removeNodeFromPipeline(getStageFromPipeline(deleteId, cloned), cloned, stageMap)
+        const stageToDelete = getStageFromPipeline(deleteId, cloned)
+        const isRemove = removeNodeFromPipeline(stageToDelete, cloned, stageMap)
         const isStripped = mayBeStripCIProps(cloned)
         if (isRemove || isStripped) {
           updatePipeline(cloned)
           showSuccess(getString('deleteStageSuccess'))
+          // call telemetry
+          trackEvent(StageActions.DeleteStage, { stageType: stageToDelete?.stage?.stage?.type || '' })
         } else {
           showError(getString('deleteStageFailure'), undefined, 'pipeline.delete.stage.error')
         }
@@ -230,6 +237,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     openSetupAfterAdd?: boolean,
     pipelineTemp?: PipelineInfoConfig
   ): void => {
+    // call telemetry
+    trackEvent(StageActions.SetupStage, { stageType: newStage?.stage?.type || '' })
     if (!pipeline.stages) {
       pipeline.stages = []
     }

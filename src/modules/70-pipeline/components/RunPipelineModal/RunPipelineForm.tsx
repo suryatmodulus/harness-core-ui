@@ -39,6 +39,7 @@ import type { GitQueryParams, InputSetGitQueryParams, PipelinePathProps } from '
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
 import { useStrings } from 'framework/strings'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -743,6 +744,11 @@ function RunPipelineFormBasic({
                           setExistingProvide('provide')
                         } else {
                           submitForm()
+                        }
+                      }}
+                      featureProps={{
+                        featureRequest: {
+                          featureName: FeatureIdentifier.DEPLOYMENTS
                         }
                       }}
                       permission={{

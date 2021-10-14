@@ -22,14 +22,14 @@ const FlagModal: React.FC<FlagModalProps> = ({ disabled, environment }) => {
   const [flagTypeView, setFlagTypeView] = useState('')
   const events = useFeatureFlagTelemetry()
 
-  const booleanFlagBtn = (typeOfFlag: boolean, type: string): void => {
+  const booleanFlagBtn = (typeOfFlag: boolean): void => {
     setFlagTypeClicked(typeOfFlag)
-    setFlagTypeView(type)
+    setFlagTypeView(FlagTypeVariations.booleanFlag)
   }
 
-  const multiFlagBtn = (typeOfFlag: boolean, type: string): void => {
+  const multiFlagBtn = (typeOfFlag: boolean): void => {
     setFlagTypeClicked(typeOfFlag)
-    setFlagTypeView(type)
+    setFlagTypeView(FlagTypeVariations.multiFlag)
   }
 
   const toggleFlagType = (newFlagType: string): void => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, ButtonVariation, Color, Heading, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useHistory, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router-dom'
 
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'

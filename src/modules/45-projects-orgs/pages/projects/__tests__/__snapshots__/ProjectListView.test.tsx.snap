@@ -15,7 +15,16 @@ exports[`Project List render 1`] = `
         role="columnheader"
         style="width: 30%;"
       >
-        projectLabel
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ProjectListViewname"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            projectLabel
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -23,7 +32,16 @@ exports[`Project List render 1`] = `
         role="columnheader"
         style="width: 20%;"
       >
-        orgLabel
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ProjectListVieworgName"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            orgLabel
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -31,7 +49,16 @@ exports[`Project List render 1`] = `
         role="columnheader"
         style="width: 15%;"
       >
-        adminLabel
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ProjectListViewadmin"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            adminLabel
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -39,7 +66,16 @@ exports[`Project List render 1`] = `
         role="columnheader"
         style="width: 15%;"
       >
-        collaboratorsLabel
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ProjectListViewcollaborators"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            collaboratorsLabel
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -47,7 +83,16 @@ exports[`Project List render 1`] = `
         role="columnheader"
         style="width: 15%;"
       >
-        modules
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ProjectListViewmodules"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            modules
+          </p>
+        </div>
       </div>
       <div
         class="cell"
@@ -55,7 +100,16 @@ exports[`Project List render 1`] = `
         role="columnheader"
         style="width: 5%;"
       >
-        
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="ProjectListViewmenu"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            
+          </p>
+        </div>
       </div>
     </div>
     <div

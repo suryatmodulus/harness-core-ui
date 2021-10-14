@@ -3,10 +3,10 @@ import { render, fireEvent, queryByAttribute } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, orgPathProps, projectPathProps } from '@common/utils/routeUtils'
-import type { ConnectorInfoDTO } from 'services/portal'
 import { clickSubmit } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
 import { gitConfigs, sourceCodeManagers, branchStatusMock } from '@connectors/mocks/mock'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import ConnectorDetailsStep from '../ConnectorDetailsStep'
 
 jest.mock('services/cd-ng', () => ({

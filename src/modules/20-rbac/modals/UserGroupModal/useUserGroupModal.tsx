@@ -1,11 +1,9 @@
 import React, { useCallback, useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uicore'
-import { Dialog, Classes } from '@blueprintjs/core'
-import cx from 'classnames'
+import { useModalHook, Dialog } from '@wings-software/uicore'
 
 import type { UserGroupDTO } from 'services/cd-ng'
 import UserGroupForm from '@rbac/modals/UserGroupModal/views/UserGroupForm'
-import css from './useUserGroupModal.module.scss'
+import { useStrings } from 'framework/strings'
 
 export interface UseUserGroupModalProps {
   onSuccess: () => void
@@ -20,16 +18,20 @@ export interface UseUserGroupModalReturn {
 export const useUserGroupModal = ({ onSuccess }: UseUserGroupModalProps): UseUserGroupModalReturn => {
   const [userGroupData, setUserGroupData] = useState<UserGroupDTO>()
   const [isAddMember, setIsAddMember] = useState<boolean>(false)
+  const { getString } = useStrings()
+  const getTitle = (): string => {
+    if (!!userGroupData && !isAddMember) {
+      return getString('rbac.userGroupPage.editUserGroup')
+    }
+    if (isAddMember) {
+      return getString('rbac.userGroupPage.addMembers')
+    }
+    return getString('rbac.userGroupPage.newUserGroup')
+  }
+
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog
-        isOpen={true}
-        enforceFocus={false}
-        onClose={() => {
-          hideModal()
-        }}
-        className={cx(css.dialog, Classes.DIALOG)}
-      >
+      <Dialog isOpen={true} enforceFocus={false} title={getTitle()} onClose={hideModal}>
         <UserGroupForm
           data={userGroupData}
           isEdit={!!userGroupData && !isAddMember}
@@ -38,16 +40,7 @@ export const useUserGroupModal = ({ onSuccess }: UseUserGroupModalProps): UseUse
             onSuccess()
             hideModal()
           }}
-        />
-
-        <Button
-          minimal
-          icon="cross"
-          iconProps={{ size: 18 }}
-          onClick={() => {
-            hideModal()
-          }}
-          className={css.crossIcon}
+          onCancel={hideModal}
         />
       </Dialog>
     ),

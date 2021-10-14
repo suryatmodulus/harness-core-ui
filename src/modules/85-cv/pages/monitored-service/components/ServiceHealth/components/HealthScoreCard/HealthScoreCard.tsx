@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
+import { getRiskColorValue } from '@cv/utils/CommonUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetMonitoredServiceScoresFromServiceAndEnvironment } from 'services/cv'
 import { useStrings } from 'framework/strings'

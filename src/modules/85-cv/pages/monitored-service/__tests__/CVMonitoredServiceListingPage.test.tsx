@@ -4,8 +4,10 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
+import { RiskValues } from '@cv/utils/CommonUtils'
 import CVMonitoredServiceListingPage from '../CVMonitoredServiceListingPage'
 import { monitoredServicelist, mockDeleteData, graphData } from './MonitoreService.mock'
+import { getRiskLabelStringId } from '../CVMonitoredServiceListingPage.utils'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps }),
@@ -98,9 +100,9 @@ describe('Monitored Service list', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('cv.monitoredServices.riskLabel.highRisk')).toBeDefined())
-    await waitFor(() => expect(getByText('cv.monitoredServices.riskLabel.mediumRisk')).toBeDefined())
-    await waitFor(() => expect(getByText('cv.monitoredServices.riskLabel.lowRisk')).toBeDefined())
+    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.UNHEALTHY))).toBeDefined())
+    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.NEED_ATTENTION))).toBeDefined())
+    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.HEALTHY))).toBeDefined())
   })
 
   test('Test Service and Environment names renders', async () => {

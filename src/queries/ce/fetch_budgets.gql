@@ -1,0 +1,13 @@
+query FetchBudget {
+  budgetList {
+    id
+    name
+    budgetAmount
+    actualCost
+    timeLeft
+    timeUnit
+    timeScope
+    actualCostAlerts
+    forecastCostAlerts
+  }
+}

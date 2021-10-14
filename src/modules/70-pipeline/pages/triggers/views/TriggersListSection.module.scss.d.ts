@@ -4,6 +4,7 @@ declare const styles: {
   readonly actionButton: string
   readonly activityChart: string
   readonly table: string
+  readonly tags: string
   readonly textCentered: string
   readonly activityStatement: string
   readonly webhookUrl: string

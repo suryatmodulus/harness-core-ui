@@ -8,9 +8,9 @@ import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetAnomaliesSummary } from 'services/cv'
 import { useToaster } from '@common/exports'
-import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { getErrorMessage, getRiskColorValue } from '@cv/utils/CommonUtils'
 import { getChangeSoureIconColor } from '@cv/components/ChangeTimeline/ChangeTimeline.utils'
-import { areAnomaliesAvailable, mapHealthBarRiskStatusToColor } from './AnomaliesCard.utils'
+import { areAnomaliesAvailable } from './AnomaliesCard.utils'
 import type { AnomaliesCardProps } from './Anomalies.types'
 import css from './AnomaliesCard.module.scss'
 
@@ -166,7 +166,7 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
   }, [changeTimelineSummary])
 
   return (
-    <>
+    <Container className={css.anomaliesContainer}>
       <Container className={css.cardRow}>
         <Text padding={{ left: 'small', top: 'small' }} color={Color.WHITE} font={{ size: 'xsmall' }}>
           {`${moment(timeRange?.startTime).format(momentTimeformat)} - ${moment(timeRange?.endTime).format(
@@ -184,7 +184,7 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
             </Text>
             <Text
               padding={{ top: 'xsmall', bottom: 'xxsmall' }}
-              color={mapHealthBarRiskStatusToColor(lowestHealthScoreBarForTimeRange?.riskStatus as string)}
+              color={getRiskColorValue(lowestHealthScoreBarForTimeRange?.riskStatus, false)}
               font={{ size: 'large', weight: 'bold' }}
             >
               {lowestHealthScoreBarForTimeRange?.healthScore}
@@ -193,6 +193,6 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
         )}
         <Container className={css.cardColumn}>{renderAnomaliesData()}</Container>
       </Container>
-    </>
+    </Container>
   )
 }

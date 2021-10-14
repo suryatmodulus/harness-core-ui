@@ -3,7 +3,8 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { HarnessIcons, Utils } from '@wings-software/uicore'
 import { serviceIcon, statusColors } from '@cv/components/DependencyGraph/DependencyGraph.constants'
 import type { Node, DependencyData, GraphData } from '@cv/components/DependencyGraph/DependencyGraph.types'
-import type { Edge, RestResponseServiceDependencyGraphDTO } from 'services/cv'
+import type { Edge, RestResponseServiceDependencyGraphDTO, ServiceSummaryDetails } from 'services/cv'
+import { getRiskColorValue, getSecondaryRiskColorValue, RiskValues } from '@cv/utils/CommonUtils'
 
 function replaceFill(logo: any, primaryColor: string) {
   if (Object.prototype.hasOwnProperty.call(logo, 'props')) {
@@ -43,10 +44,13 @@ export function formatNodes(nodes?: Node[], data?: Edge[]) {
     return color.substring(4, color.length - 1)
   }
 
-  function hexSvg(status: string, icon: string) {
+  function hexSvg(status: ServiceSummaryDetails['riskLevel'], icon: string) {
     const selectedColor = statusColors.filter(colors => {
       return colors.status === status
-    })?.[0]
+    })?.[0] || {
+      primary: getRiskColorValue(RiskValues.NO_DATA, false),
+      secondary: getSecondaryRiskColorValue(RiskValues.NO_DATA, false)
+    }
 
     const styles = getComputedStyle(document.body)
     const primaryColor = styles.getPropertyValue(getColorCode(Utils.getRealCSSColor(selectedColor?.primary)))
@@ -139,7 +143,7 @@ export function formatNodes(nodes?: Node[], data?: Edge[]) {
             className: `PointData ${missing || ''.replace(' ', '')} Status_NO_ANALYSIS`,
             marker: {
               symbol: `url(data:image/svg+xml;utf8,${encodeURIComponent(
-                renderToStaticMarkup(hexSvg('NO_ANALYSIS', serviceIcon))
+                renderToStaticMarkup(hexSvg(RiskValues.NO_ANALYSIS, serviceIcon))
               )})`
             }
           }
@@ -171,9 +175,9 @@ export const getDependencyData = (
         id: node?.identifierRef,
         status: node?.riskLevel,
         icon: serviceIcon,
-        name: node?.serviceRef
+        name: node?.serviceName
       })) as Node[],
-      data: serviceDependencyGraphData?.resource?.edges as GraphData[]
+      data: (serviceDependencyGraphData?.resource?.edges as GraphData[]) || []
     }
   }
 

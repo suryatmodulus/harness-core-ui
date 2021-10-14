@@ -1,4 +1,4 @@
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
+import { getRiskColorValue } from '@cv/utils/CommonUtils'
 import type { AnalyzedLogDataDTO, RestResponsePageAnalyzedLogDataDTO } from 'services/cv'
 import type { LogAnalysisRowData } from '@cv/components/LogsAnalysis/LogAnalysis.types'
 
@@ -25,7 +25,7 @@ export function getLogAnalysisTableData(logsData: RestResponsePageAnalyzedLogDat
         }
       ],
       riskScore: roundOffRiskScore(log),
-      riskStatus: log?.logData?.riskStatus as string
+      riskStatus: log?.logData?.riskStatus
     })) ?? []
   )
 }

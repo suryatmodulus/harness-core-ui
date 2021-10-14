@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Layout, TabNavigation } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGetPipelineSummary, ResponsePMSPipelineSummaryResponse } from 'services/pipeline-ng'
@@ -9,6 +10,7 @@ import { useStrings } from 'framework/strings'
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import css from './TriggerDetails.module.scss'
 
 export const TriggerBreadcrumbs = ({
   pipelineResponse
@@ -127,7 +129,13 @@ const GetTriggerRightNav = (pipelineResponse: ResponsePMSPipelineSummaryResponse
   )
 }
 
-export default function TriggerDetails({ children }: React.PropsWithChildren<unknown>): React.ReactElement {
+export default function TriggerDetails({
+  children,
+  wizard
+}: {
+  children: React.ReactElement
+  wizard?: boolean
+}): React.ReactElement {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } = useParams<
     PipelineType<{
       projectIdentifier: string
@@ -159,6 +167,7 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<unk
   return (
     <>
       <Page.Header
+        className={cx(wizard && css.wizard)}
         toolbar={GetTriggerRightNav(pipeline)}
         title={
           <Layout.Vertical spacing="xsmall">
@@ -166,7 +175,7 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<unk
           </Layout.Vertical>
         }
       />
-      <Page.Body>{children}</Page.Body>
+      <Page.Body className={cx(wizard && css.wizardBody)}>{children}</Page.Body>
     </>
   )
 }

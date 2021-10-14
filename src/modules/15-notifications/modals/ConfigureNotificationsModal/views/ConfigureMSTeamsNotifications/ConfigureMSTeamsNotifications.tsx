@@ -10,7 +10,7 @@ import {
   Formik,
   ButtonVariation
 } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, yupToFormErrors } from 'formik'

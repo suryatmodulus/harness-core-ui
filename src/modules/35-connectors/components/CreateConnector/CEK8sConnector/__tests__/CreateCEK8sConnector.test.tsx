@@ -13,13 +13,6 @@ import { mockedConnectors, mockResponse, commonProps } from './mocks'
 const updateConnector = jest.fn()
 const createConnector = jest.fn()
 
-jest.mock('@common/hooks', () => ({
-  ...(jest.requireActual('@common/hooks') as any),
-  useMutateAsGet: jest.fn().mockImplementation(() => {
-    return { data: { data: mockedConnectors }, refetch: jest.fn(), error: null }
-  })
-}))
-
 jest.mock('@common/utils/downloadYamlUtils', () => ({
   downloadYamlAsFile: jest.fn().mockImplementation(() => Promise.resolve({ status: true }))
 }))
@@ -29,7 +22,9 @@ jest.mock('services/cd-ng', () => ({
   useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
   useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
   useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn()),
-  useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useGetConnectorListV2: jest
+    .fn()
+    .mockImplementation(() => ({ mutate: async () => ({ data: mockedConnectors }), loading: false }))
 }))
 const mockMutateFn = jest.fn().mockReturnValue(Promise.resolve('')) as unknown
 const useDownloadYamlSpy = jest.spyOn(ccmService, 'useCloudCostK8sClusterSetup') as any
@@ -88,7 +83,7 @@ describe('Create CE K8s Connector Wizard', () => {
     expect(container).toMatchSnapshot() // Form validation for all required fields
 
     // 2 - Feature Selection step
-    expect(await findByText(container, 'connectors.ceK8S.chooseRequirements.heading')).toBeDefined()
+    expect(await findByText(container, 'connectors.ceK8.chooseRequirements.heading')).toBeDefined()
 
     const featuresCard = container.querySelectorAll('.bp3-card')
     const optimizationCard = featuresCard && featuresCard[1]
@@ -113,19 +108,21 @@ describe('Create CE K8s Connector Wizard', () => {
     })
 
     // 4 - Provide Permission step
-    const downloadBtn = await findByText(container, 'Download YAML', { selector: 'button span' })
+    const downloadBtn = await findByText(container, 'connectors.ceK8.providePermissionsStep.downloadYamlBtnText', {
+      selector: 'button span'
+    })
     expect(downloadBtn).toBeTruthy()
     act(() => {
       fireEvent.click(downloadBtn)
     })
-    expect(await findByText(container, 'Download Complete')).toBeDefined()
+    expect(await findByText(container, 'connectors.ceK8.providePermissionsStep.downloadComplete')).toBeDefined()
 
-    const doneBtn = await findByText(container, 'Done', { selector: 'button span' })
+    const doneBtn = await findByText(container, 'done', { selector: 'button span' })
     expect(doneBtn).toBeTruthy()
     act(() => {
       fireEvent.click(doneBtn)
     })
-    expect(await findByText(container, 'Command executed successfully')).toBeDefined()
+    expect(await findByText(container, 'connectors.ceK8.providePermissionsStep.successfulCommandExec')).toBeDefined()
 
     expect(container).toMatchSnapshot()
 

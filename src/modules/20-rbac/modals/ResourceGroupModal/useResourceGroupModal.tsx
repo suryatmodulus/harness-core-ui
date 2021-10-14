@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { useModalHook } from '@wings-software/uicore'
-import { Dialog } from '@blueprintjs/core'
+import { useModalHook, Dialog } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ResourceGroupDTO } from 'services/resourcegroups'
 import ResourceGroupModalFrom from './views/ResourceGroupModalForm'
@@ -28,9 +27,7 @@ export const useResourceGroupModal = ({ onSuccess }: UseResourceGroupModalProps)
             ? getString('rbac.resourceGroup.updateResourceGroupDialogTitle')
             : getString('rbac.resourceGroup.newResourceGroup')
         }
-        onClose={() => {
-          hideModal()
-        }}
+        onClose={hideModal}
       >
         <ResourceGroupModalFrom
           data={resourceGroupData}
@@ -38,6 +35,7 @@ export const useResourceGroupModal = ({ onSuccess }: UseResourceGroupModalProps)
             onSuccess(resourceGroup)
             hideModal()
           }}
+          onCancel={hideModal}
           editMode={!!resourceGroupData}
         />
       </Dialog>

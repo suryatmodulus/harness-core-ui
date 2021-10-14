@@ -8,6 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;700&display=swap" rel="stylesheet" />
     <title>Harness</title>
     <!-- apiurl -->
+    <script type="text/javascript">
+      window.getApiBaseUrl = str => {
+        return window.apiUrl ? `${window.apiUrl}/${str}` : window.location.pathname.replace('ng/', '') + str
+      }
+    </script>
     <!-- segmentToken -->
     <!-- bugsnagToken -->
     <!-- bug snag script being loaded conditionally -->

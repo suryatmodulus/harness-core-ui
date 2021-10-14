@@ -50,8 +50,7 @@ const entitySubTypeToTagMap: {
   SumoLogic: 'sumologic',
   Dynatrace: 'dynatrace',
   AwsSecretManager: 'awssecretmanager',
-  PagerDuty: 'pagerduty',
-  ArgoConnector: 'argoconnector'
+  PagerDuty: 'pagerduty'
 }
 
 export const getSnippetTags = (

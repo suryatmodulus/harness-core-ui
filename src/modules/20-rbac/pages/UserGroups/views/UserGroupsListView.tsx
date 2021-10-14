@@ -296,6 +296,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
     <Table<UserGroupAggregateDTO>
       className={css.table}
       columns={columns}
+      name="UserGroupsListView"
       data={data?.data?.content || []}
       onRowClick={userGroup => {
         history.push(

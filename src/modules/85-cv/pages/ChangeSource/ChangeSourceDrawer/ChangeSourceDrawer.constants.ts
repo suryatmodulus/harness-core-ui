@@ -1,6 +1,7 @@
 import { Connectors } from '@connectors/constants'
 import type { CardSelectOption } from './ChangeSourceDrawer.types'
 
+export const HARNESS_CD_NEXTGEN = 'HarnessCDNextGen'
 export const HARNESS_CD = 'HarnessCD'
 
 export const ChangeSourceCategoryName = {
@@ -18,6 +19,11 @@ export const ChangeSourceCategoryOptions = [
 export const ChangeSourceConnectorOptions: CardSelectOption[] = [
   {
     label: 'cv.onboarding.changeSourceTypes.HarnessCDNextGen.name',
+    value: HARNESS_CD_NEXTGEN,
+    category: ChangeSourceCategoryName.DEPLOYMENT
+  },
+  {
+    label: 'cv.onboarding.changeSourceTypes.HarnessCDCurrentGen.name',
     value: HARNESS_CD,
     category: ChangeSourceCategoryName.DEPLOYMENT
   },
@@ -28,4 +34,11 @@ export const ChangeSourceConnectorOptions: CardSelectOption[] = [
 export const ChangeSourceFieldNames = {
   CATEGORY: 'category',
   TYPE: 'type'
+}
+
+export enum ChangeSourceTypes {
+  HarnessCD = 'HarnessCD',
+  HarnessCDNextGen = 'HarnessCDNextGen',
+  PagerDuty = 'PagerDuty',
+  K8sCluster = 'K8sCluster'
 }

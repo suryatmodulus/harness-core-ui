@@ -1,3 +1,5 @@
+import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
+
 export const mockedLogAnalysisData = {
   resource: {
     totalPages: 1,
@@ -83,7 +85,7 @@ export const mockedLogsData = {
           label: 0,
           count: 9000,
           riskScore: 0,
-          riskStatus: 'LOW',
+          riskStatus: RiskValues.HEALTHY,
           trend: [
             {
               timestamp: 1632045240000,
@@ -142,7 +144,7 @@ export const mockedLogData = {
     label: 0,
     count: 9000,
     riskScore: 0,
-    riskStatus: 'LOW',
+    riskStatus: RiskValues.HEALTHY,
     trend: [
       {
         timestamp: 1632045240000,
@@ -194,11 +196,11 @@ export const mockedLogsTableData = [
       {
         name: 'trendData',
         type: 'line',
-        color: 'var(--green-500)',
+        color: getRiskColorValue(RiskValues.HEALTHY),
         data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000]
       }
     ],
     riskScore: 0,
-    riskStatus: 'LOW'
+    riskStatus: RiskValues.HEALTHY
   }
 ]

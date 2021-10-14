@@ -70,10 +70,15 @@
       float: unset !important;
     }
     select,
-    input {
-      height: 30px !important;
+    input,
+    textarea {
       border: solid 1px var(--grey-250) !important;
       border-radius: 5px;
+    }
+
+    select,
+    input {
+      height: 30px !important;
     }
 
     strong {

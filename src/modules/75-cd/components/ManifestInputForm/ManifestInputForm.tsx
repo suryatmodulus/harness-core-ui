@@ -236,10 +236,14 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
               }
 
               return (
-                <Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}>
+                <Layout.Vertical
+                  data-name="manifest"
+                  key={identifier}
+                  className={cx(css.inputWidth, css.layoutVerticalSpacing)}
+                >
                   {!fromTrigger && <Text className={css.inputheader}>{identifier}</Text>}
                   {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                    <div className={css.verticalSpacingInput}>
+                    <div data-name="connectorRefContainer" className={css.verticalSpacingInput}>
                       <FormMultiTypeConnectorField
                         disabled={disableField('spec.store.spec.connectorRef')}
                         name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}

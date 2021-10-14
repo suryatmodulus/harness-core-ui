@@ -102,7 +102,7 @@ export const PluginStepBase = (
                   <>
                     <CIStepOptionalConfig
                       readonly={readonly}
-                      enableFields={{ 'spec.privileged': {}, 'spec.settings': {} }}
+                      enableFields={{ 'spec.privileged': {}, 'spec.settings': {}, 'spec.reportPaths': {} }}
                     />
                     <StepCommonFields enableFields={['spec.imagePullPolicy']} disabled={readonly} />
                   </>

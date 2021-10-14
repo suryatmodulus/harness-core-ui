@@ -537,7 +537,16 @@ exports[`UsersPage Test render data 1`] = `
           role="columnheader"
           style="width: 30%;"
         >
-          common.userGroup
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="UserGroupsListViewuserGroup"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              common.userGroup
+            </p>
+          </div>
         </div>
         <div
           class="cell"
@@ -545,7 +554,16 @@ exports[`UsersPage Test render data 1`] = `
           role="columnheader"
           style="width: 30%;"
         >
-          members
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="UserGroupsListViewmembers"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              members
+            </p>
+          </div>
         </div>
         <div
           class="cell"
@@ -553,7 +571,16 @@ exports[`UsersPage Test render data 1`] = `
           role="columnheader"
           style="width: 35%;"
         >
-          rbac.roleBinding
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="UserGroupsListViewroleBindings"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              rbac.roleBinding
+            </p>
+          </div>
         </div>
         <div
           class="cell"
@@ -561,7 +588,16 @@ exports[`UsersPage Test render data 1`] = `
           role="columnheader"
           style="width: 5%;"
         >
-          
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="UserGroupsListViewmenu"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              
+            </p>
+          </div>
         </div>
       </div>
       <div

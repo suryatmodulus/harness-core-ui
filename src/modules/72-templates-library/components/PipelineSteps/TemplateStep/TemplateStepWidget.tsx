@@ -3,7 +3,7 @@ import { Color, Container, Formik, FormInput, Layout, MultiTypeInputType, Text }
 import * as Yup from 'yup'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import { set } from 'lodash-es'
 import { NameSchema } from '@common/utils/Validation'

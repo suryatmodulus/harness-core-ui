@@ -1,3 +1,5 @@
+import { RiskValues } from '@cv/utils/CommonUtils'
+
 export const yamlResponse = {
   metaData: {},
   resource:
@@ -16,10 +18,10 @@ export const rowData = {
     type: 'Application' as any,
     healthMonitoringEnabled: true,
     historicalTrend: {
-      healthScores: [{ riskStatus: 'NO_DATA' as any, riskValue: -2 }]
+      healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
     },
     tags: { tag1: '', tag2: '', tag3: '' },
-    currentHealthScore: { riskValue: 50, riskStatus: 'MEDIUM' as any }
+    currentHealthScore: { riskValue: 50, riskStatus: RiskValues.NEED_ATTENTION }
   }
 }
 
@@ -64,9 +66,9 @@ export const monitoredServicelist = {
         type: 'Application',
         healthMonitoringEnabled: true,
         historicalTrend: {
-          healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
+          healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
         },
-        currentHealthScore: { riskValue: 10, riskStatus: 'LOW' }
+        currentHealthScore: { riskValue: 10, riskStatus: RiskValues.HEALTHY }
       },
       {
         name: 'Monitoring service 102 new',
@@ -78,10 +80,10 @@ export const monitoredServicelist = {
         type: 'Application',
         healthMonitoringEnabled: true,
         historicalTrend: {
-          healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
+          healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
         },
         tags: { tag1: '', tag2: '', tag3: '' },
-        currentHealthScore: { riskValue: 50, riskStatus: 'MEDIUM' }
+        currentHealthScore: { riskValue: 50, riskStatus: RiskValues.NEED_ATTENTION }
       },
       {
         name: 'new monitored service 101',
@@ -93,9 +95,9 @@ export const monitoredServicelist = {
         type: 'Application',
         healthMonitoringEnabled: true,
         historicalTrend: {
-          healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
+          healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
         },
-        currentHealthScore: { riskValue: 90, riskStatus: 'HIGH' }
+        currentHealthScore: { riskValue: 90, riskStatus: RiskValues.UNHEALTHY }
       }
     ],
     pageIndex: 0,
@@ -120,10 +122,10 @@ export const mockDeleteData = {
         type: 'Application',
         healthMonitoringEnabled: true,
         historicalTrend: {
-          healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
+          healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
         },
         tags: { tag1: '', tag2: '', tag3: '' },
-        currentHealthScore: { riskValue: 50, riskStatus: 'MEDIUM' }
+        currentHealthScore: { riskValue: 50, riskStatus: RiskValues.NEED_ATTENTION }
       },
       {
         name: 'new monitored service 101',
@@ -135,9 +137,9 @@ export const mockDeleteData = {
         type: 'Application',
         healthMonitoringEnabled: true,
         historicalTrend: {
-          healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
+          healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
         },
-        currentHealthScore: { riskValue: 90, riskStatus: 'HIGH' }
+        currentHealthScore: { riskValue: 90, riskStatus: RiskValues.UNHEALTHY }
       }
     ],
     pageIndex: 0,
@@ -153,7 +155,7 @@ export const graphData = {
         serviceRef: 'service300',
         environmentRef: 'env300',
         riskScore: -1,
-        riskLevel: 'NO_ANALYSIS',
+        riskLevel: RiskValues.NO_ANALYSIS,
         anomalousMetricsCount: 0,
         anomalousLogsCount: 0,
         changeCount: 0,
@@ -163,7 +165,7 @@ export const graphData = {
         serviceRef: 'service260',
         environmentRef: 'env260',
         riskScore: -1,
-        riskLevel: 'NO_ANALYSIS',
+        riskLevel: RiskValues.NO_ANALYSIS,
         anomalousMetricsCount: 0,
         anomalousLogsCount: 0,
         changeCount: 0,

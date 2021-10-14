@@ -497,7 +497,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
               </Text>
             )}
             {template?.artifacts?.primary && (
-              <Layout.Vertical key="primary" className={css.inputWidth}>
+              <Layout.Vertical data-name="primary" key="primary" className={css.inputWidth}>
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) ===
                   MultiTypeInputType.RUNTIME && (
                   <FormMultiTypeConnectorField
@@ -714,7 +714,7 @@ const ArtifactInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                 }
                 const currentSidecarSpec = initialValues.artifacts?.sidecars?.[index]?.sidecar?.spec
                 return (
-                  <Layout.Vertical key={identifier} className={css.inputWidth}>
+                  <Layout.Vertical data-name="sidecar" key={identifier} className={css.inputWidth}>
                     <Text className={css.subSectionHeader}>
                       {identifier}
                       {!isEmpty(

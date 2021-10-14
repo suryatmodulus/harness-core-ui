@@ -77,7 +77,7 @@ describe('AddDrawer Triggers tests', () => {
       expect(newCategories.length).toEqual(1)
 
       //   Show all again
-      const showAllButton = queryByText(document.body, `Show all Triggers (6)`)
+      const showAllButton = document.body.querySelector('[class*="showAllBtn"]')
       if (!showAllButton) {
         throw Error('open button was not found.')
       }

@@ -13,6 +13,7 @@ import { HealthCheck, Service, ServiceDep, ServiceMetadata, useAllServiceResourc
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { allProviders, GatewayKindType, PROVIDER_TYPES } from '@ce/constants'
+import { resourceToInstanceObject } from './helper'
 
 export const CECOEditGatewayPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier } = useParams<
@@ -64,25 +65,13 @@ export const CECOEditGatewayPage: React.FC = () => {
     } else if (isK8sRule) {
       routing.k8s = {
         RuleJson: service.routing?.k8s?.RuleJson as string,
-        ConnectorID: service.metadata?.kubernetes_connector_id as string
+        ConnectorID: service.metadata?.kubernetes_connector_id as string,
+        Namespace: (service.routing?.k8s?.Namespace as string) || 'default'
       }
     } else {
       providerType = resources?.response?.[0]?.provider_type || providerType
       const selectedResources = resources?.response ? resources?.response : []
-      selectedInstances = selectedResources.map(item => {
-        return {
-          name: item.name ? item.name : '',
-          id: item.id ? item.id : '',
-          ipv4: item.ipv4 ? item.ipv4[0] : '',
-          region: item.region ? item.region : '',
-          type: item.type ? item.type : '',
-          tags: '',
-          launch_time: item.launch_time ? item.launch_time : '', // eslint-disable-line
-          status: item.status ? item.status : '',
-          vpc: item.metadata ? item.metadata['VpcID'] : '',
-          ...(providerType === PROVIDER_TYPES.AZURE && { metadata: { resourceGroup: item.metadata?.resourceGroup } })
-        }
-      })
+      selectedInstances = selectedResources.map(item => resourceToInstanceObject(providerType, item))
     }
     const gwDetails: GatewayDetails = {
       id: service.id,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, act, fireEvent } from '@testing-library/react'
-import { MemoryRouter } from 'react-router'
+import { MemoryRouter } from 'react-router-dom'
 import { TestWrapper } from '@common/utils/testUtils'
 import testConnectionSuccess from '@connectors/common/VerifyOutOfClusterDelegate/__tests__/mockData/test-connection-success.json'
 import delegateNameresponse from '@connectors/common/VerifyOutOfClusterDelegate/__tests__/mockData/delegate-name-response-error.json'

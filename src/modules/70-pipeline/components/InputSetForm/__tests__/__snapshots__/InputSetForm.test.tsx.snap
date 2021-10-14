@@ -159,7 +159,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
           >
             <div
               class="item"
-              data-name="visual-btn"
+              data-name="toggle-option-one"
               role="button"
               tabindex="0"
             >
@@ -167,7 +167,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
             </div>
             <div
               class="item selected"
-              data-name="yaml-btn"
+              data-name="toggle-option-two"
               role="button"
               tabindex="0"
             >
@@ -423,7 +423,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
           >
             <div
               class="item selected"
-              data-name="visual-btn"
+              data-name="toggle-option-one"
               role="button"
               tabindex="0"
             >
@@ -431,7 +431,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
             </div>
             <div
               class="item"
-              data-name="yaml-btn"
+              data-name="toggle-option-two"
               role="button"
               tabindex="0"
             >
@@ -623,7 +623,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                           id="Stage.asd"
                         >
                           <div
-                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-large"
                           >
                             <span
                               class="bp3-icon StyledProps--main"
@@ -1258,7 +1258,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -1266,7 +1266,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >
@@ -1900,7 +1900,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
           >
             <div
               class="item selected"
-              data-name="visual-btn"
+              data-name="toggle-option-one"
               role="button"
               tabindex="0"
             >
@@ -1908,7 +1908,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
             </div>
             <div
               class="item"
-              data-name="yaml-btn"
+              data-name="toggle-option-two"
               role="button"
               tabindex="0"
             >
@@ -2130,7 +2130,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                           id="Stage.asd"
                         >
                           <div
-                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-large"
                           >
                             <span
                               class="bp3-icon StyledProps--main"
@@ -2617,7 +2617,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
         >
           <div
             class="item selected"
-            data-name="visual-btn"
+            data-name="toggle-option-one"
             role="button"
             tabindex="0"
           >
@@ -2625,7 +2625,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
           </div>
           <div
             class="item"
-            data-name="yaml-btn"
+            data-name="toggle-option-two"
             role="button"
             tabindex="0"
           >

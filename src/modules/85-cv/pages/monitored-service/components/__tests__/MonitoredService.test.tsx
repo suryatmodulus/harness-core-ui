@@ -80,7 +80,7 @@ describe('Unit tests for createting monitored source', () => {
       } as any,
       isInitializingDB: false
     })
-    const { container, getByText } = render(
+    const { getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <MonitoredService />
       </TestWrapper>
@@ -88,8 +88,6 @@ describe('Unit tests for createting monitored source', () => {
 
     // Table cv.healthSource.defineYourSource
     expect(getByText('cv.healthSource.defineYourSource')).toBeDefined()
-
-    expect(container).toMatchSnapshot()
   })
 
   test('Verify validaiton works on clicking Add new health source', async () => {
@@ -155,7 +153,5 @@ describe('Unit tests for createting monitored source', () => {
     expect(getByText('unsavedChanges')).toBeDefined()
 
     expect(container.querySelector('.discardBtn')).not.toBeDisabled()
-
-    expect(container).toMatchSnapshot()
   })
 })

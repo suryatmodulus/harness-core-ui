@@ -21,7 +21,6 @@ import {
   GetSchemaYaml,
   GetManifestTriggerResponse,
   GetParseableManifestTriggerResponse,
-  updateManifestTriggerMockResponseYaml,
   GetTriggerWithEventConditionsResponse,
   GetParseableArtifactTriggerResponse
 } from './webhookMockResponses'
@@ -284,9 +283,8 @@ describe('Manifest Trigger Tests', () => {
     }
 
     fireEvent.click(updateButton)
-    await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(1))
-
-    expect(mockUpdate).toBeCalledWith(updateManifestTriggerMockResponseYaml)
+    await waitFor(() => expect(mockUpdate).toHaveBeenCalledTimes(0)) // trigger save should not happen without adding CI Codebase details
+    // expect(mockUpdate).toBeCalledWith(updateManifestTriggerMockResponseYaml)
   })
 
   test('function getArtifactSpecObj by displaying select artifact', async () => {
@@ -329,7 +327,7 @@ describe('Manifest Trigger Tests', () => {
     const { container } = render(<WrapperComponent />)
     await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
 
-    const yamlBtn = container.querySelector('[data-name="yaml-btn"]')
+    const yamlBtn = container.querySelector('[data-name="toggle-option-two"]')
 
     if (!yamlBtn) {
       throw Error('No yaml button')
@@ -338,7 +336,7 @@ describe('Manifest Trigger Tests', () => {
 
     await waitFor(() => expect(result.current.getString('pipeline.triggers.updateTrigger')).not.toBeNull())
 
-    const visualBtn = container.querySelector('[data-name="visual-btn"]')
+    const visualBtn = container.querySelector('[data-name="toggle-option-one"]')
 
     if (!visualBtn) {
       throw Error('No visual button')
@@ -409,7 +407,7 @@ describe('Manifest Trigger Tests', () => {
     const { container } = render(<WrapperComponent />)
     await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
 
-    const yamlBtn = container.querySelector('[data-name="yaml-btn"]')
+    const yamlBtn = container.querySelector('[data-name="toggle-option-two"]')
 
     if (!yamlBtn) {
       throw Error('No yaml button')
@@ -418,7 +416,7 @@ describe('Manifest Trigger Tests', () => {
 
     await waitFor(() => expect(result.current.getString('pipeline.triggers.updateTrigger')).not.toBeNull())
 
-    const visualBtn = container.querySelector('[data-name="visual-btn"]')
+    const visualBtn = container.querySelector('[data-name="toggle-option-one"]')
 
     if (!visualBtn) {
       throw Error('No visual button')
@@ -550,7 +548,7 @@ describe('Manifest Trigger Tests', () => {
     const { container } = render(<WrapperComponent />)
     await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
 
-    const yamlBtn = container.querySelector('[data-name="yaml-btn"]')
+    const yamlBtn = container.querySelector('[data-name="toggle-option-two"]')
 
     if (!yamlBtn) {
       throw Error('No yaml button')
@@ -559,7 +557,7 @@ describe('Manifest Trigger Tests', () => {
 
     await waitFor(() => expect(result.current.getString('pipeline.triggers.updateTrigger')).not.toBeNull())
 
-    const visualBtn = container.querySelector('[data-name="visual-btn"]')
+    const visualBtn = container.querySelector('[data-name="toggle-option-one"]')
 
     if (!visualBtn) {
       throw Error('No visual button')

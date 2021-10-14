@@ -102,6 +102,25 @@ export function useRecommendationsSummaryQuery(
 ) {
   return Urql.useQuery<RecommendationsSummaryQuery>({ query: RecommendationsSummaryDocument, ...options })
 }
+export const FetchBudgetDocument = gql`
+  query FetchBudget {
+    budgetList {
+      id
+      name
+      budgetAmount
+      actualCost
+      timeLeft
+      timeUnit
+      timeScope
+      actualCostAlerts
+      forecastCostAlerts
+    }
+  }
+`
+
+export function useFetchBudgetQuery(options: Omit<Urql.UseQueryArgs<FetchBudgetQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<FetchBudgetQuery>({ query: FetchBudgetDocument, ...options })
+}
 export const FetchCcmMetaDataDocument = gql`
   query FetchCcmMetaData {
     ccmMetaData {
@@ -983,6 +1002,28 @@ export type RecommendationsSummaryQuery = {
     totalMonthlySaving: number
     count: number
   }>
+}
+
+export type FetchBudgetQueryVariables = Exact<{ [key: string]: never }>
+
+export type FetchBudgetQuery = {
+  __typename?: 'Query'
+  budgetList: Maybe<
+    Array<
+      Maybe<{
+        __typename?: 'BudgetSummary'
+        id: Maybe<string>
+        name: Maybe<string>
+        budgetAmount: Maybe<number>
+        actualCost: Maybe<number>
+        timeLeft: number
+        timeUnit: Maybe<string>
+        timeScope: Maybe<string>
+        actualCostAlerts: Maybe<Array<Maybe<number>>>
+        forecastCostAlerts: Maybe<Array<Maybe<number>>>
+      }>
+    >
+  >
 }
 
 export type FetchCcmMetaDataQueryVariables = Exact<{ [key: string]: never }>

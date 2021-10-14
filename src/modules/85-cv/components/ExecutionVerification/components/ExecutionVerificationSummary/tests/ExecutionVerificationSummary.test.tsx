@@ -5,6 +5,7 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
 import * as cvService from 'services/cv'
+import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
 import { ExecutionVerificationSummary } from '../ExecutionVerificationSummary'
 import { SampleResponse } from './ExecutionVerificationSummary.mock'
 
@@ -46,22 +47,26 @@ describe('Unit tests for VerifyExection', () => {
     )
     let redCount = 0,
       greenCount = 0,
-      greyCount = 0
+      greyCount = 0,
+      yellowCount = 0
 
     nodeHealths.forEach(item => {
       const colorVal = item.getAttribute('data-node-health-color')
-      if (colorVal?.includes('var(--red-500)')) {
+      if (colorVal?.includes(getRiskColorValue(RiskValues.UNHEALTHY))) {
         redCount++
-      } else if (colorVal?.includes('var(--green-500)')) {
+      } else if (colorVal?.includes(getRiskColorValue(RiskValues.HEALTHY))) {
         greenCount++
-      } else if (colorVal?.includes('var(--grey-300)')) {
+      } else if (colorVal?.includes(getRiskColorValue(RiskValues.NO_ANALYSIS))) {
         greyCount++
+      } else if (colorVal?.includes(getRiskColorValue(RiskValues.OBSERVE))) {
+        yellowCount++
       }
     })
 
-    expect(greyCount).toBe(4)
+    expect(greyCount).toBe(3)
     expect(redCount).toBe(1)
     expect(greenCount).toBe(2)
+    expect(yellowCount).toBe(1)
   })
 
   test('Ensure that loading indicator is displayed when api is loading', async () => {

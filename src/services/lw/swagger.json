@@ -2391,6 +2391,9 @@
             },
             "ConnectorID": {
               "type": "string"
+            },
+            "Namespace": {
+              "type": "string"
             }
           }
         },

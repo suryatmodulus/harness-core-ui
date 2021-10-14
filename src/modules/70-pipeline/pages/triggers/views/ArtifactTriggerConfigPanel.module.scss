@@ -1,20 +1,23 @@
 .artifactTriggerConfigContainer {
-  min-width: 800px;
-  padding: var(--spacing-large) var(--spacing-xxlarge) !important;
+  min-width: 1000px;
+  padding: var(--spacing-4) var(--spacing-7) !important;
   section [class*='bp3-input-group'],
   .nameIdDescriptionTags {
     width: 324px;
   }
 
-  .heading {
-    margin-top: 0;
-    padding-bottom: var(--spacing-xsmall);
+  .formContentTitle {
+    font-weight: bold !important;
+    font-size: medium !important;
+    color: var(--grey-800) !important;
+    margin-bottom: var(--spacing-4) !important;
   }
 
-  .listenOnNewWebhook {
-    padding-bottom: var(--spacing-small) !important;
-    border-bottom: 1px solid var(--grey-300);
-    margin-bottom: var(--spacing-medium);
+  .formContent {
+    background-color: var(--white);
+    padding: var(--spacing-large);
+    box-shadow: 0px 0px 1px rgb(40 41 61 / 8%), 0px 0.5px 2px rgb(96 97 112 / 16%);
+    margin-bottom: var(--spacing-xlarge);
   }
 
   .footer {

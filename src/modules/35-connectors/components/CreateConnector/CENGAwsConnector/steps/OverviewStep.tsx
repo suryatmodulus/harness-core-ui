@@ -14,7 +14,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { omit, pick } from 'lodash-es'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import {
   ConnectorInfoDTO,

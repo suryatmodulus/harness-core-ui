@@ -13,7 +13,6 @@ import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitl
 import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
 import type { MonitoredServiceForm } from './Service.types'
 import MonitoredServiceOverview from './components/MonitoredServiceOverview/MonitoredServiceOverview'
-import { MonitoredServiceType } from './components/MonitoredServiceOverview/MonitoredServiceOverview.constants'
 import { onSave, updateMonitoredServiceDTOOnTypeChange } from './Service.utils'
 import { isUpdated } from '../../Configurations.utils'
 import ChangeSourceTableContainer from './components/ChangeSourceTableContainer/ChangeSourceTableContainer'
@@ -97,7 +96,7 @@ function Service({
       onSuccessChangeSource: (data: ChangeSourceDTO[]) => void
     }) => {
       // has required fields
-      if (formik?.values.environmentRef && formik?.values.name) {
+      if (formik?.values.environmentRef && formik?.values.serviceRef && formik?.values.name) {
         showDrawer({
           hideDrawer,
           tableData: formik?.values?.sources?.changeSources || [],
@@ -108,6 +107,7 @@ function Service({
         formik.submitForm()
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
 
@@ -120,12 +120,7 @@ function Service({
       validationSchema={Yup.object().shape({
         name: Yup.string().nullable().required(getString('cv.monitoredServices.nameValidation')),
         type: Yup.string().nullable().required(getString('common.validation.typeIsRequired')),
-        serviceRef: Yup.string()
-          .nullable()
-          .when('type', {
-            is: type => type === MonitoredServiceType.APPLICATION,
-            then: Yup.string().required(getString('cv.monitoredServices.serviceValidation'))
-          }),
+        serviceRef: Yup.string().nullable().required(getString('cv.monitoredServices.serviceValidation')),
         environmentRef: Yup.string().nullable().required(getString('cv.monitoredServices.environmentValidation'))
       })}
       enableReinitialize

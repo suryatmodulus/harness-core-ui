@@ -14,26 +14,6 @@ exports[`Sidenav render 1`] = `
     </div>
     <a
       class="link"
-      href="/account/dummy/cv/orgs/dummy/projects/dummy/dashboard"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        Overview
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/dummy/cv/orgs/dummy/projects/dummy/services"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        Services
-      </p>
-    </a>
-    <a
-      class="link"
       href="/account/dummy/cv/orgs/dummy/projects/dummy/monitoringservices"
     >
       <p

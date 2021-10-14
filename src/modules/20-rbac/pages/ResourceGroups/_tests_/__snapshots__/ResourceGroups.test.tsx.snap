@@ -98,7 +98,11 @@ exports[`Resource Groups Page render data 1`] = `
           role="columnheader"
           style="width: 32%;"
         >
-          rbac.resourceGroup.resourceGroupColumn
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            rbac.resourceGroup.resourceGroupColumn
+          </p>
         </div>
         <div
           class="cell"
@@ -106,7 +110,11 @@ exports[`Resource Groups Page render data 1`] = `
           role="columnheader"
           style="width: 32%;"
         >
-          rbac.resourceGroup.summary
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            rbac.resourceGroup.summary
+          </p>
         </div>
         <div
           class="cell"
@@ -114,7 +122,11 @@ exports[`Resource Groups Page render data 1`] = `
           role="columnheader"
           style="width: 32%;"
         >
-          lastUpdated
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            lastUpdated
+          </p>
         </div>
         <div
           class="cell"
@@ -122,7 +134,11 @@ exports[`Resource Groups Page render data 1`] = `
           role="columnheader"
           style="width: 4%;"
         >
-          
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            
+          </p>
         </div>
       </div>
       <div

@@ -133,15 +133,19 @@ export default function ServiceHealth({
       <Container className={css.serviceHealthCard}>
         <Card>
           <>
-            {serviceIdentifier &&
-              environmentIdentifier &&
-              changesTableAndSourceCardStartAndEndtime[0] &&
-              changesTableAndSourceCardStartAndEndtime[1] && (
-                <ChangesSourceCard
-                  startTime={changesTableAndSourceCardStartAndEndtime[0]}
-                  endTime={changesTableAndSourceCardStartAndEndtime[1]}
-                />
-              )}
+            <Container className={css.tickerContainer}>
+              {serviceIdentifier &&
+                environmentIdentifier &&
+                changesTableAndSourceCardStartAndEndtime[0] &&
+                changesTableAndSourceCardStartAndEndtime[1] && (
+                  <ChangesSourceCard
+                    serviceIdentifier={serviceIdentifier}
+                    environmentIdentifier={environmentIdentifier}
+                    startTime={changesTableAndSourceCardStartAndEndtime[0]}
+                    endTime={changesTableAndSourceCardStartAndEndtime[1]}
+                  />
+                )}
+            </Container>
             <Container
               onClick={() => {
                 if (!showTimelineSlider) {

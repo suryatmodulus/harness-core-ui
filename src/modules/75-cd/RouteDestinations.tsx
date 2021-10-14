@@ -110,7 +110,9 @@ import { CDStageDetails } from './components/CDStageDetails/CDStageDetails'
 import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputForm'
 
 import { ArtifactInputForm } from './components/ArtifactInputForm/ArtifactInputForm'
-import GitOpsModalContainer from './pages/gitops-providers-list/GitOpsProvidersList'
+import GitOpsServersPage from './pages/gitops/GitOpsServersHomePage'
+import GitOpsServersList from './pages/gitops/HarnessManagedGitOps/HarnessManagedGitOpsServersList'
+import GitOpsModalContainer from './pages/gitops/NativeArgo/GitOpsProvidersList'
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
@@ -129,6 +131,17 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
 
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module })} />
+}
+
+const HandleGitOpsRedirect = (): React.ReactElement => {
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
+  const { ARGO_PHASE2_MANAGED } = useFeatureFlags()
+
+  if (ARGO_PHASE2_MANAGED) {
+    return <Redirect to={routes.toHarnessManagedGitOps({ accountId, projectIdentifier, orgIdentifier, module })} />
+  } else {
+    return <Redirect to={routes.toNativeArgo({ accountId, projectIdentifier, orgIdentifier, module })} />
+  }
 }
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
@@ -557,7 +570,7 @@ export default (
       sidebarProps={CDSideNavProps}
       path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
     >
-      <TriggerDetails>
+      <TriggerDetails wizard={true}>
         <TriggersWizardPage />
       </TriggerDetails>
     </RouteWithLayout>
@@ -802,12 +815,32 @@ export default (
     >
       <TemplatesPage />
     </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      path={[routes.toGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })]}
+      exact
+    >
+      <HandleGitOpsRedirect />
+    </RouteWithLayout>
+
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      path={routes.toHarnessManagedGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <GitOpsModalContainer />
+      <GitOpsServersPage>
+        <GitOpsServersList />
+      </GitOpsServersPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toNativeArgo({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <GitOpsServersPage>
+        <GitOpsModalContainer />
+      </GitOpsServersPage>
     </RouteWithLayout>
   </>
 )

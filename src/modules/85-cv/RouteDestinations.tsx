@@ -25,10 +25,6 @@ import { MinimalLayout } from '@common/layouts'
 
 import './components/PipelineSteps'
 import './components/ExecutionVerification'
-import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
-import DeploymentDrilldownView from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView'
-import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView'
-import CVServicesPage from '@cv/pages/services/CVServicesPage'
 import CVMonitoredServiceListingPage from '@cv/pages/monitored-service/CVMonitoredServiceListingPage'
 import MonitoredServicePage from '@cv/pages/monitored-service/MonitoredServicePage'
 import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
@@ -110,7 +106,7 @@ const RedirectToCVProject = (): React.ReactElement => {
   if (selectedProject?.modules?.includes(ModuleName.CV)) {
     return (
       <Redirect
-        to={routes.toCVProjectOverview({
+        to={routes.toCVMonitoringServices({
           accountId: params.accountId,
           orgIdentifier: selectedProject.orgIdentifier || '',
           projectIdentifier: selectedProject.identifier
@@ -153,39 +149,6 @@ export default (
     <Route path={routes.toCVProject({ ...accountPathProps, ...projectPathProps })} exact>
       <RedirectToCVProject />
     </Route>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CVDashboardPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVDeploymentPage({
-        ...accountPathProps,
-        ...projectPathProps,
-        serviceIdentifier: ':serviceIdentifier',
-        deploymentTag: ':deploymentTag'
-      })}
-    >
-      <DeploymentDrilldownView />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVActivityChangesPage({ ...accountPathProps, ...projectPathProps, activityId: ':activityId' })}
-    >
-      <ActivityChangesDrilldownView />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVServices({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CVServicesPage />
-    </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}

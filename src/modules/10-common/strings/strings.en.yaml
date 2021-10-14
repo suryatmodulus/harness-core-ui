@@ -7,6 +7,7 @@ accountSetup: Account Setup
 projectSetup: Project Setup
 orgSetup: Org Setup
 delegateForTask: '{{delegate}} for {{taskName}}'
+noDelegateForTask: 'No delegate found for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
 createPipeline: Create a Pipeline
@@ -565,3 +566,8 @@ connectivityErrors: Connectivity Errors
 apply: '{{ $.filters.apply }}'
 ON: 'ON'
 OFF: 'OFF'
+viewContent: View Content
+delete: Delete {{ name }}?
+suggestionsLabel: 'Suggestions:'
+refreshPage: refresh your page.
+files: Files

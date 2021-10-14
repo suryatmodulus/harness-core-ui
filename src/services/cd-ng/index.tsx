@@ -462,6 +462,10 @@ export interface AccountResourcesDTO {
   templatesCount?: number
 }
 
+export interface ActiveProjectsCountDTO {
+  count?: number
+}
+
 export interface ActiveServiceInstanceSummary {
   changeRate?: number
   countDetails?: InstanceCountDetailsByEnvTypeBase
@@ -659,10 +663,6 @@ export interface Approvers {
   disallowPipelineExecutor: boolean
   minimumCount: number
   userGroups: string[]
-}
-
-export type ArgoConnector = ConnectorConfigDTO & {
-  adapterUrl?: string
 }
 
 export interface ArtifactConfig {
@@ -1201,7 +1201,6 @@ export interface ConnectorCatalogueItem {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1270,7 +1269,6 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1316,7 +1314,6 @@ export interface ConnectorInfoDTO {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1373,7 +1370,6 @@ export interface ConnectorTypeStatistics {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -1620,18 +1616,13 @@ export type DeploymentStageConfig = StageInfoConfig & {
 }
 
 export interface DeploymentStatsSummary {
-  count?: number
-  countChangeRate?: number
   deploymentRate?: number
   deploymentRateChangeRate?: number
-  failed24HoursCount?: number
-  failureChangeRate?: number
-  failureCount?: number
   failureRate?: number
   failureRateChangeRate?: number
-  manualInterventionsCount?: number
-  pendingApprovalsCount?: number
-  runningCount?: number
+  timeBasedDeploymentInfoList?: TimeBasedDeploymentInfo[]
+  totalCount?: number
+  totalCountChangeRate?: number
 }
 
 export interface DeploymentsInfo {
@@ -1938,10 +1929,10 @@ export interface Environment {
 export interface EnvironmentRequestDTO {
   color?: string
   description?: string
-  identifier: string
+  identifier?: string
   name?: string
-  orgIdentifier: string
-  projectIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   tags?: {
     [key: string]: string
   }
@@ -2645,7 +2636,17 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'TEST5'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
+    | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
+    | 'INTEGRATED_APPROVALS_WITH_JIRA'
     | 'SECRET_MANAGERS'
+    | 'DEPLOYMENTS'
+    | 'BUILDS'
+    | 'SAML_SUPPORT'
+    | 'OAUTH_SUPPORT'
+    | 'LDAP_SUPPORT'
+    | 'TWO_FACTOR_AUTH_SUPPORT'
+    | 'CUSTOM_ROLES'
+    | 'CUSTOM_RESOURCE_GROUPS'
 }
 
 export interface FeatureRestrictionDetailsDTO {
@@ -2660,14 +2661,24 @@ export interface FeatureRestrictionDetailsDTO {
     | 'TEST5'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
+    | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
+    | 'INTEGRATED_APPROVALS_WITH_JIRA'
     | 'SECRET_MANAGERS'
+    | 'DEPLOYMENTS'
+    | 'BUILDS'
+    | 'SAML_SUPPORT'
+    | 'OAUTH_SUPPORT'
+    | 'LDAP_SUPPORT'
+    | 'TWO_FACTOR_AUTH_SUPPORT'
+    | 'CUSTOM_ROLES'
+    | 'CUSTOM_RESOURCE_GROUPS'
   restriction?: RestrictionDTO
   restrictionType?: 'AVAILABILITY' | 'STATIC_LIMIT' | 'RATE_LIMIT' | 'CUSTOM' | 'DURATION'
 }
 
 export interface FeatureRestrictionMetadataDTO {
   edition?: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
-  moduleType?: string
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   name?:
     | 'TEST1'
     | 'TEST2'
@@ -2676,7 +2687,17 @@ export interface FeatureRestrictionMetadataDTO {
     | 'TEST5'
     | 'MULTIPLE_ORGANIZATIONS'
     | 'MULTIPLE_PROJECTS'
+    | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
+    | 'INTEGRATED_APPROVALS_WITH_JIRA'
     | 'SECRET_MANAGERS'
+    | 'DEPLOYMENTS'
+    | 'BUILDS'
+    | 'SAML_SUPPORT'
+    | 'OAUTH_SUPPORT'
+    | 'LDAP_SUPPORT'
+    | 'TWO_FACTOR_AUTH_SUPPORT'
+    | 'CUSTOM_ROLES'
+    | 'CUSTOM_RESOURCE_GROUPS'
   restrictionMetadata?: {
     [key: string]: RestrictionMetadataDTO
   }
@@ -2951,7 +2972,7 @@ export type GitLabStore = StoreConfig & {
 }
 
 export interface GitOpsInfoDTO {
-  type?: 'ConnectedArgoProvider' | 'ManagedArgoProvider'
+  type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
 }
 
 export interface GitOpsProvider {
@@ -3070,6 +3091,59 @@ export interface GitSyncEntityListDTO {
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
+export interface GitSyncErrorAggregateByCommitDTO {
+  branchName?: string
+  commitMessage?: string
+  createdAt?: number
+  errorsForSummaryView?: GitSyncErrorDTO[]
+  failedCount?: number
+  gitCommitId?: string
+  repoId?: string
+}
+
+export interface GitSyncErrorDTO {
+  accountIdentifier?: string
+  additionalErrorDetails?: GitSyncErrorDetailsDTO
+  branchName?: string
+  changeType?: 'ADD' | 'RENAME' | 'MODIFY' | 'DELETE' | 'NONE'
+  completeFilePath?: string
+  createdAt?: number
+  entityReference?: EntityReference
+  entityType?:
+    | 'Projects'
+    | 'Pipelines'
+    | 'PipelineSteps'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Service'
+    | 'Environment'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Delegates'
+    | 'DelegateConfigurations'
+    | 'CvVerificationJob'
+    | 'IntegrationStage'
+    | 'IntegrationSteps'
+    | 'CvKubernetesActivitySource'
+    | 'DeploymentSteps'
+    | 'DeploymentStage'
+    | 'ApprovalStage'
+    | 'FeatureFlagStage'
+    | 'Template'
+    | 'Triggers'
+    | 'MonitoredService'
+    | 'GitRepositories'
+  errorType?: 'GIT_TO_HARNESS' | 'CONNECTIVITY_ISSUE' | 'FULL_SYNC'
+  failureReason?: string
+  repoId?: string
+  repoUrl?: string
+  status?: 'ACTIVE' | 'DISCARDED' | 'EXPIRED' | 'RESOLVED' | 'OVERRIDDEN'
+}
+
+export interface GitSyncErrorDetailsDTO {
+  [key: string]: any
+}
+
 export interface GitSyncFolderConfigDTO {
   enabled?: boolean
   identifier?: string
@@ -3118,6 +3192,7 @@ export type GithubConnector = ConnectorConfigDTO & {
   apiAccess?: GithubApiAccess
   authentication: GithubAuthentication
   delegateSelectors?: string[]
+  executeOnManager?: boolean
   type: 'Account' | 'Repo'
   url: string
   validationRepo?: string
@@ -3886,7 +3961,9 @@ export interface LoginTypeResponse {
   ssorequest?: SSORequest
 }
 
-export type ManagedArgoGitOpsInfoDTO = GitOpsInfoDTO & {}
+export type ManagedArgoGitOpsInfoDTO = GitOpsInfoDTO & {
+  namespace: string
+}
 
 export interface ManifestAttributes {
   [key: string]: any
@@ -4072,10 +4149,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -4271,6 +4347,26 @@ export interface PageGitBranchDTO {
 
 export interface PageGitSyncEntityListDTO {
   content?: GitSyncEntityListDTO[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
+export interface PageGitSyncErrorAggregateByCommitDTO {
+  content?: GitSyncErrorAggregateByCommitDTO[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
+export interface PageGitSyncErrorDTO {
+  content?: GitSyncErrorDTO[]
   empty?: boolean
   pageIndex?: number
   pageItemCount?: number
@@ -4576,6 +4672,16 @@ export interface PipelineEvent {
     | 'StepFailed'
 }
 
+export interface PipelineExecutionDashboardInfo {
+  accountIdentifier?: string
+  identifier?: string
+  name?: string
+  orgIdentifier?: string
+  planExecutionId?: string
+  projectIdentifier?: string
+  startTs?: number
+}
+
 export type PipelineFilterProperties = FilterProperties & {
   description?: string
   moduleProperties?: {
@@ -4610,6 +4716,13 @@ export interface PipelineInfrastructure {
   infrastructureDefinition?: InfrastructureDef
   infrastructureKey?: string
   useFromStage?: InfraUseFromStage
+}
+
+export interface PipelinesExecutionDashboardInfo {
+  failed24HrsExecutions?: PipelineExecutionDashboardInfo[]
+  pendingApprovalExecutions?: PipelineExecutionDashboardInfo[]
+  pendingManualInterventionExecutions?: PipelineExecutionDashboardInfo[]
+  runningExecutions?: PipelineExecutionDashboardInfo[]
 }
 
 export type PmsEmailChannel = PmsNotificationChannel & {
@@ -4674,8 +4787,10 @@ export interface ProjectDashBoardInfo {
   accountId?: string
   deploymentsCount?: number
   deploymentsCountChangeRate?: number
+  failedDeploymentsCount?: number
   orgIdentifier?: string
   projectIdentifier?: string
+  successDeploymentsCount?: number
 }
 
 export interface ProjectRequest {
@@ -4794,6 +4909,13 @@ export interface ResponseAccountLicenseDTO {
 export interface ResponseAccountResourcesDTO {
   correlationId?: string
   data?: AccountResourcesDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseActiveProjectsCountDTO {
+  correlationId?: string
+  data?: ActiveProjectsCountDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5289,13 +5411,6 @@ export interface ResponseListString {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseListTimeBasedDeploymentInfo {
-  correlationId?: string
-  data?: TimeBasedDeploymentInfo[]
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponseListUserGroupAggregateDTO {
   correlationId?: string
   data?: UserGroupAggregateDTO[]
@@ -5725,6 +5840,20 @@ export interface ResponsePageGitSyncEntityListDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponsePageGitSyncErrorAggregateByCommitDTO {
+  correlationId?: string
+  data?: PageGitSyncErrorAggregateByCommitDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePageGitSyncErrorDTO {
+  correlationId?: string
+  data?: PageGitSyncErrorDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponsePageGitopsProviderResponse {
   correlationId?: string
   data?: PageGitopsProviderResponse
@@ -5861,6 +5990,13 @@ export interface ResponsePasswordChangeResponse {
 export interface ResponsePipelineConfig {
   correlationId?: string
   data?: PipelineConfig
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePipelinesExecutionDashboardInfo {
+  correlationId?: string
+  data?: PipelinesExecutionDashboardInfo
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -6693,10 +6829,10 @@ export interface ServicePipelineInfo {
 
 export interface ServiceRequestDTO {
   description?: string
-  identifier: string
+  identifier?: string
   name?: string
-  orgIdentifier: string
-  projectIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   tags?: {
     [key: string]: string
   }
@@ -6968,7 +7104,6 @@ export interface StepData {
     | 'SERVICENOW'
     | 'EMAIL'
     | 'BARRIERS'
-    | 'ShellScript'
     | 'NEW_RELIC_DEPLOYMENT_MAKER'
     | 'TEMPLATIZED_SECRET_MANAGER'
 }
@@ -6988,7 +7123,6 @@ export interface StepGroupElementConfig {
   failureStrategies?: FailureStrategyConfig[]
   identifier: string
   name?: string
-  rollbackSteps?: ExecutionWrapperConfig[]
   steps: ExecutionWrapperConfig[]
   when?: StepWhenCondition
 }
@@ -7137,10 +7271,10 @@ export interface Throwable {
 }
 
 export interface TimeBasedDeploymentInfo {
-  count?: number
+  epochTime?: number
   failedCount?: number
   successCount?: number
-  time?: number
+  totalCount?: number
 }
 
 export interface TimeUnit {
@@ -11140,7 +11274,6 @@ export interface GetConnectorListQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -11419,7 +11552,6 @@ export interface GetAllAllowedFieldValuesQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -15822,6 +15954,228 @@ export const listGitSyncEntitiesByTypePromise = (
     ListGitSyncEntitiesByTypePathParams
   >(getConfig('ng/api'), `/git-sync-entities/${entityType}`, props, signal)
 
+export interface ListGitSyncErrorsQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  searchTerm?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  gitToHarness?: boolean
+}
+
+export type ListGitSyncErrorsProps = Omit<
+  GetProps<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Error list
+ */
+export const ListGitSyncErrors = (props: ListGitSyncErrorsProps) => (
+  <Get<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>
+    path={`/git-sync-errors`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListGitSyncErrorsProps = Omit<
+  UseGetProps<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Error list
+ */
+export const useListGitSyncErrors = (props: UseListGitSyncErrorsProps) =>
+  useGet<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>(`/git-sync-errors`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Gets Error list
+ */
+export const listGitSyncErrorsPromise = (
+  props: GetUsingFetchProps<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageGitSyncErrorDTO, Failure | Error, ListGitSyncErrorsQueryParams, void>(
+    getConfig('ng/api'),
+    `/git-sync-errors`,
+    props,
+    signal
+  )
+
+export interface ListGitToHarnessErrorsCommitsQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  searchTerm?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  numberOfErrorsInSummary?: number
+}
+
+export type ListGitToHarnessErrorsCommitsProps = Omit<
+  GetProps<
+    ResponsePageGitSyncErrorAggregateByCommitDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsCommitsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Gets Error list grouped by commit
+ */
+export const ListGitToHarnessErrorsCommits = (props: ListGitToHarnessErrorsCommitsProps) => (
+  <Get<ResponsePageGitSyncErrorAggregateByCommitDTO, Failure | Error, ListGitToHarnessErrorsCommitsQueryParams, void>
+    path={`/git-sync-errors/aggregate`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListGitToHarnessErrorsCommitsProps = Omit<
+  UseGetProps<
+    ResponsePageGitSyncErrorAggregateByCommitDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsCommitsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Gets Error list grouped by commit
+ */
+export const useListGitToHarnessErrorsCommits = (props: UseListGitToHarnessErrorsCommitsProps) =>
+  useGet<ResponsePageGitSyncErrorAggregateByCommitDTO, Failure | Error, ListGitToHarnessErrorsCommitsQueryParams, void>(
+    `/git-sync-errors/aggregate`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets Error list grouped by commit
+ */
+export const listGitToHarnessErrorsCommitsPromise = (
+  props: GetUsingFetchProps<
+    ResponsePageGitSyncErrorAggregateByCommitDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsCommitsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponsePageGitSyncErrorAggregateByCommitDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsCommitsQueryParams,
+    void
+  >(getConfig('ng/api'), `/git-sync-errors/aggregate`, props, signal)
+
+export interface ListGitToHarnessErrorsForCommitQueryParams {
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export interface ListGitToHarnessErrorsForCommitPathParams {
+  commitId: string
+}
+
+export type ListGitToHarnessErrorsForCommitProps = Omit<
+  GetProps<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  >,
+  'path'
+> &
+  ListGitToHarnessErrorsForCommitPathParams
+
+/**
+ * Gets Error list for a particular commit
+ */
+export const ListGitToHarnessErrorsForCommit = ({ commitId, ...props }: ListGitToHarnessErrorsForCommitProps) => (
+  <Get<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  >
+    path={`/git-sync-errors/commits/${commitId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListGitToHarnessErrorsForCommitProps = Omit<
+  UseGetProps<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  >,
+  'path'
+> &
+  ListGitToHarnessErrorsForCommitPathParams
+
+/**
+ * Gets Error list for a particular commit
+ */
+export const useListGitToHarnessErrorsForCommit = ({ commitId, ...props }: UseListGitToHarnessErrorsForCommitProps) =>
+  useGet<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  >((paramsInPath: ListGitToHarnessErrorsForCommitPathParams) => `/git-sync-errors/commits/${paramsInPath.commitId}`, {
+    base: getConfig('ng/api'),
+    pathParams: { commitId },
+    ...props
+  })
+
+/**
+ * Gets Error list for a particular commit
+ */
+export const listGitToHarnessErrorsForCommitPromise = (
+  {
+    commitId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  > & { commitId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponsePageGitSyncErrorDTO,
+    Failure | Error,
+    ListGitToHarnessErrorsForCommitQueryParams,
+    ListGitToHarnessErrorsForCommitPathParams
+  >(getConfig('ng/api'), `/git-sync-errors/commits/${commitId}`, props, signal)
+
 export interface GetGitSyncSettingsQueryParams {
   projectIdentifier?: string
   orgIdentifier?: string
@@ -16330,6 +16684,7 @@ export interface ListGitOpsProvidersQueryParams {
   orgIdentifier?: string
   projectIdentifier?: string
   searchTerm?: string
+  type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
 }
 
 export type ListGitOpsProvidersProps = Omit<
@@ -17261,11 +17616,118 @@ export const validateJiraCredentialsPromise = (
     signal
   )
 
+export interface GetActiveDeploymentStatsQueryParams {
+  accountIdentifier: string
+  orgProjectIdentifiers: string[]
+}
+
+export type GetActiveDeploymentStatsProps = Omit<
+  GetProps<ResponsePipelinesExecutionDashboardInfo, Failure | Error, GetActiveDeploymentStatsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get active deployment stats
+ */
+export const GetActiveDeploymentStats = (props: GetActiveDeploymentStatsProps) => (
+  <Get<ResponsePipelinesExecutionDashboardInfo, Failure | Error, GetActiveDeploymentStatsQueryParams, void>
+    path={`/landingDashboards/activeDeploymentStats`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetActiveDeploymentStatsProps = Omit<
+  UseGetProps<ResponsePipelinesExecutionDashboardInfo, Failure | Error, GetActiveDeploymentStatsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get active deployment stats
+ */
+export const useGetActiveDeploymentStats = (props: UseGetActiveDeploymentStatsProps) =>
+  useGet<ResponsePipelinesExecutionDashboardInfo, Failure | Error, GetActiveDeploymentStatsQueryParams, void>(
+    `/landingDashboards/activeDeploymentStats`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get active deployment stats
+ */
+export const getActiveDeploymentStatsPromise = (
+  props: GetUsingFetchProps<
+    ResponsePipelinesExecutionDashboardInfo,
+    Failure | Error,
+    GetActiveDeploymentStatsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePipelinesExecutionDashboardInfo, Failure | Error, GetActiveDeploymentStatsQueryParams, void>(
+    getConfig('ng/api'),
+    `/landingDashboards/activeDeploymentStats`,
+    props,
+    signal
+  )
+
+export interface GetActiveServicesQueryParams {
+  accountIdentifier: string
+  orgProjectIdentifiers: string[]
+  startTime: number
+  endTime: number
+  sortBy: 'DEPLOYMENTS' | 'INSTANCES'
+}
+
+export type GetActiveServicesProps = Omit<
+  GetProps<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Most Active Services
+ */
+export const GetActiveServices = (props: GetActiveServicesProps) => (
+  <Get<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>
+    path={`/landingDashboards/activeServices`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetActiveServicesProps = Omit<
+  UseGetProps<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Most Active Services
+ */
+export const useGetActiveServices = (props: UseGetActiveServicesProps) =>
+  useGet<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>(
+    `/landingDashboards/activeServices`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Most Active Services
+ */
+export const getActiveServicesPromise = (
+  props: GetUsingFetchProps<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>(
+    getConfig('ng/api'),
+    `/landingDashboards/activeServices`,
+    props,
+    signal
+  )
+
 export interface GetDeploymentStatsSummaryQueryParams {
   accountIdentifier: string
   orgProjectIdentifiers: string[]
   startTime: number
   endTime: number
+  groupBy: 'DAY' | 'WEEK' | 'MONTH'
 }
 
 export type GetDeploymentStatsSummaryProps = Omit<
@@ -17412,63 +17874,6 @@ export const getServicesCountPromise = (
   getUsingFetch<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>(
     getConfig('ng/api'),
     `/landingDashboards/servicesCount`,
-    props,
-    signal
-  )
-
-export interface GetTimeWiseDeploymentInfoQueryParams {
-  accountIdentifier: string
-  orgProjectIdentifiers: string[]
-  startTime: number
-  endTime: number
-  groupBy: 'DAY' | 'WEEK' | 'MONTH'
-}
-
-export type GetTimeWiseDeploymentInfoProps = Omit<
-  GetProps<ResponseListTimeBasedDeploymentInfo, Failure | Error, GetTimeWiseDeploymentInfoQueryParams, void>,
-  'path'
->
-
-/**
- * Get time wise deployment stats
- */
-export const GetTimeWiseDeploymentInfo = (props: GetTimeWiseDeploymentInfoProps) => (
-  <Get<ResponseListTimeBasedDeploymentInfo, Failure | Error, GetTimeWiseDeploymentInfoQueryParams, void>
-    path={`/landingDashboards/timeDeploymentStats`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetTimeWiseDeploymentInfoProps = Omit<
-  UseGetProps<ResponseListTimeBasedDeploymentInfo, Failure | Error, GetTimeWiseDeploymentInfoQueryParams, void>,
-  'path'
->
-
-/**
- * Get time wise deployment stats
- */
-export const useGetTimeWiseDeploymentInfo = (props: UseGetTimeWiseDeploymentInfoProps) =>
-  useGet<ResponseListTimeBasedDeploymentInfo, Failure | Error, GetTimeWiseDeploymentInfoQueryParams, void>(
-    `/landingDashboards/timeDeploymentStats`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Get time wise deployment stats
- */
-export const getTimeWiseDeploymentInfoPromise = (
-  props: GetUsingFetchProps<
-    ResponseListTimeBasedDeploymentInfo,
-    Failure | Error,
-    GetTimeWiseDeploymentInfoQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseListTimeBasedDeploymentInfo, Failure | Error, GetTimeWiseDeploymentInfoQueryParams, void>(
-    getConfig('ng/api'),
-    `/landingDashboards/timeDeploymentStats`,
     props,
     signal
   )
@@ -23337,8 +23742,12 @@ export const getCurrentGenUsersPromise = (
     signal
   )
 
+export interface DisableTwoFactorAuthQueryParams {
+  routingId?: string
+}
+
 export type DisableTwoFactorAuthProps = Omit<
-  MutateProps<ResponseUserInfo, Failure | Error, void, void, void>,
+  MutateProps<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -23346,7 +23755,7 @@ export type DisableTwoFactorAuthProps = Omit<
  * disable two factor auth settings
  */
 export const DisableTwoFactorAuth = (props: DisableTwoFactorAuthProps) => (
-  <Mutate<ResponseUserInfo, Failure | Error, void, void, void>
+  <Mutate<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>
     verb="PUT"
     path={`/user/disable-two-factor-auth`}
     base={getConfig('ng/api')}
@@ -23355,7 +23764,7 @@ export const DisableTwoFactorAuth = (props: DisableTwoFactorAuthProps) => (
 )
 
 export type UseDisableTwoFactorAuthProps = Omit<
-  UseMutateProps<ResponseUserInfo, Failure | Error, void, void, void>,
+  UseMutateProps<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -23363,19 +23772,20 @@ export type UseDisableTwoFactorAuthProps = Omit<
  * disable two factor auth settings
  */
 export const useDisableTwoFactorAuth = (props: UseDisableTwoFactorAuthProps) =>
-  useMutate<ResponseUserInfo, Failure | Error, void, void, void>('PUT', `/user/disable-two-factor-auth`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>(
+    'PUT',
+    `/user/disable-two-factor-auth`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * disable two factor auth settings
  */
 export const disableTwoFactorAuthPromise = (
-  props: MutateUsingFetchProps<ResponseUserInfo, Failure | Error, void, void, void>,
+  props: MutateUsingFetchProps<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseUserInfo, Failure | Error, void, void, void>(
+  mutateUsingFetch<ResponseUserInfo, Failure | Error, DisableTwoFactorAuthQueryParams, void, void>(
     'PUT',
     getConfig('ng/api'),
     `/user/disable-two-factor-auth`,
@@ -23383,8 +23793,12 @@ export const disableTwoFactorAuthPromise = (
     signal
   )
 
+export interface EnableTwoFactorAuthQueryParams {
+  routingId?: string
+}
+
 export type EnableTwoFactorAuthProps = Omit<
-  MutateProps<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>,
+  MutateProps<ResponseUserInfo, Failure | Error, EnableTwoFactorAuthQueryParams, TwoFactorAuthSettingsInfo, void>,
   'path' | 'verb'
 >
 
@@ -23392,7 +23806,7 @@ export type EnableTwoFactorAuthProps = Omit<
  * enable two factor auth settings
  */
 export const EnableTwoFactorAuth = (props: EnableTwoFactorAuthProps) => (
-  <Mutate<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>
+  <Mutate<ResponseUserInfo, Failure | Error, EnableTwoFactorAuthQueryParams, TwoFactorAuthSettingsInfo, void>
     verb="PUT"
     path={`/user/enable-two-factor-auth`}
     base={getConfig('ng/api')}
@@ -23401,7 +23815,7 @@ export const EnableTwoFactorAuth = (props: EnableTwoFactorAuthProps) => (
 )
 
 export type UseEnableTwoFactorAuthProps = Omit<
-  UseMutateProps<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>,
+  UseMutateProps<ResponseUserInfo, Failure | Error, EnableTwoFactorAuthQueryParams, TwoFactorAuthSettingsInfo, void>,
   'path' | 'verb'
 >
 
@@ -23409,7 +23823,7 @@ export type UseEnableTwoFactorAuthProps = Omit<
  * enable two factor auth settings
  */
 export const useEnableTwoFactorAuth = (props: UseEnableTwoFactorAuthProps) =>
-  useMutate<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>(
+  useMutate<ResponseUserInfo, Failure | Error, EnableTwoFactorAuthQueryParams, TwoFactorAuthSettingsInfo, void>(
     'PUT',
     `/user/enable-two-factor-auth`,
     { base: getConfig('ng/api'), ...props }
@@ -23419,10 +23833,16 @@ export const useEnableTwoFactorAuth = (props: UseEnableTwoFactorAuthProps) =>
  * enable two factor auth settings
  */
 export const enableTwoFactorAuthPromise = (
-  props: MutateUsingFetchProps<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>,
+  props: MutateUsingFetchProps<
+    ResponseUserInfo,
+    Failure | Error,
+    EnableTwoFactorAuthQueryParams,
+    TwoFactorAuthSettingsInfo,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseUserInfo, Failure | Error, void, TwoFactorAuthSettingsInfo, void>(
+  mutateUsingFetch<ResponseUserInfo, Failure | Error, EnableTwoFactorAuthQueryParams, TwoFactorAuthSettingsInfo, void>(
     'PUT',
     getConfig('ng/api'),
     `/user/enable-two-factor-auth`,
@@ -23523,6 +23943,62 @@ export const getUserProjectInfoPromise = (
   getUsingFetch<ResponsePageProject, Failure | Error, GetUserProjectInfoQueryParams, void>(
     getConfig('ng/api'),
     `/user/projects`,
+    props,
+    signal
+  )
+
+export interface GetAccessibleProjectsCountQueryParams {
+  accountIdentifier?: string
+  userId?: string
+  startTime?: number
+  endTime?: number
+}
+
+export type GetAccessibleProjectsCountProps = Omit<
+  GetProps<ResponseActiveProjectsCountDTO, Failure | Error, GetAccessibleProjectsCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get count of projects accessible to a user
+ */
+export const GetAccessibleProjectsCount = (props: GetAccessibleProjectsCountProps) => (
+  <Get<ResponseActiveProjectsCountDTO, Failure | Error, GetAccessibleProjectsCountQueryParams, void>
+    path={`/user/projects-count`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetAccessibleProjectsCountProps = Omit<
+  UseGetProps<ResponseActiveProjectsCountDTO, Failure | Error, GetAccessibleProjectsCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get count of projects accessible to a user
+ */
+export const useGetAccessibleProjectsCount = (props: UseGetAccessibleProjectsCountProps) =>
+  useGet<ResponseActiveProjectsCountDTO, Failure | Error, GetAccessibleProjectsCountQueryParams, void>(
+    `/user/projects-count`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get count of projects accessible to a user
+ */
+export const getAccessibleProjectsCountPromise = (
+  props: GetUsingFetchProps<
+    ResponseActiveProjectsCountDTO,
+    Failure | Error,
+    GetAccessibleProjectsCountQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseActiveProjectsCountDTO, Failure | Error, GetAccessibleProjectsCountQueryParams, void>(
+    getConfig('ng/api'),
+    `/user/projects-count`,
     props,
     signal
   )
@@ -25562,7 +26038,6 @@ export interface GetYamlSchemaQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -25661,7 +26136,6 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'sumologic'
     | 'dynatrace'
     | 'pagerduty'
-    | 'argoconnector'
   )[]
 }
 

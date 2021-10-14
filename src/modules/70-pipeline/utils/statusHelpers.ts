@@ -171,5 +171,10 @@ export const isExecutionFinishedAnyhow = (status?: string): boolean => {
 }
 
 export const isRetryPipelineAllowed = (status?: string): boolean => {
-  return isExecutionFailed(status) || isExecutionExpired(status) || isExecutionApprovalRejected(status)
+  return (
+    isExecutionFailed(status) ||
+    isExecutionExpired(status) ||
+    isExecutionApprovalRejected(status) ||
+    isExecutionAborted(status)
+  )
 }

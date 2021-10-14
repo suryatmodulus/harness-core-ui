@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uicore'
-import { useCreateFeatureFlag, FeatureFlagRequestRequestBody, CreateFeatureFlagQueryParams } from 'services/cf'
+import {
+  useCreateFeatureFlag,
+  FeatureFlagRequestRequestBody,
+  CreateFeatureFlagQueryParams,
+  useGetGitRepo
+} from 'services/cf'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
@@ -9,10 +14,14 @@ import { useStrings } from 'framework/strings'
 import { getErrorMessage, showToaster, FeatureFlagMutivariateKind } from '@cf/utils/CFUtils'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
+import { PageSpinner } from '@common/components'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
+import SaveFlagRepoStep from './SaveFlagRepoStep'
 import css from './FlagWizard.module.scss'
 
 interface FlagWizardProps {
@@ -23,8 +32,13 @@ interface FlagWizardProps {
   goBackToTypeSelections: () => void
 }
 
+export interface FlagWizardFormValues extends FeatureFlagRequestRequestBody {
+  autoCommit: boolean
+}
+
 const FlagWizard: React.FC<FlagWizardProps> = props => {
   const { getString } = useStrings()
+  const { currentUserInfo } = useAppStore()
   const flagTypeOptions: SelectOption[] = [
     { label: getString('cf.boolean'), value: FlagTypeVariations.booleanFlag },
     { label: getString('cf.multivariate'), value: FeatureFlagMutivariateKind.string }
@@ -35,6 +49,17 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
+
+  const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
+
+  const gitRepo = useGetGitRepo({
+    identifier: projectIdentifier,
+    queryParams: {
+      accountIdentifier: accountId,
+      org: orgIdentifier
+    }
+  })
+
   const { mutate: createFeatureFlag, loading: isLoadingCreateFeatureFlag } = useCreateFeatureFlag({
     queryParams: {
       account: accountId,
@@ -43,10 +68,10 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
       environment: activeEnvironment
     } as CreateFeatureFlagQueryParams
   })
-  const { currentUserInfo } = useAppStore()
+
   const events = useFeatureFlagTelemetry()
 
-  const onWizardStepSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {
+  const onWizardSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {
     modalErrorHandler?.hide()
 
     if (formData) {
@@ -57,6 +82,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
       // Note: Currently there's no official way to get current user. Rely on old token from
       // current gen login
       formData.owner = currentUserInfo.email || 'unknown'
+      formData.project = projectIdentifier
     }
 
     if (formData) {
@@ -86,7 +112,9 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   }
 
   return (
-    <StepWizard className={css.flagWizardContainer} onCompleteWizard={onWizardStepSubmit}>
+    <StepWizard className={css.flagWizardContainer} onCompleteWizard={onWizardSubmit}>
+      {gitRepo?.loading ? <PageSpinner /> : null}
+
       <FlagElemAbout
         name={getString('cf.creationModal.aboutFlag.aboutFlagHeading')}
         goBackToTypeSelections={goBackToTypeSelections}
@@ -96,8 +124,6 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
           name={getString('cf.creationModal.variationSettingsHeading')}
           toggleFlagType={toggleFlagType}
           flagTypeOptions={flagTypeOptions}
-          onWizardStepSubmit={onWizardStepSubmit}
-          projectIdentifier={projectIdentifier}
           setModalErrorHandler={setModalErrorHandler}
           isLoadingCreateFeatureFlag={isLoadingCreateFeatureFlag}
         />
@@ -106,12 +132,17 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
           name={getString('cf.creationModal.variationSettingsHeading')}
           toggleFlagType={toggleFlagType}
           flagTypeOptions={flagTypeOptions}
-          onWizardStepSubmit={onWizardStepSubmit}
-          projectIdentifier={projectIdentifier}
           setModalErrorHandler={setModalErrorHandler}
           isLoadingCreateFeatureFlag={isLoadingCreateFeatureFlag}
         />
       )}
+
+      {FF_GITSYNC && gitRepo?.data?.repoSet ? (
+        <SaveFlagRepoStep
+          name={getString('common.gitSync.gitRepositoryDetails')}
+          isLoadingCreateFeatureFlag={isLoadingCreateFeatureFlag}
+        />
+      ) : null}
     </StepWizard>
   )
 }

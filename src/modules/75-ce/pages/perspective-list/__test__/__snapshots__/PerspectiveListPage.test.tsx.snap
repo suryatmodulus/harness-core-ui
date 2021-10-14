@@ -189,7 +189,11 @@ exports[`test cases for Perspective details Page should be able to render and sw
             role="columnheader"
             style="width: 30%;"
           >
-            Name
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              Name
+            </p>
           </div>
           <div
             class="cell"
@@ -197,7 +201,11 @@ exports[`test cases for Perspective details Page should be able to render and sw
             role="columnheader"
             style="width: 15%;"
           >
-            Data Sources
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              Data Sources
+            </p>
           </div>
           <div
             class="cell"
@@ -205,7 +213,11 @@ exports[`test cases for Perspective details Page should be able to render and sw
             role="columnheader"
             style="width: 20%;"
           >
-            Total Cost
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              Total Cost
+            </p>
           </div>
           <div
             class="cell"
@@ -213,7 +225,11 @@ exports[`test cases for Perspective details Page should be able to render and sw
             role="columnheader"
             style="width: 15%;"
           >
-            Time Period
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              Time Period
+            </p>
           </div>
           <div
             class="cell"
@@ -221,7 +237,11 @@ exports[`test cases for Perspective details Page should be able to render and sw
             role="columnheader"
             style="width: 15%;"
           >
-            Last Edit
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              Last Edit
+            </p>
           </div>
           <div
             class="cell"
@@ -229,7 +249,11 @@ exports[`test cases for Perspective details Page should be able to render and sw
             role="columnheader"
             style="width: 5%;"
           >
-            
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              
+            </p>
           </div>
         </div>
         <div

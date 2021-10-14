@@ -145,7 +145,11 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               role="columnheader"
               style="width: 5%;"
             >
-              
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                
+              </p>
             </div>
             <div
               class="cell"
@@ -153,7 +157,11 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               role="columnheader"
               style="width: 35%;"
             >
-              ce.co.instanceSelector.name
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.instanceSelector.name
+              </p>
             </div>
             <div
               class="cell"
@@ -161,7 +169,11 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               role="columnheader"
               style="width: 15%;"
             >
-              ce.co.instanceSelector.ipAddress
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.instanceSelector.ipAddress
+              </p>
             </div>
             <div
               class="cell"
@@ -169,7 +181,11 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               role="columnheader"
               style="width: 15%;"
             >
-              regionLabel
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                regionLabel
+              </p>
             </div>
             <div
               class="cell"
@@ -177,7 +193,11 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               role="columnheader"
               style="width: 15%;"
             >
-              typeLabel
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                typeLabel
+              </p>
             </div>
             <div
               class="cell"
@@ -185,7 +205,11 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               role="columnheader"
               style="width: 10%;"
             >
-              status
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                status
+              </p>
             </div>
           </div>
           <div
@@ -424,7 +448,11 @@ exports[`Instance Selector Modal should show data 1`] = `
               role="columnheader"
               style="width: 5%;"
             >
-              
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                
+              </p>
             </div>
             <div
               class="cell"
@@ -432,7 +460,11 @@ exports[`Instance Selector Modal should show data 1`] = `
               role="columnheader"
               style="width: 35%;"
             >
-              ce.co.instanceSelector.name
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.instanceSelector.name
+              </p>
             </div>
             <div
               class="cell"
@@ -440,7 +472,11 @@ exports[`Instance Selector Modal should show data 1`] = `
               role="columnheader"
               style="width: 15%;"
             >
-              ce.co.instanceSelector.ipAddress
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.instanceSelector.ipAddress
+              </p>
             </div>
             <div
               class="cell"
@@ -448,7 +484,11 @@ exports[`Instance Selector Modal should show data 1`] = `
               role="columnheader"
               style="width: 15%;"
             >
-              regionLabel
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                regionLabel
+              </p>
             </div>
             <div
               class="cell"
@@ -456,7 +496,11 @@ exports[`Instance Selector Modal should show data 1`] = `
               role="columnheader"
               style="width: 15%;"
             >
-              typeLabel
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                typeLabel
+              </p>
             </div>
             <div
               class="cell"
@@ -464,7 +508,11 @@ exports[`Instance Selector Modal should show data 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              status
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                status
+              </p>
             </div>
           </div>
           <div

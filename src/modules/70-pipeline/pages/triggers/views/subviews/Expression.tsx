@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Container } from '@wings-software/uicore'
+import { Text, Container, HarnessDocTooltip } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { scheduleTabsId, isCronValid } from './ScheduleUtils'
@@ -19,7 +19,10 @@ export default function Expression(props: ExpressionInterface): JSX.Element {
   const showError = selectedScheduleTab === scheduleTabsId.CUSTOM && !isCronValid(expression)
   return (
     <Container data-name="expression" className={css.expression}>
-      <Text className={css.label}>{getString('pipeline.triggers.schedulePanel.cronExpression')}</Text>
+      <Text className={css.label} data-tooltip-id="cronExpression">
+        {getString('pipeline.triggers.schedulePanel.cronExpression')}
+      </Text>
+      <HarnessDocTooltip tooltipId="cronExpression" useStandAlone={true} />
       <Container className={cx(css.field, (showError && css.errorField) || '')}>
         <Text>{expression}</Text>
       </Container>

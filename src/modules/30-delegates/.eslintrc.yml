@@ -38,3 +38,5 @@ rules:
             - stringify
           message: Please use yamlStringify from @common/utils/YamlHelperMethods instead
             of this
+        - name: react-router
+          message: import from "react-router-dom" instead

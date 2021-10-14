@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import {
   Color,
   Formik,
-  FormikForm as Form,
+  FormikForm,
   FormInput,
   StepProps,
   Text,
@@ -16,14 +16,13 @@ import {
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
-import type { FeatureFlagRequestRequestBody } from 'services/cf'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
+import type { FlagWizardFormValues } from './FlagWizard'
 import css from './FlagElemVariations.module.scss'
 
-interface FlagElemVariationsProps {
+export interface FlagElemBooleanProps extends StepProps<Partial<FlagWizardFormValues>> {
   toggleFlagType: (newFlag: string) => void
   flagTypeOptions: SelectOption[]
-  onWizardStepSubmit: (data: FeatureFlagRequestRequestBody) => void
   projectIdentifier?: string | number | null | undefined
   // FIXME: Check for the right type
   setModalErrorHandler: Dispatch<SetStateAction<any>>
@@ -35,18 +34,16 @@ const FALSE = 'false'
 const True = 'True'
 const False = 'False'
 
-// FIXME: Change any for StepProps
-const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = props => {
+const FlagElemBoolean = (props: FlagElemBooleanProps): JSX.Element => {
   const {
     toggleFlagType,
     flagTypeOptions,
     prevStepData,
     previousStep,
-    // nextStep,
-    onWizardStepSubmit,
-    projectIdentifier,
     setModalErrorHandler,
-    isLoadingCreateFeatureFlag
+    isLoadingCreateFeatureFlag,
+    currentStep,
+    totalSteps
   } = props
   const { getString } = useStrings()
 
@@ -74,6 +71,8 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
     previousStep?.({ ...prevStepData })
   }
 
+  const isLastStep = currentStep?.() === totalSteps?.()
+
   const onFormikEffect: FormikEffectProps['onChange'] = ({ prevValues, nextValues }) => {
     if (prevValues.variations[0].name !== nextValues.variations[0].name) {
       onTrueFlagChange(nextValues.variations[0].name)
@@ -93,8 +92,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
           { identifier: FALSE, name: False, value: FALSE }
         ],
         defaultOnVariation: TRUE,
-        defaultOffVariation: FALSE,
-        ...prevStepData
+        defaultOffVariation: FALSE
       }}
       formName="cfFlagBool"
       validationSchema={yup.object().shape({
@@ -104,13 +102,12 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
           })
         )
       })}
-      onSubmit={vals => {
-        const data: FeatureFlagRequestRequestBody = { ...prevStepData, ...vals, project: projectIdentifier }
-        onWizardStepSubmit(data)
+      onSubmit={formData => {
+        props.nextStep?.({ ...prevStepData, ...formData, kind: FlagTypeVariations.booleanFlag })
       }}
     >
       {formik => (
-        <Form>
+        <FormikForm data-testid="boolean-step-form">
           <FormikEffect onChange={onFormikEffect} formik={formik} />
           <Container
             flex
@@ -129,6 +126,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
               </Text>
               <Layout.Vertical padding={{ left: 'xsmall' }}>
                 <FormInput.Select
+                  data-testid="kind-dropdown"
                   name="kind"
                   label={getString('cf.creationModal.flagType')}
                   items={flagTypeOptions}
@@ -225,24 +223,15 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
               <Button
                 type="submit"
                 intent="primary"
-                text={getString('cf.creationModal.saveAndClose')}
+                rightIcon={isLastStep ? undefined : 'chevron-right'}
+                text={isLastStep ? getString('cf.creationModal.saveAndClose') : getString('next')}
                 disabled={isLoadingCreateFeatureFlag}
                 loading={isLoadingCreateFeatureFlag}
               />
               <FlexExpander />
-              {/* <Button
-                type="button"
-                text={getString('cf.creationModal.testFlagOption')}
-                rightIcon="chevron-right"
-                minimal
-                className={css.testFfBtn}
-                onClick={() => {
-                  nextStep?.({ ...prevStepData })
-                }}
-              /> */}
             </Layout.Horizontal>
           </Container>
-        </Form>
+        </FormikForm>
       )}
     </Formik>
   )

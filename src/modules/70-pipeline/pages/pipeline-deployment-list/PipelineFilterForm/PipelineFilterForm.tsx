@@ -1,7 +1,7 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
 import { FormInput, SelectOption, Text } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { FilterProperties } from 'services/pipeline-ng'
 import {

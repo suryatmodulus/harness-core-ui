@@ -78,7 +78,11 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          REPOSITORY
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            REPOSITORY
+          </p>
         </div>
         <div
           class="cell"
@@ -86,7 +90,11 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           role="columnheader"
           style="width: 20%;"
         >
-          COMMON.PATH
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            COMMON.PATH
+          </p>
         </div>
         <div
           class="cell"
@@ -94,7 +102,11 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          GITSYNC.DEFAULTBRANCH
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            GITSYNC.DEFAULTBRANCH
+          </p>
         </div>
         <div
           class="cell"
@@ -102,7 +114,11 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           role="columnheader"
           style="width: 50%;"
         >
-          GITSYNC.ROOTFOLDERLISTHEADER
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            GITSYNC.ROOTFOLDERLISTHEADER
+          </p>
         </div>
       </div>
       <div
@@ -900,7 +916,11 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          REPOSITORY
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            REPOSITORY
+          </p>
         </div>
         <div
           class="cell"
@@ -908,7 +928,11 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           role="columnheader"
           style="width: 20%;"
         >
-          COMMON.PATH
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            COMMON.PATH
+          </p>
         </div>
         <div
           class="cell"
@@ -916,7 +940,11 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          GITSYNC.DEFAULTBRANCH
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            GITSYNC.DEFAULTBRANCH
+          </p>
         </div>
         <div
           class="cell"
@@ -924,7 +952,11 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           role="columnheader"
           style="width: 50%;"
         >
-          GITSYNC.ROOTFOLDERLISTHEADER
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            GITSYNC.ROOTFOLDERLISTHEADER
+          </p>
         </div>
       </div>
       <div
@@ -1699,7 +1731,11 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           role="columnheader"
           style="width: 15%;"
         >
-          REPOSITORY
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            REPOSITORY
+          </p>
         </div>
         <div
           class="cell"
@@ -1707,7 +1743,11 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           role="columnheader"
           style="width: 20%;"
         >
-          COMMON.PATH
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            COMMON.PATH
+          </p>
         </div>
         <div
           class="cell"
@@ -1715,7 +1755,11 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           role="columnheader"
           style="width: 15%;"
         >
-          GITSYNC.DEFAULTBRANCH
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            GITSYNC.DEFAULTBRANCH
+          </p>
         </div>
         <div
           class="cell"
@@ -1723,7 +1767,11 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           role="columnheader"
           style="width: 50%;"
         >
-          GITSYNC.ROOTFOLDERLISTHEADER
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            GITSYNC.ROOTFOLDERLISTHEADER
+          </p>
         </div>
       </div>
       <div
@@ -2530,7 +2578,11 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           role="columnheader"
           style="width: 15%;"
         >
-          REPOSITORY
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            REPOSITORY
+          </p>
         </div>
         <div
           class="cell"
@@ -2538,7 +2590,11 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           role="columnheader"
           style="width: 20%;"
         >
-          COMMON.PATH
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            COMMON.PATH
+          </p>
         </div>
         <div
           class="cell"
@@ -2546,7 +2602,11 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           role="columnheader"
           style="width: 15%;"
         >
-          GITSYNC.DEFAULTBRANCH
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            GITSYNC.DEFAULTBRANCH
+          </p>
         </div>
         <div
           class="cell"
@@ -2554,7 +2614,11 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           role="columnheader"
           style="width: 50%;"
         >
-          GITSYNC.ROOTFOLDERLISTHEADER
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            GITSYNC.ROOTFOLDERLISTHEADER
+          </p>
         </div>
       </div>
       <div

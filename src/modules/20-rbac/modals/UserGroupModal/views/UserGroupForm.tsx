@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import {
   Button,
-  Color,
   Container,
   Formik,
   FormikForm as Form,
   Layout,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  Text,
   MultiSelectOption,
   FormInput,
   ButtonVariation
@@ -30,6 +28,7 @@ interface UserGroupModalData {
   isEdit?: boolean
   isAddMember?: boolean
   onSubmit?: () => void
+  onCancel?: () => void
 }
 
 interface UserGroupFormDTO extends UserGroupDTO {
@@ -37,7 +36,7 @@ interface UserGroupFormDTO extends UserGroupDTO {
 }
 
 const UserGroupForm: React.FC<UserGroupModalData> = props => {
-  const { data: userGroupData, onSubmit, isEdit, isAddMember } = props
+  const { data: userGroupData, onSubmit, isEdit, isAddMember, onCancel } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -67,12 +66,6 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
       projectIdentifier
     }
   })
-
-  const getTitle = (): string => {
-    if (isEdit) return getString('rbac.userGroupPage.editUserGroup')
-    if (isAddMember) return getString('rbac.userGroupPage.addMembers')
-    return getString('rbac.userGroupPage.newUserGroup')
-  }
 
   const users: UserItem[] =
     userList?.data?.content?.map(value => {
@@ -121,72 +114,63 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
     }
   }
   return (
-    <Layout.Vertical padding="xxxlarge">
-      <Layout.Vertical spacing="large">
-        <Text color={Color.BLACK} font="medium">
-          {getTitle()}
-        </Text>
-        <Formik<UserGroupFormDTO>
-          initialValues={{
-            identifier: '',
-            name: '',
-            description: '',
-            tags: {},
-            ...userGroupData
-          }}
-          formName="userGroupForm"
-          validationSchema={Yup.object().shape({
-            name: NameSchema(),
-            identifier: IdentifierSchema()
-          })}
-          onSubmit={values => {
-            modalErrorHandler?.hide()
-            if (isEdit || isAddMember) handleEdit(values)
-            else handleCreate(values)
-          }}
-        >
-          {formikProps => {
-            return (
-              <Form>
-                <Container className={css.form}>
-                  <ModalErrorHandler bind={setModalErrorHandler} />
-                  {isAddMember ? null : (
-                    <NameIdDescriptionTags
-                      formikProps={formikProps}
-                      identifierProps={{ isIdentifierEditable: !isEdit }}
-                    />
-                  )}
-                  {isEdit ? null : (
-                    <FormInput.MultiSelect
-                      name="userList"
-                      label={getString('rbac.userGroupPage.addUsers')}
-                      items={users}
-                      className={css.input}
-                      multiSelectProps={{
-                        allowCreatingNewItems: false,
-                        onQueryChange: (query: string) => {
-                          setSearch(query)
-                        },
-                        tagRenderer: UserTagRenderer,
-                        itemRender: UserItemRenderer
-                      }}
-                    />
-                  )}
-                </Container>
-                <Layout.Horizontal>
-                  <Button
-                    variation={ButtonVariation.PRIMARY}
-                    text={getString('save')}
-                    type="submit"
-                    disabled={saving || updating}
-                  />
-                </Layout.Horizontal>
-              </Form>
-            )
-          }}
-        </Formik>
-      </Layout.Vertical>
-    </Layout.Vertical>
+    <Formik<UserGroupFormDTO>
+      initialValues={{
+        identifier: '',
+        name: '',
+        description: '',
+        tags: {},
+        ...userGroupData
+      }}
+      formName="userGroupForm"
+      validationSchema={Yup.object().shape({
+        name: NameSchema(),
+        identifier: IdentifierSchema()
+      })}
+      onSubmit={values => {
+        modalErrorHandler?.hide()
+        if (isEdit || isAddMember) handleEdit(values)
+        else handleCreate(values)
+      }}
+    >
+      {formikProps => {
+        return (
+          <Form>
+            <Container className={css.form}>
+              <ModalErrorHandler bind={setModalErrorHandler} />
+              {isAddMember ? null : (
+                <NameIdDescriptionTags formikProps={formikProps} identifierProps={{ isIdentifierEditable: !isEdit }} />
+              )}
+              {isEdit ? null : (
+                <FormInput.MultiSelect
+                  name="userList"
+                  label={getString('rbac.userGroupPage.addUsers')}
+                  items={users}
+                  className={css.input}
+                  multiSelectProps={{
+                    allowCreatingNewItems: false,
+                    onQueryChange: (query: string) => {
+                      setSearch(query)
+                    },
+                    tagRenderer: item => UserTagRenderer(item, false),
+                    itemRender: UserItemRenderer
+                  }}
+                />
+              )}
+            </Container>
+            <Layout.Horizontal spacing="small">
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                text={getString('save')}
+                type="submit"
+                disabled={saving || updating}
+              />
+              <Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={onCancel} />
+            </Layout.Horizontal>
+          </Form>
+        )
+      }}
+    </Formik>
   )
 }
 

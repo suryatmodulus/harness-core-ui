@@ -1,8 +1,13 @@
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
-import type { ChangeSourceDTO, MonitoredServiceDTO, PagerDutyChangeSourceSpec } from 'services/cv'
+import type {
+  ChangeSourceDTO,
+  HarnessCDCurrentGenChangeSourceSpec,
+  MonitoredServiceDTO,
+  PagerDutyChangeSourceSpec
+} from 'services/cv'
 
 export interface UpdatedChangeSourceDTO extends Omit<ChangeSourceDTO, 'spec'> {
-  spec: PagerDutyChangeSourceSpec
+  spec: PagerDutyChangeSourceSpec | HarnessCDCurrentGenChangeSourceSpec
 }
 
 export interface ChangeSoureDrawerInterface {

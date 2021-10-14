@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { Menu } from '@blueprintjs/core'
 import { Button, Formik, FormikForm, FormInput, Icon, Layout, SelectOption } from '@wings-software/uicore'

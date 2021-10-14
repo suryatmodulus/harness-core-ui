@@ -1,6 +1,8 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import { getRiskLabelStringId } from '@cv/pages/monitored-service/CVMonitoredServiceListingPage.utils'
+import { RiskValues } from '@cv/utils/CommonUtils'
 import ServiceDependenciesLegend from '../ServiceDependenciesLegend'
 
 describe('ServiceDependenciesLegend Tests', () => {
@@ -10,18 +12,10 @@ describe('ServiceDependenciesLegend Tests', () => {
         <ServiceDependenciesLegend />
       </TestWrapper>
     )
-    await waitFor(() =>
-      expect(getByText('cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy')).toBeTruthy()
-    )
-    await waitFor(() =>
-      expect(getByText('cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention')).toBeTruthy()
-    )
-    await waitFor(() =>
-      expect(getByText('cv.monitoredServices.serviceHealth.serviceDependencies.states.observe')).toBeTruthy()
-    )
-    await waitFor(() =>
-      expect(getByText('cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy')).toBeTruthy()
-    )
+    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.UNHEALTHY))).toBeTruthy())
+    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.NEED_ATTENTION))).toBeTruthy())
+    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.OBSERVE))).toBeTruthy())
+    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.HEALTHY))).toBeTruthy())
     await waitFor(() => expect(getByText('na')).toBeTruthy())
     expect(container).toMatchSnapshot()
   })

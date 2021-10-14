@@ -4,6 +4,7 @@ import { ButtonVariation, Checkbox, Color, ExpandingSearchInput } from '@wings-s
 
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 
 import StatusSelect from '@pipeline/components/StatusSelect/StatusSelect'
@@ -88,6 +89,11 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
             permission: PermissionIdentifier.EXECUTE_PIPELINE,
             options: {
               skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
+            }
+          }}
+          featureProps={{
+            featureRequest: {
+              featureName: FeatureIdentifier.DEPLOYMENTS
             }
           }}
         >

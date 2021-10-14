@@ -254,7 +254,8 @@ describe('Testing COGatewayAccess', () => {
               ...initialGatewayDetails.routing,
               k8s: {
                 RuleJson: JSON.stringify(mockedYamlData),
-                ConnectorID: 't1'
+                ConnectorID: 't1',
+                Namespace: 'default'
               }
             }
           }}

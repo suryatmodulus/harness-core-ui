@@ -8,5 +8,6 @@ declare const styles: {
   readonly serviceHealthHeader: string
   readonly main: string
   readonly slider: string
+  readonly tickerContainer: string
 }
 export default styles

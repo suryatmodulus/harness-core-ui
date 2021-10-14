@@ -1,23 +1,29 @@
-import { Button, ButtonVariation, Card, Color, Container, Icon, Layout, Switch, Text } from '@wings-software/uicore'
-import React from 'react'
+import { Button, ButtonVariation, Color, Container, Icon, Layout, Switch, Text } from '@wings-software/uicore'
+import React, { ReactNode } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import { parse } from 'yaml'
+import type { MutateMethod } from 'restful-react'
 import { Page, useToaster } from '@common/exports'
 import {
   NGTriggerConfigV2,
   useGetTriggerDetails,
+  ResponseNGTriggerDetailsResponse,
+  ResponseNGTriggerResponse,
+  UpdateTriggerQueryParams,
+  UpdateTriggerPathParams,
   useUpdateTrigger,
   useGetSchemaYaml,
   useGetPipelineSummary
 } from 'services/pipeline-ng'
-import { useStrings } from 'framework/strings'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import type { tagsType } from '@common/utils/types'
 import { TagsPopover, PageSpinner } from '@common/components'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import DetailPageCard, { ContentType, Content } from '@common/components/DetailPageCard/DetailPageCard'
 import routes from '@common/RouteDefinitions'
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
@@ -30,6 +36,8 @@ import { TriggerBreadcrumbs } from '../trigger-details/TriggerDetails'
 import { getTriggerIcon, getEnabledStatusTriggerValues } from './utils/TriggersListUtils'
 import { clearNullUndefined, ResponseStatus } from './utils/TriggersWizardPageUtils'
 import css from './TriggersDetailPage.module.scss'
+
+const loadingHeaderHeight = 43
 
 export interface ConditionInterface {
   key: string
@@ -46,6 +54,164 @@ const getTriggerConditionsStr = (payloadConditions: ConditionInterface[]): strin
   })
   return arr
 }
+
+const renderConditions = ({
+  conditionsArr,
+  jexlCondition,
+  cronExpression,
+  getString
+}: {
+  conditionsArr: string[]
+  jexlCondition?: string
+  cronExpression?: string
+  getString: UseStringsReturn['getString']
+}): JSX.Element => (
+  <Layout.Vertical style={{ overflowX: 'hidden' }} spacing="medium">
+    {conditionsArr.length ? (
+      <>
+        <Text style={{ fontSize: '12px' }}>{getString('conditions')}</Text>
+        {conditionsArr.map(conditionStr => (
+          <Text color={Color.BLACK} key={conditionStr} width="424px" lineClamp={1}>
+            {conditionStr}
+          </Text>
+        ))}
+      </>
+    ) : null}
+    {jexlCondition ? (
+      <>
+        <Text style={{ fontSize: '12px' }}>{getString('pipeline.triggers.conditionsPanel.jexlCondition')}</Text>
+        <Text color={Color.BLACK} width="424px" lineClamp={1}>
+          {jexlCondition}
+        </Text>
+      </>
+    ) : null}
+    {cronExpression ? (
+      <>
+        <Text style={{ fontSize: '12px' }}>{getString('pipeline.triggers.schedulePanel.cronExpression')}</Text>
+        <Text color={Color.BLACK} width="424px" lineClamp={1}>
+          {cronExpression}
+        </Text>
+      </>
+    ) : null}
+  </Layout.Vertical>
+)
+
+const getOverviewContent = ({
+  getString,
+  name,
+  description,
+  identifier,
+  tags
+}: {
+  getString: UseStringsReturn['getString']
+  name?: string
+  description?: string
+  identifier?: string
+  tags?: tagsType
+}): Content[] => [
+  {
+    label: getString('pipeline.triggers.triggerConfigurationPanel.triggerName'),
+    value: name
+  },
+  {
+    label: getString('description'),
+    value: description || '-'
+  },
+  {
+    label: getString('identifier'),
+    value: identifier
+  },
+  {
+    label: getString('tagsLabel'),
+    value: !isEmpty(tags) ? <TagsPopover tags={tags as tagsType} /> : undefined
+  }
+]
+
+const getDetailsContent = ({
+  getString,
+  conditionsExist,
+  conditionsArr,
+  jexlCondition,
+  cronExpression,
+  pipelineInputSet
+}: {
+  getString: UseStringsReturn['getString']
+  conditionsExist: boolean
+  conditionsArr: string[]
+  jexlCondition?: string
+  cronExpression?: string
+  pipelineInputSet?: string
+}): Content[] => [
+  {
+    label: '',
+    value: conditionsExist ? renderConditions({ conditionsArr, jexlCondition, cronExpression, getString }) : undefined,
+    hideOnUndefinedValue: true,
+    type: ContentType.CUSTOM
+  },
+  {
+    label: getString('pipeline.triggers.pipelineExecutionInput'),
+    value: !isEmpty(pipelineInputSet) ? <pre>{pipelineInputSet}</pre> : undefined,
+    type: ContentType.CUSTOM
+  }
+]
+
+const renderSwitch = ({
+  getString,
+  isTriggerRbacDisabled,
+  triggerResponse,
+  updateTrigger,
+  showSuccess,
+  showError,
+  refetchTrigger
+}: {
+  getString: UseStringsReturn['getString']
+  isTriggerRbacDisabled: boolean
+  triggerResponse: ResponseNGTriggerDetailsResponse
+  // triggerResponse: ResponseNGTriggerDetailsResponse
+  updateTrigger: MutateMethod<
+    ResponseNGTriggerResponse,
+    NGTriggerConfigV2,
+    UpdateTriggerQueryParams,
+    UpdateTriggerPathParams
+  >
+  showSuccess: (message: string | ReactNode, timeout?: number, key?: string) => void
+  showError: (message: string | ReactNode, timeout?: number, key?: string) => void
+  refetchTrigger: () => void
+}): JSX.Element => (
+  <Switch
+    style={{ paddingLeft: '46px' }}
+    label={getString('enabledLabel')}
+    disabled={isTriggerRbacDisabled}
+    checked={triggerResponse.data?.enabled ?? false}
+    onChange={async () => {
+      const { values, error } = getEnabledStatusTriggerValues({
+        data: triggerResponse.data,
+        enabled: !!(triggerResponse.data && !triggerResponse.data.enabled),
+        getString
+      })
+      if (error) {
+        showError(error, undefined, 'pipeline.enable.status.error')
+        return
+      }
+      try {
+        const { status, data } = await updateTrigger(yamlStringify({ trigger: clearNullUndefined(values) }) as any)
+        const dataEnabled = data?.enabled ? 'enabled' : 'disabled'
+        if (status === ResponseStatus.SUCCESS) {
+          showSuccess(
+            getString('pipeline.triggers.toast.toggleEnable', {
+              enabled: dataEnabled,
+              name: data?.name
+            })
+          )
+          refetchTrigger()
+        }
+      } catch (err) {
+        showError(err?.data?.message, undefined, 'pipeline.common.trigger.error')
+      }
+    }}
+  />
+)
+
 export default function TriggersDetailPage(): JSX.Element {
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
@@ -136,8 +302,9 @@ export default function TriggersDetailPage(): JSX.Element {
   })
 
   let triggerJSON
+  const triggerResponseYaml = triggerResponse?.data?.yaml || ''
   try {
-    triggerJSON = parse(triggerResponse?.data?.yaml || '')
+    triggerJSON = parse(triggerResponseYaml)
   } catch (e) {
     // ignore error
   }
@@ -151,7 +318,7 @@ export default function TriggersDetailPage(): JSX.Element {
 
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
-  const triggerObj = parse(triggerResponse?.data?.yaml || '')?.trigger as NGTriggerConfigV2
+  const triggerObj = parse(triggerResponseYaml)?.trigger as NGTriggerConfigV2
   const pipelineInputSet = triggerObj?.inputYaml
   let conditionsArr: string[] = []
   const headerConditionsArr: string[] = triggerObj?.source?.spec?.spec?.headerConditions?.length
@@ -168,6 +335,7 @@ export default function TriggersDetailPage(): JSX.Element {
   conditionsArr = conditionsArr.concat(eventConditionsArr)
   const jexlCondition = triggerObj?.source?.spec?.spec?.jexlCondition
   const cronExpression = triggerObj?.source?.spec?.spec?.expression
+  const conditionsExist = [...conditionsArr, jexlCondition, cronExpression].some(x => !!x)
   const { data: pipeline } = useGetPipelineSummary({
     pipelineIdentifier,
     queryParams: {
@@ -186,73 +354,52 @@ export default function TriggersDetailPage(): JSX.Element {
   return (
     <>
       <Container
-        style={{ borderBottom: '1px solid var(--grey-200)' }}
+        style={{ borderBottom: '1px solid var(--grey-200)', padding: '12px 24px 10px 24px' }}
         padding={{ top: 'xlarge', left: 'xlarge', bottom: 'medium', right: 'xlarge' }}
         background={Color.PRIMARY_1}
       >
         <Layout.Vertical spacing="medium">
           <TriggerBreadcrumbs pipelineResponse={pipeline} />
-          <div>
+          {loadingTrigger && <Container height={loadingHeaderHeight} />}
+          {triggerResponse && !loadingTrigger && (
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <Icon
                 name={
-                  triggerResponse?.data?.type
+                  triggerResponse.data?.type
                     ? getTriggerIcon({
                         type: triggerResponse.data.type,
-                        webhookSourceRepo: triggerResponse?.data?.webhookDetails?.webhookSourceRepo
+                        webhookSourceRepo: triggerResponse.data.webhookDetails?.webhookSourceRepo,
+                        buildType: triggerResponse.data.buildDetails?.buildType
                       })
                     : 'yaml-builder-trigger'
                 }
-                size={26}
+                size={35}
               />
-              <Layout.Horizontal spacing="small" data-testid={triggerResponse?.data?.identifier}>
+              <Layout.Horizontal spacing="small" data-testid={triggerResponse.data?.identifier}>
                 <Layout.Vertical padding={{ left: 'small' }}>
                   <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                    <Text style={{ fontSize: 20 }} color={Color.BLACK}>
-                      {triggerResponse?.data?.name}
+                    <Text style={{ fontSize: 20, fontWeight: 600 }} color={Color.GREY_700}>
+                      {triggerResponse.data?.name}
                     </Text>
-                    <Text>{getString('enabledLabel')}</Text>
-                    <Switch
-                      label=""
-                      disabled={isTriggerRbacDisabled}
-                      checked={triggerResponse?.data?.enabled ?? false}
-                      onChange={async () => {
-                        const { values, error } = getEnabledStatusTriggerValues({
-                          data: triggerResponse?.data,
-                          enabled: (triggerResponse?.data && !triggerResponse?.data.enabled) || false,
-                          getString
-                        })
-                        if (error) {
-                          showError(error, undefined, 'pipeline.enable.status.error')
-                          return
-                        }
-                        try {
-                          const { status, data } = await updateTrigger(
-                            yamlStringify({ trigger: clearNullUndefined(values) }) as any
-                          )
-                          if (status === ResponseStatus.SUCCESS) {
-                            showSuccess(
-                              getString('pipeline.triggers.toast.toggleEnable', {
-                                enabled: data?.enabled ? 'enabled' : 'disabled',
-                                name: data?.name
-                              })
-                            )
-                            refetchTrigger()
-                          }
-                        } catch (err) {
-                          showError(err?.data?.message, undefined, 'pipeline.common.trigger.error')
-                        }
-                      }}
-                    />
+                    {renderSwitch({
+                      getString,
+                      isTriggerRbacDisabled,
+                      triggerResponse,
+                      updateTrigger,
+                      showSuccess,
+                      refetchTrigger,
+                      showError
+                    })}
                   </Layout.Horizontal>
-                  <Text>{triggerResponse?.data?.identifier}</Text>
+                  <Text>
+                    {getString('common.ID')}: {triggerResponse.data?.identifier}
+                  </Text>
                 </Layout.Vertical>
               </Layout.Horizontal>
             </Layout.Horizontal>
-          </div>
+          )}
         </Layout.Vertical>
       </Container>
-
       <Page.Body loading={loadingTrigger || updateTriggerLoading} className={css.main}>
         <Layout.Horizontal className={css.panel}>
           <Layout.Vertical spacing="medium" className={css.information}>
@@ -266,7 +413,7 @@ export default function TriggersDetailPage(): JSX.Element {
               ></VisualYamlToggle>
               <Button
                 variation={ButtonVariation.SECONDARY}
-                icon="Edit"
+                icon="edit"
                 onClick={goToEditWizard}
                 minimal
                 disabled={isTriggerRbacDisabled}
@@ -275,64 +422,28 @@ export default function TriggersDetailPage(): JSX.Element {
             </Layout.Horizontal>
             {selectedView === SelectedView.VISUAL ? (
               <Layout.Horizontal spacing="medium">
-                <Card interactive={false} elevation={0} selected={false} className={css.overview}>
-                  <Text font={{ size: 'medium', weight: 'bold' }}>{getString('overview')}</Text>
-                  <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
-                    <Text>{getString('pipeline.triggers.triggerConfigurationPanel.triggerName')}</Text>
-                    <Text font={{ weight: 'bold' }} width="424px" lineClamp={1}>
-                      {triggerResponse?.data?.name}
-                    </Text>
-                    <hr />
-                    <Text>{getString('description')}</Text>
-                    <Text font={{ weight: 'bold' }} width="424px" lineClamp={1}>
-                      {triggerResponse?.data?.description || '-'}
-                    </Text>
-                    <hr />
-                    <Text>{getString('identifier')}</Text>
-                    <Text font={{ weight: 'bold' }} width="424px" lineClamp={1}>
-                      {triggerResponse?.data?.identifier}
-                    </Text>
-                    <hr />
-                    <Text>{getString('tagsLabel')}</Text>
-                    {!isEmpty(triggerResponse?.data?.tags) ? (
-                      <TagsPopover tags={triggerResponse?.data?.tags as tagsType} />
-                    ) : null}
-                  </Layout.Vertical>
-                </Card>
-                <Card interactive={false} elevation={0} selected={false} className={css.inputSet}>
-                  <Text font={{ size: 'medium', weight: 'bold' }}>{getString('details')}</Text>
-                  <Layout.Vertical style={{ overflowX: 'hidden' }} spacing="medium" padding={{ top: 'medium' }}>
-                    {conditionsArr.length ? (
-                      <>
-                        <Text>{getString('conditions')}</Text>
-                        {conditionsArr.map(conditionStr => (
-                          <Text key={conditionStr} font={{ weight: 'bold' }} width="424px" lineClamp={1}>
-                            {conditionStr}
-                          </Text>
-                        ))}
-                      </>
-                    ) : null}
-                    {jexlCondition ? (
-                      <>
-                        <Text>{getString('pipeline.triggers.conditionsPanel.jexlCondition')}</Text>
-                        <Text font={{ weight: 'bold' }} width="424px" lineClamp={1}>
-                          {jexlCondition}
-                        </Text>
-                      </>
-                    ) : null}
-                    {cronExpression ? (
-                      <>
-                        <Text>{getString('pipeline.triggers.schedulePanel.cronExpression')}</Text>
-                        <Text font={{ weight: 'bold' }} width="424px" lineClamp={1}>
-                          {cronExpression}
-                        </Text>
-                      </>
-                    ) : null}
-                    {conditionsArr?.length || cronExpression ? <hr /> : null}
-                    <Text>{getString('pipeline.triggers.pipelineExecutionInput')}</Text>
-                    {!isEmpty(pipelineInputSet) && <pre>{pipelineInputSet}</pre>}
-                  </Layout.Vertical>
-                </Card>
+                <DetailPageCard
+                  title={getString('overview')}
+                  content={getOverviewContent({
+                    getString,
+                    name: triggerResponse?.data?.name,
+                    description: triggerResponse?.data?.description,
+                    identifier: triggerResponse?.data?.identifier,
+                    tags: triggerResponse?.data?.tags
+                  })}
+                />
+                <DetailPageCard
+                  classname={css.inputSet}
+                  title={getString('details')}
+                  content={getDetailsContent({
+                    getString,
+                    conditionsExist,
+                    conditionsArr,
+                    jexlCondition,
+                    cronExpression,
+                    pipelineInputSet
+                  })}
+                />
               </Layout.Horizontal>
             ) : (
               <div className={css.editor}>
@@ -345,6 +456,7 @@ export default function TriggersDetailPage(): JSX.Element {
                     showSnippetSection={false}
                     schema={pipelineSchema?.data}
                     onEnableEditMode={goToEditWizard}
+                    // isEditModeSupported={!isTriggerRbacDisabled}
                   />
                 )}
               </div>
@@ -352,7 +464,7 @@ export default function TriggersDetailPage(): JSX.Element {
           </Layout.Vertical>
           <Layout.Vertical style={{ flex: 1 }}>
             <Layout.Horizontal spacing="xxlarge">
-              <Text font={{ size: 'medium', weight: 'bold' }}>
+              <Text font={{ size: 'medium', weight: 'bold' }} inline={true} color={Color.GREY_800}>
                 {getString('pipeline.triggers.lastActivationDetails')}
               </Text>
               {triggerResponse?.data?.lastTriggerExecutionDetails?.lastExecutionSuccessful === false ? (
@@ -361,6 +473,8 @@ export default function TriggersDetailPage(): JSX.Element {
                   icon="warning-sign"
                   iconProps={{ color: Color.RED_500 }}
                   color={Color.RED_500}
+                  font={{ size: 'medium' }}
+                  inline={true}
                 >
                   {getString('failed')}
                 </Text>
@@ -371,13 +485,15 @@ export default function TriggersDetailPage(): JSX.Element {
                     icon="execution-success"
                     color={Color.GREEN_500}
                     iconProps={{ color: Color.GREEN_500 }}
+                    font={{ size: 'medium' }}
+                    inline={true}
                   >
                     {getString('passed')}
                   </Text>
                 )
               )}
             </Layout.Horizontal>
-            <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
+            <Layout.Vertical spacing="small" margin={{ top: 'small' }}>
               <div>
                 {triggerResponse?.data?.lastTriggerExecutionDetails?.lastExecutionTime ? (
                   <Text>

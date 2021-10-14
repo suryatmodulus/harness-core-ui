@@ -13,7 +13,7 @@ import {
   Container
 } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

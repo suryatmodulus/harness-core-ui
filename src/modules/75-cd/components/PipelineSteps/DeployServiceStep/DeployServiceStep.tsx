@@ -15,7 +15,7 @@ import {
   useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, isNil, noop, omit } from 'lodash-es'
+import { defaultTo, get, isEmpty, isNil, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -238,7 +238,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
     if (!isNil(services)) {
       const newService = {
         description: value.description,
-        identifier: value.identifier,
+        identifier: defaultTo(value.identifier, ''),
         name: value.name || '',
         tags: value.tags
       }

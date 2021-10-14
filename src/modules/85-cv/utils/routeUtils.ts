@@ -1,5 +1,3 @@
-import type { ActivitySourceDTO } from 'services/cv'
-
 export const ActivitySourceSetupRoutePaths = {
   KUBERNETES: 'kubernetes',
   HARNESS_CD: 'harness-cd'
@@ -11,7 +9,7 @@ export const MonitoringSourceSetupRoutePaths = {
   PROMETHEUS: 'prometheus'
 }
 
-export const getRoutePathByType = (type: any | ActivitySourceDTO['type']) => {
+export const getRoutePathByType = (type: any) => {
   switch (type) {
     case 'KUBERNETES':
       return ActivitySourceSetupRoutePaths.KUBERNETES

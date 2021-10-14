@@ -55,10 +55,7 @@ export const getTriggerIcon = ({
 
 const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapInterface => ({
   drawerLabel: getString('pipeline.triggers.triggersLabel'),
-  drawerSubLabel: getString('pipeline.triggers.triggersSubLabel'),
   showAllLabel: getString('pipeline.triggers.showAllTriggers'),
-  searchPlaceholder: getString('pipeline.triggers.searchPlaceholder'),
-
   categories: [
     {
       categoryLabel: getString('execution.triggerType.WEBHOOK'),

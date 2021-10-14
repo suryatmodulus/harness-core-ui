@@ -27,15 +27,15 @@ const FeatureFlagsLandingPage: React.FC = () => {
     }
   })
 
-  if (gitRepo.loading || isGitSyncEnabled.loading) {
+  if (gitRepo?.loading || isGitSyncEnabled.loading) {
     return <PageSpinner />
   }
 
-  if (!FF_GITSYNC || !isGitSyncEnabled.data?.gitSyncEnabled || gitRepo.data?.repoSet) {
-    return <FeatureFlagsPage />
+  if (FF_GITSYNC && isGitSyncEnabled.data?.gitSyncEnabled && !gitRepo?.data?.repoSet) {
+    return <SelectFlagGitRepoPage gitRepoRefetch={gitRepo?.refetch} />
   }
 
-  return <SelectFlagGitRepoPage gitRepoRefetch={gitRepo.refetch} />
+  return <FeatureFlagsPage />
 }
 
 export default FeatureFlagsLandingPage

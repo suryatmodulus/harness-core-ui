@@ -49,6 +49,7 @@ declare interface Window {
   Harness: {
     openNgTooltipEditor: () => void
   }
+  getApiBaseUrl: (str: string) => string
   MktoForms2: any
 }
 
@@ -60,3 +61,8 @@ declare interface Document {
 declare const monaco: any
 
 declare module 'event-source-polyfill'
+
+declare module 'gitopsui/MicroFrontendApp' {
+  import type { ChildAppComponent } from './microfrontends/microfrontendTypes'
+  export const ChildApp: ChildAppComponent
+}

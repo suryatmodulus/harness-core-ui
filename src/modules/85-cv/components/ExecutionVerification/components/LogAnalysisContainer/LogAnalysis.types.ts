@@ -13,7 +13,7 @@ export type LogAnalysisRowData = {
   count: number
   messageFrequency: SeriesLineOptions[]
   riskScore: number
-  riskStatus: string
+  riskStatus: LogData['riskStatus']
 }
 
 export interface LogAnalysisContainerProps {

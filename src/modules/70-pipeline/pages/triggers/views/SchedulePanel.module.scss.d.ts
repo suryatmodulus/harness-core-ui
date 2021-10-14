@@ -2,6 +2,8 @@
 // this is an auto-generated file
 declare const styles: {
   readonly schedulePanelContainer: string
+  readonly formContentTitle: string
+  readonly formContent: string
   readonly heading: string
   readonly date: string
   readonly timePopover: string

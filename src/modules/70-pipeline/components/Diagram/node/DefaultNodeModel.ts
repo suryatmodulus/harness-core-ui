@@ -35,7 +35,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   tertiaryIconProps?: Omit<IconProps, 'name'>
   tertiaryIconStyle?: CSSProperties
   iconSize?: number
-  selected?: boolean
+  defaultSelected?: boolean
   allowDropOnLink?: boolean
   allowDropOnNode?: boolean
   disableClick?: boolean

@@ -4,7 +4,8 @@ import cx from 'classnames'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { useStrings } from 'framework/strings'
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
+import { getRiskColorValue } from '@cv/utils/CommonUtils'
+import { getRiskLabelStringId } from '@cv/pages/monitored-service/CVMonitoredServiceListingPage.utils'
 import getLogAnalysisLineChartOptions from './LogAnalysisLineChartConfig'
 import { LogAnalysisRiskAndJiraModal } from './components/LogAnalysisRiskAndJiraModal/LogAnalysisRiskAndJiraModal'
 import type {
@@ -40,6 +41,7 @@ function ColumnHeaderRow(): JSX.Element {
 }
 
 function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
+  const { getString } = useStrings()
   const { rowData } = props
   const { riskScore, riskStatus } = rowData
   const color = getRiskColorValue(riskStatus)
@@ -77,7 +79,7 @@ function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
         {riskScore || riskScore === 0 ? (
           <div className={css.healthScoreCard} style={{ background: color }}>
             <Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.WHITE}>
-              {riskStatus}
+              {getString(getRiskLabelStringId(riskStatus)).toUpperCase()}
             </Text>
           </div>
         ) : null}

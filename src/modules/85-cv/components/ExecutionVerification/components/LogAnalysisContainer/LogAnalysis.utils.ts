@@ -1,4 +1,4 @@
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
+import { getRiskColorValue } from '@cv/utils/CommonUtils'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type { UseStringsReturn } from 'framework/strings'
 import type { LogData, RestResponsePageLogAnalysisClusterDTO } from 'services/cv'
@@ -47,7 +47,7 @@ export function getLogAnalysisData(data: RestResponsePageLogAnalysisClusterDTO |
         }
       ],
       riskScore: d?.score as number,
-      riskStatus: d?.risk as string
+      riskStatus: d?.risk
     })) ?? []
   )
 }

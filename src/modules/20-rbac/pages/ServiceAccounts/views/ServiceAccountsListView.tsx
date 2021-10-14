@@ -265,6 +265,7 @@ const ServiceAccountsListView: React.FC<ServiceAccountsListViewProps> = ({
       data={data?.content || []}
       columns={columns}
       className={css.table}
+      name="ServiceAccountsListView"
       onRowClick={serviceAcc => {
         history.push(
           routes.toServiceAccountDetails({

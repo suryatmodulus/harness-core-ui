@@ -126,6 +126,9 @@ const SideNavItems = () => {
       <React.Fragment>
         <SidebarLink label={getString('overview')} to={routes.toCEOverview({ accountId })} />
         <SidebarLink label={getString('ce.perspectives.sideNavText')} to={routes.toCEPerspectives({ accountId })} />
+        {localStorage.BUDGETS && (
+          <SidebarLink label={getString('ce.budgets.sideNavText')} to={routes.toCEBudgets({ accountId })} />
+        )}
         <SidebarLink
           label={getString('ce.recommendation.sideNavText')}
           to={routes.toCERecommendations({ accountId })}

@@ -34,9 +34,11 @@ const NoDataPerspectivePage = () => {
       closeModal()
     }
   })
+
   useEffect(() => {
     openModal()
   }, [])
+
   return (
     <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}></div>
   )

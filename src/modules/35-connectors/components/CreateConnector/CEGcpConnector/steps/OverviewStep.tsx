@@ -12,7 +12,7 @@ import {
   StepProps,
   Icon
 } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { pick, omit, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import {

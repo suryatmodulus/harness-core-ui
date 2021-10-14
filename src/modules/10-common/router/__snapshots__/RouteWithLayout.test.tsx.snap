@@ -39,8 +39,7 @@ exports[`RouteWithLayout basic 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   common.home
@@ -96,8 +95,7 @@ exports[`RouteWithLayout basic 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   deploymentsText
@@ -153,8 +151,7 @@ exports[`RouteWithLayout basic 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   buildsText
@@ -228,8 +225,7 @@ exports[`RouteWithLayout basic 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   featureFlagsText
@@ -283,8 +279,7 @@ exports[`RouteWithLayout basic 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   cloudCostsText
@@ -338,8 +333,7 @@ exports[`RouteWithLayout basic 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   common.changeIntelligence
@@ -532,8 +526,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   common.home
@@ -589,8 +582,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   deploymentsText
@@ -646,8 +638,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   buildsText
@@ -721,8 +712,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   featureFlagsText
@@ -776,8 +766,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   cloudCostsText
@@ -831,8 +820,7 @@ exports[`RouteWithLayout minimal 1`] = `
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   common.changeIntelligence
@@ -981,8 +969,7 @@ exports[`RouteWithLayout that the license store will render the child if the lic
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   common.home
@@ -1038,8 +1025,7 @@ exports[`RouteWithLayout that the license store will render the child if the lic
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   deploymentsText
@@ -1095,8 +1081,7 @@ exports[`RouteWithLayout that the license store will render the child if the lic
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   buildsText
@@ -1170,8 +1155,7 @@ exports[`RouteWithLayout that the license store will render the child if the lic
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   featureFlagsText
@@ -1225,8 +1209,7 @@ exports[`RouteWithLayout that the license store will render the child if the lic
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   cloudCostsText
@@ -1280,8 +1263,7 @@ exports[`RouteWithLayout that the license store will render the child if the lic
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   common.changeIntelligence
@@ -1491,8 +1473,7 @@ exports[`RouteWithLayout that the license store will route to the subscriptions 
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   common.home
@@ -1548,8 +1529,7 @@ exports[`RouteWithLayout that the license store will route to the subscriptions 
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   deploymentsText
@@ -1605,8 +1585,7 @@ exports[`RouteWithLayout that the license store will route to the subscriptions 
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   buildsText
@@ -1680,8 +1659,7 @@ exports[`RouteWithLayout that the license store will route to the subscriptions 
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   featureFlagsText
@@ -1735,8 +1713,7 @@ exports[`RouteWithLayout that the license store will route to the subscriptions 
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   cloudCostsText
@@ -1790,8 +1767,7 @@ exports[`RouteWithLayout that the license store will route to the subscriptions 
                 </svg>
               </span>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font StyledProps--main text StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
               >
                 <span>
                   common.changeIntelligence

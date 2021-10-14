@@ -1,25 +1,19 @@
 import React, { ReactElement } from 'react'
 import { pick } from 'lodash-es'
 import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-software/uicore'
-import { PopoverInteractionKind } from '@blueprintjs/core'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import { useFeature } from '@common/hooks/useFeatures'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { FeatureRequest } from 'framework/featureStore/FeaturesContext'
+import type { FeatureProps } from 'framework/featureStore/FeaturesContext'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 
 interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
   featureProps?: FeatureProps
+  iconClassName?: string
 }
-
-interface FeatureProps {
-  featureRequest: FeatureRequest
-  isPermissionPrioritized?: boolean
-}
-
 interface BtnProps {
   disabled: boolean
   tooltip?: ReactElement
@@ -29,6 +23,7 @@ const RbacButton: React.FC<ButtonProps> = ({
   permission: permissionRequest,
   featureProps,
   tooltipProps,
+  iconClassName,
   ...restProps
 }) => {
   const { enabled: featureEnabled, featureDetail } = useFeature({
@@ -60,14 +55,10 @@ const RbacButton: React.FC<ButtonProps> = ({
 
     // feature check by default take priority
     if (featureProps?.featureRequest && !featureEnabled) {
+      const module = featureDetail?.moduleType && (featureDetail.moduleType.toLowerCase() as Module)
       return {
         disabled: true,
-        tooltip: (
-          <FeatureWarningTooltip
-            featureName={featureProps?.featureRequest.featureName}
-            module={featureDetail?.moduleType?.toLowerCase() as Module}
-          />
-        )
+        tooltip: <FeatureWarningTooltip featureName={featureProps?.featureRequest.featureName} module={module} />
       }
     }
 
@@ -102,9 +93,7 @@ const RbacButton: React.FC<ButtonProps> = ({
       {...restProps}
       disabled={restProps.disabled || disabled}
       tooltip={disabled ? tooltip : restProps.tooltip ? restProps.tooltip : undefined}
-      tooltipProps={
-        disabled ? { hoverCloseDelay: 50, interactionKind: PopoverInteractionKind.HOVER_TARGET_ONLY } : tooltipProps
-      }
+      tooltipProps={disabled ? { hoverCloseDelay: 50 } : tooltipProps}
     />
   )
 }

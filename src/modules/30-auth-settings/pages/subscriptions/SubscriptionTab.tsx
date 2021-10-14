@@ -1,9 +1,10 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import cx from 'classnames'
 
 import { Button, Layout } from '@wings-software/uicore'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import { useStrings } from 'framework/strings'
+import { useQueryParams } from '@common/hooks'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { ModuleLicenseDTO } from 'services/cd-ng'
 
@@ -16,9 +17,9 @@ import SubscriptionPlans from './plans/SubscriptionPlans'
 import css from './SubscriptionsPage.module.scss'
 
 export enum SUBSCRIPTION_TAB_NAMES {
-  OVERVIEW,
-  PLANS,
-  BILLING
+  OVERVIEW = 'OVERVIEW',
+  PLANS = 'PLANS',
+  BILLING = 'BILLING'
 }
 export interface SubscriptionTabInfo {
   name: SUBSCRIPTION_TAB_NAMES
@@ -70,8 +71,15 @@ const SubscriptionTab = ({
 
   const [selectedSubscriptionTab, setSelectedSubscriptionTab] = useState<SubscriptionTabInfo>(SUBSCRIPTION_TABS[0])
   const { getString } = useStrings()
+  const { tab: queryTab } = useQueryParams<{ tab?: SUBSCRIPTION_TAB_NAMES }>()
 
   const { isFree, edition, isExpired, expiredDays, days } = trialInfo
+
+  useEffect(() => {
+    if (queryTab) {
+      setSelectedSubscriptionTab(SUBSCRIPTION_TABS.find(tab => tab.name === queryTab) || SUBSCRIPTION_TABS[0])
+    }
+  }, [queryTab])
 
   function getBanner(): React.ReactElement | null {
     if ((!isExpired && licenseData?.licenseType !== 'TRIAL' && expiredDays > 14) || isFree) {

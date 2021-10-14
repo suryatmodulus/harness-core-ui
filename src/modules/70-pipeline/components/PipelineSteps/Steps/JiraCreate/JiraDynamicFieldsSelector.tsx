@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FieldArray, FormikProps } from 'formik'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import {
   Button,
   Formik,

@@ -838,7 +838,11 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
               role="columnheader"
               style="width: 60%;"
             >
-              Source
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Source
+              </p>
             </div>
             <div
               class="cell"
@@ -846,7 +850,11 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
               role="columnheader"
               style="width: 40%;"
             >
-              Type
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Type
+              </p>
             </div>
           </div>
           <div
@@ -1321,7 +1329,11 @@ exports[`Test ContinousVerificationStep Step should render editView when current
               role="columnheader"
               style="width: 60%;"
             >
-              Source
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Source
+              </p>
             </div>
             <div
               class="cell"
@@ -1329,7 +1341,11 @@ exports[`Test ContinousVerificationStep Step should render editView when current
               role="columnheader"
               style="width: 40%;"
             >
-              Type
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Type
+              </p>
             </div>
           </div>
           <div

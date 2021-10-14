@@ -4,6 +4,7 @@ import { cloneDeep } from 'lodash-es'
 import { Classes } from '@blueprintjs/core'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
+import { RiskValues } from '@cv/utils/CommonUtils'
 import { DeploymentProgressAndNodes, DeploymentProgressAndNodesProps } from '../DeploymentProgressAndNodes'
 
 const BaselineDeploymentMockData: DeploymentProgressAndNodesProps = {
@@ -31,13 +32,13 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
       canary: [
         {
           hostName: 'harness-test-appd-deployment-68977b7dbf-shkq6',
-          risk: 'LOW',
+          risk: RiskValues.HEALTHY,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'harness-test-appd-deployment-68977b7dbf-27znb',
-          risk: 'LOW',
+          risk: RiskValues.HEALTHY,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         }
@@ -47,13 +48,13 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
       primary: [
         {
           hostName: 'manager-b6b7c4d9b-s228g',
-          risk: 'NO_DATA',
+          risk: RiskValues.NO_DATA,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-b6b7c4d9b-p2qlw',
-          risk: 'HIGH',
+          risk: RiskValues.UNHEALTHY,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
@@ -71,7 +72,7 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
         },
         {
           hostName: 'manager-58d9c944df-czh8b',
-          risk: 'NO_DATA',
+          risk: RiskValues.NO_DATA,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
@@ -89,13 +90,13 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
         },
         {
           hostName: 'manager-b6b7c4d9b-7cp2g',
-          risk: 'HIGH',
+          risk: RiskValues.UNHEALTHY,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
         {
           hostName: 'manager-b6b7c4d9b-s6zzs',
-          risk: 'HIGH',
+          risk: RiskValues.UNHEALTHY,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
@@ -107,7 +108,7 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
         },
         {
           hostName: 'manager-b6b7c4d9b-c8gzk',
-          risk: 'HIGH',
+          risk: RiskValues.UNHEALTHY,
           anomalousMetricsCount: 0,
           anomalousLogClustersCount: 0
         },
@@ -191,7 +192,7 @@ describe('Deployment progress and nodes unit tests', () => {
         anomalousLogClustersCount: 0,
         anomalousMetricsCount: 0,
         hostName: 'harness-test-appd-deployment-68977b7dbf-shkq6',
-        risk: 'LOW'
+        risk: RiskValues.HEALTHY
       })
     )
     expect(container.querySelector('[class*="hexagonContainer"] [class*="selected"]')).not.toBeNull()

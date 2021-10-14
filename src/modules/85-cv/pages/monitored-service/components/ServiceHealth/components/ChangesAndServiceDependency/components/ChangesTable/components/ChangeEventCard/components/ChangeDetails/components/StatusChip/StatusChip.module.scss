@@ -1,0 +1,12 @@
+.statusButton {
+  width: fit-content;
+  padding: var(--spacing-small) !important;
+  height: 20px;
+  font-size: var(--font-size-xsmall) !important;
+  text-align: center;
+  border-radius: 8px !important;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

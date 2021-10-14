@@ -84,6 +84,9 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
         class="StyledProps--font StyledProps--main content"
       >
         <div
+          class="StyledProps--font StyledProps--main tickerContainer"
+        />
+        <div
           class="StyledProps--font StyledProps--main main"
         >
           <div
@@ -145,6 +148,11 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
                 >
                   deploymentsText
                 </p>
+                <div
+                  class="StyledProps--font StyledProps--main timeline"
+                >
+                  <hr />
+                </div>
               </div>
             </div>
             <div
@@ -159,6 +167,11 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
                 >
                   infrastructureText
                 </p>
+                <div
+                  class="StyledProps--font StyledProps--main timeline"
+                >
+                  <hr />
+                </div>
               </div>
             </div>
             <div
@@ -173,6 +186,11 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
                 >
                   cv.changeSource.tooltip.incidents
                 </p>
+                <div
+                  class="StyledProps--font StyledProps--main timeline"
+                >
+                  <hr />
+                </div>
               </div>
             </div>
             <div

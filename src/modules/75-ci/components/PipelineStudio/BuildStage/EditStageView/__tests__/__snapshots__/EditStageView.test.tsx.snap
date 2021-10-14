@@ -568,7 +568,12 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 <label
                   class="bp3-label"
                 >
-                  connector
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="ciEditStage_connectorRef"
+                  >
+                    connector
+                  </span>
                    
                   <span
                     class="bp3-text-muted"

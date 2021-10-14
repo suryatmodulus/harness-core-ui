@@ -11,6 +11,15 @@
   }
 }
 
+.sourceName {
+  p {
+    padding-right: var(--spacing-medium) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}
+
 .loading,
 .noData,
 .error {

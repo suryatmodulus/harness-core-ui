@@ -16,10 +16,10 @@ const DashboardNoDataWidget: React.FC<DashboardNoDataWidgetProps> = props => {
 
   return (
     <Layout.Vertical className={props.className} background={Color.YELLOW_50} flex={{ justifyContent: 'center' }}>
-      <Icon name="no-deployments" size={215} {...props.iconProps}></Icon>
+      <Icon name="no-deployments" size={215} {...props.iconProps} />
       {props.label}
       <NavLink to={props.getStartedLink}>
-        <Text color={Color.PRIMARY_7}>{'Get Started'}</Text>
+        <Text color={Color.PRIMARY_7}>{getString('getStarted')}</Text>
       </NavLink>
     </Layout.Vertical>
   )

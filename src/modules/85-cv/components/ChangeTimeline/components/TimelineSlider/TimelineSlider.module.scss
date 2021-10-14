@@ -16,8 +16,8 @@
   }
 
   .sliderContainer {
-    border: 3px solid var(--primary-color);
-    border-radius: 3px;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
     height: 100% !important;
     position: relative;
     box-sizing: border-box;
@@ -70,7 +70,7 @@
     }
 
     &::after {
-      --triangle-height: 14px;
+      --triangle-height: 10px;
       content: '';
       width: 0;
       height: 0;

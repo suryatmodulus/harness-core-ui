@@ -7,19 +7,20 @@ import { TimestampChart } from '../TimestampChart/TimestampChart'
 import css from './Timeline.module.scss'
 
 export function Timeline(props: TimelineProps): JSX.Element {
-  const { timelineRows, timestamps, labelWidth, timeFormat } = props
+  const { timelineRows, timestamps = [], labelWidth, timeFormat, isLoading, rowOffset } = props
   const { getString } = useStrings()
   return (
     <Container className={css.main}>
       {timelineRows?.map((timelineProps, index) => {
         return (
           <TimelineRow
-            isLoading={timelineProps.isLoading}
+            isLoading={isLoading}
             noDataMessage={timelineProps.noDataMessage}
-            min={timestamps?.[0]}
-            max={timestamps?.[timestamps?.length - 1]}
+            startTimestamp={timestamps[0]}
+            endTimestamp={timestamps[timestamps?.length - 1]}
             labelWidth={labelWidth}
             {...timelineProps}
+            leftOffset={rowOffset}
             key={`${timelineProps.labelName}-${index}`}
           />
         )

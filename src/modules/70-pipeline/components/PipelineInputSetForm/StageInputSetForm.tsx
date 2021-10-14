@@ -261,23 +261,6 @@ function ExecutionWrapperInputSetForm(props: {
                       viewType={viewType}
                     />
                   </CollapseForm>
-                  {nodep.stepGroup.rollbackSteps && (
-                    <CollapseForm
-                      header={stepGroup?.stepGroup?.name + ' (Rollback)' || ''}
-                      headerProps={{ font: { size: 'normal' } }}
-                      headerColor="var(--black)"
-                    >
-                      <ExecutionWrapperInputSetForm
-                        stepsTemplate={nodep.stepGroup.rollbackSteps}
-                        formik={formik}
-                        readonly={readonly}
-                        path={`${path}[${index}].parallel[${indexp}].stepGroup.rollbackSteps`}
-                        allValues={stepGroup?.stepGroup?.rollbackSteps}
-                        values={initialValues?.stepGroup?.rollbackSteps}
-                        viewType={viewType}
-                      />
-                    </CollapseForm>
-                  )}
                 </>
               )
             }
@@ -302,23 +285,6 @@ function ExecutionWrapperInputSetForm(props: {
                   viewType={viewType}
                 />
               </CollapseForm>
-              {item.stepGroup.rollbackSteps && (
-                <CollapseForm
-                  header={stepGroup?.stepGroup?.name + ' (Rollback)' || ''}
-                  headerProps={{ font: { size: 'normal' } }}
-                  headerColor="var(--black)"
-                >
-                  <ExecutionWrapperInputSetForm
-                    stepsTemplate={item.stepGroup.rollbackSteps}
-                    formik={formik}
-                    readonly={readonly}
-                    path={`${path}[${index}].stepGroup.rollbackSteps`}
-                    allValues={stepGroup?.stepGroup?.rollbackSteps}
-                    values={initialValues?.stepGroup?.rollbackSteps}
-                    viewType={viewType}
-                  />
-                </CollapseForm>
-              )}
             </>
           )
         }

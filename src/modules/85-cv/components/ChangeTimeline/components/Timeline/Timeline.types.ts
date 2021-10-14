@@ -6,4 +6,6 @@ export interface TimelineProps {
   labelWidth?: number
   timestamps?: TimestampChartProps['timestamps']
   timeFormat?: string
+  isLoading?: boolean
+  rowOffset?: number
 }

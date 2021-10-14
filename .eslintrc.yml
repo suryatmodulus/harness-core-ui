@@ -102,6 +102,8 @@ rules:
           importNames:
             - stringify
           message: 'Please use yamlStringify from @common/utils/YamlHelperMethods instead of this'
+        - name: react-router
+          message: 'import from "react-router-dom" instead'
   no-restricted-syntax:
     - error
     - selector: "CallExpression[callee.name='useContext'][arguments.0.name='PipelineContext']"

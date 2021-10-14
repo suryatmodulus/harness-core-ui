@@ -3,6 +3,8 @@ import { Card, Icon, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { ComingSoonIcon } from '@common/components/ComingSoonIcon/ComingSoonIcon'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { StageActions } from '@common/constants/TrackingConstants'
 import type { PipelineStageProps } from '../PipelineStage'
 import EmptyStageView from './EmptyStageView'
 import StageHoverView from './StageHoverView'
@@ -26,6 +28,7 @@ export interface SelectedAddStageTypeData {
 
 export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel = false, stages }) => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
   const [selectedType, setSelectedType] = React.useState<SelectedAddStageTypeData | undefined>(undefined)
   return (
     <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>
@@ -47,6 +50,8 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
                       if (stage.isDisabled) {
                         e.stopPropagation()
                       } else {
+                        // call telemetry
+                        trackEvent(StageActions.SelectStage, { stageType: stage.type })
                         callback(stage.type)
                       }
                     }}

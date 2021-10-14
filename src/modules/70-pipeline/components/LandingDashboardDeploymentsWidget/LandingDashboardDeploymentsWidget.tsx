@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { Card, Color, Container, FontVariation, Icon, Layout, Select, Text } from '@wings-software/uicore' // Layout
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { defaultTo, noop } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
 import { useLandingDashboardContext, TimeRangeToDays } from '@common/factories/LandingDashboardContext'

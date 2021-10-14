@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router-dom'
 import { Container, Popover, Text, Layout, Icon } from '@wings-software/uicore'
 import { PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'

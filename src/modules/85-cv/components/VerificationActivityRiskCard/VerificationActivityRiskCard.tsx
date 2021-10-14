@@ -6,7 +6,6 @@ import CVProgressBar from '@cv/components/ExecutionVerification/components/Deplo
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetActivityVerificationResult, RestResponseActivityVerificationResultDTO } from 'services/cv'
 import { useStrings } from 'framework/strings'
-import VerificationStatusBar from '@cv/pages/dashboard/activity-changes-drilldown/VerificationStatusBar'
 import css from './VerificationActivityRiskCard.module.scss'
 
 interface VerificationActivityRiskCardProps {
@@ -29,16 +28,6 @@ export function VerificationActivityRiskCard(props: VerificationActivityRiskCard
         value={activityWithRisks?.resource?.progressPercentage}
         status={activityWithRisks?.resource?.status}
       />
-      {activityWithRisks && (
-        <VerificationStatusBar
-          status={activityWithRisks?.resource?.status}
-          startTime={activityWithRisks?.resource?.activityStartTime as number}
-          remainingTimeMs={activityWithRisks?.resource?.remainingTimeMs as number}
-          cumulativeRisk={activityWithRisks?.resource?.overallRisk as number}
-          scoresBeforeChanges={activityWithRisks?.resource?.preActivityRisks || []}
-          scoresAfterChanges={activityWithRisks?.resource?.postActivityRisks || []}
-        />
-      )}
       {activityWithRisks?.resource?.activityType === 'KUBERNETES' && onClickKubernetesEvent && (
         <Link
           minimal

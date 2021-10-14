@@ -11,7 +11,7 @@ import {
   Layout,
   Icon
 } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { useStrings } from 'framework/strings'

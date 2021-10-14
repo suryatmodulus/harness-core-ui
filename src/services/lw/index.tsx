@@ -352,6 +352,7 @@ export interface RoutingData {
   instance?: InstanceBasedRoutingData
   k8s?: {
     ConnectorID?: string
+    Namespace?: string
     RuleJson?: string
   }
   lb?: string

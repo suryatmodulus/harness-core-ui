@@ -1,31 +1,43 @@
 import type Highcharts from 'highcharts'
-import { RiskValues } from './ClusterChart.constants'
-import type { Risk } from './ClusterChart.types'
+import type { LogAnalysisClusterChartDTO } from 'services/cv'
+import { RiskValues, getRiskColorValue, getSecondaryRiskColorValue } from '@cv/utils/CommonUtils'
 
-export const mapRisk = (risk?: Risk): Highcharts.PointOptionsObject => {
+export const mapRisk = (risk: LogAnalysisClusterChartDTO['risk']): Highcharts.PointOptionsObject => {
   switch (risk) {
-    case RiskValues.LOW:
+    case RiskValues.HEALTHY:
       return {
-        color: 'var(--green-50)',
+        color: getSecondaryRiskColorValue(RiskValues.HEALTHY),
         marker: {
           lineWidth: 1,
-          lineColor: 'var(--green-450)',
+          lineColor: getRiskColorValue(RiskValues.HEALTHY),
           radius: 8
         }
       }
-    case RiskValues.MEDIUM:
+    case RiskValues.NEED_ATTENTION:
       return {
-        color: 'var(--yellow-500)',
+        color: getSecondaryRiskColorValue(RiskValues.NEED_ATTENTION),
         marker: {
-          radius: 7
+          lineWidth: 1,
+          lineColor: getRiskColorValue(RiskValues.NEED_ATTENTION),
+          radius: 8
         }
       }
-    case RiskValues.HIGH:
+    case RiskValues.UNHEALTHY:
       return {
-        color: 'var(--red-500)',
+        color: getSecondaryRiskColorValue(RiskValues.UNHEALTHY),
         marker: {
-          radius: 7,
-          lineColor: 'var(--black-100)'
+          lineWidth: 1,
+          lineColor: getRiskColorValue(RiskValues.UNHEALTHY),
+          radius: 8
+        }
+      }
+    case RiskValues.OBSERVE:
+      return {
+        color: getSecondaryRiskColorValue(RiskValues.OBSERVE),
+        marker: {
+          lineWidth: 1,
+          lineColor: getRiskColorValue(RiskValues.OBSERVE),
+          radius: 8
         }
       }
     default:

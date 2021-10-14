@@ -1,6 +1,6 @@
 import { identity, pick, pickBy } from 'lodash-es'
 
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { useDeepCompareEffect } from '@common/hooks'
 import { usePermissionsContext, PermissionRequestOptions } from 'framework/rbac/PermissionsContext'
 import type { PermissionCheck, ResourceScope } from 'services/rbac'

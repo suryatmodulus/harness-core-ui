@@ -22,6 +22,26 @@ const testWrapperProps: TestWrapperProps = {
   }
 }
 
+const showDrawer = jest.fn()
+const hideDrawer = jest.fn()
+const onEdit = jest.fn()
+const onDelete = jest.fn()
+
+jest.mock('@cv/hooks/useDrawerHook/useDrawerHook', () => ({
+  useDrawer: () => {
+    return { showDrawer, hideDrawer }
+  }
+}))
+
+jest.mock('@cv/components/ContextMenuActions/ContextMenuActions', () => () => {
+  return (
+    <>
+      <div className="context-menu-mock-edit" onClick={onEdit} />
+      <div className="context-menu-mock-delete" onClick={onDelete} />
+    </>
+  )
+})
+
 jest.mock('@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironment', () => ({
   useGetHarnessServices: () => ({
     serviceOptions: [
@@ -126,6 +146,48 @@ describe('Verify Service', () => {
 
     // onSave works
     await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(onUpdatePayload))
+
+    await waitFor(() => expect(getByText('save')).toBeTruthy())
+
+    // click addChangeSource
+    act(() => {
+      fireEvent.click(getByText('+ cv.changeSource.addChangeSource'))
+    })
+
+    await waitFor(() =>
+      expect(showDrawer).toHaveBeenCalledWith(
+        expect.objectContaining({
+          hideDrawer: hideDrawer,
+          monitoredServiceType: 'Application',
+          tableData: [
+            {
+              category: 'Alert',
+              desc: 'Alert from PagerDuty',
+              enabled: true,
+              identifier: 'pagerduty',
+              name: 'PagerDuty 101',
+              spec: {
+                connectorRef: 'PagerDutyConnector',
+                pagerDutyServiceId: 'pagerDutyServiceId101'
+              },
+              type: 'PagerDuty'
+            }
+          ]
+        })
+      )
+    )
+
+    act(() => {
+      fireEvent.click(container.querySelector('.context-menu-mock-delete')!)
+    })
+
+    await waitFor(() => expect(onDelete).toHaveBeenCalled())
+
+    act(() => {
+      fireEvent.click(container.querySelector('.context-menu-mock-edit')!)
+    })
+
+    await waitFor(() => expect(onEdit).toHaveBeenCalled())
 
     expect(container).toMatchSnapshot()
   })

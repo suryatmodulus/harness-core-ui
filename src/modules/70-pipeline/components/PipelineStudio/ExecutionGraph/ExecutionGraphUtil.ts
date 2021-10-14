@@ -376,9 +376,6 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): v
     node.stepGroup.steps?.forEach?.(step => {
       getStepsState(step, mapState)
     })
-    node.stepGroup.rollbackSteps?.forEach?.(step => {
-      getStepsState(step, mapState)
-    })
 
     mapState.set(node.stepGroup.identifier, mapState.get(node.stepGroup.identifier) || getDefaultStepGroupState())
   }
@@ -411,9 +408,6 @@ export const updateStepsState = (
     })
   } else if (isExecutionWrapperConfig(node) && node.stepGroup) {
     node.stepGroup.steps?.forEach?.(step => {
-      updateStepsState(step, mapState)
-    })
-    node.stepGroup.rollbackSteps?.forEach?.(step => {
       updateStepsState(step, mapState)
     })
     const groupData = mapState.get(node.stepGroup.identifier)

@@ -247,7 +247,12 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                     <label
                       class="bp3-label"
                     >
-                      selectGitConnectorTypeLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_gitConnector"
+                      >
+                        selectGitConnectorTypeLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -889,7 +894,12 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                     <label
                       class="bp3-label"
                     >
-                      selectGitConnectorTypeLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_gitConnector"
+                      >
+                        selectGitConnectorTypeLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

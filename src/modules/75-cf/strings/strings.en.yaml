@@ -69,6 +69,9 @@ creationModal:
     tagsOptional: Tags (optional)
     tagsPlaceholder: Add Tags
     permaFlagTooltip: A flag is permanent if you wish to keep it in your code for the long term. We won't remind you to these types of flags.
+  git:
+    flagName: Feature Flag Name
+    autoCommitMessage: Always commit to this branch and do not prompt for commit message.
 testTheFlag:
   testFlagHeading: Test the flag
   setupAppText: "Let's set up your application and code so that it can communicate with our platform"

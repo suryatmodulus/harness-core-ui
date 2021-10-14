@@ -2,6 +2,7 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { Table } from '@common/components'
 import type { RiskData } from 'services/cv'
+import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
 import {
   rowData,
   changeSummary,
@@ -14,14 +15,15 @@ import {
   RenderHealthTrend,
   createTrendDataWithZone,
   getHistoricalTrendChartOption,
-  calculateChangePercentage
+  calculateChangePercentage,
+  getRiskLabelStringId
 } from '../CVMonitoredServiceListingPage.utils'
 
 const trendChartMockData: RiskData[] = [
-  { healthScore: 2, riskStatus: 'LOW' },
-  { healthScore: 4, riskStatus: 'LOW' },
-  { healthScore: 8, riskStatus: 'MEDIUM' },
-  { healthScore: 16, riskStatus: 'HIGH' }
+  { healthScore: 2, riskStatus: RiskValues.HEALTHY },
+  { healthScore: 4, riskStatus: RiskValues.HEALTHY },
+  { healthScore: 8, riskStatus: RiskValues.NEED_ATTENTION },
+  { healthScore: 16, riskStatus: RiskValues.UNHEALTHY }
 ]
 
 jest.mock('framework/strings', () => ({
@@ -41,15 +43,15 @@ describe('Test util functions', () => {
     ])
     expect(zones).toEqual([
       {
-        color: 'var(--green-500)',
+        color: getRiskColorValue(RiskValues.HEALTHY),
         value: 2
       },
       {
-        color: 'var(--orange-500)',
+        color: getRiskColorValue(RiskValues.NEED_ATTENTION),
         value: 3
       },
       {
-        color: 'var(--red-500)',
+        color: getRiskColorValue(RiskValues.UNHEALTHY),
         value: undefined
       }
     ])
@@ -103,6 +105,6 @@ describe('Test util functions', () => {
     )
 
     await waitFor(() => expect(container.querySelector('.highcharts-container')).toBeTruthy())
-    await waitFor(() => expect(getByText('cv.monitoredServices.riskLabel.mediumRisk')).toBeTruthy())
+    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.NEED_ATTENTION))).toBeTruthy())
   })
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Container, FlexExpander, Layout, Text } from '@wings-software/uicore'
 import { SelectSegmentsModalButton } from '@cf/components/SelectSegmentsModalButton/SelectSegmentsModalButton'
 import { PageError } from '@common/components/Page/PageError'

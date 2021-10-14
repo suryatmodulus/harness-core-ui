@@ -40,7 +40,13 @@ export const renderImpact: Renderer<CellProps<any>> = ({ row }): JSX.Element => 
 
 export const renderType: Renderer<CellProps<any>> = ({ row }): JSX.Element => {
   const rowdata = row?.original
-  return <Text font={{ size: 'small' }}>{rowdata.type}</Text>
+  return (
+    <Container className={css.changeSoureName}>
+      <Text className={css.sourceName} font={{ size: 'small' }}>
+        {rowdata.type}
+      </Text>
+    </Container>
+  )
 }
 
 export const renderChangeType: Renderer<CellProps<any>> = ({ row }): JSX.Element => {

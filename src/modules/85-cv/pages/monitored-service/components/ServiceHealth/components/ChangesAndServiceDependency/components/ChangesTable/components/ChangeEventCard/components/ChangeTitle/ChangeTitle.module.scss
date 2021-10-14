@@ -1,0 +1,24 @@
+.main {
+  display: flex;
+  justify-content: start;
+
+  > span {
+    margin-right: var(--spacing-large) !important;
+    margin-top: var(--spacing-xsmall) !important;
+  }
+
+  .redirectButton {
+    height: 24px !important;
+    min-width: 124px !important;
+    font-size: x-small !important;
+    // margin-left: var(--spacing-xxxlarge) !important;
+    white-space: nowrap !important;
+  }
+
+  .addEllipsis {
+    width: 300px;
+    overflow-x: hidden;
+    white-space: nowrap !important;
+    text-overflow: ellipsis;
+  }
+}

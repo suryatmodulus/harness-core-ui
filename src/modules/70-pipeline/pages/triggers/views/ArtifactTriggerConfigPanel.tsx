@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Heading, Text, Label, Button, Container, Color } from '@wings-software/uicore'
+import { Layout, Text, Label, Container, Color, HarnessDocTooltip } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
@@ -112,6 +112,13 @@ const showAppliedTableArtifact = ({
         appliedArtifact={appliedTableArtifact}
         isManifest={isManifest}
         editArtifact={() => setEditModalOpen(true)}
+        removeArtifact={() =>
+          onRemoveSelectedArtifactManifest({
+            isManifest,
+            formikProps,
+            stageId
+          })
+        }
       />
       {editModalOpen && (
         <SelectArtifactModal
@@ -122,20 +129,6 @@ const showAppliedTableArtifact = ({
           runtimeData={data}
         />
       )}
-
-      <Button
-        style={{ display: 'inline-block' }}
-        minimal
-        data-name="main-delete"
-        icon="main-trash"
-        onClick={_ => {
-          onRemoveSelectedArtifactManifest({
-            isManifest,
-            formikProps,
-            stageId
-          })
-        }}
-      />
     </Container>
   )
 }
@@ -158,7 +151,7 @@ const showAddArtifactManifest = ({
   modalOpen: any
   artifactTableData: any
   data: any
-}) => {
+}): JSX.Element => {
   const artifactOrManifestText = isManifest ? getString('manifestsText') : getString(artifactStr)
   return (
     <>
@@ -169,9 +162,11 @@ const showAddArtifactManifest = ({
           fontWeight: 'normal',
           marginBottom: 'var(--spacing-small)'
         }}
+        data-tooltip-id="artifactManifestLabel"
       >
         {isManifest ? getString('manifestsText') : getString(artifactStr)}
       </Label>
+      <HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} />
       <Text
         data-name="plusAdd"
         style={{
@@ -285,14 +280,16 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
           <PageSpinner />
         </div>
       )}
-      <h2 className={css.heading}>{`${getString('pipeline.triggers.triggerConfigurationLabel')}${
-        !isEdit
+      <Text className={css.formContentTitle} inline={true} data-tooltip-id="artifactManifestLabel">
+        {getString('pipeline.triggers.triggerConfigurationLabel')}
+        {!isEdit
           ? `: ${getString('pipeline.triggers.onNewArtifactTitle', {
               artifact: artifactOrManifestText
             })}`
-          : ''
-      }`}</h2>
-      <div style={{ backgroundColor: 'var(--white)' }}>
+          : ''}
+      </Text>
+      <HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} />
+      <div className={css.formContent}>
         <NameIdDescriptionTags
           className={css.nameIdDescriptionTags}
           formikProps={formikProps}
@@ -303,51 +300,52 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
             dataTooltipId: 'artifactTrigger'
           }}
         />
-        <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
-          {getString('pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact', {
-            artifact: artifactOrManifestText
-          })}
-        </Heading>
-        <section style={{ marginTop: 'var(--spacing-small)' }}>
-          {appliedTableArtifact ? (
-            showAppliedTableArtifact({
-              formikProps,
-              appliedTableArtifact,
+      </div>
+      <Text className={css.formContentTitle} inline={true} data-tooltip-id="listenOnNewArtifactManifest">
+        {getString('pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact', {
+          artifact: artifactOrManifestText
+        })}
+      </Text>
+      <HarnessDocTooltip tooltipId="listenOnNewArtifactManifest" useStandAlone={true} />
+      <div className={css.formContent}>
+        {appliedTableArtifact ? (
+          showAppliedTableArtifact({
+            formikProps,
+            appliedTableArtifact,
+            isManifest,
+            editModalOpen,
+            setEditModalOpen,
+            data,
+            stageId
+          })
+        ) : (
+          <>
+            {showAddArtifactManifest({
               isManifest,
-              editModalOpen,
-              setEditModalOpen,
-              data,
-              stageId
-            })
-          ) : (
-            <>
-              {showAddArtifactManifest({
-                isManifest,
-                getString,
-                allowSelectArtifact,
-                setModalOpen,
-                formikProps,
-                modalOpen,
-                artifactTableData,
-                data
-              })}
-              {(formikProps.touched['selectedArtifact'] || formikProps.submitCount > 0) &&
-                !modalOpen &&
-                errors['selectedArtifact'] && (
-                  <Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}>
-                    {errors['selectedArtifact']}
-                  </Text>
-                )}
-            </>
-          )}
-          {inputSetTemplateYamlObj && !appliedArtifact && !allowSelectArtifact && (
-            <Text margin="small" intent="warning">
-              {getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound', {
-                artifact: artifactOrManifestText
-              })}
-            </Text>
-          )}
-        </section>
+              getString,
+              allowSelectArtifact,
+              setModalOpen,
+              formikProps,
+              modalOpen,
+              artifactTableData,
+              data
+            })}
+            {(formikProps.touched['selectedArtifact'] || formikProps.submitCount > 0) &&
+              !modalOpen &&
+              errors['selectedArtifact'] && (
+                <Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}>
+                  {errors['selectedArtifact']}
+                </Text>
+              )}
+          </>
+        )}
+        {inputSetTemplateYamlObj && !appliedArtifact && !allowSelectArtifact && (
+          <Text margin="small" intent="warning">
+            {getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound', {
+              artifact: artifactOrManifestText
+            })}
+          </Text>
+        )}
       </div>
     </Layout.Vertical>
   )

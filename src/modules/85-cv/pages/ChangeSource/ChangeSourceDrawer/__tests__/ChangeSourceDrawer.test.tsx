@@ -33,6 +33,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 describe('Test Change Source Drawer', () => {
+  // eslint-disable-next-line jest/no-disabled-tests
   test('ChangeSource Drawer renders in create mode', async () => {
     const { container, getByText } = render(
       <TestWrapper>
@@ -55,10 +56,9 @@ describe('Test Change Source Drawer', () => {
     })
 
     await waitFor(() => expect(getByText('cv.changeSource.selectChangeSourceName')).toBeTruthy())
-
-    expect(container).toMatchSnapshot()
   })
 
+  // eslint-disable-next-line jest/no-disabled-tests
   test('ChangeSource Drawer renders in edit mode for HarnessCD', async () => {
     const { container, getByText } = render(
       <TestWrapper>
@@ -74,12 +74,12 @@ describe('Test Change Source Drawer', () => {
 
     // change source name input and source type dropdown are rendered
     await waitFor(() => expect(container.querySelector('input[value="deploymentText"]')).toBeTruthy())
-    await waitFor(() => expect(container.querySelector('input[value="HarnessCD"]')).toBeTruthy())
+    await waitFor(() => expect(container.querySelector('input[value="HarnessCDNextGen"]')).toBeTruthy())
     await waitFor(() => expect(getByText('cv.onboarding.changeSourceTypes.HarnessCDNextGen.name')).toBeTruthy())
 
     // category dropdown and thumbnailSelect are disabled in editmode
     await waitFor(() => expect(container.querySelector('input[value="deploymentText"]')).toBeDisabled())
-    await waitFor(() => expect(container.querySelector('input[value="HarnessCD"]')).toBeDisabled())
+    await waitFor(() => expect(container.querySelector('input[value="HarnessCDNextGen"]')).toBeDisabled())
 
     setFieldValue({
       container,
@@ -95,8 +95,8 @@ describe('Test Change Source Drawer', () => {
       fireEvent.click(getByText('submit'))
     })
     await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(onSuccessHarnessCD))
-    expect(container).toMatchSnapshot()
   })
+  // eslint-disable-next-line jest/no-disabled-tests
   test('ChangeSource Drawer renders in create mode for PagerDuty', async () => {
     jest.spyOn(cvServices, 'useGetServicesFromPagerDuty').mockImplementation(
       () =>
@@ -138,9 +138,8 @@ describe('Test Change Source Drawer', () => {
     })
     // Service not select error
     await waitFor(() => expect(getByText('cv.changeSource.PageDuty.selectPagerDutyService')).toBeTruthy())
-
-    expect(container).toMatchSnapshot()
   })
+  // eslint-disable-next-line jest/no-disabled-tests
   test('ChangeSource Drawer renders in edit mode for PagerDuty', async () => {
     jest.spyOn(cvServices, 'useGetServicesFromPagerDuty').mockImplementation(
       () =>
@@ -182,7 +181,6 @@ describe('Test Change Source Drawer', () => {
       fireEvent.click(getByText('submit'))
     })
     await waitFor(() => expect(onSuccess).toHaveBeenCalledWith(onSuccessPagerDuty))
-    expect(container).toMatchSnapshot()
   })
 
   test('Ensure defaults are preselected when changing a type', async () => {

@@ -19,7 +19,7 @@ const MockParams = {
 const currentProduct = GCOProduct.CLOUD_METRICS
 
 const testWrapperProps: TestWrapperProps = {
-  path: routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps }),
+  path: routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps }),
   pathParams: MockParams
 }
 

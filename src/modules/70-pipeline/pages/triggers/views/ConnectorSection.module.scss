@@ -3,4 +3,14 @@
     position: initial !important;
     padding-right: 0 !important;
   }
+
+  .addButton {
+    cursor: pointer;
+    margin-top: var(--spacing-small);
+    width: 43px;
+    margin-left: var(--spacing-large) !important;
+    padding: 0 !important;
+    display: inline-block !important;
+    font-weight: 500 !important ;
+  }
 }

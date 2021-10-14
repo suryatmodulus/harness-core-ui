@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Heading, Text, NestedAccordionProvider } from '@wings-software/uicore'
+import { Layout, Text, NestedAccordionProvider, HarnessDocTooltip } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { pick, merge, cloneDeep } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
@@ -20,9 +20,9 @@ import {
   ciCodebaseBuild,
   ciCodebaseBuildPullRequest,
   filterArtifactIndex,
-  eventTypes,
   getFilteredStage,
-  TriggerTypes
+  TriggerTypes,
+  eventTypes
 } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
 
@@ -257,7 +257,10 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
         <div className={css.inputsetGrid}>
           <div className={css.inputSetContent}>
             <div className={css.pipelineInputRow}>
-              <Heading level={2}>{getString('pipeline.triggers.pipelineInputLabel')}</Heading>
+              <Text className={css.formContentTitle} inline={true} data-tooltip-id="pipelineInputLabel">
+                {getString('pipeline.triggers.pipelineInputLabel')}
+              </Text>
+              <HarnessDocTooltip tooltipId="pipelineInputLabel" useStandAlone={true} />
               <GitSyncStoreProvider>
                 <InputSetSelector
                   pipelineIdentifier={pipelineIdentifier}
@@ -268,6 +271,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
                   selectedValueClass={css.inputSetSelectedValue}
                 />
               </GitSyncStoreProvider>
+              <div className={css.divider} />
             </div>
             <PipelineInputSetForm
               originalPipeline={originalPipeline}
@@ -276,15 +280,19 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
               }
               path="pipeline"
               viewType={StepViewType.InputSet}
+              maybeContainerClass={css.pipelineInputSetForm}
             />
           </div>
         </div>
       ) : (
         <Layout.Vertical style={{ padding: '0 var(--spacing-small)' }} margin="large" spacing="large">
-          <h2 className={css.heading} style={{ marginTop: '0!important' }}>
+          <Text className={css.formContentTitle} inline={true} data-tooltip-id="pipelineInputLabel">
             {getString('pipeline.triggers.pipelineInputLabel')}
-          </h2>
-          <Text>{getString('pipeline.triggers.pipelineInputPanel.noRuntimeInputs')}</Text>
+          </Text>
+          <HarnessDocTooltip tooltipId="pipelineInputLabel" useStandAlone={true} />
+          <Layout.Vertical className={css.formContent}>
+            <Text>{getString('pipeline.triggers.pipelineInputPanel.noRuntimeInputs')}</Text>
+          </Layout.Vertical>
         </Layout.Vertical>
       )}
     </Layout.Vertical>

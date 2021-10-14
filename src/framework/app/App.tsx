@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
-import { HashRouter, Route, Switch, useHistory } from 'react-router-dom'
-import { useParams } from 'react-router'
+
+import { useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
 import { TooltipContextProvider } from '@wings-software/uicore'
 import { tooltipDictionary } from '@wings-software/ng-tooltip'
 import { setAutoFreeze, enableMapSet } from 'immer'
 import SessionToken from 'framework/utils/SessionToken'
-import languageLoader from 'strings/languageLoader'
-import type { LangLocale } from 'strings/languageLoader'
+
 import { AppStoreProvider } from 'framework/AppStore/AppStoreContext'
 import { LicenseStoreProvider } from 'framework/LicenseStore/LicenseStoreContext'
 // eslint-disable-next-line aliased-module-imports
@@ -42,9 +41,8 @@ interface AppProps {
 }
 
 const Harness = (window.Harness = window.Harness || {})
-const ignoredErrorClasses = ['YAMLSemanticError', 'YAMLSyntaxError', 'AbortError']
 
-function AppWithAuthentication(props: AppProps): React.ReactElement {
+export function AppWithAuthentication(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
   // always use accountId from URL, and not from local storage
   // if user lands on /, they'll first get redirected to a path with accountId
@@ -146,7 +144,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
   )
 }
 
-function AppWithoutAuthentication(props: AppProps): React.ReactElement {
+export function AppWithoutAuthentication(props: AppProps): React.ReactElement {
   return (
     <RestfulProvider base="/">
       <StringsContextProvider initialStrings={props.strings}>
@@ -157,43 +155,3 @@ function AppWithoutAuthentication(props: AppProps): React.ReactElement {
     </RestfulProvider>
   )
 }
-
-;(async () => {
-  const lang: LangLocale = 'en'
-  const strings = await languageLoader(lang)
-  if (window.bugsnagToken && typeof Bugsnag !== 'undefined' && Bugsnag.start) {
-    window.bugsnagClient = Bugsnag.start({
-      apiKey: window.bugsnagToken,
-      appVersion: __BUGSNAG_RELEASE_VERSION__,
-      releaseStage: `ng-ui-${window.location.hostname.split('.')[0]}`,
-      onError: (event: any): boolean => {
-        if (Array.isArray(event.errors) && ignoredErrorClasses.includes(event.errors[0]?.errorClass)) {
-          return false
-        }
-
-        return true
-      }
-    })
-  }
-  ReactDOM.render(
-    <HashRouter>
-      <Switch>
-        <Route
-          path={[
-            // this path is needed for AppStoreProvider to populate accountId, orgId and projectId
-            '/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier',
-            '/account/:accountId/orgs/:orgIdentifier/projects/:projectIdentifier',
-            '/account/:accountId/settings/organizations/:orgIdentifier/',
-            '/account/:accountId'
-          ]}
-        >
-          <AppWithAuthentication strings={strings} />
-        </Route>
-        <Route path="/">
-          <AppWithoutAuthentication strings={strings} />
-        </Route>
-      </Switch>
-    </HashRouter>,
-    document.getElementById('react-root')
-  )
-})()

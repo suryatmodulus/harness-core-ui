@@ -24,6 +24,10 @@ import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { FeatureRequest } from 'framework/featureStore/FeaturesContext'
+import type { PermissionsRequest } from '@rbac/hooks/usePermission'
+import type { Module } from '@common/interfaces/RouteInterfaces'
+import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 import css from './utils.module.scss'
 
 export interface UserItem extends MultiSelectOption {
@@ -237,4 +241,64 @@ export const getAssignments = (roleBindings: RoleAssignmentMetadataDTO[]): Assig
       }
     }) || []
   )
+}
+
+interface FeatureProps {
+  featureRequest: FeatureRequest
+  isPermissionPrioritized?: boolean
+}
+
+interface TooltipProps {
+  permissionRequest: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
+  featureProps?: FeatureProps
+  canDoAction: boolean
+  featureEnabled: boolean
+  module?: Module
+}
+
+interface TooltipReturn {
+  tooltip?: React.ReactElement
+}
+
+export function getTooltip({
+  permissionRequest,
+  featureProps,
+  canDoAction,
+  featureEnabled,
+  module
+}: TooltipProps): TooltipReturn {
+  // if permission check override the priorirty
+  if (featureProps?.isPermissionPrioritized && !canDoAction) {
+    return {
+      tooltip: (
+        <RBACTooltip
+          permission={permissionRequest.permission}
+          resourceType={permissionRequest.resource.resourceType}
+          resourceScope={permissionRequest.resourceScope}
+        />
+      )
+    }
+  }
+
+  // feature check by default take priority
+  if (featureProps?.featureRequest && !featureEnabled) {
+    return {
+      tooltip: <FeatureWarningTooltip featureName={featureProps?.featureRequest.featureName} module={module} />
+    }
+  }
+
+  // permission check
+  if (!canDoAction) {
+    return {
+      tooltip: (
+        <RBACTooltip
+          permission={permissionRequest.permission}
+          resourceType={permissionRequest.resource.resourceType}
+          resourceScope={permissionRequest.resourceScope}
+        />
+      )
+    }
+  }
+
+  return {}
 }

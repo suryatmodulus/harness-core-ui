@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import {
   Heading,

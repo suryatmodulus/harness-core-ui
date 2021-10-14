@@ -12,7 +12,9 @@ import type {
   MultiTypeMapType,
   MultiTypeMapUIType,
   MultiTypeConnectorRef,
-  Resources
+  Resources,
+  MultiTypeListUIType,
+  MultiTypeListType
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type { StringsMap } from 'stringTypes'
 import { PluginStepBaseWithRef } from './PluginStepBase'
@@ -24,6 +26,12 @@ export interface PluginStepSpec {
   connectorRef: string
   image: string
   privileged: boolean
+  reports?: {
+    type: 'JUnit'
+    spec: {
+      paths: MultiTypeListType
+    }
+  }
   settings?: MultiTypeMapType
   imagePullPolicy?: MultiTypeSelectOption
   runAsUser?: string
@@ -39,8 +47,10 @@ export interface PluginStepData {
   spec: PluginStepSpec
 }
 
-export interface PluginStepSpecUI extends Omit<PluginStepSpec, 'connectorRef' | 'settings' | 'pull' | 'resources'> {
+export interface PluginStepSpecUI
+  extends Omit<PluginStepSpec, 'connectorRef' | 'reports' | 'settings' | 'pull' | 'resources'> {
   connectorRef: MultiTypeConnectorRef
+  reportPaths?: MultiTypeListUIType
   settings?: MultiTypeMapUIType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption

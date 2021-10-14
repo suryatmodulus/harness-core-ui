@@ -191,6 +191,8 @@ onboarding:
     HarnessCDNextGen:
       name: Harness CD NextGen
       icon: cd-main
+    HarnessCDCurrentGen:
+      name: Harness CD
   monitoringSources:
     addMoreSources: Add more Monitoring Sources
     select: Select your Monitoring Source
@@ -543,8 +545,7 @@ monitoredServices:
   addNewMonitoredServices: Add New Monitored Service
   editMonitoredServices: Edit Monitored Service
   editService: Edit service
-  deleteMonitoredServiceWarning: Are you sure you want to delete Monitored Service
-  deleteMonitoredService: Delete Monitored Service
+  deleteMonitoredServiceWarning: Deleting your monitored service ‘{{ name }}’ will also delete its resources.
   deleteService: Delete service
   monitoredServiceCreated: Monitoring Service created
   monitoredServiceUpdated: Monitoring Service updated
@@ -561,6 +562,7 @@ monitoredServices:
     last7Days: '{{ $.common.last7days }}'
     overallHealthScore: Overall Health Score
     noDataAvailableForHealthScore: No healthscore data available in the {{duration}}
+    healthScore: Health Score
     pleaseSelectAnotherTimeWindow: Please select another time window.
     selectTimeline: Select a timeline to see metric & logs data
     metricsAndLogs: Metrics & Logs
@@ -576,10 +578,6 @@ monitoredServices:
     serviceHealth: Service Health
     configurations: Configurations
     slos: SLOs
-  riskLabel:
-    lowRisk: Low Risk
-    mediumRisk: Medium Risk
-    highRisk: High Risk
   table:
     serviceName: Service Name
     lastestHealthTrend: Health trend (Last 24h)
@@ -608,12 +606,24 @@ changeSource:
   selectChangeSourceType: Select change source type
   deleteChangeSourceWarning: Are you sure you want to delete Change Source
   noDataAvailableForChangeScore: No {{type}} data available in the last {{duration}}
+  noDataAvaiableForCard: No data available
   tooltip:
     incidents: Incidents
   PageDuty:
     pagerDutyService: PagerDuty Service
     selectPagerDutyService: Select PageDuty Service
     pagerDutyEmptyService: No service available for {{ connector }}
+  HarnessCDCurrentGen:
+    selectHarnessAppId: Select Application Id
+    selectHarnessService: Select Harness Service
+    selectHarnessEnv: Select Harness Environment
+  changeSourceCard:
+    information: Information
+    triggred: Triggered
+    viewPipeline: View Pipeline
+    finished: 'Finished: '
+    deploymentHealth: Deployment Health
+    ago: ago
 Dependency:
   serviceList: Service list
   noData: No Data For Dependency Graph

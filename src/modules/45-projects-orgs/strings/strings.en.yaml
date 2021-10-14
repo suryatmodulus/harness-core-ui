@@ -97,7 +97,7 @@ searchProjectPlaceHolder: Search your project by name or ID
 projectsInOrg: projects under <br/> your organization
 createAProject: Create a Project
 manageAProject: Click to manage project
-
+apiError: Unable to fetch data due to a network error.
 landingDashboard:
   atAGlance: At a Glance
   last30Days: Last 30 Days

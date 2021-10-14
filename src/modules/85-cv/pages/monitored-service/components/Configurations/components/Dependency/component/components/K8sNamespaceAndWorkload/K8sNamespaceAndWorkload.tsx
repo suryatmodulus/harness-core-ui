@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Container, Select, Text, SelectOption } from '@wings-software/uicore'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

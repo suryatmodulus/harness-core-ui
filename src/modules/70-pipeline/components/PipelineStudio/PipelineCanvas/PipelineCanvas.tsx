@@ -48,6 +48,7 @@ import { validateJSONWithSchema } from '@common/utils/YamlUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
@@ -901,6 +902,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   onClick={e => {
                     e.stopPropagation()
                     updateQueryParams({ runPipeline: true }, { skipNulls: true }, true)
+                  }}
+                  featureProps={{
+                    featureRequest: {
+                      featureName: FeatureIdentifier.DEPLOYMENTS
+                    }
                   }}
                   permission={{
                     resourceScope: {

@@ -10,8 +10,9 @@ import {
   ChangeSourceConnectorOptions,
   ChangeSourceFieldNames,
   ChangeSourceCategoryOptions,
+  ChangeSourceCategoryName,
   HARNESS_CD,
-  ChangeSourceCategoryName
+  HARNESS_CD_NEXTGEN
 } from './ChangeSourceDrawer.constants'
 import type { UpdatedChangeSourceDTO } from './ChangeSourceDrawer.types'
 
@@ -81,7 +82,7 @@ export const validateChangeSource = (
     errors.type = getString('cv.changeSource.selectChangeSourceType')
   }
 
-  if (!spec?.connectorRef && type !== HARNESS_CD) {
+  if (!spec?.connectorRef && type !== HARNESS_CD_NEXTGEN && type !== HARNESS_CD) {
     errors.spec = {
       connectorRef: getString('cv.onboarding.selectProductScreen.validationText.connectorRef')
     }
@@ -102,11 +103,26 @@ export const validateChangeSourceSpec = (
   errorSpec: { [key: string]: string },
   getString: UseStringsReturn['getString']
 ): { [key: string]: string } => {
+  let errors = { ...errorSpec }
   switch (type) {
     case Connectors.PAGER_DUTY:
       return spec?.pagerDutyServiceId
         ? {}
-        : { ...errorSpec, pagerDutyServiceId: getString('cv.changeSource.PageDuty.selectPagerDutyService') }
+        : { ...errors, pagerDutyServiceId: getString('cv.changeSource.PageDuty.selectPagerDutyService') }
+    case HARNESS_CD:
+      if (!spec?.harnessApplicationId) {
+        errors = {
+          ...errors,
+          harnessApplicationId: getString('cv.changeSource.HarnessCDCurrentGen.selectHarnessAppId')
+        }
+      }
+      if (!spec?.harnessEnvironmentId) {
+        errors = { ...errors, harnessEnvironmentId: getString('cv.changeSource.HarnessCDCurrentGen.selectHarnessEnv') }
+      }
+      if (!spec?.harnessServiceId) {
+        errors = { ...errors, harnessServiceId: getString('cv.changeSource.HarnessCDCurrentGen.selectHarnessService') }
+      }
+      return errors
     default:
       return {}
   }
@@ -141,6 +157,12 @@ export const updateSpecByType = (data: ChangeSourceDTO): ChangeSourceDTO['spec']
       return {
         connectorRef: data?.spec?.connectorRef
       }
+    case HARNESS_CD:
+      return {
+        harnessApplicationId: data?.spec?.harnessApplicationId?.value,
+        harnessServiceId: data?.spec?.harnessServiceId?.value,
+        harnessEnvironmentId: data?.spec?.harnessEnvironmentId?.value
+      }
     default:
       return {}
   }
@@ -159,8 +181,6 @@ export const preSelectChangeSourceConnectorOnCategoryChange = (categoryName: str
   switch (categoryName) {
     case ChangeSourceCategoryName.ALERT:
       return Connectors.PAGER_DUTY
-    case ChangeSourceCategoryName.DEPLOYMENT:
-      return HARNESS_CD
     case ChangeSourceCategoryName.INFRASTRUCTURE:
       return Connectors.KUBERNETES_CLUSTER
     default:

@@ -113,10 +113,10 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
   }, [addClicked])
 
   React.useEffect(() => {
-    if (options.selected !== props.node.isSelected()) {
-      props.node.setSelected(options.selected)
+    if (options.defaultSelected !== props.node.isSelected()) {
+      props.node.setSelected(options.defaultSelected)
     }
-  }, [options.selected])
+  }, [options.defaultSelected])
 
   // NOTE: adjust x position node in order to get node box cornet at x zero position
   const marginAdjustment = -(128 - (options?.width || 64)) / 2
@@ -204,7 +204,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           <Icon
             size={28}
             name={options.icon}
-            inverse={props.node.isSelected() || options.selected}
+            inverse={options.defaultSelected ?? props.node.isSelected()}
             {...options.iconProps}
             style={{ pointerEvents: 'none', ...options.iconStyle }}
           />
@@ -279,7 +279,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       </div>
       <Text
         font={{ size: 'normal', align: 'center' }}
-        color={options.selected ? Color.GREY_900 : Color.GREY_600}
+        color={options.defaultSelected ? Color.GREY_900 : Color.GREY_600}
         style={{ cursor: 'pointer', lineHeight: '1.5', overflowWrap: 'break-word', height: 55 }}
         padding={'small'}
         width={125}

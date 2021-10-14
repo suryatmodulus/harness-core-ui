@@ -12,16 +12,19 @@ import {
   ButtonVariation,
   ButtonSize
 } from '@wings-software/uicore'
+
 import { Classes, Intent, Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
+import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import { TimeAgoPopover } from '@common/exports'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TagsPopover } from '@common/components'
 import routes from '@common/RouteDefinitions'
@@ -32,6 +35,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
 import { getIconsForPipeline } from '../../PipelineListUtils'
+
 import css from './PipelineCard.module.scss'
 
 interface PipelineDTO extends PMSPipelineSummaryResponse {
@@ -182,7 +186,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
   })
 
   const pipelineIcons = getIconsForPipeline(pipeline)
-
+  const status = pipeline.executionSummaryInfo?.lastExecutionStatus
   return (
     <Card className={css.pipelineCard} interactive onClick={() => goToPipelineStudio(pipeline)}>
       <Container padding={'xlarge'} border={{ bottom: true }}>
@@ -338,17 +342,19 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                     }}
                     time={pipeline.executionSummaryInfo?.lastExecutionTs}
                   />
-                  <Icon
-                    name={
-                      pipeline.executionSummaryInfo?.lastExecutionStatus === 'Success'
-                        ? 'deployment-success-legacy'
-                        : 'warning-sign'
-                    }
-                    intent={
-                      pipeline.executionSummaryInfo?.lastExecutionStatus !== 'Success' ? Intent.DANGER : Intent.NONE
-                    }
-                    size={12}
-                  />
+                  {isExecutionComplete(status) ? (
+                    <Icon
+                      name={
+                        pipeline.executionSummaryInfo?.lastExecutionStatus === 'Success'
+                          ? 'deployment-success-legacy'
+                          : 'warning-sign'
+                      }
+                      intent={
+                        pipeline.executionSummaryInfo?.lastExecutionStatus !== 'Success' ? Intent.DANGER : Intent.NONE
+                      }
+                      size={12}
+                    />
+                  ) : null}
                 </Layout.Horizontal>
               </Layout.Horizontal>
               <Layout.Horizontal
@@ -421,6 +427,11 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                   resourceIdentifier: pipeline.identifier as string
                 },
                 permission: PermissionIdentifier.EXECUTE_PIPELINE
+              }}
+              featureProps={{
+                featureRequest: {
+                  featureName: FeatureIdentifier.DEPLOYMENTS
+                }
               }}
               onClick={e => {
                 e.stopPropagation()

@@ -361,7 +361,11 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 18%;"
             >
-              ce.co.rulesTableHeaders.name
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.name
+              </p>
             </div>
             <div
               class="cell"
@@ -369,7 +373,11 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 8%;"
             >
-              ce.co.rulesTableHeaders.idleTime
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.idleTime
+              </p>
             </div>
             <div
               class="cell"
@@ -377,7 +385,11 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 12%;"
             >
-              ce.co.rulesTableHeaders.fulfilment
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.fulfilment
+              </p>
             </div>
             <div
               class="cell"
@@ -385,7 +397,11 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 22%;"
             >
-              ce.co.rulesTableHeaders.mangedResources
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.mangedResources
+              </p>
             </div>
             <div
               class="cell"
@@ -393,7 +409,11 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 15%;"
             >
-              ce.co.rulesTableHeaders.savings
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.savings
+              </p>
             </div>
             <div
               class="cell"
@@ -401,7 +421,11 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              ce.co.rulesTableHeaders.lastActivity
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.lastActivity
+              </p>
             </div>
             <div
               class="cell"
@@ -409,7 +433,11 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              ce.co.rulesTableHeaders.status
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.status
+              </p>
             </div>
             <div
               class="cell"
@@ -417,7 +445,11 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               role="columnheader"
               style="width: 5%;"
             >
-              
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                
+              </p>
             </div>
           </div>
           <div
@@ -1042,7 +1074,11 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 18%;"
             >
-              ce.co.rulesTableHeaders.name
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.name
+              </p>
             </div>
             <div
               class="cell"
@@ -1050,7 +1086,11 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 8%;"
             >
-              ce.co.rulesTableHeaders.idleTime
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.idleTime
+              </p>
             </div>
             <div
               class="cell"
@@ -1058,7 +1098,11 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 12%;"
             >
-              ce.co.rulesTableHeaders.fulfilment
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.fulfilment
+              </p>
             </div>
             <div
               class="cell"
@@ -1066,7 +1110,11 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 22%;"
             >
-              ce.co.rulesTableHeaders.mangedResources
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.mangedResources
+              </p>
             </div>
             <div
               class="cell"
@@ -1074,7 +1122,11 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 15%;"
             >
-              ce.co.rulesTableHeaders.savings
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.savings
+              </p>
             </div>
             <div
               class="cell"
@@ -1082,7 +1134,11 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              ce.co.rulesTableHeaders.lastActivity
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.lastActivity
+              </p>
             </div>
             <div
               class="cell"
@@ -1090,7 +1146,11 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              ce.co.rulesTableHeaders.status
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.status
+              </p>
             </div>
             <div
               class="cell"
@@ -1098,7 +1158,11 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               role="columnheader"
               style="width: 5%;"
             >
-              
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                
+              </p>
             </div>
           </div>
           <div
@@ -1723,7 +1787,11 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 18%;"
             >
-              ce.co.rulesTableHeaders.name
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.name
+              </p>
             </div>
             <div
               class="cell"
@@ -1731,7 +1799,11 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 8%;"
             >
-              ce.co.rulesTableHeaders.idleTime
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.idleTime
+              </p>
             </div>
             <div
               class="cell"
@@ -1739,7 +1811,11 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 12%;"
             >
-              ce.co.rulesTableHeaders.fulfilment
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.fulfilment
+              </p>
             </div>
             <div
               class="cell"
@@ -1747,7 +1823,11 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 22%;"
             >
-              ce.co.rulesTableHeaders.mangedResources
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.mangedResources
+              </p>
             </div>
             <div
               class="cell"
@@ -1755,7 +1835,11 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 15%;"
             >
-              ce.co.rulesTableHeaders.savings
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.savings
+              </p>
             </div>
             <div
               class="cell"
@@ -1763,7 +1847,11 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              ce.co.rulesTableHeaders.lastActivity
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.lastActivity
+              </p>
             </div>
             <div
               class="cell"
@@ -1771,7 +1859,11 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              ce.co.rulesTableHeaders.status
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.rulesTableHeaders.status
+              </p>
             </div>
             <div
               class="cell"
@@ -1779,7 +1871,11 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               role="columnheader"
               style="width: 5%;"
             >
-              
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                
+              </p>
             </div>
           </div>
           <div

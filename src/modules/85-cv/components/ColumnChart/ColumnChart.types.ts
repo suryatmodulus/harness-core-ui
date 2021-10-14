@@ -1,3 +1,5 @@
+import type { RiskData } from 'services/cv'
+
 export type ColumnData = {
   timeRange: {
     startTime: number
@@ -5,7 +7,7 @@ export type ColumnData = {
   }
   color: string
   healthScore?: number
-  riskStatus: string
+  riskStatus: RiskData['riskStatus']
   height: number
 }
 

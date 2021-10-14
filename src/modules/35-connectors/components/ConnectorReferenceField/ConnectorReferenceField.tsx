@@ -9,7 +9,10 @@ import {
   Text,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormError
+  FormError,
+  FormikTooltipContext,
+  DataTooltipInterface,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
@@ -98,6 +101,7 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
   type?: ConnectorInfoDTO['type'] | ConnectorInfoDTO['type'][]
   category?: GetConnectorListQueryParams['category']
   error?: string
+  tooltipProps?: DataTooltipInterface
 }
 
 export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
@@ -564,8 +568,17 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     )
   }
 
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
+
   return (
-    <FormGroup {...rest} label={label} helperText={helperText} intent={intent}>
+    <FormGroup
+      {...rest}
+      label={<HarnessDocTooltip labelText={label} tooltipId={dataTooltipId} />}
+      helperText={helperText}
+      intent={intent}
+    >
       <ReferenceSelect<ConnectorReferenceDTO>
         onChange={(connector, scope) => {
           props.onChange?.(connector, scope)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Container, FlexExpander, Heading, Layout, Text } from '@wings-software/uicore'
 import type { HeadingProps } from '@wings-software/uicore/dist/components/Heading/Heading'
 import { useStrings } from 'framework/strings'

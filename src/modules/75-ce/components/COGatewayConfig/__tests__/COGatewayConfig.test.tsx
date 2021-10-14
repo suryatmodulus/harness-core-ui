@@ -369,7 +369,8 @@ describe('Auto stopping Rule creation Tests', () => {
               ...initialGatewayDetails.routing,
               k8s: {
                 RuleJson: '{"apiVersion":"lightwing.lightwing.io/v1","kind":"AutoStoppingRule"}',
-                ConnectorID: 't2'
+                ConnectorID: 't2',
+                Namespace: 'default'
               }
             }
           }}

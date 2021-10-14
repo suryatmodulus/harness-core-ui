@@ -1,3 +1,5 @@
+import { RiskValues } from '@cv/utils/CommonUtils'
+
 export const mockedServiceDependencies = {
   metaData: {},
   resource: {
@@ -7,7 +9,7 @@ export const mockedServiceDependencies = {
         serviceRef: 'service106',
         environmentRef: 'Test_env_102',
         riskScore: -1,
-        riskLevel: 'NO_ANALYSIS',
+        riskLevel: RiskValues.NO_ANALYSIS,
         anomalousMetricsCount: 0,
         anomalousLogsCount: 0,
         changeCount: 0
@@ -17,7 +19,7 @@ export const mockedServiceDependencies = {
         serviceRef: 'Test_Service_103',
         environmentRef: 'Test_env_102',
         riskScore: -1,
-        riskLevel: 'NO_ANALYSIS',
+        riskLevel: RiskValues.NO_ANALYSIS,
         anomalousMetricsCount: 0,
         anomalousLogsCount: 0,
         changeCount: 0
@@ -27,7 +29,7 @@ export const mockedServiceDependencies = {
         serviceRef: 'service105',
         environmentRef: 'Test_env_102',
         riskScore: -1,
-        riskLevel: 'NO_ANALYSIS',
+        riskLevel: RiskValues.NO_ANALYSIS,
         anomalousMetricsCount: 0,
         anomalousLogsCount: 0,
         changeCount: 0
@@ -37,7 +39,7 @@ export const mockedServiceDependencies = {
         serviceRef: 'service107',
         environmentRef: 'Test_env_102',
         riskScore: -1,
-        riskLevel: 'NO_ANALYSIS',
+        riskLevel: RiskValues.NO_ANALYSIS,
         anomalousMetricsCount: 0,
         anomalousLogsCount: 0,
         changeCount: 0
@@ -47,7 +49,7 @@ export const mockedServiceDependencies = {
         serviceRef: 'Test_Service_104',
         environmentRef: 'Test_env_102',
         riskScore: 0,
-        riskLevel: 'LOW',
+        riskLevel: RiskValues.HEALTHY,
         anomalousMetricsCount: 0,
         anomalousLogsCount: 0,
         changeCount: 0

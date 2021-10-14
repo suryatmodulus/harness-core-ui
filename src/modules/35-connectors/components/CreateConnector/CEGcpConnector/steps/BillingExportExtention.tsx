@@ -12,7 +12,7 @@ const BillingExportExtention: React.FC = () => {
         <h2>{getString('connectors.ceGcp.billingExtention.heading')}</h2>
         <div>
           <span className={css.prereq}>{getString('connectors.ceGcp.billingExtention.prerequisite')}</span>{' '}
-          <a>{getString('connectors.ceGcp.billingExtention.readMore')}</a>{' '}
+          <a>{getString('connectors.readMore')}</a>{' '}
         </div>
         <ol>
           <li>{getString('connectors.ceGcp.billingExtention.step1')}</li>

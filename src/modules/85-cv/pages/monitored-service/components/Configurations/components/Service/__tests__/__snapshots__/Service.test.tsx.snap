@@ -293,7 +293,11 @@ exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
               style="width: 30%;"
               title="Toggle SortBy"
             >
-              name
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                name
+              </p>
               <span
                 class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                 icon="double-caret-vertical"
@@ -321,7 +325,11 @@ exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
               style="width: 35%;"
               title="Toggle SortBy"
             >
-              typeLabel
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                typeLabel
+              </p>
               <span
                 class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                 icon="double-caret-vertical"
@@ -348,7 +356,11 @@ exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
               role="columnheader"
               style="width: 35%;"
             >
-              source
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                source
+              </p>
             </div>
           </div>
           <div
@@ -407,38 +419,12 @@ exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
                       </g>
                     </svg>
                   </span>
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="Options"
-                        >
-                          <svg
-                            fill="none"
-                            height="16"
-                            viewBox="0 0 4 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              clip-rule="evenodd"
-                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
+                  <div
+                    class="context-menu-mock-edit"
+                  />
+                  <div
+                    class="context-menu-mock-delete"
+                  />
                 </div>
               </div>
             </div>
@@ -479,7 +465,11 @@ exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
               style="width: 30%;"
               title="Toggle SortBy"
             >
-              name
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                name
+              </p>
               <span
                 class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                 icon="double-caret-vertical"
@@ -506,7 +496,11 @@ exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
               role="columnheader"
               style="width: 35%;"
             >
-              typeLabel
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                typeLabel
+              </p>
             </div>
             <div
               class="cell sortable"
@@ -515,7 +509,11 @@ exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
               style="width: 35%;"
               title="Toggle SortBy"
             >
-              source
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                source
+              </p>
               <span
                 class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                 icon="double-caret-vertical"
@@ -605,38 +603,12 @@ exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
                       </g>
                     </svg>
                   </span>
-                  <span
-                    class="bp3-popover-wrapper"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="Options"
-                        >
-                          <svg
-                            fill="none"
-                            height="16"
-                            viewBox="0 0 4 16"
-                            width="16"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              clip-rule="evenodd"
-                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
+                  <div
+                    class="context-menu-mock-edit"
+                  />
+                  <div
+                    class="context-menu-mock-delete"
+                  />
                 </div>
               </div>
             </div>

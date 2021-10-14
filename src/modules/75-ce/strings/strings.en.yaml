@@ -1,6 +1,8 @@
 gridColumnSelector: 'Columns'
 continuous: '{{$.common.purpose.ce.continuous}}'
 trialCta: 'Start 14 day CCM trial'
+common:
+  newBudget: 'New Budget'
 pageErrorMsg:
   recommendationNoData: 'There are no recommendations yet. Recommendations typically take 24 hours to show up. Please check back later.'
   perspectiveNoData: 'There is not data available for the filters applied.'
@@ -500,7 +502,7 @@ perspectives:
     budgetMonthlyTxt: Budget - Monthly
     desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.
     createNew: + create new Budget
-    wizardTitle: New Budget
+    wizardTitle: '{{ $.ce.common.newBudget }}'
     sendAlerts: Send alerts at
     actualSpend: Actual spend
     forecastedCost: Forecasted cost
@@ -582,3 +584,19 @@ nodeRecommendation:
   suitable:
     prod: well suited for prod
     qa: well suited for non-prod/QA
+budgets:
+  sideNavText: Budgets
+  listPage:
+    title: All Budgets
+    newBudget: '{{ $.ce.common.newBudget }}'
+    searchText: '{{ $.search }}'
+    budgetCount: 'Total: {{ count }}'
+    mtdAlert: 'MTD at {{ alert }}'
+    forecastAlert: 'Forecast at {{ alert }}'
+    timePeriodRemaining: '{{ scope }} - {{ remaining }} {{ unit }} left'
+    overBudgetText: '{{ cost }} over budget'
+    tableHeaders:
+      name: NAME
+      budgetAmount: BUDGET AMOUNT
+      monthToDate: MONTH TO DATE & FORECASTED COST V/S BUDGET
+      alerts: ALERTS

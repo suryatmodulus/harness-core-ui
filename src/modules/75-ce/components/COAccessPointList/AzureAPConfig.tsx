@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Heading } from '@wings-software/uicore'
 import { AccessPoint, useCreateAccessPoint, useEditAccessPoint } from 'services/lw'
 // import { useStrings } from 'framework/strings'

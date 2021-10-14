@@ -19,7 +19,7 @@ describe('Access Control Page', () => {
     container = renderObj.container
     getByText = renderObj.getByText
     getByTestId = renderObj.getByTestId
-    await waitFor(() => getByText('accessControl'))
+    await waitFor(() => getByText('account accessControl'))
   })
   test('render data', () => {
     expect(container).toMatchSnapshot()

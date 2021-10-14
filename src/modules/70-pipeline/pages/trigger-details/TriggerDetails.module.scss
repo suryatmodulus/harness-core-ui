@@ -1,0 +1,11 @@
+.wizard {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  height: 36px !important;
+}
+
+.wizardBody {
+  [data-name*='page-body'] {
+    min-height: 96%;
+  }
+}

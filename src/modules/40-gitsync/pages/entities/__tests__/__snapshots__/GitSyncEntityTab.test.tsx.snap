@@ -332,7 +332,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  1`] = `
               role="columnheader"
               style="width: 25%;"
             >
-              NAME
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                NAME
+              </p>
             </div>
             <div
               class="cell"
@@ -340,7 +344,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  1`] = `
               role="columnheader"
               style="width: 25%;"
             >
-              IDENTIFIER
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                IDENTIFIER
+              </p>
             </div>
             <div
               class="cell"
@@ -348,7 +356,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  1`] = `
               role="columnheader"
               style="width: 50%;"
             >
-              PATH
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                PATH
+              </p>
             </div>
           </div>
           <div
@@ -459,7 +471,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  1`] = `
               role="columnheader"
               style="width: 25%;"
             >
-              NAME
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                NAME
+              </p>
             </div>
             <div
               class="cell"
@@ -467,7 +483,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  1`] = `
               role="columnheader"
               style="width: 25%;"
             >
-              IDENTIFIER
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                IDENTIFIER
+              </p>
             </div>
             <div
               class="cell"
@@ -475,7 +495,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  1`] = `
               role="columnheader"
               style="width: 50%;"
             >
-              PATH
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                PATH
+              </p>
             </div>
           </div>
           <div
@@ -665,7 +689,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  2`] = `
               role="columnheader"
               style="width: 25%;"
             >
-              NAME
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                NAME
+              </p>
             </div>
             <div
               class="cell"
@@ -673,7 +701,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  2`] = `
               role="columnheader"
               style="width: 25%;"
             >
-              IDENTIFIER
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                IDENTIFIER
+              </p>
             </div>
             <div
               class="cell"
@@ -681,7 +713,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  2`] = `
               role="columnheader"
               style="width: 50%;"
             >
-              PATH
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                PATH
+              </p>
             </div>
           </div>
           <div
@@ -796,7 +832,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  2`] = `
                 style="width: 25%;"
                 title="Toggle SortBy"
               >
-                NAME
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                >
+                  NAME
+                </p>
                 <span
                   class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                   icon="double-caret-vertical"
@@ -824,7 +864,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  2`] = `
                 style="width: 25%;"
                 title="Toggle SortBy"
               >
-                IDENTIFIER
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                >
+                  IDENTIFIER
+                </p>
                 <span
                   class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                   icon="double-caret-vertical"
@@ -852,7 +896,11 @@ exports[`Git Sync - entity tab rendering summary view of a gitSyncRepo  2`] = `
                 style="width: 50%;"
                 title="Toggle SortBy"
               >
-                PATH
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+                >
+                  PATH
+                </p>
                 <span
                   class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
                   icon="double-caret-vertical"

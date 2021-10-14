@@ -1,3 +1,5 @@
+import { RiskValues } from '@cv/utils/CommonUtils'
+
 export const SampleResponse = {
   resource: {
     serviceName: 'manager',
@@ -10,7 +12,7 @@ export const SampleResponse = {
       remainingTimeMs: 303800,
       startTime: 1625262360000,
       durationMs: 600000,
-      risk: 'MEDIUM',
+      risk: RiskValues.NEED_ATTENTION,
       environmentName: 'prod',
       jobName: 'canaryCV',
       verificationJobInstanceId: 'UQBmFeCcQEWTNGWkpTbsOA',
@@ -21,43 +23,49 @@ export const SampleResponse = {
         primary: [
           {
             hostName: 'manager-6f8b584cbf-kqq9h',
-            risk: 'NO_DATA',
+            risk: RiskValues.NO_DATA,
             anomalousMetricsCount: 0,
             anomalousLogClustersCount: 0
           },
           {
             hostName: 'manager-6f8b584cbf-sj6lt',
-            risk: 'NO_ANALYSIS',
+            risk: RiskValues.NO_ANALYSIS,
             anomalousMetricsCount: 0,
             anomalousLogClustersCount: 0
           },
           {
             hostName: 'manager-6f8b584cbf-s4gck',
-            risk: 'HIGH',
+            risk: RiskValues.UNHEALTHY,
             anomalousMetricsCount: 0,
             anomalousLogClustersCount: 0
           },
           {
             hostName: 'manager-6f8b584cbf-qqwpw',
-            risk: 'LOW',
+            risk: RiskValues.HEALTHY,
             anomalousMetricsCount: 0,
             anomalousLogClustersCount: 0
           },
           {
             hostName: 'manager-6f8b584cbf-jrl2x',
-            risk: 'MEDIUM',
+            risk: RiskValues.NEED_ATTENTION,
             anomalousMetricsCount: 0,
             anomalousLogClustersCount: 0
           },
           {
             hostName: 'manager-6f8b584cbf-kzq2h',
-            risk: 'NO_ANALYSIS',
+            risk: RiskValues.NO_ANALYSIS,
             anomalousMetricsCount: 0,
             anomalousLogClustersCount: 0
           },
           {
             hostName: 'manager-6f8b584cbf-sskjh',
-            risk: 'NO_ANALYSIS',
+            risk: RiskValues.NO_ANALYSIS,
+            anomalousMetricsCount: 0,
+            anomalousLogClustersCount: 0
+          },
+          {
+            hostName: 'manager-6f8b584cbf-sskjh',
+            risk: RiskValues.OBSERVE,
             anomalousMetricsCount: 0,
             anomalousLogClustersCount: 0
           }
@@ -65,7 +73,7 @@ export const SampleResponse = {
         canary: [
           {
             hostName: 'manager-6f8b584cbf-2vg8h',
-            risk: 'LOW',
+            risk: RiskValues.HEALTHY,
             anomalousMetricsCount: 2,
             anomalousLogClustersCount: 0
           }

@@ -98,6 +98,7 @@ export default function PageDutyChangeSource({
             </Tooltip> */}
           </Layout.Horizontal>
           <FormInput.Select
+            disabled={isEdit}
             name="spec.pagerDutyServiceId"
             placeholder={
               loadingPagerdutyServices

@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { StringKeys } from 'framework/strings'
 import type { RiskData } from 'services/cv'
+import { RiskValues } from '@cv/utils/CommonUtils'
 import ServiceHealth from '../ServiceHealth'
 import {
   getTimeFormat,
@@ -45,7 +46,7 @@ jest.mock('highcharts-react-official', () => () => <></>)
 
 jest.mock('services/cv', () => ({
   useGetMonitoredServiceScoresFromServiceAndEnvironment: jest.fn().mockImplementation(() => ({
-    data: { currentHealthScore: { riskStatus: 'LOW', healthScore: 100 } },
+    data: { currentHealthScore: { riskStatus: RiskValues.HEALTHY, healthScore: 100 } },
     loading: false,
     error: null,
     refetch: jest.fn()
@@ -61,7 +62,7 @@ jest.mock('services/cv', () => ({
       loading: false
     }
   }),
-  useGetChangeSummary: jest.fn().mockImplementation(() => {
+  useChangeEventSummary: jest.fn().mockImplementation(() => {
     return {
       data: { resource: { ...changeSummaryWithPositiveChange } },
       refetch: jest.fn(),
@@ -139,13 +140,17 @@ describe('Unit tests for ServiceHealth', () => {
     const endTime = 1630887233649
     expect(
       calculateLowestHealthScoreBar(startTime, endTime, mockedHealthScoreDataForLowestHealthScore as RiskData[])
-    ).toEqual({ healthScore: 0, riskStatus: 'HIGH', timeRangeParams: { endTime: 1630893600, startTime: 1630881000 } })
+    ).toEqual({
+      healthScore: 0,
+      riskStatus: RiskValues.UNHEALTHY,
+      timeRangeParams: { endTime: 1630893600, startTime: 1630881000 }
+    })
   })
 
   test('Verify if isInTheRange method returns correct result', async () => {
     const dataPoint = {
       healthScore: 100,
-      riskStatus: 'LOW',
+      riskStatus: RiskValues.HEALTHY,
       timeRangeParams: {
         startTime: 1630666800,
         endTime: 1630679400

@@ -132,18 +132,6 @@ const validateStep = ({
           set(errors, `steps[${index}].stepGroup.steps`, errorResponse)
         }
       }
-      if (stepObj.stepGroup.rollbackSteps) {
-        const errorResponse = validateStep({
-          steps: stepObj.stepGroup.rollbackSteps,
-          template: template?.[index]?.stepGroup?.rollbackSteps,
-          originalSteps: originalStepGroup?.stepGroup?.rollbackSteps,
-          getString,
-          viewType
-        })
-        if (!isEmpty(errorResponse)) {
-          set(errors, `steps[${index}].stepGroup.rollbackSteps`, errorResponse)
-        }
-      }
     }
   })
 
@@ -311,6 +299,7 @@ export const validateCICodebase = ({
   )
 
   if (
+    isCloneCodebaseEnabledAtLeastAtOneStage &&
     has(originalPipeline, 'properties') &&
     has(originalPipeline?.properties, 'ci') &&
     isEmpty(get(originalPipeline, 'properties.ci.codebase.build')) &&

@@ -12,12 +12,12 @@ export interface ActivityDashboardDTO {
   activityType?:
     | 'DEPLOYMENT'
     | 'INFRASTRUCTURE'
-    | 'CUSTOM'
     | 'CONFIG'
     | 'OTHER'
     | 'KUBERNETES'
     | 'HARNESS_CD'
     | 'PAGER_DUTY'
+    | 'HARNESS_CD_CURRENT_GEN'
   activityVerificationSummary?: ActivityVerificationSummary
   environmentIdentifier?: string
   environmentName?: string
@@ -32,18 +32,6 @@ export interface ActivityDashboardDTO {
     | 'IN_PROGRESS'
 }
 
-export interface ActivitySourceDTO {
-  createdAt?: number
-  editable?: boolean
-  identifier: string
-  lastUpdatedAt?: number
-  name: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  type?: 'KUBERNETES' | 'HARNESS_CD10' | 'CDNG'
-  uuid?: string
-}
-
 export interface ActivityVerificationResultDTO {
   activityId?: string
   activityName?: string
@@ -51,12 +39,12 @@ export interface ActivityVerificationResultDTO {
   activityType?:
     | 'DEPLOYMENT'
     | 'INFRASTRUCTURE'
-    | 'CUSTOM'
     | 'CONFIG'
     | 'OTHER'
     | 'KUBERNETES'
     | 'HARNESS_CD'
     | 'PAGER_DUTY'
+    | 'HARNESS_CD_CURRENT_GEN'
   endTime?: number
   environmentIdentifier?: string
   environmentName?: string
@@ -94,9 +82,19 @@ export interface ActivityVerificationSummary {
   progress?: number
   progressPercentage?: number
   remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   startTime?: number
   total?: number
+  verficationStatusMap?: {
+    [key: string]:
+      | 'IGNORED'
+      | 'NOT_STARTED'
+      | 'VERIFICATION_PASSED'
+      | 'VERIFICATION_FAILED'
+      | 'ERROR'
+      | 'ABORTED'
+      | 'IN_PROGRESS'
+  }
 }
 
 export interface AdditionalInfo {
@@ -129,7 +127,7 @@ export interface AlertRuleDTO {
 export interface AnalysisResult {
   count?: number
   label?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   riskScore?: number
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
 }
@@ -192,10 +190,6 @@ export interface AppdynamicsValidationResponse {
   metricPackName?: string
   overallStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
   values?: AppdynamicsMetricValueValidationResponse[]
-}
-
-export type ArgoConnector = ConnectorConfigDTO & {
-  adapterUrl?: string
 }
 
 export interface ArtifactoryAuthCredentials {
@@ -431,27 +425,6 @@ export type CEKubernetesClusterConfig = ConnectorConfigDTO & {
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
 }
 
-export interface CVConfig {
-  accountId: string
-  category: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
-  connectorIdentifier: string
-  createNextTaskIteration?: number
-  createdAt?: number
-  enabled?: boolean
-  envIdentifier: string
-  firstTimeDataCollectionTimeRange?: TimeRange
-  identifier: string
-  lastUpdatedAt?: number
-  monitoringSourceName: string
-  orgIdentifier: string
-  productName?: string
-  projectIdentifier: string
-  serviceIdentifier: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'STACKDRIVER_LOG' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
-  uuid?: string
-  verificationType: 'TIME_SERIES' | 'LOG'
-}
-
 export interface CVNGLogDTO {
   accountId?: string
   createdAt?: number
@@ -460,15 +433,6 @@ export interface CVNGLogDTO {
   traceableId?: string
   traceableType?: 'ONBOARDING' | 'VERIFICATION_TASK'
   type?: 'API_CALL_LOG' | 'EXECUTION_LOG'
-}
-
-export interface CVSetupStatus {
-  numberOfServicesUsedInActivitySources?: number
-  numberOfServicesUsedInMonitoringSources?: number
-  servicesUndergoingHealthVerification?: number
-  stepsWhichAreCompleted?: ('ACTIVITY_SOURCE' | 'MONITORING_SOURCE' | 'VERIFICATION_JOBS')[]
-  totalNumberOfEnvironments?: number
-  totalNumberOfServices?: number
 }
 
 export interface CategoryCountDetails {
@@ -495,13 +459,14 @@ export interface ChangeEventDTO {
   envIdentifier: string
   environmentName?: string
   eventTime?: number
+  id?: string
   metadata: ChangeEventMetadata
   name?: string
   orgIdentifier: string
   projectIdentifier: string
   serviceIdentifier: string
   serviceName?: string
-  type?: 'HarnessCD' | 'PagerDuty' | 'K8sCluster'
+  type?: 'HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD'
 }
 
 export interface ChangeEventMetadata {
@@ -514,7 +479,7 @@ export interface ChangeSourceDTO {
   identifier?: string
   name?: string
   spec: ChangeSourceSpec
-  type?: 'HarnessCD' | 'PagerDuty' | 'K8sCluster'
+  type?: 'HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD'
 }
 
 export interface ChangeSourceSpec {
@@ -550,7 +515,7 @@ export interface ClusterSummary {
   count?: number
   label?: number
   risk?: number
-  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testFrequencyData?: number[]
 }
@@ -611,7 +576,6 @@ export interface ConnectorInfoDTO {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
@@ -765,7 +729,7 @@ export interface DeploymentResultSummary {
 
 export interface DeploymentTimeSeriesAnalysisDTO {
   hostSummaries?: HostInfo[]
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   transactionMetricSummaries?: TransactionMetricHostData[]
 }
@@ -780,7 +744,7 @@ export interface DeploymentVerificationJobInstanceSummary {
   logsAnalysisSummary?: LogsAnalysisSummary
   progressPercentage?: number
   remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   startTime?: number
   status?:
     | 'IGNORED'
@@ -1558,6 +1522,7 @@ export type GithubConnector = ConnectorConfigDTO & {
   apiAccess?: GithubApiAccess
   authentication: GithubAuthentication
   delegateSelectors?: string[]
+  executeOnManager?: boolean
   type: 'Account' | 'Repo'
   url: string
   validationRepo?: string
@@ -1658,16 +1623,36 @@ export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
 
 export type HarnessCDChangeSourceSpec = ChangeSourceSpec & { [key: string]: any }
 
+export type HarnessCDCurrentGenChangeSourceSpec = ChangeSourceSpec & {
+  harnessApplicationId?: string
+  harnessEnvironmentId?: string
+  harnessServiceId?: string
+}
+
+export type HarnessCDCurrentGenEventMetadata = ChangeEventMetadata & {
+  accountId?: string
+  appId?: string
+  environmentId?: string
+  name?: string
+  serviceId?: string
+  workflowEndTime?: number
+  workflowExecutionId?: string
+  workflowId?: string
+  workflowStartTime?: number
+}
+
 export type HarnessCDEventMetadata = ChangeEventMetadata & {
   artifactTag?: string
   artifactType?: string
   deploymentEndTime?: number
   deploymentStartTime?: number
   pipelineId?: string
+  pipelinePath?: string
   planExecutionId?: string
   stageId?: string
   stageStepId?: string
   status?: string
+  verifyStepSummaries?: VerifyStepSummary[]
 }
 
 export interface HealthMonitoringFlagResponse {
@@ -1714,7 +1699,7 @@ export interface HostData {
   anomalous?: boolean
   controlData?: number[]
   hostName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testData?: number[]
 }
@@ -1723,7 +1708,7 @@ export interface HostInfo {
   canary?: boolean
   hostName?: string
   primary?: boolean
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
 }
 
@@ -1800,67 +1785,6 @@ export interface JsonNode {
   short?: boolean
   textual?: boolean
   valueNode?: boolean
-}
-
-export interface KubernetesActivityDTO {
-  accountIdentifier?: string
-  activityEndTime?: number
-  activitySourceConfigId?: string
-  activityStartTime: number
-  environmentIdentifier?: string
-  eventJson?: string
-  eventType?: 'Normal' | 'Warning' | 'Error'
-  kind?: string
-  message?: string
-  name: string
-  namespace?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  reason?: string
-  serviceIdentifier?: string
-  tags?: string[]
-  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY'
-  verificationJobRuntimeDetails?: VerificationJobRuntimeDetails[]
-  workloadName?: string
-}
-
-export interface KubernetesActivityDetail {
-  eventJson?: string
-  eventType?: 'Normal' | 'Warning' | 'Error'
-  message?: string
-  reason?: string
-  timeStamp?: number
-}
-
-export interface KubernetesActivityDetailsDTO {
-  connectorIdentifier?: string
-  details?: KubernetesActivityDetail[]
-  kind?: string
-  namespace?: string
-  sourceName?: string
-  workload?: string
-}
-
-export interface KubernetesActivitySourceConfig {
-  envIdentifier: string
-  namespace: string
-  namespaceRegex?: string
-  serviceIdentifier: string
-  workloadName: string
-}
-
-export interface KubernetesActivitySourceDTO {
-  activitySourceConfigs: KubernetesActivitySourceConfig[]
-  connectorIdentifier: string
-  createdAt?: number
-  editable?: boolean
-  identifier: string
-  lastUpdatedAt?: number
-  name: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  type?: 'KUBERNETES' | 'HARNESS_CD10' | 'CDNG'
-  uuid?: string
 }
 
 export interface KubernetesAuthCredentialDTO {
@@ -1973,7 +1897,7 @@ export interface LearningEngineTask {
 }
 
 export interface LiveMonitoringLogAnalysisClusterDTO {
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   text?: string
   x?: number
@@ -2007,7 +1931,7 @@ export interface LogAnalysisClusterChartDTO {
   clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
   hostName?: string
   label?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   text?: string
   x?: number
   y?: number
@@ -2019,7 +1943,7 @@ export interface LogAnalysisClusterDTO {
   count?: number
   label?: number
   message?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testFrequencyData?: number[]
 }
@@ -2081,7 +2005,7 @@ export interface LogData {
   count?: number
   label?: number
   riskScore?: number
-  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   text?: string
   trend?: FrequencyDTO[]
@@ -2117,7 +2041,7 @@ export interface MessageFrequency {
 }
 
 export interface MetricData {
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   timestamp?: number
   value?: number
 }
@@ -2312,16 +2236,6 @@ export interface OnboardingResponseDTO {
 
 export interface Page {
   content?: { [key: string]: any }[]
-  empty?: boolean
-  pageIndex?: number
-  pageItemCount?: number
-  pageSize?: number
-  totalItems?: number
-  totalPages?: number
-}
-
-export interface PageActivitySourceDTO {
-  content?: ActivitySourceDTO[]
   empty?: boolean
   pageIndex?: number
   pageItemCount?: number
@@ -2576,20 +2490,6 @@ export interface Response {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseActivitySourceDTO {
-  correlationId?: string
-  data?: ActivitySourceDTO
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseBoolean {
-  correlationId?: string
-  data?: boolean
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponseHealthScoreDTO {
   correlationId?: string
   data?: HealthScoreDTO
@@ -2607,13 +2507,6 @@ export interface ResponseHistoricalTrend {
 export interface ResponseInputSetTemplateResponse {
   correlationId?: string
   data?: InputSetTemplateResponse
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseKubernetesActivityDetailsDTO {
-  correlationId?: string
-  data?: KubernetesActivityDetailsDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2982,13 +2875,6 @@ export interface ResponseMonitoredServiceResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponsePageActivitySourceDTO {
-  correlationId?: string
-  data?: PageActivitySourceDTO
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponsePageAppDynamicsApplication {
   correlationId?: string
   data?: PageAppDynamicsApplication
@@ -3059,13 +2945,6 @@ export interface ResponseSetTimeSeriesSampleDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseString {
-  correlationId?: string
-  data?: string
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface RestResponse {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3103,22 +2982,6 @@ export interface RestResponseBoolean {
     [key: string]: { [key: string]: any }
   }
   resource?: boolean
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseCVConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CVConfig
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseCVSetupStatus {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CVSetupStatus
   responseMessages?: ResponseMessage[]
 }
 
@@ -3194,14 +3057,6 @@ export interface RestResponseHealthMonitoringFlagResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseKubernetesActivitySourceDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: KubernetesActivitySourceDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseLearningEngineTask {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3225,12 +3080,12 @@ export interface RestResponseListActivityType {
   resource?: (
     | 'DEPLOYMENT'
     | 'INFRASTRUCTURE'
-    | 'CUSTOM'
     | 'CONFIG'
     | 'OTHER'
     | 'KUBERNETES'
     | 'HARNESS_CD'
     | 'PAGER_DUTY'
+    | 'HARNESS_CD_CURRENT_GEN'
   )[]
   responseMessages?: ResponseMessage[]
 }
@@ -3240,14 +3095,6 @@ export interface RestResponseListActivityVerificationResultDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: ActivityVerificationResultDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListCVConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CVConfig[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3272,22 +3119,6 @@ export interface RestResponseListDataCollectionTaskDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: DataCollectionTaskDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListDataSourceType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: (
-    | 'APP_DYNAMICS'
-    | 'SPLUNK'
-    | 'STACKDRIVER'
-    | 'STACKDRIVER_LOG'
-    | 'KUBERNETES'
-    | 'NEW_RELIC'
-    | 'PROMETHEUS'
-  )[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3654,14 +3485,16 @@ export interface RestResponseVoid {
 export interface ResultSummary {
   controlClusterSummaries?: ControlClusterSummary[]
   risk?: number
-  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   testClusterSummaries?: ClusterSummary[]
 }
 
 export interface RiskData {
+  endTime?: number
   healthScore?: number
-  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  startTime?: number
   timeRangeParams?: TimeRangeParams
 }
 
@@ -3691,7 +3524,7 @@ export interface ServiceDependencyGraphDTO {
 }
 
 export interface ServiceDependencyMetadata {
-  supportedChangeSourceTypes?: ('HarnessCD' | 'PagerDuty' | 'K8sCluster')[]
+  supportedChangeSourceTypes?: ('HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD')[]
   type?: 'KUBERNETES'
 }
 
@@ -3716,7 +3549,7 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   lastSeenTime?: number
   longTermPattern?: boolean
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   shortTermHistory?: number[]
 }
@@ -3735,13 +3568,12 @@ export interface ServiceSummary {
 }
 
 export interface ServiceSummaryDetails {
-  anomalousLogsCount?: number
-  anomalousMetricsCount?: number
-  changeCount?: number
+  environmentName?: string
   environmentRef?: string
   identifierRef?: string
-  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   riskScore?: number
+  serviceName?: string
   serviceRef?: string
 }
 
@@ -4023,7 +3855,7 @@ export interface TimeSeriesThresholdDTO {
 
 export interface TransactionMetric {
   metricName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   transactionName?: string
 }
@@ -4037,7 +3869,7 @@ export interface TransactionMetricHostData {
   anomalous?: boolean
   hostData?: HostData[]
   metricName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   score?: number
   transactionName?: string
 }
@@ -4068,7 +3900,7 @@ export interface TransactionMetricRisk {
   lastSeenTime?: number
   longTermPattern?: boolean
   metricName?: string
-  metricRisk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  metricRisk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   metricScore?: number
   transactionName?: string
 }
@@ -4102,18 +3934,11 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   vaultUrl?: string
 }
 
-export interface VerificationJobRuntimeDetails {
-  runtimeValues?: {
-    [key: string]: string
-  }
-  verificationJobIdentifier?: string
-}
-
 export interface VerificationResult {
   jobName?: string
   progressPercentage?: number
   remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
   startTime?: number
   status?:
     | 'IGNORED'
@@ -4129,29 +3954,35 @@ export interface VerificationsNotify {
   activityTypes?: (
     | 'DEPLOYMENT'
     | 'INFRASTRUCTURE'
-    | 'CUSTOM'
     | 'CONFIG'
     | 'OTHER'
     | 'KUBERNETES'
     | 'HARNESS_CD'
     | 'PAGER_DUTY'
+    | 'HARNESS_CD_CURRENT_GEN'
   )[]
   allActivityTpe?: boolean
   allVerificationStatuses?: boolean
   verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
 }
 
+export interface VerifyStepSummary {
+  name?: string
+  verificationStatus?:
+    | 'IGNORED'
+    | 'NOT_STARTED'
+    | 'VERIFICATION_PASSED'
+    | 'VERIFICATION_FAILED'
+    | 'ERROR'
+    | 'ABORTED'
+    | 'IN_PROGRESS'
+}
+
 export interface Void {
   [key: string]: any
 }
 
-export type ActivitySourceDTORequestBody = ActivitySourceDTO
-
 export type AlertRuleDTORequestBody = AlertRuleDTO
-
-export type CVConfigRequestBody = CVConfig
-
-export type CVConfigArrayRequestBody = CVConfig[]
 
 export type ChangeEventDTORequestBody = ChangeEventDTO
 
@@ -4245,6 +4076,86 @@ export const changeEventListPromise = (
     signal
   )
 
+export interface ChangeEventSummaryQueryParams {
+  serviceIdentifiers: string[]
+  envIdentifiers: string[]
+  startTime: number
+  endTime: number
+}
+
+export interface ChangeEventSummaryPathParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ChangeEventSummaryProps = Omit<
+  GetProps<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>,
+  'path'
+> &
+  ChangeEventSummaryPathParams
+
+/**
+ * get ChangeEvent summary
+ */
+export const ChangeEventSummary = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  ...props
+}: ChangeEventSummaryProps) => (
+  <Get<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>
+    path={`/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/summary`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseChangeEventSummaryProps = Omit<
+  UseGetProps<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>,
+  'path'
+> &
+  ChangeEventSummaryPathParams
+
+/**
+ * get ChangeEvent summary
+ */
+export const useChangeEventSummary = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  ...props
+}: UseChangeEventSummaryProps) =>
+  useGet<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>(
+    (paramsInPath: ChangeEventSummaryPathParams) =>
+      `/account/${paramsInPath.accountIdentifier}/org/${paramsInPath.orgIdentifier}/project/${paramsInPath.projectIdentifier}/change-event/summary`,
+    { base: getConfig('cv/api'), pathParams: { accountIdentifier, orgIdentifier, projectIdentifier }, ...props }
+  )
+
+/**
+ * get ChangeEvent summary
+ */
+export const changeEventSummaryPromise = (
+  {
+    accountIdentifier,
+    orgIdentifier,
+    projectIdentifier,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseChangeSummaryDTO,
+    unknown,
+    ChangeEventSummaryQueryParams,
+    ChangeEventSummaryPathParams
+  > & { accountIdentifier: string; orgIdentifier: string; projectIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseChangeSummaryDTO, unknown, ChangeEventSummaryQueryParams, ChangeEventSummaryPathParams>(
+    getConfig('cv/api'),
+    `/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/summary`,
+    props,
+    signal
+  )
+
 export interface ChangeEventTimelineQueryParams {
   serviceIdentifiers: string[]
   envIdentifiers: string[]
@@ -4326,309 +4237,86 @@ export const changeEventTimelinePromise = (
     signal
   )
 
-export interface GetActivitySourceQueryParams {
-  accountId: string
+export interface GetChangeEventDetailPathParams {
+  accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
-  identifier: string
+  activityId: string
 }
 
-export type GetActivitySourceProps = Omit<
-  GetProps<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>,
+export type GetChangeEventDetailProps = Omit<
+  GetProps<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams>,
   'path'
->
-
-/**
- * gets a kubernetes event source by identifier
- */
-export const GetActivitySource = (props: GetActivitySourceProps) => (
-  <Get<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>
-    path={`/activity-source`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetActivitySourceProps = Omit<
-  UseGetProps<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>,
-  'path'
->
-
-/**
- * gets a kubernetes event source by identifier
- */
-export const useGetActivitySource = (props: UseGetActivitySourceProps) =>
-  useGet<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>(`/activity-source`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * gets a kubernetes event source by identifier
- */
-export const getActivitySourcePromise = (
-  props: GetUsingFetchProps<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>(
-    getConfig('cv/api'),
-    `/activity-source`,
-    props,
-    signal
-  )
-
-export interface CreateActivitySourceQueryParams {
-  accountId: string
-}
-
-export type CreateActivitySourceProps = Omit<
-  MutateProps<ResponseString, Failure | Error, CreateActivitySourceQueryParams, ActivitySourceDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * create an activity source
- */
-export const CreateActivitySource = (props: CreateActivitySourceProps) => (
-  <Mutate<ResponseString, Failure | Error, CreateActivitySourceQueryParams, ActivitySourceDTORequestBody, void>
-    verb="POST"
-    path={`/activity-source`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseCreateActivitySourceProps = Omit<
-  UseMutateProps<ResponseString, Failure | Error, CreateActivitySourceQueryParams, ActivitySourceDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * create an activity source
- */
-export const useCreateActivitySource = (props: UseCreateActivitySourceProps) =>
-  useMutate<ResponseString, Failure | Error, CreateActivitySourceQueryParams, ActivitySourceDTORequestBody, void>(
-    'POST',
-    `/activity-source`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * create an activity source
- */
-export const createActivitySourcePromise = (
-  props: MutateUsingFetchProps<
-    ResponseString,
-    Failure | Error,
-    CreateActivitySourceQueryParams,
-    ActivitySourceDTORequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseString,
-    Failure | Error,
-    CreateActivitySourceQueryParams,
-    ActivitySourceDTORequestBody,
-    void
-  >('POST', getConfig('cv/api'), `/activity-source`, props, signal)
-
-export interface ListActivitySourcesQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  offset: number
-  pageSize: number
-  filter?: string
-}
-
-export type ListActivitySourcesProps = Omit<
-  GetProps<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>,
-  'path'
->
-
-/**
- * lists all kubernetes event sources
- */
-export const ListActivitySources = (props: ListActivitySourcesProps) => (
-  <Get<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>
-    path={`/activity-source/list`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseListActivitySourcesProps = Omit<
-  UseGetProps<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>,
-  'path'
->
-
-/**
- * lists all kubernetes event sources
- */
-export const useListActivitySources = (props: UseListActivitySourcesProps) =>
-  useGet<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>(
-    `/activity-source/list`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * lists all kubernetes event sources
- */
-export const listActivitySourcesPromise = (
-  props: GetUsingFetchProps<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>(
-    getConfig('cv/api'),
-    `/activity-source/list`,
-    props,
-    signal
-  )
-
-export interface DeleteKubernetesSourceQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type DeleteKubernetesSourceProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * deletes a kubernetes event source
- */
-export const DeleteKubernetesSource = (props: DeleteKubernetesSourceProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>
-    verb="DELETE"
-    path={`/activity-source`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteKubernetesSourceProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * deletes a kubernetes event source
- */
-export const useDeleteKubernetesSource = (props: UseDeleteKubernetesSourceProps) =>
-  useMutate<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>(
-    'DELETE',
-    `/activity-source`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * deletes a kubernetes event source
- */
-export const deleteKubernetesSourcePromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>(
-    'DELETE',
-    getConfig('cv/api'),
-    `/activity-source`,
-    props,
-    signal
-  )
-
-export interface PutActivitySourceQueryParams {
-  accountId: string
-}
-
-export interface PutActivitySourcePathParams {
-  identifier: string
-}
-
-export type PutActivitySourceProps = Omit<
-  MutateProps<
-    ResponseString,
-    Failure | Error,
-    PutActivitySourceQueryParams,
-    ActivitySourceDTORequestBody,
-    PutActivitySourcePathParams
-  >,
-  'path' | 'verb'
 > &
-  PutActivitySourcePathParams
+  GetChangeEventDetailPathParams
 
 /**
- * update an activity source by identifier
+ * get ChangeEvent detail
  */
-export const PutActivitySource = ({ identifier, ...props }: PutActivitySourceProps) => (
-  <Mutate<
-    ResponseString,
-    Failure | Error,
-    PutActivitySourceQueryParams,
-    ActivitySourceDTORequestBody,
-    PutActivitySourcePathParams
-  >
-    verb="PUT"
-    path={`/activity-source/${identifier}`}
+export const GetChangeEventDetail = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  activityId,
+  ...props
+}: GetChangeEventDetailProps) => (
+  <Get<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams>
+    path={`/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/${activityId}`}
     base={getConfig('cv/api')}
     {...props}
   />
 )
 
-export type UsePutActivitySourceProps = Omit<
-  UseMutateProps<
-    ResponseString,
-    Failure | Error,
-    PutActivitySourceQueryParams,
-    ActivitySourceDTORequestBody,
-    PutActivitySourcePathParams
-  >,
-  'path' | 'verb'
+export type UseGetChangeEventDetailProps = Omit<
+  UseGetProps<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams>,
+  'path'
 > &
-  PutActivitySourcePathParams
+  GetChangeEventDetailPathParams
 
 /**
- * update an activity source by identifier
+ * get ChangeEvent detail
  */
-export const usePutActivitySource = ({ identifier, ...props }: UsePutActivitySourceProps) =>
-  useMutate<
-    ResponseString,
-    Failure | Error,
-    PutActivitySourceQueryParams,
-    ActivitySourceDTORequestBody,
-    PutActivitySourcePathParams
-  >('PUT', (paramsInPath: PutActivitySourcePathParams) => `/activity-source/${paramsInPath.identifier}`, {
-    base: getConfig('cv/api'),
-    pathParams: { identifier },
-    ...props
-  })
+export const useGetChangeEventDetail = ({
+  accountIdentifier,
+  orgIdentifier,
+  projectIdentifier,
+  activityId,
+  ...props
+}: UseGetChangeEventDetailProps) =>
+  useGet<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams>(
+    (paramsInPath: GetChangeEventDetailPathParams) =>
+      `/account/${paramsInPath.accountIdentifier}/org/${paramsInPath.orgIdentifier}/project/${paramsInPath.projectIdentifier}/change-event/${paramsInPath.activityId}`,
+    {
+      base: getConfig('cv/api'),
+      pathParams: { accountIdentifier, orgIdentifier, projectIdentifier, activityId },
+      ...props
+    }
+  )
 
 /**
- * update an activity source by identifier
+ * get ChangeEvent detail
  */
-export const putActivitySourcePromise = (
+export const getChangeEventDetailPromise = (
   {
-    identifier,
+    accountIdentifier,
+    orgIdentifier,
+    projectIdentifier,
+    activityId,
     ...props
-  }: MutateUsingFetchProps<
-    ResponseString,
-    Failure | Error,
-    PutActivitySourceQueryParams,
-    ActivitySourceDTORequestBody,
-    PutActivitySourcePathParams
-  > & { identifier: string },
+  }: GetUsingFetchProps<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams> & {
+    accountIdentifier: string
+    orgIdentifier: string
+    projectIdentifier: string
+    activityId: string
+  },
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<
-    ResponseString,
-    Failure | Error,
-    PutActivitySourceQueryParams,
-    ActivitySourceDTORequestBody,
-    PutActivitySourcePathParams
-  >('PUT', getConfig('cv/api'), `/activity-source/${identifier}`, props, signal)
+  getUsingFetch<RestResponseChangeEventDTO, unknown, void, GetChangeEventDetailPathParams>(
+    getConfig('cv/api'),
+    `/account/${accountIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}/change-event/${activityId}`,
+    props,
+    signal
+  )
 
 export interface GetVerificationsPopoverSummaryQueryParams {
   accountId: string
@@ -6520,57 +6208,6 @@ export const getRiskSummaryPopoverPromise = (
     signal
   )
 
-export interface GetEventDetailsQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  activityId: string
-}
-
-export type GetEventDetailsProps = Omit<
-  GetProps<ResponseKubernetesActivityDetailsDTO, Failure | Error, GetEventDetailsQueryParams, void>,
-  'path'
->
-
-/**
- * gets details of kubernetes events
- */
-export const GetEventDetails = (props: GetEventDetailsProps) => (
-  <Get<ResponseKubernetesActivityDetailsDTO, Failure | Error, GetEventDetailsQueryParams, void>
-    path={`/kubernetes/event-details`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetEventDetailsProps = Omit<
-  UseGetProps<ResponseKubernetesActivityDetailsDTO, Failure | Error, GetEventDetailsQueryParams, void>,
-  'path'
->
-
-/**
- * gets details of kubernetes events
- */
-export const useGetEventDetails = (props: UseGetEventDetailsProps) =>
-  useGet<ResponseKubernetesActivityDetailsDTO, Failure | Error, GetEventDetailsQueryParams, void>(
-    `/kubernetes/event-details`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * gets details of kubernetes events
- */
-export const getEventDetailsPromise = (
-  props: GetUsingFetchProps<ResponseKubernetesActivityDetailsDTO, Failure | Error, GetEventDetailsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseKubernetesActivityDetailsDTO, Failure | Error, GetEventDetailsQueryParams, void>(
-    getConfig('cv/api'),
-    `/kubernetes/event-details`,
-    props,
-    signal
-  )
-
 export interface GetNamespacesQueryParams {
   accountId: string
   orgIdentifier: string
@@ -7240,12 +6877,12 @@ export const saveMetricPacksPromise = (
   )
 
 export interface ListMonitoredServiceQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   environmentIdentifier?: string
-  offset: number
-  pageSize: number
+  offset?: number
+  pageSize?: number
   filter?: string
 }
 
@@ -7432,9 +7069,9 @@ export const createDefaultMonitoredServicePromise = (
   )
 
 export interface GetMonitoredServiceListEnvironmentsQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export type GetMonitoredServiceListEnvironmentsProps = Omit<
@@ -7548,12 +7185,12 @@ export const getAllHealthSourcesForServiceAndEnvironmentPromise = (
   )
 
 export interface GetMonitoredServiceListQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  environmentIdentifier: string
-  offset: number
-  pageSize: number
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  environmentIdentifier?: string
+  offset?: number
+  pageSize?: number
   filter?: string
 }
 
@@ -7602,11 +7239,11 @@ export const getMonitoredServiceListPromise = (
   )
 
 export interface GetMonitoredServiceScoresFromServiceAndEnvironmentQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  serviceIdentifier: string
-  environmentIdentifier: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  serviceIdentifier?: string
+  environmentIdentifier?: string
 }
 
 export type GetMonitoredServiceScoresFromServiceAndEnvironmentProps = Omit<
@@ -7663,11 +7300,11 @@ export const getMonitoredServiceScoresFromServiceAndEnvironmentPromise = (
   )
 
 export interface GetMonitoredServiceFromServiceAndEnvironmentQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  serviceIdentifier: string
-  environmentIdentifier: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  serviceIdentifier?: string
+  environmentIdentifier?: string
 }
 
 export type GetMonitoredServiceFromServiceAndEnvironmentProps = Omit<
@@ -7828,9 +7465,9 @@ export const deleteMonitoredServicePromise = (
   )
 
 export interface GetMonitoredServiceQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface GetMonitoredServicePathParams {
@@ -8047,77 +7684,11 @@ export const getAnomaliesSummaryPromise = (
     GetAnomaliesSummaryPathParams
   >(getConfig('cv/api'), `/monitored-service/${identifier}/anomaliesCount`, props, signal)
 
-export interface GetChangeSummaryQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  startTime: number
-  endTime: number
-}
-
-export interface GetChangeSummaryPathParams {
-  identifier: string
-}
-
-export type GetChangeSummaryProps = Omit<
-  GetProps<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>,
-  'path'
-> &
-  GetChangeSummaryPathParams
-
-/**
- * get ChangeEvent summary
- */
-export const GetChangeSummary = ({ identifier, ...props }: GetChangeSummaryProps) => (
-  <Get<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>
-    path={`/monitored-service/${identifier}/change-event/summary`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetChangeSummaryProps = Omit<
-  UseGetProps<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>,
-  'path'
-> &
-  GetChangeSummaryPathParams
-
-/**
- * get ChangeEvent summary
- */
-export const useGetChangeSummary = ({ identifier, ...props }: UseGetChangeSummaryProps) =>
-  useGet<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>(
-    (paramsInPath: GetChangeSummaryPathParams) => `/monitored-service/${paramsInPath.identifier}/change-event/summary`,
-    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * get ChangeEvent summary
- */
-export const getChangeSummaryPromise = (
-  {
-    identifier,
-    ...props
-  }: GetUsingFetchProps<
-    RestResponseChangeSummaryDTO,
-    unknown,
-    GetChangeSummaryQueryParams,
-    GetChangeSummaryPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseChangeSummaryDTO, unknown, GetChangeSummaryQueryParams, GetChangeSummaryPathParams>(
-    getConfig('cv/api'),
-    `/monitored-service/${identifier}/change-event/summary`,
-    props,
-    signal
-  )
-
 export interface SetHealthMonitoringFlagQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  enable: boolean
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  enable?: boolean
 }
 
 export interface SetHealthMonitoringFlagPathParams {
@@ -8208,11 +7779,11 @@ export const setHealthMonitoringFlagPromise = (
   >('PUT', getConfig('cv/api'), `/monitored-service/${identifier}/health-monitoring-flag`, props, signal)
 
 export interface GetMonitoredServiceOverAllHealthScoreQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  duration: 'FOUR_HOURS' | 'TWENTY_FOUR_HOURS' | 'THREE_DAYS' | 'SEVEN_DAYS' | 'THIRTY_DAYS'
-  endTime: number
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  duration?: 'FOUR_HOURS' | 'TWENTY_FOUR_HOURS' | 'THREE_DAYS' | 'SEVEN_DAYS' | 'THIRTY_DAYS'
+  endTime?: number
 }
 
 export interface GetMonitoredServiceOverAllHealthScorePathParams {
@@ -8748,6 +8319,7 @@ export interface GetServiceDependencyGraphQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
+  environmentIdentifier?: string
   envIdentifier?: string
   serviceIdentifier?: string
 }
@@ -8792,106 +8364,6 @@ export const getServiceDependencyGraphPromise = (
   getUsingFetch<RestResponseServiceDependencyGraphDTO, unknown, GetServiceDependencyGraphQueryParams, void>(
     getConfig('cv/api'),
     `/service-dependency-graph`,
-    props,
-    signal
-  )
-
-export interface GetCVSetupStatusQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type GetCVSetupStatusProps = Omit<
-  GetProps<RestResponseCVSetupStatus, unknown, GetCVSetupStatusQueryParams, void>,
-  'path'
->
-
-/**
- * get the status of CV related resources setup
- */
-export const GetCVSetupStatus = (props: GetCVSetupStatusProps) => (
-  <Get<RestResponseCVSetupStatus, unknown, GetCVSetupStatusQueryParams, void>
-    path={`/setup/status`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetCVSetupStatusProps = Omit<
-  UseGetProps<RestResponseCVSetupStatus, unknown, GetCVSetupStatusQueryParams, void>,
-  'path'
->
-
-/**
- * get the status of CV related resources setup
- */
-export const useGetCVSetupStatus = (props: UseGetCVSetupStatusProps) =>
-  useGet<RestResponseCVSetupStatus, unknown, GetCVSetupStatusQueryParams, void>(`/setup/status`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * get the status of CV related resources setup
- */
-export const getCVSetupStatusPromise = (
-  props: GetUsingFetchProps<RestResponseCVSetupStatus, unknown, GetCVSetupStatusQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseCVSetupStatus, unknown, GetCVSetupStatusQueryParams, void>(
-    getConfig('cv/api'),
-    `/setup/status`,
-    props,
-    signal
-  )
-
-export interface ListAllSupportedDataSourceQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type ListAllSupportedDataSourceProps = Omit<
-  GetProps<RestResponseListDataSourceType, unknown, ListAllSupportedDataSourceQueryParams, void>,
-  'path'
->
-
-/**
- * get the list of supported cv providers
- */
-export const ListAllSupportedDataSource = (props: ListAllSupportedDataSourceProps) => (
-  <Get<RestResponseListDataSourceType, unknown, ListAllSupportedDataSourceQueryParams, void>
-    path={`/setup/supported-providers`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseListAllSupportedDataSourceProps = Omit<
-  UseGetProps<RestResponseListDataSourceType, unknown, ListAllSupportedDataSourceQueryParams, void>,
-  'path'
->
-
-/**
- * get the list of supported cv providers
- */
-export const useListAllSupportedDataSource = (props: UseListAllSupportedDataSourceProps) =>
-  useGet<RestResponseListDataSourceType, unknown, ListAllSupportedDataSourceQueryParams, void>(
-    `/setup/supported-providers`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * get the list of supported cv providers
- */
-export const listAllSupportedDataSourcePromise = (
-  props: GetUsingFetchProps<RestResponseListDataSourceType, unknown, ListAllSupportedDataSourceQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseListDataSourceType, unknown, ListAllSupportedDataSourceQueryParams, void>(
-    getConfig('cv/api'),
-    `/setup/supported-providers`,
     props,
     signal
   )

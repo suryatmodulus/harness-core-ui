@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Text, Card, Color, Button, Radio, Container, ButtonVariation } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'

@@ -20,7 +20,13 @@ import {
 } from './ChangeSourceDrawer.utils'
 import type { ChangeSoureDrawerInterface, UpdatedChangeSourceDTO } from './ChangeSourceDrawer.types'
 import PageDutyChangeSource from './components/PagerDutyChangeSource/PagerDutyChangeSource'
-import { ChangeSourceFieldNames, HARNESS_CD } from './ChangeSourceDrawer.constants'
+import {
+  ChangeSourceFieldNames,
+  HARNESS_CD,
+  HARNESS_CD_NEXTGEN,
+  ChangeSourceTypes
+} from './ChangeSourceDrawer.constants'
+import HarnessCDCurrentGenChangeSource from './components/HarnessCDCurrentGenChangeSource/HarnessCDCurrentGenChangeSource'
 import style from './ChangeSourceDrawer.module.scss'
 
 export function ChangeSourceDrawer({
@@ -35,21 +41,32 @@ export function ChangeSourceDrawer({
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
 
   const onSuccessWrapper = (data: UpdatedChangeSourceDTO): void => {
+    // for PagerDuty
+    if (data.type === ChangeSourceTypes.PagerDuty) {
+      data.enabled = true
+    }
     data['spec'] = updateSpecByType(data)
     const updatedChangeSources = createChangesourceList(tableData, data)
     onSuccess(updatedChangeSources)
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const categoryOptions = useMemo(() => getChangeSourceOptions(getString, monitoredServiceType), [monitoredServiceType])
+
   const renderChangeSource = useCallback(
     (formik: FormikProps<any>): React.ReactNode => {
       const changeSourceType = formik.values?.type as string
-      if (!changeSourceType || changeSourceType === HARNESS_CD) return null
+      if (!changeSourceType || changeSourceType === HARNESS_CD_NEXTGEN) {
+        return null
+      }
       let changeSource = null
 
       switch (changeSourceType) {
         case Connectors.PAGER_DUTY:
           changeSource = <PageDutyChangeSource formik={formik} isEdit={isEdit} />
+          break
+        case HARNESS_CD:
+          changeSource = <HarnessCDCurrentGenChangeSource formik={formik} />
           break
         default:
           changeSource = (
@@ -77,6 +94,7 @@ export function ChangeSourceDrawer({
         <CardWithOuterTitle title={getString('cv.changeSource.connectChangeSource')}>{changeSource}</CardWithOuterTitle>
       )
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [accountId, orgIdentifier, projectIdentifier]
   )
 

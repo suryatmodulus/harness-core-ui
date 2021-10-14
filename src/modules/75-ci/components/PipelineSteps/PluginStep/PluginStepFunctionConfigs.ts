@@ -27,6 +27,10 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.Boolean
   },
   {
+    name: 'spec.reportPaths',
+    type: TransformValuesTypes.ReportPaths
+  },
+  {
     name: 'spec.settings',
     type: TransformValuesTypes.Map
   },

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { FormInput, Text, getMultiTypeFromValue, MultiTypeInputType, Container } from '@wings-software/uicore'

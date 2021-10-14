@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import moment from 'moment'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Layout, Heading, Container, Icon, Text, Color, CodeBlock, Button } from '@wings-software/uicore'
 import { Dialog, IDialogProps, Classes, Spinner } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'

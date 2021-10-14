@@ -177,6 +177,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected, stage.data),
         icon: stage.icon,
         skipCondition: stage?.skipCondition,
+        defaultSelected: isSelected,
         conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when!),
         disableClick: stage.disableClick
       }

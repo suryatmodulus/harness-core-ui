@@ -1,6 +1,9 @@
+import { RiskValues } from '@cv/utils/CommonUtils'
+import type { Node } from '@cv/components/DependencyGraph/DependencyGraph.types'
 import { serviceIcon } from '../DependencyGraph.constants'
 
-const commonClassName = 'PointData Test_Service_101 Status_NO_ANALYSIS'
+const commonClassName = `PointData Test_Service_101 Status_${RiskValues.NO_ANALYSIS}`
+
 export const graphData = [
   {
     from: 'Test_service_103',
@@ -52,58 +55,58 @@ export const graphData = [
   }
 ]
 
-export const nodes = [
+export const nodes: Array<Node> = [
   {
     id: 'service106_Test_env_102',
-    status: 'NO_ANALYSIS',
+    status: RiskValues.NO_ANALYSIS,
     icon: serviceIcon,
     name: 'service106'
   },
   {
     id: 'Test_Service_101_Test_Prod_Env_101',
-    status: 'NO_ANALYSIS',
+    status: RiskValues.NO_ANALYSIS,
     icon: serviceIcon,
     name: 'Test_Service_101'
   },
   {
     id: 'Test_Service_103_Test_env_102',
-    status: 'NO_ANALYSIS',
+    status: RiskValues.NO_ANALYSIS,
     icon: serviceIcon,
     name: 'Test_Service_103'
   },
   {
     id: 'Test_Service_102_Test_Prod_Env_101',
-    status: 'NO_ANALYSIS',
+    status: RiskValues.NO_ANALYSIS,
     icon: serviceIcon,
     name: 'Test_Service_102'
   },
   {
     id: 'Test_service_103_Test_Prod_Env_101',
-    status: 'NO_ANALYSIS',
+    status: RiskValues.NO_ANALYSIS,
     icon: serviceIcon,
     name: 'Test_service_103'
   },
   {
     id: 'service105_Test_env_102',
-    status: 'NO_ANALYSIS',
+    status: RiskValues.NO_ANALYSIS,
     icon: serviceIcon,
     name: 'service105'
   },
   {
     id: 'service107_Test_env_102',
-    status: 'NO_ANALYSIS',
+    status: RiskValues.NO_ANALYSIS,
     icon: serviceIcon,
     name: 'service107'
   },
   {
     id: 'Test_Service_104_Test_Prod_Env_101',
-    status: 'NO_ANALYSIS',
+    status: RiskValues.NO_ANALYSIS,
     icon: serviceIcon,
     name: 'Test_Service_104'
   },
   {
     id: 'Test_Service_104_Test_env_102',
-    status: 'LOW',
+    status: RiskValues.HEALTHY,
     icon: serviceIcon,
     name: 'Test_Service_104'
   }
@@ -111,7 +114,7 @@ export const nodes = [
 
 export const formattedNodes = [
   {
-    className: 'PointData service106 Status_NO_ANALYSIS',
+    className: `PointData service106 Status_${RiskValues.NO_ANALYSIS}`,
     id: 'service106_Test_env_102'
   },
   {
@@ -119,35 +122,35 @@ export const formattedNodes = [
     id: 'Test_Service_101_Test_Prod_Env_101'
   },
   {
-    className: 'PointData Test_Service_103 Status_NO_ANALYSIS',
+    className: `PointData Test_Service_103 Status_${RiskValues.NO_ANALYSIS}`,
     id: 'Test_Service_103_Test_env_102'
   },
   {
-    className: 'PointData Test_Service_102 Status_NO_ANALYSIS',
+    className: `PointData Test_Service_102 Status_${RiskValues.NO_ANALYSIS}`,
     id: 'Test_Service_102_Test_Prod_Env_101'
   },
   {
-    className: 'PointData Test_service_103 Status_NO_ANALYSIS',
+    className: `PointData Test_service_103 Status_${RiskValues.NO_ANALYSIS}`,
     id: 'Test_service_103_Test_Prod_Env_101'
   },
   {
-    className: 'PointData service105 Status_NO_ANALYSIS',
+    className: `PointData service105 Status_${RiskValues.NO_ANALYSIS}`,
     id: 'service105_Test_env_102'
   },
   {
-    className: 'PointData service107 Status_NO_ANALYSIS',
+    className: `PointData service107 Status_${RiskValues.NO_ANALYSIS}`,
     id: 'service107_Test_env_102'
   },
   {
-    className: 'PointData Test_Service_104 Status_NO_ANALYSIS',
+    className: `PointData Test_Service_104 Status_${RiskValues.NO_ANALYSIS}`,
     id: 'Test_Service_104_Test_Prod_Env_101'
   },
   {
-    className: 'PointData Test_Service_104 Status_LOW',
+    className: `PointData Test_Service_104 Status_${RiskValues.HEALTHY}`,
     id: 'Test_Service_104_Test_env_102'
   },
   {
-    className: 'PointData Test_service_103 Status_NO_ANALYSIS',
+    className: `PointData Test_service_103 Status_${RiskValues.NO_ANALYSIS}`,
     id: 'Test_service_103'
   },
   {
@@ -155,7 +158,7 @@ export const formattedNodes = [
     id: 'Test_Service_101'
   },
   {
-    className: 'PointData Test_Service_102 Status_NO_ANALYSIS',
+    className: `PointData Test_Service_102 Status_${RiskValues.NO_ANALYSIS}`,
     id: 'Test_Service_102'
   },
   {
@@ -229,9 +232,10 @@ export const mockedServiceDependencies = {
       {
         identifierRef: 'service110_Test_env_102',
         serviceRef: 'service110',
+        serviceName: 'service110',
         environmentRef: 'Test_env_200',
         riskScore: -1,
-        riskLevel: 'NO_ANALYSIS',
+        riskLevel: RiskValues.NO_ANALYSIS,
         anomalousMetricsCount: 0,
         anomalousLogsCount: 0,
         changeCount: 0
@@ -239,9 +243,10 @@ export const mockedServiceDependencies = {
       {
         identifierRef: 'Test_Service_103_Test_env_200',
         serviceRef: 'Test_Service_200',
+        serviceName: 'Test_Service_200',
         environmentRef: 'Test_env_200',
         riskScore: -1,
-        riskLevel: 'NO_ANALYSIS',
+        riskLevel: RiskValues.NO_ANALYSIS,
         anomalousMetricsCount: 0,
         anomalousLogsCount: 0,
         changeCount: 0
@@ -269,13 +274,13 @@ export const mockedDependenciesResults = {
       icon: 'dependency-default-icon',
       id: 'service110_Test_env_102',
       name: 'service110',
-      status: 'NO_ANALYSIS'
+      status: RiskValues.NO_ANALYSIS
     },
     {
       icon: 'dependency-default-icon',
       id: 'Test_Service_103_Test_env_200',
       name: 'Test_Service_200',
-      status: 'NO_ANALYSIS'
+      status: RiskValues.NO_ANALYSIS
     }
   ]
 }

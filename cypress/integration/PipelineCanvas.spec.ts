@@ -58,12 +58,12 @@ describe('GIT SYNC DISABLED', () => {
 
     cy.get('[value="testEnv"]').should('be.visible')
 
-    cy.get('[data-name="yaml-btn"]').click()
+    cy.get('[data-name="toggle-option-two"]').click()
 
     // Enable YAML editing
     cy.contains('span', 'Edit Yaml').click({ force: true })
 
-    cy.get('[data-name="visual-btn"]').click()
+    cy.get('[data-name="toggle-option-one"]').click()
 
     // try to save the pipleine, the mock data has error
     cy.contains('span', 'Save').click({ force: true })

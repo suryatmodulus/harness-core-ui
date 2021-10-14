@@ -29,7 +29,7 @@ import type {
   GitQueryParams,
   ModuleHomeParams,
   InputSetGitQueryParams,
-  ModuleCardPathParams,
+  SubscriptionQueryParams,
   ServiceAccountPathProps,
   ServicePathProps,
   TemplateStudioPathProps,
@@ -54,11 +54,18 @@ const routes = {
     }
   ),
   toUser: withAccountId(() => '/user'),
-  toSubscriptions: withAccountId(({ moduleCard }: ModuleCardPathParams) => {
-    if (moduleCard) {
-      return `/settings/subscriptions?moduleCard=${moduleCard}`
+  toSubscriptions: withAccountId(({ moduleCard, tab }: SubscriptionQueryParams) => {
+    const url = '/settings/subscriptions'
+    if (moduleCard && tab) {
+      return url.concat(`?moduleCard=${moduleCard}&&tab=${tab}`)
     }
-    return '/settings/subscriptions'
+    if (moduleCard) {
+      return url.concat(`?moduleCard=${moduleCard}`)
+    }
+    if (tab) {
+      return url.concat(`?tab=${tab}`)
+    }
+    return url
   }),
   toAccountSettings: withAccountId(() => '/settings'),
   toAccountSettingsOverview: withAccountId(() => '/settings/overview'),
@@ -530,6 +537,14 @@ const routes = {
   toGitOps: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops`
+  ),
+  toHarnessManagedGitOps: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops/harness-managed-gitops`
+  ),
+  toNativeArgo: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops/native`
   ),
   toServices: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react'
+import { noop } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import type { Column } from 'react-table'
 import { Text, Icon, Color, Container } from '@wings-software/uicore'
@@ -18,6 +19,7 @@ import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
 import type { ChangesTableInterface } from './ChangesTable.types'
 import { renderTime, renderName, renderImpact, renderType, renderChangeType } from './ChangesTable.utils'
 import { defaultPageSize } from './ChangesTable.constants'
+import ChangeEventCard from './components/ChangeEventCard/ChangeEventCard'
 import css from './ChangeTable.module.scss'
 
 export default function ChangesTable({
@@ -42,9 +44,13 @@ export default function ChangesTable({
   const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.resource ?? ({} as any)
 
   const drawerOptions = {
-    size: '530px'
+    size: '530px',
+    onClose: noop
   } as IDrawerProps
-  const { showDrawer } = useDrawer({ createDrawerContent: () => <> </>, drawerOptions })
+  const { showDrawer } = useDrawer({
+    createDrawerContent: props => <ChangeEventCard activityId={props?.id} />,
+    drawerOptions
+  })
 
   useEffect(() => {
     setPage(0)
@@ -59,6 +65,9 @@ export default function ChangesTable({
         endTime,
         pageIndex: page,
         pageSize: 10
+      },
+      queryParamStringifyOptions: {
+        arrayFormat: 'repeat'
       }
     })
   }, [startTime, endTime, serviceIdentifier, environmentIdentifier, page])
@@ -81,13 +90,13 @@ export default function ChangesTable({
         Header: getString('cv.monitoredServices.changesTable.impact'),
         Cell: renderImpact,
         accessor: 'serviceIdentifier',
-        width: '25%'
+        width: '20%'
       },
       {
         Header: getString('source'),
         Cell: renderType,
         accessor: 'type',
-        width: '15%'
+        width: '20%'
       },
       {
         Header: getString('typeLabel'),

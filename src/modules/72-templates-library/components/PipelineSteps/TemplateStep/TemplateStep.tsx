@@ -49,6 +49,8 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
           factory={factory}
           initialValues={initialValues.template?.templateInputs || {}}
           allValues={inputSetData?.allValues?.template?.templateInputs}
+          // eslint-disable-next-line
+          // @ts-ignore to be fixed later
           template={inputSetData?.template}
           readonly={!!inputSetData?.readonly}
           type={initialValues.template?.templateInputs.type as StepType}

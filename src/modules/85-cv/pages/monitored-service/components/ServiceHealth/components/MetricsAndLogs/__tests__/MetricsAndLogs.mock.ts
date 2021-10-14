@@ -1,3 +1,5 @@
+import { RiskValues } from '@cv/utils/CommonUtils'
+
 export const mockedHealthSourcesData = {
   data: {
     resource: [
@@ -20,7 +22,7 @@ export const mockedClustersData = {
   resource: [
     {
       text: 'verification-svc',
-      risk: 'LOW',
+      risk: RiskValues.HEALTHY,
       x: 0,
       y: 0,
       tag: 'KNOWN'

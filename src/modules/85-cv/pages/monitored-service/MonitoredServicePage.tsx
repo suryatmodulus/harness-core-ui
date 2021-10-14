@@ -5,7 +5,6 @@ import { Container, Tab, Tabs } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
 import { useGetMonitoredService } from 'services/cv'
 import { PageSpinner } from '@common/components'
@@ -21,8 +20,6 @@ import css from './MonitoredServicePage.module.scss'
 
 function MonitoredServicePage(): JSX.Element {
   const { getString } = useStrings()
-  const { selectedProject } = useAppStore()
-  const project = selectedProject
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
@@ -79,14 +76,6 @@ function MonitoredServicePage(): JSX.Element {
         <HorizontalLayout alignItem={'flex-end'}>
           <NGBreadcrumbs
             links={[
-              {
-                url: routes.toCVProjectOverview({
-                  orgIdentifier: orgIdentifier,
-                  projectIdentifier: projectIdentifier,
-                  accountId: accountId
-                }),
-                label: project?.name as string
-              },
               {
                 url: routes.toCVMonitoringServices({
                   orgIdentifier: orgIdentifier,

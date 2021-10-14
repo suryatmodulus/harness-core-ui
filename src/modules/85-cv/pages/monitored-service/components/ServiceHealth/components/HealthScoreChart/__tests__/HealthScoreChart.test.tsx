@@ -1,13 +1,12 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { highRiskColor, lowRiskColor, mediumRiskColor, noAnalysisColor } from '@common/components/HeatMap/ColorUtils'
 import type { RiskData } from 'services/cv'
 import HealthScoreChart from '../HealthScoreChart'
 import type { HealthScoreChartProps } from '../HealthScoreChart.types'
 import { TimePeriodEnum } from '../../../ServiceHealth.constants'
 import { mockedHealthScoreData, mockedSeriesData } from './HealthScoreChart.mock'
-import { getSeriesData, mapRiskStatusToColor } from '../HealthScoreChart.utils'
+import { getSeriesData } from '../HealthScoreChart.utils'
 
 const WrapperComponent = (props: HealthScoreChartProps): JSX.Element => {
   return (
@@ -33,13 +32,6 @@ describe('Unit tests for HealthScoreChart', () => {
     }
     const { container } = render(<WrapperComponent {...props} />)
     expect(container).toMatchSnapshot()
-  })
-
-  test('Verify if correct color is returned when mapRiskStatusToColor method is called', async () => {
-    expect(mapRiskStatusToColor('HIGH')).toEqual(highRiskColor)
-    expect(mapRiskStatusToColor('MEDIUM')).toEqual(mediumRiskColor)
-    expect(mapRiskStatusToColor('LOW')).toEqual(lowRiskColor)
-    expect(mapRiskStatusToColor('default')).toEqual(noAnalysisColor)
   })
 
   test('Verify if correct series is returned for the health score bar graph', async () => {

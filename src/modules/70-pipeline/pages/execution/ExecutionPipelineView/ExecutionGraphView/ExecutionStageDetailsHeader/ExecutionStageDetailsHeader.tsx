@@ -1,7 +1,7 @@
 import React from 'react'
 import { defaultTo, find } from 'lodash-es'
 
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { String as StrTemplate } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import type { StageDetailProps } from '@pipeline/factories/ExecutionFactory/types'
@@ -104,14 +104,14 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
                       {getString('whenCondition')}
                     </Text>
                     <Text font={{ size: 'small' }} color="grey900" margin={{ bottom: 'medium' }}>
-                      {`<+environment.name> != ”QA” 
+                      {`<+environment.name> != ”QA”
 <+environment.name> = “Dev”`}
                     </Text>
                     <Text font={{ size: 'small', weight: 'semi-bold' }} color="black" margin={{ bottom: 'xsmall' }}>
                       {getString('pipeline.expressionsEvaluation')}
                     </Text>
                     <Text font={{ size: 'small' }} color="grey900">
-                      {`<+environment.name> != ”QA” 
+                      {`<+environment.name> != ”QA”
 <+environment.name> = “blah”`}
                     </Text>
                   </div>

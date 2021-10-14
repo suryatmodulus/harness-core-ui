@@ -5,6 +5,10 @@ const targetLocalHost = (process.env.TARGET_LOCALHOST && JSON.parse(process.env.
 console.table({ baseUrl, targetLocalHost })
 
 module.exports = {
+  '/gitops-ui': {
+    pathRewrite: { '^/gitops-ui': '' },
+    target: process.env.GITOPSUI_URL || 'https://localhost:8183'
+  },
   '/ng/api': {
     pathRewrite: { '^/ng/api': '' },
     target: targetLocalHost ? 'https://localhost:7090' : `${baseUrl}/ng/api`
@@ -61,5 +65,8 @@ module.exports = {
   },
   '/ccm/recommendations/api': {
     target: targetLocalHost ? 'http://localhost:5000' : baseUrl
+  },
+  '/template/api': {
+    target: targetLocalHost ? 'http://localhost:15001' : baseUrl
   }
 }

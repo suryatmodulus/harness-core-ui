@@ -9,7 +9,7 @@ import {
 } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import type { StepElementConfig } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { TabTypes, Values } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import type { TemplateProps } from '@templates-library/components/AbstractTemplate/Template'
 import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
 import type { NGTemplateInfoConfig } from 'services/template-ng'
@@ -31,14 +31,7 @@ const StepTemplateForm = (props: TemplateProps<NGTemplateInfoConfig>, formikRef:
     }
   }))
 
-  const onSubmitStep = async (
-    item: Partial<
-      StepElementConfig & {
-        tab?: TabTypes
-        delegateSelectors?: string[]
-      }
-    >
-  ): Promise<void> => {
+  const onSubmitStep = async (item: Partial<Values>): Promise<void> => {
     const processNode = produce(formikProps.values.spec as StepElementConfig, node => {
       if (item.tab !== TabTypes.Advanced) {
         if ((item as StepElementConfig).description) {

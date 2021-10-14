@@ -546,13 +546,7 @@ export class ExecutionStepModel extends DiagramModel {
           prevNodes = [stepGroupLayer.startNode]
         }
         this.useStepGroupLayer(stepGroupLayer)
-        let steps = node.stepGroup.steps
-        if (stepState?.isStepGroupRollback) {
-          if (!node.stepGroup.rollbackSteps) {
-            node.stepGroup.rollbackSteps = []
-          }
-          steps = node.stepGroup.rollbackSteps
-        }
+        const steps = node.stepGroup.steps
         // Check if step group has nodes
         if (steps?.length > 0) {
           steps.forEach((nodeP, index: number) => {

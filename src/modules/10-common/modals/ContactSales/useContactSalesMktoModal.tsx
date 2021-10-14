@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
+import { useQueryParams } from '@common/hooks'
 import type { StringsMap } from 'stringTypes'
+import type { SubscriptionQueryParams } from '@common/interfaces/RouteInterfaces'
 import css from './useContactSalesMktoModal.module.scss'
 
 interface UseContactSalesModalProps {
@@ -41,7 +43,7 @@ const insertElements = ({
   titleNode.setAttribute('class', `title ${css.title}`)
   const title = document.createTextNode(getString('common.banners.trial.contactSales'))
   titleNode.appendChild(title)
-  document.getElementById('mktoForm_1249')?.insertBefore(titleNode, document.getElementsByClassName('mktoFormRow')[0])
+  document.getElementById('mktoForm_1249')?.insertBefore(titleNode, document.getElementsByClassName('mktoFormRow')?.[0])
 
   const subTitleNode = document.createElement('div')
   const subTitle = document.createTextNode(getString('common.banners.trial.contactSalesForm.description'))
@@ -49,7 +51,7 @@ const insertElements = ({
   subTitleNode.appendChild(subTitle)
   document
     .getElementById('mktoForm_1249')
-    ?.insertBefore(subTitleNode, document.getElementsByClassName('mktoFormRow')[0])
+    ?.insertBefore(subTitleNode, document.getElementsByClassName('mktoFormRow')?.[0])
 }
 
 const setPlaceHolders = (): void => {
@@ -62,16 +64,17 @@ const removeUnneededElements = (): void => {
 }
 
 const overrideCss = (): void => {
-  const mktoModalContent = document.getElementsByClassName('mktoModalContent')[0]
-  mktoModalContent.setAttribute('class', cx(mktoModalContent.getAttribute('class'), css.mktoModalContent))
+  const mktoModalContent = document.getElementsByClassName('mktoModalContent')?.[0]
+  mktoModalContent?.setAttribute('class', cx(mktoModalContent?.getAttribute('class'), css.mktoModalContent))
 
   const formPhone = document.getElementById('formPhone')
-  formPhone?.setAttribute('class', cx(formPhone.getAttribute('class'), css.formPhone))
+  formPhone?.setAttribute('class', cx(formPhone?.getAttribute('class'), css.formPhone))
 }
 
 export const useContactSalesMktoModal = ({ onSubmit }: UseContactSalesModalProps): UseContactSalesModalPayload => {
   const { getString } = useStrings()
   const [loading, setLoading] = useState<boolean>(false)
+  const { moduleCard, tab } = useQueryParams<SubscriptionQueryParams>()
 
   function openMarketoContactSales(): void {
     setLoading(true)
@@ -79,7 +82,11 @@ export const useContactSalesMktoModal = ({ onSubmit }: UseContactSalesModalProps
       window?.MktoForms2.lightbox(form).show()
       form.onSuccess(function () {
         onSubmit?.(form.values)
-        window.location.href = `${window.location.href}?contactSales=success`
+        if (moduleCard || tab) {
+          window.location.href = `${window.location.href}&&contactSales=success`
+        } else {
+          window.location.href = `${window.location.href}?contactSales=success`
+        }
         return false
       })
     })
@@ -89,7 +96,7 @@ export const useContactSalesMktoModal = ({ onSubmit }: UseContactSalesModalProps
       setPlaceHolders()
       removeUnneededElements()
       overrideCss()
-      form.getFormElem()[0].setAttribute('data-mkto-ready', 'true')
+      form.getFormElem()?.[0]?.setAttribute('data-mkto-ready', 'true')
       setLoading(false)
     })
   }

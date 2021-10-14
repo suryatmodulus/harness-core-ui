@@ -1,3 +1,5 @@
+import { RiskValues } from '@cv/utils/CommonUtils'
+
 export const mockedLogAnalysisData = {
   metaData: {},
   resource: {
@@ -9,7 +11,7 @@ export const mockedLogAnalysisData = {
       {
         message: 'Done with entity',
         clusterType: 'KNOWN',
-        riskStatus: 'LOW',
+        riskStatus: RiskValues.HEALTHY,
         riskScore: 0.0,
         count: 410
       },
@@ -17,14 +19,14 @@ export const mockedLogAnalysisData = {
         message:
           "[processNextCVTasks] Total time taken to process accountId Account{companyName='Shaw', accountName='Shaw 2'} is 1 (ms)",
         clusterType: 'KNOWN',
-        riskStatus: 'LOW',
+        riskStatus: RiskValues.HEALTHY,
         riskScore: 0.0,
         count: 330
       },
       {
         message: 'for VP4Jp_fnRwObcTDj_hu8qA the cron will handle data collection',
         clusterType: 'UNEXPECTED_FREQUENY',
-        riskStatus: 'LOW',
+        riskStatus: RiskValues.HEALTHY,
         riskScore: 0.0,
         count: 19
       },
@@ -32,7 +34,7 @@ export const mockedLogAnalysisData = {
         message:
           "[expireLongRunningCVTasks] Total time taken to process accountId Account{companyName='Arch U.S. MI Services Inc.', accountName='Arch U.S. MI Services Inc.-6206'} is 2 (ms)",
         clusterType: 'UNEXPECTED_FREQUENY',
-        riskStatus: 'LOW',
+        riskStatus: RiskValues.HEALTHY,
         riskScore: 0.0,
         count: 3
       },
@@ -40,7 +42,7 @@ export const mockedLogAnalysisData = {
         message:
           "[retryCVTasks] Total time taken to process accountId Account{companyName='Harness.io', accountName='Puneet Test Pro'} is 0 (ms)",
         clusterType: 'KNOWN',
-        riskStatus: 'LOW',
+        riskStatus: RiskValues.HEALTHY,
         riskScore: 0.0,
         count: 3
       },
@@ -48,7 +50,7 @@ export const mockedLogAnalysisData = {
         message:
           "[expireLongRunningCVTasks] Total time taken to process accountId Account{companyName='Harness', accountName='CS - Marcos Gabriel-4229'} is 1 (ms)",
         clusterType: 'KNOWN',
-        riskStatus: 'LOW',
+        riskStatus: RiskValues.HEALTHY,
         riskScore: 0.0,
         count: 3
       },
@@ -56,7 +58,7 @@ export const mockedLogAnalysisData = {
         message:
           "[expireLongRunningCVTasks] Total time taken to process accountId Account{companyName='New York Life', accountName='NYL'} is 2 (ms)",
         clusterType: 'KNOWN',
-        riskStatus: 'LOW',
+        riskStatus: RiskValues.HEALTHY,
         riskScore: 0.0,
         count: 3
       },
@@ -64,7 +66,7 @@ export const mockedLogAnalysisData = {
         message:
           "[expireLongRunningCVTasks] Total time taken to process accountId Account{companyName='Times Higher Education', accountName='Times Higher Education'} is 2 (ms)",
         clusterType: 'KNOWN',
-        riskStatus: 'LOW',
+        riskStatus: RiskValues.HEALTHY,
         riskScore: 0.0,
         count: 9
       },
@@ -72,7 +74,7 @@ export const mockedLogAnalysisData = {
         message:
           "[retryCVTasks] Total time taken to process accountId Account{companyName='CS - Venkat2', accountName='CS - Venkat2'} is 0 (ms)",
         clusterType: 'UNKNOWN',
-        riskStatus: 'LOW',
+        riskStatus: RiskValues.HEALTHY,
         riskScore: 0.0,
         count: 12
       },
@@ -80,7 +82,7 @@ export const mockedLogAnalysisData = {
         message:
           "[expireLongRunningCVTasks] Total time taken to process accountId Account{companyName='AppDynamics', accountName='AppDynamics - Sales Demo'} is 2 (ms)",
         clusterType: 'UNKNOWN',
-        riskStatus: 'LOW',
+        riskStatus: RiskValues.HEALTHY,
         riskScore: 0.0,
         count: 3
       }

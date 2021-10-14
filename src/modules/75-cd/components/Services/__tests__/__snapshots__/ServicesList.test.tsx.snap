@@ -117,7 +117,11 @@ exports[`ServicesList render 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          SERVICE
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            SERVICE
+          </p>
         </div>
         <div
           class="cell"
@@ -125,7 +129,11 @@ exports[`ServicesList render 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          TYPELABEL
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            TYPELABEL
+          </p>
         </div>
         <div
           class="cell"
@@ -133,7 +141,11 @@ exports[`ServicesList render 1`] = `
           role="columnheader"
           style="width: 15%;"
         >
-          CD.SERVICEDASHBOARD.SERVICEINSTANCES
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            CD.SERVICEDASHBOARD.SERVICEINSTANCES
+          </p>
         </div>
         <div
           class="cell"
@@ -141,7 +153,11 @@ exports[`ServicesList render 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          DEPLOYMENTSTEXT
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            DEPLOYMENTSTEXT
+          </p>
         </div>
         <div
           class="cell"
@@ -149,7 +165,11 @@ exports[`ServicesList render 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          COMMON.FAILURERATE
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            COMMON.FAILURERATE
+          </p>
         </div>
         <div
           class="cell"
@@ -157,7 +177,11 @@ exports[`ServicesList render 1`] = `
           role="columnheader"
           style="width: 10%;"
         >
-          CD.SERVICEDASHBOARD.FREQUENCY
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            CD.SERVICEDASHBOARD.FREQUENCY
+          </p>
         </div>
         <div
           class="cell"
@@ -165,7 +189,11 @@ exports[`ServicesList render 1`] = `
           role="columnheader"
           style="width: 25%;"
         >
-          CD.SERVICEDASHBOARD.LASTDEPLOYMENT
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            CD.SERVICEDASHBOARD.LASTDEPLOYMENT
+          </p>
         </div>
         <div
           class="cell"
@@ -173,7 +201,11 @@ exports[`ServicesList render 1`] = `
           role="columnheader"
           style="width: 5%;"
         >
-          
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            
+          </p>
         </div>
       </div>
       <div

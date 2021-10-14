@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import { RiskValues } from '@cv/utils/CommonUtils'
 import { PrimaryAndCanaryNodes } from '../PrimaryAndCanaryNodes'
 
 describe('Unit tests for PrimaryAndCanaryNodes', () => {
@@ -26,11 +27,18 @@ describe('Unit tests for PrimaryAndCanaryNodes', () => {
     const { container, getByText } = render(
       <TestWrapper>
         <PrimaryAndCanaryNodes
-          primaryNodes={[{ risk: 'LOW', hostName: 'someName', anomalousLogClustersCount: 2, anomalousMetricsCount: 3 }]}
+          primaryNodes={[
+            { risk: RiskValues.HEALTHY, hostName: 'someName', anomalousLogClustersCount: 2, anomalousMetricsCount: 3 }
+          ]}
           primaryNodeLabel="before"
           canaryNodeLabel="after"
           canaryNodes={[
-            { risk: 'MEDIUM', hostName: 'anotherName', anomalousLogClustersCount: 7, anomalousMetricsCount: 3 }
+            {
+              risk: RiskValues.NEED_ATTENTION,
+              hostName: 'anotherName',
+              anomalousLogClustersCount: 7,
+              anomalousMetricsCount: 3
+            }
           ]}
         />
       </TestWrapper>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Radio } from '@blueprintjs/core'
 import { Button, Card, Color, Container, Icon, Layout, StepProps, Text } from '@wings-software/uicore'
 import { pick } from 'lodash-es'

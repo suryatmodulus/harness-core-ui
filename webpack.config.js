@@ -16,6 +16,10 @@ const JSONGeneratorPlugin = require('@wings-software/jarvis/lib/webpack/json-gen
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const GenerateStringTypesPlugin = require('./scripts/webpack/GenerateStringTypesPlugin').GenerateStringTypesPlugin
 const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins')
+const moduleFederationConfig = require('./configs/modulefederation.config.js')
+const ExternalRemotesPlugin = require('external-remotes-plugin')
+
+const moduleFederationEnabled = process.env.ENABLE_MICROFRONTENDS === 'true'
 
 const DEV = process.env.NODE_ENV === 'development'
 const ON_PREM = `${process.env.ON_PREM}` === 'true'
@@ -43,7 +47,7 @@ if (isCypress && isCypressCoverage) {
 }
 const config = {
   context: CONTEXT,
-  entry: './src/framework/app/App.tsx',
+  entry: './src/framework/app',
   target: 'web',
   mode: DEV ? 'development' : 'production',
   output: {
@@ -55,7 +59,7 @@ const config = {
   },
   devtool: DEV ? 'cheap-module-source-map' : 'hidden-source-map',
   devServer: {
-    contentBase: false,
+    historyApiFallback: true,
     port: 8181,
     https: {
       key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost-key.pem')),
@@ -66,14 +70,7 @@ const config = {
         key,
         Object.assign({ logLevel: 'info', secure: false, changeOrigin: true }, value)
       ])
-    ),
-    stats: {
-      children: false,
-      maxModules: 0,
-      chunks: false,
-      assets: false,
-      modules: false
-    }
+    )
   },
   stats: {
     modules: false,
@@ -230,6 +227,11 @@ const commonPlugins = [
   }),
   new GenerateStringTypesPlugin()
 ]
+
+if (moduleFederationEnabled) {
+  commonPlugins.unshift(new ExternalRemotesPlugin())
+  commonPlugins.unshift(new webpack.container.ModuleFederationPlugin(moduleFederationConfig))
+}
 
 const devOnlyPlugins = [
   new webpack.WatchIgnorePlugin({

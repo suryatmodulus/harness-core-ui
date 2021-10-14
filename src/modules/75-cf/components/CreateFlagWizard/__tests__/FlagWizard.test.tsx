@@ -3,6 +3,8 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
+import * as cfServiceMock from 'services/cf'
+import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUtils'
 import FlagWizard from '../FlagWizard'
 
 jest.mock('@cf/hooks/useFeatureFlagTelemetry', () => ({
@@ -24,13 +26,15 @@ jest.mock('@common/hooks/useTelemetry', () => ({
 
 describe('FlagWizard', () => {
   test('it should fire telementary event when completed created flag', () => {
+    jest.spyOn(cfServiceMock, 'useGetGitRepo').mockReturnValue({ loading: false, data: { repoSet: true } } as any)
+
     render(
       <TestWrapper
         path="/account/:accountId/cf/dashboard/orgs/:orgIdentifier/projects/:projectIdentifier"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
       >
         <FlagWizard
-          flagTypeView="boolean"
+          flagTypeView={FlagTypeVariations.booleanFlag}
           environmentIdentifier="nonProduction"
           toggleFlagType={jest.fn()}
           hideModal={jest.fn()}

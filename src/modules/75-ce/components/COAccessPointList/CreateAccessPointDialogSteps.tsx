@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import type { AccessPoint } from 'services/lw'
 import LoadBalancerDnsConfig from '../COGatewayAccess/LoadBalancerDnsConfig'
 import COAPProviderSelector from '../COProviderSelector/COAPProviderSelector'

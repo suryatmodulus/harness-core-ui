@@ -3,9 +3,11 @@ import cx from 'classnames'
 
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Card, Color, Container, Icon, IconName, Layout, Text, Heading } from '@wings-software/uicore'
 import { useQueryParams } from '@common/hooks'
 import { Page } from '@common/exports'
+import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { Editions } from '@common/constants/SubscriptionTypes'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
@@ -81,6 +83,7 @@ const SubscriptionsPage: React.FC = () => {
   const { moduleCard } = useQueryParams<{ moduleCard?: ModuleName }>()
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const history = useHistory()
 
   const ACTIVE_MODULE_SELECT_CARDS = MODULE_SELECT_CARDS.reduce(
     (accumulator: ModuleSelectCard[], card: ModuleSelectCard) => {
@@ -177,6 +180,8 @@ const SubscriptionsPage: React.FC = () => {
     const cards = ACTIVE_MODULE_SELECT_CARDS.map(cardData => {
       function handleCardClick(): void {
         setSelectedModuleCard(cardData)
+        // reset default tab
+        history.push(routes.toSubscriptions({ accountId, moduleCard: cardData.module.toLowerCase() as Module }))
       }
 
       const isSelected = cardData === selectedModuleCard

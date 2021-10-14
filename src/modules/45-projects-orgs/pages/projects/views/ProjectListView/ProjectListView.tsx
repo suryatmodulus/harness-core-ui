@@ -284,6 +284,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
     <Table<ProjectAggregateDTO>
       className={css.table}
       columns={columns}
+      name="ProjectListView"
       data={data?.data?.content || []}
       onRowClick={project => {
         history.push(

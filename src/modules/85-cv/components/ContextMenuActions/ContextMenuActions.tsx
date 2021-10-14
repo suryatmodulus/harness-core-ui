@@ -10,6 +10,7 @@ export default function ContextMenuActions({
   onDelete,
   titleText,
   contentText,
+  confirmButtonText,
   deleteLabel,
   editLabel
 }: ContextMenuActionsProps): JSX.Element {
@@ -18,7 +19,7 @@ export default function ContextMenuActions({
   const { openDialog } = useConfirmationDialog({
     titleText,
     contentText,
-    confirmButtonText: getString('delete'),
+    confirmButtonText: confirmButtonText ?? getString('delete'),
     cancelButtonText: getString('cancel'),
     onCloseDialog: function (shouldDelete: boolean) {
       if (shouldDelete) {

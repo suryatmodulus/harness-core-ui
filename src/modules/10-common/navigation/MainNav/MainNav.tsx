@@ -35,7 +35,6 @@ export default function L1Nav(): React.ReactElement {
                 padding={{ bottom: 'xsmall' }}
                 color={Color.WHITE}
                 className={css.text}
-                lineClamp={2}
               >
                 <String stringID="common.home" />
               </Text>
@@ -52,7 +51,6 @@ export default function L1Nav(): React.ReactElement {
                   padding={{ bottom: 'xsmall' }}
                   color={Color.WHITE}
                   className={css.text}
-                  lineClamp={2}
                 >
                   <String stringID="deploymentsText" />
                 </Text>
@@ -70,7 +68,6 @@ export default function L1Nav(): React.ReactElement {
                   padding={{ bottom: 'xsmall' }}
                   color={Color.WHITE}
                   className={css.text}
-                  lineClamp={2}
                 >
                   <String stringID="buildsText" />
                 </Text>
@@ -88,7 +85,6 @@ export default function L1Nav(): React.ReactElement {
                   padding={{ bottom: 'xsmall' }}
                   color={Color.WHITE}
                   className={css.text}
-                  lineClamp={2}
                 >
                   <String stringID="featureFlagsText" />
                 </Text>
@@ -106,7 +102,6 @@ export default function L1Nav(): React.ReactElement {
                   padding={{ bottom: 'xsmall' }}
                   color={Color.WHITE}
                   className={css.text}
-                  lineClamp={2}
                 >
                   <String stringID="cloudCostsText" />
                 </Text>
@@ -124,7 +119,6 @@ export default function L1Nav(): React.ReactElement {
                   padding={{ bottom: 'xsmall' }}
                   color={Color.WHITE}
                   className={css.text}
-                  lineClamp={2}
                 >
                   <String stringID="common.changeIntelligence" />
                 </Text>

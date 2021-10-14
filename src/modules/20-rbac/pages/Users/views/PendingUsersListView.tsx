@@ -285,6 +285,7 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, s
       <Table<Invite>
         className={css.table}
         columns={columns}
+        name="PendingUsersListView"
         data={data?.data?.content || []}
         pagination={{
           itemCount: data?.data?.totalItems || 0,

@@ -12,14 +12,18 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
         <div
           class="Layout--vertical StyledProps--main webhookConfigurationContainer StyledProps--padding-xxlarge"
         >
-          <h2
-            class="heading"
+          <span
+            class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+            data-tooltip-id="triggerConfigurationLabel"
           >
-            pipeline.triggers.triggerConfigurationLabel: pipeline.triggers.onNewWebhookTitle
-          </h2>
-          <div>
+            pipeline.triggers.triggerConfigurationLabel
+            : pipeline.triggers.onNewWebhookTitle
+          </span>
+          <div
+            class="formContent"
+          >
             <div
-              class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+              class="StyledProps--font StyledProps--main main nameIdDescriptionTags bottomMarginZero"
             >
               <div
                 class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -207,17 +211,21 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 </label>
               </div>
             </div>
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
-              level="2"
-            >
-              pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
-            </h2>
+          </div>
+          <span
+            class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+            data-tooltip-id="listenOnNewWebhook"
+          >
+            pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
+          </span>
+          <div
+            class="formContent"
+          >
             <section
               style="width: 650px;"
             >
               <div
-                class="bp3-form-group"
+                class="bp3-form-group bottomMarginZero"
                 data-id="sourceRepo-1"
               >
                 <label
@@ -305,14 +313,18 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
         <div
           class="Layout--vertical StyledProps--main webhookConfigurationContainer StyledProps--padding-xxlarge"
         >
-          <h2
-            class="heading"
+          <span
+            class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+            data-tooltip-id="triggerConfigurationLabel"
           >
-            pipeline.triggers.triggerConfigurationLabel: pipeline.triggers.onNewWebhookTitle
-          </h2>
-          <div>
+            pipeline.triggers.triggerConfigurationLabel
+            : pipeline.triggers.onNewWebhookTitle
+          </span>
+          <div
+            class="formContent"
+          >
             <div
-              class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+              class="StyledProps--font StyledProps--main main nameIdDescriptionTags bottomMarginZero"
             >
               <div
                 class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -500,12 +512,16 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 </label>
               </div>
             </div>
-            <h2
-              class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
-              level="2"
-            >
-              pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
-            </h2>
+          </div>
+          <span
+            class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+            data-tooltip-id="listenOnNewWebhook"
+          >
+            pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
+          </span>
+          <div
+            class="formContent"
+          >
             <section
               style="width: 650px;"
             >
@@ -583,11 +599,17 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 <div
                   class="bp3-form-group"
                   data-id="null-2"
+                  style="display: inline-block;"
                 >
                   <label
                     class="bp3-label"
                   >
-                    connector
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="wrapperComponentTestForm_connectorRef"
+                    >
+                      connector
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -633,20 +655,16 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                     </button>
                   </div>
                 </div>
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
-                  style="padding: 0px;"
-                  type="button"
+                <p
+                  class="StyledProps--font StyledProps--main addButton StyledProps--color StyledProps--color-primary7"
+                  data-name="plusAdd"
+                  style="width: 43px;"
                 >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    plusAdd
-                  </span>
-                </button>
+                  plusAdd
+                </p>
               </section>
               <div
-                class="bp3-form-group"
+                class="bp3-form-group bottomMarginZero"
                 data-id="event-3"
               >
                 <label

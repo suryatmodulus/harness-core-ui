@@ -17,6 +17,7 @@ import type { IconName } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
 import { illegalIdentifiers } from '@common/utils/StringUtils'
+import type { FlagWizardFormValues } from './FlagWizard'
 import css from './FlagElemAbout.module.scss'
 
 const collapseProps = {
@@ -35,7 +36,7 @@ type AboutFormProps = FormikProps<any> & FlagElemAboutProps & { isEdit: boolean 
 const AboutForm: React.FC<AboutFormProps> = props => {
   const { getString } = useStrings()
   const [descOpened, setDescOpened] = useState<boolean>(Boolean(props.values.description.length))
-  // const [tagsOpened, setTagsOpened] = useState<boolean>(Boolean(props.values.tags.length))
+
   return (
     <Form>
       <Container className={css.aboutFlagContainer}>
@@ -65,27 +66,6 @@ const AboutForm: React.FC<AboutFormProps> = props => {
                 <FormInput.TextArea name="description" />
               </Collapse>
             </div>
-            {/* <div className={css.optionalCollapse}>
-              <Collapse
-                {...collapseProps}
-                onToggleOpen={setTagsOpened}
-                heading={getString('cf.creationModal.aboutFlag.tagsOptional')}
-                isOpen={Boolean(props.values.tags.length) || tagsOpened}
-              >
-                <FormInput.TagInput
-                  name="tags"
-                  label={''}
-                  items={[]}
-                  labelFor={nameLabel => nameLabel as string}
-                  itemFromNewTag={newTag => newTag}
-                  tagInputProps={{
-                    showClearAllButton: true,
-                    allowNewTag: true,
-                    placeholder: getString('cf.creationModal.aboutFlag.tagsPlaceholder')
-                  }}
-                />
-              </Collapse>
-            </div> */}
           </Container>
           <Container margin={{ top: 'xlarge' }}>
             <Layout.Horizontal>
@@ -124,8 +104,7 @@ const AboutForm: React.FC<AboutFormProps> = props => {
   )
 }
 
-// FIXME: Change any for StepProps
-const FlagElemAbout: React.FC<StepProps<any> & FlagElemAboutProps> = props => {
+const FlagElemAbout: React.FC<StepProps<Partial<FlagWizardFormValues>> & FlagElemAboutProps> = props => {
   const { getString } = useStrings()
   const { nextStep, prevStepData, goBackToTypeSelections } = props
   const isEdit = Boolean(prevStepData)
@@ -134,12 +113,11 @@ const FlagElemAbout: React.FC<StepProps<any> & FlagElemAboutProps> = props => {
     <>
       <Formik
         initialValues={{
-          name: '',
-          identifier: '',
-          description: '',
-          tags: [],
-          permanent: false,
-          ...prevStepData
+          name: prevStepData?.name || '',
+          identifier: prevStepData?.identifier || '',
+          description: prevStepData?.description || '',
+          tags: prevStepData?.tags || [],
+          permanent: prevStepData?.permanent || false
         }}
         formName="cfFlagElem"
         validationSchema={Yup.object().shape({
@@ -151,7 +129,7 @@ const FlagElemAbout: React.FC<StepProps<any> & FlagElemAboutProps> = props => {
             .notOneOf(illegalIdentifiers)
         })}
         onSubmit={vals => {
-          nextStep?.({ ...vals })
+          nextStep?.({ ...prevStepData, ...vals })
         }}
       >
         {formikProps => <AboutForm {...formikProps} isEdit={isEdit} goBackToTypeSelections={goBackToTypeSelections} />}

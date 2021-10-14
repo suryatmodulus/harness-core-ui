@@ -11,7 +11,7 @@ import {
   Text,
   FontVariation
 } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'
 import {

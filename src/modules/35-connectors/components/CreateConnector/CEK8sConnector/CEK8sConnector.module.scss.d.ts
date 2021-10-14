@@ -5,6 +5,8 @@ declare const styles: {
   readonly overviewStep: string
   readonly infoSection: string
   readonly selectConnector: string
+  readonly nameField: string
+  readonly createNewConnCta: string
   readonly providePermissionContainer: string
   readonly heading: string
   readonly previewLink: string

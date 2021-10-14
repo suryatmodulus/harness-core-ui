@@ -5,6 +5,8 @@ export interface ChangeSourceCardInterfae {
   startTime: number
   endTime: number
   duration?: TimePeriodEnum
+  serviceIdentifier: string
+  environmentIdentifier: string
 }
 
 export interface ChangeSourceCardData {

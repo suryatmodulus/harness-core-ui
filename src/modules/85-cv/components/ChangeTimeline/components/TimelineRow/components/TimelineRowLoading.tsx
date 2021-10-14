@@ -1,16 +1,17 @@
 import React, { useMemo } from 'react'
 import { Classes } from '@blueprintjs/core'
 import { Container } from '@wings-software/uicore'
+import css from './TimelineRowLoading.module.scss'
 
-export default function TimelineRowLoading() {
-  const LoadingBlock = () => (
+export default function TimelineRowLoading(): JSX.Element {
+  const LoadingBlock = (): JSX.Element => (
     <Container width={'75px'} height={'5px'} className={Classes.SKELETON}>
       {' '}
       &nbsp;{' '}
     </Container>
   )
 
-  const LoadingCircle = () => (
+  const LoadingCircle = (): JSX.Element => (
     <Container width={'7px'} height={'7px'} style={{ borderRadius: '4px' }} className={Classes.SKELETON}>
       {' '}
       &nbsp;{' '}
@@ -22,15 +23,15 @@ export default function TimelineRowLoading() {
     for (let i = 1; i <= 14; i++) {
       loadingFields.push(
         <>
-          <LoadingBlock />
-          {i < 14 && <LoadingCircle />}
+          <LoadingBlock key={`${i}block`} />
+          {i < 14 && <LoadingCircle key={`${i}circle`} />}
         </>
       )
     }
     return loadingFields
   }, [])
   return (
-    <Container data-testid={'timelineLoading'} flex width={'100% !important'}>
+    <Container data-testid={'timelineLoading'} flex className={css.loadingContainer}>
       {loadingBlocks}
     </Container>
   )

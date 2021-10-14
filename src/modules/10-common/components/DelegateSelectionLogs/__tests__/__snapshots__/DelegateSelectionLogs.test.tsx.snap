@@ -86,7 +86,11 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
             role="columnheader"
             style="width: 35%;"
           >
-            DELEGATE.DELEGATENAME
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              DELEGATE.DELEGATENAME
+            </p>
           </div>
           <div
             class="cell"
@@ -94,7 +98,11 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
             role="columnheader"
             style="width: 20%;"
           >
-            ASSESSMENT
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              ASSESSMENT
+            </p>
           </div>
           <div
             class="cell"
@@ -102,7 +110,11 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
             role="columnheader"
             style="width: 45%;"
           >
-            DETAILS
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+            >
+              DETAILS
+            </p>
           </div>
         </div>
         <div

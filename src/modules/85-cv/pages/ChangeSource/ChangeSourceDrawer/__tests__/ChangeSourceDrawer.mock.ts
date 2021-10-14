@@ -1,8 +1,8 @@
 export const changeSourceDrawerData = {
-  name: 'Harness CD',
-  identifier: 'harness_cd',
-  type: 'HarnessCD' as any,
-  desc: 'Deployments from Harness CD',
+  name: 'Harness CD Nextgen',
+  identifier: 'harness_cd_next_gen',
+  type: 'HarnessCDNextGen' as any,
+  desc: 'Deployments from Harness CD Nextgen',
   enabled: true,
   category: 'Deployment' as any,
   spec: {}
@@ -51,9 +51,18 @@ export const onSuccessHarnessCD = [
     desc: 'Deployments from Harness CD',
     enabled: true,
     identifier: 'harness_cd',
-    name: 'Updated Change Source',
+    name: 'Harness CD',
     spec: {},
     type: 'HarnessCD'
+  },
+  {
+    category: 'Deployment',
+    desc: 'Deployments from Harness CD Nextgen',
+    enabled: true,
+    identifier: 'harness_cd_next_gen',
+    name: 'Updated Change Source',
+    spec: {},
+    type: 'HarnessCDNextGen'
   }
 ]
 

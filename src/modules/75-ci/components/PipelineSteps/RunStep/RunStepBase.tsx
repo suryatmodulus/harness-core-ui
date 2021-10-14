@@ -82,10 +82,7 @@ export const RunStepBase = (
                 description: {},
                 'spec.connectorRef': {
                   label: (
-                    <Text
-                      style={{ display: 'flex', alignItems: 'center' }}
-                      tooltipProps={{ dataTooltipId: 'connector' }}
-                    >
+                    <Text style={{ display: 'flex', alignItems: 'center' }}>
                       {getString('pipelineSteps.connectorLabel')}
                     </Text>
                   ),

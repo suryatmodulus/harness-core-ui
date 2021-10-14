@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Color, Container, Heading, Intent, Text } from '@wings-software/uicore'
-import { useHistory, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import theBasicsImage from './basics.svg'

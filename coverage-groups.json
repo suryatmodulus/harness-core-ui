@@ -17,7 +17,7 @@
     "GitSync": ["src/modules/40-gitsync/**"],
     "CI": ["src/modules/75-ci/**"],
     "CF": ["src/modules/75-cf/**"],
-    "CE": ["src/modules/75-ce/**"],
+    "CE": ["src/modules/75-ce/**", "src/modules/35-connectors/CreateConnector/CEK8sConnector/**"],
     "RBAC": ["src/modules/20-rbac/**"],
     "SHARED": ["src/modules/10-common/**", "src/navigation/**"],
     "DASHBOARDS": ["src/modules/45-dashboards/**"],

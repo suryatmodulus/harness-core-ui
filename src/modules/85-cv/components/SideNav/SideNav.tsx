@@ -37,7 +37,7 @@ export default function CVSideNav(): React.ReactElement {
             )
           } else {
             history.push(
-              routes.toCVProjectOverview({
+              routes.toCVMonitoringServices({
                 projectIdentifier: data.identifier,
                 orgIdentifier: data.orgIdentifier || '',
                 accountId
@@ -48,15 +48,6 @@ export default function CVSideNav(): React.ReactElement {
       />
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
-          <SidebarLink
-            label="Overview"
-            to={routes.toCVProjectOverview({ accountId, projectIdentifier, orgIdentifier })}
-          />
-          {/* <SidebarLink
-            label={getString('changes')}
-            to={routes.toCVActivityDashboard({ accountId, projectIdentifier, orgIdentifier })}
-          /> */}
-          <SidebarLink label="Services" to={routes.toCVServices({ accountId, projectIdentifier, orgIdentifier })} />
           <SidebarLink
             label={getString('cv.monitoredServices.title')}
             to={routes.toCVMonitoringServices({ accountId, projectIdentifier, orgIdentifier })}

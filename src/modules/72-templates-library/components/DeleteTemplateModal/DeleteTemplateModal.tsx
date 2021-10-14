@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uicore'
 import { get, isEmpty } from 'lodash-es'
 import { Formik } from 'formik'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner, useToaster } from '@common/components'

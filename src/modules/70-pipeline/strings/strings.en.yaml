@@ -250,6 +250,10 @@ failureStrategies:
     timeoutRequired: Timeout is required
     onRetryFailureRequired: Retry failure action is required
     onTimeoutRequired: Post timeout action is required
+    ciCodebaseRequired: CI Codebase is required
+    gitBranchRequired: Git Branch is required
+    gitTagRequired: Git Tag is required
+    gitPRRequired: Git Pull Request is required
 selectOrCreatePipeline:
   pipelineNameRequired: Please select a pipeline
   setupHeader: Create or Select a Pipeline
@@ -370,14 +374,13 @@ triggers:
   addNewTrigger: Add New Trigger
   triggersLabel: 'Triggers'
   triggersSubLabel: 'All Trigger Types'
-  searchPlaceholder: 'Search Triggers'
   noTriggersFound: 'No Triggers Found'
   newTrigger: + New Trigger
   newTriggerWithoutPlus: New Trigger
   pipelineExecutionInput: Pipeline Execution Input
   lastActivationDetails: Last Activation Details
   lastActivationAt: 'Last activation at'
-  showAllTriggers: 'Show all Triggers'
+  showAllTriggers: 'Show All Triggers'
   onNewWebhookTitle: 'On New Webhook'
   onNewArtifactTitleWhole: 'On New Artifact'
   onNewManifestTitleWhole: 'On New Manifest'
@@ -453,7 +456,7 @@ triggers:
     jexlCondition: 'JEXL Condition'
     jexlConditionPlaceholder: Enter JEXL Condition
     matchesValuePlaceholder: Enter Matches Value
-    manifestVersion: Manifest version
+    manifestVersion: Manifest Version
     artifactBuild: Artifact Build
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'

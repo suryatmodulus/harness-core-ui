@@ -68,7 +68,7 @@ export default function ActivitesTimelineViewSection({
             case 'INFRASTRUCTURE':
               infrastructureChangesData.push(eventData)
               break
-            case 'CUSTOM':
+            case 'CUSTOM' as any:
             case 'OTHER':
               otherChangesData.push(eventData)
           }

@@ -100,11 +100,14 @@ serviceDashboard:
   noActiveServices: No Active Services in {{timeRange}}
 gitOps: GitOps
 newAdapter: New Adapter
+newGitOpsServer: New GitOps Server
 adapterDetails: Adapter Details
 launchArgo: Launch Argo App Dashboard
 argoAdapterURL: 'Adapter URL'
 noAdapterText: 'There are no adapters in your project'
 aboutProvider: 'Adapters help connect to your Argo CD Instance and view your Apps.'
+noGitOpsServerText: 'There are no GitOps Servers in your project'
+aboutGitOpsServer: 'GitOps description'
 installAdapterHelperText: 'Install Argo CD adapter in your cluster. This adapter allows customers to interact with the Argo CD server directly from Harness UI with minimal configuration. <ul> <li> Install one adapter per Argo CD Server. </li> <li> This Adapter should be able to reach the Argo CD Server. </li> <li> The communication between Harness UI to Harness Argo Adapter takes place over HTTPS for security purposes. </li> </ul>'
 whatIsHarnessAdapter: 'What is an Adapter?'
 aboutHarnessAdapter: 'The adapter is a service you run in your local network or VPC to establish connectivity between Harness UI and Argo CD.'
@@ -116,11 +119,26 @@ updatedSuccessfully: 'Adapter {{name}} updated successfully'
 deletedSuccessfully: 'Adapter {{name}} deleted'
 confirmDeleteTitle: Delete Adapter
 confirmProviderDelete: Are you sure you want to delete the Adapter
+updatingGitOpsServer: 'Updating GitOps Server {{name}}'
+creatingGitOpsServer: 'Creating GitOps Server {{name}}'
+createdGitOpsServerSuccessfully: 'GitOps Server {{name}} created successfully'
+updatedGitOpsServerSuccessfully: 'GitOps Server {{name}} updated successfully'
+deletedGitOpsServerSuccessfully: 'GitOps Server {{name}} deleted'
+confirmGitOpsServerDeleteTitle: Delete Server
+confirmGitOpsServerDelete: Are you sure you want to delete the GitOps Server
 duplicateIdError: 'Failed to create Adapter: {{ providerName }}. There is already an Adapter with identifier {{ providerIdentifier }} present. Please provide a new unique identifier and save again.'
+duplicateGitOpsServerIdError: 'Failed to create GitOps Server: {{ providerName }}. There is already a server with identifier {{ providerIdentifier }} present. Please provide a new unique identifier and save again.'
 connectionIssueSuggestion: 'Try these suggestions <ul> <li> Install the Adapter. Follow the <a target="_blank" href="https://docs.harness.io/article/bymoar4glr-argo#step_2_install_and_launch_the_ecs_delegate"> steps </a>  </li> <li> Make sure the Adapter URL is reachable from your network </li> </ul>'
 connectionIssueInfo: 'Issue could be <ul> <li> Adapter is not installed or not running </li> </ul>'
 searchPlaceholder: 'Search by name, description or tag'
 gitOpsWizardTitle: 'Adapter'
+harnessManagedGitOpsWizardTitle: 'Harness Managed GitOps Server'
 notReachable: 'Could not reach the Adapter at URL: '
 adapterDelete: 'Adapter {{adapterName}} deleted'
-testConnectionStepName: 'Trying to reach the Adapter at URL: {{url}}/api/version'
+GitOpsServerDelete: 'GitOps Server {{adapterName}} deleted'
+testConnectionStepName: 'Trying to reach the Adapter at URL: {{url}}'
+setupGitOpsServerStep: 'Setup GitOps Server'
+whatIsHarnessManagedGitOpsServer: 'What is a Harness Managed GitOps Server?'
+aboutHarnessManagedGitOpsServer: 'The Harness GitOps Server is a worker process that runs in your environment and performs GitOps tasks.'
+componentsInstalled: '<ul> <li> GitOps agent </li> <li> Repo server </li><li> Redis cache </li> <li> Application controller  </li> </ul>'
+requiredPermissions: '<ul> <li> Permission to create Deployment, Service, Statefulset, Network Policy, Service Account, Role, ClusterRole, RoleBinding, ClusterRoleBinding, ConfigMap, Secret (For the Harness GitOps Server) </li> <li> Permission to apply CustomResourceDefinition For the Harness GitOps Server) </li> </ul>'

@@ -192,6 +192,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-pagerduty'
     case Connectors.ARGO:
       return 'argo'
+    case Connectors.HARNESS_MANAGED_GITOPS:
+      return 'harness'
     default:
       return 'placeholder'
   }

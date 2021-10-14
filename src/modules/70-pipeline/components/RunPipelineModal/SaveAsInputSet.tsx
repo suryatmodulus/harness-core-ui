@@ -39,7 +39,7 @@ interface SaveAsInputSetProps {
   orgIdentifier: string
   canEdit: boolean
   createInputSetLoading: boolean
-  createInputSet: MutateMethod<ResponseInputSetResponse, void, CreateInputSetForPipelineQueryParams, void>
+  createInputSet: MutateMethod<ResponseInputSetResponse, string, CreateInputSetForPipelineQueryParams, void>
   repoIdentifier?: string
   branch?: string
   isGitSyncEnabled?: boolean

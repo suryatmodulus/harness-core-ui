@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import set from 'lodash-es/set'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Button, Layout, Color, Container, Heading, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { DelegateProfileDetailsNg } from 'services/cd-ng'

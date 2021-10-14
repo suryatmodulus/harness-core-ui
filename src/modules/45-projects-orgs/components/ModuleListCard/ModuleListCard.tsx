@@ -37,7 +37,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, accountId, orgI
           module: 'ci'
         })
       case ModuleName.CV:
-        return routes.toCVProjectOverview({
+        return routes.toCVMonitoringServices({
           projectIdentifier,
           orgIdentifier,
           accountId

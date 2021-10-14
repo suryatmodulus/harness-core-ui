@@ -1,5 +1,5 @@
 import React from 'react'
-// import { useParams } from 'react-router'
+// import { useParams } from 'react-router-dom'
 import { Button, Container, Heading, Layout, StepProps, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 // import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector } from 'services/cd-ng'

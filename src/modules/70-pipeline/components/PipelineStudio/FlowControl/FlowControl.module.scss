@@ -20,7 +20,7 @@
     display: grid;
     grid-template-columns: 1fr;
     border-bottom: 1px solid #e4e4eb !important;
-    background: var(--white) !important;
+    background: transparent !important;
     align-items: center;
     margin-bottom: var(--spacing-large);
     margin-top: var(--spacing-large);
@@ -72,9 +72,6 @@
     background: #ffffff;
     box-shadow: 0px 0px 1px rgb(40 41 61 / 4%), 0px 2px 4px rgb(96 97 112 / 16%);
     border-radius: 4px;
-    /* width: 425px; */
-    height: 82px;
-
     display: grid;
     grid-template-columns: 1fr 1fr 100px;
     align-items: center;

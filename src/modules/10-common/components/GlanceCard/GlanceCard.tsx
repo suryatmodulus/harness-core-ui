@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { Card, Text, Tag, Color, Icon, IconName } from '@wings-software/uicore'
 import css from './GlanceCard.module.scss'
 
-interface Props {
+export interface GlanceCardProps {
   title: string
   iconName: IconName
   iconSize?: number
@@ -15,7 +15,7 @@ interface Props {
   intent?: 'success' | 'danger'
 }
 
-const GlanceCard: React.FC<Props> = ({
+const GlanceCard: React.FC<GlanceCardProps> = ({
   title,
   iconName,
   iconSize = 24,

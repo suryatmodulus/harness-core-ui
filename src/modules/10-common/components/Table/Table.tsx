@@ -1,7 +1,9 @@
 import React from 'react'
 import { useTable, Column, Row, useSortBy, usePagination, useResizeColumns } from 'react-table'
 import cx from 'classnames'
-import { Icon, Pagination, PaginationProps } from '@wings-software/uicore'
+import { FontVariation, Icon, Pagination, PaginationProps, Text } from '@wings-software/uicore'
+import { defaultTo } from 'lodash-es'
+import type { IconName } from '@blueprintjs/icons'
 import css from './Table.module.scss'
 
 export interface TableProps<Data extends Record<string, any>> {
@@ -27,6 +29,10 @@ export interface TableProps<Data extends Record<string, any>> {
    * @default false
    */
   minimal?: boolean
+  /**
+   * name - Unique identifier
+   */
+  name?: string
 }
 
 const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React.ReactElement => {
@@ -39,21 +45,34 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
     hideHeaders = false,
     pagination,
     rowDataTestID,
-    getRowClassName
+    getRowClassName,
+    name
   } = props
 
   const { headerGroups, page, prepareRow } = useTable(
     {
       columns,
       data,
-      initialState: { pageIndex: pagination?.pageIndex || 0 },
+      initialState: { pageIndex: defaultTo(pagination?.pageIndex, 0) },
       manualPagination: true,
-      pageCount: pagination?.pageCount || -1
+      pageCount: defaultTo(pagination?.pageCount, -1)
     },
     useSortBy,
     usePagination,
     useResizeColumns
   )
+
+  const getIconName = (isSorted: boolean, isSortedDesc = false): IconName => {
+    if (isSorted && isSortedDesc) {
+      return 'caret-up'
+    }
+
+    if (isSorted) {
+      return 'caret-down'
+    }
+
+    return 'double-caret-vertical'
+  }
 
   return (
     <div className={cx(css.table, className)}>
@@ -69,6 +88,9 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                 className={cx(css.header, { [css.minimal]: !!props.minimal })}
               >
                 {headerGroup.headers.map(header => {
+                  const label = header.render('Header')
+                  const tooltipId = name ? name + header.id : undefined
+
                   return (
                     // eslint-disable-next-line react/jsx-key
                     <div
@@ -77,16 +99,15 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                       className={cx(css.cell, { [css.sortable]: sortable }, { [css.resizable]: resizable })}
                       style={{ width: header.width }}
                     >
-                      {header.render('Header')}
+                      <Text
+                        font={{ variation: FontVariation.TABLE_HEADERS }}
+                        tooltipProps={{ dataTooltipId: tooltipId }}
+                      >
+                        {label}
+                      </Text>
                       {sortable && header.canSort ? (
                         <Icon
-                          name={
-                            header.isSorted
-                              ? header.isSortedDesc
-                                ? 'caret-up'
-                                : 'caret-down'
-                              : 'double-caret-vertical'
-                          }
+                          name={getIconName(header.isSorted, header.isSortedDesc)}
                           size={15}
                           padding={{ left: 'small' }}
                         />

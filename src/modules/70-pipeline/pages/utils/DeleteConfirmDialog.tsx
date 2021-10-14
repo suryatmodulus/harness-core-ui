@@ -1,6 +1,6 @@
 import React from 'react'
 import { pick } from 'lodash-es'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { TextArea } from '@blueprintjs/core'
 import { Text } from '@wings-software/uicore'
 import { EntityGitDetails, useDeleteInputSetForPipeline, useSoftDeletePipeline } from 'services/pipeline-ng'

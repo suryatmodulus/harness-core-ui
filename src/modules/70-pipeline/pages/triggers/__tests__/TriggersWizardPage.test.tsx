@@ -363,7 +363,10 @@ describe('TriggersWizardPage Triggers tests', () => {
       } as UseMutateReturn<any, any, any, any, any>)
       const { container } = render(<WrapperComponent />)
       await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline.triggers.triggerConfigurationLabel'))
+        queryByText(
+          container,
+          result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
+        )
       )
 
       const enabledSwitch = container.querySelector('[data-name="enabled-switch"]')
@@ -489,7 +492,7 @@ describe('TriggersWizardPage Triggers tests', () => {
 
       await waitFor(() => expect(() => queryByText(document.body, '4 3 * * MON')).not.toBeNull())
 
-      const yamlBtn = document.body.querySelector('[data-name="yaml-btn"]')
+      const yamlBtn = document.body.querySelector('[data-name="toggle-option-two"]')
       if (!yamlBtn) {
         throw Error('No yaml button, likely cannot parse yaml. Can take snapshot/look at yaml.')
       }
@@ -506,7 +509,7 @@ describe('TriggersWizardPage Triggers tests', () => {
 
       fireEvent.click(tab3)
 
-      const visualBtn = document.body.querySelector('[data-name="visual-btn"]')
+      const visualBtn = document.body.querySelector('[data-name="toggle-option-one"]')
       if (!visualBtn) {
         throw Error('No visual button')
       }
@@ -582,9 +585,7 @@ describe('TriggersWizardPage Triggers tests', () => {
       // does not equal for comparison due to yaml spaces
       expect(mockUpdate).toBeCalledWith(updateCronTriggerReplaceOnlyTwoSpace)
     })
-  })
 
-  describe('Missed Tests', () => {
     test('OnEdit Render - Show all fields filled with any actions checked', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {

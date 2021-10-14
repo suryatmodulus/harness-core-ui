@@ -16,6 +16,12 @@ export enum TrialActions {
   TrialModalPipelineSetupCancel = 'Trial modal pipeline setup cancel'
 }
 
+export enum StageActions {
+  SelectStage = 'Select a Stage',
+  SetupStage = 'Setup Stage',
+  DeleteStage = 'Delete Stage'
+}
+
 export enum Category {
   SIGNUP = 'SIGNUP'
 }

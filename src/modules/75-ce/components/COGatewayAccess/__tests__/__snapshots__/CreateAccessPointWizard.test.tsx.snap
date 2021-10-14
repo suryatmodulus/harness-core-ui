@@ -1686,7 +1686,12 @@ exports[`Create Access Point Wizard Tests renders without crashing 1`] = `
                   <label
                     class="bp3-label"
                   >
-                    ce.co.accessPoint.select.connector
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="createAccessPt_cloudConnector"
+                    >
+                      ce.co.accessPoint.select.connector
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

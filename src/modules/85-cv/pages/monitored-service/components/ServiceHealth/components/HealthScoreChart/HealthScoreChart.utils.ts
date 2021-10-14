@@ -1,20 +1,6 @@
-import { highRiskColor, lowRiskColor, mediumRiskColor, noAnalysisColor } from '@common/components/HeatMap/ColorUtils'
 import type { ColumnData } from '@cv/components/ColumnChart/ColumnChart.types'
-import { RiskValues } from '@cv/utils/CommonUtils'
+import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
 import type { RiskData } from 'services/cv'
-
-export const mapRiskStatusToColor = (riskStatus: string): string => {
-  switch (riskStatus) {
-    case RiskValues.LOW:
-      return lowRiskColor
-    case RiskValues.MEDIUM:
-      return mediumRiskColor
-    case RiskValues.HIGH:
-      return highRiskColor
-    default:
-      return noAnalysisColor
-  }
-}
 
 export const getSeriesData = (healthScoreData: RiskData[]): ColumnData[] => {
   const areAllPointsNoData = checkIfAllPointsNoData(healthScoreData)
@@ -30,7 +16,7 @@ export const getSeriesData = (healthScoreData: RiskData[]): ColumnData[] => {
     }
     let healthScoreDataPoint = {
       height: datum.healthScore || 0,
-      color: mapRiskStatusToColor(datum.riskStatus as string),
+      color: getRiskColorValue(datum.riskStatus),
       timeRange: {
         startTime: datum.timeRangeParams.startTime * 1000,
         endTime: datum.timeRangeParams.endTime * 1000

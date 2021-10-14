@@ -1,13 +1,15 @@
 import React from 'react'
 import { Text, Layout } from '@wings-software/uicore'
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
+import { getRiskColorValue } from '@cv/utils/CommonUtils'
+import type { RiskData } from 'services/cv'
 import css from './HealthScoreCard.module.scss'
 
 interface HealthScoreCardProps {
   riskScore: number
-  riskStatus: string
+  riskStatus: RiskData['riskStatus']
 }
 
+// Not used
 export const HealthScoreCard = (props: HealthScoreCardProps): JSX.Element => {
   const { riskScore, riskStatus } = props
   if (riskScore || riskScore === 0) {

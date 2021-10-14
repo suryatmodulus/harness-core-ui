@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import cx from 'classnames'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Color, Layout, Text } from '@wings-software/uicore'
 import type { PopoverPosition } from '@blueprintjs/core'
@@ -43,7 +43,7 @@ const ExplorePlansBtn = ({ module }: ExplorePlansBtnProps): ReactElement => {
   return (
     <Text
       className={css.explorePlans}
-      onClick={() => history.push(routes.toSubscriptions({ accountId, moduleCard: module }))}
+      onClick={() => history.push(routes.toSubscriptions({ accountId, moduleCard: module, tab: 'PLANS' }))}
       color={Color.PRIMARY_6}
     >
       {getString('common.explorePlans')}
@@ -72,7 +72,7 @@ const WarningText = ({ tooltip, tooltipProps }: WarningTextProps): ReactElement 
 export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningTooltipProps): ReactElement => {
   const { getString } = useStrings()
   return (
-    <Layout.Vertical padding="medium">
+    <Layout.Vertical padding="medium" className={css.tooltip}>
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'small' }}>
         {getString('common.feature.upgradeRequired.title')}
       </Text>

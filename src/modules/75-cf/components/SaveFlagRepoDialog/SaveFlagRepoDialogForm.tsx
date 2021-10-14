@@ -1,28 +1,47 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { Container, FormikForm, Formik, Button, FormInput, Layout, SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
 import type { GitRepoRequestRequestBody } from 'services/cf'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { DEFAULT_FLAG_GIT_REPO_PATH } from '@cf/constants'
+import type { GitSyncConfig, GitSyncFolderConfigDTO } from 'services/cd-ng'
 import css from './SaveFlagRepoDialog.module.scss'
 
 export interface SaveFlagRepoDialogFormProps {
-  initialFormData: GitRepoRequestRequestBody
-  repoSelectOptions: SelectOption[]
-  rootFolderSelectOptions: SelectOption[]
-  handleRepoOptionChange: (selectedRepo: string | number | symbol) => void
   onSubmit: (formData: GitRepoRequestRequestBody) => void
   onClose: () => void
 }
 
-const SaveFlagRepoDialogForm = ({
-  initialFormData,
-  repoSelectOptions,
-  rootFolderSelectOptions,
-  handleRepoOptionChange,
-  onSubmit,
-  onClose
-}: SaveFlagRepoDialogFormProps): ReactElement => {
+const SaveFlagRepoDialogForm = ({ onSubmit, onClose }: SaveFlagRepoDialogFormProps): ReactElement => {
   const { getString } = useStrings()
+  const { gitSyncRepos } = useGitSyncStore()
+
+  const [selectedRepoIndex, setSelectedRepoIndex] = useState(0)
+
+  const initialFormData = {
+    repoIdentifier: gitSyncRepos[selectedRepoIndex]?.identifier || '',
+    rootFolder: '',
+    branch: gitSyncRepos[selectedRepoIndex]?.branch || '',
+    filePath: DEFAULT_FLAG_GIT_REPO_PATH
+  }
+
+  const repoSelectOptions = gitSyncRepos?.map((gitRepo: GitSyncConfig) => ({
+    label: gitRepo?.name || '',
+    value: gitRepo?.identifier || ''
+  }))
+
+  const rootFolderSelectOptions =
+    gitSyncRepos[selectedRepoIndex]?.gitSyncFolderConfigDTOs?.map((folder: GitSyncFolderConfigDTO) => ({
+      label: folder.rootFolder || '',
+      value: folder.rootFolder || ''
+    })) || []
+
+  const handleRepoOptionChange = (value: string): void => {
+    const index = gitSyncRepos.findIndex(repo => repo.identifier === value)
+
+    setSelectedRepoIndex(index)
+  }
   return (
     <Formik
       enableReinitialize={true}
@@ -50,7 +69,7 @@ const SaveFlagRepoDialogForm = ({
                   items={repoSelectOptions}
                   onChange={(option: SelectOption) => {
                     formik.setFieldValue('repoIdentifier', option.value)
-                    handleRepoOptionChange(option.value)
+                    handleRepoOptionChange(option.value as string)
                   }}
                 />
                 <FormInput.Text name="branch" label={getString('common.git.branchName')} disabled />

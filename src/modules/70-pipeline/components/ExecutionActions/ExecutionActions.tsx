@@ -6,6 +6,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { useHandleInterrupt, useHandleStageInterrupt } from 'services/pipeline-ng'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
+import RbacButton from '@rbac/components/Button/Button'
 import {
   isExecutionComplete,
   isExecutionActive,
@@ -14,6 +15,7 @@ import {
   ExecutionStatus,
   isRetryPipelineAllowed
 } from '@pipeline/utils/statusHelpers'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 
@@ -250,12 +252,17 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         />
       ) : null}
       {!stageId && canRerun ? (
-        <Button
+        <RbacButton
           icon="repeat"
           tooltip={getString(rerunText)}
           onClick={reRunPipeline}
           {...commonButtonProps}
           disabled={!canExecute}
+          featureProps={{
+            featureRequest: {
+              featureName: FeatureIdentifier.DEPLOYMENTS
+            }
+          }}
         />
       ) : null}
       {canPause ? (

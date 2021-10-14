@@ -46,3 +46,5 @@ updateTemplateModal:
 templateSettingsModal:
   scopeLabel: Save To
   defaultVersionLabel: Default Version
+entityType: Entity Type
+templateScope: Template Scope

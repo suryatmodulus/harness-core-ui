@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, getByTestId, getByText, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'

@@ -11,7 +11,7 @@ import {
   Heading,
   FormInput
 } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { isEmpty, pick, get, omit } from 'lodash-es'
 import cx from 'classnames'
 import * as Yup from 'yup'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, useParams } from 'react-router'
+import { Redirect, useParams } from 'react-router-dom'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, secretPathProps } from '@common/utils/routeUtils'

@@ -1,6 +1,5 @@
 import moment from 'moment'
-import { sumBy } from 'lodash-es'
-import type { PointMarkerOptionsObject, SeriesScatterOptions } from 'highcharts'
+import { sumBy, isNumber } from 'lodash-es'
 import { Color } from '@wings-software/uicore'
 import type { TimeRangeDetail } from 'services/cv'
 import type { UseStringsReturn } from 'framework/strings'
@@ -14,8 +13,8 @@ import {
   getTimeInHrs,
   isChangesInTheRange
 } from '@cv/pages/monitored-service/components/ServiceHealth/ServiceHealth.utils'
-import { ChangeSourceTypes, TOTAL_DATA_POINTS } from './ChangeTimeline.constants'
-import type { PointMarkerOptionsObjectCustom } from './components/TimelineRow/TimelineRow.types'
+import { ChangeSourceTypes } from './ChangeTimeline.constants'
+import type { TimelineData } from './components/TimelineRow/TimelineRow.types'
 import type { ChangesInfoCardData } from './ChangeTimeline.types'
 
 export const getChangeSoureIconColor = (type = '', isChartSymbol = false): string => {
@@ -34,11 +33,11 @@ export const getChangeSoureIconColor = (type = '', isChartSymbol = false): strin
 const getSymbolBytypeForTwoCluster = (type: string) => {
   switch (type) {
     case ChangeSourceTypes.Deployments:
-      return `url(${DeploymentWithTwoChanges})`
+      return DeploymentWithTwoChanges
     case ChangeSourceTypes.Infrastructure:
-      return `url(${InfraWithTwoChanges})`
+      return InfraWithTwoChanges
     case ChangeSourceTypes.Incidents:
-      return `url(${IncidentWithTwoChanges})`
+      return IncidentWithTwoChanges
     default:
       return 'diamond'
   }
@@ -47,30 +46,23 @@ const getSymbolBytypeForTwoCluster = (type: string) => {
 const getSymbolBytypeForGreaterThanTwoCluster = (type: string) => {
   switch (type) {
     case ChangeSourceTypes.Deployments:
-      return `url(${DeploymentWithNChanges})`
+      return DeploymentWithNChanges
     case ChangeSourceTypes.Infrastructure:
-      return `url(${InfraWithNChanges})`
+      return InfraWithNChanges
     case ChangeSourceTypes.Incidents:
-      return `url(${IncidentWithNChanges})`
+      return IncidentWithNChanges
     default:
       return 'diamond'
   }
 }
 
-const getSymbolAndColorByChangeType = (
-  count: number,
-  type: ChangeSourceTypes,
-  marker: PointMarkerOptionsObjectCustom
-): PointMarkerOptionsObjectCustom => {
-  if (count === 1) {
-    return { ...marker, radius: 6, fillColor: getChangeSoureIconColor(type, true), symbol: 'diamond' }
-  } else if (count === 2) {
-    return { ...marker, height: 16, width: 16, symbol: getSymbolBytypeForTwoCluster(type) }
+const getSymbolAndColorByChangeType = (count: number, type: ChangeSourceTypes): TimelineData['icon'] => {
+  if (count === 2) {
+    return { height: 16, width: 16, url: getSymbolBytypeForTwoCluster(type) }
   } else if (count > 2) {
-    return { ...marker, height: 18, width: 18, symbol: getSymbolBytypeForGreaterThanTwoCluster(type) }
-  } else {
-    return { ...marker, radius: 6, fillColor: getChangeSoureIconColor(), symbol: 'diamond' }
+    return { height: 18, width: 18, url: getSymbolBytypeForGreaterThanTwoCluster(type) }
   }
+  return { height: 9, width: 9, fillColor: getChangeSoureIconColor(type, true), url: 'diamond' }
 }
 
 export const createTooltipLabel = (
@@ -90,24 +82,6 @@ export const createTooltipLabel = (
     default:
       return ''
   }
-}
-
-export const createMarkerSymbol = (
-  timeline: TimeRangeDetail,
-  type: ChangeSourceTypes,
-  getString: UseStringsReturn['getString']
-): PointMarkerOptionsObjectCustom => {
-  const count = timeline.count || 0
-  const marker: PointMarkerOptionsObjectCustom = {
-    custom: {
-      count,
-      startTime: timeline.startTime || 0,
-      endTime: timeline.endTime || 0,
-      color: getChangeSoureIconColor(type, true),
-      toolTipLabel: createTooltipLabel(count, type, getString)
-    }
-  }
-  return getSymbolAndColorByChangeType(count, type, marker)
 }
 
 export const createChangeInfoCardData = (
@@ -154,33 +128,34 @@ export const nearestMinutes = (interval: number, someMoment: moment.Moment) => {
 export const getStartAndEndTime = (duration: string) => {
   const now = moment()
   const diff = getTimeInHrs(duration || '') * 60 * 60 * 1000
-  const interval = diff / TOTAL_DATA_POINTS
   const endTimeRoundedOffToNearest30min = nearestMinutes(30, now).valueOf()
   const startTimeRoundedOffToNearest30min = endTimeRoundedOffToNearest30min - diff
 
-  return { interval, startTimeRoundedOffToNearest30min, endTimeRoundedOffToNearest30min }
+  return { startTimeRoundedOffToNearest30min, endTimeRoundedOffToNearest30min }
 }
 
 export const createTimelineSeriesData = (
-  timeRangeDetail: TimeRangeDetail[] | undefined,
   type: ChangeSourceTypes,
-  getString: UseStringsReturn['getString']
-): SeriesScatterOptions => {
-  return {
-    type: 'scatter',
-    name: type,
-    data: timeRangeDetail?.length
-      ? timeRangeDetail?.map(timeline => {
-          return {
-            x: timeline.startTime,
-            y: 0,
-            marker: {
-              ...(createMarkerSymbol(timeline, type, getString) as PointMarkerOptionsObject)
-            }
-          }
-        })
-      : []
+  getString: UseStringsReturn['getString'],
+  timeRangeDetail?: TimeRangeDetail[]
+): TimelineData[] => {
+  const timelineData: TimelineData[] = []
+  for (const timeRange of timeRangeDetail || []) {
+    const { endTime, startTime, count } = timeRange || {}
+    if (endTime && startTime && isNumber(count)) {
+      timelineData.push({
+        startTime,
+        endTime,
+        icon: getSymbolAndColorByChangeType(count, type),
+        tooltip: {
+          message: createTooltipLabel(count, type, getString),
+          sideBorderColor: getChangeSoureIconColor(type, true)
+        }
+      })
+    }
   }
+
+  return timelineData
 }
 
 export const createNoDataMessage = (

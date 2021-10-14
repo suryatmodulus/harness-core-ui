@@ -15,7 +15,7 @@ import {
 import { isEmpty, isNil } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 import { TagsPopover, useToaster } from '@common/components'
 import {
   DefaultNewTemplateId,

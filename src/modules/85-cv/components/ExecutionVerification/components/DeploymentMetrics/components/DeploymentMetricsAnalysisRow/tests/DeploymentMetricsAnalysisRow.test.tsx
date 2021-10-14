@@ -1,7 +1,8 @@
-import { render, waitFor } from '@testing-library/react'
 import React from 'react'
+import { render, waitFor } from '@testing-library/react'
+import { getRiskColorValue, RiskValues } from '@cv/utils/CommonUtils'
 import { DeploymentMetricsAnalysisRow } from '../DeploymentMetricsAnalysisRow'
-import { healthSourceTypeToLogo, riskValueToLineColor } from '../DeploymentMetricsAnalysisRow.utils'
+import { healthSourceTypeToLogo } from '../DeploymentMetricsAnalysisRow.utils'
 import { InputData } from './DeploymentMetricsAnalysisRow.mocks'
 
 describe('Unit tests for DeploymentMetricsAnalysisRow', () => {
@@ -9,21 +10,15 @@ describe('Unit tests for DeploymentMetricsAnalysisRow', () => {
     const { container, getByText } = render(<DeploymentMetricsAnalysisRow {...InputData[0]} />)
     await waitFor(() => expect(container.querySelector('[class*="transactionMetric"]')).not.toBeNull())
     expect(container.querySelector('[class*="graphs"]')?.children.length).toBe(8)
-    expect(container.querySelectorAll('path[stroke="var(--red-500)"]').length).toBe(1)
-    expect(container.querySelectorAll('path[stroke="var(--grey-300)"]').length).toBe(7)
-    expect(container.querySelectorAll('path[stroke="var(--grey-200)"]').length).toBe(1)
+    expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.NO_DATA)}"]`).length).toBe(2)
+    expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.NO_ANALYSIS)}"]`).length).toBe(1)
+    expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.HEALTHY)}"]`).length).toBe(2)
+    expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.OBSERVE)}"]`).length).toBe(1)
+    expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.NEED_ATTENTION)}"]`).length).toBe(2)
+    expect(container.querySelectorAll(`path[stroke="${getRiskColorValue(RiskValues.UNHEALTHY)}"]`).length).toBe(1)
     expect(container.querySelector('[class*="transactionMetric"] [data-icon="service-appdynamics"]')).not.toBeNull()
     getByText('Internal Server Error : 500')
     getByText('Number of Errors')
-  })
-
-  test('Ensure riskToLineColor function returns correct colors', async () => {
-    expect(riskValueToLineColor('NO_DATA')).toEqual('var(--grey-300)')
-    expect(riskValueToLineColor('NO_ANALYSIS')).toEqual('var(--grey-300)')
-    expect(riskValueToLineColor('MEDIUM')).toEqual('var(--yellow-500)')
-    expect(riskValueToLineColor('HIGH')).toEqual('var(--red-500)')
-    expect(riskValueToLineColor('LOW')).toEqual('var(--green-500)')
-    expect(riskValueToLineColor('' as any)).toEqual('')
   })
 
   test('Ensure healthSourceTypeToLogo function returns correct logo', async () => {

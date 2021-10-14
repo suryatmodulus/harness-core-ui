@@ -75,7 +75,7 @@ describe('MonitoredServiceDependenciesChart Tests', () => {
       expect(refetch).toHaveBeenLastCalledWith({
         queryParams: {
           accountId: undefined,
-          envIdentifier: 'env-1',
+          environmentIdentifier: 'env-1',
           orgIdentifier: undefined,
           projectIdentifier: undefined,
           serviceIdentifier: 'service-1'

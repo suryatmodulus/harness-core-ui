@@ -3,12 +3,8 @@ import cx from 'classnames'
 import { isEqual } from 'lodash-es'
 import { Color, Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import {
-  HexagonCoordinates,
-  drawGrid,
-  mapNodeHealthStatusToColor,
-  getHexagonSubPartSize
-} from './DeploymentNodes.utils'
+import { getRiskColorValue } from '@cv/utils/CommonUtils'
+import { HexagonCoordinates, drawGrid, getHexagonSubPartSize } from './DeploymentNodes.utils'
 import {
   DeploymentNodeAnalysisResult,
   DeploymentNodeSubPartSize,
@@ -35,7 +31,7 @@ function NodeHealthPopover(props: NodeHealthPopoverProps): JSX.Element {
       <Container
         className={cx(css.nodeHealth, css.popoverNodeHealth)}
         height={10}
-        style={{ backgroundColor: mapNodeHealthStatusToColor(analysisResult?.risk) }}
+        style={{ backgroundColor: getRiskColorValue(analysisResult?.risk) }}
       />
       <Container>
         <Text color={Color.BLACK} font={{ weight: 'bold' }}>
@@ -74,7 +70,7 @@ export function DeploymentNodes(props: DeploymentNodesProps): JSX.Element {
       {displayTooltip && <NodeHealthPopover analysisResult={displayTooltip} />}
       <Container className={css.hexagonList} ref={ref}>
         {coordinates.map((coordinate, index) => {
-          const nodeHealthColor = mapNodeHealthStatusToColor(nodes[index]?.risk)
+          const nodeHealthColor = getRiskColorValue(nodes[index]?.risk)
           return (
             <Container
               key={index}

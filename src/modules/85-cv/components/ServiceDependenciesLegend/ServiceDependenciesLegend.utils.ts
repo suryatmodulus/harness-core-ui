@@ -1,33 +1,33 @@
-import type { UseStringsReturn } from 'framework/strings'
+import type { StringsMap } from 'stringTypes'
+import { getRiskLabelStringId } from '@cv/pages/monitored-service/CVMonitoredServiceListingPage.utils'
+import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
 
-export const getServicesStates = (
-  getString: UseStringsReturn['getString']
-): { label: string; identifier: string; color: string }[] => {
+export const getServicesStates = (): { label: keyof StringsMap; identifier: string; color: string }[] => {
   return [
     {
-      label: getString('cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy'),
+      label: getRiskLabelStringId(RiskValues.UNHEALTHY),
       identifier: 'unhealthy',
-      color: 'var(--red-500)'
+      color: getRiskColorValue(RiskValues.UNHEALTHY)
     },
     {
-      label: getString('cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention'),
+      label: getRiskLabelStringId(RiskValues.NEED_ATTENTION),
       identifier: 'needsAttention',
-      color: 'var(--orange-500)'
+      color: getRiskColorValue(RiskValues.NEED_ATTENTION)
     },
     {
-      label: getString('cv.monitoredServices.serviceHealth.serviceDependencies.states.observe'),
+      label: getRiskLabelStringId(RiskValues.OBSERVE),
       identifier: 'observe',
-      color: 'var(--yellow-600)'
+      color: getRiskColorValue(RiskValues.OBSERVE)
     },
     {
-      label: getString('cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy'),
+      label: getRiskLabelStringId(RiskValues.HEALTHY),
       identifier: 'healthy',
-      color: 'var(--green-500)'
+      color: getRiskColorValue(RiskValues.HEALTHY)
     },
     {
-      label: getString('na'),
+      label: 'na',
       identifier: 'na',
-      color: 'var(--grey-400)'
+      color: getRiskColorValue(RiskValues.NO_DATA)
     }
   ]
 }

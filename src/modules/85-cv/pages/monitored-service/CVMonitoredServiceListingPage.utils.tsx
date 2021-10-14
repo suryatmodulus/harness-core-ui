@@ -5,6 +5,7 @@ import { Text, Layout, SelectOption, Color, Tag } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import type { Renderer, CellProps } from 'react-table'
 import { useStrings, UseStringsReturn } from 'framework/strings'
+import type { StringsMap } from 'stringTypes'
 import type {
   ChangeSummaryDTO,
   EnvironmentResponse,
@@ -12,7 +13,7 @@ import type {
   ResponseListEnvironmentResponse,
   RiskData
 } from 'services/cv'
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
+import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
 import type { FilterEnvInterface } from './CVMonitoredServiceListingPage.types'
 import { HistoricalTrendChartOption, DefaultChangePercentage } from './CVMonitoredServiceListingPage.constants'
 import css from './CVMonitoredServiceListingPage.module.scss'
@@ -73,15 +74,23 @@ export const getHistoricalTrendChartOption = (trendData: RiskData[]): Highcharts
   }
 }
 
-export const getLabelMapping = (value: string, getString: UseStringsReturn['getString']): string => {
-  const LabelRiskMapping: { [key: string]: string } = {
-    NO_DATA: getString('noData'),
-    NO_ANALYSIS: getString('cv.noAnalysis'),
-    LOW: getString('cv.monitoredServices.riskLabel.lowRisk'),
-    MEDIUM: getString('cv.monitoredServices.riskLabel.mediumRisk'),
-    HIGH: getString('cv.monitoredServices.riskLabel.highRisk')
+export const getRiskLabelStringId = (riskStatus?: keyof typeof RiskValues): keyof StringsMap => {
+  switch (riskStatus) {
+    case RiskValues.NO_DATA:
+      return 'noData'
+    case RiskValues.NO_ANALYSIS:
+      return 'cv.noAnalysis'
+    case RiskValues.HEALTHY:
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy'
+    case RiskValues.OBSERVE:
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.observe'
+    case RiskValues.NEED_ATTENTION:
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention'
+    case RiskValues.UNHEALTHY:
+      return 'cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy'
+    default:
+      return 'na'
   }
-  return LabelRiskMapping[value]
 }
 
 export const RenderHealthTrend: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
@@ -104,7 +113,7 @@ export const RenderHealthScore: Renderer<CellProps<MonitoredServiceListItemDTO>>
       <Tag className={css.healthScoreCard} style={{ backgroundColor: color }}>
         {healthScore > -1 ? healthScore : ''}
       </Tag>
-      <Text color={Color.BLACK}>{riskStatus && getLabelMapping(riskStatus, getString)}</Text>
+      <Text color={Color.BLACK}>{getString(getRiskLabelStringId(riskStatus))}</Text>
     </Layout.Horizontal>
   )
 }

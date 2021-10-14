@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Container, FormInput, MultiSelectOption, Popover, Text, Utils } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { ITagInputProps, PopoverInteractionKind, PopoverPosition } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useGetLabeValues } from 'services/cv'

@@ -5,15 +5,15 @@ export const datetimeMock = 1632742200646
 export const startTimeToEndTimeMock = (key: string) => {
   switch (key) {
     case TimePeriodEnum.FOUR_HOURS:
-      return { interval: 300000, startTimeRoundedOffToNearest30min: 1632727800646 }
+      return { startTimeRoundedOffToNearest30min: 1632727800646 }
     case TimePeriodEnum.TWENTY_FOUR_HOURS:
-      return { interval: 1800000, startTimeRoundedOffToNearest30min: 1632655800646 }
+      return { startTimeRoundedOffToNearest30min: 1632655800646 }
     case TimePeriodEnum.THREE_DAYS:
-      return { interval: 5400000, startTimeRoundedOffToNearest30min: 1632483000646 }
+      return { startTimeRoundedOffToNearest30min: 1632483000646 }
     case TimePeriodEnum.SEVEN_DAYS:
-      return { interval: 12600000, startTimeRoundedOffToNearest30min: 1632137400646 }
+      return { startTimeRoundedOffToNearest30min: 1632137400646 }
     case TimePeriodEnum.THIRTY_DAYS:
-      return { interval: 54000000, startTimeRoundedOffToNearest30min: 1630150200646 }
+      return { startTimeRoundedOffToNearest30min: 1630150200646 }
     default:
       break
   }
@@ -87,746 +87,284 @@ export const multipleDeploymentMarker = {
   width: 18
 }
 
-export const mockDeploymentPayload = {
-  data: [
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '1 deploymentText',
-          count: 1,
-          endTime: 1632021768825,
-          startTime: 1632009431325
-        },
-        fillColor: 'var(--green-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632009431325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '1 deploymentText',
-          count: 1,
-          endTime: 1632071118825,
-          startTime: 1632058781325
-        },
-        fillColor: 'var(--green-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632058781325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '2 Deployments',
-          count: 2,
-          endTime: 1632145143825,
-          startTime: 1632132806325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632132806325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '4 Deployments',
-          count: 4,
-          endTime: 1632157481325,
-          startTime: 1632145143825
-        },
-        height: 18,
-        symbol: 'url(test-file-stub)',
-        width: 18
-      },
-      x: 1632145143825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '1 deploymentText',
-          count: 1,
-          endTime: 1632169818825,
-          startTime: 1632157481325
-        },
-        fillColor: 'var(--green-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632157481325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '3 Deployments',
-          count: 3,
-          endTime: 1632182156325,
-          startTime: 1632169818825
-        },
-        height: 18,
-        symbol: 'url(test-file-stub)',
-        width: 18
-      },
-      x: 1632169818825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '1 deploymentText',
-          count: 1,
-          endTime: 1632194493825,
-          startTime: 1632182156325
-        },
-        fillColor: 'var(--green-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632182156325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '1 deploymentText',
-          count: 1,
-          endTime: 1632206831325,
-          startTime: 1632194493825
-        },
-        fillColor: 'var(--green-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632194493825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '1 deploymentText',
-          count: 1,
-          endTime: 1632231506325,
-          startTime: 1632219168825
-        },
-        fillColor: 'var(--green-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632219168825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '2 Deployments',
-          count: 2,
-          endTime: 1632243843825,
-          startTime: 1632231506325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632231506325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '1 deploymentText',
-          count: 1,
-          endTime: 1632256181325,
-          startTime: 1632243843825
-        },
-        fillColor: 'var(--green-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632243843825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '2 Deployments',
-          count: 2,
-          endTime: 1632268518825,
-          startTime: 1632256181325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632256181325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '3 Deployments',
-          count: 3,
-          endTime: 1632280856325,
-          startTime: 1632268518825
-        },
-        height: 18,
-        symbol: 'url(test-file-stub)',
-        width: 18
-      },
-      x: 1632268518825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '2 Deployments',
-          count: 2,
-          endTime: 1632293193825,
-          startTime: 1632280856325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632280856325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--green-400)',
-          toolTipLabel: '2 Deployments',
-          count: 2,
-          endTime: 1632305531325,
-          startTime: 1632293193825
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632293193825,
-      y: 0
-    }
-  ],
-  name: 'Deployments',
-  type: 'scatter'
-}
+export const mockDeploymentPayload = [
+  {
+    endTime: 1632021768825,
+    icon: { fillColor: 'var(--green-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632009431325,
+    tooltip: { message: '1 deploymentText', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632071118825,
+    icon: { fillColor: 'var(--green-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632058781325,
+    tooltip: { message: '1 deploymentText', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632145143825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632132806325,
+    tooltip: { message: '2 Deployments', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632157481325,
+    icon: { height: 18, url: 'test-file-stub', width: 18 },
+    startTime: 1632145143825,
+    tooltip: { message: '4 Deployments', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632169818825,
+    icon: { fillColor: 'var(--green-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632157481325,
+    tooltip: { message: '1 deploymentText', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632182156325,
+    icon: { height: 18, url: 'test-file-stub', width: 18 },
+    startTime: 1632169818825,
+    tooltip: { message: '3 Deployments', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632194493825,
+    icon: { fillColor: 'var(--green-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632182156325,
+    tooltip: { message: '1 deploymentText', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632206831325,
+    icon: { fillColor: 'var(--green-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632194493825,
+    tooltip: { message: '1 deploymentText', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632231506325,
+    icon: { fillColor: 'var(--green-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632219168825,
+    tooltip: { message: '1 deploymentText', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632243843825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632231506325,
+    tooltip: { message: '2 Deployments', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632256181325,
+    icon: { fillColor: 'var(--green-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632243843825,
+    tooltip: { message: '1 deploymentText', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632268518825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632256181325,
+    tooltip: { message: '2 Deployments', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632280856325,
+    icon: { height: 18, url: 'test-file-stub', width: 18 },
+    startTime: 1632268518825,
+    tooltip: { message: '3 Deployments', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632293193825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632280856325,
+    tooltip: { message: '2 Deployments', sideBorderColor: 'var(--green-400)' }
+  },
+  {
+    endTime: 1632305531325,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632293193825,
+    tooltip: { message: '2 Deployments', sideBorderColor: 'var(--green-400)' }
+  }
+]
 
-export const mockIncidentPayload = {
-  data: [
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.incident',
-          count: 1,
-          endTime: 1632021768825,
-          startTime: 1632009431325
-        },
-        fillColor: 'var(--purple-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632009431325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.incident',
-          count: 1,
-          endTime: 1632071118825,
-          startTime: 1632058781325
-        },
-        fillColor: 'var(--purple-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632058781325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '2 cv.changeSource.tooltip.incidents',
-          count: 2,
-          endTime: 1632145143825,
-          startTime: 1632132806325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632132806325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '4 cv.changeSource.tooltip.incidents',
-          count: 4,
-          endTime: 1632157481325,
-          startTime: 1632145143825
-        },
-        height: 18,
-        symbol: 'url(test-file-stub)',
-        width: 18
-      },
-      x: 1632145143825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.incident',
-          count: 1,
-          endTime: 1632169818825,
-          startTime: 1632157481325
-        },
-        fillColor: 'var(--purple-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632157481325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '3 cv.changeSource.tooltip.incidents',
-          count: 3,
-          endTime: 1632182156325,
-          startTime: 1632169818825
-        },
-        height: 18,
-        symbol: 'url(test-file-stub)',
-        width: 18
-      },
-      x: 1632169818825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.incident',
-          count: 1,
-          endTime: 1632194493825,
-          startTime: 1632182156325
-        },
-        fillColor: 'var(--purple-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632182156325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.incident',
-          count: 1,
-          endTime: 1632206831325,
-          startTime: 1632194493825
-        },
-        fillColor: 'var(--purple-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632194493825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.incident',
-          count: 1,
-          endTime: 1632231506325,
-          startTime: 1632219168825
-        },
-        fillColor: 'var(--purple-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632219168825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '2 cv.changeSource.tooltip.incidents',
-          count: 2,
-          endTime: 1632243843825,
-          startTime: 1632231506325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632231506325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '1 cv.changeSource.incident',
-          count: 1,
-          endTime: 1632256181325,
-          startTime: 1632243843825
-        },
-        fillColor: 'var(--purple-400)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632243843825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '2 cv.changeSource.tooltip.incidents',
-          count: 2,
-          endTime: 1632268518825,
-          startTime: 1632256181325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632256181325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '3 cv.changeSource.tooltip.incidents',
-          count: 3,
-          endTime: 1632280856325,
-          startTime: 1632268518825
-        },
-        height: 18,
-        symbol: 'url(test-file-stub)',
-        width: 18
-      },
-      x: 1632268518825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '2 cv.changeSource.tooltip.incidents',
-          count: 2,
-          endTime: 1632293193825,
-          startTime: 1632280856325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632280856325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--purple-400)',
-          toolTipLabel: '2 cv.changeSource.tooltip.incidents',
-          count: 2,
-          endTime: 1632305531325,
-          startTime: 1632293193825
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632293193825,
-      y: 0
-    }
-  ],
-  name: 'Incidents',
-  type: 'scatter'
-}
+export const mockIncidentPayload = [
+  {
+    endTime: 1632021768825,
+    icon: { fillColor: 'var(--purple-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632009431325,
+    tooltip: { message: '1 cv.changeSource.incident', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632071118825,
+    icon: { fillColor: 'var(--purple-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632058781325,
+    tooltip: { message: '1 cv.changeSource.incident', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632145143825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632132806325,
+    tooltip: { message: '2 cv.changeSource.tooltip.incidents', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632157481325,
+    icon: { height: 18, url: 'test-file-stub', width: 18 },
+    startTime: 1632145143825,
+    tooltip: { message: '4 cv.changeSource.tooltip.incidents', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632169818825,
+    icon: { fillColor: 'var(--purple-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632157481325,
+    tooltip: { message: '1 cv.changeSource.incident', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632182156325,
+    icon: { height: 18, url: 'test-file-stub', width: 18 },
+    startTime: 1632169818825,
+    tooltip: { message: '3 cv.changeSource.tooltip.incidents', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632194493825,
+    icon: { fillColor: 'var(--purple-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632182156325,
+    tooltip: { message: '1 cv.changeSource.incident', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632206831325,
+    icon: { fillColor: 'var(--purple-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632194493825,
+    tooltip: { message: '1 cv.changeSource.incident', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632231506325,
+    icon: { fillColor: 'var(--purple-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632219168825,
+    tooltip: { message: '1 cv.changeSource.incident', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632243843825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632231506325,
+    tooltip: { message: '2 cv.changeSource.tooltip.incidents', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632256181325,
+    icon: { fillColor: 'var(--purple-400)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632243843825,
+    tooltip: { message: '1 cv.changeSource.incident', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632268518825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632256181325,
+    tooltip: { message: '2 cv.changeSource.tooltip.incidents', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632280856325,
+    icon: { height: 18, url: 'test-file-stub', width: 18 },
+    startTime: 1632268518825,
+    tooltip: { message: '3 cv.changeSource.tooltip.incidents', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632293193825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632280856325,
+    tooltip: { message: '2 cv.changeSource.tooltip.incidents', sideBorderColor: 'var(--purple-400)' }
+  },
+  {
+    endTime: 1632305531325,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632293193825,
+    tooltip: { message: '2 cv.changeSource.tooltip.incidents', sideBorderColor: 'var(--purple-400)' }
+  }
+]
 
-export const mockInfraPayload = {
-  data: [
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '1 infrastructureText change',
-          count: 1,
-          endTime: 1632021768825,
-          startTime: 1632009431325
-        },
-        fillColor: 'var(--primary-4)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632009431325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '1 infrastructureText change',
-          count: 1,
-          endTime: 1632071118825,
-          startTime: 1632058781325
-        },
-        fillColor: 'var(--primary-4)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632058781325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '2 infrastructureText changes',
-          count: 2,
-          endTime: 1632145143825,
-          startTime: 1632132806325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632132806325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '4 infrastructureText changes',
-          count: 4,
-          endTime: 1632157481325,
-          startTime: 1632145143825
-        },
-        height: 18,
-        symbol: 'url(test-file-stub)',
-        width: 18
-      },
-      x: 1632145143825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '1 infrastructureText change',
-          count: 1,
-          endTime: 1632169818825,
-          startTime: 1632157481325
-        },
-        fillColor: 'var(--primary-4)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632157481325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '3 infrastructureText changes',
-          count: 3,
-          endTime: 1632182156325,
-          startTime: 1632169818825
-        },
-        height: 18,
-        symbol: 'url(test-file-stub)',
-        width: 18
-      },
-      x: 1632169818825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '1 infrastructureText change',
-          count: 1,
-          endTime: 1632194493825,
-          startTime: 1632182156325
-        },
-        fillColor: 'var(--primary-4)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632182156325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '1 infrastructureText change',
-          count: 1,
-          endTime: 1632206831325,
-          startTime: 1632194493825
-        },
-        fillColor: 'var(--primary-4)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632194493825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '1 infrastructureText change',
-          count: 1,
-          endTime: 1632231506325,
-          startTime: 1632219168825
-        },
-        fillColor: 'var(--primary-4)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632219168825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '2 infrastructureText changes',
-          count: 2,
-          endTime: 1632243843825,
-          startTime: 1632231506325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632231506325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '1 infrastructureText change',
-          count: 1,
-          endTime: 1632256181325,
-          startTime: 1632243843825
-        },
-        fillColor: 'var(--primary-4)',
-        radius: 6,
-        symbol: 'diamond'
-      },
-      x: 1632243843825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '2 infrastructureText changes',
-          count: 2,
-          endTime: 1632268518825,
-          startTime: 1632256181325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632256181325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '3 infrastructureText changes',
-          count: 3,
-          endTime: 1632280856325,
-          startTime: 1632268518825
-        },
-        height: 18,
-        symbol: 'url(test-file-stub)',
-        width: 18
-      },
-      x: 1632268518825,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '2 infrastructureText changes',
-          count: 2,
-          endTime: 1632293193825,
-          startTime: 1632280856325
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632280856325,
-      y: 0
-    },
-    {
-      marker: {
-        custom: {
-          color: 'var(--primary-4)',
-          toolTipLabel: '2 infrastructureText changes',
-          count: 2,
-          endTime: 1632305531325,
-          startTime: 1632293193825
-        },
-        height: 16,
-        symbol: 'url(test-file-stub)',
-        width: 16
-      },
-      x: 1632293193825,
-      y: 0
-    }
-  ],
-  name: 'Infrastructure',
-  type: 'scatter'
-}
+export const mockInfraPayload = [
+  {
+    endTime: 1632021768825,
+    icon: { fillColor: 'var(--primary-4)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632009431325,
+    tooltip: { message: '1 infrastructureText change', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632071118825,
+    icon: { fillColor: 'var(--primary-4)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632058781325,
+    tooltip: { message: '1 infrastructureText change', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632145143825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632132806325,
+    tooltip: { message: '2 infrastructureText changes', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632157481325,
+    icon: { height: 18, url: 'test-file-stub', width: 18 },
+    startTime: 1632145143825,
+    tooltip: { message: '4 infrastructureText changes', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632169818825,
+    icon: { fillColor: 'var(--primary-4)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632157481325,
+    tooltip: { message: '1 infrastructureText change', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632182156325,
+    icon: { height: 18, url: 'test-file-stub', width: 18 },
+    startTime: 1632169818825,
+    tooltip: { message: '3 infrastructureText changes', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632194493825,
+    icon: { fillColor: 'var(--primary-4)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632182156325,
+    tooltip: { message: '1 infrastructureText change', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632206831325,
+    icon: { fillColor: 'var(--primary-4)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632194493825,
+    tooltip: { message: '1 infrastructureText change', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632231506325,
+    icon: { fillColor: 'var(--primary-4)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632219168825,
+    tooltip: { message: '1 infrastructureText change', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632243843825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632231506325,
+    tooltip: { message: '2 infrastructureText changes', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632256181325,
+    icon: { fillColor: 'var(--primary-4)', height: 9, url: 'diamond', width: 9 },
+    startTime: 1632243843825,
+    tooltip: { message: '1 infrastructureText change', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632268518825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632256181325,
+    tooltip: { message: '2 infrastructureText changes', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632280856325,
+    icon: { height: 18, url: 'test-file-stub', width: 18 },
+    startTime: 1632268518825,
+    tooltip: { message: '3 infrastructureText changes', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632293193825,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632280856325,
+    tooltip: { message: '2 infrastructureText changes', sideBorderColor: 'var(--primary-4)' }
+  },
+  {
+    endTime: 1632305531325,
+    icon: { height: 16, url: 'test-file-stub', width: 16 },
+    startTime: 1632293193825,
+    tooltip: { message: '2 infrastructureText changes', sideBorderColor: 'var(--primary-4)' }
+  }
+]
 
 export const infoCardDataSingleValue = [
   { count: 1, key: 'Deployments', message: '1 deploymentText' },

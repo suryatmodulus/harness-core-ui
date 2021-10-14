@@ -6,6 +6,30 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps, orgPathProps } from '@common/utils/routeUtils'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
+import RbacFactory from '@rbac/factories/RbacFactory'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { String } from 'framework/strings'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import TemplateResourceModal from './components/RbacResourceModals/TemplateResourceModal'
+import TemplateResourceRenderer from './components/RbacResourceModals/TemplateResourceRenderer'
+
+/**
+ * Register RBAC resources
+ */
+RbacFactory.registerResourceTypeHandler(ResourceType.TEMPLATE, {
+  icon: 'pipeline-deployment',
+  label: 'common.templates',
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_TEMPLATE]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_TEMPLATE]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_TEMPLATE]: <String stringID="rbac.permissionLabels.delete" />,
+    [PermissionIdentifier.ACCESS_TEMPLATE]: <String stringID="rbac.permissionLabels.access" />
+  },
+  // eslint-disable-next-line react/display-name
+  addResourceModalBody: props => <TemplateResourceModal {...props} />,
+  // eslint-disable-next-line react/display-name
+  staticResourceRenderer: props => <TemplateResourceRenderer {...props} />
+})
 
 export default (
   <>

@@ -14,6 +14,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './OrganizationsPage.module.scss'
 
 const OrganizationsPage: React.FC = () => {
@@ -41,6 +42,11 @@ const OrganizationsPage: React.FC = () => {
         permission: PermissionIdentifier.CREATE_ORG,
         resource: {
           resourceType: ResourceType.ORGANIZATION
+        }
+      }}
+      featureProps={{
+        featureRequest: {
+          featureName: FeatureIdentifier.MULTIPLE_ORGANIZATIONS
         }
       }}
     />

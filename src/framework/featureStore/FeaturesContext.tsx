@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import { isEmpty } from 'lodash-es'
 import produce from 'immer'
 
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { useLicenseStore, LICENSE_STATE_VALUES } from 'framework/LicenseStore/LicenseStoreContext'
@@ -32,6 +32,11 @@ export type ModuleType = FeatureRestrictionDetailsDTO['moduleType']
 
 export interface FeatureRequest {
   featureName: FeatureIdentifier
+}
+
+export interface FeatureProps {
+  featureRequest: FeatureRequest
+  isPermissionPrioritized?: boolean
 }
 
 export interface CheckFeatureReturn {

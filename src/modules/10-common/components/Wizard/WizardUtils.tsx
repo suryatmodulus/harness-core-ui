@@ -1,8 +1,29 @@
-import React, { RefObject } from 'react'
-import { Color, Icon } from '@wings-software/uicore'
-import type { IconName } from '@wings-software/uicore'
+import React, { RefObject, SetStateAction, Dispatch } from 'react'
+import { Color, Icon, IconName } from '@wings-software/uicore'
+import cx from 'classnames'
+import { parse } from 'yaml'
+import type { FormikProps, FormikErrors } from 'formik'
 import { isUndefined, range } from 'lodash-es'
+import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
+
+import type {
+  YamlBuilderHandlerBinding,
+  YamlBuilderProps,
+  InvocationMapFunction
+} from '@common/interfaces/YAMLBuilderProps'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
+
 import css from './Wizard.module.scss'
+
+export interface FormikPropsInterface {
+  initialValues: any
+  validationSchema?: any
+  validate?: (values: any) => FormikErrors<any>
+  validateOnBlur?: boolean
+  validateOnChange?: boolean
+  enableReinitialize?: boolean
+  onSubmit: (val: any) => void
+}
 
 const renderIcon = ({
   requiredFields,
@@ -40,29 +61,29 @@ const renderIcon = ({
     iconColor = Color.RED_500
   }
 
-  return <Icon size={14} color={iconColor} name={iconName} />
+  return <Icon size={20} color={iconColor} name={iconName} />
 }
 
 export const renderTitle = ({
   tabTitle,
   tabTitleComponent,
-  includeTabNumber,
   requiredFields,
   checkValidPanel,
   panelIndex,
   touchedPanels,
   isEdit,
+  selectedTabIndex,
   ref,
   formikValues
 }: {
   tabTitle?: string
   tabTitleComponent?: JSX.Element
-  includeTabNumber?: boolean
   requiredFields: string[]
   checkValidPanel?: (formiKValues: any) => boolean
   panelIndex: number
   touchedPanels: number[]
   isEdit: boolean
+  selectedTabIndex: number
   formikValues: { [key: string]: any }
   ref: RefObject<HTMLSpanElement>
 }): JSX.Element => {
@@ -70,17 +91,23 @@ export const renderTitle = ({
 
   if (tabTitleComponent) title = tabTitleComponent
   else if (tabTitle) title = tabTitle
+  const icon = renderIcon({
+    requiredFields,
+    panelIndex,
+    touchedPanels,
+    isEdit,
+    formikValues,
+    checkValidPanel
+  })
   return (
     <span ref={ref} className={css.tab}>
-      {renderIcon({
-        requiredFields,
-        panelIndex,
-        touchedPanels,
-        isEdit,
-        formikValues,
-        checkValidPanel
-      })}
-      {includeTabNumber ? `${panelIndex + 1}. ` : ''}
+      {icon ? (
+        icon
+      ) : (
+        <div className={cx(css.panelIndexCircle, selectedTabIndex === panelIndex && css.activeIndex)}>
+          <span className={css.panelIndexNumber}>{panelIndex + 1}</span>
+        </div>
+      )}
       {title}
     </span>
   )
@@ -111,5 +138,77 @@ export const setNewTouchedPanel = ({
     }
   } else {
     setTouchedPanels([...touchedPanels, selectedTabIndex])
+  }
+}
+
+export const shouldBlockNavigation = ({
+  isSubmitting,
+  isValid,
+  isYamlView,
+  yamlHandler,
+  dirty,
+  getIsDirtyForm
+}: {
+  isSubmitting: boolean
+  isValid: boolean
+  isYamlView: boolean
+  yamlHandler?: YamlBuilderHandlerBinding
+  dirty: boolean
+  getIsDirtyForm: (parsedYaml: any) => boolean
+}): boolean => {
+  // isValid check for yaml will happen below
+  const shouldBlockNav = !(isSubmitting && (isValid || isYamlView))
+
+  if (isYamlView && yamlHandler) {
+    try {
+      const parsedYaml = parse(yamlHandler.getLatestYaml())
+      if (!parsedYaml) {
+        return shouldBlockNav
+      }
+      const isDirty = getIsDirtyForm(parsedYaml)
+      return shouldBlockNav && isDirty
+    } catch (e) {
+      return shouldBlockNav
+    }
+  } else {
+    return dirty ? shouldBlockNav : false
+  }
+}
+
+export const renderYamlBuilder = ({
+  loadingYamlView,
+  yamlBuilderReadOnlyModeProps,
+  convertFormikValuesToYaml,
+  formikProps,
+  setYamlHandler,
+  invocationMap,
+  schema
+}: {
+  loadingYamlView?: boolean
+  yamlBuilderReadOnlyModeProps: YamlBuilderProps
+  convertFormikValuesToYaml?: (formikPropsValues: any) => any
+  formikProps: FormikProps<FormikPropsInterface>
+  setYamlHandler: Dispatch<SetStateAction<YamlBuilderHandlerBinding | undefined>>
+  invocationMap?: Map<RegExp, InvocationMapFunction>
+  schema?: Record<string, any>
+}): JSX.Element => {
+  if (loadingYamlView) {
+    return (
+      <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+        <PageSpinner />
+      </div>
+    )
+  } else {
+    return (
+      <YAMLBuilder
+        {...yamlBuilderReadOnlyModeProps}
+        existingJSON={convertFormikValuesToYaml?.(formikProps.values)}
+        isReadOnlyMode={false}
+        showSnippetSection={false}
+        bind={setYamlHandler}
+        invocationMap={invocationMap}
+        schema={schema}
+      />
+    )
   }
 }

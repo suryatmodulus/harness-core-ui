@@ -32,7 +32,18 @@ function mockGetString(name: string): string {
 describe('Validate ChangeSource Utils', () => {
   test('Validate CreateCardOptions', () => {
     expect(createCardOptions('Deployment', mockGetString)).toEqual([
-      { category: 'Deployment', icon: 'cd-main', label: 'Harness CD NextGen', value: 'HarnessCD' }
+      {
+        category: 'Deployment',
+        icon: 'cd-main',
+        label: 'Harness CD NextGen',
+        value: 'HarnessCDNextGen'
+      },
+      {
+        category: 'Deployment',
+        icon: 'harness',
+        label: '',
+        value: 'HarnessCD'
+      }
     ])
     expect(createCardOptions('Infrastructure', mockGetString)).toEqual([
       { category: 'Infrastructure', icon: 'app-kubernetes', label: 'Kubernetes', value: 'K8sCluster' }
@@ -53,7 +64,13 @@ describe('Validate ChangeSource Utils', () => {
         false,
         mockGetString
       )
-    ).toEqual({})
+    ).toEqual({
+      spec: {
+        harnessApplicationId: '',
+        harnessEnvironmentId: '',
+        harnessServiceId: ''
+      }
+    })
     // Validate PagerDuty having empty Connector and PagerDuty Service
     expect(
       validateChangeSource(
@@ -116,7 +133,7 @@ describe('Validate ChangeSource Utils', () => {
       category: 'Deployment',
       enabled: true,
       spec: {},
-      type: 'HarnessCD'
+      type: ''
     })
 
     expect(

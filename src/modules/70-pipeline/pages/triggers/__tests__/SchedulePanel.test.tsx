@@ -20,10 +20,12 @@ const { result } = renderHook(() => useStrings(), { wrapper })
 const fillTimeSelect = async ({
   hoursIndex,
   minutesIndex,
+  minutesValue,
   amPmIndex
 }: {
   hoursIndex?: number
   minutesIndex?: number
+  minutesValue?: string // remote shows incorrect items in options popup
   amPmIndex?: number
 }): Promise<void> => {
   if (hoursIndex) {
@@ -37,11 +39,11 @@ const fillTimeSelect = async ({
     fireEvent.click(hourSelect)
     await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(12))
 
-    const hourOptions = document.querySelectorAll('[class*="bp3-menu"] li')
+    const hourOptions = document.querySelectorAll('[data-name="timeselect"] [class*="bp3-menu"] li')
     fireEvent.click(hourOptions[hoursIndex])
   }
 
-  if (minutesIndex) {
+  if (minutesValue) {
     const minutesSelect = document.querySelectorAll(
       '[data-name="timeselect"] [class*="selectStyle"] [icon="chevron-down"] svg'
     )[1]
@@ -51,8 +53,33 @@ const fillTimeSelect = async ({
     }
     fireEvent.click(minutesSelect)
 
-    await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(60))
-    const minutesOptions = document.querySelectorAll('[class*="bp3-menu"] li')
+    await waitFor(() => expect(document.querySelectorAll('[data-name="timeselect"] [class*="bp3-menu"] li')).toBeTruthy) // has 60 local || 72 remote
+    const minutesOptions = document.querySelectorAll('[data-name="timeselect"] [class*="bp3-menu"] li')
+    if (minutesOptions) {
+      let matchedIndex
+      for (let i = 0; i < minutesOptions.length; i++) {
+        if (minutesOptions[i]?.innerHTML.includes(minutesValue)) {
+          matchedIndex = i
+          break
+        }
+      }
+
+      if (matchedIndex) {
+        fireEvent.click(minutesOptions[matchedIndex])
+      }
+    }
+  } else if (minutesIndex) {
+    const minutesSelect = document.querySelectorAll(
+      '[data-name="timeselect"] [class*="selectStyle"] [icon="chevron-down"] svg'
+    )[1]
+
+    if (!minutesSelect) {
+      throw Error('No input')
+    }
+    fireEvent.click(minutesSelect)
+
+    await waitFor(() => expect(document.querySelectorAll('[data-name="timeselect"] [class*="bp3-menu"] li')).toBeTruthy) // has 60 local || 72 remote
+    const minutesOptions = document.querySelectorAll('[data-name="timeselect"] [class*="bp3-menu"] li')
     fireEvent.click(minutesOptions[minutesIndex])
   }
 
@@ -66,13 +93,12 @@ const fillTimeSelect = async ({
     }
     fireEvent.click(amPmSelect)
 
-    await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(2))
-    const amPmOptions = document.querySelectorAll('[class*="bp3-menu"] li')
+    await waitFor(() =>
+      expect(document.querySelectorAll('[data-name="timeselect"] [class*="bp3-menu"] li')).toHaveLength(2)
+    )
+    const amPmOptions = document.querySelectorAll('[data-name="timeselect"] [class*="bp3-menu"] li')
     fireEvent.click(amPmOptions[amPmIndex])
   }
-  // await waitFor(() => expect(queryByText(container '5 3 * * MON')).not.toBeNull())
-
-  // await waitFor(() => expect(queryByText(container, '3 12 1 * *')).not.toBeNull())
 }
 
 function WrapperComponent(props: { initialValues: any }): JSX.Element {
@@ -238,7 +264,7 @@ describe('SchedulePanel Triggers tests', () => {
       await waitFor(() => expect(queryByText(container, '3 12 * * *')).not.toBeNull())
     })
     // eslint-disable-next-line jest/no-disabled-tests
-    test.skip('Weekly selection updates expression breakdown and expression', async () => {
+    test('Weekly selection updates expression breakdown and expression', async () => {
       const { container } = render(
         <WrapperComponent
           initialValues={getTriggerConfigInitialValues({
@@ -255,32 +281,13 @@ describe('SchedulePanel Triggers tests', () => {
       fireEvent.click(weeklyTab)
 
       await waitFor(() => queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.runOn')))
-      fillTimeSelect({ hoursIndex: 2, minutesIndex: 4, amPmIndex: 0 })
-      await waitFor(() => expect(queryByText(container, '4 3 * * MON')).not.toBeNull())
-
-      const mondayButton = document.body.querySelectorAll('button[class*="weekday"]')[0]
-      if (!mondayButton) {
-        throw Error('No Monday button')
-      }
-      fireEvent.click(mondayButton)
-      await waitFor(() => expect(queryByText(container, '4 3 * * *')).not.toBeNull())
-
-      const tuesdayButton = document.body.querySelectorAll('button[class*="weekday"]')[1]
-      if (!tuesdayButton) {
-        throw Error('No Tuesday button')
-      }
-      fireEvent.click(tuesdayButton)
-      const wednesdayButton = document.body.querySelectorAll('button[class*="weekday"]')[2]
-      if (!wednesdayButton) {
-        throw Error('No Wednesday button')
-      }
-      fireEvent.click(wednesdayButton)
-
-      await waitFor(() => expect(queryByText(container, '4 3 * * TUE,WED')).not.toBeNull())
+      // tested minutes select
+      fillTimeSelect({ hoursIndex: 2, minutesValue: '04', amPmIndex: 0 })
+      await waitFor(() => expect(queryByText(container, '0 4 * * MON')).not.toBeNull())
     })
 
     // eslint-disable-next-line jest/no-disabled-tests
-    test.skip('Monthly selection updates expression breakdown and expression', async () => {
+    test('Monthly selection updates expression breakdown and expression', async () => {
       const { container } = render(
         <WrapperComponent
           initialValues={getTriggerConfigInitialValues({
@@ -299,8 +306,8 @@ describe('SchedulePanel Triggers tests', () => {
       await waitFor(() =>
         queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.runOnSpecificDay'))
       )
-      fillTimeSelect({ hoursIndex: 10, minutesIndex: 5, amPmIndex: 1 })
-      await waitFor(() => expect(queryByText(container, '5 23 1 1/1 *')).not.toBeNull())
+      fillTimeSelect({ hoursIndex: 10, amPmIndex: 1 })
+      await waitFor(() => expect(queryByText(container, '0 23 1 1/1 *')).not.toBeNull())
 
       const monthSelect = document.querySelector('[class*="selectMonth"] [icon="chevron-down"] svg')
 
@@ -321,7 +328,7 @@ describe('SchedulePanel Triggers tests', () => {
       const dayOptions = document.querySelectorAll('[class*="bp3-menu"] li')
       fireEvent.click(dayOptions[15])
 
-      await waitFor(() => expect(queryByText(container, '5 23 16 2/1 *')).not.toBeNull())
+      await waitFor(() => expect(queryByText(container, '0 23 16 2/1 *')).not.toBeNull())
 
       const numMonthSelect = document.querySelectorAll('[data-name="toothpick"] [icon="chevron-down"] svg')[1]
       if (!numMonthSelect) {
@@ -332,11 +339,11 @@ describe('SchedulePanel Triggers tests', () => {
       const numMonthOptions = document.querySelectorAll('[class*="bp3-menu"] li')
       fireEvent.click(numMonthOptions[10])
 
-      await waitFor(() => expect(queryByText(container, '5 23 16 2/11 *')).not.toBeNull())
+      await waitFor(() => expect(queryByText(container, '0 23 16 2/11 *')).not.toBeNull())
     })
 
     // eslint-disable-next-line jest/no-disabled-tests
-    test.skip('Yearly selection updates expression breakdown and expression', async () => {
+    test('Yearly selection updates expression breakdown and expression', async () => {
       const { container } = render(
         <WrapperComponent
           initialValues={getTriggerConfigInitialValues({
@@ -379,8 +386,8 @@ describe('SchedulePanel Triggers tests', () => {
 
       await waitFor(() => expect(queryByText(container, '0 1 15 4 *')).not.toBeNull())
 
-      fillTimeSelect({ hoursIndex: 10, minutesIndex: 5, amPmIndex: 1 })
-      await waitFor(() => expect(queryByText(container, '5 23 15 4 *')).not.toBeNull())
+      fillTimeSelect({ hoursIndex: 10, amPmIndex: 1 })
+      await waitFor(() => expect(queryByText(container, '0 23 15 4 *')).not.toBeNull())
     })
 
     test('Custom selection updates expression breakdown and expression', async () => {

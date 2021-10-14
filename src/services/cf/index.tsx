@@ -143,7 +143,12 @@ export type FlagBasicInfos = Pagination & {
   featureFlags?: FlagBasicInfo[]
 }
 
+export interface GitDetails {
+  commitMsg: string
+}
+
 export interface GitRepo {
+  autoCommit?: boolean
   branch: string
   filePath: string
   objectId: string
@@ -154,6 +159,16 @@ export interface GitRepo {
 export interface GitRepoResp {
   repoDetails?: GitRepo
   repoSet: boolean
+}
+
+export interface GitSyncPatchOperation {
+  comment?: string
+  /**
+   * Time of execution in unix epoch milliseconds when the scheduled changes will be applied
+   */
+  executionTime?: number
+  gitDetails?: GitDetails
+  instructions: PatchInstruction
 }
 
 /**
@@ -370,6 +385,7 @@ export type FeatureFlagRequestRequestBody = {
   defaultOffVariation: string
   defaultOnVariation: string
   description?: string
+  gitDetails?: GitDetails
   identifier: string
   kind: 'boolean' | 'int' | 'string' | 'json'
   name: string
@@ -381,9 +397,12 @@ export type FeatureFlagRequestRequestBody = {
   variations: Variation[]
 }
 
-export type FeaturePatchRequestRequestBody = PatchOperation
+export type FeaturePatchRequestRequestBody = GitSyncPatchOperation
+
+export type GitRepoPatchRequestRequestBody = PatchOperation
 
 export interface GitRepoRequestRequestBody {
+  autoCommit?: boolean
   branch: string
   filePath: string
   objectId?: string
@@ -1832,6 +1851,10 @@ export interface DeleteFeatureFlagQueryParams {
    * Project
    */
   project: string
+  /**
+   * Git commit message
+   */
+  commitMsg?: string
 }
 
 export type DeleteFeatureFlagProps = Omit<
@@ -2785,6 +2808,102 @@ export const useGetGitRepo = ({ identifier, ...props }: UseGetGitRepoProps) =>
     GetGitRepoQueryParams,
     GetGitRepoPathParams
   >((paramsInPath: GetGitRepoPathParams) => `/admin/projects/${paramsInPath.identifier}/git_repo`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface PatchGitRepoQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export interface PatchGitRepoPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type PatchGitRepoProps = Omit<
+  MutateProps<
+    GitRepoResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | InternalServerErrorResponse,
+    PatchGitRepoQueryParams,
+    GitRepoPatchRequestRequestBody,
+    PatchGitRepoPathParams
+  >,
+  'path' | 'verb'
+> &
+  PatchGitRepoPathParams
+
+/**
+ * Modify a git repo using instructions
+ *
+ * Modify git repo with certain project identifier and account id.
+ */
+export const PatchGitRepo = ({ identifier, ...props }: PatchGitRepoProps) => (
+  <Mutate<
+    GitRepoResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | InternalServerErrorResponse,
+    PatchGitRepoQueryParams,
+    GitRepoPatchRequestRequestBody,
+    PatchGitRepoPathParams
+  >
+    verb="PATCH"
+    path={`/admin/projects/${identifier}/git_repo`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UsePatchGitRepoProps = Omit<
+  UseMutateProps<
+    GitRepoResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | InternalServerErrorResponse,
+    PatchGitRepoQueryParams,
+    GitRepoPatchRequestRequestBody,
+    PatchGitRepoPathParams
+  >,
+  'path' | 'verb'
+> &
+  PatchGitRepoPathParams
+
+/**
+ * Modify a git repo using instructions
+ *
+ * Modify git repo with certain project identifier and account id.
+ */
+export const usePatchGitRepo = ({ identifier, ...props }: UsePatchGitRepoProps) =>
+  useMutate<
+    GitRepoResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | InternalServerErrorResponse,
+    PatchGitRepoQueryParams,
+    GitRepoPatchRequestRequestBody,
+    PatchGitRepoPathParams
+  >('PATCH', (paramsInPath: PatchGitRepoPathParams) => `/admin/projects/${paramsInPath.identifier}/git_repo`, {
     base: getConfig('cf'),
     pathParams: { identifier },
     ...props

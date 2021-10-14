@@ -12,11 +12,11 @@
     }
 
     .risk {
-      flex: 1;
+      flex: 1.5;
     }
 
     .message {
-      flex: 5;
+      flex: 4;
     }
 
     .count {
@@ -25,7 +25,7 @@
       font-size: small;
       line-height: normal;
       justify-content: center;
-      flex: 1;
+      flex: 1.5;
     }
 
     .messageFrequency {
@@ -123,11 +123,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 31px;
-  width: 31px;
+  height: 24px;
+  width: 74px;
   border-radius: var(--spacing-xsmall);
   font-size: var(--font-size-small);
-  padding: var(--spacing-small);
+  padding: var(--spacing-xxsmall);
   color: var(--white);
   text-align: center;
   margin-right: var(--spacing-small);

@@ -140,7 +140,11 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
               role="columnheader"
               style="width: 5%;"
             >
-              
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                
+              </p>
             </div>
             <div
               class="cell"
@@ -148,7 +152,11 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
               role="columnheader"
               style="width: 70%;"
             >
-              ce.co.instanceSelector.name
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.instanceSelector.name
+              </p>
             </div>
             <div
               class="cell"
@@ -156,7 +164,11 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              Instances
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Instances
+              </p>
             </div>
             <div
               class="cell"
@@ -164,7 +176,11 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              regionLabel
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                regionLabel
+              </p>
             </div>
           </div>
           <div
@@ -366,7 +382,11 @@ exports[`ASG selection modal component should refresh the list 1`] = `
               role="columnheader"
               style="width: 5%;"
             >
-              
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                
+              </p>
             </div>
             <div
               class="cell"
@@ -374,7 +394,11 @@ exports[`ASG selection modal component should refresh the list 1`] = `
               role="columnheader"
               style="width: 70%;"
             >
-              ce.co.instanceSelector.name
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.instanceSelector.name
+              </p>
             </div>
             <div
               class="cell"
@@ -382,7 +406,11 @@ exports[`ASG selection modal component should refresh the list 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              Instances
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Instances
+              </p>
             </div>
             <div
               class="cell"
@@ -390,7 +418,11 @@ exports[`ASG selection modal component should refresh the list 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              regionLabel
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                regionLabel
+              </p>
             </div>
           </div>
           <div
@@ -592,7 +624,11 @@ exports[`ASG selection modal component should render successfully 1`] = `
               role="columnheader"
               style="width: 5%;"
             >
-              
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                
+              </p>
             </div>
             <div
               class="cell"
@@ -600,7 +636,11 @@ exports[`ASG selection modal component should render successfully 1`] = `
               role="columnheader"
               style="width: 70%;"
             >
-              ce.co.instanceSelector.name
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                ce.co.instanceSelector.name
+              </p>
             </div>
             <div
               class="cell"
@@ -608,7 +648,11 @@ exports[`ASG selection modal component should render successfully 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              Instances
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                Instances
+              </p>
             </div>
             <div
               class="cell"
@@ -616,7 +660,11 @@ exports[`ASG selection modal component should render successfully 1`] = `
               role="columnheader"
               style="width: 10%;"
             >
-              regionLabel
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+              >
+                regionLabel
+              </p>
             </div>
           </div>
           <div

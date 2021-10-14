@@ -10,7 +10,7 @@ import {
   FormInput,
   Accordion
 } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

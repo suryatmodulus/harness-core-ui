@@ -151,7 +151,8 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
         ...props.gatewayDetails.routing,
         k8s: {
           RuleJson: JSON.stringify(yamlToSave),
-          ConnectorID: props.gatewayDetails.metadata.kubernetes_connector_id as string
+          ConnectorID: props.gatewayDetails.metadata.kubernetes_connector_id as string,
+          Namespace: namespace
         }
       },
       ...(resourceToUpdateWith === 'yaml' && {

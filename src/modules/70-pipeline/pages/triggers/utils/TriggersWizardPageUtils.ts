@@ -1,6 +1,5 @@
 import { isNull, isUndefined, omitBy, isEmpty, get, set, flatten } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
-import type { SelectOption } from '@wings-software/uicore'
 import type { PipelineInfoConfig, ConnectorInfoDTO, ConnectorResponse, ManifestConfigWrapper } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -14,11 +13,19 @@ import { ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/
 import type { StringsMap } from 'framework/strings/StringsContext'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
-
 export const CUSTOM = 'Custom'
 export const AWS_CODECOMMIT = 'AWS_CODECOMMIT'
 export const AwsCodeCommit = 'AwsCodeCommit'
 export const PRIMARY_ARTIFACT = 'primary'
+
+export const eventTypes = {
+  PUSH: 'Push',
+  BRANCH: 'Branch',
+  TAG: 'Tag',
+  PULL_REQUEST: 'PullRequest',
+  MERGE_REQUEST: 'MergeRequest',
+  ISSUE_COMMENT: 'IssueComment'
+}
 
 export const getArtifactId = (isManifest?: boolean, selectedArtifactId?: string) => {
   if (isManifest || selectedArtifactId) {
@@ -408,7 +415,7 @@ const getPanels = ({
     return [
       {
         id: 'Trigger Configuration',
-        tabTitle: getString('pipeline.triggers.triggerConfigurationLabel'),
+        tabTitle: getString('configuration'),
         requiredFields: ['name', 'identifier'], // conditional required validations checkValidTriggerConfiguration
         checkValidPanel: checkValidTriggerConfiguration
       },
@@ -427,7 +434,7 @@ const getPanels = ({
     return [
       {
         id: 'Trigger Overview',
-        tabTitle: getString('pipeline.triggers.triggerOverviewPanel.title'),
+        tabTitle: getString('overview'),
         checkValidPanel: checkValidOverview,
         requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
       },
@@ -447,7 +454,7 @@ const getPanels = ({
     return [
       {
         id: 'Trigger Configuration',
-        tabTitle: getString('pipeline.triggers.triggerConfigurationLabel'),
+        tabTitle: getString('configuration'),
         checkValidPanel: checkValidArtifactTrigger,
         requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
       },
@@ -742,51 +749,6 @@ export const getValidationSchema = (
   }
 }
 
-export const eventTypes = {
-  PUSH: 'Push',
-  BRANCH: 'Branch',
-  TAG: 'Tag',
-  PULL_REQUEST: 'PullRequest',
-  MERGE_REQUEST: 'MergeRequest',
-  ISSUE_COMMENT: 'IssueComment'
-}
-
-export const getEventLabelMap = (event: string) => {
-  // add space between camelcase-separated words
-  if (event === eventTypes.PULL_REQUEST) {
-    return 'Pull Request'
-  } else if (event === eventTypes.MERGE_REQUEST) {
-    return 'Merge Request'
-  } else if (event === eventTypes.ISSUE_COMMENT) {
-    return 'Issue Comment'
-  }
-  return event
-}
-
-export const autoAbortPreviousExecutionsTypes = [
-  eventTypes.PUSH,
-  eventTypes.PULL_REQUEST,
-  eventTypes.ISSUE_COMMENT,
-  eventTypes.MERGE_REQUEST
-]
-
-export const getAutoAbortDescription = ({
-  event,
-  getString
-}: {
-  event: string
-  getString: (key: StringKeys) => string
-}): string => {
-  if (event === eventTypes.PUSH) {
-    return getString('pipeline.triggers.triggerConfigurationPanel.autoAbortPush')
-  } else if (event === eventTypes.PULL_REQUEST || event === eventTypes.MERGE_REQUEST) {
-    return getString('pipeline.triggers.triggerConfigurationPanel.autoAbortPR')
-  } else if (event === eventTypes.ISSUE_COMMENT) {
-    return getString('pipeline.triggers.triggerConfigurationPanel.autoAbortIssueComment')
-  }
-  return ''
-}
-
 export const scheduledTypes = {
   CRON: 'Cron'
 }
@@ -825,25 +787,6 @@ export const getConnectorValue = (connector?: ConnectorResponse): string =>
       ? `${Scope.ORG}.${connector?.connector?.identifier}`
       : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
   }` || ''
-
-export const getEventAndActions = ({
-  data,
-  sourceRepo
-}: {
-  data: {
-    [key: string]: {
-      [key: string]: string[]
-    }
-  }
-  sourceRepo: string
-}): { eventOptions: SelectOption[]; actionsOptionsMap: { [key: string]: string[] } } => {
-  const filteredData = data?.[sourceRepo] || {}
-  const eventOptions = Object.keys(filteredData).map(event => ({
-    label: getEventLabelMap(event),
-    value: event
-  }))
-  return { eventOptions, actionsOptionsMap: filteredData }
-}
 
 export const mockOperators = [
   { label: '', value: '' },

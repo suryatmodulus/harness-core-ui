@@ -16,6 +16,7 @@ export interface Routing {
   k8s?: {
     RuleJson: string
     ConnectorID: string
+    Namespace: string
   }
   custom_domain_providers?: { [key: string]: any }
 }

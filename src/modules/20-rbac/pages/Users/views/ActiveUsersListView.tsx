@@ -357,6 +357,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({
         className={css.table}
         columns={columns}
         data={data?.data?.content || []}
+        name="ActiveUsersListView"
         pagination={{
           itemCount: data?.data?.totalItems || 0,
           pageSize: data?.data?.pageSize || 10,

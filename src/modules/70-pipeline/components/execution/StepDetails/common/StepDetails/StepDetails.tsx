@@ -113,7 +113,7 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
                 {taskList.map((item, index) => (
                   <div key={`${item.taskId}-${index}`}>
                     <Text font={{ size: 'small', weight: 'bold' }} color={Color.ORANGE_500}>
-                      {item.taskName}
+                      <String stringID="common.noDelegateForTask" vars={{ taskName: item.taskName }} useRichText />
                     </Text>{' '}
                     (
                     <Text

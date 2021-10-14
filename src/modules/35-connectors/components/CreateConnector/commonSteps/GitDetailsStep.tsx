@@ -12,7 +12,7 @@ import {
   Text,
   Icon
 } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import type { IOptionProps } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'

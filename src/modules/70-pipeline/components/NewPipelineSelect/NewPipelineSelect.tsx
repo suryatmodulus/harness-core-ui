@@ -30,13 +30,21 @@ export default function NewPipelineSelect(props: NewPipelineSelectProps): React.
   })
 
   function dummyPromise(): Promise<SelectOption[]> {
+    console.log('ng1')
     return new Promise<SelectOption[]>(resolve => {
-      reloadPipelines({ filterType: 'PipelineSetup' }).then(result => {
-        const selectItems = result?.data?.content?.map(item => {
-          return { label: item.name || '', value: item.identifier || '' }
-        }) as SelectOption[]
-        resolve(selectItems || [])
-      })
+      console.log('ng2')
+      reloadPipelines({ filterType: 'PipelineSetup' })
+        .then(result => {
+          const selectItems = result?.data?.content?.map(item => {
+            return { label: item.name || '', value: item.identifier || '' }
+          }) as SelectOption[]
+          console.log('ng3resolve')
+          resolve(selectItems || [])
+        })
+        .catch(() => {
+          console.log('ng3catch')
+          resolve([])
+        })
     })
   }
 

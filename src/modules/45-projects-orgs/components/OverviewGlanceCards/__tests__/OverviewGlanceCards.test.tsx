@@ -9,7 +9,7 @@ describe('OverviewGlanceCards', () => {
       <TestWrapper>
         {/* Todo: @sunnykesh : Add tests for different timeranges after API integration,
          right now GlanceCards using mock data in components itself. */}
-        <OverviewGlanceCards range={[]} />
+        <OverviewGlanceCards />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

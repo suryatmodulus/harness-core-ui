@@ -1,13 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Color, Icon, IconName, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import GlanceCard, { GlanceCardProps } from '@common/components/GlanceCard/GlanceCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { CountChangeDetails, useGetCounts } from 'services/dashboard-service'
-
-interface OverviewGlanceCardsProps {
-  range: Array<number>
-}
+import { TimeRangeToDays, useLandingDashboardContext } from '@common/factories/LandingDashboardContext'
 
 enum OverviewGalanceCard {
   PROJECT = 'PROJECT',
@@ -77,8 +74,10 @@ const renderGlanceCard = (loading: boolean, data: GlanceCardProps): JSX.Element 
   )
 }
 
-const OverviewGlanceCards: React.FC<OverviewGlanceCardsProps> = props => {
+const OverviewGlanceCards: React.FC = () => {
   const { accountId } = useParams<ProjectPathProps>()
+  const { selectedTimeRange } = useLandingDashboardContext()
+  const [range] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
   const {
     data: countResponse,
     loading,
@@ -87,13 +86,17 @@ const OverviewGlanceCards: React.FC<OverviewGlanceCardsProps> = props => {
   } = useGetCounts({
     queryParams: {
       accountIdentifier: accountId,
-      startTime: props.range[0],
-      endTime: props.range[1]
+      startTime: range[0],
+      endTime: range[1]
     }
   })
 
+  useEffect(() => {
+    refetch()
+  }, [selectedTimeRange, refetch])
+
   console.log(countError)
-  console.log(refetch)
+
   return (
     <Layout.Horizontal spacing="large">
       <Layout.Vertical spacing="large">

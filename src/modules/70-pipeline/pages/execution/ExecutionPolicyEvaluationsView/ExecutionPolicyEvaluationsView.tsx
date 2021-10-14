@@ -31,7 +31,7 @@ interface PolicyEvaluationResponse {
 
 interface PolicySetEvaluationResponse {
   deny: boolean
-  policySetId: string
+  identifier: string
   policySetName: string
   policyMetadata: PolicyEvaluationResponse[]
 }
@@ -50,7 +50,7 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
   useEffect(() => {
     // Always expand if there's only one item
     if (details?.length === 1) {
-      setExpandedSets(new Set([details[0].policySetId]))
+      setExpandedSets(new Set([details[0].identifier]))
     }
   }, [details])
 
@@ -93,10 +93,10 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
       </Layout.Horizontal>
 
       {/* Data content */}
-      {details.map(({ deny, policyMetadata, policySetId, policySetName }) => {
+      {details.map(({ deny, policyMetadata, identifier, policySetName }) => {
         return (
           <Layout.Horizontal
-            key={policySetId}
+            key={identifier}
             padding="large"
             margin={{ bottom: 'medium' }}
             className={css.policySetItem}
@@ -104,21 +104,21 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
           >
             <Button
               variation={ButtonVariation.ICON}
-              icon={expandedSets.has(policySetId) ? 'main-chevron-up' : 'main-chevron-down'}
+              icon={expandedSets.has(identifier) ? 'main-chevron-up' : 'main-chevron-down'}
               onClick={() => {
-                if (expandedSets.has(policySetId)) {
-                  expandedSets.delete(policySetId)
+                if (expandedSets.has(identifier)) {
+                  expandedSets.delete(identifier)
                 } else {
-                  expandedSets.add(policySetId)
+                  expandedSets.add(identifier)
                 }
                 setExpandedSets(new Set(expandedSets))
               }}
             />
 
             <Container style={{ flexGrow: 1 }}>
-              <Layout.Horizontal spacing="xsmall" className={expandedSets.has(policySetId) ? css.firstRow : ''}>
+              <Layout.Horizontal spacing="xsmall" className={expandedSets.has(identifier) ? css.firstRow : ''}>
                 <Text font={{ variation: FontVariation.BODY2 }} className={css.policySetName}>
-                  {getString('pipeline.policyEvaluations.policySetName', { name: policySetName || policySetId })}
+                  {getString('pipeline.policyEvaluations.policySetName', { name: policySetName || identifier })}
                 </Text>
 
                 <Text font={{ variation: FontVariation.TABLE_HEADERS }} className={css.status}>
@@ -140,19 +140,19 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                 </Text>
               </Layout.Horizontal>
 
-              {expandedSets.has(policySetId) && (
+              {expandedSets.has(identifier) && (
                 <>
                   {!policyMetadata?.length && (
                     <Text font={{ variation: FontVariation.BODY }} color={Color.GREY_500} padding={{ top: 'medium' }}>
                       {getString('pipeline.policyEvaluations.emptyPolicySet')}
                     </Text>
                   )}
-                  {policyMetadata?.map(({ identifier, policyName, severity, denyMessages }) => {
+                  {policyMetadata?.map(({ identifier: policyIdentifier, policyName, severity, denyMessages }) => {
                     return (
-                      <Layout.Horizontal spacing="xsmall" padding={{ top: 'medium' }} key={identifier}>
+                      <Layout.Horizontal spacing="xsmall" padding={{ top: 'medium' }} key={policyIdentifier}>
                         <Container style={{ flexGrow: 1 }}>
                           <Text font={{ variation: FontVariation.BODY }} color={Color.PRIMARY_7}>
-                            <Link to={routes.toPolicyEditPage({ accountId, policyIdentifier: identifier })}>
+                            <Link to={routes.toPolicyEditPage({ accountId, policyIdentifier: policyIdentifier })}>
                               {policyName}
                             </Link>
                           </Text>

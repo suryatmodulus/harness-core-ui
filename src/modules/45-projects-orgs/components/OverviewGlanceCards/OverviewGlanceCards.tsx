@@ -3,46 +3,68 @@ import { Card, Color, Icon, IconName, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import GlanceCard, { GlanceCardProps } from '@common/components/GlanceCard/GlanceCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetCounts } from 'services/dashboard-service'
+import { CountChangeDetails, useGetCounts } from 'services/dashboard-service'
 
 interface OverviewGlanceCardsProps {
   range: Array<number>
 }
 
-const mockProjectCardData = {
-  title: 'Projects',
-  iconName: 'nav-project' as IconName,
-  iconSize: 16,
-  number: 48,
-  delta: '+1%',
-  intent: 'success' as GlanceCardProps['intent'],
-  href: '/'
+enum OverviewGalanceCard {
+  PROJECT = 'PROJECT',
+  SERVICES = 'SERVICES',
+  ENV = 'ENV',
+  PIPELINES = 'PIPELINES'
 }
 
-const mockEnvCardData = {
-  title: 'Environments',
-  iconName: 'infrastructure' as IconName,
-  number: 63,
-  delta: '-6%',
-  intent: 'danger' as GlanceCardProps['intent']
-}
+const getDataForCard = (
+  cardType: OverviewGalanceCard,
+  countDetails: CountChangeDetails | undefined
+): GlanceCardProps => {
+  if (!countDetails) {
+    return {} as GlanceCardProps
+  }
+  switch (cardType) {
+    case OverviewGalanceCard.PROJECT:
+      return {
+        title: 'Projects',
+        iconName: 'nav-project' as IconName,
+        iconSize: 16,
+        number: countDetails.count,
+        delta: (countDetails.countChangeAndCountChangeRateInfo?.countChange || '0').toString(),
+        intent: 'success' as GlanceCardProps['intent'],
+        href: '/'
+      }
+    case OverviewGalanceCard.SERVICES:
+      return {
+        title: 'Services',
+        iconName: 'services' as IconName,
 
-const mockServicesCardData = {
-  title: 'Services',
-  iconName: 'services' as IconName,
-  number: 6,
-  delta: '6',
-  intent: 'success' as GlanceCardProps['intent'],
-  href: '/'
-}
+        number: countDetails.count,
+        delta: (countDetails.countChangeAndCountChangeRateInfo?.countChange || '0').toString(),
+        intent: 'success' as GlanceCardProps['intent'],
+        href: '/'
+      }
+    case OverviewGalanceCard.ENV:
+      return {
+        title: 'Environments',
+        iconName: 'infrastructure' as IconName,
 
-const mockPipelinesCardData = {
-  title: 'Pipelines',
-  iconName: 'pipeline' as IconName,
-  iconSize: 38,
-  number: 460,
-  delta: '-6%',
-  intent: 'danger' as GlanceCardProps['intent']
+        number: countDetails.count,
+        delta: (countDetails.countChangeAndCountChangeRateInfo?.countChange || '0').toString(),
+        intent: 'success' as GlanceCardProps['intent'],
+        href: '/'
+      }
+    case OverviewGalanceCard.PIPELINES:
+      return {
+        title: 'Pipelines',
+        iconName: 'pipeline' as IconName,
+        iconSize: 38,
+        number: countDetails.count,
+        delta: (countDetails.countChangeAndCountChangeRateInfo?.countChange || '0').toString(),
+        intent: 'success' as GlanceCardProps['intent'],
+        href: '/'
+      }
+  }
 }
 
 const renderGlanceCard = (loading: boolean, data: GlanceCardProps): JSX.Element => {
@@ -70,18 +92,29 @@ const OverviewGlanceCards: React.FC<OverviewGlanceCardsProps> = props => {
     }
   })
 
-  console.log(countResponse)
   console.log(countError)
   console.log(refetch)
   return (
     <Layout.Horizontal spacing="large">
       <Layout.Vertical spacing="large">
-        {renderGlanceCard(loading, mockProjectCardData)}
-        {renderGlanceCard(loading, mockEnvCardData)}
+        {renderGlanceCard(
+          loading,
+          getDataForCard(OverviewGalanceCard.PROJECT, countResponse?.data?.response?.projectsCountDetail)
+        )}
+        {renderGlanceCard(
+          loading,
+          getDataForCard(OverviewGalanceCard.ENV, countResponse?.data?.response?.envCountDetail)
+        )}
       </Layout.Vertical>
       <Layout.Vertical spacing="large">
-        {renderGlanceCard(loading, mockServicesCardData)}
-        {renderGlanceCard(loading, mockPipelinesCardData)}
+        {renderGlanceCard(
+          loading,
+          getDataForCard(OverviewGalanceCard.SERVICES, countResponse?.data?.response?.servicesCountDetail)
+        )}
+        {renderGlanceCard(
+          loading,
+          getDataForCard(OverviewGalanceCard.PIPELINES, countResponse?.data?.response?.pipelinesCountDetail)
+        )}
       </Layout.Vertical>
     </Layout.Horizontal>
   )

@@ -181,14 +181,14 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       region: ''
     }
     if (!_isEmpty(props.gatewayDetails.routing.container_svc)) {
-      ;(params.region = _defaultTo(props.gatewayDetails.routing.container_svc?.region, '')),
-        (params.cluster = _defaultTo(props.gatewayDetails.routing.container_svc?.cluster, ''))
+      params.region = _defaultTo(props.gatewayDetails.routing.container_svc?.region, '')
+      params.cluster = _defaultTo(props.gatewayDetails.routing.container_svc?.cluster, '')
       params.service = _defaultTo(props.gatewayDetails.routing.container_svc?.service, '')
     } else {
-      ;(params.region = props.gatewayDetails.selectedInstances?.length
+      params.region = props.gatewayDetails.selectedInstances?.length
         ? props.gatewayDetails.selectedInstances[0].region
-        : props.gatewayDetails.routing.instance.scale_group?.region || ''),
-        (params.resource_group_name = props.gatewayDetails.selectedInstances[0]?.metadata?.resourceGroup)
+        : props.gatewayDetails.routing.instance.scale_group?.region || ''
+      params.resource_group_name = props.gatewayDetails.selectedInstances[0]?.metadata?.resourceGroup
     }
     return params
   }

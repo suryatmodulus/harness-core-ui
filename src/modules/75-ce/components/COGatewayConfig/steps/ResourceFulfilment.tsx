@@ -52,9 +52,10 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
   const { showError } = useToaster()
 
   const [selectedInstanceType, setSelectedInstanceType] = useState<CardData | null>(
-    props.gatewayDetails.fullfilment
-      ? instanceTypeCardData[instanceTypeCardData.findIndex(card => card.value === props.gatewayDetails.fullfilment)]
-      : null
+    _defaultTo(
+      instanceTypeCardData[instanceTypeCardData.findIndex(card => card.value === props.gatewayDetails.fullfilment)],
+      null
+    )
   )
 
   const handleODChange = (formik: FormikContext<any>, val: string) => {
@@ -70,9 +71,11 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
       // eslint-disable-next-line
       updatedGatewayDetails.routing.instance.scale_group = {
         ...props.gatewayDetails.routing.instance.scale_group,
-        desired: props.gatewayDetails.routing?.instance?.scale_group?.mixed_instance
-          ? props.gatewayDetails.routing.instance.scale_group?.max
-          : numericVal, // desired = od + spot (which is always equal to max capacity)
+        desired: Utils.getConditionalResult(
+          Boolean(props.gatewayDetails.routing?.instance?.scale_group?.mixed_instance),
+          props.gatewayDetails.routing.instance.scale_group?.max,
+          numericVal
+        ), // desired = od + spot (which is always equal to max capacity)
         on_demand: numericVal, // eslint-disable-line
         ...(props.gatewayDetails.routing?.instance?.scale_group?.mixed_instance && {
           spot: (props.gatewayDetails.routing.instance.scale_group?.max as number) - numericVal // eslint-disable-line
@@ -103,11 +106,15 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
   }
 
   const handleAsgInstancesChange = (formik: FormikContext<any>, val: string, instanceType: 'OD' | 'SPOT') => {
-    if (instanceType === 'OD') {
-      handleODChange(formik, val)
-    } else if (instanceType === 'SPOT') {
-      handleSpotChange(formik, val)
+    const instanceTypeHandlerMap: Record<string, () => void> = {
+      OD: () => {
+        handleODChange(formik, val)
+      },
+      SPOT: () => {
+        handleSpotChange(formik, val)
+      }
     }
+    instanceTypeHandlerMap[instanceType]?.()
   }
 
   const handleEcsTaskCountUpdate = useCallback(
@@ -135,17 +142,17 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
   return (
     <COGatewayConfigStep
       count={3}
-      title={
-        props.gatewayDetails.routing?.instance?.scale_group
-          ? getString('ce.co.autoStoppingRule.configuration.step3.asgTitle')
-          : getString('ce.co.autoStoppingRule.configuration.step3.title')
-      }
+      title={Utils.getConditionalResult(
+        !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group),
+        getString('ce.co.autoStoppingRule.configuration.step3.asgTitle'),
+        getString('ce.co.autoStoppingRule.configuration.step3.title')
+      )}
       onInfoIconClick={() => props.setDrawerOpen(true)}
-      subTitle={
-        props.gatewayDetails.routing?.instance?.scale_group
-          ? getString('ce.co.autoStoppingRule.configuration.step3.asgSubTitle')
-          : getString('ce.co.autoStoppingRule.configuration.step3.subTitle')
-      }
+      subTitle={Utils.getConditionalResult(
+        !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group),
+        getString('ce.co.autoStoppingRule.configuration.step3.asgSubTitle'),
+        getString('ce.co.autoStoppingRule.configuration.step3.subTitle')
+      )}
       totalStepsCount={props.totalStepsCount}
       id={CONFIG_STEP_IDS[2]}
     >

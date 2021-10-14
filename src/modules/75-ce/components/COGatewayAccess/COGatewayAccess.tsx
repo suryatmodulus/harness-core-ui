@@ -11,7 +11,7 @@ import {
   Text,
   HarnessDocTooltip
 } from '@wings-software/uicore'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { isEmpty as _isEmpty, map as _map, defaultTo as _defaultTo } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -47,9 +47,11 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const { showSuccess } = useToaster()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
-    props.gatewayDetails.opts.access_details // eslint-disable-line
-      ? (props.gatewayDetails.opts.access_details as ConnectionMetadata) // eslint-disable-line
-      : DEFAULT_ACCESS_DETAILS
+    Utils.getConditionalResult(
+      !_isEmpty(props.gatewayDetails.opts.access_details),
+      props.gatewayDetails.opts.access_details as ConnectionMetadata,
+      DEFAULT_ACCESS_DETAILS
+    )
   )
   const [selectedTabId, setSelectedTabId] = useState<string>('')
   const [selectedHelpText, setSelectedHelpText] = useState<string>('')
@@ -136,12 +138,8 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   ) => {
     const yamlRuleName = _data?.metadata?.name
     const updatedName = Utils.getHyphenSpacedString(props.gatewayDetails.name)
-    let nameToReplace = updatedName
+    const nameToReplace = Utils.getConditionalResult(resourceToUpdateWith === 'yaml', yamlRuleName, updatedName)
     const namespace = _data.metadata?.namespace || 'default'
-
-    if (resourceToUpdateWith === 'yaml') {
-      nameToReplace = yamlRuleName
-    }
     const yamlToSave = {
       ..._data,
       metadata: {
@@ -194,7 +192,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     )
   }
 
-  const tooltipId = isAwsProvider ? 'awsSetupAccess' : 'azureSetupAccess'
+  const tooltipId = Utils.getConditionalResult(isAwsProvider, 'awsSetupAccess', 'azureSetupAccess')
 
   const shouldShowSshOption = _isEmpty(props.gatewayDetails.routing.container_svc)
 

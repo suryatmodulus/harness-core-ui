@@ -2724,6 +2724,8 @@ export interface StringsMap {
   'cd.whatIsHarnessAdapter': string
   'cd.whatIsHarnessManagedGitOpsServer': string
   'cd.workloadRequired': string
+  'ce.allClusters': string
+  'ce.allRegions': string
   'ce.budgets.listPage.budgetCount': string
   'ce.budgets.listPage.forecastAlert': string
   'ce.budgets.listPage.mtdAlert': string
@@ -2737,8 +2739,6 @@ export interface StringsMap {
   'ce.budgets.listPage.timePeriodRemaining': string
   'ce.budgets.listPage.title': string
   'ce.budgets.sideNavText': string
-  'ce.allClusters': string
-  'ce.allRegions': string
   'ce.ceTrialHomePage.modal.description': string
   'ce.ceTrialHomePage.modal.title': string
   'ce.ceTrialHomePage.modal.welcome': string

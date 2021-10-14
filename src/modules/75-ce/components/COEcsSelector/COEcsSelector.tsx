@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import {
   Button,
@@ -230,23 +230,6 @@ const COEcsSelector: React.FC<COEcsSelectorProps> = props => {
     }
   }
 
-  const TableCheck = (tableProps: CellProps<ContainerServiceServiceMinimal>) => {
-    return (
-      <Radio
-        checked={selectedClusterService?.name === tableProps.row.original.name}
-        onClick={_ => setSelectedClusterService(tableProps.row.original)}
-      />
-    )
-  }
-
-  const TableCell = (tableProps: CellProps<ContainerServiceServiceMinimal>) => {
-    return (
-      <Text lineClamp={1} color={Color.BLACK}>
-        {`${tableProps.value}`}
-      </Text>
-    )
-  }
-
   const loading = regionsLoading || loadingContainers || loadingServices
 
   const isDisabled = _isEmpty(selectedClusterService)
@@ -316,46 +299,81 @@ const COEcsSelector: React.FC<COEcsSelectorProps> = props => {
             </Layout.Horizontal>
           )}
           {!loading && selectedRegion && selectedContainer && (
-            <Table<ContainerServiceServiceMinimal>
-              data={servicesToShow.slice(
-                pageIndex * TOTAL_ITEMS_PER_PAGE,
-                pageIndex * TOTAL_ITEMS_PER_PAGE + TOTAL_ITEMS_PER_PAGE
-              )}
-              pagination={{
-                pageSize: TOTAL_ITEMS_PER_PAGE,
-                pageIndex: pageIndex,
-                pageCount: Math.ceil(servicesToShow.length / TOTAL_ITEMS_PER_PAGE),
-                itemCount: servicesToShow.length,
-                gotoPage: (newPageIndex: number) => setPageIndex(newPageIndex)
-              }}
-              columns={[
-                {
-                  Header: '',
-                  id: 'selected',
-                  Cell: TableCheck,
-                  width: '5%',
-                  disableSortBy: true
-                },
-                {
-                  accessor: 'name',
-                  Header: getString('name'),
-                  width: '70%',
-                  Cell: TableCell,
-                  disableSortBy: true
-                },
-                {
-                  accessor: 'id',
-                  Header: 'ID',
-                  width: '10%',
-                  Cell: TableCell,
-                  disableSortBy: true
-                }
-              ]}
+            <ECSServicesTable
+              data={servicesToShow}
+              pageIndex={pageIndex}
+              selectedService={selectedClusterService}
+              setSelectedService={setSelectedClusterService}
+              setPageIndex={setPageIndex}
             />
           )}
         </Container>
       </Layout.Vertical>
     </Container>
+  )
+}
+
+interface ECSServicesTableProps {
+  data: ContainerServiceServiceMinimal[]
+  pageIndex: number
+  selectedService?: ContainerServiceServiceMinimal
+  setSelectedService: (service: ContainerServiceServiceMinimal) => void
+  setPageIndex: (index: number) => void
+}
+
+const ECSServicesTable: React.FC<ECSServicesTableProps> = props => {
+  const { pageIndex, data } = props
+  const { getString } = useStrings()
+  const TableCheck = (tableProps: CellProps<ContainerServiceServiceMinimal>) => {
+    return (
+      <Radio
+        checked={props.selectedService?.name === tableProps.row.original.name}
+        onClick={_ => props.setSelectedService(tableProps.row.original)}
+      />
+    )
+  }
+
+  const TableCell = (tableProps: CellProps<ContainerServiceServiceMinimal>) => {
+    return (
+      <Text lineClamp={1} color={Color.BLACK}>
+        {`${tableProps.value}`}
+      </Text>
+    )
+  }
+  return (
+    <Table<ContainerServiceServiceMinimal>
+      data={data.slice(pageIndex * TOTAL_ITEMS_PER_PAGE, pageIndex * TOTAL_ITEMS_PER_PAGE + TOTAL_ITEMS_PER_PAGE)}
+      pagination={{
+        pageSize: TOTAL_ITEMS_PER_PAGE,
+        pageIndex: pageIndex,
+        pageCount: Math.ceil(data.length / TOTAL_ITEMS_PER_PAGE),
+        itemCount: data.length,
+        gotoPage: (newPageIndex: number) => props.setPageIndex(newPageIndex)
+      }}
+      columns={[
+        {
+          Header: '',
+          id: 'selected',
+          Cell: TableCheck,
+          width: '5%',
+          disableSortBy: true
+        },
+        {
+          accessor: 'name',
+          Header: getString('name'),
+          width: '70%',
+          Cell: TableCell,
+          disableSortBy: true
+        },
+        {
+          accessor: 'id',
+          Header: 'ID',
+          width: '10%',
+          Cell: TableCell,
+          disableSortBy: true
+        }
+      ]}
+    />
   )
 }
 

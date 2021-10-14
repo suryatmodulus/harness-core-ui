@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72% </span>
+                <span class="strong">74.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/50</span>
+                <span class='fraction'>41/55</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.47% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/47</span>
+                <span class='fraction'>40/52</span>
             </div>
         
             
@@ -272,7 +272,21 @@
 <a name='L213'></a><a href='#L213'>213</a>
 <a name='L214'></a><a href='#L214'>214</a>
 <a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -285,13 +299,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -310,6 +327,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -487,9 +505,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useContext } from 'react'
 import {
-  Button,
   ButtonVariation,
   Color,
   Container,
@@ -512,8 +539,12 @@ import { PageSpinner, useToaster } from '@common/components'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { useMutateAsGet } from '@common/hooks'
 import { useGetTemplateList, TemplateSummaryResponse } from 'services/template-ng'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { TemplateInputs } from '../TemplateInputs/TemplateInputs'
 import { TemplateYaml } from '../TemplateYaml/TemplateYaml'
+import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import css from './TemplateDetails.module.scss'
 &nbsp;
 export interface TemplateDetailsProps {
@@ -531,6 +562,7 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
   const [versionOptions, setVersionOptions] = React.useState&lt;SelectOption[]&gt;([])
   const { showError } = useToaster()
   const [selectedVersion, setSelectedVersion] = React.useState&lt;TemplateSummaryResponse&gt;()
+  const { isReadonly } = useContext(TemplateContext)
 &nbsp;
   const {
     data: templateData,
@@ -621,9 +653,18 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
               &lt;Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}&gt;
                 {selectedVersion.name}
               &lt;/Text&gt;
-              &lt;Button className={css.openInStudio} onClick={goToTemplateStudio} variation={ButtonVariation.SECONDARY}&gt;
-                {getString('templatesLibrary.openInTemplateStudio')}
-              &lt;/Button&gt;
+              &lt;RbacButton
+                text={getString('templatesLibrary.openInTemplateStudio')}
+                variation={ButtonVariation.SECONDARY}
+                className={css.openInStudio}
+                onClick={goToTemplateStudio}
+                permission={{
+                  permission: PermissionIdentifier.VIEW_TEMPLATE,
+                  resource: {
+                    resourceType: ResourceType.TEMPLATE
+                  }
+                }}
+              /&gt;
             &lt;/Layout.Horizontal&gt;
           &lt;/Container&gt;
           &lt;Container&gt;
@@ -639,6 +680,7 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
                       items={versionOptions}
                       value={selectedVersion.versionLabel}
                       onChange={onChange}
+                      disabled={isReadonly}
                       width={300}
                     /&gt;
                   )}
@@ -709,7 +751,7 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 14 2021 05:47:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 14 2021 09:15:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

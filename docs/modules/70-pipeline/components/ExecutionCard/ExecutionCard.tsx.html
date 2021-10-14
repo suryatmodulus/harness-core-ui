@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.11% </span>
+                <span class="strong">92.68% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/38</span>
+                <span class='fraction'>38/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.6% </span>
+                <span class="strong">51.7% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>72/125</span>
+                <span class='fraction'>76/147</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.11% </span>
+                <span class="strong">92.68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/38</span>
+                <span class='fraction'>38/41</span>
             </div>
         
             
@@ -299,7 +299,20 @@
 <a name='L240'></a><a href='#L240'>240</a>
 <a name='L241'></a><a href='#L241'>241</a>
 <a name='L242'></a><a href='#L242'>242</a>
-<a name='L243'></a><a href='#L243'>243</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -325,6 +338,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -338,12 +352,13 @@
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
-<span class="cline-any cline-yes">25x</span>
-<span class="cline-any cline-yes">25x</span>
-<span class="cline-any cline-yes">25x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -541,8 +556,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Card, Icon } from '@wings-software/uicore'
+import { Card, Icon, Tag } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Popover } from '@blueprintjs/core'
 import { defaultTo, get, isEmpty } from 'lodash-es'
@@ -551,7 +577,7 @@ import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { UserLabel, Duration, TimeAgoPopover } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
-import { String } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
@@ -567,6 +593,7 @@ import { CardVariant } from '@pipeline/utils/constants'
 &nbsp;
 import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactory/types'
 &nbsp;
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import MiniExecutionGraph from './MiniExecutionGraph/MiniExecutionGraph'
 import css from './ExecutionCard.module.scss'
 &nbsp;
@@ -580,12 +607,13 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
   const { pipelineExecution, variant = CardVariant.Default, staticCard = false } = props
   const { orgIdentifier, projectIdentifier, accountId, module } = useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()
   const history = useHistory()
-&nbsp;
+  const { getString } = useStrings()
   const HAS_CD = hasCDStage(pipelineExecution)
   const HAS_CI = hasCIStage(pipelineExecution)
   const cdInfo = executionFactory.getCardInfo(StageType.DEPLOY)
   const ciInfo = executionFactory.getCardInfo(StageType.BUILD)
 &nbsp;
+  const { RUN_INDIVIDUAL_STAGE } = useFeatureFlags()
   const [canEdit, canExecute] = usePermission(
     {
       resourceScope: {
@@ -693,7 +721,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                     projectIdentifier,
                     module,
                     repoIdentifier: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier,</span>
-                    branch: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.branch</span>
+                    branch: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.branch,</span>
+                    stagesExecuted: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tagesExecuted
                   }}
                   canEdit={canEdit}
                   canExecute={canExecute}
@@ -703,6 +732,16 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
           &lt;/div&gt;
           &lt;div className={css.main}&gt;
             &lt;div className={css.modulesContainer}&gt;
+              {RUN_INDIVIDUAL_STAGE &amp;&amp;
+<span class="branch-1 cbranch-no" title="branch not covered" >                pipelineExecution?.stagesExecution </span>&amp;&amp;
+<span class="branch-2 cbranch-no" title="branch not covered" >                pipelineExecution?.stagesExecuted?.length === 1 </span>&amp;&amp; (
+<span class="branch-3 cbranch-no" title="branch not covered" >                  &lt;Tag className={css.singleExecutionTag}&gt;{`${getString('pipeline.singleStageExecution')} </span>
+                ${
+                  pipelineExecution.stagesExecutedNames &amp;&amp;
+                  pipelineExecution.stagesExecutedNames[pipelineExecution.stagesExecuted[0]]
+                }
+                 `}&lt;/Tag&gt;
+                )}
               {HAS_CI &amp;&amp; ciInfo ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >                &lt;div className={css.moduleData}&gt;</span>
                   &lt;Icon name={ciInfo.icon} size={20} className={css.moduleIcon} /&gt;
@@ -790,7 +829,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 14 2021 05:47:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 14 2021 09:15:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.76% </span>
+                <span class="strong">59.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>453/758</span>
+                <span class='fraction'>460/774</span>
             </div>
         
             
@@ -531,8 +531,7 @@
 <a name='L472'></a><a href='#L472'>472</a>
 <a name='L473'></a><a href='#L473'>473</a>
 <a name='L474'></a><a href='#L474'>474</a>
-<a name='L475'></a><a href='#L475'>475</a>
-<a name='L476'></a><a href='#L476'>476</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">33x</span>
+<a name='L475'></a><a href='#L475'>475</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-yes">33x</span>
@@ -562,8 +561,7 @@
 <span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">33x</span>
-<span class="cline-any cline-yes">112x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">108x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -589,11 +587,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">119x</span>
-<span class="cline-any cline-yes">119x</span>
-<span class="cline-any cline-yes">119x</span>
-<span class="cline-any cline-yes">155x</span>
-<span class="cline-any cline-yes">95x</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-yes">140x</span>
+<span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">60x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">72x</span>
@@ -602,7 +600,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -934,7 +932,7 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
@@ -1041,7 +1039,6 @@ export const clearRuntimeInput = (template: PipelineInfoConfig): PipelineInfoCon
     JSON.stringify(template || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>.replace(/"&lt;\+input&gt;.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
   )
 }
-&nbsp;
 export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[]): ExecutionWrapperConfig | undefined {
   let responseStep: ExecutionWrapperConfig | undefined = undefined
   steps?.forEach(item =&gt; {
@@ -1383,7 +1380,7 @@ export const validatePipeline = ({
     path
   })
 &nbsp;
-  if (getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imeout) === MultiTypeInputType.RUNTIME) {
+  if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
     let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
     <span class="missing-if-branch" title="else path not taken" >E</span>if (viewType === StepViewType.DeploymentForm) {
       timeoutSchema = timeoutSchema.required(<span class="branch-1 cbranch-no" title="branch not covered" >getString?.('validation.timeout10SecMinimum'))</span>
@@ -1417,7 +1414,7 @@ export const validatePipeline = ({
       const originalStage = getStageFromPipeline(stageObj.stage.identifier, originalPipeline)
       const errorsResponse = validateStage({
         stage: stageObj.stage as StageElementConfig,
-        template: template.stages<span class="branch-0 cbranch-no" title="branch not covered" >?.[i</span>ndex].stage,
+        template: template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tages<span class="branch-0 cbranch-no" title="branch not covered" >?.[i</span>ndex]<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage,
         originalStage: originalStage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage,
         getString,
         viewType
@@ -1432,7 +1429,7 @@ export const validatePipeline = ({
           const originalStage = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(stageP.stage.identifier, originalPipeline)</span>
           const errorsResponse = <span class="cstat-no" title="statement not covered" >validateStage({</span>
             stage: stageP.stage as StageElementConfig,
-            template: template.stages?.[index].parallel?.[indexP].stage,
+            template: template?.stages?.[index].parallel?.[indexP]?.stage,
             originalStage: originalStage?.stage,
             getString,
             viewType
@@ -1489,7 +1486,7 @@ export const getErrorsList = memoize((errors: any): { errorStrings: string[]; er
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 14 2021 05:47:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 14 2021 09:15:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

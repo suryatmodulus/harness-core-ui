@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.56% </span>
+                <span class="strong">74.12% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>170/228</span>
+                <span class='fraction'>169/228</span>
             </div>
         
             
@@ -358,9 +358,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">112x</span>
-<span class="cline-any cline-yes">112x</span>
-<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">97x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -411,17 +411,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-yes">191x</span>
-<span class="cline-any cline-yes">190x</span>
+<span class="cline-any cline-yes">173x</span>
+<span class="cline-any cline-yes">172x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">190x</span>
-<span class="cline-any cline-yes">157x</span>
+<span class="cline-any cline-yes">172x</span>
+<span class="cline-any cline-yes">139x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">190x</span>
+<span class="cline-any cline-yes">172x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">190x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">172x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -479,10 +477,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">100x</span>
-<span class="cline-any cline-yes">100x</span>
-<span class="cline-any cline-yes">88x</span>
-<span class="cline-any cline-yes">88x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">85x</span>
+<span class="cline-any cline-yes">85x</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">73x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -516,22 +516,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-yes">114x</span>
-<span class="cline-any cline-yes">113x</span>
-<span class="cline-any cline-yes">113x</span>
-<span class="cline-any cline-yes">29x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">105x</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-yes">101x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -605,7 +605,7 @@ function StageForm({
       &lt;Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'large', right: 0, bottom: 0 }}&gt;
         &lt;Icon name={icon} size={18} /&gt;
         &lt;Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}&gt;
-          Stage: {allValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || ''}
+          Stage: {allValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>
         &lt;/Text&gt;
       &lt;/Layout.Horizontal&gt;
 &nbsp;
@@ -770,7 +770,7 @@ export const PipelineInputSetForm: React.FC&lt;PipelineInputSetFormProps&gt; = p
         }
       })
     }
-  }, [])
+  }, [props.template])
   return (
     &lt;PipelineVariablesContextProvider pipeline={props.originalPipeline}&gt;
       &lt;PipelineInputSetFormInternal {...props} template={template} /&gt;
@@ -784,7 +784,7 @@ export const PipelineInputSetForm: React.FC&lt;PipelineInputSetFormProps&gt; = p
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 14 2021 05:47:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 14 2021 09:15:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

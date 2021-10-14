@@ -36,7 +36,7 @@ const LandingDashboardSummaryWidget: React.FC = () => {
       <Layout.Horizontal className={css.atGlanceWrapper} spacing="large">
         <OverviewGlanceCards range={range} />
         <Card className={css.topProjectContainer}>
-          <Layout.Vertical>
+          <Layout.Vertical style={{ height: '100%' }}>
             <Text font={{ variation: FontVariation.CARD_TITLE }}>
               {getString('projectsOrgs.landingDashboard.title')}
             </Text>

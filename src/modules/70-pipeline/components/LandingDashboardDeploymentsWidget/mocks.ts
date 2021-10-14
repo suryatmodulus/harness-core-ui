@@ -40,13 +40,13 @@ export const deploymentStatsSummaryResponse: {
               countChangeRate: 5.0
             }
           },
-          failureCountAndChangeRate: {
-            count: 10,
-            countChangeAndCountChangeRateInfo: {
-              countChange: 2,
-              countChangeRate: 5.0
-            }
-          },
+          // failureCountAndChangeRate: {
+          //   count: 10,
+          //   countChangeAndCountChangeRateInfo: {
+          //     countChange: 2,
+          //     countChangeRate: 5.0
+          //   }
+          // },
           failureRateAndChangeRate: {
             rate: 5.0,
             rateChangeRate: 2.0
@@ -55,12 +55,12 @@ export const deploymentStatsSummaryResponse: {
             rate: 5.0,
             rateChangeRate: 2.0
           },
-          deploymentsOverview: {
-            runningCount: 2,
-            pendingApprovalsCount: 4,
-            manualInterventionsCount: 1,
-            failedCount: 10
-          },
+          // deploymentsOverview: {
+          //   runningCount: 2,
+          //   pendingApprovalsCount: 4,
+          //   manualInterventionsCount: 1,
+          //   failedCount: 10
+          // },
           deploymentStats: generateMockData(30)
           // [
           //   ({
@@ -93,8 +93,8 @@ export const deploymentStatsSummaryResponse: {
           activeServices: [
             {
               serviceInfo: {
-                serviceName: 'Service_demo',
-                serviceInfo: 'Service demo info'
+                serviceName: 'Service_demo'
+                //serviceInfo: 'Service demo info'
               },
               projectInfo: {
                 projectIdentifier: 'ProjectDemo',

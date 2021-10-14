@@ -1,6 +1,9 @@
 import React from 'react'
 import { Card, Color, Icon, IconName, Layout } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import GlanceCard, { GlanceCardProps } from '@common/components/GlanceCard/GlanceCard'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetCounts } from 'services/dashboard-service'
 
 interface OverviewGlanceCardsProps {
   range: Array<number>
@@ -44,7 +47,7 @@ const mockPipelinesCardData = {
 
 const renderGlanceCard = (loading: boolean, data: GlanceCardProps): JSX.Element => {
   return loading ? (
-    <Card style={{ height: '248px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Card style={{ height: '248px', width: '116px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
     </Card>
   ) : (
@@ -52,16 +55,33 @@ const renderGlanceCard = (loading: boolean, data: GlanceCardProps): JSX.Element 
   )
 }
 
-const OverviewGlanceCards: React.FC<OverviewGlanceCardsProps> = () => {
+const OverviewGlanceCards: React.FC<OverviewGlanceCardsProps> = props => {
+  const { accountId } = useParams<ProjectPathProps>()
+  const {
+    data: countResponse,
+    loading,
+    error: countError,
+    refetch
+  } = useGetCounts({
+    queryParams: {
+      accountIdentifier: accountId,
+      startTime: props.range[0],
+      endTime: props.range[1]
+    }
+  })
+
+  console.log(countResponse)
+  console.log(countError)
+  console.log(refetch)
   return (
     <Layout.Horizontal spacing="large">
       <Layout.Vertical spacing="large">
-        {renderGlanceCard(false, mockProjectCardData)}
-        {renderGlanceCard(false, mockEnvCardData)}
+        {renderGlanceCard(loading, mockProjectCardData)}
+        {renderGlanceCard(loading, mockEnvCardData)}
       </Layout.Vertical>
       <Layout.Vertical spacing="large">
-        {renderGlanceCard(false, mockServicesCardData)}
-        {renderGlanceCard(false, mockPipelinesCardData)}
+        {renderGlanceCard(loading, mockServicesCardData)}
+        {renderGlanceCard(loading, mockPipelinesCardData)}
       </Layout.Vertical>
     </Layout.Horizontal>
   )

@@ -290,7 +290,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     const newPipelineId = latestPipeline?.identifier
 
     if (response && response.status === 'SUCCESS') {
-      console.log('HERE', { response, governanceMetadata: get(response, 'data.governanceMetadata') })
       setGovernanceMetadata(get(response, 'data.governanceMetadata'))
       if (pipelineIdentifier === DefaultNewPipelineId) {
         await deletePipelineCache(gitDetails)

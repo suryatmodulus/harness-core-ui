@@ -20,6 +20,8 @@ const getDataForCard = (
   if (!countDetails) {
     return {} as GlanceCardProps
   }
+
+  const countChange = countDetails.countChangeAndCountChangeRateInfo?.countChange?.toString()
   switch (cardType) {
     case OverviewGalanceCard.PROJECT:
       return {
@@ -27,7 +29,7 @@ const getDataForCard = (
         iconName: 'nav-project' as IconName,
         iconSize: 16,
         number: countDetails.count,
-        delta: (countDetails.countChangeAndCountChangeRateInfo?.countChange || '0').toString(),
+        delta: countChange,
         intent: 'success' as GlanceCardProps['intent'],
         href: '/'
       }
@@ -35,9 +37,8 @@ const getDataForCard = (
       return {
         title: 'Services',
         iconName: 'services' as IconName,
-
         number: countDetails.count,
-        delta: (countDetails.countChangeAndCountChangeRateInfo?.countChange || '0').toString(),
+        delta: countChange,
         intent: 'success' as GlanceCardProps['intent'],
         href: '/'
       }
@@ -47,7 +48,7 @@ const getDataForCard = (
         iconName: 'infrastructure' as IconName,
 
         number: countDetails.count,
-        delta: (countDetails.countChangeAndCountChangeRateInfo?.countChange || '0').toString(),
+        delta: countChange,
         intent: 'success' as GlanceCardProps['intent'],
         href: '/'
       }
@@ -57,7 +58,7 @@ const getDataForCard = (
         iconName: 'pipeline' as IconName,
         iconSize: 38,
         number: countDetails.count,
-        delta: (countDetails.countChangeAndCountChangeRateInfo?.countChange || '0').toString(),
+        delta: countChange,
         intent: 'success' as GlanceCardProps['intent'],
         href: '/'
       }

@@ -50,9 +50,9 @@ const GlanceCard: React.FC<GlanceCardProps> = ({
       >
         {title}
       </Text>
-      {delta ? (
+      {delta && delta !== '0' ? (
         <Tag className={cx(css.tagClassName, { [css.redTag]: intent === 'danger' }, { [css.whiteTag]: styling })}>
-          {delta}
+          {`${Math.sign(parseInt(delta)) > 0 ? '+' : '-'} ${delta}`}
         </Tag>
       ) : null}
     </Card>

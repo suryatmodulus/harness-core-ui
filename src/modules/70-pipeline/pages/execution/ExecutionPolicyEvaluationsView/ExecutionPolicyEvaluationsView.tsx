@@ -15,6 +15,11 @@ import css from './ExecutionPolicyEvaluationsView.module.scss'
 export interface PolicySetEvaluationsProps {
   accountId: string
   metadata: GovernanceMetadata
+  headingErrorMessage?: string
+}
+
+export interface PolicySetEvaluationsModalProps extends PolicySetEvaluationsProps {
+  modalTitle?: string
 }
 
 interface PolicyEvaluationResponse {
@@ -33,7 +38,7 @@ interface PolicySetEvaluationResponse {
 
 const policyPassed = (_severity: string, denyMessages: string[]): boolean => !denyMessages?.length
 
-export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ metadata, accountId: _accountId }) => {
+export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ metadata, headingErrorMessage }) => {
   const failure = !!metadata.deny
   const { getString } = useStrings()
   const history = useHistory()
@@ -59,7 +64,10 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
         font={{ variation: FontVariation.BODY1 }}
         padding="small"
       >
-        {getString(failure ? 'pipeline.policyEvaluations.failureHeading' : 'pipeline.policyEvaluations.successHeading')}
+        {headingErrorMessage ||
+          getString(
+            failure ? 'pipeline.policyEvaluations.failureHeading' : 'pipeline.policyEvaluations.successHeading'
+          )}
       </Text>
 
       {/* Evaluation time */}
@@ -208,11 +216,14 @@ export default function ExecutionPolicyEvaluationsView(): React.ReactElement | n
   )
 }
 
-export const PolicyEvaluationsFailureModal: React.FC<Partial<PolicySetEvaluationsProps>> = ({
+export const PolicyEvaluationsFailureModal: React.FC<Partial<PolicySetEvaluationsModalProps>> = ({
   metadata,
-  accountId
+  accountId,
+  modalTitle: title,
+  headingErrorMessage: failureMessage
 }) => {
   const [opened, setOpened] = useState(true)
+  const { getString } = useStrings()
   if (!accountId || !metadata) {
     return null
   }
@@ -223,14 +234,14 @@ export const PolicyEvaluationsFailureModal: React.FC<Partial<PolicySetEvaluation
       onClose={() => setOpened(false)}
       title={
         <Heading level={3} font={{ variation: FontVariation.H3 }} padding={{ top: 'medium' }}>
-          Policy Set Evaluations
+          {title || getString('pipeline.policyEvaluations.failureModalTitle')}
         </Heading>
       }
       enforceFocus={false}
       style={{ width: 900, height: 600 }}
     >
       <Container style={{ overflow: 'auto' }}>
-        <PolicySetEvaluations metadata={metadata} accountId={accountId} />
+        <PolicySetEvaluations metadata={metadata} accountId={accountId} headingErrorMessage={failureMessage} />
       </Container>
     </Dialog>
   )

@@ -52,7 +52,7 @@ const deselectAll = (editor?: EDITOR.IStandaloneCodeEditor): void => {
 export const EditPolicy: React.FC = () => {
   const { accountId, policyIdentifier: policyIdentifierFromURL } =
     useParams<{ accountId: string; policyIdentifier: string }>()
-  const [isEdit] = useState(!!policyIdentifierFromURL)
+  const [isEdit, setEdit] = useState(!!policyIdentifierFromURL)
   const [policyIdentifier, setPolicyIdentifier] = useState(policyIdentifierFromURL)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -84,10 +84,17 @@ export const EditPolicy: React.FC = () => {
   const onSavePolicy = useCallback(() => {
     setCreatePolicyLoading(true)
     const api = isEdit ? updatePolicy : createPolicy
-    api({ account: accountId, key: policyIdentifier, name, description, rego: regoScript } as PolicyInput)
+    api({
+      accountIdentifier: accountId,
+      identifier: policyIdentifier,
+      name,
+      description,
+      rego: regoScript
+    } as PolicyInput)
       .then(response => {
         showToaster('Policy saved!')
         if (!isEdit) {
+          setEdit(true)
           history.replace(routes.toPolicyEditPage({ accountId, policyIdentifier: String(response.identifier || '') }))
         }
       })

@@ -4738,6 +4738,7 @@ export type UpdateInputSetForPipelineBodyRequestBody = string
 
 export type WebhookEndpointBodyRequestBody = string
 
+
 export interface GetInitialStageYamlSnippetQueryParams {
   approvalType: 'HarnessApproval' | 'JiraApproval'
 }

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { get } from 'lodash-es'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import cx from 'classnames'
 import {
@@ -38,7 +39,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import routes from '@common/RouteDefinitions'
-import type { EntityGitDetails } from 'services/pipeline-ng'
+import type { EntityGitDetails, GovernanceMetadata } from 'services/pipeline-ng'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { TagsPopover } from '@common/components'
@@ -52,8 +53,11 @@ import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { PipelineActions } from '@common/constants/TrackingConstants'
+import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
+import { PolicyEvaluationsFailureModal } from '@pipeline/pages/execution/ExecutionPolicyEvaluationsView/ExecutionPolicyEvaluationsView'
 import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
 import { savePipeline, usePipelineContext } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -193,6 +197,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const [isYamlError, setYamlError] = React.useState(false)
   const [blockNavigation, setBlockNavigation] = React.useState(false)
   const [selectedBranch, setSelectedBranch] = React.useState(branch || '')
+  const opaBasedGovernanceEnabled = useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE)
+  const [governanceMetadata, setGovernanceMetadata] = useState<GovernanceMetadata>()
 
   const { openDialog: openUnsavedChangesDialog } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
@@ -278,11 +284,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         ...(updatedGitDetails && updatedGitDetails.isNewBranch ? { baseBranch: branch } : {})
       },
       omit(latestPipeline, 'repo', 'branch'),
-      pipelineIdentifier !== DefaultNewPipelineId
+      pipelineIdentifier !== DefaultNewPipelineId,
+      !!opaBasedGovernanceEnabled || localStorage.OPA_PIPELINE_GOVERNANCE
     )
     const newPipelineId = latestPipeline?.identifier
 
     if (response && response.status === 'SUCCESS') {
+      console.log('HERE', { response, governanceMetadata: get(response, 'data.governanceMetadata') })
+      setGovernanceMetadata(get(response, 'data.governanceMetadata'))
       if (pipelineIdentifier === DefaultNewPipelineId) {
         await deletePipelineCache(gitDetails)
 
@@ -934,6 +943,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         </div>
         <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
         {isYaml ? <PipelineYamlView /> : <StageBuilder />}
+        {opaBasedGovernanceEnabled && governanceMetadata?.deny && (
+          <PolicyEvaluationsFailureModal
+            accountId={accountId}
+            metadata={governanceMetadata}
+            headingErrorMessage={getString('pipeline.policyEvaluations.failedToSavePipeline')}
+          />
+        )}
       </div>
       <RightBar />
     </PipelineVariablesContextProvider>

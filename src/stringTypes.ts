@@ -2263,7 +2263,9 @@ export interface StringsMap {
   'pipeline.pipelineSteps.featureStageDescription': string
   'pipeline.policyEvaluations.emptyPolicySet': string
   'pipeline.policyEvaluations.evaluatedTime': string
+  'pipeline.policyEvaluations.failedToSavePipeline': string
   'pipeline.policyEvaluations.failureHeading': string
+  'pipeline.policyEvaluations.failureModalTitle': string
   'pipeline.policyEvaluations.passed': string
   'pipeline.policyEvaluations.policySet': string
   'pipeline.policyEvaluations.policySetName': string

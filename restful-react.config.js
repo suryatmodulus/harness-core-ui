@@ -163,7 +163,7 @@ module.exports = {
       base: `{getConfig("ccm/recommendations/api/v1")}`
     }
   },
-  'pm': {
+  pm: {
     output: 'src/services/pm/index.tsx',
     file: 'src/services/pm/swagger.json',
     transformer: 'scripts/swagger-transform.js',

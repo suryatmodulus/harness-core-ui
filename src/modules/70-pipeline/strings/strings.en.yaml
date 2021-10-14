@@ -850,9 +850,5 @@ policyEvaluations:
   failureModalTitle: Policy Set Evaluations
   policySetsApplied: '{{pipelineName}}: Policy Sets applied'
   warn: warning
-  successHeading: All policies are passed.
-  evaluatedTime: 'Evaluated '
   policySet: Policy Set
-  policySetName: 'Policy Set: {{name}}'
   passed: Passed
-  emptyPolicySet: This policy set does not have any policies attached to it.

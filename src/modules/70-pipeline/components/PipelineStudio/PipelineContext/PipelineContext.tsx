@@ -12,9 +12,11 @@ import SessionToken from 'framework/utils/SessionToken'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import {
   createPipelinePromise,
+  createPipelineV2Promise,
   getPipelinePromise,
   GetPipelineQueryParams,
   putPipelinePromise,
+  putPipelineV2Promise,
   Failure,
   EntityGitDetails,
   ResponsePMSPipelineResponseDTO,
@@ -111,8 +113,12 @@ export const getPipelineByIdentifier = (
 export const savePipeline = (
   params: CreatePipelineQueryParams & PutPipelineQueryParams,
   pipeline: PipelineInfoConfig,
-  isEdit = false
+  isEdit = false,
+  useAPIV2 = false
 ): Promise<Failure | undefined> => {
+  const createPipeline = useAPIV2 ? createPipelineV2Promise : createPipelinePromise
+  const updatePipeline = useAPIV2 ? putPipelineV2Promise : putPipelinePromise
+
   // we need to do this due to https://github.com/eemeli/yaml/issues/239
   // can remove it once fixed
   const body = yamlStringify(
@@ -124,7 +130,7 @@ export const savePipeline = (
     { version: '1.1' }
   )
   return isEdit
-    ? putPipelinePromise({
+    ? updatePipeline({
         pipelineIdentifier: pipeline.identifier,
         queryParams: {
           ...params
@@ -138,7 +144,7 @@ export const savePipeline = (
           return response
         }
       })
-    : createPipelinePromise({
+    : createPipeline({
         body: body as any,
         queryParams: {
           ...params

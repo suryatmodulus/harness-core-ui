@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.25% </span>
+                <span class="strong">58.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/64</span>
+                <span class='fraction'>39/67</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.56% </span>
+                <span class="strong">57.58% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/63</span>
+                <span class='fraction'>38/66</span>
             </div>
         
             
@@ -324,19 +324,10 @@
 <a name='L265'></a><a href='#L265'>265</a>
 <a name='L266'></a><a href='#L266'>266</a>
 <a name='L267'></a><a href='#L267'>267</a>
-<a name='L268'></a><a href='#L268'>268</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -351,6 +342,9 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -579,7 +573,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -592,18 +596,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import {
-  Button,
-  ButtonSize,
-  ButtonVariation,
-  Color,
-  Container,
-  Icon,
-  Layout,
-  Tab,
-  Tabs,
-  Text
-} from '@wings-software/uicore'
+import { ButtonSize, ButtonVariation, Color, Container, Icon, Layout, Tab, Tabs, Text } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -618,6 +611,9 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { StepElementConfig } from 'services/cd-ng'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { StepCommandsProps, StepCommandsViews } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 &nbsp;
@@ -826,20 +822,24 @@ export function StepCommands(
 <span class="branch-0 cbranch-no" title="branch not covered" >            &lt;&gt;</span>
               &lt;Expander /&gt;
               &lt;div&gt;
-                &lt;Button
+                &lt;RbacButton
+                  text={getString('common.useTemplate')}
+                  variation={ButtonVariation.PRIMARY}
+                  minimal
                   icon="template-library"
                   iconProps={{ size: 12 }}
-                  minimal
-                  size={ButtonSize.SMALL}
-                  variation={ButtonVariation.PRIMARY}
                   onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                    onUseTemplate?.(step)</span>
                   }}
                   className={css.useTemplateBtn}
-                &gt;
-                  {getString('common.useTemplate')}
-                &lt;/Button&gt;
-                &lt;Button
+                  permission={{
+                    permission: PermissionIdentifier.ACCESS_TEMPLATE,
+                    resource: {
+                      resourceType: ResourceType.TEMPLATE
+                    }
+                  }}
+                /&gt;
+                &lt;RbacButton
                   withoutCurrentColor
                   variation={ButtonVariation.ICON}
                   icon="upload-box"
@@ -847,6 +847,12 @@ export function StepCommands(
                   minimal
                   size={ButtonSize.SMALL}
                   onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onSaveAsTemplate?.(step)}</span>
+                  permission={{
+                    permission: PermissionIdentifier.EDIT_TEMPLATE,
+                    resource: {
+                      resourceType: ResourceType.TEMPLATE
+                    }
+                  }}
                 /&gt;
               &lt;/div&gt;
             &lt;/&gt;
@@ -865,7 +871,7 @@ export const StepCommandsWithRef = React.forwardRef(StepCommands)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 14 2021 09:58:00 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 14 2021 10:52:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

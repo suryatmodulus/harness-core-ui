@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.02% </span>
+                <span class="strong">71.49% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>174/245</span>
+                <span class='fraction'>178/249</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.97% </span>
+                <span class="strong">56.45% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>483/863</span>
+                <span class='fraction'>503/891</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.67% </span>
+                <span class="strong">72.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>167/233</span>
+                <span class='fraction'>171/237</span>
             </div>
         
             
@@ -714,7 +714,14 @@
 <a name='L655'></a><a href='#L655'>655</a>
 <a name='L656'></a><a href='#L656'>656</a>
 <a name='L657'></a><a href='#L657'>657</a>
-<a name='L658'></a><a href='#L658'>658</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L658'></a><a href='#L658'>658</a>
+<a name='L659'></a><a href='#L659'>659</a>
+<a name='L660'></a><a href='#L660'>660</a>
+<a name='L661'></a><a href='#L661'>661</a>
+<a name='L662'></a><a href='#L662'>662</a>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a>
+<a name='L665'></a><a href='#L665'>665</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -722,6 +729,8 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -824,6 +833,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">63x</span>
 <span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
@@ -857,6 +867,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">62x</span>
@@ -1380,6 +1394,8 @@ import produce from 'immer'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import type { ExecutionElementConfig, StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { StepActions } from '@common/constants/TrackingConstants'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
@@ -1481,6 +1497,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
     setSelectedStepId
   } = usePipelineContext()
   const { type, data, ...restDrawerProps } = drawerData
+  const { trackEvent } = useTelemetry()
 &nbsp;
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
   const stageType = selectedStage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype
@@ -1514,6 +1531,10 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
         }
       })
       setSelectedStepId(undefined)
+      trackEvent(StepActions.AddEditStep, {
+        name: data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tepConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ode<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+        type: (data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tepConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ode as StepElementConfig)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+      })
     }
   }
   const discardChanges = (): void =&gt; {
@@ -2035,7 +2056,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 14 2021 10:52:03 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 14 2021 11:55:01 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

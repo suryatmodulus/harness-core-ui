@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">87.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>112/128</span>
+                <span class='fraction'>116/133</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.69% </span>
+                <span class="strong">73.89% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>165/218</span>
+                <span class='fraction'>167/226</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.3% </span>
+                <span class="strong">87.02% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>110/126</span>
+                <span class='fraction'>114/131</span>
             </div>
         
             
@@ -458,7 +458,12 @@
 <a name='L399'></a><a href='#L399'>399</a>
 <a name='L400'></a><a href='#L400'>400</a>
 <a name='L401'></a><a href='#L401'>401</a>
-<a name='L402'></a><a href='#L402'>402</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L402'></a><a href='#L402'>402</a>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -474,6 +479,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -573,6 +580,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
@@ -709,6 +717,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -733,6 +742,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -876,6 +886,8 @@ import {
   UseGetStepsProps
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { StepActions } from '@common/constants/TrackingConstants'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { StepPopover } from '@pipeline/components/PipelineStudio/StepPalette/StepPopover/StepPopover'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
@@ -977,6 +989,7 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
   const [stepCategories, setStepsCategories] = useState&lt;StepCategory[]&gt;([])
   const [originalData, setOriginalCategories] = useState&lt;StepCategory[]&gt;([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
+  const { trackEvent } = useTelemetry()
   // Need this when we have same names for category and sub category
   const [selectedLevel, setSelectedLevel] = useState&lt;string | null&gt;(null)
   const { module, accountId } = useParams&lt;{ module: string; accountId: string }&gt;()
@@ -1110,6 +1123,7 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
                             type: stepData.type || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
                             icon: stepsFactory.getStepIcon(stepData.type || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
                           })
+                          trackEvent(StepActions.SelectStep, { name: stepData.name || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span> type: stepData.type || <span class="branch-1 cbranch-no" title="branch not covered" >'' </span>})
                         }
                       }}
                     &gt;
@@ -1134,6 +1148,7 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
                               type: <span class="branch-0 cbranch-no" title="branch not covered" >stepData.type </span>|| /* istanbul ignore next */ '',
                               icon: stepsFactory.getStepIcon(stepData.type || '')
                             })
+<span class="cstat-no" title="statement not covered" >                            trackEvent(StepActions.SelectStep, { name: stepData.name || '', type: stepData.type || '' })</span>
                           }
                         }}
                       &gt;
@@ -1267,7 +1282,7 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 14 2021 10:52:03 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 14 2021 11:55:01 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

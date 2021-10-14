@@ -56,6 +56,8 @@
     "postservices:ci": "prettier --write src/services/ci/index.tsx",
     "services:cv": "restful-react import --config restful-react.config.js cv",
     "postservices": "prettier --write src/services/**/*.tsx",
+    "services:gitops": "restful-react import --config restful-react.config.js gitops",
+    "postservices:gitops": "prettier --write src/services/gitops/*.tsx",
     "build": "yarn clean && GIT_COMMIT=$(git log -1 --pretty=%h) GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD) webpack",
     "coverage": "yarn test --coverage",
     "grouped-coverage": "yarn coverage && jest-grouped-coverage -i coverage/coverage-summary.json -c coverage-groups.json",

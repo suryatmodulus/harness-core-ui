@@ -7,7 +7,11 @@ console.table({ baseUrl, targetLocalHost })
 module.exports = {
   '/gitops-ui': {
     pathRewrite: { '^/gitops-ui': '' },
-    target: process.env.GITOPSUI_URL || 'https://localhost:8183'
+    target: process.env.GITOPSUI_URL || 'https://localhost:8183/'
+  },
+  '/gitops-api': {
+    pathRewrite: { '^/gitops-api': '' },
+    target: 'http://34.123.220.162/'
   },
   '/ng/api': {
     pathRewrite: { '^/ng/api': '' },

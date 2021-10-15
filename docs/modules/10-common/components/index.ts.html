@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>69/69</span>
+                <span class='fraction'>72/72</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.17% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/24</span>
+                <span class='fraction'>13/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>69/69</span>
+                <span class='fraction'>72/72</span>
             </div>
         
             
@@ -128,7 +128,11 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">630x</span>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">630x</span>
+<span class="cline-any cline-yes">630x</span>
 <span class="cline-any cline-yes">630x</span>
 <span class="cline-any cline-yes">630x</span>
 <span class="cline-any cline-yes">630x</span>
@@ -181,16 +185,17 @@
 <span class="cline-any cline-yes">630x</span>
 <span class="cline-any cline-yes">630x</span>
 <span class="cline-any cline-yes">630x</span>
-<span class="cline-any cline-yes">1590x</span>
+<span class="cline-any cline-yes">1589x</span>
 <span class="cline-any cline-yes">630x</span>
 <span class="cline-any cline-yes">630x</span>
-<span class="cline-any cline-yes">673x</span>
+<span class="cline-any cline-yes">713x</span>
 <span class="cline-any cline-yes">728x</span>
 <span class="cline-any cline-yes">630x</span>
 <span class="cline-any cline-yes">630x</span>
 <span class="cline-any cline-yes">677x</span>
 <span class="cline-any cline-yes">630x</span>
-<span class="cline-any cline-yes">1577x</span>
+<span class="cline-any cline-yes">630x</span>
+<span class="cline-any cline-yes">1576x</span>
 <span class="cline-any cline-yes">641x</span>
 <span class="cline-any cline-yes">671x</span>
 <span class="cline-any cline-yes">630x</span>
@@ -198,6 +203,7 @@
 <span class="cline-any cline-yes">664x</span>
 <span class="cline-any cline-yes">630x</span>
 <span class="cline-any cline-yes">632x</span>
+<span class="cline-any cline-yes">630x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { AdminSelector } from '../navigation/AdminSelector/AdminSelector'
 import AddDrawer from './AddDrawer/AddDrawer'
@@ -208,7 +214,7 @@ import EditableText from './EditableText/EditableText'
 import EntityReference from './EntityReference/EntityReference'
 import HeatMap from './HeatMap/HeatMap'
 import { NavigationCheck } from './NavigationCheck/NavigationCheck'
-import { NameIdDescriptionTags } from './NameIdDescriptionTags/NameIdDescriptionTags'
+import { NameIdDescriptionTags, Description } from './NameIdDescriptionTags/NameIdDescriptionTags'
 import { PageSpinner } from './Page/PageSpinner'
 import { Page } from './Page/Page'
 import { ReferenceSelect } from './ReferenceSelect/ReferenceSelect'
@@ -231,6 +237,7 @@ import DetailPageCard from './DetailPageCard/DetailPageCard'
 import CopyToClipBoard from './CopyToClipBoard/CopyToClipBoard'
 import { OptionsMenuButton, MenuDivider } from './OptionsMenuButton/OptionsMenuButton'
 import { TimeSeriesAreaChart } from './TimeSeriesAreaChart/TimeSeriesAreaChart'
+import { Separator } from './Separator/Separator'
 export {
 <span class="fstat-no" title="function not covered" >  AdminSelector,</span>
   AddDrawer,
@@ -261,6 +268,7 @@ export {
 <span class="fstat-no" title="function not covered" >  InstanceDropdownField,</span>
   FormInstanceDropdown,
 <span class="fstat-no" title="function not covered" >  MultiTypeCheckbox,</span>
+<span class="fstat-no" title="function not covered" >  Description,</span>
   NameIdDescriptionTags,
   UserLabel,
   DelegateSelectors,
@@ -268,7 +276,8 @@ export {
   DetailPageCard,
   OptionsMenuButton,
 <span class="fstat-no" title="function not covered" >  MenuDivider,</span>
-  TimeSeriesAreaChart
+  TimeSeriesAreaChart,
+<span class="fstat-no" title="function not covered" >  Separator</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -277,7 +286,7 @@ export {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 14 2021 21:33:35 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 15 2021 00:45:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

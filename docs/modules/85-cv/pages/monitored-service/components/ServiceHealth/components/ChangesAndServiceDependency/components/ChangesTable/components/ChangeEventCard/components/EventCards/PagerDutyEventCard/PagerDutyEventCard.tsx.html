@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/85-cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeEventCard/PagerDutyEventCard.tsx</title>
+    <title>Code coverage report for modules/85-cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeEventCard/components/EventCards/PagerDutyEventCard/PagerDutyEventCard.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../../../../../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../../../../../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../../../../../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../../../../../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../../../../../../../index.html">All files</a> / <a href="index.html">modules/85-cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeEventCard</a> PagerDutyEventCard.tsx</h1>
+        <h1><a href="../../../../../../../../../../../../../../../index.html">All files</a> / <a href="index.html">modules/85-cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeEventCard/components/EventCards/PagerDutyEventCard</a> PagerDutyEventCard.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -85,24 +85,42 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,15 +135,16 @@
 import { Divider } from '@blueprintjs/core'
 import { Card } from '@wings-software/uicore'
 import type { ChangeEventDTO } from 'services/cv'
-import type { ChangeTitleData, ChangeDetailsDataInterface, ChangeInfoData } from './ChangeEventCard.types'
-import { createChangeTitleData, createChangeDetailsData, createChangeInfoData } from './ChangeEventCard.utils'
-import ChangeDetails from './components/ChangeDetails/ChangeDetails'
-import ChangeInformation from './components/ChangeInformation/ChangeInformation'
-import ChangeTitle from './components/ChangeTitle/ChangeTitle'
-import css from './ChangeEventCard.module.scss'
+import ChangeEventServiceHealth from '@cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeCard/components/ChangeEventServiceHealth/ChangeEventServiceHealth'
+import type { ChangeTitleData, ChangeDetailsDataInterface, ChangeInfoData } from '../../../ChangeEventCard.types'
+import { createChangeTitleData, createChangeDetailsData, createChangeInfoData } from '../../../ChangeEventCard.utils'
+import ChangeDetails from '../../ChangeDetails/ChangeDetails'
+import ChangeInformation from '../../ChangeInformation/ChangeInformation'
+import ChangeTitle from '../../ChangeTitle/ChangeTitle'
+import css from '../../../ChangeEventCard.module.scss'
 &nbsp;
 export default function PagerDutyEventCard({ data }: { data: ChangeEventDTO }) {
-  const { metadata } = data
+  const { metadata } = data || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
   const changeTitleData: ChangeTitleData = useMemo(() =&gt; createChangeTitleData(data), [])
   const changeDetailsData: ChangeDetailsDataInterface = useMemo(() =&gt; createChangeDetailsData(data), [])
   const changeInfoData: ChangeInfoData = useMemo(() =&gt; createChangeInfoData(metadata), [metadata])
@@ -138,6 +157,14 @@ export default function PagerDutyEventCard({ data }: { data: ChangeEventDTO }) {
       &lt;Divider className={css.divider} /&gt;
       &lt;ChangeInformation infoData={changeInfoData} /&gt;
       &lt;Divider className={css.divider} /&gt;
+      {data<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>ventTime &amp;&amp; data.serviceIdentifier &amp;&amp; data.envIdentifier &amp;&amp; (
+        &lt;ChangeEventServiceHealth
+          serviceIdentifier={data.serviceIdentifier}
+          envIdentifier={data.envIdentifier}
+          startTime={data.eventTime}
+          eventType={data.type}
+        /&gt;
+      )}
     &lt;/Card&gt;
   )
 }
@@ -148,17 +175,17 @@ export default function PagerDutyEventCard({ data }: { data: ChangeEventDTO }) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 15 2021 01:32:44 GMT+0000 (Greenwich Mean Time)
+                at Sat Oct 16 2021 01:47:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
-        <script src="../../../../../../../../../../../../prettify.js"></script>
+        <script src="../../../../../../../../../../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../../../../../../../sorter.js"></script>
-        <script src="../../../../../../../../../../../../block-navigation.js"></script>
+        <script src="../../../../../../../../../../../../../../../sorter.js"></script>
+        <script src="../../../../../../../../../../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

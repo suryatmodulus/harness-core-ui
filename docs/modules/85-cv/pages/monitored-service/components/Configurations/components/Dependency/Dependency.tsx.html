@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.09% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/47</span>
+                <span class='fraction'>30/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.7% </span>
+                <span class="strong">62.22% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>29/47</span>
+                <span class='fraction'>28/45</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.11% </span>
+                <span class="strong">69.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/45</span>
+                <span class='fraction'>30/43</span>
             </div>
         
             
@@ -198,15 +198,7 @@
 <a name='L139'></a><a href='#L139'>139</a>
 <a name='L140'></a><a href='#L140'>140</a>
 <a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -241,7 +233,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -293,13 +284,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -360,7 +344,7 @@ import { Layout, Text, Color, Container, Pagination } from '@wings-software/uico
 import { isEqual } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useGetMonitoredServiceList } from 'services/cv'
-import { PageSpinner, useToaster } from '@common/components'
+import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import SaveAndDiscardButton from '@common/components/SaveAndDiscardButton/SaveAndDiscardButton'
@@ -391,7 +375,6 @@ export default function Dependency({
   dependencyTabformRef?: any
 }): JSX.Element {
   const { getString } = useStrings()
-  const { showSuccess } = useToaster()
   const [dependencyMap, setDependencyMap] = useState&lt;Map&lt;string, DependencyMetaData&gt;&gt;(new Map())
   const [isDirty, setIsDirty] = useState(false)
   const { accountId, identifier, orgIdentifier, projectIdentifier } = useParams&lt;
@@ -442,13 +425,6 @@ export default function Dependency({
         isUpdated={isDirty}
         onSave={async () =&gt; {
           await onSuccess(updateMonitoredServiceWithDependencies(Array.from(dependencyMap.values()), value))
-          showSuccess(
-            getString(
-              identifier
-                ? <span class="branch-0 cbranch-no" title="branch not covered" >'cv.monitoredServices.monitoredServiceUpdated'</span>
-                : 'cv.monitoredServices.monitoredServiceCreated'
-            )
-          )
         }}
         onDiscard={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >          setDependencyMap(initalDependencies)</span>
@@ -511,7 +487,7 @@ export default function Dependency({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 15 2021 01:32:44 GMT+0000 (Greenwich Mean Time)
+                at Sat Oct 16 2021 01:47:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../prettify.js"></script>

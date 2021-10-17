@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.21% </span>
+                <span class="strong">58.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/67</span>
+                <span class='fraction'>40/68</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">17.8% </span>
+                <span class="strong">20.79% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/118</span>
+                <span class='fraction'>21/101</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.58% </span>
+                <span class="strong">58.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>38/66</span>
+                <span class='fraction'>39/67</span>
             </div>
         
             
@@ -318,15 +318,7 @@
 <a name='L259'></a><a href='#L259'>259</a>
 <a name='L260'></a><a href='#L260'>260</a>
 <a name='L261'></a><a href='#L261'>261</a>
-<a name='L262'></a><a href='#L262'>262</a>
-<a name='L263'></a><a href='#L263'>263</a>
-<a name='L264'></a><a href='#L264'>264</a>
-<a name='L265'></a><a href='#L265'>265</a>
-<a name='L266'></a><a href='#L266'>266</a>
-<a name='L267'></a><a href='#L267'>267</a>
-<a name='L268'></a><a href='#L268'>268</a>
-<a name='L269'></a><a href='#L269'>269</a>
-<a name='L270'></a><a href='#L270'>270</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L262'></a><a href='#L262'>262</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -342,6 +334,7 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -368,6 +361,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -549,17 +543,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -576,8 +559,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -596,7 +580,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { ButtonSize, ButtonVariation, Color, Container, Icon, Layout, Tab, Tabs, Text } from '@wings-software/uicore'
+import { ButtonSize, ButtonVariation, Color, Container, Tab, Tabs } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -614,6 +598,7 @@ import type { TemplateStepData } from '@pipeline/utils/tempates'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { TemplateBar } from '@pipeline/components/PipelineStudio/StepCommands/TemplateBar/TemplateBar'
 import { StepCommandsProps, StepCommandsViews } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 &nbsp;
@@ -646,6 +631,7 @@ export function StepCommands(
     onUpdate,
     onUseTemplate,
     onSaveAsTemplate,
+    onRemoveTemplate,
     isStepGroup,
     isReadonly,
     stepsFactory,
@@ -774,91 +760,81 @@ export function StepCommands(
 &nbsp;
   return (
     &lt;div className={cx(css.stepCommand, className)}&gt;
-      {stepType === StepType.Template &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Container</span>
-          margin={'medium'}
-          padding={{ top: 'small', right: 'medium', bottom: 'small', left: 'medium' }}
-          background={Color.PRIMARY_6}
-          border={{ radius: 4 }}
-        &gt;
-          &lt;Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}&gt;
-            &lt;Icon size={11} color={Color.WHITE} name={'template-library'} /&gt;
-            &lt;Text font={{ size: 'small' }} color={Color.WHITE}&gt;
-              {`Using Template: ${(step as TemplateStepData)?.template?.templateRef} (${
-                (step as TemplateStepData)?.template?.versionLabel
-              })`}
-            &lt;/Text&gt;
-          &lt;/Layout.Horizontal&gt;
-        &lt;/Container&gt;
+      {stepType === StepType.Template ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;&gt;</span>
+          &lt;TemplateBar step={step} onChangeTemplate={onUseTemplate} onRemoveTemplate={onRemoveTemplate} /&gt;
+          &lt;Container padding={'large'}&gt;{getStepWidgetWithFormikRef()}&lt;/Container&gt;
+        &lt;/&gt;
+      ) : (
+        &lt;div className={cx(css.stepTabs, { stepTabsAdvanced: activeTab === StepCommandTabs.Advanced })}&gt;
+          &lt;Tabs id="step-commands" selectedTabId={activeTab} onChange={handleTabChange}&gt;
+            &lt;Tab
+              id={StepCommandTabs.StepConfiguration}
+              title={isStepGroup ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('stepGroupConfiguration') </span>: getString('stepConfiguration')}
+              panel={getStepWidgetWithFormikRef()}
+            /&gt;
+            &lt;Tab
+              id={StepCommandTabs.Advanced}
+              title={getString('advancedTitle')}
+              panel={
+                &lt;AdvancedStepsWithRef
+                  step={step}
+                  isReadonly={isReadonly}
+                  stepsFactory={stepsFactory}
+                  allowableTypes={allowableTypes}
+                  onChange={onChange}
+                  onUpdate={onUpdate}
+                  hiddenPanels={hiddenPanels}
+                  isStepGroup={isStepGroup}
+                  hasStepGroupAncestor={hasStepGroupAncestor}
+                  ref={advancedConfRef}
+                  stageType={stageType}
+                  stepType={stepType}
+                /&gt;
+              }
+            /&gt;
+            {templatesEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >viewType === StepCommandsViews.Pipeline </span>? (
+<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;&gt;</span>
+                &lt;Expander /&gt;
+                &lt;div&gt;
+                  &lt;RbacButton
+                    text={getString('common.useTemplate')}
+                    variation={ButtonVariation.SECONDARY}
+                    size={ButtonSize.SMALL}
+                    icon="template-library"
+                    iconProps={{ size: 12 }}
+                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                      onUseTemplate?.(step)</span>
+                    }}
+                    margin={{ right: 'small' }}
+                    permission={{
+                      permission: PermissionIdentifier.ACCESS_TEMPLATE,
+                      resource: {
+                        resourceType: ResourceType.TEMPLATE
+                      }
+                    }}
+                  /&gt;
+                  &lt;RbacButton
+                    withoutCurrentColor
+                    variation={ButtonVariation.ICON}
+                    icon="upload-box"
+                    iconProps={{ color: Color.PRIMARY_7 }}
+                    size={ButtonSize.SMALL}
+                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onSaveAsTemplate?.(step)}</span>
+                    className={css.saveButton}
+                    permission={{
+                      permission: PermissionIdentifier.EDIT_TEMPLATE,
+                      resource: {
+                        resourceType: ResourceType.TEMPLATE
+                      }
+                    }}
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/&gt;
+            ) : null}
+          &lt;/Tabs&gt;
+        &lt;/div&gt;
       )}
-      &lt;div className={cx(css.stepTabs, { stepTabsAdvanced: activeTab === StepCommandTabs.Advanced })}&gt;
-        &lt;Tabs id="step-commands" selectedTabId={activeTab} onChange={handleTabChange}&gt;
-          &lt;Tab
-            id={StepCommandTabs.StepConfiguration}
-            title={isStepGroup ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('stepGroupConfiguration') </span>: getString('stepConfiguration')}
-            panel={getStepWidgetWithFormikRef()}
-          /&gt;
-          &lt;Tab
-            id={StepCommandTabs.Advanced}
-            title={getString('advancedTitle')}
-            panel={
-              &lt;AdvancedStepsWithRef
-                step={step}
-                isReadonly={isReadonly}
-                stepsFactory={stepsFactory}
-                allowableTypes={allowableTypes}
-                onChange={onChange}
-                onUpdate={onUpdate}
-                hiddenPanels={hiddenPanels}
-                isStepGroup={isStepGroup}
-                hasStepGroupAncestor={hasStepGroupAncestor}
-                ref={advancedConfRef}
-                stageType={stageType}
-                stepType={stepType}
-              /&gt;
-            }
-          /&gt;
-          {templatesEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >viewType === StepCommandsViews.Pipeline </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >stepType !== StepType.Template </span>? (
-<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;&gt;</span>
-              &lt;Expander /&gt;
-              &lt;div&gt;
-                &lt;RbacButton
-                  text={getString('common.useTemplate')}
-                  variation={ButtonVariation.PRIMARY}
-                  minimal
-                  icon="template-library"
-                  iconProps={{ size: 12 }}
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                    onUseTemplate?.(step)</span>
-                  }}
-                  className={css.useTemplateBtn}
-                  permission={{
-                    permission: PermissionIdentifier.ACCESS_TEMPLATE,
-                    resource: {
-                      resourceType: ResourceType.TEMPLATE
-                    }
-                  }}
-                /&gt;
-                &lt;RbacButton
-                  withoutCurrentColor
-                  variation={ButtonVariation.ICON}
-                  icon="upload-box"
-                  className={css.saveAsTempalteBtn}
-                  minimal
-                  size={ButtonSize.SMALL}
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onSaveAsTemplate?.(step)}</span>
-                  permission={{
-                    permission: PermissionIdentifier.EDIT_TEMPLATE,
-                    resource: {
-                      resourceType: ResourceType.TEMPLATE
-                    }
-                  }}
-                /&gt;
-              &lt;/div&gt;
-            &lt;/&gt;
-          ) : null}
-        &lt;/Tabs&gt;
-      &lt;/div&gt;
     &lt;/div&gt;
   )
 }
@@ -871,7 +847,7 @@ export const StepCommandsWithRef = React.forwardRef(StepCommands)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Oct 16 2021 01:47:09 GMT+0000 (Greenwich Mean Time)
+                at Sun Oct 17 2021 08:47:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

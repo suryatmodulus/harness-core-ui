@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.24% </span>
+                <span class="strong">95.45% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/21</span>
+                <span class='fraction'>21/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.37% </span>
+                <span class="strong">53.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/38</span>
+                <span class='fraction'>22/41</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.24% </span>
+                <span class="strong">95.45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/21</span>
+                <span class='fraction'>21/22</span>
             </div>
         
             
@@ -161,42 +161,50 @@
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -282,8 +290,7 @@ import css from './TemplateCard.module.scss'
 export interface TemplateCardProps {
   template: NGTemplateInfoConfig | TemplateSummaryResponse
   onSelect?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) =&gt; void
-  className?: string
-  isPreview?: boolean
+  isSelected?: boolean
   onPreview?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) =&gt; void
   onOpenEdit?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) =&gt; void
   onOpenSettings?: (templateIdentifier: string) =&gt; void
@@ -292,16 +299,21 @@ export interface TemplateCardProps {
 &nbsp;
 export function TemplateCard(props: TemplateCardProps): JSX.Element {
   const { getString } = useStrings()
-  const { template, onSelect, isPreview = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span> onPreview, onOpenEdit, onOpenSettings, onDelete } = props
+  const { template, onSelect, isSelected, onPreview, onOpenEdit, onOpenSettings, onDelete } = props
 &nbsp;
   const templateEntityType =
     (template as TemplateSummaryResponse)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplateEntityType || (template as NGTemplateInfoConfig)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype
   const style = templateColorStyleMap[templateEntityType]
   const templateIcons = getIconsForTemplates(template)
+  const showMenu = !onPreview &amp;&amp; !onOpenEdit &amp;&amp; !onOpenSettings &amp;&amp; !onDelete
 &nbsp;
   return (
-    &lt;Card className={css.templateCard} interactive={!!onSelect} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onSelect?.(template)}</span>&gt;
-      {!isPreview ? (
+    &lt;Card
+      className={cx(css.templateCard, { [css.selected]: !!isSelected })}
+      interactive={!!onSelect}
+      onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onSelect?.(template)}</span>
+    &gt;
+      {!showMenu ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >        &lt;TemplateListContextMenu</span>
           template={template}
           onPreview={onPreview || noop}
@@ -342,7 +354,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
         &lt;/Tag&gt;
       &lt;/Container&gt;
       &lt;Container height={1} background={Color.GREY_100} /&gt;
-      {!!template.tags &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isEmpty(template.tags) </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;TemplateTags tags={template.tags} length={3} /&gt;}</span>
+      {!!template.tags &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isEmpty(template.tags) </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;TemplateTags tags={template.tags} /&gt;}</span>
       &lt;Container className={css.userLabel}&gt;
         &lt;Layout.Horizontal&gt;
           &lt;UserLabel name={''} /&gt;
@@ -376,7 +388,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Oct 16 2021 01:47:09 GMT+0000 (Greenwich Mean Time)
+                at Sun Oct 17 2021 08:47:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

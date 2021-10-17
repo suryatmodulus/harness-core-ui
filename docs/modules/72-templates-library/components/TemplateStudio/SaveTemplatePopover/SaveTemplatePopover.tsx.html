@@ -337,11 +337,7 @@
 <a name='L278'></a><a href='#L278'>278</a>
 <a name='L279'></a><a href='#L279'>279</a>
 <a name='L280'></a><a href='#L280'>280</a>
-<a name='L281'></a><a href='#L281'>281</a>
-<a name='L282'></a><a href='#L282'>282</a>
-<a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L281'></a><a href='#L281'>281</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -349,14 +345,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -368,6 +359,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -633,14 +625,9 @@
 <span class="cstat-no" title="statement not covered" >import { parse } from 'yaml'</span>
 import type { FormikErrors } from 'formik'
 <span class="cstat-no" title="statement not covered" >import { useStrings } from 'framework/strings'</span>
-<span class="cstat-no" title="statement not covered" >import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'</span>
 import type { ModulePathParams, TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 <span class="cstat-no" title="statement not covered" >import { TemplateCommentModal } from '@templates-library/components/TemplateStudio/TemplateCommentModal/TemplateCommentModal'</span>
-<span class="cstat-no" title="statement not covered" >import {</span>
-  Fields,
-  ModalProps,
-  TemplateConfigModal
-} from '@templates-library/components/TemplateConfigModal/TemplateConfigModal'
+<span class="cstat-no" title="statement not covered" >import { Fields, ModalProps, TemplateConfigModal } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'</span>
 <span class="cstat-no" title="statement not covered" >import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'</span>
 <span class="cstat-no" title="statement not covered" >import routes from '@common/RouteDefinitions'</span>
 <span class="cstat-no" title="statement not covered" >import { useToaster } from '@common/components'</span>
@@ -653,6 +640,7 @@ import type { ModulePathParams, TemplateStudioPathProps } from '@common/interfac
   Failure
 } from 'services/template-ng'
 <span class="cstat-no" title="statement not covered" >import { yamlStringify } from '@common/utils/YamlHelperMethods'</span>
+<span class="cstat-no" title="statement not covered" >import { DefaultNewTemplateId } from 'framework/Templates/templates'</span>
 <span class="cstat-no" title="statement not covered" >import css from './SaveTemplatePopover.module.scss'</span>
 &nbsp;
 export interface GetErrorResponse extends Omit&lt;Failure, 'errors'&gt; {
@@ -787,7 +775,7 @@ export interface SaveTemplatePopoverProps {
 <span class="cstat-no" title="statement not covered" >    createNewTemplate(template)</span>
       .then(<span class="fstat-no" title="function not covered" >async </span>response =&gt; {
 <span class="cstat-no" title="statement not covered" >        if (response &amp;&amp; response.status === 'SUCCESS') {</span>
-<span class="cstat-no" title="statement not covered" >          showSuccess(getString('templatesLibrary.publishTemplate'))</span>
+<span class="cstat-no" title="statement not covered" >          showSuccess(getString('common.saveTemplate.publishTemplate'))</span>
 <span class="cstat-no" title="statement not covered" >          if (templateIdentifier === DefaultNewTemplateId) {</span>
 <span class="cstat-no" title="statement not covered" >            await deleteTemplateCache()</span>
           }
@@ -799,7 +787,7 @@ export interface SaveTemplatePopoverProps {
       .catch(<span class="fstat-no" title="function not covered" >error </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >        setLoading(false)</span>
 <span class="cstat-no" title="statement not covered" >        showError(</span>
-          error?.message || getString('templatesLibrary.errorWhileSaving'),
+          error?.message || getString('common.saveTemplate.errorWhileSaving'),
           undefined,
           'template.save.template.error'
         )
@@ -808,13 +796,13 @@ export interface SaveTemplatePopoverProps {
 &nbsp;
   const onSaveSuccess = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(m</span>odalValues: NGTemplateInfoConfig) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    hideConfigModal()</span>
-<span class="cstat-no" title="statement not covered" >    showSuccess(getString('templatesLibrary.publishTemplate'))</span>
+<span class="cstat-no" title="statement not covered" >    showSuccess(getString('common.saveTemplate.publishTemplate'))</span>
 <span class="cstat-no" title="statement not covered" >    navigateToLocation(modalValues.identifier, modalValues.versionLabel)</span>
   }
 &nbsp;
   const onSaveFailure = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>rror: any) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    showError(</span>
-      error?.message || getString('templatesLibrary.errorWhileSaving'),
+      error?.message || getString('common.saveTemplate.errorWhileSaving'),
       undefined,
       'template.save.template.error'
     )
@@ -834,7 +822,7 @@ export interface SaveTemplatePopoverProps {
 &nbsp;
   const saveAsNewTemplate = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(): void =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    setModalProps({</span>
-      title: getString('templatesLibrary.saveAsNewTemplateModal.heading'),
+      title: getString('common.saveAsNewTemplateHeading'),
       promise: createNewTemplate,
       onSuccess: onSaveSuccess,
       onFailure: onSaveFailure,
@@ -879,7 +867,7 @@ export interface SaveTemplatePopoverProps {
             }
           },
           {
-            label: getString('templatesLibrary.saveAsNewTemplateModal.heading'),
+            label: getString('common.saveAsNewTemplateHeading'),
             onClick: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >              getErrors?.().then(<span class="fstat-no" title="function not covered" >response </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                if (response.status === 'SUCCESS' &amp;&amp; isEmpty(response.errors)) {</span>
@@ -916,7 +904,7 @@ export interface SaveTemplatePopoverProps {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Oct 16 2021 01:47:09 GMT+0000 (Greenwich Mean Time)
+                at Sun Oct 17 2021 08:47:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

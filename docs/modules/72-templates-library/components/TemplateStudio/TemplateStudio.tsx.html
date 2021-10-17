@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/102</span>
+                <span class='fraction'>0/105</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/93</span>
+                <span class='fraction'>0/95</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/102</span>
+                <span class='fraction'>0/105</span>
             </div>
         
             
@@ -319,7 +319,13 @@
 <a name='L260'></a><a href='#L260'>260</a>
 <a name='L261'></a><a href='#L261'>261</a>
 <a name='L262'></a><a href='#L262'>262</a>
-<a name='L263'></a><a href='#L263'>263</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -345,9 +351,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -481,10 +487,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -600,16 +612,16 @@
 <span class="cstat-no" title="statement not covered" >import { TemplateStudioHeader } from '@templates-library/components/TemplateStudio/TemplateStudioHeader/TemplateStudioHeader'</span>
 import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
-<span class="cstat-no" title="statement not covered" >import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'</span>
+<span class="cstat-no" title="statement not covered" >import { DefaultNewPipelineId, DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'</span>
 import type { StepElementConfig } from 'services/cd-ng'
 <span class="cstat-no" title="statement not covered" >import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'</span>
 <span class="cstat-no" title="statement not covered" >import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'</span>
 <span class="cstat-no" title="statement not covered" >import TemplateYamlView from '@templates-library/components/TemplateStudio/TemplateYamlView/TemplateYamlView'</span>
 <span class="cstat-no" title="statement not covered" >import { accountPathProps, pipelineModuleParams, templatePathProps } from '@common/utils/routeUtils'</span>
 <span class="cstat-no" title="statement not covered" >import routes from '@common/RouteDefinitions'</span>
-<span class="cstat-no" title="statement not covered" >import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'</span>
 import type { NGTemplateInfoConfig } from 'services/template-ng'
 import type { GetErrorResponse } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
+<span class="cstat-no" title="statement not covered" >import { DefaultNewTemplateId } from 'framework/Templates/templates'</span>
 <span class="cstat-no" title="statement not covered" >import css from './TemplateStudio.module.scss'</span>
 &nbsp;
 export type TemplateFormikRef&lt;T = unknown&gt; = {
@@ -761,6 +773,12 @@ export type TemplateFormRef&lt;T = unknown&gt; =
     }
   }, [isBETemplateUpdated, discardBEUpdateDialog, openConfirmBEUpdateError])
 &nbsp;
+<span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (templateIdentifier === DefaultNewPipelineId) {</span>
+<span class="cstat-no" title="statement not covered" >      setView(SelectedView.VISUAL)</span>
+    }
+  }, [templateIdentifier])
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       &lt;NavigationCheck
@@ -850,7 +868,7 @@ export type TemplateFormRef&lt;T = unknown&gt; =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Oct 16 2021 01:47:09 GMT+0000 (Greenwich Mean Time)
+                at Sun Oct 17 2021 08:47:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

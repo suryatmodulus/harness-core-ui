@@ -1,5 +1,5 @@
-import { Spinner } from '@blueprintjs/core'
-import { Color, Container, Text } from '@wings-software/uicore'
+import { Intent, Spinner } from '@blueprintjs/core'
+import { Color, Container, Icon, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
@@ -7,11 +7,11 @@ import { getTimeFormatMoment } from '@cv/pages/monitored-service/components/Serv
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetAnomaliesSummary } from 'services/cv'
-import { useToaster } from '@common/exports'
-import { getErrorMessage, getRiskColorValue } from '@cv/utils/CommonUtils'
+import { getRiskColorValue } from '@cv/utils/CommonUtils'
 import { getChangeSoureIconColor } from '@cv/components/ChangeTimeline/ChangeTimeline.utils'
 import { areAnomaliesAvailable } from './AnomaliesCard.utils'
 import type { AnomaliesCardProps } from './Anomalies.types'
+import AnomaliesCardError from './components/AnomaliesCardError/AnomaliesCardError'
 import css from './AnomaliesCard.module.scss'
 
 export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
@@ -25,7 +25,6 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
     monitoredServiceIdentifier
   } = props
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
-  const { showError, clear } = useToaster()
   const { getString } = useStrings()
 
   const queryParams = useMemo(() => {
@@ -80,13 +79,16 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeRange?.startTime, timeRange?.endTime, queryParams])
 
-  useEffect(() => {
-    if (anomaliesError) {
-      clear()
-      showError(getErrorMessage(anomaliesError), 7000)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [anomaliesError])
+  const getAnomaliesFieldData = useCallback(
+    field => {
+      return !anomaliesError ? (
+        <Icon padding={{ left: 'xsmall' }} name="warning-sign" size={12} intent={Intent.DANGER} />
+      ) : (
+        field
+      )
+    },
+    [anomaliesError]
+  )
 
   const renderAnomaliesData = useCallback(() => {
     if (anomaliesLoading) {
@@ -95,6 +97,8 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
           <Spinner size={Spinner.SIZE_SMALL} />
         </Container>
       )
+    } else if (anomaliesError) {
+      return <AnomaliesCardError />
     } else {
       return (
         <Container padding={{ right: 'small', left: 'small' }}>
@@ -104,16 +108,14 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
               color={Color.WHITE}
               font={{ size: 'xsmall', weight: 'bold' }}
             >
-              {`${getString('cv.monitoredServices.serviceHealth.anamolies')}: ${
-                anomaliesData?.resource?.totalAnomalies
-              }`}
+              {`${getString('cv.monitoredServices.serviceHealth.anamolies')}:`}
+              <span>{getAnomaliesFieldData(anomaliesData?.resource?.totalAnomalies)}</span>
             </Text>
           )}
           {isTimeSeriesAnomaliesAvailable && (
-            <Text padding={{ top: 'xsmall' }} color={Color.WHITE} font={{ size: 'xsmall', weight: 'bold' }}>
-              {`${getString('pipeline.verification.analysisTab.metrics')} ${
-                anomaliesData?.resource?.timeSeriesAnomalies
-              }`}
+            <Text padding={{ top: 'small' }} color={Color.WHITE} font={{ size: 'xsmall', weight: 'bold' }}>
+              {`${getString('pipeline.verification.analysisTab.metrics')}:`}
+              <span>{getAnomaliesFieldData(anomaliesData?.resource?.timeSeriesAnomalies)}</span>
             </Text>
           )}
           {isLogsAnomaliesAvailable && (
@@ -122,7 +124,8 @@ export default function AnomaliesCard(props: AnomaliesCardProps): JSX.Element {
               color={Color.WHITE}
               font={{ size: 'xsmall', weight: 'bold' }}
             >
-              {`${getString('pipeline.verification.analysisTab.logs')} ${anomaliesData?.resource?.logsAnomalies}`}
+              {`${getString('pipeline.verification.analysisTab.logs')}:`}
+              <span>{getAnomaliesFieldData(anomaliesData?.resource?.logsAnomalies)}</span>
             </Text>
           )}
         </Container>

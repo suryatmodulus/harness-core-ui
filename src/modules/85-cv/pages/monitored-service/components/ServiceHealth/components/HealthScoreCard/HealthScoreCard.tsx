@@ -52,7 +52,7 @@ export default function HealthScoreCard(props: HealthScoreCardProps): JSX.Elemen
   const renderHealthScore = useCallback(() => {
     if (loading) {
       return <HealthScoreCardLoading />
-    } else if (error) {
+    } else if (!error) {
       return <HealthScoreCardError errorMessage={getString('cv.monitoredServices.failedToFetchHealthScore')} />
     } else if (healthScore !== null && healthScore > -1) {
       return (

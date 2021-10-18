@@ -28,6 +28,7 @@ import routes from '@common/RouteDefinitions'
 import { returnUrlParams } from '@common/utils/routeUtils'
 import { PermissionsProvider } from 'framework/rbac/PermissionsContext'
 import { FeaturesProvider } from 'framework/featureStore/FeaturesContext'
+import { setBugsnagAccountMeta } from 'framework/logging/logging'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -63,6 +64,12 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
     return {
       routingId: accountId
     }
+  }, [accountId])
+
+  useEffect(() => {
+    setBugsnagAccountMeta({
+      id: accountId
+    })
   }, [accountId])
 
   const {

@@ -20,6 +20,14 @@ const WARN = 'WARN'
 const INFO = 'INFO'
 const DEBUG = 'DEBUG'
 
+enum BUGSNAG_FILTERS {
+  ACCOUNT = 'account'
+}
+
+export interface BugsnagAccountMeta {
+  id: string
+}
+
 function log(type: string, module: ModuleName, subModule?: string) {
   return function (message: string, obj: Record<string, unknown> = {}) {
     // Message format: `ModuleName/SubModuleName: Actual Message`, obj
@@ -44,6 +52,10 @@ function log(type: string, module: ModuleName, subModule?: string) {
       console.warn(_message, obj) // eslint-disable-line
     }
   }
+}
+
+export function setBugsnagAccountMeta(data: BugsnagAccountMeta): void {
+  window.bugsnagClient?.addMetadata(BUGSNAG_FILTERS.ACCOUNT, data)
 }
 
 export const loggerFor = (module: ModuleName, subModule?: string): Logger => ({

@@ -20,44 +20,44 @@ export const DisplaySelectedInstances: React.FC<DisplaySelectedInstancesProps> =
       {
         accessor: 'name',
         Header: 'NAME AND ID',
-        width: '16.5%',
+        width: '15%',
         Cell: NameCell
       },
       {
         accessor: 'ipv4',
         Header: 'IP ADDRESS',
-        width: '16.5%',
+        width: '15%',
         Cell: TableCell,
         disableSortBy: true
       },
       {
         accessor: 'region',
         Header: 'REGION',
-        width: '16.5%',
+        width: '10%',
         Cell: TableCell
       },
       {
         accessor: 'type',
         Header: 'TYPE',
-        width: '16.5%',
+        width: '15%',
         Cell: TableCell
       },
       {
         accessor: 'tags',
         Header: 'TAGS',
-        width: '16.5%',
+        width: '15%',
         Cell: TableCell
       },
       {
         accessor: 'launch_time',
         Header: 'LAUNCH TIME',
-        width: '16.5%',
+        width: '15%',
         Cell: TableCell
       },
       {
         accessor: 'status',
         Header: 'STATUS',
-        width: '16.5%',
+        width: '15%',
         Cell: TableCell
       },
       {

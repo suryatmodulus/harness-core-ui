@@ -211,7 +211,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   ) {
     return (
       <Container className={css.page}>
-        <Text>{'Not required'}</Text>
+        <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequired', { name: 'ECS' })}</Text>
       </Container>
     )
   }

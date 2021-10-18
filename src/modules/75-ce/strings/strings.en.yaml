@@ -93,7 +93,7 @@ co:
       configDetails: 'Configuration Details'
     setupAccess:
       pageName: 'Setup Access'
-      noSetupRequired: No need to setup access for kubernetes rule. Please move to Review step.
+      noSetupRequired: No need to setup access for {{source}}. Please move to Review step.
       customDomain:
         helpText: 'Specify the URL used to access the resources(Optional)'
         noHostedZones: 'Custom domain does not match to any of the existing domains'

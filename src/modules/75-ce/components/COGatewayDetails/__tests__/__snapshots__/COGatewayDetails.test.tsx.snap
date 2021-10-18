@@ -1364,7 +1364,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                         >
                           <input
                             checked=""
-                            name="Blueprint3.RadioGroup-4"
+                            name="Blueprint3.RadioGroup-3"
                             type="radio"
                             value="INSTANCES"
                           />
@@ -1377,7 +1377,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                           class="bp3-control bp3-radio"
                         >
                           <input
-                            name="Blueprint3.RadioGroup-4"
+                            name="Blueprint3.RadioGroup-3"
                             type="radio"
                             value="ASG"
                           />
@@ -1385,6 +1385,19 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                             class="bp3-control-indicator"
                           />
                           Auto scaling groups
+                        </label>
+                        <label
+                          class="bp3-control bp3-radio"
+                        >
+                          <input
+                            name="Blueprint3.RadioGroup-3"
+                            type="radio"
+                            value="ECS"
+                          />
+                          <span
+                            class="bp3-control-indicator"
+                          />
+                          ECS
                         </label>
                       </div>
                       <div
@@ -1415,49 +1428,49 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               NAME AND ID
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               IP ADDRESS
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 10%;"
                             >
                               REGION
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               TYPE
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               TAGS
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               LAUNCH TIME
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               STATUS
                             </th>
@@ -4088,6 +4101,19 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                           />
                           Auto scaling groups
                         </label>
+                        <label
+                          class="bp3-control bp3-radio"
+                        >
+                          <input
+                            name="Blueprint3.RadioGroup-0"
+                            type="radio"
+                            value="ECS"
+                          />
+                          <span
+                            class="bp3-control-indicator"
+                          />
+                          ECS
+                        </label>
                       </div>
                       <div
                         class="Layout--vertical StyledProps--main"
@@ -4117,49 +4143,49 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               NAME AND ID
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               IP ADDRESS
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 10%;"
                             >
                               REGION
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               TYPE
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               TAGS
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               LAUNCH TIME
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
-                              style="width: 16.5%;"
+                              style="width: 15%;"
                             >
                               STATUS
                             </th>

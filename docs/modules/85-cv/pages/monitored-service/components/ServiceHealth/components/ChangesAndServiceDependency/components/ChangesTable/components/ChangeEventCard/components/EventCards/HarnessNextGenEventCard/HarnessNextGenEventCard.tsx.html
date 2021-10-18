@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
@@ -131,14 +131,19 @@
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -183,6 +188,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -207,15 +213,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo } from 'react'
 import { Divider } from '@blueprintjs/core'
-import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
-import type { ChangeEventDTO } from 'services/cv'
+import { Card, Color, Container, Text } from '@wings-software/uicore'
+import type { ChangeEventDTO, VerificationResult } from 'services/cv'
 import { useStrings } from 'framework/strings'
+import { verificationResultToIcon } from '@cv/components/ActivitiesTimelineView/TimelineTooltip'
+import VerificationStatusCard from '@cv/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/VerificationStatusCard/VerificationStatusCard'
+import type { EventData } from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineView'
 import ChangeEventServiceHealth from '@cv/pages/monitored-service/components/ServiceHealth/components/ChangesAndServiceDependency/components/ChangesTable/components/ChangeCard/components/ChangeEventServiceHealth/ChangeEventServiceHealth'
 import type { ChangeTitleData, ChangeDetailsDataInterface } from '../../../ChangeEventCard.types'
 import { createChangeTitleData, createChangeDetailsData } from '../../../ChangeEventCard.utils'
 import ChangeDetails from '../../ChangeDetails/ChangeDetails'
 import ChangeTitle from '../../ChangeTitle/ChangeTitle'
-import StatusChip from '../../ChangeDetails/components/StatusChip/StatusChip'
 import DeploymentTimeDuration from '../../DeploymentTimeDuration/DeploymentTimeDuration'
 import css from '../../../ChangeEventCard.module.scss'
 &nbsp;
@@ -254,18 +262,19 @@ export default function HarnessNextGenEventCard({ data }: { data: ChangeEventDTO
           &lt;Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}&gt;
             {getString('cv.changeSource.changeSourceCard.deploymentHealth')}
           &lt;/Text&gt;
-          &lt;Layout.Horizontal margin={{ top: 'large', bottom: 'large' }} flex={{ justifyContent: 'flex-start' }}&gt;
+          &lt;Container className={css.verificationContainer}&gt;
             {summary<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(item =&gt; {
+              const icon = verificationResultToIcon(item.verificationStatus as EventData['verificationResult'])
               return (
                 &lt;Container className={css.flexColumn} key={item.name}&gt;
-                  &lt;Text className={css.summarylabel} font={{ size: 'xsmall' }} color={Color.GREY_400}&gt;
+                  &lt;Text icon={icon} className={css.summarylabel} font={{ size: 'xsmall' }} color={Color.GREY_400}&gt;
                     {item.name}
                   &lt;/Text&gt;
-                  &lt;StatusChip status={item.verificationStatus} /&gt;
+                  &lt;VerificationStatusCard status={item.verificationStatus as VerificationResult['status']} /&gt;
                 &lt;/Container&gt;
               )
             })}
-          &lt;/Layout.Horizontal&gt;
+          &lt;/Container&gt;
         &lt;/Container&gt;
       ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
       {data<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>ventTime &amp;&amp; data.serviceIdentifier &amp;&amp; data.envIdentifier &amp;&amp; (
@@ -286,7 +295,7 @@ export default function HarnessNextGenEventCard({ data }: { data: ChangeEventDTO
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 18 2021 04:44:59 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 18 2021 05:56:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../../../../../../prettify.js"></script>

@@ -222,9 +222,34 @@
 <a name='L163'></a><a href='#L163'>163</a>
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
@@ -314,9 +339,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -386,10 +410,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Button, Formik, FormInput, Text, FormikForm as Form, StepProps, Color } from '@wings-software/uicore'
+import {
+  Layout,
+  Button,
+  Formik,
+  FormInput,
+  Text,
+  StepProps,
+  Color,
+  FontVariation,
+  ButtonVariation
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
 import { DelegateTypes, setupAWSFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -452,10 +492,8 @@ const StepAWSAuthentication: React.FC&lt;StepProps&lt;StepAWSAuthenticationProps
   return loadingConnectorSecrets ? (
     &lt;PageSpinner /&gt;
   ) : (
-    &lt;Layout.Vertical height={'inherit'} padding={{ left: 'small' }}&gt;
-      &lt;Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}&gt;
-        {getString('credentials')}
-      &lt;/Text&gt;
+    &lt;Layout.Vertical className={css.formCredentials}&gt;
+      &lt;Text font={{ variation: FontVariation.H3 }}&gt;{getString('credentials')}&lt;/Text&gt;
       &lt;Formik
         initialValues={{
           ...initialValues,
@@ -482,7 +520,7 @@ const StepAWSAuthentication: React.FC&lt;StepProps&lt;StepAWSAuthenticationProps
         onSubmit={handleSubmit}
       &gt;
         {formikProps =&gt; (
-          &lt;Form&gt;
+          &lt;&gt;
             &lt;Layout.Vertical padding={{ top: 'xxlarge', bottom: 'large' }} className={css.formDataAws}&gt;
               &lt;FormInput.RadioGroup
                 name="delegateType"
@@ -539,12 +577,19 @@ const StepAWSAuthentication: React.FC&lt;StepProps&lt;StepAWSAuthenticationProps
               &lt;Button
                 text={getString('back')}
                 icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
                 onClick={() =&gt; props<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>reviousStep<span class="branch-0 cbranch-no" title="branch not covered" >?.(p</span>rops<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>revStepData)}
                 data-name="awsBackButton"
               /&gt;
-              &lt;Button type="submit" intent={'primary'} text={getString('continue')} rightIcon="chevron-right" /&gt;
+              &lt;Button
+                type="submit"
+                variation={ButtonVariation.PRIMARY}
+                onClick={formikProps.submitForm}
+                text={getString('continue')}
+                rightIcon="chevron-right"
+              /&gt;
             &lt;/Layout.Horizontal&gt;
-          &lt;/Form&gt;
+          &lt;/&gt;
         )}
       &lt;/Formik&gt;
     &lt;/Layout.Vertical&gt;
@@ -559,7 +604,7 @@ export default StepAWSAuthentication
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 18 2021 07:10:24 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 18 2021 08:13:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.41% </span>
+                <span class="strong">61.97% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>88/141</span>
+                <span class='fraction'>88/142</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.9% </span>
+                <span class="strong">59.09% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/21</span>
+                <span class='fraction'>13/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.59% </span>
+                <span class="strong">61.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>85/138</span>
+                <span class='fraction'>85/139</span>
             </div>
         
             
@@ -726,7 +726,28 @@
 <a name='L667'></a><a href='#L667'>667</a>
 <a name='L668'></a><a href='#L668'>668</a>
 <a name='L669'></a><a href='#L669'>669</a>
-<a name='L670'></a><a href='#L670'>670</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L670'></a><a href='#L670'>670</a>
+<a name='L671'></a><a href='#L671'>671</a>
+<a name='L672'></a><a href='#L672'>672</a>
+<a name='L673'></a><a href='#L673'>673</a>
+<a name='L674'></a><a href='#L674'>674</a>
+<a name='L675'></a><a href='#L675'>675</a>
+<a name='L676'></a><a href='#L676'>676</a>
+<a name='L677'></a><a href='#L677'>677</a>
+<a name='L678'></a><a href='#L678'>678</a>
+<a name='L679'></a><a href='#L679'>679</a>
+<a name='L680'></a><a href='#L680'>680</a>
+<a name='L681'></a><a href='#L681'>681</a>
+<a name='L682'></a><a href='#L682'>682</a>
+<a name='L683'></a><a href='#L683'>683</a>
+<a name='L684'></a><a href='#L684'>684</a>
+<a name='L685'></a><a href='#L685'>685</a>
+<a name='L686'></a><a href='#L686'>686</a>
+<a name='L687'></a><a href='#L687'>687</a>
+<a name='L688'></a><a href='#L688'>688</a>
+<a name='L689'></a><a href='#L689'>689</a>
+<a name='L690'></a><a href='#L690'>690</a>
+<a name='L691'></a><a href='#L691'>691</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -1129,6 +1150,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1718,7 +1760,7 @@ export const RightBar = (): JSX.Element =&gt; {
   return (
     &lt;div className={css.rightBar}&gt;
       &lt;Button
-        className={cx(css.iconButton, css.variablesIcon, { [css.selected]: type === DrawerTypes.PipelineVariables })}
+        className={cx(css.iconButton, { [css.selected]: type === DrawerTypes.PipelineVariables })}
         onClick={() =&gt;
           updatePipelineView({
             ...pipelineView,
@@ -1732,13 +1774,13 @@ export const RightBar = (): JSX.Element =&gt; {
         font={{ weight: 'semi-bold', size: 'xsmall' }}
         icon="pipeline-variables"
         withoutCurrentColor={true}
-        iconProps={{ size: 20 }}
+        iconProps={{ size: 28 }}
         text={getString('variablesText')}
         data-testid="input-variable"
       /&gt;
 &nbsp;
       &lt;Button
-        className={cx(css.iconButton, css.notificationsIcon, {
+        className={cx(css.iconButton, {
           [css.selected]: type === DrawerTypes.PipelineNotifications
         })}
         variation={ButtonVariation.TERTIARY}
@@ -1753,13 +1795,13 @@ export const RightBar = (): JSX.Element =&gt; {
         }}
         font={{ weight: 'semi-bold', size: 'xsmall' }}
         icon="pipeline-deploy"
-        iconProps={{ size: 28 }}
-        text={getString('notifications.name')}
+        iconProps={{ size: 24 }}
+        text={getString('notifications.pipelineName')}
         withoutCurrentColor={true}
       /&gt;
 &nbsp;
       &lt;Button
-        className={cx(css.iconButton, css.flowControlIcon, {
+        className={cx(css.iconButton, {
           [css.selected]: type === DrawerTypes.FlowControl
         })}
         variation={ButtonVariation.TERTIARY}
@@ -1781,7 +1823,7 @@ export const RightBar = (): JSX.Element =&gt; {
 &nbsp;
       {isCodebaseEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isYaml </span>&amp;&amp; (
 <span class="branch-2 cbranch-no" title="branch not covered" >        &lt;Button</span>
-          className={cx(css.iconButton, css.codebaseIcon)}
+          className={css.iconButton}
           text={getString('codebase')}
           variation={ButtonVariation.TERTIARY}
           font={{ weight: 'semi-bold', size: 'xsmall' }}
@@ -1801,6 +1843,27 @@ export const RightBar = (): JSX.Element =&gt; {
           }}
         /&gt;
       )}
+&nbsp;
+      &lt;Button
+        className={cx(css.iconButton, {
+          [css.selected]: type === DrawerTypes.AdvancedOptions
+        })}
+        variation={ButtonVariation.TERTIARY}
+        onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >          updatePipelineView({</span>
+            ...pipelineView,
+            isDrawerOpened: true,
+            drawerData: { type: DrawerTypes.AdvancedOptions },
+            isSplitViewOpen: false,
+            splitViewData: {}
+          })
+        }}
+        font={{ weight: 'semi-bold', size: 'xsmall' }}
+        icon="pipeline-advanced"
+        withoutCurrentColor={true}
+        iconProps={{ size: 24 }}
+        text={getString('pipeline.advancedOptions')}
+      /&gt;
       &lt;div /&gt;
       {isCodebaseDialogOpen &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Dialog</span>
@@ -2071,7 +2134,7 @@ export const RightBar = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 18 2021 07:10:24 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 18 2021 08:13:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

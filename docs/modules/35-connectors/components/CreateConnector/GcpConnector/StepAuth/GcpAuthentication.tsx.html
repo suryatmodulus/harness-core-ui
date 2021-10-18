@@ -224,7 +224,11 @@
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
 <a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -334,11 +338,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -378,7 +377,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -397,12 +405,12 @@ import {
   Button,
   Formik,
   Text,
-  FormikForm as Form,
   StepProps,
   Container,
   CardSelect,
-  Color,
-  Icon
+  Icon,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -482,13 +490,8 @@ const GcpAuthentication: React.FC&lt;StepProps&lt;StepConfigureProps&gt; &amp; G
   return loadingConnectorSecrets ? (
     &lt;PageSpinner /&gt;
   ) : (
-    &lt;Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}&gt;
-      &lt;Text
-        font="medium"
-        margin={{ top: 'small' }}
-        color={Color.BLACK}
-        tooltipProps={{ dataTooltipId: 'gcpAuthenticationDetails' }}
-      &gt;
+    &lt;Layout.Vertical spacing="medium" className={css.secondStep}&gt;
+      &lt;Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'gcpAuthenticationDetails' }}&gt;
         {getString('details')}
       &lt;/Text&gt;
       &lt;Formik
@@ -506,7 +509,7 @@ const GcpAuthentication: React.FC&lt;StepProps&lt;StepConfigureProps&gt; &amp; G
         onSubmit={handleSubmit}
       &gt;
         {formikProps =&gt; (
-          &lt;Form&gt;
+          &lt;&gt;
             &lt;Container className={css.clusterWrapper}&gt;
               &lt;CardSelect
                 onChange={<span class="fstat-no" title="function not covered" >(i</span>tem: DelegateCardInterface) =&gt; {
@@ -530,27 +533,36 @@ const GcpAuthentication: React.FC&lt;StepProps&lt;StepConfigureProps&gt; &amp; G
                 }}
                 selected={DelegateCards[DelegateCards.findIndex(card =&gt; card.type === formikProps.values.delegateType)]}
               /&gt;
-              {formikProps.values.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
-                &lt;SecretInput
-                  name={'password'}
-                  label={getString('connectors.k8.serviceAccountKey')}
-                  type={'SecretFile'}
-                  tooltipProps={{ dataTooltipId: 'gcpConnectorSecretKeyTooltip' }}
-                /&gt;
-              ) : (
-<span class="branch-1 cbranch-no" title="branch not covered" >                &lt;&gt;&lt;/&gt;</span>
-              )}
+              &lt;Layout.Vertical style={{ width: '54%' }}&gt;
+                {formikProps.values.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
+                  &lt;SecretInput
+                    name={'password'}
+                    label={getString('connectors.k8.serviceAccountKey')}
+                    type={'SecretFile'}
+                    tooltipProps={{ dataTooltipId: 'gcpConnectorSecretKeyTooltip' }}
+                  /&gt;
+                ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;&gt;&lt;/&gt;</span>
+                )}
+              &lt;/Layout.Vertical&gt;
             &lt;/Container&gt;
             &lt;Layout.Horizontal padding={{ top: 'small' }} spacing="medium"&gt;
               &lt;Button
                 text={getString('back')}
                 icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
                 onClick={() =&gt; props<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>reviousStep<span class="branch-0 cbranch-no" title="branch not covered" >?.(p</span>rops<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>revStepData)}
                 data-name="gcpBackButton"
               /&gt;
-              &lt;Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" /&gt;
+              &lt;Button
+                type="submit"
+                onClick={formikProps.submitForm}
+                variation={ButtonVariation.PRIMARY}
+                text={getString('continue')}
+                rightIcon="chevron-right"
+              /&gt;
             &lt;/Layout.Horizontal&gt;
-          &lt;/Form&gt;
+          &lt;/&gt;
         )}
       &lt;/Formik&gt;
     &lt;/Layout.Vertical&gt;
@@ -565,7 +577,7 @@ export default GcpAuthentication
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 18 2021 07:10:24 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 18 2021 08:13:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

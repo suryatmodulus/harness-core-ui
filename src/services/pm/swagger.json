@@ -16,6 +16,20 @@
   },
   "basePath": "/api/v1",
   "paths": {
+    "/dashboard": {
+      "get": {
+        "description": "Get the dashboard metrics",
+        "tags": [
+          "dashboard"
+        ],
+        "operationId": "getdashboard",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/dashboard"
+          }
+        }
+      }
+    },
     "/evaluate": {
       "post": {
         "description": "Input must be a JSON structure. It must not be a string containing \"double-encoded\" JSON.",
@@ -672,6 +686,54 @@
     }
   },
   "definitions": {
+    "AggregateStatus": {
+      "type": "object",
+      "properties": {
+        "error_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pass_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "warning_count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "DashboardMetrics": {
+      "type": "object",
+      "properties": {
+        "aggregates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AggregateStatus"
+          }
+        },
+        "enabled_policy_set_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "failed_evaluation_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_evaluation_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_policy_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_policy_set_count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "EvaluatedPolicy": {
       "type": "object",
       "properties": {
@@ -1067,6 +1129,12 @@
         "items": {
           "$ref": "#/definitions/Token"
         }
+      }
+    },
+    "dashboard": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/DashboardMetrics"
       }
     },
     "evaluateByIds": {

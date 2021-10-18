@@ -5,6 +5,21 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 import { getConfig } from "../config";
 export const SPEC_VERSION = "1.0.0"; 
+export interface AggregateStatus {
+  error_count?: number;
+  pass_count?: number;
+  warning_count?: number;
+}
+
+export interface DashboardMetrics {
+  aggregates?: AggregateStatus[];
+  enabled_policy_set_count?: number;
+  failed_evaluation_count?: number;
+  total_evaluation_count?: number;
+  total_policy_count?: number;
+  total_policy_set_count?: number;
+}
+
 export interface EvaluatedPolicy {
   deny_messages?: string[];
   error?: string;
@@ -149,6 +164,8 @@ export type LoginRequestBody = void;
 
 export type AuthResponse = Token[];
 
+export type DashboardResponse = DashboardMetrics;
+
 export type EvaluateByIdsResponse = Evaluation;
 
 export type EvaluateByTypeResponse = Evaluation;
@@ -172,6 +189,28 @@ export type UserResponse = User;
 export type UserListResponse = User[];
 
 export type VersionResponse = Version;
+
+export type GetdashboardProps = Omit<GetProps<DashboardResponse, unknown, void, void>, "path">;
+
+/**
+ * Get the dashboard metrics
+ */
+export const Getdashboard = (props: GetdashboardProps) => (
+  <Get<DashboardResponse, unknown, void, void>
+    path={`/dashboard`}
+    base={getConfig("pm/api/v1")}
+    
+    {...props}
+  />
+);
+
+export type UseGetdashboardProps = Omit<UseGetProps<DashboardResponse, unknown, void, void>, "path">;
+
+/**
+ * Get the dashboard metrics
+ */
+export const useGetdashboard = (props: UseGetdashboardProps) => useGet<DashboardResponse, unknown, void, void>(`/dashboard`, { base:getConfig("pm/api/v1"),  ...props });
+
 
 export type EvaluateRawProps = Omit<MutateProps<PolicyResponse, unknown, void, RawEvaluationInput, void>, "path" | "verb">;
 

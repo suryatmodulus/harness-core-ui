@@ -279,6 +279,10 @@ const RenderDashboardTags: Renderer<CellProps<DashboardInterface>> = ({ row }) =
   return TagsRenderer(data)
 }
 
+const isLoading = (...args: boolean[]): boolean => {
+  return args.reduce((first, second) => first || second)
+}
+
 const HomePage: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, folderId } = useParams<{ accountId: string; folderId: string }>()
@@ -553,7 +557,7 @@ const HomePage: React.FC = () => {
 
   return (
     <Page.Body
-      loading={loading || cloning || deleting}
+      loading={isLoading(loading, cloning, deleting)}
       className={css.pageContainer}
       retryOnError={() => {
         return

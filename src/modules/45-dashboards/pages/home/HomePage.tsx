@@ -274,44 +274,6 @@ const RenderDashboardName: Renderer<CellProps<DashboardInterface>> = ({ row }) =
   )
 }
 
-const RenderMenu: Renderer<CellProps<DashboardInterface>> = ({ row }) => {
-  const data = row.original
-  const history = useHistory()
-  const { accountId } = useParams<{ accountId: string; folderId: string }>()
-  const { mutate: cloneDashboard } = useMutate({
-    // Inferred from RestfulProvider in index.js
-    verb: 'POST',
-    path: 'gateway/dashboard/clone',
-    queryParams: {
-      accountId: accountId
-    }
-  })
-  const clone = async (dashboardId: string) => {
-    const clonedDashboard = await cloneDashboard({ dashboardId })
-    if (clonedDashboard) {
-      history.push({
-        pathname: routes.toViewCustomDashboard({
-          viewId: clonedDashboard?.id,
-          accountId: accountId,
-          folderId: clonedDashboard?.folder_id
-        })
-      })
-    }
-  }
-  return (
-    <CardBody.Menu
-      menuContent={
-        <Menu>
-          <MenuItem text="clone" onClick={() => clone(data.id)} />
-        </Menu>
-      }
-      menuPopoverProps={{
-        className: Classes.DARK
-      }}
-    />
-  )
-}
-
 const RenderDashboardTags: Renderer<CellProps<DashboardInterface>> = ({ row }) => {
   const data = row.original
   return TagsRenderer(data)
@@ -360,6 +322,23 @@ const HomePage: React.FC = () => {
   ]
 
   const [sortby, setSortingFilter] = useState<SelectOption>(defaultSortBy)
+
+  const RenderMenu: Renderer<CellProps<DashboardInterface>> = ({ row }) => {
+    const data = row.original
+    return (
+      <CardBody.Menu
+        menuContent={
+          <Menu>
+            <MenuItem text="Clone" onClick={() => clone(data.id)} />
+            <MenuItem text="Delete" onClick={() => deleteById(data.id)} />
+          </Menu>
+        }
+        menuPopoverProps={{
+          className: Classes.DARK
+        }}
+      />
+    )
+  }
 
   const columns: CustomColumn<DashboardInterface>[] = [
     {
@@ -418,6 +397,7 @@ const HomePage: React.FC = () => {
   const {
     data: dashboardList,
     loading,
+    refetch,
     error
   } = useGet({
     // Inferred from RestfulProvider in index.js
@@ -463,6 +443,19 @@ const HomePage: React.FC = () => {
         })
       })
     }
+  }
+
+  const { mutate: deleteDashboard, loading: deleting } = useMutate({
+    verb: 'DELETE',
+    path: 'gateway/dashboard',
+    queryParams: {
+      accountId: accountId
+    }
+  })
+
+  const deleteById = async (dashboardId: string) => {
+    await deleteDashboard({ dashboardId })
+    refetch()
   }
 
   const { data: folderDetail } = useGet({
@@ -560,7 +553,7 @@ const HomePage: React.FC = () => {
 
   return (
     <Page.Body
-      loading={loading || cloning}
+      loading={loading || cloning || deleting}
       className={css.pageContainer}
       retryOnError={() => {
         return
@@ -823,7 +816,8 @@ const HomePage: React.FC = () => {
                       <CardBody.Menu
                         menuContent={
                           <Menu>
-                            <MenuItem text="clone" onClick={() => clone(dashboard.id)} />
+                            <MenuItem text="Clone" onClick={() => clone(dashboard.id)} />
+                            <MenuItem text="Delete" onClick={() => deleteById(dashboard.id)} />
                           </Menu>
                         }
                         menuPopoverProps={{

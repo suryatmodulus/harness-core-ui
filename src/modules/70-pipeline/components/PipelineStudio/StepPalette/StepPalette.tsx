@@ -12,7 +12,8 @@ import {
   StepCategory,
   StepData,
   useGetSteps,
-  UseGetStepsProps
+  UseGetStepsProps,
+  useGetStepsV2
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -24,7 +25,6 @@ import type { AbstractStepFactory, StepData as FactoryStepData } from '../../Abs
 import { iconMapByName } from './iconMap'
 // TODO: Mock API
 import featureStageSteps from './mock/featureStageSteps.json'
-import buildStageStepsWithRunTestsStep from './mock/buildStageStepsWithRunTestsStep.json'
 import css from './StepPalette.module.scss'
 
 export const getAllStepsCountForPalette = (originalData: StepCategory[]): number => {
@@ -63,26 +63,11 @@ const useGetFeatureSteps = (props: UseGetStepsProps) => {
   )
 }
 
-// TODO: This should be removed once the DTO is available
-const useGetBuildSteps = (props: UseGetStepsProps) => {
-  return useGet<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(
-    `/pipelines/configuration/buildsteps`,
-    {
-      base: getConfig('ng/api'),
-      ...props,
-      mock: {
-        loading: false,
-        data: buildStageStepsWithRunTestsStep as unknown as ResponseStepCategory
-      }
-    }
-  )
-}
-
 // TODO: move to StepPaletteUtils.ts
 const dataSourceFactory = (stageType: StageType): any => {
   switch (stageType) {
     case StageType.BUILD:
-      return useGetBuildSteps
+      return useGetStepsV2
     case StageType.DEPLOY:
       return useGetSteps
     case StageType.APPROVAL:

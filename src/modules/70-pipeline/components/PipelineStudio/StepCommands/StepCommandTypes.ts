@@ -28,6 +28,7 @@ export interface StepCommandsProps {
   onUpdate: (step: Partial<Values>) => void
   onUseTemplate?: (step: StepOrStepGroupOrTemplateStepData) => void
   onSaveAsTemplate?: (step: StepOrStepGroupOrTemplateStepData) => void
+  onRemoveTemplate?: () => void
   stepsFactory: AbstractStepFactory
   isStepGroup: boolean
   isReadonly: boolean

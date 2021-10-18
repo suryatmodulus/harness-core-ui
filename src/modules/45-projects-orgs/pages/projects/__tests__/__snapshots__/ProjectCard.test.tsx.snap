@@ -448,7 +448,7 @@ exports[`Project Card test initializes ok  1`] = `
             style="--text-line-clamp: 1; display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
               data-icon="union"
             >
               <svg

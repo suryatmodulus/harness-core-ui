@@ -5,11 +5,11 @@ import {
   Formik,
   FormInput,
   Text,
-  FormikForm as Form,
   StepProps,
-  Color,
   Container,
-  SelectOption
+  SelectOption,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { IOptionProps } from '@blueprintjs/core'
@@ -116,10 +116,8 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
     return loadingConnectorSecrets ? (
       <PageSpinner />
     ) : (
-      <Layout.Vertical height={'inherit'} margin="small">
-        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-          {getString('details')}
-        </Text>
+      <Layout.Vertical className={css.stepDetails} spacing="small">
+        <Text font={{ variation: FontVariation.H3 }}>{getString('details')}</Text>
         <Formik
           initialValues={{
             ...initialValues,
@@ -143,7 +141,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
           onSubmit={handleSubmit}
         >
           {formikProps => (
-            <Form>
+            <>
               <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'64%'}>
                 <FormInput.Text
                   name="dockerRegistryUrl"
@@ -193,10 +191,17 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
                   icon="chevron-left"
                   onClick={() => props?.previousStep?.(props?.prevStepData)}
                   data-name="dockerBackButton"
+                  variation={ButtonVariation.PRIMARY}
                 />
-                <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
+                <Button
+                  type="submit"
+                  variation={ButtonVariation.PRIMARY}
+                  onClick={formikProps.submitForm}
+                  text={getString('continue')}
+                  rightIcon="chevron-right"
+                />
               </Layout.Horizontal>
-            </Form>
+            </>
           )}
         </Formik>
       </Layout.Vertical>

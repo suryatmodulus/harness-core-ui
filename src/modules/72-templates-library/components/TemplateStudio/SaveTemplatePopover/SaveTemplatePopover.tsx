@@ -6,14 +6,9 @@ import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import type { FormikErrors } from 'formik'
 import { useStrings } from 'framework/strings'
-import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'
 import type { ModulePathParams, TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateCommentModal } from '@templates-library/components/TemplateStudio/TemplateCommentModal/TemplateCommentModal'
-import {
-  Fields,
-  ModalProps,
-  TemplateConfigModal
-} from '@templates-library/components/TemplateConfigModal/TemplateConfigModal'
+import { Fields, ModalProps, TemplateConfigModal } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/components'
@@ -26,6 +21,7 @@ import {
   Failure
 } from 'services/template-ng'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import { DefaultNewTemplateId } from 'framework/Templates/templates'
 import css from './SaveTemplatePopover.module.scss'
 
 export interface GetErrorResponse extends Omit<Failure, 'errors'> {
@@ -160,7 +156,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     createNewTemplate(template)
       .then(async response => {
         if (response && response.status === 'SUCCESS') {
-          showSuccess(getString('templatesLibrary.publishTemplate'))
+          showSuccess(getString('common.saveTemplate.publishTemplate'))
           if (templateIdentifier === DefaultNewTemplateId) {
             await deleteTemplateCache()
           }
@@ -172,7 +168,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
       .catch(error => {
         setLoading(false)
         showError(
-          error?.message || getString('templatesLibrary.errorWhileSaving'),
+          error?.message || getString('common.saveTemplate.errorWhileSaving'),
           undefined,
           'template.save.template.error'
         )
@@ -181,13 +177,13 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
 
   const onSaveSuccess = (modalValues: NGTemplateInfoConfig) => {
     hideConfigModal()
-    showSuccess(getString('templatesLibrary.publishTemplate'))
+    showSuccess(getString('common.saveTemplate.publishTemplate'))
     navigateToLocation(modalValues.identifier, modalValues.versionLabel)
   }
 
   const onSaveFailure = (error: any) => {
     showError(
-      error?.message || getString('templatesLibrary.errorWhileSaving'),
+      error?.message || getString('common.saveTemplate.errorWhileSaving'),
       undefined,
       'template.save.template.error'
     )
@@ -207,7 +203,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
 
   const saveAsNewTemplate = (): void => {
     setModalProps({
-      title: getString('templatesLibrary.saveAsNewTemplateModal.heading'),
+      title: getString('common.saveAsNewTemplateHeading'),
       promise: createNewTemplate,
       onSuccess: onSaveSuccess,
       onFailure: onSaveFailure,
@@ -252,7 +248,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
             }
           },
           {
-            label: getString('templatesLibrary.saveAsNewTemplateModal.heading'),
+            label: getString('common.saveAsNewTemplateHeading'),
             onClick: () => {
               getErrors?.().then(response => {
                 if (response.status === 'SUCCESS' && isEmpty(response.errors)) {

@@ -2,6 +2,7 @@
   div[role='row'] {
     padding: 0px var(--spacing-medium) 0px 28px;
     margin-bottom: var(--spacing-medium);
+    display: block;
   }
   > div[role='row'] {
     padding: var(--spacing-medium) var(--spacing-medium) var(--spacing-medium) 28px;
@@ -12,5 +13,8 @@
   }
   .actionButton {
     transform: rotate(90deg);
+  }
+  .selected {
+    border: 1px solid var(--primary-7);
   }
 }

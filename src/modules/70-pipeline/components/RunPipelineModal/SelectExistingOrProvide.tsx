@@ -39,6 +39,7 @@ const SelectExistingInputsOrProvideNew = ({
         <span className={css.helpSection}>
           <Icon name="question" className={css.helpIcon} />
           <Text
+            data-testid="input-set-description-tooltip"
             tooltipProps={{
               position: PopoverPosition.BOTTOM
             }}

@@ -533,15 +533,14 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
     >
        
       <div
-        class="Layout--vertical StyledProps--main StyledProps--margin-small"
-        style="height: inherit;"
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepDetails"
       >
         <div
           class="Text--withDocsTooltip"
           data-tooltip-id="NexusConnectorDetailsTooltip"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             details
           </p>
@@ -549,37 +548,103 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
         <div
           class="OverlaySpinner--overlaySpinner"
         >
-          <form
-            class="FormikForm--main"
+          <div
+            class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
           >
-            <div>
+            <div
+              class="StyledProps--font StyledProps--main formRow"
+            >
               <div
-                class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
+                class="bp3-form-group bp3-intent-danger urlInput"
               >
+                <label
+                  class="bp3-label"
+                  for="nexusServerUrl"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="nexusAuth_nexusServerUrl"
+                  >
+                    connectors.nexus.nexusServerUrl
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
                 <div
-                  class="StyledProps--font StyledProps--main formRow"
+                  class="bp3-form-content"
                 >
                   <div
-                    class="bp3-form-group bp3-intent-danger urlInput"
-                    data-id="nexusServerUrl-0"
+                    class="bp3-input-group bp3-intent-danger"
                   >
-                    <label
-                      class="bp3-label"
-                      for="nexusServerUrl"
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="nexusServerUrl"
+                      placeholder="UrlLabel"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <div
+                    class="bp3-form-helper-text"
+                  >
+                    <div
+                      class="FormError--errorDiv"
                     >
                       <span
-                        class="Tooltip--acenter"
-                        data-tooltip-id="nexusAuth_nexusServerUrl"
+                        class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                        data-icon="circle-cross"
                       >
-                        connectors.nexus.nexusServerUrl
+                        <svg
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
                       </span>
-                       
                       <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
+                        class="FormError--error"
+                      >
+                        validation.nexusServerURL
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group bp3-intent-danger versionInput"
+              >
+                <label
+                  class="bp3-label"
+                  for="nexusVersion"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="nexusAuth_nexusVersion"
+                  >
+                    version
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
                     <div
-                      class="bp3-form-content"
+                      class="bp3-popover-target"
                     >
                       <div
                         class="bp3-input-group bp3-intent-danger"
@@ -587,454 +652,376 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                         <input
                           autocomplete="off"
                           class="bp3-input"
-                          name="nexusServerUrl"
-                          placeholder="UrlLabel"
+                          name="nexusVersion"
+                          placeholder="- Select -"
+                          style="padding-right: 0px;"
                           type="text"
                           value=""
                         />
-                      </div>
-                      <div
-                        class="bp3-form-helper-text"
-                      >
-                        <div
-                          class="FormError--errorDiv"
+                        <span
+                          class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
-                            data-icon="circle-cross"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
                             <svg
-                              height="12"
-                              viewBox="0 0 13 13"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
                             >
+                              <desc>
+                                chevron-down
+                              </desc>
                               <path
-                                clip-rule="evenodd"
-                                d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                 fill-rule="evenodd"
                               />
                             </svg>
                           </span>
-                          <span
-                            class="FormError--error"
-                          >
-                            validation.nexusServerURL
-                          </span>
-                        </div>
+                        </span>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group bp3-intent-danger versionInput"
-                    data-id="nexusVersion-1"
+                    class="bp3-form-helper-text"
                   >
-                    <label
-                      class="bp3-label"
-                      for="nexusVersion"
+                    <div
+                      class="FormError--errorDiv"
                     >
                       <span
-                        class="Tooltip--acenter"
-                        data-tooltip-id="nexusAuth_nexusVersion"
+                        class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                        data-icon="circle-cross"
                       >
-                        version
+                        <svg
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
                       </span>
-                       
                       <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
+                        class="FormError--error"
+                      >
+                        validation.nexusVersion
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main authHeaderRow"
+            >
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="NexusConnectorAuthentication"
+              >
+                <span
+                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                >
+                  authentication
+                </span>
+              </div>
+              <div
+                class="bp3-form-group authTypeSelectLarge"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
                     <div
-                      class="bp3-form-content"
+                      class="bp3-popover-target"
                     >
                       <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
+                        class="bp3-input-group"
                       >
-                        <div
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="bp3-input-group bp3-intent-danger"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="nexusVersion"
-                              placeholder="- Select -"
-                              style="padding-right: 0px;"
-                              type="text"
-                              value=""
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                                icon="chevron-down"
-                              >
-                                <svg
-                                  data-icon="chevron-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    chevron-down
-                                  </desc>
-                                  <path
-                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="bp3-form-helper-text"
-                      >
-                        <div
-                          class="FormError--errorDiv"
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="authType"
+                          placeholder="- Select -"
+                          style="padding-right: 0px;"
+                          type="text"
+                          value="usernamePassword"
+                        />
+                        <span
+                          class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
-                            data-icon="circle-cross"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
                             <svg
-                              height="12"
-                              viewBox="0 0 13 13"
-                              width="12"
-                              xmlns="http://www.w3.org/2000/svg"
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
                             >
+                              <desc>
+                                chevron-down
+                              </desc>
                               <path
-                                clip-rule="evenodd"
-                                d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                 fill-rule="evenodd"
                               />
                             </svg>
                           </span>
-                          <span
-                            class="FormError--error"
-                          >
-                            validation.nexusVersion
-                          </span>
-                        </div>
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main formWrapper"
+            >
+              <div
+                class="bp3-form-group bp3-intent-danger"
+              >
                 <div
-                  class="StyledProps--font StyledProps--main authHeaderRow"
+                  class="bp3-form-content"
                 >
                   <div
-                    class="Text--withDocsTooltip"
-                    data-tooltip-id="NexusConnectorAuthentication"
-                  >
-                    <span
-                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
-                    >
-                      authentication
-                    </span>
-                  </div>
-                  <div
-                    class="bp3-form-group authTypeSelectLarge"
-                    data-id="authType-2"
+                    class="Layout--vertical StyledProps--main"
                   >
                     <div
-                      class="bp3-form-content"
+                      class="label"
                     >
+                      <span
+                        class="align bp3-label stringWithTooltipLabel"
+                        data-tooltip-id="nexusAuth_username"
+                      >
+                        username
+                      </span>
                       <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
+                        class="bp3-form-group"
                       >
                         <div
-                          class="bp3-popover-target"
+                          class="bp3-form-content"
                         >
                           <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="authType"
-                              placeholder="- Select -"
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="usernamePassword"
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                                icon="chevron-down"
-                              >
-                                <svg
-                                  data-icon="chevron-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    chevron-down
-                                  </desc>
-                                  <path
-                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main formWrapper"
-                >
-                  <div
-                    class="bp3-form-group bp3-intent-danger"
-                    data-id="null-3"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <div
-                          class="label"
-                        >
-                          <span
-                            class="align bp3-label stringWithTooltipLabel"
-                            data-tooltip-id="nexusAuth_username"
-                          >
-                            username
-                          </span>
-                          <div
-                            class="bp3-form-group"
-                            data-id="undefined-4"
+                            class="bp3-popover-wrapper DropDown--main"
                           >
                             <div
-                              class="bp3-form-content"
+                              class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-popover-wrapper DropDown--main"
+                                class=""
                               >
                                 <div
-                                  class="bp3-popover-target"
+                                  class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--minWidth StyledProps--flex"
+                                  data-testid="dropdown-button"
+                                  style="min-width: unset;"
                                 >
                                   <div
-                                    class=""
+                                    class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
                                   >
-                                    <div
-                                      class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--minWidth StyledProps--flex"
-                                      data-testid="dropdown-button"
-                                      style="min-width: unset;"
+                                    <p
+                                      class="StyledProps--font Text--lineclamp StyledProps--main DropDown--label"
+                                      data-testid="dropdown-value"
+                                      style="--text-line-clamp: 1;"
                                     >
-                                      <div
-                                        class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
+                                      plaintext
+                                    </p>
+                                  </div>
+                                  <div
+                                    class="Layout--horizontal StyledProps--main DropDown--btnWrapper StyledProps--flex"
+                                  >
+                                    <span
+                                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+                                      data-icon="main-chevron-down"
+                                    >
+                                      <svg
+                                        height="8"
+                                        viewBox="0 0 14 8"
+                                        width="8"
+                                        xmlns="http://www.w3.org/2000/svg"
                                       >
-                                        <p
-                                          class="StyledProps--font Text--lineclamp StyledProps--main DropDown--label"
-                                          data-testid="dropdown-value"
-                                          style="--text-line-clamp: 1;"
-                                        >
-                                          plaintext
-                                        </p>
-                                      </div>
-                                      <div
-                                        class="Layout--horizontal StyledProps--main DropDown--btnWrapper StyledProps--flex"
-                                      >
-                                        <span
-                                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                                          data-icon="main-chevron-down"
-                                        >
-                                          <svg
-                                            height="8"
-                                            viewBox="0 0 14 8"
-                                            width="8"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                          >
-                                            <path
-                                              d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
-                                              fill="#4d5969"
-                                            />
-                                          </svg>
-                                        </span>
-                                      </div>
-                                    </div>
+                                        <path
+                                          d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                                          fill="#4d5969"
+                                        />
+                                      </svg>
+                                    </span>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div
-                          class="bp3-form-group textCss"
-                        >
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="usernametextField"
-                                type="text"
-                                value=""
-                              />
-                            </div>
-                          </div>
-                        </div>
                       </div>
+                    </div>
+                    <div
+                      class="bp3-form-group textCss"
+                    >
                       <div
-                        class="bp3-form-helper-text"
+                        class="bp3-form-content"
                       >
-                        validation.username
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="usernametextField"
+                            type="text"
+                            value=""
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group bp3-intent-danger"
-                    data-id="null-6"
+                    class="bp3-form-helper-text"
                   >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <label
-                          class="bp3-label"
-                        >
-                          <span
-                            class="Tooltip--acenter"
-                            data-tooltip-id="nexusAuth_password"
-                          >
-                            password
-                          </span>
-                        </label>
-                        <div
-                          class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
-                        >
-                          <a
-                            class="containerLink"
-                            data-testid="password"
-                            href="/account/dummy/resources/connectors"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="key-main"
-                              style="height: 12px;"
-                            >
-                              <svg
-                                height="24"
-                                width="24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <g
-                                  fill="none"
-                                  stroke="#1C1C28"
-                                  stroke-width="0.5"
-                                >
-                                  <path
-                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                  />
-                                  <path
-                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                  />
-                                </g>
-                              </svg>
-                            </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                            >
-                              <div>
-                                createOrSelectSecret
-                              </div>
-                            </p>
-                          </a>
-                        </div>
-                      </div>
-                      <div
-                        class="bp3-form-helper-text"
-                      >
-                        validation.password
-                      </div>
-                    </div>
+                    validation.username
                   </div>
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
+                class="bp3-form-group bp3-intent-danger"
               >
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
-                  data-name="nexusBackButton"
-                  type="button"
+                <div
+                  class="bp3-form-content"
                 >
-                  <span
-                    class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
-                    icon="chevron-left"
+                  <div
+                    class="Layout--vertical StyledProps--main"
                   >
-                    <svg
-                      data-icon="chevron-left"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
+                    <label
+                      class="bp3-label"
                     >
-                      <desc>
-                        chevron-left
-                      </desc>
-                      <path
-                        d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-button-text"
-                  >
-                    back
-                  </span>
-                </button>
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
-                  type="submit"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    continue
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                    icon="chevron-right"
-                  >
-                    <svg
-                      data-icon="chevron-right"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="nexusAuth_password"
+                      >
+                        password
+                      </span>
+                    </label>
+                    <div
+                      class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
                     >
-                      <desc>
-                        chevron-right
-                      </desc>
-                      <path
-                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
+                      <a
+                        class="containerLink"
+                        data-testid="password"
+                        href="/account/dummy/resources/connectors"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="key-main"
+                          style="height: 12px;"
+                        >
+                          <svg
+                            height="24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              stroke="#1C1C28"
+                              stroke-width="0.5"
+                            >
+                              <path
+                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                              />
+                              <path
+                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                        >
+                          <div>
+                            createOrSelectSecret
+                          </div>
+                        </p>
+                      </a>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-helper-text"
+                  >
+                    validation.password
+                  </div>
+                </div>
               </div>
             </div>
-          </form>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
+          >
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
+              data-name="nexusBackButton"
+              type="button"
+            >
+              <span
+                class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                icon="chevron-left"
+              >
+                <svg
+                  data-icon="chevron-left"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    chevron-left
+                  </desc>
+                  <path
+                    d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="bp3-button-text"
+              >
+                back
+              </span>
+            </button>
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
+              type="submit"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                continue
+              </span>
+              <span
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                icon="chevron-right"
+              >
+                <svg
+                  data-icon="chevron-right"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    chevron-right
+                  </desc>
+                  <path
+                    d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -1551,15 +1538,14 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
     >
        
       <div
-        class="Layout--vertical StyledProps--main StyledProps--margin-small"
-        style="height: inherit;"
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main stepDetails"
       >
         <div
           class="Text--withDocsTooltip"
           data-tooltip-id="NexusConnectorDetailsTooltip"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black"
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
           >
             details
           </p>
@@ -1567,37 +1553,73 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
         <div
           class="OverlaySpinner--overlaySpinner"
         >
-          <form
-            class="FormikForm--main"
+          <div
+            class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
           >
-            <div>
+            <div
+              class="StyledProps--font StyledProps--main formRow"
+            >
               <div
-                class="Layout--vertical StyledProps--main secondStep StyledProps--padding-top-large StyledProps--padding-bottom-large"
+                class="bp3-form-group urlInput"
               >
+                <label
+                  class="bp3-label"
+                  for="nexusServerUrl"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="nexusAuth_nexusServerUrl"
+                  >
+                    connectors.nexus.nexusServerUrl
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
                 <div
-                  class="StyledProps--font StyledProps--main formRow"
+                  class="bp3-form-content"
                 >
                   <div
-                    class="bp3-form-group urlInput"
-                    data-id="nexusServerUrl-0"
+                    class="bp3-input-group"
                   >
-                    <label
-                      class="bp3-label"
-                      for="nexusServerUrl"
-                    >
-                      <span
-                        class="Tooltip--acenter"
-                        data-tooltip-id="nexusAuth_nexusServerUrl"
-                      >
-                        connectors.nexus.nexusServerUrl
-                      </span>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="nexusServerUrl"
+                      placeholder="UrlLabel"
+                      type="text"
+                      value="dummyRespositoryUrl"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group versionInput"
+              >
+                <label
+                  class="bp3-label"
+                  for="nexusVersion"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="nexusAuth_nexusVersion"
+                  >
+                    version
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
                     <div
-                      class="bp3-form-content"
+                      class="bp3-popover-target"
                     >
                       <div
                         class="bp3-input-group"
@@ -1605,345 +1627,202 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                         <input
                           autocomplete="off"
                           class="bp3-input"
-                          name="nexusServerUrl"
-                          placeholder="UrlLabel"
+                          name="nexusVersion"
+                          placeholder="- Select -"
+                          style="padding-right: 0px;"
                           type="text"
-                          value="dummyRespositoryUrl"
+                          value="2.x"
                         />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group versionInput"
-                    data-id="nexusVersion-1"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="nexusVersion"
-                    >
-                      <span
-                        class="Tooltip--acenter"
-                        data-tooltip-id="nexusAuth_nexusVersion"
-                      >
-                        version
-                      </span>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
-                      >
-                        <div
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="nexusVersion"
-                              placeholder="- Select -"
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="2.x"
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                                icon="chevron-down"
-                              >
-                                <svg
-                                  data-icon="chevron-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    chevron-down
-                                  </desc>
-                                  <path
-                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main authHeaderRow"
-                >
-                  <div
-                    class="Text--withDocsTooltip"
-                    data-tooltip-id="NexusConnectorAuthentication"
-                  >
-                    <span
-                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
-                    >
-                      authentication
-                    </span>
-                  </div>
-                  <div
-                    class="bp3-form-group authTypeSelectLarge"
-                    data-id="authType-2"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
-                      >
-                        <div
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="authType"
-                              placeholder="- Select -"
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="usernamePassword"
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                                icon="chevron-down"
-                              >
-                                <svg
-                                  data-icon="chevron-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    chevron-down
-                                  </desc>
-                                  <path
-                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main formWrapper"
-                >
-                  <div
-                    class="bp3-form-group"
-                    data-id="null-3"
-                  >
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="Layout--vertical StyledProps--main"
-                      >
-                        <div
-                          class="label"
+                        <span
+                          class="bp3-input-action"
                         >
                           <span
-                            class="align bp3-label stringWithTooltipLabel"
-                            data-tooltip-id="nexusAuth_username"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
-                            username
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
                           </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main authHeaderRow"
+            >
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="NexusConnectorAuthentication"
+              >
+                <span
+                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                >
+                  authentication
+                </span>
+              </div>
+              <div
+                class="bp3-form-group authTypeSelectLarge"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="authType"
+                          placeholder="- Select -"
+                          style="padding-right: 0px;"
+                          type="text"
+                          value="usernamePassword"
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main formWrapper"
+            >
+              <div
+                class="bp3-form-group"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <div
+                      class="label"
+                    >
+                      <span
+                        class="align bp3-label stringWithTooltipLabel"
+                        data-tooltip-id="nexusAuth_username"
+                      >
+                        username
+                      </span>
+                      <div
+                        class="bp3-form-group"
+                      >
+                        <div
+                          class="bp3-form-content"
+                        >
                           <div
-                            class="bp3-form-group"
-                            data-id="undefined-4"
+                            class="bp3-popover-wrapper DropDown--main"
                           >
                             <div
-                              class="bp3-form-content"
+                              class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-popover-wrapper DropDown--main"
+                                class=""
                               >
                                 <div
-                                  class="bp3-popover-target"
+                                  class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--minWidth StyledProps--flex"
+                                  data-testid="dropdown-button"
+                                  style="min-width: unset;"
                                 >
                                   <div
-                                    class=""
+                                    class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
                                   >
-                                    <div
-                                      class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--minWidth StyledProps--flex"
-                                      data-testid="dropdown-button"
-                                      style="min-width: unset;"
+                                    <p
+                                      class="StyledProps--font Text--lineclamp StyledProps--main DropDown--label"
+                                      data-testid="dropdown-value"
+                                      style="--text-line-clamp: 1;"
                                     >
-                                      <div
-                                        class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
+                                      plaintext
+                                    </p>
+                                  </div>
+                                  <div
+                                    class="Layout--horizontal StyledProps--main DropDown--btnWrapper StyledProps--flex"
+                                  >
+                                    <span
+                                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+                                      data-icon="main-chevron-down"
+                                    >
+                                      <svg
+                                        height="8"
+                                        viewBox="0 0 14 8"
+                                        width="8"
+                                        xmlns="http://www.w3.org/2000/svg"
                                       >
-                                        <p
-                                          class="StyledProps--font Text--lineclamp StyledProps--main DropDown--label"
-                                          data-testid="dropdown-value"
-                                          style="--text-line-clamp: 1;"
-                                        >
-                                          plaintext
-                                        </p>
-                                      </div>
-                                      <div
-                                        class="Layout--horizontal StyledProps--main DropDown--btnWrapper StyledProps--flex"
-                                      >
-                                        <span
-                                          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
-                                          data-icon="main-chevron-down"
-                                        >
-                                          <svg
-                                            height="8"
-                                            viewBox="0 0 14 8"
-                                            width="8"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                          >
-                                            <path
-                                              d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
-                                              fill="#4d5969"
-                                            />
-                                          </svg>
-                                        </span>
-                                      </div>
-                                    </div>
+                                        <path
+                                          d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                                          fill="#4d5969"
+                                        />
+                                      </svg>
+                                    </span>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div
-                          class="bp3-form-group textCss"
-                        >
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="usernametextField"
-                                type="text"
-                                value="dev"
-                              />
-                            </div>
-                          </div>
-                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    class="bp3-form-group"
-                    data-id="null-6"
-                  >
                     <div
-                      class="bp3-form-content"
+                      class="bp3-form-group textCss"
                     >
                       <div
-                        class="Layout--vertical StyledProps--main"
+                        class="bp3-form-content"
                       >
-                        <label
-                          class="bp3-label"
-                        >
-                          <span
-                            class="Tooltip--acenter"
-                            data-tooltip-id="nexusAuth_password"
-                          >
-                            password
-                          </span>
-                        </label>
                         <div
-                          class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
+                          class="bp3-input-group"
                         >
-                          <a
-                            class="containerLink"
-                            data-testid="password"
-                            href="/account/dummy/resources/connectors"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="key-main"
-                              style="height: 12px;"
-                            >
-                              <svg
-                                height="24"
-                                width="24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <g
-                                  fill="none"
-                                  stroke="#1C1C28"
-                                  stroke-width="0.5"
-                                >
-                                  <path
-                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                  />
-                                  <path
-                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                  />
-                                </g>
-                              </svg>
-                            </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                            >
-                              <div>
-                                secrets.secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;connectorPass&gt;
-                              </div>
-                            </p>
-                          </a>
-                          <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
-                            data-testid="password-edit"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-button-text"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
-                                icon="edit"
-                              >
-                                <svg
-                                  data-icon="edit"
-                                  height="16"
-                                  viewBox="0 0 16 16"
-                                  width="16"
-                                >
-                                  <desc>
-                                    edit
-                                  </desc>
-                                  <path
-                                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </button>
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="usernametextField"
+                            type="text"
+                            value="dev"
+                          />
                         </div>
                       </div>
                     </div>
@@ -1951,70 +1830,165 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
+                class="bp3-form-group"
               >
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
-                  data-name="nexusBackButton"
-                  type="button"
+                <div
+                  class="bp3-form-content"
                 >
-                  <span
-                    class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
-                    icon="chevron-left"
+                  <div
+                    class="Layout--vertical StyledProps--main"
                   >
-                    <svg
-                      data-icon="chevron-left"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
+                    <label
+                      class="bp3-label"
                     >
-                      <desc>
-                        chevron-left
-                      </desc>
-                      <path
-                        d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-button-text"
-                  >
-                    back
-                  </span>
-                </button>
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
-                  type="submit"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    continue
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                    icon="chevron-right"
-                  >
-                    <svg
-                      data-icon="chevron-right"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="nexusAuth_password"
+                      >
+                        password
+                      </span>
+                    </label>
+                    <div
+                      class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
                     >
-                      <desc>
-                        chevron-right
-                      </desc>
-                      <path
-                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
+                      <a
+                        class="containerLink"
+                        data-testid="password"
+                        href="/account/dummy/resources/connectors"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="key-main"
+                          style="height: 12px;"
+                        >
+                          <svg
+                            height="24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              stroke="#1C1C28"
+                              stroke-width="0.5"
+                            >
+                              <path
+                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                              />
+                              <path
+                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                        >
+                          <div>
+                            secrets.secret.configureSecret
+                          </div>
+                          <div>
+                            &lt;connectorPass&gt;
+                          </div>
+                        </p>
+                      </a>
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
+                        data-testid="password-edit"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-button-text"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
+                            icon="edit"
+                          >
+                            <svg
+                              data-icon="edit"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <desc>
+                                edit
+                              </desc>
+                              <path
+                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </form>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
+          >
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
+              data-name="nexusBackButton"
+              type="button"
+            >
+              <span
+                class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                icon="chevron-left"
+              >
+                <svg
+                  data-icon="chevron-left"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    chevron-left
+                  </desc>
+                  <path
+                    d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="bp3-button-text"
+              >
+                back
+              </span>
+            </button>
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
+              type="submit"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                continue
+              </span>
+              <span
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                icon="chevron-right"
+              >
+                <svg
+                  data-icon="chevron-right"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    chevron-right
+                  </desc>
+                  <path
+                    d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

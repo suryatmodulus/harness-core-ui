@@ -184,7 +184,22 @@ export const getDependencyData = (
   return dependencyData
 }
 
+export function getEdgesData(dependencyData: DependencyData): Edge[] {
+  return dependencyData?.data && dependencyData?.data?.length
+    ? dependencyData?.data
+    : [
+        {
+          ...(dependencyData?.nodes &&
+            dependencyData?.nodes?.length && {
+              from: dependencyData.nodes[0].id,
+              to: dependencyData.nodes[0].id
+            })
+        }
+      ]
+}
+
 export function dependencyGraphOptions(dependencyData: DependencyData): Highcharts.Options {
+  const edgesData = getEdgesData(dependencyData)
   return {
     chart: {
       type: 'networkgraph',
@@ -234,8 +249,8 @@ export function dependencyGraphOptions(dependencyData: DependencyData): Highchar
           radius: 50
         },
         type: 'networkgraph',
-        data: dependencyData.data,
-        nodes: formatNodes(dependencyData.nodes, dependencyData.data),
+        data: edgesData,
+        nodes: formatNodes(dependencyData?.nodes, edgesData),
         point: {
           events: {
             click: function (e: any): void {

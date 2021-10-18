@@ -1726,24 +1726,39 @@ export type GitlabSpec = WebhookTriggerSpecV2 & {
 }
 
 export interface GovernanceMetadata {
+  accountId?: string
+  accountIdBytes?: ByteString
+  action?: string
+  actionBytes?: ByteString
   allFields?: {
     [key: string]: { [key: string]: any }
   }
+  created?: number
   defaultInstanceForType?: GovernanceMetadata
   deny?: boolean
   descriptorForType?: Descriptor
   detailsCount?: number
   detailsList?: PolicySetMetadata[]
   detailsOrBuilderList?: PolicySetMetadataOrBuilder[]
+  entity?: string
+  entityBytes?: ByteString
   id?: string
   idBytes?: ByteString
   initializationErrorString?: string
   initialized?: boolean
   message?: string
   messageBytes?: ByteString
+  orgId?: string
+  orgIdBytes?: ByteString
   parserForType?: ParserGovernanceMetadata
+  projectId?: string
+  projectIdBytes?: ByteString
   serializedSize?: number
+  status?: string
+  statusBytes?: ByteString
   timestamp?: number
+  type?: string
+  typeBytes?: ByteString
   unknownFields?: UnknownFieldSet
 }
 
@@ -1881,6 +1896,10 @@ export interface InputSetSummaryResponse {
     [key: string]: string
   }
   version?: number
+}
+
+export interface InputSetTemplateRequest {
+  stageIdentifiers?: string[]
 }
 
 export interface InputSetTemplateResponse {
@@ -2084,6 +2103,7 @@ export interface MeanMedianInfo {
 
 export interface MergeInputSetRequest {
   inputSetReferences?: string[]
+  stageIdentifiers?: string[]
   withMergedPipelineYaml?: boolean
 }
 
@@ -2731,6 +2751,8 @@ export interface PipelineExecutionSummary {
   planExecutionId?: string
   runSequence?: number
   runningStagesCount?: number
+  stagesExecuted?: string[]
+  stagesExecution?: boolean
   startTs?: number
   startingNodeId?: string
   status?:
@@ -2885,52 +2907,83 @@ export type PmsSlackChannel = PmsNotificationChannel & {
 }
 
 export interface PolicyMetadata {
+  accountId?: string
+  accountIdBytes?: ByteString
   allFields?: {
     [key: string]: { [key: string]: any }
   }
+  created?: number
   defaultInstanceForType?: PolicyMetadata
   denyMessagesCount?: number
   denyMessagesList?: string[]
   descriptorForType?: Descriptor
+  error?: string
+  errorBytes?: ByteString
+  identifier?: string
+  identifierBytes?: ByteString
   initializationErrorString?: string
   initialized?: boolean
+  orgId?: string
+  orgIdBytes?: ByteString
   parserForType?: ParserPolicyMetadata
   policyId?: string
   policyIdBytes?: ByteString
   policyName?: string
   policyNameBytes?: ByteString
+  projectId?: string
+  projectIdBytes?: ByteString
   serializedSize?: number
   severity?: string
   severityBytes?: ByteString
+  status?: string
+  statusBytes?: ByteString
   unknownFields?: UnknownFieldSet
+  updated?: number
 }
 
 export interface PolicyMetadataOrBuilder {
+  accountId?: string
+  accountIdBytes?: ByteString
   allFields?: {
     [key: string]: { [key: string]: any }
   }
+  created?: number
   defaultInstanceForType?: Message
   denyMessagesCount?: number
   denyMessagesList?: string[]
   descriptorForType?: Descriptor
+  error?: string
+  errorBytes?: ByteString
+  identifier?: string
+  identifierBytes?: ByteString
   initializationErrorString?: string
   initialized?: boolean
+  orgId?: string
+  orgIdBytes?: ByteString
   policyId?: string
   policyIdBytes?: ByteString
   policyName?: string
   policyNameBytes?: ByteString
+  projectId?: string
+  projectIdBytes?: ByteString
   severity?: string
   severityBytes?: ByteString
+  status?: string
+  statusBytes?: ByteString
   unknownFields?: UnknownFieldSet
+  updated?: number
 }
 
 export interface PolicySetMetadata {
   allFields?: {
     [key: string]: { [key: string]: any }
   }
+  created?: number
   defaultInstanceForType?: PolicySetMetadata
   deny?: boolean
   descriptorForType?: Descriptor
+  identifier?: string
+  identifierBytes?: ByteString
   initializationErrorString?: string
   initialized?: boolean
   parserForType?: ParserPolicySetMetadata
@@ -2942,6 +2995,8 @@ export interface PolicySetMetadata {
   policySetName?: string
   policySetNameBytes?: ByteString
   serializedSize?: number
+  status?: string
+  statusBytes?: ByteString
   unknownFields?: UnknownFieldSet
 }
 
@@ -2949,9 +3004,12 @@ export interface PolicySetMetadataOrBuilder {
   allFields?: {
     [key: string]: { [key: string]: any }
   }
+  created?: number
   defaultInstanceForType?: Message
   deny?: boolean
   descriptorForType?: Descriptor
+  identifier?: string
+  identifierBytes?: ByteString
   initializationErrorString?: string
   initialized?: boolean
   policyMetadataCount?: number
@@ -2961,6 +3019,8 @@ export interface PolicySetMetadataOrBuilder {
   policySetIdBytes?: ByteString
   policySetName?: string
   policySetNameBytes?: ByteString
+  status?: string
+  statusBytes?: ByteString
   unknownFields?: UnknownFieldSet
 }
 
@@ -3860,6 +3920,11 @@ export interface RetryStageInfo {
     | 'WAITING'
 }
 
+export interface RunStageRequestDTO {
+  runtimeInputYaml?: string
+  stageIdentifiers?: string[]
+}
+
 export type S3BuildStoreTypeSpec = BuildStoreTypeSpec & {
   bucketName?: string
   connectorRef?: string
@@ -3987,19 +4052,52 @@ export interface StepCategory {
 
 export interface StepData {
   disabled?: boolean
+  featureRestrictionName?:
+    | 'TEST1'
+    | 'TEST2'
+    | 'TEST3'
+    | 'TEST4'
+    | 'TEST5'
+    | 'MULTIPLE_ORGANIZATIONS'
+    | 'MULTIPLE_PROJECTS'
+    | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
+    | 'INTEGRATED_APPROVALS_WITH_JIRA'
+    | 'SECRET_MANAGERS'
+    | 'DEPLOYMENTS'
+    | 'SERVICES'
+    | 'BUILDS'
+    | 'SAML_SUPPORT'
+    | 'OAUTH_SUPPORT'
+    | 'LDAP_SUPPORT'
+    | 'TWO_FACTOR_AUTH_SUPPORT'
+    | 'CUSTOM_ROLES'
+    | 'CUSTOM_RESOURCE_GROUPS'
+    | 'K8S_BG_SWAP_SERVICES'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_APPLY'
+    | 'K8S_DELETE'
+    | 'K8S_CANARY_DELETE'
+    | 'K8S_ROLLING_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_SCALE'
+    | 'K8S_ROLLING_ROLLBACK'
+    | 'TERRAFORM_APPLY'
+    | 'TERRAFORM_PLAN'
+    | 'TERRAFORM_DESTROY'
+    | 'TERRAFORM_ROLLBACK'
   name?: string
   type?: string
 }
 
 export interface StepPalleteFilterWrapper {
-  commonStepCategory?: string
-  shouldShowCommonSteps?: boolean
   stepPalleteModuleInfos?: StepPalleteModuleInfo[]
 }
 
 export interface StepPalleteModuleInfo {
   category?: string
+  commonStepCategory?: string
   module?: string
+  shouldShowCommonSteps?: boolean
 }
 
 export interface SuccessHealthInfo {
@@ -5897,15 +5995,28 @@ export interface GetTemplateFromPipelineQueryParams {
 }
 
 export type GetTemplateFromPipelineProps = Omit<
-  GetProps<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>,
-  'path'
+  MutateProps<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetTemplateFromPipelineQueryParams,
+    InputSetTemplateRequest,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get template from a pipeline yaml
  */
 export const GetTemplateFromPipeline = (props: GetTemplateFromPipelineProps) => (
-  <Get<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>
+  <Mutate<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetTemplateFromPipelineQueryParams,
+    InputSetTemplateRequest,
+    void
+  >
+    verb="POST"
     path={`/inputSets/template`}
     base={getConfig('pipeline/api')}
     {...props}
@@ -5913,37 +6024,48 @@ export const GetTemplateFromPipeline = (props: GetTemplateFromPipelineProps) => 
 )
 
 export type UseGetTemplateFromPipelineProps = Omit<
-  UseGetProps<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>,
-  'path'
+  UseMutateProps<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetTemplateFromPipelineQueryParams,
+    InputSetTemplateRequest,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get template from a pipeline yaml
  */
 export const useGetTemplateFromPipeline = (props: UseGetTemplateFromPipelineProps) =>
-  useGet<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>(
-    `/inputSets/template`,
-    { base: getConfig('pipeline/api'), ...props }
-  )
+  useMutate<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetTemplateFromPipelineQueryParams,
+    InputSetTemplateRequest,
+    void
+  >('POST', `/inputSets/template`, { base: getConfig('pipeline/api'), ...props })
 
 /**
  * Get template from a pipeline yaml
  */
 export const getTemplateFromPipelinePromise = (
-  props: GetUsingFetchProps<
+  props: MutateUsingFetchProps<
     ResponseInputSetTemplateResponse,
     Failure | Error,
     GetTemplateFromPipelineQueryParams,
+    InputSetTemplateRequest,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>(
-    getConfig('pipeline/api'),
-    `/inputSets/template`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetTemplateFromPipelineQueryParams,
+    InputSetTemplateRequest,
+    void
+  >('POST', getConfig('pipeline/api'), `/inputSets/template`, props, signal)
 
 export interface DeleteInputSetForPipelineQueryParams {
   accountIdentifier: string
@@ -7542,7 +7664,7 @@ export type RunStagesWithRuntimeInputYamlProps = Omit<
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    void,
+    RunStageRequestDTO,
     RunStagesWithRuntimeInputYamlPathParams
   >,
   'path' | 'verb'
@@ -7557,7 +7679,7 @@ export const RunStagesWithRuntimeInputYaml = ({ identifier, ...props }: RunStage
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    void,
+    RunStageRequestDTO,
     RunStagesWithRuntimeInputYamlPathParams
   >
     verb="POST"
@@ -7572,7 +7694,7 @@ export type UseRunStagesWithRuntimeInputYamlProps = Omit<
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    void,
+    RunStageRequestDTO,
     RunStagesWithRuntimeInputYamlPathParams
   >,
   'path' | 'verb'
@@ -7587,7 +7709,7 @@ export const useRunStagesWithRuntimeInputYaml = ({ identifier, ...props }: UseRu
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    void,
+    RunStageRequestDTO,
     RunStagesWithRuntimeInputYamlPathParams
   >(
     'POST',
@@ -7606,7 +7728,7 @@ export const runStagesWithRuntimeInputYamlPromise = (
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    void,
+    RunStageRequestDTO,
     RunStagesWithRuntimeInputYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -7615,7 +7737,7 @@ export const runStagesWithRuntimeInputYamlPromise = (
     ResponsePlanExecutionResponseDto,
     unknown,
     RunStagesWithRuntimeInputYamlQueryParams,
-    void,
+    RunStageRequestDTO,
     RunStagesWithRuntimeInputYamlPathParams
   >('POST', getConfig('pipeline/api'), `/pipeline/execute/${identifier}/stages`, props, signal)
 
@@ -8706,7 +8828,7 @@ export const createPipelineV2Promise = (
   >('POST', getConfig('pipeline/api'), `/pipelines/v2`, props, signal)
 
 export interface GetStepsV2QueryParams {
-  accountId?: string
+  accountId: string
 }
 
 export type GetStepsV2Props = Omit<

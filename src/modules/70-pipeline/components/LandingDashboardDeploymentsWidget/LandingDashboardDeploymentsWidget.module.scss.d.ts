@@ -16,5 +16,6 @@ declare const styles: {
   readonly mostActiveServicesChartContainer: string
   readonly activeServicesTitle: string
   readonly servicesByDropdown: string
+  readonly loaderContainer: string
 }
 export default styles

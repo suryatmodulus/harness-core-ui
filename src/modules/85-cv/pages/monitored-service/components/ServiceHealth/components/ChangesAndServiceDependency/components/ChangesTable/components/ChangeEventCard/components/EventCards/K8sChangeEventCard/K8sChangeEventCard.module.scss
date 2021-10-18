@@ -1,0 +1,14 @@
+.comparison {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: var(--spacing-small);
+
+  .title {
+    font-size: var(--font-size-medium) !important;
+    color: var(--black) !important;
+  }
+}
+
+.displayDiffButton {
+  float: right;
+}

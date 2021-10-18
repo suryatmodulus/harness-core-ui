@@ -2,9 +2,14 @@ import React from 'react'
 import { Button } from '@wings-software/uicore'
 import type { IconName } from '@blueprintjs/core'
 import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { TemplatesActionPopover } from '@templates-library/components/TemplatesActionPopover/TemplatesActionPopover'
 import type { TemplateSummaryResponse } from 'services/template-ng'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './TemplateListCardContextMenu.module.scss'
 
 interface ContextMenuProps extends PopoverProps {
@@ -20,12 +25,33 @@ export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.
   const { getString } = useStrings()
   const { template, onPreview, onOpenEdit, onOpenSettings, onDelete, className, ...popoverProps } = props
   const [menuOpen, setMenuOpen] = React.useState(false)
+  const { accountId, orgIdentifier, projectIdentifier, templateIdentifier } = useParams<TemplateStudioPathProps>()
 
-  const getItems = (): { icon: IconName; label: string; onClick: () => void }[] => {
+  const [canView, canEdit, canDelete] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.TEMPLATE,
+        resourceIdentifier: templateIdentifier
+      },
+      permissions: [
+        PermissionIdentifier.VIEW_TEMPLATE,
+        PermissionIdentifier.EDIT_TEMPLATE,
+        PermissionIdentifier.DELETE_TEMPLATE
+      ]
+    },
+    [orgIdentifier, projectIdentifier, accountId, templateIdentifier]
+  )
+  const getItems = (): { icon: IconName; label: string; disabled: boolean; onClick: () => void }[] => {
     return [
       {
         icon: 'eye-open',
         label: getString('connectors.ceAws.crossAccountRoleExtention.step1.p2'),
+        disabled: !canView,
         onClick: () => {
           onPreview?.(template)
         }
@@ -33,6 +59,7 @@ export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.
       {
         icon: 'folder-shared-open',
         label: getString('templatesLibrary.openEditTemplate'),
+        disabled: !canEdit,
         onClick: () => {
           onOpenEdit?.(template)
         }
@@ -40,6 +67,7 @@ export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.
       {
         icon: 'settings',
         label: getString('templatesLibrary.templateSettings'),
+        disabled: !canEdit,
         onClick: () => {
           onOpenSettings?.(template.identifier || '')
         }
@@ -47,6 +75,7 @@ export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.
       {
         icon: 'delete',
         label: getString('templatesLibrary.deleteTemplate'),
+        disabled: !canDelete,
         onClick: () => {
           onDelete?.(template.identifier || '')
         }

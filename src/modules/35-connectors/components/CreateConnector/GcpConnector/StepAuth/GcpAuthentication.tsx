@@ -4,12 +4,12 @@ import {
   Button,
   Formik,
   Text,
-  FormikForm as Form,
   StepProps,
   Container,
   CardSelect,
-  Color,
-  Icon
+  Icon,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -89,13 +89,8 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
-    <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
-      <Text
-        font="medium"
-        margin={{ top: 'small' }}
-        color={Color.BLACK}
-        tooltipProps={{ dataTooltipId: 'gcpAuthenticationDetails' }}
-      >
+    <Layout.Vertical spacing="medium" className={css.secondStep}>
+      <Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'gcpAuthenticationDetails' }}>
         {getString('details')}
       </Text>
       <Formik
@@ -113,7 +108,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
         onSubmit={handleSubmit}
       >
         {formikProps => (
-          <Form>
+          <>
             <Container className={css.clusterWrapper}>
               <CardSelect
                 onChange={(item: DelegateCardInterface) => {
@@ -137,27 +132,36 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
                 }}
                 selected={DelegateCards[DelegateCards.findIndex(card => card.type === formikProps.values.delegateType)]}
               />
-              {formikProps.values.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
-                <SecretInput
-                  name={'password'}
-                  label={getString('connectors.k8.serviceAccountKey')}
-                  type={'SecretFile'}
-                  tooltipProps={{ dataTooltipId: 'gcpConnectorSecretKeyTooltip' }}
-                />
-              ) : (
-                <></>
-              )}
+              <Layout.Vertical style={{ width: '54%' }}>
+                {formikProps.values.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
+                  <SecretInput
+                    name={'password'}
+                    label={getString('connectors.k8.serviceAccountKey')}
+                    type={'SecretFile'}
+                    tooltipProps={{ dataTooltipId: 'gcpConnectorSecretKeyTooltip' }}
+                  />
+                ) : (
+                  <></>
+                )}
+              </Layout.Vertical>
             </Container>
             <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
               <Button
                 text={getString('back')}
                 icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="gcpBackButton"
               />
-              <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
+              <Button
+                type="submit"
+                onClick={formikProps.submitForm}
+                variation={ButtonVariation.PRIMARY}
+                text={getString('continue')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
-          </Form>
+          </>
         )}
       </Formik>
     </Layout.Vertical>

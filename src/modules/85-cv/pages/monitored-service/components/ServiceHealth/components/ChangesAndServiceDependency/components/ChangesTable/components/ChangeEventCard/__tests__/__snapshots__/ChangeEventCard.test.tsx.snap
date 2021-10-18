@@ -101,7 +101,7 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
         </p>
       </div>
       <p
-        class="StyledProps--font StyledProps--main statusButton StyledProps--color StyledProps--color-red500 StyledProps--border StyledProps--border-color-red500 StyledProps--background-red100"
+        class="StyledProps--font StyledProps--main statusButton StyledProps--color StyledProps--color-grey500 StyledProps--border StyledProps--border-color-grey500"
       >
         triggered
       </p>
@@ -125,7 +125,7 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall"
+            class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall"
             icon="time"
           >
             <svg
@@ -245,6 +245,117 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
     <div
       class="bp3-divider divider"
     />
+    <div
+      class="StyledProps--font StyledProps--main main"
+    >
+      <p
+        class="StyledProps--font StyledProps--main status"
+      >
+        status
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main healthTrend"
+      >
+        cv.serviceHealthTrend
+      </p>
+      <div
+        class="StyledProps--font StyledProps--main main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main timelineRow"
+        >
+          <p
+            class="StyledProps--font StyledProps--main rowLabel"
+            style="width: 90px;"
+          >
+            cv.monitoredServices.serviceHealth.overallHealthScore
+          </p>
+          <div
+            class="StyledProps--font StyledProps--main noDataCard noData StyledProps--flex StyledProps--flex-align-center-center"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+              style="align-items: center; margin-top: -48px; width: 470px;"
+            >
+              <img
+                class="noDataImage"
+                src="test-file-stub"
+              />
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+              >
+                cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+              >
+                cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow
+              </p>
+              <div
+                class="buttonContainer"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main timestamps"
+      >
+        <div />
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main dependenciesLegendsContainer legend"
+      >
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--flex"
+        >
+          <div
+            class="StyledProps--font StyledProps--main serviceState"
+          />
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+          >
+            connectors.cdng.verificationSensitivityLabel.high
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--flex"
+        >
+          <div
+            class="StyledProps--font StyledProps--main serviceState"
+          />
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+          >
+            connectors.cdng.verificationSensitivityLabel.medium
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--flex"
+        >
+          <div
+            class="StyledProps--font StyledProps--main serviceState"
+          />
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+          >
+            connectors.cdng.verificationSensitivityLabel.low
+          </p>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--flex"
+        >
+          <div
+            class="StyledProps--font StyledProps--main serviceState"
+          />
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+          >
+            na
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;

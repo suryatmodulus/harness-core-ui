@@ -14,7 +14,7 @@ describe('ServiceDependenciesLegend Tests', () => {
     )
     await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.UNHEALTHY))).toBeTruthy())
     await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.NEED_ATTENTION))).toBeTruthy())
-    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.OBSERVE))).toBeTruthy())
+    // await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.OBSERVE))).toBeTruthy())
     await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.HEALTHY))).toBeTruthy())
     await waitFor(() => expect(getByText('na')).toBeTruthy())
     expect(container).toMatchSnapshot()

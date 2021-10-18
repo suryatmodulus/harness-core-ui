@@ -101,7 +101,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                 </svg>
               </span>
               <div
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                 style="font-weight: bold;"
               >
                 <div
@@ -239,7 +239,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                 </svg>
               </span>
               <div
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                 style="font-weight: bold;"
               >
                 <div
@@ -377,7 +377,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                 </svg>
               </span>
               <div
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                 style="font-weight: bold;"
               >
                 <div
@@ -515,7 +515,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                 </svg>
               </span>
               <div
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                 style="font-weight: bold;"
               >
                 <div
@@ -653,7 +653,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                 </svg>
               </span>
               <div
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                 style="font-weight: bold;"
               >
                 <div
@@ -749,7 +749,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                 </svg>
               </span>
               <div
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                 style=""
               >
                 <div
@@ -878,7 +878,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                 </svg>
               </span>
               <div
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                 style="font-weight: bold;"
               >
                 <div

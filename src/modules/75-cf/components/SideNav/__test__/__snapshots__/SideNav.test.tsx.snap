@@ -123,7 +123,7 @@ exports[`Sidenav it should render 1`] = `
         >
           common.projectSetup
           <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-left-xsmall"
+            class="bp3-icon bp3-icon-chevron-down StyledProps--main Text--icon StyledProps--padding-left-xsmall"
             icon="chevron-down"
           >
             <svg

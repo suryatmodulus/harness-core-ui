@@ -11,5 +11,6 @@ declare const styles: {
   readonly fullScreen: string
   readonly almostFullScreenPortal: string
   readonly almostFullScreenCloseBtn: string
+  readonly configDialog: string
 }
 export default styles

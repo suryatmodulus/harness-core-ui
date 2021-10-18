@@ -45,6 +45,7 @@ interface SaveAsInputSetProps {
   isGitSyncEnabled?: boolean
   setFormErrors: Dispatch<SetStateAction<FormikErrors<InputSetDTO>>>
   getInputSetsList: () => void
+  disabled?: boolean
 }
 
 const SaveAsInputSet = ({
@@ -62,7 +63,8 @@ const SaveAsInputSet = ({
   branch,
   isGitSyncEnabled = false,
   setFormErrors,
-  getInputSetsList
+  getInputSetsList,
+  disabled
 }: SaveAsInputSetProps): JSX.Element | null => {
   const { getString } = useStrings()
 
@@ -232,6 +234,7 @@ const SaveAsInputSet = ({
         <RbacButton
           variation={ButtonVariation.SECONDARY}
           text={getString('inputSets.saveAsInputSet')}
+          disabled={disabled}
           permission={{
             permission: PermissionIdentifier.EDIT_PIPELINE,
             resource: {

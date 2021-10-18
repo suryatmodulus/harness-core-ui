@@ -1,14 +1,4 @@
 .secondStep {
-  min-height: 500px;
-
-  :global {
-    .bp3-input,
-    .bp3-button,
-    .bp3-checkbox {
-      height: 36px;
-    }
-  }
-
   .authHeaderRow {
     display: flex;
     justify-content: space-between;
@@ -18,5 +8,15 @@
       padding-top: var(--spacing-small);
       font-weight: bold !important;
     }
+  }
+}
+
+.stepDetails {
+  height: 100%;
+  > div:last-child {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }

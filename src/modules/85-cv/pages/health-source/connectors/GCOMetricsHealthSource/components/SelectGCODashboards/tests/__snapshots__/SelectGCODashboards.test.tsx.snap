@@ -164,7 +164,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             data-icon="service-stackdriver"
                           >
                             <svg
@@ -218,7 +218,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             data-icon="service-stackdriver"
                           >
                             <svg
@@ -272,7 +272,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             data-icon="service-stackdriver"
                           >
                             <svg
@@ -326,7 +326,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             data-icon="service-stackdriver"
                           >
                             <svg
@@ -380,7 +380,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             data-icon="service-stackdriver"
                           >
                             <svg
@@ -434,7 +434,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             data-icon="service-stackdriver"
                           >
                             <svg
@@ -488,7 +488,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             data-icon="service-stackdriver"
                           >
                             <svg
@@ -542,7 +542,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             data-icon="service-stackdriver"
                           >
                             <svg
@@ -596,7 +596,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             data-icon="service-stackdriver"
                           >
                             <svg
@@ -650,7 +650,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             data-icon="service-stackdriver"
                           >
                             <svg

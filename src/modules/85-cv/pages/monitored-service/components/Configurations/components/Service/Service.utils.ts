@@ -1,8 +1,6 @@
 import type { FormikContext } from 'formik'
 import { isEqual, omit } from 'lodash-es'
 import type { MonitoredServiceDTO } from 'services/cv'
-import type { UseStringsReturn } from 'framework/strings'
-import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { MonitoredServiceType } from './components/MonitoredServiceOverview/MonitoredServiceOverview.constants'
 import type { MonitoredServiceForm } from './Service.types'
 
@@ -51,31 +49,14 @@ export const isCacheUpdated = (
 
 export const onSave = async ({
   formik,
-  isEdit,
-  getString,
-  onSuccess,
-  showSuccess,
-  showError
+  onSuccess
 }: {
   formik: FormikContext<any>
-  isEdit: boolean
-  getString: UseStringsReturn['getString']
   onSuccess: (val: MonitoredServiceForm) => Promise<void>
-  showSuccess: (val: string) => void
-  showError: (val: string) => void
 }): Promise<void> => {
   const validResponse = await formik?.validateForm()
   if (!Object.keys(validResponse).length) {
-    try {
-      await onSuccess(formik?.values)
-      showSuccess(
-        getString(
-          isEdit ? 'cv.monitoredServices.monitoredServiceUpdated' : 'cv.monitoredServices.monitoredServiceCreated'
-        )
-      )
-    } catch (error) {
-      showError(getErrorMessage(error) || '')
-    }
+    await onSuccess(formik?.values)
   } else {
     formik?.submitForm()
   }
@@ -96,7 +77,7 @@ export function updateMonitoredServiceDTOOnTypeChange(
       if (type === 'Application' && source.type !== 'K8sCluster') {
         return true
       }
-      if (type === 'Infrastructure' && source.type !== 'HarnessCD') {
+      if (type === 'Infrastructure' && source.type !== 'HarnessCD' && source.type !== 'HarnessCDNextGen') {
         return true
       }
       return false

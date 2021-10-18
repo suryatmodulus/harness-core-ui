@@ -7,7 +7,9 @@ import {
   FormikForm,
   Accordion,
   RadioButtonGroup,
-  CodeBlock
+  CodeBlock,
+  Container,
+  Color
 } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import cx from 'classnames'
@@ -113,6 +115,9 @@ export const RunTestsStepBase = (
                 'spec.connectorRef': {
                   label: (
                     <Text
+                      className={css.inpLabel}
+                      color={Color.GREY_600}
+                      font={{ size: 'small', weight: 'semi-bold' }}
                       style={{ display: 'flex', alignItems: 'center' }}
                       tooltipProps={{ dataTooltipId: 'connector' }}
                     >
@@ -134,40 +139,54 @@ export const RunTestsStepBase = (
               }}
               formik={formik}
             />
-            <MultiTypeSelectField
-              name="spec.language"
-              label={
-                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}>
-                  {getString('languageLabel')}
-                </Text>
-              }
-              multiTypeInputProps={{
-                selectItems: languageOptions,
-                multiTypeInputProps: {
-                  allowableTypes: [MultiTypeInputType.FIXED],
-                  expressions
-                },
-                disabled: readonly
-              }}
-              disabled={readonly}
-            />
-            <MultiTypeSelectField
-              name="spec.buildTool"
-              label={
-                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'runTestsBuildTool' }}>
-                  {getString('buildToolLabel')}
-                </Text>
-              }
-              multiTypeInputProps={{
-                selectItems: buildToolOptions,
-                multiTypeInputProps: {
-                  allowableTypes: [MultiTypeInputType.FIXED],
-                  expressions
-                },
-                disabled: readonly
-              }}
-              disabled={readonly}
-            />
+            <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+              <MultiTypeSelectField
+                name="spec.language"
+                label={
+                  <Text
+                    className={css.inpLabel}
+                    color={Color.GREY_600}
+                    font={{ size: 'small', weight: 'semi-bold' }}
+                    tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}
+                  >
+                    {getString('languageLabel')}
+                  </Text>
+                }
+                multiTypeInputProps={{
+                  selectItems: languageOptions,
+                  multiTypeInputProps: {
+                    allowableTypes: [MultiTypeInputType.FIXED],
+                    expressions
+                  },
+                  disabled: readonly
+                }}
+                disabled={readonly}
+              />
+            </Container>
+            <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+              <MultiTypeSelectField
+                name="spec.buildTool"
+                label={
+                  <Text
+                    className={css.inpLabel}
+                    color={Color.GREY_600}
+                    font={{ size: 'small', weight: 'semi-bold' }}
+                    tooltipProps={{ dataTooltipId: 'runTestsBuildTool' }}
+                  >
+                    {getString('buildToolLabel')}
+                  </Text>
+                }
+                multiTypeInputProps={{
+                  selectItems: buildToolOptions,
+                  multiTypeInputProps: {
+                    allowableTypes: [MultiTypeInputType.FIXED],
+                    expressions
+                  },
+                  disabled: readonly
+                }}
+                disabled={readonly}
+              />
+            </Container>
             {(formik.values?.spec?.language as any)?.value === 'Java' &&
               (formik.values?.spec?.buildTool as any)?.value === 'Maven' && (
                 <>
@@ -236,37 +255,51 @@ gradle.projectsEvaluated {
                   </Text>
                 </>
               )}
-            <MultiTypeTextField
-              name="spec.args"
-              label={
-                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'runTestsArgs' }}>
-                  {getString('argsLabel')}
-                </Text>
-              }
-              multiTextInputProps={{
-                multiTextInputProps: { expressions },
-                disabled: readonly
-              }}
-            />
-            <MultiTypeTextField
-              name="spec.packages"
-              label={
-                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'runTestsPackages' }}>
-                  {getString('packagesLabel')}
-                </Text>
-              }
-              multiTextInputProps={{
-                multiTextInputProps: { expressions },
-                disabled: readonly
-              }}
-            />
+            <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+              <MultiTypeTextField
+                name="spec.args"
+                label={
+                  <Text
+                    className={css.inpLabel}
+                    color={Color.GREY_600}
+                    font={{ size: 'small', weight: 'semi-bold' }}
+                    tooltipProps={{ dataTooltipId: 'runTestsArgs' }}
+                  >
+                    {getString('argsLabel')}
+                  </Text>
+                }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
+                }}
+              />
+            </Container>
+            <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+              <MultiTypeTextField
+                name="spec.packages"
+                label={
+                  <Text
+                    className={css.inpLabel}
+                    color={Color.GREY_600}
+                    font={{ size: 'small', weight: 'semi-bold' }}
+                    tooltipProps={{ dataTooltipId: 'runTestsPackages' }}
+                  >
+                    {getString('packagesLabel')}
+                  </Text>
+                }
+                multiTextInputProps={{
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
+                }}
+              />
+            </Container>
             <Accordion className={css.accordion}>
               <Accordion.Panel
                 id="optional-config"
                 summary={getString('common.optionalConfig')}
                 details={
                   <>
-                    <div className={cx(css.formGroup, css.sm)}>
+                    <Container className={cx(css.formGroup, css.sm, css.bottomMargin5)}>
                       <FormMultiTypeCheckboxField
                         name="spec.runOnlySelectedTests"
                         label={getString('runOnlySelectedTestsLabel')}
@@ -274,171 +307,202 @@ gradle.projectsEvaluated {
                         style={{ marginBottom: 'var(--spacing-small)' }}
                         disabled={readonly}
                       />
-                    </div>
-
-                    <MultiTypeTextField
-                      name="spec.testAnnotations"
-                      label={
-                        <Text tooltipProps={{ dataTooltipId: 'runTestsTestAnnotations' }}>
-                          {getString('testAnnotationsLabel')}
-                        </Text>
-                      }
-                      multiTextInputProps={{
-                        multiTextInputProps: { expressions },
-                        disabled: readonly
-                      }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                    />
-                    <div
-                      className={cx(css.fieldsGroup, css.withoutSpacing)}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                    >
-                      <MultiTypeFieldSelector
-                        name="spec.preCommand"
+                    </Container>
+                    <Container className={cx(css.formGroup, css.sm, css.bottomMargin5)}>
+                      <MultiTypeTextField
+                        name="spec.testAnnotations"
                         label={
                           <Text
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            tooltipProps={{ dataTooltipId: 'runTestsPreCommand' }}
+                            className={css.inpLabel}
+                            color={Color.GREY_600}
+                            font={{ size: 'small', weight: 'semi-bold' }}
+                            tooltipProps={{ dataTooltipId: 'runTestsTestAnnotations' }}
                           >
-                            {getString('preCommandLabel')}
+                            {getString('testAnnotationsLabel')}
                           </Text>
                         }
-                        defaultValueToReset=""
-                        allowedTypes={[
-                          MultiTypeInputType.EXPRESSION,
-                          MultiTypeInputType.FIXED,
-                          MultiTypeInputType.RUNTIME
-                        ]}
-                        expressionRender={() => {
-                          return (
-                            <ShellScriptMonacoField
-                              name="spec.preCommand"
-                              scriptType="Bash"
-                              disabled={readonly}
-                              expressions={expressions}
-                            />
-                          )
+                        multiTextInputProps={{
+                          multiTextInputProps: { expressions },
+                          disabled: readonly
                         }}
-                        style={{ flexGrow: 1, marginBottom: 0 }}
-                        disableTypeSelection={readonly}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
+                      />
+                    </Container>
+                    <Container className={css.bottomMargin5}>
+                      <div
+                        className={cx(css.fieldsGroup, css.withoutSpacing)}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
                       >
-                        <ShellScriptMonacoField name="spec.preCommand" scriptType="Bash" disabled={readonly} />
-                      </MultiTypeFieldSelector>
-                      {getMultiTypeFromValue(formik?.values?.spec?.preCommand) === MultiTypeInputType.RUNTIME && (
-                        <ConfigureOptions
-                          value={formik?.values?.spec?.preCommand as string}
-                          type={getString('string')}
-                          variableName="spec.preCommand"
-                          showRequiredField={false}
-                          showDefaultField={false}
-                          showAdvanced={true}
-                          onChange={value => formik?.setFieldValue('spec.preCommand', value)}
-                          isReadonly={readonly}
-                        />
-                      )}
-                    </div>
-                    <div
-                      className={cx(css.fieldsGroup, css.withoutSpacing)}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                    >
-                      <MultiTypeFieldSelector
-                        name="spec.postCommand"
-                        label={
-                          <Text
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            tooltipProps={{ dataTooltipId: 'runTestsPostCommand' }}
-                          >
-                            {getString('postCommandLabel')}
-                          </Text>
-                        }
-                        defaultValueToReset=""
-                        allowedTypes={[
-                          MultiTypeInputType.EXPRESSION,
-                          MultiTypeInputType.FIXED,
-                          MultiTypeInputType.RUNTIME
-                        ]}
-                        skipRenderValueInExpressionLabel
-                        expressionRender={() => {
-                          return (
-                            <ShellScriptMonacoField
-                              name="spec.postCommand"
-                              scriptType="Bash"
-                              disabled={readonly}
-                              expressions={expressions}
-                            />
-                          )
-                        }}
-                        style={{ flexGrow: 1, marginBottom: 0 }}
-                        disableTypeSelection={readonly}
+                        <MultiTypeFieldSelector
+                          name="spec.preCommand"
+                          label={
+                            <Text
+                              className={css.inpLabel}
+                              color={Color.GREY_600}
+                              font={{ size: 'small', weight: 'semi-bold' }}
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'runTestsPreCommand' }}
+                            >
+                              {getString('preCommandLabel')}
+                            </Text>
+                          }
+                          defaultValueToReset=""
+                          allowedTypes={[
+                            MultiTypeInputType.EXPRESSION,
+                            MultiTypeInputType.FIXED,
+                            MultiTypeInputType.RUNTIME
+                          ]}
+                          expressionRender={() => {
+                            return (
+                              <ShellScriptMonacoField
+                                name="spec.preCommand"
+                                scriptType="Bash"
+                                disabled={readonly}
+                                expressions={expressions}
+                              />
+                            )
+                          }}
+                          style={{ flexGrow: 1, marginBottom: 0 }}
+                          disableTypeSelection={readonly}
+                        >
+                          <ShellScriptMonacoField name="spec.preCommand" scriptType="Bash" disabled={readonly} />
+                        </MultiTypeFieldSelector>
+                        {getMultiTypeFromValue(formik?.values?.spec?.preCommand) === MultiTypeInputType.RUNTIME && (
+                          <ConfigureOptions
+                            value={formik?.values?.spec?.preCommand as string}
+                            type={getString('string')}
+                            variableName="spec.preCommand"
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={value => formik?.setFieldValue('spec.preCommand', value)}
+                            isReadonly={readonly}
+                          />
+                        )}
+                      </div>
+                    </Container>
+                    <Container className={css.bottomMargin5}>
+                      <div
+                        className={cx(css.fieldsGroup, css.withoutSpacing)}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
                       >
-                        <ShellScriptMonacoField
+                        <MultiTypeFieldSelector
                           name="spec.postCommand"
-                          scriptType="Bash"
-                          disabled={readonly}
-                          expressions={expressions}
-                        />
-                      </MultiTypeFieldSelector>
-                      {getMultiTypeFromValue(formik?.values?.spec?.postCommand) === MultiTypeInputType.RUNTIME && (
-                        <ConfigureOptions
-                          value={formik?.values?.spec?.postCommand as string}
-                          type={getString('string')}
-                          variableName="spec.postCommand"
-                          showRequiredField={false}
-                          showDefaultField={false}
-                          showAdvanced={true}
-                          onChange={value => formik?.setFieldValue('spec.postCommand', value)}
-                          isReadonly={readonly}
-                        />
-                      )}
-                    </div>
-                    <MultiTypeList
-                      name="spec.reportPaths"
-                      placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
-                      multiTypeFieldSelectorProps={{
-                        label: (
-                          <Text
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            tooltipProps={{ dataTooltipId: 'reportPaths' }}
-                          >
-                            {getString('pipelineSteps.reportPathsLabel')}
-                          </Text>
-                        )
-                      }}
-                      multiTextInputProps={{ expressions }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      disabled={readonly}
-                    />
-                    <MultiTypeMap
-                      name="spec.envVariables"
-                      multiTypeFieldSelectorProps={{
-                        label: (
-                          <Text
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            tooltipProps={{ dataTooltipId: 'environmentVariables' }}
-                          >
-                            {getString('environmentVariables')}
-                          </Text>
-                        )
-                      }}
-                      valueMultiTextInputProps={{ expressions }}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      disabled={readonly}
-                    />
-                    <MultiTypeList
-                      name="spec.outputVariables"
-                      multiTypeFieldSelectorProps={{
-                        label: (
-                          <Text
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            tooltipProps={{ dataTooltipId: 'outputVariables' }}
-                          >
-                            {getString('pipelineSteps.outputVariablesLabel')}
-                          </Text>
-                        )
-                      }}
-                      multiTextInputProps={{ expressions }}
-                      disabled={readonly}
-                    />
+                          label={
+                            <Text
+                              className={css.inpLabel}
+                              color={Color.GREY_600}
+                              font={{ size: 'small', weight: 'semi-bold' }}
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'runTestsPostCommand' }}
+                            >
+                              {getString('postCommandLabel')}
+                            </Text>
+                          }
+                          defaultValueToReset=""
+                          allowedTypes={[
+                            MultiTypeInputType.EXPRESSION,
+                            MultiTypeInputType.FIXED,
+                            MultiTypeInputType.RUNTIME
+                          ]}
+                          skipRenderValueInExpressionLabel
+                          expressionRender={() => {
+                            return (
+                              <ShellScriptMonacoField
+                                name="spec.postCommand"
+                                scriptType="Bash"
+                                disabled={readonly}
+                                expressions={expressions}
+                              />
+                            )
+                          }}
+                          style={{ flexGrow: 1, marginBottom: 0 }}
+                          disableTypeSelection={readonly}
+                        >
+                          <ShellScriptMonacoField
+                            name="spec.postCommand"
+                            scriptType="Bash"
+                            disabled={readonly}
+                            expressions={expressions}
+                          />
+                        </MultiTypeFieldSelector>
+                        {getMultiTypeFromValue(formik?.values?.spec?.postCommand) === MultiTypeInputType.RUNTIME && (
+                          <ConfigureOptions
+                            value={formik?.values?.spec?.postCommand as string}
+                            type={getString('string')}
+                            variableName="spec.postCommand"
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={value => formik?.setFieldValue('spec.postCommand', value)}
+                            isReadonly={readonly}
+                          />
+                        )}
+                      </div>
+                    </Container>
+                    <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+                      <MultiTypeList
+                        name="spec.reportPaths"
+                        placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
+                        multiTypeFieldSelectorProps={{
+                          label: (
+                            <Text
+                              className={css.inpLabel}
+                              color={Color.GREY_800}
+                              font={{ size: 'small', weight: 'semi-bold' }}
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'reportPaths' }}
+                            >
+                              {getString('pipelineSteps.reportPathsLabel')}
+                            </Text>
+                          )
+                        }}
+                        multiTextInputProps={{ expressions }}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
+                        disabled={readonly}
+                      />
+                    </Container>
+                    <Container className={cx(css.formGroup, css.bottomMargin5)}>
+                      <MultiTypeMap
+                        name="spec.envVariables"
+                        multiTypeFieldSelectorProps={{
+                          label: (
+                            <Text
+                              className={css.inpLabel}
+                              color={Color.GREY_800}
+                              font={{ size: 'small', weight: 'semi-bold' }}
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'environmentVariables' }}
+                            >
+                              {getString('environmentVariables')}
+                            </Text>
+                          )
+                        }}
+                        valueMultiTextInputProps={{ expressions }}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
+                        disabled={readonly}
+                      />
+                    </Container>
+                    <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+                      <MultiTypeList
+                        name="spec.outputVariables"
+                        multiTypeFieldSelectorProps={{
+                          label: (
+                            <Text
+                              className={css.inpLabel}
+                              color={Color.GREY_800}
+                              font={{ size: 'small', weight: 'semi-bold' }}
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'outputVariables' }}
+                            >
+                              {getString('pipelineSteps.outputVariablesLabel')}
+                            </Text>
+                          )
+                        }}
+                        multiTextInputProps={{ expressions }}
+                        disabled={readonly}
+                      />
+                    </Container>
                     <StepCommonFields enableFields={['spec.imagePullPolicy']} disabled={readonly} />
                   </>
                 }

@@ -9,7 +9,7 @@ import {
   GetErrorResponse,
   SaveTemplatePopover
 } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
-import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'
+import { DefaultNewTemplateId } from 'framework/Templates/templates'
 import { TemplateStudioSubHeaderLeftView } from './views/TemplateStudioSubHeaderLeftView/TemplateStudioSubHeaderLeftView'
 import css from './TemplateStudioSubHeader.module.scss'
 

@@ -246,7 +246,7 @@ exports[`Delegate Listing, open filter render list and open filter 1`] = `
                 style="display: flex; align-items: center; width: 30px;"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="service-ecs"
                 >
                   <svg
@@ -396,7 +396,7 @@ exports[`Delegate Listing, open filter render list and open filter 1`] = `
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-small StyledProps--color StyledProps--color-green600"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-small StyledProps--color StyledProps--color-green600"
                     icon="full-circle"
                   >
                     <svg

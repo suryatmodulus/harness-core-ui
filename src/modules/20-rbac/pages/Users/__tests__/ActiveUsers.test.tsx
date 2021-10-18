@@ -51,6 +51,7 @@ jest.mock('services/resourcegroups', () => ({
 jest.mock('@common/hooks/useMutateAsGet')
 
 jest.mock('services/cd-ng', () => ({
+  checkIfLastAdminPromise: jest.fn().mockImplementation(() => ({ data: true })),
   useRemoveUser: jest.fn().mockImplementation(() => ({ mutate: deleteActiveUserMock })),
   useUnlockUser: jest.fn().mockImplementation(() => ({ mutate: unlockActiveUserMock })),
   useAddUsers: jest.fn().mockImplementation(() => ({ mutate: createUserMock })),

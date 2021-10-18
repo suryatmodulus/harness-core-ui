@@ -500,6 +500,7 @@ reportNameRequired: Report name is required
 selectUserGroups: Select User Group(s)
 totalSelected: 'Total Selected'
 accountSettings: Account Settings
+governance: Governance
 myProfile: My Profile
 accountResources: Account Resources
 accountResourcesPage:
@@ -571,3 +572,7 @@ delete: Delete {{ name }}?
 suggestionsLabel: 'Suggestions:'
 refreshPage: refresh your page.
 files: Files
+saveAsNewTemplateHeading: Save as New Template
+saveTemplate:
+  publishTemplate: Template published successfully
+  errorWhileSaving: Error occurred saving Template

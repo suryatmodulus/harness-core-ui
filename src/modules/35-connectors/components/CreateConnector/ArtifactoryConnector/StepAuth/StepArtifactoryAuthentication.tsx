@@ -5,11 +5,11 @@ import {
   Formik,
   FormInput,
   Text,
-  FormikForm as Form,
   StepProps,
-  Color,
   Container,
-  SelectOption
+  SelectOption,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { setupArtifactoryFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -94,8 +94,8 @@ const StepArtifactoryAuthentication: React.FC<
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
-    <Layout.Vertical height={'inherit'} margin="small">
-      <Text font="medium" color={Color.BLACK} tooltipProps={{ dataTooltipId: 'artifactRepositoryDetails' }}>
+    <Layout.Vertical spacing="small" className={css.stepDetails}>
+      <Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'artifactRepositoryDetails' }}>
         {getString('details')}
       </Text>
       <Formik
@@ -121,7 +121,7 @@ const StepArtifactoryAuthentication: React.FC<
         onSubmit={handleSubmit}
       >
         {formikProps => (
-          <Form>
+          <>
             <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep}>
               <Container className={css.formRow}>
                 <FormInput.Text
@@ -162,12 +162,19 @@ const StepArtifactoryAuthentication: React.FC<
               <Button
                 text={getString('back')}
                 icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="artifactoryBackButton"
               />
-              <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
+              <Button
+                type="submit"
+                variation={ButtonVariation.PRIMARY}
+                onClick={formikProps.submitForm}
+                text={getString('continue')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
-          </Form>
+          </>
         )}
       </Formik>
     </Layout.Vertical>

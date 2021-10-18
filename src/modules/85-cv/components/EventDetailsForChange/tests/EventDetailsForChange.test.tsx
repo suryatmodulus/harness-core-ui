@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, waitFor, fireEvent, getByText } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
 import { Container } from '@wings-software/uicore'
 import type { EventData } from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineView'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -61,7 +60,7 @@ describe('Unit tests for EventDetailsForChange', () => {
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
       data: MockDeploymentResponse,
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     render(
       <TestWrapper>

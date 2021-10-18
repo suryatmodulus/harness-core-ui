@@ -7,7 +7,7 @@ import EditableText from './EditableText/EditableText'
 import EntityReference from './EntityReference/EntityReference'
 import HeatMap from './HeatMap/HeatMap'
 import { NavigationCheck } from './NavigationCheck/NavigationCheck'
-import { NameIdDescriptionTags } from './NameIdDescriptionTags/NameIdDescriptionTags'
+import { NameIdDescriptionTags, Description } from './NameIdDescriptionTags/NameIdDescriptionTags'
 import { PageSpinner } from './Page/PageSpinner'
 import { Page } from './Page/Page'
 import { ReferenceSelect } from './ReferenceSelect/ReferenceSelect'
@@ -30,6 +30,7 @@ import DetailPageCard from './DetailPageCard/DetailPageCard'
 import CopyToClipBoard from './CopyToClipBoard/CopyToClipBoard'
 import { OptionsMenuButton, MenuDivider } from './OptionsMenuButton/OptionsMenuButton'
 import { TimeSeriesAreaChart } from './TimeSeriesAreaChart/TimeSeriesAreaChart'
+import { Separator } from './Separator/Separator'
 export {
   AdminSelector,
   AddDrawer,
@@ -60,6 +61,7 @@ export {
   InstanceDropdownField,
   FormInstanceDropdown,
   MultiTypeCheckbox,
+  Description,
   NameIdDescriptionTags,
   UserLabel,
   DelegateSelectors,
@@ -67,5 +69,6 @@ export {
   DetailPageCard,
   OptionsMenuButton,
   MenuDivider,
-  TimeSeriesAreaChart
+  TimeSeriesAreaChart,
+  Separator
 }

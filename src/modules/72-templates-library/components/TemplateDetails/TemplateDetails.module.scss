@@ -1,6 +1,9 @@
-.main {
+.container {
   padding-top: var(--spacing-10) !important;
   position: relative;
+  min-height: 500px;
+  overflow-wrap: anywhere;
+  overflow: auto;
   :global {
     .Card--dots {
       top: -42px !important;
@@ -13,11 +16,13 @@
   .openInStudio {
     flex-shrink: 0;
   }
+  .description {
+    font-size: var(--form-input-font-size) !important;
+  }
   .tabsContainer {
     background: white;
     border: 1px solid var(--grey-200);
     border-radius: var(--spacing-3);
-    flex-grow: 1;
     overflow: hidden;
 
     :global {

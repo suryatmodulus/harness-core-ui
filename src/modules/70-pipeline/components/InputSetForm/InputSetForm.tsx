@@ -43,7 +43,7 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { useQueryParams } from '@common/hooks'
+import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
@@ -131,7 +131,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     refetch: refetchTemplate,
     data: template,
     loading: loadingTemplate
-  } = useGetTemplateFromPipeline({
+  } = useMutateAsGet(useGetTemplateFromPipeline, {
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -139,6 +139,9 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       projectIdentifier,
       repoIdentifier,
       branch
+    },
+    body: {
+      stageIdentifiers: []
     },
     lazy: true
   })

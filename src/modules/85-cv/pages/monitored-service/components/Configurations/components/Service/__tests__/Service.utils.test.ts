@@ -4,8 +4,18 @@ import { MockMonitoredServiceDTO } from './Service.mock'
 
 describe('Unit tests for Servicee utils', () => {
   test('Ensure updateMonitoredServiceDTOOnTypeChange works as expected', () => {
-    // for infra expect deplooyment to be removed
-    expect(updateMonitoredServiceDTOOnTypeChange('Infrastructure', cloneDeep(MockMonitoredServiceDTO))).toEqual({
+    const clonedObj = cloneDeep(MockMonitoredServiceDTO)
+    clonedObj.sources?.changeSources?.push({
+      category: 'Deployment',
+      enabled: true,
+      identifier: '1234_iden',
+      name: 'deployment',
+      spec: {},
+      type: 'HarnessCDNextGen'
+    })
+
+    // for infra expect deployment to be removed
+    expect(updateMonitoredServiceDTOOnTypeChange('Infrastructure', clonedObj)).toEqual({
       dependencies: [],
       environmentRef: '1234_env',
       identifier: '1234_ident',

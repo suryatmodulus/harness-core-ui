@@ -22,6 +22,12 @@ export enum StageActions {
   DeleteStage = 'Delete Stage'
 }
 
+export enum StepActions {
+  SelectStep = 'Select a Step',
+  AddEditStep = 'Add/Edit Step',
+  DeleteStep = 'Delete Step'
+}
+
 export enum Category {
   SIGNUP = 'SIGNUP'
 }

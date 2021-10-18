@@ -15,8 +15,7 @@ import css from './TemplateCard.module.scss'
 export interface TemplateCardProps {
   template: NGTemplateInfoConfig | TemplateSummaryResponse
   onSelect?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) => void
-  className?: string
-  isPreview?: boolean
+  isSelected?: boolean
   onPreview?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) => void
   onOpenEdit?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) => void
   onOpenSettings?: (templateIdentifier: string) => void
@@ -25,16 +24,21 @@ export interface TemplateCardProps {
 
 export function TemplateCard(props: TemplateCardProps): JSX.Element {
   const { getString } = useStrings()
-  const { template, onSelect, isPreview = false, onPreview, onOpenEdit, onOpenSettings, onDelete } = props
+  const { template, onSelect, isSelected, onPreview, onOpenEdit, onOpenSettings, onDelete } = props
 
   const templateEntityType =
     (template as TemplateSummaryResponse)?.templateEntityType || (template as NGTemplateInfoConfig)?.type
   const style = templateColorStyleMap[templateEntityType]
   const templateIcons = getIconsForTemplates(template)
+  const showMenu = !onPreview && !onOpenEdit && !onOpenSettings && !onDelete
 
   return (
-    <Card className={css.templateCard} interactive={!!onSelect} onClick={() => onSelect?.(template)}>
-      {!isPreview ? (
+    <Card
+      className={cx(css.templateCard, { [css.selected]: !!isSelected })}
+      interactive={!!onSelect}
+      onClick={() => onSelect?.(template)}
+    >
+      {!showMenu ? (
         <TemplateListContextMenu
           template={template}
           onPreview={onPreview || noop}
@@ -75,7 +79,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
         </Tag>
       </Container>
       <Container height={1} background={Color.GREY_100} />
-      {!!template.tags && !isEmpty(template.tags) && <TemplateTags tags={template.tags} length={3} />}
+      {!!template.tags && !isEmpty(template.tags) && <TemplateTags tags={template.tags} />}
       <Container className={css.userLabel}>
         <Layout.Horizontal>
           <UserLabel name={''} />

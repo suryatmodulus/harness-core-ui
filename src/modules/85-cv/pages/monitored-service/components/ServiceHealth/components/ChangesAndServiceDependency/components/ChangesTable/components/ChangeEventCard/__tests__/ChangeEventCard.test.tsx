@@ -1,9 +1,17 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
+import type { UseGetReturn } from 'restful-react'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import ChangeEventCard from '../ChangeEventCard'
 import { HarnessCDMockData, HarnessNextGenMockData, payload } from './ChangeEventCard.mock'
+
+jest.mock('@cv/components/ChangeTimeline/components/TimestampChart/TimestampChart', () => ({
+  TimestampChart: function MockComponent() {
+    return <div />
+  }
+}))
+
 describe('Validate ChangeCard', () => {
   test('should render Pager Duty card', async () => {
     jest.spyOn(cvService, 'useGetChangeEventDetail').mockImplementation(
@@ -15,6 +23,11 @@ describe('Validate ChangeCard', () => {
           loading: false
         } as any)
     )
+    jest.spyOn(cvService, 'useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv').mockReturnValue({
+      data: {},
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, any, any, any>)
+
     const { container, getByText } = render(
       <TestWrapper>
         <ChangeEventCard activityId={'dasda'} />
@@ -41,6 +54,10 @@ describe('Validate ChangeCard', () => {
           loading: false
         } as any)
     )
+    jest.spyOn(cvService, 'useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv').mockReturnValue({
+      data: {},
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, any, any, any>)
     const { getByText } = render(
       <TestWrapper>
         <ChangeEventCard activityId={'dasda'} />
@@ -65,6 +82,10 @@ describe('Validate ChangeCard', () => {
           loading: false
         } as any)
     )
+    jest.spyOn(cvService, 'useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv').mockReturnValue({
+      data: {},
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, any, any, any>)
     const { getByText } = render(
       <TestWrapper>
         <ChangeEventCard activityId={'dasda'} />

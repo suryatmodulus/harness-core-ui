@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container } from '@wings-software/uicore'
-import type { UseGetReturn } from 'restful-react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -54,15 +53,9 @@ function WrapperComponent(props: PrometheusHealthSourceProps): JSX.Element {
 
 describe('Unit tests for PrometheusHealthSource', () => {
   beforeAll(() => {
-    jest
-      .spyOn(cvService, 'useGetLabelNames')
-      .mockReturnValue({ data: { data: [] } } as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(cvService, 'useGetMetricNames')
-      .mockReturnValue({ data: { data: [] } } as UseGetReturn<any, any, any, any>)
-    jest
-      .spyOn(cvService, 'useGetMetricPacks')
-      .mockReturnValue({ data: { data: [] } } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetLabelNames').mockReturnValue({ data: { data: [] } } as any)
+    jest.spyOn(cvService, 'useGetMetricNames').mockReturnValue({ data: { data: [] } } as any)
+    jest.spyOn(cvService, 'useGetMetricPacks').mockReturnValue({ data: { data: [] } } as any)
   })
   beforeEach(() => {
     jest.clearAllMocks()

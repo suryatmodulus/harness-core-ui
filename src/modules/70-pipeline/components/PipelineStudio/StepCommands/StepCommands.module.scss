@@ -20,28 +20,16 @@
       border-bottom: 1px solid var(--grey-300);
       background-color: var(--white);
       padding: 0 var(--spacing-5);
+      align-items: center;
     }
     :global(.bp3-tab-panel) {
-      padding: var(--spacing-large);
+      padding: var(--spacing-7);
       margin-top: 0;
       background-color: var(--form-bg);
       height: calc(100% - 60px);
     }
+    .saveButton:global(.bp3-button) {
+      --border: 1px solid var(--primary-7) !important;
+    }
   }
-}
-
-.useTemplateBtn,
-.saveAsTempalteBtn {
-  height: 20px !important;
-  color: var(--primary-7) !important;
-  margin-bottom: var(--spacing-small) !important;
-  border: 1px solid var(--primary-6) !important;
-
-  :global(.bp3-icon) {
-    color: var(--primary-7) !important;
-  }
-}
-
-.useTemplateBtn {
-  margin-right: var(--spacing-3) !important;
 }

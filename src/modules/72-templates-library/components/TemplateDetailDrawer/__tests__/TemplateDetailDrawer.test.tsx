@@ -7,7 +7,7 @@ describe('<TemplateDetailDrawer /> tests', () => {
   test('snapshot test', () => {
     const { container } = render(
       <TestWrapper>
-        <TemplateDetailsDrawer onClose={jest.fn()} />
+        <TemplateDetailsDrawer accountId="account-id" onClose={jest.fn()} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

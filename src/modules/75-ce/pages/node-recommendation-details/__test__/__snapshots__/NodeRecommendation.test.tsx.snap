@@ -148,7 +148,7 @@ exports[`test cases for Node Recommendation page should be able to render the pa
                     style="display: flex; align-items: center;"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                      class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                       data-icon="money-icon"
                       style="padding-right: 10px;"
                     >
@@ -377,7 +377,7 @@ exports[`test cases for Node Recommendation page should be able to render the pa
                     style="display: flex; align-items: center;"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                      class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                       data-icon="gcp"
                       style="padding-right: 10px;"
                     >
@@ -1008,7 +1008,7 @@ exports[`test cases for Node Recommendation page should be able to render the pa
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
+                class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
                 data-icon="info"
               >
                 <svg
@@ -1031,7 +1031,7 @@ exports[`test cases for Node Recommendation page should be able to render the pa
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
+                class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
                 data-icon="info"
               >
                 <svg

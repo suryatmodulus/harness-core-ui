@@ -48,7 +48,8 @@ const getPipelineContext = (): PipelineContextInterface => ({
     isInitialized: true,
     isLoading: false,
     gitDetails: {},
-    isUpdated: true
+    isUpdated: true,
+    templateTypes: {}
   },
   setSchemaErrorView: jest.fn(),
   stagesMap: {},
@@ -72,7 +73,8 @@ const getPipelineContext = (): PipelineContextInterface => ({
   setSelectedSectionId: jest.fn(),
   setSelectedStepId: jest.fn(),
   setSelection: jest.fn(),
-  getStagePathFromPipeline: jest.fn()
+  getStagePathFromPipeline: jest.fn(),
+  setTemplateTypes: jest.fn()
 })
 describe('StepWidget tests', () => {
   test(`renders DeployStageSpecifications without crashing `, () => {

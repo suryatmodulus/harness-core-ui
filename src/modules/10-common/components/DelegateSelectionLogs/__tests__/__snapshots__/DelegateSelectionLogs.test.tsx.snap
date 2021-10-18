@@ -182,7 +182,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
               >
                 Selected
                 <span
-                  class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green500"
+                  class="bp3-icon bp3-icon-tick StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green500"
                   icon="tick"
                 >
                   <svg

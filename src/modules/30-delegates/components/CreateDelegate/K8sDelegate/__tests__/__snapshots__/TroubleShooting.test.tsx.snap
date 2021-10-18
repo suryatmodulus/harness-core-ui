@@ -25,7 +25,7 @@ exports[`Create Common Problems Tab render data 1`] = `
         style="line-height: 22px; display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue800"
+          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue800"
           data-icon="info"
         >
           <svg
@@ -179,7 +179,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         style="line-height: 22px; display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue800"
+          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-blue800"
           data-icon="info"
         >
           <svg

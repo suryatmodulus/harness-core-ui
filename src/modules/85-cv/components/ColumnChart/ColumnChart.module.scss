@@ -2,14 +2,12 @@
   position: relative;
   height: 100px !important;
   width: 100% !important;
-  .bar {
+  .column {
     position: absolute;
     bottom: 0;
     height: 0;
-    transition: height 550ms ease-out;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
-    width: 12px !important;
     display: inline-block;
   }
 }
@@ -25,13 +23,17 @@
       background-color: var(--grey-700) !important;
     }
   }
+}
 
-  .timeRange {
-    color: var(--white) !important;
-  }
-  .healthScore {
-    font-weight: bold !important;
-    display: inline-block;
-    margin-left: var(--spacing-xsmall) !important;
-  }
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px !important;
+  padding-top: var(--spacing-9) !important;
+}
+
+.noDataImage {
+  height: 90px;
+  width: 200px;
 }

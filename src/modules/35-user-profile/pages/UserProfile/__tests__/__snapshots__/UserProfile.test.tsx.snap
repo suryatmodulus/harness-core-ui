@@ -21,7 +21,7 @@ exports[`User Profile Page User Profile 1`] = `
         style="display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
           data-icon="deployment-incomplete-legacy"
         >
           <svg
@@ -149,7 +149,7 @@ exports[`User Profile Page User Profile 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--padding-right-medium"
+            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-medium"
             data-icon="main-email"
           >
             <svg
@@ -171,7 +171,7 @@ exports[`User Profile Page User Profile 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-lock StyledProps--main StyledProps--padding-right-xsmall"
+            class="bp3-icon bp3-icon-lock StyledProps--main Text--icon StyledProps--padding-right-xsmall"
             icon="lock"
           >
             <svg
@@ -205,7 +205,7 @@ exports[`User Profile Page User Profile 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-people StyledProps--main StyledProps--padding-right-xsmall"
+            class="bp3-icon bp3-icon-people StyledProps--main Text--icon StyledProps--padding-right-xsmall"
             icon="people"
           >
             <svg

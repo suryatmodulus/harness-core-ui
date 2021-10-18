@@ -1,3 +1,4 @@
+import type { GetDataError } from 'restful-react'
 import type { RiskData } from 'services/cv'
 
 export type ColumnData = {
@@ -14,4 +15,13 @@ export type ColumnData = {
 export interface ColumnChartProps {
   data: ColumnData[]
   leftOffset?: number
+  columnWidth?: number
+  isLoading?: boolean
+  error?: GetDataError<unknown> | null
+  refetchOnError?: () => void
+  columnHeight?: number
+  timestampMarker?: {
+    timestamp: number
+    color: string
+  }
 }

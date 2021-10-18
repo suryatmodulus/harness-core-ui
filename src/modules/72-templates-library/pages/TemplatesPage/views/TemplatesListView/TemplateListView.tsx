@@ -5,22 +5,12 @@ import { Position } from '@blueprintjs/core'
 import { isEmpty } from 'lodash-es'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
-import type { TemplateSummaryResponse, PageTemplateSummaryResponse } from 'services/template-ng'
+import type { TemplateSummaryResponse } from 'services/template-ng'
 import { templateColorStyleMap } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { TemplateListContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplateListCardContextMenu/TemplateListContextMenu'
 import { TemplateTags } from '@templates-library/components/TemplateTags/TemplateTags'
+import type { TemplatesViewProps } from '@templates-library/pages/TemplatesPage/views/TemplatesView'
 import css from './TemplatesListView.module.scss'
-
-interface TemplateListViewProps {
-  data?: PageTemplateSummaryResponse
-  onPreview?: (template: TemplateSummaryResponse) => void
-  onOpenEdit?: (template: TemplateSummaryResponse) => void
-  onOpenSettings?: (templateIdentifier: string) => void
-  onDelete?: (templateIdentifier: string) => void
-  gotoPage: (pageNumber: number) => void
-  onSelect: (template: TemplateSummaryResponse) => void
-  selectedIdentifier?: string
-}
 
 type CustomColumn<T extends Record<string, any>> = Column<T> & {
   onPreview?: (template: TemplateSummaryResponse) => void
@@ -82,16 +72,21 @@ const RenderColumnTemplate: Renderer<CellProps<TemplateSummaryResponse>> = ({ ro
         tooltipProps={{ position: Position.BOTTOM }}
         lineClamp={1}
         tooltip={
-          <Layout.Vertical spacing="medium" padding="medium" style={{ maxWidth: 400 }}>
-            <Text>{getString('nameLabel', { name: data.name })}</Text>
-            <Text>{getString('idLabel', { id: data.identifier })}</Text>
+          <Layout.Vertical
+            color={Color.GREY_800}
+            spacing="small"
+            padding="medium"
+            style={{ maxWidth: 400, overflowWrap: 'anywhere' }}
+          >
+            <Text color={Color.GREY_800}>{getString('nameLabel', { name: data.name })}</Text>
+            <br />
             <Text>{getString('descriptionLabel', { description: data.description || '-' })}</Text>
           </Layout.Vertical>
         }
       >
         {data.name}
       </Text>
-      <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }}>
+      <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }} lineClamp={1}>
         {getString('idLabel', { id: data.identifier })}
       </Text>
     </Layout.Vertical>
@@ -114,7 +109,7 @@ const RenderColumnTags: Renderer<CellProps<TemplateSummaryResponse>> = ({ row })
   return (
     <Layout.Horizontal width={'100%'} padding={{ right: 'medium' }} style={{ alignItems: 'center' }}>
       {data.tags && !isEmpty(data.tags) ? (
-        <TemplateTags tags={data.tags} length={3} />
+        <TemplateTags tags={data.tags} />
       ) : (
         <Text color={Color.GREY_400} font={{ weight: 'semi-bold' }}>
           -
@@ -124,28 +119,30 @@ const RenderColumnTags: Renderer<CellProps<TemplateSummaryResponse>> = ({ row })
   )
 }
 
-export const TemplateListView: React.FC<TemplateListViewProps> = (props): JSX.Element => {
+export const TemplateListView: React.FC<TemplatesViewProps> = (props): JSX.Element => {
   const { getString } = useStrings()
-  const { data, gotoPage, onPreview, onOpenEdit, onOpenSettings, onDelete, onSelect } = props
+  const { data, selectedIdentifier, gotoPage, onPreview, onOpenEdit, onOpenSettings, onDelete, onSelect } = props
+
+  const hideMenu = !onPreview && !onOpenEdit && !onOpenSettings && !onDelete
 
   const columns: CustomColumn<TemplateSummaryResponse>[] = React.useMemo(
     () => [
       {
         Header: getString('typeLabel').toUpperCase(),
         accessor: 'templateEntityType',
-        width: '20%',
+        width: '15%',
         Cell: RenderColumnType
       },
       {
         Header: 'Template',
         accessor: 'name',
-        width: '30%',
+        width: hideMenu ? '35%' : '30%',
         Cell: RenderColumnTemplate
       },
       {
         Header: getString('version').toUpperCase(),
         accessor: 'versionLabel',
-        width: '20%',
+        width: '25%',
         Cell: RenderColumnLabel,
         disableSortBy: true
       },
@@ -171,6 +168,10 @@ export const TemplateListView: React.FC<TemplateListViewProps> = (props): JSX.El
     [onPreview]
   )
 
+  if (hideMenu) {
+    columns.pop()
+  }
+
   return (
     <Table<TemplateSummaryResponse>
       className={css.table}
@@ -184,6 +185,7 @@ export const TemplateListView: React.FC<TemplateListViewProps> = (props): JSX.El
         pageIndex: data?.number || 0,
         gotoPage
       }}
+      getRowClassName={row => (row.original.identifier === selectedIdentifier ? css.selected : '')}
     />
   )
 }

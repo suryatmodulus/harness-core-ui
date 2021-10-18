@@ -25,7 +25,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
             data-icon="deployment-incomplete-legacy"
           >
             <svg
@@ -398,7 +398,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -828,7 +828,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -1258,7 +1258,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -1688,7 +1688,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -2083,7 +2083,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -2513,7 +2513,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -2943,7 +2943,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -3329,7 +3329,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
             data-icon="deployment-incomplete-legacy"
           >
             <svg
@@ -3702,7 +3702,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -4132,7 +4132,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -4562,7 +4562,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -4992,7 +4992,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -5387,7 +5387,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -5817,7 +5817,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -6247,7 +6247,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -6633,7 +6633,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
             data-icon="deployment-incomplete-legacy"
           >
             <svg
@@ -7006,7 +7006,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -7436,7 +7436,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -7866,7 +7866,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -8296,7 +8296,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -8691,7 +8691,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -9121,7 +9121,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -9551,7 +9551,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -9937,7 +9937,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           style="display: flex; align-items: center;"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
             data-icon="deployment-incomplete-legacy"
           >
             <svg
@@ -10310,7 +10310,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -10740,7 +10740,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -11170,7 +11170,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -11600,7 +11600,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -11995,7 +11995,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -12425,7 +12425,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg
@@ -12855,7 +12855,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       style="--text-line-clamp: 1; display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                         data-icon="union"
                       >
                         <svg

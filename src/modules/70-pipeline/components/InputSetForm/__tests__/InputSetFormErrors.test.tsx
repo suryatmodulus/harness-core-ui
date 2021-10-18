@@ -75,6 +75,13 @@ jest.mock('services/cd-ng', () => ({
     return { data: sourceCodeManagers, refetch: jest.fn() }
   })
 }))
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+
+  useMutateAsGet: jest.fn().mockImplementation(() => {
+    return TemplateResponse
+  })
+}))
 
 jest.mock('services/pipeline-ng', () => ({
   useGetInputSetForPipeline: jest.fn(() => GetInputSetEdit),
@@ -92,6 +99,7 @@ jest.mock('services/pipeline-ng', () => ({
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => MergeInputSetResponse),
   useGetPipeline: jest.fn(() => PipelineResponse),
   useGetTemplateFromPipeline: jest.fn(() => TemplateResponse),
+  useGetStagesExecutionList: jest.fn(() => ({})),
   useGetOverlayInputSetForPipeline: jest.fn(() => GetOverlayInputSetEdit),
   useCreateInputSetForPipeline: jest.fn().mockImplementation(() => ({ errorResponse })),
   useUpdateInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: errorResponse })),

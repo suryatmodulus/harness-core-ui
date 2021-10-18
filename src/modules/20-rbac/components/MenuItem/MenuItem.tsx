@@ -11,7 +11,7 @@ import { getTooltip } from '@rbac/utils/utils'
 import css from './MenuItem.module.scss'
 
 export interface RbacMenuItemProps extends IMenuItemProps {
-  permission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
+  permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
   featureProps?: FeatureProps
 }
 
@@ -19,7 +19,7 @@ const RbacMenuItem: React.FC<RbacMenuItemProps> = ({ permission: permissionReque
   const [canDoAction] = usePermission(
     {
       ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),
-      permissions: [permissionRequest.permission || '']
+      permissions: [permissionRequest?.permission || '']
     } as PermissionsRequest,
     [permissionRequest]
   )
@@ -33,7 +33,10 @@ const RbacMenuItem: React.FC<RbacMenuItemProps> = ({ permission: permissionReque
   const tooltipProps = getTooltip({ permissionRequest, featureProps, canDoAction, featureEnabled, module })
   const { tooltip } = tooltipProps
 
-  if (canDoAction && featureEnabled) {
+  const noRequest = !featureProps?.featureRequest && !permissionRequest
+  const enabled = canDoAction && featureEnabled
+
+  if (noRequest || enabled) {
     return <Menu.Item {...restProps} />
   }
 
@@ -42,8 +45,8 @@ const RbacMenuItem: React.FC<RbacMenuItemProps> = ({ permission: permissionReque
       openOnTargetFocus={false}
       fill
       usePortal
-      interactionKind={PopoverInteractionKind.HOVER_TARGET_ONLY}
       hoverCloseDelay={50}
+      interactionKind={featureEnabled ? PopoverInteractionKind.HOVER_TARGET_ONLY : PopoverInteractionKind.HOVER}
       content={tooltip}
       className={css.popover}
       inheritDarkTheme={false}

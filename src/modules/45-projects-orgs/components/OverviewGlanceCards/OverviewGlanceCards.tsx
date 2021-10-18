@@ -89,7 +89,8 @@ const OverviewGlanceCards: React.FC = () => {
       accountIdentifier: accountId,
       startTime: range[0],
       endTime: range[1]
-    }
+    },
+    lazy: true
   })
 
   useEffect(() => {

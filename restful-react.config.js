@@ -57,7 +57,8 @@ module.exports = {
       base: `{getConfig("ng-dashboard/api")}`
     },
     customGenerator: arg => customGenerator(arg, "getConfig('ng-dashboard/api')")
-  },  logs: {
+  },
+  logs: {
     output: 'src/services/logs/index.tsx',
     file: 'src/services/logs/swagger.json',
     transformer: 'scripts/swagger-transform.js',

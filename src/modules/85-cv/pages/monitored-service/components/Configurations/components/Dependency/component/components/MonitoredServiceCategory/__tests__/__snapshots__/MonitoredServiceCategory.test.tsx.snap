@@ -10,7 +10,7 @@ exports[`Unit tests for MonitoredServiceCategory Ensure application typee is ren
       style="display: flex; align-items: center;"
     >
       <span
-        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary8"
+        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary8"
         data-icon="dashboard"
       >
         <svg
@@ -42,7 +42,7 @@ exports[`Unit tests for MonitoredServiceCategory Ensure infra type is rendered c
       style="display: flex; align-items: center;"
     >
       <span
-        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-purple500"
+        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-purple500"
         data-icon="infrastructure"
       >
         <svg

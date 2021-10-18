@@ -28,6 +28,9 @@ import {
   UpdateTemplateSettingsQueryParams
 } from 'services/template-ng'
 import { useMutateAsGet } from '@common/hooks'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacButton from '@rbac/components/Button/Button'
 import css from './TemplateSettingsModal.module.scss'
 
 export interface TemplateSettingsModalProps {
@@ -39,6 +42,9 @@ export interface TemplateSettingsModalProps {
 interface BasicDetailsInterface extends TemplateSettingsModalProps {
   setPreviewValues: Dispatch<SetStateAction<TemplateSummaryResponse | undefined>>
   templates?: TemplateSummaryResponse[]
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   onUpdateSetting: (
     updateScope: UpdateTemplateSettingsQueryParams['updateScope'],
     updateStableTemplateVersion: string
@@ -135,7 +141,22 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
             </Container>
             <Container>
               <Layout.Horizontal spacing="small" flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
-                <Button text={getString('save')} type="submit" variation={ButtonVariation.PRIMARY} />
+                <RbacButton
+                  text={getString('save')}
+                  variation={ButtonVariation.PRIMARY}
+                  type="submit"
+                  permission={{
+                    permission: PermissionIdentifier.EDIT_TEMPLATE,
+                    resource: {
+                      resourceType: ResourceType.TEMPLATE
+                    },
+                    resourceScope: {
+                      accountIdentifier: props.accountId,
+                      orgIdentifier: props.orgIdentifier,
+                      projectIdentifier: props.projectIdentifier
+                    }
+                  }}
+                />
                 <Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onClose} />
               </Layout.Horizontal>
             </Container>
@@ -222,6 +243,9 @@ export const TemplateSettingsModal = (props: TemplateSettingsModalProps) => {
         onUpdateSetting={updateSettings}
         templates={templateData?.data?.content}
         setPreviewValues={setPreviewValues}
+        accountId={accountId}
+        orgIdentifier={orgIdentifier}
+        projectIdentifier={projectIdentifier}
       />
       <TemplatePreview previewValues={previewValues} />
       <Button

@@ -22,7 +22,8 @@
     "SHARED": ["src/modules/10-common/**", "src/navigation/**"],
     "DASHBOARDS": ["src/modules/45-dashboards/**"],
     "User Profile": ["src/modules/35-user-profile/**"],
-    "Auth": ["src/modules/30-auth-settings/**"]
+    "Auth": ["src/modules/30-auth-settings/**"],
+    "GOVERNANCE": ["src/modules/73-governance/**"]
   },
   "ignore": ["src/**/*.d.ts", "src/**/*.stories.*", "src/**/__tests__/**", "src/**/__test__/**"]
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import { cloneDeep } from 'lodash-es'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import * as cvService from 'services/cv'
@@ -317,12 +316,12 @@ describe('Unit tests for Deployment metrics', () => {
     const useGetHealthSourcesSpy = jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
       data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const useGetDeploymentMetricsSpy = jest.spyOn(cvService, 'useGetDeploymentMetrics').mockReturnValue({
       data: ApiResponse,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText } = render(
       <TestWrapper>
@@ -390,12 +389,12 @@ describe('Unit tests for Deployment metrics', () => {
     jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
       data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const useGetDeploymentMetricsSpy = jest.spyOn(cvService, 'useGetDeploymentMetrics').mockReturnValue({
       data: ApiResponse,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container } = render(
       <TestWrapper>
@@ -450,12 +449,12 @@ describe('Unit tests for Deployment metrics', () => {
     jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
       data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     jest.spyOn(cvService, 'useGetDeploymentMetrics').mockReturnValue({
       loading: true,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container } = render(
       <TestWrapper>
@@ -473,13 +472,13 @@ describe('Unit tests for Deployment metrics', () => {
     jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
       data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const refetchFn = jest.fn()
     jest.spyOn(cvService, 'useGetDeploymentMetrics').mockReturnValue({
       error: { data: { message: 'mockError' } } as any,
       refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText } = render(
       <TestWrapper>
@@ -501,13 +500,13 @@ describe('Unit tests for Deployment metrics', () => {
     jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
       data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const refetchFn = jest.fn()
     jest.spyOn(cvService, 'useGetDeploymentMetrics').mockReturnValue({
       data: { resource: { content: [] } } as any,
       refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText } = render(
       <TestWrapper>
@@ -526,13 +525,13 @@ describe('Unit tests for Deployment metrics', () => {
     jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
       data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const refetchFn = jest.fn()
     const useGetDeploymentMetricsSpy = jest.spyOn(cvService, 'useGetDeploymentMetrics').mockReturnValue({
       data: ApiResponse,
       refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, rerender } = render(
       <TestWrapper>
@@ -597,7 +596,7 @@ describe('Unit tests for Deployment metrics', () => {
     jest.spyOn(cvService, 'useGetHealthSources').mockReturnValue({
       data: HealthSourcesResponse,
       refetch: jest.fn() as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const refetchFn = jest.fn()
     const clonedNode = cloneDeep(MockExecutionNode)
@@ -606,7 +605,7 @@ describe('Unit tests for Deployment metrics', () => {
     jest.spyOn(cvService, 'useGetDeploymentMetrics').mockReturnValue({
       data: ApiResponse,
       refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container } = render(
       <TestWrapper>
@@ -643,7 +642,7 @@ describe('Unit tests for Deployment metrics', () => {
     jest.spyOn(cvService, 'useGetDeploymentMetrics').mockReturnValue({
       data: clonedResponse,
       refetch: refetchFn as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     jest.runTimersToTime(20000)
     await waitFor(() => expect(refetchFn).toHaveBeenCalledTimes(1))

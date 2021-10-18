@@ -245,6 +245,7 @@ export interface StringsMap {
   'common.gitSync.unSynced.message2': string
   'common.gitSync.unableToCreatePR': string
   'common.gitSync.updateResource': string
+  'common.governance': string
   'common.harnessClusterHostingAccount': string
   'common.harnessFirstGeneration': string
   'common.harnessFirstGenerationDescription': string
@@ -400,6 +401,9 @@ export interface StringsMap {
   'common.resolveConflict': string
   'common.role': string
   'common.saveAndClose': string
+  'common.saveAsNewTemplateHeading': string
+  'common.saveTemplate.errorWhileSaving': string
+  'common.saveTemplate.publishTemplate': string
   'common.savedSuccessfully': string
   'common.searchPlaceholder': string
   'common.seconds': string
@@ -548,6 +552,7 @@ export interface StringsMap {
   'notifications.pagerDutykey': string
   'notifications.pagerDutyuserGroups': string
   'notifications.pipelineEvents': string
+  'notifications.pipelineName': string
   'notifications.placeholderMSKeys': string
   'notifications.selectPipelineEvents': string
   'notifications.selectStagesPlaceholder': string
@@ -703,6 +708,9 @@ export interface StringsMap {
   'rbac.userUpperLimit': string
   'rbac.usersPage.assignRoleBindings': string
   'rbac.usersPage.deleteConfirmation': string
+  'rbac.usersPage.deleteLastAdminError': string
+  'rbac.usersPage.deleteLastAdminOrgConfirmation': string
+  'rbac.usersPage.deleteLastAdminProjectConfirmation': string
   'rbac.usersPage.deleteSuccessMessage': string
   'rbac.usersPage.deleteTitle': string
   'rbac.usersPage.invitationError': string
@@ -1817,6 +1825,8 @@ export interface StringsMap {
   'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
+  'pipeline.advancedOptions': string
+  'pipeline.allStages': string
   'pipeline.and': string
   'pipeline.approvalStage.settingUpStage': string
   'pipeline.approvalStep.addApproverInputs': string
@@ -2216,6 +2226,8 @@ export interface StringsMap {
   'pipeline.pipelineSteps.customStageDescription': string
   'pipeline.pipelineSteps.deployStageDescription': string
   'pipeline.pipelineSteps.featureStageDescription': string
+  'pipeline.pipelineTimeoutHelpText': string
+  'pipeline.pipelineTimeoutSettings': string
   'pipeline.poweredByHarness': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string
@@ -2243,6 +2255,7 @@ export interface StringsMap {
   'pipeline.selectStagePlaceholder': string
   'pipeline.serviceDependenciesText': string
   'pipeline.serviceDependencyText': string
+  'pipeline.singleStageExecution': string
   'pipeline.sslVerify': string
   'pipeline.stagetoRetryFrom': string
   'pipeline.startTime': string
@@ -2552,14 +2565,11 @@ export interface StringsMap {
   'templatesLibrary.editModal.heading': string
   'templatesLibrary.entityType': string
   'templatesLibrary.errorWhileDeleting': string
-  'templatesLibrary.errorWhileSaving': string
   'templatesLibrary.errorWhileUpdating': string
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.openInTemplateStudio': string
-  'templatesLibrary.publishTemplate': string
   'templatesLibrary.referencedBy': string
   'templatesLibrary.saveAsNewLabelModal.heading': string
-  'templatesLibrary.saveAsNewTemplateModal.heading': string
   'templatesLibrary.selectTemplateToPreview': string
   'templatesLibrary.stageTemplate': string
   'templatesLibrary.templateInputs': string
@@ -2572,6 +2582,7 @@ export interface StringsMap {
   'templatesLibrary.templateUpdated': string
   'templatesLibrary.templateUpdatedError': string
   'templatesLibrary.templatesDeleted': string
+  'templatesLibrary.templatesLabel': string
   'templatesLibrary.templatesPage.noTemplates': string
   'templatesLibrary.updateTemplateModal.addCommentPlaceholder': string
   'templatesLibrary.updateTemplateModal.commentLabel': string
@@ -3852,6 +3863,7 @@ export interface StringsMap {
   'cv.getRiskAssessment': string
   'cv.harnessEnvironment': string
   'cv.harnessService': string
+  'cv.healthScore': string
   'cv.healthSource.addHealthSource': string
   'cv.healthSource.backtoMonitoredService': string
   'cv.healthSource.connectHealthSource': string
@@ -3922,7 +3934,6 @@ export interface StringsMap {
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceDependencies.noData': string
   'cv.monitoredServices.serviceHealth.anamolies': string
-  'cv.monitoredServices.serviceHealth.healthScore': string
   'cv.monitoredServices.serviceHealth.last24Hrs': string
   'cv.monitoredServices.serviceHealth.last3Days': string
   'cv.monitoredServices.serviceHealth.last4Hrs': string
@@ -4190,6 +4201,7 @@ export interface StringsMap {
   'cv.sampleEvent': string
   'cv.sampleMessage': string
   'cv.searchForAService': string
+  'cv.seeYAML': string
   'cv.selectCreateService': string
   'cv.selectNamespace': string
   'cv.selectOrCreateEnv': string
@@ -4206,10 +4218,12 @@ export interface StringsMap {
   'cv.serviceDashboardPage.sevenDays': string
   'cv.serviceDashboardPage.thirtyDays': string
   'cv.serviceDashboardPage.twelveHours': string
+  'cv.serviceHealthTrend': string
   'cv.setup': string
   'cv.share': string
   'cv.showLess': string
   'cv.showMore': string
+  'cv.showYAMLChange': string
   'cv.statusCode': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string
@@ -5623,10 +5637,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   goToHome: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  governance: string
   /**
    * @deprecated migrate this string to module level file
    */

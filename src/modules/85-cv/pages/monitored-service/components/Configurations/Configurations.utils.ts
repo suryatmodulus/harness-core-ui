@@ -1,7 +1,7 @@
 import type { TabId } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
-import { isEqual, isNull } from 'lodash-es'
-import type { GetDataError, MutateMethod } from 'restful-react'
+import { isEqual } from 'lodash-es'
+import type { MutateMethod } from 'restful-react'
 import type {
   MonitoredServiceDTO,
   RestResponseMonitoredServiceResponse,
@@ -156,14 +156,4 @@ export const onSubmit = async ({
     await saveMonitoredService(payload)
     setOverrideBlockNavigation(true)
   }
-}
-
-export const showErrorOnSubmit = (
-  errorUpdateMonitoredService: GetDataError<unknown> | null,
-  errorSaveMonitoredService: GetDataError<unknown> | null,
-  showError: (message: React.ReactNode, timeout?: number | undefined, key?: string | undefined) => void,
-  getErrorMessage: (errorObj?: any) => string | undefined
-): void => {
-  !isNull(errorUpdateMonitoredService) && showError(getErrorMessage(errorUpdateMonitoredService))
-  !isNull(errorSaveMonitoredService) && showError(getErrorMessage(errorSaveMonitoredService))
 }

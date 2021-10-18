@@ -15,7 +15,7 @@ export const TemplateCommentModal = (props: UpdateTemplateModalProps) => {
   const { getString } = useStrings()
 
   return (
-    <Container padding={'xxxlarge'}>
+    <Container padding={'xxxlarge'} className={css.main}>
       <Formik<{ comments: string }>
         onSubmit={values => {
           onSubmit(values.comments)
@@ -34,7 +34,6 @@ export const TemplateCommentModal = (props: UpdateTemplateModalProps) => {
                     {getString('templatesLibrary.updateTemplateModal.commentLabel')}
                   </Text>
                   <FormInput.TextArea
-                    className={css.commentsArea}
                     data-name="comments"
                     name="comments"
                     placeholder={getString('templatesLibrary.updateTemplateModal.addCommentPlaceholder')}

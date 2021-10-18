@@ -564,7 +564,6 @@ SSH: 'SSH'
 SSH_KEY: 'SSH Key'
 version: Version
 goToHome: Go to Home
-governance: 'Governance'
 runPipeline: Run Pipeline
 generalSettings: 'General Settings'
 accessControl: 'Access Control'
@@ -871,7 +870,7 @@ pipelineSteps:
   sourcePathsInfo: 'A list of files. Expressions are supported. For example: target/*.jar'
   pomFileLabel: 'POM File'
   pomFileInfo: Path to the pom.xml file
-  setContainerResources: 'Set container resources'
+  setContainerResources: 'Set Container Resources'
   limitMemoryLabel: 'Limit Memory'
   limitMemoryPlaceholder: '128Mi'
   limitCPULabel: 'Limit CPU'

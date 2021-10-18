@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { Formik, FormikContext } from 'formik'
 import { useParams } from 'react-router-dom'
 import { Text, Color } from '@wings-software/uicore'
-import { PageSpinner, useToaster } from '@common/components'
+import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { MonitoredServiceResponse, ChangeSourceDTO } from 'services/cv'
 import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
@@ -36,7 +36,6 @@ function Service({
   onChangeMonitoredServiceType: (updatedValues: MonitoredServiceForm) => void
 }): JSX.Element {
   const { getString } = useStrings()
-  const { showError, showSuccess } = useToaster()
   const [validMonitoredSource, setValidMonitoredSource] = useState(false)
   const { identifier } = useParams<{ identifier: string }>()
 
@@ -145,7 +144,7 @@ function Service({
                 <div className={css.saveDiscardButton}>
                   <SaveAndDiscardButton
                     isUpdated={isUpdated(formik.dirty, initialValues, cachedInitialValues)}
-                    onSave={() => onSave({ formik, isEdit, getString, onSuccess, showSuccess, showError })}
+                    onSave={() => onSave({ formik, onSuccess })}
                     onDiscard={() => {
                       formik.resetForm()
                       onDiscard?.()

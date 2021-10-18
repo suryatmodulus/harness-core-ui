@@ -158,6 +158,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
       accountId: string
     }>
   >()
+  const isCIModule = module === 'ci'
   const { isGitSyncEnabled } = { isGitSyncEnabled: true }
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const history = useHistory()
@@ -430,7 +431,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               }}
               featureProps={{
                 featureRequest: {
-                  featureName: FeatureIdentifier.DEPLOYMENTS
+                  featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
                 }
               }}
               onClick={e => {

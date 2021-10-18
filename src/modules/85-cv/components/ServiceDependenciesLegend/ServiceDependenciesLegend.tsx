@@ -1,15 +1,16 @@
 import React from 'react'
+import cx from 'classnames'
 import { Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { getServicesStates } from './ServiceDependenciesLegend.utils'
 import css from './ServiceDependenciesLegend.module.scss'
 
-export default function ServiceDependenciesLegend(): JSX.Element {
+export default function ServiceDependenciesLegend({ className }: { className?: string }): JSX.Element {
   const { getString } = useStrings()
   const servicesStates = getServicesStates()
 
   return (
-    <Container className={css.dependenciesLegendsContainer}>
+    <Container className={cx(css.dependenciesLegendsContainer, className)}>
       {servicesStates.map(state => {
         return (
           <Container flex key={state.identifier}>

@@ -44,11 +44,11 @@ export default function ChangesTable({
   const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.resource ?? ({} as any)
 
   const drawerOptions = {
-    size: '530px',
+    size: '830px',
     onClose: noop
   } as IDrawerProps
   const { showDrawer } = useDrawer({
-    createDrawerContent: props => <ChangeEventCard activityId={props?.id} />,
+    createDrawerContent: props => <ChangeEventCard activityId={props.id} />,
     drawerOptions
   })
 
@@ -57,21 +57,22 @@ export default function ChangesTable({
   }, [startTime, endTime])
 
   useEffect(() => {
-    refetch({
-      queryParams: {
-        serviceIdentifiers: [serviceIdentifier],
-        envIdentifiers: [environmentIdentifier],
-        startTime,
-        endTime,
-        pageIndex: page,
-        pageSize: 10
-      },
-      queryParamStringifyOptions: {
-        arrayFormat: 'repeat'
-      }
-    })
+    if (startTime && endTime) {
+      refetch({
+        queryParams: {
+          serviceIdentifiers: [serviceIdentifier],
+          envIdentifiers: [environmentIdentifier],
+          startTime,
+          endTime,
+          pageIndex: page,
+          pageSize: 10
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
+        }
+      })
+    }
   }, [startTime, endTime, serviceIdentifier, environmentIdentifier, page])
-
   const columns: Column<any>[] = useMemo(
     () => [
       {
@@ -149,13 +150,29 @@ export default function ChangesTable({
       })
       return (
         <Card className={css.cardContainer}>
-          <Container className={css.noData}>
-            <NoDataCard
-              button={<Link to={configurationsTabRoute}>{getString('cv.changeSource.configureChangeSource')}</Link>}
-              message={getString('cv.changeSource.noChangeSource')}
-              image={noDataImage}
+          {content?.length ? (
+            <Table
+              onRowClick={showDrawer}
+              sortable={true}
+              columns={columns}
+              data={content}
+              pagination={{
+                pageSize,
+                pageIndex,
+                pageCount: totalPages,
+                itemCount: totalItems,
+                gotoPage: setPage
+              }}
             />
-          </Container>
+          ) : (
+            <Container className={css.noData}>
+              <NoDataCard
+                button={<Link to={configurationsTabRoute}>{getString('cv.changeSource.configureChangeSource')}</Link>}
+                message={getString('cv.changeSource.noChangeSource')}
+                image={noDataImage}
+              />
+            </Container>
+          )}
         </Card>
       )
     } else if (!content?.length) {
@@ -170,7 +187,9 @@ export default function ChangesTable({
       return (
         <Card className={css.cardContainer}>
           <Table
-            onRowClick={showDrawer}
+            onRowClick={info => {
+              showDrawer(info)
+            }}
             sortable={true}
             columns={columns}
             data={content}

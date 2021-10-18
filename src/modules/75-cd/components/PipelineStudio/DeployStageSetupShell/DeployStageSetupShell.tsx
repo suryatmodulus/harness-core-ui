@@ -47,7 +47,8 @@ export default function DeployStageSetupShell(): JSX.Element {
     state: {
       originalPipeline,
       pipelineView,
-      selectionState: { selectedStageId, selectedStepId }
+      selectionState: { selectedStageId, selectedStepId },
+      templateTypes
     },
     stagesMap,
     isReadonly,
@@ -236,6 +237,7 @@ export default function DeployStageSetupShell(): JSX.Element {
               originalStage={originalStage}
               ref={executionRef}
               pathToStage={`${stagePath}.stage.spec.execution`}
+              templateTypes={templateTypes}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               stage={selectedStage!}
               updateStage={stageData => {

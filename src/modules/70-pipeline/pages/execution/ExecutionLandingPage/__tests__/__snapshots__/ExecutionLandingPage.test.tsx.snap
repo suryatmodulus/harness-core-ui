@@ -230,7 +230,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   icon="time"
                 >
                   <svg
@@ -322,7 +322,10 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
           class="main"
         >
           <div
-            style="font-size: 0px;"
+            class="metaContainer"
+          />
+          <div
+            class="userLabelContainer"
           >
             <div
               class="wrapper"

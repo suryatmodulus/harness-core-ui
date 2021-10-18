@@ -45,7 +45,7 @@ exports[`SubscriptionUsageCard CCM 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="deployment-incomplete-legacy"
                       >
                         <svg
@@ -146,7 +146,7 @@ exports[`SubscriptionUsageCard CCM 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="deployment-incomplete-legacy"
                       >
                         <svg
@@ -261,7 +261,7 @@ exports[`SubscriptionUsageCard CD 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="deployment-incomplete-legacy"
                       >
                         <svg
@@ -361,7 +361,7 @@ exports[`SubscriptionUsageCard CD 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="deployment-incomplete-legacy"
                       >
                         <svg
@@ -454,7 +454,7 @@ exports[`SubscriptionUsageCard CD 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="deployment-incomplete-legacy"
                       >
                         <svg
@@ -569,7 +569,7 @@ exports[`SubscriptionUsageCard CI 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="deployment-incomplete-legacy"
                       >
                         <svg
@@ -669,7 +669,7 @@ exports[`SubscriptionUsageCard CI 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="deployment-incomplete-legacy"
                       >
                         <svg
@@ -784,7 +784,7 @@ exports[`SubscriptionUsageCard FF 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="deployment-incomplete-legacy"
                       >
                         <svg
@@ -884,7 +884,7 @@ exports[`SubscriptionUsageCard FF 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="deployment-incomplete-legacy"
                       >
                         <svg
@@ -977,7 +977,7 @@ exports[`SubscriptionUsageCard FF 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="deployment-incomplete-legacy"
                       >
                         <svg

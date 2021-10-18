@@ -1,5 +1,11 @@
 .secondStep {
-  margin: var(--spacing-small) 0 var(--spacing-small) var(--spacing-small) !important;
+  height: 100%;
+  > div:last-child {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   .headingStepTwo {
     font-size: var(--font-size-medium);
     letter-spacing: 0;
@@ -8,7 +14,6 @@
 
   .clusterWrapper {
     padding: var(--spacing-xsmall) !important;
-    min-height: 580px;
     overflow: auto;
 
     .cardRow {

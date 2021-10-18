@@ -4,7 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
-import { TemplateStepWidgetWithRef } from '../TemplateStepWidget'
+import { TemplateStepWidgetWithRef } from '../TemplateStepWidget/TemplateStepWidget'
 
 const getDefaultStepValues = (): TemplateStepData => {
   return {

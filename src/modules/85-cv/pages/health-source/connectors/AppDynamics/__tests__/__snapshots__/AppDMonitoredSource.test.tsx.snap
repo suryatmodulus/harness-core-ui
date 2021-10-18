@@ -283,7 +283,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                         style="display: flex; align-items: center; cursor: pointer;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-issue StyledProps--main StyledProps--padding-right-xsmall"
+                          class="bp3-icon bp3-icon-issue StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                           icon="issue"
                         >
                           <svg

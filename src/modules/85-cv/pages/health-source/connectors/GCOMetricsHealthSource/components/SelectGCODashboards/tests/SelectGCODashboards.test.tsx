@@ -144,7 +144,7 @@ describe('SelectGCODashboards unit tests', () => {
     const useGetStackdriverDashboardsMock = jest.spyOn(cvService, 'useGetStackdriverDashboards')
     useGetStackdriverDashboardsMock.mockImplementation(({ queryParams }) => {
       if (queryParams?.offset === 0) {
-        return MockData as UseGetReturn<any, any, any, any>
+        return MockData as any
       } else {
         return MockData2ndPage as UseGetReturn<any, any, any, unknown>
       }

@@ -21,7 +21,7 @@ export const TemplateYaml: React.FC<TemplateYamlProps> = props => {
       <MonacoEditor
         value={templateYaml}
         language={'yaml'}
-        height="400"
+        height={500}
         options={
           {
             classNames: css.editor,

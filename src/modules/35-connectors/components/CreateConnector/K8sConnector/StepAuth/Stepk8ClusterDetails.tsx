@@ -8,9 +8,10 @@ import {
   Container,
   FormInput,
   Formik,
-  FormikForm as Form,
   Button,
-  SelectOption
+  SelectOption,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
@@ -335,10 +336,9 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
-    <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
+    <Layout.Vertical spacing="medium" className={css.secondStep}>
       <Text
-        font="medium"
-        margin={{ top: 'small' }}
+        font={{ variation: FontVariation.H3 }}
         color={Color.BLACK}
         tooltipProps={{ dataTooltipId: 'K8sConnectorDetails' }}
       >
@@ -354,7 +354,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
         onSubmit={handleSubmit}
       >
         {formikProps => (
-          <Form>
+          <>
             <Container className={css.clusterWrapper}>
               <CardSelect
                 onChange={(item: DelegateCardInterface) => {
@@ -414,18 +414,20 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
               <Button
                 text={getString('back')}
                 icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="k8sBackButton"
               />
               <Button
                 type="submit"
-                intent="primary"
+                variation={ButtonVariation.PRIMARY}
                 text={getString('continue')}
                 rightIcon="chevron-right"
+                onClick={formikProps.submitForm}
                 margin={{ left: 'medium' }}
               />
             </Layout.Horizontal>
-          </Form>
+          </>
         )}
       </Formik>
     </Layout.Vertical>

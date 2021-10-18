@@ -1,8 +1,14 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useCallback } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
 import { Text, Icon, OverlaySpinner, Container, Layout, Color } from '@wings-software/uicore'
-
-import { useGetListOfExecutions, useGetFilterList, GetListOfExecutionsQueryParams } from 'services/pipeline-ng'
+import routes from '@common/RouteDefinitions'
+import {
+  useGetListOfExecutions,
+  useGetFilterList,
+  GetListOfExecutionsQueryParams,
+  useGetPipelineList,
+  PMSPipelineSummaryResponse
+} from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { Page, StringUtils } from '@common/exports'
@@ -36,6 +42,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } =
     useParams<PipelineType<PipelinePathProps>>()
   const [pollingRequest, setPollingRequest] = React.useState(false)
+  const [pipelineDataElements, setData] = React.useState<number | undefined>()
+  const history = useHistory()
   const queryParams = useQueryParams<QueryParams>({
     processQueryParams(params: StringQueryParams) {
       let filters = {}
@@ -72,6 +80,23 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const isCIModule = module === 'ci'
   const { getString } = useStrings()
   const hasFilterIdentifier = filterIdentifier && filterIdentifier !== StringUtils.getIdentifierFromName(UNSAVED_FILTER)
+
+  const { mutate: reloadPipelines, cancel } = useGetPipelineList({
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      module,
+      orgIdentifier,
+      searchTerm,
+      page,
+      size: 1
+    }
+  })
+
+  const fetchPipelines = React.useCallback(async () => {
+    cancel()
+    setData(await (await reloadPipelines({ filterType: 'PipelineSetup' })).data?.totalElements)
+  }, [cancel])
 
   const {
     data,
@@ -143,9 +168,41 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, loading, visible])
 
+  React.useEffect(() => {
+    fetchPipelines()
+  }, [projectIdentifier])
+
   const clearFilters = (): void => {
     replaceQueryParams({})
   }
+
+  // for handling the description when we have no pipelines or we have pipelines but no executions
+  let createPipeline = false
+  let runPipeline = false
+  const executionPresent = !!pipelineExecutionSummary?.content?.length
+  if (!executionPresent) {
+    if (pipelineDataElements === 0) {
+      createPipeline = true
+    } else {
+      runPipeline = true
+    }
+  }
+  const goToPipeline = useCallback(
+    (pipeline?: PMSPipelineSummaryResponse) => {
+      history.push(
+        routes.toPipelineStudio({
+          projectIdentifier,
+          orgIdentifier,
+          pipelineIdentifier: pipeline?.identifier || '-1',
+          accountId,
+          module,
+          branch: pipeline?.gitDetails?.branch,
+          repoIdentifier: pipeline?.gitDetails?.repoIdentifier
+        })
+      )
+    },
+    [projectIdentifier, orgIdentifier, history, accountId]
+  )
 
   return (
     <GitSyncStoreProvider>
@@ -201,12 +258,14 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
                     {getString(isCIModule ? 'pipeline.noBuildsText' : 'pipeline.noDeploymentText')}
                   </Text>
                   <Text className={css.aboutDeployment} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
-                    {getString(isCIModule ? 'noBuildsText' : 'noDeploymentText')}
+                    {getString(
+                      runPipeline ? (isCIModule ? 'noBuildsText' : 'noDeploymentText') : 'pipeline.noPipelineText'
+                    )}
                   </Text>
                   <RbacButton
                     intent="primary"
-                    text={getString('pipeline.runAPipeline')}
-                    onClick={props.onRunPipeline}
+                    text={runPipeline ? getString('pipeline.runAPipeline') : getString('common.createPipeline')}
+                    onClick={createPipeline ? () => goToPipeline() : props.onRunPipeline}
                     permission={{
                       permission: PermissionIdentifier.EXECUTE_PIPELINE,
                       resource: {

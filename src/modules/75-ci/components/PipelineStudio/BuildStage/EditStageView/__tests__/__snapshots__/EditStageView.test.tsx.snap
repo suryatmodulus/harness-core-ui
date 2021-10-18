@@ -20,7 +20,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
+                class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
                 data-icon="ci-main"
               >
                 <svg
@@ -288,7 +288,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
+                class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
                 data-icon="ci-main"
               >
                 <svg
@@ -536,7 +536,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 style="display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-cog StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon bp3-icon-cog StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   icon="cog"
                 >
                   <svg

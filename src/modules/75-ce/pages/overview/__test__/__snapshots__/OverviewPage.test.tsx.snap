@@ -128,7 +128,7 @@ exports[`test cases for Overview Page should be able to render the overview dash
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-caret-up StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                          class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
                           icon="caret-up"
                         >
                           <svg
@@ -254,7 +254,7 @@ exports[`test cases for Overview Page should be able to render the overview dash
                           style="display: inline-flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-up StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                            class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
                             icon="caret-up"
                           >
                             <svg
@@ -412,7 +412,7 @@ exports[`test cases for Overview Page should be able to render the overview dash
                             style="display: inline-flex; align-items: center;"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-up StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                              class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                               icon="caret-up"
                             >
                               <svg

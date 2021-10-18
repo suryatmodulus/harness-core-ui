@@ -1,36 +1,24 @@
 import React from 'react'
-import { noop, set } from 'lodash-es'
-import produce from 'immer'
+import { noop } from 'lodash-es'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button } from '@wings-software/uicore'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import { updateStepWithinStage } from '@pipeline/components/PipelineStudio/RightDrawer/RightDrawer'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
-import type { StepElementConfig } from 'services/cd-ng'
 import { TemplateSelector } from '../TemplateSelector/TemplateSelector'
 import css from './TemplateDrawer.module.scss'
 
 export const TemplateDrawer: React.FC = (): JSX.Element => {
   const {
     state: {
-      selectionState: { selectedStageId },
       templateView: {
         isTemplateDrawerOpened,
-        templateDrawerData: { type, data }
-      },
-      pipelineView: { drawerData },
-      pipelineView
+        templateDrawerData: { type, data },
+        templateDrawerData
+      }
     },
-    updateTemplateView,
-    getStageFromPipeline,
-    updatePipelineView,
-    updateStage
+    updateTemplateView
   } = usePipelineContext()
-  const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
-  const templateTypes = data?.selectorData?.templateTypes
-  const childTypes = data?.selectorData?.childTypes
 
   return (
     <Drawer
@@ -43,7 +31,7 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
       canOutsideClickClose={true}
       enforceFocus={false}
       hasBackdrop={true}
-      size={'1260px'}
+      size={'1287px'}
       isOpen={isTemplateDrawerOpened}
       position={Position.RIGHT}
       data-type={type}
@@ -60,53 +48,12 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
           })
         }}
       />
-      {templateTypes && childTypes && (
+      {data?.selectorData?.templateType && (
         <TemplateSelector
-          onClose={noop}
-          onSelect={noop}
-          templateTypes={templateTypes as TemplateType[]}
-          childTypes={childTypes}
-          onUseTemplate={async template => {
-            updateTemplateView({
-              isTemplateDrawerOpened: false,
-              templateDrawerData: { type: TemplateDrawerTypes.UseTemplate }
-            })
-
-            if (drawerData.data?.stepConfig?.node) {
-              const node = drawerData.data?.stepConfig?.node
-
-              const processNode: TemplateStepData = {
-                identifier: node.identifier,
-                name: node.name || '',
-                template: {
-                  templateRef: template.identifier || '',
-                  versionLabel: template.versionLabel || '',
-                  templateInputs: {
-                    type: (node as StepElementConfig).type
-                  }
-                }
-              }
-
-              if (drawerData.data?.stepConfig?.node?.identifier) {
-                if (selectedStage?.stage?.spec?.execution) {
-                  const processingNodeIdentifier = drawerData.data?.stepConfig?.node?.identifier
-                  const stageData = produce(selectedStage, draft => {
-                    updateStepWithinStage(draft.stage!.spec!.execution!, processingNodeIdentifier, processNode as any)
-                  })
-
-                  // update view data before updating pipeline because its async
-                  updatePipelineView(
-                    produce(pipelineView, draft => {
-                      set(draft, 'drawerData.data.stepConfig.node', processNode)
-                    })
-                  )
-                  await updateStage(stageData.stage!)
-
-                  // drawerData.data?.stepConfig?.onUpdate?.(processNode)
-                }
-              }
-            }
-          }}
+          templateType={data?.selectorData?.templateType as TemplateType}
+          childTypes={data?.selectorData?.childTypes || []}
+          onCopyToPipeline={templateDrawerData.data?.selectorData?.onCopyTemplate}
+          onUseTemplate={templateDrawerData.data?.selectorData?.onUseTemplate}
         />
       )}
     </Drawer>

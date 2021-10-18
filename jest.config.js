@@ -14,6 +14,7 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/framework/app/App.tsx',
+    '!src/framework/strings/languageLoader.ts',
     '!src/framework/AppStore/AppStoreContext.tsx',
     '!src/**/*.d.ts',
     '!src/**/*.test.{ts,tsx}',

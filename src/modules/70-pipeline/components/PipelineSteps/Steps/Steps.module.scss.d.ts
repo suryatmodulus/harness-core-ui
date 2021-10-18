@@ -10,6 +10,7 @@ declare const styles: {
   readonly sm: string
   readonly md: string
   readonly lg: string
+  readonly kvpairLg: string
   readonly alignStart: string
   readonly code: string
   readonly divider: string
@@ -25,5 +26,18 @@ declare const styles: {
   readonly removeBpPopoverWrapperTopMargin: string
   readonly bottomSpacing: string
   readonly topSpacingLarge: string
+  readonly bottomMargin1: string
+  readonly bottomMargin2: string
+  readonly bottomMargin3: string
+  readonly bottomMargin4: string
+  readonly bottomMargin5: string
+  readonly topPadding3: string
+  readonly topPadding7: string
+  readonly bottomPadding3: string
+  readonly label: string
+  readonly mainLabel: string
+  readonly inpLabel: string
+  readonly addSharedPathsBtn: string
+  readonly nameIdLabel: string
 }
 export default styles

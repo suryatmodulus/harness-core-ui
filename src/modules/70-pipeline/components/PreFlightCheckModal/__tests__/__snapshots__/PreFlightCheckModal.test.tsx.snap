@@ -33,7 +33,7 @@ exports[`PreflightCheck click on section title open correct section: opened conn
           style="display: inline-flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
             icon="small-tick"
           >
             <svg
@@ -130,7 +130,7 @@ exports[`PreflightCheck click on section title open correct section: opened conn
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="dot"
               >
                 <svg
@@ -197,7 +197,7 @@ exports[`PreflightCheck click on section title open correct section: opened conn
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
                 icon="dot"
               >
                 <svg
@@ -277,7 +277,7 @@ exports[`PreflightCheck click on section title open correct section: opened pipe
           style="display: inline-flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
             icon="small-tick"
           >
             <svg
@@ -342,7 +342,7 @@ exports[`PreflightCheck click on section title open correct section: opened pipe
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="dot"
               >
                 <svg
@@ -427,7 +427,7 @@ exports[`PreflightCheck renders property when has failed checks: after opening t
           style="display: inline-flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-small-cross StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+            class="bp3-icon bp3-icon-small-cross StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
             icon="small-cross"
           >
             <svg
@@ -452,7 +452,7 @@ exports[`PreflightCheck renders property when has failed checks: after opening t
           style="display: inline-flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-small-cross StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+            class="bp3-icon bp3-icon-small-cross StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
             icon="small-cross"
           >
             <svg
@@ -528,7 +528,7 @@ exports[`PreflightCheck renders property when has failed checks: after opening t
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="dot"
               >
                 <svg
@@ -613,7 +613,7 @@ exports[`PreflightCheck renders property when has failed checks: after opening t
                       style="display: inline-flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                        class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
                         icon="dot"
                       >
                         <svg
@@ -753,7 +753,7 @@ exports[`PreflightCheck renders property when has failed checks: after opening t
                       style="display: inline-flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                        class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
                         icon="dot"
                       >
                         <svg
@@ -833,7 +833,7 @@ exports[`PreflightCheck renders property when has failed checks: after opening t
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="dot"
               >
                 <svg
@@ -933,7 +933,7 @@ exports[`PreflightCheck renders property when has failed checks: before opening 
           style="display: inline-flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-small-cross StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+            class="bp3-icon bp3-icon-small-cross StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
             icon="small-cross"
           >
             <svg
@@ -958,7 +958,7 @@ exports[`PreflightCheck renders property when has failed checks: before opening 
           style="display: inline-flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-small-cross StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+            class="bp3-icon bp3-icon-small-cross StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
             icon="small-cross"
           >
             <svg
@@ -1034,7 +1034,7 @@ exports[`PreflightCheck renders property when has failed checks: before opening 
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="dot"
               >
                 <svg
@@ -1119,7 +1119,7 @@ exports[`PreflightCheck renders property when has failed checks: before opening 
                       style="display: inline-flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                        class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
                         icon="dot"
                       >
                         <svg
@@ -1217,7 +1217,7 @@ exports[`PreflightCheck renders property when has failed checks: before opening 
                       style="display: inline-flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                        class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
                         icon="dot"
                       >
                         <svg
@@ -1297,7 +1297,7 @@ exports[`PreflightCheck renders property when has failed checks: before opening 
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="dot"
               >
                 <svg
@@ -1392,7 +1392,7 @@ exports[`PreflightCheck renders property when has in progress checks 1`] = `
           style="display: inline-flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
             icon="small-tick"
           >
             <svg
@@ -1489,7 +1489,7 @@ exports[`PreflightCheck renders property when has in progress checks 1`] = `
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="dot"
               >
                 <svg
@@ -1556,7 +1556,7 @@ exports[`PreflightCheck renders property when has in progress checks 1`] = `
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
                 icon="dot"
               >
                 <svg
@@ -1636,7 +1636,7 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
           style="display: inline-flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
             icon="small-tick"
           >
             <svg
@@ -1661,7 +1661,7 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
           style="display: inline-flex; align-items: center;"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
             icon="small-tick"
           >
             <svg
@@ -1705,7 +1705,7 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="dot"
               >
                 <svg
@@ -1740,7 +1740,7 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="dot"
               >
                 <svg
@@ -1775,7 +1775,7 @@ exports[`PreflightCheck renders property when return all success checks 1`] = `
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="dot"
               >
                 <svg

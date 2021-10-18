@@ -1,127 +1,81 @@
-import type { Error, Failure, ResponseExecutionResponseDeploymentsStatsOverview } from 'services/dashboard-service'
-
-const generateMockData = (rows: number) => {
-  const mockData = []
-  for (let i = 0; i < rows; i++) {
-    const successCount = 20 + Math.round(Math.random() * 50)
-    mockData.push({
-      time: 60,
-      countWithSuccessFailureDetails: {
-        count: 12,
-        successCount: successCount,
-        failureCount: 5 + Math.round(Math.random() * successCount) / 5,
-        countChangeAndCountChangeRateInfo: {
-          countChange: 2,
-          countChangeRate: 5.0
-        }
-      }
-    })
-  }
-
-  return mockData
-}
+import type { Error, Failure, ExecutionResponseDeploymentsStatsOverview } from 'services/dashboard-service'
 
 export const deploymentStatsSummaryResponse: {
-  data: ResponseExecutionResponseDeploymentsStatsOverview
+  data: ExecutionResponseDeploymentsStatsOverview
   error: Error | Failure | undefined
   loading: boolean
 } = {
   error: undefined,
   loading: false,
   data: {
-    correlationId: '',
-    data: {
-      response: {
-        deploymentsStatsSummary: {
-          countAndChangeRate: {
-            count: 10,
-            countChangeAndCountChangeRateInfo: {
-              countChange: 2,
-              countChangeRate: 5.0
-            }
-          },
-          // failureCountAndChangeRate: {
-          //   count: 10,
-          //   countChangeAndCountChangeRateInfo: {
-          //     countChange: 2,
-          //     countChangeRate: 5.0
-          //   }
-          // },
-          failureRateAndChangeRate: {
-            rate: 5.0,
-            rateChangeRate: 2.0
-          },
-          deploymentRateAndChangeRate: {
-            rate: 5.0,
-            rateChangeRate: 2.0
-          },
-          // deploymentsOverview: {
-          //   runningCount: 2,
-          //   pendingApprovalsCount: 4,
-          //   manualInterventionsCount: 1,
-          //   failedCount: 10
-          // },
-          deploymentStats: generateMockData(30)
-          // [
-          //   ({
-          //     time: 60,
-          //     countWithSuccessFailureDetails: {
-          //       count: 12,
-          //       successCount: 10,
-          //       failureCount: 2,
-          //       countChangeAndCountChangeRateInfo: {
-          //         countChange: 2,
-          //         countChangeRate: 5.0
-          //       }
-          //     }
-          //   },
-          //   {
-          //     time: 120,
-          //     countWithSuccessFailureDetails: {
-          //       count: 120,
-          //       successCount: 100,
-          //       failureCount: 20,
-          //       countChangeAndCountChangeRateInfo: {
-          //         countChange: 2,
-          //         countChangeRate: 5.0
-          //       }
-          //     }
-          //   })
-          // ]
-        },
-        mostActiveServicesList: {
-          activeServices: [
-            {
-              serviceInfo: {
-                serviceName: 'Service_demo'
-                //serviceInfo: 'Service demo info'
-              },
-              projectInfo: {
-                projectIdentifier: 'ProjectDemo',
-                projectName: 'Project_Demo'
-              },
-              orgInfo: {
-                orgIdentifier: 'OrgIdentifier',
-                orgName: 'Org_Demo'
-              },
-              accountInfo: {
-                accountIdentifier: 'AccountIdentifier'
-              },
-              countWithSuccessFailureDetails: {
-                count: 120,
-                successCount: 100,
-                failureCount: 20,
-                countChangeAndCountChangeRateInfo: {
-                  countChange: 2,
-                  countChangeRate: 5.0
-                }
-              }
-            }
-          ]
-        }
+    response: {
+      deploymentsOverview: {
+        runningExecutions: [],
+        pendingApprovalExecutions: [],
+        pendingManualInterventionExecutions: [],
+        failed24HrsExecutions: []
       },
-      executionStatus: 'SUCCESS',
-      executionMessage: 'Some message'
-    }
+      deploymentsStatsSummary: {
+        countAndChangeRate: { count: 7, countChangeAndCountChangeRateInfo: { countChange: 0, countChangeRate: 0.0 } },
+        failureRateAndChangeRate: { rate: 28.571428571428573, rateChangeRate: 0.0 },
+        deploymentRateAndChangeRate: { rate: 0.23333333333333334, rateChangeRate: 0.0 },
+        deploymentStats: [
+          {
+            time: 1633651200000,
+            countWithSuccessFailureDetails: {
+              count: 1,
+              // countChangeAndCountChangeRateInfo: null,
+              successCount: 0,
+              failureCount: 1
+            }
+          },
+          {
+            time: 1633910400000,
+            countWithSuccessFailureDetails: {
+              count: 2,
+              // countChangeAndCountChangeRateInfo: null,
+              successCount: 2,
+              failureCount: 0
+            }
+          },
+          {
+            time: 1633996800000,
+            countWithSuccessFailureDetails: {
+              count: 1,
+              // countChangeAndCountChangeRateInfo: null,
+              successCount: 1,
+              failureCount: 0
+            }
+          },
+          {
+            time: 1634083200000,
+            countWithSuccessFailureDetails: {
+              count: 3,
+              // countChangeAndCountChangeRateInfo: null,
+              successCount: 2,
+              failureCount: 1
+            }
+          }
+        ]
+      },
+      mostActiveServicesList: {
+        activeServices: [
+          {
+            serviceInfo: { serviceName: 'svc1', serviceIdentifier: 'svc1' },
+            projectInfo: { projectIdentifier: 'ishant_test', projectName: 'ishant test' },
+            orgInfo: { orgIdentifier: 'default', orgName: 'Default' },
+            accountInfo: { accountIdentifier: 'kmpySmUISimoRrJL6NL73w' },
+            countWithSuccessFailureDetails: {
+              count: 5,
+              countChangeAndCountChangeRateInfo: { countChange: 0, countChangeRate: 0.0 },
+              successCount: 4,
+              failureCount: 1
+            }
+          }
+        ]
+      }
+    },
+    executionStatus: 'SUCCESS',
+    executionMessage: 'Successfully fetched data'
   }
 }

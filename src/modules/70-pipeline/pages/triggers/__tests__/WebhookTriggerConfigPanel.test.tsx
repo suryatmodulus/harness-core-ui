@@ -2,7 +2,6 @@ import React from 'react'
 import { render, waitFor, queryByText } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
-import type { UseGetReturn } from 'restful-react'
 import { InputTypes, setFieldValue, fillAtForm } from '@common/utils/JestFormHelper'
 import * as pipelineNg from 'services/pipeline-ng'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
@@ -51,7 +50,7 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
   describe('Renders/snapshots', () => {
     test('Initial Render - Github Trigger Configuration Panel', async () => {
       const getGitTriggerEventDetails = jest.spyOn(pipelineNg, 'useGetGitTriggerEventDetails')
-      getGitTriggerEventDetails.mockReturnValue(GetGitTriggerEventDetailsResponse as UseGetReturn<any, any, any, any>)
+      getGitTriggerEventDetails.mockReturnValue(GetGitTriggerEventDetailsResponse as any)
 
       const { container } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)
       await waitFor(() =>
@@ -78,7 +77,7 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
   describe('Interactivity: Non-Custom Source Repo/Payload Type', () => {
     test('Selecting Any Actions checkbox disables Actions Select box', async () => {
       const getGitTriggerEventDetails = jest.spyOn(pipelineNg, 'useGetGitTriggerEventDetails')
-      getGitTriggerEventDetails.mockReturnValue(GetGitTriggerEventDetailsResponse as UseGetReturn<any, any, any, any>)
+      getGitTriggerEventDetails.mockReturnValue(GetGitTriggerEventDetailsResponse as any)
 
       const { container } = render(
         <WrapperComponent initialValues={getTriggerConfigInitialValues({ sourceRepo: 'Github' })} />

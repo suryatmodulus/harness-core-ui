@@ -2,7 +2,6 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { FormikForm } from '@wings-software/uicore'
 import { Formik } from 'formik'
-import type { UseGetReturn } from 'restful-react'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import { PrometheusFilterSelector } from '../PrometheusFilterSelector'
@@ -13,7 +12,7 @@ describe('Unit tests for PrometheusFilterSelector', () => {
       data: {
         data: ['value1', 'value2', 'value3']
       }
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const onUpdateFilterMock = jest.fn()
     const { container, getByText } = render(
@@ -63,7 +62,7 @@ describe('Unit tests for PrometheusFilterSelector', () => {
     jest.spyOn(cvService, 'useGetLabeValues').mockReturnValue({
       error: { data: { message: 'mockError' } },
       refetch: refetchMock as unknown
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const onUpdateFilterMock = jest.fn()
     const { container, getByText } = render(

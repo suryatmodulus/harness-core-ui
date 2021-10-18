@@ -16,8 +16,6 @@ templateUpdated: Template Updated
 errorWhileUpdating: Error occurred updating Template
 templatesDeleted: Templates Deleted
 errorWhileDeleting: Error occurred deleting Templates
-publishTemplate: Template published successfully
-errorWhileSaving: Error occurred saving Template
 templateUpdatedError: The Template is updated by someone else. Do you want to take the latest Template? You might lose your saved Template settings.
 openInTemplateStudio: Open in Template Studio
 templatesPage:
@@ -36,8 +34,6 @@ createNewModal:
     versionLabel: Version Label is required
 saveAsNewLabelModal:
   heading: 'Save as New Label'
-saveAsNewTemplateModal:
-  heading: 'Save as New Template'
 updateTemplateModal:
   heading: 'Save {{ name }} ({{ version }})'
   addCommentPlaceholder: Add a comment
@@ -48,3 +44,4 @@ templateSettingsModal:
   defaultVersionLabel: Default Version
 entityType: Entity Type
 templateScope: Template Scope
+templatesLabel: '{{entity}} Templates'

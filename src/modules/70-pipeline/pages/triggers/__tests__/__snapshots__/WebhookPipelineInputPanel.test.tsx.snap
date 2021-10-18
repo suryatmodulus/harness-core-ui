@@ -51,149 +51,22 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
           class="Layout--vertical Layout--layout-spacing-large StyledProps--main webhookPipelineInputContainer StyledProps--padding-none"
         >
           <div
-            class="inputsetGrid"
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--margin-large"
           >
-            <div
-              class="inputSetContent"
+            <span
+              class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+              data-tooltip-id="pipelineInputLabel"
             >
-              <div
-                class="pipelineInputRow"
+              pipeline.triggers.pipelineInputLabel
+            </span>
+            <div
+              class="Layout--vertical StyledProps--main formContent"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
               >
-                <span
-                  class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
-                  data-tooltip-id="pipelineInputLabel"
-                >
-                  pipeline.triggers.pipelineInputLabel
-                </span>
-                <span
-                  class="bp3-popover-wrapper isPopoverParent"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <div
-                      class="renderSelectedValue inputSetSelectedValue"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-link"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-small-plus StyledProps--main"
-                          icon="small-plus"
-                        >
-                          <svg
-                            data-icon="small-plus"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              small-plus
-                            </desc>
-                            <path
-                              d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                        <span
-                          class="bp3-button-text"
-                        >
-                          pipeline.inputSets.selectPlaceholder
-                        </span>
-                      </button>
-                    </div>
-                  </span>
-                </span>
-                <div
-                  class="divider"
-                />
-              </div>
-              <div
-                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container pipelineInputSetForm"
-              >
-                <div
-                  class="subheading"
-                >
-                  customVariables.pipelineVariablesTitle
-                </div>
-                <div
-                  class="customVariablesInputSets customVariables"
-                >
-                  <div
-                    class="variableListTable"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      newVar
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      String
-                    </p>
-                    <div
-                      class="valueRow"
-                    >
-                      <div
-                        class="bp3-form-group variableInput"
-                        data-id="pipeline.variables[0].value-0"
-                      >
-                        
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <div
-                            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                          >
-                            <div
-                              class="bp3-input-group MultiTypeInput--input"
-                            >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="pipeline.variables[0].value"
-                                type="text"
-                                value="defaultValue"
-                              />
-                            </div>
-                            <span
-                              class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="fixed-input"
-                                  >
-                                    <svg
-                                      height="12"
-                                      viewBox="0 0 9 9"
-                                      width="12"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                                        fill="currentColor"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                pipeline.triggers.pipelineInputPanel.noRuntimeInputs
+              </p>
             </div>
           </div>
         </div>
@@ -216,225 +89,22 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
           class="Layout--vertical Layout--layout-spacing-large StyledProps--main webhookPipelineInputContainer StyledProps--padding-none"
         >
           <div
-            class="inputsetGrid"
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--margin-large"
           >
-            <div
-              class="inputSetContent"
+            <span
+              class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
+              data-tooltip-id="pipelineInputLabel"
             >
-              <div
-                class="pipelineInputRow"
+              pipeline.triggers.pipelineInputLabel
+            </span>
+            <div
+              class="Layout--vertical StyledProps--main formContent"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
               >
-                <span
-                  class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
-                  data-tooltip-id="pipelineInputLabel"
-                >
-                  pipeline.triggers.pipelineInputLabel
-                </span>
-                <span
-                  class="bp3-popover-wrapper isPopoverParent"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <div
-                      class="renderSelectedValue inputSetSelectedValue"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-link"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-small-plus StyledProps--main"
-                          icon="small-plus"
-                        >
-                          <svg
-                            data-icon="small-plus"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              small-plus
-                            </desc>
-                            <path
-                              d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                        <span
-                          class="bp3-button-text"
-                        >
-                          pipeline.inputSets.selectPlaceholder
-                        </span>
-                      </button>
-                    </div>
-                  </span>
-                </span>
-                <div
-                  class="divider"
-                />
-              </div>
-              <div
-                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container pipelineInputSetForm"
-              >
-                <div
-                  class="Layout--vertical StyledProps--main"
-                >
-                  <div
-                    id="Stage.stage1"
-                  >
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-large"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="cd-main"
-                      >
-                        <svg
-                          height="18"
-                          viewBox="0 0 32 32"
-                          width="18"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M26.427 7.06A5.073 5.073 0 0129 11.52l-.077 8.934a5.073 5.073 0 01-2.537 4.35l-8.002 4.618a5.073 5.073 0 01-5.035.021l-7.776-4.402A5.073 5.073 0 013 20.583l.077-8.935a5.073 5.073 0 012.537-4.35l8.002-4.619a5.073 5.073 0 015.035-.02l7.776 4.402zm-2.83 6.938c-.42 1.586-2.029 2.538-3.601 2.141l-7.489-2.026a4.696 4.696 0 00-3.62.48 4.773 4.773 0 00-2.222 2.925 4.835 4.835 0 00.479 3.664 4.757 4.757 0 002.905 2.251 4.696 4.696 0 003.62-.48 4.773 4.773 0 002.222-2.924l.26-1.047a.25.25 0 00-.177-.302l-1.258-.34a.25.25 0 00-.307.18l-.256 1.025c-.426 1.602-2.064 2.556-3.651 2.127-1.582-.428-2.523-2.073-2.1-3.67.421-1.586 2.03-2.538 3.602-2.142l7.489 2.027a4.696 4.696 0 003.62-.48 4.773 4.773 0 002.222-2.925 4.835 4.835 0 00-.479-3.664 4.757 4.757 0 00-2.905-2.251 4.696 4.696 0 00-3.62.48 4.773 4.773 0 00-2.222 2.924l-.247.828a.25.25 0 00.174.312l1.259.34a.25.25 0 00.304-.169l.248-.827c.426-1.602 2.064-2.557 3.651-2.127 1.582.428 2.523 2.073 2.1 3.67z"
-                            fill="url(#cd-main_svg__a)"
-                            fill-rule="evenodd"
-                          />
-                          <defs>
-                            <lineargradient
-                              gradientUnits="userSpaceOnUse"
-                              id="cd-main_svg__a"
-                              x1="6.774"
-                              x2="21.5"
-                              y1="2"
-                              y2="30"
-                            >
-                              <stop
-                                stop-color="#62F91F"
-                              />
-                              <stop
-                                offset="1"
-                                stop-color="#45BD35"
-                              />
-                            </lineargradient>
-                          </defs>
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
-                      >
-                        Stage: 
-                        
-                      </p>
-                    </div>
-                    <div
-                      class="topAccordion"
-                    >
-                      <div
-                        class="accordionSummary"
-                        id="Stage.stage1.Infrastructure"
-                      >
-                        <div
-                          class="inputheader"
-                        >
-                          infrastructureText
-                        </div>
-                        <div
-                          class="nestedAccordions"
-                          style="width: 50%;"
-                        />
-                        <div
-                          class="nestedAccordions"
-                        >
-                          <div
-                            class="Layout--vertical Layout--layout-spacing-small StyledProps--main containerPadding StyledProps--padding-medium"
-                          >
-                            <div
-                              class="formGroup md"
-                            >
-                              <div
-                                class="bp3-form-group"
-                                data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-0"
-                              >
-                                <label
-                                  class="bp3-label"
-                                  for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                >
-                                  <span
-                                    class="Tooltip--acenter"
-                                    data-tooltip-id="wrapperComponentTestForm_pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                  >
-                                    common.namespace
-                                  </span>
-                                   
-                                  <span
-                                    class="bp3-text-muted"
-                                  />
-                                </label>
-                                <div
-                                  class="bp3-form-content"
-                                >
-                                  <div
-                                    class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
-                                  >
-                                    <div
-                                      class="TextInput--main MultiTypeInput--input"
-                                    >
-                                      <div
-                                        class="bp3-input-group bp3-disabled"
-                                      >
-                                        <input
-                                          class="bp3-input"
-                                          disabled=""
-                                          name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                          placeholder="<+input>"
-                                          type="text"
-                                          value="<+input>"
-                                        />
-                                      </div>
-                                    </div>
-                                    <span
-                                      class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                                    >
-                                      <span
-                                        class="bp3-popover-target"
-                                      >
-                                        <button
-                                          class="MultiTypeInput--btn MultiTypeInput--RUNTIME"
-                                        >
-                                          <span
-                                            class="bp3-icon StyledProps--main"
-                                            data-icon="runtime-input"
-                                          >
-                                            <svg
-                                              height="12"
-                                              viewBox="0 0 10 7.97"
-                                              width="12"
-                                              xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                              <path
-                                                d="M8.14 4L8 3.72a2.53 2.53 0 01-.12-.3l-.16-.35c-.11-.25-.22-.38-.32-.38s-.28.15-.37.44C7 3.1 7 3.07 7 3a.73.73 0 01.24-.46.66.66 0 01.42-.26c.25 0 .5.35.76 1.05l.07.17.07-.12c.47-.73.86-1.1 1.18-1.1a.71.71 0 01.29.07l-.4.42h-.11c-.24 0-.52.28-.86.83l-.09.16.07.2c.29.79.53 1.18.71 1.18s.31-.12.4-.36q.09.06.09.12t-.27.39a.74.74 0 01-.45.23c-.25 0-.51-.36-.77-1.07l-.12-.25-.1.17c-.44.76-.87 1.14-1.28 1.14a.65.65 0 01-.39-.12L6.84 5a.32.32 0 00.23.1c.25 0 .53-.25.83-.74l.17-.28zm-4-.32L1.7.59h2.47S5 .52 5.35 1a3.28 3.28 0 01.42 1.14h.31L5.94 0H0v.31l3.06 3.74L0 7.62V8h6.08l.38-2.36-.31-.07a2.43 2.43 0 01-.52 1c-.42.48-2 .41-2 .41H1.39z"
-                                                fill="current-color"
-                                              />
-                                            </svg>
-                                          </span>
-                                        </button>
-                                      </span>
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                pipeline.triggers.pipelineInputPanel.noRuntimeInputs
+              </p>
             </div>
           </div>
         </div>

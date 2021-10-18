@@ -346,7 +346,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                       >
                         LAST 7 DAYS
                         <span
-                          class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary5"
+                          class="bp3-icon bp3-icon-caret-down StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary5"
                           icon="caret-down"
                         >
                           <svg

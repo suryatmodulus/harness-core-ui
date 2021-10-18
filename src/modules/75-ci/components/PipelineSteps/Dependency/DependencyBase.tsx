@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Formik, FormikForm, Accordion, MultiTypeInputType } from '@wings-software/uicore'
+import { Text, Formik, FormikForm, Accordion, MultiTypeInputType, Color } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -79,6 +79,9 @@ export const DependencyBase = (
                   'spec.connectorRef': {
                     label: (
                       <Text
+                        className={css.inpLabel}
+                        color={Color.GREY_600}
+                        font={{ size: 'small', weight: 'semi-bold' }}
                         style={{ display: 'flex', alignItems: 'center' }}
                         tooltipProps={{
                           dataTooltipId: 'dependencyConnector'

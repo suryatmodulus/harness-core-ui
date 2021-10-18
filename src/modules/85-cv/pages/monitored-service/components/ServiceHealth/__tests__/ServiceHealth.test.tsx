@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { StringKeys } from 'framework/strings'
 import type { RiskData } from 'services/cv'
@@ -51,10 +51,18 @@ jest.mock('services/cv', () => ({
     error: null,
     refetch: jest.fn()
   })),
-  useGetMonitoredServiceOverAllHealthScore: jest.fn().mockImplementation(() => {
+  useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv: jest.fn().mockImplementation(() => {
     return { data: mockedHealthScoreData, refetch: fetchHealthScore, error: null, loading: false }
   }),
   useGetServiceDependencyGraph: jest.fn().mockImplementation(() => {
+    return {
+      data: {},
+      refetch: jest.fn(),
+      error: null,
+      loading: false
+    }
+  }),
+  useGetAnomaliesSummary: jest.fn().mockImplementation(() => {
     return {
       data: {},
       refetch: jest.fn(),
@@ -89,14 +97,34 @@ jest.mock('services/cv', () => ({
 }))
 
 describe('Unit tests for ServiceHealth', () => {
+  const props = {
+    serviceIdentifier: 'service-identifier',
+    environmentIdentifier: 'env-identifier',
+    hasChangeSource: true
+  }
   test('Verify if all the fields are rendered correctly inside ServiceHealth', async () => {
-    const props = {
-      serviceIdentifier: 'service-identifier',
-      environmentIdentifier: 'env-identifier',
-      hasChangeSource: true
-    }
     const { container } = render(<WrapperComponent {...props} />)
     expect(container).toMatchSnapshot()
+  })
+
+  test('Verify if reset functionality works correctly', async () => {
+    const { getByText, getByTestId } = render(<WrapperComponent {...props} />)
+
+    //initially verifying if select timeline message is displayed for metrics and logs
+    expect(getByText('cv.monitoredServices.serviceHealth.selectTimeline')).toBeInTheDocument()
+
+    // Clicking on the slider to set the selected timeline and display the slider
+    await act(async () => {
+      fireEvent.click(getByTestId('HealthScoreChartContainer'))
+    })
+
+    // clicking on the reset button to reset the slider
+    await act(async () => {
+      fireEvent.click(getByText('reset'))
+    })
+
+    // Now again the message to select the timeline for metrics/logs should be displayed.
+    expect(getByText('cv.monitoredServices.serviceHealth.selectTimeline')).toBeInTheDocument()
   })
 
   test('Verify if getTimeInHrs method gives correct results', async () => {
@@ -217,8 +245,8 @@ describe('Unit tests for ServiceHealth', () => {
   })
 
   test('Verify ChangesSourceCard does not loads', async () => {
-    const props = { serviceIdentifier: '', environmentIdentifier: '', hasChangeSource: true }
-    const { container } = render(<WrapperComponent {...props} />)
+    const newProps = { serviceIdentifier: '', environmentIdentifier: '', hasChangeSource: true }
+    const { container } = render(<WrapperComponent {...newProps} />)
     await waitFor(() => expect(container.querySelectorAll('.tickerValue[data-test="tickerValue"]').length).toEqual(0))
   })
 })

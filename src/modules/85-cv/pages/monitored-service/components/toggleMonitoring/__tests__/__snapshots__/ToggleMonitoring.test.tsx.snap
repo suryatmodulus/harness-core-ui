@@ -3,25 +3,21 @@
 exports[`ToggleMonitoring Validate toggle is working 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
+    class="optionBtn"
   >
     <div
-      class="optionBtn"
+      class="item"
+      data-name="on-btn"
+      role="button"
     >
-      <div
-        class="item"
-        data-name="on-btn"
-        role="button"
-      >
-        common.ON
-      </div>
-      <div
-        class="item inactive disabled"
-        data-name="off-btn"
-        role="button"
-      >
-        common.OFF
-      </div>
+      common.ON
+    </div>
+    <div
+      class="item inactive disabled"
+      data-name="off-btn"
+      role="button"
+    >
+      common.OFF
     </div>
   </div>
 </div>
@@ -30,25 +26,21 @@ exports[`ToggleMonitoring Validate toggle is working 1`] = `
 exports[`ToggleMonitoring Validate toggle loading state 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
+    class="optionBtn"
   >
     <div
-      class="optionBtn notAllowed"
+      class="item"
+      data-name="on-btn"
+      role="button"
     >
-      <div
-        class="item disabled"
-        data-name="on-btn"
-        role="button"
-      >
-        common.ON
-      </div>
-      <div
-        class="item inactive disabled"
-        data-name="off-btn"
-        role="button"
-      >
-        common.OFF
-      </div>
+      common.ON
+    </div>
+    <div
+      class="item inactive disabled"
+      data-name="off-btn"
+      role="button"
+    >
+      common.OFF
     </div>
   </div>
 </div>

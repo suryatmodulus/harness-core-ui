@@ -238,7 +238,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
           ]
         }
       }
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const getServiceSpy = jest.spyOn(cdService, 'useGetServiceListForProject')
     getServiceSpy.mockReturnValue({
@@ -259,14 +259,14 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
           ]
         }
       }
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
   })
 
   test('Should show please Enter Query when ther is no query in the text area', async () => {
     const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
     getMetricPackSpy.mockReturnValue({
       data: { resource: [{ identifier: 'Errors' }, { identifier: 'Performance' }] }
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const sampleDataSpy = jest.spyOn(cvService, 'useGetStackdriverSampleData')
     const mutateMock = jest.fn().mockReturnValue(
@@ -304,7 +304,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
     getMetricPackSpy.mockReturnValue({
       data: { resource: [{ identifier: 'Errors' }, { identifier: 'Performance' }] }
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const sampleDataSpy = jest.spyOn(cvService, 'useGetStackdriverSampleData')
     const mutateMock = jest.fn().mockReturnValue(
@@ -521,7 +521,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
     getMetricPackSpy.mockReturnValue({
       data: { resource: [{ identifier: 'Errors' }, { identifier: 'Performance' }] }
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const sampleDataSpy = jest.spyOn(cvService, 'useGetStackdriverSampleData')
     const mutateMock = jest.fn().mockReturnValue(

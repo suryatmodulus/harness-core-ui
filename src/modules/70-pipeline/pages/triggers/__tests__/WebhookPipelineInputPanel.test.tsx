@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitFor, queryByAttribute } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
-import type { UseGetReturn, UseMutateReturn } from 'restful-react'
+import type { UseMutateReturn } from 'restful-react'
 import * as pipelineNg from 'services/pipeline-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -83,17 +83,13 @@ function WrapperComponent(): JSX.Element {
 describe('WebhookPipelineInputPanel Triggers tests', () => {
   describe('Renders/snapshots', () => {
     test('Initial Render - Pipeline Input Panel with no inputs', async () => {
-      jest
-        .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-        .mockReturnValue(GetTemplateFromPipelineResponseEmpty as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetTemplateFromPipeline').mockReturnValue(GetTemplateFromPipelineResponseEmpty as any)
 
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
 
-      jest
-        .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
-        .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetInputSetsListForPipeline').mockReturnValue(GetInputSetsResponse as any)
 
       const { container } = render(<WrapperComponent />)
       await waitFor(() => expect(result.current.getString('pipeline.triggers.pipelineInputLabel')).toBeTruthy())
@@ -101,17 +97,13 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
     })
 
     test('Initial Render - Pipeline Input Panel with pipeline variable runtime inputs', async () => {
-      jest
-        .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-        .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetTemplateFromPipeline').mockReturnValue(GetTemplateFromPipelineResponse as any)
 
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
 
-      jest
-        .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
-        .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetInputSetsListForPipeline').mockReturnValue(GetInputSetsResponse as any)
       const { container } = render(<WrapperComponent />)
       await waitFor(() => expect(result.current.getString('pipeline.triggers.pipelineInputLabel')).toBeTruthy())
       await waitFor(() =>
@@ -123,15 +115,13 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
     test('Initial Render - Pipeline Input Panel with two runtime inputs', async () => {
       jest
         .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
-        .mockReturnValue(GetTemplateStageVariablesFromPipelineResponse as UseGetReturn<any, any, any, any>)
+        .mockReturnValue(GetTemplateStageVariablesFromPipelineResponse as any)
 
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
 
-      jest
-        .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
-        .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetInputSetsListForPipeline').mockReturnValue(GetInputSetsResponse as any)
       const { container } = render(<WrapperComponent />)
       await waitFor(() => expect(result.current.getString('pipeline.triggers.pipelineInputLabel')).toBeTruthy())
       await waitFor(() =>

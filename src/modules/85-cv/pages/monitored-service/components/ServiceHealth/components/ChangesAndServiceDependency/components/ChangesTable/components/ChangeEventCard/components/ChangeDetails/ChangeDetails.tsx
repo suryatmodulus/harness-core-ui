@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { Text, Container, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { createDetailsTitle, getOnClickOptions } from './ChangeDetails.utils'
+import { createDetailsTitle, getOnClickOptions, statusToColorMapping } from './ChangeDetails.utils'
 import type { ChangeDetailsDataInterface } from '../../ChangeEventCard.types'
 import StatusChip from './components/StatusChip/StatusChip'
 import css from './ChangeDetails.module.scss'
@@ -14,6 +14,7 @@ export default function ChangeDetails({
 }): JSX.Element {
   const { getString } = useStrings()
   const { type, category, details, status } = ChangeDetailsData
+  const { color, backgroundColor } = statusToColorMapping(status) || {}
 
   return (
     <Container>
@@ -41,7 +42,7 @@ export default function ChangeDetails({
           ) : null
         })}
       </div>
-      {status ? <StatusChip status={status} /> : null}
+      {status ? <StatusChip status={status} color={color} backgroundColor={backgroundColor} /> : null}
     </Container>
   )
 }

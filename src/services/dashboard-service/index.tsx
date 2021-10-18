@@ -46,10 +46,10 @@ export interface CountWithSuccessFailureDetails {
 }
 
 export interface DeploymentsOverview {
-  failed24HrsExecutions?: PipelineExecutionDashboardInfo[]
-  pendingApprovalExecutions?: PipelineExecutionDashboardInfo[]
-  pendingManualInterventionExecutions?: PipelineExecutionDashboardInfo[]
-  runningExecutions?: PipelineExecutionDashboardInfo[]
+  failed24HrsExecutions?: PipelineExecutionInfo[]
+  pendingApprovalExecutions?: PipelineExecutionInfo[]
+  pendingManualInterventionExecutions?: PipelineExecutionInfo[]
+  runningExecutions?: PipelineExecutionInfo[]
 }
 
 export interface DeploymentsStatsOverview {
@@ -705,14 +705,18 @@ export interface OrgInfo {
   orgName?: string
 }
 
-export interface PipelineExecutionDashboardInfo {
-  accountIdentifier?: string
-  identifier?: string
-  name?: string
-  orgIdentifier?: string
+export interface PipelineExecutionInfo {
+  accountInfo?: AccountInfo
+  orgInfo?: OrgInfo
+  pipelineInfo?: PipelineInfo
   planExecutionId?: string
-  projectIdentifier?: string
+  projectInfo?: ProjectInfo
   startTs?: number
+}
+
+export interface PipelineInfo {
+  pipelineIdentifier?: string
+  pipelineName?: string
 }
 
 export interface ProjectInfo {

@@ -6,7 +6,7 @@ exports[`RightBar renders correctly 1`] = `
     class="rightBar"
   >
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton variablesIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
       data-testid="input-variable"
       type="button"
     >
@@ -15,30 +15,22 @@ exports[`RightBar renders correctly 1`] = `
         data-icon="pipeline-variables"
       >
         <svg
-          height="20"
-          viewBox="0 0 15.4 12.2"
-          width="20"
+          height="28"
+          viewBox="0 0 20 20"
+          width="28"
           xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
         >
-          <defs>
-            <path
-              d="M12.5 6.1l-.2-.4c-.1-.3-.2-.4-.2-.5l-.2-.5c-.2-.4-.3-.6-.5-.6s-.4.2-.6.7c-.1 0-.2-.1-.2-.2 0-.2.1-.4.4-.7.2-.3.5-.4.6-.4.4 0 .8.5 1.2 1.6l.2.3.1-.2c.7-1.1 1.3-1.7 1.8-1.7.1 0 .3 0 .4.1l-.6.6h-.2c-.4 0-.8.4-1.3 1.3l-.1.2.1.3c.4 1.2.8 1.8 1.1 1.8.3 0 .5-.2.6-.6.1.1.1.1.1.2 0 .2-.1.4-.4.6-.3.2-.5.4-.7.4-.4 0-.8-.5-1.2-1.6l-.1-.4-.1.3c-.7 1.2-1.3 1.8-2 1.8-.2 0-.4-.1-.6-.2l.6-.6c.1.1.2.2.4.2.4 0 .8-.4 1.3-1.1l.3-.4v-.3zm-6.1-.5L2.6.9h3.8s1.3-.1 1.8.6.6 1.8.6 1.8h.5L9.1 0H0v.5l4.7 5.7L0 11.7v.5h9.3l.6-3.6-.5-.1s-.2.8-.8 1.5c-.6.7-3.1.6-3.1.6H2.1l4.3-5z"
-              id="pipeline-variables_svg__a"
-            />
-          </defs>
-          <clippath
-            id="pipeline-variables_svg__b"
-          >
-            <use
-              overflow="visible"
-              xlink:href="#pipeline-variables_svg__a"
-            />
-          </clippath>
           <path
-            clip-path="url(#pipeline-variables_svg__b)"
-            d="M-5-5h25.4v22.2H-5z"
-            fill="#9d7cff"
+            clip-rule="evenodd"
+            d="M2.197 4.143a.624.624 0 01.564-.356h7.489c.344 0 .624.28.624.624v1.872a.624.624 0 01-1.248 0V5.035H4.072l3.23 3.975c.178.22.186.53.021.76l-3.342 4.626h5.645v-1.248a.624.624 0 111.248 0v1.873c0 .344-.28.624-.624.624H2.76a.624.624 0 01-.505-.99L6.03 9.426 2.276 4.805a.624.624 0 01-.079-.662zM15.9 9.276a5.276 5.276 0 00-.724 1.032c-.22.44-.612.912-.994 1.288-.37.365-.824.732-1.205.884a.624.624 0 11-.463-1.159c.138-.055.445-.272.792-.614.336-.331.62-.692.753-.958.184-.366.529-.88.914-1.308.193-.215.414-.427.646-.59.218-.153.523-.319.87-.319a.624.624 0 01.012 1.248c0 .001-.052.013-.164.092-.129.09-.279.229-.437.404z"
+            fill="current-color"
+            fill-rule="evenodd"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M13.334 9.276c.317.352.596.774.725 1.032.22.44.611.912.993 1.288.37.365.824.732 1.205.884a.624.624 0 10.464-1.159c-.139-.055-.445-.272-.793-.614-.336-.331-.62-.692-.753-.958a6.497 6.497 0 00-.913-1.308 3.98 3.98 0 00-.647-.59c-.217-.153-.523-.319-.87-.319a.624.624 0 00-.012 1.248c0 .001.052.013.165.092.128.09.278.229.436.404z"
+            fill="current-color"
+            fill-rule="evenodd"
           />
         </svg>
       </span>
@@ -49,7 +41,7 @@ exports[`RightBar renders correctly 1`] = `
       </span>
     </button>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton notificationsIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
       type="button"
     >
       <span
@@ -57,32 +49,27 @@ exports[`RightBar renders correctly 1`] = `
         data-icon="pipeline-deploy"
       >
         <svg
-          height="28"
-          viewBox="0 0 24 24"
-          width="28"
+          height="24"
+          viewBox="0 0 16 16"
+          width="24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g
-            fill="currentColor"
-            fill-rule="nonzero"
-          >
-            <path
-              d="M23.86.14a.478.478 0 00-.516-.106L.3 9.28a.478.478 0 00-.093.837l8 5.509v4.455a.478.478 0 00.816.338l1.503-1.502 3.358 4.877a.478.478 0 00.837-.093L23.966.657a.478.478 0 00-.106-.516zM8.594 14.73l-7.11-4.896 20.049-8.043L8.594 14.73zm.57 4.195v-1.988l.81 1.178-.81.81zm5.002 3.592l-3.14-4.56a.479.479 0 00-.035-.061l-1.719-2.492L22.21 2.467l-8.043 20.05z"
-            />
-            <path
-              d="M17.772 9.006a.477.477 0 00.338-.14l.436-.436a.478.478 0 10-.677-.676l-.435.436a.478.478 0 00.338.816zm-7.338 6.86a.477.477 0 00.676 0l5.66-5.66a.478.478 0 00-.676-.677l-5.66 5.661a.478.478 0 000 .676z"
-            />
-          </g>
+          <path
+            clip-rule="evenodd"
+            d="M14.8 1.148a.638.638 0 01.192.577l-2.396 13.707a.614.614 0 01-.43.49.584.584 0 01-.611-.193l-3.813-4.578-1.856 2.382a.584.584 0 01-.666.194.622.622 0 01-.398-.587V8.852l-4.46-2.32a.628.628 0 01-.329-.61.618.618 0 01.423-.543l13.772-4.362a.581.581 0 01.573.131zM6.02 8.783v2.6l4.996-6.413-4.997 3.813zm5.193-5.508L2.24 6.116 5.36 7.74l5.852-4.465zm2.182.62l-4.892 6.278a.59.59 0 01.065.067l3.074 3.69 1.753-10.035z"
+            fill="current-color"
+            fill-rule="evenodd"
+          />
         </svg>
       </span>
       <span
         class="bp3-button-text"
       >
-        notifications.name
+        notifications.pipelineName
       </span>
     </button>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton flowControlIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
       type="button"
     >
       <span
@@ -108,6 +95,40 @@ exports[`RightBar renders correctly 1`] = `
         class="bp3-button-text"
       >
         pipeline.barriers.flowControl
+      </span>
+    </button>
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon Button--variation Button--variation-tertiary"
+      type="button"
+    >
+      <span
+        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+        data-icon="pipeline-advanced"
+      >
+        <svg
+          height="24"
+          viewBox="0 0 17 13"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M6.5 1H1v2.375h5.5V1zM1 0a1 1 0 00-1 1v2.375a1 1 0 001 1h5.5a1 1 0 001-1V1a1 1 0 00-1-1H1zm14.25 1h-5.5v2.375h5.5V1zm-5.5-1a1 1 0 00-1 1v2.375a1 1 0 001 1h5.5a1 1 0 001-1V1a1 1 0 00-1-1h-5.5z"
+            fill="current-color"
+            fill-rule="evenodd"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M9.375 3h-2.5V2h2.5v1zm-5.125.917v3.096c0 .416.07.705.172.91.099.198.241.342.435.453.42.24 1.079.325 2.018.325v1c-.936 0-1.84-.072-2.514-.457a2.045 2.045 0 01-.834-.874c-.19-.381-.277-.835-.277-1.357V3.917h1zm9.135 2.417v-.43a.143.143 0 00-.143-.143h-.86a.143.143 0 00-.142.143v.964a.15.15 0 01-.107.14 2.273 2.273 0 00-.388.162.15.15 0 01-.175-.025l-.378-.378-.304-.303a.143.143 0 00-.202 0l-.608.607a.143.143 0 000 .203l.304.304.378.377a.15.15 0 01.024.176 2.283 2.283 0 00-.16.387.15.15 0 01-.142.107h-.964a.143.143 0 00-.143.143v.86c0 .078.064.143.143.143h.964a.15.15 0 01.141.106c.042.135.096.265.161.388a.15.15 0 01-.024.175l-.378.378-.304.304a.143.143 0 000 .202l.608.608a.143.143 0 00.202 0l.304-.304.378-.378a.15.15 0 01.175-.024c.123.065.253.119.388.16a.15.15 0 01.107.142v.964c0 .079.064.143.143.143h.86a.143.143 0 00.142-.143v-.964a.15.15 0 01.107-.141 2.28 2.28 0 00.388-.161.15.15 0 01.175.024l.378.378.304.304a.143.143 0 00.202 0l.608-.608a.143.143 0 000-.202l-.304-.304-.378-.378a.15.15 0 01-.024-.175 2.28 2.28 0 00.16-.388.15.15 0 01.142-.106h.964a.144.144 0 00.143-.144v-.859a.143.143 0 00-.143-.143h-.964a.15.15 0 01-.141-.107 2.283 2.283 0 00-.16-.387.15.15 0 01.023-.176l.378-.377.304-.304a.143.143 0 000-.203l-.608-.607a.143.143 0 00-.202 0l-.304.303-.378.378a.15.15 0 01-.175.025 2.273 2.273 0 00-.388-.161.15.15 0 01-.107-.141v-.534zm-.572 4.01a1.146 1.146 0 100-2.292 1.146 1.146 0 000 2.291zM8.75 9.697H7.5v-1h1.25v1z"
+            fill="current-color"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      <span
+        class="bp3-button-text"
+      >
+        pipeline.advancedOptions
       </span>
     </button>
     <div />

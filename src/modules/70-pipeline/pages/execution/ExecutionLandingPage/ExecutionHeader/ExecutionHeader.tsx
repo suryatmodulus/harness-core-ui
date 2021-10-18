@@ -105,7 +105,8 @@ export function ExecutionHeader(): React.ReactElement {
               executionIdentifier,
               module,
               repoIdentifier: pipelineExecutionSummary?.gitDetails?.repoIdentifier,
-              branch: pipelineExecutionSummary?.gitDetails?.branch
+              branch: pipelineExecutionSummary?.gitDetails?.branch,
+              stagesExecuted: pipelineExecutionSummary?.stagesExecuted
             }}
             canEdit={canEdit}
             canExecute={canExecute}

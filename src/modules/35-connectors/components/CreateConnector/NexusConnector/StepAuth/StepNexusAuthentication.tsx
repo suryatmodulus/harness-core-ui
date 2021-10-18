@@ -5,11 +5,11 @@ import {
   Formik,
   FormInput,
   Text,
-  FormikForm as Form,
   StepProps,
-  Color,
   Container,
-  SelectOption
+  SelectOption,
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { setupNexusFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -99,8 +99,8 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
-    <Layout.Vertical height={'inherit'} margin="small">
-      <Text font="medium" color={Color.BLACK} tooltipProps={{ dataTooltipId: 'NexusConnectorDetailsTooltip' }}>
+    <Layout.Vertical className={css.stepDetails} spacing="small">
+      <Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'NexusConnectorDetailsTooltip' }}>
         {getString('details')}
       </Text>
       <Formik
@@ -127,7 +127,7 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
         onSubmit={handleSubmit}
       >
         {formikProps => (
-          <Form>
+          <>
             <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep}>
               <Container className={css.formRow}>
                 <FormInput.Text
@@ -170,12 +170,19 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
               <Button
                 text={getString('back')}
                 icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="nexusBackButton"
               />
-              <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
+              <Button
+                type="submit"
+                onClick={formikProps.submitForm}
+                variation={ButtonVariation.PRIMARY}
+                text={getString('continue')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
-          </Form>
+          </>
         )}
       </Formik>
     </Layout.Vertical>

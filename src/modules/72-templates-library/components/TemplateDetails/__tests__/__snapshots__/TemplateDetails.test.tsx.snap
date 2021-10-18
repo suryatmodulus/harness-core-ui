@@ -3,7 +3,7 @@
 exports[`<TemplateDetails /> tests snapshot test 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main main StyledProps--padding-top-huge StyledProps--padding-right-xxlarge StyledProps--padding-bottom-huge StyledProps--padding-left-xxlarge StyledProps--background-form"
+    class="StyledProps--font StyledProps--main container StyledProps--padding-top-huge StyledProps--padding-right-xxlarge StyledProps--padding-bottom-huge StyledProps--padding-left-xxlarge StyledProps--background-form"
     style="height: 100%;"
   >
     <div

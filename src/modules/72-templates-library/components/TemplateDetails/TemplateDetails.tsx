@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
-  Button,
   ButtonVariation,
   Color,
   Container,
@@ -13,18 +12,21 @@ import {
   Text
 } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
-import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateTags } from '@templates-library/components/TemplateTags/TemplateTags'
 import { PageSpinner, useToaster } from '@common/components'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { useMutateAsGet } from '@common/hooks'
 import { useGetTemplateList, TemplateSummaryResponse } from 'services/template-ng'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import { TemplateInputs } from '../TemplateInputs/TemplateInputs'
 import { TemplateYaml } from '../TemplateYaml/TemplateYaml'
+import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import css from './TemplateDetails.module.scss'
 
 export interface TemplateDetailsProps {
@@ -32,19 +34,33 @@ export interface TemplateDetailsProps {
   versionLabel?: string
   setTemplate?: (template: TemplateSummaryResponse) => void
   onClose?: () => void
+  accountId: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  module?: Module
 }
 
 export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
-  const { templateIdentifier, versionLabel = false, onClose, setTemplate } = props
+  const {
+    templateIdentifier,
+    versionLabel,
+    onClose,
+    setTemplate,
+    accountId,
+    orgIdentifier,
+    projectIdentifier,
+    module
+  } = props
   const { getString } = useStrings()
   const history = useHistory()
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const [versionOptions, setVersionOptions] = React.useState<SelectOption[]>([])
   const { showError } = useToaster()
-  const [selectedVersion, setSelectedVersion] = React.useState<TemplateSummaryResponse>()
+  const { isReadonly } = useContext(TemplateContext)
+  const [selectedTemplate, setSelectedTemplate] = React.useState<TemplateSummaryResponse>()
 
   const {
     data: templateData,
+    refetch: reloadTemplates,
     loading,
     error: templatesError
   } = useMutateAsGet(useGetTemplateList, {
@@ -56,7 +72,6 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      module,
       templateListType: TemplateListType.All
     },
     queryParamStringifyOptions: { arrayFormat: 'comma' }
@@ -66,20 +81,20 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
     (option: SelectOption): void => {
       const version = option.value?.toString() || ''
       const newSelectedVersion = templateData?.data?.content?.find(item => item.versionLabel === version)
-      setSelectedVersion(newSelectedVersion)
+      setSelectedTemplate(newSelectedVersion)
     },
     [templateData?.data?.content]
   )
 
   React.useEffect(() => {
-    if (selectedVersion) {
-      setTemplate?.(selectedVersion)
+    if (selectedTemplate) {
+      setTemplate?.(selectedTemplate)
     }
-  }, [selectedVersion])
+  }, [selectedTemplate])
 
   React.useEffect(() => {
     if (!isEmpty(templateData?.data?.content)) {
-      setSelectedVersion(
+      setSelectedTemplate(
         templateData?.data?.content?.find(item => item.versionLabel === versionLabel) ||
           templateData?.data?.content?.[0]
       )
@@ -92,7 +107,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
       newVersionOptions.sort((a, b) => a.label.localeCompare(b.label))
       setVersionOptions(newVersionOptions)
     }
-  }, [templateData?.data?.content, versionLabel])
+  }, [templateData?.data?.content])
 
   React.useEffect(() => {
     if (templatesError) {
@@ -101,17 +116,21 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
     }
   }, [templatesError])
 
+  React.useEffect(() => {
+    reloadTemplates()
+  }, [templateIdentifier, versionLabel])
+
   const goToTemplateStudio = () => {
-    if (selectedVersion) {
+    if (selectedTemplate) {
       history.push(
         routes.toTemplateStudio({
           projectIdentifier,
           orgIdentifier,
           accountId,
           module,
-          templateType: selectedVersion.templateEntityType,
-          templateIdentifier: selectedVersion.identifier,
-          versionLabel: selectedVersion.versionLabel
+          templateType: selectedTemplate.templateEntityType,
+          templateIdentifier: selectedTemplate.identifier,
+          versionLabel: selectedTemplate.versionLabel
         })
       )
     }
@@ -122,19 +141,28 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
       height={'100%'}
       padding={{ top: 'huge', right: 'xxlarge', bottom: 'huge', left: 'xxlarge' }}
       background={Color.FORM_BG}
-      className={css.main}
+      className={css.container}
     >
       {loading && <PageSpinner />}
-      {selectedVersion && (
-        <Layout.Vertical spacing={'xxxlarge'} height={'100%'}>
+      {selectedTemplate && (
+        <Layout.Vertical spacing={'xxxlarge'}>
           <Container>
             <Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'huge'}>
               <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
-                {selectedVersion.name}
+                {selectedTemplate.name}
               </Text>
-              <Button className={css.openInStudio} onClick={goToTemplateStudio} variation={ButtonVariation.SECONDARY}>
-                {getString('templatesLibrary.openInTemplateStudio')}
-              </Button>
+              <RbacButton
+                text={getString('templatesLibrary.openInTemplateStudio')}
+                variation={ButtonVariation.SECONDARY}
+                className={css.openInStudio}
+                onClick={goToTemplateStudio}
+                permission={{
+                  permission: PermissionIdentifier.VIEW_TEMPLATE,
+                  resource: {
+                    resourceType: ResourceType.TEMPLATE
+                  }
+                }}
+              />
             </Layout.Horizontal>
           </Container>
           <Container>
@@ -142,14 +170,15 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
               <Container>
                 <Layout.Vertical spacing={'small'}>
                   <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                    Version
+                    {getString('version')}
                   </Text>
-                  {selectedVersion.versionLabel && (
+                  {selectedTemplate.versionLabel && (
                     <DropDown
                       filterable={false}
                       items={versionOptions}
-                      value={selectedVersion.versionLabel}
+                      value={selectedTemplate.versionLabel}
                       onChange={onChange}
+                      disabled={isReadonly}
                       width={300}
                     />
                   )}
@@ -158,18 +187,22 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
               <Container>
                 <Layout.Vertical spacing={'small'}>
                   <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                    Description
+                    {getString('description')}
                   </Text>
-                  <Text color={Color.GREY_700}>{selectedVersion.description || '-'}</Text>
+                  <Text className={css.description} color={Color.GREY_700}>
+                    {selectedTemplate.description || '-'}
+                  </Text>
                 </Layout.Vertical>
               </Container>
               <Container>
                 <Layout.Vertical spacing={'small'}>
                   <Text font={{ size: 'small' }} color={Color.GREY_500}>
-                    Tags
+                    {getString('tagsLabel')}
                   </Text>
-                  {selectedVersion.tags && !isEmpty(selectedVersion.tags) ? (
-                    <TemplateTags tags={selectedVersion.tags} />
+                  {selectedTemplate.tags && !isEmpty(selectedTemplate.tags) ? (
+                    <Container>
+                      <TemplateTags tags={selectedTemplate.tags} />
+                    </Container>
                   ) : (
                     <Text color={Color.GREY_700}>-</Text>
                   )}
@@ -188,7 +221,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
               <Tab
                 id="template-yaml"
                 title={getString('yaml')}
-                panel={<TemplateYaml templateYaml={selectedVersion.yaml} />}
+                panel={<TemplateYaml templateYaml={selectedTemplate.yaml} />}
               />
               <Tab
                 id="template-referenced-by"

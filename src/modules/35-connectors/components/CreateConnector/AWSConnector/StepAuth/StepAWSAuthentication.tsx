@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Button, Formik, FormInput, Text, FormikForm as Form, StepProps, Color } from '@wings-software/uicore'
+import {
+  Layout,
+  Button,
+  Formik,
+  FormInput,
+  Text,
+  StepProps,
+  Color,
+  FontVariation,
+  ButtonVariation
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
 import { DelegateTypes, setupAWSFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -63,10 +73,8 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & Co
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
-    <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('credentials')}
-      </Text>
+    <Layout.Vertical className={css.formCredentials}>
+      <Text font={{ variation: FontVariation.H3 }}>{getString('credentials')}</Text>
       <Formik
         initialValues={{
           ...initialValues,
@@ -93,7 +101,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & Co
         onSubmit={handleSubmit}
       >
         {formikProps => (
-          <Form>
+          <>
             <Layout.Vertical padding={{ top: 'xxlarge', bottom: 'large' }} className={css.formDataAws}>
               <FormInput.RadioGroup
                 name="delegateType"
@@ -150,12 +158,19 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & Co
               <Button
                 text={getString('back')}
                 icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="awsBackButton"
               />
-              <Button type="submit" intent={'primary'} text={getString('continue')} rightIcon="chevron-right" />
+              <Button
+                type="submit"
+                variation={ButtonVariation.PRIMARY}
+                onClick={formikProps.submitForm}
+                text={getString('continue')}
+                rightIcon="chevron-right"
+              />
             </Layout.Horizontal>
-          </Form>
+          </>
         )}
       </Formik>
     </Layout.Vertical>

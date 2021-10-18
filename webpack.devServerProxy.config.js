@@ -68,5 +68,9 @@ module.exports = {
   },
   '/template/api': {
     target: targetLocalHost ? 'http://localhost:15001' : baseUrl
+  },
+  '/pm': {
+    target: process.env.GOVERNANCE_APP_URL || baseUrl,
+    pathRewrite: { '^/pm': '' }
   }
 }

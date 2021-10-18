@@ -64,5 +64,7 @@ declare module 'event-source-polyfill'
 
 declare module 'gitopsui/MicroFrontendApp' {
   import type { ChildAppComponent } from './microfrontends/microfrontendTypes'
-  export const ChildApp: ChildAppComponent
+  const ChildApp: ChildAppComponent
+
+  export default ChildApp
 }

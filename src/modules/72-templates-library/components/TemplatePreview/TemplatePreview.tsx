@@ -18,7 +18,7 @@ export const TemplatePreview = (props: PreviewInterface) => {
       className={cx(css.preview, className)}
       padding={{ top: 'huge', bottom: 'huge' }}
     >
-      {previewValues && <TemplateCard template={previewValues} isPreview={true} />}
+      {previewValues && <TemplateCard template={previewValues} />}
     </Layout.Horizontal>
   )
 }

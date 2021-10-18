@@ -328,7 +328,7 @@ exports[`K8s cluster selector render cluster selector screen with data 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                          class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                           icon="full-circle"
                         >
                           <svg

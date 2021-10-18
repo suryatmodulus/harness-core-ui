@@ -26,12 +26,12 @@ import Service from './components/Service/Service'
 import Dependency from './components/Dependency/Dependency'
 import { getInitFormData } from './components/Service/Service.utils'
 import type { MonitoredServiceForm } from './components/Service/Service.types'
-import { determineUnSaveState, onTabChange, onSubmit, showErrorOnSubmit } from './Configurations.utils'
+import { determineUnSaveState, onTabChange, onSubmit } from './Configurations.utils'
 import css from './Configurations.module.scss'
 
 export default function Configurations(): JSX.Element {
   const { getString } = useStrings()
-  const { showWarning, showError } = useToaster()
+  const { showWarning, showError, showSuccess } = useToaster()
   const history = useHistory()
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
@@ -74,14 +74,10 @@ export default function Configurations(): JSX.Element {
     lazy: true
   })
 
-  const { mutate: saveMonitoredService, error: errorSaveMonitoredService } = useSaveMonitoredService({
+  const { mutate: saveMonitoredService } = useSaveMonitoredService({
     queryParams: { accountId }
   })
-  const {
-    mutate: updateMonitoredService,
-    loading: loadingUpdateMonitoredService,
-    error: errorUpdateMonitoredService
-  } = useUpdateMonitoredService({
+  const { mutate: updateMonitoredService, loading: loadingUpdateMonitoredService } = useUpdateMonitoredService({
     identifier,
     queryParams: { accountId }
   })
@@ -182,20 +178,30 @@ export default function Configurations(): JSX.Element {
 
   const onSuccess = useCallback(
     async (payload, tabId) => {
-      await onSubmit({
-        formikValues: payload,
-        identifier,
-        orgIdentifier,
-        projectIdentifier,
-        cachedInitialValues,
-        updateMonitoredService,
-        saveMonitoredService,
-        fetchMonitoredService,
-        setOverrideBlockNavigation
-      })
-      setCachedInitialValue(null)
-      if (!identifier) {
-        setselectedTabID(tabId)
+      try {
+        await onSubmit({
+          formikValues: payload,
+          identifier,
+          orgIdentifier,
+          projectIdentifier,
+          cachedInitialValues,
+          updateMonitoredService,
+          saveMonitoredService,
+          fetchMonitoredService,
+          setOverrideBlockNavigation
+        })
+        setCachedInitialValue(null)
+        if (!identifier) {
+          setselectedTabID(tabId)
+        }
+        showSuccess(
+          getString(
+            identifier ? 'cv.monitoredServices.monitoredServiceUpdated' : 'cv.monitoredServices.monitoredServiceCreated'
+          )
+        )
+      } catch (e) {
+        showError(getErrorMessage(e))
+        return e
       }
     },
     [identifier]
@@ -246,7 +252,6 @@ export default function Configurations(): JSX.Element {
       {(loadingGetMonitoredService || loadingFetchMonitoredServiceYAML || loadingUpdateMonitoredService) && (
         <PageSpinner />
       )}
-      {showErrorOnSubmit(errorUpdateMonitoredService, errorSaveMonitoredService, showError, getErrorMessage)}
       <Tabs
         id="configurationTabs"
         selectedTabId={selectedTabID}

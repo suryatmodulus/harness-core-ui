@@ -165,7 +165,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7 StyledProps--margin-right-xsmall"
+                class="bp3-icon bp3-icon-info-sign StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7 StyledProps--margin-right-xsmall"
                 icon="info-sign"
               >
                 <svg
@@ -996,7 +996,7 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7 StyledProps--margin-right-xsmall"
+                class="bp3-icon bp3-icon-info-sign StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7 StyledProps--margin-right-xsmall"
                 icon="info-sign"
               >
                 <svg
@@ -1566,7 +1566,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                   style="line-height: 20px; display: flex; align-items: center;"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                     data-icon="main-tick"
                                   >
                                     <svg
@@ -1590,7 +1590,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                   style="line-height: 20px; display: flex; align-items: center;"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                     data-icon="main-tick"
                                   >
                                     <svg
@@ -1614,7 +1614,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                   style="line-height: 20px; display: flex; align-items: center;"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                     data-icon="main-tick"
                                   >
                                     <svg
@@ -1638,7 +1638,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                   style="line-height: 20px; display: flex; align-items: center;"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                     data-icon="main-tick"
                                   >
                                     <svg
@@ -1662,7 +1662,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                   style="line-height: 20px; display: flex; align-items: center;"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                     data-icon="main-tick"
                                   >
                                     <svg
@@ -1758,7 +1758,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                   style="line-height: 20px; display: flex; align-items: center;"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                     data-icon="main-tick"
                                   >
                                     <svg
@@ -1782,7 +1782,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                   style="line-height: 20px; display: flex; align-items: center;"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                     data-icon="main-tick"
                                   >
                                     <svg
@@ -1806,7 +1806,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                   style="line-height: 20px; display: flex; align-items: center;"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                     data-icon="main-tick"
                                   >
                                     <svg
@@ -1830,7 +1830,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                   style="line-height: 20px; display: flex; align-items: center;"
                                 >
                                   <span
-                                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                     data-icon="main-tick"
                                   >
                                     <svg
@@ -2649,7 +2649,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                     </svg>
                   </span>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                     style=""
                   >
                     connectors.ceAzure.testConnection.validatePermission
@@ -2674,7 +2674,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                     </svg>
                   </span>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                     style="font-weight: normal;"
                   >
                     connectors.ceAzure.testConnection.verifyExport
@@ -2693,7 +2693,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                   style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-red700"
+                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-red700"
                     data-icon="circle-cross"
                   >
                     <svg
@@ -2719,7 +2719,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                     style="display: inline-flex; align-items: center;"
                   >
                     <span
-                      class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                      class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                       data-icon="info"
                     >
                       <svg
@@ -3683,7 +3683,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                           style="display: inline-flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-red700"
+                            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-red700"
                             data-icon="circle-cross"
                           >
                             <svg
@@ -3709,7 +3709,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                             style="display: inline-flex; align-items: center;"
                           >
                             <span
-                              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                               data-icon="info"
                             >
                               <svg
@@ -3736,7 +3736,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                             style="display: inline-flex; align-items: center;"
                           >
                             <span
-                              class="bp3-icon bp3-icon-lightbulb StyledProps--main StyledProps--padding-right-small"
+                              class="bp3-icon bp3-icon-lightbulb StyledProps--main Text--icon StyledProps--padding-right-small"
                               icon="lightbulb"
                             >
                               <svg

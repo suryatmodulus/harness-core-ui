@@ -1,6 +1,5 @@
 import React from 'react'
 import { noop } from 'lodash-es'
-import type { UseGetReturn } from 'restful-react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { Container, FormInput } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -35,12 +34,7 @@ describe('Unit tests for createNewRelicConnector', () => {
   test('Ensure validation works', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
-      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
-        any,
-        any,
-        any,
-        any
-      >)
+      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as any)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateNewRelicConnector
@@ -68,12 +62,7 @@ describe('Unit tests for createNewRelicConnector', () => {
   test('Ensure create flow works', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
-      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
-        any,
-        any,
-        any,
-        any
-      >)
+      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as any)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateNewRelicConnector
@@ -125,12 +114,7 @@ describe('Unit tests for createNewRelicConnector', () => {
   test('Ensure create flow works with different url', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
-      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
-        any,
-        any,
-        any,
-        any
-      >)
+      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as any)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateNewRelicConnector
@@ -188,12 +172,7 @@ describe('Unit tests for createNewRelicConnector', () => {
   test('Ensure if there is existing data, fields are populated', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
-      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
-        any,
-        any,
-        any,
-        any
-      >)
+      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as any)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateNewRelicConnector
@@ -263,12 +242,7 @@ describe('Unit tests for createNewRelicConnector', () => {
   test('Ensure edit flow works', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
-      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
-        any,
-        any,
-        any,
-        any
-      >)
+      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as any)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateNewRelicConnector
@@ -341,9 +315,7 @@ describe('Unit tests for createNewRelicConnector', () => {
   })
 
   test('Ensure drop down shows loading when new relic endpoints are loading', async () => {
-    jest
-      .spyOn(cvService, 'useGetNewRelicEndPoints')
-      .mockReturnValue({ loading: true } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetNewRelicEndPoints').mockReturnValue({ loading: true } as any)
 
     const { getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
@@ -367,7 +339,7 @@ describe('Unit tests for createNewRelicConnector', () => {
   test('Ensure error is displayed when new relic endpoints api fails', async () => {
     jest
       .spyOn(cvService, 'useGetNewRelicEndPoints')
-      .mockReturnValue({ error: { message: 'mockError' }, loading: false } as UseGetReturn<any, any, any, any>)
+      .mockReturnValue({ error: { message: 'mockError' }, loading: false } as any)
 
     const { getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>

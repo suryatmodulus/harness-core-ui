@@ -16,6 +16,9 @@ executionTarget: Execution Target
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
 onlyPositiveInteger: Only positive integer values
 depth: Depth
+advancedOptions: Advanced Options
+pipelineTimeoutSettings: Pipeline Timeout Settings
+pipelineTimeoutHelpText: Enter a timeout for the entire Pipeline. You can change this setting at any time.
 sslVerify: SSL Verify
 noPipelineText: There are no pipelines in your project
 noDeploymentText: There are no deployments in your project
@@ -826,3 +829,5 @@ runAllParallelstages: Run all parallel stages
 runFailedStages: Run only failed stages
 runPipelineForm:
   notifyOnlyMe: Notify only me about execution status
+singleStageExecution: 'SINGLE STAGE EXECUTION:'
+allStages: All Stages

@@ -1,23 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
-import { Color, Container, Icon, Text } from '@wings-software/uicore'
+import { Container, Text } from '@wings-software/uicore'
 import ColumnChart from '@cv/components/ColumnChart/ColumnChart'
-import { useGetMonitoredServiceOverAllHealthScore } from 'services/cv'
+import { useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { NoDataCard } from '@common/components/Page/NoDataCard'
-import { PageError } from '@common/components/Page/PageError'
-import { getErrorMessage } from '@cv/utils/CommonUtils'
-import noDataImage from '@cv/assets/noData.svg'
 import type { ColumnData } from '@cv/components/ColumnChart/ColumnChart.types'
 import type { HealthScoreChartProps } from './HealthScoreChart.types'
 import { getSeriesData } from './HealthScoreChart.utils'
-import type { TimePeriodEnum } from '../../ServiceHealth.constants'
 import css from './HealthScoreChart.module.scss'
 
 export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Element {
-  const { monitoredServiceIdentifier, duration, setHealthScoreData } = props
+  const { envIdentifier, serviceIdentifier, duration, setHealthScoreData, endTime, columChartProps } = props
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const [seriesData, setSeriesData] = useState<ColumnData[]>([])
@@ -27,81 +22,50 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
     refetch: fetchHealthScore,
     loading,
     error
-  } = useGetMonitoredServiceOverAllHealthScore({
-    identifier: monitoredServiceIdentifier,
+  } = useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv({
     queryParams: {
+      environmentIdentifier: envIdentifier,
+      serviceIdentifier,
       accountId,
       orgIdentifier,
       projectIdentifier,
-      duration: duration.value as TimePeriodEnum,
-      endTime: Date.now()
+      duration,
+      endTime: endTime || Date.now()
     },
     lazy: true
   })
 
   useEffect(() => {
-    if (monitoredServiceIdentifier) {
+    if (envIdentifier && serviceIdentifier) {
       fetchHealthScore()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [duration, monitoredServiceIdentifier])
+  }, [duration, envIdentifier, serviceIdentifier])
 
   useEffect(() => {
     if (healthScoreData?.data?.healthScores && !isEmpty(healthScoreData?.data?.healthScores)) {
       const series = getSeriesData(healthScoreData.data.healthScores)
       setSeriesData(series)
-      if (setHealthScoreData) {
-        setHealthScoreData(healthScoreData.data.healthScores)
-      }
+      setHealthScoreData?.(healthScoreData.data.healthScores)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [healthScoreData])
 
-  const renderHealthScoreChart = useCallback(() => {
-    if (error) {
-      return <PageError message={getErrorMessage(error)} onClick={() => fetchHealthScore()} />
-    } else if (loading) {
-      return (
-        <Container className={css.loading}>
-          <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
-        </Container>
-      )
-    } else if (!seriesData?.length || seriesData.every(el => el?.height === 0)) {
-      return (
-        <NoDataCard
-          message={
-            <>
-              <Text font={{ size: 'small' }} margin={{ top: 'xxsmall' }}>
-                {getString('cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore', {
-                  duration: duration.label.toLowerCase()
-                })}
-              </Text>
-              <Text font={{ size: 'small' }}>
-                {getString('cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow')}
-              </Text>
-            </>
-          }
-          image={noDataImage}
-          imageClassName={css.noDataImage}
-          containerClassName={css.noData}
-        />
-      )
-    } else {
-      return <ColumnChart data={seriesData} leftOffset={90} />
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error, loading, seriesData])
-
   return (
-    <>
-      <Container className={css.main}>
-        <Container className={css.timelineRow}>
-          <Text width={90} className={css.rowLabel}>
-            {getString('cv.monitoredServices.serviceHealth.overallHealthScore')}
-          </Text>
-          {renderHealthScoreChart()}
-        </Container>
+    <Container className={css.main}>
+      <Container className={css.timelineRow}>
+        <Text width={90} className={css.rowLabel}>
+          {getString('cv.monitoredServices.serviceHealth.overallHealthScore')}
+        </Text>
+        <ColumnChart
+          data={seriesData}
+          leftOffset={90}
+          {...columChartProps}
+          isLoading={loading}
+          error={error}
+          refetchOnError={fetchHealthScore}
+        />
       </Container>
-    </>
+    </Container>
   )
 }

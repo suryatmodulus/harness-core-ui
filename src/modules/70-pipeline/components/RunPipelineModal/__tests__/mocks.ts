@@ -2,6 +2,7 @@ import type { UseGetMockDataWithMutateAndRefetch } from '@common/utils/testUtils
 import type {
   ResponseInputSetResponse,
   ResponseInputSetTemplateResponse,
+  ResponseListStageExecutionResponse,
   ResponseMergeInputSetResponse,
   ResponsePageInputSetSummaryResponse,
   ResponsePlanExecutionResponseDto,
@@ -168,4 +169,35 @@ export const mockPipelineVariablesResponse: UseGetMockDataWithMutateAndRefetch<R
       yaml: '---\npipeline:\n  name: "lv_wnLIBTiCm2yUf4GLcwA"\n  identifier: "First"\n  tags:\n    __uuid: "395mxDwgTbKOESVVUIv-tg"\n  stages:\n  - stage:\n      name: "K0nVJmi8SY2Yc7wMp3PA8Q"\n      identifier: "A2"\n      description: "SIByfUO-R6aEXOWEIFj_DA"\n      type: "Approval"\n      spec:\n        execution:\n          steps:\n          - step:\n              name: "B0VctCiyTJmU7YV9LlTVNA"\n              identifier: "approval"\n              type: "HarnessApproval"\n              timeout: "YE-9jT5aSBCCBjolSWkk2Q"\n              spec:\n                includePipelineExecutionHistory: "l_DycUWaQEyBh5Ss1vmSWw"\n                approvers:\n                  disallowPipelineExecutor: "9c7XQX10RlCY0_QBBLL0NQ"\n                  userGroups: "7_qK9swoS3OKg-y5ua_J0g"\n                  minimumCount: "yzbqDOdJSIS-z43HAJQhQw"\n                  __uuid: "YEmqs9LHRMayJ4FI_bGTVg"\n                approverInputs: []\n                approvalMessage: "4uw_D8DbTFWRUvr7BIGtrg"\n                __uuid: "TbtQH7poRmmmCwu2KLs7LQ"\n              __uuid: "MBd-NDByQDaHvQh-3k5wPg"\n            __uuid: "hMvRKk0JQOuaE-jgEphDhA"\n          __uuid: "kWNef9ZjRgSG1_UYkpj1_A"\n        __uuid: "GXR2PZ5zQyCpBuxfiGCGEA"\n      tags:\n        __uuid: "c-GQac7hRE6Siq4-zNR6BQ"\n      variables: []\n      __uuid: "FL2qIeUwRaqA6sWjcjbjVQ"\n    __uuid: "GXr_ru54SDeVrxHIBmN6kA"\n  projectIdentifier: "3xyt3nVISF6lsAPQyWwhzg"\n  orgIdentifier: "VPC7k446TjGJfLVTKu1FPg"\n  variables:\n  - name: "V1"\n    type: "String"\n    default: "r87yt77_SpWLgGl3Run1qg"\n    value: "Sl6CpFBbRYGpULzBrqYDrw"\n    __uuid: "_FP3gjfrSh-P6178lNoZCw"\n  __uuid: "SKYRDrBDSF-MNRQ07hDc_g"\n__uuid: "dTFK9sMlSD-2LLWTM89W0g"\n'
     }
   }
+}
+
+export const mockStageExecutionList: ResponseListStageExecutionResponse = {
+  status: 'SUCCESS',
+  data: [
+    {
+      stageIdentifier: 'a1',
+      stageName: 'a1',
+      message: 'Running an approval stage individually can be redundant',
+      stagesRequired: []
+    },
+    {
+      stageIdentifier: 'a2',
+      stageName: 'a2',
+      message: 'Running an approval stage individually can be redundant',
+      stagesRequired: ['a1']
+    },
+    {
+      stageIdentifier: 'a3',
+      stageName: 'a3',
+      message: 'Running an approval stage individually can be redundant',
+      stagesRequired: ['a1', 'a2']
+    },
+    {
+      stageIdentifier: 'fourth_stage',
+      stageName: 'fourth stage',
+      message: 'Running an approval stage individually can be redundant',
+      stagesRequired: ['a1', 'a2', 'a3']
+    }
+  ],
+  correlationId: '3ecdbf22-efb1-47a8-977e-e6dd2a8a440d'
 }

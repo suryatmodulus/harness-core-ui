@@ -16,7 +16,7 @@ export interface RolloutStrategyProps {
 
 export const RolloutStrategy: React.FC<RolloutStrategyProps> = ({ selectedStageId }) => {
   const {
-    state: { pipeline, originalPipeline, pipelineView },
+    state: { pipeline, originalPipeline, pipelineView, templateTypes },
     stepsFactory,
     isReadonly,
     updatePipeline,
@@ -64,6 +64,7 @@ export const RolloutStrategy: React.FC<RolloutStrategyProps> = ({ selectedStageI
         updateStage(stageData.stage!)
       }}
       pathToStage={`${stagePath}.stage.spec.execution`}
+      templateTypes={templateTypes}
       onAddStep={(event: ExecutionGraphAddStepEvent) => {
         updatePipelineView({
           ...pipelineView,

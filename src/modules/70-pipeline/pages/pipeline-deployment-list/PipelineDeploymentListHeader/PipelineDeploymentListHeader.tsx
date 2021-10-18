@@ -38,7 +38,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   const { queryParams } = useFiltersContext()
   const { updateQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
   const { getString } = useStrings()
-
+  const isCIModule = module === 'ci'
   function handleQueryChange(query: string): void {
     if (query) {
       updateQueryParams({ searchTerm: query })
@@ -93,7 +93,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
           }}
           featureProps={{
             featureRequest: {
-              featureName: FeatureIdentifier.DEPLOYMENTS
+              featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
             }
           }}
         >

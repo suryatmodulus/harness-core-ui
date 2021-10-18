@@ -30,7 +30,8 @@ export const InfraProvisioningBase = (
     stepsFactory,
     state: {
       pipelineView,
-      selectionState: { selectedStageId = '' }
+      selectionState: { selectedStageId = '' },
+      templateTypes
     },
     updatePipelineView,
     isReadonly,
@@ -120,6 +121,7 @@ export const InfraProvisioningBase = (
                         hasRollback={true}
                         hasDependencies={false}
                         stepsFactory={stepsFactory}
+                        templateTypes={templateTypes}
                         stage={formik.values.provisioner as any}
                         originalStage={formik.values.originalProvisioner as any}
                         ref={executionRef}

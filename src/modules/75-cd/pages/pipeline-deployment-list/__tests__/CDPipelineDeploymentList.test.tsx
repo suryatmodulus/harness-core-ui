@@ -11,7 +11,8 @@ import environments from '@pipeline/pages/pipelines/__tests__/mocks/environments
 import { PipelineResponse as PipelineDetailsMockResponse } from '@pipeline/pages/pipeline-details/__tests__/PipelineDetailsMocks'
 import CDPipelineDeploymentList from '../CDPipelineDeploymentList'
 import data from './response.json'
-
+import mockData from './pipelineMockData.json'
+const mockGetCallFunction = jest.fn()
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 
@@ -24,6 +25,10 @@ jest.mock('services/pipeline-ng', () => ({
     loading: false,
     cancel: jest.fn()
   })),
+  useGetPipelineList: jest.fn().mockImplementation(args => {
+    mockGetCallFunction(args)
+    return { mutate: jest.fn(() => Promise.resolve(mockData)), cancel: jest.fn(), loading: false }
+  }),
   useGetTemplateFromPipeline: jest.fn(() => ({ data: {} })),
   useGetPipeline: jest.fn(() => ({ data: {} })),
   useGetPipelineSummary: jest.fn(() => PipelineDetailsMockResponse),

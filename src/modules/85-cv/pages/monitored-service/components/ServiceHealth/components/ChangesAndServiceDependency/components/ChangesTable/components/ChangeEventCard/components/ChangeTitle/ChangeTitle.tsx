@@ -22,7 +22,7 @@ export default function ChangeTitle({ changeTitleData }: { changeTitleData: Chan
 
   return (
     <Container padding={{ top: 'medium', bottom: 'medium' }} className={css.main}>
-      <Icon name={getIconByChangeType(type)} size={24} />
+      <Icon {...getIconByChangeType(type)} />
       <Layout.Vertical>
         <Text {...titleOptions} font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800}>
           {name}

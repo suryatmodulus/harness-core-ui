@@ -7,15 +7,19 @@ import {
   formattedNodes,
   defaultOptions,
   mockedDependenciesResults,
-  mockedServiceDependencies
+  mockedServiceDependencies,
+  mockedDependenciesWithNoEdgesData,
+  mockedDependenciesWithEdgesData
 } from '@cv/components/DependencyGraph/tests/DependencyGraph.mock'
 import type * as cvService from 'services/cv'
 import {
   formatNodes,
   dependencyGraphOptions,
-  getDependencyData
+  getDependencyData,
+  getEdgesData
 } from '@cv/components/DependencyGraph/DependencyGraph.utils'
 import { RiskValues } from '@cv/utils/CommonUtils'
+import type { DependencyData } from '../DependencyGraph.types'
 
 describe('Unit tests for DependencyGraph', () => {
   test('Ensure Graph Component renders', async () => {
@@ -65,6 +69,24 @@ describe('Unit tests for DependencyGraph', () => {
     expect(getDependencyData(mockedServiceDependencies as cvService.RestResponseServiceDependencyGraphDTO)).toEqual(
       mockedDependenciesResults
     )
+  })
+
+  test('Verify if getEdgesData gives correct default edgesData when there is no edges data coming from the api', () => {
+    expect(getEdgesData(mockedDependenciesWithNoEdgesData as DependencyData)).toEqual([
+      {
+        from: 'Service_2_Environment2',
+        to: 'Service_2_Environment2'
+      }
+    ])
+  })
+
+  test('Verify if getEdgesData gives correct edgesData when there is edges data coming from the api', () => {
+    expect(getEdgesData(mockedDependenciesWithEdgesData as DependencyData)).toEqual([
+      {
+        from: 'Service_1_Environment_1',
+        to: 'Service_2_Environment_1'
+      }
+    ])
   })
 
   // eslint-disable-next-line jest/no-disabled-tests

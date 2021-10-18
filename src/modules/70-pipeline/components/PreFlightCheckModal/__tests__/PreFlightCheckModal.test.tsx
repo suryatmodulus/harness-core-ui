@@ -1,5 +1,4 @@
 import React from 'react'
-import type { UseGetReturn } from 'restful-react'
 import { fireEvent, render, act, waitFor } from '@testing-library/react'
 import * as pipelineService from 'services/pipeline-ng'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -19,7 +18,7 @@ describe('PreflightCheck', () => {
     useGetPreflightCheckResponseSpy.mockReturnValue({
       data: preflightSuccessMock,
       refetch: mockRefetch as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const closeButtonClickMock = jest.fn()
     const continueButtonClickMock = jest.fn()
@@ -56,7 +55,7 @@ describe('PreflightCheck', () => {
     const mockedSpyResponse = {
       data: preflightSuccessMock,
       refetch: mockRefetch as any
-    } as UseGetReturn<any, any, any, any>
+    } as any
     useGetPreflightCheckResponseSpy.mockReturnValue(mockedSpyResponse)
 
     startPreflightCheckPromiseSpy.mockResolvedValue({
@@ -94,7 +93,7 @@ describe('PreflightCheck', () => {
     useGetPreflightCheckResponseSpy.mockReturnValue({
       data: preflightFailureMock,
       refetch: mockRefetch as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getAllByText } = render(
       <TestWrapper>
@@ -126,7 +125,7 @@ describe('PreflightCheck', () => {
     useGetPreflightCheckResponseSpy.mockReturnValue({
       data: preflightProgressMock,
       refetch: mockRefetch as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container } = render(
       <TestWrapper>
@@ -151,7 +150,7 @@ describe('PreflightCheck', () => {
     useGetPreflightCheckResponseSpy.mockReturnValue({
       data: preflightProgressMock,
       refetch: mockRefetch as any
-    } as UseGetReturn<any, any, any, any>)
+    } as any)
 
     const { container, getByText } = render(
       <TestWrapper>

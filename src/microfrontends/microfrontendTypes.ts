@@ -3,7 +3,12 @@ import type React from 'react'
 import type { PermissionsContextProps } from 'framework/rbac/PermissionsContext'
 import type { LicenseStoreContextProps } from 'framework/LicenseStore/LicenseStoreContext'
 import type { AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
-import type { ScopeDTO } from 'services/cd-ng'
+
+export interface Scope {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 /**
  * Parent contexts which consists of all the context used in the parent app
@@ -17,7 +22,7 @@ export interface ParentContext {
 export interface ChildAppProps {
   parentContextObj: ParentContext
   renderUrl: string
-  scope: ScopeDTO
+  scope: Scope
 }
 
 /**

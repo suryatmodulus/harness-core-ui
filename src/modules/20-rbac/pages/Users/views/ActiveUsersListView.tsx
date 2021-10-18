@@ -3,6 +3,7 @@ import { Text, Layout, Button, Popover, Avatar, Color, Icon, ButtonVariation } f
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
+import { defaultTo } from 'lodash-es'
 import {
   UserAggregate,
   useRemoveUser,
@@ -10,14 +11,15 @@ import {
   UserGroupDTO,
   UserMetadataDTO,
   RoleAssignmentMetadataDTO,
-  useUnlockUser
+  useUnlockUser,
+  checkIfLastAdminPromise
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog, useToaster, Page } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
-import { PrincipalType } from '@rbac/utils/utils'
+import { getUserName, PrincipalType } from '@rbac/utils/utils'
 import { useMutateAsGet } from '@common/hooks'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
@@ -27,6 +29,8 @@ import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/Manage
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import RbacButton from '@rbac/components/Button/Button'
 import { setPageNumber } from '@common/utils/utils'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import css from './UserListView.module.scss'
 
 interface ActiveUserListViewProps {
@@ -122,10 +126,14 @@ const RenderColumnEmail: Renderer<CellProps<UserAggregate>> = ({ row }) => {
 
 const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) => {
   const data = row.original.user
+  const name = getUserName(data)
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const scope = getScopeFromDTO({ accountIdentifier: accountId, projectIdentifier, orgIdentifier })
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isLastAdmin, setIsLastAdmin] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
+
   const { mutate: deleteUser } = useRemoveUser({
     queryParams: {
       accountIdentifier: accountId,
@@ -142,8 +150,23 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
     }
   })
 
+  const getContentText = (): string => {
+    if (!isLastAdmin) {
+      return getString('rbac.usersPage.deleteConfirmation', { name })
+    }
+    switch (scope) {
+      case Scope.PROJECT:
+        return getString('rbac.usersPage.deleteLastAdminProjectConfirmation', { name })
+      case Scope.ORG:
+        return getString('rbac.usersPage.deleteLastAdminOrgConfirmation', { name })
+      default: {
+        return getString('rbac.usersPage.deleteConfirmation', { name })
+      }
+    }
+  }
+
   const { openDialog: openDeleteDialog } = useConfirmationDialog({
-    contentText: getString('rbac.usersPage.deleteConfirmation', { name: data?.name }),
+    contentText: getContentText(),
     titleText: getString('rbac.usersPage.deleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
@@ -151,17 +174,17 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
       if (didConfirm && data) {
         try {
           const deleted = await deleteUser(data.uuid)
-          deleted && showSuccess(getString('rbac.usersPage.deleteSuccessMessage', { name: data?.name }))
+          deleted && showSuccess(getString('rbac.usersPage.deleteSuccessMessage', { name }))
           ;(column as any).refetchActiveUsers?.()
         } catch (err) {
-          showError(err?.data?.message || err?.message)
+          showError(defaultTo(err?.data?.message, err?.message))
         }
       }
     }
   })
 
   const { openDialog: openUnlockDialog } = useConfirmationDialog({
-    contentText: getString('rbac.usersPage.unlockConfirmation', { name: data?.name }),
+    contentText: getString('rbac.usersPage.unlockConfirmation', { name }),
     titleText: getString('rbac.usersPage.unlockTitle'),
     confirmButtonText: getString('confirm'),
     cancelButtonText: getString('cancel'),
@@ -169,14 +192,36 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
       if (didConfirm && data) {
         try {
           const unlocked = await unlockUser()
-          unlocked && showSuccess(getString('rbac.usersPage.unlockSuccessMessage', { name: data?.name }))
+          unlocked && showSuccess(getString('rbac.usersPage.unlockSuccessMessage', { name }))
           ;(column as any).refetchActiveUsers?.()
         } catch (err) {
-          showError(err?.data?.message || err?.message)
+          showError(defaultTo(err?.data?.message, err?.message))
         }
       }
     }
   })
+
+  const handleDelete = async (): Promise<void> => {
+    try {
+      const response = await checkIfLastAdminPromise({
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          userId: data.uuid
+        }
+      })
+      setIsLastAdmin(_oldval => defaultTo(response.data, false))
+      if (response.data && scope === Scope.ACCOUNT) {
+        showError(getString('rbac.usersPage.deleteLastAdminError', { name }))
+        return
+      } else {
+        openDeleteDialog()
+      }
+    } catch (err) {
+      showError(defaultTo(err?.data?.message, err?.message))
+    }
+  }
 
   const permissionRequest = {
     resourceScope: {
@@ -230,7 +275,7 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
             onClick={e => {
               e.stopPropagation()
               setMenuOpen(false)
-              openDeleteDialog()
+              handleDelete()
             }}
             permission={permissionRequest}
           />

@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { sumBy, isNumber } from 'lodash-es'
 import { Color } from '@wings-software/uicore'
-import type { TimeRangeDetail } from 'services/cv'
+import type { ChangeEventDTO, TimeRangeDetail } from 'services/cv'
 import type { UseStringsReturn } from 'framework/strings'
 import DeploymentWithTwoChanges from '@cv/assets/ChangeTimelineSymbol/Deployment/DeploymentWithTwoChange.svg'
 import DeploymentWithNChanges from '@cv/assets/ChangeTimelineSymbol/Deployment/DeploymentWithNChange.svg'
@@ -40,6 +40,20 @@ const getSymbolBytypeForTwoCluster = (type: string) => {
       return IncidentWithTwoChanges
     default:
       return 'diamond'
+  }
+}
+
+export const getColorForChangeEventType = (type: ChangeEventDTO['type']): string => {
+  switch (type) {
+    case 'HarnessCD':
+    case 'HarnessCDNextGen':
+      return getChangeSoureIconColor(ChangeSourceTypes.Deployments, true)
+    case 'PagerDuty':
+      return getChangeSoureIconColor(ChangeSourceTypes.Incidents, true)
+    case 'K8sCluster':
+      return getChangeSoureIconColor(ChangeSourceTypes.Infrastructure, true)
+    default:
+      return ''
   }
 }
 

@@ -5,5 +5,6 @@ declare const styles: {
   readonly dockerProviderType: string
   readonly authHeaderRow: string
   readonly authTitle: string
+  readonly stepDetails: string
 }
 export default styles

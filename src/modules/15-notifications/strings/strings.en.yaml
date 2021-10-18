@@ -1,4 +1,5 @@
 name: Notifications
+pipelineName: Notify
 titleEmail: Setup Email Notifications
 titleSlack: Setup Slack Notifications
 titlePagerDuty: Setup PagerDuty Notifications

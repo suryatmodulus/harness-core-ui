@@ -38,7 +38,8 @@ const getPipelineContext = (): PipelineContextInterface => ({
     isDBInitialized: true,
     isInitialized: true,
     isLoading: false,
-    isUpdated: true
+    isUpdated: true,
+    templateTypes: {}
   },
   setSchemaErrorView: jest.fn(),
   updateGitDetails: jest.fn(),
@@ -62,7 +63,8 @@ const getPipelineContext = (): PipelineContextInterface => ({
   setSelectedStepId: jest.fn(),
   setSelectedSectionId: jest.fn(),
   setSelection: jest.fn(),
-  getStagePathFromPipeline: jest.fn()
+  getStagePathFromPipeline: jest.fn(),
+  setTemplateTypes: jest.fn()
 })
 
 describe('StepWidget tests', () => {

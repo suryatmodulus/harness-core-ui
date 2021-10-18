@@ -2424,7 +2424,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 >
                   1612888596211
                   <span
-                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
                     icon="full-circle"
                   >
                     <svg
@@ -2797,7 +2797,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 >
                   1612867219333
                   <span
-                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-green800"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-left-medium StyledProps--color StyledProps--color-green800"
                     icon="full-circle"
                   >
                     <svg
@@ -3170,7 +3170,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 >
                   1612787988402
                   <span
-                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-left-medium StyledProps--color StyledProps--color-red800"
                     icon="full-circle"
                   >
                     <svg

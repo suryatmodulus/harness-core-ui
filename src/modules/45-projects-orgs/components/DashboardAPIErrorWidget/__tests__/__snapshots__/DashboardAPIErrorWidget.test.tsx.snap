@@ -209,7 +209,7 @@ exports[`DashboardAPIErrorWidget DashboardAPIErrorWidget rendering 1`] = `
       style="display: flex; align-items: center;"
     >
       <span
-        class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-orange700"
+        class="bp3-icon bp3-icon-warning-sign StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-orange700"
         icon="warning-sign"
       >
         <svg

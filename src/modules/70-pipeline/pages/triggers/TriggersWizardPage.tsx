@@ -45,6 +45,7 @@ import type {
   CompletionItemInterface
 } from '@common/interfaces/YAMLBuilderProps'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import { useMutateAsGet } from '@common/hooks'
 import { scheduleTabsId, getDefaultExpressionBreakdownValues } from './views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
@@ -285,8 +286,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     artifactType
   } = queryParamsOnNew || {}
 
-  const { data: template } = useGetTemplateFromPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
+  const { data: template } = useMutateAsGet(useGetTemplateFromPipeline, {
+    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    body: {
+      stageIdentifiers: []
+    }
   })
 
   const { data: triggerResponse, loading: loadingGetTrigger } = useGetTrigger({

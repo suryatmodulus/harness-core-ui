@@ -44,6 +44,10 @@
     width: 75%;
   }
 
+  &.kvpairLg {
+    width: 70%;
+  }
+
   &.alignStart {
     align-items: start;
   }
@@ -156,4 +160,65 @@
 
 .topSpacingLarge {
   margin-top: var(--spacing-large);
+}
+
+.bottomMargin1 {
+  margin-bottom: var(--spacing-1) !important;
+}
+
+.bottomMargin2 {
+  margin-bottom: var(--spacing-2) !important;
+}
+
+.bottomMargin3 {
+  margin-bottom: var(--spacing-3) !important;
+}
+
+.bottomMargin4 {
+  margin-bottom: var(--spacing-4) !important;
+}
+
+.bottomMargin5 {
+  margin-bottom: var(--spacing-5) !important;
+}
+
+.topPadding3 {
+  padding-top: var(--spacing-3) !important;
+}
+
+.topPadding7 {
+  padding-top: var(--spacing-7) !important;
+}
+
+.bottomPadding3 {
+  padding-bottom: var(--spacing-3) !important;
+}
+
+.label {
+  font-size: 12px !important;
+  padding-bottom: var(--spacing-2);
+}
+
+.mainLabel {
+  color: black !important;
+}
+
+.inpLabel {
+  padding-bottom: var(--spacing-2) !important;
+}
+
+.addSharedPathsBtn {
+  padding: 0 !important;
+}
+
+.nameIdLabel {
+  :global {
+    .bp3-label {
+      color: var(--grey-600) !important;
+      font-size: var(--font-size-small) !important;
+      padding-bottom: var(--spacing-2) !important;
+      margin: 0 !important;
+      font-weight: 500 !important;
+    }
+  }
 }

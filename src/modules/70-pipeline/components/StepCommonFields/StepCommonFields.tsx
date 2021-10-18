@@ -1,11 +1,12 @@
 import React from 'react'
-import { Text, SelectOption, MultiTypeInputType } from '@wings-software/uicore'
+import { Text, SelectOption, MultiTypeInputType, Container, Layout, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { connect } from 'formik'
 import { useStrings } from 'framework/strings'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { Separator } from '@common/components/Separator/Separator'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { PullOption } from '../PipelineSteps/Steps/StepsTypes'
 import css from '../PipelineSteps/Steps/Steps.module.scss'
@@ -49,57 +50,95 @@ const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepC
   return (
     <>
       {enableFields.includes('spec.imagePullPolicy') && (
-        <MultiTypeSelectField
-          name="spec.imagePullPolicy"
-          label={
-            <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'imagePullPolicy' }}>
-              {getString('pipelineSteps.pullLabel')}
-            </Text>
-          }
-          multiTypeInputProps={{
-            selectItems: GetImagePullPolicyOptions(),
-            placeholder: getString('select'),
-            multiTypeInputProps: {
-              expressions,
-              selectProps: { addClearBtn: true, items: GetImagePullPolicyOptions() },
-              allowableTypes: [MultiTypeInputType.FIXED]
-            },
-            disabled
-          }}
-          disabled={disabled}
-          configureOptionsProps={{ variableName: 'spec.imagePullPolicy' }}
-          style={{ margin: 'var(--spacing-medium) 0' }}
-        />
+        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+          <MultiTypeSelectField
+            name="spec.imagePullPolicy"
+            label={
+              <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                  {getString('pipelineSteps.pullLabel')}
+                </Text>
+                &nbsp;
+                <Text
+                  tooltipProps={{ dataTooltipId: 'imagePullPolicy' }}
+                  className={css.inpLabel}
+                  color={Color.GREY_400}
+                  font={{ size: 'small', weight: 'semi-bold' }}
+                  style={{ textTransform: 'capitalize' }}
+                >
+                  {getString('common.optionalLabel')}
+                </Text>
+              </Layout.Horizontal>
+            }
+            multiTypeInputProps={{
+              selectItems: GetImagePullPolicyOptions(),
+              placeholder: getString('select'),
+              multiTypeInputProps: {
+                expressions,
+                selectProps: { addClearBtn: true, items: GetImagePullPolicyOptions() },
+                allowableTypes: [MultiTypeInputType.FIXED]
+              },
+              disabled
+            }}
+            disabled={disabled}
+            configureOptionsProps={{ variableName: 'spec.imagePullPolicy' }}
+          />
+        </Container>
       )}
       {enableFields.includes('spec.shell') && (
-        <MultiTypeSelectField
-          name="spec.shell"
-          label={
-            <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'shell' }}>
-              {getString('common.shell')}
-            </Text>
-          }
-          multiTypeInputProps={{
-            selectItems: GetImagePullPolicyOptions(),
-            placeholder: getString('select'),
-            multiTypeInputProps: {
-              expressions,
-              selectProps: { addClearBtn: true, items: GetShellOptions() },
-              allowableTypes: [MultiTypeInputType.FIXED]
-            },
-            disabled
-          }}
-          disabled={disabled}
-          configureOptionsProps={{ variableName: 'spec.shell' }}
-          style={{ marginBottom: 'var(--spacing-medium)' }}
-        />
+        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+          <MultiTypeSelectField
+            name="spec.shell"
+            label={
+              <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                  {getString('common.shell')}
+                </Text>
+                &nbsp;
+                <Text
+                  tooltipProps={{ dataTooltipId: 'shell' }}
+                  className={css.inpLabel}
+                  color={Color.GREY_400}
+                  font={{ size: 'small', weight: 'semi-bold' }}
+                  style={{ textTransform: 'capitalize' }}
+                >
+                  {getString('common.optionalLabel')}
+                </Text>
+              </Layout.Horizontal>
+            }
+            multiTypeInputProps={{
+              selectItems: GetImagePullPolicyOptions(),
+              placeholder: getString('select'),
+              multiTypeInputProps: {
+                expressions,
+                selectProps: { addClearBtn: true, items: GetShellOptions() },
+                allowableTypes: [MultiTypeInputType.FIXED]
+              },
+              disabled
+            }}
+            disabled={disabled}
+            configureOptionsProps={{ variableName: 'spec.shell' }}
+          />
+        </Container>
       )}
-      <div className={cx(css.formGroup, css.sm)}>
+      <Container className={cx(css.formGroup, css.lg)}>
         <MultiTypeTextField
           label={
-            <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'runAsUser' }}>
-              {getString('pipeline.stepCommonFields.runAsUser')}
-            </Text>
+            <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
+              <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                {getString('pipeline.stepCommonFields.runAsUser')}
+              </Text>
+              &nbsp;
+              <Text
+                tooltipProps={{ dataTooltipId: 'runAsUser' }}
+                className={css.inpLabel}
+                color={Color.GREY_400}
+                font={{ size: 'small', weight: 'semi-bold' }}
+                style={{ textTransform: 'capitalize' }}
+              >
+                {getString('common.optionalLabel')}
+              </Text>
+            </Layout.Horizontal>
           }
           name="spec.runAsUser"
           multiTextInputProps={{
@@ -107,54 +146,104 @@ const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepC
             disabled,
             placeholder: '1000'
           }}
-          style={{ marginBottom: 'var(--spacing-medium)' }}
         />
-      </div>
-      <Text tooltipProps={{ dataTooltipId: 'setContainerResources' }}>
-        {getString('pipelineSteps.setContainerResources')}
-      </Text>
-      <div
-        className={cx(css.fieldsGroup, css.withoutSpacing, css.withoutAligning)}
-        style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
-      >
-        <MultiTypeTextField
-          name="spec.limitMemory"
-          label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.limitMemoryLabel')}</Text>}
-          multiTextInputProps={{
-            placeholder: getString('pipelineSteps.limitMemoryPlaceholder'),
-            multiTextInputProps: { expressions },
-            disabled
-          }}
-          configureOptionsProps={{ variableName: 'spec.limit.memory' }}
-          style={{ flexGrow: 1, flexBasis: '50%' }}
-        />
-        <MultiTypeTextField
-          name="spec.limitCPU"
-          label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.limitCPULabel')}</Text>}
-          multiTextInputProps={{
-            placeholder: getString('pipelineSteps.limitCPUPlaceholder'),
-            multiTextInputProps: { expressions },
-            disabled
-          }}
-          configureOptionsProps={{ variableName: 'spec.limit.cpu' }}
-          style={{ flexGrow: 1, flexBasis: '50%' }}
-        />
-      </div>
+      </Container>
+      <Separator />
+      <Container className={css.bottomMargin5}>
+        <Text
+          className={css.inpLabel}
+          color={Color.GREY_600}
+          font={{ size: 'small', weight: 'semi-bold' }}
+          tooltipProps={{ dataTooltipId: 'setContainerResources' }}
+        >
+          {getString('pipelineSteps.setContainerResources')}
+        </Text>
+        <div
+          className={cx(css.fieldsGroup, css.withoutSpacing, css.withoutAligning, css.formGroup, css.kvpairLg)}
+          style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
+        >
+          <MultiTypeTextField
+            name="spec.limitMemory"
+            label={
+              <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                  {getString('pipelineSteps.limitMemoryLabel')}
+                </Text>
+                &nbsp;
+                <Text
+                  tooltipProps={{ dataTooltipId: 'limitMemory' }}
+                  className={css.inpLabel}
+                  color={Color.GREY_400}
+                  font={{ size: 'small', weight: 'semi-bold' }}
+                  style={{ textTransform: 'capitalize' }}
+                >
+                  {getString('common.optionalLabel')}
+                </Text>
+              </Layout.Horizontal>
+            }
+            multiTextInputProps={{
+              placeholder: getString('pipelineSteps.limitMemoryPlaceholder'),
+              multiTextInputProps: { expressions },
+              disabled
+            }}
+            configureOptionsProps={{ variableName: 'spec.limit.memory' }}
+            style={{ flexGrow: 1, flexBasis: '50%' }}
+          />
+          <MultiTypeTextField
+            name="spec.limitCPU"
+            label={
+              <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                  {getString('pipelineSteps.limitCPULabel')}
+                </Text>
+                &nbsp;
+                <Text
+                  tooltipProps={{ dataTooltipId: 'limitCPULabel' }}
+                  className={css.inpLabel}
+                  color={Color.GREY_400}
+                  font={{ size: 'small', weight: 'semi-bold' }}
+                  style={{ textTransform: 'capitalize' }}
+                >
+                  {getString('common.optionalLabel')}
+                </Text>
+              </Layout.Horizontal>
+            }
+            multiTextInputProps={{
+              placeholder: getString('pipelineSteps.limitCPUPlaceholder'),
+              multiTextInputProps: { expressions },
+              disabled
+            }}
+            configureOptionsProps={{ variableName: 'spec.limit.cpu' }}
+            style={{ flexGrow: 1, flexBasis: '50%' }}
+          />
+        </div>
+      </Container>
       {!withoutTimeout && (
-        <div className={cx(css.formGroup, css.sm)}>
+        <Container className={cx(css.formGroup, css.sm, css.bottomMargin5)}>
           <FormMultiTypeDurationField
             className={css.removeBpLabelMargin}
             name="timeout"
             multiTypeDurationProps={{ expressions }}
             label={
-              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'timeout' }}>
-                {getString('pipelineSteps.timeoutLabel')}
-              </Text>
+              <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                  {getString('pipelineSteps.timeoutLabel')}
+                </Text>
+                &nbsp;
+                <Text
+                  tooltipProps={{ dataTooltipId: 'timeout' }}
+                  className={css.inpLabel}
+                  color={Color.GREY_400}
+                  font={{ size: 'small', weight: 'semi-bold' }}
+                  style={{ textTransform: 'capitalize' }}
+                >
+                  {getString('common.optionalLabel')}
+                </Text>
+              </Layout.Horizontal>
             }
             disabled={disabled}
-            style={{ marginBottom: 0 }}
           />
-        </div>
+        </Container>
       )}
     </>
   )

@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { pick } from 'lodash-es'
 import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-software/uicore'
+import { PopoverInteractionKind } from '@blueprintjs/core'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import { useFeature } from '@common/hooks/useFeatures'
@@ -12,7 +13,6 @@ import { FeatureWarningTooltip } from '@common/components/FeatureWarning/Feature
 interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
   featureProps?: FeatureProps
-  iconClassName?: string
 }
 interface BtnProps {
   disabled: boolean
@@ -23,7 +23,6 @@ const RbacButton: React.FC<ButtonProps> = ({
   permission: permissionRequest,
   featureProps,
   tooltipProps,
-  iconClassName,
   ...restProps
 }) => {
   const { enabled: featureEnabled, featureDetail } = useFeature({
@@ -82,7 +81,7 @@ const RbacButton: React.FC<ButtonProps> = ({
   }
 
   if (!featureProps?.featureRequest && !permissionRequest) {
-    return <></>
+    return <CoreButton {...restProps} tooltipProps={tooltipProps} />
   }
 
   const btnProps = getBtnProps()
@@ -93,7 +92,14 @@ const RbacButton: React.FC<ButtonProps> = ({
       {...restProps}
       disabled={restProps.disabled || disabled}
       tooltip={disabled ? tooltip : restProps.tooltip ? restProps.tooltip : undefined}
-      tooltipProps={disabled ? { hoverCloseDelay: 50 } : tooltipProps}
+      tooltipProps={
+        disabled
+          ? {
+              hoverCloseDelay: 50,
+              interactionKind: featureEnabled ? PopoverInteractionKind.HOVER_TARGET_ONLY : PopoverInteractionKind.HOVER
+            }
+          : tooltipProps
+      }
     />
   )
 }

@@ -151,7 +151,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                   style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-arrow-up StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                    class="bp3-icon bp3-icon-arrow-up StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
                     icon="arrow-up"
                   >
                     <svg
@@ -232,7 +232,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                   style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-arrow-down StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                    class="bp3-icon bp3-icon-arrow-down StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                     icon="arrow-down"
                   >
                     <svg
@@ -374,7 +374,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                   style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-arrow-up StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                    class="bp3-icon bp3-icon-arrow-up StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
                     icon="arrow-up"
                   >
                     <svg
@@ -577,7 +577,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                   style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-arrow-down StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                    class="bp3-icon bp3-icon-arrow-down StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                     icon="arrow-down"
                   >
                     <svg

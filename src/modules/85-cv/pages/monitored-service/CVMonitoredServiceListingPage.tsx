@@ -18,7 +18,8 @@ import {
   useGetMonitoredServiceListEnvironments,
   MonitoredServiceListItemDTO,
   ChangeSummaryDTO,
-  useGetServiceDependencyGraph
+  useGetServiceDependencyGraph,
+  useSetHealthMonitoringFlag
 } from 'services/cv'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
@@ -81,6 +82,10 @@ function CVMonitoredServiceListingPage(): JSX.Element {
       orgIdentifier: params.orgIdentifier,
       ...getFilterAndEnvironmentValue(environment?.value as string, '')
     }
+  })
+
+  const { mutate: setHealthMonitoringFlag, loading: healthMonitoringFlagLoading } = useSetHealthMonitoringFlag({
+    identifier: ''
   })
 
   const { mutate: deleteMonitoredService, loading: isDeleting } = useDeleteMonitoredService({
@@ -227,7 +232,9 @@ function CVMonitoredServiceListingPage(): JSX.Element {
         <ToggleMonitoring
           refetch={refetch}
           identifier={rowData?.identifier as string}
-          enable={!!rowData?.healthMonitoringEnabled}
+          enabled={!!rowData?.healthMonitoringEnabled}
+          setHealthMonitoringFlag={setHealthMonitoringFlag}
+          loading={healthMonitoringFlagLoading}
         />
         <ContextMenuActions
           titleText={getString('common.delete', { name: rowData.serviceName })}
@@ -352,7 +359,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
         </Page.Body>
       ) : (
         <Page.Body
-          loading={loading || isDeleting}
+          loading={loading || isDeleting || healthMonitoringFlagLoading}
           error={getErrorMessage(error)}
           retryOnError={() => refetch()}
           noData={{

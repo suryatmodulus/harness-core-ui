@@ -17,16 +17,17 @@ import templateFactory from '@templates-library/components/Templates/TemplatesFa
 import { TemplateStudioHeader } from '@templates-library/components/TemplateStudio/TemplateStudioHeader/TemplateStudioHeader'
 import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
-import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import { DefaultNewPipelineId, DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import type { StepElementConfig } from 'services/cd-ng'
 import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'
 import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import TemplateYamlView from '@templates-library/components/TemplateStudio/TemplateYamlView/TemplateYamlView'
 import { accountPathProps, pipelineModuleParams, templatePathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
-import { DefaultNewTemplateId } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateReducer'
 import type { NGTemplateInfoConfig } from 'services/template-ng'
 import type { GetErrorResponse } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
+import { DefaultNewTemplateId } from 'framework/Templates/templates'
+import { sanitize } from '@common/utils/JSONUtils'
 import css from './TemplateStudio.module.scss'
 
 export type TemplateFormikRef<T = unknown> = {
@@ -84,6 +85,7 @@ export function TemplateStudio(): React.ReactElement {
 
   const onUpdate = async (newTemplate: NGTemplateInfoConfig) => {
     newTemplate.spec = omit(newTemplate.spec, 'name', 'identifier')
+    sanitize(newTemplate, { removeEmptyArray: false, removeEmptyObject: false, removeEmptyString: false })
     await updateTemplate(newTemplate)
   }
 
@@ -177,6 +179,12 @@ export function TemplateStudio(): React.ReactElement {
       openConfirmBEUpdateError()
     }
   }, [isBETemplateUpdated, discardBEUpdateDialog, openConfirmBEUpdateError])
+
+  React.useEffect(() => {
+    if (templateIdentifier === DefaultNewPipelineId) {
+      setView(SelectedView.VISUAL)
+    }
+  }, [templateIdentifier])
 
   return (
     <>

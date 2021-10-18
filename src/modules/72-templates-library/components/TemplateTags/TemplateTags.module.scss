@@ -1,11 +1,18 @@
+.container {
+  height: var(--spacing-large);
+  overflow: hidden;
+}
 .tagsContainer {
   flex-wrap: wrap;
   .tag:global(.bp3-tag) {
     background-color: var(--grey-100);
-    margin: 0px var(--spacing-xsmall) var(--spacing-xsmall) 0px;
+    margin-right: var(--spacing-xsmall);
     color: var(--primary-9);
     border-radius: var(--spacing-small);
     font-size: var(--font-size-xsmall);
+    font-weight: 500;
+    padding: 0 var(--spacing-3);
+    height: 20px;
   }
   p.count {
     font-size: var(--font-size-small) !important;

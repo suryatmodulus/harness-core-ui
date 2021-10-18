@@ -2,7 +2,6 @@
 // this is an auto-generated file
 declare const styles: {
   readonly container: string
-  readonly syncBarrierTitle: string
   readonly header: string
   readonly gridColumn: string
   readonly title: string

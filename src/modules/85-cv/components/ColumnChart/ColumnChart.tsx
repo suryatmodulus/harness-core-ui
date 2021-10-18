@@ -1,65 +1,127 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
-import { PopoverInteractionKind, PopoverPosition } from '@blueprintjs/core'
-import { Text, Container, Popover, Color } from '@wings-software/uicore'
-import { getRiskColorValue, RiskValues } from '@cv/utils/CommonUtils'
+import { Classes, PopoverInteractionKind, PopoverPosition } from '@blueprintjs/core'
+import cx from 'classnames'
+import { Text, Container, Popover } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { PageError } from '@common/components/Page/PageError'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
+import noDataImage from '@cv/assets/noData.svg'
 import type { ColumnChartProps } from './ColumnChart.types'
-import { getTimestamps } from './ColumnChart.utils'
-import { COLUMN_WIDTH, COLUMN_HEIGHT, TOTAL_COLUMNS } from './ColumnChart.constants'
+import { calculatePositionForTimestamp, getColumnPositions, getLoadingColumnPositions } from './ColumnChart.utils'
+import { COLUMN_WIDTH, COLUMN_HEIGHT, TOTAL_COLUMNS, LOADING_COLUMN_HEIGHTS } from './ColumnChart.constants'
+import ColumnChartPopoverContent from './components/ColumnChartPopoverContent/ColumnChartPopoverContent'
+import ColumnChartEventMarker from './components/ColummnChartEventMarker/ColumnChartEventMarker'
 import css from './ColumnChart.module.scss'
 
 export default function ColumnChart(props: ColumnChartProps): JSX.Element {
-  const { data, leftOffset = 0 } = props
-  const { getString } = useStrings()
+  const {
+    data,
+    leftOffset = 0,
+    columnWidth = COLUMN_WIDTH,
+    isLoading,
+    error,
+    refetchOnError,
+    columnHeight = COLUMN_HEIGHT,
+    timestampMarker
+  } = props
   const containerRef = useRef<HTMLDivElement>(null)
   const [cellPositions, setCellPositions] = useState<number[]>(Array(TOTAL_COLUMNS).fill(null))
+  const [markerPosition, setMarkerPosition] = useState<number | undefined>()
+  const { getString } = useStrings()
 
   useLayoutEffect(() => {
     if (!containerRef?.current) return
-    const parentWidth = (containerRef.current.parentElement?.getBoundingClientRect().width || 0) - leftOffset
-    setCellPositions(getTimestamps(parentWidth, data))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [containerRef?.current, data])
+    const containerWidth = (containerRef.current.parentElement?.getBoundingClientRect().width || 0) - leftOffset
+    if (isLoading) {
+      setCellPositions(getLoadingColumnPositions(containerWidth))
+    } else {
+      setCellPositions(getColumnPositions(containerWidth, data))
+    }
+
+    if (timestampMarker && data?.[data.length - 1]?.timeRange?.endTime && data[0]?.timeRange?.startTime) {
+      setMarkerPosition(
+        calculatePositionForTimestamp({
+          containerWidth,
+          startTime: timestampMarker.timestamp,
+          endOfTimestamps: data[data.length - 1].timeRange.endTime,
+          startOfTimestamps: data[0].timeRange.startTime
+        })
+      )
+    }
+  }, [containerRef?.current, data, isLoading])
+
+  if (error) {
+    return <PageError message={getErrorMessage(error)} onClick={refetchOnError} />
+  }
+
+  if (isLoading) {
+    return (
+      <div ref={containerRef} className={css.main}>
+        {cellPositions.map((val, index) => (
+          <div
+            key={index}
+            style={{
+              left: val,
+              height: Math.floor((LOADING_COLUMN_HEIGHTS[index] / 100) * columnHeight),
+              width: columnWidth
+            }}
+            className={cx(css.column, Classes.SKELETON)}
+          />
+        ))}
+      </div>
+    )
+  }
+
+  if (!data?.length || data.every(el => el?.height === 0)) {
+    return (
+      <NoDataCard
+        message={
+          <>
+            <Text font={{ size: 'small' }} margin={{ top: 'xxsmall' }}>
+              {getString('cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore')}
+            </Text>
+            <Text font={{ size: 'small' }}>
+              {getString('cv.monitoredServices.serviceHealth.pleaseSelectAnotherTimeWindow')}
+            </Text>
+          </>
+        }
+        image={noDataImage}
+        imageClassName={css.noDataImage}
+        containerClassName={css.noData}
+      />
+    )
+  }
 
   return (
     <div ref={containerRef} className={css.main}>
+      {markerPosition && (
+        <ColumnChartEventMarker
+          columnHeight={columnHeight}
+          leftOffset={markerPosition}
+          markerColor={timestampMarker?.color || ''}
+        />
+      )}
       {cellPositions.map((position, index) => {
         const cell = data?.[index] || {}
         return (
           <div
             key={index}
+            className={css.column}
             style={{
               backgroundColor: cell.color,
               left: position || 0,
-              height: Math.floor(((cell.height || 0) / 100) * COLUMN_HEIGHT)
+              height: Math.floor(((cell.height || 0) / 100) * columnHeight),
+              width: columnWidth
             }}
-            className={css.bar}
           >
             <Popover
-              content={
-                <>
-                  <Text lineClamp={1} className={css.timeRange}>{`${new Date(
-                    cell.timeRange?.startTime
-                  ).toLocaleString()} - ${new Date(cell.timeRange?.endTime).toLocaleString()}`}</Text>
-                  {cell.riskStatus === RiskValues.NO_DATA ? (
-                    <Text color={Color.WHITE}>{getString('noData')}</Text>
-                  ) : (
-                    <>
-                      <Text color={Color.WHITE} inline>
-                        {`${getString('cv.monitoredServices.serviceHealth.healthScore')}:`}
-                      </Text>
-                      <Text className={css.healthScore} color={getRiskColorValue(cell.riskStatus, false)}>
-                        {cell?.healthScore}
-                      </Text>
-                    </>
-                  )}
-                </>
-              }
+              content={<ColumnChartPopoverContent cell={cell} />}
               position={PopoverPosition.TOP}
               popoverClassName={css.chartPopover}
               interactionKind={PopoverInteractionKind.HOVER}
             >
-              <Container height={COLUMN_HEIGHT} width={COLUMN_WIDTH} />
+              <Container height={columnHeight} width={columnWidth} />
             </Popover>
           </div>
         )

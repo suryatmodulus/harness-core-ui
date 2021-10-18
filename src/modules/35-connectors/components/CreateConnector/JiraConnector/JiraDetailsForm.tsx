@@ -4,12 +4,12 @@ import {
   Button,
   Formik,
   Text,
-  Color,
   FormInput,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  FormikForm as Form,
-  StepProps
+  StepProps,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
@@ -83,8 +83,8 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
-    <Layout.Vertical height={'inherit'} margin="small">
-      <Text font="medium" color={Color.BLACK} tooltipProps={{ dataTooltipId: 'jiraConnectorDetails' }}>
+    <Layout.Vertical spacing="small" className={css.secondStep}>
+      <Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'jiraConnectorDetails' }}>
         {getString('details')}
       </Text>
       <Formik
@@ -104,9 +104,9 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
       >
         {formik => {
           return (
-            <Form>
+            <>
               <ModalErrorHandler bind={setModalErrorHandler} />
-              <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'56%'}>
+              <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'56%'}>
                 <FormInput.Text name="jiraUrl" placeholder={getString('UrlLabel')} label={getString('UrlLabel')} />
 
                 <TextReference name="username" stringId="username" type={formik.values?.usernamefieldType} />
@@ -117,18 +117,20 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
                 <Button
                   text={getString('back')}
                   icon="chevron-left"
+                  variation={ButtonVariation.SECONDARY}
                   onClick={() => props?.previousStep?.(props?.prevStepData)}
                   data-name="jiraBackButton"
                 />
                 <Button
                   type="submit"
-                  intent="primary"
+                  onClick={formik.submitForm}
+                  variation={ButtonVariation.PRIMARY}
                   text={getString('continue')}
                   rightIcon="chevron-right"
                   disabled={loadConnector}
                 />
               </Layout.Horizontal>
-            </Form>
+            </>
           )
         }}
       </Formik>

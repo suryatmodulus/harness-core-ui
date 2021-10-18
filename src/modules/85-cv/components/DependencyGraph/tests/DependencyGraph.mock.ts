@@ -284,3 +284,38 @@ export const mockedDependenciesResults = {
     }
   ]
 }
+
+export const mockedDependenciesWithNoEdgesData = {
+  nodes: [
+    {
+      id: 'Service_2_Environment2',
+      status: 'NO_ANALYSIS',
+      icon: 'dependency-default-icon',
+      name: 'Service 2'
+    }
+  ],
+  data: []
+}
+
+export const mockedDependenciesWithEdgesData = {
+  nodes: [
+    {
+      id: 'Service_2_Environment_1',
+      status: 'HEALTHY',
+      icon: 'dependency-default-icon',
+      name: 'Service 2'
+    },
+    {
+      id: 'Service_1_Environment_1',
+      status: 'HEALTHY',
+      icon: 'dependency-default-icon',
+      name: 'Service 1'
+    }
+  ],
+  data: [
+    {
+      from: 'Service_1_Environment_1',
+      to: 'Service_2_Environment_1'
+    }
+  ]
+}

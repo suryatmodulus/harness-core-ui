@@ -136,7 +136,8 @@ const pipelineContext: PipelineContextInterface = {
   setSelectedStepId: jest.fn(),
   setSelectedSectionId: jest.fn(),
   setSelection: jest.fn(),
-  getStagePathFromPipeline: jest.fn()
+  getStagePathFromPipeline: jest.fn(),
+  setTemplateTypes: jest.fn()
 }
 
 describe('RightBar', () => {
@@ -182,7 +183,7 @@ describe('RightBar', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    const notificationsBtn = getByText('notifications.name')
+    const notificationsBtn = getByText('notifications.pipelineName')
     act(() => {
       fireEvent.click(notificationsBtn)
     })

@@ -1,10 +1,12 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly preview: string
+  readonly container: string
   readonly empty: string
+  readonly illustration: string
+  readonly placeholder: string
   readonly selectorContainer: string
   readonly searchBox: string
-  readonly illustration: string
+  readonly btnContainer: string
 }
 export default styles

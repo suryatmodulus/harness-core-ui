@@ -410,7 +410,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
                     tabindex="0"
                   >
                     <span
-                      class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                      class="bp3-icon bp3-icon-warning-sign StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
                       icon="warning-sign"
                     >
                       <svg

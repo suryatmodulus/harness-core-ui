@@ -5,133 +5,129 @@ exports[`<TemplateStep /> tests snapshot test 1`] = `
   <div
     class="OverlaySpinner--overlaySpinner"
   >
-    <div
-      class="stepPanel"
+    <form
+      class="FormikForm--main"
     >
-      <div
-        class="formGroup md"
-      >
+      <div>
         <div
-          class="InputWithIdentifier--txtNameContainer TextInput--main"
+          class="stepPanel"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+            class="formGroup md"
           >
             <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="templateStepWidget_identifier"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                ID
-              </p>
-            </div>
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              :
-            </p>
-            <span
-              class="bp3-popover-wrapper"
-            >
-              <span
-                class="bp3-popover-target"
-              >
-                <div
-                  class="bp3-editable-text InputWithIdentifier--idValue"
-                  tabindex="0"
-                >
-                  <span
-                    class="bp3-editable-text-content"
-                    style="height: 1px; line-height: 1px; min-width: 0;"
-                  >
-                    id
-                  </span>
-                </div>
-              </span>
-            </span>
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="Edit"
-              style="vertical-align: middle; cursor: pointer;"
-            >
-              <svg
-                height="12"
-                viewBox="0 0 12 12"
-                width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  fill="none"
-                  fill-rule="evenodd"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
-                    stroke="#555770"
-                  />
-                  <path
-                    d="M6.583 5.146l2.063-2.063"
-                    opacity="0.3"
-                    stroke="#606170"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-          <div
-            class="bp3-form-group"
-          >
-            <label
-              class="bp3-label"
-              for="name"
-            >
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="templateStepWidget_name"
-              >
-                name
-              </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
+              class="InputWithIdentifier--txtNameContainer TextInput--main"
             >
               <div
-                class="bp3-input-group"
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
               >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name="name"
-                  type="text"
-                  value="name"
-                />
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="templateStepWidget_identifier"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    ID
+                  </p>
+                </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  :
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-editable-text InputWithIdentifier--idValue"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-editable-text-content"
+                        style="height: 1px; line-height: 1px; min-width: 0;"
+                      >
+                        id
+                      </span>
+                    </div>
+                  </span>
+                </span>
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="Edit"
+                  style="vertical-align: middle; cursor: pointer;"
+                >
+                  <svg
+                    height="12"
+                    viewBox="0 0 12 12"
+                    width="12"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="none"
+                      fill-rule="evenodd"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                        stroke="#555770"
+                      />
+                      <path
+                        d="M6.583 5.146l2.063-2.063"
+                        opacity="0.3"
+                        stroke="#606170"
+                      />
+                    </g>
+                  </svg>
+                </span>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="name-0"
+              >
+                <label
+                  class="bp3-label"
+                  for="name"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="templateStepWidget_name"
+                  >
+                    name
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="name"
+                      type="text"
+                      value="name"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <div
+            class="StyledProps--font StyledProps--main inputsContainer"
+          />
         </div>
       </div>
-      <div
-        class="StyledProps--font StyledProps--main"
-      >
-        <div
-          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--margin-top-medium StyledProps--padding-top-large StyledProps--padding-bottom-large StyledProps--border StyledProps--border-top"
-        >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
-            style="font-size: 16px;"
-          >
-            templatesLibrary.templateInputs
-          </p>
-        </div>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 `;

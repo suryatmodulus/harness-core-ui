@@ -1289,7 +1289,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
             style="display: inline-flex; align-items: center;"
           >
             <span
-              class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
+              class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey400"
               icon="time"
             >
               <svg
@@ -1364,7 +1364,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-stop StyledProps--main StyledProps--padding-right-xsmall"
+                class="bp3-icon bp3-icon-stop StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                 icon="stop"
                 style="color: rgb(218, 41, 29);"
               >
@@ -1391,7 +1391,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-stop StyledProps--main StyledProps--padding-right-xsmall"
+                class="bp3-icon bp3-icon-stop StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                 icon="stop"
                 style="color: rgb(107, 209, 103);"
               >
@@ -1418,7 +1418,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-stop StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey300"
+                class="bp3-icon bp3-icon-stop StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey300"
                 icon="stop"
               >
                 <svg
@@ -7075,7 +7075,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -11171,7 +11171,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -11358,7 +11358,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -11545,7 +11545,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -11732,7 +11732,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -11919,7 +11919,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -12106,7 +12106,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -12293,7 +12293,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -12480,7 +12480,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -12667,7 +12667,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -12854,7 +12854,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -13041,7 +13041,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -13228,7 +13228,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -13415,7 +13415,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -13602,7 +13602,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -14368,7 +14368,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 style="font-size: 10px; display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-stop StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon bp3-icon-stop StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   icon="stop"
                   style="color: rgb(218, 41, 29);"
                 >
@@ -14394,7 +14394,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 style="font-size: 10px; display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-stop StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon bp3-icon-stop StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   icon="stop"
                   style="color: rgb(107, 209, 103);"
                 >
@@ -14420,7 +14420,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 style="font-size: 10px; display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-stop StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey300"
+                  class="bp3-icon bp3-icon-stop StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey300"
                   icon="stop"
                 >
                   <svg
@@ -20203,7 +20203,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -24299,7 +24299,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -24486,7 +24486,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -24673,7 +24673,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -24860,7 +24860,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -25047,7 +25047,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -25234,7 +25234,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -25421,7 +25421,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -25608,7 +25608,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -25795,7 +25795,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -25982,7 +25982,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -26169,7 +26169,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -26356,7 +26356,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -26543,7 +26543,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg
@@ -26730,7 +26730,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         style="display: inline-flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-time StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon bp3-icon-time StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey500"
                           icon="time"
                         >
                           <svg

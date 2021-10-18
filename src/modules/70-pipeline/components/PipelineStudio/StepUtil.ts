@@ -32,7 +32,6 @@ export const clearRuntimeInput = (template: PipelineInfoConfig): PipelineInfoCon
     JSON.stringify(template || {}).replace(/"<\+input>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
   )
 }
-
 export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[]): ExecutionWrapperConfig | undefined {
   let responseStep: ExecutionWrapperConfig | undefined = undefined
   steps?.forEach(item => {
@@ -408,7 +407,7 @@ export const validatePipeline = ({
       const originalStage = getStageFromPipeline(stageObj.stage.identifier, originalPipeline)
       const errorsResponse = validateStage({
         stage: stageObj.stage as StageElementConfig,
-        template: template.stages?.[index].stage,
+        template: template?.stages?.[index]?.stage,
         originalStage: originalStage?.stage,
         getString,
         viewType
@@ -423,7 +422,7 @@ export const validatePipeline = ({
           const originalStage = getStageFromPipeline(stageP.stage.identifier, originalPipeline)
           const errorsResponse = validateStage({
             stage: stageP.stage as StageElementConfig,
-            template: template.stages?.[index].parallel?.[indexP].stage,
+            template: template?.stages?.[index].parallel?.[indexP]?.stage,
             originalStage: originalStage?.stage,
             getString,
             viewType

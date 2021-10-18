@@ -8,9 +8,7 @@ import {
 } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateActions'
 import type { StepElementConfig } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-
-export const DefaultNewTemplateId = '-1'
-export const DefaultNewVersionLabel = '-1'
+import { DefaultNewTemplateId, DefaultNewVersionLabel, DefaultTemplate } from 'framework/Templates/templates'
 
 export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
   type: DrawerTypes
@@ -40,13 +38,6 @@ export interface TemplateReducerState {
   isInitialized: boolean
   isBETemplateUpdated: boolean
   isUpdated: boolean
-}
-
-export const DefaultTemplate: NGTemplateInfoConfig = {
-  name: '',
-  identifier: DefaultNewTemplateId,
-  versionLabel: DefaultNewVersionLabel,
-  type: 'Step'
 }
 
 export const initialState: TemplateReducerState = {

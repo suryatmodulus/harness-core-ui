@@ -10,8 +10,9 @@ import {
   Color,
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
+import { defaultTo } from 'lodash-es'
 import type { StringsMap } from 'stringTypes'
-import type { AccessControlCheckError, RoleAssignmentMetadataDTO } from 'services/cd-ng'
+import type { AccessControlCheckError, RoleAssignmentMetadataDTO, UserMetadataDTO } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type {
   Assignment,
@@ -249,7 +250,7 @@ interface FeatureProps {
 }
 
 interface TooltipProps {
-  permissionRequest: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
+  permissionRequest?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
   featureProps?: FeatureProps
   canDoAction: boolean
   featureEnabled: boolean
@@ -268,7 +269,7 @@ export function getTooltip({
   module
 }: TooltipProps): TooltipReturn {
   // if permission check override the priorirty
-  if (featureProps?.isPermissionPrioritized && !canDoAction) {
+  if (featureProps?.isPermissionPrioritized && permissionRequest && !canDoAction) {
     return {
       tooltip: (
         <RBACTooltip
@@ -288,7 +289,7 @@ export function getTooltip({
   }
 
   // permission check
-  if (!canDoAction) {
+  if (permissionRequest && !canDoAction) {
     return {
       tooltip: (
         <RBACTooltip
@@ -301,4 +302,8 @@ export function getTooltip({
   }
 
   return {}
+}
+
+export const getUserName = (user: UserMetadataDTO): string => {
+  return defaultTo(user.name, user.email)
 }

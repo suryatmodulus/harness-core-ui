@@ -1,16 +1,16 @@
-import type { IconName } from '@wings-software/uicore'
+import { Color, IconName } from '@wings-software/uicore'
 import { ChangeSourceTypes } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 
-export const getIconByChangeType = (type: string | undefined): IconName => {
+export const getIconByChangeType = (type: string | undefined): { name: IconName; size: number; color?: string } => {
   switch (type) {
     case ChangeSourceTypes.HarnessCD:
     case ChangeSourceTypes.HarnessCDNextGen:
-      return 'cd-main'
+      return { name: 'cd-main', size: 24 }
     case ChangeSourceTypes.PagerDuty:
-      return 'service-pagerduty'
+      return { name: 'service-pagerduty', size: 24 }
     case ChangeSourceTypes.K8sCluster:
-      return 'infrastructure'
+      return { name: 'infrastructure', size: 32, color: Color.BLACK }
     default:
-      return '' as IconName
+      return { name: 'circle', size: 0 }
   }
 }

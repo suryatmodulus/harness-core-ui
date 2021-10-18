@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import produce from 'immer'
 import * as Yup from 'yup'
-import { Accordion, Tag, Text, Formik, ButtonVariation } from '@wings-software/uicore'
+import { Layout, Tag, Text, Formik, ButtonVariation, FontVariation } from '@wings-software/uicore'
 import { set, debounce, cloneDeep } from 'lodash-es'
 import { FieldArray } from 'formik'
 import { Tooltip } from '@blueprintjs/core'
@@ -155,26 +155,19 @@ export const FlowControl: React.FC = (): JSX.Element => {
       <div className={css.header}>
         {pipeline?.name}: {getString('pipeline.barriers.flowControl')}
       </div>
-      <div>
-        <Accordion activeId="syncBarriers">
-          <Accordion.Panel
-            id="syncBarriers"
-            summary={<div className={css.syncBarrierTitle}>{getString('pipeline.barriers.syncBarriers')}</div>}
-            details={
-              <BarrierList
-                list={barriers}
-                pipeline={pipeline}
-                createItem={addBarrier}
-                deleteItem={deleteBarrier}
-                commitItem={commitBarrier}
-                updatePipeline={debouncedUpdatePipeline}
-                getString={getString}
-                loadingSetupInfo={loadingSetupInfo}
-              />
-            }
-          />
-        </Accordion>
-      </div>
+      <Layout.Vertical spacing="small">
+        <Text font={{ variation: FontVariation.H5 }}>{getString('pipeline.barriers.syncBarriers')}</Text>
+        <BarrierList
+          list={barriers}
+          pipeline={pipeline}
+          createItem={addBarrier}
+          deleteItem={deleteBarrier}
+          commitItem={commitBarrier}
+          updatePipeline={debouncedUpdatePipeline}
+          getString={getString}
+          loadingSetupInfo={loadingSetupInfo}
+        />
+      </Layout.Vertical>
     </div>
   )
 }

@@ -101,7 +101,7 @@ exports[`Delegates Details Page render data 1`] = `
         style="font-size: 20px; display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon bp3-icon-cube StyledProps--main StyledProps--padding-right-xsmall"
+          class="bp3-icon bp3-icon-cube StyledProps--main Text--icon StyledProps--padding-right-xsmall"
           icon="cube"
         >
           <svg

@@ -14,11 +14,11 @@ export const getServicesStates = (): { label: keyof StringsMap; identifier: stri
       identifier: 'needsAttention',
       color: getRiskColorValue(RiskValues.NEED_ATTENTION)
     },
-    {
-      label: getRiskLabelStringId(RiskValues.OBSERVE),
-      identifier: 'observe',
-      color: getRiskColorValue(RiskValues.OBSERVE)
-    },
+    // {
+    //   label: getRiskLabelStringId(RiskValues.OBSERVE),
+    //   identifier: 'observe',
+    //   color: getRiskColorValue(RiskValues.OBSERVE)
+    // },
     {
       label: getRiskLabelStringId(RiskValues.HEALTHY),
       identifier: 'healthy',

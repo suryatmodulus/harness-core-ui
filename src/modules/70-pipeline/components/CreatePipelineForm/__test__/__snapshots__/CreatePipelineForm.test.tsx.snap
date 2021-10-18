@@ -209,38 +209,6 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
           </div>
         </div>
         <div
-          class="Accordion--accordion optionalConfiguration"
-        >
-          <div
-            class="Accordion--panel"
-            data-open="false"
-            data-testid="optional-config-panel"
-          >
-            <div
-              class="Accordion--summary"
-              data-testid="optional-config-summary"
-            >
-              <div
-                class="Accordion--chevron"
-              />
-              <div
-                class="Accordion--label"
-              >
-                common.optionalConfig
-              </div>
-            </div>
-            <div
-              class="bp3-collapse Accordion--collapse"
-            >
-              <div
-                aria-hidden="false"
-                class="bp3-collapse-body"
-                style="transform: translateY(-undefinedpx);"
-              />
-            </div>
-          </div>
-        </div>
-        <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
         >
           <button
@@ -505,38 +473,6 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
                 </svg>
               </span>
             </label>
-          </div>
-        </div>
-        <div
-          class="Accordion--accordion optionalConfiguration"
-        >
-          <div
-            class="Accordion--panel"
-            data-open="false"
-            data-testid="optional-config-panel"
-          >
-            <div
-              class="Accordion--summary"
-              data-testid="optional-config-summary"
-            >
-              <div
-                class="Accordion--chevron"
-              />
-              <div
-                class="Accordion--label"
-              >
-                common.optionalConfig
-              </div>
-            </div>
-            <div
-              class="bp3-collapse Accordion--collapse"
-            >
-              <div
-                aria-hidden="false"
-                class="bp3-collapse-body"
-                style="transform: translateY(-undefinedpx);"
-              />
-            </div>
           </div>
         </div>
         <div
@@ -834,38 +770,6 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
                 </svg>
               </span>
             </label>
-          </div>
-        </div>
-        <div
-          class="Accordion--accordion optionalConfiguration"
-        >
-          <div
-            class="Accordion--panel"
-            data-open="false"
-            data-testid="optional-config-panel"
-          >
-            <div
-              class="Accordion--summary"
-              data-testid="optional-config-summary"
-            >
-              <div
-                class="Accordion--chevron"
-              />
-              <div
-                class="Accordion--label"
-              >
-                common.optionalConfig
-              </div>
-            </div>
-            <div
-              class="bp3-collapse Accordion--collapse"
-            >
-              <div
-                aria-hidden="false"
-                class="bp3-collapse-body"
-                style="transform: translateY(-undefinedpx);"
-              />
-            </div>
           </div>
         </div>
         <div

@@ -622,7 +622,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                        class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                         icon="full-circle"
                       >
                         <svg
@@ -1335,7 +1335,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                        class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                         icon="full-circle"
                       >
                         <svg
@@ -2048,7 +2048,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                       tabindex="0"
                     >
                       <span
-                        class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                        class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                         icon="full-circle"
                       >
                         <svg

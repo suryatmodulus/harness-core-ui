@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountSideNav AccountSideNav simple snapshot test 1`] = `
+<div>
+  <div
+    class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-xxxlarge"
+  >
+    <a
+      class="link"
+      href="/account/undefined/settings/overview"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        overview
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/undefined/settings/authentication"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        authentication
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/undefined/settings/resources"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        common.accountResources
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/undefined/settings/access-control"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        accessControl
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/undefined/settings/organizations"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        orgsText
+      </p>
+    </a>
+    <button
+      class="launchButtonPosition"
+      type="button"
+    >
+      common.cgLaunchText
+    </button>
+  </div>
+</div>
+`;

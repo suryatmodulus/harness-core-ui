@@ -15,6 +15,8 @@ import {
   UseGetStepsProps
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { StepActions } from '@common/constants/TrackingConstants'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { StepPopover } from '@pipeline/components/PipelineStudio/StepPalette/StepPopover/StepPopover'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
@@ -116,6 +118,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
+  const { trackEvent } = useTelemetry()
   // Need this when we have same names for category and sub category
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null)
   const { module, accountId } = useParams<{ module: string; accountId: string }>()
@@ -249,6 +252,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                             type: stepData.type || '',
                             icon: stepsFactory.getStepIcon(stepData.type || '')
                           })
+                          trackEvent(StepActions.SelectStep, { name: stepData.name || '', type: stepData.type || '' })
                         }
                       }}
                     >
@@ -273,6 +277,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                               type: stepData.type || /* istanbul ignore next */ '',
                               icon: stepsFactory.getStepIcon(stepData.type || '')
                             })
+                            trackEvent(StepActions.SelectStep, { name: stepData.name || '', type: stepData.type || '' })
                           }
                         }}
                       >

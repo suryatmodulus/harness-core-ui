@@ -133,7 +133,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     inputSetValue,
     inputSetLabel,
     inputSetRepoIdentifier,
-    inputSetBranch
+    inputSetBranch,
+    stagesExecuted
   } = useQueryParams<GitQueryParams & RunPipelineQueryParams>()
   const { updateQueryParams, replaceQueryParams } = useUpdateQueryParams<PipelineStudioQueryParams>()
 
@@ -163,7 +164,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     }> &
       GitQueryParams
   >()
-
+  const isCIModule = module === 'ci'
   const { showSuccess, showError, clear } = useToaster()
 
   useDocumentTitle([parse(pipeline?.name || getString('pipelines'))])
@@ -641,6 +642,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               onClose={() => {
                 onCloseRunPipelineModal()
               }}
+              stagesExecuted={stagesExecuted}
             />
             <Button
               aria-label="close modal"
@@ -905,7 +907,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   }}
                   featureProps={{
                     featureRequest: {
-                      featureName: FeatureIdentifier.DEPLOYMENTS
+                      featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
                     }
                   }}
                   permission={{

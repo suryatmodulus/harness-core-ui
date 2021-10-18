@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Formik, FormikForm as Form, Button, Color, Icon, Accordion } from '@wings-software/uicore'
+import { Text, Layout, Formik, FormikForm as Form, Button, Color, Icon } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { omit } from 'lodash-es'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
@@ -11,12 +11,6 @@ import type { EntityGitDetails } from 'services/pipeline-ng'
 import GitContextForm from '@common/components/GitContextForm/GitContextForm'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import {
-  FormMultiTypeDurationField,
-  getDurationValidationSchema
-} from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
-import css from './CreatePipelineForm.module.scss'
 
 interface CreatePipelineFormProps {
   handleSubmit: (value: PipelineInfoConfig, gitDetail: EntityGitDetails) => void
@@ -27,7 +21,6 @@ interface CreatePipelineFormProps {
 export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
-  const { expressions } = useVariablesExpression()
   const { handleSubmit, closeModal, learnMoreUrl } = props
   return (
     <Formik
@@ -44,7 +37,6 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('createPipeline.pipelineNameRequired') }),
         identifier: IdentifierSchema(),
-        timeout: getDurationValidationSchema({ minimum: '10s' }),
         ...(isGitSyncEnabled
           ? {
               repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
@@ -82,20 +74,6 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
                 />
               </GitSyncStoreProvider>
             )}
-            <Accordion className={css.optionalConfiguration}>
-              <Accordion.Panel
-                id="optional-config"
-                summary={getString('common.optionalConfig')}
-                details={
-                  <FormMultiTypeDurationField
-                    name="timeout"
-                    isOptional
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    multiTypeDurationProps={{ enableConfigureOptions: true, expressions }}
-                  />
-                }
-              />
-            </Accordion>
             <Layout.Horizontal padding={{ top: 'large' }} spacing="medium">
               <Button intent="primary" text={getString('start')} type="submit" />
               <Button

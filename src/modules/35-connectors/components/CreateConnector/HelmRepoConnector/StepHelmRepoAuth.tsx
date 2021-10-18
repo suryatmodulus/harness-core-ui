@@ -7,11 +7,11 @@ import {
   Text,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  FormikForm as Form,
   StepProps,
-  Color,
   Container,
-  SelectOption
+  SelectOption,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { setupHelmFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
@@ -95,8 +95,8 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
   return loadingConnectorSecrets ? (
     <PageSpinner />
   ) : (
-    <Layout.Vertical height={'inherit'} margin="small">
-      <Text font="medium" color={Color.BLACK} tooltipProps={{ dataTooltipId: 'helmRepoAuthenticationDetails' }}>
+    <Layout.Vertical spacing="small" className={css.stepDetails}>
+      <Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'helmRepoAuthenticationDetails' }}>
         {getString('details')}
       </Text>
       <Formik
@@ -136,7 +136,7 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
         }}
       >
         {formikProps => (
-          <Form>
+          <>
             <ModalErrorHandler bind={setModalErrorHandler} />
 
             <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'56%'}>
@@ -172,18 +172,20 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
               <Button
                 text={getString('back')}
                 icon="chevron-left"
+                variation={ButtonVariation.SECONDARY}
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="helmBackButton"
               />
               <Button
                 type="submit"
-                intent="primary"
+                variation={ButtonVariation.PRIMARY}
+                onClick={formikProps.submitForm}
                 text={getString('continue')}
                 rightIcon="chevron-right"
                 disabled={loadConnector}
               />
             </Layout.Horizontal>
-          </Form>
+          </>
         )}
       </Formik>
     </Layout.Vertical>

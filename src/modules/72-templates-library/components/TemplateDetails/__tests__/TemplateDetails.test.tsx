@@ -7,7 +7,7 @@ describe('<TemplateDetails /> tests', () => {
   test('snapshot test', async () => {
     const { container } = render(
       <TestWrapper>
-        <TemplateDetails templateIdentifier={'My_Step_Template'} />
+        <TemplateDetails accountId={'account-id'} templateIdentifier={'My_Step_Template'} />
       </TestWrapper>
     )
 

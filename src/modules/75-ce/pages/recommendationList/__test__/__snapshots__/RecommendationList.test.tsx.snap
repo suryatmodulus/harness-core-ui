@@ -51,7 +51,7 @@ exports[`test cases for Recommendation List Page should be able to render empty 
                 style="display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="money-icon"
                 >
                   <svg
@@ -320,7 +320,7 @@ exports[`test cases for Recommendation List Page should be able to render empty 
                       style="display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="ng-filter"
                       >
                         <svg
@@ -414,7 +414,7 @@ exports[`test cases for Recommendation List Page should be able to render page w
                 style="display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="money-icon"
                 >
                   <svg
@@ -719,7 +719,7 @@ exports[`test cases for Recommendation List Page should be able to render page w
                 style="display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="money-icon"
                 >
                   <svg
@@ -1045,7 +1045,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                 style="display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="money-icon"
                 >
                   <svg
@@ -1314,7 +1314,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                       style="display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="ng-filter"
                       >
                         <svg
@@ -1422,7 +1422,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                       style="display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="money-icon"
                       >
                         <svg
@@ -1706,7 +1706,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                       style="display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="money-icon"
                       >
                         <svg
@@ -1990,7 +1990,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                       style="display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="money-icon"
                       >
                         <svg
@@ -2274,7 +2274,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                       style="display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="money-icon"
                       >
                         <svg
@@ -2558,7 +2558,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                       style="display: flex; align-items: center;"
                     >
                       <span
-                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                         data-icon="money-icon"
                       >
                         <svg

@@ -219,7 +219,7 @@ exports[`Resource Groups Page render data 1`] = `
                 style="display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                   data-icon="nav-project"
                 >
                   <svg
@@ -307,7 +307,7 @@ exports[`Resource Groups Page render data 1`] = `
                 style="display: flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small"
                   data-icon="nav-project"
                 >
                   <svg
@@ -422,7 +422,7 @@ exports[`Resource Groups Page render data 1`] = `
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon bp3-icon-settings StyledProps--main StyledProps--padding-right-medium"
+                    class="bp3-icon bp3-icon-settings StyledProps--main Text--icon StyledProps--padding-right-medium"
                     icon="settings"
                   >
                     <svg

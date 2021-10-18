@@ -9,7 +9,7 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 import { getTooltip } from '@rbac/utils/utils'
 
 interface RbacAvatarGroupProps extends AvatarGroupProps {
-  permission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
+  permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
   disabled?: boolean
   featureProps?: FeatureProps
 }
@@ -22,7 +22,7 @@ const RbacAvatarGroup: React.FC<RbacAvatarGroupProps> = ({
   const [canDoAction] = usePermission(
     {
       ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),
-      permissions: [permissionRequest.permission || '']
+      permissions: [permissionRequest?.permission || '']
     } as PermissionsRequest,
     [permissionRequest]
   )

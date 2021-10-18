@@ -3,7 +3,7 @@ import { Layout, Text, Color, Container, Pagination } from '@wings-software/uico
 import { isEqual } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useGetMonitoredServiceList } from 'services/cv'
-import { PageSpinner, useToaster } from '@common/components'
+import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import SaveAndDiscardButton from '@common/components/SaveAndDiscardButton/SaveAndDiscardButton'
@@ -34,7 +34,6 @@ export default function Dependency({
   dependencyTabformRef?: any
 }): JSX.Element {
   const { getString } = useStrings()
-  const { showSuccess } = useToaster()
   const [dependencyMap, setDependencyMap] = useState<Map<string, DependencyMetaData>>(new Map())
   const [isDirty, setIsDirty] = useState(false)
   const { accountId, identifier, orgIdentifier, projectIdentifier } = useParams<
@@ -85,13 +84,6 @@ export default function Dependency({
         isUpdated={isDirty}
         onSave={async () => {
           await onSuccess(updateMonitoredServiceWithDependencies(Array.from(dependencyMap.values()), value))
-          showSuccess(
-            getString(
-              identifier
-                ? 'cv.monitoredServices.monitoredServiceUpdated'
-                : 'cv.monitoredServices.monitoredServiceCreated'
-            )
-          )
         }}
         onDiscard={() => {
           setDependencyMap(initalDependencies)

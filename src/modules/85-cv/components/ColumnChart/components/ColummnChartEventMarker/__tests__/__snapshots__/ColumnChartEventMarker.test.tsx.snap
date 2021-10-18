@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit tests for CoolumnChartEvent Marker ensure marker renders correctly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main eventMarker"
+    style="height: 165px; left: 10px;"
+  >
+    <div
+      class="StyledProps--font StyledProps--main eventMarkerSquare"
+    />
+  </div>
+</div>
+`;

@@ -614,7 +614,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                 style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7 StyledProps--margin-right-xsmall"
+                  class="bp3-icon bp3-icon-info-sign StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7 StyledProps--margin-right-xsmall"
                   icon="info-sign"
                 >
                   <svg
@@ -1423,7 +1423,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -1447,7 +1447,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -1471,7 +1471,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -1495,7 +1495,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -1519,7 +1519,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -1630,7 +1630,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -1654,7 +1654,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -1760,7 +1760,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -1784,7 +1784,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -1808,7 +1808,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -1832,7 +1832,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
                                 style="line-height: 20px; display: flex; align-items: center;"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
+                                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-green600"
                                   data-icon="main-tick"
                                 >
                                   <svg
@@ -2822,7 +2822,7 @@ exports[`Create Secret Manager Wizard should render form 5`] = `
                     </svg>
                   </span>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                     style=""
                   >
                     connectors.ceAws.testConnection.step1
@@ -2847,7 +2847,7 @@ exports[`Create Secret Manager Wizard should render form 5`] = `
                     </svg>
                   </span>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                     style="font-weight: normal;"
                   >
                     connectors.ceAws.testConnection.step2
@@ -2872,7 +2872,7 @@ exports[`Create Secret Manager Wizard should render form 5`] = `
                     </svg>
                   </span>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                     style="font-weight: normal;"
                   >
                     connectors.ceAws.testConnection.step3

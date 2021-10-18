@@ -21,6 +21,7 @@ selectedTimeInterval: Selected time interval
 anomalous: Anomalous
 nonAnomalous: Non-Anomalous
 share: Share
+healthScore: Health Score
 clusterType: Cluster Type
 sampleMessage: Sample Message
 sampleEvent: Sample Event
@@ -47,10 +48,13 @@ lastSuccessfulRun: Last Successful Job Run
 jobNamePlaceholder: Enter a Job Name
 throughput: Throughput
 responseTime: Response Time
+serviceHealthTrend: Service Health Trend
 query: Query
 selectQuery: Select Query (Optional)
 addNew: + Add New
 turnService: Turn service
+showYAMLChange: Show YAML Change
+seeYAML: See full event YAML
 serviceDashboardPage:
   fiveMinutes: 5 Minutes
   fifteenMinutes: 15 Minutes
@@ -562,7 +566,6 @@ monitoredServices:
     last7Days: '{{ $.common.last7days }}'
     overallHealthScore: Overall Health Score
     noDataAvailableForHealthScore: No healthscore data available in the {{duration}}
-    healthScore: Health Score
     pleaseSelectAnotherTimeWindow: Please select another time window.
     selectTimeline: Select a timeline to see metric & logs data
     metricsAndLogs: Metrics & Logs

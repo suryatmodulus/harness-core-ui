@@ -64,7 +64,7 @@ const TemplateResourceRenderer: React.FC<RbacResourceRendererProps> = ({
       onResourceSelectionChange={onResourceSelectionChange}
       columns={[
         {
-          Header: getString('common.pipeline'),
+          Header: getString('common.templates'),
           id: 'name',
           accessor: 'name' as any,
           Cell: RenderColumnTemplate,

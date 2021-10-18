@@ -1,5 +1,4 @@
 import React from 'react'
-import cx from 'classnames'
 import { Container, Layout, Pagination } from '@wings-software/uicore'
 import { TemplateCard } from '@templates-library/components/TemplateCard/TemplateCard'
 import type { TemplateSummaryResponse } from 'services/template-ng'
@@ -11,7 +10,7 @@ export const TemplatesGridView: React.FC<TemplatesViewProps> = (props): JSX.Elem
 
   return (
     <Layout.Vertical height={'100%'}>
-      <Container style={{ flexGrow: 1 }}>
+      <Container className={css.gridLayout}>
         <Layout.Masonry
           center
           gutter={25}
@@ -20,7 +19,7 @@ export const TemplatesGridView: React.FC<TemplatesViewProps> = (props): JSX.Elem
             <TemplateCard
               template={template}
               onSelect={onSelect}
-              className={cx({ [css.selectedTemplate]: template.identifier === selectedIdentifier })}
+              isSelected={template.identifier === selectedIdentifier}
               onPreview={onPreview}
               onOpenEdit={onOpenEdit}
               onOpenSettings={onOpenSettings}

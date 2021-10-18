@@ -57,7 +57,8 @@ export default function BuildStageSetupShell(): JSX.Element {
       originalPipeline,
       pipelineView: { isSplitViewOpen },
       pipelineView,
-      selectionState: { selectedStageId = '', selectedStepId }
+      selectionState: { selectedStageId = '', selectedStepId },
+      templateTypes
     },
     stepsFactory,
     getStageFromPipeline,
@@ -254,6 +255,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                 stage={selectedStageClone}
                 originalStage={originalStage}
                 ref={executionRef}
+                templateTypes={templateTypes}
                 updateStage={newStageData => {
                   const newData = produce(newStageData, draft => {
                     // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)

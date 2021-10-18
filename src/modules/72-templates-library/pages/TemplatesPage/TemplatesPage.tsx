@@ -142,6 +142,7 @@ export default function TemplatesPage(): React.ReactElement {
                 width={200}
                 placeholder={getString('search')}
                 onChange={(text: string) => {
+                  setPage(0)
                   setSearchParam(text)
                 }}
                 ref={searchRef}
@@ -186,6 +187,10 @@ export default function TemplatesPage(): React.ReactElement {
         onClose={() => {
           setSelectedTemplate(undefined)
         }}
+        accountId={accountId}
+        orgIdentifier={orgIdentifier}
+        projectIdentifier={projectIdentifier}
+        module={module}
       />
     </>
   )

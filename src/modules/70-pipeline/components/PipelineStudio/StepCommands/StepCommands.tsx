@@ -1,16 +1,5 @@
 import React from 'react'
-import {
-  Button,
-  ButtonSize,
-  ButtonVariation,
-  Color,
-  Container,
-  Icon,
-  Layout,
-  Tab,
-  Tabs,
-  Text
-} from '@wings-software/uicore'
+import { ButtonSize, ButtonVariation, Color, Container, Tab, Tabs } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -25,6 +14,10 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { StepElementConfig } from 'services/cd-ng'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { TemplateBar } from '@pipeline/components/PipelineStudio/StepCommands/TemplateBar/TemplateBar'
 import { StepCommandsProps, StepCommandsViews } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
@@ -57,6 +50,7 @@ export function StepCommands(
     onUpdate,
     onUseTemplate,
     onSaveAsTemplate,
+    onRemoveTemplate,
     isStepGroup,
     isReadonly,
     stepsFactory,
@@ -185,81 +179,81 @@ export function StepCommands(
 
   return (
     <div className={cx(css.stepCommand, className)}>
-      {stepType === StepType.Template && (
-        <Container
-          margin={'medium'}
-          padding={{ top: 'small', right: 'medium', bottom: 'small', left: 'medium' }}
-          background={Color.PRIMARY_6}
-          border={{ radius: 4 }}
-        >
-          <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-            <Icon size={11} color={Color.WHITE} name={'template-library'} />
-            <Text font={{ size: 'small' }} color={Color.WHITE}>
-              {`Using Template: ${(step as TemplateStepData)?.template?.templateRef} (${
-                (step as TemplateStepData)?.template?.versionLabel
-              })`}
-            </Text>
-          </Layout.Horizontal>
-        </Container>
-      )}
-      <div className={cx(css.stepTabs, { stepTabsAdvanced: activeTab === StepCommandTabs.Advanced })}>
-        <Tabs id="step-commands" selectedTabId={activeTab} onChange={handleTabChange}>
-          <Tab
-            id={StepCommandTabs.StepConfiguration}
-            title={isStepGroup ? getString('stepGroupConfiguration') : getString('stepConfiguration')}
-            panel={getStepWidgetWithFormikRef()}
-          />
-          <Tab
-            id={StepCommandTabs.Advanced}
-            title={getString('advancedTitle')}
-            panel={
-              <AdvancedStepsWithRef
-                step={step}
-                isReadonly={isReadonly}
-                stepsFactory={stepsFactory}
-                allowableTypes={allowableTypes}
-                onChange={onChange}
-                onUpdate={onUpdate}
-                hiddenPanels={hiddenPanels}
-                isStepGroup={isStepGroup}
-                hasStepGroupAncestor={hasStepGroupAncestor}
-                ref={advancedConfRef}
-                stageType={stageType}
-                stepType={stepType}
-              />
-            }
-          />
-          {templatesEnabled && viewType === StepCommandsViews.Pipeline && stepType !== StepType.Template ? (
-            <>
-              <Expander />
-              <div>
-                <Button
-                  icon="template-library"
-                  iconProps={{ size: 12 }}
-                  minimal
-                  size={ButtonSize.SMALL}
-                  variation={ButtonVariation.PRIMARY}
-                  onClick={() => {
-                    onUseTemplate?.(step)
-                  }}
-                  className={css.useTemplateBtn}
-                >
-                  {getString('common.useTemplate')}
-                </Button>
-                <Button
-                  withoutCurrentColor
-                  variation={ButtonVariation.ICON}
-                  icon="upload-box"
-                  className={css.saveAsTempalteBtn}
-                  minimal
-                  size={ButtonSize.SMALL}
-                  onClick={() => onSaveAsTemplate?.(step)}
+      {stepType === StepType.Template ? (
+        <>
+          <TemplateBar step={step} onChangeTemplate={onUseTemplate} onRemoveTemplate={onRemoveTemplate} />
+          <Container padding={'large'}>{getStepWidgetWithFormikRef()}</Container>
+        </>
+      ) : (
+        <div className={cx(css.stepTabs, { stepTabsAdvanced: activeTab === StepCommandTabs.Advanced })}>
+          <Tabs id="step-commands" selectedTabId={activeTab} onChange={handleTabChange}>
+            <Tab
+              id={StepCommandTabs.StepConfiguration}
+              title={isStepGroup ? getString('stepGroupConfiguration') : getString('stepConfiguration')}
+              panel={getStepWidgetWithFormikRef()}
+            />
+            <Tab
+              id={StepCommandTabs.Advanced}
+              title={getString('advancedTitle')}
+              panel={
+                <AdvancedStepsWithRef
+                  step={step}
+                  isReadonly={isReadonly}
+                  stepsFactory={stepsFactory}
+                  allowableTypes={allowableTypes}
+                  onChange={onChange}
+                  onUpdate={onUpdate}
+                  hiddenPanels={hiddenPanels}
+                  isStepGroup={isStepGroup}
+                  hasStepGroupAncestor={hasStepGroupAncestor}
+                  ref={advancedConfRef}
+                  stageType={stageType}
+                  stepType={stepType}
                 />
-              </div>
-            </>
-          ) : null}
-        </Tabs>
-      </div>
+              }
+            />
+            {templatesEnabled && viewType === StepCommandsViews.Pipeline ? (
+              <>
+                <Expander />
+                <div>
+                  <RbacButton
+                    text={getString('common.useTemplate')}
+                    variation={ButtonVariation.SECONDARY}
+                    size={ButtonSize.SMALL}
+                    icon="template-library"
+                    iconProps={{ size: 12 }}
+                    onClick={() => {
+                      onUseTemplate?.(step)
+                    }}
+                    margin={{ right: 'small' }}
+                    permission={{
+                      permission: PermissionIdentifier.ACCESS_TEMPLATE,
+                      resource: {
+                        resourceType: ResourceType.TEMPLATE
+                      }
+                    }}
+                  />
+                  <RbacButton
+                    withoutCurrentColor
+                    variation={ButtonVariation.ICON}
+                    icon="upload-box"
+                    iconProps={{ color: Color.PRIMARY_7 }}
+                    size={ButtonSize.SMALL}
+                    onClick={() => onSaveAsTemplate?.(step)}
+                    className={css.saveButton}
+                    permission={{
+                      permission: PermissionIdentifier.EDIT_TEMPLATE,
+                      resource: {
+                        resourceType: ResourceType.TEMPLATE
+                      }
+                    }}
+                  />
+                </div>
+              </>
+            ) : null}
+          </Tabs>
+        </div>
+      )}
     </div>
   )
 }

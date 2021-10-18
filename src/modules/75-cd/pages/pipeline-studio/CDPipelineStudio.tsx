@@ -62,6 +62,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
   const isCIEnabled = useFeatureFlag(FeatureFlag.CING_ENABLED)
   const isCDEnabled = useFeatureFlag(FeatureFlag.CDNG_ENABLED)
   const { getString } = useStrings()
+
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}

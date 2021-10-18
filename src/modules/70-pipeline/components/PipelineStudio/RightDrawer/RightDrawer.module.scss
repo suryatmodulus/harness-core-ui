@@ -8,7 +8,7 @@ $top-offset: 110px;
 
   :global(.bp3-drawer-header) {
     margin: 0 var(--spacing-large);
-    padding: var(--spacing-medium) 0 !important;
+    padding: var(--spacing-7) 0 !important;
     box-shadow: none;
     border-bottom: 1px solid var(--grey-300);
   }
@@ -58,9 +58,9 @@ $top-offset: 110px;
 
     :global(.bp3-drawer-header) {
       margin: 0 !important;
-      padding-top: var(--spacing-medium) !important;
-      padding-bottom: var(--spacing-medium) !important;
-      padding-left: var(--spacing-large) !important;
+      padding-top: var(--spacing-7) !important;
+      padding-bottom: var(--spacing-7) !important;
+      padding-left: var(--spacing-7) !important;
     }
   }
 }
@@ -105,4 +105,11 @@ $top-offset: 110px;
   color: var(--white) !important;
   border-radius: 4px 0 0 4px !important;
   padding: 0 !important;
+}
+
+.configDialog {
+  width: 875px;
+  padding-bottom: 0;
+  overflow: hidden;
+  position: relative;
 }

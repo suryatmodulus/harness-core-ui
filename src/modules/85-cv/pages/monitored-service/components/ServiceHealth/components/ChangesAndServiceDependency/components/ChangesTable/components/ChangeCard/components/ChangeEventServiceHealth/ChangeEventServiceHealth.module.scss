@@ -1,0 +1,22 @@
+.main {
+  .status {
+    font-weight: bolder !important;
+    font-size: var(--font-size-medium) !important;
+    margin-bottom: var(--spacing-small) !important;
+    color: var(--black) !important;
+  }
+
+  .healthTrend {
+    font-weight: bolder !important;
+    color: var(--black) !important;
+    font-size: var(--font-size-small) !important;
+  }
+
+  .timestamps > div {
+    margin-left: 90px;
+  }
+
+  .legend {
+    margin-left: 0 !important;
+  }
+}

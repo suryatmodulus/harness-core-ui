@@ -111,7 +111,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                 >
                   Last 30 days
                   <span
-                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-left-xsmall"
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main Text--icon StyledProps--padding-left-xsmall"
                     icon="chevron-down"
                   >
                     <svg
@@ -314,7 +314,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                   >
                     Last 30 days
                     <span
-                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-left-xsmall"
+                      class="bp3-icon bp3-icon-chevron-down StyledProps--main Text--icon StyledProps--padding-left-xsmall"
                       icon="chevron-down"
                     >
                       <svg

@@ -1,0 +1,7 @@
+.inputsContainer {
+  position: relative;
+  min-height: 200px;
+  .error {
+    margin-top: var(--spacing-10) !important;
+  }
+}

@@ -104,7 +104,7 @@ exports[`TestConnection snapshot test should render TestConnection 1`] = `
                   </svg>
                 </span>
                 <div
-                  class="StyledProps--font StyledProps--main"
+                  class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                   style="font-weight: bold;"
                 >
                   <span>

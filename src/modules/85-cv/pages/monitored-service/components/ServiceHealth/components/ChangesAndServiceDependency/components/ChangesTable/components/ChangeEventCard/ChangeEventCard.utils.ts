@@ -1,6 +1,10 @@
 import moment from 'moment'
+import { Color } from '@wings-software/uicore'
+import type { EventData } from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineView'
 import type { ChangeEventMetadata, ChangeEventDTO } from 'services/cv'
+import type { UseStringsReturn } from 'framework/strings'
 import type { CustomChangeEventDTO } from './ChangeEventCard.types'
+import { VerificationStatus } from './ChangeEventCard.constant'
 
 export const createChangeDetailsData = (resource: ChangeEventDTO | undefined) => {
   const { type, category, serviceName = '', environmentName = '', metadata } = resource || {}
@@ -44,5 +48,47 @@ export const createChangeTitleData = (resource: CustomChangeEventDTO | undefined
     type,
     executionId: id,
     url: metadata?.pipelinePath
+  }
+}
+
+export function verificationResultToColor(
+  verificationResult: EventData['verificationResult'],
+  getString: UseStringsReturn['getString']
+): {
+  color: Color
+  statusMessage: string
+  backgroundColor: Color
+} {
+  let statusMessage = ''
+  let color = Color.GREY_700
+  let backgroundColor = Color.GREY_350
+  switch (verificationResult) {
+    case VerificationStatus.IN_PROGRESS:
+      statusMessage = getString('inProgress')
+      color = Color.PRIMARY_2
+      backgroundColor = Color.PRIMARY_6
+      break
+    case VerificationStatus.VERIFICATION_FAILED:
+      statusMessage = getString('failed')
+      color = Color.RED_500
+      backgroundColor = Color.RED_200
+      break
+    case VerificationStatus.ERROR:
+      statusMessage = getString('error')
+      color = Color.RED_500
+      backgroundColor = Color.RED_200
+      break
+    case VerificationStatus.VERIFICATION_PASSED:
+      statusMessage = getString('passed')
+      color = Color.GREEN_700
+      backgroundColor = Color.GREEN_350
+      break
+    default:
+  }
+
+  return {
+    statusMessage,
+    color,
+    backgroundColor
   }
 }

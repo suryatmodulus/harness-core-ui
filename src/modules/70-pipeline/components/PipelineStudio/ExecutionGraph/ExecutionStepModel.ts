@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash-es'
+import { get, isEmpty } from 'lodash-es'
 
 import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -47,6 +47,7 @@ export interface AddUpdateGraphProps {
   isReadonly: boolean
   parentPath: string
   errorMap: Map<string, string[]>
+  templateTypes?: { [key: string]: string }
 }
 
 export interface RenderGraphStepNodesProps {
@@ -66,6 +67,7 @@ export interface RenderGraphStepNodesProps {
   getString?: UseStringsReturn['getString']
   parentPath: string
   errorMap: Map<string, string[]>
+  templateTypes?: { [key: string]: string }
 }
 
 // VERTICAL CONFIGURATION
@@ -264,7 +266,8 @@ export class ExecutionStepModel extends DiagramModel {
       isFirstStepGroupNode = false,
       getString,
       parentPath,
-      errorMap
+      errorMap,
+      templateTypes
     } = props
     const {
       FIRST_AND_LAST_SEGMENT_LENGTH,
@@ -279,7 +282,7 @@ export class ExecutionStepModel extends DiagramModel {
     if (node.step) {
       const isTemplateStep = !!(node.step as TemplateStepData)?.template
       const stepType = isTemplateStep
-        ? (node?.step as TemplateStepData)?.template?.templateInputs?.type || ''
+        ? get(templateTypes, (node?.step as TemplateStepData)?.template.templateRef) || ''
         : node?.step?.type
       const nodeType = getExecutionPipelineNodeType(node?.step?.type) || ExecutionPipelineNodeType.NORMAL
       const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))
@@ -620,7 +623,8 @@ export class ExecutionStepModel extends DiagramModel {
       getString,
       isReadonly,
       parentPath,
-      errorMap
+      errorMap,
+      templateTypes
     } = props
     const { FIRST_AND_LAST_SEGMENT_LENGTH, START_AND_END_NODE_WIDTH, SPACE_BETWEEN_ELEMENTS, NODE_WIDTH } =
       this.diagConfig
@@ -681,7 +685,8 @@ export class ExecutionStepModel extends DiagramModel {
         getString,
         parentPath: `${parentPath}.${index}`,
         errorMap,
-        isFirstNode: index === 0 && !hasDependencies
+        isFirstNode: index === 0 && !hasDependencies,
+        templateTypes
       })
       startX = resp.startX
       startY = resp.startY

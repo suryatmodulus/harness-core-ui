@@ -37,7 +37,7 @@ exports[`Connectors Stats render when also updated 1`] = `
         style="display: inline-flex; align-items: center;"
       >
         <span
-          class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+          class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
           icon="full-circle"
         >
           <svg
@@ -127,7 +127,7 @@ exports[`Connectors Stats render when only created 1`] = `
         style="display: inline-flex; align-items: center;"
       >
         <span
-          class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+          class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
           icon="full-circle"
         >
           <svg
@@ -203,7 +203,7 @@ exports[`Connectors Stats render when status is failure 1`] = `
         style="display: inline-flex; align-items: center;"
       >
         <span
-          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+          class="bp3-icon bp3-icon-warning-sign StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
           icon="warning-sign"
         >
           <svg

@@ -4,20 +4,22 @@ import { Color, Utils } from '@wings-software/uicore'
 export enum RiskValues {
   NO_DATA = 'NO_DATA',
   NO_ANALYSIS = 'NO_ANALYSIS',
-  HEALTHY = 'HEALTHY',
-  OBSERVE = 'OBSERVE',
-  NEED_ATTENTION = 'NEED_ATTENTION',
-  UNHEALTHY = 'UNHEALTHY'
+  HEALTHY = 'LOW',
+  OBSERVE = 'NO_DATA',
+  NEED_ATTENTION = 'MEDIUM',
+  UNHEALTHY = 'HIGH'
 }
 
-export function getRiskColorValue(riskStatus?: keyof typeof RiskValues, realCSSColor = true): string {
+export type RiskValuesTypes = 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+
+export function getRiskColorValue(riskStatus?: RiskValuesTypes, realCSSColor = true): string {
   switch (riskStatus) {
     case RiskValues.NO_DATA:
       return realCSSColor ? Utils.getRealCSSColor(Color.GREY_400) : Color.GREY_400
     case RiskValues.HEALTHY:
       return realCSSColor ? Utils.getRealCSSColor(Color.GREEN_500) : Color.GREEN_500
-    case RiskValues.OBSERVE:
-      return realCSSColor ? Utils.getRealCSSColor(Color.YELLOW_800) : Color.YELLOW_800
+    // case RiskValues.OBSERVE:
+    //   return realCSSColor ? Utils.getRealCSSColor(Color.YELLOW_800) : Color.YELLOW_800
     case RiskValues.NEED_ATTENTION:
       return realCSSColor ? Utils.getRealCSSColor(Color.ORANGE_600) : Color.ORANGE_600
     case RiskValues.UNHEALTHY:
@@ -27,12 +29,12 @@ export function getRiskColorValue(riskStatus?: keyof typeof RiskValues, realCSSC
   }
 }
 
-export function getSecondaryRiskColorValue(riskStatus?: keyof typeof RiskValues, realCSSColor = true): string {
+export function getSecondaryRiskColorValue(riskStatus?: RiskValuesTypes, realCSSColor = true): string {
   switch (riskStatus) {
     case RiskValues.HEALTHY:
       return realCSSColor ? Utils.getRealCSSColor(Color.GREEN_50) : Color.GREEN_50
-    case RiskValues.OBSERVE:
-      return realCSSColor ? Utils.getRealCSSColor(Color.YELLOW_50) : Color.YELLOW_50
+    // case RiskValues.OBSERVE:
+    // return realCSSColor ? Utils.getRealCSSColor(Color.YELLOW_50) : Color.YELLOW_50
     case RiskValues.NEED_ATTENTION:
       return realCSSColor ? Utils.getRealCSSColor(Color.ORANGE_50) : Color.ORANGE_50
     case RiskValues.UNHEALTHY:

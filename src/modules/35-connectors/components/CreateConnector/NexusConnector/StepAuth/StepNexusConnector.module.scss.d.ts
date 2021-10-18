@@ -8,5 +8,6 @@ declare const styles: {
   readonly authHeaderRow: string
   readonly authTitle: string
   readonly formWrapper: string
+  readonly stepDetails: string
 }
 export default styles

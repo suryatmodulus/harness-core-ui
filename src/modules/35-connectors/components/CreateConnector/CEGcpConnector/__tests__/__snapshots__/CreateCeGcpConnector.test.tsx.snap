@@ -685,7 +685,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
               style="display: inline-flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7 StyledProps--margin-right-xsmall"
+                class="bp3-icon bp3-icon-info-sign StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7 StyledProps--margin-right-xsmall"
                 icon="info-sign"
               >
                 <svg
@@ -1698,7 +1698,7 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
                     </svg>
                   </span>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                     style=""
                   >
                     connectors.ceGcp.testConnection.step1
@@ -1723,7 +1723,7 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
                     </svg>
                   </span>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                     style="font-weight: normal;"
                   >
                     connectors.ceGcp.testConnection.step2
@@ -1748,7 +1748,7 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
                     </svg>
                   </span>
                   <div
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StepsProgress--stepLabelContainer"
                     style="font-weight: normal;"
                   >
                     connectors.ceGcp.testConnection.step3

@@ -166,7 +166,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                         style="display: flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                          class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                           icon="dot"
                         >
                           <svg
@@ -191,7 +191,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                         style="display: flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                          class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                           icon="dot"
                         >
                           <svg
@@ -216,7 +216,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                         style="display: flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                          class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                           icon="dot"
                         >
                           <svg
@@ -241,7 +241,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                         style="display: flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                          class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                           icon="dot"
                         >
                           <svg
@@ -266,7 +266,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                         style="display: flex; align-items: center;"
                       >
                         <span
-                          class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                          class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                           icon="dot"
                         >
                           <svg
@@ -400,7 +400,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             icon="dot"
                           >
                             <svg
@@ -435,7 +435,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             icon="dot"
                           >
                             <svg
@@ -571,7 +571,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             icon="dot"
                           >
                             <svg
@@ -606,7 +606,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             icon="dot"
                           >
                             <svg
@@ -646,7 +646,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             icon="dot"
                           >
                             <svg
@@ -681,7 +681,7 @@ exports[`HarnessAccount Disable login via Username-Password 1`] = `
                           style="display: flex; align-items: center;"
                         >
                           <span
-                            class="bp3-icon bp3-icon-dot StyledProps--main StyledProps--padding-right-xsmall"
+                            class="bp3-icon bp3-icon-dot StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                             icon="dot"
                           >
                             <svg

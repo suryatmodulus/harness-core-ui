@@ -39,88 +39,52 @@ exports[`Right Drawer tests FlowControl tests should render fine 1`] = `
         : 
         pipeline.barriers.flowControl
       </div>
-      <div>
-        <div
-          class="Accordion--accordion"
+      <div
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h5"
         >
-          <div
-            class="Accordion--panel"
-            data-open="true"
-            data-testid="syncBarriers-panel"
-          >
+          pipeline.barriers.syncBarriers
+        </p>
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <div>
             <div
-              class="Accordion--summary"
-              data-testid="syncBarriers-summary"
+              class="barrierList"
+            />
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main addbarrier StyledProps--intent-primary Button--withLeftIcon Button--variation Button--variation-link"
+              type="button"
             >
-              <div
-                class="Accordion--chevron"
-              />
-              <div
-                class=""
+              <span
+                class="bp3-icon bp3-icon-plus StyledProps--main"
+                icon="plus"
               >
-                <div
-                  class="syncBarrierTitle"
+                <svg
+                  data-icon="plus"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
                 >
-                  pipeline.barriers.syncBarriers
-                </div>
-              </div>
-            </div>
-            <div
-              class="bp3-collapse Accordion--collapse"
-              style="height: auto; overflow-y: visible; transition: none;"
-            >
-              <div
-                aria-hidden="false"
-                class="bp3-collapse-body"
-                style="transform: translateY(0); transition: none;"
+                  <desc>
+                    plus
+                  </desc>
+                  <path
+                    d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="bp3-button-text"
               >
-                <div
-                  class="Accordion--details"
-                  data-testid="syncBarriers-details"
-                >
-                  <div
-                    class="OverlaySpinner--overlaySpinner"
-                  >
-                    <div>
-                      <div
-                        class="barrierList"
-                      />
-                      <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main addbarrier StyledProps--intent-primary Button--withLeftIcon Button--variation Button--variation-link"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-plus StyledProps--main"
-                          icon="plus"
-                        >
-                          <svg
-                            data-icon="plus"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              plus
-                            </desc>
-                            <path
-                              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                        <span
-                          class="bp3-button-text"
-                        >
-                          <span>
-                            pipeline.barriers.addBarrier
-                          </span>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                <span>
+                  pipeline.barriers.addBarrier
+                </span>
+              </span>
+            </button>
           </div>
         </div>
       </div>

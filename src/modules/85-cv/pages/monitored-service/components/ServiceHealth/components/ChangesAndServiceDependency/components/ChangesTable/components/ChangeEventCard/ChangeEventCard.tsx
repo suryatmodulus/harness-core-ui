@@ -9,18 +9,19 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { ChangeSourceTypes } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 import { PageError } from '@common/components/Page/PageError'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import PagerDutyEventCard from './PagerDutyEventCard'
-import HarnessNextGenEventCard from './HarnessNextGenEventCard'
-import HarnessCDEventCard from './HarnessCDEventCard'
+import PagerDutyEventCard from './components/EventCards/PagerDutyEventCard/PagerDutyEventCard'
+import HarnessNextGenEventCard from './components/EventCards/HarnessNextGenEventCard/HarnessNextGenEventCard'
+import HarnessCDEventCard from './components/EventCards/HarnessCDEventCard/HarnessCDEventCard'
+import K8sChangeEventCard from './components/EventCards/K8sChangeEventCard/K8sChangeEventCard'
 
-export default function ChangeEventCard({ activityId }: { activityId: string }) {
+export default function ChangeEventCard({ activityId }: { activityId: string }): JSX.Element {
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const { data, loading, error, refetch } = useGetChangeEventDetail({
     orgIdentifier,
     projectIdentifier,
     accountIdentifier: accountId,
-    activityId: activityId
+    activityId
   })
 
   const { type } = data?.resource || {}
@@ -37,6 +38,8 @@ export default function ChangeEventCard({ activityId }: { activityId: string }) 
         return <HarnessCDEventCard data={data?.resource} />
       case ChangeSourceTypes.HarnessCDNextGen:
         return <HarnessNextGenEventCard data={data?.resource} />
+      case ChangeSourceTypes.K8sCluster:
+        return <K8sChangeEventCard data={data?.resource} />
       default:
         return <NoDataCard message={getString('cv.changeSource.noDataAvaiableForCard')} image={noDataImage} />
     }

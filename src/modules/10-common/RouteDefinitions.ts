@@ -72,6 +72,18 @@ const routes = {
   toAuthenticationSettings: withAccountId(() => '/settings/authentication'),
   toAccountConfiguration: withAccountId(() => '/settings/authentication/configuration'),
   toAccountActivityLog: withAccountId(() => '/settings/authentication/activity-log'),
+  toPolicyDashboardPage: withAccountId(() => 'settings/governance/policy-dashboard'),
+  toPolicyListPage: withAccountId(() => 'settings/governance/policies'),
+  toPolicyNewPage: withAccountId(() => 'settings/governance/policies/new'),
+  toPolicyEditPage: withAccountId(
+    ({
+      policyIdentifier
+    }: AccountPathProps & {
+      policyIdentifier: string
+    }) => `settings/governance/policies/edit/${policyIdentifier}`
+  ),
+  toPolicySetsPage: withAccountId(() => 'settings/governance/policy-sets'),
+  toPolicyEvaluationsPage: withAccountId(() => 'settings/governance/policy-evaluations'),
   toLogin: (): string => '/login',
   toRedirect: (): string => `/redirect`,
   toSignup: (): string => '/signup',
@@ -735,6 +747,16 @@ const routes = {
     }: PipelineType<ExecutionPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/commits`
   ),
+  toExecutionPolicyEvaluationsView: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      executionIdentifier,
+      module
+    }: PipelineType<ExecutionPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/policy-evaluations`
+  ),
   toCDTemplateLibrary: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/template-library`
@@ -1207,7 +1229,6 @@ const routes = {
   ),
   toCustomFolderHome: withAccountId(() => '/dashboards/folders'),
   toViewCustomFolder: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/folder/view/${viewId}`)
-
   /****************** Secret Usage************************************************************************************/
 }
 

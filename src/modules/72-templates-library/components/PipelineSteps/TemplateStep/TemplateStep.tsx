@@ -8,7 +8,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { TemplateStepData } from '@pipeline/utils/tempates'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { StepElementConfig } from 'services/cd-ng'
-import { TemplateStepWidgetWithRef } from './TemplateStepWidget'
+import { TemplateStepWidgetWithRef } from './TemplateStepWidget/TemplateStepWidget'
 
 export class TemplateStep extends PipelineStep<TemplateStepData> {
   constructor() {
@@ -49,11 +49,9 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
           factory={factory}
           initialValues={initialValues.template?.templateInputs || {}}
           allValues={inputSetData?.allValues?.template?.templateInputs}
-          // eslint-disable-next-line
-          // @ts-ignore to be fixed later
-          template={inputSetData?.template}
+          template={inputSetData?.template as Partial<StepElementConfig>}
           readonly={!!inputSetData?.readonly}
-          type={initialValues.template?.templateInputs.type as StepType}
+          type={initialValues.template?.templateInputs?.type as StepType}
           path={`${prefix}template.templateInputs`}
           stepViewType={StepViewType.InputSet}
           allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}

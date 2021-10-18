@@ -80,7 +80,7 @@ exports[`PublicOAuthProviders Disable OAuth Providers 1`] = `
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                     data-icon="service-azure"
                   >
                     <svg
@@ -122,7 +122,7 @@ exports[`PublicOAuthProviders Disable OAuth Providers 1`] = `
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                     data-icon="bitbucket-blue"
                   >
                     <svg
@@ -161,7 +161,7 @@ exports[`PublicOAuthProviders Disable OAuth Providers 1`] = `
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                     data-icon="github"
                   >
                     <svg
@@ -198,7 +198,7 @@ exports[`PublicOAuthProviders Disable OAuth Providers 1`] = `
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                     data-icon="service-gotlab"
                   >
                     <svg
@@ -261,7 +261,7 @@ exports[`PublicOAuthProviders Disable OAuth Providers 1`] = `
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                     data-icon="google"
                   >
                     <svg
@@ -312,7 +312,7 @@ exports[`PublicOAuthProviders Disable OAuth Providers 1`] = `
                   style="display: flex; align-items: center;"
                 >
                   <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                     data-icon="linkedin"
                   >
                     <svg

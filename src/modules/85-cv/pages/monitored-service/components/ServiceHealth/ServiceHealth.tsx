@@ -40,14 +40,14 @@ export default function ServiceHealth({
   const [timestamps, setTimestamps] = useState<number[]>([])
   const [timeRange, setTimeRange] = useState<{ startTime: number; endTime: number }>()
   const [showTimelineSlider, setShowTimelineSlider] = useState(false)
+  const [changeTimelineSummary, setChangeTimelineSummary] = useState<ChangesInfoCardData[] | null>(null)
   const [healthScoreData, setHealthScoreData] = useState<RiskData[]>()
   const containerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     //changing timeperiod in dropdown should reset the timerange and remove the slider.
     if (showTimelineSlider) {
-      setTimeRange({ startTime: 0, endTime: 0 })
-      setShowTimelineSlider(false)
+      resetSlider()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTimePeriod?.value])
@@ -91,7 +91,6 @@ export default function ServiceHealth({
     [onFocusTimeRange, timestamps]
   )
 
-  const [changeTimelineSummary, setChangeTimelineSummary] = useState<ChangesInfoCardData[] | null>(null)
   const renderInfoCard = useCallback(() => {
     return (
       <AnomaliesCard
@@ -118,6 +117,11 @@ export default function ServiceHealth({
     () => calculateStartAndEndTimes(0, 1, timestamps) || [],
     [timestamps]
   )
+
+  const resetSlider = useCallback(() => {
+    setTimeRange({ startTime: 0, endTime: 0 })
+    setShowTimelineSlider(false)
+  }, [])
 
   return (
     <>
@@ -153,16 +157,18 @@ export default function ServiceHealth({
                 }
               }}
               className={css.main}
+              data-testid={'HealthScoreChartContainer'}
               ref={containerRef}
             >
               <HealthScoreChart
-                duration={selectedTimePeriod}
-                monitoredServiceIdentifier={monitoredServiceIdentifier as string}
-                setHealthScoreData={d => setHealthScoreData(d)}
+                duration={selectedTimePeriod?.value as TimePeriodEnum}
+                setHealthScoreData={setHealthScoreData}
+                serviceIdentifier={serviceIdentifier}
+                envIdentifier={environmentIdentifier}
                 timeFormat={timeFormat}
               />
               <TimelineSlider
-                resetFocus={() => setShowTimelineSlider(false)}
+                resetFocus={resetSlider}
                 initialSliderWidth={sliderDimensions.minWidth}
                 leftContainerOffset={90}
                 hideSlider={!showTimelineSlider}

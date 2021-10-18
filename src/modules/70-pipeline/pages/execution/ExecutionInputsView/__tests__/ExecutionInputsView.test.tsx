@@ -16,6 +16,7 @@ jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('services/pipeline-ng', () => ({
   useGetInputsetYaml: jest.fn(() => ({ data: null })),
   useGetTemplateFromPipeline: jest.fn(() => ({ data: null })),
+  useGetStagesExecutionList: jest.fn(() => ({})),
   useGetPipeline: jest.fn(() => ({ data: null })),
   usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: null })),
   useRePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: null })),
@@ -23,7 +24,8 @@ jest.mock('services/pipeline-ng', () => ({
   useGetInputSetsListForPipeline: jest.fn(() => ({ data: null, refetch: jest.fn() })),
   useGetYamlSchema: jest.fn(() => ({ data: null })),
   useCreateInputSetForPipeline: jest.fn(() => ({ data: null })),
-  useGetInputsetYamlV2: jest.fn(() => ({ data: null }))
+  useGetInputsetYamlV2: jest.fn(() => ({ data: null })),
+  useRunStagesWithRuntimeInputYaml: jest.fn(() => ({ data: null }))
 }))
 
 const TEST_PATH = routes.toExecutionInputsView({

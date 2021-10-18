@@ -20,6 +20,13 @@ import {
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+
+  useMutateAsGet: jest.fn().mockImplementation(() => {
+    return TemplateResponse
+  })
+}))
 const deleteInputSetMock = jest.fn()
 const deleteInputSet = (): Promise<{ status: string }> => {
   deleteInputSetMock()
@@ -37,6 +44,7 @@ jest.mock('services/pipeline-ng', () => ({
   useGetPipeline: jest.fn(() => PipelineResponse),
   useGetPipelineSummary: jest.fn(() => PipelineDetailsMockResponse),
   useGetTemplateFromPipeline: jest.fn(() => TemplateResponse),
+  useGetStagesExecutionList: jest.fn(() => ({})),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => MergeInputSetResponse),
   useGetOverlayInputSetForPipeline: jest.fn(() => GetOverlayInputSetEdit),
   useCreateInputSetForPipeline: jest.fn(() => ({})),
@@ -94,6 +102,7 @@ describe('Input Set List - Actions tests', () => {
           pipelineIdentifier: 'pipeline',
           module: 'cd'
         }}
+        // queryParams={{ repoIdentifier: 'firstRepo', branch: 'master' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
         <InputSetList />

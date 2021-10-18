@@ -21,7 +21,7 @@ exports[`EmailVerificationBanner email verify fails 1`] = `
         style="display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
           data-icon="deployment-incomplete-legacy"
         >
           <svg
@@ -83,7 +83,7 @@ exports[`EmailVerificationBanner email verify success 1`] = `
       style="display: flex; align-items: center;"
     >
       <span
-        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
         data-icon="deployment-success-legacy"
       >
         <svg
@@ -137,7 +137,7 @@ exports[`EmailVerificationBanner render 1`] = `
         style="display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
           data-icon="deployment-incomplete-legacy"
         >
           <svg

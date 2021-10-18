@@ -3,7 +3,6 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import cx from 'classnames'
 import {
   FormInput,
-  Card,
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
@@ -81,7 +80,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
           <FieldArray
             name={name}
             render={({ push, remove }) => (
-              <Card style={{ width: '100%' }}>
+              <>
                 {Array.isArray(value) &&
                   value.map(({ id }, index: number) => (
                     <div className={cx(css.group, css.withoutAligning)} key={id}>
@@ -113,8 +112,9 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
                   data-testid={`add-${name}`}
                   onClick={() => push({ id: uuid('', nameSpace()), value: '' })}
                   disabled={disabled}
+                  style={{ padding: 0 }}
                 />
-              </Card>
+              </>
             )}
           />
         </MultiTypeFieldSelector>

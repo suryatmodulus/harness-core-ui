@@ -69,7 +69,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-aws-code-deploy"
             >
               <svg
@@ -126,7 +126,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="service-aws-lamda"
             >
               <svg
@@ -181,7 +181,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="main-service-ami"
             >
               <svg
@@ -346,7 +346,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-kubernetes"
             >
               <svg
@@ -377,7 +377,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="command-winrm"
             >
               <svg
@@ -398,7 +398,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="service-pivotal"
             >
               <svg
@@ -427,7 +427,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-aws-lambda"
             >
               <svg
@@ -527,7 +527,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-kubernetes"
             >
               <svg
@@ -565,7 +565,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="app-aws-code-deploy"
                   style="opacity: 0.5;"
                 >
@@ -632,7 +632,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="service-aws-lamda"
                   style="opacity: 0.5;"
                 >
@@ -697,7 +697,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="main-service-ami"
                   style="opacity: 0.5;"
                 >
@@ -872,7 +872,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="command-winrm"
                   style="opacity: 0.5;"
                 >
@@ -903,7 +903,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="service-pivotal"
                   style="opacity: 0.5;"
                 >
@@ -942,7 +942,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="app-aws-lambda"
                   style="opacity: 0.5;"
                 >
@@ -1047,7 +1047,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-aws-code-deploy"
             >
               <svg
@@ -1104,7 +1104,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="service-aws-lamda"
             >
               <svg
@@ -1159,7 +1159,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="main-service-ami"
             >
               <svg
@@ -1324,7 +1324,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-kubernetes"
             >
               <svg
@@ -1355,7 +1355,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="command-winrm"
             >
               <svg
@@ -1376,7 +1376,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="service-pivotal"
             >
               <svg
@@ -1405,7 +1405,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-aws-lambda"
             >
               <svg
@@ -1505,7 +1505,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-kubernetes"
             >
               <svg
@@ -1543,7 +1543,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="app-aws-code-deploy"
                   style="opacity: 0.5;"
                 >
@@ -1610,7 +1610,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="service-aws-lamda"
                   style="opacity: 0.5;"
                 >
@@ -1675,7 +1675,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="main-service-ami"
                   style="opacity: 0.5;"
                 >
@@ -1850,7 +1850,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="command-winrm"
                   style="opacity: 0.5;"
                 >
@@ -1881,7 +1881,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="service-pivotal"
                   style="opacity: 0.5;"
                 >
@@ -1920,7 +1920,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="app-aws-lambda"
                   style="opacity: 0.5;"
                 >
@@ -2023,7 +2023,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-aws-code-deploy"
             >
               <svg
@@ -2080,7 +2080,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="service-aws-lamda"
             >
               <svg
@@ -2135,7 +2135,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="main-service-ami"
             >
               <svg
@@ -2300,7 +2300,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-kubernetes"
             >
               <svg
@@ -2331,7 +2331,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="command-winrm"
             >
               <svg
@@ -2352,7 +2352,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="service-pivotal"
             >
               <svg
@@ -2381,7 +2381,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-aws-lambda"
             >
               <svg
@@ -2481,7 +2481,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="app-kubernetes"
             >
               <svg
@@ -2519,7 +2519,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="app-aws-code-deploy"
                   style="opacity: 0.5;"
                 >
@@ -2586,7 +2586,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="service-aws-lamda"
                   style="opacity: 0.5;"
                 >
@@ -2651,7 +2651,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="main-service-ami"
                   style="opacity: 0.5;"
                 >
@@ -2826,7 +2826,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="command-winrm"
                   style="opacity: 0.5;"
                 >
@@ -2857,7 +2857,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="service-pivotal"
                   style="opacity: 0.5;"
                 >
@@ -2896,7 +2896,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
                 tabindex="0"
               >
                 <span
-                  class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                  class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
                   data-icon="app-aws-lambda"
                   style="opacity: 0.5;"
                 >

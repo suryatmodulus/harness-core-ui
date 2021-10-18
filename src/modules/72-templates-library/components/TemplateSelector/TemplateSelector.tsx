@@ -7,6 +7,7 @@ import {
   Container,
   DropDown,
   ExpandingSearchInput,
+  ExpandingSearchInputHandle,
   GridListToggle,
   Icon,
   Layout,
@@ -15,7 +16,6 @@ import {
   Views
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { noop } from 'lodash-es'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateSummaryResponse, useGetTemplateList } from 'services/template-ng'
@@ -27,41 +27,63 @@ import { PageError } from '@common/components/Page/PageError'
 import { useMutateAsGet } from '@common/hooks'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import TemplatesView from '@templates-library/pages/TemplatesPage/views/TemplatesView'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import routes from '@common/RouteDefinitions'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
 import css from './TemplateSelector.module.scss'
 
 export interface TemplateSelectorProps {
-  templateTypes: (keyof typeof TemplateType)[]
+  templateType: TemplateType
   childTypes: string[]
-  onSelect: (template: any) => void
-  onClose: () => void
-  onUseTemplate: (template: TemplateSummaryResponse) => void
+  onUseTemplate?: (template: TemplateSummaryResponse) => void
+  onCopyToPipeline?: (template: TemplateSummaryResponse) => void
 }
 
-const levelOptions: SelectOption[] = [
-  {
-    value: 'account',
-    label: 'Account'
-  },
-  {
-    value: 'org',
-    label: 'Organization'
-  },
-  {
-    value: 'project',
-    label: 'Project'
-  }
-]
-
 export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.Element => {
-  const { templateTypes, childTypes, onUseTemplate } = props
-  const [selectedLevel, setSelectedLevel] = useState(levelOptions[0])
+  const { templateType, childTypes, onUseTemplate, onCopyToPipeline } = props
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateSummaryResponse | undefined>()
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
   const [view, setView] = useState<Views>(Views.GRID)
   const [searchParam, setSearchParam] = useState('')
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
+  const scopeOptions: SelectOption[] = [
+    {
+      value: Scope.PROJECT,
+      label: getString('projectLabel')
+    },
+    {
+      value: Scope.ORG,
+      label: getString('orgLabel')
+    },
+    {
+      value: Scope.ACCOUNT,
+      label: getString('account')
+    }
+  ]
+  const [selectedScope, setSelectedScope] = useState<SelectOption>(scopeOptions[0])
+  const searchRef = React.useRef<ExpandingSearchInputHandle>({} as ExpandingSearchInputHandle)
+  const orgId = React.useMemo(() => {
+    return selectedScope.value === Scope.PROJECT || selectedScope.value === Scope.ORG ? orgIdentifier : undefined
+  }, [selectedScope, orgIdentifier])
+  const projectId = React.useMemo(() => {
+    return selectedScope.value === Scope.PROJECT ? projectIdentifier : undefined
+  }, [selectedScope, projectIdentifier])
+  const queryParams = React.useMemo(() => {
+    return {
+      accountIdentifier: accountId,
+      orgIdentifier: orgId,
+      projectIdentifier: projectId,
+      templateListType: TemplateListType.Stable,
+      searchTerm: searchParam,
+      page,
+      size: 20
+    }
+  }, [accountId, orgId, projectId, searchParam, page])
+
+  const reset = React.useCallback((): void => {
+    searchRef.current.clear()
+  }, [searchRef])
 
   const {
     data: templateData,
@@ -71,70 +93,62 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
   } = useMutateAsGet(useGetTemplateList, {
     body: {
       filterType: 'Template',
-      templateEntityTypes: templateTypes,
+      templateEntityTypes: [templateType],
       childTypes: childTypes
     },
-    queryParams: {
-      accountIdentifier: accountId,
-      projectIdentifier,
-      module,
-      orgIdentifier,
-      templateListType: TemplateListType.LastUpdated,
-      searchTerm: searchParam,
-      page,
-      size: 20
-    },
+    queryParams,
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
   useEffect(() => {
+    setSelectedTemplate(undefined)
     reloadTemplates()
-  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam])
-
-  const reset = (): void => {
-    setSearchParam('')
-  }
+  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam, selectedScope])
 
   return (
-    <Container height={'100%'}>
+    <Container height={'100%'} className={css.container}>
       <Layout.Horizontal height={'100%'}>
-        <Container width={735} background={Color.FORM_BG} className={css.selectorContainer}>
+        <Container width={762} background={Color.FORM_BG} className={css.selectorContainer}>
           <Layout.Vertical spacing={'xxlarge'} height={'100%'}>
-            <Container>
-              <Layout.Vertical spacing={'small'}>
-                <Breadcrumbs
-                  links={[
-                    {
-                      url: '/',
-                      label: 'Templates'
-                    },
-                    {
-                      url: '/',
-                      label: 'Step Templates'
-                    }
-                  ]}
-                />
-                <Container>
-                  <Layout.Horizontal spacing={'small'}>
-                    <DropDown
-                      items={levelOptions}
-                      value={selectedLevel.value.toString()}
-                      onChange={item => setSelectedLevel(item)}
-                      filterable={false}
-                    />
-                    <ExpandingSearchInput
-                      className={css.searchBox}
-                      alwaysExpanded={true}
-                      onChange={(text: string) => {
-                        setPage(0)
-                        setSearchParam(text)
-                      }}
-                    />
-                  </Layout.Horizontal>
-                </Container>
-              </Layout.Vertical>
-            </Container>
-            <Container style={{ flexGrow: 1, position: 'relative' }}>
+            <Layout.Vertical spacing={'small'} padding={{ left: 'xxlarge', right: 'xxlarge' }}>
+              <Breadcrumbs
+                links={[
+                  {
+                    url: routes.toTemplates({ accountId, orgIdentifier, projectIdentifier, module }),
+                    label: getString('common.templates')
+                  },
+                  {
+                    url: '/',
+                    label: getString('templatesLibrary.templatesLabel', { entity: templateType })
+                  }
+                ]}
+              />
+              <Container>
+                <Layout.Horizontal spacing={'small'}>
+                  <DropDown
+                    items={scopeOptions}
+                    value={selectedScope.value.toString()}
+                    onChange={item => setSelectedScope(item)}
+                    filterable={false}
+                  />
+                  <ExpandingSearchInput
+                    alwaysExpanded
+                    className={css.searchBox}
+                    onChange={(text: string) => {
+                      setPage(0)
+                      setSearchParam(text)
+                    }}
+                    ref={searchRef}
+                    defaultValue={searchParam}
+                  />
+                </Layout.Horizontal>
+              </Container>
+            </Layout.Vertical>
+            <Container
+              height={'100%'}
+              style={{ overflow: 'auto', position: 'relative' }}
+              padding={{ left: 'xxlarge', right: 'xxlarge' }}
+            >
               {loading && <PageSpinner />}
               {!loading && error && <PageError message={error?.message} onClick={reloadTemplates} />}
               {!templateData?.data?.content?.length && (
@@ -186,16 +200,22 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
             </Container>
           </Layout.Vertical>
         </Container>
-        <Container className={css.preview} background={Color.FORM_BG}>
+        <Container width={525} background={Color.FORM_BG}>
           {selectedTemplate ? (
             <Layout.Vertical height={'100%'}>
               <TemplateDetails
                 setTemplate={setSelectedTemplate}
                 templateIdentifier={selectedTemplate.identifier || ''}
+                versionLabel={selectedTemplate.versionLabel}
+                accountId={accountId}
+                orgIdentifier={orgId}
+                projectIdentifier={projectId}
+                module={module}
               />
               <Container>
                 <Layout.Horizontal
-                  padding={{ right: 'xxlarge', bottom: 'xxxlarge', left: 'xxlarge' }}
+                  padding={{ top: 'xxxlarge', right: 'xxlarge', bottom: 'xxxlarge', left: 'xxlarge' }}
+                  className={css.btnContainer}
                   spacing={'small'}
                 >
                   <Button
@@ -207,17 +227,19 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
                   />
                   <Button
                     variation={ButtonVariation.LINK}
-                    disabled
                     text={getString('templatesLibrary.copyToPipeline')}
-                    onClick={noop}
+                    onClick={() => {
+                      onCopyToPipeline?.(selectedTemplate)
+                    }}
                   />
                 </Layout.Horizontal>
               </Container>
             </Layout.Vertical>
           ) : (
-            <Container padding={'xlarge'} height={'100%'}>
+            <Container padding={{ top: 'xxlarge', right: 'xlarge', bottom: 'xxlarge', left: 'xlarge' }} height={'100%'}>
               <Layout.Vertical className={css.empty} height={'100%'} flex={{ align: 'center-center' }}>
-                <Text font={{ size: 'small', italic: true }} color={Color.GREY_300}>
+                <img src={templateIllustration} className={css.illustration} />
+                <Text className={css.placeholder} color={Color.GREY_700}>
                   {getString('templatesLibrary.selectTemplateToPreview')}
                 </Text>
               </Layout.Vertical>

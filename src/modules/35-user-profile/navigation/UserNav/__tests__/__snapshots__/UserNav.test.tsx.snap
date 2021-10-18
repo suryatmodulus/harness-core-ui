@@ -25,7 +25,7 @@ exports[`User Profile Page To Profile 1`] = `
         style="display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon bp3-icon-log-out StyledProps--main StyledProps--padding-right-small"
+          class="bp3-icon bp3-icon-log-out StyledProps--main Text--icon StyledProps--padding-right-small"
           icon="log-out"
         >
           <svg

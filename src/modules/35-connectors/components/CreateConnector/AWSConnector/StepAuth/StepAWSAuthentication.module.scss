@@ -16,3 +16,13 @@
     width: 56%;
   }
 }
+
+.formCredentials {
+  height: 100%;
+  > div {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

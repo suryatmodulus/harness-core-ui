@@ -41,6 +41,7 @@ export interface ExecutionActionsProps {
     pipelineIdentifier: string
     executionIdentifier: string
     accountId: string
+    stagesExecuted?: string[]
   }> &
     GitQueryParams
   refetch?(): Promise<void>
@@ -61,8 +62,10 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     pipelineIdentifier,
     module,
     branch,
-    repoIdentifier
+    repoIdentifier,
+    stagesExecuted
   } = params
+  const isCIModule = module === 'ci'
   const { mutate: interrupt } = useHandleInterrupt({ planExecutionId: executionIdentifier })
   const { mutate: stageInterrupt } = useHandleStageInterrupt({
     planExecutionId: executionIdentifier,
@@ -84,7 +87,8 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         branch,
         repoIdentifier,
         runPipeline: true,
-        executionId: executionIdentifier
+        executionId: executionIdentifier,
+        stagesExecuted
       })}`
     )
   }
@@ -260,7 +264,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           disabled={!canExecute}
           featureProps={{
             featureRequest: {
-              featureName: FeatureIdentifier.DEPLOYMENTS
+              featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
             }
           }}
         />

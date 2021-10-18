@@ -26,111 +26,25 @@
 
     &:global(.bp3-button > .bp3-icon) {
       padding: 0 !important;
-      color: var(--right-bar-icon, var(--white)) !important;
+      color: var(--right-bar-icon, var(--primary-7)) !important;
+    }
+
+    &:global(.bp3-button > .bp3-icon path) {
+      fill: currentColor;
     }
 
     &:global(.bp3-button > .bp3-button-text) {
       width: 48px !important;
-      font-size: 10px !important;
+      font-size: 9px !important;
     }
 
     &.selected {
-      --background-color: var(--right-bar-bg, var(--white)) !important;
-      --background-color-active: var(--right-bar-bg, var(--white)) !important;
-      --background-color-hover: var(--right-bar-bg, var(--white)) !important;
-    }
-
-    &.enableGitExpIcon {
-      --right-bar-icon: var(--red-500);
-      width: 64px;
-
+      --background-color: var(--primary-7) !important;
+      --background-color-active: var(--primary-8) !important;
+      --background-color-hover: var(--primary-8) !important;
+      --right-bar-icon: var(--white);
       span {
-        line-height: 12px !important;
-        color: var(--grey-500) !important;
-        &:hover {
-          color: var(--red-500) !important;
-        }
-      }
-
-      &.selected {
-        --right-bar-bg: var(--teal-500);
-        --right-bar-icon: var(--red-500);
-        span {
-          color: var(--red-500) !important;
-        }
-      }
-    }
-
-    &.codebaseIcon {
-      span {
-        line-height: 12px !important;
-        color: var(--grey-500) !important;
-      }
-    }
-
-    &.notificationsIcon {
-      --right-bar-icon: var(--teal-500);
-      &:global(.bp3-button > .bp3-button-text) {
-        width: 60px !important;
-        font-size: 9px !important;
-      }
-      span {
-        line-height: 12px !important;
-        color: var(--grey-500) !important;
-        &:hover {
-          color: var(--teal-500) !important;
-        }
-      }
-
-      &.selected {
-        --right-bar-bg: var(--teal-500);
-        --right-bar-icon: var(--white);
-        span {
-          color: var(--white) !important;
-        }
-      }
-    }
-
-    &.flowControlIcon {
-      --right-bar-icon: var(--yellow-900);
-
-      span {
-        line-height: 12px !important;
-        color: var(--grey-500) !important;
-        &:hover {
-          color: var(--yellow-900) !important;
-        }
-      }
-
-      &.selected {
-        --right-bar-bg: var(--yellow-900);
-        --right-bar-icon: var(--white);
-        span {
-          color: var(--white) !important;
-        }
-      }
-    }
-
-    &.variablesIcon {
-      --right-bar-icon: var(--purple-400);
-
-      span {
-        line-height: 12px !important;
-        color: var(--grey-500) !important;
-        &:hover {
-          color: var(--purple-400) !important;
-        }
-      }
-
-      &.selected {
-        --right-bar-bg: var(--purple-400);
-        --right-bar-icon: var(--white);
-        path[clip-path] {
-          fill: var(--white) !important;
-        }
-        span {
-          color: var(--white) !important;
-        }
+        color: var(--white) !important;
       }
     }
   }

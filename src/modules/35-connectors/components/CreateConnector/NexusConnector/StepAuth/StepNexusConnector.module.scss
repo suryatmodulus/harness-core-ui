@@ -1,5 +1,4 @@
 .secondStep {
-  min-height: 500px;
   .formRow {
     display: flex;
     .urlInput {
@@ -44,5 +43,15 @@
 
   .formWrapper {
     width: 56%;
+  }
+}
+
+.stepDetails {
+  height: 100%;
+  > div:last-child {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }

@@ -1,0 +1,17 @@
+.eventMarker {
+  border-left-width: 2px;
+  border-left-style: solid;
+  width: 1px !important;
+  position: relative;
+  bottom: 10px;
+
+  .eventMarkerSquare {
+    position: relative;
+    top: 15px;
+    right: 5px;
+    height: 8px !important;
+    width: 8px !important;
+    transform: rotate(45deg);
+    box-shadow: 1px 1px 3px 0px var(--grey-200);
+  }
+}

@@ -29,7 +29,7 @@ export function Timeline(props: TimelineProps): JSX.Element {
         <Text className={css.timelineLabel} width={labelWidth}>
           {getString('cv.timeline').toUpperCase()}
         </Text>
-        <TimestampChart timestamps={timestamps} timeFormat={timeFormat} />
+        <TimestampChart timestamps={timestamps} timeFormat={timeFormat} tickAmount={12} />
       </Container>
     </Container>
   )

@@ -1,12 +1,8 @@
 import React from 'react'
 import { fireEvent, render, waitFor, act } from '@testing-library/react'
-import {
-  useGetTemplateFromPipeline,
-  useGetPreflightCheckResponse,
-  startPreflightCheckPromise
-} from 'services/pipeline-ng'
+import { useGetPreflightCheckResponse, startPreflightCheckPromise } from 'services/pipeline-ng'
 import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useQueryParams } from '@common/hooks'
+import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { TestWrapper } from '@common/utils/testUtils'
 import { RunPipelineForm } from '../RunPipelineForm'
 
@@ -20,7 +16,8 @@ import {
   mockPipelineVariablesResponse,
   mockPostPipelineExecuteYaml,
   mockPreflightCheckResponse,
-  mockRePostPipelineExecuteYaml
+  mockRePostPipelineExecuteYaml,
+  mockStageExecutionList
 } from './mocks'
 
 const commonProps: PipelineType<PipelinePathProps & GitQueryParams> = {
@@ -63,12 +60,14 @@ jest.mock('services/cd-ng', () => ({
 jest.mock('services/pipeline-ng', () => ({
   useCreateInputSetForPipeline: () => mockCreateInputSetResponse,
   useGetTemplateFromPipeline: jest.fn(),
+  useGetStagesExecutionList: () => mockStageExecutionList,
   useGetPipeline: () => mockGetPipeline,
   usePostPipelineExecuteWithInputSetYaml: () => mockPostPipelineExecuteYaml,
   useRePostPipelineExecuteWithInputSetYaml: () => mockRePostPipelineExecuteYaml,
   useGetInputSetsListForPipeline: () => mockInputSetsList,
   useGetMergeInputSetFromPipelineTemplateWithListInput: () => mockMergeInputSetResponse,
   useCreateVariables: () => mockPipelineVariablesResponse,
+  useRunStagesWithRuntimeInputYaml: () => mockPostPipelineExecuteYaml,
   useGetPreflightCheckResponse: jest.fn(),
   startPreflightCheckPromise: jest.fn()
 }))
@@ -76,9 +75,7 @@ jest.mock('services/pipeline-ng', () => ({
 jest.mock('@common/hooks', () => ({
   ...(jest.requireActual('@common/hooks') as any),
   useQueryParams: jest.fn(),
-  useMutateAsGet: jest.fn().mockImplementation(() => {
-    return { data: { data: {} }, refetch: jest.fn(), error: null, loading: false }
-  })
+  useMutateAsGet: jest.fn()
 }))
 
 describe('STUDIO MODE', () => {
@@ -88,7 +85,10 @@ describe('STUDIO MODE', () => {
     useQueryParams.mockImplementation(() => ({ executionId: '' }))
     // eslint-disable-next-line
     // @ts-ignore
-    useGetTemplateFromPipeline.mockImplementation(() => mockPipelineTemplateYaml)
+
+    useMutateAsGet.mockImplementation(() => {
+      return mockPipelineTemplateYaml
+    })
   })
 
   test('should toggle visual and yaml mode', async () => {
@@ -125,7 +125,6 @@ describe('STUDIO MODE', () => {
         <RunPipelineForm {...commonProps} />
       </TestWrapper>
     )
-
     // Navigate to 'Provide Values'
     fireEvent.click(getByText('pipeline.triggers.pipelineInputPanel.provide'))
     await waitFor(() => expect(queryByText('customVariables.pipelineVariablesTitle')).toBeTruthy())
@@ -271,13 +270,15 @@ describe('RERUN MODE', () => {
     useQueryParams.mockImplementation(() => ({ executionId: '/testExecutionId' }))
     // eslint-disable-next-line
     // @ts-ignore
-    useGetTemplateFromPipeline.mockImplementation(() => mockPipelineTemplateYamlForRerun)
-    // eslint-disable-next-line
-    // @ts-ignore
     useGetPreflightCheckResponse.mockImplementation(() => mockPreflightCheckResponse)
     // eslint-disable-next-line
     // @ts-ignore
     startPreflightCheckPromise.mockResolvedValue({})
+    // eslint-disable-next-line
+    // @ts-ignore
+    useMutateAsGet.mockImplementation(() => {
+      return mockPipelineTemplateYamlForRerun
+    })
   })
 
   test('should should have the values prefilled', async () => {
@@ -311,7 +312,9 @@ describe('EXECUTION VIEW', () => {
     useQueryParams.mockImplementation(() => ({ executionId: '/testExecutionId' }))
     // eslint-disable-next-line
     // @ts-ignore
-    useGetTemplateFromPipeline.mockImplementation(() => mockPipelineTemplateYamlForRerun)
+    useMutateAsGet.mockImplementation(() => {
+      return mockPipelineTemplateYamlForRerun
+    })
   })
   test('should should have the values prefilled and fields as disabled', async () => {
     const { container, queryByText } = render(

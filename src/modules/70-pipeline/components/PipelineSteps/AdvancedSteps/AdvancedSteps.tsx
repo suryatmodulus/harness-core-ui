@@ -46,7 +46,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
     (step as StepElementConfig | StepGroupElementConfig)?.failureStrategies
 
   const delegateSelectors =
-    (step as TemplateStepData)?.template?.templateInputs?.failureStrategies ||
+    (step as TemplateStepData)?.template?.templateInputs?.spec?.delegateSelectors ||
     (step as StepElementConfig)?.spec?.delegateSelectors
 
   const when =

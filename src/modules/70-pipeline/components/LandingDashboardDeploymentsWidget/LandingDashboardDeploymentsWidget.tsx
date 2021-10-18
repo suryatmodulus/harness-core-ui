@@ -8,10 +8,10 @@ import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
 import { StackedSummaryTable } from '@common/components/StackedSummaryTable/StackedSummaryTable'
+import { PageSpinner } from '@common/components'
 import { useGetDeploymentStatsOverview } from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 
-// import { deploymentStatsSummaryResponse } from './mocks'
 import DashboardNoDataWidget from '@projects-orgs/components/DashboardNoDataWidget/DashboardNoDataWidget'
 import css from './LandingDashboardDeploymentsWidget.module.scss'
 
@@ -27,18 +27,18 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   const { accountId } = useParams<ProjectPathProps>()
   const [range] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
 
-  const { data, error, refetch } = useGetDeploymentStatsOverview({
+  const { data, error, refetch, loading } = useGetDeploymentStatsOverview({
     queryParams: {
       accountIdentifier: accountId,
       startTime: range[0],
       endTime: range[1],
       groupBy: 'DAY',
       sortBy: 'DEPLOYMENTS'
-    }
-    // mock: deploymentStatsSummaryResponse
-    // lazy: true
+    },
+    lazy: true
   })
 
+  const response = data?.data?.response
   useEffect(() => {
     refetch()
   }, [selectedTimeRange])
@@ -48,8 +48,8 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   const deploymentStatsData = useMemo(() => {
     const successData: number[] = []
     const failureData: number[] = []
-    if (data?.data?.response?.deploymentsStatsSummary?.deploymentStats?.length) {
-      data.data?.response.deploymentsStatsSummary.deploymentStats.forEach(val => {
+    if (response?.deploymentsStatsSummary?.deploymentStats?.length) {
+      response.deploymentsStatsSummary.deploymentStats.forEach(val => {
         successData.push(defaultTo(val.countWithSuccessFailureDetails?.successCount, 0))
         failureData.push(defaultTo(val.countWithSuccessFailureDetails?.failureCount, 0))
       })
@@ -72,24 +72,24 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
     return [
       {
         title: getString('deploymentsText'),
-        count: `${data?.data?.response?.deploymentsStatsSummary?.countAndChangeRate?.count}`,
-        trend: `${data?.data?.response?.deploymentsStatsSummary?.countAndChangeRate?.countChangeAndCountChangeRateInfo?.countChangeRate}%`
+        count: `${response?.deploymentsStatsSummary?.countAndChangeRate?.count}`,
+        trend: `${response?.deploymentsStatsSummary?.countAndChangeRate?.countChangeAndCountChangeRateInfo?.countChangeRate}%`
       },
       {
         title: getString('common.failureRate'),
-        count: `${data?.data?.response?.deploymentsStatsSummary?.failureRateAndChangeRate?.rate}%`,
-        trend: `${data?.data?.response?.deploymentsStatsSummary?.failureRateAndChangeRate?.rateChangeRate}%`
+        count: `${(response?.deploymentsStatsSummary?.failureRateAndChangeRate?.rate || 0).toFixed(2)}%`,
+        trend: `${response?.deploymentsStatsSummary?.failureRateAndChangeRate?.rateChangeRate}%`
       },
       {
         title: getString('pipeline.deploymentFrequency'),
-        count: `${data?.data?.response?.deploymentsStatsSummary?.deploymentRateAndChangeRate?.rate}/week`,
-        trend: `${data?.data?.response?.deploymentsStatsSummary?.deploymentRateAndChangeRate?.rateChangeRate}%`
+        count: `${(response?.deploymentsStatsSummary?.deploymentRateAndChangeRate?.rate || 0).toFixed(2)}`,
+        trend: `${response?.deploymentsStatsSummary?.deploymentRateAndChangeRate?.rateChangeRate}%`
       }
     ]
   }, [data, getString])
 
   const mostActiveServicesData = useMemo(() => {
-    return data?.data?.response?.mostActiveServicesList?.activeServices?.map(service => {
+    return response?.mostActiveServicesList?.activeServices?.map(service => {
       return {
         label: defaultTo(service.serviceInfo?.serviceName, ''),
         barSectionsData: [
@@ -179,14 +179,23 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
     }
   }
 
-  //Hiding CD section with No data card for demo
-  return data?.data?.response?.deploymentsStatsSummary?.countAndChangeRate?.count === 99999 ? (
+  if (loading) {
+    return (
+      <Layout.Horizontal className={css.loaderContainer}>
+        <Card style={{ width: '100%', marginTop: '20px' }}>
+          <PageSpinner />
+        </Card>
+      </Layout.Horizontal>
+    )
+  }
+
+  return data?.data?.response?.deploymentsStatsSummary?.countAndChangeRate?.count ? (
     <div className={css.main}>
       <Card className={css.badgesContainer}>
-        {data?.data?.response?.deploymentsOverview &&
-          Object.keys(data?.data?.response?.deploymentsOverview).map(key =>
+        {response?.deploymentsOverview &&
+          Object.keys(response?.deploymentsOverview).map(key =>
             // eslint-disable-next-line
-            getBadge(key, (data?.data?.response?.deploymentsOverview as any)[key])
+            getBadge(key, (response?.deploymentsOverview as any)[key])
           )}
       </Card>
       <div className={css.chartCardsContainer}>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, waitFor, fireEvent } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
 import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import { monitoredServiceList, monitoredServiceForm } from './Dependency.mock'
@@ -8,9 +7,7 @@ import Dependency from '../Dependency'
 
 describe('Dependency compoennt', () => {
   test('should render all cards', async () => {
-    jest
-      .spyOn(cvService, 'useGetMonitoredServiceList')
-      .mockReturnValue({ data: monitoredServiceList } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetMonitoredServiceList').mockReturnValue({ data: monitoredServiceList } as any)
     const onSuccessMock = jest.fn()
 
     const { container, getByText } = render(
@@ -52,9 +49,7 @@ describe('Dependency compoennt', () => {
   })
 
   test('Ensure loading is displayed on api loadng', async () => {
-    jest
-      .spyOn(cvService, 'useGetMonitoredServiceList')
-      .mockReturnValue({ loading: true } as UseGetReturn<any, any, any, any>)
+    jest.spyOn(cvService, 'useGetMonitoredServiceList').mockReturnValue({ loading: true } as any)
     const onSuccessMock = jest.fn()
 
     const { container } = render(

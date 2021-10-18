@@ -1,6 +1,6 @@
 import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
-import { isEqual, cloneDeep, pick, isNil, isEmpty, omit, defaultTo } from 'lodash-es'
+import { isEqual, cloneDeep, pick, isNil, isEmpty, omit, defaultTo, set } from 'lodash-es'
 import { parse } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import merge from 'lodash-es/merge'
@@ -29,6 +29,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { PipelineStageWrapper } from '@pipeline/utils/pipelineTypes'
+import { getTemplateListPromise, GetTemplateListQueryParams } from 'services/template-ng'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -55,6 +56,22 @@ interface PipelineInfoConfigWithGitDetails extends PipelineInfoConfig {
 }
 
 const logger = loggerFor(ModuleName.CD)
+
+export const getTemplateTypesByRef = (params: GetTemplateListQueryParams, templateRefs: string[]) => {
+  return getTemplateListPromise({
+    body: {
+      filterType: 'Template',
+      templateIdentifiers: templateRefs
+    },
+    queryParams: params
+  }).then(response => {
+    const templateTypes = {}
+    response.data?.content?.forEach(item => {
+      set(templateTypes, item.identifier || '', parse(item.yaml || '').template.spec.type)
+    })
+    return templateTypes
+  })
+}
 
 export const getPipelineByIdentifier = (
   params: GetPipelineQueryParams,
@@ -166,6 +183,7 @@ export interface PipelineContextInterface {
   renderPipelineStage: (args: Omit<PipelineStagesProps, 'children'>) => React.ReactElement<PipelineStagesProps>
   fetchPipeline: (args: FetchPipelineUnboundProps) => Promise<void>
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
+  setTemplateTypes: (data: { [key: string]: string }) => void
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
   updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
@@ -222,6 +240,18 @@ export interface FetchPipelineUnboundProps {
   branch?: string
 }
 
+export const findAllByKey = (obj: any, keyToFind: string): string[] => {
+  return Object.entries(obj).reduce(
+    (acc: string[], [key, value]) =>
+      key === keyToFind
+        ? acc.concat(value as string)
+        : typeof value === 'object'
+        ? acc.concat(findAllByKey(value, keyToFind))
+        : acc,
+    []
+  )
+}
+
 const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipelineUnboundProps): Promise<void> => {
   const { dispatch, queryParams, pipelineIdentifier: identifier, gitDetails } = props
   const { forceFetch = false, forceUpdate = false, newPipelineId, signal, repoIdentifier, branch } = params
@@ -252,6 +282,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
         ? pipelineWithGitDetails.gitDetails
         : data?.gitDetails ?? {}
     }
+    let templateRefs = []
     if (data && !forceUpdate) {
       dispatch(
         PipelineContextActions.success({
@@ -265,7 +296,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
             : defaultTo(data?.gitDetails, {})
         })
       )
-      dispatch(PipelineContextActions.initialized())
+      templateRefs = findAllByKey(data.pipeline, 'templateRef')
     } else if (IdbPipeline) {
       await IdbPipeline.put(IdbPipelineStoreName, payload)
       dispatch(
@@ -278,7 +309,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           gitDetails: payload.gitDetails
         })
       )
-      dispatch(PipelineContextActions.initialized())
+      templateRefs = findAllByKey(pipeline, 'templateRef')
     } else {
       dispatch(
         PipelineContextActions.success({
@@ -290,8 +321,25 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           gitDetails: pipelineWithGitDetails?.gitDetails?.objectId ? pipelineWithGitDetails.gitDetails : {}
         })
       )
-      dispatch(PipelineContextActions.initialized())
+      templateRefs = findAllByKey(pipeline, 'templateRef')
+      templateRefs.push('temp')
     }
+    if (templateRefs.length > 0) {
+      dispatch(
+        PipelineContextActions.setTemplateTypes({
+          templateTypes: await getTemplateTypesByRef(
+            {
+              accountIdentifier: queryParams.accountIdentifier,
+              orgIdentifier: queryParams.orgIdentifier,
+              projectIdentifier: queryParams.projectIdentifier,
+              templateListType: 'Stable'
+            },
+            templateRefs
+          )
+        })
+      )
+    }
+    dispatch(PipelineContextActions.initialized())
   } else {
     dispatch(
       PipelineContextActions.success({
@@ -552,6 +600,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   updateStage: () => new Promise<void>(() => undefined),
   getStageFromPipeline: () => ({ stage: undefined, parent: undefined }),
   setYamlHandler: () => undefined,
+  setTemplateTypes: () => undefined,
   updatePipeline: () => new Promise<void>(() => undefined),
   pipelineSaved: () => undefined,
   deletePipelineCache: () => new Promise<void>(() => undefined),
@@ -709,6 +758,10 @@ export const PipelineProvider: React.FC<{
     [state.pipeline, state.pipeline?.stages]
   )
 
+  const setTemplateTypes = React.useCallback(templateTypes => {
+    dispatch(PipelineContextActions.setTemplateTypes({ templateTypes }))
+  }, [])
+
   const setSchemaErrorView = React.useCallback(flag => {
     dispatch(PipelineContextActions.updateSchemaErrorsFlag({ schemaErrors: flag }))
   }, [])
@@ -799,7 +852,8 @@ export const PipelineProvider: React.FC<{
         setSelectedStepId,
         setSelectedSectionId,
         setSelection,
-        getStagePathFromPipeline
+        getStagePathFromPipeline,
+        setTemplateTypes
       }}
     >
       {children}

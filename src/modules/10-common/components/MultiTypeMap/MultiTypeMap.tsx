@@ -4,7 +4,6 @@ import cx from 'classnames'
 import {
   Text,
   FormInput,
-  Card,
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
@@ -84,7 +83,7 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
           <FieldArray
             name={name}
             render={({ push, remove }) => (
-              <Card style={{ width: '100%', ...cardStyle }}>
+              <>
                 {Array.isArray(value) &&
                   value.map(({ id }, index: number) => (
                     <div className={cx(css.group, css.withoutAligning)} key={id}>
@@ -140,8 +139,9 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
                   data-testid={`add-${name}`}
                   onClick={() => push({ id: uuid('', nameSpace()), key: '', value: '' })}
                   disabled={disabled}
+                  style={{ padding: 0 }}
                 />
-              </Card>
+              </>
             )}
           />
         </MultiTypeFieldSelector>

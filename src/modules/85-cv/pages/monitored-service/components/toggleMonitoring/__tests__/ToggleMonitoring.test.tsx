@@ -19,6 +19,8 @@ const testWrapperProps: TestWrapperProps = {
   }
 }
 
+const setHealthMonitoringFlag = jest.fn()
+
 jest.mock('services/cv', () => ({
   useSetHealthMonitoringFlag: jest.fn(() => ({ mutate: jest.fn() }))
 }))
@@ -31,7 +33,12 @@ describe('ToggleMonitoring', () => {
 
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <ToggleMonitoring refetch={refetch} identifier={'Test_Monitored_service'} enable={false} />
+        <ToggleMonitoring
+          refetch={refetch}
+          identifier={'Test_Monitored_service'}
+          enabled={false}
+          setHealthMonitoringFlag={mutate}
+        />
       </TestWrapper>
     )
 
@@ -40,6 +47,9 @@ describe('ToggleMonitoring', () => {
 
     await waitFor(() =>
       expect(mutate).toHaveBeenCalledWith(undefined, {
+        pathParams: {
+          identifier: 'Test_Monitored_service'
+        },
         queryParams: {
           accountId: 'kmpySmUISimoRrJL6NL73w',
           enable: true,
@@ -56,7 +66,12 @@ describe('ToggleMonitoring', () => {
 
       const { container } = render(
         <TestWrapper {...testWrapperProps}>
-          <ToggleMonitoring refetch={refetch} identifier={'Test_Monitored_service'} enable={false} />
+          <ToggleMonitoring
+            refetch={refetch}
+            identifier={'Test_Monitored_service'}
+            enabled={false}
+            setHealthMonitoringFlag={setHealthMonitoringFlag}
+          />
         </TestWrapper>
       )
 
@@ -76,7 +91,12 @@ describe('ToggleMonitoring', () => {
 
       render(
         <TestWrapper {...testWrapperProps}>
-          <ToggleMonitoring refetch={refetch} identifier={'Test_Monitored_service'} enable={false} />
+          <ToggleMonitoring
+            refetch={refetch}
+            identifier={'Test_Monitored_service'}
+            enabled={false}
+            setHealthMonitoringFlag={mutate}
+          />
         </TestWrapper>
       )
 

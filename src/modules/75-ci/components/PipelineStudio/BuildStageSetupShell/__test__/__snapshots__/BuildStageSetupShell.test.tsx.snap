@@ -538,22 +538,18 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                         <div
                           class="bp3-form-content"
                         >
-                          <div
-                            class="bp3-card bp3-elevation-0 Card--card"
-                            style="width: 100%;"
+                          <button
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            data-testid="add-sharedPaths"
+                            style="padding: 0px;"
+                            type="button"
                           >
-                            <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                              data-testid="add-sharedPaths"
-                              type="button"
+                            <span
+                              class="bp3-button-text"
                             >
-                              <span
-                                class="bp3-button-text"
-                              >
-                                plusAdd
-                              </span>
-                            </button>
-                          </div>
+                              plusAdd
+                            </span>
+                          </button>
                         </div>
                       </div>
                     </div>

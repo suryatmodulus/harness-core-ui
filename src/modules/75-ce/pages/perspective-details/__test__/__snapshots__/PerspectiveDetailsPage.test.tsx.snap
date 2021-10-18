@@ -294,7 +294,7 @@ exports[`test cases for Perspective details Page should be able to render no dat
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="money-icon"
             >
               <svg
@@ -875,7 +875,7 @@ exports[`test cases for Perspective details Page should be able to render the de
             style="display: flex; align-items: center;"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
               data-icon="money-icon"
             >
               <svg

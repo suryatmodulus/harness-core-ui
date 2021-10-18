@@ -27,6 +27,7 @@
       "@common/*": ["modules/10-common/*"],
       "@notifications/*": ["modules/15-notifications/*"],
       "@rbac/*": ["modules/20-rbac/*"],
+      "@governance/*": ["modules/25-governance/*"],
       "@auth-settings/*": ["modules/30-auth-settings/*"],
       "@secrets/*": ["modules/30-secrets/*"],
       "@connectors/*": ["modules/35-connectors/*"],

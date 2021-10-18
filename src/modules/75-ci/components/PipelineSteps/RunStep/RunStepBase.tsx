@@ -1,6 +1,14 @@
 import React from 'react'
-import { Text, Formik, getMultiTypeFromValue, MultiTypeInputType, FormikForm, Accordion } from '@wings-software/uicore'
 import cx from 'classnames'
+import {
+  Text,
+  Formik,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  FormikForm,
+  Accordion,
+  Color
+} from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -82,7 +90,12 @@ export const RunStepBase = (
                 description: {},
                 'spec.connectorRef': {
                   label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
+                    <Text
+                      className={css.inpLabel}
+                      color={Color.GREY_600}
+                      font={{ size: 'small', weight: 'semi-bold' }}
+                      style={{ display: 'flex', alignItems: 'center' }}
+                    >
                       {getString('pipelineSteps.connectorLabel')}
                     </Text>
                   ),
@@ -101,11 +114,14 @@ export const RunStepBase = (
               }}
               formik={formik}
             />
-            <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+            <div className={cx(css.fieldsGroup, css.withoutSpacing, css.topPadding3, css.bottomPadding3)}>
               <MultiTypeFieldSelector
                 name="spec.command"
                 label={
                   <Text
+                    color={Color.GREY_800}
+                    font={{ size: 'normal', weight: 'bold' }}
+                    className={css.inpLabel}
                     style={{ display: 'flex', alignItems: 'center' }}
                     tooltipProps={{ dataTooltipId: 'runCommand' }}
                   >

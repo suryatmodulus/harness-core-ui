@@ -10,14 +10,20 @@
   margin-bottom: var(--spacing-large);
 }
 
+.verificationContainer {
+  display: grid;
+  grid-row-gap: 1em;
+  grid-template-columns: auto auto auto;
+  padding: 30px 0px !important;
+}
+
 .flexColumn {
   display: flex !important;
   flex-direction: column !important;
+  align-items: flex-start !important;
   margin-right: var(--spacing-large) !important;
 }
 
 .summarylabel {
-  align-self: flex-start !important;
-  margin-bottom: var(--spacing-small) !important;
-  margin-left: var(--spacing-xsmall) !important;
+  margin: var(--spacing-small) var(--spacing-large) !important;
 }

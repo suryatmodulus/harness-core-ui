@@ -441,7 +441,7 @@ exports[`test splunkHealthsource check snapshot 1`] = `
                               style="display: flex; align-items: center;"
                             >
                               <span
-                                class="bp3-icon bp3-icon-timeline-line-chart StyledProps--main StyledProps--padding-right-xsmall StyledProps--intent-success"
+                                class="bp3-icon bp3-icon-timeline-line-chart StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--intent-success"
                                 icon="timeline-line-chart"
                               >
                                 <svg

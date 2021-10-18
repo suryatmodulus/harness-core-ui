@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Formik, FormikForm, Accordion } from '@wings-software/uicore'
+import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -80,6 +80,9 @@ export const RestoreCacheGCSStepBase = (
                 'spec.connectorRef': {
                   label: (
                     <Text
+                      className={css.inpLabel}
+                      color={Color.GREY_600}
+                      font={{ size: 'small', weight: 'semi-bold' }}
                       style={{ display: 'flex', alignItems: 'center' }}
                       tooltipProps={{ dataTooltipId: 'restoreCacheGcpConnector' }}
                     >

@@ -122,6 +122,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
         >
           <h2
             class="StyledProps--font StyledProps--font-h2 StyledProps--main runModalHeaderTitle StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
+            data-tooltip-id="runPipelineFormTitle"
             level="2"
           >
             runPipeline
@@ -226,6 +227,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                         >
                           <p
                             class="StyledProps--font StyledProps--main"
+                            data-testid="input-set-description-tooltip"
                             tabindex="0"
                           >
                             pipeline.triggers.pipelineInputPanel.whatAreInputsets

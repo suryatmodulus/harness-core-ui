@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">82.09% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>55/66</span>
+                <span class='fraction'>55/67</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/15</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">82.09% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>55/66</span>
+                <span class='fraction'>55/67</span>
             </div>
         
             
@@ -337,7 +337,9 @@
 <a name='L278'></a><a href='#L278'>278</a>
 <a name='L279'></a><a href='#L279'>279</a>
 <a name='L280'></a><a href='#L280'>280</a>
-<a name='L281'></a><a href='#L281'>281</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -352,10 +354,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -378,6 +387,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -537,8 +547,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -547,12 +555,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -627,7 +631,6 @@ import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
 import { StackedSummaryTable } from '@common/components/StackedSummaryTable/StackedSummaryTable'
-import { PageSpinner } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useGetDeploymentStatsOverview } from 'services/dashboard-service'
 import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
@@ -640,6 +643,14 @@ interface SummaryCardData {
   title: string
   count: string
   trend: string
+}
+&nbsp;
+const EmptyCard = <span class="fstat-no" title="function not covered" >({</span> children }: { children: React.ReactElement }) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;Layout.Horizontal className={css.loaderContainer}&gt;
+      &lt;Card className={css.loaderCard}&gt;{children}&lt;/Card&gt;
+    &lt;/Layout.Horizontal&gt;
+  )
 }
 &nbsp;
 const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
@@ -655,7 +666,8 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
       endTime: range[1],
       groupBy: 'DAY',
       sortBy: 'DEPLOYMENTS'
-    }
+    },
+    lazy: true
   })
 &nbsp;
   const response = data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse
@@ -811,38 +823,32 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (loading) {
 <span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Layout.Horizontal className={css.loaderContainer}&gt;
-        &lt;Card style={{ width: '100%', marginTop: '20px' }}&gt;
-          &lt;PageSpinner /&gt;
-        &lt;/Card&gt;
-      &lt;/Layout.Horizontal&gt;
+      &lt;EmptyCard&gt;
+        &lt;Icon name="spinner" size={24} color={Color.PRIMARY_7} /&gt;
+      &lt;/EmptyCard&gt;
     )
   }
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!response || error) {
 <span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Layout.Horizontal className={css.loaderContainer}&gt;
-        &lt;Card style={{ width: '100%', marginTop: '20px' }}&gt;
-          &lt;DashboardAPIErrorWidget className={css.apiErrorWidget} callback={refetch} iconProps={{ size: 90 }} /&gt;
-        &lt;/Card&gt;
-      &lt;/Layout.Horizontal&gt;
+      &lt;EmptyCard&gt;
+        &lt;DashboardAPIErrorWidget className={css.apiErrorWidget} callback={refetch} iconProps={{ size: 90 }} /&gt;
+      &lt;/EmptyCard&gt;
     )
   }
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!response.deploymentsStatsSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ountAndChangeRate<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ount) {
 <span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Layout.Horizontal className={css.loaderContainer}&gt;
-        &lt;Card style={{ width: '100%', marginTop: '20px' }}&gt;
-          &lt;DashboardNoDataWidget
-            label={
-              &lt;Text color={Color.GREY_400} style={{ fontSize: '14px' }} margin="medium"&gt;
-                {'No Deployments'}
-              &lt;/Text&gt;
-            }
-            getStartedLink={routes.toCDHome({ accountId })}
-          /&gt;
-        &lt;/Card&gt;
-      &lt;/Layout.Horizontal&gt;
+      &lt;EmptyCard&gt;
+        &lt;DashboardNoDataWidget
+          label={
+            &lt;Text color={Color.GREY_400} style={{ fontSize: '14px' }} margin="medium"&gt;
+              {'No Deployments'}
+            &lt;/Text&gt;
+          }
+          getStartedLink={routes.toCDHome({ accountId })}
+        /&gt;
+      &lt;/EmptyCard&gt;
     )
   }
 &nbsp;
@@ -904,7 +910,7 @@ export default LandingDashboardDeploymentsWidget
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 19 2021 10:48:32 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 19 2021 11:39:15 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

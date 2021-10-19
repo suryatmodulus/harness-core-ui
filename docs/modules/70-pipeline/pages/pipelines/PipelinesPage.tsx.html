@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.18% </span>
+                <span class="strong">68% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>131/195</span>
+                <span class='fraction'>136/200</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52% </span>
+                <span class="strong">53.85% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/25</span>
+                <span class='fraction'>14/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.18% </span>
+                <span class="strong">68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>131/195</span>
+                <span class='fraction'>136/200</span>
             </div>
         
             
@@ -759,7 +759,14 @@
 <a name='L700'></a><a href='#L700'>700</a>
 <a name='L701'></a><a href='#L701'>701</a>
 <a name='L702'></a><a href='#L702'>702</a>
-<a name='L703'></a><a href='#L703'>703</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L703'></a><a href='#L703'>703</a>
+<a name='L704'></a><a href='#L704'>704</a>
+<a name='L705'></a><a href='#L705'>705</a>
+<a name='L706'></a><a href='#L706'>706</a>
+<a name='L707'></a><a href='#L707'>707</a>
+<a name='L708'></a><a href='#L708'>708</a>
+<a name='L709'></a><a href='#L709'>709</a>
+<a name='L710'></a><a href='#L710'>710</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -817,6 +824,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -888,6 +897,7 @@
 <span class="cline-any cline-yes">75x</span>
 <span class="cline-any cline-yes">75x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">75x</span>
 <span class="cline-any cline-yes">75x</span>
 <span class="cline-any cline-yes">75x</span>
 <span class="cline-any cline-yes">75x</span>
@@ -1013,6 +1023,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">75x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">75x</span>
@@ -1524,6 +1538,8 @@ import RbacButton from '@rbac/components/Button/Button'
 import { shouldShowError } from '@common/utils/errorUtils'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { NavigatedToPage } from '@common/constants/TrackingConstants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PipelineGridView } from './views/PipelineGridView'
@@ -1590,6 +1606,7 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
   const [pipelineList, setPipelineList] = useState&lt;PagePMSPipelineSummaryResponse | undefined&gt;()
   const [isFetchingMetaData, setIsFetchingMetaData] = useState&lt;boolean&gt;(false)
 &nbsp;
+  const { trackEvent } = useTelemetry()
   const history = useHistory()
   const { showError } = useToaster()
   const { selectedProject, isGitSyncEnabled } = useAppStore()
@@ -1716,6 +1733,10 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (errorFetchingFilters &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >shouldShowError(errorFetchingFilters))</span> {
 <span class="cstat-no" title="statement not covered" >    showError(errorFetchingFilters?.data || errorFetchingFilters?.message, undefined, 'pipeline.fetch.filter.error')</span>
   }
+&nbsp;
+  useEffect(() =&gt; {
+    trackEvent(NavigatedToPage.PipelinesPage, {})
+  }, [])
 &nbsp;
   useEffect(() =&gt; {
     setFilters(<span class="branch-1 cbranch-no" title="branch not covered" >fetchedFilterResponse?.data<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.content </span>|| [])
@@ -2170,7 +2191,7 @@ export default PipelinesPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 19 2021 11:39:15 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 19 2021 12:57:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

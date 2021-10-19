@@ -500,6 +500,12 @@ const routes = {
     }
     return `/${module}/home/trial`
   }),
+  toModuleFreeHome: withAccountId(({ module, source }: ModuleHomeParams) => {
+    if (source) {
+      return `/${module}/home/free?source=${source}`
+    }
+    return `/${module}/home/free`
+  }),
   toCDHome: withAccountId(() => `/cd/home`),
   toCDProject: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>

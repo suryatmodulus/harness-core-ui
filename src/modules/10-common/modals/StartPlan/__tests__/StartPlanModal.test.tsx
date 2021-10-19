@@ -1,11 +1,11 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
-import useStartTrialModal from '../StartTrialModal'
+import useStartTrialModal from '../StartPlanModal'
 
 const TestComponent = (): React.ReactElement => {
   const { showModal, hideModal } = useStartTrialModal({
-    handleStartTrial: jest.fn(),
+    handleStartPlan: jest.fn(),
     module: 'ce'
   })
   return (

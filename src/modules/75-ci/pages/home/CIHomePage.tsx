@@ -6,7 +6,7 @@ import { HomePageTemplate } from '@projects-orgs/pages/HomePageTemplate/HomePage
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import { TrialInProgressTemplate } from '@rbac/components/TrialHomePageTemplate/TrialInProgressTemplate'
+import { TrialInProgressTemplate } from '@rbac/components/HomePageTemplate/TrialInProgressTemplate'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'

@@ -142,6 +142,7 @@ ce:
   autostopping: 'AutoStopping'
 launchFirstGen: 'Launch {{module}} First Generation'
 startTrial: 'Start 14 day {{module}} Enterprise trial'
+startFree: 'Start {{module}} Free Plan'
 new: new
 purpose:
   welcome: 'Hello there, welcome to Harness'
@@ -609,3 +610,5 @@ saveTemplate:
   errorWhileSaving: Error occurred saving Template
 viewLatest: View latest
 viewUsage: View Usage
+freePlan:
+  startFreePlan: Start Free Plan

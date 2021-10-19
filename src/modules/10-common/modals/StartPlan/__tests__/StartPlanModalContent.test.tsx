@@ -4,7 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 
-import StartTrialModalContent from '../StartTrialModalContent'
+import StartTrialModalContent from '../StartPlanModalContent'
 
 describe('StartTrialModalContent', () => {
   describe('Rendering', () => {

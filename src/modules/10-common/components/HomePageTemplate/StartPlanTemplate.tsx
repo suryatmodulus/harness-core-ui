@@ -62,7 +62,7 @@ const StartPlanComponent: React.FC<StartPlanProps> = startPlanProps => {
 
       history.push({
         pathname: routes.toModuleHome({ accountId, module }),
-        search: isFree ? '?trial=true' : undefined
+        search: isFree ? '?modal=free' : '?trial=true'
       })
     } catch (error) {
       showError(error.data?.message)

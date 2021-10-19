@@ -1,5 +1,5 @@
 import React from 'react'
-import { StartTrialTemplate } from '@rbac/components/TrialHomePageTemplate/StartTrialTemplate'
+import StartPlanTemplate from '@rbac/components/HomePageTemplate/StartPlanTemplate'
 import { useStrings } from 'framework/strings'
 import bgImageURL from './ff.svg'
 
@@ -18,10 +18,10 @@ const CFTrialHomePage: React.FC = () => {
   }
 
   return (
-    <StartTrialTemplate
+    <StartPlanTemplate
       title={getString('cf.continuous')}
       bgImageUrl={bgImageURL}
-      startTrialProps={startTrialProps}
+      startPlanProps={startTrialProps}
       module="cf"
     />
   )

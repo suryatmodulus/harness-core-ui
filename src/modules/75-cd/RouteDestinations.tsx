@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlag, useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { RouteWithLayout } from '@common/router'
 import { MinimalLayout } from '@common/layouts'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
@@ -102,7 +102,10 @@ import ExecutionPolicyEvaluationsView from '@pipeline/pages/execution/ExecutionP
 import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
+import { FeatureFlag } from '@common/featureFlags'
+
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
+import CDFreeHomePage from './pages/home/CDFreeHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
 import { CDExecutionSummary } from './components/CDExecutionSummary/CDExecutionSummary'
@@ -209,9 +212,12 @@ const RedirectToModuleTrialHome = (): React.ReactElement => {
 
   const { source } = useQueryParams<{ source?: string }>()
 
+  const freePlanEnabled = useFeatureFlag(FeatureFlag.FREE_PLAN_ENABLED)
+  const to = freePlanEnabled ? routes.toModuleFreeHome : routes.toModuleTrialHome
+
   return (
     <Redirect
-      to={routes.toModuleTrialHome({
+      to={to({
         accountId,
         module: 'cd',
         source
@@ -283,6 +289,9 @@ export default (
       exact
     >
       <CDTrialHomePage />
+    </RouteWithLayout>
+    <RouteWithLayout layout={MinimalLayout} path={routes.toModuleFreeHome({ ...accountPathProps, module: 'cd' })} exact>
+      <CDFreeHomePage />
     </RouteWithLayout>
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}

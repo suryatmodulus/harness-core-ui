@@ -3,21 +3,23 @@ import cx from 'classnames'
 import { useModalHook } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import StartTrialModalContent from './StartTrialModalContent'
+import type { Editions } from '@common/constants/SubscriptionTypes'
+import StartPlanModalContent from './StartPlanModalContent'
 
-import css from './StartTrialModal.module.scss'
+import css from './StartPlanModal.module.scss'
 
 export interface UseProjectModalProps {
-  handleStartTrial?: () => Promise<void>
+  handleStartPlan?: () => Promise<void>
   module: Module
+  edition?: Editions
 }
-export interface UseStartTrialModalReturn {
+export interface UseStartPlanModalReturn {
   showModal: () => void
   hideModal: () => void
 }
 
-const useStartTrialModal = (props: UseProjectModalProps): UseStartTrialModalReturn => {
-  const { handleStartTrial, module } = props
+const useStartPlanModal = (props: UseProjectModalProps): UseStartPlanModalReturn => {
+  const { handleStartPlan, module, edition } = props
 
   const [showModal, hideModal] = useModalHook(() => {
     return (
@@ -29,11 +31,12 @@ const useStartTrialModal = (props: UseProjectModalProps): UseStartTrialModalRetu
         }}
         className={cx(css.dialog, Classes.DIALOG)}
       >
-        <StartTrialModalContent
+        <StartPlanModalContent
+          edition={edition}
           module={module}
-          handleStartTrial={() => {
+          handleStartPlan={() => {
             hideModal()
-            handleStartTrial?.()
+            handleStartPlan?.()
           }}
         />
       </Dialog>
@@ -46,4 +49,4 @@ const useStartTrialModal = (props: UseProjectModalProps): UseStartTrialModalRetu
   }
 }
 
-export default useStartTrialModal
+export default useStartPlanModal

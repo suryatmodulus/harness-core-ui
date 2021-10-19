@@ -3,14 +3,14 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useStartTrialLicense } from 'services/cd-ng'
-import useStartTrialModal from '@common/modals/StartPlan/StartPlanModal'
-import StartTrialTemplate from '../StartPlanTemplate'
+import useStartPlanModal from '@common/modals/StartPlan/StartPlanModal'
+import StartPlanTemplate from '../StartPlanTemplate'
 
 jest.mock('services/cd-ng')
 const useStartTrialMock = useStartTrialLicense as jest.MockedFunction<any>
 
-jest.mock('@common/modals/StartTrial/StartTrialModal')
-const useStartTrialModalMock = useStartTrialModal as jest.MockedFunction<any>
+jest.mock('@common/modals/StartPlan/StartPlanModal')
+const useStartTrialModalMock = useStartPlanModal as jest.MockedFunction<any>
 
 const props = {
   title: 'Continuous Integration',
@@ -50,7 +50,7 @@ describe('StartTrialTemplate snapshot test', () => {
     })
     const { container } = render(
       <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
-        <StartTrialTemplate {...props} />
+        <StartPlanTemplate {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -74,7 +74,7 @@ describe('StartTrialTemplate snapshot test', () => {
     })
     const { container, getByText } = render(
       <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
-        <StartTrialTemplate {...props} />
+        <StartPlanTemplate {...props} />
       </TestWrapper>
     )
     fireEvent.click(getByText('Start A Trial'))
@@ -116,7 +116,7 @@ describe('StartTrialTemplate snapshot test', () => {
     }
     const { container, getByText } = render(
       <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
-        <StartTrialTemplate {...newProps} />
+        <StartPlanTemplate {...newProps} />
       </TestWrapper>
     )
     fireEvent.click(getByText('Continue'))
@@ -162,7 +162,7 @@ describe('StartTrialTemplate snapshot test', () => {
 
     const { container, getByText } = render(
       <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
-        <StartTrialTemplate {...customProps} />
+        <StartPlanTemplate {...customProps} />
       </TestWrapper>
     )
     fireEvent.click(getByText('Start A Trial'))
@@ -210,7 +210,7 @@ describe('StartTrialTemplate snapshot test', () => {
 
     const { container, getByText } = render(
       <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
-        <StartTrialTemplate {...customProps} />
+        <StartPlanTemplate {...customProps} />
       </TestWrapper>
     )
     fireEvent.click(getByText('Start A Trial'))
@@ -231,7 +231,7 @@ describe('StartTrialTemplate snapshot test', () => {
     })
     const { container, getByText } = render(
       <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
-        <StartTrialTemplate {...props} />
+        <StartPlanTemplate {...props} />
       </TestWrapper>
     )
     fireEvent.click(getByText('Start A Trial'))

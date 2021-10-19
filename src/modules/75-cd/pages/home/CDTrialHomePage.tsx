@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { PageSpinner } from '@wings-software/uicore'
-import { StartTrialTemplate } from '@rbac/components/TrialHomePageTemplate/StartTrialTemplate'
+import StartPlanTemplate from '@rbac/components/HomePageTemplate/StartPlanTemplate'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
+import useStartTrialModal from '@common/modals/StartPlan/StartPlanModal'
 import { useQueryParams } from '@common/hooks'
 import { useStartTrialLicense } from 'services/cd-ng'
 import { useToaster } from '@common/components'
@@ -19,6 +19,8 @@ const CDTrialHomePage: React.FC = () => {
   const { source } = useQueryParams<{ source?: string }>()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const { accountId } = useParams<ProjectPathProps>()
+  const module = 'cd'
+  const moduleType = 'CD'
 
   const {
     error,
@@ -31,19 +33,19 @@ const CDTrialHomePage: React.FC = () => {
   })
 
   const startTrialnOpenCDTrialModal = async (): Promise<void> => {
-    const data = await startTrial({ moduleType: 'CD', edition: Editions.ENTERPRISE })
+    const data = await startTrial({ moduleType, edition: Editions.ENTERPRISE })
 
-    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, 'cd', data?.data)
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, data?.data)
 
     history.push({
-      pathname: routes.toModuleHome({ accountId, module: 'cd' }),
+      pathname: routes.toModuleHome({ accountId, module }),
       search: '?trial=true&&modal=true'
     })
   }
 
   const { showModal: openStartTrialModal } = useStartTrialModal({
-    module: 'cd',
-    handleStartTrial: source === 'signup' ? undefined : startTrialnOpenCDTrialModal
+    module,
+    handleStartPlan: source === 'signup' ? undefined : startTrialnOpenCDTrialModal
   })
 
   const startTrialProps = {
@@ -75,11 +77,11 @@ const CDTrialHomePage: React.FC = () => {
   }
 
   return (
-    <StartTrialTemplate
+    <StartPlanTemplate
       title={getString('cd.continuous')}
       bgImageUrl={bgImageURL}
-      startTrialProps={startTrialProps}
-      module="cd"
+      startPlanProps={startTrialProps}
+      module={module}
     />
   )
 }

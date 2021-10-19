@@ -8,15 +8,17 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '@common/components/ModuleInfoCards/ModuleInfoCards'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import { Experiences } from '@common/constants/Utils'
 
-export interface StartTrialModalContentProps {
-  handleStartTrial?: () => void
+export interface StartPlanModalContentProps {
+  handleStartPlan?: () => void
   module: Module
+  edition?: Editions
 }
 
-const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
-  const { handleStartTrial, module } = props
+const StartPlanModalContent: React.FC<StartPlanModalContentProps> = props => {
+  const { handleStartPlan, module, edition = Editions.ENTERPRISE } = props
 
   const { getString } = useStrings()
   const { GTM_CD_ENABLED } = useFeatureFlags()
@@ -31,10 +33,21 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
   const initialSelectedInfoCard = moduleInfoCards ? moduleInfoCards[0] : undefined
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard | undefined>(initialSelectedInfoCard)
 
+  function getNGBtnText(): string {
+    if (edition === Editions.FREE) {
+      return getString('common.startFree', {
+        module: module === 'cf' ? 'FF' : module.toUpperCase()
+      })
+    }
+
+    return getString('common.startTrial', {
+      module: module === 'cf' ? 'FF' : module.toUpperCase()
+    })
+  }
   function getModuleButton(): React.ReactElement {
     async function handleOnClick(): Promise<void> {
       if (!selectedInfoCard || selectedInfoCard?.isNgRoute) {
-        handleStartTrial?.()
+        handleStartPlan?.()
       } else if (selectedInfoCard?.route) {
         await updateDefaultExperience({
           defaultExperience: Experiences.CG
@@ -49,11 +62,9 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
         return getString('continue')
       }
       if (selectedInfoCard?.route) {
-        return getString('common.launchFirstGen' as keyof StringsMap, { module: module.toUpperCase() })
+        return getString('common.launchFirstGen', { module: module.toUpperCase() })
       }
-      return getString('common.startTrial' as keyof StringsMap, {
-        module: module === 'cf' ? 'FF' : module.toUpperCase()
-      })
+      return getNGBtnText()
     }
 
     return (
@@ -145,4 +156,4 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
   )
 }
 
-export default StartTrialModalContent
+export default StartPlanModalContent

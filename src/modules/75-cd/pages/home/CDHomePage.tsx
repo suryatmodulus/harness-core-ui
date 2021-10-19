@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { PageError, PageSpinner } from '@wings-software/uicore'
-import { ModuleName } from 'framework/types/ModuleName'
+import type { ModuleName } from 'framework/types/ModuleName'
 import { HomePageTemplate } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
 import { useGetLicensesAndSummary, useGetProjectList } from 'services/cd-ng'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
-import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { TrialInProgressTemplate } from '@rbac/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { useQueryParams } from '@common/hooks'
 import type { Project } from 'services/cd-ng'
@@ -15,12 +15,14 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGetPipelineList, PagePMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { TrialType, useCDTrialModal, UseCDTrialModalProps } from '@cd/modals/CDTrial/useCDTrialModal'
 import routes from '@common/RouteDefinitions'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlag, useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { useToaster } from '@common/components'
-import type { Editions } from '@common/constants/SubscriptionTypes'
+import { FeatureFlag } from '@common/featureFlags'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import CDTrialHomePage from './CDTrialHomePage'
 import bgImageURL from './images/cd.svg'
+import CDFreeHomePage from './CDFreeHomePage'
 
 export const CDHomePage: React.FC = () => {
   const { getString } = useStrings()
@@ -29,6 +31,8 @@ export const CDHomePage: React.FC = () => {
   const { showError } = useToaster()
 
   const { accountId } = useParams<AccountPathProps>()
+  const module = 'cd'
+  const moduleType = 'CD'
 
   const {
     data,
@@ -36,31 +40,26 @@ export const CDHomePage: React.FC = () => {
     refetch: refetchLicense,
     loading: gettingLicense
   } = useGetLicensesAndSummary({
-    queryParams: { moduleType: ModuleName.CD as any },
+    queryParams: { moduleType: moduleType },
     accountIdentifier: accountId
   })
 
   const expiryTime = data?.data?.maxExpiryTime
   const updatedLicenseInfo = data?.data && {
-    ...licenseInformation?.['CD'],
+    ...licenseInformation?.[moduleType],
     ...pick(data?.data, ['licenseType', 'edition']),
     expiryTime
   }
 
   useEffect(() => {
-    handleUpdateLicenseStore(
-      { ...licenseInformation },
-      updateLicenseStore,
-      ModuleName.CD.toString() as Module,
-      updatedLicenseInfo
-    )
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   const trialBannerProps = {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
-    module: ModuleName.CD,
+    module: moduleType as ModuleName,
     edition: data?.data?.edition as Editions,
     refetch: refetchLicense
   }
@@ -71,7 +70,7 @@ export const CDHomePage: React.FC = () => {
       projectIdentifier: projectData?.identifier || '',
       pipelineIdentifier: pipelinId,
       accountId,
-      module: 'cd'
+      module
     })
     search
       ? history.push({
@@ -81,9 +80,12 @@ export const CDHomePage: React.FC = () => {
       : history.push(pathname)
   }
 
+  const freePlanEnabled = useFeatureFlag(FeatureFlag.FREE_PLAN_ENABLED)
+
+  const modalType = freePlanEnabled ? 'free' : 'trial'
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
-      closeProjectModal(), pushToPipelineStudio('-1', projectData, '?modal=trial')
+      closeProjectModal(), pushToPipelineStudio('-1', projectData, `?modal=${modalType}`)
     }
   })
 
@@ -112,7 +114,7 @@ export const CDHomePage: React.FC = () => {
       accountIdentifier: accountId,
       projectIdentifier: selectedProject?.identifier || '',
       orgIdentifier: selectedProject?.orgIdentifier || '',
-      module: 'cd',
+      module,
       size: 1
     }
   })
@@ -165,7 +167,8 @@ export const CDHomePage: React.FC = () => {
           },
           trialType: TrialType.CREATE_OR_SELECT_PROJECT
         }
-    return props
+    const edition = freePlanEnabled ? Editions.FREE : Editions.ENTERPRISE
+    return { ...props, edition }
   }
 
   const { openCDTrialModal } = useCDTrialModal({
@@ -216,7 +219,7 @@ export const CDHomePage: React.FC = () => {
   const showTrialPages = createdFromNG || NG_LICENSES_ENABLED
 
   if (showTrialPages && data?.status === 'SUCCESS' && !data.data) {
-    return <CDTrialHomePage />
+    return freePlanEnabled ? <CDFreeHomePage /> : <CDTrialHomePage />
   }
 
   if (showTrialPages && data && data.data && trial) {
@@ -236,7 +239,7 @@ export const CDHomePage: React.FC = () => {
           projectIdentifier: project.identifier,
           orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
           accountId,
-          module: 'cd'
+          module
         })
       )
     }

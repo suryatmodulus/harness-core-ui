@@ -1,6 +1,6 @@
 import React from 'react'
 import { useStrings } from 'framework/strings'
-import { StartTrialTemplate } from '@rbac/components/TrialHomePageTemplate/StartTrialTemplate'
+import StartPlanTemplate from '@rbac/components/HomePageTemplate/StartPlanTemplate'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { PageNames } from '@ci/constants/TrackingConstants'
 import { Category } from '@common/constants/TrackingConstants'
@@ -23,10 +23,10 @@ const CITrialHomePage: React.FC = () => {
   }
 
   return (
-    <StartTrialTemplate
+    <StartPlanTemplate
       title={getString('ci.continuous')}
       bgImageUrl={bgImageURL}
-      startTrialProps={startTrialProps}
+      startPlanProps={startTrialProps}
       module="ci"
     />
   )

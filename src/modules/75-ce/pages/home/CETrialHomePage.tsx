@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
-import { StartTrialTemplate } from '@rbac/components/TrialHomePageTemplate/StartTrialTemplate'
+import StartPlanTemplate from '@rbac/components/HomePageTemplate/StartPlanTemplate'
 import { useStartTrialLicense } from 'services/cd-ng'
 import useCreateConnector from '@ce/components/CreateConnector/CreateConnector'
 import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
@@ -84,10 +84,10 @@ const CETrialHomePage: React.FC = () => {
   }
 
   return (
-    <StartTrialTemplate
+    <StartPlanTemplate
       title={getString('common.purpose.ce.continuous')}
       bgImageUrl={bgImage}
-      startTrialProps={startTrialProps}
+      startPlanProps={startTrialProps}
       module="cd"
     />
   )

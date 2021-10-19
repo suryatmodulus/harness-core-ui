@@ -20,6 +20,7 @@ import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { FeatureFlag } from '@common/featureFlags'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import css from './CDPipelineStudio.module.scss'
 
 const CDPipelineStudio: React.FC = (): JSX.Element => {
@@ -36,13 +37,15 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
   ): React.ReactElement => {
     return getCDTrialDialog({
       actionProps: { onSuccess: onSubmit, onCloseModal: onClose },
-      trialType: TrialType.SET_UP_PIPELINE
+      trialType: TrialType.SET_UP_PIPELINE,
+      edition
     })
   }
 
   const { modal } = useQueryParams<{ modal?: string }>()
+  const edition = modal === 'free' ? Editions.FREE : Editions.ENTERPRISE
 
-  const getOtherModal = modal === 'trial' ? getTrialPipelineCreateForm : undefined
+  const getOtherModal = modal ? getTrialPipelineCreateForm : undefined
   const handleRunPipeline = (): void => {
     history.push(
       routes.toPipelineStudio({

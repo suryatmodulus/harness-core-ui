@@ -52,7 +52,7 @@ export default function CDSideNav(): React.ReactElement {
   const { updateAppStore } = useAppStore()
   const { CD_OVERVIEW_PAGE, ARGO_PHASE1 } = useFeatureFlags()
   const { getString } = useStrings()
-  const { trial } = useQueryParams<{ trial?: boolean }>()
+  const { trial, modal } = useQueryParams<{ trial?: boolean; modal?: string }>()
 
   return (
     <Layout.Vertical spacing="small">
@@ -123,8 +123,9 @@ export default function CDSideNav(): React.ReactElement {
                 orgIdentifier: data.orgIdentifier
               })
             )
-          } else if (trial) {
-            // when it's on trial page, forward to pipeline
+          } else if (trial || modal === 'free') {
+            // when it's on sign up flow page, forward to pipeline
+            const queryParam = trial ? 'trial' : 'free'
             history.push({
               pathname: routes.toPipelineStudio({
                 orgIdentifier: data.orgIdentifier || '',
@@ -133,7 +134,7 @@ export default function CDSideNav(): React.ReactElement {
                 accountId,
                 module
               }),
-              search: '?modal=trial'
+              search: `?modal=${queryParam}`
             })
           } else {
             history.push(

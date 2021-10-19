@@ -172,6 +172,7 @@ export interface StringsMap {
   'common.filters.noMatchingFilterData': string
   'common.filters.saveNewFilter': string
   'common.filters.unsavedFilter': string
+  'common.freePlan.startFreePlan': string
   'common.frequency': string
   'common.genericErrors.inviteExpired': string
   'common.genericErrors.licenseCallFailed': string
@@ -455,6 +456,7 @@ export interface StringsMap {
   'common.specified': string
   'common.specify': string
   'common.stable': string
+  'common.startFree': string
   'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string

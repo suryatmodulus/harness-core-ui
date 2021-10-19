@@ -12,6 +12,7 @@ import { SelectOrCreatePipelineForm } from '@pipeline/components/SelectOrCreateP
 import { TrialModalTemplate } from '@common/components/TrialModalTemplate/TrialModalTemplate'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelineInfoConfig } from 'services/cd-ng'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import cdImage from '../images/illustration.png'
 import css from './useCDTrialModal.module.scss'
 
@@ -27,6 +28,7 @@ type PipelineProps = {
 export interface UseCDTrialModalProps {
   actionProps: PipelineProps | CreateOrSelectProjectProps
   trialType: TrialType
+  edition?: Editions
 }
 
 export interface UseCDTrialModalReturn {
@@ -44,11 +46,12 @@ interface CDTrialTemplateData {
   description: string
   children: React.ReactElement
   rightWidth?: string
+  edition?: Editions
 }
 
-const CDTrialTemplate: React.FC<CDTrialTemplateData> = ({ description, children, rightWidth }) => {
+const CDTrialTemplate: React.FC<CDTrialTemplateData> = ({ description, children, rightWidth, edition }) => {
   const { getString } = useStrings()
-
+  const hideTrialBadge = edition === Editions.FREE
   return (
     <TrialModalTemplate
       iconName="cd-main"
@@ -56,6 +59,7 @@ const CDTrialTemplate: React.FC<CDTrialTemplateData> = ({ description, children,
       description={description}
       imgSrc={cdImage}
       rightWidth={rightWidth}
+      hideTrialBadge={hideTrialBadge}
     >
       {children}
     </TrialModalTemplate>
@@ -65,9 +69,10 @@ const CDTrialTemplate: React.FC<CDTrialTemplateData> = ({ description, children,
 interface CDTrialProps {
   trialType: TrialType
   actionProps: PipelineProps | CreateOrSelectProjectProps
+  edition?: Editions
 }
 
-const CDTrial: React.FC<CDTrialProps> = ({ trialType, actionProps }) => {
+const CDTrial: React.FC<CDTrialProps> = ({ trialType, actionProps, edition }) => {
   const { getString } = useStrings()
   const history = useHistory()
   const { accountId } = useParams<{ accountId: string }>()
@@ -125,20 +130,20 @@ const CDTrial: React.FC<CDTrialProps> = ({ trialType, actionProps }) => {
   }
 
   return (
-    <CDTrialTemplate description={description} rightWidth={rightWidth}>
+    <CDTrialTemplate description={description} rightWidth={rightWidth} edition={edition}>
       {child}
     </CDTrialTemplate>
   )
 }
 
-const CDTrialDialog = ({ actionProps, trialType }: CDTrialProps): React.ReactElement => (
+const CDTrialDialog = ({ actionProps, trialType, edition }: CDTrialProps): React.ReactElement => (
   <Dialog
     isOpen={true}
     enforceFocus={false}
     onClose={(actionProps as PipelineProps).onCloseModal}
     className={cx(css.dialog, Classes.DIALOG, css.cdTrial)}
   >
-    <CDTrial trialType={trialType} actionProps={actionProps} />
+    <CDTrial trialType={trialType} actionProps={actionProps} edition={edition} />
     <Button
       aria-label="close modal"
       minimal
@@ -150,17 +155,17 @@ const CDTrialDialog = ({ actionProps, trialType }: CDTrialProps): React.ReactEle
   </Dialog>
 )
 
-export const getCDTrialDialog = ({ actionProps, trialType }: CDTrialProps): React.ReactElement => (
-  <CDTrialDialog actionProps={actionProps} trialType={trialType} />
+export const getCDTrialDialog = ({ actionProps, trialType, edition }: CDTrialProps): React.ReactElement => (
+  <CDTrialDialog actionProps={actionProps} trialType={trialType} edition={edition} />
 )
 
-export const useCDTrialModal = ({ actionProps, trialType }: UseCDTrialModalProps): UseCDTrialModalReturn => {
+export const useCDTrialModal = ({ actionProps, trialType, edition }: UseCDTrialModalProps): UseCDTrialModalReturn => {
   const [showModal, hideModal] = useModalHook(() => {
     const onCloseModal = (): void => {
       hideModal(), (actionProps as PipelineProps).onCloseModal?.()
     }
     const newActionProps = { ...actionProps, onCloseModal }
-    return <CDTrialDialog actionProps={newActionProps} trialType={trialType} />
+    return <CDTrialDialog actionProps={newActionProps} trialType={trialType} edition={edition} />
   }, [])
 
   return {

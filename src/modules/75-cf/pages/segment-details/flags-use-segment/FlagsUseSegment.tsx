@@ -41,23 +41,29 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
     identifier: '',
     queryParams
   })
-  const addSegmentToFlags = async (selectedFeatureFlags: SelectedFeatureFlag[]): Promise<void> => {
+  const addSegmentToFlags = async (
+    selectedFeatureFlags: SelectedFeatureFlag[],
+    gitFormValues?: any //todo
+  ): Promise<void> => {
     // Note: Due to https://harness.atlassian.net/browse/FFM-713 not done, we make
     // multiple patch APIs instead of single one
+
     return await Promise.all(
-      selectedFeatureFlags.map(({ feature, variationIdentifier }) =>
-        patchFeature(
-          {
-            instructions: [
-              {
-                kind: 'addSegmentToVariationTargetMap',
-                parameters: { variation: variationIdentifier, targetSegments: [segmentIdentifier] }
-              }
-            ]
-          },
+      selectedFeatureFlags.map(({ feature, variationIdentifier }) => {
+        const patchInstruction = {
+          instructions: [
+            {
+              kind: 'addSegmentToVariationTargetMap',
+              parameters: { variation: variationIdentifier, targetSegments: [segmentIdentifier] }
+            }
+          ]
+        }
+
+        return patchFeature(
+          gitFormValues ? { ...patchInstruction, gitDetails: gitFormValues.gitDetails } : patchInstruction,
           { pathParams: { identifier: feature.identifier } }
         )
-      )
+      })
     )
       .then(() => {
         refetchFlags()
@@ -104,7 +110,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
           environmentIdentifier={activeEnvironment}
           modalTitle={getString('cf.segmentDetail.addSegmentToFlag')}
           submitButtonTitle={getString('add')}
-          onSubmit={addSegmentToFlags}
+          onSubmit={addSegmentToFlags} // :D
           shouldDisableItem={feature =>
             (flags?.filter(flag => flag.type === EntityAddingMode.DIRECT) || [])
               .map(flag => flag.identifier)

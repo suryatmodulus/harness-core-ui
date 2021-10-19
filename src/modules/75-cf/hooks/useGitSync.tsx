@@ -1,4 +1,4 @@
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetGitRepo, usePatchGitRepo } from 'services/cf'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'

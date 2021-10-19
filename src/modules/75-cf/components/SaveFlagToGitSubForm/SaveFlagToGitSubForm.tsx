@@ -8,7 +8,6 @@ export interface SaveFlagToGitSubFormProps {
   subtitle?: string
   branch: string
   flagName?: string
-
   hideNameField?: boolean
 }
 

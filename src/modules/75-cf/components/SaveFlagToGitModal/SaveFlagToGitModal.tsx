@@ -10,7 +10,7 @@ import css from './SaveFlagToGitModal.module.scss'
 interface SaveFlagToGitModalProps {
   title: string
   branch: string //todo move to initial values
-  onSubmit: (formData: any) => void // todo
+  onSubmit?: (formData: any) => void // todo
   onClose: () => void
 }
 

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Dialog, Intent } from '@blueprintjs/core'
+import * as yup from 'yup'
 import {
   Button,
   useModalHook,
@@ -12,7 +13,9 @@ import {
   Icon,
   Pagination,
   HarnessDocTooltip,
-  PageError
+  PageError,
+  Formik,
+  FormikForm
 } from '@wings-software/uicore'
 import { CF_DEFAULT_PAGE_SIZE, getErrorMessage, SegmentsSortByField, SortOrder } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
@@ -21,8 +24,10 @@ import { useToaster } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
+import useGitSync from '@cf/hooks/useGitSync'
 import { FeatureFlagRow } from './FeatureFlagRow'
 import { NoDataFoundRow } from '../NoDataFoundRow/NoDataFoundRow'
+import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
 
 export interface SelectedFeatureFlag {
   feature: Feature
@@ -41,7 +46,7 @@ export interface SelectFeatureFlagsModalButtonProps extends Omit<ButtonProps, 'o
   cancelButtonTitle?: string
 
   shouldDisableItem: (feature: Feature) => boolean
-  onSubmit: (selectedFeatureFlags: SelectedFeatureFlag[]) => Promise<{ error: any } | any>
+  onSubmit: (selectedFeatureFlags: SelectedFeatureFlag[], gitDetails: any) => Promise<{ error: any } | any>
 }
 
 export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButtonProps> = ({
@@ -64,6 +69,9 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
     const [sortOrder, setSortOrder] = useState(SortOrder.ASCENDING)
     const [sortByField] = useState(SegmentsSortByField.NAME)
     const [pageNumber, setPageNumber] = useState(0)
+
+    const { gitRepoDetails, isAutoCommitEnabled, isGitSyncEnabled, toggleAutoCommit } = useGitSync()
+
     const queryParams = useMemo(
       () => ({
         account: accountId,
@@ -89,6 +97,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
       lazy: true
     })
     const [checkedFeatureFlags, setCheckedFeatureFlags] = useState<Record<string, SelectedFeatureFlag>>({})
+
     const checkOrUncheckSegment = useCallback(
       (checked: boolean, feature: Feature, variationIdentifier: string) => {
         if (checked) {
@@ -104,13 +113,19 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
       [checkedFeatureFlags, setCheckedFeatureFlags]
     )
     const selectedCounter = Object.keys(checkedFeatureFlags || {}).length
-    const [submitLoading, setSubmitLoading] = useState(false)
-    const handleSubmit = (): void => {
-      setSubmitLoading(true)
 
+    const [submitLoading, setSubmitLoading] = useState(false)
+    const handleSubmit = (gitFormValues?: any): void => {
+      setSubmitLoading(true)
       try {
-        onSubmit(Object.values(checkedFeatureFlags))
-          .then(() => {
+        onSubmit(Object.values(checkedFeatureFlags), gitFormValues)
+          .then(async () => {
+            const { autoCommit } = gitFormValues
+
+            if (autoCommit && isAutoCommitEnabled != Boolean(autoCommit)) {
+              await toggleAutoCommit(Boolean(autoCommit))
+            }
+
             hideModal()
           })
           .catch(_error => {
@@ -152,7 +167,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
             </span>
           </Text>
         }
-        style={{ width: 700, height: 700 }}
+        style={{ width: 700, maxHeight: '95vh' }}
       >
         <Layout.Vertical padding={{ top: 'xxlarge', left: 'xxlarge' }} style={{ height: '100%' }}>
           {/* Search Input */}
@@ -168,7 +183,8 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
 
           {/* Table view */}
           <Container
-            style={{ height: 'calc(100% - 210px)', overflow: 'auto' }}
+            // style={{ height: 'calc(100% - 210px)', overflow: 'auto' }}
+            style={{ height: '35vh', overflow: 'auto' }}
             margin={{ bottom: 'small', right: 'xxlarge' }}
           >
             {(error && (
@@ -243,18 +259,68 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
             )}
           </Container>
 
-          {/* Buttons bar */}
-          <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }} style={{ alignItems: 'center' }}>
-            <Button
-              text={submitButtonTitle || getString('add')}
-              intent={Intent.PRIMARY}
-              disabled={loading || !!error || !selectedCounter}
-              onClick={handleSubmit}
-            />
-            <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
-            <FlexExpander />
-            {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
-            {!!selectedCounter && <Text>{getString('cf.shared.selected', { counter: selectedCounter })}</Text>}
+          <Layout.Horizontal>
+            <Formik
+              initialValues={{
+                gitDetails: {
+                  branch: gitRepoDetails?.branch,
+                  repoIdentifier: gitRepoDetails?.repoIdentifier || '',
+                  rootFolder: gitRepoDetails?.rootFolder || '',
+                  filePath: gitRepoDetails?.filePath || '',
+                  commitMsg: gitRepoDetails?.autoCommit
+                    ? 'Automated commit message from your friendly neighbourhood UI bot!'
+                    : '' //TODO - messages
+                },
+                autoCommit: isAutoCommitEnabled
+              }}
+              formName="editVariations"
+              enableReinitialize={true}
+              validationSchema={yup.object().shape({
+                gitDetails: yup.object().shape({
+                  commitMsg: isGitSyncEnabled
+                    ? yup.string().required(getString('cf.creationModal.valueIsRequired')) // todo
+                    : yup.string()
+                })
+              })}
+              validateOnChange
+              validateOnBlur
+              onSubmit={handleSubmit}
+            >
+              {formikProps => {
+                return (
+                  <FormikForm {...formikProps} style={{ minWidth: '37vw' }}>
+                    {isGitSyncEnabled && !isAutoCommitEnabled && (
+                      <>
+                        <SaveFlagToGitSubForm branch="branch" subtitle="Commit Changes" hideNameField />
+                      </>
+                    )}
+                    <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }} style={{ alignItems: 'center' }}>
+                      <Button
+                        type="submit"
+                        text={submitButtonTitle || getString('add')}
+                        intent={Intent.PRIMARY}
+                        disabled={loading || !!error || !selectedCounter}
+                        onClick={event => {
+                          event.preventDefault()
+                          if (isGitSyncEnabled) {
+                            formikProps.submitForm()
+                          } else {
+                            handleSubmit()
+                          }
+                        }}
+                      />
+                      <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
+                      <FlexExpander />
+
+                      {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
+                      {!!selectedCounter && (
+                        <Text>{getString('cf.shared.selected', { counter: selectedCounter })}</Text>
+                      )}
+                    </Layout.Horizontal>
+                  </FormikForm>
+                )
+              }}
+            </Formik>
           </Layout.Horizontal>
         </Layout.Vertical>
       </Dialog>

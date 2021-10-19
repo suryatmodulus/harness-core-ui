@@ -28,7 +28,8 @@ import {
   Serve,
   VariationMap,
   TargetMap,
-  PatchFeatureQueryParams
+  PatchFeatureQueryParams,
+  GitDetails
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { extraOperatorReference } from '@cf/constants'
@@ -68,6 +69,7 @@ export interface FlagActivationFormValues {
   defaultServe: Serve
   customRules: ServingRule[]
   variationMap: VariationMap[]
+  gitDetails: GitDetails
 }
 
 const fromVariationMapToObj = (variationMap: VariationMap[]) =>

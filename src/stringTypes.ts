@@ -2806,10 +2806,12 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.ecs': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.instance': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.kubernetes': string
+  'ce.co.autoStoppingRule.configuration.step2.addResourceCta.rds': string
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.asg': string
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.ecs': string
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance': string
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.kubernetes': string
+  'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.rds': string
   'ce.co.autoStoppingRule.configuration.step2.subTitle': string
   'ce.co.autoStoppingRule.configuration.step2.title': string
   'ce.co.autoStoppingRule.configuration.step3.asgSubTitle': string
@@ -2868,6 +2870,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.download': string
   'ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.title': string
   'ce.co.autoStoppingRule.setupAccess.noSetupRequired': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds': string
   'ce.co.autoStoppingRule.setupAccess.pageName': string
   'ce.co.autoStoppingRule.setupAccess.selectAppGateway': string
   'ce.co.autoStoppingRule.setupAccess.selectLb': string

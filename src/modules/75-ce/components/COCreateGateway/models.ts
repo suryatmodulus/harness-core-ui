@@ -4,6 +4,7 @@ import type {
   ContainerSvc,
   HealthCheck,
   PortConfig,
+  RDSDatabase,
   ServiceDep,
   ServiceMetadata
 } from 'services/lw'
@@ -28,6 +29,7 @@ export interface Routing {
   }
   custom_domain_providers?: { [key: string]: any }
   container_svc?: ContainerSvc
+  database?: RDSDatabase
 }
 
 interface ServiceOpts {

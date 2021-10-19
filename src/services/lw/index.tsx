@@ -365,6 +365,11 @@ export interface PublicIp {
   version?: string
 }
 
+export interface RDSDatabase {
+  id?: string
+  region?: string
+}
+
 export interface Region {
   label?: string
   name?: string
@@ -421,6 +426,7 @@ export interface ResourcesResponse {
 export interface RoutingData {
   container_svc?: ContainerSvc
   custom_domain_providers?: { [key: string]: any }
+  database?: RDSDatabase
   instance?: InstanceBasedRoutingData
   k8s?: {
     ConnectorID?: string

@@ -9,7 +9,7 @@ import { FeatureFlag } from '@common/featureFlags'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import COK8sClusterSelector from '@ce/components/COK8sClusterSelector/COK8sClusterSelector'
 import { ConnectorInfoDTO, ConnectorResponse, useGetConnectorListV2 } from 'services/cd-ng'
-import { ASGMinimal, PortConfig, useAllResourcesOfAccount, useGetAllASGs, ContainerSvc } from 'services/lw'
+import { ASGMinimal, PortConfig, useAllResourcesOfAccount, useGetAllASGs, ContainerSvc, RDSDatabase } from 'services/lw'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
@@ -18,6 +18,7 @@ import COEcsSelector from '@ce/components/COEcsSelector/COEcsSelector'
 import COAsgSelector from '@ce/components/COAsgSelector'
 import { Connectors } from '@connectors/constants'
 import { Utils } from '@ce/common/Utils'
+import CORdsSelector from '@ce/components/CORdsSelector/CORdsSelector'
 import COGatewayConfigStep from '../../COGatewayConfigStep'
 import { fromResourceToInstanceDetails, isFFEnabledForResource } from '../../helper'
 import ResourceSelectionModal from '../../ResourceSelectionModal'
@@ -47,7 +48,8 @@ const managedResources = [
     providers: ['aws', 'azure', 'gcp'],
     ffDependencies: ['CE_AS_KUBERNETES_ENABLED']
   },
-  { label: 'ECS', value: RESOURCES.ECS, providers: ['aws'] }
+  { label: 'ECS', value: RESOURCES.ECS, providers: ['aws'] },
+  { label: 'RDS', value: RESOURCES.RDS, providers: ['aws'] }
 ]
 
 const ManageResources: React.FC<ManageResourcesProps> = props => {
@@ -158,6 +160,16 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     }
   }
 
+  const resetSelectedRdsDetails = () => {
+    if (!_isEmpty(props.gatewayDetails.routing.database)) {
+      const updatedGatewayDetails: GatewayDetails = {
+        ...props.gatewayDetails,
+        routing: { ...props.gatewayDetails.routing, database: undefined }
+      }
+      props.setGatewayDetails(updatedGatewayDetails)
+    }
+  }
+
   const clearResourceDetailsFromGateway = (resourceType: RESOURCES) => {
     const resourceToFunctionalityMap: Record<string, () => void> = {
       [RESOURCES.INSTANCES]: () => {
@@ -167,6 +179,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         resetSelectedAsgDetails()
         resetKubernetesConnectorDetails()
         resetSelectedEcsDetails()
+        resetSelectedRdsDetails()
       },
       [RESOURCES.ASG]: () => {
         // set total no. of steps to default (4)
@@ -175,6 +188,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         resetSelectedInstancesDetails()
         resetKubernetesConnectorDetails()
         resetSelectedEcsDetails()
+        resetSelectedRdsDetails()
       },
       [RESOURCES.KUBERNETES]: () => {
         // set total no. of steps to modified (3)
@@ -182,12 +196,22 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         resetSelectedInstancesDetails()
         resetSelectedAsgDetails()
         resetSelectedEcsDetails()
+        resetSelectedRdsDetails()
       },
       [RESOURCES.ECS]: () => {
         props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.DEFAULT)
         resetSelectedInstancesDetails()
         resetSelectedAsgDetails()
         resetKubernetesConnectorDetails()
+        resetSelectedRdsDetails()
+      },
+      [RESOURCES.RDS]: () => {
+        props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.MODIFIED)
+        resetSelectedInstancesDetails()
+        resetSelectedAsgDetails()
+        resetKubernetesConnectorDetails()
+        resetSelectedEcsDetails()
+        resetSelectedRdsDetails()
       }
     }
 
@@ -370,6 +394,26 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     [props.gatewayDetails]
   )
 
+  const [openRdsModal, closeRdsModal] = useModalHook(
+    () => (
+      <ResourceSelectionModal
+        closeBtnTestId={'close-rds-modal'}
+        onClose={() => {
+          closeRdsModal()
+        }}
+      >
+        <CORdsSelector
+          gatewayDetails={props.gatewayDetails}
+          setGatewayDetails={props.setGatewayDetails}
+          onServiceAddSuccess={() => {
+            closeRdsModal()
+          }}
+        />
+      </ResourceSelectionModal>
+    ),
+    [props.gatewayDetails]
+  )
+
   const handleAsgSearch = (text: string) => {
     if (!text) {
       setAsgToShow(allAsg)
@@ -404,7 +448,8 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
       [RESOURCES.INSTANCES]: openInstancesModal,
       [RESOURCES.ASG]: openAsgModal,
       [RESOURCES.KUBERNETES]: openClusterModal,
-      [RESOURCES.ECS]: openEcsModal
+      [RESOURCES.ECS]: openEcsModal,
+      [RESOURCES.RDS]: openRdsModal
     }
     if (resource) {
       modalCbMap[resource]?.()
@@ -479,6 +524,9 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         {!_isEmpty(props.gatewayDetails.routing.container_svc) && (
           <DisplaySelectedEcsService data={[props.gatewayDetails.routing.container_svc as ContainerSvc]} />
         )}
+        {!_isEmpty(props.gatewayDetails.routing.database) && (
+          <DisplaySelectedEcsService data={[props.gatewayDetails.routing.database as RDSDatabase]} />
+        )}
       </Layout.Vertical>
     </COGatewayConfigStep>
   )
@@ -497,7 +545,8 @@ const DisplayResourceInfo: React.FC<DisplayResourceInfoProps> = props => {
       [RESOURCES.INSTANCES]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance'),
       [RESOURCES.ASG]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.asg'),
       [RESOURCES.KUBERNETES]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.kubernetes'),
-      [RESOURCES.ECS]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.ecs')
+      [RESOURCES.ECS]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.ecs'),
+      [RESOURCES.RDS]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.rds')
     }
     return textMap[resource]
   }
@@ -507,7 +556,8 @@ const DisplayResourceInfo: React.FC<DisplayResourceInfoProps> = props => {
       [RESOURCES.INSTANCES]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.instance')}`,
       [RESOURCES.ASG]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg')}`,
       [RESOURCES.KUBERNETES]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.kubernetes')}`,
-      [RESOURCES.ECS]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.ecs')}`
+      [RESOURCES.ECS]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.ecs')}`,
+      [RESOURCES.RDS]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.rds')}`
     }
     return textMap[resource]
   }

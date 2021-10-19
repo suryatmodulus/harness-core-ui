@@ -5,6 +5,7 @@ import { Container, Layout, Button } from '@wings-software/uicore'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import type { Service } from 'services/lw'
+import { Utils } from '@ce/common/Utils'
 import { CONFIG_IDLE_TIME_CONSTRAINTS, CONFIG_STEP_IDS, CONFIG_TOTAL_STEP_COUNTS, RESOURCES } from '@ce/constants'
 import DefineRule from './steps/DefineRule'
 import ManageResources from './steps/ManageResources/ManageResources'
@@ -80,7 +81,12 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         : true) &&
       (selectedResource === RESOURCES.ECS
         ? _defaultTo(props.gatewayDetails.routing.container_svc?.task_count, 0) > -1
-        : true)
+        : true) &&
+      Utils.getConditionalResult(
+        selectedResource === RESOURCES.RDS,
+        !_isEmpty(props.gatewayDetails.routing.database),
+        true
+      )
     )
   }
 
@@ -95,7 +101,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     selectedResource,
     props.gatewayDetails.metadata.kubernetes_connector_id,
     props.gatewayDetails.routing?.instance?.scale_group,
-    props.gatewayDetails.routing?.container_svc
+    props.gatewayDetails.routing?.container_svc,
+    props.gatewayDetails.routing?.database
   ])
 
   return (

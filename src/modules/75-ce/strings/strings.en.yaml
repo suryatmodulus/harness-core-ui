@@ -69,11 +69,13 @@ co:
           asg: 'Add an ASG to be managed by the AutoStopping Rule. You can choose only one ASG to a single Rule'
           kubernetes: 'Add a cluster to be managed by the AutoStopping Rule.'
           ecs: 'Add ECS Service to be managed by AutoStopping Rule'
+          rds: 'ADD RDS databse to be managed by Autostopping Rule'
         addResourceCta:
           instance: 'Add an instance'
           asg: 'Add a auto-scaling group'
           kubernetes: 'Add a cluster'
           ecs: 'Add an ECS Service'
+          rds: 'Add RDS Database'
       step3:
         title: 'Choose to convert the selected instance(s) to spot or remain on-demand. '
         asgTitle: 'Choose the on-demand vs spot ratio for your Auto Scaling group'
@@ -94,6 +96,7 @@ co:
     setupAccess:
       pageName: 'Setup Access'
       noSetupRequired: No need to setup access for {{source}}. Please move to Review step.
+      noSetupRequiredForRds: 'Access modes setup is not required for RDS-based rules. This rule can be added as a dependency to other AutoStopping rules for a dependent warmup with associated API service'
       customDomain:
         helpText: 'Specify the URL used to access the resources(Optional)'
         noHostedZones: 'Custom domain does not match to any of the existing domains'

@@ -2574,7 +2574,18 @@
         "container_svc": {
           "type": "object",
           "$ref": "#/definitions/ContainerSvc"
+        },
+        "database": {
+          "type": "object",
+          "$ref": "#/definitions/RDSDatabase"
         }
+      }
+    },
+    "RDSDatabase": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "region": { "type": "string" }
       }
     },
     "ContainerSvc": {

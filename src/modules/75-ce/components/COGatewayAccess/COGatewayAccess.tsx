@@ -76,7 +76,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
 
   useEffect(() => {
     let validStatus = false
-    if (serviceDescribeData?.response?.loadbalanced === false) {
+    if (serviceDescribeData?.response?.loadbalanced === false || !_isEmpty(props.gatewayDetails.routing.database)) {
       validStatus = true
     } else if (accessDetails.dnsLink.selected) {
       validStatus = getValidStatusForDnsLink(props.gatewayDetails)
@@ -109,7 +109,8 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     props.gatewayDetails.routing.ports,
     yamlData,
     props.gatewayDetails.routing.container_svc,
-    serviceDescribeData?.response
+    serviceDescribeData?.response,
+    props.gatewayDetails.routing.database
   ])
 
   useEffect(() => {
@@ -192,6 +193,23 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     )
   }
 
+  const isAccessSetupNotRequired = () => {
+    return (
+      (!serviceDataLoading &&
+        !_isEmpty(serviceDescribeData?.response) &&
+        serviceDescribeData?.response?.loadbalanced === false) ||
+      !_isEmpty(props.gatewayDetails.routing.database)
+    )
+  }
+
+  const getEmptyAccessSetupText = () => {
+    return Utils.getConditionalResult(
+      !_isEmpty(props.gatewayDetails.routing.database),
+      getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds'),
+      getString('ce.co.autoStoppingRule.setupAccess.noSetupRequired', { name: 'ECS' })
+    )
+  }
+
   const tooltipId = Utils.getConditionalResult(isAwsProvider, 'awsSetupAccess', 'azureSetupAccess')
 
   const shouldShowSshOption = _isEmpty(props.gatewayDetails.routing.container_svc)
@@ -204,14 +222,10 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     )
   }
 
-  if (
-    !serviceDataLoading &&
-    !_isEmpty(serviceDescribeData?.response) &&
-    serviceDescribeData?.response?.loadbalanced === false
-  ) {
+  if (isAccessSetupNotRequired()) {
     return (
       <Container className={css.page}>
-        <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequired', { name: 'ECS' })}</Text>
+        <Text>{getEmptyAccessSetupText()}</Text>
       </Container>
     )
   }

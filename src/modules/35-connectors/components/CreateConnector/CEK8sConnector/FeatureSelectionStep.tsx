@@ -38,17 +38,17 @@ const FeatureSelectionStep: React.FC<StepProps<StepSecretManagerProps> & Feature
   const cardData: CardData[] = [
     {
       icon: 'main-main-zoom_in',
-      text: getString('connectors.ceK8S.chooseRequirements.visibility.description'),
+      text: getString('connectors.ceK8.chooseRequirements.visibility.description'),
       value: 'VISIBILITY',
-      heading: getString('connectors.ceK8S.chooseRequirements.visibility.heading'),
-      subheading: getString('connectors.ceK8S.chooseRequirements.visibility.subheading')
+      heading: getString('connectors.ceK8.chooseRequirements.visibility.heading'),
+      subheading: getString('connectors.ceK8.chooseRequirements.visibility.subheading')
     },
     {
       icon: 'gear',
-      text: getString('connectors.ceK8S.chooseRequirements.optimization.description'),
+      text: getString('connectors.ceK8.chooseRequirements.optimization.description'),
       value: 'OPTIMIZATION',
-      heading: getString('connectors.ceK8S.chooseRequirements.optimization.heading'),
-      subheading: getString('connectors.ceK8S.chooseRequirements.optimization.subheading')
+      heading: getString('connectors.ceK8.chooseRequirements.optimization.heading'),
+      subheading: getString('connectors.ceK8.chooseRequirements.optimization.subheading')
     }
   ]
 
@@ -96,16 +96,16 @@ const FeatureSelectionStep: React.FC<StepProps<StepSecretManagerProps> & Feature
   return (
     <Layout.Vertical className={css.featureSelectionCont}>
       <Heading level={2} className={css.header}>
-        {getString('connectors.ceK8S.chooseRequirements.heading')}
+        {getString('connectors.ceK8.chooseRequirements.heading')}
       </Heading>
       <div style={{ padding: 5, paddingBottom: 20 }}>
         {!prevStepData?.spec?.fixFeatureSelection && (
-          <Text> {getString('connectors.ceK8S.chooseRequirements.subheading')}</Text>
+          <Text> {getString('connectors.ceK8.chooseRequirements.subheading')}</Text>
         )}
         {getString(
           prevStepData?.spec?.fixFeatureSelection
-            ? 'connectors.ceK8S.chooseRequirements.fixFeaturesDescription'
-            : 'connectors.ceK8S.chooseRequirements.description'
+            ? 'connectors.ceK8.chooseRequirements.fixFeaturesDescription'
+            : 'connectors.ceK8.chooseRequirements.description'
         )}
       </div>
       <div style={{ flex: 1 }}>

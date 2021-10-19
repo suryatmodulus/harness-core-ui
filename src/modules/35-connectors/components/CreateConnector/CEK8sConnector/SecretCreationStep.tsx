@@ -52,7 +52,7 @@ const SecretCreationStep: React.FC<StepProps<StepSecretManagerProps> & SecretCre
       </Heading>
       <ol type="1">
         <li>
-          Create an api key{' '}
+          {getString('connectors.ceK8.secretCreationStep.step1')}
           <a
             href={`${window.location.origin}/#/account/${accountId}/access-management/api-keys`}
             target="_blank"
@@ -61,12 +61,12 @@ const SecretCreationStep: React.FC<StepProps<StepSecretManagerProps> & SecretCre
             here
           </a>
         </li>
-        <li>Run the following command to create namespace</li>
-        <CopyCodeSection snippet={'kubectl create namespace harness-autostopping'} />
-        <li>Replace the api key in the following Yaml</li>
+        <li>{getString('connectors.ceK8.secretCreationStep.step2')}</li>
+        <CopyCodeSection snippet={getString('connectors.ceK8.secretCreationStep.namespaceCommand')} />
+        <li>{getString('connectors.ceK8.secretCreationStep.step3')}</li>
         <CopyCodeSection snippet={`${secretYaml}`} />
-        <li>Run the following command</li>
-        <CopyCodeSection snippet={'kubectl apply -f secret.yaml'} />
+        <li>{getString('connectors.ceK8.secretCreationStep.step4')}</li>
+        <CopyCodeSection snippet={getString('connectors.ceK8.secretCreationStep.creationCommand')} />
       </ol>
       <Layout.Horizontal className={css.buttonPanel} spacing="small">
         <Button text={getString('previous')} icon="chevron-left" onClick={handleprev}></Button>

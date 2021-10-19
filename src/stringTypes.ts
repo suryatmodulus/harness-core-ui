@@ -1289,7 +1289,6 @@ export interface StringsMap {
   'connectors.ceGcp.billingExtention.link2': string
   'connectors.ceGcp.billingExtention.otherLinks': string
   'connectors.ceGcp.billingExtention.prerequisite': string
-  'connectors.ceGcp.billingExtention.readMore': string
   'connectors.ceGcp.billingExtention.step1': string
   'connectors.ceGcp.billingExtention.step2': string
   'connectors.ceGcp.billingExtention.step3.p1': string
@@ -1315,18 +1314,37 @@ export interface StringsMap {
   'connectors.ceGcp.testConnection.step1': string
   'connectors.ceGcp.testConnection.step2': string
   'connectors.ceGcp.testConnection.step3': string
+  'connectors.ceK8.chooseRequirements.description': string
+  'connectors.ceK8.chooseRequirements.fixFeaturesDescription': string
+  'connectors.ceK8.chooseRequirements.heading': string
+  'connectors.ceK8.chooseRequirements.optimization.description': string
+  'connectors.ceK8.chooseRequirements.optimization.heading': string
+  'connectors.ceK8.chooseRequirements.optimization.subheading': string
+  'connectors.ceK8.chooseRequirements.subheading': string
+  'connectors.ceK8.chooseRequirements.visibility.description': string
+  'connectors.ceK8.chooseRequirements.visibility.heading': string
+  'connectors.ceK8.chooseRequirements.visibility.subheading': string
   'connectors.ceK8.infoText': string
+  'connectors.ceK8.overview.createNewConnectorCta': string
+  'connectors.ceK8.providePermissionsStep.applyDelegateText': string
+  'connectors.ceK8.providePermissionsStep.downloadComplete': string
+  'connectors.ceK8.providePermissionsStep.downloadYamlBtnText': string
+  'connectors.ceK8.providePermissionsStep.downloadYamlText': string
+  'connectors.ceK8.providePermissionsStep.fileDescription.heading': string
+  'connectors.ceK8.providePermissionsStep.fileDescription.info1': string
+  'connectors.ceK8.providePermissionsStep.fileDescription.info2': string
+  'connectors.ceK8.providePermissionsStep.fileDescription.info3': string
+  'connectors.ceK8.providePermissionsStep.fileDescription.info4': string
+  'connectors.ceK8.providePermissionsStep.heading': string
+  'connectors.ceK8.providePermissionsStep.info': string
+  'connectors.ceK8.providePermissionsStep.successfulCommandExec': string
+  'connectors.ceK8.secretCreationStep.creationCommand': string
+  'connectors.ceK8.secretCreationStep.namespaceCommand': string
+  'connectors.ceK8.secretCreationStep.step1': string
+  'connectors.ceK8.secretCreationStep.step2': string
+  'connectors.ceK8.secretCreationStep.step3': string
+  'connectors.ceK8.secretCreationStep.step4': string
   'connectors.ceK8.selectConnectorLabel': string
-  'connectors.ceK8S.chooseRequirements.description': string
-  'connectors.ceK8S.chooseRequirements.fixFeaturesDescription': string
-  'connectors.ceK8S.chooseRequirements.heading': string
-  'connectors.ceK8S.chooseRequirements.optimization.description': string
-  'connectors.ceK8S.chooseRequirements.optimization.heading': string
-  'connectors.ceK8S.chooseRequirements.optimization.subheading': string
-  'connectors.ceK8S.chooseRequirements.subheading': string
-  'connectors.ceK8S.chooseRequirements.visibility.description': string
-  'connectors.ceK8S.chooseRequirements.visibility.heading': string
-  'connectors.ceK8S.chooseRequirements.visibility.subheading': string
   'connectors.click': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
@@ -1465,6 +1483,7 @@ export interface StringsMap {
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
   'connectors.prometheusLabel': string
+  'connectors.readMore': string
   'connectors.reportNameRequired': string
   'connectors.roleARN': string
   'connectors.scopeError': string

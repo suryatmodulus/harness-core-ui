@@ -16,6 +16,15 @@
     width: 54%;
     margin-top: var(--spacing-large) !important;
   }
+
+  .nameField {
+    margin-top: var(--spacing-large) !important;
+  }
+
+  .createNewConnCta {
+    --layout-spacing: var(--spacing-medium);
+    margin-top: 25px;
+  }
 }
 
 .providePermissionContainer {
@@ -101,6 +110,18 @@
     column-gap: 20px;
     grid-auto-rows: 300px;
     grid-auto-columns: 220px;
+    :global {
+      .bp3-card {
+        &:first-child {
+          cursor: not-allowed;
+          border-color: rgba(#0278d5, 0.5) !important;
+          background: #fafbfc;
+          > span > span {
+            border-top-color: rgba(#0278d5, 0.5);
+          }
+        }
+      }
+    }
   }
   .buttonPanel {
     position: absolute;

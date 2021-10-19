@@ -1,10 +1,11 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
-import { pick, omit as _omit } from 'lodash-es'
+import { pick, omit as _omit, defaultTo as _defaultTo } from 'lodash-es'
 import cx from 'classnames'
 import {
   Button,
+  ButtonVariation,
   Container,
   Formik,
   FormikForm,
@@ -15,10 +16,11 @@ import {
   SelectOption,
   StepProps
 } from '@wings-software/uicore'
+import { Link } from 'react-router-dom'
 import { NameIdDescriptionTags } from '@common/components'
 import { StringUtils, useToaster } from '@common/exports'
 import { getHeadingIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { useMutateAsGet } from '@common/hooks'
+import routes from '@common/RouteDefinitions'
 import { String, useStrings } from 'framework/strings'
 import {
   ConnectorConfigDTO,
@@ -58,6 +60,7 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [loading, setLoading] = useState(false)
   const [selectedConnector, setSelectedConnector] = useState<SelectOption>()
+  const [connectorOptions, setConnectorOptions] = useState<SelectOption[]>([])
   const isEdit = props.isEditMode || prevStepData?.isEdit
   const { getString } = useStrings()
   const defaultQueryParams = useMemo(
@@ -70,22 +73,31 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
     [accountId]
   )
 
-  const {
-    data: connectorData,
-    loading: connectorsLoading,
-    error: connectorsError
-  } = useMutateAsGet(useGetConnectorListV2, {
-    body: { filterType: 'Connector', types: ['K8sCluster'] },
+  const { mutate: fetchConnectors, loading: connectorsLoading } = useGetConnectorListV2({
     queryParams: defaultQueryParams
   })
-  if (connectorsError) {
-    showError(connectorsError.message)
+
+  const fetchAndSetConnectors = async () => {
+    if (document.visibilityState === 'visible') {
+      try {
+        const connectorData = await fetchConnectors({ filterType: 'Connector', types: ['K8sCluster'] })
+        const options: SelectOption[] =
+          connectorData?.data?.content?.map(dataContent => ({
+            value: _defaultTo(dataContent.connector?.identifier, ''),
+            label: _defaultTo(dataContent.connector?.name, '')
+          })) || []
+        setConnectorOptions(options)
+      } catch (e) {
+        showError(e.message)
+      }
+    }
   }
-  const connectorOptions: SelectOption[] =
-    connectorData?.data?.content?.map(dataContent => ({
-      value: dataContent.connector?.identifier as string,
-      label: dataContent.connector?.name as string
-    })) || []
+
+  useEffect(() => {
+    fetchAndSetConnectors()
+    window.addEventListener('visibilitychange', fetchAndSetConnectors)
+    return () => window.removeEventListener('visibilitychange', fetchAndSetConnectors)
+  }, [])
 
   const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
     mounted.current = true
@@ -185,20 +197,35 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
             return (
               <FormikForm>
                 <Container style={{ minHeight: 460 }}>
+                  <Layout.Horizontal flex={{ justifyContent: 'start' }}>
+                    <FormInput.Select
+                      name="referenceConnector"
+                      label={getString('connectors.ceK8.selectConnectorLabel')}
+                      items={connectorOptions}
+                      disabled={connectorsLoading}
+                      onChange={_item => {
+                        setSelectedConnector(_item)
+                        formikProps.setFieldValue('name', _item.label)
+                        formikProps.setFieldValue('identifier', _item.label.trim().split(' ').join('_'))
+                      }}
+                      className={overviewCss.selectConnector}
+                    />
+                    <Link
+                      to={routes.toConnectors({ accountId })}
+                      target="_blank"
+                      className={overviewCss.createNewConnCta}
+                    >
+                      <Button
+                        variation={ButtonVariation.SECONDARY}
+                        text={getString('connectors.ceK8.overview.createNewConnectorCta')}
+                        icon={'plus'}
+                      />
+                    </Link>
+                  </Layout.Horizontal>
                   <NameIdDescriptionTags
-                    className={css.formElm}
+                    className={cx(css.formElm, overviewCss.nameField)}
                     formikProps={formikProps}
                     identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
-                  />
-                  <FormInput.Select
-                    name="referenceConnector"
-                    label={getString('connectors.ceK8.selectConnectorLabel')}
-                    items={connectorOptions}
-                    disabled={connectorsLoading}
-                    onChange={_item => {
-                      setSelectedConnector(_item)
-                    }}
-                    className={overviewCss.selectConnector}
                   />
                 </Container>
                 <Layout.Horizontal>

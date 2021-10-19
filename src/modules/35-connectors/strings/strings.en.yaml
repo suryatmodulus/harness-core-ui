@@ -59,6 +59,7 @@ costVisibility: Cost Visibility
 delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM role, service account, etc)'
 createConnector: 'Create a Connector'
 connectorEmptyState: 'There are no connectors in your project'
+readMore: 'Read more'
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'
@@ -380,7 +381,43 @@ delegate:
   delegateSelectors: Delegate Selectors
 ceK8:
   infoText: 'If you have previously created a connector to the preferred cluster for any of the other modules, you may reference the same connector here and create a connector for Cloud cost management. If this is the first time creating a connector to this cluster, you may proceed without referencing.'
-  selectConnectorLabel: 'Reference an existing connector'
+  selectConnectorLabel: 'Reference an existing CD Kubernetes connector'
+  overview:
+    createNewConnectorCta: 'Create a new connector'
+  chooseRequirements:
+    heading: '{{ $.connectors.ceAzure.steps.requirements }}'
+    subheading: '{{ $.connectors.ceAzure.chooseRequirements.featureDesc }}'
+    description: '(Deep Kubernetes cost Visibility is selected by default. Select the other option to enable Intelligent Cloud AutoStopping for Kubernetes)'
+    fixFeaturesDescription: 'Both the options below are required for Kubernetes AutoStopping and are selected by default. Click Continue to proceed.'
+    visibility:
+      heading: 'DEEP KUBERNETES'
+      subheading: '{{ $.connectors.costVisibility }}'
+      description: '<ul><li>Costs by pods, nodes, namespaces, workloads </li><li> Idle and unallocated cluster costs</li><li> Cost anomaly detection</li><li> Workload recommendations</li><li> Node recommendations</li><li> Budgets and alerts</li></ul>'
+    optimization:
+      heading: 'KUBERNETES OPTIMIZATION BY'
+      subheading: '{{ $.common.ce.autostopping }}'
+      description: '<ul><li>Works for custom clusters and EKS, AKS, GKE, etc</li><li> Orchestrate pods based on idleness</li><li> Set dependencies between workloads like pods, VMs, etc.</li><li> Granular savings visibility</li><li> Simple one-time setup</li></ul>'
+  secretCreationStep:
+    step1: 'Create an API key'
+    step2: 'Run the following command to create a namespace'
+    step3: 'Replace the API key in the following YAML'
+    step4: 'Run the following command to apply the YAML and create a secret'
+    namespaceCommand: 'kubectl create namespace harness-autostopping'
+    creationCommand: 'kubectl apply -f secret.yaml'
+  providePermissionsStep:
+    heading: 'Provide Permissions - Download YAML'
+    info: 'If you are using a EKS, ensure that the metrics server is installed on your Kubernetes cluster. '
+    downloadYamlText: 'To provide required permissions to your cluster, please download the YAML below and continue to apply it using instructions given in the next step. You can preview the YAML file '
+    fileDescription:
+      heading: 'This YAML file contains:'
+      info1: 'Creation of a delegate'
+      info2: 'Permissions to access the pods and services of the cluster'
+      info3: 'Installing components to create Autostopping rules'
+      info4: 'Permissions to start and stop services as per rules'
+    downloadYamlBtnText: 'Download YAML'
+    downloadComplete: 'Download Complete'
+    applyDelegateText: 'Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster. Run the following command to apply the Harness delegate to your Kubernetes Cluster'
+    successfulCommandExec: 'Command executed successfully'
 azureKeyVault:
   labels:
     tenantId: '{{ $.connectors.tenantId }}'
@@ -641,7 +678,6 @@ ceGcp:
   billingExtention:
     heading: 'How to create GCP Billing Export and find DataSet ID?'
     prerequisite: 'Pre-Requisite:A project where the Cloud Billing data will be stored with billing enabled on the project.'
-    readMore: 'Read more'
     step1: 'Create a BigQuery dataset in which to store the data(Recommended) / Or use Existing DataSet (Harness Docs)'
     step2: '{{ $.connectors.ceGcp.grantPermission.step1}}'
     step3:
@@ -671,17 +707,3 @@ ceGcp:
     step2: 'Validation/Verification 2'
     step3: 'Validation/Verification 3'
     error: 'Could not verify connectivity'
-ceK8S:
-  chooseRequirements:
-    heading: '{{ $.connectors.ceAzure.steps.requirements }}'
-    subheading: '{{ $.connectors.ceAzure.chooseRequirements.featureDesc }}'
-    description: '(Deep Kubernetes cost Visibility is selected by default. Select the other option to enable Intelligent Cloud AutoStopping for Kubernetes)'
-    fixFeaturesDescription: 'Both the options below are required for Kubernetes AutoStopping and are selected by default. Click Continue to proceed.'
-    visibility:
-      heading: 'DEEP KUBERNETES'
-      subheading: '{{ $.connectors.costVisibility }}'
-      description: '<ul><li>Costs by pods, nodes, namespaces, workloads </li><li> Idle and unallocated cluster costs</li><li> Cost anomaly detection</li><li> Workload recommendations</li><li> Node recommendations</li><li> Budgets and alerts</li></ul>'
-    optimization:
-      heading: 'KUBERNETES OPTIMIZATION BY'
-      subheading: '{{ $.common.ce.autostopping }}'
-      description: '<ul><li>Works for custom clusters and EKS, AKS, GKE, etc</li><li> Orchestrate pods based on idleness</li><li> Set dependencies between workloads like pods, VMs, etc.</li><li> Granular savings visibility</li><li> Simple one-time setup</li></ul>'

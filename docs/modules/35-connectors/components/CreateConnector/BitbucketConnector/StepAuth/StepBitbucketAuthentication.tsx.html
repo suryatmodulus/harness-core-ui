@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.74% </span>
+                <span class="strong">95.92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/47</span>
+                <span class='fraction'>47/49</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.74% </span>
+                <span class="strong">95.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/47</span>
+                <span class='fraction'>47/49</span>
             </div>
         
             
@@ -304,13 +304,10 @@
 <a name='L245'></a><a href='#L245'>245</a>
 <a name='L246'></a><a href='#L246'>246</a>
 <a name='L247'></a><a href='#L247'>247</a>
-<a name='L248'></a><a href='#L248'>248</a>
-<a name='L249'></a><a href='#L249'>249</a>
-<a name='L250'></a><a href='#L250'>250</a>
-<a name='L251'></a><a href='#L251'>251</a>
-<a name='L252'></a><a href='#L252'>252</a>
-<a name='L253'></a><a href='#L253'>253</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
+<a name='L248'></a><a href='#L248'>248</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
+<span class="cline-any cline-yes">118x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -327,6 +324,7 @@
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">118x</span>
@@ -418,8 +416,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -453,8 +449,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -537,18 +531,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -562,6 +552,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">118x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
+import cx from 'classnames'
 import {
   Layout,
   Button,
@@ -570,9 +561,10 @@ import {
   Text,
   FormikForm as Form,
   StepProps,
-  Color,
   Container,
-  SelectOption
+  SelectOption,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
@@ -587,6 +579,7 @@ import { GitAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import css from './StepBitbucketAuthentication.module.scss'
+import commonCss from '../../commonSteps/ConnectorCommonStyles.module.scss'
 &nbsp;
 interface StepBitbucketAuthenticationProps extends ConnectorInfoDTO {
   name: string
@@ -653,11 +646,9 @@ const RenderAPIAccessFormWrapper: React.FC&lt;FormikProps&lt;BitbucketFormInterf
   ]
 &nbsp;
   return (
-    &lt;Container width={'52%'}&gt;
+    &lt;&gt;
       &lt;Container className={css.authHeaderRow}&gt;
-        &lt;Text className={css.authTitle} inline&gt;
-          {getString('common.git.APIAuthentication')}
-        &lt;/Text&gt;
+        &lt;Text font={{ variation: FontVariation.H6 }}&gt;{getString('common.git.APIAuthentication')}&lt;/Text&gt;
         &lt;FormInput.Select name="apiAuthType" items={apiAuthOptions} className={commonStyles.authTypeSelect} /&gt;
       &lt;/Container&gt;
       &lt;TextReference
@@ -666,7 +657,7 @@ const RenderAPIAccessFormWrapper: React.FC&lt;FormikProps&lt;BitbucketFormInterf
         type={props.values.apiAccessUsername ? props.values.apiAccessUsername<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype : <span class="branch-1 cbranch-no" title="branch not covered" >ValueType.TEXT}</span>
       /&gt;
       &lt;SecretInput name="accessToken" label={getString('personalAccessToken')} /&gt;
-    &lt;/Container&gt;
+    &lt;/&gt;
   )
 }
 &nbsp;
@@ -707,10 +698,8 @@ const StepBitbucketAuthentication: React.FC&lt;
   return loadingConnectorSecrets ? (
     &lt;PageSpinner /&gt;
   ) : (
-    &lt;Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}&gt;
-      &lt;Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}&gt;
-        {getString('credentials')}
-      &lt;/Text&gt;
+    &lt;Layout.Vertical width="60%" style={{ minHeight: 460 }} className={cx(css.secondStep, commonCss.stepContainer)}&gt;
+      &lt;Text font={{ variation: FontVariation.H3 }}&gt;{getString('credentials')}&lt;/Text&gt;
 &nbsp;
       &lt;Formik
         initialValues={{
@@ -758,29 +747,19 @@ const StepBitbucketAuthentication: React.FC&lt;
         onSubmit={handleSubmit}
       &gt;
         {formikProps =&gt; (
-          &lt;Form&gt;
-            &lt;Container className={css.stepFormWrapper}&gt;
+          &lt;Form className={cx(commonCss.fullHeight, commonCss.fullHeightDivsWithFlex)}&gt;
+            &lt;Container className={cx(css.stepFormWrapper, commonCss.paddingTop8)}&gt;
               {formikProps.values.connectionType === GitConnectionType.SSH ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                &lt;Container width={'52%'}&gt;</span>
-                  &lt;Text font={{ weight: 'bold' }} className={css.authTitle}&gt;
-                    {getString('authentication')}
-                  &lt;/Text&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >                &lt;Layout.Horizontal spacing="medium" flex={{ alignItems: 'baseline' }}&gt;</span>
+                  &lt;Text font={{ variation: FontVariation.H6 }}&gt;{getString('authentication')}&lt;/Text&gt;
                   &lt;SSHSecretInput name="sshKey" label={getString('SSH_KEY')} /&gt;
-                &lt;/Container&gt;
+                &lt;/Layout.Horizontal&gt;
               ) : (
-                &lt;Container width={'52%'}&gt;
-                  &lt;Container className={css.authHeaderRow}&gt;
-                    &lt;Text className={css.authTitle} inline&gt;
-                      {getString('authentication')}
-                    &lt;/Text&gt;
-                    &lt;FormInput.Select
-                      name="authType"
-                      items={authOptions}
-                      disabled={false}
-                      className={commonStyles.authTypeSelect}
-                    /&gt;
+                &lt;Container&gt;
+                  &lt;Container className={css.authHeaderRow} flex={{ alignItems: 'baseline' }}&gt;
+                    &lt;Text font={{ variation: FontVariation.H6 }}&gt;{getString('authentication')}&lt;/Text&gt;
+                    &lt;FormInput.Select name="authType" items={authOptions} className={commonStyles.authTypeSelect} /&gt;
                   &lt;/Container&gt;
-&nbsp;
                   &lt;RenderBitbucketAuthForm {...formikProps} /&gt;
                 &lt;/Container&gt;
               )}
@@ -790,20 +769,26 @@ const StepBitbucketAuthentication: React.FC&lt;
                 label={getString('common.git.enableAPIAccess')}
                 padding={{ left: 'xxlarge' }}
               /&gt;
-              &lt;Text font="small" margin={{ bottom: 'small' }}&gt;
+              &lt;Text font="small" className={commonCss.bottomMargin4}&gt;
                 {getString('common.git.APIAccessDescription')}
               &lt;/Text&gt;
               {formikProps.values.enableAPIAccess ? &lt;RenderAPIAccessFormWrapper {...formikProps} /&gt; : null}
             &lt;/Container&gt;
-&nbsp;
-            &lt;Layout.Horizontal padding={{ top: 'small' }} spacing="medium"&gt;
+            &lt;Layout.Horizontal spacing="medium"&gt;
               &lt;Button
                 text={getString('back')}
                 icon="chevron-left"
                 onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >props?.previousStep?.(props?.prevStepData)}</span>
                 data-name="bitbucketBackButton"
+                variation={ButtonVariation.SECONDARY}
               /&gt;
-              &lt;Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" /&gt;
+              &lt;Button
+                type="submit"
+                intent="primary"
+                text={getString('continue')}
+                rightIcon="chevron-right"
+                variation={ButtonVariation.PRIMARY}
+              /&gt;
             &lt;/Layout.Horizontal&gt;
           &lt;/Form&gt;
         )}
@@ -820,7 +805,7 @@ export default StepBitbucketAuthentication
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 19 2021 12:57:19 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 19 2021 13:50:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

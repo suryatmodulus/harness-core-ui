@@ -15,7 +15,8 @@ import {
   FormInput,
   useModalHook
 } from '@wings-software/uicore'
-import { Dialog, Intent } from '@blueprintjs/core'
+import { Dialog, Divider, Intent } from '@blueprintjs/core'
+import * as yup from 'yup'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
@@ -36,12 +37,14 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
+import useGitSync from '@cf/hooks/useGitSync'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
 import { IdentifierText } from '../IdentifierText/IdentifierText'
 import { EditVariationsModal } from '../EditVariationsModal/EditVariationsModal'
 import { FlagPrerequisites } from './FlagPrerequisites'
+import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
 import css from './FlagActivationDetails.module.scss'
 
 interface FlagActivationDetailsProps {
@@ -142,12 +145,21 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     } as PatchFeatureQueryParams
   })
   const history = useHistory()
+  const { gitRepoDetails, isAutoCommitEnabled, isGitSyncEnabled, toggleAutoCommit } = useGitSync()
+
   const [openEditDetailsModal, hideEditDetailsModal] = useModalHook(() => {
     const initialValues = {
       name: featureFlag.name,
       description: featureFlag.description,
       tags: featureFlag.tags?.map(elem => elem.name),
-      permanent: featureFlag.permanent
+      permanent: featureFlag.permanent,
+      gitDetails: {
+        repoIdentifier: gitRepoDetails?.repoIdentifier || '',
+        rootFolder: gitRepoDetails?.rootFolder || '',
+        filePath: gitRepoDetails?.filePath || '',
+        commitMsg: gitRepoDetails?.autoCommit ? 'Automated commit message from your friendly neighbourhood UI bot!' : '' //TODO - messages
+      },
+      autoCommit: isAutoCommitEnabled
     }
 
     const getTag = (tagName: string) => featureFlag.tags?.find(tag => tag.name === tagName)
@@ -182,8 +194,19 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
       patch.feature
         .onPatchAvailable(data => {
-          submitPatch(data)
-            .then(() => {
+          submitPatch(
+            isGitSyncEnabled
+              ? {
+                  ...data,
+                  gitDetails: values.gitDetails
+                }
+              : data
+          )
+            .then(async () => {
+              if (isAutoCommitEnabled != Boolean(values.autoCommit)) {
+                await toggleAutoCommit(Boolean(values.autoCommit))
+              }
+
               patch.feature.reset()
               hideEditDetailsModal()
               refetchFlag()
@@ -197,8 +220,26 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     }
 
     return (
-      <Dialog enforceFocus={false} onClose={hideEditDetailsModal} isOpen={true} title={''}>
-        <Formik initialValues={initialValues} formName="flagActivationDetails" onSubmit={handleSubmit}>
+      <Dialog
+        enforceFocus={false}
+        onClose={hideEditDetailsModal}
+        isOpen={true}
+        title={''}
+        className={css.editFlagModal}
+      >
+        <Formik
+          enableReinitialize={true}
+          initialValues={initialValues}
+          validationSchema={yup.object().shape({
+            gitDetails: yup.object().shape({
+              commitMsg: isGitSyncEnabled
+                ? yup.string().required(getString('cf.creationModal.valueIsRequired')) // todo
+                : yup.string()
+            })
+          })}
+          formName="flagActivationDetails"
+          onSubmit={handleSubmit}
+        >
           {() => (
             <Form>
               <Layout.Vertical className={css.editDetailsModalContainer}>
@@ -208,28 +249,21 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
                 <FormInput.TextArea name="description" label={getString('description')} />
 
-                {/* <FormInput.TagInput
-                  name="tags"
-                  label={getString('tagsLabel')}
-                  items={[]}
-                  labelFor={nameTag => nameTag as string}
-                  itemFromNewTag={newTag => newTag}
-                  tagInputProps={{ showAddTagButton: true, allowNewTag: true }}
-                /> */}
-
-                <Layout.Horizontal padding={{ top: 'medium', bottom: 'medium' }}>
+                <Layout.Horizontal padding={{ top: 'small', bottom: 'small' }}>
                   <FormInput.CheckBox
                     name="permanent"
                     label={getString('cf.editDetails.permaFlag')}
                     className={css.checkboxEditDetails}
                   />
-                  {/* <Text
-                    icon="info-sign"
-                    iconProps={{ color: Color.BLUE_500, size: 12 }}
-                    tooltip="To be added..."
-                    tooltipProps={{ isDark: true }}
-                  /> */}
                 </Layout.Horizontal>
+                {isGitSyncEnabled && !isAutoCommitEnabled && (
+                  <>
+                    <Container margin={{ top: 'small', bottom: 'small' }}>
+                      <Divider />
+                    </Container>
+                    <SaveFlagToGitSubForm branch="branch" subtitle="Commit Changes" hideNameField />
+                  </>
+                )}
 
                 <Layout.Horizontal>
                   <Button intent="primary" text={getString('save')} type="submit" />
@@ -241,7 +275,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         </Formik>
       </Dialog>
     )
-  }, [featureFlag])
+  }, [featureFlag, isGitSyncEnabled, isAutoCommitEnabled])
+
   const { mutate: deleteFeatureFlag } = useDeleteFeatureFlag({
     queryParams: {
       project: projectIdentifier as string,

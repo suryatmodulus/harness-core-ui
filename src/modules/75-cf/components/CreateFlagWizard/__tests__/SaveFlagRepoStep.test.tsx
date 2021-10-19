@@ -50,8 +50,8 @@ describe('SaveFlagRepoStep', () => {
 
     expect(screen.getByTestId('save-flag-to-git-form')).toHaveFormValues({
       flagName: 'test flag',
-      filePath: '/flags.yaml',
-      rootFolder: '/.harness/'
+      'gitDetails.filePath': '/flags.yaml',
+      'gitDetails.rootFolder': '/.harness/'
     })
 
     expect(screen.getByText('testflag1234')).toBeInTheDocument()
@@ -74,13 +74,13 @@ describe('SaveFlagRepoStep', () => {
       expect(nextStepMock).toHaveBeenCalledWith({
         autoCommit: false,
         gitDetails: {
-          commitMsg: 'this is my commit messsage'
+          commitMsg: 'this is my commit messsage',
+          repoIdentifier: 'harnesstest',
+          rootFolder: '/.harness/',
+          filePath: '/flags.yaml'
         },
-        filePath: '/flags.yaml',
         flagIdentifier: '',
-        flagName: '',
-        repoIdentifier: 'harnesstest',
-        rootFolder: '/.harness/'
+        flagName: ''
       })
     )
   })

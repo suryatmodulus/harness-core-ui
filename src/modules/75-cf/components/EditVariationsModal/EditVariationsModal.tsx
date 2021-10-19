@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Dialog, Intent } from '@blueprintjs/core'
+import { Dialog, Divider, Intent } from '@blueprintjs/core'
 import * as yup from 'yup'
 import { isEqual, zip, orderBy, clone } from 'lodash-es'
 import {
@@ -10,14 +10,15 @@ import {
   Container,
   Layout,
   FlexExpander,
-  Icon,
   Formik,
   FormikForm as Form,
   FormInput,
   Color,
-  SelectOption
+  SelectOption,
+  FontVariation,
+  Heading
 } from '@wings-software/uicore'
-import { getErrorMessage, useFeatureFlagTypeToStringMapping, useValidateVariationValues } from '@cf/utils/CFUtils'
+import { getErrorMessage, useValidateVariationValues } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
@@ -25,8 +26,11 @@ import { Feature, PatchFeatureQueryParams, usePatchFeature, Variation } from 'se
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
+import { PageSpinner } from '@common/components'
+import useGitSync from '@cf/hooks/useGitSync'
 import patch from '../../utils/instructions'
-import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
+
+import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
 
 export interface EditVariationsModalProps extends Omit<ButtonProps, 'onClick' | 'onSubmit'> {
   accountId: string
@@ -57,19 +61,8 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
     const { getString } = useStrings()
     const validateVariationValues = useValidateVariationValues()
     const { showError, clear } = useToaster()
-    const [loading, setLoading] = useState(false)
-    const initialValues = {
-      defaultOnVariation: feature.defaultOnVariation,
-      defaultOffVariation: feature.defaultOffVariation,
-      variations: clone(feature.variations),
-      defaultOnAppliedToCurrentEnvironment: false,
-      defaultOffAppliedToCurrentEnvironment: false
-    }
-    const [defaultRules, setDefaultRules] = useState<SelectOption[]>(
-      initialValues.variations.map(({ identifier, name }) => ({ label: name as string, value: identifier }))
-    )
-    const typeToStringMapping = useFeatureFlagTypeToStringMapping()
-    const { mutate: submitPatch } = usePatchFeature({
+
+    const { mutate: submitPatch, loading: patchLoading } = usePatchFeature({
       identifier: feature.identifier as string,
       queryParams: {
         project: feature.project as string,
@@ -79,6 +72,27 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
         org: orgIdentifier
       } as PatchFeatureQueryParams
     })
+
+    const { gitRepoDetails, isAutoCommitEnabled, isGitSyncEnabled, gitSyncLoading, toggleAutoCommit } = useGitSync()
+
+    const initialValues = {
+      defaultOnVariation: feature.defaultOnVariation,
+      defaultOffVariation: feature.defaultOffVariation,
+      variations: clone(feature.variations),
+      defaultOnAppliedToCurrentEnvironment: false,
+      defaultOffAppliedToCurrentEnvironment: false,
+      gitDetails: {
+        repoIdentifier: gitRepoDetails?.repoIdentifier || '',
+        rootFolder: gitRepoDetails?.rootFolder || '',
+        filePath: gitRepoDetails?.filePath || '',
+        commitMsg: gitRepoDetails?.autoCommit ? 'Automated commit message from your friendly neighbourhood UI bot!' : '' //TODO - messages
+      },
+      autoCommit: isAutoCommitEnabled
+    }
+    const [defaultRules, setDefaultRules] = useState<SelectOption[]>(
+      initialValues.variations.map(({ identifier, name }) => ({ label: name as string, value: identifier }))
+    )
+
     const onFormikEffect: FormikEffectProps['onChange'] = ({ prevValues, nextValues }) => {
       const { variations } = nextValues
 
@@ -133,22 +147,35 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
       }
 
       clear()
-      setLoading(true)
 
-      patch.feature.onPatchAvailable(data => {
-        submitPatch(data)
-          .then(() => {
-            patch.feature.reset()
-            setLoading(false)
-            hideModal()
-            onSuccess()
-          })
-          .catch(error => {
-            setLoading(false)
-            showError(getErrorMessage(error), 0, 'cf.submit.patch.error')
-            patch.feature.reset()
-          })
+      patch.feature.onPatchAvailable(async data => {
+        try {
+          await submitPatch(
+            isGitSyncEnabled
+              ? {
+                  ...data,
+                  gitDetails: values.gitDetails
+                }
+              : data
+          )
+
+          if (isAutoCommitEnabled != Boolean(values.autoCommit)) {
+            await toggleAutoCommit(Boolean(values.autoCommit))
+          }
+
+          patch.feature.reset()
+
+          hideModal()
+          onSuccess()
+        } catch (error) {
+          showError(getErrorMessage(error), 0, 'cf.submit.patch.error')
+          patch.feature.reset()
+        }
       })
+    }
+
+    if (gitSyncLoading || patchLoading) {
+      return <PageSpinner />
     }
 
     return (
@@ -157,31 +184,16 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
         onClose={hideModal}
         enforceFocus={false}
         title={
-          <Text
-            style={{
-              fontWeight: 600,
-              fontSize: '14px',
-              color: 'var(--black)',
-              lineHeight: '20px',
-              padding: 'var(--spacing-large) 0 0 var(--spacing-small)'
-            }}
-          >
+          <Heading level={3} font={{ variation: FontVariation.H3 }} margin={{ bottom: 'xlarge' }}>
             {getString('cf.editVariation.title')}
-            {feature.kind !== FlagTypeVariations.booleanFlag && (
-              <Text color={Color.GREY_400} margin={{ top: 'xsmall' }}>
-                {getString('cf.editVariation.subTitle', {
-                  type: typeToStringMapping[feature.kind] || '',
-                  count: feature.variations.length
-                })}
-              </Text>
-            )}
-          </Text>
+          </Heading>
         }
-        style={{ width: 800, height: 560 }}
+        style={{ width: 800, minHeight: 'fit-content' }}
       >
         <Formik
           initialValues={initialValues}
           formName="editVariations"
+          enableReinitialize={true}
           validationSchema={yup.object().shape({
             variations: yup.array().of(
               yup.object().shape({
@@ -189,7 +201,12 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                 identifier: yup.string().trim().required(getString('cf.creationModal.idIsRequired')),
                 value: yup.string().trim().required(getString('cf.creationModal.valueIsRequired'))
               })
-            )
+            ),
+            gitDetails: yup.object().shape({
+              commitMsg: isGitSyncEnabled
+                ? yup.string().required(getString('cf.creationModal.valueIsRequired')) // todo
+                : yup.string()
+            })
           })}
           validate={(values: typeof initialValues) => {
             return validateVariationValues(values.variations, feature.kind)
@@ -202,7 +219,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
             <Form>
               <FormikEffect onChange={onFormikEffect} formik={formikProps} />
               <Container padding="xlarge">
-                <Container height={390} style={{ overflow: 'auto' }} padding="xsmall">
+                <Container style={{ overflow: 'auto' }} padding="xsmall">
                   {formikProps.values?.variations?.map((_: Variation, index: number) => (
                     <Layout.Horizontal
                       key={`flagElem-${index}`}
@@ -317,6 +334,15 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                           />
                         </Container>
                       </Layout.Horizontal>
+
+                      {isGitSyncEnabled && !isAutoCommitEnabled && (
+                        <>
+                          <Container margin={{ top: 'medium', bottom: 'medium' }}>
+                            <Divider />
+                          </Container>
+                          <SaveFlagToGitSubForm branch="branch" subtitle="Commit Changes" hideNameField />
+                        </>
+                      )}
                     </Container>
                   </Container>
                 </Container>
@@ -331,11 +357,10 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                     text={submitButtonTitle || getString('save')}
                     intent={Intent.PRIMARY}
                     type="submit"
-                    disabled={isEqual(initialValues, formikProps.values) || loading}
+                    disabled={isEqual(initialValues, formikProps.values) || patchLoading}
                   />
                   <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
                   <FlexExpander />
-                  {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
                 </Layout.Horizontal>
               </Container>
             </Form>

@@ -214,7 +214,7 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                           <ExecutionStatusLabel
                             status={status === PolicyEvaluationStatus.PASS ? 'Success' : 'Failed'}
                             label={statusToLabel(getString, status)}
-                            className={css.warningStatus}
+                            className={status === PolicyEvaluationStatus.WARNING ? css.warningStatus : ''}
                           />
                         </Text>
 

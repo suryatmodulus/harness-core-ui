@@ -27,7 +27,7 @@ import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { PageSpinner } from '@common/components'
-import useGitSync from '@cf/hooks/useGitSync'
+import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
 import patch from '../../utils/instructions'
 
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
@@ -73,7 +73,11 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
       } as PatchFeatureQueryParams
     })
 
-    const { gitRepoDetails, isAutoCommitEnabled, isGitSyncEnabled, gitSyncLoading, toggleAutoCommit } = useGitSync()
+    const { isAutoCommitEnabled, isGitSyncEnabled, gitSyncLoading, handleAutoCommit, getGitSyncFormMeta } = useGitSync()
+
+    const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(
+      AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS
+    )
 
     const initialValues = {
       defaultOnVariation: feature.defaultOnVariation,
@@ -81,12 +85,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
       variations: clone(feature.variations),
       defaultOnAppliedToCurrentEnvironment: false,
       defaultOffAppliedToCurrentEnvironment: false,
-      gitDetails: {
-        repoIdentifier: gitRepoDetails?.repoIdentifier || '',
-        rootFolder: gitRepoDetails?.rootFolder || '',
-        filePath: gitRepoDetails?.filePath || '',
-        commitMsg: gitRepoDetails?.autoCommit ? 'Automated commit message from your friendly neighbourhood UI bot!' : '' //TODO - messages
-      },
+      gitDetails: gitSyncInitialValues,
       autoCommit: isAutoCommitEnabled
     }
     const [defaultRules, setDefaultRules] = useState<SelectOption[]>(
@@ -159,8 +158,8 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
               : data
           )
 
-          if (isAutoCommitEnabled != Boolean(values.autoCommit)) {
-            await toggleAutoCommit(Boolean(values.autoCommit))
+          if (!isAutoCommitEnabled && values.autoCommit) {
+            await handleAutoCommit(values.autoCommit)
           }
 
           patch.feature.reset()
@@ -179,17 +178,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
     }
 
     return (
-      <Dialog
-        isOpen
-        onClose={hideModal}
-        enforceFocus={false}
-        title={
-          <Heading level={3} font={{ variation: FontVariation.H3 }} margin={{ bottom: 'xlarge' }}>
-            {getString('cf.editVariation.title')}
-          </Heading>
-        }
-        style={{ width: 800, minHeight: 'fit-content' }}
-      >
+      <Dialog isOpen onClose={hideModal} enforceFocus={false} title="" style={{ width: 800, minHeight: 'fit-content' }}>
         <Formik
           initialValues={initialValues}
           formName="editVariations"
@@ -202,11 +191,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                 value: yup.string().trim().required(getString('cf.creationModal.valueIsRequired'))
               })
             ),
-            gitDetails: yup.object().shape({
-              commitMsg: isGitSyncEnabled
-                ? yup.string().required(getString('cf.creationModal.valueIsRequired')) // todo
-                : yup.string()
-            })
+            gitDetails: gitSyncValidationSchema
           })}
           validate={(values: typeof initialValues) => {
             return validateVariationValues(values.variations, feature.kind)
@@ -220,6 +205,9 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
               <FormikEffect onChange={onFormikEffect} formik={formikProps} />
               <Container padding="xlarge">
                 <Container style={{ overflow: 'auto' }} padding="xsmall">
+                  <Heading level={3} font={{ variation: FontVariation.H3 }} margin={{ bottom: 'xlarge' }}>
+                    {getString('cf.editVariation.title')}
+                  </Heading>
                   {formikProps.values?.variations?.map((_: Variation, index: number) => (
                     <Layout.Horizontal
                       key={`flagElem-${index}`}
@@ -340,7 +328,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                           <Container margin={{ top: 'medium', bottom: 'medium' }}>
                             <Divider />
                           </Container>
-                          <SaveFlagToGitSubForm branch="branch" subtitle="Commit Changes" hideNameField />
+                          <SaveFlagToGitSubForm subtitle="Commit Changes" hideNameField />
                         </>
                       )}
                     </Container>

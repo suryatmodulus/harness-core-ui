@@ -6,12 +6,11 @@ import css from './SaveFlagToGitSubForm.module.scss'
 export interface SaveFlagToGitSubFormProps {
   title?: string
   subtitle?: string
-  branch: string
   flagName?: string
   hideNameField?: boolean
 }
 
-const SaveFlagToGitSubForm = ({ title, subtitle, branch, hideNameField }: SaveFlagToGitSubFormProps): ReactElement => {
+const SaveFlagToGitSubForm = ({ title, subtitle, hideNameField }: SaveFlagToGitSubFormProps): ReactElement => {
   const { getString } = useStrings()
 
   return (
@@ -63,21 +62,26 @@ const SaveFlagToGitSubForm = ({ title, subtitle, branch, hideNameField }: SaveFl
             label={getString('common.git.commitMessage')}
             placeholder={getString('common.git.commitMessage')}
           />
-          <Icon name="git-branch-existing"></Icon>
-          <Text margin={{ left: 'small' }} inline>
-            {getString('common.git.existingBranchCommitLabel')}:
-          </Text>
-          <Text
-            data-testid="default-branch"
-            margin={{ left: 'small' }}
-            inline
-            padding={{ top: 'xsmall', bottom: 'xsmall', left: 'small', right: 'small' }}
-            background={Color.PRIMARY_2}
-            border={{ radius: 5 }}
-            color={Color.BLACK}
-          >
-            {branch}
-          </Text>
+
+          <Container flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+            <Icon name="git-branch-existing"></Icon>
+            <Text margin={{ left: 'small', right: 'small' }} inline>
+              {getString('common.git.existingBranchCommitLabel')}:
+            </Text>
+            <FormInput.Text
+              name="gitDetails.branch"
+              disabled
+              style={{ marginBottom: 0 }}
+              // data-testid="default-branch"
+              // margin={{ left: 'small' }}
+              // inline
+              // padding={{ top: 'xsmall', bottom: 'xsmall', left: 'small', right: 'small' }}
+              // background={Color.PRIMARY_2}
+              // border={{ radius: 5 }}
+              // color={Color.BLACK}
+            />
+          </Container>
+
           <Container padding={{ left: 'xlarge', top: 'small' }} data-testid="commit-details-section">
             <FormInput.CheckBox large name="autoCommit" label={getString('cf.creationModal.git.autoCommitMessage')} />
           </Container>

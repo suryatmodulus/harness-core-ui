@@ -58,18 +58,22 @@ import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUt
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '@cf/components/CreateFlagDialog/FlagDialog'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
+import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
+import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import imageURL from './Feature_Flags_LP.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
 import css from './FeatureFlagsPage.module.scss'
 
 interface RenderColumnFlagProps {
+  gitSync: any
   cell: Cell<Feature>
   update: (status: boolean) => void
 }
 
-const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column }, update }) => {
+const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { row, column }, update }) => {
   const data = row.original
+
   // const [environment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
   const [status, setStatus] = useState(isFeatureFlagOn(data))
   const { getString } = useStrings()
@@ -85,6 +89,11 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
   const [flagNameTextSize, setFlagNameTextSize] = useState(300)
   const ref = useRef<HTMLDivElement>(null)
   const { activeEnvironment } = useActiveEnvironment()
+
+  const [isGitSyncModalOpen, setIsGitSyncModalOpen] = useState(false)
+
+  const { gitSyncInitialValues } = gitSync.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.TOGGLED_FLAG)
+
   const [canToggle] = usePermission(
     {
       resource: {
@@ -95,6 +104,30 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
     },
     [activeEnvironment]
   )
+
+  const handleFlagToggle = (gitSyncFormValues?: any) => {
+    let gitDetails
+
+    if (gitSync.isAutoCommitEnabled) {
+      gitDetails = gitSyncInitialValues
+    } else {
+      gitDetails = gitSyncFormValues?.gitDetails
+    }
+
+    const toggleFn = status ? toggleFeatureFlag.off(gitDetails) : toggleFeatureFlag.on(gitDetails)
+
+    toggleFn
+      .then(async () => {
+        if (!gitSync.isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
+          await gitSync.handleAutoCommit(gitSyncFormValues?.autoCommit)
+        }
+        setStatus(!status)
+        update(!status)
+      })
+      .catch(error => {
+        showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')
+      })
+  }
 
   const switchTooltip = (
     <Container width={'350px'} padding="xxxlarge">
@@ -133,17 +166,13 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
             intent="primary"
             text={getString('confirm')}
             className={Classes.POPOVER_DISMISS}
-            onClick={() => {
-              const toggleFn = status ? toggleFeatureFlag.off() : toggleFeatureFlag.on()
-
-              toggleFn
-                .then(() => {
-                  setStatus(!status)
-                  update(!status)
-                })
-                .catch(error => {
-                  showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')
-                })
+            onClick={event => {
+              event.preventDefault()
+              if (gitSync.isGitSyncEnabled && !gitSync.isAutoCommitEnabled) {
+                setIsGitSyncModalOpen(true)
+              } else {
+                handleFlagToggle()
+              }
             }}
           />
           <Button text={getString('cancel')} className={Classes.POPOVER_DISMISS} />
@@ -254,6 +283,18 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
           {data?.tags?.length || 0}
         </Text> */}
       </Layout.Horizontal>
+      <Container onClick={Utils.stopEvent}>
+        {isGitSyncModalOpen && (
+          <SaveFlagToGitModal
+            flagName={data.name}
+            flagIdentifier={data.identifier}
+            onSubmit={handleFlagToggle}
+            onClose={() => {
+              setIsGitSyncModalOpen(false)
+            }}
+          />
+        )}
+      </Container>
     </Container>
   )
 }
@@ -463,6 +504,8 @@ const FeatureFlagsPage: React.FC = () => {
 
   const error = flagsError || envsError
 
+  const gitSync = useGitSync()
+
   const columns: Column<Feature>[] = useMemo(
     () => [
       {
@@ -473,6 +516,7 @@ const FeatureFlagsPage: React.FC = () => {
         Cell: function WrapperRenderColumnFlag(cell: Cell<Feature>) {
           return (
             <RenderColumnFlag
+              gitSync={gitSync}
               cell={cell}
               update={status => {
                 // Update last updated column to reflect latest change without having to refetch the whole list

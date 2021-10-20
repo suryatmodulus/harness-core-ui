@@ -61,10 +61,7 @@ const SaveFlagRepoStep = ({
         onSubmit={formValues => nextStep?.({ ...prevStepData, ...formValues })}
       >
         <FormikForm data-testid="save-flag-to-git-form" className="save-flag-to-git-form">
-          <SaveFlagToGitSubForm
-            title={getString('cf.selectFlagRepo.dialogTitle')}
-            branch={gitRepo?.data?.repoDetails?.branch || ''}
-          />
+          <SaveFlagToGitSubForm title={getString('cf.selectFlagRepo.dialogTitle')} />
 
           <Layout.Horizontal spacing="small" margin={{ top: 'large' }}>
             <Button

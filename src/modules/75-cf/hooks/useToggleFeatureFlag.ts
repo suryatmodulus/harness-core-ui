@@ -9,19 +9,28 @@ export interface UseToggleFeatureFlagProps {
   flagIdentifier: string
 }
 
-const makeInstruction = (isOn: boolean) => ({
-  instructions: [
-    {
-      kind: 'setFeatureFlagState',
-      parameters: {
-        state: isOn ? FeatureFlagActivationStatus.ON : FeatureFlagActivationStatus.OFF
+const makeInstruction = (isOn: boolean, gitDetails: any) => {
+  const instruction = {
+    instructions: [
+      {
+        kind: 'setFeatureFlagState',
+        parameters: {
+          state: isOn ? FeatureFlagActivationStatus.ON : FeatureFlagActivationStatus.OFF
+        }
       }
-    }
-  ]
-})
+    ]
+  }
 
-const ON_INSTRUCTION: PatchOperation = makeInstruction(true)
-const OFF_INSTRUCTION: PatchOperation = makeInstruction(false)
+  return gitDetails ? { ...instruction, gitDetails } : instruction
+}
+
+const getOnInstruction = (gitDetails?: any): PatchOperation => {
+  return makeInstruction(true, gitDetails)
+}
+
+const getOffInstruction = (gitDetails?: any): PatchOperation => {
+  return makeInstruction(false, gitDetails)
+}
 
 export const useToggleFeatureFlag = ({
   accountIdentifier,
@@ -42,7 +51,7 @@ export const useToggleFeatureFlag = ({
   })
 
   return {
-    on: () => mutate(ON_INSTRUCTION),
-    off: () => mutate(OFF_INSTRUCTION)
+    on: (gitDetails?: any) => mutate(getOnInstruction(gitDetails)),
+    off: (gitDetails?: any) => mutate(getOffInstruction(gitDetails))
   }
 }

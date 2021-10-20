@@ -41,7 +41,7 @@ import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import useGitSync from '@cf/hooks/useGitSync'
+import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -49,7 +49,7 @@ import { CFEnvironmentSelect } from '../CFEnvironmentSelect/CFEnvironmentSelect'
 import patch, { ClauseData, getDiff } from '../../utils/instructions'
 import { MetricsView } from './views/MetricsView'
 import { NoEnvironment } from '../NoEnvironment/NoEnvironment'
-import SaveFlagToGitModal from '../SaveFlagToGitModal/SaveFlagToGitModal'
+import SaveFlagToGitSubFormModal from '../SaveFlagToGitSubFormModal/SaveFlagToGitSubFormModal'
 import css from './FlagActivation.module.scss'
 
 // Show loading and wait 3s when the first environment is created before reloading
@@ -70,6 +70,7 @@ export interface FlagActivationFormValues {
   customRules: ServingRule[]
   variationMap: VariationMap[]
   gitDetails: GitDetails
+  autoCommit: boolean
 }
 
 const fromVariationMapToObj = (variationMap: VariationMap[]) =>
@@ -118,7 +119,8 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     }
   })
 
-  const { gitRepoDetails, isAutoCommitEnabled, isGitSyncEnabled, toggleAutoCommit } = useGitSync()
+  const { getGitSyncFormMeta, gitRepoDetails, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
+  const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_RULES)
 
   const initialValues = useMemo(
     () =>
@@ -136,14 +138,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         ),
         flagName: flagData.name,
         flagIdentifier: flagData.identifier,
-        gitDetails: {
-          repoIdentifier: gitRepoDetails?.repoIdentifier || '',
-          rootFolder: gitRepoDetails?.rootFolder || '',
-          filePath: gitRepoDetails?.filePath || '',
-          commitMsg: gitRepoDetails?.autoCommit
-            ? 'Automated commit message from your friendly neighbourhood UI bot!'
-            : '' //TODO - messages
-        },
+        gitDetails: gitSyncInitialValues,
         autoCommit: isAutoCommitEnabled
       }),
     [gitRepoDetails]
@@ -308,8 +303,8 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               : data
           )
             .then(async () => {
-              if (isAutoCommitEnabled != Boolean(values.autoCommit)) {
-                await toggleAutoCommit(Boolean(values.autoCommit))
+              if (!isAutoCommitEnabled && values.autoCommit) {
+                await handleAutoCommit(values.autoCommit)
               }
 
               setEditing(false)
@@ -476,11 +471,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       initialValues={initialValues}
       validate={validateForm}
       validationSchema={yup.object().shape({
-        gitDetails: yup.object().shape({
-          commitMsg: isGitSyncEnabled
-            ? yup.string().required(getString('cf.creationModal.valueIsRequired')) // todo
-            : yup.string()
-        })
+        gitDetails: gitSyncValidationSchema
       })}
       onSubmit={onSaveChanges}
     >
@@ -580,8 +571,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                 )}
             </Container>
             {isGitSyncOpenModal && (
-              <SaveFlagToGitModal
-                branch={gitRepoDetails?.branch || ''}
+              <SaveFlagToGitSubFormModal
                 title={`Save ${flagData.name} to Git`}
                 onSubmit={formikProps.submitForm}
                 onClose={() => setIsGitSyncOpenModal(false)}

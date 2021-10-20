@@ -27,6 +27,8 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
+import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
+import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { DetailHeading } from '../DetailHeading'
 import css from './FlagSettings.module.scss'
 
@@ -79,6 +81,46 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
   )
   const { data, loading: loadingFeatures, error, refetch } = useGetAllFeatures({ queryParams })
   const [loadingFeaturesInBackground, setLoadingFeaturesInBackground] = useState(false)
+
+  const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
+  const { gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS)
+  const [isGitSyncModalOpen, setIsGitSyncModalOpen] = useState(false)
+
+  const [selectedVariation, setSelectedVariation] = useState<Variation>()
+  const [selectedFeature, setSelectedFeature] = useState<Feature>()
+
+  const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
+
+  const saveVariationChange = async (gitSyncFormValues?: any): Promise<boolean> => {
+    if (!selectedVariation || !target || !selectedFeature) return false
+
+    setLoadingFeaturesInBackground(true)
+
+    let gitDetails //todo type
+
+    if (isAutoCommitEnabled) {
+      gitDetails = gitSyncInitialValues
+    } else {
+      gitDetails = gitSyncFormValues?.gitDetails
+    }
+
+    await _useServeFlagVariationToTargets(
+      selectedFeature,
+      selectedVariation.identifier,
+      [target.identifier],
+      gitDetails
+    )
+
+    if (!isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
+      await handleAutoCommit(gitSyncFormValues.autoCommit)
+    }
+
+    await refetch().then(() => {
+      setIsGitSyncModalOpen(false)
+      setLoadingFeaturesInBackground(false)
+    })
+    return true
+  }
 
   const FlagSettingsHeader: React.FC = () => {
     const textStyle = {
@@ -176,7 +218,13 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
                   feature={feature}
                   patchParams={patchParams}
                   key={feature.identifier}
+                  isGitSyncEnabled={isGitSyncEnabled || false}
+                  isAutoCommitEnabled={isAutoCommitEnabled || false}
+                  openGitSyncModal={() => setIsGitSyncModalOpen(true)}
                   setLoadingFeaturesInBackground={setLoadingFeaturesInBackground}
+                  saveVariationChange={saveVariationChange}
+                  setSelectedVariation={setSelectedVariation}
+                  setSelectedFeature={setSelectedFeature}
                   refetch={async () => {
                     await refetch()
                   }}
@@ -197,6 +245,16 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
             )}
           </>
         )}
+        {isGitSyncModalOpen && (
+          <SaveFlagToGitModal
+            flagName={selectedFeature?.name || ''}
+            flagIdentifier={selectedFeature?.identifier || ''}
+            onSubmit={saveVariationChange}
+            onClose={() => {
+              setIsGitSyncModalOpen(false)
+            }}
+          />
+        )}
 
         {loading && <ContainerSpinner />}
         {!loading && error && <PageError message={getErrorMessage(error)} onClick={() => refetch()} />}
@@ -211,8 +269,22 @@ const FlagSettingsRow: React.FC<{
   patchParams: FlagPatchParams
   setLoadingFeaturesInBackground: React.Dispatch<React.SetStateAction<boolean>>
   refetch: () => Promise<void>
-}> = ({ target, feature, patchParams, setLoadingFeaturesInBackground, refetch }) => {
-  const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
+  isGitSyncEnabled: boolean
+  isAutoCommitEnabled: boolean
+  openGitSyncModal: () => void
+  setSelectedVariation: (variation: Variation) => void //todo
+  setSelectedFeature: (feature: Feature) => void //todo
+  saveVariationChange: (gitSyncFormvalues?: any) => Promise<boolean>
+}> = ({
+  feature,
+  patchParams,
+  isGitSyncEnabled,
+  isAutoCommitEnabled,
+  openGitSyncModal,
+  setSelectedVariation,
+  setSelectedFeature,
+  saveVariationChange
+}) => {
   const { showError } = useToaster()
   const { withActiveEnvironment } = useActiveEnvironment()
 
@@ -273,12 +345,14 @@ const FlagSettingsRow: React.FC<{
             selectedIdentifier={feature.evaluationIdentifier as string}
             onChange={async variation => {
               try {
-                await _useServeFlagVariationToTargets(feature, variation.identifier, [target.identifier])
-                setLoadingFeaturesInBackground(true)
-                refetch().then(() => {
-                  setLoadingFeaturesInBackground(false)
-                })
-                return true
+                setSelectedVariation(variation)
+                setSelectedFeature(feature)
+
+                if (isGitSyncEnabled && !isAutoCommitEnabled) {
+                  openGitSyncModal()
+                } else {
+                  return saveVariationChange()
+                }
               } catch (error) {
                 showError(getErrorMessage(error), 0, 'cf.serve.flag.variant.error')
               }

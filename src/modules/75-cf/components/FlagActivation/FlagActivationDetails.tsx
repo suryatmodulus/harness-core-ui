@@ -37,7 +37,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
-import useGitSync from '@cf/hooks/useGitSync'
+import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
@@ -145,7 +145,11 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     } as PatchFeatureQueryParams
   })
   const history = useHistory()
-  const { gitRepoDetails, isAutoCommitEnabled, isGitSyncEnabled, toggleAutoCommit } = useGitSync()
+
+  const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
+  const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(
+    AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS
+  )
 
   const [openEditDetailsModal, hideEditDetailsModal] = useModalHook(() => {
     const initialValues = {
@@ -153,12 +157,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       description: featureFlag.description,
       tags: featureFlag.tags?.map(elem => elem.name),
       permanent: featureFlag.permanent,
-      gitDetails: {
-        repoIdentifier: gitRepoDetails?.repoIdentifier || '',
-        rootFolder: gitRepoDetails?.rootFolder || '',
-        filePath: gitRepoDetails?.filePath || '',
-        commitMsg: gitRepoDetails?.autoCommit ? 'Automated commit message from your friendly neighbourhood UI bot!' : '' //TODO - messages
-      },
+      gitDetails: gitSyncInitialValues,
       autoCommit: isAutoCommitEnabled
     }
 
@@ -203,8 +202,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
               : data
           )
             .then(async () => {
-              if (isAutoCommitEnabled != Boolean(values.autoCommit)) {
-                await toggleAutoCommit(Boolean(values.autoCommit))
+              if (!isAutoCommitEnabled && values.autoCommit) {
+                await handleAutoCommit(values.autoCommit)
               }
 
               patch.feature.reset()
@@ -231,11 +230,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           enableReinitialize={true}
           initialValues={initialValues}
           validationSchema={yup.object().shape({
-            gitDetails: yup.object().shape({
-              commitMsg: isGitSyncEnabled
-                ? yup.string().required(getString('cf.creationModal.valueIsRequired')) // todo
-                : yup.string()
-            })
+            gitDetails: gitSyncValidationSchema
           })}
           formName="flagActivationDetails"
           onSubmit={handleSubmit}
@@ -261,7 +256,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
                     <Container margin={{ top: 'small', bottom: 'small' }}>
                       <Divider />
                     </Container>
-                    <SaveFlagToGitSubForm branch="branch" subtitle="Commit Changes" hideNameField />
+                    <SaveFlagToGitSubForm subtitle="Commit Changes" hideNameField />
                   </>
                 )}
 

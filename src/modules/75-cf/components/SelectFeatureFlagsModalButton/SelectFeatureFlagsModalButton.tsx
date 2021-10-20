@@ -24,7 +24,7 @@ import { useToaster } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
-import useGitSync from '@cf/hooks/useGitSync'
+import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
 import { FeatureFlagRow } from './FeatureFlagRow'
 import { NoDataFoundRow } from '../NoDataFoundRow/NoDataFoundRow'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
@@ -70,7 +70,11 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
     const [sortByField] = useState(SegmentsSortByField.NAME)
     const [pageNumber, setPageNumber] = useState(0)
 
-    const { gitRepoDetails, isAutoCommitEnabled, isGitSyncEnabled, toggleAutoCommit } = useGitSync()
+    const { isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit, getGitSyncFormMeta } = useGitSync()
+
+    const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(
+      AUTO_COMMIT_MESSAGES.UPDATED_FLAG_TARGETS
+    )
 
     const queryParams = useMemo(
       () => ({
@@ -120,10 +124,8 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
       try {
         onSubmit(Object.values(checkedFeatureFlags), gitFormValues)
           .then(async () => {
-            const { autoCommit } = gitFormValues
-
-            if (autoCommit && isAutoCommitEnabled != Boolean(autoCommit)) {
-              await toggleAutoCommit(Boolean(autoCommit))
+            if (!isAutoCommitEnabled && gitFormValues.autoCommit) {
+              await handleAutoCommit(gitFormValues.autoCommit)
             }
 
             hideModal()
@@ -260,27 +262,16 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
           </Container>
 
           <Layout.Horizontal>
+            {/* todo - move this to a component, maybe use defaults instead */}
             <Formik
               initialValues={{
-                gitDetails: {
-                  branch: gitRepoDetails?.branch,
-                  repoIdentifier: gitRepoDetails?.repoIdentifier || '',
-                  rootFolder: gitRepoDetails?.rootFolder || '',
-                  filePath: gitRepoDetails?.filePath || '',
-                  commitMsg: gitRepoDetails?.autoCommit
-                    ? 'Automated commit message from your friendly neighbourhood UI bot!'
-                    : '' //TODO - messages
-                },
+                gitDetails: gitSyncInitialValues,
                 autoCommit: isAutoCommitEnabled
               }}
               formName="editVariations"
               enableReinitialize={true}
               validationSchema={yup.object().shape({
-                gitDetails: yup.object().shape({
-                  commitMsg: isGitSyncEnabled
-                    ? yup.string().required(getString('cf.creationModal.valueIsRequired')) // todo
-                    : yup.string()
-                })
+                gitDetails: gitSyncValidationSchema
               })}
               validateOnChange
               validateOnBlur
@@ -291,7 +282,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
                   <FormikForm {...formikProps} style={{ minWidth: '37vw' }}>
                     {isGitSyncEnabled && !isAutoCommitEnabled && (
                       <>
-                        <SaveFlagToGitSubForm branch="branch" subtitle="Commit Changes" hideNameField />
+                        <SaveFlagToGitSubForm subtitle="Commit Changes" hideNameField />
                       </>
                     )}
                     <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }} style={{ alignItems: 'center' }}>

@@ -3,7 +3,6 @@ import * as moment from 'moment'
 import parseLinkHeader from 'parse-link-header'
 import { ButtonVariation, Layout, Button, Text, Color, Utils } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import { useGet } from 'restful-react'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
@@ -12,7 +11,7 @@ import { Page } from '@common/exports'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import { Policy, useDeletePolicy } from 'services/pm'
+import { Policy, useDeletePolicy, useGetPolicyList } from 'services/pm'
 import { setPageNumber } from '@common/utils/utils'
 import { OptionsMenuButton } from '@common/components'
 import routes from '@common/RouteDefinitions'
@@ -24,6 +23,8 @@ import css from './Policies.module.scss'
 let page = 0
 let totalPages = 0
 const pageSize = 10
+
+const _useGetPolicyList = useGetPolicyList as any
 
 const Policies: React.FC = () => {
   const { accountId } = useParams<ProjectPathProps>()
@@ -38,8 +39,7 @@ const Policies: React.FC = () => {
     error,
     refetch,
     response
-  } = useGet({
-    path: 'pm/api/v1/policies',
+  } = _useGetPolicyList({
     queryParams: {
       accountId: accountId,
       per_page: pageSize,

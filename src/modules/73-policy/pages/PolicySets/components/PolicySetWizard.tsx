@@ -15,7 +15,7 @@ import {
   FormInput
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { useMutate } from 'restful-react'
+import { useMutate, UseMutateProps } from 'restful-react'
 import { isEqual, pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
@@ -28,8 +28,10 @@ import {
   useUpdatePolicySet,
   LinkedPolicy,
   useGetPolicySet,
-  PolicySetWithLinkedPolicies
+  PolicySetWithLinkedPolicies,
+  useAddLinkedPolicy
 } from 'services/pm'
+import { getConfig } from 'services/config'
 import { useToaster } from '@common/exports'
 import css from '../PolicySets.module.scss'
 
@@ -39,6 +41,25 @@ type CreatePolicySetWizardProps = StepProps<{ refetch: () => void; hideModal: ()
   prevStepData: any
   policySetData: PolicySetWithLinkedPolicies | any
 }
+
+interface DeleteLinkedPolicyPathParams {
+  policyset: string
+  policy: string
+}
+
+type UseDeleteLinkedPolicyProps = Omit<
+  UseMutateProps<void, unknown, void, string, DeleteLinkedPolicyPathParams>,
+  'path' | 'verb'
+> &
+  DeleteLinkedPolicyPathParams
+
+export const useDeleteLinkedPolicy = ({ policyset, policy, ...props }: UseDeleteLinkedPolicyProps) =>
+  useMutate<void, unknown, void, string, DeleteLinkedPolicyPathParams>(
+    'DELETE',
+    (paramsInPath: DeleteLinkedPolicyPathParams) =>
+      `/policysets/${paramsInPath.policyset}/policy/${paramsInPath.policy}`,
+    { base: getConfig('pm/api/v1'), pathParams: { policyset, policy }, ...props }
+  )
 
 const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData, prevStepData }) => {
   const _policySetData = { ...policySetData, ...prevStepData }
@@ -174,23 +195,20 @@ const StepTwo: React.FC<{
     policyset: policySetData?.identifier?.toString() || prevStepData?.id
   })
 
-  const { mutate: patchPolicy } = useMutate({
-    verb: 'PATCH',
-    path: `pm/api/v1/policysets/${prevStepData?.id}/policy/${policyId}`
+  const { mutate: patchPolicy } = useAddLinkedPolicy({ policyset: prevStepData?.id, policy: policyId })
+
+  const { mutate: deleteLinkedPolicy } = useDeleteLinkedPolicy({
+    policyset: prevStepData?.id,
+    policy: deLinkpolicyId
   })
 
-  const { mutate: deleteLinkedPolicy } = useMutate({
-    verb: 'DELETE',
-    path: `pm/api/v1/policysets/${prevStepData?.id}/policy/${deLinkpolicyId}`
-  })
-
-  const handlePatchRequest = async (severitySelected: string) => {
+  const handlePatchRequest = async (severitySelected: any) => {
     const response = await patchPolicy({ severity: severitySelected })
     return response
   }
 
   const handleDeleteRequest = async () => {
-    const response = await deleteLinkedPolicy({})
+    const response = await deleteLinkedPolicy({} as string)
     return response
   }
 

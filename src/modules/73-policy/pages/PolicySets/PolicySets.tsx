@@ -16,11 +16,10 @@ import {
 } from '@wings-software/uicore'
 import { Classes, Position, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { useGet } from 'restful-react'
 import type { CellProps, Renderer, Column } from 'react-table'
 import parseLinkHeader from 'parse-link-header'
 import { useToaster, useConfirmationDialog } from '@common/exports'
-import { useUpdatePolicySet, useDeletePolicySet } from 'services/pm'
+import { useUpdatePolicySet, useDeletePolicySet, useGetPolicySetList } from 'services/pm'
 
 import { useStrings } from 'framework/strings'
 
@@ -50,6 +49,8 @@ export interface PoliciesSetDTO {
   updated: number
   identifier: string
 }
+
+const _useGetPolicySetList = useGetPolicySetList as any
 
 let page = 0
 let totalPages = 0
@@ -82,10 +83,9 @@ const PolicyEvaluations: React.FC = () => {
     error,
     refetch,
     response
-  } = useGet({
-    path: 'pm/api/v1/policysets',
+  } = _useGetPolicySetList({
     queryParams: {
-      accountId: accountId,
+      accountIdentifier: accountId,
       per_page: pageSize,
       page: page + 1
     }

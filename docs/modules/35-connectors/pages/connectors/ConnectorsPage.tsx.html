@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.3% </span>
+                <span class="strong">69.16% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>149/215</span>
+                <span class='fraction'>148/214</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.48% </span>
+                <span class="strong">69.34% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>148/213</span>
+                <span class='fraction'>147/212</span>
             </div>
         
             
@@ -835,34 +835,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -870,7 +863,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1600,7 +1600,8 @@ import {
   MultiSelectOption,
   ExpandingSearchInput,
   Container,
-  ButtonVariation
+  ButtonVariation,
+  PageError
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { GetDataError } from 'restful-react'
@@ -1622,11 +1623,11 @@ import {
   ResponsePageFilterDTO,
   ResponseConnectorStatistics,
   GetConnectorListV2QueryParams,
-  Failure
+  Failure,
+  ConnectorInfoDTO
 } from 'services/cd-ng'
 import type { ConnectorFilterProperties } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { PageError } from '@common/components/Page/PageError'
 import { Page, useToaster, StringUtils } from '@common/exports'
 import { AddDrawer, PageSpinner } from '@common/components'
 import {
@@ -1637,7 +1638,6 @@ import {
 } from '@common/components/AddDrawer/AddDrawer'
 import routes from '@common/RouteDefinitions'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'
 import {
   removeNullAndEmpty,
@@ -2365,7 +2365,7 @@ export default ConnectorsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 20 2021 12:16:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 20 2021 12:46:34 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -366,7 +366,7 @@ const CreatePolicySetWizard: React.FC<any> = props => {
   const { getString } = useStrings()
 
   return (
-    <StepWizard iconProps={{ size: 37 }} title={getString('pipeline.policyEvaluations.policySet')}>
+    <StepWizard iconProps={{ size: 37 }} title={getString('common.policiesSets.table.name')}>
       <StepOne name={getString('overview')} {...props} />
       <StepTwo name={getString('common.policiesSets.evaluationCriteria')} {...props} />
     </StepWizard>

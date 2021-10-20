@@ -1,0 +1,39 @@
+.main {
+  --header-height: 77px;
+
+  height: 100%;
+
+  .header {
+    border-bottom: 1px solid var(--grey-100);
+    align-items: center;
+
+    g {
+      fill: var(--primary-7);
+    }
+  }
+
+  .tabs {
+    --tab-title-height: 71px;
+
+    height: calc(100% - var(--header-height));
+
+    > div {
+      height: 100%;
+    }
+
+    [role='tablist'] {
+      justify-content: center;
+      margin-top: var(--spacing-small);
+    }
+
+    [role='tabpanel'] {
+      height: calc(100% - var(--tab-title-height));
+
+      .tabContent {
+        padding: 0 var(--spacing-xlarge) var(--spacing-xlarge);
+        overflow: auto;
+        height: 100%;
+      }
+    }
+  }
+}

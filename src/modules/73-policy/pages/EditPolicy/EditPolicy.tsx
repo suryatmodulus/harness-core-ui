@@ -85,7 +85,7 @@ export const EditPolicy: React.FC = () => {
     setCreatePolicyLoading(true)
     const api = isEdit ? updatePolicy : createPolicy
     api({
-      accountIdentifier: accountId,
+      account_identifier: accountId,
       identifier: policyIdentifier,
       name,
       description,

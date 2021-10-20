@@ -197,7 +197,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const [isYamlError, setYamlError] = React.useState(false)
   const [blockNavigation, setBlockNavigation] = React.useState(false)
   const [selectedBranch, setSelectedBranch] = React.useState(branch || '')
-  const opaBasedGovernanceEnabled = useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE)
+  const opaBasedGovernanceEnabled =
+    useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE) || localStorage.OPA_PIPELINE_GOVERNANCE
   const [governanceMetadata, setGovernanceMetadata] = useState<GovernanceMetadata>()
 
   const { openDialog: openUnsavedChangesDialog } = useConfirmationDialog({
@@ -285,7 +286,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       },
       omit(latestPipeline, 'repo', 'branch'),
       pipelineIdentifier !== DefaultNewPipelineId,
-      !!opaBasedGovernanceEnabled || localStorage.OPA_PIPELINE_GOVERNANCE
+      !!opaBasedGovernanceEnabled
     )
     const newPipelineId = latestPipeline?.identifier
 

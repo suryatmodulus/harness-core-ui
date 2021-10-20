@@ -54,6 +54,39 @@
         color: var(--white) !important;
       }
     }
+
+    &.policySetsIcon {
+      --right-bar-icon: var(--primary-7);
+
+      &:hover span {
+        color: var(--primary-7) !important;
+      }
+
+      span {
+        line-height: 12px !important;
+        color: var(--grey-500) !important;
+
+        g {
+          fill: var(--right-bar-icon);
+        }
+      }
+
+      &.selected {
+        --right-bar-bg: var(--primary-7);
+        --right-bar-icon: var(--white);
+        span {
+          color: var(--white) !important;
+        }
+      }
+    }
+
+    &.variablesIcon {
+      --right-bar-icon: var(--purple-400);
+
+      span {
+        color: var(--white) !important;
+      }
+    }
   }
 
   :global(.bp3-popover-wrapper) {

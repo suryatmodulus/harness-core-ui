@@ -39,6 +39,7 @@ import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy, ExecutionStrategyRefInterface } from '../ExecutionStrategy/ExecutionStrategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
+import { PipelinePolicySets } from '../PipelineVariables/PipelinePolicySets'
 import { FlowControl } from '../FlowControl/FlowControl'
 import { AdvancedOptions } from '../AdvancedOptions/AdvancedOptions'
 import css from './RightDrawer.module.scss'
@@ -47,7 +48,8 @@ export const FullscreenDrawers: DrawerTypes[] = [
   DrawerTypes.PipelineVariables,
   DrawerTypes.PipelineNotifications,
   DrawerTypes.FlowControl,
-  DrawerTypes.AdvancedOptions
+  DrawerTypes.AdvancedOptions,
+  DrawerTypes.PolicySets
 ]
 
 const checkDuplicateStep = (
@@ -116,7 +118,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       pipeline,
       pipelineView: { drawerData, isDrawerOpened, isSplitViewOpen },
       pipelineView,
-      selectionState: { selectedStageId, selectedStepId }
+      selectionState: { selectedStageId, selectedStepId },
+      pipeline
     },
     updatePipeline,
     isReadonly,
@@ -722,6 +725,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           }}
         />
       )}
+      {type === DrawerTypes.PolicySets && <PipelinePolicySets pipelineName={pipeline.name} />}
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <StepCommands
           key={`step-form-${data.stepConfig.node.identifier}`}

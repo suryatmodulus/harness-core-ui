@@ -279,7 +279,7 @@ const PolicyEvaluations: React.FC = () => {
   const columns: Column<PoliciesSetDTO>[] = useMemo(
     () => [
       {
-        Header: getString('pipeline.policyEvaluations.policySet'),
+        Header: getString('common.policiesSets.table.name'),
 
         accessor: row => row.name,
         width: '35%',

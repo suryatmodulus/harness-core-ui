@@ -82,7 +82,7 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
       {/* Detail header */}
       <Layout.Horizontal margin={{ top: 'large', bottom: 'medium' }}>
         <Text font={{ variation: FontVariation.TABLE_HEADERS }} style={{ flexGrow: 1 }}>
-          {getString('pipeline.policyEvaluations.policySet').toUpperCase()}
+          {getString('common.policiesSets.table.name').toUpperCase()}
         </Text>
         <Text width={250} font={{ variation: FontVariation.TABLE_HEADERS }}>
           {getString('status').toUpperCase()}
@@ -124,7 +124,7 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                 <Text font={{ variation: FontVariation.TABLE_HEADERS }} className={css.status}>
                   <ExecutionStatusLabel
                     status={deny ? 'Failed' : 'Success'}
-                    label={deny ? undefined : getString('pipeline.policyEvaluations.passed').toUpperCase()}
+                    label={deny ? undefined : getString('passed').toUpperCase()}
                   />
                 </Text>
 
@@ -177,7 +177,7 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                         <Text className={css.status}>
                           <ExecutionStatusLabel
                             status={policyPassed(severity, denyMessages) ? 'Success' : 'Failed'}
-                            label={deny ? undefined : getString('pipeline.policyEvaluations.passed').toUpperCase()}
+                            label={deny ? undefined : getString('passed').toUpperCase()}
                           />
                         </Text>
 

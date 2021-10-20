@@ -2263,12 +2263,13 @@ export interface StringsMap {
   'pipeline.pipelineSteps.featureStageDescription': string
   'pipeline.policyEvaluations.emptyPolicySet': string
   'pipeline.policyEvaluations.evaluatedTime': string
+  'pipeline.policyEvaluations.evaluations': string
   'pipeline.policyEvaluations.failedToSavePipeline': string
   'pipeline.policyEvaluations.failureHeading': string
   'pipeline.policyEvaluations.failureModalTitle': string
-  'pipeline.policyEvaluations.passed': string
-  'pipeline.policyEvaluations.policySet': string
   'pipeline.policyEvaluations.policySetName': string
+  'pipeline.policyEvaluations.policySets': string
+  'pipeline.policyEvaluations.policySetsApplied': string
   'pipeline.policyEvaluations.successHeading': string
   'pipeline.policyEvaluations.title': string
   'pipeline.poweredByHarness': string

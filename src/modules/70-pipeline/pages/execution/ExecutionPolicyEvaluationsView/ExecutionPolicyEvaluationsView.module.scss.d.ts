@@ -7,5 +7,6 @@ declare const styles: {
   readonly status: string
   readonly details: string
   readonly policySetName: string
+  readonly warningStatus: string
 }
 export default styles

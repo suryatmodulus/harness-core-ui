@@ -8,6 +8,7 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { useStrings } from 'framework/strings'
+import type { StringsContextValue } from 'framework/strings/StringsContext'
 import routes from '@common/RouteDefinitions'
 import type { GovernanceMetadata } from 'services/pipeline-ng'
 import css from './ExecutionPolicyEvaluationsView.module.scss'
@@ -26,6 +27,7 @@ interface PolicyEvaluationResponse {
   identifier: string
   policyName: string
   severity: string
+  status: string
   denyMessages: string[]
 }
 
@@ -36,7 +38,37 @@ interface PolicySetEvaluationResponse {
   policyMetadata: PolicyEvaluationResponse[]
 }
 
-const policyPassed = (_severity: string, denyMessages: string[]): boolean => !denyMessages?.length
+enum PolicyEvaluationStatus {
+  ERROR = 'error',
+  WARNING = 'warning',
+  PASS = 'pass'
+}
+
+const statusToColor = (status: string): Color => {
+  switch (status) {
+    case PolicyEvaluationStatus.ERROR:
+      return Color.ERROR
+    case PolicyEvaluationStatus.WARNING:
+      return Color.WARNING
+  }
+
+  return Color.SUCCESS
+}
+
+const statusToLabel = (getString: StringsContextValue['getString'], status: string): string => {
+  let label: string | undefined = getString?.('passed')?.toUpperCase()
+
+  switch (status) {
+    case PolicyEvaluationStatus.ERROR:
+      label = getString?.('failed')?.toUpperCase()
+      break
+    case PolicyEvaluationStatus.WARNING:
+      label = getString?.('pipeline.policyEvaluations.warn')?.toUpperCase()
+      break
+  }
+
+  return label || ''
+}
 
 export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ metadata, headingErrorMessage }) => {
   const failure = !!metadata.deny
@@ -147,7 +179,7 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                       {getString('pipeline.policyEvaluations.emptyPolicySet')}
                     </Text>
                   )}
-                  {policyMetadata?.map(({ identifier: policyIdentifier, policyName, severity, denyMessages }) => {
+                  {policyMetadata?.map(({ identifier: policyIdentifier, policyName, status, denyMessages }) => {
                     return (
                       <Layout.Horizontal spacing="xsmall" padding={{ top: 'medium' }} key={policyIdentifier}>
                         <Container style={{ flexGrow: 1 }}>
@@ -156,7 +188,7 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                               {policyName}
                             </Link>
                           </Text>
-                          {!policyPassed(severity, denyMessages) && !!denyMessages?.length && (
+                          {!!denyMessages?.length && (
                             <Layout.Horizontal
                               spacing="xsmall"
                               padding={{ left: 'xxxlarge', top: 'xsmall' }}
@@ -165,7 +197,11 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
                               <Text font={{ variation: FontVariation.UPPERCASED }}>{getString('details')}</Text>
                               <Container padding={{ left: 'small' }}>
                                 {denyMessages.map(message => (
-                                  <Text key={message} font={{ variation: FontVariation.BODY }} color={Color.RED_500}>
+                                  <Text
+                                    key={message}
+                                    font={{ variation: FontVariation.BODY }}
+                                    color={statusToColor(status)}
+                                  >
                                     - {message}
                                   </Text>
                                 ))}
@@ -176,8 +212,9 @@ export const PolicySetEvaluations: React.FC<PolicySetEvaluationsProps> = ({ meta
 
                         <Text className={css.status}>
                           <ExecutionStatusLabel
-                            status={policyPassed(severity, denyMessages) ? 'Success' : 'Failed'}
-                            label={deny ? undefined : getString('passed').toUpperCase()}
+                            status={status === PolicyEvaluationStatus.PASS ? 'Success' : 'Failed'}
+                            label={statusToLabel(getString, status)}
+                            className={css.warningStatus}
                           />
                         </Text>
 

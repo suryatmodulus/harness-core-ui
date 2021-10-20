@@ -2272,6 +2272,7 @@ export interface StringsMap {
   'pipeline.policyEvaluations.policySetsApplied': string
   'pipeline.policyEvaluations.successHeading': string
   'pipeline.policyEvaluations.title': string
+  'pipeline.policyEvaluations.warned': string
   'pipeline.poweredByHarness': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string

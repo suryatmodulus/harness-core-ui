@@ -852,3 +852,4 @@ policyEvaluations:
   warn: warning
   policySet: Policy Set
   passed: Passed
+  warned: warn

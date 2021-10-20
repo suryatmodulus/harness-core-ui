@@ -58,6 +58,10 @@ export function setBugsnagAccountMeta(data: BugsnagAccountMeta): void {
   window.bugsnagClient?.addMetadata(BUGSNAG_FILTERS.ACCOUNT, data)
 }
 
+export function setBugsnagUser(id?: string, email?: string, name?: string): void {
+  window.bugsnagClient?.setUser(id, email, name)
+}
+
 export const loggerFor = (module: ModuleName, subModule?: string): Logger => ({
   error: log(ERROR, module, subModule),
   info: log(INFO, module, subModule),

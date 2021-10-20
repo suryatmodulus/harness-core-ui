@@ -16,6 +16,7 @@ import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { FeatureFlag } from '@common/featureFlags'
+import { setBugsnagUser } from 'framework/logging/logging'
 
 export type FeatureFlagMap = Partial<Record<FeatureFlag, boolean>>
 
@@ -177,7 +178,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   React.useEffect(() => {
     if (userInfo?.data) {
       const user = userInfo.data
-      window.bugsnagClient?.setUser(user.uuid, user.email, user.name)
+      setBugsnagUser(user.uuid, user.email, user.name)
       setState(prevState => ({
         ...prevState,
         currentUserInfo: user

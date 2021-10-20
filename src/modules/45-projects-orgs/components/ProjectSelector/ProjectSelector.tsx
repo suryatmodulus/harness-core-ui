@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { Text, Layout, Color, Container, Popover, Pagination, Button, ButtonVariation } from '@wings-software/uicore'
 import { ExpandingSearchInput } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
-import { Project, useGetProjectAggregateDTOList } from 'services/cd-ng'
+import { Project, useGetProjectAggregateDTOList, ProjectAggregateDTO } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -79,7 +79,7 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
         />
       )}
 
-      <Container width={600} padding="xlarge" className={css.selectContainer}>
+      <Container width={600} className={css.selectContainer}>
         <Layout.Horizontal flex padding={{ bottom: 'large' }}>
           <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
             {getString('selectProject')}
@@ -103,7 +103,27 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
         {loading && <PageSpinner />}
         {data?.data?.content?.length ? (
           <Layout.Vertical className={css.projectContainerWrapper}>
-            <div className={css.projectContainer}>
+            <Layout.Masonry
+              center
+              gutter={25}
+              items={data?.data?.content || []}
+              renderItem={(projectAggregate: ProjectAggregateDTO) => (
+                <ProjectCard
+                  key={projectAggregate.projectResponse.project.identifier}
+                  data={projectAggregate}
+                  minimal={true}
+                  selected={projectAggregate.projectResponse.project.identifier === selectedProject?.identifier}
+                  className={cx(css.projectCard, Classes.POPOVER_DISMISS)}
+                  onClick={() => {
+                    onSelect(projectAggregate.projectResponse.project)
+                  }}
+                />
+              )}
+              keyOf={(projectDTO: ProjectAggregateDTO) =>
+                projectDTO.projectResponse.project.identifier + projectDTO.projectResponse.project.orgIdentifier
+              }
+            />
+            {/* <div className={css.projectContainer}>
               {data.data.content.map(projectAggregate => (
                 <ProjectCard
                   key={projectAggregate.projectResponse.project.identifier}
@@ -116,7 +136,7 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
                   }}
                 />
               ))}
-            </div>
+            </div> */}
             <Pagination
               itemCount={data?.data?.totalItems || 0}
               pageSize={data?.data?.pageSize || 10}

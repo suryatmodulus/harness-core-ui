@@ -102,8 +102,8 @@ export default function AWSCCAuthStep(props: AWSCCAuthStepProps) {
     <Formik
       initialValues={{ ...initialValues, ...props.prevStepData }}
       validationSchema={Yup.object().shape({
-        accessKey: Yup.object().required(),
-        secretKey: Yup.mixed().required()
+        accessKey: Yup.object().required(getString('connectors.aws.validation.accessKey')),
+        secretKey: Yup.mixed().required(getString('connectors.aws.validation.secretKeyRef'))
       })}
       formName="awsCcAuthForm"
       onSubmit={formData => {

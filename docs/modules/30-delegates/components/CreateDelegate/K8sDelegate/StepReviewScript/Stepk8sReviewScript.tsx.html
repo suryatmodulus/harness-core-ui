@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.5% </span>
+                <span class="strong">97.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/40</span>
+                <span class='fraction'>35/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.5% </span>
+                <span class="strong">53.13% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>19/40</span>
+                <span class='fraction'>17/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.5% </span>
+                <span class="strong">97.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/40</span>
+                <span class='fraction'>35/36</span>
             </div>
         
             
@@ -192,15 +192,7 @@
 <a name='L133'></a><a href='#L133'>133</a>
 <a name='L134'></a><a href='#L134'>134</a>
 <a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -240,18 +232,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -369,7 +353,7 @@ const Stepk8ReviewScript: React.FC&lt;StepProps&lt;StepK8Data&gt;&gt; = props =&
     } as GenerateKubernetesYamlQueryParams
   })
   const linkRef = React.useRef&lt;HTMLAnchorElement&gt;(null)
-  const [generatedYaml, setGeneratedYaml] = React.useState({})
+  const [generatedYaml, setGeneratedYaml] = React.useState&lt;Record&lt;string, any&gt;&gt;()
 &nbsp;
   const onGenYaml = async (): Promise&lt;void&gt; =&gt; {
     const data = props<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>revStepData<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateYaml</span>
@@ -381,22 +365,14 @@ const Stepk8ReviewScript: React.FC&lt;StepProps&lt;StepK8Data&gt;&gt; = props =&
     onGenYaml()
   }, [])
 &nbsp;
-  const onDownload = (data: DelegateSetupDetails | undefined): void =&gt; {
-    downloadYaml(data as DelegateSetupDetails)
-      .then(async (response: any) =&gt; {
-        setIsYAMLDownloaded(true)
-        const blobResponse = await new Response(response)
-        const blob = <span class="cstat-no" title="statement not covered" >await blobResponse.blob()</span>
-<span class="cstat-no" title="statement not covered" >        if (linkRef?.current) {</span>
-          const content = <span class="cstat-no" title="statement not covered" >new Blob([blob], { type: 'data:text/plain;charset=utf-8' })</span>
-<span class="cstat-no" title="statement not covered" >          linkRef.current.href = window.URL.createObjectURL(content)</span>
-<span class="cstat-no" title="statement not covered" >          linkRef.current.download = `harness-delegate.yaml`</span>
-<span class="cstat-no" title="statement not covered" >          linkRef.current.click()</span>
-        }
-      })
-      .catch(err =&gt; {
-        showError(err.message)
-      })
+  const onDownload = (): void =&gt; {
+    setIsYAMLDownloaded(true)
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (linkRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>urrent) {
+      const content = new Blob([generatedYaml as BlobPart], { type: 'data:text/plain;charset=utf-8' })
+      linkRef.current.href = window.URL.createObjectURL(content)
+      linkRef.current.download = `harness-delegate.yaml`
+      linkRef.current.click()
+    }
   }
   return (
     &lt;&gt;
@@ -422,7 +398,7 @@ const Stepk8ReviewScript: React.FC&lt;StepProps&lt;StepK8Data&gt;&gt; = props =&
               text={getString('delegates.downloadYAMLFile')}
               className={css.downloadButton}
               onClick={() =&gt; {
-                onDownload(props<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>revStepData<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateYaml)</span>
+                onDownload()
               }}
               outlined
             /&gt;
@@ -493,7 +469,7 @@ export default Stepk8ReviewScript
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 20 2021 09:10:18 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 20 2021 11:07:31 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

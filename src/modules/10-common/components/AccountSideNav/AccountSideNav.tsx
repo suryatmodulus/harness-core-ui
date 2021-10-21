@@ -18,7 +18,7 @@ export default function AccountSideNav(): React.ReactElement {
   const { NG_LICENSES_ENABLED, OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
-
+  console.log(OPA_PIPELINE_GOVERNANCE)
   return (
     <Layout.Vertical spacing="small" margin={{ top: 'xxxlarge' }}>
       <SidebarLink exact label={getString('overview')} to={routes.toAccountSettingsOverview({ accountId })} />

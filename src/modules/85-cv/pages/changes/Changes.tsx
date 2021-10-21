@@ -175,7 +175,6 @@ export const Changes: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTimePeriod?.value])
-
   // calculating the min and max width for the the timeline slider
   const sliderDimensions = useMemo(() => {
     // This is temporary change , will be removed once BE fix is done.

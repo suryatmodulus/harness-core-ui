@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
+import React, { useEffect, useState, useCallback, useMemo, useRef, SetStateAction, Dispatch } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { get, omit } from 'lodash-es'
@@ -19,7 +19,10 @@ const NOW = Date.now()
 const PAGE_SIZE = 10
 const COPY_CLIPBOARD_ICON_WIDTH = 16
 const SAFETY_TABLE_WIDTH = 216
-
+interface SortByObjInterface {
+  sort?: 'name' | 'status' | 'class_name' | 'duration_ms'
+  order?: 'ASC' | 'DESC'
+}
 export interface TestExecutionEntryProps {
   buildIdentifier: string
   serviceToken: string
@@ -31,6 +34,41 @@ export interface TestExecutionEntryProps {
   stepId: string
   onShowCallGraphForClass?: (classname: string) => void
   isCompleteList?: boolean // true for ungrouped list of data
+}
+
+const getServerSort = ({
+  queryParams,
+  sort,
+  sortByObj,
+  order,
+  setSortByObj,
+  refetchData
+}: {
+  queryParams: TestCaseSummaryQueryParams
+  sort?: 'name' | 'class_name' | 'status' | 'duration_ms'
+  sortByObj: SortByObjInterface
+  order?: 'ASC' | 'DESC'
+  setSortByObj: Dispatch<SetStateAction<SortByObjInterface>>
+  refetchData: (queryParams: TestCaseSummaryQueryParams) => void
+}): void => {
+  const newQueryParams = { ...queryParams }
+  let newOrder: 'ASC' | 'DESC' | undefined
+  if (sort === sortByObj.sort && sortByObj.order) {
+    newOrder = sortByObj.order === 'DESC' ? 'ASC' : 'DESC'
+  } else {
+    // no saved state for sortBy of the same sort type
+    newOrder = order ? 'ASC' : 'DESC'
+  }
+  setSortByObj({ sort, order: newOrder })
+  newQueryParams.sort = sort
+  newQueryParams.order = newOrder
+  // newQueryParams.order = order ? 'DESC' : 'ASC'
+  // hardcoded
+  // newQueryParams.sort = 'name'
+  // newQueryParams.order = isSortDesc ? 'DESC' : 'ASC'
+  // sort: 'status',
+  // order: 'ASC',
+  refetchData(newQueryParams)
 }
 
 const getColumnText = ({
@@ -112,6 +150,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   const tableRef = useRef<HTMLDivElement>(null)
   const [titleWidth, setTitleWidth] = useState<number>()
   const [tableWidth, setTableWidth] = useState<number>()
+  const [sortByObj, setSortByObj] = useState<SortByObjInterface>({})
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams<{
     projectIdentifier: string
@@ -239,14 +278,57 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           openTestsFailedModal: openErrorModal
         }),
         disableSortBy: data?.content?.length === 1,
-        openErrorModal
+        openErrorModal,
+        isServerSorted: sortByObj.sort === 'name',
+        isServerSortedDesc: sortByObj.order === 'DESC',
+        getSortedColumn: ({
+          sort,
+          order
+        }: {
+          sort: 'name' | 'status' | 'class_name' | 'duration_ms' | undefined
+          order?: 'ASC' | 'DESC'
+        }) => {
+          // only applicable for ungrouped list
+
+          getServerSort({ queryParams, sort, sortByObj, order, setSortByObj, refetchData })
+          // const newQueryParams = { ...queryParams }
+          // let newOrder: 'ASC' | 'DESC' | undefined
+          // if (sort === sortByObj.sort && sortByObj.order) {
+          //   newOrder = sortByObj.order === 'DESC' ? 'ASC' : 'DESC'
+          // } else {
+          //   // no saved state for sortBy of the same sort type
+          //   newOrder = order ? 'ASC' : 'DESC'
+          // }
+          // setSortByObj({ sort, order: newOrder })
+          // newQueryParams.sort = sort
+          // newQueryParams.order = newOrder
+          // // newQueryParams.order = order ? 'DESC' : 'ASC'
+          // // hardcoded
+          // // newQueryParams.sort = 'name'
+          // // newQueryParams.order = isSortDesc ? 'DESC' : 'ASC'
+          // // sort: 'status',
+          // // order: 'ASC',
+          // refetchData(newQueryParams)
+        }
       },
       {
         Header: getString('pipeline.testsReports.className').toUpperCase(),
         accessor: 'class_name',
         width: nameClassNameWidth,
         Cell: renderColumn({ col: 'class_name' }),
-        disableSortBy: data?.content?.length === 1
+        disableSortBy: data?.content?.length === 1,
+        isServerSorted: sortByObj.sort === 'class_name',
+        isServerSortedDesc: sortByObj.order === 'DESC',
+        getSortedColumn: ({
+          sort,
+          order
+        }: {
+          sort: 'name' | 'status' | 'class_name' | 'duration_ms' | undefined
+          order?: 'ASC' | 'DESC'
+        }) => {
+          // only applicable for ungrouped list
+          getServerSort({ queryParams, sort, sortByObj, order, setSortByObj, refetchData })
+        }
       },
       {
         Header: getString('pipeline.testsReports.result'),
@@ -260,7 +342,19 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         accessor: 'duration_ms',
         width: 100,
         Cell: renderColumn({ col: 'duration_ms' }),
-        disableSortBy: data?.content?.length === 1
+        disableSortBy: data?.content?.length === 1,
+        isServerSorted: sortByObj.sort === 'duration_ms',
+        isServerSortedDesc: sortByObj.order === 'DESC',
+        getSortedColumn: ({
+          sort,
+          order
+        }: {
+          sort: 'name' | 'status' | 'class_name' | 'duration_ms' | undefined
+          order?: 'ASC' | 'DESC'
+        }) => {
+          // only applicable for ungrouped list
+          getServerSort({ queryParams, sort, sortByObj, order, setSortByObj, refetchData })
+        }
       }
     ]
   }, [getString, renderColumn, data?.content?.length])

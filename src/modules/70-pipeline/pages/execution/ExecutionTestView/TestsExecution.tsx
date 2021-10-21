@@ -58,7 +58,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
-  const [showGroupedView, setShowGroupedView] = useState(true)
+  const [showGroupedView, setShowGroupedView] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState<number | undefined>(0)
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     projectIdentifier: string

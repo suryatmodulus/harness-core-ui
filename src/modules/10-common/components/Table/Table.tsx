@@ -6,6 +6,9 @@ import { defaultTo } from 'lodash-es'
 import type { IconName } from '@blueprintjs/icons'
 import css from './Table.module.scss'
 
+// interface SortColumnInstance extends ColumnInstance {
+//   getSortedColumn?: ({ sort, order }: { sort: string; order: string }) => void
+// }
 export interface TableProps<Data extends Record<string, any>> {
   /**
    * Column Configuration
@@ -24,7 +27,7 @@ export interface TableProps<Data extends Record<string, any>> {
   onRowClick?: (data: Data, index: number) => void
   rowDataTestID?: (data: Data, index: number) => string
   getRowClassName?: (row: Row<Data>) => string
-  getSortedColumn?: ({ sort, order }: { sort: string; order: string }) => void
+  // getSortedColumn?: ({ sort, order }: { sort: string; order: string }) => void
   allowSortedColumns?: string[]
   /**
    * Removes the "card" UI from rows
@@ -48,9 +51,9 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
     pagination,
     rowDataTestID,
     getRowClassName,
-    name,
-    getSortedColumn,
-    allowSortedColumns
+    name
+    // getSortedColumn,
+    // allowSortedColumns
   } = props
 
   const { headerGroups, page, prepareRow } = useTable(
@@ -59,6 +62,7 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
       data,
       initialState: { pageIndex: defaultTo(pagination?.pageIndex, 0) },
       manualPagination: true,
+      manualSortBy: true,
       pageCount: defaultTo(pagination?.pageCount, -1)
     },
     useSortBy,
@@ -66,12 +70,24 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
     useResizeColumns
   )
 
-  const getIconName = (isSorted: boolean, isSortedDesc = false): IconName => {
-    if (isSorted && isSortedDesc) {
+  const getIconName = ({
+    isSorted,
+    isSortedDesc = false,
+    isServerSorted,
+    isServerSortedDesc
+  }: {
+    isSorted: boolean
+    isSortedDesc?: boolean
+    isServerSorted?: boolean
+    isServerSortedDesc?: boolean
+  }): IconName => {
+    // const getIconName = (isSorted: boolean, isSortedDesc = false): IconName => {
+
+    if ((isSorted && isSortedDesc) || (isServerSorted && isServerSortedDesc)) {
       return 'caret-up'
     }
 
-    if (isSorted) {
+    if (isSorted || isServerSorted) {
       return 'caret-down'
     }
 
@@ -94,16 +110,22 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                 {headerGroup.headers.map(header => {
                   const label = header.render('Header')
                   const tooltipId = name ? name + header.id : undefined
-                  const serverSideSort =
-                    getSortedColumn && allowSortedColumns?.includes(header.id)
-                      ? {
-                          onClick: () => {
-                            header.toggleSortBy(!header.isSortedDesc, false)
-                            const isSortedDesc = header.isSortedDesc ? 'DESC' : 'ASC'
-                            getSortedColumn({ sort: header.id, order: isSortedDesc })
-                          }
+                  const serverSideSort = header?.getSortedColumn
+                    ? // header?.getSortedColumn && allowSortedColumns?.includes(header.id)
+                      {
+                        onClick: () => {
+                          // if(header.sortByObj){
+                          //  const newOrder = sortByObj.order === 'DESC' ? 'ASC' : 'DESC'
+
+                          // }else {
+
+                          // header.toggleSortBy(!header.isSortedDesc, false)
+                          const isSortedDesc = header.isSortedDesc ? 'DESC' : 'ASC'
+                          header.getSortedColumn({ sort: header.id, order: isSortedDesc })
+                          // }
                         }
-                      : {}
+                      }
+                    : {}
                   return (
                     // eslint-disable-next-line react/jsx-key
                     <div
@@ -121,7 +143,12 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                       </Text>
                       {sortable && header.canSort ? (
                         <Icon
-                          name={getIconName(header.isSorted, header.isSortedDesc)}
+                          name={getIconName({
+                            isSorted: header.isSorted,
+                            isSortedDesc: header.isSortedDesc,
+                            isServerSorted: header.isServerSorted,
+                            isServerSortedDesc: header.isServerSortedDesc
+                          })}
                           size={15}
                           padding={{ left: 'small' }}
                         />

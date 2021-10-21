@@ -11,6 +11,7 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
 import { PageSpinner } from '@common/components'
 import { useGitSync } from '@cf/hooks/useGitSync'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
@@ -44,7 +45,8 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   const history = useHistory()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
 
-  const { isAutoCommitEnabled, isGitSyncEnabled, gitSyncLoading, handleAutoCommit } = useGitSync()
+  const { isAutoCommitEnabled, isGitSyncEnabled, gitSyncLoading, handleAutoCommit, getGitSyncFormMeta } = useGitSync()
+  const { gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.CREATED_FLAG)
 
   const { mutate: createFeatureFlag, loading: isLoadingCreateFeatureFlag } = useCreateFeatureFlag({
     queryParams: {
@@ -69,6 +71,10 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
       // current gen login
       formData.owner = currentUserInfo.email || 'unknown'
       formData.project = projectIdentifier
+
+      if (isAutoCommitEnabled) {
+        formData.gitDetails = gitSyncInitialValues.gitDetails
+      }
     }
 
     if (formData) {
@@ -126,7 +132,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
         />
       )}
 
-      {isGitSyncEnabled ? (
+      {isGitSyncEnabled && !isAutoCommitEnabled ? (
         <SaveFlagRepoStep
           name={getString('common.gitSync.gitRepositoryDetails')}
           isLoadingCreateFeatureFlag={isLoadingCreateFeatureFlag}

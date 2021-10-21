@@ -22,7 +22,7 @@ interface GitSyncFormMeta {
   gitSyncValidationSchema: ObjectSchema<Record<string, unknown> | undefined>
 }
 
-interface UseGitSync {
+export interface UseGitSync {
   gitRepoDetails: GitRepo | undefined
   isAutoCommitEnabled: boolean
   isGitSyncEnabled: boolean | undefined
@@ -55,7 +55,7 @@ export const useGitSync = (): UseGitSync => {
 
   const isGitSyncEnabled = FF_GITSYNC && getGitRepo?.data?.repoSet
 
-  const isAutoCommitEnabled = (isGitSyncEnabled && getGitRepo.data?.repoDetails?.autoCommit) || false
+  const isAutoCommitEnabled = (isGitSyncEnabled && getGitRepo?.data?.repoDetails?.autoCommit) || false
 
   const getGitSyncFormMeta = (autoCommitMessage?: string): GitSyncFormMeta => ({
     gitSyncInitialValues: {
@@ -64,7 +64,7 @@ export const useGitSync = (): UseGitSync => {
         filePath: getGitRepo?.data?.repoDetails?.filePath || '',
         repoIdentifier: getGitRepo?.data?.repoDetails?.repoIdentifier || '',
         rootFolder: getGitRepo?.data?.repoDetails?.rootFolder || '',
-        commitMsg: isAutoCommitEnabled ? `[AUTO-COMMIT] : ${autoCommitMessage}` : ''
+        commitMsg: isAutoCommitEnabled && autoCommitMessage ? `[AUTO-COMMIT] : ${autoCommitMessage}` : ''
       },
       autoCommit: isAutoCommitEnabled
     },
@@ -94,7 +94,7 @@ export const useGitSync = (): UseGitSync => {
     gitRepoDetails: getGitRepo?.data?.repoDetails,
     isAutoCommitEnabled,
     isGitSyncEnabled,
-    gitSyncLoading: getGitRepo.loading || patchGitRepo.loading,
+    gitSyncLoading: getGitRepo?.loading || patchGitRepo.loading,
     handleAutoCommit,
     getGitSyncFormMeta
   }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory, useParams, Link } from 'react-router-dom'
 import { isEqual } from 'lodash-es'
 import moment from 'moment'
@@ -37,7 +37,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
-import { useGitSync } from '@cf/hooks/useGitSync'
+import { GitSyncFormValues, useGitSync } from '@cf/hooks/useGitSync'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
@@ -46,6 +46,7 @@ import { IdentifierText } from '../IdentifierText/IdentifierText'
 import { EditVariationsModal } from '../EditVariationsModal/EditVariationsModal'
 import { FlagPrerequisites } from './FlagPrerequisites'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
+import SaveFlagToGitModal from '../SaveFlagToGitModal/SaveFlagToGitModal'
 import css from './FlagActivationDetails.module.scss'
 
 interface FlagActivationDetailsProps {
@@ -147,6 +148,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   })
   const history = useHistory()
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
   const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(
     AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS
@@ -281,15 +283,17 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       org: orgIdentifier
     } as DeleteFeatureFlagQueryParams
   })
+  const queryParams = {
+    account: accountId,
+    accountIdentifier: accountId,
+    org: orgIdentifier,
+    project: projectIdentifier,
+    environment: featureFlag.envProperties?.environment as string
+  } as PatchFeatureQueryParams
+
   const { mutate: archiveFeatureFlag } = usePatchFeature({
     identifier: featureFlag.identifier,
-    queryParams: {
-      account: accountId,
-      accountIdentifier: accountId,
-      org: orgIdentifier,
-      project: projectIdentifier,
-      environment: featureFlag.envProperties?.environment as string
-    } as PatchFeatureQueryParams
+    queryParams
   })
   const archiveFlag = useConfirmAction({
     title: getString('cf.featureFlags.archiveFlag'),
@@ -321,6 +325,31 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         .catch(error => showError(getErrorMessage(error), undefined, 'cf.archive.ff.error'))
     }
   })
+
+  const handleDeleteFlag = async (gitSyncFormValues?: GitSyncFormValues): Promise<void> => {
+    let commitMsg = ''
+    if (isGitSyncEnabled) {
+      if (isAutoCommitEnabled) {
+        commitMsg = gitSyncInitialValues.gitDetails.commitMsg
+      } else {
+        commitMsg = gitSyncFormValues?.gitDetails.commitMsg || ''
+      }
+    }
+
+    try {
+      deleteFeatureFlag(featureFlag.identifier, { queryParams: { ...queryParams, commitMsg } })
+        .then(() => {
+          history.replace(featureFlagListURL)
+          showToaster(getString('cf.messages.flagDeleted'))
+        })
+        .catch(error => {
+          showError(getErrorMessage(error), 0, 'cf.delete.ff.error')
+        })
+    } catch (error) {
+      showError(getErrorMessage(error), 0, 'cf.delete.ff.error')
+    }
+  }
+
   const deleteFlag = useConfirmAction({
     title: getString('cf.featureFlags.deleteFlag'),
     message: (
@@ -334,17 +363,10 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     ),
     intent: Intent.DANGER,
     action: async () => {
-      try {
-        deleteFeatureFlag(featureFlag.identifier)
-          .then(() => {
-            history.replace(featureFlagListURL)
-            showToaster(getString('cf.messages.flagDeleted'))
-          })
-          .catch(error => {
-            showError(getErrorMessage(error), 0, 'cf.delete.ff.error')
-          })
-      } catch (error) {
-        showError(getErrorMessage(error), 0, 'cf.delete.ff.error')
+      if (isGitSyncEnabled && !isAutoCommitEnabled) {
+        setIsDeleteModalOpen(true)
+      } else {
+        handleDeleteFlag()
       }
     }
   })
@@ -456,6 +478,16 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         />
 
         <FlagPrerequisites featureFlag={featureFlag} refetchFlag={refetchFlag} />
+        {isDeleteModalOpen && (
+          <SaveFlagToGitModal
+            flagName={featureFlag.name}
+            flagIdentifier={featureFlag.identifier}
+            onSubmit={handleDeleteFlag}
+            onClose={() => {
+              setIsDeleteModalOpen(false)
+            }}
+          />
+        )}
       </Container>
     </>
   )

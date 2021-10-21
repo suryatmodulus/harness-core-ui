@@ -58,7 +58,7 @@ import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUt
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '@cf/components/CreateFlagDialog/FlagDialog'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
-import { useGitSync } from '@cf/hooks/useGitSync'
+import { GitSyncFormValues, UseGitSync, useGitSync } from '@cf/hooks/useGitSync'
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import imageURL from './Feature_Flags_LP.svg'
@@ -91,7 +91,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { ro
   const ref = useRef<HTMLDivElement>(null)
   const { activeEnvironment } = useActiveEnvironment()
 
-  const [isGitSyncModalOpen, setIsGitSyncModalOpen] = useState(false)
+  const [isSaveToggleModalOpen, setIsSaveToggleModalOpen] = useState(false)
 
   const { gitSyncInitialValues } = gitSync.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.TOGGLED_FLAG)
 
@@ -170,7 +170,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { ro
             onClick={event => {
               event.preventDefault()
               if (gitSync.isGitSyncEnabled && !gitSync.isAutoCommitEnabled) {
-                setIsGitSyncModalOpen(true)
+                setIsSaveToggleModalOpen(true)
               } else {
                 handleFlagToggle()
               }
@@ -285,13 +285,13 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { ro
         </Text> */}
       </Layout.Horizontal>
       <Container onClick={Utils.stopEvent}>
-        {isGitSyncModalOpen && (
+        {isSaveToggleModalOpen && (
           <SaveFlagToGitModal
             flagName={data.name}
             flagIdentifier={data.identifier}
             onSubmit={handleFlagToggle}
             onClose={() => {
-              setIsGitSyncModalOpen(false)
+              setIsSaveToggleModalOpen(false)
             }}
           />
         )}
@@ -357,24 +357,55 @@ const RenderColumnDetails: Renderer<CellProps<Feature>> = ({ row }) => {
 interface ColumnMenuProps {
   cell: Cell<Feature>
   environment?: string
+  gitSync: UseGitSync
 }
 
-const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, environment }) => {
+const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, cell: { row, column }, environment }) => {
   const data = row.original
   const { showError, clear } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
   const { withActiveEnvironment } = useActiveEnvironment()
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
   const { getString } = useStrings()
-  const { mutate } = useDeleteFeatureFlag({
-    queryParams: {
-      project: projectIdentifier as string,
-      account: accountId,
-      accountIdentifier: accountId,
-      org: orgIdentifier
-    } as DeleteFeatureFlagQueryParams
-  })
+  const queryParams = {
+    project: projectIdentifier as string,
+    account: accountId,
+    accountIdentifier: accountId,
+    org: orgIdentifier
+  } as DeleteFeatureFlagQueryParams
+
+  const { mutate } = useDeleteFeatureFlag({ queryParams })
   const refetch = (column as unknown as { refetch: () => void }).refetch
+
+  const handleDeleteFlag = async (gitSyncFormValues?: GitSyncFormValues): Promise<void> => {
+    let commitMsg = ''
+    if (gitSync.isGitSyncEnabled) {
+      const { gitSyncInitialValues } = gitSync.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.DELETED_FLAG)
+
+      if (gitSync.isAutoCommitEnabled) {
+        commitMsg = gitSyncInitialValues.gitDetails.commitMsg
+      } else {
+        commitMsg = gitSyncFormValues?.gitDetails.commitMsg || ''
+      }
+    }
+
+    try {
+      clear()
+      await mutate(data.identifier, { queryParams: { ...queryParams, commitMsg } })
+        .then(() => {
+          showToaster(getString('cf.messages.flagDeleted'))
+          refetch?.()
+        })
+        .catch(error => {
+          showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
+        })
+    } catch (error) {
+      showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
+    }
+  }
+
   const deleteFlag = useConfirmAction({
     title: getString('cf.featureFlags.deleteFlag'),
     confirmText: getString('delete'),
@@ -386,18 +417,10 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
       </Text>
     ),
     action: async () => {
-      try {
-        clear()
-        await mutate(data.identifier)
-          .then(() => {
-            showToaster(getString('cf.messages.flagDeleted'))
-            refetch?.()
-          })
-          .catch(error => {
-            showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
-          })
-      } catch (error) {
-        showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
+      if (gitSync && gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
+        setIsDeleteModalOpen(true)
+      } else {
+        handleDeleteFlag()
       }
     }
   })
@@ -418,6 +441,18 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 
   return (
     <Container style={{ textAlign: 'right' }} onClick={Utils.stopEvent}>
+      <Container onClick={Utils.stopEvent}>
+        {isDeleteModalOpen && (
+          <SaveFlagToGitModal
+            flagName={data.name}
+            flagIdentifier={data.identifier}
+            onSubmit={handleDeleteFlag}
+            onClose={() => {
+              setIsDeleteModalOpen(false)
+            }}
+          />
+        )}
+      </Container>
       <RbacOptionsMenuButton
         items={[
           {
@@ -578,7 +613,13 @@ const FeatureFlagsPage: React.FC = () => {
         id: 'version',
         width: '5%',
         Cell: function WrapperRenderColumnEdit(cell: Cell<Feature>) {
-          return <RenderColumnEdit cell={cell} environment={cell.row.original.envProperties?.environment as string} />
+          return (
+            <RenderColumnEdit
+              gitSync={gitSync}
+              cell={cell}
+              environment={cell.row.original.envProperties?.environment as string}
+            />
+          )
         },
         disableSortBy: true,
         refetch

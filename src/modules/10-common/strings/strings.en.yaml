@@ -515,6 +515,7 @@ policy:
   policySearch: Search Policy by name
   noPolicy: You have no Policy. Click on the button below to create a new one.
   noPolicyResult: No policy found
+  noPolicyEvalResult: No policy Evaluations found
   table:
     name: Policy
     lastModified: Last Modified

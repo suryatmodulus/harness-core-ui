@@ -346,6 +346,7 @@ export interface StringsMap {
   'common.policy.evaluations': string
   'common.policy.newPolicy': string
   'common.policy.noPolicy': string
+  'common.policy.noPolicyEvalResult': string
   'common.policy.noPolicyResult': string
   'common.policy.policySearch': string
   'common.policy.policysets': string

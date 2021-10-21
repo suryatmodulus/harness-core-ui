@@ -162,7 +162,7 @@ const PolicyEvaluations: React.FC = () => {
         noData={{
           when: () => !evaluationsList?.length,
           icon: 'nav-project',
-          message: getString('common.policy.noPolicyResult')
+          message: getString('common.policy.noPolicyEvalResult')
         }}
       >
         <Table<Evaluation>

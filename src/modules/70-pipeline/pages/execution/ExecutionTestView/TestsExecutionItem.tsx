@@ -123,22 +123,26 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   const { openErrorModal } = useExpandErrorModal({})
 
   const queryParams = useMemo(
-    () => ({
-      accountId,
-      orgId: orgIdentifier,
-      projectId: projectIdentifier,
-      buildId: buildIdentifier,
-      pipelineId: pipelineIdentifier,
-      report: 'junit' as const,
-      suite_name: executionSummary.name,
-      status,
-      sort: 'status',
-      order: 'ASC',
-      pageIndex,
-      pageSize: PAGE_SIZE,
-      stageId,
-      stepId
-    }),
+    () =>
+      Object.assign(
+        {
+          accountId,
+          orgId: orgIdentifier,
+          projectId: projectIdentifier,
+          buildId: buildIdentifier,
+          pipelineId: pipelineIdentifier,
+          report: 'junit' as const,
+          suite_name: executionSummary.name,
+          status,
+          sort: 'status',
+          order: 'ASC',
+          pageIndex,
+          pageSize: PAGE_SIZE,
+          stageId,
+          stepId
+        },
+        isCompleteList ? { suite_name: executionSummary.name } : {}
+      ),
     [
       accountId,
       orgIdentifier,
@@ -149,7 +153,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
       status,
       pageIndex,
       stageId,
-      stepId
+      stepId,
+      isCompleteList
     ]
   ) as TestCaseSummaryQueryParams
 
@@ -229,7 +234,10 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         Header: getString('pipeline.testsReports.testCaseName').toUpperCase(),
         accessor: 'name',
         width: nameClassNameWidth,
-        Cell: renderColumn({ col: 'name', openTestsFailedModal: openErrorModal }),
+        Cell: renderColumn({
+          col: 'name',
+          openTestsFailedModal: openErrorModal
+        }),
         disableSortBy: data?.content?.length === 1,
         openErrorModal
       },
@@ -261,7 +269,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   useEffect(() => {
     if (expanded && !data) {
       refetchData(queryParams)
-    } else if (isCompleteList) {
+    } else if (isCompleteList && !data) {
       const newQueryParams = { ...omit(queryParams, ['suite_name']) }
       refetchData(newQueryParams)
     }
@@ -271,6 +279,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     if (!loading && expanded && data?.content?.length && onShowCallGraphForClass) {
       setSelectedRow(data.content[0])
       onShowCallGraphForClass(data.content[0].class_name as string)
+    } else if (!loading && expanded && data?.content?.length) {
+      setSelectedRow(data.content[0])
     }
   }, [loading, expanded, data, onShowCallGraphForClass])
 

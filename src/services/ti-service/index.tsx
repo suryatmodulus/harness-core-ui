@@ -284,7 +284,7 @@ export interface TestCaseSummaryQueryParams {
   /**
    * Get test cases corresponding to the suite name
    */
-  suite_name: string
+  suite_name?: string
   /**
    * Max number of elements in response
    */

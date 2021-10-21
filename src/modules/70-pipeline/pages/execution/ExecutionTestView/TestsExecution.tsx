@@ -58,7 +58,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
-  const [showGroupedView, setShowGroupedView] = useState(false)
+  const [showGroupedView, setShowGroupedView] = useState(true)
   const [expandedIndex, setExpandedIndex] = useState<number | undefined>(0)
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     projectIdentifier: string
@@ -358,17 +358,6 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
                 <Container height={32} />
               )}
               <Icon
-                color={!showGroupedView ? Color.PRIMARY_7 : Color.GREY_500}
-                className={css.listIcons}
-                name="list-view"
-                size={20}
-                onClick={() => {
-                  if (showGroupedView) {
-                    setShowGroupedView(false)
-                  }
-                }}
-              />
-              <Icon
                 color={showGroupedView ? Color.PRIMARY_7 : Color.GREY_500}
                 className={css.listIcons}
                 name="th-list"
@@ -376,6 +365,17 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
                 onClick={() => {
                   if (!showGroupedView) {
                     setShowGroupedView(true)
+                  }
+                }}
+              />
+              <Icon
+                color={!showGroupedView ? Color.PRIMARY_7 : Color.GREY_500}
+                className={css.listIcons}
+                name="list-view"
+                size={20}
+                onClick={() => {
+                  if (showGroupedView) {
+                    setShowGroupedView(false)
                   }
                 }}
               />
@@ -427,6 +427,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
                       status={showFailedTestsOnly ? 'failed' : undefined}
                       stageId={stageId}
                       stepId={stepId}
+                      expanded={true}
                       // onExpand={() => {
                       //   setExpandedIndex(expandedIndex !== index ? index : undefined)
                       // }}
@@ -444,7 +445,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
             </>
           )}
 
-          {(executionSummary?.data?.totalItems || 0) > 20 && (
+          {showGroupedView && (executionSummary?.data?.totalItems || 0) > 20 && (
             <Pagination
               pageSize={executionSummary?.data?.pageSize || 0}
               pageIndex={pageIndex}

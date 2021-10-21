@@ -24,6 +24,8 @@ export interface TableProps<Data extends Record<string, any>> {
   onRowClick?: (data: Data, index: number) => void
   rowDataTestID?: (data: Data, index: number) => string
   getRowClassName?: (row: Row<Data>) => string
+  getSortedColumn?: ({ sort, order }: { sort: string; order: string }) => void
+  allowSortedColumns?: string[]
   /**
    * Removes the "card" UI from rows
    * @default false
@@ -46,7 +48,9 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
     pagination,
     rowDataTestID,
     getRowClassName,
-    name
+    name,
+    getSortedColumn,
+    allowSortedColumns
   } = props
 
   const { headerGroups, page, prepareRow } = useTable(
@@ -90,7 +94,16 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                 {headerGroup.headers.map(header => {
                   const label = header.render('Header')
                   const tooltipId = name ? name + header.id : undefined
-
+                  const serverSideSort =
+                    getSortedColumn && allowSortedColumns?.includes(header.id)
+                      ? {
+                          onClick: () => {
+                            header.toggleSortBy(!header.isSortedDesc, false)
+                            const isSortedDesc = header.isSortedDesc ? 'DESC' : 'ASC'
+                            getSortedColumn({ sort: header.id, order: isSortedDesc })
+                          }
+                        }
+                      : {}
                   return (
                     // eslint-disable-next-line react/jsx-key
                     <div
@@ -98,6 +111,7 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                       {...header.getHeaderProps(resizable ? header.getHeaderProps() : void 0)}
                       className={cx(css.cell, { [css.sortable]: sortable }, { [css.resizable]: resizable })}
                       style={{ width: header.width }}
+                      {...serverSideSort}
                     >
                       <Text
                         font={{ variation: FontVariation.TABLE_HEADERS }}

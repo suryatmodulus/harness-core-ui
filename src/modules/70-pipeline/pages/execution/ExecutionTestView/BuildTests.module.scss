@@ -3,6 +3,7 @@
   // height: calc(100vh - 150px);
   overflow: auto;
   padding: var(--spacing-medium);
+  height: auto;
 
   .graph {
     --cell-size: 14px;
@@ -314,7 +315,7 @@
 }
 
 .rightContainer {
-  width: 955px;
+  width: 945px;
   flex-shrink: 0;
 }
 

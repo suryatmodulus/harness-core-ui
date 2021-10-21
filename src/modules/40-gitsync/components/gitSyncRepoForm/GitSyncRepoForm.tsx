@@ -13,7 +13,8 @@ import {
   FormInput,
   IconName,
   Card,
-  SelectOption
+  SelectOption,
+  shouldShowError
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -35,7 +36,6 @@ import {
   ConnectorSelectedValue
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { shouldShowError } from '@common/utils/errorUtils'
 import {
   ConnectorCardInterface,
   getCompleteGitPath,

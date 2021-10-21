@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
-import { Layout, Text, useModalHook, ExpandingSearchInput, ButtonVariation, Button } from '@wings-software/uicore'
+import {
+  Layout,
+  Text,
+  useModalHook,
+  ExpandingSearchInput,
+  ButtonVariation,
+  Button,
+  shouldShowError
+} from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-
-import { shouldShowError } from '@common/utils/errorUtils'
 
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'

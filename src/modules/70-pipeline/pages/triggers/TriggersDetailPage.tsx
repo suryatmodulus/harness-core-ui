@@ -1,4 +1,4 @@
-import { Button, ButtonVariation, Color, Container, Icon, Layout, Switch, Text } from '@wings-software/uicore'
+import { Button, ButtonVariation, Color, Container, Icon, Layout, Switch, Text, tagsType } from '@wings-software/uicore'
 import React, { ReactNode } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
@@ -17,7 +17,6 @@ import {
   useGetPipelineSummary
 } from 'services/pipeline-ng'
 import { useStrings, UseStringsReturn } from 'framework/strings'
-import type { tagsType } from '@common/utils/types'
 import { TagsPopover, PageSpinner } from '@common/components'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'

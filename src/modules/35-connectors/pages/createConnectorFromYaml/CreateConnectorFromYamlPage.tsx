@@ -12,7 +12,8 @@ import {
   Color,
   Text,
   Icon,
-  ButtonVariation
+  ButtonVariation,
+  shouldShowError
 } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
@@ -34,7 +35,6 @@ import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveT
 import type { SaveToGitFormInterface, GitResourceInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { shouldShowError } from '@common/utils/errorUtils'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { isSMConnector } from '../connectors/utils/ConnectorUtils'
 import css from './CreateConnectorFromYamlPage.module.scss'

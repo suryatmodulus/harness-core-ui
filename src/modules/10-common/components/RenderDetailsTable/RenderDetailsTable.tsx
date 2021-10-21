@@ -1,8 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
-import { Container, Color, Layout, Text, IconName, Icon, Tag } from '@wings-software/uicore'
+import { Container, Color, Layout, Text, IconName, Icon, Tag, tagsType } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { tagsType } from '@common/utils/types'
 import css from './RenderDetailsTable.module.scss'
 
 export interface ActivityDetailsRowInterface {

@@ -7,7 +7,8 @@ import {
   MultiSelectOption,
   ExpandingSearchInput,
   Container,
-  ButtonVariation
+  ButtonVariation,
+  shouldShowError
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { GetDataError } from 'restful-react'
@@ -57,7 +58,6 @@ import type { FilterInterface, FilterDataInterface } from '@common/components/Fi
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
-import { shouldShowError } from '@common/utils/errorUtils'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'

@@ -18,10 +18,10 @@ import {
   FormInput,
   SelectOption,
   MultiSelectOption,
-  ExpandingSearchInput
+  ExpandingSearchInput,
+  shouldShowError
 } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
-import { shouldShowError } from '@common/utils/errorUtils'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useConfirmationDialog, Page, useToaster, StringUtils } from '@common/exports'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'

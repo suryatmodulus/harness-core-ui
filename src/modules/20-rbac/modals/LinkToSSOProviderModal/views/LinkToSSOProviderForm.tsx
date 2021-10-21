@@ -11,7 +11,8 @@ import {
   Text,
   SelectOption,
   ButtonVariation,
-  FormInput
+  FormInput,
+  shouldShowError
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -19,7 +20,6 @@ import type { StringsMap } from 'framework/strings/StringsContext'
 import { useToaster } from '@common/components'
 import { regexName } from '@common/utils/StringUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { shouldShowError } from '@common/utils/errorUtils'
 import { PageError } from '@common/components/Page/PageError'
 import { useStrings } from 'framework/strings'
 import { UserGroupDTO, SAMLSettings, useGetAuthenticationSettings, useLinkToSamlGroup } from 'services/cd-ng'

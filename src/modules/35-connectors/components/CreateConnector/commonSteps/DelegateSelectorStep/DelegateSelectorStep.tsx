@@ -11,7 +11,9 @@ import {
   StepProps,
   Color,
   FontVariation,
-  ButtonVariation
+  ButtonVariation,
+  getErrorInfoFromErrorObject,
+  shouldShowError
 } from '@wings-software/uicore'
 // import * as Yup from 'yup'
 import { noop, omit } from 'lodash-es'
@@ -33,7 +35,6 @@ import {
 import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import { PageSpinner, useToaster } from '@common/components'
-import { getErrorInfoFromErrorObject, shouldShowError } from '@common/utils/errorUtils'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import {
   DelegateOptions,

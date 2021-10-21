@@ -14,7 +14,9 @@ import {
   FormInput,
   CodeBlock,
   Container,
-  ButtonVariation
+  ButtonVariation,
+  getErrorInfoFromErrorObject,
+  shouldShowError
 } from '@wings-software/uicore'
 
 import {
@@ -23,7 +25,6 @@ import {
   useUpdateGitOpsProvider,
   CreateGitOpsProviderQueryParams
 } from 'services/cd-ng'
-import { getErrorInfoFromErrorObject, shouldShowError } from '@common/utils/errorUtils'
 import { saveCurrentStepData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { String, useStrings } from 'framework/strings'
 import { PageSpinner, useToaster } from '@common/components'

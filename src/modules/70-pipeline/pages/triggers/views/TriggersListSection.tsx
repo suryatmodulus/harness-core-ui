@@ -2,16 +2,26 @@ import React from 'react'
 import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { Button, Color, Layout, Popover, Text, Icon, Switch, Container, SparkChart } from '@wings-software/uicore'
+import {
+  Button,
+  Color,
+  Layout,
+  Popover,
+  Text,
+  Icon,
+  Switch,
+  Container,
+  SparkChart,
+  TagsPopover,
+  tagsType
+} from '@wings-software/uicore'
 import copy from 'clipboard-copy'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { isUndefined, isEmpty, sum } from 'lodash-es'
 import cx from 'classnames'
-import type { tagsType } from '@common/utils/types'
 import Table from '@common/components/Table/Table'
 import { NGTriggerDetailsResponse, useDeleteTrigger, useUpdateTrigger } from 'services/pipeline-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
-import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'

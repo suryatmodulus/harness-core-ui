@@ -14,7 +14,8 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   FontVariation,
-  ButtonVariation
+  ButtonVariation,
+  shouldShowError
 } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -38,7 +39,6 @@ import {
   ConnectorConfigDTO,
   VaultAgentCredentialDTO
 } from 'services/cd-ng'
-import { shouldShowError } from '@common/utils/errorUtils'
 import { useToaster } from '@common/exports'
 import { buildVaultPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 

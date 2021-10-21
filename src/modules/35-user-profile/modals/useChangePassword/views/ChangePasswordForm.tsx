@@ -11,7 +11,8 @@ import {
   Text,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  ButtonVariation
+  ButtonVariation,
+  shouldShowError
 } from '@wings-software/uicore'
 import { Divider } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -20,7 +21,7 @@ import { PASSWORD_CHECKS_RGX, MIN_NUMBER_OF_CHARACTERS, MAX_NUMBER_OF_CHARACTERS
 import { useChangeUserPassword } from 'services/cd-ng'
 import type { PasswordStrengthPolicy } from 'services/cd-ng'
 import { useToaster } from '@common/components'
-import { shouldShowError } from '@common/utils/errorUtils'
+
 import css from './ChangePasswordForm.module.scss'
 
 interface ChangePasswordFormProps {

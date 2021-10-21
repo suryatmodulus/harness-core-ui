@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { Color, Container, FormInput, Layout, TagInputProps, Text } from '@wings-software/uicore'
+import { Color, Container, FormInput, Layout, TagInputProps, Text, tagsType } from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
-import type { tagsType } from '@common/utils/types'
 import i18n from './AddDescriptionAndTags.i18n'
 import css from './AddDescriptionAndTags.module.scss'
 

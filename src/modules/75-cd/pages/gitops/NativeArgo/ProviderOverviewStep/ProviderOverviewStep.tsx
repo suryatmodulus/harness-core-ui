@@ -10,7 +10,9 @@ import {
   FormikForm,
   FormInput,
   Container,
-  ButtonVariation
+  ButtonVariation,
+  getErrorInfoFromErrorObject,
+  shouldShowError
 } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -24,7 +26,6 @@ import {
   useUpdateGitOpsProvider,
   CreateGitOpsProviderQueryParams
 } from 'services/cd-ng'
-import { getErrorInfoFromErrorObject, shouldShowError } from '@common/utils/errorUtils'
 import { String, useStrings } from 'framework/strings'
 import { NameIdDescriptionTags, PageSpinner, useToaster } from '@common/components'
 import { saveCurrentStepData } from '@connectors/pages/connectors/utils/ConnectorUtils'

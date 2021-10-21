@@ -11,7 +11,8 @@ import {
   Container,
   ButtonVariation,
   ButtonSize,
-  useToaster
+  useToaster,
+  TagsPopover
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind, TextArea } from '@blueprintjs/core'
@@ -33,7 +34,6 @@ import {
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useConfirmationDialog } from '@common/exports'
-import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { StepDetails, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import { ConnectorStatus, Connectors } from '@connectors/constants'

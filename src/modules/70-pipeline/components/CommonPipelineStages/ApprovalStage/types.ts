@@ -1,5 +1,5 @@
 import type React from 'react'
-import type { tagsType } from '@common/utils/types'
+import type { tagsType } from '@wings-software/uicore'
 import type { ApprovalStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 
 export interface ApprovalStageMinimalModeProps {

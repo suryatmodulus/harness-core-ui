@@ -8,7 +8,8 @@ import {
   Text,
   Avatar,
   Color,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  getErrorInfoFromErrorObject
 } from '@wings-software/uicore'
 import { defaultTo } from 'lodash-es'
 import type { StringsMap } from 'stringTypes'
@@ -21,7 +22,6 @@ import type {
 } from '@rbac/modals/RoleAssignmentModal/views/UserRoleAssigment'
 import { isEmail } from '@common/utils/Validation'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
-import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'

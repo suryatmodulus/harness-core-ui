@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Color, Layout, Text } from '@wings-software/uicore'
+import { Button, Color, Layout, Text, shouldShowError } from '@wings-software/uicore'
 import { Switch } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useDisableTwoFactorAuth } from 'services/cd-ng'
@@ -8,7 +8,6 @@ import { useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
 import { useEnableTwoFactorAuthModal } from '@user-profile/modals/EnableTwoFactorAuth/useEnableTwoFactorAuthModal'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { shouldShowError } from '@common/utils/errorUtils'
 import css from './TwoFactorAuthentication.module.scss'
 
 interface Props {

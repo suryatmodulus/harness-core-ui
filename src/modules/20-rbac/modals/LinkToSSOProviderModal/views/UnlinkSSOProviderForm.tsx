@@ -10,12 +10,12 @@ import {
   ModalErrorHandlerBinding,
   Text,
   FormInput,
-  ButtonVariation
+  ButtonVariation,
+  shouldShowError
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/components'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { shouldShowError } from '@common/utils/errorUtils'
 import { useStrings } from 'framework/strings'
 import { UserGroupDTO, useUnlinkSsoGroup } from 'services/cd-ng'
 import css from '../useLinkToSSOProviderModal.module.scss'

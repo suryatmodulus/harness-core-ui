@@ -13,7 +13,8 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler,
   FontVariation,
-  ButtonVariation
+  ButtonVariation,
+  shouldShowError
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
@@ -27,7 +28,6 @@ import {
   ConnectorRequestBody
 } from 'services/cd-ng'
 import type { StepDetailsProps, ConnectorDetailsProps } from '@connectors/interfaces/ConnectorInterface'
-import { shouldShowError } from '@common/utils/errorUtils'
 import { PageSpinner } from '@common/components'
 import {
   buildAzureKeyVaultPayload,

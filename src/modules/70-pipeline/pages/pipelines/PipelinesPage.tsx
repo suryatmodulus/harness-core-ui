@@ -12,7 +12,8 @@ import {
   GridListToggle,
   Views,
   ButtonVariation,
-  DropDown
+  DropDown,
+  shouldShowError
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -58,7 +59,6 @@ import {
 } from '@common/components/Filter/utils/FilterUtils'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
-import { shouldShowError } from '@common/utils/errorUtils'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { NavigatedToPage } from '@common/constants/TrackingConstants'

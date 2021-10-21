@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.28% </span>
+                <span class="strong">84.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>65/79</span>
+                <span class='fraction'>65/77</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.7% </span>
+                <span class="strong">60.56% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>80/134</span>
+                <span class='fraction'>86/142</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.42% </span>
+                <span class="strong">76.47% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/19</span>
+                <span class='fraction'>13/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>63/77</span>
+                <span class='fraction'>63/75</span>
             </div>
         
             
@@ -510,6 +510,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -737,6 +738,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -748,7 +750,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -815,8 +817,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -874,7 +874,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -946,7 +946,8 @@ import {
   Container,
   ButtonVariation,
   GridListToggle,
-  Views
+  Views,
+  FontVariation
 } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams, useHistory, Link } from 'react-router-dom'
@@ -1174,7 +1175,8 @@ function CVMonitoredServiceListingPage(): JSX.Element {
         count: dependencyData?.nodes?.length ?? totalItems
       }
     ]
-  }, [dependencyData, totalItems, getString])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dependencyData, totalItems])
 &nbsp;
   const renderDependencyData = useCallback(() =&gt; {
     return dependencyData ? (
@@ -1187,7 +1189,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
           data={getFilterOptions}
           cardClassName={css.filterCard}
           selected={<span class="branch-0 cbranch-no" title="branch not covered" >selectedFilter </span>?? getFilterOptions[0]}
-          onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >setSelectedFilter(item)}</span>
+          onChange={setSelectedFilter}
         /&gt;
         &lt;DependencyGraph dependencyData={dependencyData} options={{ chart: { height: 550 } }} /&gt;
         &lt;Container margin={{ top: 'xxxlarge' }}&gt;
@@ -1266,12 +1268,10 @@ function CVMonitoredServiceListingPage(): JSX.Element {
         toolbar={
           &lt;Layout.Horizontal&gt;
             &lt;Select
-              value={
-                {
-                  ...environment,
-                  label: `${getString('environment')}: ${<span class="branch-1 cbranch-no" title="branch not covered" >environment?.label<span class="branch-0 cbranch-no" title="branch not covered" > </span>?? g</span>etString('all')}`
-                } as SelectOption
-              }
+              value={{
+                label: `${getString('environment')}: ${<span class="branch-1 cbranch-no" title="branch not covered" >environment?.label<span class="branch-0 cbranch-no" title="branch not covered" > </span>?? g</span>etString('all')}`,
+                value: <span class="branch-1 cbranch-no" title="branch not covered" >environment?.value<span class="branch-0 cbranch-no" title="branch not covered" > </span>?? g</span>etString('all')
+              }}
               defaultSelectedItem={{ label: getString('all'), value: getString('all') }}
               items={getEnvironmentOptions(environmentDataList, loadingServices, getString)}
               onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >setEnvironment(item)}</span>
@@ -1313,10 +1313,10 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 data={getFilterOptions}
                 cardClassName={css.filterCard}
                 selected={<span class="branch-0 cbranch-no" title="branch not covered" >selectedFilter </span>?? getFilterOptions[0]}
-                onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >setSelectedFilter(item)}</span>
+                onChange={setSelectedFilter}
               /&gt;
               &lt;Text
-                font={{ size: 'medium', weight: 'semi-bold' }}
+                font={{ variation: FontVariation.H6 }}
                 color={Color.GREY_800}
                 padding={{ top: 'large', bottom: 'large' }}
               &gt;
@@ -1381,7 +1381,7 @@ export default CVMonitoredServiceListingPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 21 2021 03:02:22 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 21 2021 04:35:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

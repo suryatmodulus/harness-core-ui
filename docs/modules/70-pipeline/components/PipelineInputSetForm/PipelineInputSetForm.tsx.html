@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.92% </span>
+                <span class="strong">98% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/48</span>
+                <span class='fraction'>49/50</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.12% </span>
+                <span class="strong">74.4% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>169/228</span>
+                <span class='fraction'>186/250</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.87% </span>
+                <span class="strong">97.96% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/47</span>
+                <span class='fraction'>48/49</span>
             </div>
         
             
@@ -297,7 +297,13 @@
 <a name='L238'></a><a href='#L238'>238</a>
 <a name='L239'></a><a href='#L239'>239</a>
 <a name='L240'></a><a href='#L240'>240</a>
-<a name='L241'></a><a href='#L241'>241</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">27x</span>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
@@ -326,6 +332,7 @@
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -420,6 +427,10 @@
 <span class="cline-any cline-yes">172x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">172x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">172x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -482,6 +493,7 @@
 <span class="cline-any cline-yes">85x</span>
 <span class="cline-any cline-yes">85x</span>
 <span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">73x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -575,6 +587,7 @@ export interface PipelineInputSetFormProps {
   maybeContainerClass?: string
   viewType: StepViewType
   isRunPipelineForm?: boolean
+  listOfSelectedStages?: string[]
 }
 &nbsp;
 const stageTypeToIconMap: Record&lt;string, IconName&gt; = {
@@ -659,6 +672,10 @@ const PipelineInputSetFormInternal: React.FC&lt;PipelineInputSetFormProps&gt; = 
   )
   const { expressions } = useVariablesExpression()
 &nbsp;
+  const isInputStageDisabled = (stageId: string): boolean =&gt; {
+    return readonly || !!props.listOfSelectedStages<span class="branch-1 cbranch-no" title="branch not covered" >?.includes(stageId)</span>
+  }
+&nbsp;
   return (
     &lt;PipelineVariablesContextProvider pipeline={originalPipeline}&gt;
       &lt;Layout.Vertical spacing="medium" className={cx(css.container, maybeContainerClass)}&gt;
@@ -722,13 +739,14 @@ const PipelineInputSetFormInternal: React.FC&lt;PipelineInputSetFormProps&gt; = 
             const pathPrefix = !isEmpty(path) ? `${path}.` : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
             if (stageObj.stage) {
               const allValues = getStageFromPipeline(stageObj<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span> originalPipeline)
+&nbsp;
               return (
                 &lt;Layout.Vertical key={stageObj<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier || <span class="branch-1 cbranch-no" title="branch not covered" >index}</span>&gt;
                   &lt;StageForm
                     template={stageObj}
                     allValues={allValues}
                     path={`${pathPrefix}stages[${index}].stage`}
-                    readonly={readonly}
+                    readonly={isInputStageDisabled(stageObj<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier)}
                     viewType={viewType}
                   /&gt;
                 &lt;/Layout.Vertical&gt;
@@ -742,7 +760,7 @@ const PipelineInputSetFormInternal: React.FC&lt;PipelineInputSetFormProps&gt; = 
                       template={stageP}
                       allValues={allValues}
                       path={`${pathPrefix}stages[${index}].parallel[${indexp}].stage`}
-                      readonly={readonly}
+                      readonly={isInputStageDisabled(stageP<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier as string)}
                       viewType={viewType}
                     /&gt;
                   &lt;/Layout.Vertical&gt;
@@ -784,7 +802,7 @@ export const PipelineInputSetForm: React.FC&lt;PipelineInputSetFormProps&gt; = p
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 21 2021 04:35:33 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 21 2021 07:12:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

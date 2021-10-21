@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.8% </span>
+                <span class="strong">92.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>56/61</span>
+                <span class='fraction'>59/64</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">75.76% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>45/60</span>
+                <span class='fraction'>50/66</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.25% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/16</span>
+                <span class='fraction'>15/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">93.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>56/60</span>
+                <span class='fraction'>58/62</span>
             </div>
         
             
@@ -293,7 +293,11 @@
 <a name='L234'></a><a href='#L234'>234</a>
 <a name='L235'></a><a href='#L235'>235</a>
 <a name='L236'></a><a href='#L236'>236</a>
-<a name='L237'></a><a href='#L237'>237</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -339,6 +343,10 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -574,7 +582,11 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
   const [timeSeriesData, setTimeseriesData] = useState&lt;TimeSeriesMetricDataDTO[]&gt;([])
   const [selectedHealthSource, setSelectedHealthSource] = useState&lt;string&gt;()
   const [filterString, setFilterString] = useState&lt;string&gt;()
-  const [isAnamolousMetricType, setIsAnamolousMetricType] = useState&lt;boolean&gt;()
+  const [isAnamolousMetricType, setIsAnamolousMetricType] = useState&lt;boolean&gt;(true)
+&nbsp;
+  const defaultMetricType = useMemo(() =&gt; {
+    return MetricTypeOptions<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(type =&gt; type.value === MetricType.ANOMALOUS) || <span class="branch-1 cbranch-no" title="branch not covered" >MetricTypeOptions[0]</span>
+  }, [])
 &nbsp;
   const queryParams = useMemo(() =&gt; {
     return {
@@ -587,7 +599,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
       endTime,
       ...(selectedHealthSource &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{ healthSources: selectedHealthSource as any })</span>,
       ...(filterString &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{ filter: filterString })</span>,
-      ...(isAnamolousMetricType &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{ anomalous: isAnamolousMetricType })</span>
+      ...(isAnamolousMetricType &amp;&amp; { anomalous: isAnamolousMetricType })
     }
   }, [
     accountId,
@@ -733,7 +745,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
           &lt;Select
             items={MetricTypeOptions}
             className={css.maxDropDownWidth}
-            defaultSelectedItem={MetricTypeOptions[0]}
+            defaultSelectedItem={defaultMetricType}
             onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >setIsAnamolousMetricType(item.value === MetricType.ANOMALOUS)}</span>
           /&gt;
           {serviceIdentifier &amp;&amp; environmentIdentifier ? (
@@ -772,7 +784,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 21 2021 16:18:25 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 21 2021 17:19:02 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../prettify.js"></script>

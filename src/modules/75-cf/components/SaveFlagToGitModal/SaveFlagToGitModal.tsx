@@ -37,7 +37,7 @@ const SaveFlagToGitModal = ({ flagName, flagIdentifier, onSubmit, onClose }: Sav
         return (
           <FormikForm data-testid="save-flag-to-git-modal">
             <SaveFlagToGitSubFormModal
-              onSubmit={() => formikProps.submitForm()} //todo needed?
+              onSubmit={() => formikProps.submitForm()}
               onClose={onClose}
               title="Save Flag to Git"
             />

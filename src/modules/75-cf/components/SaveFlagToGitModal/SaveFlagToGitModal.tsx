@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react'
 import * as yup from 'yup'
 import { Formik, FormikForm } from '@wings-software/uicore'
-import { useGitSync } from '@cf/hooks/useGitSync'
+import { GitSyncFormValues, useGitSync } from '@cf/hooks/useGitSync'
 import SaveFlagToGitSubFormModal from '../SaveFlagToGitSubFormModal/SaveFlagToGitSubFormModal'
 
-interface SaveFlagToGitModalProps {
+export interface SaveFlagToGitModalProps {
   flagName: string
   flagIdentifier: string
-  onSubmit: () => void
+  onSubmit: (formValues: GitSyncFormValues) => void
   onClose: () => void
 }
 
@@ -15,6 +15,7 @@ const SaveFlagToGitModal = ({ flagName, flagIdentifier, onSubmit, onClose }: Sav
   const { getGitSyncFormMeta } = useGitSync()
 
   const { gitSyncInitialValues, gitSyncValidationSchema } = getGitSyncFormMeta()
+
   return (
     <Formik
       formName="saveFlagToGitForm"
@@ -30,11 +31,11 @@ const SaveFlagToGitModal = ({ flagName, flagIdentifier, onSubmit, onClose }: Sav
       })}
       validateOnChange
       validateOnBlur
-      onSubmit={onSubmit}
+      onSubmit={formValues => onSubmit(formValues)}
     >
       {formikProps => {
         return (
-          <FormikForm {...formikProps}>
+          <FormikForm data-testid="save-flag-to-git-modal">
             <SaveFlagToGitSubFormModal
               onSubmit={() => formikProps.submitForm()} //todo needed?
               onClose={onClose}

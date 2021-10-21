@@ -190,7 +190,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVChanges({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toCVChanges({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' })}
     >
       <Changes />
     </RouteWithLayout>

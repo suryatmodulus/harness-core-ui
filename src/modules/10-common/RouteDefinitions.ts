@@ -982,8 +982,8 @@ const routes = {
   ),
 
   toCVChanges: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/changes`
+    ({ projectIdentifier, orgIdentifier, module = 'cv' }: Partial<ProjectPathProps & { module?: string }>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/changes`
   ),
 
   toCVMonitoringServices: withAccountId(

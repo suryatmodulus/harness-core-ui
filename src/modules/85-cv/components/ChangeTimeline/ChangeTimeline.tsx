@@ -28,7 +28,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
     onSliderMoved
   } = props
 
-  const { data, refetch, loading, error } = useChangeEventTimeline({
+  const { data, refetch, loading, error, cancel } = useChangeEventTimeline({
     lazy: true,
     accountIdentifier: accountId,
     projectIdentifier,
@@ -41,6 +41,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
   )
 
   useEffect(() => {
+    cancel()
     refetch({
       queryParams: {
         serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
@@ -49,6 +50,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
         endTime: endTimeRoundedOffToNearest30min
       }
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTimeRoundedOffToNearest30min, endTimeRoundedOffToNearest30min, serviceIdentifier, environmentIdentifier])
 
   const { categoryTimeline } = data?.resource || {}

@@ -53,10 +53,10 @@ export default function CVSideNav(): React.ReactElement {
             to={routes.toCVProjectOverview({ accountId, projectIdentifier, orgIdentifier })}
           />
 
-          <SidebarLink
+          {/* <SidebarLink
             label={getString('changes')}
             to={routes.toCVChanges({ accountId, projectIdentifier, orgIdentifier })}
-          />
+          /> */}
 
           <SidebarLink label="Services" to={routes.toCVServices({ accountId, projectIdentifier, orgIdentifier })} />
           <SidebarLink

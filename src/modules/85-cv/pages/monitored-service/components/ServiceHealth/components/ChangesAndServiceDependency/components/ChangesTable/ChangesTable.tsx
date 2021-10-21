@@ -25,14 +25,17 @@ export default function ChangesTable({
   endTime,
   hasChangeSource,
   serviceIdentifier,
-  environmentIdentifier
+  environmentIdentifier,
+  dynColumns,
+  dynData,
+  pagination
 }: ChangesTableInterface): JSX.Element {
   const [page, setPage] = useState(0)
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
-  const { data, refetch, loading, error } = useChangeEventList({
+  const { data, refetch, loading, error, cancel } = useChangeEventList({
     lazy: true,
     accountIdentifier: accountId,
     projectIdentifier,
@@ -51,17 +54,20 @@ export default function ChangesTable({
   }, [startTime, endTime])
 
   useEffect(() => {
-    refetch({
-      queryParams: {
-        serviceIdentifiers: [serviceIdentifier],
-        envIdentifiers: [environmentIdentifier],
-        startTime,
-        endTime,
-        pageIndex: page,
-        pageSize: 10
-      }
-    })
-  }, [startTime, endTime, serviceIdentifier, environmentIdentifier, page])
+    if (!dynData) {
+      cancel()
+      refetch({
+        queryParams: {
+          serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
+          envIdentifiers: Array.isArray(environmentIdentifier) ? environmentIdentifier : [environmentIdentifier],
+          startTime,
+          endTime,
+          pageIndex: page,
+          pageSize: 10
+        }
+      })
+    }
+  }, [dynData, startTime, endTime, serviceIdentifier, environmentIdentifier, page])
 
   const columns: Column<any>[] = useMemo(
     () => [
@@ -117,8 +123,10 @@ export default function ChangesTable({
               onClick={() =>
                 refetch({
                   queryParams: {
-                    serviceIdentifiers: [serviceIdentifier],
-                    envIdentifiers: [environmentIdentifier],
+                    serviceIdentifiers: Array.isArray(serviceIdentifier) ? serviceIdentifier : [serviceIdentifier],
+                    envIdentifiers: Array.isArray(environmentIdentifier)
+                      ? environmentIdentifier
+                      : [environmentIdentifier],
                     startTime,
                     endTime,
                     pageIndex: page,
@@ -149,7 +157,7 @@ export default function ChangesTable({
           </Container>
         </Card>
       )
-    } else if (!content?.length) {
+    } else if (!dynData?.length && !content?.length) {
       return (
         <Card className={css.cardContainer}>
           <Container className={css.noData}>
@@ -163,15 +171,17 @@ export default function ChangesTable({
           <Table
             onRowClick={showDrawer}
             sortable={true}
-            columns={columns}
-            data={content}
-            pagination={{
-              pageSize,
-              pageIndex,
-              pageCount: totalPages,
-              itemCount: totalItems,
-              gotoPage: setPage
-            }}
+            columns={dynColumns || columns}
+            data={dynData || content}
+            pagination={
+              pagination || {
+                pageSize,
+                pageIndex,
+                pageCount: totalPages,
+                itemCount: totalItems,
+                gotoPage: setPage
+              }
+            }
           />
         </Card>
       )
@@ -181,7 +191,7 @@ export default function ChangesTable({
   return (
     <>
       <Text font={{ weight: 'bold', size: 'normal' }} padding={{ bottom: 'medium' }}>
-        {getString('changes')}({totalItems})
+        {getString('changes')}({pagination?.itemCount || totalItems})
       </Text>
       {renderContent()}
     </>

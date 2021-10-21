@@ -2220,6 +2220,22 @@ export interface MonitoredServiceDTO {
   type: 'Application' | 'Infrastructure'
 }
 
+export interface ChangeServiceDTO {
+  dependencies?: ServiceDependencyDTO[]
+  description?: string
+  environmentRef: string
+  identifier: string
+  name: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceRef: string
+  sources?: Sources
+  tags: {
+    [key: string]: string
+  }
+  type: 'Application' | 'Infrastructure'
+}
+
 export interface MonitoredServiceListItemDTO {
   changeSummary?: ChangeSummaryDTO
   currentHealthScore?: RiskData
@@ -2241,6 +2257,12 @@ export interface MonitoredServiceResponse {
   createdAt?: number
   lastModifiedAt?: number
   monitoredService: MonitoredServiceDTO
+}
+
+export interface ChangeServiceResponse {
+  createdAt?: number
+  lastModifiedAt?: number
+  changeService: ChangeServiceDTO
 }
 
 export interface NewRelicApplication {
@@ -2976,6 +2998,13 @@ export interface ResponseMetricPackValidationResponse {
 }
 
 export interface ResponseMonitoredServiceResponse {
+  correlationId?: string
+  data?: MonitoredServiceResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseChangeServiceResponse {
   correlationId?: string
   data?: MonitoredServiceResponse
   metaData?: { [key: string]: any }
@@ -4214,12 +4243,14 @@ export const useChangeEventList = ({
   orgIdentifier,
   projectIdentifier,
   ...props
-}: UseChangeEventListProps) =>
-  useGet<RestResponsePageChangeEventDTO, unknown, ChangeEventListQueryParams, ChangeEventListPathParams>(
+}: UseChangeEventListProps) => {
+  console.log('prooooops', props)
+  return useGet<RestResponsePageChangeEventDTO, unknown, ChangeEventListQueryParams, ChangeEventListPathParams>(
     (paramsInPath: ChangeEventListPathParams) =>
       `/account/${paramsInPath.accountIdentifier}/org/${paramsInPath.orgIdentifier}/project/${paramsInPath.projectIdentifier}/change-event`,
     { base: getConfig('cv/api'), pathParams: { accountIdentifier, orgIdentifier, projectIdentifier }, ...props }
   )
+}
 
 /**
  * get ChangeEvent List
@@ -7833,6 +7864,15 @@ export interface GetMonitoredServiceQueryParams {
   projectIdentifier: string
 }
 
+export interface GetChangeServiceQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+export interface GetChangeServicePathParams {
+  identifier: string
+}
+
 export interface GetMonitoredServicePathParams {
   identifier: string
 }
@@ -7860,12 +7900,27 @@ export type UseGetMonitoredServiceProps = Omit<
 > &
   GetMonitoredServicePathParams
 
+export type UseGetChangeServiceProps = Omit<
+  UseGetProps<ResponseChangeServiceResponse, unknown, GetChangeServiceQueryParams, GetChangeServicePathParams>,
+  'path'
+> &
+  GetMonitoredServicePathParams
+
 /**
  * get monitored service data
  */
 export const useGetMonitoredService = ({ identifier, ...props }: UseGetMonitoredServiceProps) =>
   useGet<ResponseMonitoredServiceResponse, unknown, GetMonitoredServiceQueryParams, GetMonitoredServicePathParams>(
     (paramsInPath: GetMonitoredServicePathParams) => `/monitored-service/${paramsInPath.identifier}`,
+    { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * get Chanegs data
+ */
+export const useGetChangeService = ({ identifier, ...props }: UseGetMonitoredServiceProps) =>
+  useGet<ResponseChangeServiceResponse, unknown, GetChangeServiceQueryParams, GetChangeServicePathParams>(
+    (paramsInPath: GetChangeServicePathParams) => `/change/${paramsInPath.identifier}`,
     { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
   )
 

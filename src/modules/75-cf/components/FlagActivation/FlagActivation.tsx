@@ -41,7 +41,8 @@ import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
+import { useGitSync } from '@cf/hooks/useGitSync'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -119,7 +120,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     }
   })
 
-  const { getGitSyncFormMeta, gitRepoDetails, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
+  const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
   const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_RULES)
 
   const initialValues = useMemo(
@@ -138,10 +139,10 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         ),
         flagName: flagData.name,
         flagIdentifier: flagData.identifier,
-        gitDetails: gitSyncInitialValues,
-        autoCommit: isAutoCommitEnabled
+        gitDetails: gitSyncInitialValues.gitDetails,
+        autoCommit: gitSyncInitialValues.autoCommit
       }),
-    [gitRepoDetails]
+    [gitSyncInitialValues.gitDetails, gitSyncInitialValues.autoCommit]
   )
 
   const noEnvironmentExists = !envsLoading && !envsError && environments?.length === 0

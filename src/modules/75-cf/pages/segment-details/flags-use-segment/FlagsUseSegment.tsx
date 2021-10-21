@@ -14,6 +14,7 @@ import {
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import type { GitSyncFormValues } from '@cf/hooks/useGitSync'
 import { DetailHeading } from '../DetailHeading'
 
 export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }> = () => {
@@ -43,7 +44,7 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
   })
   const addSegmentToFlags = async (
     selectedFeatureFlags: SelectedFeatureFlag[],
-    gitFormValues?: any //todo
+    gitFormValues?: GitSyncFormValues
   ): Promise<void> => {
     // Note: Due to https://harness.atlassian.net/browse/FFM-713 not done, we make
     // multiple patch APIs instead of single one
@@ -61,7 +62,9 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
 
         return patchFeature(
           gitFormValues ? { ...patchInstruction, gitDetails: gitFormValues.gitDetails } : patchInstruction,
-          { pathParams: { identifier: feature.identifier } }
+          {
+            pathParams: { identifier: feature.identifier }
+          }
         )
       })
     )
@@ -110,7 +113,9 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
           environmentIdentifier={activeEnvironment}
           modalTitle={getString('cf.segmentDetail.addSegmentToFlag')}
           submitButtonTitle={getString('add')}
-          onSubmit={addSegmentToFlags} // :D
+          onSubmit={(checkedFeatureFlags, gitSyncFormValues) =>
+            addSegmentToFlags(checkedFeatureFlags, gitSyncFormValues)
+          }
           shouldDisableItem={feature =>
             (flags?.filter(flag => flag.type === EntityAddingMode.DIRECT) || [])
               .map(flag => flag.identifier)

@@ -24,7 +24,8 @@ import { useToaster } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
-import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
+import { GitSyncFormValues, useGitSync } from '@cf/hooks/useGitSync'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { FeatureFlagRow } from './FeatureFlagRow'
 import { NoDataFoundRow } from '../NoDataFoundRow/NoDataFoundRow'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
@@ -46,7 +47,10 @@ export interface SelectFeatureFlagsModalButtonProps extends Omit<ButtonProps, 'o
   cancelButtonTitle?: string
 
   shouldDisableItem: (feature: Feature) => boolean
-  onSubmit: (selectedFeatureFlags: SelectedFeatureFlag[], gitDetails: any) => Promise<{ error: any } | any>
+  onSubmit: (
+    selectedFeatureFlags: SelectedFeatureFlag[],
+    gitDetails?: GitSyncFormValues
+  ) => Promise<{ error: any } | any>
 }
 
 export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButtonProps> = ({
@@ -119,12 +123,12 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
     const selectedCounter = Object.keys(checkedFeatureFlags || {}).length
 
     const [submitLoading, setSubmitLoading] = useState(false)
-    const handleSubmit = (gitFormValues?: any): void => {
+    const handleSubmit = (gitFormValues?: GitSyncFormValues): void => {
       setSubmitLoading(true)
       try {
         onSubmit(Object.values(checkedFeatureFlags), gitFormValues)
           .then(async () => {
-            if (!isAutoCommitEnabled && gitFormValues.autoCommit) {
+            if (!isAutoCommitEnabled && gitFormValues?.autoCommit) {
               await handleAutoCommit(gitFormValues.autoCommit)
             }
 
@@ -247,8 +251,6 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
               </>
             )}
           </Container>
-
-          {/* Pagination */}
           <Container margin={{ right: 'xxlarge' }} height={47}>
             {!error && (
               <Pagination
@@ -262,11 +264,10 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
           </Container>
 
           <Layout.Horizontal>
-            {/* todo - move this to a component, maybe use defaults instead */}
             <Formik
               initialValues={{
-                gitDetails: gitSyncInitialValues,
-                autoCommit: isAutoCommitEnabled
+                gitDetails: gitSyncInitialValues.gitDetails,
+                autoCommit: gitSyncInitialValues.autoCommit
               }}
               formName="editVariations"
               enableReinitialize={true}

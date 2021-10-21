@@ -59,6 +59,7 @@ creationModal:
   dataType: Data type
   defaultRulesTooltip: Define which variation users will see by default when the flag is ON or OFF
   testFlagOption: Test the Flag
+  commitMsg: Commit message is required
   aboutFlag:
     aboutFlagHeading: About the flag
     permaFlag: This is a permanent flag
@@ -72,6 +73,7 @@ creationModal:
   git:
     flagName: Feature Flag Name
     autoCommitMessage: Always commit to this branch and do not prompt for commit message.
+
 testTheFlag:
   testFlagHeading: Test the flag
   setupAppText: "Let's set up your application and code so that it can communicate with our platform"

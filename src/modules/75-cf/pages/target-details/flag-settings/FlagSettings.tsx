@@ -27,8 +27,9 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
-import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
+import { useGitSync, GitSyncFormValues } from '@cf/hooks/useGitSync'
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { DetailHeading } from '../DetailHeading'
 import css from './FlagSettings.module.scss'
 
@@ -91,12 +92,12 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
 
   const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
 
-  const saveVariationChange = async (gitSyncFormValues?: any): Promise<boolean> => {
+  const saveVariationChange = async (gitSyncFormValues?: GitSyncFormValues): Promise<boolean> => {
     if (!selectedVariation || !target || !selectedFeature) return false
 
     setLoadingFeaturesInBackground(true)
 
-    let gitDetails //todo type
+    let gitDetails
 
     if (isAutoCommitEnabled) {
       gitDetails = gitSyncInitialValues
@@ -272,9 +273,9 @@ const FlagSettingsRow: React.FC<{
   isGitSyncEnabled: boolean
   isAutoCommitEnabled: boolean
   openGitSyncModal: () => void
-  setSelectedVariation: (variation: Variation) => void //todo
-  setSelectedFeature: (feature: Feature) => void //todo
-  saveVariationChange: (gitSyncFormvalues?: any) => Promise<boolean>
+  setSelectedVariation: (variation: Variation) => void
+  setSelectedFeature: (feature: Feature) => void
+  saveVariationChange: (gitSyncFormvalues?: GitSyncFormValues) => Promise<boolean>
 }> = ({
   feature,
   patchParams,

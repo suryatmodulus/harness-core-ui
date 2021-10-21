@@ -17,8 +17,7 @@ import {
 } from '@wings-software/uicore'
 import { FieldArray } from 'formik'
 import cx from 'classnames'
-import { Divider, IconName } from '@blueprintjs/core'
-import { Dialog } from '@blueprintjs/core'
+import { Divider, IconName, Dialog } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import { useStrings } from 'framework/strings'
@@ -35,7 +34,8 @@ import {
   usePatchFeature,
   Variation
 } from 'services/cf'
-import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
+import { useGitSync } from '@cf/hooks/useGitSync'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import patch from '../../utils/instructions'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
 import css from './FlagActivationDetails.module.scss'
@@ -130,8 +130,8 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
 
   const [openModalPrerequisites, hideModalPrerequisites] = useModalHook(() => {
     const initialPrereqValues = {
-      gitDetails: gitSyncInitialValues,
-      autoCommit: isAutoCommitEnabled,
+      gitDetails: gitSyncInitialValues.gitDetails,
+      autoCommit: gitSyncInitialValues.autoCommit,
       prerequisites: flatMap(featureFlag.prerequisites, ({ feature, variations }) => {
         return variations.map(variation => ({ variation, feature } as PrerequisiteEntry))
       })

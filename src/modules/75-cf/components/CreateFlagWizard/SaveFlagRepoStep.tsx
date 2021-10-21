@@ -1,12 +1,11 @@
 import React, { ReactElement } from 'react'
 import { FormikForm, Formik, Layout, Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { useGetGitRepo } from 'services/cf'
-import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
 import type { StepProps } from '@common/components/WizardWithProgress/WizardWithProgress'
+
+import { useGitSync } from '@cf/hooks/useGitSync'
 import type { FlagWizardFormValues } from './FlagWizard'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
 
@@ -20,30 +19,20 @@ const SaveFlagRepoStep = ({
   prevStepData,
   isLoadingCreateFeatureFlag
 }: SaveFlagRepoStepProps): ReactElement => {
-  const { projectIdentifier, accountId, orgIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
   const { getString } = useStrings()
 
-  const gitRepo = useGetGitRepo({
-    identifier: projectIdentifier,
-    queryParams: {
-      accountIdentifier: accountId,
-      org: orgIdentifier
-    }
-  })
+  const { getGitSyncFormMeta, gitSyncLoading } = useGitSync()
 
-  if (gitRepo?.loading) {
+  const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta()
+
+  if (gitSyncLoading) {
     return <PageSpinner />
   }
 
   const initialFormData = {
     flagName: prevStepData?.name || '',
     flagIdentifier: prevStepData?.identifier || '',
-    gitDetails: {
-      repoIdentifier: gitRepo?.data?.repoDetails?.repoIdentifier || '',
-      rootFolder: gitRepo?.data?.repoDetails?.rootFolder || '',
-      filePath: gitRepo?.data?.repoDetails?.filePath || '',
-      commitMsg: ''
-    },
+    gitDetails: gitSyncInitialValues.gitDetails,
     autoCommit: false
   }
 
@@ -54,9 +43,7 @@ const SaveFlagRepoStep = ({
         initialValues={initialFormData}
         formName="saveFlagRepoStep"
         validationSchema={Yup.object().shape({
-          gitDetails: Yup.object({
-            commitMsg: Yup.string().trim().required(getString('common.git.validation.commitMessage'))
-          })
+          gitDetails: gitSyncValidationSchema
         })}
         onSubmit={formValues => nextStep?.({ ...prevStepData, ...formValues })}
       >

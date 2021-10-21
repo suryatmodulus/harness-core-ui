@@ -37,7 +37,8 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
-import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
+import { useGitSync } from '@cf/hooks/useGitSync'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
@@ -157,8 +158,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       description: featureFlag.description,
       tags: featureFlag.tags?.map(elem => elem.name),
       permanent: featureFlag.permanent,
-      gitDetails: gitSyncInitialValues,
-      autoCommit: isAutoCommitEnabled
+      gitDetails: gitSyncInitialValues.gitDetails,
+      autoCommit: gitSyncInitialValues.autoCommit
     }
 
     const getTag = (tagName: string) => featureFlag.tags?.find(tag => tag.name === tagName)

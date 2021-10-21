@@ -3386,6 +3386,7 @@ export interface StringsMap {
   'cf.creationModal.aboutFlag.permaFlagTooltip': string
   'cf.creationModal.aboutFlag.tagsOptional': string
   'cf.creationModal.aboutFlag.tagsPlaceholder': string
+  'cf.creationModal.commitMsg': string
   'cf.creationModal.dataType': string
   'cf.creationModal.defaultRules': string
   'cf.creationModal.defaultRulesTooltip': string

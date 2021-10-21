@@ -68,18 +68,7 @@ const SaveFlagToGitSubForm = ({ title, subtitle, hideNameField }: SaveFlagToGitS
             <Text margin={{ left: 'small', right: 'small' }} inline>
               {getString('common.git.existingBranchCommitLabel')}:
             </Text>
-            <FormInput.Text
-              name="gitDetails.branch"
-              disabled
-              style={{ marginBottom: 0 }}
-              // data-testid="default-branch"
-              // margin={{ left: 'small' }}
-              // inline
-              // padding={{ top: 'xsmall', bottom: 'xsmall', left: 'small', right: 'small' }}
-              // background={Color.PRIMARY_2}
-              // border={{ radius: 5 }}
-              // color={Color.BLACK}
-            />
+            <FormInput.Text name="gitDetails.branch" disabled style={{ marginBottom: 0 }} />
           </Container>
 
           <Container padding={{ left: 'xlarge', top: 'small' }} data-testid="commit-details-section">

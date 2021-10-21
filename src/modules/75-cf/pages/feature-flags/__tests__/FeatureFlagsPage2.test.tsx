@@ -4,6 +4,18 @@ import { TestWrapper } from '@common/utils/testUtils'
 import mockImport from 'framework/utils/mockImport'
 import FeatureFlagsPage from '../FeatureFlagsPage'
 
+jest.mock('@cf/hooks/useGitSync', () => ({
+  useGitSync: jest.fn(() => ({
+    getGitSyncFormMeta: jest.fn().mockReturnValue({
+      gitSyncInitialValues: {},
+      gitSyncValidationSchema: {}
+    }),
+    isAutoCommitEnabled: false,
+    isGitSyncEnabled: true,
+    handleAutoCommit: jest.fn()
+  }))
+}))
+
 describe('FeatureFlagsPage', () => {
   test('FeatureFlagsPage should render error correctly', async () => {
     const message = 'ERROR OCCURS'

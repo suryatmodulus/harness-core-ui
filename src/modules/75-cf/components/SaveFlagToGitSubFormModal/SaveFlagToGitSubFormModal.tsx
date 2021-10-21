@@ -1,15 +1,13 @@
 import React, { ReactElement } from 'react'
-import { ButtonVariation, Container, Layout } from '@wings-software/uicore'
+import { ButtonVariation, Container, Layout, Button } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
-import { Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
-// import SaveFlagRepoDialogForm from './SaveFlagRepoDialogForm'
 import css from './SaveFlagToGitSubFormModal.module.scss'
 
 interface SaveFlagToGitSubFormModalProps {
   title: string
-  onSubmit?: (formData: any) => void // todo
+  onSubmit?: () => void
   onClose: () => void
 }
 

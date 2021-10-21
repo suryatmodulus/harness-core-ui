@@ -6,6 +6,18 @@ import FeatureFlagsDetailPage from '../FeatureFlagsDetailPage'
 import mockEnvironments from '../../environments/__tests__/mockEnvironments'
 import mockFeatureFlag from './mockFeatureFlag'
 
+jest.mock('@cf/hooks/useGitSync', () => ({
+  useGitSync: jest.fn(() => ({
+    getGitSyncFormMeta: jest.fn().mockReturnValue({
+      gitSyncInitialValues: {},
+      gitSyncValidationSchema: {}
+    }),
+    isAutoCommitEnabled: false,
+    isGitSyncEnabled: true,
+    handleAutoCommit: jest.fn()
+  }))
+}))
+
 describe('FeatureFlagsDetailPage', () => {
   test('FeatureFlagsDetailPage should render loading correctly', async () => {
     mockImport('services/cd-ng', {

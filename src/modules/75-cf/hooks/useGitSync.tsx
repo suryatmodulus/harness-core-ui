@@ -1,24 +1,37 @@
 import { useParams } from 'react-router-dom'
 import * as yup from 'yup'
+import type { ObjectSchema } from 'yup'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetGitRepo, usePatchGitRepo } from 'services/cf'
+import { GitRepo, useGetGitRepo, usePatchGitRepo } from 'services/cf'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { useStrings } from 'framework/strings'
 
-export const AUTO_COMMIT_MESSAGES = {
-  CREATED_FLAG: 'Created feature flag',
-  TOGGLED_FLAG: 'Toggled feature flag',
-  UPDATED_FLAG_DETAILS: 'Updated feature flag details',
-  UPDATED_FLAG_RULES: 'Updated feature flag rules',
-  UPDATED_FLAG_VARIATIONS: 'Updated feature flag variations',
-  UPDATES_FLAG_PREREQS: 'Updated feature flag prerequisites',
-  UPDATED_FLAG_TARGETS: 'Updated feature flag targets',
-  DELETED_FLAG: 'Deleted feature flag'
+export interface GitSyncFormValues {
+  gitDetails: {
+    branch: string
+    filePath: string
+    repoIdentifier: string
+    rootFolder: string
+    commitMsg: string
+  }
+  autoCommit: boolean
+}
+interface GitSyncFormMeta {
+  gitSyncInitialValues: GitSyncFormValues
+  gitSyncValidationSchema: ObjectSchema<Record<string, unknown> | undefined>
 }
 
-const useGitSync = () => {
-  // todo - types
+interface UseGitSync {
+  gitRepoDetails: GitRepo | undefined
+  isAutoCommitEnabled: boolean
+  isGitSyncEnabled: boolean | undefined
+  gitSyncLoading: boolean
+  handleAutoCommit: (newAutoCommitValue: boolean) => Promise<void>
+  getGitSyncFormMeta: (autoCommitMessage?: string) => GitSyncFormMeta
+}
+
+export const useGitSync = (): UseGitSync => {
   const { projectIdentifier, accountId, orgIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
   const { getString } = useStrings()
 
@@ -44,30 +57,20 @@ const useGitSync = () => {
 
   const isAutoCommitEnabled = (isGitSyncEnabled && getGitRepo.data?.repoDetails?.autoCommit) || false
 
-  const getGitSyncFormMeta = (autoCommitMessage?: string) => {
-    return {
-      gitSyncInitialValues: {
+  const getGitSyncFormMeta = (autoCommitMessage?: string): GitSyncFormMeta => ({
+    gitSyncInitialValues: {
+      gitDetails: {
         branch: getGitRepo?.data?.repoDetails?.branch || '',
         filePath: getGitRepo?.data?.repoDetails?.filePath || '',
         repoIdentifier: getGitRepo?.data?.repoDetails?.repoIdentifier || '',
         rootFolder: getGitRepo?.data?.repoDetails?.rootFolder || '',
         commitMsg: isAutoCommitEnabled ? `[AUTO-COMMIT] : ${autoCommitMessage}` : ''
       },
-      gitSyncValidationSchema: yup.object().shape({
-        commitMsg: isGitSyncEnabled
-          ? yup.string().required(getString('cf.creationModal.valueIsRequired')) // todo
-          : yup.string()
-      })
-    }
-  }
-
-  // todo
-  const getAutoCommitRequestValues = (commitMsg: string) => ({
-    branch: getGitRepo?.data?.repoDetails?.branch,
-    filePath: getGitRepo?.data?.repoDetails?.filePath,
-    repoIdentifier: getGitRepo?.data?.repoDetails?.repoIdentifier,
-    rootFolder: getGitRepo?.data?.repoDetails?.rootFolder,
-    commitMsg
+      autoCommit: isAutoCommitEnabled
+    },
+    gitSyncValidationSchema: yup.object().shape({
+      commitMsg: isGitSyncEnabled ? yup.string().required(getString('cf.creationModal.commitMsg')) : yup.string()
+    })
   })
 
   const handleAutoCommit = async (newAutoCommitValue: boolean): Promise<void> => {
@@ -92,11 +95,7 @@ const useGitSync = () => {
     isAutoCommitEnabled,
     isGitSyncEnabled,
     gitSyncLoading: getGitRepo.loading || patchGitRepo.loading,
-    gitSyncError: getGitRepo.error,
     handleAutoCommit,
-    getAutoCommitRequestValues,
     getGitSyncFormMeta
   }
 }
-
-export default useGitSync

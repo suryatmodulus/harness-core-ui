@@ -27,7 +27,8 @@ import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { PageSpinner } from '@common/components'
-import useGitSync, { AUTO_COMMIT_MESSAGES } from '@cf/hooks/useGitSync'
+import { useGitSync } from '@cf/hooks/useGitSync'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import patch from '../../utils/instructions'
 
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
@@ -85,8 +86,8 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
       variations: clone(feature.variations),
       defaultOnAppliedToCurrentEnvironment: false,
       defaultOffAppliedToCurrentEnvironment: false,
-      gitDetails: gitSyncInitialValues,
-      autoCommit: isAutoCommitEnabled
+      gitDetails: gitSyncInitialValues.gitDetails,
+      autoCommit: gitSyncInitialValues.autoCommit
     }
     const [defaultRules, setDefaultRules] = useState<SelectOption[]>(
       initialValues.variations.map(({ identifier, name }) => ({ label: name as string, value: identifier }))

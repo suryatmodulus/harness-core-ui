@@ -10,7 +10,7 @@ import { getErrorMessage, showToaster, FeatureFlagMutivariateKind } from '@cf/ut
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
 import { PageSpinner } from '@common/components'
-import useGitSync from '@cf/hooks/useGitSync'
+import { useGitSync } from '@cf/hooks/useGitSync'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'

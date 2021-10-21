@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import * as moment from 'moment'
-import parseLinkHeader from 'parse-link-header'
 import { ButtonVariation, Layout, Button, Text, Color, Utils } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
@@ -12,7 +11,6 @@ import { useToaster, useConfirmationDialog } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { Policy, useDeletePolicy, useGetPolicyList } from 'services/pm'
-import { setPageNumber } from '@common/utils/utils'
 import { OptionsMenuButton } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
@@ -20,9 +18,7 @@ import PolicyIcon from './Policy.svg'
 
 import css from './Policies.module.scss'
 
-let page = 0
-let totalPages = 0
-const pageSize = 10
+const PAGE_SIZE = 15
 
 const _useGetPolicyList = useGetPolicyList as any
 
@@ -30,8 +26,16 @@ const Policies: React.FC = () => {
   const { accountId } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   useDocumentTitle(getString('common.policies'))
-  const [, setPage] = useState(0)
+  const [pageIndex, setPageIndex] = useState(0)
   // const [searchTerm, setsearchTerm] = useState<string>('')
+  const queryParams = useMemo(
+    () => ({
+      accountId,
+      per_page: PAGE_SIZE,
+      page: pageIndex
+    }),
+    [accountId, pageIndex]
+  )
 
   const {
     data: policyList,
@@ -40,32 +44,12 @@ const Policies: React.FC = () => {
     refetch,
     response
   } = _useGetPolicyList({
-    queryParams: {
-      accountId: accountId,
-      per_page: pageSize,
-      page: page + 1
-    }
+    queryParams
   })
-
-  if (response?.headers) {
-    for (const pair of response?.headers?.entries()) {
-      // accessing the entries
-      if (pair[0] == 'link') {
-        const links = parseLinkHeader(pair[1])
-
-        if (links && links['last']?.['page']) {
-          totalPages = parseInt(links['last']?.['page'])
-        }
-      }
-    }
-  }
-
+  const itemCount = useMemo(() => parseInt(response?.headers?.get('x-total-items') || 0), [response])
+  const pageCount = useMemo(() => parseInt(response?.headers?.get('x-total-pages') || 0), [response])
+  const pageSize = useMemo(() => parseInt(response?.headers?.get('x-page-size') || 0), [response])
   const history = useHistory()
-
-  useEffect(() => {
-    // TODO: Update pageItemsCount per API spec (which is not yet ready)
-    setPageNumber({ setPage, page, pageItemsCount: 1000 })
-  }, [policyList, page])
 
   const newUserGroupsBtn = (): JSX.Element => {
     const pathname = routes.toPolicyNewPage({ accountId })
@@ -235,13 +219,12 @@ const Policies: React.FC = () => {
           // TODO: enable when page is ready
 
           pagination={{
-            itemCount: totalPages ? totalPages * pageSize : 1,
-            pageSize: pageSize, // TODO Backend needs to support pagination
-            pageCount: totalPages, // TODO Backend needs to support pagination
-            pageIndex: page, // TODO Backend needs to support pagination
-            gotoPage: (pageNumber: number) => {
-              page = pageNumber
-              refetch()
+            itemCount,
+            pageSize,
+            pageCount,
+            pageIndex,
+            gotoPage: (index: number) => {
+              setPageIndex(index)
             }
           }}
         />

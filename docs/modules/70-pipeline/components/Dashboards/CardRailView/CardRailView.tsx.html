@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.77% </span>
+                <span class="strong">97.06% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/31</span>
+                <span class='fraction'>33/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/19</span>
+                <span class='fraction'>18/21</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.67% </span>
+                <span class="strong">96.97% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/30</span>
+                <span class='fraction'>32/33</span>
             </div>
         
             
@@ -194,7 +194,9 @@
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -205,6 +207,10 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,6 +228,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -287,10 +294,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -341,6 +345,9 @@ import EmptyFailedBuilds from './EmptyFailedBuilds.svg'
 import EmptyActiveBuilds from './EmptyActiveBuilds.svg'
 import RepoIconUrl from './RepoIcon.svg'
 import FailedBuildIconUrl from './FailedBuildIcon.svg'
+import NoServices from '../images/NoServices.svg'
+import NoDeployments from '../images/NoDeployments.svg'
+import Active from './Active.svg'
 import styles from './CardRailView.module.scss'
 &nbsp;
 export interface CardRailViewProps {
@@ -355,6 +362,7 @@ export interface CardRailViewProps {
   titleSideContent?: React.ReactNode
   isLoading?: boolean
   onShowAll?(): void
+  isCIPage?: boolean
   children?: React.ReactNode
 }
 &nbsp;
@@ -363,7 +371,8 @@ export default function CardRailView({
   titleSideContent,
   isLoading,
   onShowAll,
-  children
+  children,
+  isCIPage
 }: CardRailViewProps) {
   const { getString } = useStrings()
   const contentRef = useRef&lt;HTMLDivElement&gt;(null)
@@ -379,12 +388,12 @@ export default function CardRailView({
   }
 &nbsp;
   const icons = {
-    REPOSITORY: &lt;img height={15} width={16} src={RepoIconUrl} /&gt;,
+    REPOSITORY: isCIPage ? &lt;img height={15} width={16} src={RepoIconUrl} /&gt; : RepoIconUrl,
     FAILED_BUILD: &lt;img src={FailedBuildIconUrl} /&gt;,
     ACTIVE_BUILD: &lt;Icon name="ci-pending-build" className={styles.pendingBuildIcon} /&gt;,
-    WORKLOAD: '',
-    FAILED_DEPLOYMENT: &lt;Icon name="ban-circle" size={20} color={Color.RED_500} /&gt;,
-    ACTIVE_DEPLOYMENT: &lt;Icon name="play" size={20} color={Color.GREEN_500} /&gt;,
+    WORKLOAD: &lt;img height={15} width={16} src={RepoIconUrl} /&gt;,
+    FAILED_DEPLOYMENT: &lt;Icon name="execution-warning" size={20} color={Color.RED_500} /&gt;,
+    ACTIVE_DEPLOYMENT: &lt;img src={Active} className={styles.activeDepIcon} /&gt;,
     PENDING_DEPLOYMENT: &lt;Icon name="play" size={20} color={Color.GREEN_500} /&gt;
   }
 &nbsp;
@@ -392,10 +401,10 @@ export default function CardRailView({
     REPOSITORY: EmptyRepositories,
     FAILED_BUILD: EmptyFailedBuilds,
     ACTIVE_BUILD: EmptyActiveBuilds,
-    WORKLOAD: EmptyRepositories,
-    FAILED_DEPLOYMENT: EmptyFailedBuilds,
-    ACTIVE_DEPLOYMENT: EmptyActiveBuilds,
-    PENDING_DEPLOYMENT: EmptyActiveBuilds
+    WORKLOAD: NoServices,
+    FAILED_DEPLOYMENT: NoDeployments,
+    ACTIVE_DEPLOYMENT: NoDeployments,
+    PENDING_DEPLOYMENT: NoDeployments
   }
 &nbsp;
   const emptyMsg = {
@@ -424,14 +433,13 @@ export default function CardRailView({
   })
 &nbsp;
   const isEmpty = !isLoading &amp;&amp; React.Children.count(children) === 0
-&nbsp;
   return (
     &lt;Container className={styles.main}&gt;
       &lt;Container className={styles.header}&gt;
         &lt;Container className={styles.headerTitle}&gt;
           {icons[contentType]}
           &lt;Text className={styles.title} tooltipProps={{ dataTooltipId: `overview_${contentType}` }}&gt;
-            {titles[contentType]}
+            {titles[contentType]} ({React.Children.count(children)})
           &lt;/Text&gt;
         &lt;/Container&gt;
         {titleSideContent}
@@ -443,8 +451,6 @@ export default function CardRailView({
       &gt;
         {isEmpty &amp;&amp; (
           &lt;Container className={styles.emptyView}&gt;
-            &lt;Container className={styles.emptyViewItem} /&gt;
-            &lt;Container className={styles.emptyViewItem} /&gt;
             &lt;Container className={styles.emptyViewCard}&gt;
               &lt;img src={emptyIcons[contentType]} /&gt;
               &lt;Text&gt;{emptyMsg[contentType]}&lt;/Text&gt;
@@ -475,7 +481,7 @@ export default function CardRailView({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 21 2021 02:17:00 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 21 2021 03:02:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

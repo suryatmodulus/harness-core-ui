@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/30</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
@@ -135,13 +135,8 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -150,6 +145,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -185,17 +183,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -226,14 +214,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useContext } from 'react'</span>
-<span class="cstat-no" title="statement not covered" >import { Menu, Position } from '@blueprintjs/core'</span>
+<span class="cstat-no" title="statement not covered" >import { Position } from '@blueprintjs/core'</span>
 <span class="cstat-no" title="statement not covered" >import { ButtonVariation } from '@wings-software/uicore'</span>
 <span class="cstat-no" title="statement not covered" >import { useHistory, useParams } from 'react-router-dom'</span>
+<span class="cstat-no" title="statement not covered" >import { merge } from 'lodash-es'</span>
 <span class="cstat-no" title="statement not covered" >import { useStrings } from 'framework/strings'</span>
 <span class="cstat-no" title="statement not covered" >import { getAllowedTemplateTypes, TemplateType } from '@templates-library/utils/templatesUtils'</span>
 <span class="cstat-no" title="statement not covered" >import routes from '@common/RouteDefinitions'</span>
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-<span class="cstat-no" title="statement not covered" >import { TemplatesActionPopover } from '@templates-library/components/TemplatesActionPopover/TemplatesActionPopover'</span>
+<span class="cstat-no" title="statement not covered" >import {</span>
+  TemplateMenuItem,
+  TemplatesActionPopover
+} from '@templates-library/components/TemplatesActionPopover/TemplatesActionPopover'
 <span class="cstat-no" title="statement not covered" >import { DefaultNewTemplateId } from 'framework/Templates/templates'</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >import RbacButton from '@rbac/components/Button/Button'</span>
@@ -266,29 +258,19 @@ import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/Rout
     [projectIdentifier, orgIdentifier, accountId, module]
   )
 &nbsp;
-  const renderMenu = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;Menu style={{ width: '120px' }} onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >e.stopPropagation()}</span>&gt;
-        {allowedTemplateTypes.map(<span class="fstat-no" title="function not covered" >templateType </span>=&gt; (
-<span class="cstat-no" title="statement not covered" >          &lt;Menu.Item</span>
-            text={templateType.label}
-            key={templateType.value}
-            disabled={templateType.disabled}
-            onClick={<span class="fstat-no" title="function not covered" >(e</span>: React.MouseEvent) =&gt; {
-<span class="cstat-no" title="statement not covered" >              e.stopPropagation()</span>
-<span class="cstat-no" title="statement not covered" >              goToTemplateStudio(templateType.value as TemplateType)</span>
-            }}
-          /&gt;
-        ))}
-      &lt;/Menu&gt;
-    )
+  const getMenu = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(): TemplateMenuItem[] =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return allowedTemplateTypes.map(<span class="fstat-no" title="function not covered" >templateType </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      return merge(templateType, {</span>
+        onClick: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >goToTemplateStudio(templateType.value as TemplateType)</span>
+      })
+    })
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;TemplatesActionPopover
       open={menuOpen}
       minimal={true}
-      content={renderMenu()}
+      items={getMenu()}
       position={Position.BOTTOM}
       disabled={isReadonly}
       setMenuOpen={setMenuOpen}
@@ -316,7 +298,7 @@ import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/Rout
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 21 2021 12:59:59 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 21 2021 13:53:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

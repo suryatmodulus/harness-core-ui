@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/95</span>
+                <span class='fraction'>0/97</span>
             </div>
         
             
@@ -294,7 +294,9 @@
 <a name='L235'></a><a href='#L235'>235</a>
 <a name='L236'></a><a href='#L236'>236</a>
 <a name='L237'></a><a href='#L237'>237</a>
-<a name='L238'></a><a href='#L238'>238</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -391,6 +393,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -563,8 +567,8 @@ export interface DeleteTemplateProps {
 }
 export interface CheckboxOptions {
   label: string
+  value: string
   checked: boolean
-  disabled: boolean
   visible: boolean
 }
 &nbsp;
@@ -628,9 +632,11 @@ export const <span class="cstat-no" title="statement not covered" >DeleteTemplat
 <span class="cstat-no" title="statement not covered" >      setCheckboxOptions(</span>
         templateData?.data?.content?.map(<span class="fstat-no" title="function not covered" >template </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >          return {</span>
-            label: template.versionLabel || '',
+            label: template.stableTemplate
+              ? getString('templatesLibrary.stableVersion', { entity: template.versionLabel })
+              : template.versionLabel || '',
+            value: template.versionLabel || '',
             checked: false,
-            disabled: !!template.stableTemplate,
             visible: true
           }
         })
@@ -644,8 +650,8 @@ export const <span class="cstat-no" title="statement not covered" >DeleteTemplat
         checkboxOptions.map(<span class="fstat-no" title="function not covered" >option </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >          return {</span>
             label: option.label,
+            value: option.value,
             checked: option.checked,
-            disabled: option.disabled,
             visible: option.label.startsWith(query)
           }
         })
@@ -659,7 +665,7 @@ export const <span class="cstat-no" title="statement not covered" >DeleteTemplat
       {templateData?.data?.content &amp;&amp; !isEmpty(templateData?.data?.content) &amp;&amp; (
         &lt;Formik&lt;{ checkboxOptions: CheckboxOptions[] }&gt;
           onSubmit={<span class="fstat-no" title="function not covered" >values </span>=&gt; {
-            const selectedVersions = <span class="cstat-no" title="statement not covered" >values.checkboxOptions.filter(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.checked)</span>.map(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.label)</span></span>
+            const selectedVersions = <span class="cstat-no" title="statement not covered" >values.checkboxOptions.filter(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.checked)</span>.map(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.value)</span></span>
 <span class="cstat-no" title="statement not covered" >            performDelete(selectedVersions)</span>
           }}
           enableReinitialize={true}
@@ -693,7 +699,7 @@ export const <span class="cstat-no" title="statement not covered" >DeleteTemplat
 <span class="cstat-no" title="statement not covered" >                                return (</span>
                                   &lt;Checkbox
                                     key={option.label}
-                                    label={option.label + (option.disabled ? ' (Default)' : '')}
+                                    label={option.label}
                                     className={option.checked ? css.selected : ''}
                                     checked={option.checked}
                                     onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
@@ -716,8 +722,8 @@ export const <span class="cstat-no" title="statement not covered" >DeleteTemplat
                                     options.map(<span class="fstat-no" title="function not covered" >option </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                                      return {</span>
                                         label: option.label,
+                                        value: option.value,
                                         checked: e.currentTarget.checked,
-                                        disabled: option.disabled,
                                         visible: option.label.startsWith(query)
                                       }
                                     })
@@ -775,7 +781,7 @@ export const <span class="cstat-no" title="statement not covered" >DeleteTemplat
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 21 2021 12:59:59 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 21 2021 13:53:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

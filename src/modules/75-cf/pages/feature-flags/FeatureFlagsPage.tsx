@@ -61,6 +61,7 @@ import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOp
 import { GitDetails, GitSyncFormValues, UseGitSync, useGitSync } from '@cf/hooks/useGitSync'
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
+import GitSyncActions from '@cf/components/GitSyncActions/GitSyncActions'
 import imageURL from './Feature_Flags_LP.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
@@ -671,10 +672,14 @@ const FeatureFlagsPage: React.FC = () => {
       headerStyle={{ display: 'flex' }}
       toolbar={
         <Layout.Horizontal>
-          <FlagDialog environment={activeEnvironment} />
+          <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'center' }} width={500}>
+            <Container>
+              <FlagDialog environment={activeEnvironment} />
+            </Container>
+            <GitSyncActions />
+          </Layout.Horizontal>
           <FlexExpander />
           <ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} />
-
           {/** TODO: Disable filter as backend does not fully support it yet */}
           {/* <Button
             disabled={loading}

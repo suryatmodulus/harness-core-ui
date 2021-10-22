@@ -284,7 +284,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { ro
           {data?.tags?.length || 0}
         </Text> */}
       </Layout.Horizontal>
-      <Container onClick={Utils.stopEvent}>
+      <Container onClick={event => event.stopPropagation()}>
         {isSaveToggleModalOpen && (
           <SaveFlagToGitModal
             flagName={data.name}
@@ -417,7 +417,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, cell: { row, col
       </Text>
     ),
     action: async () => {
-      if (gitSync && gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
+      if (gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
         setIsDeleteModalOpen(true)
       } else {
         handleDeleteFlag()
@@ -441,7 +441,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, cell: { row, col
 
   return (
     <Container style={{ textAlign: 'right' }} onClick={Utils.stopEvent}>
-      <Container onClick={Utils.stopEvent}>
+      <Container onClick={event => event.stopPropagation()}>
         {isDeleteModalOpen && (
           <SaveFlagToGitModal
             flagName={data.name}
@@ -625,7 +625,7 @@ const FeatureFlagsPage: React.FC = () => {
         refetch
       }
     ],
-    [refetch, features, getString, activeEnvironment]
+    [refetch, features, getString, activeEnvironment, gitSync]
   )
   const onSearchInputChanged = useCallback(
     name => {

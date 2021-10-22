@@ -13,5 +13,6 @@ declare const styles: {
   readonly actions: string
   readonly updateActions: string
   readonly saveButton: string
+  readonly tags: string
 }
 export default styles

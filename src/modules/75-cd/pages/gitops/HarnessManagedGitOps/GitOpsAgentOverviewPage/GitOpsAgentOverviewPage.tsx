@@ -30,6 +30,7 @@ import type {
   RolePathProps,
   AgentOverViewPathProps
 } from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
 import css from './GitOpsAgentOverviewPage.module.scss'
 enum ACCESS_MODES {
   VIEW,
@@ -49,25 +50,9 @@ const GitOpsAgentOverviewPage = (): React.ReactElement => {
   >()
   const [mode, setMode] = useState(ACCESS_MODES.VIEW)
   const toast = useToaster()
-  const [agentDetails, setAgentDetails] = useState<V1Agent>({
-    name: 'Agent 2',
-    identifier: 'agent2',
-    description: 'Some random description',
-    orgIdentifier: 'default',
-    projectIdentifier: 'Argo',
-    tags: {
-      tag1: 'ok',
-      tag2: 'ok',
-      tag3: 'ok'
-    },
-    metadata: { namespace: 'ns1', highAvailability: true }
-  })
+  const [agentDetails, setAgentDetails] = useState<V1Agent>({})
 
-  const {
-    refetch: getAgentDetails,
-    data,
-    loading
-  } = useAgentServiceGet({
+  const { data, loading } = useAgentServiceGet({
     identifier: params.agentId,
     queryParams: {
       accountIdentifier: params.accountId,
@@ -83,31 +68,32 @@ const GitOpsAgentOverviewPage = (): React.ReactElement => {
     agentIdentifier: params.agentId
   })
   useEffect(() => {
-    getAgentDetails().then(() => {
-      data && setAgentDetails(data || {})
-    })
-  }, [])
+    if (data) {
+      setAgentDetails(data)
+    }
+  }, [data])
 
   const onSubmitHandler = (updatedAgentDetails: V1Agent): void => {
-    mutate(updatedAgentDetails).finally(() => {
-      if (updateAgentError) {
-        toast.showError(updateAgentError.message, undefined, 'gitops.agent.update.error')
-      } else {
+    mutate(updatedAgentDetails)
+      .then(response => {
         toast.showSuccess('Agent updated successfully', undefined, 'gitops.agent.update.error')
+        setAgentDetails(response)
         setMode(ACCESS_MODES.VIEW)
-      }
-    })
+      })
+      .catch(() => {
+        toast.showError(updateAgentError?.message, undefined, 'gitops.agent.update.error')
+      })
   }
   if (updateAgentLoading || loading) return <PageSpinner />
   return (
-    <Formik formName="gitagent-details" onSubmit={onSubmitHandler} initialValues={agentDetails}>
-      {({ values }: any) => (
+    <Formik enableReinitialize formName="gitagent-details" onSubmit={onSubmitHandler} initialValues={agentDetails}>
+      {({ values }: { values: any }) => (
         <FormikForm>
           <div className={css.header}>
             <Breadcrumbs
               links={[
-                { url: '/aaa', label: params.projectIdentifier },
-                { url: '/aaa1', label: 'GitOps' }
+                { url: routes.toCDDashboard({ accountId: params.accountId }), label: params.projectIdentifier },
+                { url: routes.toGitOps({ ...params, module: 'cd' }), label: 'GitOps' }
               ]}
             />
             <div className={css.headerTitleSection}>
@@ -140,60 +126,59 @@ const GitOpsAgentOverviewPage = (): React.ReactElement => {
               <Layout.Vertical className={css.detailContainer}>
                 <div>
                   <div className={cx(css.detailRow, css.titleRow)}>{getString('name')}</div>
-                  <Text
-                    color={Color.BLACK}
-                    font={{
-                      variation: FontVariation.BODY
-                    }}
-                    className={cx(css.detailRow, css.valueRow, { [css.borderBottom]: mode === ACCESS_MODES.VIEW })}
-                  >
-                    {mode === ACCESS_MODES.EDIT ? <FormInput.Text name="name" disabled /> : values?.name}
-                  </Text>
+                  {mode === ACCESS_MODES.EDIT ? (
+                    <FormInput.Text name="name" disabled />
+                  ) : (
+                    <Text
+                      color={Color.BLACK}
+                      font={{
+                        variation: FontVariation.BODY
+                      }}
+                      className={cx(css.detailRow, css.valueRow, { [css.borderBottom]: mode === ACCESS_MODES.VIEW })}
+                    >
+                      {values?.name}
+                    </Text>
+                  )}
                 </div>
                 <div>
                   <div className={cx(css.detailRow, css.titleRow)}>Agent Identifier</div>
-                  <Text
-                    color={Color.BLACK}
-                    font={{
-                      variation: FontVariation.BODY
-                    }}
-                    className={cx(css.detailRow, css.valueRow, { [css.borderBottom]: mode === ACCESS_MODES.VIEW })}
-                  >
-                    {mode === ACCESS_MODES.EDIT ? <FormInput.Text name="identifier" disabled /> : values?.identifier}
-                  </Text>
+                  {mode === ACCESS_MODES.EDIT ? (
+                    <FormInput.Text name="identifier" disabled />
+                  ) : (
+                    <Text
+                      color={Color.BLACK}
+                      font={{
+                        variation: FontVariation.BODY
+                      }}
+                      className={cx(css.detailRow, css.valueRow, { [css.borderBottom]: mode === ACCESS_MODES.VIEW })}
+                    >
+                      {values?.identifier}
+                    </Text>
+                  )}
                 </div>
                 <div>
                   <div className={cx(css.detailRow, css.titleRow)}>{getString('description')}</div>
-                  <Text
-                    color={Color.BLACK}
-                    font={{
-                      variation: FontVariation.BODY
-                    }}
-                    className={cx(css.detailRow, css.valueRow, { [css.borderBottom]: mode === ACCESS_MODES.VIEW })}
-                  >
-                    {mode === ACCESS_MODES.EDIT ? <FormInput.Text name="description" /> : values?.description}
-                  </Text>
+                  {mode === ACCESS_MODES.EDIT ? (
+                    <FormInput.Text name="description" />
+                  ) : (
+                    <Text
+                      color={Color.BLACK}
+                      font={{
+                        variation: FontVariation.BODY
+                      }}
+                      className={cx(css.detailRow, css.valueRow, { [css.borderBottom]: mode === ACCESS_MODES.VIEW })}
+                    >
+                      {values?.description}
+                    </Text>
+                  )}
                 </div>
                 <div>
                   <div className={cx(css.detailRow, css.titleRow)}>{getString('tagsLabel')}</div>
 
-                  {mode === ACCESS_MODES.EDIT ? (
+                  {mode === ACCESS_MODES.VIEW ? (
                     <TagsPopover tags={values?.tags || {}} />
                   ) : (
-                    //  <FormInput.TagInput
-                    //   name="tags"
-                    //   labelFor={name => (typeof name === 'string' ? name : '')}
-                    //   itemFromNewTag={newTag => newTag}
-                    //   items={[]}
-                    //   tagInputProps={{
-                    //     noInputBorder: true,
-                    //     openOnKeyDown: false,
-                    //     showAddTagButton: true,
-                    //     showClearAllButton: true,
-                    //     allowNewTag: true
-                    //   }}
-                    // />
-                    <TagsPopover tags={values?.tags || {}} />
+                    <FormInput.KVTagInput name="tags" />
                   )}
                 </div>
               </Layout.Vertical>

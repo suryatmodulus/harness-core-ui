@@ -61,12 +61,6 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
       })
     )
 
-  const handleViewApplications = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
-    // Need to implement the functionality onces product provides information
-    e.stopPropagation()
-    setMenuOpen(false)
-  }
-
   const getConfirmationDialogContent = (): JSX.Element => {
     return (
       <div className={'connectorDeleteDialog'}>
@@ -125,7 +119,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
                 }}
               />
               <Menu style={{ minWidth: 'unset' }}>
-                <Menu.Item icon="eye-open" text="Details" onClick={handleViewApplications} />
+                <Menu.Item icon="eye-open" text="Details" onClick={gotoOverview} />
                 <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
               </Menu>
             </Popover>

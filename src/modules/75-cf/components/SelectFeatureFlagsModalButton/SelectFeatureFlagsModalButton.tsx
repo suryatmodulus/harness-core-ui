@@ -12,10 +12,11 @@ import {
   FlexExpander,
   Icon,
   Pagination,
-  HarnessDocTooltip,
   PageError,
   Formik,
-  FormikForm
+  FormikForm,
+  Heading,
+  FontVariation
 } from '@wings-software/uicore'
 import { CF_DEFAULT_PAGE_SIZE, getErrorMessage, SegmentsSortByField, SortOrder } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
@@ -153,31 +154,13 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
     const loading = loadingSegments || submitLoading
 
     return (
-      <Dialog
-        isOpen
-        enforceFocus={false}
-        onClose={hideModal}
-        title={
-          <Text
-            style={{
-              fontWeight: 600,
-              fontSize: '14px',
-              color: 'var(--black)',
-              lineHeight: '20px',
-              padding: 'var(--spacing-large) 0 0 var(--spacing-small)'
-            }}
-          >
-            <span data-tooltip-id="ff_segmentAddToFlagModal_heading">
-              {modalTitle}
-              <HarnessDocTooltip tooltipId="ff_segmentAddToFlagModal_heading" useStandAlone />
-            </span>
-          </Text>
-        }
-        style={{ width: 700, maxHeight: '95vh' }}
-      >
-        <Layout.Vertical padding={{ top: 'xxlarge', left: 'xxlarge' }} style={{ height: '100%' }}>
+      <Dialog isOpen enforceFocus={false} onClose={hideModal} title={''} style={{ width: 700, maxHeight: '95vh' }}>
+        <Layout.Vertical padding={{ left: 'xxlarge' }} style={{ height: '100%' }}>
           {/* Search Input */}
-          <Container padding={{ right: 'xlarge', bottom: 'large' }}>
+          <Heading level={3} font={{ variation: FontVariation.H3 }} margin={{ bottom: 'xlarge' }}>
+            {modalTitle}
+          </Heading>
+          <Container padding={{ right: 'xxlarge', bottom: 'large' }}>
             <TextInput
               leftIcon="search"
               width="100%"
@@ -188,11 +171,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
           </Container>
 
           {/* Table view */}
-          <Container
-            // style={{ height: 'calc(100% - 210px)', overflow: 'auto' }}
-            style={{ height: '35vh', overflow: 'auto' }}
-            margin={{ bottom: 'small', right: 'xxlarge' }}
-          >
+          <Container style={{ height: 'fit-content', overflow: 'auto' }} margin={{ bottom: 'small', right: 'xxlarge' }}>
             {(error && (
               <PageError
                 message={getErrorMessage(error)}
@@ -263,7 +242,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
             )}
           </Container>
 
-          <Layout.Horizontal>
+          <Container margin={{ right: 'xxlarge' }}>
             <Formik
               initialValues={{
                 gitDetails: gitSyncInitialValues.gitDetails,
@@ -280,13 +259,17 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
             >
               {formikProps => {
                 return (
-                  <FormikForm {...formikProps} style={{ minWidth: '37vw' }}>
+                  <FormikForm {...formikProps}>
                     {isGitSyncEnabled && !isAutoCommitEnabled && (
                       <>
                         <SaveFlagToGitSubForm subtitle="Commit Changes" hideNameField />
                       </>
                     )}
-                    <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }} style={{ alignItems: 'center' }}>
+                    <Layout.Horizontal
+                      spacing="small"
+                      padding={{ right: 'xxlarge', top: 'medium' }}
+                      style={{ alignItems: 'center' }}
+                    >
                       <Button
                         type="submit"
                         text={submitButtonTitle || getString('add')}
@@ -313,7 +296,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
                 )
               }}
             </Formik>
-          </Layout.Horizontal>
+          </Container>
         </Layout.Vertical>
       </Dialog>
     )

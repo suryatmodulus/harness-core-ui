@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -89,58 +89,58 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
-<span class="cstat-no" title="statement not covered" >import { SelectOption, Select } from '@wings-software/uicore'</span>
-<span class="cstat-no" title="statement not covered" >import { DashboardTimeRange, useLandingDashboardContext } from '@common/factories/LandingDashboardContext'</span>
-<span class="cstat-no" title="statement not covered" >import { useStrings } from 'framework/strings'</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { SelectOption, Select } from '@wings-software/uicore'
+import { DashboardTimeRange, useLandingDashboardContext } from '@common/factories/LandingDashboardContext'
+import { useStrings } from 'framework/strings'
 &nbsp;
 interface TimeRangeSelectProps {
   className?: string
 }
 &nbsp;
-const TimeRangeSelect: React.FC&lt;TimeRangeSelectProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >props </span>=&gt; {</span>
-  const { selectTimeRange } = <span class="cstat-no" title="statement not covered" >useLandingDashboardContext()</span>
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+const TimeRangeSelect: React.FC&lt;TimeRangeSelectProps&gt; = props =&gt; {
+  const { selectTimeRange } = useLandingDashboardContext()
+  const { getString } = useStrings()
 &nbsp;
-  const options: SelectOption[] = <span class="cstat-no" title="statement not covered" >[</span>
+  const options: SelectOption[] = [
     { label: getString('projectsOrgs.landingDashboard.last30Days'), value: DashboardTimeRange['30Days'] },
     { label: getString('projectsOrgs.landingDashboard.last60Days'), value: DashboardTimeRange['60Days'] },
     { label: getString('projectsOrgs.landingDashboard.last90Days'), value: DashboardTimeRange['90Days'] },
     { label: getString('projectsOrgs.landingDashboard.last1Year'), value: DashboardTimeRange['1Year'] }
   ]
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Select
       items={options}
       onChange={<span class="fstat-no" title="function not covered" >option </span>=&gt; {
@@ -152,7 +152,7 @@ const TimeRangeSelect: React.FC&lt;TimeRangeSelectProps&gt; = <span class="cstat
   )
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default TimeRangeSelect</span>
+export default TimeRangeSelect
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -160,7 +160,7 @@ const TimeRangeSelect: React.FC&lt;TimeRangeSelectProps&gt; = <span class="cstat
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 22 2021 00:00:51 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 22 2021 05:54:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

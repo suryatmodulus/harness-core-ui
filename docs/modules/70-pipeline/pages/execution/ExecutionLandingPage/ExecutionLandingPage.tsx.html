@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.05% </span>
+                <span class="strong">96.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>73/76</span>
+                <span class='fraction'>75/78</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.34% </span>
+                <span class="strong">85.12% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>176/197</span>
+                <span class='fraction'>183/215</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.65% </span>
+                <span class="strong">98.68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>73/74</span>
+                <span class='fraction'>75/76</span>
             </div>
         
             
@@ -264,16 +264,19 @@
 <a name='L205'></a><a href='#L205'>205</a>
 <a name='L206'></a><a href='#L206'>206</a>
 <a name='L207'></a><a href='#L207'>207</a>
-<a name='L208'></a><a href='#L208'>208</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -282,6 +285,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -308,6 +312,7 @@
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
@@ -471,12 +476,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { get, isEmpty, pickBy } from 'lodash-es'
-&nbsp;
-import { PageSpinner, PageError } from '@wings-software/uicore'
-import { useGetExecutionDetail } from 'services/pipeline-ng'
+import { PageError, PageSpinner } from '@wings-software/uicore'
+import { GovernanceMetadata, useGetExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { ExecutionStatus, isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import {
@@ -491,6 +498,7 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 &nbsp;
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
 import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
+import { PolicyEvaluationsFailureModal } from '@pipeline/pages/execution/ExecutionPolicyEvaluationsView/ExecutionPolicyEvaluationsView'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import useTabVisible from '@common/hooks/useTabVisible'
@@ -518,6 +526,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren&lt;u
   const [selectedStageId, setSelectedStageId] = React.useState('')
   const [selectedStepId, setSelectedStepId] = React.useState('')
   const queryParams = useQueryParams&lt;ExecutionPageQueryParams&gt;()
+  const location = useLocation&lt;{ governanceFailed: boolean; governanceMetadata: GovernanceMetadata }&gt;()
 &nbsp;
   const [stepsGraphCanvasState, setStepsGraphCanvasState] = React.useState&lt;GraphCanvasState&gt;({
     offsetX: 5,
@@ -672,6 +681,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren&lt;u
             &gt;
               {props.children}
             &lt;/div&gt;
+            {!!location<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tate<span class="branch-1 cbranch-no" title="branch not covered" >?.governanceFailed </span>&amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;PolicyEvaluationsFailureModal accountId={accountId} metadata={location?.state?.governanceMetadata} /&gt;</span>
+            )}
           &lt;/div&gt;
         &lt;/main&gt;
       )}
@@ -685,7 +697,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren&lt;u
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 22 2021 16:55:48 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 22 2021 19:14:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

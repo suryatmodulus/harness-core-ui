@@ -676,7 +676,14 @@ const FeatureFlagsPage: React.FC = () => {
             <Container>
               <FlagDialog environment={activeEnvironment} />
             </Container>
-            <GitSyncActions />
+            {gitSync?.isGitSyncEnabled && (
+              <GitSyncActions
+                isLoading={gitSync.gitSyncLoading}
+                branch={gitSync.gitRepoDetails?.branch || ''}
+                isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
+                handleToggleAutoCommit={(newAutoCommitValue: boolean) => gitSync.handleAutoCommit(newAutoCommitValue)}
+              />
+            )}
           </Layout.Horizontal>
           <FlexExpander />
           <ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} />

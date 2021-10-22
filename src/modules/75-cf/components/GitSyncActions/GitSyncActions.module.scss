@@ -1,0 +1,27 @@
+.actions-button {
+  background-color: var(--white) !important;
+  box-shadow: none !important;
+  border: none !important;
+  //   min-width: 100%;
+  //   :global {
+  //     .bp3-button-text {
+  //       min-width: 100%;
+  //     }
+  //   }
+  &:hover {
+    background-color: var(--grey-100) !important;
+  }
+  &:active {
+    background-color: var(--grey-100) !important;
+  }
+}
+
+.button-content-wrapper * {
+  display: flex;
+  justify-content: 'space-between';
+  align-items: center;
+  margin-right: var(--spacing-3) !important;
+  &:last-child {
+    margin-right: 0 !important;
+  }
+}

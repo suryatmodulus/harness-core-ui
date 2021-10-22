@@ -116,7 +116,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           className={css.tabLink}
           activeClassName={css.activeLink}
         >
-          <Icon name="Inline" size={16} />
+          <Icon name="manually-entered-data" size={16} />
           <span>{getString('inputs')}</span>
         </NavLink>
       )

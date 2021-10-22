@@ -24,7 +24,7 @@ export default function AccountSideNav(): React.ReactElement {
       <SidebarLink exact label={getString('overview')} to={routes.toAccountSettingsOverview({ accountId })} />
       <SidebarLink label={getString('authentication')} to={routes.toAuthenticationSettings({ accountId })} />
       <SidebarLink label={getString('common.accountResources')} to={routes.toAccountResources({ accountId })} />
-      {(OPA_PIPELINE_GOVERNANCE || localStorage.OPA_PIPELINE_GOVERNANCE) && (
+      {OPA_PIPELINE_GOVERNANCE && (
         <SidebarLink label={getString('common.governance')} to={routes.toPolicyListPage({ accountId })} />
       )}
       <SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} />

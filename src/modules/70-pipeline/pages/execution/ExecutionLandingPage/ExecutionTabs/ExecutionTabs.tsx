@@ -11,7 +11,8 @@ import type { CIWebhookInfoDTO } from 'services/ci'
 import type { ExecutionQueryParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { useStrings } from 'framework/strings'
-
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './ExecutionTabs.module.scss'
 
 const TAB_ID_MAP = {
@@ -32,6 +33,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
   const location = useLocation()
   const { view } = useQueryParams<ExecutionQueryParams>()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionQueryParams>()
+  const opaBasedGovernanceEnabled = useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE)
 
   const routeParams = { ...accountPathProps, ...executionPathProps, ...pipelineModuleParams }
   // const isGraphView = !view || view === 'graph'
@@ -114,12 +116,15 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           className={css.tabLink}
           activeClassName={css.activeLink}
         >
-          <Icon name="conditional-when" size={16} />
+          <Icon name="manually-entered-data" size={16} />
           <span>{getString('inputs')}</span>
         </NavLink>
       )
-    },
-    {
+    }
+  ]
+
+  if (opaBasedGovernanceEnabled) {
+    tabList.push({
       id: TAB_ID_MAP.POLICY_EVALUATIONS,
       title: (
         <NavLink
@@ -127,12 +132,12 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           className={css.tabLink}
           activeClassName={css.activeLink}
         >
-          <Icon name="manually-entered-data" size={16} />
+          <Icon name="governance" size={16} />
           <span>{getString('pipeline.policyEvaluations.title')}</span>
         </NavLink>
       )
-    }
-  ]
+    })
+  }
 
   if (isCI) {
     tabList.push({

@@ -52,8 +52,7 @@ import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { PipelineActions } from '@common/constants/TrackingConstants'
-import { FeatureFlag } from '@common/featureFlags'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
 import { PolicyEvaluationsFailureModal } from '@pipeline/pages/execution/ExecutionPolicyEvaluationsView/ExecutionPolicyEvaluationsView'
@@ -196,8 +195,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const [isYamlError, setYamlError] = React.useState(false)
   const [blockNavigation, setBlockNavigation] = React.useState(false)
   const [selectedBranch, setSelectedBranch] = React.useState(branch || '')
-  const opaBasedGovernanceEnabled =
-    useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE) || localStorage.OPA_PIPELINE_GOVERNANCE
+  const { OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
   const [governanceMetadata, setGovernanceMetadata] = useState<GovernanceMetadata>()
 
   const { openDialog: openUnsavedChangesDialog } = useConfirmationDialog({
@@ -285,7 +283,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       },
       omit(latestPipeline, 'repo', 'branch'),
       pipelineIdentifier !== DefaultNewPipelineId,
-      !!opaBasedGovernanceEnabled
+      !!OPA_PIPELINE_GOVERNANCE
     )
     const newPipelineId = latestPipeline?.identifier
 
@@ -942,7 +940,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         </div>
         <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
         {isYaml ? <PipelineYamlView /> : <StageBuilder />}
-        {opaBasedGovernanceEnabled && governanceMetadata?.deny && (
+        {OPA_PIPELINE_GOVERNANCE && governanceMetadata?.deny && (
           <PolicyEvaluationsFailureModal
             accountId={accountId}
             metadata={governanceMetadata}

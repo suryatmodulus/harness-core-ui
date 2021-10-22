@@ -117,7 +117,9 @@ export const RightBar = (): JSX.Element => {
   } = usePipelineContext()
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
-  const opaBasedGovernanceEnabled =
+
+  // TODO: This feature is not ready yet, guard it by localStorage as well
+  const enableGovernanceSidebar =
     useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE) && localStorage.OPA_PIPELINE_GOVERNANCE_SIDEBAR
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
@@ -386,7 +388,7 @@ export const RightBar = (): JSX.Element => {
         text={getString('pipeline.barriers.flowControl')}
       />
 
-      {opaBasedGovernanceEnabled && (
+      {enableGovernanceSidebar && (
         <Button
           className={cx(css.iconButton, css.policySetsIcon, {
             [css.selected]: type === DrawerTypes.PolicySets

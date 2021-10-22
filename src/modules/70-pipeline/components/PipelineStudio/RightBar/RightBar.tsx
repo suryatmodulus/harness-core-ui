@@ -118,7 +118,7 @@ export const RightBar = (): JSX.Element => {
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
   const opaBasedGovernanceEnabled =
-    useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE) || localStorage.OPA_PIPELINE_GOVERNANCE
+    useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE) && localStorage.OPA_PIPELINE_GOVERNANCE_SIDEBAR
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{

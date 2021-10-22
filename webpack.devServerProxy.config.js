@@ -66,16 +66,10 @@ module.exports = {
     target: targetLocalHost ? 'http://localhost:15001' : baseUrl
   },
   '/pm': {
-    target: process.env.GOVERNANCE_APP_URL || baseUrl,
-    pathRewrite: { '^/pm': '' }
+    target: process.env.GOVERNANCE_APP_URL || 'https://pr.harness.io/policy-mgmt2' || baseUrl
   },
   '/gitops': {
     pathRewrite: { '^/gitops': '' },
     target: process.env.GITOPS_URL || 'https://localhost:8183'
-  },
-  '/policy-mgmt': {
-    target: 'https://pr.harness.io/policy-mgmt2/pm/api/v1',
-    pathRewrite: { '^/policy-mgmt2': '' },
-    logLevel: 'debug'
   }
 }

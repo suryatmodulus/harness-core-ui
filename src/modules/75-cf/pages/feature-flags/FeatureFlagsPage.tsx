@@ -58,7 +58,7 @@ import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUt
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '@cf/components/CreateFlagDialog/FlagDialog'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
-import { GitSyncFormValues, UseGitSync, useGitSync } from '@cf/hooks/useGitSync'
+import { GitDetails, GitSyncFormValues, UseGitSync, useGitSync } from '@cf/hooks/useGitSync'
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import imageURL from './Feature_Flags_LP.svg'
@@ -67,7 +67,7 @@ import { FlagResult } from './FlagResult'
 import css from './FeatureFlagsPage.module.scss'
 
 interface RenderColumnFlagProps {
-  gitSync: any
+  gitSync: UseGitSync
   cell: Cell<Feature>
   update: (status: boolean) => void
 }
@@ -106,13 +106,13 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ gitSync, cell: { ro
     [activeEnvironment]
   )
 
-  const handleFlagToggle = (gitSyncFormValues?: any) => {
-    let gitDetails
+  const handleFlagToggle = (gitSyncFormValues?: GitSyncFormValues): void => {
+    let gitDetails: GitDetails | undefined
 
     if (gitSync.isAutoCommitEnabled) {
-      gitDetails = gitSyncInitialValues
-    } else {
-      gitDetails = gitSyncFormValues?.gitDetails
+      gitDetails = gitSyncInitialValues.gitDetails
+    } else if (gitSyncFormValues) {
+      gitDetails = gitSyncFormValues.gitDetails
     }
 
     const toggleFn = status ? toggleFeatureFlag.off(gitDetails) : toggleFeatureFlag.on(gitDetails)

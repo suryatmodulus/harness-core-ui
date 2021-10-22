@@ -7,14 +7,15 @@ import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { useStrings } from 'framework/strings'
 
+export interface GitDetails {
+  branch: string
+  filePath: string
+  repoIdentifier: string
+  rootFolder: string
+  commitMsg: string
+}
 export interface GitSyncFormValues {
-  gitDetails: {
-    branch: string
-    filePath: string
-    repoIdentifier: string
-    rootFolder: string
-    commitMsg: string
-  }
+  gitDetails: GitDetails
   autoCommit: boolean
 }
 interface GitSyncFormMeta {

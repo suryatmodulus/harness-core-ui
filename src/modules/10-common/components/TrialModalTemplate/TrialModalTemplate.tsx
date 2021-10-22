@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, Layout, Icon, Container, Color, IconName } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { useQueryParams } from '@common/hooks'
 
 interface TrialModalTemplateProps {
   iconName?: string
@@ -22,6 +23,8 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
   rightWidth = '30%'
 }) => {
   const { getString } = useStrings()
+  const { modal } = useQueryParams<{ modal?: string }>()
+  const showTrialBadge = !hideTrialBadge && modal === 'trial'
 
   return (
     <Layout.Vertical padding={{ top: 'large', right: 'large' }}>
@@ -34,7 +37,7 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
             </Text>
           </>
         )}
-        {!hideTrialBadge && (
+        {showTrialBadge && (
           <Text
             background={Color.ORANGE_500}
             color={Color.WHITE}

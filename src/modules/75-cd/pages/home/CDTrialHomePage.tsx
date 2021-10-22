@@ -7,10 +7,12 @@ import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
 import { useQueryParams } from '@common/hooks'
-import { useStartTrialLicense } from 'services/cd-ng'
+import { useStartTrialLicense, useStartFreeLicense } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { Editions } from '@common/constants/SubscriptionTypes'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import bgImageURL from './images/cd.svg'
 
 const CDTrialHomePage: React.FC = () => {
@@ -19,32 +21,60 @@ const CDTrialHomePage: React.FC = () => {
   const { source } = useQueryParams<{ source?: string }>()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const { accountId } = useParams<ProjectPathProps>()
+  const module = 'cd'
+  const moduleType = 'CD'
 
-  const {
-    error,
-    mutate: startTrial,
-    loading
-  } = useStartTrialLicense({
+  const isFreeEnabled = useFeatureFlag(FeatureFlag.FREE_PLAN_ENABLED)
+
+  const { mutate: startTrial, loading: startingTrial } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }
   })
 
+  const { mutate: startFreePlan, loading: startingFree } = useStartFreeLicense({
+    queryParams: {
+      accountIdentifier: accountId,
+      moduleType
+    },
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+  })
+
+  const startPlan = isFreeEnabled
+    ? () => {
+        return startFreePlan()
+      }
+    : () => {
+        return startTrial({ moduleType, edition: Editions.ENTERPRISE })
+      }
+  const experienceParam = isFreeEnabled ? 'free' : 'trial'
+
   const startTrialnOpenCDTrialModal = async (): Promise<void> => {
-    const data = await startTrial({ moduleType: 'CD', edition: Editions.ENTERPRISE })
+    try {
+      const data = await startPlan()
+      handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, data?.data)
 
-    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, 'cd', data?.data)
-
-    history.push({
-      pathname: routes.toModuleHome({ accountId, module: 'cd' }),
-      search: '?trial=true&&modal=true'
-    })
+      history.push({
+        pathname: routes.toModuleHome({ accountId, module }),
+        search: `?experience=${experienceParam}&&modal=${experienceParam}`
+      })
+    } catch (ex) {
+      showError((ex.data as Error)?.message || ex.message)
+    }
   }
 
   const { showModal: openStartTrialModal } = useStartTrialModal({
-    module: 'cd',
+    module,
     handleStartTrial: source === 'signup' ? undefined : startTrialnOpenCDTrialModal
   })
+
+  const startBtnDescription = isFreeEnabled
+    ? getString('common.startFreePlan', { module: moduleType })
+    : getString('cd.cdTrialHomePage.startTrial.startBtn.description')
 
   const startTrialProps = {
     description: getString('cd.cdTrialHomePage.startTrial.description'),
@@ -53,7 +83,7 @@ const CDTrialHomePage: React.FC = () => {
       url: 'https://ngdocs.harness.io/category/c9j6jejsws-cd-quickstarts'
     },
     startBtn: {
-      description: source ? getString('cd.cdTrialHomePage.startTrial.startBtn.description') : getString('getStarted'),
+      description: source ? startBtnDescription : getString('getStarted'),
       onClick: source ? undefined : openStartTrialModal
     }
   }
@@ -66,11 +96,7 @@ const CDTrialHomePage: React.FC = () => {
 
   const { showError } = useToaster()
 
-  if (error) {
-    showError((error.data as Error)?.message || error.message)
-  }
-
-  if (loading) {
+  if (startingTrial || startingFree) {
     return <PageSpinner />
   }
 
@@ -79,7 +105,7 @@ const CDTrialHomePage: React.FC = () => {
       title={getString('cd.continuous')}
       bgImageUrl={bgImageURL}
       startTrialProps={startTrialProps}
-      module="cd"
+      module={module}
     />
   )
 }

@@ -6,10 +6,12 @@ import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStor
 import { useStartTrialLicense, ResponseModuleLicenseDTO, StartTrialDTORequestBody } from 'services/cd-ng'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useTelemetry } from '@common/hooks/useTelemetry'
-import { Category, TrialActions } from '@common/constants/TrackingConstants'
+import { Category, PlanActions, TrialActions } from '@common/constants/TrackingConstants'
 import routes from '@common/RouteDefinitions'
 import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
 import { Editions } from '@common/constants/SubscriptionTypes'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './StartTrialTemplate.module.scss'
 
 interface StartTrialTemplateProps {
@@ -45,9 +47,16 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
   const { showError } = useToaster()
   const { showModal } = useStartTrialModal({ module, handleStartTrial })
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const isFreeEnabled = useFeatureFlag(FeatureFlag.FREE_PLAN_ENABLED)
+  const clickEvent = isFreeEnabled ? PlanActions.StartFreeClick : TrialActions.StartTrialClick
+  const experience = isFreeEnabled ? 'free' : 'trial'
 
   async function handleStartTrial(): Promise<void> {
-    trackEvent(TrialActions.StartTrialClick, { category: Category.SIGNUP, module: module })
+    trackEvent(clickEvent, {
+      category: Category.SIGNUP,
+      module: module,
+      edition: isFreeEnabled ? Editions.FREE : Editions.ENTERPRISE
+    })
     try {
       const data = await startTrial()
 
@@ -55,7 +64,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
 
       history.push({
         pathname: routes.toModuleHome({ accountId, module }),
-        search: '?trial=true'
+        search: `?experience=${experience}`
       })
     } catch (error) {
       showError(error.data?.message)

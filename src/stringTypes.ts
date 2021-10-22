@@ -455,6 +455,7 @@ export interface StringsMap {
   'common.specified': string
   'common.specify': string
   'common.stable': string
+  'common.startFreePlan': string
   'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string

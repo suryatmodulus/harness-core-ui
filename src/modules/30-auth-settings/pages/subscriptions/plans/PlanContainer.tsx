@@ -102,8 +102,13 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
 
       let search
       if (licenseData?.licenseType === ModuleLicenseType.TRIAL) {
-        search = '?trial=true'
+        search = '?experience=trial&&modal=trial'
       }
+
+      if (edition === Editions.FREE) {
+        search = '?experience=free&&modal=free'
+      }
+
       history.push({
         pathname: routes.toModuleHome({ accountId, module: module.toLowerCase() as Module }),
         search

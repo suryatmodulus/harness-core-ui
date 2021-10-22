@@ -23,6 +23,7 @@ import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
 import { returnLaunchUrl } from '@common/utils/routeUtils'
 import { LaunchButton } from '@common/components/LaunchButton/LaunchButton'
+import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 
 export default function CDSideNav(): React.ReactElement {
   const params = useParams<
@@ -52,7 +53,7 @@ export default function CDSideNav(): React.ReactElement {
   const { updateAppStore } = useAppStore()
   const { CD_OVERVIEW_PAGE, ARGO_PHASE1 } = useFeatureFlags()
   const { getString } = useStrings()
-  const { trial, community } = useQueryParams<{ trial?: boolean; community?: boolean }>()
+  const { experience, community } = useQueryParams<{ experience?: string; community?: boolean }>()
 
   return (
     <Layout.Vertical spacing="small">
@@ -123,8 +124,9 @@ export default function CDSideNav(): React.ReactElement {
                 orgIdentifier: data.orgIdentifier
               })
             )
-          } else if (trial || community) {
+          } else if (experience || community) {
             // when it's on trial page, forward to pipeline
+            const search = community ? ModuleLicenseType.COMMUNITY : experience
             history.push({
               pathname: routes.toPipelineStudio({
                 orgIdentifier: data.orgIdentifier || '',
@@ -133,7 +135,7 @@ export default function CDSideNav(): React.ReactElement {
                 accountId,
                 module
               }),
-              search: '?modal=trial'
+              search: `?modal=${search}`
             })
           } else {
             history.push(

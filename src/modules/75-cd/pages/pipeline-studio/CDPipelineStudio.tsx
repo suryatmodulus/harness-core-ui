@@ -42,7 +42,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
 
   const { modal } = useQueryParams<{ modal?: string }>()
 
-  const getOtherModal = modal === 'trial' ? getTrialPipelineCreateForm : undefined
+  const getOtherModal = modal === 'trial' || modal === 'free' ? getTrialPipelineCreateForm : undefined
   const handleRunPipeline = (): void => {
     history.push(
       routes.toPipelineStudio({

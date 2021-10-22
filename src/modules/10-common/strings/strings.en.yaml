@@ -619,3 +619,4 @@ template:
 viewLatest: View latest
 viewUsage: View Usage
 friendlyMessage: Friendly message
+startFreePlan: Start {{module}} Free Plan

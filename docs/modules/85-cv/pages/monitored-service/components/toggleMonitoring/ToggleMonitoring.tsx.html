@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.47% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/19</span>
+                <span class='fraction'>18/20</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.47% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/19</span>
+                <span class='fraction'>18/20</span>
             </div>
         
             
@@ -125,22 +125,17 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,16 +148,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">44x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -193,21 +183,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import type { MutateMethod } from 'restful-react'
 import { useToaster } from '@common/exports'
-import type {
-  RestResponseHealthMonitoringFlagResponse,
-  SetHealthMonitoringFlagQueryParams,
-  SetHealthMonitoringFlagPathParams
-} from 'services/cv'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
 import { useStrings } from 'framework/strings'
+import type { RestResponseHealthMonitoringFlagResponse } from 'services/cv'
+import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import type { setHealthMonitoringFlagType } from '../../CVMonitoredService/CVMonitoredService.types'
 &nbsp;
 export default function ToggleMonitoring({
   identifier,
@@ -219,12 +213,7 @@ export default function ToggleMonitoring({
   identifier: string
   enabled: boolean
   refetch: () =&gt; void
-  setHealthMonitoringFlag: MutateMethod&lt;
-    RestResponseHealthMonitoringFlagResponse,
-    void,
-    SetHealthMonitoringFlagQueryParams,
-    SetHealthMonitoringFlagPathParams
-  &gt;
+  setHealthMonitoringFlag: setHealthMonitoringFlagType
   loading?: boolean
 }): JSX.Element {
   const params = useParams&lt;ProjectPathProps&gt;()
@@ -232,11 +221,11 @@ export default function ToggleMonitoring({
   const { getString } = useStrings()
 &nbsp;
   const onToggleMonitoringSource = useCallback(
-    async (checked: boolean): Promise&lt;void&gt; =&gt; {
+    async (checked: boolean, _identifier: string): Promise&lt;void&gt; =&gt; {
       try {
         const output: RestResponseHealthMonitoringFlagResponse = await setHealthMonitoringFlag(undefined, {
           pathParams: {
-            identifier
+            identifier: _identifier
           },
           queryParams: {
             enable: checked,
@@ -262,7 +251,15 @@ export default function ToggleMonitoring({
     []
   )
 &nbsp;
-  return &lt;ToggleOnOff checked={enabled} beforeOnChange={onToggleMonitoringSource} loading={loading} /&gt;
+  return (
+    &lt;ToggleOnOff
+      checked={enabled}
+      onChange={checked =&gt; {
+        onToggleMonitoringSource(checked, identifier)
+      }}
+      loading={loading}
+    /&gt;
+  )
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -271,7 +268,7 @@ export default function ToggleMonitoring({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 22 2021 12:50:59 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 22 2021 15:18:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

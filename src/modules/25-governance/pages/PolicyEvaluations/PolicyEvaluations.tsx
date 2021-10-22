@@ -19,7 +19,7 @@ import { setPageNumber } from '@common/utils/utils'
 import Table from '@common/components/Table/Table'
 
 import { useGetEvaluationList, Evaluation, EvaluationDetail } from 'services/pm'
-import { isEvaluationFailed } from '@policy/utils/PmUtils'
+import { isEvaluationFailed } from '@governance/utils/PmUtils'
 
 import css from './PolicyEvaluations.module.scss'
 

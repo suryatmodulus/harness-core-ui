@@ -72,7 +72,7 @@ export default function PoliciesBarChart({
 
   return (
     <ExecutionsChart
-      titleText={getString('pipeline.dashboards.buildExecutions')}
+      titleText={getString('executionsText')}
       data={chartData}
       loading={loading}
       range={range}

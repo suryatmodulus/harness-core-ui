@@ -1,16 +1,17 @@
-import React, { Suspense } from 'react'
-import { Container } from '@wings-software/uicore'
-import { useRouteMatch, useHistory } from 'react-router-dom'
+import React from 'react'
 import routes from '@common/RouteDefinitions'
-import { accountPathProps, returnUrlParams } from '@common/utils/routeUtils'
+
+import { accountPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
+
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
-import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
-import AppStorage from 'framework/utils/AppStorage'
-import { getLoginPageURL } from 'framework/utils/SessionUtils'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
-import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { GovernanceApp } from './GovernanceApp'
+import Policies from './pages/Policies/Policies'
+import PolicyControlPage from './pages/PolicyControl/PolicyControlPage'
+import PolicySets from './pages/PolicySets/PolicySets'
+import PolicyEvaluations from './pages/PolicyEvaluations/PolicyEvaluations'
+import { EditPolicy } from './pages/EditPolicy/EditPolicy'
+import PolicyDashboard from './pages/PolicyDashboard/PolicyDashboard'
 
 export const AccountSideNavProps: SidebarContext = {
   navComponent: AccountSideNav,
@@ -18,53 +19,54 @@ export const AccountSideNavProps: SidebarContext = {
   title: 'Account Settings'
 }
 
-const AppLoader: React.FC = () => {
-  const { url, path, params } = useRouteMatch()
-  const history = useHistory()
-
-  return (
-    <Suspense
-      fallback={
-        <Container
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: '290px',
-            width: 'calc(100% - 290px)',
-            height: `100%`
-          }}
-        >
-          <ContainerSpinner />
-        </Container>
-      }
-    >
-      <AppErrorBoundary>
-        {/* TODO: @see ChildAppMounter */}
-        <GovernanceApp
-          basePath={path}
-          baseURL={url}
-          params={params}
-          apiToken={AppStorage.get('token')}
-          on401={() => {
-            AppStorage.clear()
-            history.push({
-              pathname: routes.toRedirect(),
-              search: returnUrlParams(getLoginPageURL({ returnUrl: window.location.href }))
-            })
-          }}
-        />
-      </AppErrorBoundary>
-    </Suspense>
-  )
-}
-
 export default (
   <>
     <RouteWithLayout
-      path={routes.toAccountSettingsGovernance({ ...accountPathProps })}
+      path={routes.toPolicyDashboardPage({ ...accountPathProps })}
+      exact
       sidebarProps={AccountSideNavProps}
     >
-      <AppLoader />
+      <PolicyControlPage title="Overview">
+        <PolicyDashboard />
+      </PolicyControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout path={routes.toPolicyListPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
+      <PolicyControlPage title="Policies">
+        <Policies />
+      </PolicyControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout path={routes.toPolicyNewPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
+      <PolicyControlPage title="New Policy">
+        <EditPolicy />
+      </PolicyControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      path={routes.toPolicyEditPage({ ...accountPathProps, policyIdentifier: ':policyIdentifier' })}
+      exact
+      sidebarProps={AccountSideNavProps}
+    >
+      <PolicyControlPage title="Edit Policy">
+        <EditPolicy />
+      </PolicyControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout path={routes.toPolicySetsPage({ ...accountPathProps })} exact sidebarProps={AccountSideNavProps}>
+      <PolicyControlPage title="Policy Sets">
+        <PolicySets />
+      </PolicyControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      path={routes.toPolicyEvaluationsPage({ ...accountPathProps })}
+      exact
+      sidebarProps={AccountSideNavProps}
+    >
+      <PolicyControlPage title="Evaluations">
+        <PolicyEvaluations />
+      </PolicyControlPage>
     </RouteWithLayout>
   </>
 )

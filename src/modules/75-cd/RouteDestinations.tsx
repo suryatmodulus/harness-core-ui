@@ -138,7 +138,7 @@ const HandleGitOpsRedirect = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { ARGO_PHASE2_MANAGED } = useFeatureFlags()
 
-  if (!ARGO_PHASE2_MANAGED) {
+  if (ARGO_PHASE2_MANAGED) {
     return <Redirect to={routes.toHarnessManagedGitOps({ accountId, projectIdentifier, orgIdentifier, module })} />
   } else {
     return <Redirect to={routes.toNativeArgo({ accountId, projectIdentifier, orgIdentifier, module })} />

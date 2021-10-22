@@ -1,9 +1,19 @@
 import React, { useState } from 'react'
 import { defaultTo, isEmpty } from 'lodash-es'
-import { Button, Card, Layout, Text, Popover, Color, ButtonVariation, Container, Icon } from '@wings-software/uicore'
+import {
+  Button,
+  Card,
+  Layout,
+  Text,
+  Popover,
+  Color,
+  ButtonVariation,
+  Container,
+  ButtonSize
+} from '@wings-software/uicore'
 import { Menu, Classes, Position } from '@blueprintjs/core'
 import { useConfirmationDialog } from '@common/exports'
-import type { GitopsProviderResponse } from 'services/cd-ng'
+import type { V1Agent } from 'services/gitops'
 import { useStrings } from 'framework/strings'
 import { TagsPopover } from '@common/components'
 import harnessLogo from '@cd/icons/harness-logo.png'
@@ -11,23 +21,17 @@ import harnessLogo from '@cd/icons/harness-logo.png'
 import css from './GitOpsServerCard.module.scss'
 
 interface ProviderCardProps {
-  provider: GitopsProviderResponse
-  onDelete?: (provider: GitopsProviderResponse) => Promise<void>
+  provider: V1Agent
+  onDelete?: (provider: V1Agent) => Promise<void>
   onEdit?: () => Promise<void>
 }
 
 const ProviderCard: React.FC<ProviderCardProps> = props => {
-  const { provider, onDelete, onEdit } = props
+  const { provider, onDelete } = props
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
-    e.stopPropagation()
-    setMenuOpen(false)
-    onEdit && onEdit()
-  }
-  const handleViewApplications = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
-    // Need to implement the functionality onces product provides information
+  const handleShowDetails = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
     setMenuOpen(false)
   }
@@ -90,8 +94,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
                 }}
               />
               <Menu style={{ minWidth: 'unset' }}>
-                <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
-                <Menu.Item icon="eye-open" text="View Applications" onClick={handleViewApplications} />
+                <Menu.Item icon="eye-open" text="Details" onClick={handleShowDetails} />
                 <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
               </Menu>
             </Popover>
@@ -99,11 +102,16 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
         </div>
 
         <Text
-          lineClamp={1}
-          font={{ weight: 'bold' }}
-          margin={{ top: 'small' }}
+          lineClamp={2}
+          margin={{ top: 'medium', bottom: 'small' }}
           color={Color.GREY_800}
           data-testid={provider.identifier}
+          style={{
+            fontSize: '14px',
+            fontWeight: 500,
+            lineHeight: '32px',
+            wordBreak: 'break-word'
+          }}
         >
           {provider.name}
         </Text>
@@ -117,7 +125,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
             lineClamp={2}
             color={Color.GREY_600}
             className={css.description}
-            margin={{ top: 'xsmall' }}
+            margin={{ top: 'xsmall', bottom: 'xsmall' }}
           >
             {provider.description}
           </Text>
@@ -135,11 +143,33 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
 
         <div className={css.applications}>Applications: 5</div>
 
-        <div className={css.gitOpsServerStatusContainer}>
-          <div className={css.serverStatusContainer}>
-            <div className={css.gitOpsServerStatus}>
-              <Icon name="main-more" intent="success" className={css.statusIcon} /> RUNNING
-            </div>
+        <div className={css.gitOpsStatusContainer}>
+          <div className={css.connectionStatus}>
+            <Text font="small"> Connection Status</Text>
+
+            <Button
+              icon="command-artifact-check"
+              variation={ButtonVariation.PRIMARY}
+              text="CONNECTED"
+              intent="success"
+              size={ButtonSize.SMALL}
+              className={css.statusText}
+            />
+          </div>
+          <div className={css.healthStatus}>
+            <Text font="small"> Health Status </Text>
+
+            <Button
+              icon="command-artifact-check"
+              variation={ButtonVariation.PRIMARY}
+              text="HEALTHY"
+              size={ButtonSize.SMALL}
+              style={{
+                color: '#1B841D !important',
+                backgroundColor: '#D8F3D4 !important'
+              }}
+              className={css.statusText}
+            />
           </div>
         </div>
       </Container>

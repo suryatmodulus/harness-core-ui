@@ -1,14 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
-import {
-  Layout,
-  Text,
-  useModalHook,
-  ExpandingSearchInput,
-  ButtonVariation,
-  Button,
-  PageError
-} from '@wings-software/uicore'
+import { Layout, Text, useModalHook, ExpandingSearchInput, ButtonVariation, PageError } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
@@ -16,20 +8,13 @@ import { shouldShowError } from '@common/utils/errorUtils'
 
 import { PageSpinner } from '@common/components'
 
-import {
-  useListGitOpsProviders,
-  ListGitOpsProvidersQueryParams,
-  GitopsProviderResponse,
-  ConnectedArgoGitOpsInfoDTO,
-  useDeleteGitOpsProvider
-} from 'services/cd-ng'
+import { useAgentServiceList, AgentServiceListQueryParams, V1Agent, useAgentServiceDelete } from 'services/gitops'
 import { useToaster, Page } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import harnessLogo from '@cd/icons/harness-logo.png'
 import NewGitOpsServerModal from './NewGitOpsServerModal/NewGitOpsServerModal'
 import GitOpsServersGridView from './GitOpsServersGridView/GitOpsServersGridView'
 import noGitOpsServersIllustration from '../images/noGitOpsServers.svg'
@@ -44,11 +29,11 @@ const GitOpsServersList: React.FC = () => {
   // Adding timeout to escape the timegap between loading set by useListGitOpsProviders and setting deleting to false
   const [deleting, setDeleting] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const [activeProvider, setActiveProvider] = useState<GitopsProviderResponse | null>(null)
+  const [activeProvider, setActiveProvider] = useState<V1Agent | null>(null)
   const [page, setPage] = useState(0)
   const timerRef = useRef<number | null>(null)
   const [editMode, setEditMode] = useState(false)
-  const defaultQueryParams: ListGitOpsProvidersQueryParams = {
+  const defaultQueryParams: AgentServiceListQueryParams = {
     pageIndex: page,
     pageSize: 10,
     projectIdentifier,
@@ -58,7 +43,7 @@ const GitOpsServersList: React.FC = () => {
     type: 'MANAGED_ARGO_PROVIDER'
   }
 
-  const { mutate: deleteConnector } = useDeleteGitOpsProvider({
+  const { mutate: deleteAgent } = useAgentServiceDelete({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier,
@@ -68,7 +53,7 @@ const GitOpsServersList: React.FC = () => {
 
   useDocumentTitle(getString('cd.gitOps'))
 
-  const handleEdit = (provider: GitopsProviderResponse): void => {
+  const handleEdit = (provider: V1Agent): void => {
     setActiveProvider(provider)
     setEditMode(true)
   }
@@ -81,10 +66,10 @@ const GitOpsServersList: React.FC = () => {
     }
   }, [])
 
-  const handleDelete = async (provider: GitopsProviderResponse): Promise<void> => {
+  const handleDelete = async (provider: V1Agent): Promise<void> => {
     try {
       setDeleting(true)
-      const deleted = await deleteConnector(provider?.identifier || '', {
+      const deleted = await deleteAgent(provider?.identifier || '', {
         headers: { 'content-type': 'application/json' }
       })
 
@@ -101,67 +86,12 @@ const GitOpsServersList: React.FC = () => {
     }
   }
 
-  const handleLaunchArgoDashboard = (provider: GitopsProviderResponse): void => {
-    setEditMode(false)
-    closeNewProviderModal()
-    setActiveProvider(provider)
-    openArgoModal()
-  }
-
-  const [openArgoModal, closeArgoModal] = useModalHook(() => {
-    const handleCloseArgoModal = (): void => {
-      closeArgoModal()
-      reset()
-    }
-
-    return (
-      <Dialog
-        onClose={handleCloseArgoModal}
-        isOpen={true}
-        style={{
-          width: '100%',
-          padding: '40px',
-          position: 'relative',
-          height: '100vh',
-          background: 'none',
-          margin: '0px'
-        }}
-        enforceFocus={false}
-      >
-        <div style={{}} className={css.frameContainer}>
-          <div className={css.frameHeader}>
-            <img className={css.argoLogo} src={harnessLogo} alt="" aria-hidden />
-            {activeProvider?.name} - {(activeProvider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
-            <Button
-              variation={ButtonVariation.ICON}
-              icon="cross"
-              className={css.closeIcon}
-              iconProps={{ size: 18 }}
-              onClick={handleCloseArgoModal}
-              data-testid={'close-certi-upload-modal'}
-              withoutCurrentColor
-            />
-          </div>
-          <iframe
-            id="argoCD"
-            className={css.argoFrame}
-            width="100%"
-            frameBorder="0"
-            name="argoCD"
-            title="argoCD"
-            src={(activeProvider?.spec as ConnectedArgoGitOpsInfoDTO)?.adapterUrl}
-          />
-        </div>
-      </Dialog>
-    )
-  }, [activeProvider])
-
   const {
     data,
     loading,
     error: connectorFetchError,
     refetch: refetchConnectorList
-  } = useListGitOpsProviders({
+  } = useAgentServiceList({
     queryParams: defaultQueryParams,
     debounce: 500
   })
@@ -169,7 +99,7 @@ const GitOpsServersList: React.FC = () => {
   const [addNewProviderModal, closeNewProviderModal] = useModalHook(() => {
     const handleClose = (): void => {
       closeNewProviderModal()
-      refetchConnectorList({ queryParams: { ...defaultQueryParams, searchTerm, pageIndex: 0 } })
+      refetchConnectorList({ queryParams: { ...defaultQueryParams, searchTerm /* pageIndex: 0 */ } })
     }
 
     return (
@@ -192,7 +122,6 @@ const GitOpsServersList: React.FC = () => {
           onUpdateMode={(mode: boolean) => setEditMode(mode)}
           provider={activeProvider}
           onClose={handleClose}
-          onLaunchArgoDashboard={handleLaunchArgoDashboard}
         />
       </Dialog>
     )
@@ -200,7 +129,7 @@ const GitOpsServersList: React.FC = () => {
 
   /* Through page browsing */
   useEffect(() => {
-    const updatedQueryParams: ListGitOpsProvidersQueryParams = {
+    const updatedQueryParams: AgentServiceListQueryParams = {
       ...defaultQueryParams,
       projectIdentifier,
       orgIdentifier,
@@ -283,11 +212,11 @@ const GitOpsServersList: React.FC = () => {
                   }}
                 />
               </div>
-            ) : data?.data?.content?.length ? (
+            ) : data?.content?.length ? (
               <GitOpsServersGridView
-                onDelete={async (provider: GitopsProviderResponse) => handleDelete(provider)}
+                onDelete={async (provider: V1Agent) => handleDelete(provider)}
                 onEdit={async provider => handleEdit(provider)}
-                data={data?.data}
+                data={data}
                 loading={loading}
                 gotoPage={(pageNumber: number) => setPage(pageNumber)}
               />

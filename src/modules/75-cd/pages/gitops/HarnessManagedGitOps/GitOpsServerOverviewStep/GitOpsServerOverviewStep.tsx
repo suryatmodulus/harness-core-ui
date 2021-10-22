@@ -16,13 +16,14 @@ import {
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'
-import { GitOpsProvider, validateProviderIdentifierIsUniquePromise, Failure } from 'services/cd-ng'
+import { validateProviderIdentifierIsUniquePromise, Failure } from 'services/cd-ng'
 import { String, useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
 import { saveCurrentStepData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import type { BaseProviderStepProps } from '../../types'
-import aboutHarnessAdapterIllustration from '../../images/harnessManagedGitOpsServerIllustration.svg'
+import type { V1Agent } from 'services/gitops'
+import type { BaseProviderStepProps } from '../types'
+import aboutHarnessAdapterIllustration from '../../images/harnessGitOpsAgent.svg'
 const aboutHarnessAdapterURL = `https://ngdocs.harness.io/article/ptlvh7c6z2-harness-argo-cd-git-ops-quickstart`
 import css from './GitOpsServerOverviewStep.module.scss'
 
@@ -50,7 +51,7 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
   const isEdit = props.isEditMode
   const { getString } = useStrings()
 
-  const handleSubmit = async (formData: GitOpsProvider): Promise<void> => {
+  const handleSubmit = async (formData: V1Agent): Promise<void> => {
     mounted.current = true
     if (isEdit) {
       nextStep?.(formData)
@@ -88,18 +89,16 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
     }
   }
 
-  const getInitialValues = (): GitOpsProvider => {
+  const getInitialValues = (): V1Agent => {
     if (isEdit) {
-      return pick(props.provider, ['name', 'identifier', 'description', 'tags', 'spec']) as GitOpsProvider
+      return pick(props.provider, ['name', 'identifier', 'description', 'tags']) as V1Agent
     } else {
       return {
         name: '',
         description: '',
         identifier: '',
         tags: {},
-        spec: {
-          type: 'MANAGED_ARGO_PROVIDER'
-        }
+        type: 'MANAGED_ARGO_PROVIDER'
       }
     }
   }
@@ -109,12 +108,12 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
       <Layout.Vertical spacing="xxlarge" className={css.stepContainer}>
         <div className={css.heading}>{getString('overview')}</div>
         <Container className={css.connectorForm}>
-          <Formik<GitOpsProvider>
+          <Formik<V1Agent>
             onSubmit={formData => {
               handleSubmit(formData)
             }}
             enableReinitialize={true}
-            formName={`GitOpsProviderStepForm${provider?.spec?.type}`}
+            formName={`GitOpsProviderStepForm${provider?.type}`}
             validationSchema={Yup.object().shape({
               name: NameSchema(),
               identifier: IdentifierSchema()
@@ -227,9 +226,9 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
                               <div>
                                 - Permission to create Deployment, Service, Statefulset, Network Policy, Service
                                 Account, Role, ClusterRole, RoleBinding, ClusterRoleBinding, ConfigMap, Secret (For the
-                                Harness GitOps Server)
+                                Harness GitOps Agents)
                               </div>
-                              <div>- Permission to apply CustomResourceDefinition For the Harness GitOps Server)</div>
+                              <div>- Permission to apply CustomResourceDefinition For the Harness GitOps Agents)</div>
                             </div>
                           </Collapse>
                         </div>
@@ -243,7 +242,7 @@ const ProviderOverviewStep: React.FC<ProviderOverviewStepProps> = props => {
                       rightIcon="chevron-right"
                       disabled={loading}
                     >
-                      <String stringID="saveAndContinue" />
+                      <String stringID="continue" />
                     </Button>
                   </Layout.Horizontal>
                 </FormikForm>

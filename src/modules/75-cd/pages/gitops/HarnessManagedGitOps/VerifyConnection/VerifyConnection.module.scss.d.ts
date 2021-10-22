@@ -8,13 +8,16 @@ declare const styles: {
   readonly layoutFooter: string
   readonly nextButton: string
   readonly fullHeight: string
+  readonly contentContainer: string
   readonly connectorForm: string
+  readonly info: string
   readonly validationStatus: string
   readonly success: string
   readonly card: string
   readonly issueInfo: string
   readonly issueSuggestion: string
   readonly verifyYamlContainer: string
-  readonly yamlPath: string
+  readonly steps: string
+  readonly step: string
 }
 export default styles

@@ -2612,6 +2612,7 @@ export interface StringsMap {
   'cd.addRemote': string
   'cd.addTFVarFileLabel': string
   'cd.allowSimultaneousDeployments': string
+  'cd.applyYAML': string
   'cd.argoAdapterURL': string
   'cd.backEndConfig': string
   'cd.cdLaunchText': string

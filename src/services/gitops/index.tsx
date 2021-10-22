@@ -142,51 +142,6 @@ export interface RepositoryRepoUpdateRequest {
   repo?: V1alpha1Repository
 }
 
-export interface Servicev1ApplicationCreateRequest {
-  agentIdentifier?: string
-  request?: ApplicationApplicationCreateRequest
-}
-
-export interface Servicev1ApplicationDeleteRequest {
-  agentIdentifier?: string
-  request?: ApplicationApplicationDeleteRequest
-}
-
-export interface Servicev1ApplicationQuery {
-  agentIdentifier?: string
-  query?: ApplicationApplicationQuery
-}
-
-export interface Servicev1ApplicationResponse {
-  agentIdentifier?: string
-  response?: V1alpha1Application
-}
-
-export interface Servicev1ApplicationRollbackRequest {
-  agentIdentifier?: string
-  request?: ApplicationApplicationRollbackRequest
-}
-
-export interface Servicev1ApplicationSyncRequest {
-  agentIdentifier?: string
-  request?: ApplicationApplicationSyncRequest
-}
-
-export interface Servicev1ApplicationUpdateRequest {
-  agentIdentifier?: string
-  request?: ApplicationApplicationUpdateRequest
-}
-
-export interface Servicev1ClusterCreateRequest {
-  agentIdentifier?: string
-  request?: ClusterClusterCreateRequest
-}
-
-export interface Servicev1ClusterUpdateRequest {
-  agentIdentifier?: string
-  request?: ClusterClusterUpdateRequest
-}
-
 export interface Servicev1Error {
   code?: number
   message?: string
@@ -196,21 +151,6 @@ export interface Servicev1Error {
 }
 
 export type Servicev1HealthStatus = 'UP' | 'DOWN'
-
-export interface Servicev1ProjectCreateRequest {
-  agentIdentifier?: string
-  request?: ProjectProjectCreateRequest
-}
-
-export interface Servicev1ProjectQuery {
-  agentIdentifier?: string
-  query?: ProjectProjectQuery
-}
-
-export interface Servicev1ProjectUpdateRequest {
-  agentIdentifier?: string
-  request?: ProjectProjectUpdateRequest
-}
 
 export interface V1Agent {
   accountIdentifier?: string
@@ -224,7 +164,9 @@ export interface V1Agent {
   name?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  tags?: string[]
+  tags?: {
+    [key: string]: string
+  }
   type?: V1AgentType
 }
 
@@ -238,7 +180,13 @@ export interface V1AgentHealth {
 }
 
 export interface V1AgentList {
-  items?: V1Agent[]
+  content?: V1Agent[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
 }
 
 export interface V1AgentMetadata {
@@ -247,21 +195,8 @@ export interface V1AgentMetadata {
 
 export type V1AgentType = 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
 
-export interface V1ApplicationDeleteResponse {
-  agentIdentifier?: string
-}
-
-export interface V1ApplicationListResponse {
-  agentIdentifier?: string
-  response?: V1alpha1ApplicationList
-}
-
 export interface V1DeploymentMetadata {
   nApplications?: number
-}
-
-export interface V1Empty {
-  [key: string]: any
 }
 
 /**
@@ -473,44 +408,62 @@ export interface V1OwnerReference {
   uid?: string
 }
 
-export interface V1ProjectDeleteRequest {
-  agentIdentifier?: string
-  query?: ProjectProjectQuery
-}
-
-export interface V1ProjectListResponse {
-  agentIdentifier?: string
-  projectList?: V1alpha1AppProjectList
-}
-
-export interface V1ProjectResponse {
-  agentIdentifier?: string
-  project?: V1alpha1AppProject
-}
-
 export interface V1Task {
-  appCreate?: Servicev1ApplicationCreateRequest
-  appDelete?: Servicev1ApplicationDeleteRequest
-  appGet?: Servicev1ApplicationQuery
-  appList?: Servicev1ApplicationQuery
-  appRollback?: Servicev1ApplicationRollbackRequest
-  appSync?: Servicev1ApplicationSyncRequest
-  appUpdate?: Servicev1ApplicationUpdateRequest
-  clusterCreate?: Servicev1ClusterCreateRequest
-  clusterUpdate?: Servicev1ClusterUpdateRequest
+  appCreate?: ApplicationApplicationCreateRequest
+  appCreateResponse?: V1alpha1Application
+  appDelete?: ApplicationApplicationDeleteRequest
+  appDeleteResponse?: ApplicationApplicationResponse
+  appGet?: ApplicationApplicationQuery
+  appGetResponse?: V1alpha1Application
+  appList?: ApplicationApplicationQuery
+  appListResponse?: V1alpha1ApplicationList
+  appRollback?: ApplicationApplicationRollbackRequest
+  appRollbackResponse?: V1alpha1Application
+  appSync?: ApplicationApplicationSyncRequest
+  appSyncResponse?: V1alpha1Application
+  appUpdate?: ApplicationApplicationUpdateRequest
+  appUpdateResponse?: V1alpha1Application
+  clusterCreate?: ClusterClusterCreateRequest
+  clusterCreateResponse?: V1alpha1Cluster
+  clusterDelete?: ClusterClusterQuery
+  clusterDeleteResponse?: ClusterClusterResponse
+  clusterGet?: ClusterClusterQuery
+  clusterGetResponse?: V1alpha1Cluster
+  clusterList?: ClusterClusterQuery
+  clusterListResponse?: V1alpha1ClusterList
+  clusterUpdate?: ClusterClusterUpdateRequest
+  clusterUpdateResponse?: V1alpha1Cluster
   error?: Servicev1Error
   identifier?: string
   identityMeta?: V1IdentityMeta
-  projectCreate?: Servicev1ProjectCreateRequest
-  projectDelete?: V1ProjectDeleteRequest
-  projectGet?: Servicev1ProjectQuery
-  projectList?: Servicev1ProjectQuery
-  projectUpdate?: Servicev1ProjectUpdateRequest
+  projectCreate?: ProjectProjectCreateRequest
+  projectCreateResponse?: V1alpha1AppProject
+  projectDelete?: ProjectProjectQuery
+  projectDeleteResponse?: ProjectEmptyResponse
+  projectGet?: ProjectProjectQuery
+  projectGetResponse?: V1alpha1AppProject
+  projectList?: ProjectProjectQuery
+  projectListResponse?: V1alpha1AppProjectList
+  projectUpdate?: ProjectProjectUpdateRequest
+  projectUpdateResponse?: V1alpha1AppProject
+  repoCreate?: RepositoryRepoCreateRequest
+  repoCreateResponse?: V1alpha1Repository
+  repoDelete?: RepositoryRepoQuery
+  repoDeleteResponse?: RepositoryRepoResponse
+  repoGet?: RepositoryRepoQuery
+  repoGetResponse?: V1alpha1Repository
+  repoList?: RepositoryRepoQuery
+  repoListResponse?: V1alpha1RepositoryList
+  repoUpdate?: RepositoryRepoUpdateRequest
+  repoUpdateResponse?: V1alpha1Repository
+  status?: V1TaskStatus
 }
 
 export interface V1TaskList {
   tasks?: V1Task[]
 }
+
+export type V1TaskStatus = 'TASK_STATUS_NOT_SET' | 'CREATED' | 'IN_PROGRESS' | 'COMPLETE'
 
 /**
  * Time is a wrapper around time.Time which supports correct
@@ -1101,7 +1054,12 @@ export interface AgentServiceListQueryParams {
   identifier?: string
   name?: string
   type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
-  tags?: string[]
+  tags?: {
+    [key: string]: string
+  }
+  searchTerm?: string
+  pageSize?: number
+  pageIndex?: number
 }
 
 export type AgentServiceListProps = Omit<
@@ -2514,37 +2472,37 @@ export const useRepositoryServiceUpdateRepository = ({
     { base: getConfig('gitops-api'), pathParams: { agentIdentifier, requestRepoRepo }, ...props }
   )
 
-export interface AgentTaskServiceGetTasksQueryParams {
+export interface TaskServiceNextQueryParams {
   identifier?: string
 }
 
-export interface AgentTaskServiceGetTasksPathParams {
+export interface TaskServiceNextPathParams {
   agentIdentifier: string
 }
 
-export type AgentTaskServiceGetTasksProps = Omit<
-  GetProps<V1TaskList, GatewayruntimeError, AgentTaskServiceGetTasksQueryParams, AgentTaskServiceGetTasksPathParams>,
+export type TaskServiceNextProps = Omit<
+  GetProps<V1TaskList, GatewayruntimeError, TaskServiceNextQueryParams, TaskServiceNextPathParams>,
   'path'
 > &
-  AgentTaskServiceGetTasksPathParams
+  TaskServiceNextPathParams
 
-export const AgentTaskServiceGetTasks = ({ agentIdentifier, ...props }: AgentTaskServiceGetTasksProps) => (
-  <Get<V1TaskList, GatewayruntimeError, AgentTaskServiceGetTasksQueryParams, AgentTaskServiceGetTasksPathParams>
+export const TaskServiceNext = ({ agentIdentifier, ...props }: TaskServiceNextProps) => (
+  <Get<V1TaskList, GatewayruntimeError, TaskServiceNextQueryParams, TaskServiceNextPathParams>
     path={`/api/v1/agents/${agentIdentifier}/tasks`}
     base={getConfig('gitops-api')}
     {...props}
   />
 )
 
-export type UseAgentTaskServiceGetTasksProps = Omit<
-  UseGetProps<V1TaskList, GatewayruntimeError, AgentTaskServiceGetTasksQueryParams, AgentTaskServiceGetTasksPathParams>,
+export type UseTaskServiceNextProps = Omit<
+  UseGetProps<V1TaskList, GatewayruntimeError, TaskServiceNextQueryParams, TaskServiceNextPathParams>,
   'path'
 > &
-  AgentTaskServiceGetTasksPathParams
+  TaskServiceNextPathParams
 
-export const useAgentTaskServiceGetTasks = ({ agentIdentifier, ...props }: UseAgentTaskServiceGetTasksProps) =>
-  useGet<V1TaskList, GatewayruntimeError, AgentTaskServiceGetTasksQueryParams, AgentTaskServiceGetTasksPathParams>(
-    (paramsInPath: AgentTaskServiceGetTasksPathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/tasks`,
+export const useTaskServiceNext = ({ agentIdentifier, ...props }: UseTaskServiceNextProps) =>
+  useGet<V1TaskList, GatewayruntimeError, TaskServiceNextQueryParams, TaskServiceNextPathParams>(
+    (paramsInPath: TaskServiceNextPathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/tasks`,
     { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
 
@@ -2554,7 +2512,12 @@ export interface AgentServiceDeleteQueryParams {
   orgIdentifier?: string
   name?: string
   type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
-  tags?: string[]
+  tags?: {
+    [key: string]: string
+  }
+  searchTerm?: string
+  pageSize?: number
+  pageIndex?: number
 }
 
 export type AgentServiceDeleteProps = Omit<
@@ -2588,7 +2551,12 @@ export interface AgentServiceGetQueryParams {
   orgIdentifier?: string
   name?: string
   type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
-  tags?: string[]
+  tags?: {
+    [key: string]: string
+  }
+  searchTerm?: string
+  pageSize?: number
+  pageIndex?: number
 }
 
 export interface AgentServiceGetPathParams {
@@ -2619,4 +2587,46 @@ export const useAgentServiceGet = ({ identifier, ...props }: UseAgentServiceGetP
   useGet<V1Agent, GatewayruntimeError, AgentServiceGetQueryParams, AgentServiceGetPathParams>(
     (paramsInPath: AgentServiceGetPathParams) => `/api/v1/agents/${paramsInPath.identifier}`,
     { base: getConfig('gitops-api'), pathParams: { identifier }, ...props }
+  )
+
+export interface TaskServiceCompletePathParams {
+  identityMetaAgentIdentifier: string
+  identifier: string
+}
+
+export type TaskServiceCompleteProps = Omit<
+  MutateProps<V1Task, GatewayruntimeError, void, void, TaskServiceCompletePathParams>,
+  'path' | 'verb'
+> &
+  TaskServiceCompletePathParams
+
+export const TaskServiceComplete = ({
+  identityMetaAgentIdentifier,
+  identifier,
+  ...props
+}: TaskServiceCompleteProps) => (
+  <Mutate<V1Task, GatewayruntimeError, void, void, TaskServiceCompletePathParams>
+    verb="PUT"
+    path={`/api/v1/agents/${identityMetaAgentIdentifier}/tasks/${identifier}`}
+    base={getConfig('gitops-api')}
+    {...props}
+  />
+)
+
+export type UseTaskServiceCompleteProps = Omit<
+  UseMutateProps<V1Task, GatewayruntimeError, void, void, TaskServiceCompletePathParams>,
+  'path' | 'verb'
+> &
+  TaskServiceCompletePathParams
+
+export const useTaskServiceComplete = ({
+  identityMetaAgentIdentifier,
+  identifier,
+  ...props
+}: UseTaskServiceCompleteProps) =>
+  useMutate<V1Task, GatewayruntimeError, void, void, TaskServiceCompletePathParams>(
+    'PUT',
+    (paramsInPath: TaskServiceCompletePathParams) =>
+      `/api/v1/agents/${paramsInPath.identityMetaAgentIdentifier}/tasks/${paramsInPath.identifier}`,
+    { base: getConfig('gitops-api'), pathParams: { identityMetaAgentIdentifier, identifier }, ...props }
   )

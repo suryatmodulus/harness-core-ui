@@ -1,17 +1,18 @@
 import React from 'react'
 import { Container, Layout, Pagination } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
-import type { GitopsProviderResponse, PageGitopsProviderResponse } from 'services/cd-ng'
+
+import type { V1Agent, V1AgentList } from 'services/gitops'
 import ProviderCard from '../GitOpsServerCard/GitOpsServerCard'
 import css from './GitOpsServersGridView.module.scss'
 
 interface ProvidersGridViewProps {
-  data?: PageGitopsProviderResponse
+  data?: V1AgentList
   loading?: boolean
   reloadPage?: () => Promise<void>
   gotoPage: (index: number) => void
-  onDelete?: (provider: GitopsProviderResponse) => Promise<void>
-  onEdit?: (provider: GitopsProviderResponse) => Promise<void>
+  onDelete?: (provider: V1Agent) => Promise<void>
+  onEdit?: (provider: V1Agent) => Promise<void>
 }
 
 const ProvidersGridView: React.FC<ProvidersGridViewProps> = props => {

@@ -87,7 +87,7 @@ const GitOpsAgentOverviewPage = (): React.ReactElement => {
   if (updateAgentLoading || loading) return <PageSpinner />
   return (
     <Formik enableReinitialize formName="gitagent-details" onSubmit={onSubmitHandler} initialValues={agentDetails}>
-      {({ values }: { values: any }) => (
+      {({ values }: { values: V1Agent }) => (
         <FormikForm>
           <div className={css.header}>
             <Breadcrumbs

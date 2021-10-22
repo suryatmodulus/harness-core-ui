@@ -66,7 +66,7 @@ module.exports = {
     target: targetLocalHost ? 'http://localhost:15001' : baseUrl
   },
   '/pm': {
-    target: process.env.GOVERNANCE_APP_URL || 'https://pr.harness.io/policy-mgmt2' || baseUrl
+    target: process.env.GOVERNANCE_APP_URL || baseUrl
   },
   '/gitops': {
     pathRewrite: { '^/gitops': '' },

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { get } from 'lodash-es'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import cx from 'classnames'
 import {
@@ -17,7 +16,7 @@ import {
 } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
-import { isEmpty, isEqual, merge, omit } from 'lodash-es'
+import { get, isEmpty, isEqual, merge, omit } from 'lodash-es'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'

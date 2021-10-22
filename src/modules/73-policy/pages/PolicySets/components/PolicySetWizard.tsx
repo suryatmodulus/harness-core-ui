@@ -18,7 +18,7 @@ import * as Yup from 'yup'
 import { useMutate, UseMutateProps } from 'restful-react'
 import { isEqual, pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import { StringUtils } from '@common/exports'
+import { StringUtils, useToaster } from '@common/exports'
 
 import { NameIdDescriptionTags } from '@common/components'
 import {
@@ -32,7 +32,6 @@ import {
   useAddLinkedPolicy
 } from 'services/pm'
 import { getConfig } from 'services/config'
-import { useToaster } from '@common/exports'
 import css from '../PolicySets.module.scss'
 
 type CreatePolicySetWizardProps = StepProps<{ refetch: () => void; hideModal: () => void }> & {

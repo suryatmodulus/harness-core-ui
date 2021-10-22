@@ -3,11 +3,13 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/73-policy/*
         - modules/75-cd/*
         - modules/75-ce/*
         - modules/75-cf/*
         - modules/75-ci/*
         - modules/85-cv/*
+        - '@policy/*'
         - '@cd/*'
         - '@ce/*'
         - '@cf/*'

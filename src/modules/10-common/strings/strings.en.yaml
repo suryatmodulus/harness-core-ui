@@ -533,7 +533,7 @@ policiesSets:
   table:
     name: Policy Set
     enforced: Enforced
-    entityType: Entity Type
+    entityType: Entity Type {{name}}
 accountResourcesPage:
   line1: 'Account Resources are shared and available for use within any organization or projects within your account.'
   line2: 'For better isolation of resources, it is recommended that you create resources at the organization or project levels respectively.'

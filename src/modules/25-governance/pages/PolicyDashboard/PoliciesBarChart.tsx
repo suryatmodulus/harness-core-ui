@@ -133,7 +133,7 @@ export function ExecutionsChart({ data, range, yAxisTitle }: ExecutionsChartProp
 
             {
               type: 'column',
-              name: 'Evaluations passed',
+              name: 'Evaluations Passed',
               color: '#00ade4',
               data: successful,
               legendIndex: 2
@@ -147,7 +147,7 @@ export function ExecutionsChart({ data, range, yAxisTitle }: ExecutionsChartProp
             },
             {
               type: 'column',
-              name: 'Evaluations failed',
+              name: 'Evaluations Failed',
               color: '#e43326',
               data: failed,
               legendIndex: 1

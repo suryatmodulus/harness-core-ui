@@ -102,7 +102,7 @@ const Policies: React.FC = () => {
     const { showSuccess, showError } = useToaster()
     const { mutate: deletePolicy } = useDeletePolicy({})
     const { openDialog: openDeleteDialog } = useConfirmationDialog({
-      contentText: 'Are you sure you want to delete Policy?',
+      contentText: getString('common.policy.deletePolicy'),
       titleText: 'Delete Policy',
       confirmButtonText: getString('delete'),
       cancelButtonText: getString('cancel'),

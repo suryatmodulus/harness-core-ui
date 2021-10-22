@@ -514,18 +514,19 @@ policy:
   evaluations: Evaluation
   policySearch: Search Policy by name
   noPolicy: You have no Policy. Click on the button below to create a new one.
-  noPolicyResult: No policy found
-  noPolicyEvalResult: No policy Evaluations found
+  noPolicyResult: No Policy found
+  noPolicyEvalResult: No Policy Evaluations found
+  deletePolicy: Are you sure you want to delete this Policy
   table:
     name: Policy
     lastModified: Last Modified
     createdAt: Created At
 policiesSets:
   newPolicyset: New Policy Set
-  evaluationCriteria: Policy evaluation criteria
+  evaluationCriteria: Policy Evaluation criteria
   policySetSearch: Search Policy Set by name
   noPolicySet: You have no Policy Set. Click on the button below to create a new one.
-  noPolicySetResult: No policy sets found
+  noPolicySetResult: No Policy Sets found
   stepOne:
     validName: '{{$.validation.nameRequired}}'
     validId: '{{$.validation.identifierRequired}}'

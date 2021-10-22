@@ -147,7 +147,7 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
                     { label: 'On Run', value: 'onrun' },
                     { label: 'On Save', value: 'onsave' }
                   ]}
-                  label={'On what event should the policy set be evaluated'}
+                  label={'On what event should the policy set be evaluated?'}
                   name="action"
                   disabled={false}
                 />
@@ -227,7 +227,7 @@ const StepTwo: React.FC<{
     if (deLinkpolicyId) {
       handleDeleteRequest()
         .then(() => {
-          showSuccess('Successfully delinked policy with the policy set')
+          showSuccess('Successfully de-linked policy with the policy set')
         })
         .catch(error => {
           showError(error.message || error)

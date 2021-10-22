@@ -343,6 +343,7 @@ export interface StringsMap {
   'common.policiesSets.table.enforced': string
   'common.policiesSets.table.entityType': string
   'common.policiesSets.table.name': string
+  'common.policy.deletePolicy': string
   'common.policy.evaluations': string
   'common.policy.newPolicy': string
   'common.policy.noPolicy': string

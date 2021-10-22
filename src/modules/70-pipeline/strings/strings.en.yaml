@@ -840,7 +840,7 @@ featureRestriction:
 policyEvaluations:
   title: Policy Evaluations
   failureHeading: Pipeline execution could not proceed due to the policy evaluation failures.
-  failedToSavePipeline: Pipeline can not be saved due to the policy evaluation failures.
+  failedToSavePipeline: Pipeline cannot be saved due to the policy evaluation failures.
   successHeading: All policies are passed.
   evaluatedTime: 'Evaluated '
   policySets: 'Policy Sets ({{count}})'

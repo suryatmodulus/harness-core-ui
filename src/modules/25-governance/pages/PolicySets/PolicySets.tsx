@@ -206,7 +206,7 @@ const PolicyEvaluations: React.FC = () => {
     const { mutate: deletePolicySet } = useDeletePolicySet({})
 
     const { openDialog: openDeleteDialog } = useConfirmationDialog({
-      contentText: 'Are you sure you want to delete Policy Set?',
+      contentText: 'Are you sure you want to delete this Policy Set?',
       titleText: 'Delete Policy Set',
       confirmButtonText: getString('delete'),
       cancelButtonText: getString('cancel'),

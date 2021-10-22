@@ -12,19 +12,16 @@ import {
   Text,
   Color,
   Popover,
-  useModalHook
+  useModalHook,
+  PageHeader
 } from '@wings-software/uicore'
 import { Classes, Position, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { useToaster, useConfirmationDialog } from '@common/exports'
+import { useToaster, useConfirmationDialog, StringUtils, Page } from '@common/exports'
 import { useUpdatePolicySet, useDeletePolicySet, useGetPolicySetList } from 'services/pm'
 
 import { useStrings } from 'framework/strings'
-
-import { StringUtils } from '@common/exports'
-import { PageHeader } from '@common/components/Page/PageHeader'
-import { Page } from '@common/exports'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'

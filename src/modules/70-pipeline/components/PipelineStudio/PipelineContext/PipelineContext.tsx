@@ -137,7 +137,7 @@ export const savePipeline = (
         },
         body: body as any,
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
-      }).then(response => {
+      }).then((response: any) => {
         if ((typeof response as unknown) === 'string') {
           return JSON.parse(response as string) as Failure
         } else {

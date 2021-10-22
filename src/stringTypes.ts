@@ -2262,6 +2262,8 @@ export interface StringsMap {
   'pipeline.pipelineSteps.customStageDescription': string
   'pipeline.pipelineSteps.deployStageDescription': string
   'pipeline.pipelineSteps.featureStageDescription': string
+  'pipeline.pipelineTimeoutHelpText': string
+  'pipeline.pipelineTimeoutSettings': string
   'pipeline.policyEvaluations.emptyPolicySet': string
   'pipeline.policyEvaluations.evaluatedTime': string
   'pipeline.policyEvaluations.evaluations': string

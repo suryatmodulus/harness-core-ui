@@ -12,13 +12,13 @@ import {
   Text,
   FontVariation,
   ButtonSize,
-  FlexExpander
+  FlexExpander,
+  PageHeader
 } from '@wings-software/uicore'
 import { Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router'
 import { showToaster, getErrorMessage, isEvaluationFailed } from '@policy/utils/PmUtils'
 import routes from '@common/RouteDefinitions'
-import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@policy/utils/rego'
 import { PolicyInput, useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'

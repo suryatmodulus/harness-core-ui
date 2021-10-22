@@ -115,7 +115,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const {
     state: {
       templateTypes,
-      pipeline,
       pipelineView: { drawerData, isDrawerOpened, isSplitViewOpen },
       pipelineView,
       selectionState: { selectedStageId, selectedStepId },

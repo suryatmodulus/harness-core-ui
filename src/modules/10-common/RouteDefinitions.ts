@@ -705,16 +705,6 @@ const routes = {
     }: PipelineType<ExecutionPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/inputs`
   ),
-  toExecutionPolicyEvaluationsView: withAccountId(
-    ({
-      orgIdentifier,
-      projectIdentifier,
-      pipelineIdentifier,
-      executionIdentifier,
-      module
-    }: PipelineType<ExecutionPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/policy-evaluations`
-  ),
   toExecutionArtifactsView: withAccountId(
     ({
       orgIdentifier,
@@ -1245,19 +1235,9 @@ const routes = {
       `/dashboards/folder/${folderId ? folderId : 'shared'}/view/${viewId}`
   ),
   toCustomFolderHome: withAccountId(() => '/dashboards/folders'),
-  toViewCustomFolder: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/folder/view/${viewId}`),
+  toViewCustomFolder: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/folder/view/${viewId}`)
 
   /****************** Secret Usage************************************************************************************/
-  toPolicyDashboardPage: withAccountId(() => 'settings/governance/policy-dashboard'),
-  toPolicyListPage: withAccountId(() => 'settings/governance/policies'),
-  toPolicyNewPage: withAccountId(() => 'settings/governance/policies/new'),
-  toPolicyEditPage: withAccountId(({
-    policyIdentifier
-  }: AccountPathProps & {
-    policyIdentifier: string
-  }) => `settings/governance/policies/edit/${policyIdentifier}`),
-  toPolicySetsPage: withAccountId(() => 'settings/governance/policy-sets'),
-  toPolicyEvaluationsPage: withAccountId(() => 'settings/governance/policy-evaluations')
 }
 
 export default routes

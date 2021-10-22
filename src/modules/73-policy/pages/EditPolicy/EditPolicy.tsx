@@ -16,7 +16,7 @@ import {
   PageHeader
 } from '@wings-software/uicore'
 import { Intent } from '@blueprintjs/core'
-import { useHistory, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router-dom'
 import { showToaster, getErrorMessage, isEvaluationFailed } from '@policy/utils/PmUtils'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'

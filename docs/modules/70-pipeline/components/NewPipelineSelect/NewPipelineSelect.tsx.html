@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.18% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/22</span>
+                <span class='fraction'>12/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>6/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -118,7 +118,8 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -152,13 +153,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,7 +201,7 @@ export default function NewPipelineSelect(props: NewPipelineSelectProps): React.
   const [query, setQuery] = React.useState('')
   const { getString } = useStrings()
 &nbsp;
-  const { mutate: reloadPipelines, cancel } = useGetPipelineList({
+  const { mutate: reloadPipelines } = useGetPipelineList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -212,15 +214,16 @@ export default function NewPipelineSelect(props: NewPipelineSelectProps): React.
 &nbsp;
   function dummyPromise(): Promise&lt;SelectOption[]&gt; {
     return new Promise&lt;SelectOption[]&gt;(resolve =&gt; {
-      cancel()
-      reloadPipelines({ filterType: 'PipelineSetup' }).then(result =&gt; {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (result<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent) {
-          const selectItems = result.data<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(item =&gt; {
+      reloadPipelines({ filterType: 'PipelineSetup' })
+        .then(result =&gt; {
+          const selectItems = result<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(item =&gt; {
             return { label: item.name || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span> value: item.identifier || <span class="branch-1 cbranch-no" title="branch not covered" >'' </span>}
           }) as SelectOption[]
-          resolve(selectItems)
-        }
-      })
+          resolve(selectItems || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>
+        })
+        .catch(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >          resolve([])</span>
+        })
     })
   }
 &nbsp;
@@ -247,7 +250,7 @@ export default function NewPipelineSelect(props: NewPipelineSelectProps): React.
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 22 2021 05:54:27 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 22 2021 06:28:58 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,7 +23,8 @@ import {
   userGroupPathProps,
   serviceAccountProps,
   servicePathProps,
-  templatePathProps
+  templatePathProps,
+  agentOverViewPathProps
 } from '@common/utils/routeUtils'
 import type {
   PipelinePathProps,
@@ -112,6 +113,7 @@ import { ArtifactInputForm } from './components/ArtifactInputForm/ArtifactInputF
 import GitOpsServersPage from './pages/gitops/GitOpsServersHomePage'
 import GitOpsServersList from './pages/gitops/HarnessManagedGitOps/HarnessManagedGitOpsServersList'
 import GitOpsModalContainer from './pages/gitops/NativeArgo/GitOpsProvidersList'
+import GitOpsAgentOverviewPage from './pages/gitops/HarnessManagedGitOps/GitOpsAgentOverviewPage/GitOpsAgentOverviewPage'
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
@@ -136,7 +138,7 @@ const HandleGitOpsRedirect = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
   const { ARGO_PHASE2_MANAGED } = useFeatureFlags()
 
-  if (ARGO_PHASE2_MANAGED) {
+  if (!ARGO_PHASE2_MANAGED) {
     return <Redirect to={routes.toHarnessManagedGitOps({ accountId, projectIdentifier, orgIdentifier, module })} />
   } else {
     return <Redirect to={routes.toNativeArgo({ accountId, projectIdentifier, orgIdentifier, module })} />
@@ -668,6 +670,14 @@ export default (
       exact
     >
       <RedirectToAccessControlHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      path={[routes.toGitOpsOverView({ ...projectPathProps, ...pipelineModuleParams, ...agentOverViewPathProps })]}
+      exact
+    >
+      <GitOpsAgentOverviewPage />
     </RouteWithLayout>
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}

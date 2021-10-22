@@ -1,0 +1,52 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: var(--spacing-large);
+  gap: var(--spacing-large);
+  .detailsCard {
+    .detailRow {
+      padding: var(--spacing-small) 0;
+    }
+    .titleRow {
+      font-size: var(--font-size-small);
+      padding: var(--spacing-small) 0;
+    }
+    .valueRow {
+      padding-top: 0;
+      &.borderBottom {
+        border-bottom: solid 1px #cdd3dd;
+      }
+    }
+  }
+  .detailContainer {
+    display: grid;
+    gap: var(--spacing-small);
+    :global(.bp3-form-group) {
+      margin-bottom: 0 !important;
+    }
+  }
+}
+
+.header {
+  height: 100px;
+  background: var(--primary-2);
+  padding: var(--spacing-large);
+  .headerTitleSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    padding: var(--spacing-small) 0;
+  }
+  .actions {
+    justify-content: end;
+    display: grid;
+  }
+  .updateActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: vr(--spacing-large);
+    .saveButton {
+      margin-right: var(--spacing-small);
+    }
+  }
+}

@@ -23,7 +23,7 @@ const GitOpsServersPage: React.FC = ({ children }) => {
         }
         breadcrumbs={<NGBreadcrumbs links={[]} />}
         toolbar={
-          ARGO_PHASE2_MANAGED && (
+          !ARGO_PHASE2_MANAGED && (
             <TabNavigation
               size={'normal'}
               links={[

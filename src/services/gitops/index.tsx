@@ -150,12 +150,11 @@ export interface Servicev1Error {
   }
 }
 
-export type Servicev1HealthStatus = 'UP' | 'DOWN'
+export type Servicev1HealthStatus = 'UNSET' | 'HEALTHY' | 'UNHEALTHY'
 
 export interface V1Agent {
   accountIdentifier?: string
   createdAt?: string
-  deploymentMetadata?: V1DeploymentMetadata
   description?: string
   health?: V1AgentHealth
   identifier?: string
@@ -170,12 +169,18 @@ export interface V1Agent {
   type?: V1AgentType
 }
 
+export interface V1AgentComponentHealth {
+  k8sStatus?: string
+  message?: string
+  status?: Servicev1HealthStatus
+}
+
 export interface V1AgentHealth {
-  argoAppController?: Servicev1HealthStatus
-  argoDexServer?: Servicev1HealthStatus
-  argoRedisServer?: Servicev1HealthStatus
-  argoRepoServer?: Servicev1HealthStatus
-  harnessGitopsAgent?: Servicev1HealthStatus
+  argoAppController?: V1AgentComponentHealth
+  argoDexServer?: V1AgentComponentHealth
+  argoRedisServer?: V1AgentComponentHealth
+  argoRepoServer?: V1AgentComponentHealth
+  harnessGitopsAgent?: V1AgentComponentHealth
   lastHeartbeat?: string
 }
 
@@ -190,14 +195,12 @@ export interface V1AgentList {
 }
 
 export interface V1AgentMetadata {
-  adapterUrl?: string
+  deployedApplicationCount?: number
+  highAvailability?: boolean
+  namespace?: string
 }
 
 export type V1AgentType = 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
-
-export interface V1DeploymentMetadata {
-  nApplications?: number
-}
 
 /**
  * FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.
@@ -1054,9 +1057,7 @@ export interface AgentServiceListQueryParams {
   identifier?: string
   name?: string
   type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
-  tags?: {
-    [key: string]: string
-  }
+  tags?: string[]
   searchTerm?: string
   pageSize?: number
   pageIndex?: number
@@ -2512,9 +2513,7 @@ export interface AgentServiceDeleteQueryParams {
   orgIdentifier?: string
   name?: string
   type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
-  tags?: {
-    [key: string]: string
-  }
+  tags?: string[]
   searchTerm?: string
   pageSize?: number
   pageIndex?: number
@@ -2551,9 +2550,7 @@ export interface AgentServiceGetQueryParams {
   orgIdentifier?: string
   name?: string
   type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
-  tags?: {
-    [key: string]: string
-  }
+  tags?: string[]
   searchTerm?: string
   pageSize?: number
   pageIndex?: number

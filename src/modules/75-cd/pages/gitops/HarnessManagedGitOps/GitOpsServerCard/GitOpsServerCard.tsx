@@ -12,12 +12,23 @@ import {
   ButtonSize
 } from '@wings-software/uicore'
 import { Menu, Classes, Position } from '@blueprintjs/core'
+import { useHistory, useParams } from 'react-router-dom'
 import { useConfirmationDialog } from '@common/exports'
 import type { V1Agent } from 'services/gitops'
 import { useStrings } from 'framework/strings'
 import { TagsPopover } from '@common/components'
 import harnessLogo from '@cd/icons/harness-logo.png'
 
+import type {
+  PipelinePathProps,
+  ConnectorPathProps,
+  SecretsPathProps,
+  UserPathProps,
+  UserGroupPathProps,
+  ResourceGroupPathProps,
+  RolePathProps
+} from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
 import css from './GitOpsServerCard.module.scss'
 
 interface ProviderCardProps {
@@ -30,8 +41,28 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
   const { provider, onDelete } = props
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
+  const history = useHistory()
+  const params = useParams<
+    PipelinePathProps &
+      ConnectorPathProps &
+      SecretsPathProps &
+      UserPathProps &
+      UserGroupPathProps &
+      ResourceGroupPathProps &
+      RolePathProps
+  >()
 
-  const handleShowDetails = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+  const gotoOverview = (): void =>
+    history.push(
+      routes.toGitOpsOverView({
+        ...params,
+        module: 'cd',
+        agentId: provider.identifier as string
+      })
+    )
+
+  const handleViewApplications = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    // Need to implement the functionality onces product provides information
     e.stopPropagation()
     setMenuOpen(false)
   }
@@ -68,7 +99,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
   }
 
   return (
-    <Card className={css.card}>
+    <Card className={css.card} onClick={gotoOverview}>
       <Container className={css.projectInfo}>
         <div className={css.mainTitle}>
           <img className={css.argoLogo} src={harnessLogo} alt="" aria-hidden />
@@ -94,7 +125,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
                 }}
               />
               <Menu style={{ minWidth: 'unset' }}>
-                <Menu.Item icon="eye-open" text="Details" onClick={handleShowDetails} />
+                <Menu.Item icon="eye-open" text="Details" onClick={handleViewApplications} />
                 <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
               </Menu>
             </Popover>

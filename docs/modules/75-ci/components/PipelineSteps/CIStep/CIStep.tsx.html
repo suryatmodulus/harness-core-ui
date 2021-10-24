@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.06% </span>
+                <span class="strong">94.74% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>33/34</span>
+                <span class='fraction'>36/38</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -413,7 +413,13 @@
 <a name='L354'></a><a href='#L354'>354</a>
 <a name='L355'></a><a href='#L355'>355</a>
 <a name='L356'></a><a href='#L356'>356</a>
-<a name='L357'></a><a href='#L357'>357</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">47x</span>
+<a name='L357'></a><a href='#L357'>357</a>
+<a name='L358'></a><a href='#L358'>358</a>
+<a name='L359'></a><a href='#L359'>359</a>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -426,6 +432,9 @@
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
+<span class="cline-any cline-yes">47x</span>
+<span class="cline-any cline-yes">47x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -448,6 +457,9 @@
 <span class="cline-any cline-yes">103x</span>
 <span class="cline-any cline-yes">103x</span>
 <span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -773,12 +785,14 @@
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-import { FormInput, Text, Container, Color } from '@wings-software/uicore'
+import { FormInput, Text, Container, Color, MultiTypeInputType } from '@wings-software/uicore'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { FormMultiTypeTextAreaField } from '@common/components'
 import { Separator } from '@common/components/Separator/Separator'
 import { useGitScope } from '@ci/services/CIUtils'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/strings'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -787,15 +801,16 @@ interface CIStepProps {
   isNewStep?: boolean
   readonly?: boolean
   stepLabel?: string
-  expressions?: string[]
   enableFields: {
     [key: string]: { [key: string]: any }
   }
   formik: FormikProps&lt;any&gt;
+  stepViewType: StepViewType
+  allowableTypes: MultiTypeInputType[]
 }
 &nbsp;
 export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
-  const { isNewStep, readonly, stepLabel, expressions, enableFields } = props
+  const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;{
     projectIdentifier: string
     orgIdentifier: string
@@ -803,17 +818,20 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
   }&gt;()
   const { getString } = useStrings()
   const gitScope = useGitScope()
+  const { expressions } = useVariablesExpression()
   return (
     &lt;&gt;
-      &lt;Container className={cx(css.formGroup, css.lg, css.nameIdLabel)}&gt;
-        &lt;FormInput.InputWithIdentifier
-          inputName="name"
-          idName="identifier"
-          isIdentifierEditable={isNewStep}
-          inputLabel={stepLabel ?? getString('pipelineSteps.stepNameLabel')}
-          inputGroupProps={{ disabled: readonly }}
-        /&gt;
-      &lt;/Container&gt;
+      {stepViewType !== StepViewType.Template ? (
+        &lt;Container className={cx(css.formGroup, css.lg, css.nameIdLabel)}&gt;
+          &lt;FormInput.InputWithIdentifier
+            inputName="name"
+            idName="identifier"
+            isIdentifierEditable={isNewStep &amp;&amp; !readonly}
+            inputGroupProps={{ disabled: readonly }}
+            inputLabel={stepLabel ?? getString('pipelineSteps.stepNameLabel')}
+          /&gt;
+        &lt;/Container&gt;
+      ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
       &lt;Container className={cx(css.formGroup, css.lg)}&gt;
         {Object.prototype.hasOwnProperty.call(enableFields, 'description') ? (
           &lt;FormMultiTypeTextAreaField
@@ -823,7 +841,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
                 {getString('description')}
               &lt;/Text&gt;
             }
-            multiTypeTextArea={{ expressions, disabled: readonly }}
+            multiTypeTextArea={{ expressions, allowableTypes, disabled: readonly }}
           /&gt;
         ) : null}
       &lt;/Container&gt;
@@ -839,7 +857,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
             accountIdentifier={accountId}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
-            multiTypeProps={{ expressions, disabled: readonly }}
+            multiTypeProps={{ expressions, allowableTypes, disabled: readonly }}
             gitScope={gitScope}
             setRefValue
           /&gt;
@@ -881,7 +899,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
               &lt;/Text&gt;
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           /&gt;
@@ -902,7 +920,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
               &lt;/Text&gt;
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           /&gt;
@@ -924,7 +942,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
             }
             multiTextInputProps={{
               placeholder: getString('pipelineSteps.hostPlaceholder'),
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           /&gt;
@@ -945,7 +963,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
               &lt;/Text&gt;
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           /&gt;
@@ -967,7 +985,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
             }
             multiTextInputProps={{
               placeholder: getString('pipelineSteps.regionPlaceholder'),
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           /&gt;
@@ -988,7 +1006,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
               &lt;/Text&gt;
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           /&gt;
@@ -1009,7 +1027,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
               &lt;/Text&gt;
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           /&gt;
@@ -1019,7 +1037,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
           &lt;MultiTypeList
             name="spec.sourcePaths"
-            multiTextInputProps={{ expressions }}
+            multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 &lt;Text
@@ -1052,7 +1070,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
               &lt;/Text&gt;
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           /&gt;
@@ -1073,7 +1091,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
               &lt;/Text&gt;
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           /&gt;
@@ -1094,7 +1112,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
               &lt;/Text&gt;
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
             }}
           /&gt;
@@ -1104,7 +1122,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
           &lt;MultiTypeList
             name="spec.tags"
-            multiTextInputProps={{ expressions }}
+            multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
                 &lt;Text
@@ -1132,7 +1150,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Oct 23 2021 11:28:11 GMT+0000 (Greenwich Mean Time)
+                at Sun Oct 24 2021 01:36:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

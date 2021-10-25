@@ -143,9 +143,9 @@
 
 .applications {
   padding: 8px 0;
-  margin: 8px 0;
-  border-top: 1px solid #d9dae6;
-  border-bottom: 1px solid #d9dae6;
+  margin: 16px 0;
+  border-top: 1px solid rgba(217, 218, 230, 0.6);
+  border-bottom: 1px solid rgba(217, 218, 230, 0.6);
 
   font-size: 12px;
   font-style: normal;
@@ -183,8 +183,6 @@
 }
 
 .statusText {
-  min-width: 110px;
-
   :global {
     .bp3-button-text {
       font-size: 10px !important;

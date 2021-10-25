@@ -44,7 +44,7 @@ export default function TestConnection(props: TestConnectionProps): React.ReactE
   }
 
   const { refetch } = useAgentServiceGet({
-    identifier: prevStepData?.identifier as string,
+    identifier: prevStepData?.agentIdentifier as string,
     queryParams: { ...params },
     lazy: true
   })

@@ -96,8 +96,7 @@ export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps)
   const isSaveButtonDisabled = creating /* || updating */
 
   const afterSuccessHandler = (response: any): void => {
-    props.onUpdateMode?.(true)
-    nextStep?.({ ...props.provider, ...response })
+    nextStep?.({ ...response, agentIdentifier: response?.identifier })
   }
 
   const handleSave = (formData: V1Agent): void => {

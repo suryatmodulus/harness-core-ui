@@ -23,7 +23,7 @@ const CreateGitOpsServer: React.FC<CreateGitOpsServerProps> = props => {
     >
       <GitOpsServerOverviewStep name={getString('overview')} {...props} />
       <SetupGitOpsServerStep name={getString('cd.setupGitOpsServerStep')} {...props} />
-      <VerifyConnection {...props} name={getString('cd.applyYAML')} />
+      <VerifyConnection name={getString('cd.applyYAML')} {...props} />
     </StepWizard>
   )
 }

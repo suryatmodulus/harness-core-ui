@@ -166,7 +166,9 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
           </div>
         )}
 
-        <div className={css.applications}>Applications: 5</div>
+        <div className={css.applications}>
+          Applications: <b> 5 </b>
+        </div>
 
         <div className={css.gitOpsStatusContainer}>
           <div className={css.connectionStatus}>
@@ -189,6 +191,7 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
               variation={ButtonVariation.PRIMARY}
               text="HEALTHY"
               size={ButtonSize.SMALL}
+              intent="success"
               style={{
                 color: '#1B841D !important',
                 backgroundColor: '#D8F3D4 !important'

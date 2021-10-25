@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.19% </span>
+                <span class="strong">86.84% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/37</span>
+                <span class='fraction'>33/38</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.29% </span>
+                <span class="strong">31.58% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/34</span>
+                <span class='fraction'>12/38</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.19% </span>
+                <span class="strong">86.84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/37</span>
+                <span class='fraction'>33/38</span>
             </div>
         
             
@@ -275,8 +275,7 @@
 <a name='L216'></a><a href='#L216'>216</a>
 <a name='L217'></a><a href='#L217'>217</a>
 <a name='L218'></a><a href='#L218'>218</a>
-<a name='L219'></a><a href='#L219'>219</a>
-<a name='L220'></a><a href='#L220'>220</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L219'></a><a href='#L219'>219</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -288,13 +287,13 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -393,7 +392,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,7 +414,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -504,6 +502,7 @@ import type { MonitoredServiceListItemDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import { Table } from '@common/components'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import {
@@ -513,7 +512,6 @@ import {
   ServiceDeleteContext,
   getMonitoredServiceFilterOptions
 } from '../../CVMonitoredService.utils'
-import ToggleMonitoring from '../../../components/toggleMonitoring/ToggleMonitoring'
 import type { MonitoredServiceListViewProps } from '../../CVMonitoredService.types'
 import MonitoredServiceCategory from '../../../components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
 import css from '../../CVMonitoredService.module.scss'
@@ -613,12 +611,11 @@ const RenderServiceChanges: Renderer&lt;CellProps&lt;MonitoredServiceListItemDTO
 &nbsp;
 const MonitoredServiceListView: React.FC&lt;MonitoredServiceListViewProps&gt; = ({
   monitoredServiceListData,
-  refetchMonitoredServiceList,
   selectedFilter,
   setSelectedFilter,
   onEditService,
   onDeleteService,
-  setHealthMonitoringFlag,
+  onToggleService,
   healthMonitoringFlagLoading,
   setPage
 }) =&gt; {
@@ -631,12 +628,12 @@ const MonitoredServiceListView: React.FC&lt;MonitoredServiceListViewProps&gt; = 
 &nbsp;
     return (
       &lt;Layout.Horizontal flex={{ alignItems: 'center' }}&gt;
-        &lt;ToggleMonitoring
-          refetch={refetchMonitoredServiceList}
-          identifier={monitoredService.identifier as string}
-          enabled={!!monitoredService.healthMonitoringEnabled}
-          setHealthMonitoringFlag={setHealthMonitoringFlag}
+        &lt;ToggleOnOff
+          checked={!!monitoredService.healthMonitoringEnabled}
           loading={healthMonitoringFlagLoading}
+          onChange={<span class="fstat-no" title="function not covered" >checked </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >            onToggleService(monitoredService.identifier ?? '', checked)</span>
+          }}
         /&gt;
         &lt;ContextMenuActions
           titleText={getString('common.delete', { name: monitoredService.serviceName })}
@@ -644,11 +641,11 @@ const MonitoredServiceListView: React.FC&lt;MonitoredServiceListViewProps&gt; = 
           confirmButtonText={getString('yes')}
           deleteLabel={getString('cv.monitoredServices.deleteService')}
           onDelete={() =&gt; {
-            onDeleteService(monitoredService.identifier)
+            onDeleteService(monitoredService.identifier as string)
           }}
           editLabel={getString('cv.monitoredServices.editService')}
           onEdit={() =&gt; {
-            onEditService(monitoredService.identifier)
+            onEditService(monitoredService.identifier as string)
           }}
         /&gt;
       &lt;/Layout.Horizontal&gt;
@@ -721,7 +718,7 @@ export default MonitoredServiceListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 08:40:59 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 25 2021 11:49:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

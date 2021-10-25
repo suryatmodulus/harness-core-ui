@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">94.12% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>16/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.08% </span>
+                <span class="strong">72.22% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>19/26</span>
+                <span class='fraction'>13/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">94.12% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>16/17</span>
             </div>
         
             
@@ -151,7 +151,8 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -162,7 +163,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,6 +211,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,7 +251,7 @@
 import { Container, Layout, Text, Color, FontVariation, ButtonVariation, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
-import ToggleMonitoring from '../../../components/toggleMonitoring/ToggleMonitoring'
+import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
 import { ServiceDeleteContext, ServiceHealthTrend, ServiceHealthScore } from '../../CVMonitoredService.utils'
 import type { GraphSummaryCardProps } from '../../CVMonitoredService.types'
 import { GraphServiceChanges } from './GraphSummaryCard.utils'
@@ -257,11 +259,10 @@ import css from '../../CVMonitoredService.module.scss'
 &nbsp;
 const GraphSummaryCard: React.FC&lt;GraphSummaryCardProps&gt; = ({
   monitoredService,
-  setHealthMonitoringFlag,
   onEditService,
   onDeleteService,
-  healthMonitoringFlagLoading,
-  refetchMonitoredServiceList
+  onToggleService,
+  healthMonitoringFlagLoading
 }) =&gt; {
   const { getString } = useStrings()
 &nbsp;
@@ -272,7 +273,7 @@ const GraphSummaryCard: React.FC&lt;GraphSummaryCardProps&gt; = ({
     cancelButtonText: getString('cancel'),
     onCloseDialog: function (shouldDelete: boolean) {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (shouldDelete) {
-        onDeleteService(monitoredService.identifier)
+        onDeleteService(monitoredService.identifier as string)
       }
     }
   })
@@ -293,7 +294,7 @@ const GraphSummaryCard: React.FC&lt;GraphSummaryCardProps&gt; = ({
             icon="Edit"
             iconProps={{ color: Color.GREY_0 }}
             variation={ButtonVariation.ICON}
-            onClick={() =&gt; onEditService(monitoredService.identifier)}
+            onClick={() =&gt; onEditService(monitoredService.identifier as string)}
           /&gt;
           &lt;Button
             icon="trash"
@@ -302,12 +303,12 @@ const GraphSummaryCard: React.FC&lt;GraphSummaryCardProps&gt; = ({
             margin={{ right: 'small' }}
             onClick={confirmServiceDelete}
           /&gt;
-          &lt;ToggleMonitoring
-            refetch={refetchMonitoredServiceList}
-            identifier={monitoredService<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier as string}
-            enabled={!!monitoredService<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ealthMonitoringEnabled}
-            setHealthMonitoringFlag={setHealthMonitoringFlag}
+          &lt;ToggleOnOff
+            checked={!!monitoredService.healthMonitoringEnabled}
             loading={healthMonitoringFlagLoading}
+            onChange={<span class="fstat-no" title="function not covered" >checked </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >              onToggleService(monitoredService.identifier as string, checked)</span>
+            }}
           /&gt;
         &lt;/Layout.Horizontal&gt;
       &lt;/Layout.Horizontal&gt;
@@ -328,11 +329,13 @@ const GraphSummaryCard: React.FC&lt;GraphSummaryCardProps&gt; = ({
           {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth').toUpperCase()}
         &lt;/Text&gt;
         &lt;ServiceHealthTrend healthScores={monitoredService.historicalTrend<span class="branch-1 cbranch-no" title="branch not covered" >?.healthScores}</span> /&gt;
-        &lt;ServiceHealthScore
-          monitoredService={monitoredService}
-          labelVariation={FontVariation.SMALL}
-          color={Color.GREY_0}
-        /&gt;
+        &lt;Container margin={{ top: 'large' }}&gt;
+          &lt;ServiceHealthScore
+            monitoredService={monitoredService}
+            labelVariation={FontVariation.SMALL}
+            color={Color.GREY_0}
+          /&gt;
+        &lt;/Container&gt;
       &lt;/Layout.Vertical&gt;
     &lt;/Container&gt;
   )
@@ -346,7 +349,7 @@ export default GraphSummaryCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 08:40:59 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 25 2021 11:49:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

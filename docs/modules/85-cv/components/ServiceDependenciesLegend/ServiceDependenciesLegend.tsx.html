@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -106,16 +106,28 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,27 +167,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import cx from 'classnames'
 import { Container, Icon, Text, Color } from '@wings-software/uicore'
+import type { MarginProps } from '@wings-software/uicore/dist/styled-props/margin/MarginProps'
 import { useStrings } from 'framework/strings'
 import { getServicesStates, getServicesTypes } from './ServiceDependenciesLegend.utils'
 import css from './ServiceDependenciesLegend.module.scss'
 &nbsp;
-export default function ServiceDependenciesLegend({
-  className,
-  hideServiceTypeLegend
-}: {
+interface ServiceDependenciesLegendProps {
   className?: string
   hideServiceTypeLegend?: boolean
-}): JSX.Element {
+  margin?: MarginProps
+}
+&nbsp;
+const ServiceDependenciesLegend: React.FC&lt;ServiceDependenciesLegendProps&gt; = ({
+  className,
+  hideServiceTypeLegend,
+  margin
+}) =&gt; {
   const { getString } = useStrings()
   const servicesStates = getServicesStates()
   const serviceTypes = getServicesTypes()
 &nbsp;
   return (
-    &lt;Container padding={'medium'}&gt;
-      &lt;Container className={cx(css.serviceStatesContainer, className)} background={Color.PRIMARY_1}&gt;
+    &lt;Container background={Color.PRIMARY_1} width="fit-content" className={css.container} margin={margin}&gt;
+      &lt;Container className={cx(css.serviceStatesContainer, className)}&gt;
         {servicesStates.map(state =&gt; {
           return (
             &lt;Container flex key={state.identifier} padding={{ top: 'xsmall', right: 'xsmall' }}&gt;
@@ -188,7 +207,7 @@ export default function ServiceDependenciesLegend({
         })}
       &lt;/Container&gt;
       {!hideServiceTypeLegend ? (
-        &lt;Container className={cx(css.serviceTypesContainer, className)} background={Color.PRIMARY_1}&gt;
+        &lt;Container className={cx(css.serviceTypesContainer, className)}&gt;
           {serviceTypes.map(type =&gt; {
             return (
               &lt;Container flex key={type.identifier}&gt;
@@ -204,6 +223,8 @@ export default function ServiceDependenciesLegend({
     &lt;/Container&gt;
   )
 }
+&nbsp;
+export default ServiceDependenciesLegend
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -211,7 +232,7 @@ export default function ServiceDependenciesLegend({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 08:40:59 GMT+0000 (Greenwich Mean Time)
+                at Mon Oct 25 2021 11:49:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

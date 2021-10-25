@@ -11,11 +11,11 @@ import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStor
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
-import type { Module, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import type { Editions } from '@common/constants/SubscriptionTypes'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import bgImageURL from './ff.svg'
 
 const CFHomePage: React.FC = () => {
@@ -24,25 +24,27 @@ const CFHomePage: React.FC = () => {
   const { currentUserInfo, selectedProject } = useAppStore()
   const { NG_LICENSES_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const moduleType = ModuleName.CF
+  const module = moduleType.toLowerCase() as Module
 
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
   const { data, error, refetch, loading } = useGetLicensesAndSummary({
-    queryParams: { moduleType: ModuleName.CF as any },
+    queryParams: { moduleType },
     accountIdentifier: accountId
   })
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
-      closeProjectModal(),
-        history.push({
-          pathname: routes.toCFOnboarding({
-            orgIdentifier: projectData?.orgIdentifier || '',
-            projectIdentifier: projectData?.identifier || '',
-            accountId
-          })
+      closeProjectModal()
+      history.push({
+        pathname: routes.toCFOnboarding({
+          orgIdentifier: projectData?.orgIdentifier || '',
+          projectIdentifier: projectData?.identifier || '',
+          accountId
         })
+      })
     }
   })
 
@@ -57,36 +59,31 @@ const CFHomePage: React.FC = () => {
   const trialBannerProps = {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
-    module: ModuleName.CF,
+    module: moduleType,
     edition: data?.data?.edition as Editions,
     refetch
   }
 
-  const { trial } = useQueryParams<{ trial?: boolean }>()
+  const { experience } = useQueryParams<{ experience?: string }>()
 
   const history = useHistory()
 
   const expiryTime = data?.data?.maxExpiryTime
   const updatedLicenseInfo = data?.data && {
-    ...licenseInformation?.['CF'],
+    ...licenseInformation?.[moduleType],
     ...pick(data?.data, ['licenseType', 'edition']),
     expiryTime
   }
 
   useEffect(() => {
-    handleUpdateLicenseStore(
-      { ...licenseInformation },
-      updateLicenseStore,
-      ModuleName.CF.toString() as Module,
-      updatedLicenseInfo
-    )
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   useEffect(() => {
     refetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trial])
+  }, [experience])
 
   if (loading) {
     return <PageSpinner />
@@ -102,12 +99,12 @@ const CFHomePage: React.FC = () => {
     history.push(
       routes.toModuleTrialHome({
         accountId,
-        module: 'cf'
+        module
       })
     )
   }
 
-  if (showTrialPages && data && data.data && trial) {
+  if (showTrialPages && experience === ModuleLicenseType.TRIAL) {
     return (
       <TrialInProgressTemplate
         title={getString('cf.continuous')}
@@ -118,7 +115,7 @@ const CFHomePage: React.FC = () => {
     )
   }
 
-  if (selectedProject) {
+  if (selectedProject && !experience) {
     history.replace(
       routes.toCFFeatureFlags({
         projectIdentifier: selectedProject.identifier,
@@ -129,6 +126,16 @@ const CFHomePage: React.FC = () => {
   }
 
   const projectCreateSuccessHandler = (project?: Project): void => {
+    if (experience) {
+      history.push({
+        pathname: routes.toCFOnboarding({
+          orgIdentifier: project?.orgIdentifier || '',
+          projectIdentifier: project?.identifier || '',
+          accountId
+        })
+      })
+      return
+    }
     if (project) {
       history.push(
         routes.toCFFeatureFlags({

@@ -34,12 +34,6 @@ exports[`open and close the CE Trial Modal Rendering should open  the start tria
           >
             ce.ceTrialHomePage.modal.title
           </p>
-          <span
-            class="StyledProps--font StyledProps--main trialBadge StyledProps--background-orange500 StyledProps--color StyledProps--color-white StyledProps--border StyledProps--inline StyledProps--font-align-center"
-            style="width: 120px;"
-          >
-            common.trialInProgress
-          </span>
           <div
             class="Layout--horizontal StyledProps--main"
           >

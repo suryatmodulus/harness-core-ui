@@ -17,6 +17,20 @@ jest.mock('services/cd-ng', () => ({
         }
       })
     }
+  }),
+  useStartFreeLicense: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementationOnce(() => {
+        return {
+          status: 'SUCCESS',
+          data: {
+            licenseType: 'FREE'
+          }
+        }
+      })
+    }
   })
 }))
 

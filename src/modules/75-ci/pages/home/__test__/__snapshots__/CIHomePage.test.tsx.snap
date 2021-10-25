@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CIHomePage should move to trial in progress page when query param trial is true 1`] = `
+exports[`CIHomePage should move to trial in progress page when query param experience is TRIAL 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main PageBody--pageBody body hasNoBanner"

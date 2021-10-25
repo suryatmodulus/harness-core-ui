@@ -95,18 +95,21 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
         planData?.data
       )
 
-      if (module === ModuleName.CE) {
-        history.push(routes.toCEOverview({ accountId }))
-        return
-      }
-
       let search
-      if (licenseData?.licenseType === ModuleLicenseType.TRIAL) {
-        search = '?experience=trial&&modal=trial'
+      if (planData?.data?.licenseType === ModuleLicenseType.TRIAL) {
+        search = `?experience=${ModuleLicenseType.TRIAL}&&modal=${ModuleLicenseType.TRIAL}`
       }
 
       if (edition === Editions.FREE) {
-        search = '?experience=free&&modal=free'
+        search = `?experience=${ModuleLicenseType.FREE}&&modal=${ModuleLicenseType.FREE}`
+      }
+
+      if (module === ModuleName.CE) {
+        history.push({
+          pathname: routes.toModuleTrialHome({ accountId, module: module.toLowerCase() as Module }),
+          search
+        })
+        return
       }
 
       history.push({

@@ -49,12 +49,6 @@ exports[`Rendering should render 1`] = `
       >
         Continuous Delivery
       </p>
-      <span
-        class="StyledProps--font StyledProps--main StyledProps--background-orange500 StyledProps--color StyledProps--color-white StyledProps--border StyledProps--inline StyledProps--font-align-center"
-        style="width: 120px;"
-      >
-        common.trialInProgress
-      </span>
     </div>
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"

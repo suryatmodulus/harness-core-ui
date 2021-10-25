@@ -7,7 +7,9 @@ export enum Editions {
 
 export enum ModuleLicenseType {
   TRIAL = 'TRIAL',
-  PAID = 'PAID'
+  PAID = 'PAID',
+  FREE = 'FREE',
+  COMMUNITY = 'COMMUNITY'
 }
 
 export enum RestrictionType {

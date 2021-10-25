@@ -184,7 +184,7 @@ exports[`CEHomePage snapshot test should move to the trial page when query param
     <div
       data-testid="location"
     >
-      /account/123/ce/home/trial
+      /account/123/ce/overview
     </div>
   </div>
 </div>

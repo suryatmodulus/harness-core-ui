@@ -2,12 +2,27 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import { useStartTrialLicense } from 'services/cd-ng'
+import { useStartTrialLicense, useStartFreeLicense } from 'services/cd-ng'
 import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
 import { StartTrialTemplate } from '../StartTrialTemplate'
 
 jest.mock('services/cd-ng')
 const useStartTrialMock = useStartTrialLicense as jest.MockedFunction<any>
+const useStartFreeLicenseMock = useStartFreeLicense as jest.MockedFunction<any>
+useStartFreeLicenseMock.mockImplementation(() => {
+  return {
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementationOnce(() => {
+      return {
+        status: 'SUCCESS',
+        data: {
+          licenseType: 'FREE'
+        }
+      }
+    })
+  }
+})
 
 jest.mock('@common/modals/StartTrial/StartTrialModal')
 const useStartTrialModalMock = useStartTrialModal as jest.MockedFunction<any>

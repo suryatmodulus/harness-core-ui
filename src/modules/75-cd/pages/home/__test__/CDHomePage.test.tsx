@@ -6,7 +6,8 @@ import {
   useStartTrialLicense,
   useGetProjectList,
   useExtendTrialLicense,
-  useSaveFeedback
+  useSaveFeedback,
+  useStartFreeLicense
 } from 'services/cd-ng'
 import CDHomePage from '../CDHomePage'
 
@@ -42,6 +43,12 @@ const projects = [
 jest.mock('services/cd-ng')
 const useGetModuleLicenseInfoMock = useGetLicensesAndSummary as jest.MockedFunction<any>
 const useStartTrialMock = useStartTrialLicense as jest.MockedFunction<any>
+const useStartFreeMock = useStartFreeLicense as jest.MockedFunction<any>
+useStartFreeMock.mockImplementation(() => {
+  return {
+    mutate: jest.fn()
+  }
+})
 const useGetProjectListMock = useGetProjectList as jest.MockedFunction<any>
 useGetProjectListMock.mockImplementation(() => {
   return { data: { data: { content: projects } }, refetch: jest.fn(), error: null }
@@ -164,7 +171,7 @@ describe('CDHomePage snapshot test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should move to trial in progress page when query param trial is true', () => {
+  test('should move to trial in progress page when query param experience is TRIAL', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
@@ -176,7 +183,7 @@ describe('CDHomePage snapshot test', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper queryParams={{ trial: true }} defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+      <TestWrapper queryParams={{ experience: 'TRIAL' }} defaultAppStoreValues={{ currentUserInfo: currentUser }}>
         <CDHomePage />
       </TestWrapper>
     )
@@ -184,7 +191,7 @@ describe('CDHomePage snapshot test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should pop up select project CD Trial modal if query param modal is true and there is NOT selected project', () => {
+  test('should pop up select project CD Trial modal if query param modal is TRIAL and there is NOT selected project', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
@@ -196,7 +203,7 @@ describe('CDHomePage snapshot test', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper queryParams={{ modal: true }}>
+      <TestWrapper queryParams={{ modal: 'TRIAL' }}>
         <CDHomePage />
       </TestWrapper>
     )
@@ -214,7 +221,7 @@ describe('CDHomePage snapshot test', () => {
       }
     })
     const { container } = render(
-      <TestWrapper queryParams={{ trial: true }}>
+      <TestWrapper queryParams={{ experience: 'TRIAL' }}>
         <CDHomePage />
       </TestWrapper>
     )

@@ -29,7 +29,11 @@ describe('Sidenav', () => {
 
   test('should go to pipeline studio with trial query param when select project from trial in progress page', async () => {
     const { container, getByTestId } = render(
-      <TestWrapper path="/account/:accountId/cd/home" pathParams={{ accountId: 'dummy' }} queryParams={{ trial: true }}>
+      <TestWrapper
+        path="/account/:accountId/cd/home"
+        pathParams={{ accountId: 'dummy' }}
+        queryParams={{ experience: 'TRIAL' }}
+      >
         <CDSideNav />
       </TestWrapper>
     )
@@ -42,7 +46,7 @@ describe('Sidenav', () => {
       <div
         data-testid="location"
       >
-        /account/dummy/cd/orgs/org/projects/project/pipelines/-1/pipeline-studio/?modal=trial
+        /account/dummy/cd/orgs/org/projects/project/pipelines/-1/pipeline-studio/?modal=TRIAL
       </div>
     `)
   })

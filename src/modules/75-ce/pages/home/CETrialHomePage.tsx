@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { StartTrialTemplate } from '@rbac/components/TrialHomePageTemplate/StartTrialTemplate'
-import { useStartTrialLicense } from 'services/cd-ng'
+import { useStartTrialLicense, useStartFreeLicense, ResponseModuleLicenseDTO } from 'services/cd-ng'
 import useCreateConnector from '@ce/components/CreateConnector/CreateConnector'
 import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
 import { useToaster } from '@common/components'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import { ModuleName } from 'framework/types/ModuleName'
-import { Editions } from '@common/constants/SubscriptionTypes'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
+import { useQueryParams } from '@common/hooks'
 import bgImage from './images/cehomebg.svg'
 
 const CETrialHomePage: React.FC = () => {
@@ -22,6 +24,10 @@ const CETrialHomePage: React.FC = () => {
   }>()
   const history = useHistory()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const { experience } = useQueryParams<{ experience?: string }>()
+  const isFreeEnabled = useFeatureFlag(FeatureFlag.FREE_PLAN_ENABLED)
+  const module = 'ce'
+  const moduleType = 'CE'
 
   const { openModal } = useCreateConnector({
     onSuccess: () => {
@@ -38,38 +44,54 @@ const CETrialHomePage: React.FC = () => {
     }
   })
 
+  const { mutate: startFreePlan } = useStartFreeLicense({
+    queryParams: {
+      accountIdentifier: accountId,
+      moduleType
+    },
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+  })
+
   const { showModal, hideModal } = useCETrialModal({
     onContinue: () => {
       hideModal()
       openModal()
-    }
+    },
+    experience: isFreeEnabled ? ModuleLicenseType.FREE : ModuleLicenseType.TRIAL
   })
 
   const { showError } = useToaster()
 
+  function startPlan(): Promise<ResponseModuleLicenseDTO> {
+    return isFreeEnabled ? startFreePlan() : startTrial({ moduleType, edition: Editions.ENTERPRISE })
+  }
+
   const handleStartTrial = async (): Promise<void> => {
     try {
-      const data = await startTrial({ moduleType: 'CE', edition: Editions.ENTERPRISE })
+      const data = await startPlan()
 
       const expiryTime = data?.data?.expiryTime
 
       const updatedLicenseInfo = data?.data && {
-        ...licenseInformation?.['CE'],
+        ...licenseInformation?.[moduleType],
         ...pick(data?.data, ['licenseType', 'edition']),
         expiryTime
       }
 
-      handleUpdateLicenseStore(
-        { ...licenseInformation },
-        updateLicenseStore,
-        ModuleName.CE.toString() as Module,
-        updatedLicenseInfo
-      )
+      handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as Module, updatedLicenseInfo)
       showModal()
     } catch (error) {
       showError(error.data?.message)
     }
   }
+
+  const startBtnDescription = isFreeEnabled
+    ? getString('common.startFreePlan', { module: 'CCM' })
+    : getString('ce.ceTrialHomePage.startTrial.startBtn.description')
 
   const startTrialProps = {
     description: getString('ce.homepage.slogan'),
@@ -78,17 +100,22 @@ const CETrialHomePage: React.FC = () => {
       url: 'https://ngdocs.harness.io/article/dvspc6ub0v-create-cost-perspectives'
     },
     startBtn: {
-      description: getString('ce.ceTrialHomePage.startTrial.startBtn.description'),
+      description: startBtnDescription,
       onClick: handleStartTrial
     }
   }
+
+  useEffect(() => {
+    experience && showModal()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [experience])
 
   return (
     <StartTrialTemplate
       title={getString('common.purpose.ce.continuous')}
       bgImageUrl={bgImage}
       startTrialProps={startTrialProps}
-      module="cd"
+      module={module}
     />
   )
 }

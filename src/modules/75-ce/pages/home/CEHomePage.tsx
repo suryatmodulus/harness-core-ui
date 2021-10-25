@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { PageError, PageSpinner } from '@wings-software/uicore'
-import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { ModuleName } from 'framework/types/ModuleName'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
@@ -18,37 +18,34 @@ const CEHomePage: React.FC = () => {
 
   const { accountId } = useParams<AccountPathProps>()
 
-  const { trial } = useQueryParams<{ trial?: boolean }>()
+  const { experience } = useQueryParams<{ experience?: string }>()
+  const moduleType = ModuleName.CE
+  const module = moduleType.toLowerCase() as Module
 
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
   const { data, error, refetch, loading } = useGetLicensesAndSummary({
-    queryParams: { moduleType: ModuleName.CE as any },
+    queryParams: { moduleType },
     accountIdentifier: accountId
   })
 
   const expiryTime = data?.data?.maxExpiryTime
   const updatedLicenseInfo = data?.data && {
-    ...licenseInformation?.['CE'],
+    ...licenseInformation?.[moduleType],
     ...pick(data?.data, ['licenseType', 'edition']),
     expiryTime
   }
 
   useEffect(() => {
-    handleUpdateLicenseStore(
-      { ...licenseInformation },
-      updateLicenseStore,
-      ModuleName.CE.toString() as Module,
-      updatedLicenseInfo
-    )
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   useEffect(() => {
     refetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trial])
+  }, [experience])
 
   const history = useHistory()
 
@@ -67,21 +64,14 @@ const CEHomePage: React.FC = () => {
     history.push(
       routes.toModuleTrialHome({
         accountId,
-        module: 'ce'
-      })
-    )
-  } else if (showTrialPages && data && data.data && trial) {
-    history.push(
-      routes.toModuleTrialHome({
-        accountId,
-        module: 'ce'
+        module
       })
     )
   } else {
     history.push(routes.toCEOverview({ accountId }))
   }
 
-  return null
+  return <></>
 }
 
 export default CEHomePage

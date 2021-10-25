@@ -132,16 +132,17 @@ export default function CISideNav(): React.ReactElement {
                 }),
                 search: `?modal=${experience}`
               })
-            } else {
-              history.push(
-                routes.toProjectOverview({
-                  projectIdentifier: data.identifier,
-                  orgIdentifier: data.orgIdentifier || '',
-                  accountId,
-                  module
-                })
-              )
+              return
             }
+
+            history.push(
+              routes.toProjectOverview({
+                projectIdentifier: data.identifier,
+                orgIdentifier: data.orgIdentifier || '',
+                accountId,
+                module
+              })
+            )
           }
         }}
       />

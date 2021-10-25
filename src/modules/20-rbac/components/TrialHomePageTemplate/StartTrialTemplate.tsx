@@ -15,7 +15,7 @@ import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, PlanActions, TrialActions } from '@common/constants/TrackingConstants'
 import routes from '@common/RouteDefinitions'
 import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
-import { Editions } from '@common/constants/SubscriptionTypes'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import css from './StartTrialTemplate.module.scss'
@@ -55,12 +55,12 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const isFreeEnabled = useFeatureFlag(FeatureFlag.FREE_PLAN_ENABLED)
   const clickEvent = isFreeEnabled ? PlanActions.StartFreeClick : TrialActions.StartTrialClick
-  const experience = isFreeEnabled ? 'free' : 'trial'
+  const experience = isFreeEnabled ? ModuleLicenseType.FREE : ModuleLicenseType.TRIAL
 
   async function handleStartTrial(): Promise<void> {
     trackEvent(clickEvent, {
       category: Category.SIGNUP,
-      module: module,
+      module,
       edition: isFreeEnabled ? Editions.FREE : Editions.ENTERPRISE
     })
     try {

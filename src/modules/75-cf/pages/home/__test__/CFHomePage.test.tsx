@@ -108,7 +108,7 @@ describe('CFHomePage', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should move to trial in progress page when query param trial is true', () => {
+  test('should move to trial in progress page when query param experience is TRIAL', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
@@ -124,7 +124,7 @@ describe('CFHomePage', () => {
         path="/account/:accountId"
         pathParams={{ accountId: '123' }}
         defaultAppStoreValues={{ currentUserInfo: currentUser }}
-        queryParams={{ trial: true }}
+        queryParams={{ experience: 'TRIAL' }}
       >
         <CFHomePage />
       </TestWrapper>

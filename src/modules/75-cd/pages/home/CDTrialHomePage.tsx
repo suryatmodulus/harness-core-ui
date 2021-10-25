@@ -10,7 +10,7 @@ import { useQueryParams } from '@common/hooks'
 import { useStartTrialLicense, useStartFreeLicense } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import { Editions } from '@common/constants/SubscriptionTypes'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import bgImageURL from './images/cd.svg'
@@ -51,7 +51,7 @@ const CDTrialHomePage: React.FC = () => {
     : () => {
         return startTrial({ moduleType, edition: Editions.ENTERPRISE })
       }
-  const experienceParam = isFreeEnabled ? 'free' : 'trial'
+  const experienceParam = isFreeEnabled ? ModuleLicenseType.FREE : ModuleLicenseType.TRIAL
 
   const startTrialnOpenCDTrialModal = async (): Promise<void> => {
     try {

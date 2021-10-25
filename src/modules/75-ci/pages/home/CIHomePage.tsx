@@ -7,15 +7,15 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { TrialInProgressTemplate } from '@rbac/components/TrialHomePageTemplate/TrialInProgressTemplate'
-import type { ModuleName } from 'framework/types/ModuleName'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { ModuleName } from 'framework/types/ModuleName'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import type { Editions } from '@common/constants/SubscriptionTypes'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import bgImageURL from './images/ci.svg'
 
 const CIHomePage: React.FC = () => {
@@ -26,8 +26,8 @@ const CIHomePage: React.FC = () => {
 
   const { currentUserInfo } = useAppStore()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
-  const module = 'ci'
-  const moduleType = 'CI'
+  const moduleType = ModuleName.CI
+  const module = moduleType.toLowerCase() as Module
 
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
@@ -56,17 +56,17 @@ const CIHomePage: React.FC = () => {
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
-      closeProjectModal(),
-        history.push({
-          pathname: routes.toPipelineStudio({
-            orgIdentifier: projectData?.orgIdentifier || '',
-            projectIdentifier: projectData?.identifier || '',
-            pipelineIdentifier: '-1',
-            accountId,
-            module
-          }),
-          search: `?modal=${experience}`
-        })
+      closeProjectModal()
+      history.push({
+        pathname: routes.toPipelineStudio({
+          orgIdentifier: projectData?.orgIdentifier || '',
+          projectIdentifier: projectData?.identifier || '',
+          pipelineIdentifier: '-1',
+          accountId,
+          module
+        }),
+        search: `?modal=${experience}`
+      })
     }
   })
 
@@ -83,7 +83,7 @@ const CIHomePage: React.FC = () => {
   const trialBannerProps = {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
-    module: moduleType as ModuleName,
+    module: moduleType,
     edition: data?.data?.edition as Editions,
     refetch
   }
@@ -107,7 +107,7 @@ const CIHomePage: React.FC = () => {
     )
   }
 
-  if (showTrialPages && data && data.data && experience === 'trial') {
+  if (showTrialPages && experience === ModuleLicenseType.TRIAL) {
     return (
       <TrialInProgressTemplate
         title={getString('ci.continuous')}
@@ -119,6 +119,19 @@ const CIHomePage: React.FC = () => {
   }
 
   const projectCreateSuccessHandler = (project?: Project): void => {
+    if (experience) {
+      history.push({
+        pathname: routes.toPipelineStudio({
+          orgIdentifier: project?.orgIdentifier || '',
+          projectIdentifier: project?.identifier || '',
+          pipelineIdentifier: '-1',
+          accountId,
+          module
+        }),
+        search: `?modal=${experience}`
+      })
+      return
+    }
     if (project) {
       history.push(
         routes.toProjectOverview({

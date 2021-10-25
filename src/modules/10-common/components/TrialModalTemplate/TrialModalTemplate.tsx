@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, Layout, Icon, Container, Color, IconName } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
+import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 
 interface TrialModalTemplateProps {
   iconName?: string
@@ -24,7 +25,7 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
 }) => {
   const { getString } = useStrings()
   const { modal } = useQueryParams<{ modal?: string }>()
-  const showTrialBadge = !hideTrialBadge && modal === 'trial'
+  const showTrialBadge = !hideTrialBadge && modal === ModuleLicenseType.TRIAL
 
   return (
     <Layout.Vertical padding={{ top: 'large', right: 'large' }}>

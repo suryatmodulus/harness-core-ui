@@ -35,7 +35,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
 
   const { modal, branch, repoIdentifier } = useQueryParams<{ modal?: string } & GitQueryParams>()
 
-  const getOtherModal = modal === 'trial' ? getTrialPipelineCreateForm : undefined
+  const getOtherModal = modal ? getTrialPipelineCreateForm : undefined
 
   const handleRunPipeline = (): void => {
     history.push(

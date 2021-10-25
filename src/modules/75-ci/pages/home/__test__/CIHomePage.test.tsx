@@ -107,7 +107,7 @@ describe('CIHomePage', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should move to trial in progress page when query param trial is true', () => {
+  test('should move to trial in progress page when query param experience is TRIAL', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
@@ -123,7 +123,7 @@ describe('CIHomePage', () => {
         path="/account/:accountId"
         pathParams={{ accountId: '123' }}
         defaultAppStoreValues={{ currentUserInfo: currentUser }}
-        queryParams={{ trial: true }}
+        queryParams={{ experience: 'TRIAL' }}
       >
         <CIHomePage />
       </TestWrapper>
@@ -151,7 +151,7 @@ describe('CIHomePage', () => {
         defaultAppStoreValues={{ currentUserInfo: currentUser }}
         path="/account/:accountId"
         pathParams={{ accountId: '123' }}
-        queryParams={{ trial: true }}
+        queryParams={{ experience: 'TRIAL' }}
         defaultLicenseStoreValues={{
           updateLicenseStore: updateLicenseStoreSpy
         }}

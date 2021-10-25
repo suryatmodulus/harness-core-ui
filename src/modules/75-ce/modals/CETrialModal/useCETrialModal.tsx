@@ -6,6 +6,7 @@ import moment from 'moment'
 import { useStrings } from 'framework/strings'
 
 import { TrialModalTemplate } from '@common/components/TrialModalTemplate/TrialModalTemplate'
+import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import ceImage from './images/Illustration.svg'
 
@@ -13,11 +14,13 @@ import css from './useCETrialModal.module.scss'
 
 interface CETrialModalData {
   onContinue: () => void
+  experience?: string
 }
 
 interface UseCETrialModalProps {
   onClose?: () => void
   onContinue: () => void
+  experience?: string
 }
 
 interface UseCETrialModalReturn {
@@ -26,7 +29,7 @@ interface UseCETrialModalReturn {
 }
 
 const CETrial: React.FC<CETrialModalData> = props => {
-  const { onContinue } = props
+  const { onContinue, experience } = props
 
   const { getString } = useStrings()
 
@@ -36,24 +39,27 @@ const CETrial: React.FC<CETrialModalData> = props => {
   const expiryTime = ceLicenseInformation?.expiryTime
   const time = moment(expiryTime)
   const expiryDate = time.format('DD MMM YYYY')
+  const isTrialPlan = experience === ModuleLicenseType.TRIAL
 
   function getChildComponent(): React.ReactElement {
     return (
       <>
         <Layout.Vertical flex={{ justifyContent: 'space-between', alignItems: 'flex-start' }} spacing="medium">
           <Text className={css.titleText}>{getString('ce.ceTrialHomePage.modal.title')}</Text>
-          <Text
-            className={css.trialBadge}
-            background={Color.ORANGE_500}
-            color={Color.WHITE}
-            width={120}
-            border={{ radius: 3 }}
-            margin={{ left: 30 }}
-            inline
-            font={{ align: 'center' }}
-          >
-            {getString('common.trialInProgress')}
-          </Text>
+          {isTrialPlan && (
+            <Text
+              className={css.trialBadge}
+              background={Color.ORANGE_500}
+              color={Color.WHITE}
+              width={120}
+              border={{ radius: 3 }}
+              margin={{ left: 30 }}
+              inline
+              font={{ align: 'center' }}
+            >
+              {getString('common.trialInProgress')}
+            </Text>
+          )}
           <Layout.Horizontal>
             <Text className={css.expiryText}>{`${getString('common.extendTrial.expiryDate')}:`}</Text>
             <Text className={css.expiryDate}>{`${expiryDate}`}</Text>
@@ -84,7 +90,7 @@ const CETrial: React.FC<CETrialModalData> = props => {
 }
 
 const useCETrialModal = (props: UseCETrialModalProps): UseCETrialModalReturn => {
-  const { onContinue } = props
+  const { onContinue, experience } = props
 
   const [showModal, hideModal] = useModalHook(() => {
     return (
@@ -97,7 +103,7 @@ const useCETrialModal = (props: UseCETrialModalProps): UseCETrialModalReturn => 
         // onClose={closeModal}
         className={cx(css.dialog, Classes.DIALOG, css.ceTrial)}
       >
-        <CETrial onContinue={onContinue} />
+        <CETrial onContinue={onContinue} experience={experience} />
         {/* <Button
           aria-label="close modal"
           minimal

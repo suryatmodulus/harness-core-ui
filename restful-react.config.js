@@ -171,5 +171,14 @@ module.exports = {
     customProps: {
       base: `{getConfig("pm/api/v1")}`
     }
+  },
+  gitops: {
+    github: 'wings-software:gitops-server:main:swagger-ui/api/v1/gitops_service.swagger.json',
+    output: 'src/services/gitops/index.tsx',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config";`,
+    customProps: {
+      base: `{getConfig("gitops-api")}`
+    }
   }
 }

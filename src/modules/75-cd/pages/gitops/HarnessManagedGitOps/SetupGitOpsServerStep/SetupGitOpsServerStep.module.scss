@@ -41,7 +41,6 @@
   .formContainer {
     width: 50%;
     padding-right: 30px;
-    border-right: 1px solid #ddd;
     overflow: auto;
 
     .formElm {
@@ -52,8 +51,20 @@
       }
     }
   }
-  .aboutHarnessAdapterContainer {
+
+  .yamlContainer {
     width: 50%;
+  }
+
+  .aboutHarnessAdapterContainer {
+    background: #4f5162;
+    color: #d9dae5;
+    border-radius: 5px;
+
+    pre {
+      background: #4f5162;
+      color: #d9dae5;
+    }
   }
 
   .aboutHarnessAdapterQuestion {
@@ -83,4 +94,85 @@
   color: var(--grey-600);
   font-size: var(--form-input-font-size);
   font-weight: 500;
+}
+
+.headerSeparator {
+  margin: 20px 0;
+  opacity: 0.2;
+  border: 1px solid #000000;
+}
+
+.configureProxyTitle {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 16px;
+  color: #22222a;
+}
+
+.configureProxyDesc {
+  font-weight: normal;
+  margin-top: 24px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.configureProxyDocLink {
+  margin-top: 24px;
+}
+
+.highAvailabilityLabel {
+  color: var(--grey-600) !important;
+  font-size: var(--form-input-font-size) !important;
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+}
+
+.copyYaml {
+  padding: 8px 20px;
+  border-bottom: 1px solid rgba(232, 236, 239, 0.3);
+}
+
+.codeBlock {
+  background: #4f5162;
+  color: #d9dae5;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  pre {
+    background: #4f5162;
+    color: #d9dae5;
+    margin-top: 0px;
+  }
+
+  pre {
+    background: #303030;
+    color: #f1f1f1;
+    // padding: 10px 16px;
+    border-radius: 2px;
+    margin-top: 0px;
+    counter-reset: line;
+  }
+  pre span {
+    display: block;
+    line-height: 1.5rem;
+  }
+
+  pre span:before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    border-right: 1px solid #ddd;
+    padding: 0 0.5em;
+    margin-right: 0.5em;
+    color: #888;
+  }
+
+  .copyBtn {
+    background: #4f5162;
+    color: #d9dae5;
+  }
 }

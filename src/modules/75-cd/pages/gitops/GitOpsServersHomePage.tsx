@@ -28,7 +28,7 @@ const GitOpsServersPage: React.FC = ({ children }) => {
               size={'normal'}
               links={[
                 {
-                  label: 'GitOps Server',
+                  label: 'Harness GitOps Agents',
                   to: routes.toHarnessManagedGitOps({ accountId, orgIdentifier, projectIdentifier, module })
                 },
                 {

@@ -1,16 +1,16 @@
 import { Button, ButtonVariation } from '@wings-software/uicore'
 import React from 'react'
-import type { GitopsProviderResponse } from 'services/cd-ng'
+import type { V1Agent } from 'services/gitops'
 import CreateProvider from '../CreateGitOpsServer/CreateGitOpsServer'
 
 import css from './NewGitOpsServerModal.module.scss'
 
 interface NewProviderModalProps {
-  provider: GitopsProviderResponse | null
+  provider: V1Agent | null
   isEditMode: boolean
   onClose?(): void
   onUpdateMode?(mode: boolean): void
-  onLaunchArgoDashboard?: (provider: GitopsProviderResponse) => void
+  onLaunchArgoDashboard?: (provider: V1Agent) => void
 }
 
 const NewProviderModal: React.FC<NewProviderModalProps> = props => {

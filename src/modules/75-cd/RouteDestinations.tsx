@@ -23,7 +23,8 @@ import {
   userGroupPathProps,
   serviceAccountProps,
   servicePathProps,
-  templatePathProps
+  templatePathProps,
+  agentOverViewPathProps
 } from '@common/utils/routeUtils'
 import type {
   PipelinePathProps,
@@ -113,6 +114,7 @@ import { ArtifactInputForm } from './components/ArtifactInputForm/ArtifactInputF
 import GitOpsServersPage from './pages/gitops/GitOpsServersHomePage'
 import GitOpsServersList from './pages/gitops/HarnessManagedGitOps/HarnessManagedGitOpsServersList'
 import GitOpsModalContainer from './pages/gitops/NativeArgo/GitOpsProvidersList'
+import GitOpsAgentOverviewPage from './pages/gitops/HarnessManagedGitOps/GitOpsAgentOverviewPage/GitOpsAgentOverviewPage'
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
@@ -684,6 +686,14 @@ export default (
       exact
     >
       <RedirectToAccessControlHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      path={[routes.toGitOpsOverView({ ...projectPathProps, ...pipelineModuleParams, ...agentOverViewPathProps })]}
+      exact
+    >
+      <GitOpsAgentOverviewPage />
     </RouteWithLayout>
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}

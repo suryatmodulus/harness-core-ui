@@ -33,8 +33,26 @@
   min-height: 600px;
 }
 
+.contentContainer {
+  display: flex;
+}
+
 .connectorForm {
   min-height: 440px;
+  max-width: 60%;
+}
+
+.info {
+  height: 492px;
+  overflow: auto;
+
+  width: 40%;
+  padding: 0 16px !important;
+
+  pre {
+    font-size: 12px !important;
+    overflow: hidden !important;
+  }
 }
 
 .validationStatus {
@@ -60,22 +78,16 @@
 }
 
 .verifyYamlContainer {
-  display: flex;
-  gap: 16px;
-  align-items: center;
+  margin-top: 0px !important;
+}
 
-  .yamlPath {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.steps {
+  padding: 8px 0;
+  margin-top: 0px !important;
+}
 
-    min-width: 300px;
-    background: #effbff;
-    color: #0278d5;
-    border: 1px solid #d9dae6;
-    border-radius: 4px;
-    padding: 8px;
-
-    cursor: pointer;
-  }
+.step {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 32px;
 }

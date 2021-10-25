@@ -1,7 +1,8 @@
 .card {
-  width: 250px;
+  width: 270px;
+  padding: 24px;
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
-
+  cursor: pointer;
   .projectInfo {
     overflow-wrap: anywhere;
   }
@@ -142,9 +143,9 @@
 
 .applications {
   padding: 8px 0;
-  margin: 8px 0;
-  border-top: 1px solid #d9dae6;
-  border-bottom: 1px solid #d9dae6;
+  margin: 16px 0;
+  border-top: 1px solid rgba(217, 218, 230, 0.6);
+  border-bottom: 1px solid rgba(217, 218, 230, 0.6);
 
   font-size: 12px;
   font-style: normal;
@@ -157,9 +158,9 @@
   display: inline;
 }
 
-.gitOpsServerStatusContainer {
+.gitOpsStatusContainer {
   margin-top: 16px;
-  display: flex;
+  // display: flex;
 }
 
 .gitOpsServerStatus {
@@ -171,6 +172,29 @@
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+.connectionStatus,
+.healthStatus {
+  display: flex;
+  margin: 8px 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statusText {
+  :global {
+    .bp3-button-text {
+      font-size: 10px !important;
+    }
+
+    .bp3-icon {
+      svg {
+        height: 12px;
+        width: 12px;
+      }
+    }
+  }
 }
 
 .statusIcon {

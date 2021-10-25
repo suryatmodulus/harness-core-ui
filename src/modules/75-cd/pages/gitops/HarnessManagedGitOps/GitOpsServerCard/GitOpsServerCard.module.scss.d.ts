@@ -28,8 +28,11 @@ declare const styles: {
   readonly argoFrame: string
   readonly applications: string
   readonly serverStatusContainer: string
-  readonly gitOpsServerStatusContainer: string
+  readonly gitOpsStatusContainer: string
   readonly gitOpsServerStatus: string
+  readonly connectionStatus: string
+  readonly healthStatus: string
+  readonly statusText: string
   readonly statusIcon: string
 }
 export default styles

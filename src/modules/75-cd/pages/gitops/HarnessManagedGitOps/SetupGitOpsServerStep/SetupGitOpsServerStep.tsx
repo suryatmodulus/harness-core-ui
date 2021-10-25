@@ -9,27 +9,22 @@ import {
   Formik,
   ModalErrorHandlerBinding,
   Toggle,
+  Text,
   ModalErrorHandler,
   FormikForm,
   FormInput,
-  CodeBlock,
   Container,
   ButtonVariation,
   getErrorInfoFromErrorObject,
   shouldShowError
 } from '@wings-software/uicore'
+import { V1Agent, useAgentServiceCreate } from 'services/gitops'
 
-import {
-  GitOpsProvider,
-  useCreateGitOpsProvider,
-  useUpdateGitOpsProvider,
-  CreateGitOpsProviderQueryParams
-} from 'services/cd-ng'
 import { saveCurrentStepData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { String, useStrings } from 'framework/strings'
 import { PageSpinner, useToaster } from '@common/components'
 
-import type { BaseProviderStepProps } from '../../types'
+import type { BaseProviderStepProps } from '../types'
 
 import css from './SetupGitOpsServerStep.module.scss'
 
@@ -42,7 +37,7 @@ type Params = {
 }
 
 const dummyYAML = `
-- num: -1083669237
+num: -1083669237
   tropical: true
   iron: -928716494.5760937
   instrument:
@@ -55,17 +50,9 @@ const dummyYAML = `
         arm: member
       stream: edge
       practice: true
-      deeply:
-        lucky: true
-        save: false
-        well: 271507302.4167981
-        came: 468914455.00234985
-        belong: true
-      damage: 1708272278.8601089
-    - false
-    - getting
-    - 1976659262
-  bat: false
+      direct: 456028677.1854496
+      yourself: -1746925063.3320909
+      community: true
 `
 export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps): React.ReactElement {
   const { prevStepData, nextStep, provider } = props
@@ -84,59 +71,57 @@ export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps)
   const isEdit = props.isEditMode
   const { getString } = useStrings()
 
-  const { mutate: createConnector, loading: creating } = useCreateGitOpsProvider({
-    queryParams: { accountIdentifier: accountId }
-  })
-  const { mutate: updateConnector, loading: updating } = useUpdateGitOpsProvider({
-    queryParams: { accountIdentifier: accountId }
-  })
+  const { mutate: createAgent, loading: creating } = useAgentServiceCreate({})
+  // const { mutate: updateConnector, loading: updating } = useAgentServiceUpdate(agentIdentifier, {})
 
-  const handleCreateOrEdit = async (payload: GitOpsProvider): Promise<any> => {
+  const handleCreateOrEdit = async (payload: V1Agent): Promise<any> => {
     modalErrorHandler?.hide()
-    const queryParams: CreateGitOpsProviderQueryParams = {}
+    // const queryParams: UseAgentServiceCreateProps = {}
 
-    const response = props.isEditMode
-      ? await updateConnector(payload, {
-          queryParams: {
-            ...queryParams
-          }
-        })
-      : await createConnector(payload, { queryParams: queryParams })
+    // const response = props.isEditMode
+    //   ? await updateConnector(payload, {
+    //       queryParams: {
+    //         ...queryParams
+    //       }
+    //     })
+    //   :
+
+    const response = await createAgent(payload)
 
     return {
-      status: response.status,
+      status: response,
       nextCallback: afterSuccessHandler.bind(null, response)
     }
   }
 
-  const isSaveButtonDisabled = creating || updating
+  const isSaveButtonDisabled = creating /* || updating */
 
   const afterSuccessHandler = (response: any): void => {
-    props.onUpdateMode?.(true)
-    nextStep?.({ ...props.provider, ...response?.data })
+    nextStep?.({ ...response, agentIdentifier: response?.identifier })
   }
 
-  const handleSave = (formData: GitOpsProvider): void => {
+  const handleSave = (formData: V1Agent): void => {
     setLoading(true)
-    const data: GitOpsProvider = {
+    const data: V1Agent = {
       ...formData,
       projectIdentifier: projectIdentifier,
-      orgIdentifier: orgIdentifier
+      orgIdentifier: orgIdentifier,
+      accountIdentifier: accountId
     }
 
     setProviderName(formData.name)
 
     handleCreateOrEdit(data)
       .then(res => {
-        if (res.status === 'SUCCESS') {
-          props.isEditMode
-            ? showSuccess(getString('cd.updatedGitOpsServerSuccessfully'))
-            : showSuccess(getString('cd.createdGitOpsServerSuccessfully'))
+        // if (res.status === 'SUCCESS') {
+        props.isEditMode
+          ? showSuccess(getString('cd.updatedGitOpsServerSuccessfully'))
+          : showSuccess(getString('cd.createdGitOpsServerSuccessfully'))
 
-          setLoading(false)
+        setLoading(false)
 
-          res.nextCallback?.()
-        }
+        res.nextCallback?.()
+        // }
       })
       .catch(e => {
         if (shouldShowError(e)) {
@@ -146,20 +131,20 @@ export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps)
       })
   }
 
-  const handleSubmit = async (formData: GitOpsProvider): Promise<void> => {
+  const handleSubmit = async (formData: V1Agent): Promise<void> => {
     handleSave(formData)
   }
 
   const getInitialValues = (): any => {
     if (isEdit) {
-      return pick(props.provider, ['name', 'identifier', 'description', 'tags', 'spec']) as GitOpsProvider
+      return pick(props.provider, ['name', 'identifier', 'description', 'tags']) as V1Agent
     } else {
       return {
         name: '',
         description: '',
         identifier: '',
         tags: {},
-        spec: {
+        metaData: {
           namespace: '',
           highAvailability: false
         }
@@ -168,7 +153,7 @@ export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps)
   }
   return (
     <>
-      {creating || updating ? (
+      {creating /* || updating */ ? (
         <PageSpinner
           message={
             creating
@@ -181,14 +166,14 @@ export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps)
       <Layout.Vertical spacing="xxlarge" className={css.stepContainer}>
         <div className={css.heading}>{props.name}</div>
         <Container className={css.connectorForm}>
-          <Formik<GitOpsProvider>
+          <Formik<V1Agent>
             onSubmit={formData => {
               handleSubmit(formData)
             }}
             enableReinitialize={true}
-            formName={`GitOpsProviderStepForm${provider?.spec?.type}`}
+            formName={`GitOpsServerStepForm${provider?.type}`}
             validationSchema={Yup.object().shape({
-              spec: Yup.object().shape({
+              metaData: Yup.object().shape({
                 namespace: Yup.string().trim().required('Please enter namespace')
               })
             })}
@@ -213,18 +198,54 @@ export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps)
                     />
                     <div className={css.contentContainer}>
                       <div className={css.formContainer}>
-                        <FormInput.Text className={css.adapterUrl} name="spec.namespace" label={'Namespace'} />
+                        <FormInput.Text className={css.adapterUrl} name="metaData.namespace" label={'Namespace'} />
+                        <Text className={css.highAvailabilityLabel}> High Availabilty </Text>
                         <Toggle
-                          label={'High Availabilty'}
+                          label={''}
                           checked={highAvailability}
                           onToggle={isToggled => {
                             setHighAvailability(isToggled)
                           }}
                           data-testid={'HighAvailablility'}
                         />
+
+                        <hr className={css.headerSeparator} />
+                        <div className={css.configureProxyTitle}>Configure Proxy Settings (optional)</div>
+                        <div className={css.configureProxyDesc}>
+                          If the connection to Harness is through a proxy, configure the proxy settings PROXY_HOST,
+                          PROXY_USER, and PROXY_PASSWORD in harness-gitops agent.yaml
+                          <div className={css.configureProxyDocLink}>
+                            Please refer to
+                            <a href="" target="_blank">
+                              &nbsp; documentation &nbsp;
+                            </a>
+                            page.
+                          </div>
+                        </div>
                       </div>
-                      <div className={css.aboutHarnessAdapterContainer}>
-                        <CodeBlock allowCopy format="pre" snippet={dummyYAML} />
+
+                      <div className={css.yamlContainer}>
+                        <div className={css.aboutHarnessAdapterContainer}>
+                          <div className={css.copyYaml}>
+                            harness-gitops-Agent.yaml
+                            <Button variation={ButtonVariation.ICON} icon="copy-alt" />
+                          </div>
+                          {/* <CodeBlock allowCopy format="pre" snippet={dummyYAML} /> */}
+
+                          <div className={css.codeBlock}>
+                            <pre>{dummyYAML}</pre>
+                          </div>
+                        </div>
+
+                        <Button
+                          style={{
+                            marginTop: '16px'
+                          }}
+                          padding={'large'}
+                          variation={ButtonVariation.SECONDARY}
+                          text={'Download YAML file'}
+                          icon="download"
+                        />
                       </div>
                     </div>
                   </Container>

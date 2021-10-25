@@ -176,3 +176,6 @@ export interface SubscriptionQueryParams {
 export interface TemplateStudioQueryParams {
   versionLabel?: string
 }
+export interface AgentOverViewPathProps {
+  agentId: string
+}

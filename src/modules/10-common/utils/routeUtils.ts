@@ -25,7 +25,8 @@ import type {
   UserPathProps,
   ServiceAccountPathProps,
   ServicePathProps,
-  TemplateStudioPathProps
+  TemplateStudioPathProps,
+  AgentOverViewPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -89,6 +90,10 @@ export const userGroupPathProps: UserGroupPathProps = {
 
 export const userPathProps: UserPathProps = {
   userIdentifier: ':userIdentifier'
+}
+
+export const agentOverViewPathProps: AgentOverViewPathProps = {
+  agentId: ':agentId'
 }
 
 export const serviceAccountProps: ServiceAccountPathProps = {

@@ -33,7 +33,8 @@ import type {
   ServiceAccountPathProps,
   ServicePathProps,
   TemplateStudioPathProps,
-  TemplateStudioQueryParams
+  TemplateStudioQueryParams,
+  AgentOverViewPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -537,6 +538,10 @@ const routes = {
   toGitOps: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops`
+  ),
+  toGitOpsOverView: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module, agentId }: PipelineType<ProjectPathProps & AgentOverViewPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops/${agentId}/overview`
   ),
   toHarnessManagedGitOps: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>

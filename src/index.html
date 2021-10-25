@@ -22,12 +22,13 @@
     <script>
       window.deploymentType = 'SAAS'
     </script>
-    <% } else if (!window.deploymentType) { %>
-    <script>
-      window.deploymentType = 'COMMUNITY'
-    </script>
-    <% } else if (window.deploymentType === "SAAS") { %>
+    <% } else { %>
     <script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"></script>
+    <script>
+      if (!window.deploymentType) {
+        window.deploymentType = 'COMMUNITY'
+      }
+    </script>
     <% } %>
 
     <script>

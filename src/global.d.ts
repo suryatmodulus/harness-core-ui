@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare const __DEV__: boolean
 declare const Bugsnag: any
-declare const __ON_PREM__: booelan
 declare const __BUGSNAG_RELEASE_VERSION__: string
 declare module '*.png' {
   const value: string
@@ -52,6 +51,7 @@ declare interface Window {
   getApiBaseUrl: (str: string) => string
   MktoForms2: any
   TOUR_GUIDE_USER_ID: string
+  deploymentType: DEPLOYMENT_TYPE
 }
 
 declare interface Document {
@@ -71,3 +71,9 @@ declare module 'gitopsui/MicroFrontendApp' {
 }
 
 declare type Optional<T, K extends keyof T = keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+
+declare enum DEPLOYMENT_TYPE {
+  SAAS = 'SAAS',
+  ON_PREM = 'ON_PREM',
+  COMMUNITY = 'COMMUNITY'
+}

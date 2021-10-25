@@ -6,6 +6,7 @@ import css from './GitSyncActions.module.scss'
 interface GitSyncActionsProps {
   isLoading: boolean
   branch: string
+  repository: string
   isAutoCommitEnabled: boolean
   handleToggleAutoCommit: (newAutoCommitValue: boolean) => void
 }
@@ -13,19 +14,23 @@ interface GitSyncActionsProps {
 const GitSyncActions = ({
   isLoading,
   branch,
+  repository,
   isAutoCommitEnabled,
   handleToggleAutoCommit
 }: GitSyncActionsProps): ReactElement => {
   return (
     <>
-      <Container style={{ flex: 0.5, padding: '0.5em', textAlign: 'center' }}>
-        <Icon name="git-repo" margin={{ right: '10px' }} />
-        Chris Repo
+      <Container className={css.gitRepoText}>
+        <Icon name="repository" margin={{ right: '10px' }} />
+        <Text color={Color.BLACK}>{repository}</Text>
       </Container>
 
-      <Container style={{ flex: 0.5, textAlign: 'center' }}>
+      <Container className={css.verticalDivider}></Container>
+
+      <Container>
         <Button
-          className={css.actionsButton}
+          noStyling
+          className={css.branchActionButtons}
           tooltipProps={{
             fill: true,
             interactionKind: 'click',
@@ -46,13 +51,34 @@ const GitSyncActions = ({
             </Layout.Vertical>
           }
         >
-          <Container
-            className={css.buttonContentWrapper}
-            flex={{ justifyContent: 'space-between', alignItems: 'center' }}
-          >
+          <Container className={css.branchActionButtonsWrapper}>
             <Icon name="git-new-branch" size={15} />
             <Text color={Color.GREY_900}>{branch}</Text>
-            {isLoading ? <Icon name="spinner" size={10} color="blue500" /> : <Icon name="full-circle" size={10} />}
+            <Container className={css.gitStatusIcon}>
+              <Button
+                noStyling
+                tooltipProps={{
+                  isDark: true
+                }}
+                tooltip={
+                  <Layout.Vertical padding="medium" spacing="small">
+                    <Text color={Color.WHITE}>{`Auto-commit to "${branch}" is ${
+                      isAutoCommitEnabled ? 'ON' : 'OFF'
+                    }`}</Text>
+                  </Layout.Vertical>
+                }
+              >
+                {isLoading ? (
+                  <Icon name="steps-spinner" size={15} className={css.loadingSpinner} />
+                ) : (
+                  <Icon
+                    name="full-circle"
+                    size={10}
+                    className={isAutoCommitEnabled ? css.autoCommitEnabled : css.autoCommitDisabled}
+                  />
+                )}
+              </Button>
+            </Container>
           </Container>
         </Button>
       </Container>

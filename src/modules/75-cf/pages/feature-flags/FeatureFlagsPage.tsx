@@ -672,7 +672,7 @@ const FeatureFlagsPage: React.FC = () => {
       headerStyle={{ display: 'flex' }}
       toolbar={
         <Layout.Horizontal>
-          <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'center' }} width={500}>
+          <Container flex={{ justifyContent: 'space-between', alignItems: 'center' }}>
             <Container>
               <FlagDialog environment={activeEnvironment} />
             </Container>
@@ -680,11 +680,12 @@ const FeatureFlagsPage: React.FC = () => {
               <GitSyncActions
                 isLoading={gitSync.gitSyncLoading}
                 branch={gitSync.gitRepoDetails?.branch || ''}
+                repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
                 isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
                 handleToggleAutoCommit={(newAutoCommitValue: boolean) => gitSync.handleAutoCommit(newAutoCommitValue)}
               />
             )}
-          </Layout.Horizontal>
+          </Container>
           <FlexExpander />
           <ExpandingSearchInput name="findFlag" placeholder={getString('search')} onChange={onSearchInputChanged} />
           {/** TODO: Disable filter as backend does not fully support it yet */}

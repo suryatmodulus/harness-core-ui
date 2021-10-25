@@ -1,27 +1,97 @@
-.actions-button {
-  background-color: var(--white) !important;
-  box-shadow: none !important;
-  border: none !important;
-  //   min-width: 100%;
-  //   :global {
-  //     .bp3-button-text {
-  //       min-width: 100%;
-  //     }
-  //   }
-  &:hover {
-    background-color: var(--grey-100) !important;
-  }
-  &:active {
-    background-color: var(--grey-100) !important;
+:root {
+  --horizontal-spacing: var(--spacing-3);
+}
+
+.verticalDivider {
+  width: 1px;
+  height: 60%;
+  background: var(--grey-300) !important;
+}
+
+.branch-action-buttons-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > * {
+    margin-right: var(--spacing-3) !important;
+    &:last-child {
+      margin-right: 0 !important;
+    }
   }
 }
 
-.button-content-wrapper * {
+.git-repo-text {
   display: flex;
-  justify-content: 'space-between';
+  flex: 0.5;
+  margin: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing) !important;
+  padding: var(--spacing-3) var(--spacing-6) !important;
   align-items: center;
-  margin-right: var(--spacing-3) !important;
-  &:last-child {
-    margin-right: 0 !important;
+  color: var(--grey-1000);
+  flex-direction: row;
+
+  & > span {
+    margin-right: var(--spacing-3) !important;
+  }
+}
+
+.branch-action-buttons {
+  background-color: var(--white);
+  box-shadow: none;
+  border: none;
+  border-radius: 4px;
+  margin: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing) !important;
+  padding: var(--spacing-3) var(--spacing-6) !important;
+  &:hover {
+    background-color: var(--grey-100);
+    cursor: pointer;
+  }
+  &:active {
+    background-color: var(--grey-100);
+  }
+
+  // Icons are different sizes so this prevents side effects and keeps icon centered when icons are swapped out
+  .git-status-icon {
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+
+    button {
+      display: flex;
+      background-color: inherit;
+      border: none;
+      &:hover {
+        background-color: var(--grey-100);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .auto-commit-enabled {
+    svg {
+      path,
+      circle {
+        fill: var(--primary-7);
+      }
+    }
+  }
+
+  .auto-commit-disabled {
+    svg {
+      path,
+      circle {
+        fill: var(--grey-300);
+      }
+    }
+  }
+
+  .loading-spinner {
+    svg {
+      path,
+      circle {
+        fill: var(--blue-600);
+      }
+    }
   }
 }

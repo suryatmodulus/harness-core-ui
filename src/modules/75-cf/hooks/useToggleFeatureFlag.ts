@@ -32,7 +32,7 @@ export const useToggleFeatureFlag = ({
   projectIdentifier,
   flagIdentifier
 }: UseToggleFeatureFlagProps) => {
-  const { mutate } = usePatchFeature({
+  const { mutate, loading } = usePatchFeature({
     identifier: flagIdentifier,
     queryParams: {
       project: projectIdentifier,
@@ -45,6 +45,7 @@ export const useToggleFeatureFlag = ({
 
   return {
     on: (gitDetails?: GitDetails) => mutate(makeInstruction(true, gitDetails)),
-    off: (gitDetails?: GitDetails) => mutate(makeInstruction(false, gitDetails))
+    off: (gitDetails?: GitDetails) => mutate(makeInstruction(false, gitDetails)),
+    loading
   }
 }

@@ -2,13 +2,17 @@
   --horizontal-spacing: var(--spacing-3);
 }
 
-.verticalDivider {
+.item-container {
+  padding: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing) !important;
+}
+
+.vertical-divider {
   width: 1px;
   height: 60%;
   background: var(--grey-300) !important;
 }
 
-.branch-action-buttons-wrapper {
+.branch-action-button-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,33 +25,20 @@
   }
 }
 
-.git-repo-text {
-  display: flex;
-  flex: 0.5;
-  margin: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing) !important;
-  padding: var(--spacing-3) var(--spacing-6) !important;
-  align-items: center;
-  color: var(--grey-1000);
-  flex-direction: row;
-
-  & > span {
-    margin-right: var(--spacing-3) !important;
-  }
+.branch-action-button-active {
+  background-color: var(--grey-100) !important;
 }
 
-.branch-action-buttons {
+.branch-action-button {
   background-color: var(--white);
   box-shadow: none;
   border: none;
   border-radius: 4px;
-  margin: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing) !important;
+  // margin: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing) !important;
   padding: var(--spacing-3) var(--spacing-6) !important;
   &:hover {
     background-color: var(--grey-100);
     cursor: pointer;
-  }
-  &:active {
-    background-color: var(--grey-100);
   }
 
   // Icons are different sizes so this prevents side effects and keeps icon centered when icons are swapped out
@@ -93,5 +84,19 @@
         fill: var(--blue-600);
       }
     }
+  }
+}
+
+.git-repo-text {
+  display: flex;
+  flex: 0.5;
+  // margin: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing) !important;
+  margin: var(--spacing-3) var(--spacing-6) !important;
+  align-items: center;
+  color: var(--grey-1000);
+  flex-direction: row;
+
+  & > span {
+    margin-right: var(--spacing-3) !important;
   }
 }

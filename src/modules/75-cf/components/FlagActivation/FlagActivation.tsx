@@ -120,8 +120,10 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     }
   })
 
-  const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
-  const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_RULES)
+  const gitSync = useGitSync()
+  const { gitSyncValidationSchema, gitSyncInitialValues } = gitSync?.getGitSyncFormMeta(
+    AUTO_COMMIT_MESSAGES.UPDATED_FLAG_RULES
+  )
 
   const initialValues = useMemo(
     () =>
@@ -296,7 +298,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       patch.feature
         .onPatchAvailable(data => {
           patchFeature(
-            isGitSyncEnabled
+            gitSync?.isGitSyncEnabled
               ? {
                   ...data,
                   gitDetails: values.gitDetails
@@ -304,8 +306,8 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               : data
           )
             .then(async () => {
-              if (!isAutoCommitEnabled && values.autoCommit) {
-                await handleAutoCommit(values.autoCommit)
+              if (!gitSync?.isAutoCommitEnabled && values.autoCommit) {
+                await gitSync.handleAutoCommit(values.autoCommit)
               }
 
               setEditing(false)
@@ -551,7 +553,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                       intent="primary"
                       text={getString('save')}
                       onClick={event => {
-                        if (isGitSyncEnabled && !isAutoCommitEnabled) {
+                        if (gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
                           event.preventDefault()
                           setIsGitSyncModalOpen(true)
                         }

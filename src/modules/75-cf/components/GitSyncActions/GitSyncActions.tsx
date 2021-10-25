@@ -1,9 +1,11 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { Text, Layout, Color, Container, Button, Icon, Switch } from '@wings-software/uicore'
+import cx from 'classnames'
 
+import { PopoverPosition } from '@blueprintjs/core'
 import css from './GitSyncActions.module.scss'
 
-interface GitSyncActionsProps {
+export interface GitSyncActionsProps {
   isLoading: boolean
   branch: string
   repository: string
@@ -18,29 +20,34 @@ const GitSyncActions = ({
   isAutoCommitEnabled,
   handleToggleAutoCommit
 }: GitSyncActionsProps): ReactElement => {
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+
   return (
     <>
-      <Container className={css.gitRepoText}>
+      <Container className={cx(css.gitRepoText, css.itemContainer)}>
         <Icon name="repository" margin={{ right: '10px' }} />
         <Text color={Color.BLACK}>{repository}</Text>
       </Container>
 
       <Container className={css.verticalDivider}></Container>
 
-      <Container>
+      <Container className={css.itemContainer}>
         <Button
           noStyling
-          className={css.branchActionButtons}
+          className={cx(css.branchActionButton, isSettingsOpen && css.branchActionButtonActive)}
           tooltipProps={{
             fill: true,
             interactionKind: 'click',
             minimal: true,
-            position: 'bottom'
+            position: PopoverPosition.BOTTOM_LEFT,
+            isOpen: isSettingsOpen,
+            onInteraction: nextOpenState => setIsSettingsOpen(nextOpenState)
           }}
           tooltip={
             <Layout.Vertical padding="medium" spacing="small">
               <Container flex={{ alignItems: 'start' }}>
                 <Switch
+                  data-testid="auto-commit-switch"
                   alignIndicator="left"
                   checked={isAutoCommitEnabled}
                   onChange={event => handleToggleAutoCommit(event.currentTarget.checked)}
@@ -51,17 +58,18 @@ const GitSyncActions = ({
             </Layout.Vertical>
           }
         >
-          <Container className={css.branchActionButtonsWrapper}>
+          <Container className={css.branchActionButtonWrapper}>
             <Icon name="git-new-branch" size={15} />
             <Text color={Color.GREY_900}>{branch}</Text>
             <Container className={css.gitStatusIcon}>
               <Button
                 noStyling
                 tooltipProps={{
-                  isDark: true
+                  isDark: true,
+                  disabled: isSettingsOpen
                 }}
                 tooltip={
-                  <Layout.Vertical padding="medium" spacing="small">
+                  <Layout.Vertical padding="medium" spacing="small" data-testid="git-sync-status-tooltip">
                     <Text color={Color.WHITE}>{`Auto-commit to "${branch}" is ${
                       isAutoCommitEnabled ? 'ON' : 'OFF'
                     }`}</Text>
@@ -69,9 +77,10 @@ const GitSyncActions = ({
                 }
               >
                 {isLoading ? (
-                  <Icon name="steps-spinner" size={15} className={css.loadingSpinner} />
+                  <Icon name="steps-spinner" size={15} className={css.loadingSpinner} data-testid="git-sync-spinner" />
                 ) : (
                   <Icon
+                    data-testid="auto-commit-status-icon"
                     name="full-circle"
                     size={10}
                     className={isAutoCommitEnabled ? css.autoCommitEnabled : css.autoCommitDisabled}

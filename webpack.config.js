@@ -23,7 +23,6 @@ const moduleFederationConfig = require('./configs/modulefederation.config.js')
 const ExternalRemotesPlugin = require('external-remotes-plugin')
 
 const DEV = process.env.NODE_ENV === 'development'
-const ON_PREM = `${process.env.ON_PREM}` === 'true'
 // this BUGSNAG_TOKEN needs to be same which is passed in the docker file
 const BUGSNAG_TOKEN = process.env.BUGSNAG_TOKEN
 const BUGSNAG_SOURCEMAPS_UPLOAD = `${process.env.BUGSNAG_SOURCEMAPS_UPLOAD}` === 'true'
@@ -227,15 +226,13 @@ const commonPlugins = [
     filename: 'index.html',
     minify: false,
     templateParameters: {
-      __DEV__: DEV,
-      __ON_PREM__: ON_PREM
+      __DEV__: DEV
     }
   }),
   new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
   new webpack.DefinePlugin({
     'process.env': '{}', // required for @blueprintjs/core
     __DEV__: DEV,
-    __ON_PREM__: ON_PREM,
     __BUGSNAG_RELEASE_VERSION__: buildVersion
   }),
   new MonacoWebpackPlugin({

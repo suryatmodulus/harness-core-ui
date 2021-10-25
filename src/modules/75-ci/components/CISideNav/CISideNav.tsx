@@ -48,7 +48,7 @@ export default function CISideNav(): React.ReactElement {
   const module = 'ci'
   const { updateAppStore } = useAppStore()
   const { CI_OVERVIEW_PAGE } = useFeatureFlags()
-  const { trial } = useQueryParams<{ trial?: boolean }>()
+  const { experience } = useQueryParams<{ experience?: string }>()
 
   return (
     <Layout.Vertical spacing="small">
@@ -121,7 +121,7 @@ export default function CISideNav(): React.ReactElement {
             )
           } else {
             // when it's on trial page, forward to pipeline
-            if (trial) {
+            if (experience) {
               history.push({
                 pathname: routes.toPipelineStudio({
                   orgIdentifier: data.orgIdentifier || '',
@@ -130,7 +130,7 @@ export default function CISideNav(): React.ReactElement {
                   accountId,
                   module
                 }),
-                search: '?modal=trial'
+                search: `?modal=${experience}`
               })
             } else {
               history.push(

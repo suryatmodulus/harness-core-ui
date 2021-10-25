@@ -3,7 +3,13 @@ import { Heading, Layout, Text, Container, Button, Color } from '@wings-software
 import { useParams, useHistory } from 'react-router-dom'
 import { useToaster } from '@common/components'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import { useStartTrialLicense, ResponseModuleLicenseDTO, StartTrialDTORequestBody } from 'services/cd-ng'
+import {
+  useStartTrialLicense,
+  ResponseModuleLicenseDTO,
+  StartTrialDTORequestBody,
+  useStartFreeLicense,
+  StartFreeLicenseQueryParams
+} from 'services/cd-ng'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, PlanActions, TrialActions } from '@common/constants/TrackingConstants'
@@ -110,19 +116,35 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
     accountId: string
   }>()
 
+  const isFreeEnabled = useFeatureFlag(FeatureFlag.FREE_PLAN_ENABLED)
+
   const startTrialRequestBody: StartTrialDTORequestBody = {
     moduleType: module.toUpperCase() as any,
     edition: Editions.ENTERPRISE
   }
 
-  const { mutate: startTrial, loading } = useStartTrialLicense({
+  const { mutate: startTrial, loading: startingTrial } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }
   })
 
+  const moduleType = module.toUpperCase() as StartFreeLicenseQueryParams['moduleType']
+
+  const { mutate: startFreePlan, loading: startingFree } = useStartFreeLicense({
+    queryParams: {
+      accountIdentifier: accountId,
+      moduleType
+    },
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+  })
+
   function handleStartTrial(): Promise<ResponseModuleLicenseDTO> {
-    return startTrial(startTrialRequestBody)
+    return isFreeEnabled ? startFreePlan() : startTrial(startTrialRequestBody)
   }
 
   return (
@@ -132,7 +154,12 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
           {title}
         </Heading>
 
-        <StartTrialComponent {...startTrialProps} startTrial={handleStartTrial} module={module} loading={loading} />
+        <StartTrialComponent
+          {...startTrialProps}
+          startTrial={handleStartTrial}
+          module={module}
+          loading={startingTrial || startingFree}
+        />
       </Layout.Vertical>
     </Container>
   )

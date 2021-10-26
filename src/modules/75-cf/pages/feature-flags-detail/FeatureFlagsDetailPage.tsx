@@ -9,6 +9,7 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FlagActivation from '@cf/components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '@cf/components/FlagActivation/FlagActivationDetails'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import { useGitSync } from '@cf/hooks/useGitSync'
 import css from './FeatureFlagsDetailPage.module.scss'
 
 const FeatureFlagsDetailPage: React.FC = () => {
@@ -16,6 +17,7 @@ const FeatureFlagsDetailPage: React.FC = () => {
   const [skipLoading, setSkipLoading] = useState(false)
   const { orgIdentifier, projectIdentifier, featureFlagIdentifier, accountId } = useParams<Record<string, string>>()
   const { activeEnvironment } = useActiveEnvironment()
+  const gitSync = useGitSync()
 
   useDocumentTitle(getString('featureFlagsText'))
   const queryParams = {
@@ -67,8 +69,8 @@ const FeatureFlagsDetailPage: React.FC = () => {
   return (
     <Container flex height="100%">
       <Layout.Horizontal width={450} className={css.flagContainer}>
-        <Layout.Vertical width="100%">
-          {featureFlag && <FlagActivationDetails featureFlag={featureFlag} refetchFlag={refetch} />}
+        <Layout.Vertical width="100%" className={css.flagActivationDetailsSection}>
+          {featureFlag && <FlagActivationDetails featureFlag={featureFlag} refetchFlag={refetch} gitSync={gitSync} />}
         </Layout.Vertical>
       </Layout.Horizontal>
 
@@ -80,6 +82,7 @@ const FeatureFlagsDetailPage: React.FC = () => {
         <Layout.Vertical width="100%">
           {!loading && featureFlag && (
             <FlagActivation
+              gitSync={gitSync}
               refetchFlag={async () => {
                 setSkipLoading(true)
                 return refetch({

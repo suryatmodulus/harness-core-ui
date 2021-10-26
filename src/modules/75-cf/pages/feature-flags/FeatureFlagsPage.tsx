@@ -672,7 +672,7 @@ const FeatureFlagsPage: React.FC = () => {
       headerStyle={{ display: 'flex' }}
       toolbar={
         <Layout.Horizontal>
-          <Container flex={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <Container flex={{ justifyContent: 'space-between', alignItems: 'center' }} width={400}>
             <Container>
               <FlagDialog environment={activeEnvironment} />
             </Container>

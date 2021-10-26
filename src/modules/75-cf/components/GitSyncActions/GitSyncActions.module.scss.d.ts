@@ -1,7 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly itemContainer: string
   readonly verticalDivider: string
   readonly branchActionButtonWrapper: string
   readonly branchActionButtonActive: string

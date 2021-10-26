@@ -2,13 +2,9 @@
   --horizontal-spacing: var(--spacing-3);
 }
 
-.item-container {
-  padding: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing) !important;
-}
-
 .vertical-divider {
   width: 1px;
-  height: 60%;
+  height: var(--spacing-6);
   background: var(--grey-300) !important;
 }
 
@@ -30,12 +26,11 @@
 }
 
 .branch-action-button {
-  background-color: var(--white);
+  background-color: inherit;
   box-shadow: none;
   border: none;
   border-radius: 4px;
-  // margin: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing) !important;
-  padding: var(--spacing-3) var(--spacing-6) !important;
+  padding: 5px !important;
   &:hover {
     background-color: var(--grey-100);
     cursor: pointer;
@@ -90,8 +85,7 @@
 .git-repo-text {
   display: flex;
   flex: 0.5;
-  // margin: 0 var(--horizontal-spacing) 0 var(--horizontal-spacing) !important;
-  margin: var(--spacing-3) var(--spacing-6) !important;
+  padding: 5px 5px 5px 0 !important;
   align-items: center;
   color: var(--grey-1000);
   flex-direction: row;

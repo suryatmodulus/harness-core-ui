@@ -37,7 +37,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
-import { GitSyncFormValues, useGitSync } from '@cf/hooks/useGitSync'
+import { GitSyncFormValues, UseGitSync, useGitSync } from '@cf/hooks/useGitSync'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
@@ -50,6 +50,7 @@ import SaveFlagToGitModal from '../SaveFlagToGitModal/SaveFlagToGitModal'
 import css from './FlagActivationDetails.module.scss'
 
 interface FlagActivationDetailsProps {
+  gitSync: UseGitSync
   featureFlag: Feature
   refetchFlag: () => void
 }

@@ -15,6 +15,8 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { useGitSync } from '@cf/hooks/useGitSync'
+import TargetManagementToolbar from '@cf/components/TargetManagementToolbar/TargetManagementToolbar'
 import { TargetSettings } from './target-settings/TargetSettings'
 import { FlagSettings } from './flag-settings/FlagSettings'
 import css from './TargetDetailPage.module.scss'
@@ -118,6 +120,8 @@ export const TargetDetailPage: React.FC = () => {
 
   useDocumentTitle(title)
 
+  const gitSync = useGitSync()
+
   if (loading) {
     if (!target) {
       return <PageSpinner />
@@ -187,6 +191,7 @@ export const TargetDetailPage: React.FC = () => {
       }
     >
       <Layout.Vertical height="100%" style={{ flexGrow: 1, background: 'var(--white)' }}>
+        <TargetManagementToolbar gitSync={gitSync} />
         <Layout.Horizontal height="100%">
           <TargetSettings target={target} />
           <FlagSettings target={target} />

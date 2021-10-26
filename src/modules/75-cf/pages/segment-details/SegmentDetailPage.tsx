@@ -15,6 +15,8 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import TargetManagementToolbar from '@cf/components/TargetManagementToolbar/TargetManagementToolbar'
+import { useGitSync } from '@cf/hooks/useGitSync'
 import { FlagsUseSegment } from './flags-use-segment/FlagsUseSegment'
 import { SegmentSettings } from './segment-settings/SegmentSettings'
 import css from './SegmentDetailPage.module.scss'
@@ -119,6 +121,8 @@ export const SegmentDetailPage: React.FC = () => {
 
   useDocumentTitle(title)
 
+  const gitSync = useGitSync()
+
   const loading = segmentLoading || envLoading
   const error = segmentError || envError
 
@@ -190,6 +194,7 @@ export const SegmentDetailPage: React.FC = () => {
       }
     >
       <Layout.Vertical height="100%" style={{ flexGrow: 1, background: 'var(--white)' }}>
+        <TargetManagementToolbar gitSync={gitSync} />
         <Layout.Horizontal height="100%">
           <FlagsUseSegment segment={segment} />
           <SegmentSettings onUpdate={refetch} segment={segment} />

@@ -41,8 +41,9 @@ import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGitSync } from '@cf/hooks/useGitSync'
+
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
+import type { UseGitSync } from '@cf/hooks/useGitSync'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -60,6 +61,7 @@ const WAIT_TIME_FOR_NEWLY_CREATED_ENVIRONMENT = 3000
 interface FlagActivationProps {
   project: string
   flagData: Feature
+  gitSync: UseGitSync
   refetchFlag: () => Promise<unknown>
 }
 
@@ -86,7 +88,7 @@ const fromVariationMapToObj = (variationMap: VariationMap[]) =>
   }, {})
 
 const FlagActivation: React.FC<FlagActivationProps> = props => {
-  const { flagData, project, refetchFlag } = props
+  const { flagData, project, refetchFlag, gitSync } = props
   const { showError } = useToaster()
   const [editing, setEditing] = useState(false)
   const [loadingFlags, setLoadingFlags] = useState(false)
@@ -120,7 +122,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     }
   })
 
-  const gitSync = useGitSync()
   const { gitSyncValidationSchema, gitSyncInitialValues } = gitSync?.getGitSyncFormMeta(
     AUTO_COMMIT_MESSAGES.UPDATED_FLAG_RULES
   )

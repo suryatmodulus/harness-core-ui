@@ -24,14 +24,14 @@ const GitSyncActions = ({
 
   return (
     <>
-      <Container className={cx(css.gitRepoText, css.itemContainer)}>
+      <Container className={css.gitRepoText}>
         <Icon name="repository" margin={{ right: '10px' }} />
         <Text color={Color.BLACK}>{repository}</Text>
       </Container>
 
       <Container className={css.verticalDivider}></Container>
 
-      <Container className={css.itemContainer}>
+      <Container>
         <Button
           noStyling
           className={cx(css.branchActionButton, isSettingsOpen && css.branchActionButtonActive)}

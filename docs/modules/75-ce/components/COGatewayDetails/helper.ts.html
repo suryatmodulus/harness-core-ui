@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.86% </span>
+                <span class="strong">34.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/35</span>
+                <span class='fraction'>15/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.59% </span>
+                <span class="strong">29.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/29</span>
+                <span class='fraction'>8/27</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.71% </span>
+                <span class="strong">30.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/31</span>
+                <span class='fraction'>12/39</span>
             </div>
         
             
@@ -148,7 +148,25 @@
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -200,10 +218,23 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -211,8 +242,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -289,30 +325,48 @@ export const getServiceObjectFromgatewayDetails = <span class="fstat-no" title="
   const hasInstances = <span class="cstat-no" title="statement not covered" >!_isEmpty(gatewayDetails.selectedInstances)</span>
   const isK8sRule = <span class="cstat-no" title="statement not covered" >Utils.isK8sRule(gatewayDetails)</span>
   const routing: RoutingData = <span class="cstat-no" title="statement not covered" >{ ports: gatewayDetails.routing.ports, lb: undefined }</span>
+  let kind = <span class="cstat-no" title="statement not covered" >GatewayKindType.INSTANCE</span>
 <span class="cstat-no" title="statement not covered" >  if (isK8sRule) {</span>
+    // k8s rule check
+<span class="cstat-no" title="statement not covered" >    kind = GatewayKindType.KUBERNETES</span>
 <span class="cstat-no" title="statement not covered" >    routing.k8s = gatewayDetails.routing.k8s</span>
   } else <span class="cstat-no" title="statement not covered" >if (hasInstances) {</span>
+    // ec2 rule check
     const instanceIDs = <span class="cstat-no" title="statement not covered" >gatewayDetails.selectedInstances.map(<span class="fstat-no" title="function not covered" >instance </span>=&gt; <span class="cstat-no" title="statement not covered" >`'${instance.id}'`)</span>.join(',')</span>
 <span class="cstat-no" title="statement not covered" >    routing.instance = {</span>
       filter_text: `id = [${instanceIDs}]` // eslint-disable-line
     }
+  } else <span class="cstat-no" title="statement not covered" >if (!_isEmpty(gatewayDetails.routing.container_svc)) {</span>
+    // ECS rule check
+<span class="cstat-no" title="statement not covered" >    kind = GatewayKindType.CONTAINERS</span>
+<span class="cstat-no" title="statement not covered" >    routing.container_svc = gatewayDetails.routing.container_svc</span>
+  } else <span class="cstat-no" title="statement not covered" >if (!_isEmpty(gatewayDetails.routing.database)) {</span>
+    // RDS rule check
+<span class="cstat-no" title="statement not covered" >    kind = GatewayKindType.DATABASE</span>
+<span class="cstat-no" title="statement not covered" >    routing.database = gatewayDetails.routing.database</span>
   } else {
+    // ASG rule check
 <span class="cstat-no" title="statement not covered" >    routing.instance = {</span>
       filter_text: '', // eslint-disable-line
       scale_group: gatewayDetails.routing.instance.scale_group // eslint-disable-line
     }
   }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  routing.custom_domain_providers = gatewayDetails.routing.custom_domain_providers</span>
   const gateway: Service = <span class="cstat-no" title="statement not covered" >{</span>
     name: gatewayDetails.name,
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     account_identifier: accountId, // eslint-disable-line
-    fulfilment: isK8sRule ? 'kubernetes' : gatewayDetails.fullfilment || 'ondemand',
-    kind: isK8sRule ? GatewayKindType.KUBERNETES : GatewayKindType.INSTANCE,
+    fulfilment: Utils.getConditionalResult(isK8sRule, 'kubernetes', gatewayDetails.fullfilment || 'ondemand'),
+    kind,
     cloud_account_id: gatewayDetails.cloudAccount.id, // eslint-disable-line
     idle_time_mins: gatewayDetails.idleTimeMins, // eslint-disable-line
-    custom_domains: gatewayDetails.customDomains ? gatewayDetails.customDomains : [], // eslint-disable-line
+    custom_domains: Utils.getConditionalResult(
+      !_isEmpty(gatewayDetails.customDomains),
+      gatewayDetails.customDomains,
+      []
+    ), // eslint-disable-line
     health_check: gatewayDetails.healthCheck,
     routing,
     opts: {
@@ -337,7 +391,7 @@ export const getServiceObjectFromgatewayDetails = <span class="fstat-no" title="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 22:15:47 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 26 2021 03:54:49 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

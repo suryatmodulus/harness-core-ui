@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.45% </span>
+                <span class="strong">55.84% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>35/62</span>
+                <span class='fraction'>43/77</span>
             </div>
         
             
@@ -224,7 +224,13 @@
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
 <a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -295,7 +301,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -319,6 +330,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -349,7 +362,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -392,7 +404,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
-import { debounce as _debounce, isEmpty as _isEmpty } from 'lodash-es'
+import { debounce as _debounce, isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { Container, Layout, Button } from '@wings-software/uicore'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
@@ -400,7 +412,7 @@ import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import type { Service } from 'services/lw'
 import { CONFIG_IDLE_TIME_CONSTRAINTS, CONFIG_STEP_IDS, CONFIG_TOTAL_STEP_COUNTS, RESOURCES } from '@ce/constants'
 import DefineRule from './steps/DefineRule'
-import ManageResources from './steps/ManageResources'
+import ManageResources from './steps/ManageResources/ManageResources'
 import ResourceFulfilment from './steps/ResourceFulfilment'
 import AdvancedConfiguration from './steps/AdvancedConfiguration'
 import { getSelectedResourceFromGatewayDetails, isActiveStep } from './helper'
@@ -456,7 +468,9 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
     return (
       (props.gatewayDetails.selectedInstances.length &gt; 0 ||
         !_isEmpty(props.gatewayDetails.routing<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nstance<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>cale_group) ||
-        !_isEmpty(props.gatewayDetails.metadata.kubernetes_connector_id)) &amp;&amp;
+        !_isEmpty(props.gatewayDetails.metadata.kubernetes_connector_id) ||
+        !_isEmpty(props.gatewayDetails.routing.container_svc) ||
+        !_isEmpty(props.gatewayDetails.routing.database)) &amp;&amp;
       props.gatewayDetails.name !== '' &amp;&amp;
       props.gatewayDetails.idleTimeMins &gt;= CONFIG_IDLE_TIME_CONSTRAINTS.MIN &amp;&amp;
       props.gatewayDetails.idleTimeMins &lt;= CONFIG_IDLE_TIME_CONSTRAINTS.MAX &amp;&amp;
@@ -469,6 +483,9 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
           (props.gatewayDetails.routing.instance.scale_group?.on_demand as number) &lt;=
             (props.gatewayDetails.routing.instance.scale_group.max as number) &amp;&amp;
           (props.gatewayDetails.routing.instance.scale_group?.spot as number) &gt;= 0
+        : true) &amp;&amp;
+      (selectedResource === RESOURCES.ECS
+        ? <span class="branch-0 cbranch-no" title="branch not covered" >_defaultTo(props.gatewayDetails.routing.container_svc?.task_count, 0) &gt; -1</span>
         : true)
     )
   }
@@ -483,7 +500,9 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
     props.gatewayDetails.deps,
     selectedResource,
     props.gatewayDetails.metadata.kubernetes_connector_id,
-    props.gatewayDetails.routing<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nstance<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>cale_group
+    props.gatewayDetails.routing<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nstance<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>cale_group,
+    props.gatewayDetails.routing<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontainer_svc,
+    props.gatewayDetails.routing<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>atabase
   ])
 &nbsp;
   return (
@@ -536,14 +555,13 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
             selectedResource={selectedResource}
             setSelectedResource={setSelectedResource}
           /&gt;
-          {selectedResource !== RESOURCES.KUBERNETES &amp;&amp; (
-            &lt;ResourceFulfilment
-              gatewayDetails={props.gatewayDetails}
-              setGatewayDetails={props.setGatewayDetails}
-              setDrawerOpen={setDrawerOpen}
-              totalStepsCount={totalStepsCount}
-            /&gt;
-          )}
+          &lt;ResourceFulfilment
+            gatewayDetails={props.gatewayDetails}
+            setGatewayDetails={props.setGatewayDetails}
+            setDrawerOpen={setDrawerOpen}
+            totalStepsCount={totalStepsCount}
+            selectedResource={selectedResource}
+          /&gt;
           &lt;AdvancedConfiguration
             gatewayDetails={props.gatewayDetails}
             setGatewayDetails={props.setGatewayDetails}
@@ -565,7 +583,7 @@ export default COGatewayConfig
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Oct 25 2021 22:15:47 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 26 2021 03:54:49 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

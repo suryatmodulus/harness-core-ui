@@ -8,7 +8,13 @@ import { fromValue } from 'wonka'
 import { ModuleName } from 'framework/types/ModuleName'
 import { TestWrapper } from '@common/utils/testUtils'
 import { FetchPlansDocument } from 'services/common/services'
-import { useGetLicensesAndSummary, useStartTrialLicense, useStartFreeLicense } from 'services/cd-ng'
+import {
+  useGetLicensesAndSummary,
+  useStartTrialLicense,
+  useStartFreeLicense,
+  useGetEditionActions,
+  useExtendTrialLicense
+} from 'services/cd-ng'
 import SubscriptionPlans from '../plans/SubscriptionPlans'
 import { plansData } from './plansData'
 
@@ -19,6 +25,7 @@ global.fetch = jest.fn().mockImplementation(() =>
 )
 const startTrialMock = jest.fn()
 const startFreeMock = jest.fn()
+const extendTrialMock = jest.fn()
 jest.mock('services/cd-ng')
 const useGetLicensesAndSummaryMock = useGetLicensesAndSummary as jest.MockedFunction<any>
 const useStartTrialLicenseMock = useStartTrialLicense as jest.MockedFunction<any>
@@ -30,6 +37,24 @@ useStartTrialLicenseMock.mockImplementation(() => ({
 const useStartFreeLicenseMock = useStartFreeLicense as jest.MockedFunction<any>
 useStartFreeLicenseMock.mockImplementation(() => ({
   mutate: startFreeMock,
+  loading: false
+}))
+
+const useExtendTrialMock = useExtendTrialLicense as jest.MockedFunction<any>
+useExtendTrialMock.mockImplementation(() => ({
+  mutate: extendTrialMock,
+  loading: false
+}))
+
+const useGetEditionActionsMock = useGetEditionActions as jest.MockedFunction<any>
+useGetEditionActionsMock.mockImplementation(() => ({
+  data: {
+    data: {
+      FREE: [{ action: 'START_FREE' }],
+      TEAM: [{ action: 'START_TRIAL' }],
+      ENTERPRISE: [{ action: 'START_TRIAL' }]
+    }
+  },
   loading: false
 }))
 
@@ -227,8 +252,8 @@ describe('Subscription Plans', () => {
           </Provider>
         </TestWrapper>
       )
-      const btns = getAllByText('common.tryNow')
-      expect(btns).toHaveLength(3)
+      const btns = getAllByText('common.startFree')
+      expect(btns).toHaveLength(1)
       fireEvent.click(btns[0])
       expect(startFreeMock).toBeCalledWith()
     })

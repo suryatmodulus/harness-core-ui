@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { FetchPlansQuery } from 'services/common/services'
 import type { ModuleName } from 'framework/types/ModuleName'
-import { TIME_TYPE } from './Plan'
+import { TIME_TYPE } from './planUtils'
 import PlanContainer from './PlanContainer'
 import css from './Plans.module.scss'
 
@@ -40,9 +40,9 @@ const PlansPanel: React.FC<PlansPanelProps> = ({ plans, module }) => {
         </Text>
       </Layout.Horizontal>
       {timeType === TIME_TYPE.YEARLY ? (
-        <PlanContainer plans={plans} timeType={TIME_TYPE.YEARLY} module={module} />
+        <PlanContainer plans={plans} timeType={TIME_TYPE.YEARLY} moduleName={module} />
       ) : (
-        <PlanContainer plans={plans} timeType={TIME_TYPE.MONTHLY} module={module} />
+        <PlanContainer plans={plans} timeType={TIME_TYPE.MONTHLY} moduleName={module} />
       )}
     </Layout.Vertical>
   )

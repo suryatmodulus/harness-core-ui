@@ -572,7 +572,6 @@ plans:
 useTemplate: Use template
 comingSoon: Coming Soon
 comingSoon2: Coming Soon!
-tryNow: Try Now
 recommended: 'Recommended'
 azure: Azure
 aws: AWS
@@ -620,3 +619,8 @@ viewLatest: View latest
 viewUsage: View Usage
 friendlyMessage: Friendly message
 startFreePlan: Start {{module}} Free Plan
+startFree: Start Free
+start14dayTrial: Start 14 day trial
+upgrade: Upgrade
+contactSupport: Contact Support
+or: Or

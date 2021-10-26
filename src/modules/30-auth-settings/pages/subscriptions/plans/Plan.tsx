@@ -1,12 +1,15 @@
 import React from 'react'
 import { isEmpty } from 'lodash-es'
-import { Card, Layout, Text, Button, Color, PageSpinner } from '@wings-software/uicore'
+import { PopoverInteractionKind } from '@blueprintjs/core'
+import { Card, Layout, Text, Color, PageSpinner, Popover } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContactSalesMktoModal'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { Maybe } from 'services/common/services'
 import SvgInline from '@common/components/SvgInline/SvgInline'
+import { getBtns, getPriceTips, getPrice, TIME_TYPE } from './planUtils'
+import type { BtnProps } from './PlanContainer'
 import CurrentPlanHeader from './CurrentPlanHeader'
 import css from './Plan.module.scss'
 interface PlanProps {
@@ -38,12 +41,7 @@ interface PlanProps {
         }>
       >
     >
-    btnProps?: {
-      buttonText?: string
-      btnLoading: boolean
-      onClick?: () => void
-      isDisabled?: boolean
-    }
+    btnProps?: BtnProps[]
     currentPlanProps?: {
       isCurrentPlan?: boolean
       isTrial?: boolean
@@ -53,11 +51,6 @@ interface PlanProps {
 
   timeType: TIME_TYPE
   module: ModuleName
-}
-
-export enum TIME_TYPE {
-  YEARLY = 'yearly',
-  MONTHLY = 'monthly'
 }
 
 const CENTER_CENTER = 'center-center'
@@ -84,86 +77,10 @@ const Plan: React.FC<PlanProps> = ({ plan, timeType, module }) => {
   const { openMarketoContactSales, loading: loadingContactSales } = useContactSalesMktoModal({})
   const { getString } = useStrings()
 
-  function getPrice(): React.ReactElement {
-    const price = timeType === TIME_TYPE.MONTHLY ? plan?.price : plan?.yearlyPrice
-    if (price?.toLowerCase() === CUSTOM_PRICING) {
-      return (
-        <Layout.Horizontal spacing="xsmall" flex={{ align: CENTER_CENTER }} className={css.lineHeight2}>
-          <Text
-            onClick={openMarketoContactSales}
-            color={Color.PRIMARY_6}
-            font={{ size: 'medium' }}
-            className={css.hover}
-          >
-            {getString('common.banners.trial.contactSales')}
-          </Text>
-          <Text color={Color.BLACK} font={{ size: 'medium' }}>
-            {getString('common.customPricing')}
-          </Text>
-        </Layout.Horizontal>
-      )
-    }
-    return (
-      <Text font={{ weight: 'semi-bold', size: 'large' }} color={Color.BLACK}>
-        {price}
-      </Text>
-    )
-  }
-
-  function getPriceTips(): React.ReactElement {
-    const priceTips = timeType === TIME_TYPE.MONTHLY ? plan?.priceTips : plan?.yearlyPriceTips
-    const priceTerm = timeType === TIME_TYPE.MONTHLY ? plan?.priceTerm : plan?.yearlyPriceTerm
-    const priceTermTips = timeType === TIME_TYPE.MONTHLY ? plan?.priceTermTips : plan?.yearlyPriceTermTips
-
-    if (!isEmpty(priceTerm) && !isEmpty(priceTermTips)) {
-      const tips = priceTips?.split(priceTerm || '')
-      return (
-        <Layout.Horizontal spacing="xsmall" flex={{ alignItems: 'baseline' }}>
-          <Text
-            color={Color.BLACK}
-            font={{ weight: 'light', size: 'small' }}
-            padding={{ left: 'large' }}
-            className={css.centerText}
-          >
-            {tips?.[0]}
-          </Text>
-          <Text
-            font={{ weight: 'light', size: 'small' }}
-            className={cx(css.centerText, textColorClassName)}
-            tooltip={priceTermTips || ''}
-          >
-            {priceTerm}
-          </Text>
-          <Text
-            color={Color.BLACK}
-            font={{ weight: 'light', size: 'small' }}
-            padding={{ right: 'large' }}
-            className={css.centerText}
-          >
-            {tips?.[1]}
-          </Text>
-        </Layout.Horizontal>
-      )
-    }
-
-    return (
-      <Text
-        color={Color.BLACK}
-        font={{ weight: 'light', size: 'small' }}
-        padding={{ left: 'large', right: 'large' }}
-        className={css.centerText}
-      >
-        {priceTips}
-      </Text>
-    )
-  }
-
-  if (loadingContactSales) {
-    return <PageSpinner />
-  }
-
-  const { btnLoading, buttonText, onClick, isDisabled } = plan?.btnProps || {}
   const { isCurrentPlan, isTrial, isPaid } = plan?.currentPlanProps || {}
+  const { btnProps } = plan || {}
+  const { planDisabledStr } = btnProps?.find(btnProp => btnProp.planDisabledStr) || {}
+  const isPlanDisabled = planDisabledStr !== undefined
 
   const moduleStr = module.toLowerCase()
   const currentPlanClassName = isCurrentPlan ? css.currentPlan : undefined
@@ -172,62 +89,70 @@ const Plan: React.FC<PlanProps> = ({ plan, timeType, module }) => {
   const textColorClassName = textColorMap[moduleStr]
   const borderClassName = isCurrentPlan ? borderMap[moduleStr] : undefined
 
+  if (loadingContactSales) {
+    return <PageSpinner />
+  }
+
+  const toolTip = planDisabledStr && (
+    <Layout.Vertical padding="medium" className={css.tooltip}>
+      <Text color={Color.GREY_800} padding={{ bottom: 'small' }}>
+        {planDisabledStr}
+      </Text>
+    </Layout.Vertical>
+  )
+
   return (
-    <Card className={cx(css.plan, currentPlanClassName, borderClassName)}>
-      <Layout.Vertical flex={{ align: CENTER_CENTER }}>
-        <CurrentPlanHeader
-          isTrial={isTrial}
-          isPaid={isPaid}
-          timeType={timeType}
-          module={module}
-          isCurrentPlan={isCurrentPlan}
-        />
-        <Layout.Vertical
-          flex={{ align: CENTER_CENTER }}
-          spacing="large"
-          padding={{ top: 'xxlarge' }}
-          className={currentPlanBodyClassName}
-        >
-          <SvgInline url={url} className={iConClassName} />
-          <Text font={{ weight: 'semi-bold', size: 'medium' }} className={textColorClassName}>
-            {plan?.title}
-          </Text>
-          <Layout.Vertical padding={{ top: 'large' }} flex={{ align: CENTER_CENTER }} spacing="medium">
-            <Layout.Horizontal spacing="small">
-              {getPrice()}
-              {hasUnit && (
-                <Layout.Vertical padding={{ left: 'small' }} flex={{ justifyContent: 'center', alignItems: 'start' }}>
-                  <Text font={{ size: 'small' }} className={textColorClassName} tooltip={plan?.unitTips || ''}>
-                    {plan?.unit}
-                  </Text>
-                  <Text font={{ size: 'small' }} color={Color.BLACK}>
-                    {getString('common.perMonth')}
-                  </Text>
-                </Layout.Vertical>
-              )}
-            </Layout.Horizontal>
-            {getPriceTips()}
+    <Card className={cx(css.plan, currentPlanClassName, borderClassName)} disabled={isPlanDisabled}>
+      <Popover interactionKind={PopoverInteractionKind.HOVER} content={toolTip}>
+        <Layout.Vertical flex={{ align: CENTER_CENTER }}>
+          <CurrentPlanHeader
+            isTrial={isTrial}
+            isPaid={isPaid}
+            timeType={timeType}
+            module={module}
+            isCurrentPlan={isCurrentPlan}
+          />
+          <Layout.Vertical
+            flex={{ align: CENTER_CENTER }}
+            spacing="large"
+            padding={{ top: 'xxlarge' }}
+            className={currentPlanBodyClassName}
+          >
+            <SvgInline url={url} className={iConClassName} />
+            <Text font={{ weight: 'semi-bold', size: 'medium' }} className={textColorClassName}>
+              {plan?.title}
+            </Text>
+            <Layout.Vertical padding={{ top: 'large' }} flex={{ align: CENTER_CENTER }} spacing="medium">
+              <Layout.Horizontal spacing="small">
+                {getPrice({ timeType, plan, openMarketoContactSales, getString })}
+                {hasUnit && (
+                  <Layout.Vertical padding={{ left: 'small' }} flex={{ justifyContent: 'center', alignItems: 'start' }}>
+                    <Text font={{ size: 'small' }} className={textColorClassName} tooltip={plan?.unitTips || ''}>
+                      {plan?.unit}
+                    </Text>
+                    <Text font={{ size: 'small' }} color={Color.BLACK}>
+                      {getString('common.perMonth')}
+                    </Text>
+                  </Layout.Vertical>
+                )}
+              </Layout.Horizontal>
+              {getPriceTips({ timeType, plan, textColorClassName })}
+            </Layout.Vertical>
+            {getBtns({ isPlanDisabled, btnProps, getString })}
+            <Text color={Color.BLACK} padding="large" className={css.desc}>
+              {plan?.desc}
+            </Text>
+            <ul className={css.ul}>
+              {plan?.featureListZone?.map(feature => (
+                <li key={feature?.title} className={css.li}>
+                  <Text>{feature?.title}</Text>
+                </li>
+              ))}
+            </ul>
+            <Text className={css.support}>{plan?.support}</Text>
           </Layout.Vertical>
-          <div className={css.btnHeight}>
-            {buttonText && (
-              <Button intent="primary" onClick={onClick} loading={btnLoading} disabled={isDisabled}>
-                {buttonText}
-              </Button>
-            )}
-          </div>
-          <Text color={Color.BLACK} padding="large" className={css.desc}>
-            {plan?.desc}
-          </Text>
-          <ul className={css.ul}>
-            {plan?.featureListZone?.map(feature => (
-              <li key={feature?.title} className={css.li}>
-                <Text>{feature?.title}</Text>
-              </li>
-            ))}
-          </ul>
-          <Text className={css.support}>{plan?.support}</Text>
         </Layout.Vertical>
-      </Layout.Vertical>
+      </Popover>
     </Card>
   )
 }

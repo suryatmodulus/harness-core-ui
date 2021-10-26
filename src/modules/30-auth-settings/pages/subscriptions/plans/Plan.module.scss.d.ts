@@ -33,5 +33,7 @@ declare const styles: {
   readonly ccmFill: string
   readonly ffFill: string
   readonly btnHeight: string
+  readonly noPadding: string
+  readonly tooltip: string
 }
 export default styles

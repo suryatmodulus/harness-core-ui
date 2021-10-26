@@ -154,3 +154,12 @@
 .btnHeight {
   height: 32px;
 }
+
+.noPadding {
+  padding: unset !important;
+}
+
+.tooltip {
+  min-width: 200px !important;
+  text-align: left;
+}

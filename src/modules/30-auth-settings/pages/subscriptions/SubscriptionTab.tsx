@@ -1,12 +1,15 @@
 import React, { ReactElement, useState, useEffect } from 'react'
 import cx from 'classnames'
 
+import { useParams, useHistory } from 'react-router-dom'
 import { Button, Layout } from '@wings-software/uicore'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import { useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { ModuleLicenseDTO } from 'services/cd-ng'
+import routes from '@common/RouteDefinitions'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { StringsMap } from 'stringTypes'
@@ -72,6 +75,8 @@ const SubscriptionTab = ({
   const [selectedSubscriptionTab, setSelectedSubscriptionTab] = useState<SubscriptionTabInfo>(SUBSCRIPTION_TABS[0])
   const { getString } = useStrings()
   const { tab: queryTab } = useQueryParams<{ tab?: SUBSCRIPTION_TAB_NAMES }>()
+  const { accountId } = useParams<AccountPathProps>()
+  const history = useHistory()
 
   const { isFreeOrCommunity, edition, isExpired, expiredDays, days } = trialInfo
 
@@ -100,7 +105,9 @@ const SubscriptionTab = ({
   function getSubscriptionTabButtons(): React.ReactElement[] {
     const tabs = SUBSCRIPTION_TABS.map(tab => {
       function handleTabClick(): void {
-        setSelectedSubscriptionTab(tab)
+        history.push(
+          routes.toSubscriptions({ accountId, moduleCard: selectedModule.toLowerCase() as Module, tab: tab.name })
+        )
       }
 
       const isSelected = tab === selectedSubscriptionTab

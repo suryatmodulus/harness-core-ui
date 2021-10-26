@@ -118,6 +118,7 @@ export interface StringsMap {
   'common.configureOptions.values': string
   'common.confirmText': string
   'common.connectivityErrors': string
+  'common.contactSupport': string
   'common.createPipeline': string
   'common.creating': string
   'common.current': string
@@ -311,6 +312,7 @@ export interface StringsMap {
   'common.optionalConfig': string
   'common.optionalLabel': string
   'common.options': string
+  'common.or': string
   'common.orgSetup': string
   'common.orgViewer': string
   'common.other': string
@@ -456,6 +458,8 @@ export interface StringsMap {
   'common.specify': string
   'common.stable': string
   'common.startFreePlan': string
+  'common.start14dayTrial': string
+  'common.startFree': string
   'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
@@ -515,10 +519,10 @@ export interface StringsMap {
   'common.totalSelected': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
-  'common.tryNow': string
   'common.unlimited': string
   'common.unsavedChanges': string
   'common.updating': string
+  'common.upgrade': string
   'common.useTemplate': string
   'common.userGroup': string
   'common.userGroups': string

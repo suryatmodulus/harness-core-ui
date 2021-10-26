@@ -13,28 +13,36 @@ import {
   StartTrialDTO,
   useGetLicensesAndSummary,
   useStartFreeLicense,
-  ResponseModuleLicenseDTO
+  ResponseModuleLicenseDTO,
+  useGetEditionActions,
+  useExtendTrialLicense
 } from 'services/cd-ng'
+import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContactSalesMktoModal'
 import routes from '@common/RouteDefinitions'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { ModuleName } from 'framework/types/ModuleName'
 import { ModuleLicenseType, Editions } from '@common/constants/SubscriptionTypes'
 import { getBtnProps } from './planUtils'
-import type { TIME_TYPE } from './Plan'
+import type { TIME_TYPE } from './planUtils'
 import Plan from './Plan'
 
 interface PlanProps {
-  module: ModuleName
+  moduleName: ModuleName
   plans?: NonNullable<FetchPlansQuery['pricing']>['ciSaasPlans' | 'ffPlans' | 'cdPlans' | 'ccPlans']
   timeType: TIME_TYPE
 }
+
+export interface BtnProps {
+  buttonText?: string
+  btnLoading: boolean
+  onClick?: () => void
+  order: number
+  isContactSales?: boolean
+  isContactSupport?: boolean
+  planDisabledStr?: string
+}
 export interface PlanCalculatedProps {
-  btnProps: {
-    buttonText?: string
-    btnLoading: boolean
-    onClick?: () => void
-    isDisabled?: boolean
-  }
+  btnProps: BtnProps[]
   currentPlanProps: {
     isCurrentPlan?: boolean
     isTrial?: boolean
@@ -42,12 +50,13 @@ export interface PlanCalculatedProps {
   }
 }
 
-const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
+const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, moduleName }) => {
   const { showError } = useToaster()
   const { trackEvent } = useTelemetry()
   const { getString } = useStrings()
   const history = useHistory()
-  const moduleType = module.toUpperCase() as StartTrialDTO['moduleType']
+  const moduleType = moduleName as StartTrialDTO['moduleType']
+  const module = moduleName.toLowerCase() as Module
   const { accountId } = useParams<{
     accountId: string
   }>()
@@ -69,6 +78,30 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
   })
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
+  const {
+    data: actions,
+    loading: gettingActions,
+    error: actionErrs,
+    refetch: refetchActions
+  } = useGetEditionActions({
+    queryParams: {
+      accountIdentifier: accountId,
+      moduleType: moduleType
+    }
+  })
+
+  const { openMarketoContactSales, loading: loadingContactSales } = useContactSalesMktoModal({})
+
+  const { mutate: extendTrial, loading: extendingTrial } = useExtendTrialLicense({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  function handleManageSubscription(): void {
+    history.push(routes.toSubscriptions({ accountId, moduleCard: module, tab: 'OVERVIEW' }))
+  }
+
   function startPlanByEdition(edition: Editions): Promise<ResponseModuleLicenseDTO> {
     switch (edition) {
       case Editions.FREE: {
@@ -88,12 +121,7 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
     try {
       const planData = await startPlanByEdition(edition)
 
-      handleUpdateLicenseStore(
-        { ...licenseInformation },
-        updateLicenseStore,
-        module.toLowerCase() as Module,
-        planData?.data
-      )
+      handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, planData?.data)
 
       let search
       if (planData?.data?.licenseType === ModuleLicenseType.TRIAL) {
@@ -104,19 +132,19 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
         search = `?experience=${ModuleLicenseType.FREE}&&modal=${ModuleLicenseType.FREE}`
       }
 
-      if (module === ModuleName.CE) {
+      if (moduleName === ModuleName.CE) {
         history.push({
-          pathname: routes.toModuleTrialHome({ accountId, module: module.toLowerCase() as Module }),
+          pathname: routes.toModuleTrialHome({ accountId, module }),
           search
         })
         return
       }
 
       history.push({
-        pathname: routes.toModuleHome({ accountId, module: module.toLowerCase() as Module }),
+        pathname: routes.toModuleHome({ accountId, module }),
         search
       })
-    } catch (ex: any) {
+    } catch (ex) {
       showError(ex.data?.message)
     }
   }
@@ -140,12 +168,7 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
   }
 
   useEffect(() => {
-    handleUpdateLicenseStore(
-      { ...licenseInformation },
-      updateLicenseStore,
-      module.toLowerCase() as Module,
-      updatedLicenseInfo
-    )
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [licenseData])
 
@@ -164,8 +187,30 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
         isTrial = true
         break
     }
+    const btnLoading = extendingTrial || startingTrial || startingFreePlan
 
-    const btnProps = getBtnProps(plan, licenseData, getString, handleStartPlan, startingTrial, startingFreePlan)
+    const handleExtendTrial = async (edition: Editions): Promise<void> => {
+      try {
+        const extendTrialData = await extendTrial({
+          moduleType,
+          edition
+        })
+        handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, extendTrialData?.data)
+      } catch (err) {
+        showError(err.data?.message || err.message)
+      }
+    }
+
+    const btnProps = getBtnProps({
+      plan,
+      getString,
+      handleStartPlan,
+      handleContactSales: openMarketoContactSales,
+      handleExtendTrial,
+      handleManageSubscription,
+      btnLoading,
+      actions: actions?.data
+    })
 
     return {
       currentPlanProps: {
@@ -186,7 +231,7 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
     plan.currentPlanProps = currentPlanProps
   })
 
-  if (gettingLicense) {
+  if (gettingLicense || gettingActions || loadingContactSales) {
     return <PageSpinner />
   }
 
@@ -194,10 +239,14 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, module }) => {
     return <PageError message={(error.data as Error)?.message} onClick={() => refetch()} />
   }
 
+  if (actionErrs) {
+    return <PageError message={(actionErrs.data as Error)?.message} onClick={() => refetchActions()} />
+  }
+
   return (
     <Layout.Horizontal spacing="large">
       {calculatedPlans?.map((plan: any) => (
-        <Plan key={plan?.title} plan={plan} timeType={timeType} module={module} />
+        <Plan key={plan?.title} plan={plan} timeType={timeType} module={moduleName} />
       ))}
     </Layout.Horizontal>
   )

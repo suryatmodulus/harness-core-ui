@@ -4,7 +4,7 @@ import { Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
-import type { TIME_TYPE } from './Plan'
+import type { TIME_TYPE } from './planUtils'
 import css from './Plan.module.scss'
 
 interface CurrentPlanHeaderProps {

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.15% </span>
+                <span class="strong">66.07% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/52</span>
+                <span class='fraction'>37/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.42% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/38</span>
+                <span class='fraction'>4/32</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.15% </span>
+                <span class="strong">66.07% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>37/52</span>
+                <span class='fraction'>37/56</span>
             </div>
         
             
@@ -202,20 +202,10 @@
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
 <a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -260,14 +250,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -293,6 +276,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -360,12 +350,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uicore'
-import {
-  useCreateFeatureFlag,
-  FeatureFlagRequestRequestBody,
-  CreateFeatureFlagQueryParams,
-  useGetGitRepo
-} from 'services/cf'
+import { useCreateFeatureFlag, FeatureFlagRequestRequestBody, CreateFeatureFlagQueryParams } from 'services/cf'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
@@ -373,9 +358,9 @@ import { useStrings } from 'framework/strings'
 import { getErrorMessage, showToaster, FeatureFlagMutivariateKind } from '@cf/utils/CFUtils'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
 import { PageSpinner } from '@common/components'
+import { useGitSync } from '@cf/hooks/useGitSync'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
@@ -409,15 +394,8 @@ const FlagWizard: React.FC&lt;FlagWizardProps&gt; = props =&gt; {
   const history = useHistory()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
 &nbsp;
-  const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
-&nbsp;
-  const gitRepo = useGetGitRepo({
-    identifier: projectIdentifier,
-    queryParams: {
-      accountIdentifier: accountId,
-      org: orgIdentifier
-    }
-  })
+  const { isAutoCommitEnabled, isGitSyncEnabled, gitSyncLoading, handleAutoCommit, getGitSyncFormMeta } = useGitSync()
+  const { gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.CREATED_FLAG)
 &nbsp;
   const { mutate: createFeatureFlag, loading: isLoadingCreateFeatureFlag } = useCreateFeatureFlag({
     queryParams: {
@@ -430,7 +408,7 @@ const FlagWizard: React.FC&lt;FlagWizardProps&gt; = props =&gt; {
 &nbsp;
   const events = useFeatureFlagTelemetry()
 &nbsp;
-  const onWizardSubmit = <span class="fstat-no" title="function not covered" >(f</span>ormData: FeatureFlagRequestRequestBody | undefined): void =&gt; {
+  const onWizardSubmit = <span class="fstat-no" title="function not covered" >(f</span>ormData: FlagWizardFormValues | undefined): void =&gt; {
 <span class="cstat-no" title="statement not covered" >    modalErrorHandler?.hide()</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (formData) {</span>
@@ -442,11 +420,18 @@ const FlagWizard: React.FC&lt;FlagWizardProps&gt; = props =&gt; {
       // current gen login
 <span class="cstat-no" title="statement not covered" >      formData.owner = currentUserInfo.email || 'unknown'</span>
 <span class="cstat-no" title="statement not covered" >      formData.project = projectIdentifier</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (isAutoCommitEnabled) {</span>
+<span class="cstat-no" title="statement not covered" >        formData.gitDetails = gitSyncInitialValues.gitDetails</span>
+      }
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (formData) {</span>
 <span class="cstat-no" title="statement not covered" >      createFeatureFlag(formData)</span>
-        .then(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+        .then(<span class="fstat-no" title="function not covered" >async </span>() =&gt; {
+<span class="cstat-no" title="statement not covered" >          if (!isAutoCommitEnabled &amp;&amp; formData.autoCommit) {</span>
+<span class="cstat-no" title="statement not covered" >            await handleAutoCommit(formData.autoCommit)</span>
+          }
 <span class="cstat-no" title="statement not covered" >          events.createFeatureFlagCompleted()</span>
 <span class="cstat-no" title="statement not covered" >          hideModal()</span>
 <span class="cstat-no" title="statement not covered" >          history.push(</span>
@@ -472,7 +457,7 @@ const FlagWizard: React.FC&lt;FlagWizardProps&gt; = props =&gt; {
 &nbsp;
   return (
     &lt;StepWizard className={css.flagWizardContainer} onCompleteWizard={onWizardSubmit}&gt;
-      {gitRepo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>oading ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;PageSpinner /&gt; </span>: null}
+      {gitSyncLoading ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;PageSpinner /&gt; </span>: null}
 &nbsp;
       &lt;FlagElemAbout
         name={getString('cf.creationModal.aboutFlag.aboutFlagHeading')}
@@ -496,7 +481,7 @@ const FlagWizard: React.FC&lt;FlagWizardProps&gt; = props =&gt; {
         /&gt;
       )}
 &nbsp;
-      {FF_GITSYNC &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >gitRepo?.data?.repoSet </span>? (
+      {isGitSyncEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isAutoCommitEnabled </span>? (
 <span class="branch-0 cbranch-no" title="branch not covered" >        &lt;SaveFlagRepoStep</span>
           name={getString('common.gitSync.gitRepositoryDetails')}
           isLoadingCreateFeatureFlag={isLoadingCreateFeatureFlag}
@@ -514,7 +499,7 @@ export default FlagWizard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 26 2021 12:47:20 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 26 2021 15:52:02 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

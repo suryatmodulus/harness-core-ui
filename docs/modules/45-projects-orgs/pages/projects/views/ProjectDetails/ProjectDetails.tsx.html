@@ -311,16 +311,7 @@
 <a name='L252'></a><a href='#L252'>252</a>
 <a name='L253'></a><a href='#L253'>253</a>
 <a name='L254'></a><a href='#L254'>254</a>
-<a name='L255'></a><a href='#L255'>255</a>
-<a name='L256'></a><a href='#L256'>256</a>
-<a name='L257'></a><a href='#L257'>257</a>
-<a name='L258'></a><a href='#L258'>258</a>
-<a name='L259'></a><a href='#L259'>259</a>
-<a name='L260'></a><a href='#L260'>260</a>
-<a name='L261'></a><a href='#L261'>261</a>
-<a name='L262'></a><a href='#L262'>262</a>
-<a name='L263'></a><a href='#L263'>263</a>
-<a name='L264'></a><a href='#L264'>264</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L255'></a><a href='#L255'>255</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -499,15 +490,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -584,7 +566,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
-import { Button, Color, Container, Icon, Layout, Popover, Text } from '@wings-software/uicore'
+import { Button, Color, Container, FontVariation, Icon, Layout, Popover, Text } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Classes, Position } from '@blueprintjs/core'
 import ReactTimeago from 'react-timeago'
@@ -717,8 +699,16 @@ const ProjectDetails: React.FC = () =&gt; {
               flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
             &gt;
               &lt;div className={css.colorBar} style={{ backgroundColor: projectData.color }} /&gt;
+              &lt;Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.GREY_500} lineClamp={1}&gt;
+                {getString('idLabel', { id: projectData.identifier })}
+              &lt;/Text&gt;
+              &lt;div className={css.divider} /&gt;
+              &lt;Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.GREY_500} lineClamp={1}&gt;
+                {`${getString('orgLabel')}: ${projectData.orgIdentifier}`}
+              &lt;/Text&gt;
+              &lt;div className={css.divider} /&gt;
               {data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rojectResponse.lastModifiedAt ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                &lt;Text color={Color.GREY_500} font={{ size: 'small' }}&gt;</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >                &lt;Text color={Color.GREY_500} font={{ variation: FontVariation.SMALL_SEMI }}&gt;</span>
                   {`${getString('common.modified')} `}
                   &lt;ReactTimeago date={data?.data?.projectResponse.lastModifiedAt} /&gt;
                 &lt;/Text&gt;
@@ -733,26 +723,9 @@ const ProjectDetails: React.FC = () =&gt; {
               &gt;
                 {projectData.name}
               &lt;/Text&gt;
-              &lt;Text
-                font={{ size: 'small', weight: 'semi-bold' }}
-                color={Color.GREY_500}
-                lineClamp={1}
-                padding={{ right: 'medium' }}
-              &gt;
-                {getString('idLabel', { id: projectData.identifier })}
-              &lt;/Text&gt;
-              &lt;div className={css.divider} /&gt;
-              &lt;Text
-                font={{ size: 'small', weight: 'semi-bold' }}
-                color={Color.GREY_500}
-                lineClamp={1}
-                padding={{ left: 'medium' }}
-              &gt;
-                {`${getString('orgLabel')}: ${projectData.orgIdentifier}`}
-              &lt;/Text&gt;
             &lt;/Layout.Horizontal&gt;
             {projectData.description ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;Text font="small" color={Color.BLACK} lineClamp={2}&gt;</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;Text font="small" color={Color.BLACK} lineClamp={1}&gt;</span>
                 {projectData.description}
               &lt;/Text&gt;
             ) : null}
@@ -853,7 +826,7 @@ export default ProjectDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 26 2021 11:37:22 GMT+0000 (Greenwich Mean Time)
+                at Tue Oct 26 2021 12:47:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -179,7 +179,13 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
     }
 
     return (
-      <Dialog isOpen onClose={hideModal} enforceFocus={false} title="" style={{ width: 800, minHeight: 'fit-content' }}>
+      <Dialog
+        isOpen
+        onClose={hideModal}
+        enforceFocus={false}
+        title=""
+        style={{ width: 800, minHeight: 'fit-content', maxHeight: '90vh' }}
+      >
         <Formik
           initialValues={initialValues}
           formName="editVariations"
@@ -329,7 +335,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                           <Container margin={{ top: 'medium', bottom: 'medium' }}>
                             <Divider />
                           </Container>
-                          <SaveFlagToGitSubForm subtitle="Commit Changes" hideNameField />
+                          <SaveFlagToGitSubForm subtitle={getString('cf.gitSync.commitChanges')} hideNameField />
                         </>
                       )}
                     </Container>

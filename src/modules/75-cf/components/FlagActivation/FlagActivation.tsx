@@ -152,7 +152,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     patch.feature.reset()
   }
 
-  const [isGitSyncOpenModal, setIsGitSyncOpenModal] = useState(false)
+  const [isGitSyncOpenModal, setIsGitSyncModalOpen] = useState(false)
 
   const onSaveChanges = useCallback(
     (values: FlagActivationFormValues, formikActions: FormikActions<FlagActivationFormValues>): void => {
@@ -551,11 +551,9 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                       intent="primary"
                       text={getString('save')}
                       onClick={event => {
-                        event.preventDefault()
                         if (isGitSyncEnabled && !isAutoCommitEnabled) {
-                          setIsGitSyncOpenModal(true)
-                        } else {
-                          formikProps.submitForm()
+                          event.preventDefault()
+                          setIsGitSyncModalOpen(true)
                         }
                       }}
                     />
@@ -573,9 +571,11 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
             </Container>
             {isGitSyncOpenModal && (
               <SaveFlagToGitSubFormModal
-                title={`Save ${flagData.name} to Git`}
+                title={getString('cf.gitSync.saveFlagToGit', {
+                  flagName: flagData.name
+                })}
                 onSubmit={formikProps.submitForm}
-                onClose={() => setIsGitSyncOpenModal(false)}
+                onClose={() => setIsGitSyncModalOpen(false)}
               />
             )}
           </FormikForm>

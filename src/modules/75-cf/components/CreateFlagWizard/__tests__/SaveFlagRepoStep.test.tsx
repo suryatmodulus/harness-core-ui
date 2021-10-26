@@ -7,7 +7,7 @@ import SaveFlagRepoStep, { SaveFlagRepoStepProps } from '../SaveFlagRepoStep'
 
 jest.mock('@cf/hooks/useGitSync', () => ({
   useGitSync: jest.fn(() => ({
-    getGitSyncFormMeta: jest.fn().mockReturnValue({
+    getGitSyncFormMeta: jest.fn(() => ({
       gitSyncInitialValues: {
         gitDetails: {
           branch: 'main',
@@ -19,9 +19,9 @@ jest.mock('@cf/hooks/useGitSync', () => ({
         autoCommit: false
       },
       gitSyncValidationSchema: yup.object().shape({
-        commitMsg: yup.string().required('cf.creationModal.commitMsg')
+        commitMsg: yup.string().required('cf.gitSync.commitMsgRequired')
       })
-    }),
+    })),
     isAutoCommitEnabled: false,
     isGitSyncEnabled: true,
     handleAutoCommit: jest.fn()

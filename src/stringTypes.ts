@@ -3386,7 +3386,6 @@ export interface StringsMap {
   'cf.creationModal.aboutFlag.permaFlagTooltip': string
   'cf.creationModal.aboutFlag.tagsOptional': string
   'cf.creationModal.aboutFlag.tagsPlaceholder': string
-  'cf.creationModal.commitMsg': string
   'cf.creationModal.dataType': string
   'cf.creationModal.defaultRules': string
   'cf.creationModal.defaultRulesTooltip': string
@@ -3394,8 +3393,6 @@ export interface StringsMap {
   'cf.creationModal.flagOff': string
   'cf.creationModal.flagOn': string
   'cf.creationModal.flagType': string
-  'cf.creationModal.git.autoCommitMessage': string
-  'cf.creationModal.git.flagName': string
   'cf.creationModal.idIsRequired': string
   'cf.creationModal.jsonType': string
   'cf.creationModal.mustBeNumber': string
@@ -3529,6 +3526,12 @@ export interface StringsMap {
   'cf.featureFlags.turnOnMessage': string
   'cf.featureFlags.typeOfFlag': string
   'cf.featureNotReady': string
+  'cf.gitSync.autoCommitLabel': string
+  'cf.gitSync.autoCommitMsg': string
+  'cf.gitSync.commitChanges': string
+  'cf.gitSync.commitMsgRequired': string
+  'cf.gitSync.flagName': string
+  'cf.gitSync.saveFlagToGit': string
   'cf.homepage.learnMore': string
   'cf.homepage.slogan': string
   'cf.learnMore': string

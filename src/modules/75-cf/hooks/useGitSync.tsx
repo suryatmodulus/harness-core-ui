@@ -24,9 +24,9 @@ interface GitSyncFormMeta {
 }
 
 export interface UseGitSync {
-  gitRepoDetails: GitRepo | undefined
+  gitRepoDetails?: GitRepo
   isAutoCommitEnabled: boolean
-  isGitSyncEnabled: boolean | undefined
+  isGitSyncEnabled: boolean
   gitSyncLoading: boolean
   handleAutoCommit: (newAutoCommitValue: boolean) => Promise<void>
   getGitSyncFormMeta: (autoCommitMessage?: string) => GitSyncFormMeta
@@ -54,9 +54,9 @@ export const useGitSync = (): UseGitSync => {
 
   const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
 
-  const isGitSyncEnabled = FF_GITSYNC && getGitRepo?.data?.repoSet
+  const isGitSyncEnabled = !!(FF_GITSYNC && getGitRepo?.data?.repoSet)
 
-  const isAutoCommitEnabled = (isGitSyncEnabled && getGitRepo?.data?.repoDetails?.autoCommit) || false
+  const isAutoCommitEnabled = !!(isGitSyncEnabled && getGitRepo?.data?.repoDetails?.autoCommit)
 
   const getGitSyncFormMeta = (autoCommitMessage?: string): GitSyncFormMeta => ({
     gitSyncInitialValues: {
@@ -65,17 +65,22 @@ export const useGitSync = (): UseGitSync => {
         filePath: getGitRepo?.data?.repoDetails?.filePath || '',
         repoIdentifier: getGitRepo?.data?.repoDetails?.repoIdentifier || '',
         rootFolder: getGitRepo?.data?.repoDetails?.rootFolder || '',
-        commitMsg: isAutoCommitEnabled && autoCommitMessage ? `[AUTO-COMMIT] : ${autoCommitMessage}` : ''
+        commitMsg:
+          isAutoCommitEnabled && autoCommitMessage
+            ? getString('cf.gitSync.autoCommitMsg', {
+                msg: autoCommitMessage
+              })
+            : ''
       },
       autoCommit: isAutoCommitEnabled
     },
     gitSyncValidationSchema: yup.object().shape({
-      commitMsg: isGitSyncEnabled ? yup.string().required(getString('cf.creationModal.commitMsg')) : yup.string()
+      commitMsg: isGitSyncEnabled ? yup.string().required(getString('cf.gitSync.commitMsgRequired')) : yup.string()
     })
   })
 
   const handleAutoCommit = async (newAutoCommitValue: boolean): Promise<void> => {
-    if (newAutoCommitValue && isAutoCommitEnabled != newAutoCommitValue) {
+    if (newAutoCommitValue && isAutoCommitEnabled !== newAutoCommitValue) {
       const instruction = {
         instructions: [
           {

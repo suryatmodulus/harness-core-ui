@@ -23,7 +23,7 @@ const SaveFlagToGitSubForm = ({ title, subtitle, hideNameField }: SaveFlagToGitS
 
       <Layout.Vertical spacing="small">
         {subtitle && (
-          <Heading level={5} font={{ variation: FontVariation.H5 }}>
+          <Heading level={4} font={{ variation: FontVariation.H5 }}>
             {subtitle}
           </Heading>
         )}
@@ -64,7 +64,7 @@ const SaveFlagToGitSubForm = ({ title, subtitle, hideNameField }: SaveFlagToGitS
           />
 
           <Container flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
-            <Icon name="git-branch-existing"></Icon>
+            <Icon name="git-branch-existing" />
             <Text margin={{ left: 'small', right: 'small' }} inline>
               {getString('common.git.existingBranchCommitLabel')}:
             </Text>
@@ -72,7 +72,7 @@ const SaveFlagToGitSubForm = ({ title, subtitle, hideNameField }: SaveFlagToGitS
           </Container>
 
           <Container padding={{ left: 'xlarge', top: 'small' }} data-testid="commit-details-section">
-            <FormInput.CheckBox large name="autoCommit" label={getString('cf.creationModal.git.autoCommitMessage')} />
+            <FormInput.CheckBox large name="autoCommit" label={getString('cf.gitSync.autoCommitLabel')} />
           </Container>
         </Container>
       </Layout.Vertical>

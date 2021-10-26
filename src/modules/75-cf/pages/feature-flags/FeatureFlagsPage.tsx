@@ -381,6 +381,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, cell: { row, col
 
   const handleDeleteFlag = async (gitSyncFormValues?: GitSyncFormValues): Promise<void> => {
     let commitMsg = ''
+
     if (gitSync.isGitSyncEnabled) {
       const { gitSyncInitialValues } = gitSync.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.DELETED_FLAG)
 
@@ -394,7 +395,11 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, cell: { row, col
     try {
       clear()
       await mutate(data.identifier, { queryParams: { ...queryParams, commitMsg } })
-        .then(() => {
+        .then(async () => {
+          if (gitSync.isGitSyncEnabled && gitSyncFormValues?.autoCommit) {
+            await gitSync.handleAutoCommit(gitSyncFormValues?.autoCommit)
+          }
+
           showToaster(getString('cf.messages.flagDeleted'))
           refetch?.()
         })

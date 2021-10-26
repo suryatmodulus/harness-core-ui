@@ -73,7 +73,10 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
         )
       })
     )
-      .then(() => {
+      .then(async () => {
+        if (gitFormValues?.autoCommit) {
+          await gitSync.handleAutoCommit(gitFormValues?.autoCommit)
+        }
         refetchFlags()
       })
       .catch(exception => showError(getErrorMessage(exception), undefined, 'cf.path.feature.error'))
@@ -106,11 +109,11 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
       ]
     }
 
-    patchFeature(gitSync.isGitSyncEnabled ? { ...instructions, gitDetails } : instructions, {
+    await patchFeature(gitSync.isGitSyncEnabled ? { ...instructions, gitDetails } : instructions, {
       pathParams: { identifier: featureFlagIdentifier }
     })
-      .then(() => {
-        refetchFlags()
+      .then(async () => {
+        await refetchFlags()
       })
       .catch(exception => showError(getErrorMessage(exception), undefined, 'cf.patch.feature.error'))
   }
@@ -134,8 +137,8 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
           environmentIdentifier={activeEnvironment}
           modalTitle={getString('cf.segmentDetail.addSegmentToFlag')}
           submitButtonTitle={getString('add')}
-          onSubmit={(checkedFeatureFlags, gitSyncFormValues) =>
-            addSegmentToFlags(checkedFeatureFlags, gitSyncFormValues)
+          onSubmit={async (checkedFeatureFlags, gitSyncFormValues) =>
+            await addSegmentToFlags(checkedFeatureFlags, gitSyncFormValues)
           }
           shouldDisableItem={feature =>
             (flags?.filter(flag => flag.type === EntityAddingMode.DIRECT) || [])
@@ -214,7 +217,6 @@ const FlagsList: React.FC<{
     <>
       {!!directAddedFlags?.length && (
         <>
-          {' '}
           <SectionHeader>{getString('cf.segmentDetail.directlyAdded')}</SectionHeader>
           <Layout.Vertical spacing="small" style={{ padding: '1px' }}>
             {directAddedFlags.map(_flag => (

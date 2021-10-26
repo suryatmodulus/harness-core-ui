@@ -3,7 +3,6 @@ import { ButtonVariation, Container, Layout, Button } from '@wings-software/uico
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
-import css from './SaveFlagToGitSubFormModal.module.scss'
 
 interface SaveFlagToGitSubFormModalProps {
   title: string
@@ -16,10 +15,10 @@ const SaveFlagToGitSubFormModal = ({ title, onSubmit, onClose }: SaveFlagToGitSu
 
   return (
     <Dialog enforceFocus={false} isOpen={true} onClose={onClose} title="">
-      <Container id="save-flag-to-git-modal-body" className={css.modalBody}>
+      <Container id="save-flag-to-git-modal-body" padding={{ bottom: 'xlarge', left: 'xlarge', right: 'xlarge' }}>
         <SaveFlagToGitSubForm title={title} />
         <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }} padding={{ top: 'xxlarge' }}>
-          <Button text={getString('save')} variation={ButtonVariation.PRIMARY} type="submit" onClick={onSubmit} />
+          <Button text={getString('save')} variation={ButtonVariation.PRIMARY} onClick={onSubmit} />
           <Button
             text={getString('cancel')}
             variation={ButtonVariation.TERTIARY}

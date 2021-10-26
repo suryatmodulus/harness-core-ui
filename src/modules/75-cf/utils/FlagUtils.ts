@@ -1,4 +1,4 @@
-import { Feature, PatchFeatureQueryParams, usePatchFeature } from 'services/cf'
+import { Feature, GitDetails, PatchFeatureQueryParams, usePatchFeature } from 'services/cf'
 
 export interface FlagPatchParams {
   accountIdentifier: string
@@ -12,7 +12,7 @@ const makeInstruction = (
   featureFlag: Feature,
   variation: string,
   targetIdentifiers: string[],
-  gitDetails?: any
+  gitDetails?: GitDetails
 ) => {
   const removeInstructions: Array<{ kind: string; parameters: { variation: string; targets: string[] } }> = []
   const variationMap = featureFlag.envProperties?.variationMap
@@ -71,7 +71,7 @@ const makePatchHook =
       } as PatchFeatureQueryParams
     })
 
-    return (featureFlag: Feature, variation: any, targetIdentifiers: string[], gitDetails?: any) => {
+    return (featureFlag: Feature, variation: any, targetIdentifiers: string[], gitDetails?: GitDetails) => {
       const body = makeInstruction(patchKind, featureFlag, variation, targetIdentifiers, gitDetails)
 
       return mutate(body, { pathParams: { identifier: featureFlag.identifier } })

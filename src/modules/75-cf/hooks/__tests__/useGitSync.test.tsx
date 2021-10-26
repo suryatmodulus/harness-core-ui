@@ -1,5 +1,5 @@
 /* eslint-disable jest-no-mock */
-import { renderHook, act } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-hooks'
 
 import * as cfServiceMock from 'services/cf'
 import { useGitSync } from '../useGitSync'
@@ -13,6 +13,7 @@ jest.mock('react-router-dom', () => ({
 const setUseGitRepoMock = (): void => {
   jest.spyOn(cfServiceMock, 'useGetGitRepo').mockReturnValue({
     loading: false,
+    refetch: jest.fn(),
     data: {
       repoDetails: {
         autoCommit: false,
@@ -29,6 +30,10 @@ const setUseGitRepoMock = (): void => {
 
 describe('useFeatureFlagTelemetry', () => {
   beforeEach(() => {
+    setUseGitRepoMock()
+  })
+
+  afterEach(() => {
     jest.clearAllMocks()
   })
 
@@ -37,22 +42,18 @@ describe('useFeatureFlagTelemetry', () => {
       loading: false
     } as any)
 
-    setUseGitRepoMock()
-
     const { result } = renderHook(() => useGitSync())
 
-    act(() => {
-      const data = result.current.getGitSyncFormMeta()
-      expect(data.gitSyncInitialValues).toEqual({
-        gitDetails: {
-          repoIdentifier: 'harnesstest',
-          rootFolder: '/.harness/',
-          branch: 'main',
-          commitMsg: '',
-          filePath: '/flags.yaml'
-        },
-        autoCommit: false
-      })
+    const data = result.current.getGitSyncFormMeta()
+    expect(data.gitSyncInitialValues).toEqual({
+      gitDetails: {
+        repoIdentifier: 'harnesstest',
+        rootFolder: '/.harness/',
+        branch: 'main',
+        commitMsg: '',
+        filePath: '/flags.yaml'
+      },
+      autoCommit: false
     })
   })
 
@@ -64,22 +65,18 @@ describe('useFeatureFlagTelemetry', () => {
       mutate: patchMutateMock
     } as any)
 
-    setUseGitRepoMock()
-
     const { result } = renderHook(() => useGitSync())
 
-    act(() => {
-      result.current.handleAutoCommit(true)
-      expect(patchMutateMock).toHaveBeenCalledWith({
-        instructions: [
-          {
-            kind: 'setAutoCommit',
-            parameters: {
-              autoCommit: true
-            }
+    result.current.handleAutoCommit(true)
+    expect(patchMutateMock).toHaveBeenCalledWith({
+      instructions: [
+        {
+          kind: 'setAutoCommit',
+          parameters: {
+            autoCommit: true
           }
-        ]
-      })
+        }
+      ]
     })
   })
 
@@ -91,13 +88,9 @@ describe('useFeatureFlagTelemetry', () => {
       mutate: patchMutateMock
     } as any)
 
-    setUseGitRepoMock()
-
     const { result } = renderHook(() => useGitSync())
 
-    act(() => {
-      result.current.handleAutoCommit(false)
-      expect(patchMutateMock).not.toHaveBeenCalledWith()
-    })
+    result.current.handleAutoCommit(false)
+    expect(patchMutateMock).not.toHaveBeenCalledWith()
   })
 })

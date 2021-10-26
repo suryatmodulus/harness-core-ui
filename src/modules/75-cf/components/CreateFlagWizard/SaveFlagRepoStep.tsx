@@ -37,38 +37,36 @@ const SaveFlagRepoStep = ({
   }
 
   return (
-    <>
-      <Formik
-        enableReinitialize={true}
-        initialValues={initialFormData}
-        formName="saveFlagRepoStep"
-        validationSchema={Yup.object().shape({
-          gitDetails: gitSyncValidationSchema
-        })}
-        onSubmit={formValues => nextStep?.({ ...prevStepData, ...formValues })}
-      >
-        <FormikForm data-testid="save-flag-to-git-form" className="save-flag-to-git-form">
-          <SaveFlagToGitSubForm title={getString('cf.selectFlagRepo.dialogTitle')} />
+    <Formik
+      enableReinitialize={true}
+      initialValues={initialFormData}
+      formName="saveFlagRepoStep"
+      validationSchema={Yup.object().shape({
+        gitDetails: gitSyncValidationSchema
+      })}
+      onSubmit={formValues => nextStep?.({ ...prevStepData, ...formValues })}
+    >
+      <FormikForm data-testid="save-flag-to-git-form">
+        <SaveFlagToGitSubForm title={getString('cf.selectFlagRepo.dialogTitle')} />
 
-          <Layout.Horizontal spacing="small" margin={{ top: 'large' }}>
-            <Button
-              text={getString('back')}
-              onClick={event => {
-                event.preventDefault()
-                previousStep?.(prevStepData)
-              }}
-            />
-            <Button
-              type="submit"
-              intent="primary"
-              text={getString('cf.creationModal.saveAndClose')}
-              disabled={isLoadingCreateFeatureFlag}
-              loading={isLoadingCreateFeatureFlag}
-            />
-          </Layout.Horizontal>
-        </FormikForm>
-      </Formik>
-    </>
+        <Layout.Horizontal spacing="small" margin={{ top: 'large' }}>
+          <Button
+            text={getString('back')}
+            onClick={event => {
+              event.preventDefault()
+              previousStep?.(prevStepData)
+            }}
+          />
+          <Button
+            type="submit"
+            intent="primary"
+            text={getString('cf.creationModal.saveAndClose')}
+            disabled={isLoadingCreateFeatureFlag}
+            loading={isLoadingCreateFeatureFlag}
+          />
+        </Layout.Horizontal>
+      </FormikForm>
+    </Formik>
   )
 }
 

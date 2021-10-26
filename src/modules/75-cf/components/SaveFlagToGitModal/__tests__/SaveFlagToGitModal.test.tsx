@@ -54,7 +54,7 @@ describe('SaveFlagToGitModal', () => {
     expect(document.getElementsByName('flagName')[0]).toHaveValue('test 123')
   })
 
-  test('it should submit forms with correct values', async () => {
+  test('it should submit the form with correct values', async () => {
     const onSubmitMock = jest.fn()
 
     renderComponent({ onSubmit: onSubmitMock })

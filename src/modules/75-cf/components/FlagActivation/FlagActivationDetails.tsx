@@ -205,7 +205,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
               : data
           )
             .then(async () => {
-              if (!isAutoCommitEnabled && values.autoCommit) {
+              if (values.autoCommit) {
                 await handleAutoCommit(values.autoCommit)
               }
 
@@ -222,13 +222,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     }
 
     return (
-      <Dialog
-        enforceFocus={false}
-        onClose={hideEditDetailsModal}
-        isOpen={true}
-        title={''}
-        className={css.editFlagModal}
-      >
+      <Dialog enforceFocus={false} onClose={hideEditDetailsModal} isOpen={true} title="" className={css.editFlagModal}>
         <Formik
           enableReinitialize={true}
           initialValues={initialValues}
@@ -240,33 +234,33 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         >
           {() => (
             <Form>
-              <Layout.Vertical className={css.editDetailsModalContainer}>
+              <Layout.Vertical className={css.editDetailsModalContainer} spacing="large">
                 <Text>{getString('cf.editDetails.editDetailsHeading')}</Text>
 
                 <FormInput.Text name="name" label={getString('name')} />
 
                 <FormInput.TextArea name="description" label={getString('description')} />
 
-                <Layout.Horizontal padding={{ top: 'small', bottom: 'small' }}>
+                <Container>
                   <FormInput.CheckBox
                     name="permanent"
                     label={getString('cf.editDetails.permaFlag')}
                     className={css.checkboxEditDetails}
                   />
-                </Layout.Horizontal>
+                </Container>
                 {isGitSyncEnabled && !isAutoCommitEnabled && (
                   <>
-                    <Container margin={{ top: 'small', bottom: 'small' }}>
+                    <Container>
                       <Divider />
                     </Container>
-                    <SaveFlagToGitSubForm subtitle="Commit Changes" hideNameField />
+                    <SaveFlagToGitSubForm subtitle={getString('cf.gitSync.commitChanges')} hideNameField />
                   </>
                 )}
 
-                <Layout.Horizontal>
+                <Container>
                   <Button intent="primary" text={getString('save')} type="submit" />
                   <Button minimal text={getString('cancel')} onClick={hideEditDetailsModal} />
-                </Layout.Horizontal>
+                </Container>
               </Layout.Vertical>
             </Form>
           )}
@@ -307,7 +301,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       </Text>
     ),
     intent: Intent.DANGER,
-    action: async () => {
+    action: () => {
       archiveFeatureFlag({
         instructions: [
           {
@@ -337,14 +331,10 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     }
 
     try {
-      deleteFeatureFlag(featureFlag.identifier, { queryParams: { ...queryParams, commitMsg } })
-        .then(() => {
-          history.replace(featureFlagListURL)
-          showToaster(getString('cf.messages.flagDeleted'))
-        })
-        .catch(error => {
-          showError(getErrorMessage(error), 0, 'cf.delete.ff.error')
-        })
+      await deleteFeatureFlag(featureFlag.identifier, { queryParams: { ...queryParams, commitMsg } })
+
+      history.replace(featureFlagListURL)
+      showToaster(getString('cf.messages.flagDeleted'))
     } catch (error) {
       showError(getErrorMessage(error), 0, 'cf.delete.ff.error')
     }
@@ -366,7 +356,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       if (isGitSyncEnabled && !isAutoCommitEnabled) {
         setIsDeleteModalOpen(true)
       } else {
-        handleDeleteFlag()
+        await handleDeleteFlag()
       }
     }
   })

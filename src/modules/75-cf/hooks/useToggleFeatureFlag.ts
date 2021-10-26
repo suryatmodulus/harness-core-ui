@@ -1,5 +1,5 @@
 import { FeatureFlagActivationStatus } from '@cf/utils/CFUtils'
-import { PatchFeatureQueryParams, PatchOperation, usePatchFeature } from 'services/cf'
+import { PatchFeatureQueryParams, usePatchFeature } from 'services/cf'
 import type { GitDetails } from './useGitSync'
 
 export interface UseToggleFeatureFlagProps {
@@ -25,14 +25,6 @@ const makeInstruction = (isOn: boolean, gitDetails?: GitDetails) => {
   return gitDetails ? { ...instruction, gitDetails } : instruction
 }
 
-const getOnInstruction = (gitDetails?: GitDetails): PatchOperation => {
-  return makeInstruction(true, gitDetails)
-}
-
-const getOffInstruction = (gitDetails?: GitDetails): PatchOperation => {
-  return makeInstruction(false, gitDetails)
-}
-
 export const useToggleFeatureFlag = ({
   accountIdentifier,
   orgIdentifier,
@@ -52,7 +44,7 @@ export const useToggleFeatureFlag = ({
   })
 
   return {
-    on: (gitDetails?: GitDetails) => mutate(getOnInstruction(gitDetails)),
-    off: (gitDetails?: GitDetails) => mutate(getOffInstruction(gitDetails))
+    on: (gitDetails?: GitDetails) => mutate(makeInstruction(true, gitDetails)),
+    off: (gitDetails?: GitDetails) => mutate(makeInstruction(false, gitDetails))
   }
 }

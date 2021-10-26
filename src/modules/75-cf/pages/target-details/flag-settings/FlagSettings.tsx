@@ -12,7 +12,7 @@ import {
   PageError
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { Feature, Target, useGetAllFeatures, Variation } from 'services/cf'
+import { Feature, GitDetails, Target, useGetAllFeatures, Variation } from 'services/cf'
 import { ItemContainer } from '@cf/components/ItemContainer/ItemContainer'
 import routes from '@common/RouteDefinitions'
 import { CF_DEFAULT_PAGE_SIZE, FlagsSortByField, getErrorMessage, SortOrder } from '@cf/utils/CFUtils'
@@ -93,14 +93,16 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
   const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
 
   const saveVariationChange = async (gitSyncFormValues?: GitSyncFormValues): Promise<boolean> => {
-    if (!selectedVariation || !target || !selectedFeature) return false
+    if (!selectedVariation || !target || !selectedFeature) {
+      return false
+    }
 
     setLoadingFeaturesInBackground(true)
 
-    let gitDetails
+    let gitDetails: GitDetails | undefined
 
     if (isAutoCommitEnabled) {
-      gitDetails = gitSyncInitialValues
+      gitDetails = gitSyncInitialValues.gitDetails
     } else {
       gitDetails = gitSyncFormValues?.gitDetails
     }
@@ -219,8 +221,8 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
                   feature={feature}
                   patchParams={patchParams}
                   key={feature.identifier}
-                  isGitSyncEnabled={isGitSyncEnabled || false}
-                  isAutoCommitEnabled={isAutoCommitEnabled || false}
+                  isGitSyncEnabled={isGitSyncEnabled}
+                  isAutoCommitEnabled={isAutoCommitEnabled}
                   openGitSyncModal={() => setIsGitSyncModalOpen(true)}
                   setLoadingFeaturesInBackground={setLoadingFeaturesInBackground}
                   saveVariationChange={saveVariationChange}

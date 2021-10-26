@@ -257,44 +257,28 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
               validateOnBlur
               onSubmit={handleSubmit}
             >
-              {formikProps => {
-                return (
-                  <FormikForm {...formikProps}>
-                    {isGitSyncEnabled && !isAutoCommitEnabled && (
-                      <>
-                        <SaveFlagToGitSubForm subtitle="Commit Changes" hideNameField />
-                      </>
-                    )}
-                    <Layout.Horizontal
-                      spacing="small"
-                      padding={{ right: 'xxlarge', top: 'medium' }}
-                      style={{ alignItems: 'center' }}
-                    >
-                      <Button
-                        type="submit"
-                        text={submitButtonTitle || getString('add')}
-                        intent={Intent.PRIMARY}
-                        disabled={loading || !!error || !selectedCounter}
-                        onClick={event => {
-                          event.preventDefault()
-                          if (isGitSyncEnabled) {
-                            formikProps.submitForm()
-                          } else {
-                            handleSubmit()
-                          }
-                        }}
-                      />
-                      <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
-                      <FlexExpander />
+              <FormikForm>
+                {isGitSyncEnabled && !isAutoCommitEnabled && (
+                  <SaveFlagToGitSubForm subtitle={getString('cf.gitSync.commitChanges')} hideNameField />
+                )}
+                <Layout.Horizontal
+                  spacing="small"
+                  padding={{ right: 'xxlarge', top: 'medium' }}
+                  style={{ alignItems: 'center' }}
+                >
+                  <Button
+                    type="submit"
+                    text={submitButtonTitle || getString('add')}
+                    intent={Intent.PRIMARY}
+                    disabled={loading || !!error || !selectedCounter}
+                  />
+                  <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
+                  <FlexExpander />
 
-                      {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
-                      {!!selectedCounter && (
-                        <Text>{getString('cf.shared.selected', { counter: selectedCounter })}</Text>
-                      )}
-                    </Layout.Horizontal>
-                  </FormikForm>
-                )
-              }}
+                  {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
+                  {!!selectedCounter && <Text>{getString('cf.shared.selected', { counter: selectedCounter })}</Text>}
+                </Layout.Horizontal>
+              </FormikForm>
             </Formik>
           </Container>
         </Layout.Vertical>

@@ -178,7 +178,7 @@ module.exports = {
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig } from "../config";`,
     customProps: {
-      base: `{getConfig("gitops-api")}`
+      base: `{getConfig("ng/gitops-api")}`
     }
   }
 }

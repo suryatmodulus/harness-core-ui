@@ -145,12 +145,12 @@ export interface RepositoryRepoUpdateRequest {
 export interface Servicev1Error {
   code?: number
   message?: string
-  nested_errors?: {
+  nestedErrors?: {
     [key: string]: string
   }
 }
 
-export type Servicev1HealthStatus = 'UNSET' | 'HEALTHY' | 'UNHEALTHY'
+export type Servicev1HealthStatus = 'HEALTH_STATUS_UNSET' | 'HEALTHY' | 'UNHEALTHY'
 
 export interface V1Agent {
   accountIdentifier?: string
@@ -170,7 +170,7 @@ export interface V1Agent {
 }
 
 export interface V1AgentComponentHealth {
-  k8sStatus?: string
+  k8sError?: string
   message?: string
   status?: Servicev1HealthStatus
 }
@@ -180,6 +180,7 @@ export interface V1AgentHealth {
   argoDexServer?: V1AgentComponentHealth
   argoRedisServer?: V1AgentComponentHealth
   argoRepoServer?: V1AgentComponentHealth
+  argocdServer?: V1AgentComponentHealth
   harnessGitopsAgent?: V1AgentComponentHealth
   lastHeartbeat?: string
 }
@@ -200,7 +201,11 @@ export interface V1AgentMetadata {
   namespace?: string
 }
 
-export type V1AgentType = 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
+export type V1AgentType = 'AGENT_TYPE_UNSET' | 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
+
+export interface V1Empty {
+  [key: string]: any
+}
 
 /**
  * FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.
@@ -1056,7 +1061,7 @@ export interface AgentServiceListQueryParams {
   orgIdentifier?: string
   identifier?: string
   name?: string
-  type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
+  type?: 'AGENT_TYPE_UNSET' | 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
   tags?: string[]
   searchTerm?: string
   pageSize?: number
@@ -1071,7 +1076,7 @@ export type AgentServiceListProps = Omit<
 export const AgentServiceList = (props: AgentServiceListProps) => (
   <Get<V1AgentList, GatewayruntimeError, AgentServiceListQueryParams, void>
     path={`/api/v1/agents`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1083,7 +1088,7 @@ export type UseAgentServiceListProps = Omit<
 
 export const useAgentServiceList = (props: UseAgentServiceListProps) =>
   useGet<V1AgentList, GatewayruntimeError, AgentServiceListQueryParams, void>(`/api/v1/agents`, {
-    base: getConfig('gitops-api'),
+    base: getConfig('ng/gitops-api'),
     ...props
   })
 
@@ -1096,7 +1101,7 @@ export const AgentServiceCreate = (props: AgentServiceCreateProps) => (
   <Mutate<V1Agent, GatewayruntimeError, void, V1AgentRequestBody, void>
     verb="POST"
     path={`/api/v1/agents`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1108,7 +1113,7 @@ export type UseAgentServiceCreateProps = Omit<
 
 export const useAgentServiceCreate = (props: UseAgentServiceCreateProps) =>
   useMutate<V1Agent, GatewayruntimeError, void, V1AgentRequestBody, void>('POST', `/api/v1/agents`, {
-    base: getConfig('gitops-api'),
+    base: getConfig('ng/gitops-api'),
     ...props
   })
 
@@ -1129,7 +1134,7 @@ export const AgentServiceUpdate = ({ agentIdentifier, ...props }: AgentServiceUp
   <Mutate<V1Agent, GatewayruntimeError, void, V1AgentRequestBody, AgentServiceUpdatePathParams>
     verb="PUT"
     path={`/api/v1/agents/${agentIdentifier}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1144,10 +1149,13 @@ export const useAgentServiceUpdate = ({ agentIdentifier, ...props }: UseAgentSer
   useMutate<V1Agent, GatewayruntimeError, void, V1AgentRequestBody, AgentServiceUpdatePathParams>(
     'PUT',
     (paramsInPath: AgentServiceUpdatePathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
 
 export interface ApplicationServiceListQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   /**
    * the application's name.
    */
@@ -1200,7 +1208,7 @@ export const ApplicationServiceList = ({ agentIdentifier, ...props }: Applicatio
     ApplicationServiceListPathParams
   >
     path={`/api/v1/agents/${agentIdentifier}/applications`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1226,10 +1234,16 @@ export const useApplicationServiceList = ({ agentIdentifier, ...props }: UseAppl
     ApplicationServiceListQueryParams,
     ApplicationServiceListPathParams
   >((paramsInPath: ApplicationServiceListPathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/applications`, {
-    base: getConfig('gitops-api'),
+    base: getConfig('ng/gitops-api'),
     pathParams: { agentIdentifier },
     ...props
   })
+
+export interface ApplicationServiceCreateQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface ApplicationServiceCreatePathParams {
   agentIdentifier: string
@@ -1239,7 +1253,7 @@ export type ApplicationServiceCreateProps = Omit<
   MutateProps<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceCreateQueryParams,
     ApplicationApplicationCreateRequest,
     ApplicationServiceCreatePathParams
   >,
@@ -1254,13 +1268,13 @@ export const ApplicationServiceCreate = ({ agentIdentifier, ...props }: Applicat
   <Mutate<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceCreateQueryParams,
     ApplicationApplicationCreateRequest,
     ApplicationServiceCreatePathParams
   >
     verb="POST"
     path={`/api/v1/agents/${agentIdentifier}/applications`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1269,7 +1283,7 @@ export type UseApplicationServiceCreateProps = Omit<
   UseMutateProps<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceCreateQueryParams,
     ApplicationApplicationCreateRequest,
     ApplicationServiceCreatePathParams
   >,
@@ -1284,16 +1298,19 @@ export const useApplicationServiceCreate = ({ agentIdentifier, ...props }: UseAp
   useMutate<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceCreateQueryParams,
     ApplicationApplicationCreateRequest,
     ApplicationServiceCreatePathParams
   >(
     'POST',
     (paramsInPath: ApplicationServiceCreatePathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/applications`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
 
 export interface ApplicationServiceGetQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   /**
    * forces application reconciliation if set to true.
    */
@@ -1336,7 +1353,7 @@ export type ApplicationServiceGetProps = Omit<
 export const ApplicationServiceGet = ({ agentIdentifier, queryName, ...props }: ApplicationServiceGetProps) => (
   <Get<V1alpha1Application, GatewayruntimeError, ApplicationServiceGetQueryParams, ApplicationServiceGetPathParams>
     path={`/api/v1/agents/${agentIdentifier}/applications/${queryName}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1359,8 +1376,14 @@ export const useApplicationServiceGet = ({ agentIdentifier, queryName, ...props 
   useGet<V1alpha1Application, GatewayruntimeError, ApplicationServiceGetQueryParams, ApplicationServiceGetPathParams>(
     (paramsInPath: ApplicationServiceGetPathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/applications/${paramsInPath.queryName}`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier, queryName }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier, queryName }, ...props }
   )
+
+export interface ApplicationServiceUpdateQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface ApplicationServiceUpdatePathParams {
   agentIdentifier: string
@@ -1380,7 +1403,7 @@ export type ApplicationServiceUpdateProps = Omit<
   MutateProps<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceUpdateQueryParams,
     ApplicationApplicationUpdateRequest,
     ApplicationServiceUpdatePathParams
   >,
@@ -1399,13 +1422,13 @@ export const ApplicationServiceUpdate = ({
   <Mutate<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceUpdateQueryParams,
     ApplicationApplicationUpdateRequest,
     ApplicationServiceUpdatePathParams
   >
     verb="PUT"
     path={`/api/v1/agents/${agentIdentifier}/applications/${requestApplicationMetadataName}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1414,7 +1437,7 @@ export type UseApplicationServiceUpdateProps = Omit<
   UseMutateProps<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceUpdateQueryParams,
     ApplicationApplicationUpdateRequest,
     ApplicationServiceUpdatePathParams
   >,
@@ -1433,17 +1456,20 @@ export const useApplicationServiceUpdate = ({
   useMutate<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceUpdateQueryParams,
     ApplicationApplicationUpdateRequest,
     ApplicationServiceUpdatePathParams
   >(
     'PUT',
     (paramsInPath: ApplicationServiceUpdatePathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/applications/${paramsInPath.requestApplicationMetadataName}`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier, requestApplicationMetadataName }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier, requestApplicationMetadataName }, ...props }
   )
 
 export interface ApplicationServiceDeleteQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   'request.cascade'?: boolean
   'request.propagationPolicy'?: string
 }
@@ -1477,7 +1503,7 @@ export const ApplicationServiceDelete = ({ agentIdentifier, ...props }: Applicat
   >
     verb="DELETE"
     path={`/api/v1/agents/${agentIdentifier}/applications`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1507,8 +1533,14 @@ export const useApplicationServiceDelete = ({ agentIdentifier, ...props }: UseAp
   >(
     'DELETE',
     (paramsInPath: ApplicationServiceDeletePathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/applications`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
+
+export interface ApplicationServiceRollbackQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface ApplicationServiceRollbackPathParams {
   agentIdentifier: string
@@ -1519,7 +1551,7 @@ export type ApplicationServiceRollbackProps = Omit<
   MutateProps<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceRollbackQueryParams,
     ApplicationApplicationRollbackRequest,
     ApplicationServiceRollbackPathParams
   >,
@@ -1538,13 +1570,13 @@ export const ApplicationServiceRollback = ({
   <Mutate<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceRollbackQueryParams,
     ApplicationApplicationRollbackRequest,
     ApplicationServiceRollbackPathParams
   >
     verb="POST"
     path={`/api/v1/agents/${agentIdentifier}/applications/${requestName}/rollback`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1553,7 +1585,7 @@ export type UseApplicationServiceRollbackProps = Omit<
   UseMutateProps<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceRollbackQueryParams,
     ApplicationApplicationRollbackRequest,
     ApplicationServiceRollbackPathParams
   >,
@@ -1572,15 +1604,21 @@ export const useApplicationServiceRollback = ({
   useMutate<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceRollbackQueryParams,
     ApplicationApplicationRollbackRequest,
     ApplicationServiceRollbackPathParams
   >(
     'POST',
     (paramsInPath: ApplicationServiceRollbackPathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/applications/${paramsInPath.requestName}/rollback`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier, requestName }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier, requestName }, ...props }
   )
+
+export interface ApplicationServiceSyncQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface ApplicationServiceSyncPathParams {
   agentIdentifier: string
@@ -1591,7 +1629,7 @@ export type ApplicationServiceSyncProps = Omit<
   MutateProps<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceSyncQueryParams,
     ApplicationApplicationSyncRequest,
     ApplicationServiceSyncPathParams
   >,
@@ -1606,13 +1644,13 @@ export const ApplicationServiceSync = ({ agentIdentifier, requestName, ...props 
   <Mutate<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceSyncQueryParams,
     ApplicationApplicationSyncRequest,
     ApplicationServiceSyncPathParams
   >
     verb="POST"
     path={`/api/v1/agents/${agentIdentifier}/applications/${requestName}/sync`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1621,7 +1659,7 @@ export type UseApplicationServiceSyncProps = Omit<
   UseMutateProps<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceSyncQueryParams,
     ApplicationApplicationSyncRequest,
     ApplicationServiceSyncPathParams
   >,
@@ -1636,17 +1674,20 @@ export const useApplicationServiceSync = ({ agentIdentifier, requestName, ...pro
   useMutate<
     V1alpha1Application,
     GatewayruntimeError,
-    void,
+    ApplicationServiceSyncQueryParams,
     ApplicationApplicationSyncRequest,
     ApplicationServiceSyncPathParams
   >(
     'POST',
     (paramsInPath: ApplicationServiceSyncPathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/applications/${paramsInPath.requestName}/sync`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier, requestName }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier, requestName }, ...props }
   )
 
 export interface ClusterServiceListQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   'query.server'?: string
   'query.name'?: string
 }
@@ -1667,7 +1708,7 @@ export type ClusterServiceListProps = Omit<
 export const ClusterServiceList = ({ agentIdentifier, ...props }: ClusterServiceListProps) => (
   <Get<V1alpha1ClusterList, GatewayruntimeError, ClusterServiceListQueryParams, ClusterServiceListPathParams>
     path={`/api/v1/agents/${agentIdentifier}/clusters`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1684,15 +1725,27 @@ export type UseClusterServiceListProps = Omit<
 export const useClusterServiceList = ({ agentIdentifier, ...props }: UseClusterServiceListProps) =>
   useGet<V1alpha1ClusterList, GatewayruntimeError, ClusterServiceListQueryParams, ClusterServiceListPathParams>(
     (paramsInPath: ClusterServiceListPathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/clusters`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
+
+export interface ClusterServiceCreateQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface ClusterServiceCreatePathParams {
   agentIdentifier: string
 }
 
 export type ClusterServiceCreateProps = Omit<
-  MutateProps<V1alpha1Cluster, GatewayruntimeError, void, ClusterClusterCreateRequest, ClusterServiceCreatePathParams>,
+  MutateProps<
+    V1alpha1Cluster,
+    GatewayruntimeError,
+    ClusterServiceCreateQueryParams,
+    ClusterClusterCreateRequest,
+    ClusterServiceCreatePathParams
+  >,
   'path' | 'verb'
 > &
   ClusterServiceCreatePathParams
@@ -1701,10 +1754,16 @@ export type ClusterServiceCreateProps = Omit<
  * Create creates a cluster
  */
 export const ClusterServiceCreate = ({ agentIdentifier, ...props }: ClusterServiceCreateProps) => (
-  <Mutate<V1alpha1Cluster, GatewayruntimeError, void, ClusterClusterCreateRequest, ClusterServiceCreatePathParams>
+  <Mutate<
+    V1alpha1Cluster,
+    GatewayruntimeError,
+    ClusterServiceCreateQueryParams,
+    ClusterClusterCreateRequest,
+    ClusterServiceCreatePathParams
+  >
     verb="POST"
     path={`/api/v1/agents/${agentIdentifier}/clusters`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1713,7 +1772,7 @@ export type UseClusterServiceCreateProps = Omit<
   UseMutateProps<
     V1alpha1Cluster,
     GatewayruntimeError,
-    void,
+    ClusterServiceCreateQueryParams,
     ClusterClusterCreateRequest,
     ClusterServiceCreatePathParams
   >,
@@ -1725,13 +1784,22 @@ export type UseClusterServiceCreateProps = Omit<
  * Create creates a cluster
  */
 export const useClusterServiceCreate = ({ agentIdentifier, ...props }: UseClusterServiceCreateProps) =>
-  useMutate<V1alpha1Cluster, GatewayruntimeError, void, ClusterClusterCreateRequest, ClusterServiceCreatePathParams>(
+  useMutate<
+    V1alpha1Cluster,
+    GatewayruntimeError,
+    ClusterServiceCreateQueryParams,
+    ClusterClusterCreateRequest,
+    ClusterServiceCreatePathParams
+  >(
     'POST',
     (paramsInPath: ClusterServiceCreatePathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/clusters`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
 
 export interface ClusterServiceDeleteQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   'query.name'?: string
 }
 
@@ -1764,7 +1832,7 @@ export const ClusterServiceDelete = ({ agentIdentifier, ...props }: ClusterServi
   >
     verb="DELETE"
     path={`/api/v1/agents/${agentIdentifier}/clusters`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1794,10 +1862,13 @@ export const useClusterServiceDelete = ({ agentIdentifier, ...props }: UseCluste
   >(
     'DELETE',
     (paramsInPath: ClusterServiceDeletePathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/clusters`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
 
 export interface ClusterServiceGetQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   'query.name'?: string
 }
 
@@ -1818,7 +1889,7 @@ export type ClusterServiceGetProps = Omit<
 export const ClusterServiceGet = ({ agentIdentifier, queryServer, ...props }: ClusterServiceGetProps) => (
   <Get<V1alpha1Cluster, GatewayruntimeError, ClusterServiceGetQueryParams, ClusterServiceGetPathParams>
     path={`/api/v1/agents/${agentIdentifier}/clusters/${queryServer}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1836,8 +1907,14 @@ export const useClusterServiceGet = ({ agentIdentifier, queryServer, ...props }:
   useGet<V1alpha1Cluster, GatewayruntimeError, ClusterServiceGetQueryParams, ClusterServiceGetPathParams>(
     (paramsInPath: ClusterServiceGetPathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/clusters/${paramsInPath.queryServer}`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier, queryServer }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier, queryServer }, ...props }
   )
+
+export interface ClusterServiceUpdateQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface ClusterServiceUpdatePathParams {
   agentIdentifier: string
@@ -1848,7 +1925,13 @@ export interface ClusterServiceUpdatePathParams {
 }
 
 export type ClusterServiceUpdateProps = Omit<
-  MutateProps<V1alpha1Cluster, GatewayruntimeError, void, ClusterClusterUpdateRequest, ClusterServiceUpdatePathParams>,
+  MutateProps<
+    V1alpha1Cluster,
+    GatewayruntimeError,
+    ClusterServiceUpdateQueryParams,
+    ClusterClusterUpdateRequest,
+    ClusterServiceUpdatePathParams
+  >,
   'path' | 'verb'
 > &
   ClusterServiceUpdatePathParams
@@ -1861,10 +1944,16 @@ export const ClusterServiceUpdate = ({
   requestClusterServer,
   ...props
 }: ClusterServiceUpdateProps) => (
-  <Mutate<V1alpha1Cluster, GatewayruntimeError, void, ClusterClusterUpdateRequest, ClusterServiceUpdatePathParams>
+  <Mutate<
+    V1alpha1Cluster,
+    GatewayruntimeError,
+    ClusterServiceUpdateQueryParams,
+    ClusterClusterUpdateRequest,
+    ClusterServiceUpdatePathParams
+  >
     verb="PUT"
     path={`/api/v1/agents/${agentIdentifier}/clusters/${requestClusterServer}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1873,7 +1962,7 @@ export type UseClusterServiceUpdateProps = Omit<
   UseMutateProps<
     V1alpha1Cluster,
     GatewayruntimeError,
-    void,
+    ClusterServiceUpdateQueryParams,
     ClusterClusterUpdateRequest,
     ClusterServiceUpdatePathParams
   >,
@@ -1889,14 +1978,23 @@ export const useClusterServiceUpdate = ({
   requestClusterServer,
   ...props
 }: UseClusterServiceUpdateProps) =>
-  useMutate<V1alpha1Cluster, GatewayruntimeError, void, ClusterClusterUpdateRequest, ClusterServiceUpdatePathParams>(
+  useMutate<
+    V1alpha1Cluster,
+    GatewayruntimeError,
+    ClusterServiceUpdateQueryParams,
+    ClusterClusterUpdateRequest,
+    ClusterServiceUpdatePathParams
+  >(
     'PUT',
     (paramsInPath: ClusterServiceUpdatePathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/clusters/${paramsInPath.requestClusterServer}`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier, requestClusterServer }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier, requestClusterServer }, ...props }
   )
 
 export interface ProjectServiceListQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   'query.name'?: string
 }
 
@@ -1916,7 +2014,7 @@ export type ProjectServiceListProps = Omit<
 export const ProjectServiceList = ({ agentIdentifier, ...props }: ProjectServiceListProps) => (
   <Get<V1alpha1AppProjectList, GatewayruntimeError, ProjectServiceListQueryParams, ProjectServiceListPathParams>
     path={`/api/v1/agents/${agentIdentifier}/projects`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1933,8 +2031,14 @@ export type UseProjectServiceListProps = Omit<
 export const useProjectServiceList = ({ agentIdentifier, ...props }: UseProjectServiceListProps) =>
   useGet<V1alpha1AppProjectList, GatewayruntimeError, ProjectServiceListQueryParams, ProjectServiceListPathParams>(
     (paramsInPath: ProjectServiceListPathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/projects`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
+
+export interface ProjectServiceCreateQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface ProjectServiceCreatePathParams {
   agentIdentifier: string
@@ -1944,7 +2048,7 @@ export type ProjectServiceCreateProps = Omit<
   MutateProps<
     V1alpha1AppProject,
     GatewayruntimeError,
-    void,
+    ProjectServiceCreateQueryParams,
     ProjectProjectCreateRequest,
     ProjectServiceCreatePathParams
   >,
@@ -1956,10 +2060,16 @@ export type ProjectServiceCreateProps = Omit<
  * Create a new project
  */
 export const ProjectServiceCreate = ({ agentIdentifier, ...props }: ProjectServiceCreateProps) => (
-  <Mutate<V1alpha1AppProject, GatewayruntimeError, void, ProjectProjectCreateRequest, ProjectServiceCreatePathParams>
+  <Mutate<
+    V1alpha1AppProject,
+    GatewayruntimeError,
+    ProjectServiceCreateQueryParams,
+    ProjectProjectCreateRequest,
+    ProjectServiceCreatePathParams
+  >
     verb="POST"
     path={`/api/v1/agents/${agentIdentifier}/projects`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -1968,7 +2078,7 @@ export type UseProjectServiceCreateProps = Omit<
   UseMutateProps<
     V1alpha1AppProject,
     GatewayruntimeError,
-    void,
+    ProjectServiceCreateQueryParams,
     ProjectProjectCreateRequest,
     ProjectServiceCreatePathParams
   >,
@@ -1980,18 +2090,36 @@ export type UseProjectServiceCreateProps = Omit<
  * Create a new project
  */
 export const useProjectServiceCreate = ({ agentIdentifier, ...props }: UseProjectServiceCreateProps) =>
-  useMutate<V1alpha1AppProject, GatewayruntimeError, void, ProjectProjectCreateRequest, ProjectServiceCreatePathParams>(
+  useMutate<
+    V1alpha1AppProject,
+    GatewayruntimeError,
+    ProjectServiceCreateQueryParams,
+    ProjectProjectCreateRequest,
+    ProjectServiceCreatePathParams
+  >(
     'POST',
     (paramsInPath: ProjectServiceCreatePathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/projects`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
+
+export interface ProjectServiceDeleteQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface ProjectServiceDeletePathParams {
   agentIdentifier: string
 }
 
 export type ProjectServiceDeleteProps = Omit<
-  MutateProps<ProjectEmptyResponse, GatewayruntimeError, void, string, ProjectServiceDeletePathParams>,
+  MutateProps<
+    ProjectEmptyResponse,
+    GatewayruntimeError,
+    ProjectServiceDeleteQueryParams,
+    string,
+    ProjectServiceDeletePathParams
+  >,
   'path' | 'verb'
 > &
   ProjectServiceDeletePathParams
@@ -2000,16 +2128,28 @@ export type ProjectServiceDeleteProps = Omit<
  * Delete deletes a project
  */
 export const ProjectServiceDelete = ({ agentIdentifier, ...props }: ProjectServiceDeleteProps) => (
-  <Mutate<ProjectEmptyResponse, GatewayruntimeError, void, string, ProjectServiceDeletePathParams>
+  <Mutate<
+    ProjectEmptyResponse,
+    GatewayruntimeError,
+    ProjectServiceDeleteQueryParams,
+    string,
+    ProjectServiceDeletePathParams
+  >
     verb="DELETE"
     path={`/api/v1/agents/${agentIdentifier}/projects`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
 
 export type UseProjectServiceDeleteProps = Omit<
-  UseMutateProps<ProjectEmptyResponse, GatewayruntimeError, void, string, ProjectServiceDeletePathParams>,
+  UseMutateProps<
+    ProjectEmptyResponse,
+    GatewayruntimeError,
+    ProjectServiceDeleteQueryParams,
+    string,
+    ProjectServiceDeletePathParams
+  >,
   'path' | 'verb'
 > &
   ProjectServiceDeletePathParams
@@ -2018,11 +2158,23 @@ export type UseProjectServiceDeleteProps = Omit<
  * Delete deletes a project
  */
 export const useProjectServiceDelete = ({ agentIdentifier, ...props }: UseProjectServiceDeleteProps) =>
-  useMutate<ProjectEmptyResponse, GatewayruntimeError, void, string, ProjectServiceDeletePathParams>(
+  useMutate<
+    ProjectEmptyResponse,
+    GatewayruntimeError,
+    ProjectServiceDeleteQueryParams,
+    string,
+    ProjectServiceDeletePathParams
+  >(
     'DELETE',
     (paramsInPath: ProjectServiceDeletePathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/projects`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
+
+export interface ProjectServiceGetQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface ProjectServiceGetPathParams {
   agentIdentifier: string
@@ -2030,7 +2182,7 @@ export interface ProjectServiceGetPathParams {
 }
 
 export type ProjectServiceGetProps = Omit<
-  GetProps<V1alpha1AppProject, GatewayruntimeError, void, ProjectServiceGetPathParams>,
+  GetProps<V1alpha1AppProject, GatewayruntimeError, ProjectServiceGetQueryParams, ProjectServiceGetPathParams>,
   'path'
 > &
   ProjectServiceGetPathParams
@@ -2039,15 +2191,15 @@ export type ProjectServiceGetProps = Omit<
  * Get returns a project by name
  */
 export const ProjectServiceGet = ({ agentIdentifier, queryName, ...props }: ProjectServiceGetProps) => (
-  <Get<V1alpha1AppProject, GatewayruntimeError, void, ProjectServiceGetPathParams>
+  <Get<V1alpha1AppProject, GatewayruntimeError, ProjectServiceGetQueryParams, ProjectServiceGetPathParams>
     path={`/api/v1/agents/${agentIdentifier}/projects/${queryName}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
 
 export type UseProjectServiceGetProps = Omit<
-  UseGetProps<V1alpha1AppProject, GatewayruntimeError, void, ProjectServiceGetPathParams>,
+  UseGetProps<V1alpha1AppProject, GatewayruntimeError, ProjectServiceGetQueryParams, ProjectServiceGetPathParams>,
   'path'
 > &
   ProjectServiceGetPathParams
@@ -2056,11 +2208,17 @@ export type UseProjectServiceGetProps = Omit<
  * Get returns a project by name
  */
 export const useProjectServiceGet = ({ agentIdentifier, queryName, ...props }: UseProjectServiceGetProps) =>
-  useGet<V1alpha1AppProject, GatewayruntimeError, void, ProjectServiceGetPathParams>(
+  useGet<V1alpha1AppProject, GatewayruntimeError, ProjectServiceGetQueryParams, ProjectServiceGetPathParams>(
     (paramsInPath: ProjectServiceGetPathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/projects/${paramsInPath.queryName}`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier, queryName }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier, queryName }, ...props }
   )
+
+export interface ProjectServiceUpdateQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface ProjectServiceUpdatePathParams {
   agentIdentifier: string
@@ -2080,7 +2238,7 @@ export type ProjectServiceUpdateProps = Omit<
   MutateProps<
     V1alpha1AppProject,
     GatewayruntimeError,
-    void,
+    ProjectServiceUpdateQueryParams,
     ProjectProjectUpdateRequest,
     ProjectServiceUpdatePathParams
   >,
@@ -2096,10 +2254,16 @@ export const ProjectServiceUpdate = ({
   requestProjectMetadataName,
   ...props
 }: ProjectServiceUpdateProps) => (
-  <Mutate<V1alpha1AppProject, GatewayruntimeError, void, ProjectProjectUpdateRequest, ProjectServiceUpdatePathParams>
+  <Mutate<
+    V1alpha1AppProject,
+    GatewayruntimeError,
+    ProjectServiceUpdateQueryParams,
+    ProjectProjectUpdateRequest,
+    ProjectServiceUpdatePathParams
+  >
     verb="PUT"
     path={`/api/v1/agents/${agentIdentifier}/projects/${requestProjectMetadataName}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -2108,7 +2272,7 @@ export type UseProjectServiceUpdateProps = Omit<
   UseMutateProps<
     V1alpha1AppProject,
     GatewayruntimeError,
-    void,
+    ProjectServiceUpdateQueryParams,
     ProjectProjectUpdateRequest,
     ProjectServiceUpdatePathParams
   >,
@@ -2124,14 +2288,23 @@ export const useProjectServiceUpdate = ({
   requestProjectMetadataName,
   ...props
 }: UseProjectServiceUpdateProps) =>
-  useMutate<V1alpha1AppProject, GatewayruntimeError, void, ProjectProjectUpdateRequest, ProjectServiceUpdatePathParams>(
+  useMutate<
+    V1alpha1AppProject,
+    GatewayruntimeError,
+    ProjectServiceUpdateQueryParams,
+    ProjectProjectUpdateRequest,
+    ProjectServiceUpdatePathParams
+  >(
     'PUT',
     (paramsInPath: ProjectServiceUpdatePathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/projects/${paramsInPath.requestProjectMetadataName}`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier, requestProjectMetadataName }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier, requestProjectMetadataName }, ...props }
   )
 
 export interface RepositoryServiceListRepositoriesQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   /**
    * Repo URL for query.
    */
@@ -2171,7 +2344,7 @@ export const RepositoryServiceListRepositories = ({
     RepositoryServiceListRepositoriesPathParams
   >
     path={`/api/v1/agents/${agentIdentifier}/repositories`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -2202,8 +2375,14 @@ export const useRepositoryServiceListRepositories = ({
   >(
     (paramsInPath: RepositoryServiceListRepositoriesPathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/repositories`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
+
+export interface RepositoryServiceCreateRepositoryQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface RepositoryServiceCreateRepositoryPathParams {
   agentIdentifier: string
@@ -2213,7 +2392,7 @@ export type RepositoryServiceCreateRepositoryProps = Omit<
   MutateProps<
     V1alpha1Repository,
     GatewayruntimeError,
-    void,
+    RepositoryServiceCreateRepositoryQueryParams,
     RepositoryRepoCreateRequest,
     RepositoryServiceCreateRepositoryPathParams
   >,
@@ -2231,13 +2410,13 @@ export const RepositoryServiceCreateRepository = ({
   <Mutate<
     V1alpha1Repository,
     GatewayruntimeError,
-    void,
+    RepositoryServiceCreateRepositoryQueryParams,
     RepositoryRepoCreateRequest,
     RepositoryServiceCreateRepositoryPathParams
   >
     verb="POST"
     path={`/api/v1/agents/${agentIdentifier}/repositories`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -2246,7 +2425,7 @@ export type UseRepositoryServiceCreateRepositoryProps = Omit<
   UseMutateProps<
     V1alpha1Repository,
     GatewayruntimeError,
-    void,
+    RepositoryServiceCreateRepositoryQueryParams,
     RepositoryRepoCreateRequest,
     RepositoryServiceCreateRepositoryPathParams
   >,
@@ -2264,17 +2443,20 @@ export const useRepositoryServiceCreateRepository = ({
   useMutate<
     V1alpha1Repository,
     GatewayruntimeError,
-    void,
+    RepositoryServiceCreateRepositoryQueryParams,
     RepositoryRepoCreateRequest,
     RepositoryServiceCreateRepositoryPathParams
   >(
     'POST',
     (paramsInPath: RepositoryServiceCreateRepositoryPathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/repositories`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
 
 export interface RepositoryServiceDeleteRepositoryQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   /**
    * Whether to force a cache refresh on repo's connection state.
    */
@@ -2313,7 +2495,7 @@ export const RepositoryServiceDeleteRepository = ({
   >
     verb="DELETE"
     path={`/api/v1/agents/${agentIdentifier}/repositories`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -2347,10 +2529,13 @@ export const useRepositoryServiceDeleteRepository = ({
     'DELETE',
     (paramsInPath: RepositoryServiceDeleteRepositoryPathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/repositories`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
 
 export interface RepositoryServiceGetQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   /**
    * Whether to force a cache refresh on repo's connection state.
    */
@@ -2377,7 +2562,7 @@ export type RepositoryServiceGetProps = Omit<
 export const RepositoryServiceGet = ({ agentIdentifier, queryRepo, ...props }: RepositoryServiceGetProps) => (
   <Get<V1alpha1Repository, GatewayruntimeError, RepositoryServiceGetQueryParams, RepositoryServiceGetPathParams>
     path={`/api/v1/agents/${agentIdentifier}/repositories/${queryRepo}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -2395,8 +2580,14 @@ export const useRepositoryServiceGet = ({ agentIdentifier, queryRepo, ...props }
   useGet<V1alpha1Repository, GatewayruntimeError, RepositoryServiceGetQueryParams, RepositoryServiceGetPathParams>(
     (paramsInPath: RepositoryServiceGetPathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/repositories/${paramsInPath.queryRepo}`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier, queryRepo }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier, queryRepo }, ...props }
   )
+
+export interface RepositoryServiceUpdateRepositoryQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
 export interface RepositoryServiceUpdateRepositoryPathParams {
   agentIdentifier: string
@@ -2410,7 +2601,7 @@ export type RepositoryServiceUpdateRepositoryProps = Omit<
   MutateProps<
     V1alpha1Repository,
     GatewayruntimeError,
-    void,
+    RepositoryServiceUpdateRepositoryQueryParams,
     RepositoryRepoUpdateRequest,
     RepositoryServiceUpdateRepositoryPathParams
   >,
@@ -2429,13 +2620,13 @@ export const RepositoryServiceUpdateRepository = ({
   <Mutate<
     V1alpha1Repository,
     GatewayruntimeError,
-    void,
+    RepositoryServiceUpdateRepositoryQueryParams,
     RepositoryRepoUpdateRequest,
     RepositoryServiceUpdateRepositoryPathParams
   >
     verb="PUT"
     path={`/api/v1/agents/${agentIdentifier}/repositories/${requestRepoRepo}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -2444,7 +2635,7 @@ export type UseRepositoryServiceUpdateRepositoryProps = Omit<
   UseMutateProps<
     V1alpha1Repository,
     GatewayruntimeError,
-    void,
+    RepositoryServiceUpdateRepositoryQueryParams,
     RepositoryRepoUpdateRequest,
     RepositoryServiceUpdateRepositoryPathParams
   >,
@@ -2463,18 +2654,21 @@ export const useRepositoryServiceUpdateRepository = ({
   useMutate<
     V1alpha1Repository,
     GatewayruntimeError,
-    void,
+    RepositoryServiceUpdateRepositoryQueryParams,
     RepositoryRepoUpdateRequest,
     RepositoryServiceUpdateRepositoryPathParams
   >(
     'PUT',
     (paramsInPath: RepositoryServiceUpdateRepositoryPathParams) =>
       `/api/v1/agents/${paramsInPath.agentIdentifier}/repositories/${paramsInPath.requestRepoRepo}`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier, requestRepoRepo }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier, requestRepoRepo }, ...props }
   )
 
 export interface TaskServiceNextQueryParams {
   identifier?: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface TaskServiceNextPathParams {
@@ -2490,7 +2684,7 @@ export type TaskServiceNextProps = Omit<
 export const TaskServiceNext = ({ agentIdentifier, ...props }: TaskServiceNextProps) => (
   <Get<V1TaskList, GatewayruntimeError, TaskServiceNextQueryParams, TaskServiceNextPathParams>
     path={`/api/v1/agents/${agentIdentifier}/tasks`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -2504,7 +2698,7 @@ export type UseTaskServiceNextProps = Omit<
 export const useTaskServiceNext = ({ agentIdentifier, ...props }: UseTaskServiceNextProps) =>
   useGet<V1TaskList, GatewayruntimeError, TaskServiceNextQueryParams, TaskServiceNextPathParams>(
     (paramsInPath: TaskServiceNextPathParams) => `/api/v1/agents/${paramsInPath.agentIdentifier}/tasks`,
-    { base: getConfig('gitops-api'), pathParams: { agentIdentifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { agentIdentifier }, ...props }
   )
 
 export interface AgentServiceDeleteQueryParams {
@@ -2512,7 +2706,7 @@ export interface AgentServiceDeleteQueryParams {
   projectIdentifier?: string
   orgIdentifier?: string
   name?: string
-  type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
+  type?: 'AGENT_TYPE_UNSET' | 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
   tags?: string[]
   searchTerm?: string
   pageSize?: number
@@ -2528,7 +2722,7 @@ export const AgentServiceDelete = (props: AgentServiceDeleteProps) => (
   <Mutate<V1Agent, GatewayruntimeError, AgentServiceDeleteQueryParams, string, void>
     verb="DELETE"
     path={`/api/v1/agents`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -2540,7 +2734,7 @@ export type UseAgentServiceDeleteProps = Omit<
 
 export const useAgentServiceDelete = (props: UseAgentServiceDeleteProps) =>
   useMutate<V1Agent, GatewayruntimeError, AgentServiceDeleteQueryParams, string, void>('DELETE', `/api/v1/agents`, {
-    base: getConfig('gitops-api'),
+    base: getConfig('ng/gitops-api'),
     ...props
   })
 
@@ -2549,7 +2743,7 @@ export interface AgentServiceGetQueryParams {
   projectIdentifier?: string
   orgIdentifier?: string
   name?: string
-  type?: 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
+  type?: 'AGENT_TYPE_UNSET' | 'CONNECTED_ARGO_PROVIDER' | 'MANAGED_ARGO_PROVIDER'
   tags?: string[]
   searchTerm?: string
   pageSize?: number
@@ -2569,7 +2763,7 @@ export type AgentServiceGetProps = Omit<
 export const AgentServiceGet = ({ identifier, ...props }: AgentServiceGetProps) => (
   <Get<V1Agent, GatewayruntimeError, AgentServiceGetQueryParams, AgentServiceGetPathParams>
     path={`/api/v1/agents/${identifier}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -2583,7 +2777,7 @@ export type UseAgentServiceGetProps = Omit<
 export const useAgentServiceGet = ({ identifier, ...props }: UseAgentServiceGetProps) =>
   useGet<V1Agent, GatewayruntimeError, AgentServiceGetQueryParams, AgentServiceGetPathParams>(
     (paramsInPath: AgentServiceGetPathParams) => `/api/v1/agents/${paramsInPath.identifier}`,
-    { base: getConfig('gitops-api'), pathParams: { identifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { identifier }, ...props }
   )
 
 export interface TaskServiceCompletePathParams {
@@ -2605,7 +2799,7 @@ export const TaskServiceComplete = ({
   <Mutate<V1Task, GatewayruntimeError, void, void, TaskServiceCompletePathParams>
     verb="PUT"
     path={`/api/v1/agents/${identityMetaAgentIdentifier}/tasks/${identifier}`}
-    base={getConfig('gitops-api')}
+    base={getConfig('ng/gitops-api')}
     {...props}
   />
 )
@@ -2625,5 +2819,5 @@ export const useTaskServiceComplete = ({
     'PUT',
     (paramsInPath: TaskServiceCompletePathParams) =>
       `/api/v1/agents/${paramsInPath.identityMetaAgentIdentifier}/tasks/${paramsInPath.identifier}`,
-    { base: getConfig('gitops-api'), pathParams: { identityMetaAgentIdentifier, identifier }, ...props }
+    { base: getConfig('ng/gitops-api'), pathParams: { identityMetaAgentIdentifier, identifier }, ...props }
   )

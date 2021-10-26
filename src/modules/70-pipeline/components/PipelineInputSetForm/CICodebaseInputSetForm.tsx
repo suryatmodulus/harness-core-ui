@@ -118,7 +118,6 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           checked={codeBaseType === 'branch'}
           disabled={readonly}
           font={{ variation: FontVariation.FORM_LABEL }}
-          flex
         />
         <Radio
           label={inputLabels['tag']}
@@ -126,7 +125,6 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           checked={codeBaseType === 'tag'}
           disabled={readonly}
           font={{ variation: FontVariation.FORM_LABEL }}
-          flex
         />
         <Radio
           label={inputLabels['PR']}
@@ -134,7 +132,6 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           checked={codeBaseType === 'PR'}
           disabled={readonly}
           font={{ variation: FontVariation.FORM_LABEL }}
-          flex
         />
       </Layout.Horizontal>
       {codeBaseType === 'branch' ? renderCodeBaseTypeInput('branch') : null}

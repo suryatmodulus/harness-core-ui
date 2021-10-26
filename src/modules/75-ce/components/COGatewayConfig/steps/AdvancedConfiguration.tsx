@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Layout, Toggle } from '@wings-software/uicore'
-import { CONFIG_STEP_IDS, CONFIG_TOTAL_STEP_COUNTS, RESOURCES } from '@ce/constants'
+import { CONFIG_STEP_IDS, RESOURCES } from '@ce/constants'
 import { useStrings } from 'framework/strings'
 import { Utils } from '@ce/common/Utils'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
@@ -38,7 +38,7 @@ const AdvancedConfiguration: React.FC<AdvancedConfigurationProps> = props => {
 
   return (
     <COGatewayConfigStep
-      count={isK8sSelected ? CONFIG_TOTAL_STEP_COUNTS.MODIFIED : CONFIG_TOTAL_STEP_COUNTS.DEFAULT}
+      count={props.totalStepsCount}
       title={`${getString('ce.co.autoStoppingRule.configuration.step4.setup')} ${getString(
         'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
       )}`}

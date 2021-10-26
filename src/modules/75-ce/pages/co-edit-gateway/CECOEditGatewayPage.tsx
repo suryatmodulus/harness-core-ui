@@ -104,6 +104,12 @@ export const CECOEditGatewayPage: React.FC = () => {
       customDomains: service.custom_domains,
       deps: deps
     }
+    // for just display purpose
+    if (!_isEmpty(service.routing?.container_svc)) {
+      gwDetails.resourceMeta = {
+        container_svc: service.routing?.container_svc
+      }
+    }
     setGatewayDetails(gwDetails)
   }, [data, resources])
 

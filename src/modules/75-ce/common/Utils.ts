@@ -113,4 +113,8 @@ export class Utils {
     }
     return modeToHeaderMap[mode]
   }
+
+  static getConditionalResult = (condition: boolean, result1: any, result2: any) => {
+    return condition ? result1 : result2
+  }
 }

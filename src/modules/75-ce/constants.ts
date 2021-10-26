@@ -61,7 +61,9 @@ export const ConnectorStatus = {
 
 export enum GatewayKindType {
   INSTANCE = 'instance',
-  KUBERNETES = 'k8s'
+  KUBERNETES = 'k8s',
+  DATABASE = 'database',
+  CONTAINERS = 'containers'
 }
 
 export enum CCM_CHART_TYPES {
@@ -98,7 +100,9 @@ export const CONFIG_IDLE_TIME_CONSTRAINTS = {
 export enum RESOURCES {
   INSTANCES = 'INSTANCES',
   ASG = 'ASG',
-  KUBERNETES = 'KUBERNETES'
+  KUBERNETES = 'KUBERNETES',
+  ECS = 'ECS',
+  RDS = 'RDS'
 }
 
 export const CONFIG_TOTAL_STEP_COUNTS = {

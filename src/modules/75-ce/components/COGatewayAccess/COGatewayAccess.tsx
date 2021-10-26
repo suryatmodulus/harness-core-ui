@@ -11,14 +11,17 @@ import {
   Text,
   HarnessDocTooltip
 } from '@wings-software/uicore'
-import { isEmpty as _isEmpty, map as _map } from 'lodash-es'
+import { useParams } from 'react-router-dom'
+import { isEmpty as _isEmpty, map as _map, defaultTo as _defaultTo } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import { Utils } from '@ce/common/Utils'
 import { useToaster } from '@common/exports'
 import { DEFAULT_ACCESS_DETAILS } from '@ce/constants'
-import type { Service } from 'services/lw'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageSpinner } from '@common/components'
+import { Service, useDescribeServiceInContainerServiceCluster } from 'services/lw'
 import DNSLinkSetup from './DNSLinkSetup'
 import SSHSetup from './SSHSetup'
 import IPSetup from './IPAddressSetup'
@@ -40,12 +43,15 @@ interface COGatewayAccessProps {
 
 const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
-    props.gatewayDetails.opts.access_details // eslint-disable-line
-      ? (props.gatewayDetails.opts.access_details as ConnectionMetadata) // eslint-disable-line
-      : DEFAULT_ACCESS_DETAILS
+    Utils.getConditionalResult(
+      !_isEmpty(props.gatewayDetails.opts.access_details),
+      props.gatewayDetails.opts.access_details as ConnectionMetadata,
+      DEFAULT_ACCESS_DETAILS
+    )
   )
   const [selectedTabId, setSelectedTabId] = useState<string>('')
   const [selectedHelpText, setSelectedHelpText] = useState<string>('')
@@ -55,12 +61,24 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     props.gatewayDetails.routing.k8s?.RuleJson ? JSON.parse(props.gatewayDetails.routing.k8s.RuleJson) : undefined
   )
 
+  const { data: serviceDescribeData, loading: serviceDataLoading } = useDescribeServiceInContainerServiceCluster({
+    account_id: accountId,
+    cluster_name: _defaultTo(props.gatewayDetails.routing.container_svc?.cluster, ''),
+    service_name: _defaultTo(props.gatewayDetails.routing.container_svc?.service, ''),
+    queryParams: {
+      accountIdentifier: accountId,
+      cloud_account_id: props.gatewayDetails.cloudAccount.id,
+      region: _defaultTo(props.gatewayDetails.routing.container_svc?.region, '')
+    }
+  })
+
   const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
 
   useEffect(() => {
     let validStatus = false
-
-    if (accessDetails.dnsLink.selected) {
+    if (serviceDescribeData?.response?.loadbalanced === false || !_isEmpty(props.gatewayDetails.routing.database)) {
+      validStatus = true
+    } else if (accessDetails.dnsLink.selected) {
       validStatus = getValidStatusForDnsLink(props.gatewayDetails)
     } else {
       validStatus =
@@ -89,7 +107,10 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     props.gatewayDetails.customDomains,
     props.gatewayDetails.accessPointID,
     props.gatewayDetails.routing.ports,
-    yamlData
+    yamlData,
+    props.gatewayDetails.routing.container_svc,
+    serviceDescribeData?.response,
+    props.gatewayDetails.routing.database
   ])
 
   useEffect(() => {
@@ -118,12 +139,8 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   ) => {
     const yamlRuleName = _data?.metadata?.name
     const updatedName = Utils.getHyphenSpacedString(props.gatewayDetails.name)
-    let nameToReplace = updatedName
+    const nameToReplace = Utils.getConditionalResult(resourceToUpdateWith === 'yaml', yamlRuleName, updatedName)
     const namespace = _data.metadata?.namespace || 'default'
-
-    if (resourceToUpdateWith === 'yaml') {
-      nameToReplace = yamlRuleName
-    }
     const yamlToSave = {
       ..._data,
       metadata: {
@@ -176,7 +193,46 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     )
   }
 
-  const tooltipId = isAwsProvider ? 'awsSetupAccess' : 'azureSetupAccess'
+  const isAccessSetupNotRequired = () => {
+    return (
+      (!serviceDataLoading &&
+        !_isEmpty(serviceDescribeData?.response) &&
+        serviceDescribeData?.response?.loadbalanced === false) ||
+      !_isEmpty(props.gatewayDetails.routing.database)
+    )
+  }
+
+  const getEmptyAccessSetupText = () => {
+    return Utils.getConditionalResult(
+      !_isEmpty(props.gatewayDetails.routing.database),
+      getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.title'),
+      getString('ce.co.autoStoppingRule.setupAccess.noSetupRequired', { name: 'ECS' })
+    )
+  }
+
+  const tooltipId = Utils.getConditionalResult(isAwsProvider, 'awsSetupAccess', 'azureSetupAccess')
+
+  const shouldShowSshOption = _isEmpty(props.gatewayDetails.routing.container_svc)
+
+  if (serviceDataLoading) {
+    return (
+      <Layout.Horizontal>
+        <PageSpinner />
+      </Layout.Horizontal>
+    )
+  }
+
+  if (isAccessSetupNotRequired()) {
+    return (
+      <Container className={css.page}>
+        {!_isEmpty(props.gatewayDetails.routing.database) ? (
+          <RDSSetupAccessInfo />
+        ) : (
+          <Text>{getEmptyAccessSetupText()}</Text>
+        )}
+      </Container>
+    )
+  }
 
   return (
     <Container className={css.page}>
@@ -272,15 +328,17 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                   className={css.checkbox}
                   defaultChecked={accessDetails.dnsLink.selected}
                 />
-                <Checkbox
-                  label="SSH / RDP"
-                  id="ssh"
-                  onChange={val => {
-                    setAccessDetails({ ...accessDetails, ssh: { selected: val.currentTarget.checked } })
-                  }}
-                  className={css.checkbox}
-                  defaultChecked={accessDetails.ssh.selected}
-                />
+                {shouldShowSshOption && (
+                  <Checkbox
+                    label="SSH / RDP"
+                    id="ssh"
+                    onChange={val => {
+                      setAccessDetails({ ...accessDetails, ssh: { selected: val.currentTarget.checked } })
+                    }}
+                    className={css.checkbox}
+                    defaultChecked={accessDetails.ssh.selected}
+                  />
+                )}
               </Layout.Vertical>
               {/* <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
               <Checkbox
@@ -363,6 +421,46 @@ const SetupAccessTabs: React.FC<SetupAccessTabsProps> = props => {
         })}
       </Tabs>
     </Container>
+  )
+}
+
+const RDSSetupAccessInfo = () => {
+  const { getString } = useStrings()
+  return (
+    <Layout.Vertical spacing="large">
+      <Heading level={2}>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.title')}</Heading>
+      <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.title')}</Text>
+      <ul>
+        <li>
+          <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.listPointer1')}</Text>
+        </li>
+        <li>
+          <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.listPointer2')}</Text>
+          <ul>
+            <li>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.subListPointer1')}</li>
+            <li>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.subListPointer2')}</li>
+            <li>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.subListPointer3')}</li>
+            <li>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.subListPointer4')}</li>
+            <li>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.subListPointer5')}</li>
+          </ul>
+        </li>
+      </ul>
+      <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example2.title')}</Text>
+      <ul>
+        <li>
+          <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example2.listPointer1')}</Text>
+        </li>
+      </ul>
+      <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example3.title')}</Text>
+      <ul>
+        <li>
+          <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example3.listPointer1')}</Text>
+        </li>
+        <li>
+          <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example3.listPointer2')}</Text>
+        </li>
+      </ul>
+    </Layout.Vertical>
   )
 }
 

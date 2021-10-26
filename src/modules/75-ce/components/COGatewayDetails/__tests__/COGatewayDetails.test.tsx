@@ -168,6 +168,10 @@ jest.mock('services/lw', () => ({
   })),
   useCreateAccessPoint: jest.fn().mockImplementation(() => ({
     mutate: jest.fn()
+  })),
+  useDescribeServiceInContainerServiceCluster: jest.fn().mockImplementation(() => ({
+    data: {},
+    loading: false
   }))
 }))
 

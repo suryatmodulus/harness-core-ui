@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty as _isEmpty, omit as _omit } from 'lodash-es'
-import type { CellProps, Renderer } from 'react-table'
-import ReactTimeago from 'react-timeago'
 import { Radio, RadioGroup } from '@blueprintjs/core'
-import { Button, Color, Icon, Layout, Table, Text, useModalHook } from '@wings-software/uicore'
-import { String, StringKeys, useStrings } from 'framework/strings'
+import { Layout, Text, useModalHook } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import { CONFIG_STEP_IDS, CONFIG_TOTAL_STEP_COUNTS, DEFAULT_ACCESS_DETAILS, RESOURCES } from '@ce/constants'
 import { FeatureFlag } from '@common/featureFlags'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import COK8sClusterSelector from '@ce/components/COK8sClusterSelector/COK8sClusterSelector'
 import { ConnectorInfoDTO, ConnectorResponse, useGetConnectorListV2 } from 'services/cd-ng'
-import { ASGMinimal, PortConfig, useAllResourcesOfAccount, useGetAllASGs } from 'services/lw'
+import { ASGMinimal, PortConfig, useAllResourcesOfAccount, useGetAllASGs, ContainerSvc, RDSDatabase } from 'services/lw'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import COInstanceSelector from '@ce/components/COInstanceSelector/COInstanceSelector'
+import COEcsSelector from '@ce/components/COEcsSelector/COEcsSelector'
 import COAsgSelector from '@ce/components/COAsgSelector'
 import { Connectors } from '@connectors/constants'
-import { TagsPopover } from '@common/components'
-import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { Utils } from '@ce/common/Utils'
-import COGatewayConfigStep from '../COGatewayConfigStep'
-import { fromResourceToInstanceDetails, isFFEnabledForResource } from '../helper'
-import ResourceSelectionModal from '../ResourceSelectionModal'
-import css from '../COGatewayConfig.module.scss'
+import CORdsSelector from '@ce/components/CORdsSelector/CORdsSelector'
+import COGatewayConfigStep from '../../COGatewayConfigStep'
+import { fromResourceToInstanceDetails, isFFEnabledForResource } from '../../helper'
+import ResourceSelectionModal from '../../ResourceSelectionModal'
+import { DisplaySelectedConnector } from './DisplaySelectedConnector'
+import { DisplaySelectedASG } from './DisplaySelectedASG'
+import { DisplaySelectedInstances } from './DisplaySelectedInstances'
+import { DisplaySelectedEcsService } from './DisplaySelectedEcsService'
+import { DisplaySelectedRdsDatabse } from './DisplaySelectedRdsDatabase'
+import css from '../../COGatewayConfig.module.scss'
 
 interface ManageResourcesProps {
   setDrawerOpen: (shouldOpen: boolean) => void
@@ -45,23 +48,10 @@ const managedResources = [
     value: RESOURCES.KUBERNETES,
     providers: ['aws', 'azure', 'gcp'],
     ffDependencies: ['CE_AS_KUBERNETES_ENABLED']
-  }
+  },
+  { label: 'ECS Service', value: RESOURCES.ECS, providers: ['aws'] },
+  { label: 'RDS instances', value: RESOURCES.RDS, providers: ['aws'] }
 ]
-
-const TableCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
-  return (
-    <Text lineClamp={3} color={Color.BLACK}>
-      {tableProps.value}
-    </Text>
-  )
-}
-const NameCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
-  return (
-    <Text lineClamp={3} color={Color.BLACK} style={{ overflowWrap: 'anywhere' }}>
-      {tableProps.value} {tableProps.row.original.id}
-    </Text>
-  )
-}
 
 const ManageResources: React.FC<ManageResourcesProps> = props => {
   const { getString } = useStrings()
@@ -114,7 +104,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     if (!props.gatewayDetails.provider) {
       return
     }
-    const resourcesFetchMap = {
+    const resourcesFetchMap: Record<string, () => void> = {
       [RESOURCES.INSTANCES]: refreshInstances,
       [RESOURCES.ASG]: fetchAndSetAsgItems,
       [RESOURCES.KUBERNETES]: fetchAndSetConnectors
@@ -161,25 +151,73 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     }
   }
 
-  const clearResourceDetailsFromGateway = (resourceType: RESOURCES) => {
-    if (resourceType === RESOURCES.INSTANCES) {
-      // set total no. of steps to default (4)
-      props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.DEFAULT)
-      // remove details related to AsG
-      resetSelectedAsgDetails()
-      resetKubernetesConnectorDetails()
-    } else if (resourceType === RESOURCES.ASG) {
-      // set total no. of steps to default (4)
-      props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.DEFAULT)
-      // remove details related to instances
-      resetSelectedInstancesDetails()
+  const resetSelectedEcsDetails = () => {
+    if (!_isEmpty(props.gatewayDetails.routing.container_svc)) {
+      const updatedGatewayDetails: GatewayDetails = {
+        ...props.gatewayDetails,
+        routing: { ...props.gatewayDetails.routing, container_svc: undefined }
+      }
+      props.setGatewayDetails(updatedGatewayDetails)
+    }
+  }
 
-      resetKubernetesConnectorDetails()
-    } else if (resourceType === RESOURCES.KUBERNETES) {
-      // set total no. of steps to modified (3)
-      props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.MODIFIED)
-      resetSelectedInstancesDetails()
-      resetSelectedAsgDetails()
+  const resetSelectedRdsDetails = () => {
+    if (!_isEmpty(props.gatewayDetails.routing.database)) {
+      const updatedGatewayDetails: GatewayDetails = {
+        ...props.gatewayDetails,
+        routing: { ...props.gatewayDetails.routing, database: undefined }
+      }
+      props.setGatewayDetails(updatedGatewayDetails)
+    }
+  }
+
+  const clearResourceDetailsFromGateway = (resourceType: RESOURCES) => {
+    const resourceToFunctionalityMap: Record<string, () => void> = {
+      [RESOURCES.INSTANCES]: () => {
+        // set total no. of steps to default (4)
+        props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.DEFAULT)
+        // remove details related to AsG
+        resetSelectedAsgDetails()
+        resetKubernetesConnectorDetails()
+        resetSelectedEcsDetails()
+        resetSelectedRdsDetails()
+      },
+      [RESOURCES.ASG]: () => {
+        // set total no. of steps to default (4)
+        props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.DEFAULT)
+        // remove details related to instances
+        resetSelectedInstancesDetails()
+        resetKubernetesConnectorDetails()
+        resetSelectedEcsDetails()
+        resetSelectedRdsDetails()
+      },
+      [RESOURCES.KUBERNETES]: () => {
+        // set total no. of steps to modified (3)
+        props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.MODIFIED)
+        resetSelectedInstancesDetails()
+        resetSelectedAsgDetails()
+        resetSelectedEcsDetails()
+        resetSelectedRdsDetails()
+      },
+      [RESOURCES.ECS]: () => {
+        props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.DEFAULT)
+        resetSelectedInstancesDetails()
+        resetSelectedAsgDetails()
+        resetKubernetesConnectorDetails()
+        resetSelectedRdsDetails()
+      },
+      [RESOURCES.RDS]: () => {
+        props.setTotalStepsCount(CONFIG_TOTAL_STEP_COUNTS.MODIFIED)
+        resetSelectedInstancesDetails()
+        resetSelectedAsgDetails()
+        resetKubernetesConnectorDetails()
+        resetSelectedEcsDetails()
+        resetSelectedRdsDetails()
+      }
+    }
+
+    if (resourceType) {
+      resourceToFunctionalityMap[resourceType]?.()
     }
   }
 
@@ -337,6 +375,46 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     )
   }, [filteredInstances, selectedInstances, loadingInstances, props.gatewayDetails])
 
+  const [openEcsModal, closeEcsModal] = useModalHook(
+    () => (
+      <ResourceSelectionModal
+        closeBtnTestId={'close-ecs-modal'}
+        onClose={() => {
+          closeEcsModal()
+        }}
+      >
+        <COEcsSelector
+          gatewayDetails={props.gatewayDetails}
+          setGatewayDetails={props.setGatewayDetails}
+          onServiceAddSuccess={() => {
+            closeEcsModal()
+          }}
+        />
+      </ResourceSelectionModal>
+    ),
+    [props.gatewayDetails]
+  )
+
+  const [openRdsModal, closeRdsModal] = useModalHook(
+    () => (
+      <ResourceSelectionModal
+        closeBtnTestId={'close-rds-modal'}
+        onClose={() => {
+          closeRdsModal()
+        }}
+      >
+        <CORdsSelector
+          gatewayDetails={props.gatewayDetails}
+          setGatewayDetails={props.setGatewayDetails}
+          onDbAddSuccess={() => {
+            closeRdsModal()
+          }}
+        />
+      </ResourceSelectionModal>
+    ),
+    [props.gatewayDetails]
+  )
+
   const handleAsgSearch = (text: string) => {
     if (!text) {
       setAsgToShow(allAsg)
@@ -370,7 +448,9 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     const modalCbMap: Record<string, () => void> = {
       [RESOURCES.INSTANCES]: openInstancesModal,
       [RESOURCES.ASG]: openAsgModal,
-      [RESOURCES.KUBERNETES]: openClusterModal
+      [RESOURCES.KUBERNETES]: openClusterModal,
+      [RESOURCES.ECS]: openEcsModal,
+      [RESOURCES.RDS]: openRdsModal
     }
     if (resource) {
       modalCbMap[resource]?.()
@@ -442,6 +522,12 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         )}
         {!_isEmpty(selectedAsg) && <DisplaySelectedASG data={[selectedAsg as ASGMinimal]} />}
         {!_isEmpty(selectedConnector) && <DisplaySelectedConnector data={[selectedConnector as ConnectorResponse]} />}
+        {!_isEmpty(props.gatewayDetails.resourceMeta?.container_svc) && (
+          <DisplaySelectedEcsService data={[props.gatewayDetails.resourceMeta?.container_svc as ContainerSvc]} />
+        )}
+        {!_isEmpty(props.gatewayDetails.routing.database) && (
+          <DisplaySelectedRdsDatabse data={[props.gatewayDetails.routing.database as RDSDatabase]} />
+        )}
       </Layout.Vertical>
     </COGatewayConfigStep>
   )
@@ -459,7 +545,9 @@ const DisplayResourceInfo: React.FC<DisplayResourceInfoProps> = props => {
     const textMap: Record<string, string> = {
       [RESOURCES.INSTANCES]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance'),
       [RESOURCES.ASG]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.asg'),
-      [RESOURCES.KUBERNETES]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.kubernetes')
+      [RESOURCES.KUBERNETES]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.kubernetes'),
+      [RESOURCES.ECS]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.ecs'),
+      [RESOURCES.RDS]: getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.rds')
     }
     return textMap[resource]
   }
@@ -468,7 +556,9 @@ const DisplayResourceInfo: React.FC<DisplayResourceInfoProps> = props => {
     const textMap: Record<string, string> = {
       [RESOURCES.INSTANCES]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.instance')}`,
       [RESOURCES.ASG]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg')}`,
-      [RESOURCES.KUBERNETES]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.kubernetes')}`
+      [RESOURCES.KUBERNETES]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.kubernetes')}`,
+      [RESOURCES.ECS]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.ecs')}`,
+      [RESOURCES.RDS]: `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.rds')}`
     }
     return textMap[resource]
   }
@@ -485,233 +575,6 @@ const DisplayResourceInfo: React.FC<DisplayResourceInfoProps> = props => {
         {getSelectedResourceModalCta(props.selectedResource?.valueOf() as string)}
       </Text>
     </Layout.Vertical>
-  )
-}
-
-interface DisplaySelectedInstancesProps {
-  data: InstanceDetails[]
-  onDelete: (index: number) => void
-}
-
-const DisplaySelectedInstances: React.FC<DisplaySelectedInstancesProps> = props => {
-  const RemoveCell = (tableProps: CellProps<InstanceDetails>) => {
-    return <Button className={css.clearBtn} icon={'delete'} onClick={() => props.onDelete(tableProps.row.index)} />
-  }
-  return (
-    <Table<InstanceDetails>
-      data={props.data}
-      bpTableProps={{}}
-      className={css.instanceTable}
-      columns={[
-        {
-          accessor: 'name',
-          Header: 'NAME AND ID',
-          width: '16.5%',
-          Cell: NameCell
-        },
-        {
-          accessor: 'ipv4',
-          Header: 'IP ADDRESS',
-          width: '16.5%',
-          Cell: TableCell,
-          disableSortBy: true
-        },
-        {
-          accessor: 'region',
-          Header: 'REGION',
-          width: '16.5%',
-          Cell: TableCell
-        },
-        {
-          accessor: 'type',
-          Header: 'TYPE',
-          width: '16.5%',
-          Cell: TableCell
-        },
-        {
-          accessor: 'tags',
-          Header: 'TAGS',
-          width: '16.5%',
-          Cell: TableCell
-        },
-        {
-          accessor: 'launch_time',
-          Header: 'LAUNCH TIME',
-          width: '16.5%',
-          Cell: TableCell
-        },
-        {
-          accessor: 'status',
-          Header: 'STATUS',
-          width: '16.5%',
-          Cell: TableCell
-        },
-        {
-          Header: '',
-          id: 'menu',
-          accessor: row => row.id,
-          width: '5%',
-          Cell: RemoveCell,
-          disableSortBy: true
-        }
-      ]}
-    />
-  )
-}
-
-interface DisplaySelectedASGProps {
-  data: ASGMinimal[]
-}
-
-const DisplaySelectedASG: React.FC<DisplaySelectedASGProps> = props => {
-  return (
-    <Table<ASGMinimal>
-      data={props.data}
-      bpTableProps={{}}
-      columns={[
-        {
-          accessor: 'name',
-          Header: 'Name and ID',
-          width: '16.5%',
-          Cell: NameCell
-        },
-        {
-          accessor: 'desired',
-          Header: 'Instances',
-          width: '10%',
-          Cell: TableCell,
-          disableSortBy: true
-        },
-        {
-          accessor: 'region',
-          Header: 'Region',
-          width: '16.5%',
-          Cell: TableCell
-        }
-      ]}
-    />
-  )
-}
-
-interface DisplaySelectedConnectorProps {
-  data: ConnectorResponse[]
-}
-
-const DisplaySelectedConnector: React.FC<DisplaySelectedConnectorProps> = props => {
-  const { getString } = useStrings()
-
-  const getConnectorDisplaySummaryLabel = (titleStringId: StringKeys, Element: JSX.Element): JSX.Element | string => {
-    return (
-      <div>
-        {titleStringId ? (
-          <Text inline color={Color.BLACK}>
-            <String stringID={titleStringId} />:
-          </Text>
-        ) : null}
-        {Element}
-      </div>
-    )
-  }
-
-  const displayDelegatesTagsSummary = (delegateSelectors: []): JSX.Element => {
-    return (
-      <div>
-        <Text inline color={Color.BLACK}>
-          <String stringID={'delegate.delegateTags'} />:
-        </Text>
-        <Text inline margin={{ left: 'xsmall' }} color={Color.GREY_400}>
-          {delegateSelectors?.join?.(', ')}
-        </Text>
-      </div>
-    )
-  }
-
-  const getK8DisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
-    return connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
-      ? displayDelegatesTagsSummary(connector.spec.delegateSelectors)
-      : getConnectorDisplaySummaryLabel('UrlLabel', <Text>{connector?.spec?.credential?.spec?.masterUrl}</Text>)
-  }
-
-  const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
-    const data = row.original
-    const tags = data.connector?.tags || {}
-    return (
-      <Layout.Horizontal spacing="small">
-        <div>
-          <Layout.Horizontal spacing="small">
-            <div color={Color.BLACK} title={data.connector?.name}>
-              {data.connector?.name}
-            </div>
-            {tags && Object.keys(tags).length ? <TagsPopover tags={tags} /> : null}
-          </Layout.Horizontal>
-          <div title={data.connector?.identifier}>{data.connector?.identifier}</div>
-        </div>
-      </Layout.Horizontal>
-    )
-  }
-
-  const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
-    const data = row.original
-
-    return data.connector ? (
-      <div>
-        <div color={Color.BLACK}>{getK8DisplaySummary(data.connector)}</div>
-      </div>
-    ) : null
-  }
-
-  const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
-    const data = row.original
-    return (
-      <Layout.Horizontal spacing="small">
-        <Icon name="activity" />
-        {data.activityDetails?.lastActivityTime ? <ReactTimeago date={data.activityDetails?.lastActivityTime} /> : null}
-      </Layout.Horizontal>
-    )
-  }
-  const RenderColumnLastUpdated: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
-    const data = row.original
-    return (
-      <Layout.Horizontal spacing="small">
-        {data.lastModifiedAt ? <ReactTimeago date={data.lastModifiedAt} /> : null}
-      </Layout.Horizontal>
-    )
-  }
-  return (
-    <Table<ConnectorResponse>
-      data={props.data}
-      bpTableProps={{}}
-      columns={[
-        {
-          Header: getString('connector').toUpperCase(),
-          accessor: row => row.connector?.name,
-          id: 'name',
-          width: '20%',
-          Cell: RenderColumnConnector
-        },
-        {
-          Header: getString('details').toUpperCase(),
-          accessor: row => row.connector?.description,
-          id: 'details',
-          width: '20%',
-          Cell: RenderColumnDetails
-        },
-        {
-          Header: getString('lastActivity').toUpperCase(),
-          accessor: 'activityDetails',
-          id: 'activity',
-          width: '20%',
-          Cell: RenderColumnActivity
-        },
-        {
-          Header: getString('lastUpdated').toUpperCase(),
-          accessor: 'lastModifiedAt',
-          id: 'lastModifiedAt',
-          width: '20%',
-          Cell: RenderColumnLastUpdated
-        }
-      ]}
-    />
   )
 }
 

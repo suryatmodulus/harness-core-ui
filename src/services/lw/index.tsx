@@ -110,6 +110,10 @@ export interface AllCertificatesResponse {
   response?: Certificate[]
 }
 
+export interface AllContainerServiceServicesResponse {
+  response?: ContainerServiceServiceMinimal[]
+}
+
 export interface AllExecutionRolesResponse {
   response?: ExecutionRule[]
 }
@@ -184,6 +188,69 @@ export interface CertificateData {
   password?: string
 }
 
+export interface ContainerClusterMinimal {
+  id?: string
+  name?: string
+  region?: string
+}
+
+export interface ContainerClustersResponse {
+  response?: ContainerClusterMinimal[]
+}
+
+export interface ContainerServiceService {
+  /**
+   * name of cluster of the service
+   */
+  cluster?: string
+  /**
+   * id of service
+   */
+  id?: string
+  /**
+   * Whether the service is load-balanced or not. Only loadbalanced services have DNS mapping
+   */
+  loadbalanced?: boolean
+  /**
+   * name of service
+   */
+  name?: string
+  /**
+   * region of service
+   */
+  region?: string
+  /**
+   * desired number of tasks
+   */
+  task_count?: number
+}
+
+export interface ContainerServiceServiceMinimal {
+  /**
+   * Name of cluster of service
+   */
+  cluster?: string
+  /**
+   * id of service
+   */
+  id?: string
+  /**
+   * name of service
+   */
+  name?: string
+  /**
+   * region of service
+   */
+  region?: string
+}
+
+export interface ContainerSvc {
+  cluster?: string
+  region?: string
+  service?: string
+  task_count?: number
+}
+
 export interface CreateAccessPointResponse {
   errors?: string[]
   metadata?: { [key: string]: any }
@@ -208,6 +275,10 @@ export interface CumulativeSavingsResponse {
 export interface DeleteAccessPointPayload {
   ids?: string[]
   with_resources?: boolean
+}
+
+export interface DescribeServiceOfContainerServicesResponse {
+  response?: ContainerServiceService
 }
 
 export interface ExecutionRule {
@@ -294,6 +365,11 @@ export interface PublicIp {
   version?: string
 }
 
+export interface RDSDatabase {
+  id?: string
+  region?: string
+}
+
 export interface Region {
   label?: string
   name?: string
@@ -348,7 +424,9 @@ export interface ResourcesResponse {
 }
 
 export interface RoutingData {
+  container_svc?: ContainerSvc
   custom_domain_providers?: { [key: string]: any }
+  database?: RDSDatabase
   instance?: InstanceBasedRoutingData
   k8s?: {
     ConnectorID?: string
@@ -546,8 +624,6 @@ export interface Vpc {
 }
 
 export type AccessPointRequestBody = AccessPoint
-
-export type ResourceFilterBodyRequestBody = ResourceFilterBody
 
 export interface DeleteAccessPointsQueryParams {
   accountIdentifier: string
@@ -827,6 +903,8 @@ export interface AccessPointResourcesQueryParams {
   region: string
   resource_group_name?: string
   accountIdentifier: string
+  service?: string
+  cluster?: string
 }
 
 export interface AccessPointResourcesPathParams {
@@ -1795,6 +1873,232 @@ export const useGetCloudFormationTemplate = ({ account_id, ...props }: UseGetClo
   useGet<CFTResponse, void, GetCloudFormationTemplateQueryParams, GetCloudFormationTemplatePathParams>(
     (paramsInPath: GetCloudFormationTemplatePathParams) => `/accounts/${paramsInPath.account_id}/cft_path`,
     { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
+  )
+
+export interface GetContainerClustersOfRegionQueryParams {
+  cloud_account_id: string
+  accountIdentifier: string
+  region: string
+}
+
+export interface GetContainerClustersOfRegionPathParams {
+  account_id: string
+}
+
+export type GetContainerClustersOfRegionProps = Omit<
+  GetProps<
+    ContainerClustersResponse,
+    void,
+    GetContainerClustersOfRegionQueryParams,
+    GetContainerClustersOfRegionPathParams
+  >,
+  'path'
+> &
+  GetContainerClustersOfRegionPathParams
+
+/**
+ * Container clusters of region
+ *
+ * Get all clusters of container service in the region
+ */
+export const GetContainerClustersOfRegion = ({ account_id, ...props }: GetContainerClustersOfRegionProps) => (
+  <Get<ContainerClustersResponse, void, GetContainerClustersOfRegionQueryParams, GetContainerClustersOfRegionPathParams>
+    path={`/accounts/${account_id}/container_services/clusters`}
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseGetContainerClustersOfRegionProps = Omit<
+  UseGetProps<
+    ContainerClustersResponse,
+    void,
+    GetContainerClustersOfRegionQueryParams,
+    GetContainerClustersOfRegionPathParams
+  >,
+  'path'
+> &
+  GetContainerClustersOfRegionPathParams
+
+/**
+ * Container clusters of region
+ *
+ * Get all clusters of container service in the region
+ */
+export const useGetContainerClustersOfRegion = ({ account_id, ...props }: UseGetContainerClustersOfRegionProps) =>
+  useGet<
+    ContainerClustersResponse,
+    void,
+    GetContainerClustersOfRegionQueryParams,
+    GetContainerClustersOfRegionPathParams
+  >(
+    (paramsInPath: GetContainerClustersOfRegionPathParams) =>
+      `/accounts/${paramsInPath.account_id}/container_services/clusters`,
+    { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
+  )
+
+export interface ListOfServicesInContainerServiceClusterQueryParams {
+  cloud_account_id: string
+  accountIdentifier: string
+  region: string
+}
+
+export interface ListOfServicesInContainerServiceClusterPathParams {
+  account_id: string
+  /**
+   * name of the cluster
+   */
+  cluster_name: string
+}
+
+export type ListOfServicesInContainerServiceClusterProps = Omit<
+  GetProps<
+    AllContainerServiceServicesResponse,
+    void,
+    ListOfServicesInContainerServiceClusterQueryParams,
+    ListOfServicesInContainerServiceClusterPathParams
+  >,
+  'path'
+> &
+  ListOfServicesInContainerServiceClusterPathParams
+
+/**
+ * List of services belonging to cluster of container service
+ *
+ * Get list of services belonging to the cluster of container service
+ */
+export const ListOfServicesInContainerServiceCluster = ({
+  account_id,
+  cluster_name,
+  ...props
+}: ListOfServicesInContainerServiceClusterProps) => (
+  <Get<
+    AllContainerServiceServicesResponse,
+    void,
+    ListOfServicesInContainerServiceClusterQueryParams,
+    ListOfServicesInContainerServiceClusterPathParams
+  >
+    path={`/accounts/${account_id}/container_services/clusters/${cluster_name}/services`}
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseListOfServicesInContainerServiceClusterProps = Omit<
+  UseGetProps<
+    AllContainerServiceServicesResponse,
+    void,
+    ListOfServicesInContainerServiceClusterQueryParams,
+    ListOfServicesInContainerServiceClusterPathParams
+  >,
+  'path'
+> &
+  ListOfServicesInContainerServiceClusterPathParams
+
+/**
+ * List of services belonging to cluster of container service
+ *
+ * Get list of services belonging to the cluster of container service
+ */
+export const useListOfServicesInContainerServiceCluster = ({
+  account_id,
+  cluster_name,
+  ...props
+}: UseListOfServicesInContainerServiceClusterProps) =>
+  useGet<
+    AllContainerServiceServicesResponse,
+    void,
+    ListOfServicesInContainerServiceClusterQueryParams,
+    ListOfServicesInContainerServiceClusterPathParams
+  >(
+    (paramsInPath: ListOfServicesInContainerServiceClusterPathParams) =>
+      `/accounts/${paramsInPath.account_id}/container_services/clusters/${paramsInPath.cluster_name}/services`,
+    { base: getConfig('lw/api'), pathParams: { account_id, cluster_name }, ...props }
+  )
+
+export interface DescribeServiceInContainerServiceClusterQueryParams {
+  cloud_account_id: string
+  accountIdentifier: string
+  region: string
+}
+
+export interface DescribeServiceInContainerServiceClusterPathParams {
+  account_id: string
+  /**
+   * name of the cluster
+   */
+  cluster_name: string
+  /**
+   * name of the service
+   */
+  service_name: string
+}
+
+export type DescribeServiceInContainerServiceClusterProps = Omit<
+  GetProps<
+    DescribeServiceOfContainerServicesResponse,
+    void,
+    DescribeServiceInContainerServiceClusterQueryParams,
+    DescribeServiceInContainerServiceClusterPathParams
+  >,
+  'path'
+> &
+  DescribeServiceInContainerServiceClusterPathParams
+
+/**
+ * Details of service in container service
+ *
+ * Details of service in container service
+ */
+export const DescribeServiceInContainerServiceCluster = ({
+  account_id,
+  cluster_name,
+  service_name,
+  ...props
+}: DescribeServiceInContainerServiceClusterProps) => (
+  <Get<
+    DescribeServiceOfContainerServicesResponse,
+    void,
+    DescribeServiceInContainerServiceClusterQueryParams,
+    DescribeServiceInContainerServiceClusterPathParams
+  >
+    path={`/accounts/${account_id}/container_services/clusters/${cluster_name}/services/${service_name}`}
+    base={getConfig('lw/api')}
+    {...props}
+  />
+)
+
+export type UseDescribeServiceInContainerServiceClusterProps = Omit<
+  UseGetProps<
+    DescribeServiceOfContainerServicesResponse,
+    void,
+    DescribeServiceInContainerServiceClusterQueryParams,
+    DescribeServiceInContainerServiceClusterPathParams
+  >,
+  'path'
+> &
+  DescribeServiceInContainerServiceClusterPathParams
+
+/**
+ * Details of service in container service
+ *
+ * Details of service in container service
+ */
+export const useDescribeServiceInContainerServiceCluster = ({
+  account_id,
+  cluster_name,
+  service_name,
+  ...props
+}: UseDescribeServiceInContainerServiceClusterProps) =>
+  useGet<
+    DescribeServiceOfContainerServicesResponse,
+    void,
+    DescribeServiceInContainerServiceClusterQueryParams,
+    DescribeServiceInContainerServiceClusterPathParams
+  >(
+    (paramsInPath: DescribeServiceInContainerServiceClusterPathParams) =>
+      `/accounts/${paramsInPath.account_id}/container_services/clusters/${paramsInPath.cluster_name}/services/${paramsInPath.service_name}`,
+    { base: getConfig('lw/api'), pathParams: { account_id, cluster_name, service_name }, ...props }
   )
 
 export interface AllExecutionRolesQueryParams {

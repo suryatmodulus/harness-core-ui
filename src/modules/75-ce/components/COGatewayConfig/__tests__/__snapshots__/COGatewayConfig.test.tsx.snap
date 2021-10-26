@@ -293,6 +293,32 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                   />
                   Auto scaling groups
                 </label>
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    name="Blueprint3.RadioGroup-0"
+                    type="radio"
+                    value="ECS"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  ECS Service
+                </label>
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    name="Blueprint3.RadioGroup-0"
+                    type="radio"
+                    value="RDS"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  RDS instances
+                </label>
               </div>
             </div>
           </div>
@@ -759,6 +785,32 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                   />
                   Auto scaling groups
                 </label>
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    name="Blueprint3.RadioGroup-2"
+                    type="radio"
+                    value="ECS"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  ECS Service
+                </label>
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    name="Blueprint3.RadioGroup-2"
+                    type="radio"
+                    value="RDS"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  RDS instances
+                </label>
               </div>
               <div
                 class="Layout--vertical StyledProps--main"
@@ -788,49 +840,49 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                     <th
                       colspan="1"
                       role="columnheader"
-                      style="width: 16.5%;"
+                      style="width: 15%;"
                     >
                       NAME AND ID
                     </th>
                     <th
                       colspan="1"
                       role="columnheader"
-                      style="width: 16.5%;"
+                      style="width: 15%;"
                     >
                       IP ADDRESS
                     </th>
                     <th
                       colspan="1"
                       role="columnheader"
-                      style="width: 16.5%;"
+                      style="width: 10%;"
                     >
                       REGION
                     </th>
                     <th
                       colspan="1"
                       role="columnheader"
-                      style="width: 16.5%;"
+                      style="width: 15%;"
                     >
                       TYPE
                     </th>
                     <th
                       colspan="1"
                       role="columnheader"
-                      style="width: 16.5%;"
+                      style="width: 15%;"
                     >
                       TAGS
                     </th>
                     <th
                       colspan="1"
                       role="columnheader"
-                      style="width: 16.5%;"
+                      style="width: 15%;"
                     >
                       LAUNCH TIME
                     </th>
                     <th
                       colspan="1"
                       role="columnheader"
-                      style="width: 16.5%;"
+                      style="width: 15%;"
                     >
                       STATUS
                     </th>
@@ -1437,6 +1489,32 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                     class="bp3-control-indicator"
                   />
                   Auto scaling groups
+                </label>
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    name="Blueprint3.RadioGroup-3"
+                    type="radio"
+                    value="ECS"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  ECS Service
+                </label>
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    name="Blueprint3.RadioGroup-3"
+                    type="radio"
+                    value="RDS"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  RDS instances
                 </label>
               </div>
               <div
@@ -2097,6 +2175,32 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                   />
                   Auto scaling groups
                 </label>
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    name="Blueprint3.RadioGroup-3"
+                    type="radio"
+                    value="ECS"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  ECS Service
+                </label>
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    name="Blueprint3.RadioGroup-3"
+                    type="radio"
+                    value="RDS"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  RDS instances
+                </label>
               </div>
               <div
                 class="Layout--vertical StyledProps--main"
@@ -2754,6 +2858,32 @@ exports[`Auto stopping Rule creation Tests kubernestes config edit 1`] = `
                     class="bp3-control-indicator"
                   />
                   Auto scaling groups
+                </label>
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    name="Blueprint3.RadioGroup-4"
+                    type="radio"
+                    value="ECS"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  ECS Service
+                </label>
+                <label
+                  class="bp3-control bp3-radio"
+                >
+                  <input
+                    name="Blueprint3.RadioGroup-4"
+                    type="radio"
+                    value="RDS"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                  RDS instances
                 </label>
               </div>
               <div

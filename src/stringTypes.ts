@@ -2724,6 +2724,8 @@ export interface StringsMap {
   'cd.whatIsHarnessAdapter': string
   'cd.whatIsHarnessManagedGitOpsServer': string
   'cd.workloadRequired': string
+  'ce.allClusters': string
+  'ce.allRegions': string
   'ce.budgets.listPage.budgetCount': string
   'ce.budgets.listPage.forecastAlert': string
   'ce.budgets.listPage.mtdAlert': string
@@ -2790,23 +2792,35 @@ export interface StringsMap {
   'ce.co.accessPoint.validation.subnets': string
   'ce.co.accessPoint.validation.vpc': string
   'ce.co.autoStopping': string
+  'ce.co.autoStoppingRule.configuration.addSelectedBtnText': string
   'ce.co.autoStoppingRule.configuration.asgSelectionInfoText': string
+  'ce.co.autoStoppingRule.configuration.ecsModal.emptyDescription': string
+  'ce.co.autoStoppingRule.configuration.ecsModal.title': string
   'ce.co.autoStoppingRule.configuration.instanceModal.description': string
+  'ce.co.autoStoppingRule.configuration.rdsModal.emptyDescription': string
+  'ce.co.autoStoppingRule.configuration.rdsModal.title': string
   'ce.co.autoStoppingRule.configuration.step1.form.idleTime.label': string
   'ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder': string
   'ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder': string
   'ce.co.autoStoppingRule.configuration.step1.subTitle': string
   'ce.co.autoStoppingRule.configuration.step1.title': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg': string
+  'ce.co.autoStoppingRule.configuration.step2.addResourceCta.ecs': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.instance': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.kubernetes': string
+  'ce.co.autoStoppingRule.configuration.step2.addResourceCta.rds': string
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.asg': string
+  'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.ecs': string
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance': string
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.kubernetes': string
+  'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.rds': string
   'ce.co.autoStoppingRule.configuration.step2.subTitle': string
   'ce.co.autoStoppingRule.configuration.step2.title': string
   'ce.co.autoStoppingRule.configuration.step3.asgSubTitle': string
   'ce.co.autoStoppingRule.configuration.step3.asgTitle': string
+  'ce.co.autoStoppingRule.configuration.step3.desiredTaskCount': string
+  'ce.co.autoStoppingRule.configuration.step3.ecsSubTitle': string
+  'ce.co.autoStoppingRule.configuration.step3.invalidValueErrorMsg': string
   'ce.co.autoStoppingRule.configuration.step3.policyNotEnabled': string
   'ce.co.autoStoppingRule.configuration.step3.subTitle': string
   'ce.co.autoStoppingRule.configuration.step3.title': string
@@ -2860,6 +2874,21 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.download': string
   'ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.title': string
   'ce.co.autoStoppingRule.setupAccess.noSetupRequired': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.listPointer1': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.listPointer2': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.subListPointer1': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.subListPointer2': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.subListPointer3': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.subListPointer4': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.subListPointer5': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example1.title': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example2.listPointer1': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example2.listPointer2': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example2.title': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example3.listPointer1': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example3.listPointer2': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.example3.title': string
+  'ce.co.autoStoppingRule.setupAccess.noSetupRequiredForRds.title': string
   'ce.co.autoStoppingRule.setupAccess.pageName': string
   'ce.co.autoStoppingRule.setupAccess.selectAppGateway': string
   'ce.co.autoStoppingRule.setupAccess.selectLb': string

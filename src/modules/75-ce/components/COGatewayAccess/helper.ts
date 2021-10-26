@@ -44,7 +44,7 @@ export const getValidStatusForDnsLink = (gatewayDetails: GatewayDetails): boolea
   }
 
   // check for routing ports
-  if (validStatus && _isEmpty(gatewayDetails.routing.ports)) {
+  if (validStatus && _isEmpty(gatewayDetails.routing.container_svc) && _isEmpty(gatewayDetails.routing.ports)) {
     validStatus = false
   }
   return validStatus

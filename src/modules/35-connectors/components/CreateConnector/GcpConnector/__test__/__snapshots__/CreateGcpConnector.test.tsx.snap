@@ -664,6 +664,21 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                   </span>
                 </div>
               </div>
+              <div
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
+                data-index="1"
+                tabindex="0"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main card"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                  >
+                    connectors.GCP.delegateInClusterInfo
+                  </span>
+                </div>
+              </div>
             </div>
             <div
               class="Layout--vertical StyledProps--main"
@@ -1447,6 +1462,21 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                         fill="#fff"
                       />
                     </svg>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
+                data-index="1"
+                tabindex="0"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main card"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
+                  >
+                    connectors.GCP.delegateInClusterInfo
                   </span>
                 </div>
               </div>

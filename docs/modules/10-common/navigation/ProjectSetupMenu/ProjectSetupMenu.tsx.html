@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">72.73% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>8/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -102,9 +102,7 @@
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -125,9 +123,9 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,9 +151,8 @@
 import { Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
-import type { Module, PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import type { GovernancePathProps, Module, PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { SidebarLink } from '../SideNav/SideNav'
 import NavExpandable from '../NavExpandable/NavExpandable'
@@ -167,12 +164,11 @@ interface ProjectSetupMenuProps {
 const ProjectSetupMenu: React.FC&lt;ProjectSetupMenuProps&gt; = ({ module }) =&gt; {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()
-  const templatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
+  const { NG_TEMPLATES, OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
   const params = { accountId, orgIdentifier, projectIdentifier, module }
-  const getGitSyncEnabled = (): boolean =&gt; {
-    if (module === 'ci' || module === 'cd' || !module) return true
-    return false
-  }
+  const isCIorCD = module === 'ci' || module === 'cd'
+  const getGitSyncEnabled = isCIorCD || !module
+&nbsp;
   return (
     &lt;NavExpandable title={getString('common.projectSetup')} route={routes.toSetup(params)}&gt;
       &lt;Layout.Vertical spacing="small"&gt;
@@ -180,15 +176,16 @@ const ProjectSetupMenu: React.FC&lt;ProjectSetupMenuProps&gt; = ({ module }) =&g
         &lt;SidebarLink label={getString('common.secrets')} to={routes.toSecrets(params)} /&gt;
         &lt;SidebarLink to={routes.toAccessControl(params)} label={getString('accessControl')} /&gt;
         &lt;SidebarLink label={getString('delegate.delegates')} to={routes.toDelegates(params)} /&gt;
-        {getGitSyncEnabled() ? (
+        {getGitSyncEnabled ? (
           &lt;SidebarLink
             label={getString('gitManagement')}
             to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier, module })}
           /&gt;
         ) : null}
-        {templatesEnabled ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;SidebarLink label={getString('common.templates')} to={routes.toTemplates(params)} /&gt;</span>
-        ) : null}
+        {NG_TEMPLATES ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;SidebarLink label={getString('common.templates')} to={routes.toTemplates(params)} /&gt; </span>: null}
+        {OPA_PIPELINE_GOVERNANCE &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isCIorCD </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >          &lt;SidebarLink label={getString('common.governance')} to={routes.toGovernance(params as GovernancePathProps)} /&gt;</span>
+        )}
       &lt;/Layout.Vertical&gt;
     &lt;/NavExpandable&gt;
   )
@@ -202,7 +199,7 @@ export default ProjectSetupMenu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 27 2021 15:55:36 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 27 2021 17:50:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

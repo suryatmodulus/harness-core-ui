@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.61% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>76/92</span>
+                <span class='fraction'>76/95</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.68% </span>
+                <span class="strong">66.34% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>134/198</span>
+                <span class='fraction'>134/202</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.95% </span>
+                <span class="strong">80.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>73/88</span>
+                <span class='fraction'>73/91</span>
             </div>
         
             
@@ -314,7 +314,14 @@
 <a name='L255'></a><a href='#L255'>255</a>
 <a name='L256'></a><a href='#L256'>256</a>
 <a name='L257'></a><a href='#L257'>257</a>
-<a name='L258'></a><a href='#L258'>258</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -324,7 +331,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -545,7 +551,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -575,13 +587,13 @@
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { PageError, PageSpinner } from '@wings-software/uicore'
+import { TrialInProgressTemplate } from '@rbac/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { ModuleName } from 'framework/types/ModuleName'
 import { HomePageTemplate } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
 import { useGetLicensesAndSummary, useGetProjectList } from 'services/cd-ng'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
-import { TrialInProgressTemplate } from '@rbac/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { useQueryParams } from '@common/hooks'
 import type { Project } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -589,7 +601,7 @@ import { useGetPipelineList, PagePMSPipelineSummaryResponse } from 'services/pip
 import { TrialType, useCDTrialModal, UseCDTrialModalProps } from '@cd/modals/CDTrial/useCDTrialModal'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { handleUpdateLicenseStore, useLicenseStore, isCDCommunity } from 'framework/LicenseStore/LicenseStoreContext'
 import { useToaster } from '@common/components'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import CDTrialHomePage from './CDTrialHomePage'
@@ -668,7 +680,7 @@ export const CDHomePage: React.FC = () =&gt; {
     }
   }
 &nbsp;
-  const { trial, modal } = useQueryParams&lt;{ trial?: boolean; modal?: boolean }&gt;()
+  const { trial, modal, community } = useQueryParams&lt;{ trial?: boolean; modal?: boolean; community?: boolean }&gt;()
   const { selectedProject, currentUserInfo } = useAppStore()
   const { accounts, defaultAccountId } = currentUserInfo
   const createdFromNG = accounts?.find(account =&gt; account.uuid === defaultAccountId)?.createdFromNG
@@ -802,7 +814,13 @@ export const CDHomePage: React.FC = () =&gt; {
       /&gt;
     )
   }
+&nbsp;
   const projectCreateSuccessHandler = <span class="fstat-no" title="function not covered" >(p</span>roject?: Project): void =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (isCDCommunity(licenseInformation) &amp;&amp; community) {</span>
+<span class="cstat-no" title="statement not covered" >      pushToPipelineStudio('-1', project, '?modal=trial')</span>
+<span class="cstat-no" title="statement not covered" >      return</span>
+    }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    if (project) {</span>
 <span class="cstat-no" title="statement not covered" >      history.push(</span>
         routes.toProjectOverview({
@@ -835,7 +853,7 @@ export default CDHomePage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 27 2021 17:50:09 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 27 2021 22:58:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

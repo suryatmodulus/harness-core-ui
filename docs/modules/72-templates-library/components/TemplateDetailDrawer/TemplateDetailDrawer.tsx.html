@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -105,27 +105,41 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,6 +171,8 @@
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button } from '@wings-software/uicore'
 import type { Module } from '@common/interfaces/RouteInterfaces'
+import type { EntityGitDetails } from 'services/template-ng'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
 import css from './TemplateDetailDrawer.module.scss'
 &nbsp;
@@ -168,10 +184,12 @@ export interface TemplateDetailsProps {
   orgIdentifier?: string
   projectIdentifier?: string
   module?: Module
+  gitDetails?: EntityGitDetails
 }
 &nbsp;
 export const TemplateDetailsDrawer: React.FC&lt;TemplateDetailsProps&gt; = props =&gt; {
-  const { templateIdentifier, versionLabel, onClose, accountId, orgIdentifier, projectIdentifier, module } = props
+  const { templateIdentifier, versionLabel, onClose, accountId, orgIdentifier, projectIdentifier, module, gitDetails } =
+    props
 &nbsp;
   return (
     &lt;Drawer
@@ -188,15 +206,18 @@ export const TemplateDetailsDrawer: React.FC&lt;TemplateDetailsProps&gt; = props
     &gt;
       &lt;Button minimal className={css.almostFullScreenCloseBtn} icon="cross" withoutBoxShadow onClick={onClose} /&gt;
       {templateIdentifier &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;TemplateDetails</span>
-          templateIdentifier={templateIdentifier}
-          versionLabel={versionLabel}
-          onClose={onClose}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-          module={module}
-        /&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;GitSyncStoreProvider&gt;</span>
+          &lt;TemplateDetails
+            templateIdentifier={templateIdentifier}
+            versionLabel={versionLabel}
+            onClose={onClose}
+            accountId={accountId}
+            orgIdentifier={orgIdentifier}
+            projectIdentifier={projectIdentifier}
+            module={module}
+            gitDetails={gitDetails}
+          /&gt;
+        &lt;/GitSyncStoreProvider&gt;
       )}
     &lt;/Drawer&gt;
   )
@@ -208,7 +229,7 @@ export const TemplateDetailsDrawer: React.FC&lt;TemplateDetailsProps&gt; = props
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 26 2021 23:19:43 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 27 2021 05:00:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

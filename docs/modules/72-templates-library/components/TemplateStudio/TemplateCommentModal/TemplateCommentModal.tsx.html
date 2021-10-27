@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -119,27 +119,39 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,6 +197,7 @@
 <span class="cstat-no" title="statement not covered" >import { Button, ButtonVariation, Color, Container, FormikForm, FormInput, Layout, Text } from '@wings-software/uicore'</span>
 <span class="cstat-no" title="statement not covered" >import { Formik } from 'formik'</span>
 <span class="cstat-no" title="statement not covered" >import { useStrings } from 'framework/strings'</span>
+<span class="cstat-no" title="statement not covered" >import { useAppStore } from 'framework/AppStore/AppStoreContext'</span>
 <span class="cstat-no" title="statement not covered" >import css from './TemplateCommentModal.module.scss'</span>
 &nbsp;
 export interface UpdateTemplateModalProps {
@@ -196,6 +209,7 @@ export interface UpdateTemplateModalProps {
 export const <span class="cstat-no" title="statement not covered" >TemplateCommentModal = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>p</span>rops: UpdateTemplateModalProps) =&gt; {</span>
   const { title, onSubmit, onClose } = <span class="cstat-no" title="statement not covered" >props</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+  const { isGitSyncEnabled } = <span class="cstat-no" title="statement not covered" >useAppStore()</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Container padding={'xxxlarge'} className={css.main}&gt;
@@ -227,7 +241,11 @@ export const <span class="cstat-no" title="statement not covered" >TemplateComme
                 &lt;Layout.Vertical spacing="small"&gt;
                   &lt;Container&gt;
                     &lt;Layout.Horizontal spacing="small" flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}&gt;
-                      &lt;Button text={getString('save')} type="submit" variation={ButtonVariation.PRIMARY} /&gt;
+                      &lt;Button
+                        text={isGitSyncEnabled ? getString('continue') : getString('save')}
+                        type="submit"
+                        variation={ButtonVariation.PRIMARY}
+                      /&gt;
                       &lt;Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onClose} /&gt;
                     &lt;/Layout.Horizontal&gt;
                   &lt;/Container&gt;
@@ -250,7 +268,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateComme
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 26 2021 23:19:43 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 27 2021 05:00:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

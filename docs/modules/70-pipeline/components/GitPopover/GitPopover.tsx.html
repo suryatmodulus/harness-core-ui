@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.47% </span>
+                <span class="strong">86.96% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/19</span>
+                <span class='fraction'>20/23</span>
             </div>
         
             
@@ -123,29 +123,39 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,7 +196,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
@@ -203,11 +213,12 @@ export interface GitPopoverProps {
   data: EntityGitDetails
   iconProps?: Omit&lt;IconProps, 'name'&gt;
   popoverProps?: IPopoverProps
+  customUI?: JSX.Element
 }
 &nbsp;
 export function RenderGitPopover(props: GitPopoverProps): React.ReactElement | null {
   const { getString } = useStrings()
-  const { data, iconProps, popoverProps } = props
+  const { data, iconProps, popoverProps, customUI } = props
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
 &nbsp;
   const gitPopover = React.useCallback(() =&gt; {
@@ -218,28 +229,32 @@ export function RenderGitPopover(props: GitPopoverProps): React.ReactElement | n
           &lt;Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}&gt;
             {getString('pipeline.gitDetails').toUpperCase()}
           &lt;/Text&gt;
-          &lt;Layout.Vertical spacing="large"&gt;
-            &lt;Text font={{ size: 'small' }} color={Color.GREY_400}&gt;
-              {getString('repository')}
-            &lt;/Text&gt;
-            &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
-              &lt;Icon name="repository" size={16} color={Color.GREY_700} /&gt;
-              &lt;Text font={{ size: 'small' }} color={Color.GREY_800}&gt;
-                {(!loadingRepos &amp;&amp; getRepoDetailsByIndentifier(data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>epoIdentifier, gitSyncRepos)?.name) || ''}
-              &lt;/Text&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Layout.Vertical&gt;
-          &lt;Layout.Vertical spacing="large"&gt;
-            &lt;Text font={{ size: 'small' }} color={Color.GREY_400}&gt;
-              {getString('pipelineSteps.deploy.inputSet.branch')}
-            &lt;/Text&gt;
-            &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
-              &lt;Icon name="git-new-branch" size={14} color={Color.GREY_700} /&gt;
-              &lt;Text font={{ size: 'small' }} color={Color.GREY_800}&gt;
-                {data.branch}
-              &lt;/Text&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Layout.Vertical&gt;
+          {<span class="branch-0 cbranch-no" title="branch not covered" >customUI </span>?? (
+            &lt;&gt;
+              &lt;Layout.Vertical spacing="large"&gt;
+                &lt;Text font={{ size: 'small' }} color={Color.GREY_400}&gt;
+                  {getString('repository')}
+                &lt;/Text&gt;
+                &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
+                  &lt;Icon name="repository" size={16} color={Color.GREY_700} /&gt;
+                  &lt;Text font={{ size: 'small' }} color={Color.GREY_800}&gt;
+                    {(!loadingRepos &amp;&amp; getRepoDetailsByIndentifier(data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>epoIdentifier, gitSyncRepos)?.name) || ''}
+                  &lt;/Text&gt;
+                &lt;/Layout.Horizontal&gt;
+              &lt;/Layout.Vertical&gt;
+              &lt;Layout.Vertical spacing="large"&gt;
+                &lt;Text font={{ size: 'small' }} color={Color.GREY_400}&gt;
+                  {getString('pipelineSteps.deploy.inputSet.branch')}
+                &lt;/Text&gt;
+                &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
+                  &lt;Icon name="git-new-branch" size={14} color={Color.GREY_700} /&gt;
+                  &lt;Text font={{ size: 'small' }} color={Color.GREY_800}&gt;
+                    {data.branch}
+                  &lt;/Text&gt;
+                &lt;/Layout.Horizontal&gt;
+              &lt;/Layout.Vertical&gt;
+            &lt;/&gt;
+          )}
         &lt;/Layout.Vertical&gt;
       &lt;/Popover&gt;
     )
@@ -262,7 +277,7 @@ export default function GitPopover(props: GitPopoverProps): React.ReactElement |
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 26 2021 23:19:43 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 27 2021 05:00:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

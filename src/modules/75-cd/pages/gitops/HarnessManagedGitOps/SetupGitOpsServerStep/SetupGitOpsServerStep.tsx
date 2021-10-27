@@ -144,7 +144,7 @@ export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps)
         description: '',
         identifier: '',
         tags: {},
-        metaData: {
+        metadata: {
           namespace: '',
           highAvailability: false
         }
@@ -173,7 +173,7 @@ export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps)
             enableReinitialize={true}
             formName={`GitOpsServerStepForm${provider?.type}`}
             validationSchema={Yup.object().shape({
-              metaData: Yup.object().shape({
+              metadata: Yup.object().shape({
                 namespace: Yup.string().trim().required('Please enter namespace')
               })
             })}
@@ -198,7 +198,7 @@ export default function SetupGitOpsServerStep(props: SetupGitOpsServerStepProps)
                     />
                     <div className={css.contentContainer}>
                       <div className={css.formContainer}>
-                        <FormInput.Text className={css.adapterUrl} name="metaData.namespace" label={'Namespace'} />
+                        <FormInput.Text className={css.adapterUrl} name="metadata.namespace" label={'Namespace'} />
                         <Text className={css.highAvailabilityLabel}> High Availabilty </Text>
                         <Toggle
                           label={''}

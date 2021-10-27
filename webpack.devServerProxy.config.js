@@ -11,7 +11,7 @@ module.exports = {
   },
   '/gitops-api': {
     pathRewrite: { '^/gitops-api': '' },
-    target: 'http://34.123.220.162/'
+    target: 'http://10.93.14.237/'
   },
   '/ng/api': {
     pathRewrite: { '^/ng/api': '' },

@@ -45,7 +45,8 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
   const [command] = useState(`kubectl apply -f ${yamlFileName}`)
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { triggerExtension } = useContext(DialogExtensionContext)
+  const [isExtensionOpen, setIsExtensionOpen] = useState(false)
+  const { triggerExtension, closeExtension } = useContext(DialogExtensionContext)
 
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({
@@ -94,6 +95,20 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
     }
   }
 
+  const handlePreviewYamlClick = () => {
+    const currVal = !isExtensionOpen
+    setIsExtensionOpen(currVal)
+    if (currVal) {
+      triggerExtension(<PermissionYAMLPreview />)
+    } else {
+      closeExtension()
+    }
+  }
+
+  const handleprev = () => {
+    props.previousStep?.({ ...props.prevStepData } as ConnectorInfoDTO)
+  }
+
   return (
     <Layout.Vertical spacing={'xlarge'} className={css.providePermissionContainer}>
       <Heading level={2} className={css.heading}>
@@ -110,36 +125,32 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
           {getString('connectors.readMore')}
         </a>
       </Text>
-      <Text>
-        {getString('connectors.ceK8.providePermissionsStep.downloadYamlText')}
-        <span className={css.previewLink} onClick={() => triggerExtension(<PermissionYAMLPreview />)}>
-          here
-        </span>
-        .
-      </Text>
+      <Text>{getString('connectors.ceK8.providePermissionsStep.downloadYamlText')}</Text>
       <div>
-        <Text>{getString('connectors.ceK8.providePermissionsStep.fileDescription.heading')}</Text>
-        <ul>
-          <li>{getString('connectors.ceK8.providePermissionsStep.fileDescription.info1')}</li>
-          <li>{getString('connectors.ceK8.providePermissionsStep.fileDescription.info2')}</li>
-          <li>{getString('connectors.ceK8.providePermissionsStep.fileDescription.info3')}</li>
-          <li>{getString('connectors.ceK8.providePermissionsStep.fileDescription.info4')}</li>
-        </ul>
-        {!isDownloadComplete && (
-          <Button
-            intent={'primary'}
-            outlined={true}
-            onClick={handleDownload}
-            text={getString('connectors.ceK8.providePermissionsStep.downloadYamlBtnText')}
-            className={css.stepBtn}
-          />
-        )}
-        {isDownloadComplete && (
-          <Layout.Horizontal className={css.successTextContainer}>
-            <Icon name="tick" />
-            <span>{getString('connectors.ceK8.providePermissionsStep.downloadComplete')}</span>
-          </Layout.Horizontal>
-        )}
+        <Layout.Horizontal>
+          {!isDownloadComplete && (
+            <Button
+              intent={'primary'}
+              outlined={true}
+              onClick={handleDownload}
+              text={getString('connectors.ceK8.providePermissionsStep.downloadYamlBtnText')}
+              className={css.stepBtn}
+            />
+          )}
+          {isDownloadComplete && (
+            <Layout.Horizontal className={css.successTextContainer}>
+              <Icon name="tick" />
+              <span>{getString('connectors.ceK8.providePermissionsStep.downloadComplete')}</span>
+            </Layout.Horizontal>
+          )}
+          <Text
+            className={css.previewLink}
+            onClick={handlePreviewYamlClick}
+            rightIcon={isExtensionOpen ? 'caret-left' : 'caret-right'}
+          >
+            {isExtensionOpen ? 'Collapse YAML' : 'Preview YAML'}
+          </Text>
+        </Layout.Horizontal>
         {isDownloadComplete && (
           <div className={css.commandSection}>
             <Text>{getString('connectors.ceK8.providePermissionsStep.applyDelegateText')}</Text>
@@ -162,15 +173,17 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
           </div>
         )}
       </div>
-      <Button
-        intent="primary"
-        text={getString('continue')}
-        rightIcon="chevron-right"
-        loading={isSaving}
-        disabled={isSaving || !(isDownloadComplete && isDelegateDone)}
-        onClick={() => saveAndContinue()}
-        className={css.submitBtn}
-      />
+      <Layout.Horizontal className={css.buttonPanel} spacing="small">
+        <Button text={getString('previous')} icon="chevron-left" onClick={handleprev} />
+        <Button
+          intent="primary"
+          text={getString('continue')}
+          rightIcon="chevron-right"
+          loading={isSaving}
+          disabled={isSaving || !(isDownloadComplete && isDelegateDone)}
+          onClick={() => saveAndContinue()}
+        />
+      </Layout.Horizontal>
     </Layout.Vertical>
   )
 }

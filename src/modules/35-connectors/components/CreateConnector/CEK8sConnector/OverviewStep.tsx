@@ -203,9 +203,16 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
                       items={connectorOptions}
                       disabled={connectorsLoading}
                       onChange={_item => {
+                        const val = `${_item.label}-Cost-access`
                         setSelectedConnector(_item)
-                        formikProps.setFieldValue('name', _item.label)
-                        formikProps.setFieldValue('identifier', _item.label.trim().split(' ').join('_'))
+                        formikProps.setFieldValue('name', val)
+                        formikProps.setFieldValue(
+                          'identifier',
+                          val
+                            .trim()
+                            .replace(/[^0-9a-zA-Z_$ ]/g, '')
+                            .replace(/ +/g, '_')
+                        )
                       }}
                       className={overviewCss.selectConnector}
                     />

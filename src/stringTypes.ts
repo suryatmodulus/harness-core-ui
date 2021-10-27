@@ -1406,6 +1406,9 @@ export interface StringsMap {
   'connectors.ceK8.chooseRequirements.visibility.description': string
   'connectors.ceK8.chooseRequirements.visibility.heading': string
   'connectors.ceK8.chooseRequirements.visibility.subheading': string
+  'connectors.ceK8.enableAutostopping.infoDesc': string
+  'connectors.ceK8.enableAutostopping.shoudlEnableAs': string
+  'connectors.ceK8.enableAutostopping.title': string
   'connectors.ceK8.infoText': string
   'connectors.ceK8.overview.createNewConnectorCta': string
   'connectors.ceK8.providePermissionsStep.applyDelegateText': string

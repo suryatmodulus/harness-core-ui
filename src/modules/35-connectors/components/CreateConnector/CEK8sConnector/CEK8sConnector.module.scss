@@ -2,6 +2,12 @@
   position: relative;
   height: 100%;
   width: 100%;
+  .buttonPanel {
+    position: absolute;
+    max-width: 500px;
+    left: 0;
+    bottom: 0;
+  }
 }
 
 .overviewStep {
@@ -130,12 +136,6 @@
         }
       }
     }
-  }
-  .buttonPanel {
-    position: absolute;
-    max-width: 500px;
-    left: 0;
-    bottom: 0;
   }
 }
 

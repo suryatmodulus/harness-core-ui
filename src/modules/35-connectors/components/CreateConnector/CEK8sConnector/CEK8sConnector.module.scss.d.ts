@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly ceK8SConnector: string
+  readonly buttonPanel: string
   readonly overviewStep: string
   readonly infoSection: string
   readonly formCont: string
@@ -21,7 +22,6 @@ declare const styles: {
   readonly subHeader: string
   readonly infobox: string
   readonly grid: string
-  readonly buttonPanel: string
   readonly secretCreationCont: string
   readonly copyCommand: string
 }

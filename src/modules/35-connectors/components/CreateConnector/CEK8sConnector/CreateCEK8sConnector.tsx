@@ -7,13 +7,13 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import DialogExtention from '@connectors/common/ConnectorExtention/DialogExtention'
 import OverviewStep from './OverviewStep'
 import ProvidePermissions from './ProvidePermissions'
-import FeatureSelectionStep from './FeatureSelectionStep'
 import SecretCreationStep from './SecretCreationStep'
+import EnableAutostoppping from './EnableAutostopping'
 import css from './CEK8sConnector.module.scss'
 
 const CreateCEK8sConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
-  const [isOptimizationSelected, setIsOptimizationSelected] = useState<boolean>(false)
+  const [isOptimizationSelected] = useState<boolean>(false)
   return (
     <DialogExtention dialogStyles={{ width: 1159 }}>
       <StepWizard
@@ -28,10 +28,14 @@ const CreateCEK8sConnector: React.FC<CreateConnectorModalProps> = props => {
           isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
         />
-        <FeatureSelectionStep
-          name="Feature Selection"
+        {/* <FeatureSelectionStep
+          name={getString('connectors.ceK8.enableAutostopping')}
           isEditMode={props.isEditMode}
           handleOptimizationSelection={setIsOptimizationSelected}
+        /> */}
+        <EnableAutostoppping
+          name={getString('connectors.ceK8.enableAutostopping.title')}
+          isEditMode={props.isEditMode}
         />
         {isOptimizationSelected ? <SecretCreationStep name="Secret Creation" /> : null}
         <ProvidePermissions {...props} name={'Provide permissions'} />

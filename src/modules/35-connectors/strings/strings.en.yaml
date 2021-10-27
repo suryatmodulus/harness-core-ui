@@ -386,6 +386,10 @@ ceK8:
   selectConnectorLabel: 'Reference an existing CD Kubernetes connector'
   overview:
     createNewConnectorCta: 'Create a new connector'
+  enableAutostopping:
+    title: 'Enable AutoStopping'
+    infoDesc: 'You can enable AutoStopping to optimize your non-production clusters by automaticaly detecting and scaling down idle pods and up when required.'
+    shoudlEnableAs: 'Would you like to enable AutoStopping for this cluster?'
   chooseRequirements:
     heading: '{{ $.connectors.ceAzure.steps.requirements }}'
     subheading: '{{ $.connectors.ceAzure.chooseRequirements.featureDesc }}'
@@ -409,7 +413,7 @@ ceK8:
   providePermissionsStep:
     heading: 'Provide Permissions - Download YAML'
     info: 'If you are using a EKS, ensure that the metrics server is installed on your Kubernetes cluster. '
-    downloadYamlText: 'To provide required permissions to your cluster, please download the YAML below and continue to apply it using instructions given in the next step. You can preview the YAML file '
+    downloadYamlText: 'To create a secret and provide required permissions to your cluster, please download the YAML to continue. An API token key has been generated for you it is a part of the YAML. '
     fileDescription:
       heading: 'This YAML file contains:'
       info1: 'Creation of a delegate'

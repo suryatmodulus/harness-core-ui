@@ -288,7 +288,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                 {getMultiTypeFromValue(formik.values.region) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginTop: 1 }}
                       value={formik.values?.region as string}
                       type="String"
                       variableName="region"
@@ -318,6 +318,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
+                      style={{ marginTop: 1 }}
                       value={formik.values.imagePath as string}
                       type="String"
                       variableName="imagePath"
@@ -389,6 +390,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>
                       <ConfigureOptions
+                        style={{ marginTop: 1 }}
                         value={formik.values.tag as string}
                         type="String"
                         variableName="tag"
@@ -416,6 +418,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>
                       <ConfigureOptions
+                        style={{ marginTop: 1 }}
                         value={formik.values.tagRegex as string}
                         type="String"
                         variableName="tagRegex"

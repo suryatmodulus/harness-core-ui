@@ -254,7 +254,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                     />
                     {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginBottom: 5 }}
                         value={formik.values?.branch as string}
                         type="String"
                         variableName="branch"
@@ -283,7 +283,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                     />
                     {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginBottom: 5 }}
                         value={formik.values?.commitId as string}
                         type="String"
                         variableName="commitId"
@@ -316,7 +316,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   />
                   {getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginBottom: 5 }}
                       value={formik.values?.folderPath as string}
                       type="String"
                       variableName="folderPath"
@@ -347,7 +347,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   />
                   {getMultiTypeFromValue(formik.values?.pluginPath) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginBottom: 5 }}
                       value={formik.values?.pluginPath as string}
                       type="String"
                       variableName="pluginPath"
@@ -393,7 +393,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                           showDefaultField={false}
                           showAdvanced={true}
                           onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
-                          style={{ alignSelf: 'center' }}
+                          style={{ alignSelf: 'center', marginTop: 11 }}
                           className={css.addmarginTop}
                           isReadonly={isReadonly}
                         />

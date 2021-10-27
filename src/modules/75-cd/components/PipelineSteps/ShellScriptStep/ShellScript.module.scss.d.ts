@@ -13,5 +13,6 @@ declare const styles: {
   readonly variablesList: string
   readonly minConfigBtn: string
   readonly addButton: string
+  readonly buttonMarginBottom: string
 }
 export default styles

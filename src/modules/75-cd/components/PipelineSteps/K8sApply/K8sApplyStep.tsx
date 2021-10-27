@@ -176,6 +176,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.buttonMarginBottom}
                     value={values.timeout as string}
                     type="String"
                     variableName="timeout"
@@ -205,7 +206,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                           <Layout.Horizontal
                             key={path.id}
                             flex={{ distribution: 'space-between' }}
-                            style={{ alignItems: 'end' }}
+                            style={{ alignItems: 'flex-start' }}
                           >
                             <FormInput.MultiTextInput
                               label=""

@@ -121,6 +121,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
+                      className={stepCss.buttonMarginBottom}
                       value={values.timeout as string}
                       type="String"
                       variableName="step.timeout"
@@ -151,6 +152,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                       (values?.spec?.instanceSelection?.spec as PercentageInstanceSelectionK8 | undefined)?.percentage
                     ) === MultiTypeInputType.RUNTIME) && (
                     <ConfigureOptions
+                      className={stepCss.buttonMarginBottom}
                       value={
                         ((values?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)
                           ?.count as string) ||
@@ -179,6 +181,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   />
                   {getMultiTypeFromValue(values.spec.workload) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
+                      className={stepCss.buttonMarginBottom}
                       value={values.spec.workload as string}
                       type="String"
                       variableName={getString('pipelineSteps.workload').toLowerCase()}

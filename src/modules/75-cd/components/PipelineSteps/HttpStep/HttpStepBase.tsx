@@ -67,6 +67,7 @@ export default function HttpStepBase(props: {
         />
         {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formValues.timeout || ''}
             type="String"
             variableName="timeout"
@@ -90,6 +91,7 @@ export default function HttpStepBase(props: {
         />
         {getMultiTypeFromValue(formValues.spec.url) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formValues.spec.url}
             type="String"
             variableName="spec.url"
@@ -111,6 +113,7 @@ export default function HttpStepBase(props: {
         />
         {getMultiTypeFromValue(formValues.spec.method) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formValues.spec.method as string}
             type="String"
             variableName="spec.method"
@@ -131,6 +134,7 @@ export default function HttpStepBase(props: {
         />
         {getMultiTypeFromValue(formValues.spec.requestBody) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            style={{ marginBottom: '2px' }}
             value={formValues.spec.requestBody}
             type="String"
             variableName="spec.requestBody"

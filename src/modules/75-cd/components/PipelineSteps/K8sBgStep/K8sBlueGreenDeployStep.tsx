@@ -92,6 +92,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    style={{ marginBottom: 5 }}
                     value={values.timeout as string}
                     type="String"
                     variableName="step.timeout"

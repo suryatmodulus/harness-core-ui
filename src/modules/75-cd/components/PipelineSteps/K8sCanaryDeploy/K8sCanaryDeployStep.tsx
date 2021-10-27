@@ -111,6 +111,7 @@ function K8CanaryDeployWidget(
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.buttonMarginBottom}
                     value={values.timeout as string}
                     type="String"
                     variableName="step.timeout"
@@ -137,6 +138,7 @@ function K8CanaryDeployWidget(
                   getMultiTypeFromValue(values?.spec?.instanceSelection?.spec?.percentage) ===
                     MultiTypeInputType.RUNTIME) && (
                   <ConfigureOptions
+                    className={stepCss.buttonMarginBottom}
                     value={
                       (values?.spec?.instanceSelection?.spec?.count as string) ||
                       (values?.spec?.instanceSelection?.spec?.percentage as string)

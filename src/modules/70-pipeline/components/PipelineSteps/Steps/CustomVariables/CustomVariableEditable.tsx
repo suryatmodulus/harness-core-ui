@@ -245,6 +245,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                           {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME && (
                             <div className={cx(css.configureButton)}>
                               <ConfigureOptions
+                                className={css.buttonMarginBottom}
                                 value={variable.value as string}
                                 defaultValue={variable.default}
                                 type={variable.type || /* istanbul ignore next */ 'String'}

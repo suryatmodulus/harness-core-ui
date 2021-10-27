@@ -268,6 +268,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formik.values.timeout || ''}
             type="String"
             variableName="timeout"
@@ -311,6 +312,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginTop}
             value={formik.values.spec.connectorRef as string}
             type="String"
             variableName="spec.connectorRef"
@@ -353,6 +355,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.spec.projectKey) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formik.values.spec.projectKey as string}
             type="String"
             variableName="spec.projectKey"
@@ -394,6 +397,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.spec.issueType) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formik.values.spec.issueType as string}
             type="String"
             variableName="spec.issueType"
@@ -418,6 +422,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.spec.summary) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formik.values.spec.summary || ''}
             type="String"
             variableName="spec.summary"
@@ -449,6 +454,7 @@ const FormContent = ({
                 />
                 {getMultiTypeFromValue(formik.values.spec.description) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={css.buttonMarginBottom}
                     value={formik.values.spec.description || ''}
                     type="String"
                     variableName="spec.description"

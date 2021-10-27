@@ -9,5 +9,7 @@ declare const styles: {
   readonly md: string
   readonly sm: string
   readonly deploymentViewMedium: string
+  readonly buttonMarginBottom: string
+  readonly buttonMarginTop: string
 }
 export default styles

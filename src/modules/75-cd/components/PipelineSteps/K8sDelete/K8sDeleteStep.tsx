@@ -263,6 +263,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                   />
                   {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
+                      className={stepCss.buttonMarginBottom}
                       value={values.timeout as string}
                       type="String"
                       variableName="step.timeout"
@@ -313,7 +314,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                             <Layout.Horizontal
                               key={_path.id}
                               flex={{ distribution: 'space-between' }}
-                              style={{ alignItems: 'end' }}
+                              style={{ alignItems: 'flex-start' }}
                             >
                               <FormInput.MultiTextInput
                                 label=""

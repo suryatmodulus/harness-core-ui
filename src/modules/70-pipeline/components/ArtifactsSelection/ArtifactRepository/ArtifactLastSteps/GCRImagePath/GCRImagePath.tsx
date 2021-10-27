@@ -276,6 +276,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                 {getMultiTypeFromValue(formik.values.registryHostname) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
+                      style={{ marginTop: 1 }}
                       value={formik.values.imagePath as string}
                       type="String"
                       variableName="registryHostname"
@@ -304,6 +305,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
+                      style={{ marginTop: 1 }}
                       value={formik.values.imagePath as string}
                       type="String"
                       variableName="imagePath"
@@ -372,6 +374,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>
                       <ConfigureOptions
+                        style={{ marginTop: 1 }}
                         value={formik.values.tag as string}
                         type="String"
                         variableName="tag"
@@ -399,6 +402,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>
                       <ConfigureOptions
+                        style={{ marginTop: 1 }}
                         value={formik.values.tagRegex as string}
                         type="String"
                         variableName="tagRegex"

@@ -103,6 +103,7 @@ function K8sCanaryDeleteWidget(
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.buttonMarginBottom}
                     value={values.timeout as string}
                     type="String"
                     variableName="timeout"

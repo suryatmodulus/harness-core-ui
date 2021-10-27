@@ -213,6 +213,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formik.values.timeout || ''}
             type="String"
             variableName="timeout"
@@ -245,6 +246,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginTop}
             value={formik.values.spec.connectorRef as string}
             type="String"
             variableName="spec.connectorRef"
@@ -266,6 +268,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.spec.issueKey) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formik.values.spec.issueKey as string}
             type="String"
             variableName="spec.issueKey"
@@ -302,6 +305,7 @@ const FormContent = ({
                 />
                 {getMultiTypeFromValue(formik.values.spec.transitionTo?.status) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={css.buttonMarginBottom}
                     value={formik.values.spec.transitionTo?.status as string}
                     type="String"
                     variableName="spec.transitionTo.status"
@@ -327,6 +331,7 @@ const FormContent = ({
                 {getMultiTypeFromValue(formik.values.spec.transitionTo?.transitionName) ===
                   MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={css.buttonMarginBottom}
                     value={formik.values.spec.transitionTo?.transitionName as string}
                     type="String"
                     variableName="spec.transitionTo.transitionName"

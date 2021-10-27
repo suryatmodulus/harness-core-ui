@@ -187,7 +187,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   />
                   {getMultiTypeFromValue(formik.values?.chartName) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginBottom: 5 }}
                       value={formik.values?.chartName as string}
                       type="String"
                       variableName="chartName"
@@ -217,7 +217,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                   />
                   {getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginBottom: 5 }}
                       value={formik.values?.chartVersion}
                       type="String"
                       variableName="chartVersion"

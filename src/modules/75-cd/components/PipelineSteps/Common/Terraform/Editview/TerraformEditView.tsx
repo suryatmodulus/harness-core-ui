@@ -141,6 +141,7 @@ export default function TerraformEditView(
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.buttonMarginBottom}
                     value={values.timeout as string}
                     type="String"
                     variableName="step.timeout"
@@ -175,6 +176,7 @@ export default function TerraformEditView(
                 />
                 {getMultiTypeFromValue(values.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.buttonMarginBottom}
                     value={values.spec?.provisionerIdentifier as string}
                     type="String"
                     variableName="spec.provisionerIdentifier"
@@ -241,6 +243,7 @@ export default function TerraformEditView(
                                 {getMultiTypeFromValue(formik.values.spec?.configuration?.spec?.workspace) ===
                                   MultiTypeInputType.RUNTIME && (
                                   <ConfigureOptions
+                                    className={stepCss.buttonMarginBottom}
                                     value={formik.values?.spec?.configuration?.spec?.workspace as string}
                                     type="String"
                                     variableName="configuration.spec.workspace"
@@ -300,6 +303,7 @@ export default function TerraformEditView(
                                 formik.values.spec?.configuration?.spec?.backendConfig?.spec?.content
                               ) === MultiTypeInputType.RUNTIME && (
                                 <ConfigureOptions
+                                  style={{ marginBottom: 5 }}
                                   value={
                                     formik.values.spec?.configuration?.spec?.backendConfig?.spec?.content as string
                                   }

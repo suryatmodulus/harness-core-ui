@@ -249,7 +249,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                     />
                     {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginBottom: 5 }}
                         value={formik.values?.branch as string}
                         type="String"
                         variableName="branch"
@@ -278,7 +278,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                     />
                     {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginBottom: 5 }}
                         value={formik.values?.commitId as string}
                         type="String"
                         variableName="commitId"
@@ -308,7 +308,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                   />
                   {getMultiTypeFromValue(formik.values?.path) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginBottom: 5 }}
                       value={formik.values?.path as string}
                       type="String"
                       variableName="path"
@@ -349,7 +349,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                           showDefaultField={false}
                           showAdvanced={true}
                           onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
-                          style={{ alignSelf: 'center' }}
+                          style={{ alignSelf: 'center', marginTop: 11 }}
                           className={css.addmarginTop}
                           isReadonly={isReadonly}
                         />

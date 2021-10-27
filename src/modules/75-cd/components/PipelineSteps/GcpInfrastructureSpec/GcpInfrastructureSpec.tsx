@@ -341,6 +341,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                 />
                 {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
+                    style={{ marginBottom: 11 }}
                     value={formik.values.namespace as string}
                     type="String"
                     variableName="namespace"
@@ -378,6 +379,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                       />
                       {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && !readonly && (
                         <ConfigureOptions
+                          style={{ marginBottom: 11 }}
                           value={formik.values.releaseName as string}
                           type="String"
                           variableName="releaseName"

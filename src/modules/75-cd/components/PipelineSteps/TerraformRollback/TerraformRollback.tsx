@@ -110,6 +110,7 @@ function TerraformRollbackWidget(
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.buttonMarginBottom}
                     value={values.timeout as string}
                     type="String"
                     variableName="step.timeout"
@@ -133,6 +134,7 @@ function TerraformRollbackWidget(
                 />
                 {getMultiTypeFromValue(values.spec.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.buttonMarginBottom}
                     value={values.spec.provisionerIdentifier}
                     type="String"
                     variableName="spec.provisionerIdentifier"

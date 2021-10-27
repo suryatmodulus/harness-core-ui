@@ -15,5 +15,7 @@ declare const styles: {
   readonly label: string
   readonly fetching: string
   readonly alignCenter: string
+  readonly buttonMarginBottom: string
+  readonly buttonMarginTop: string
 }
 export default styles

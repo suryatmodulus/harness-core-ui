@@ -59,6 +59,7 @@ export default function BaseShellScript(props: {
         />
         {getMultiTypeFromValue(formValues?.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formValues?.timeout as string}
             type="String"
             variableName="step.timeout"

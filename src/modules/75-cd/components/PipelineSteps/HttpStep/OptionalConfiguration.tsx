@@ -38,6 +38,7 @@ export default function OptionalConfiguration(props: {
         />
         {getMultiTypeFromValue(formValues.spec.assertion) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginBottom}
             value={formValues.spec.assertion}
             type="String"
             variableName="spec.assertion"

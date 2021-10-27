@@ -123,6 +123,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
         typeof value === 'string' &&
         getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={css.buttonMarginTop}
             value={value}
             type={getString('list')}
             variableName={name}

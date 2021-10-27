@@ -150,6 +150,7 @@ function TerraformPlanWidget(
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.buttonMarginBottom}
                     value={values.timeout as string}
                     type="String"
                     variableName="step.timeout"
@@ -184,6 +185,7 @@ function TerraformPlanWidget(
                 />
                 {getMultiTypeFromValue(values.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.buttonMarginBottom}
                     value={values.spec?.provisionerIdentifier as string}
                     type="String"
                     variableName="spec.provisionerIdentifier"
@@ -255,6 +257,7 @@ function TerraformPlanWidget(
                           {getMultiTypeFromValue(formik.values.spec?.configuration?.workspace) ===
                             MultiTypeInputType.RUNTIME && (
                             <ConfigureOptions
+                              className={stepCss.buttonMarginBottom}
                               value={formik.values?.spec?.configuration?.workspace as string}
                               type="String"
                               variableName="spec.configuration.workspace"

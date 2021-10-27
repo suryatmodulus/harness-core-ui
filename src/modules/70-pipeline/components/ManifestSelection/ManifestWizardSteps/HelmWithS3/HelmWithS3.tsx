@@ -293,7 +293,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
 
                   {getMultiTypeFromValue(formik.values.region) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginBottom: 5 }}
                       value={formik.values?.region as string}
                       type="String"
                       variableName="region"
@@ -324,7 +324,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                     />
                     {getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginBottom: 5 }}
                         value={formik.values?.bucketName as string}
                         type="String"
                         variableName="bucketName"
@@ -369,7 +369,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                     />
                     {getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME && (
                       <ConfigureOptions
-                        style={{ alignSelf: 'center' }}
+                        style={{ alignSelf: 'center', marginBottom: 5 }}
                         value={formik.values?.bucketName as string}
                         type="String"
                         variableName="bucketName"
@@ -399,7 +399,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                   />
                   {getMultiTypeFromValue(formik.values?.folderPath) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginBottom: 5 }}
                       value={formik.values?.folderPath as string}
                       type="String"
                       variableName="folderPath"
@@ -426,7 +426,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                   />
                   {getMultiTypeFromValue(formik.values?.chartName) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginBottom: 5 }}
                       value={formik.values?.chartName as string}
                       type="String"
                       variableName="chartName"
@@ -456,7 +456,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                   />
                   {getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
+                      style={{ alignSelf: 'center', marginBottom: 5 }}
                       value={formik.values?.chartVersion}
                       type="String"
                       variableName="chartVersion"

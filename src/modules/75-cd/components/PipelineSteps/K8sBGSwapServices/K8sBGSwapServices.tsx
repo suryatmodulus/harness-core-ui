@@ -112,6 +112,7 @@ function K8sBGSwapWidget(
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions
+                      className={stepCss.buttonMarginBottom}
                       value={values.timeout as string}
                       type="String"
                       variableName="step.timeout"

@@ -23,5 +23,6 @@ declare const styles: {
   readonly selectedSearchText: string
   readonly selectedSearchTextValueRow: string
   readonly currentSelection: string
+  readonly buttonMarginBottom: string
 }
 export default styles

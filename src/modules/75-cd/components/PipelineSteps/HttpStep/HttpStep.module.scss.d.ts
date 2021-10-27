@@ -7,5 +7,6 @@ declare const styles: {
   readonly label: string
   readonly requestBody: string
   readonly addButton: string
+  readonly buttonMarginBottom: string
 }
 export default styles

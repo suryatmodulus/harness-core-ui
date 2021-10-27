@@ -76,7 +76,6 @@ export default function CIDashboardSummaryCards() {
           subContent={chartOptions && <HighchartsReact highcharts={Highcharts} options={chartOptions} />}
           rate={data?.data?.builds?.total?.rate}
           isLoading={showLoader}
-          neutralColor
         />
         {/* <SummaryCard title={getString('pipeline.dashboards.testCycleTimeSaved')} /> */}
         <SummaryCard
@@ -141,7 +140,13 @@ export function SummaryCard({
           <Container className={styles.diffContent}>
             <Text>{rateFormatted}</Text>
             {(isIncrease || isDecrease) && (
-              <Icon name="fat-arrow-up" style={isDecrease ? { transform: 'rotate(180deg)' } : {}} size={18} />
+              <Icon
+                size={14}
+                name={isIncrease ? 'caret-up' : 'caret-down'}
+                style={{
+                  color: isIncrease ? 'var(--green-600)' : 'var(--ci-color-red-500)'
+                }}
+              />
             )}
           </Container>
         )}

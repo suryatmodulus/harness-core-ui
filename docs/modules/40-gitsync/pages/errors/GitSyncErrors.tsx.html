@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.37% </span>
+                <span class="strong">83.72% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/41</span>
+                <span class='fraction'>36/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.52% </span>
+                <span class="strong">48.15% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/23</span>
+                <span class='fraction'>13/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/40</span>
+                <span class='fraction'>35/42</span>
             </div>
         
             
@@ -201,7 +201,13 @@
 <a name='L142'></a><a href='#L142'>142</a>
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -256,8 +262,10 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -339,13 +347,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { createRef, useState } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import { Button, ButtonVariation, Color, ExpandingSearchInput, Layout, Tab, Tabs, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -366,7 +378,7 @@ import styles from '@gitsync/pages/errors/GitSyncErrors.module.scss'
 export const GitSyncErrorsWithRedirect: React.FC = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
   const { accountId, orgIdentifier, projectIdentifier, module } = <span class="cstat-no" title="statement not covered" >useParams&lt;ProjectPathProps &amp; ModulePathParams&gt;()</span>
   const { NG_GIT_ERROR_EXPERIENCE } = <span class="cstat-no" title="statement not covered" >useFeatureFlags()</span>
-<span class="cstat-no" title="statement not covered" >  return !NG_GIT_ERROR_EXPERIENCE ? (</span>
+<span class="cstat-no" title="statement not covered" >  return NG_GIT_ERROR_EXPERIENCE ? (</span>
     &lt;GitSyncErrors /&gt;
   ) : (
     &lt;Redirect to={routes.toGitSyncReposAdmin({ accountId, orgIdentifier, projectIdentifier, module })} /&gt;
@@ -400,6 +412,7 @@ const GitSyncErrors: React.FC = () =&gt; {
   const [searchTerm, setSearchTerm] = useState('')
   const [branch, setBranch] = useState('')
   const [repoIdentifier, setRepoIdentifier] = useState('')
+  const reloadAction = createRef&lt;() =&gt; void&gt;()
 &nbsp;
   const contextValue: GitSyncErrorStateType = {
     selectedTab,
@@ -407,7 +420,8 @@ const GitSyncErrors: React.FC = () =&gt; {
     setView: setSelectedView,
     branch,
     repoIdentifier,
-    searchTerm
+    searchTerm,
+    reloadAction
   }
 &nbsp;
   const onTabSwitch = (tabId: GitErrorExperienceTab): void =&gt; {
@@ -480,7 +494,11 @@ const GitSyncErrors: React.FC = () =&gt; {
               onChange={setSearchTerm}
               className={styles.searchInput}
             /&gt;
-            &lt;Button variation={ButtonVariation.TERTIARY} icon="command-rollback" /&gt;
+            &lt;Button
+              variation={ButtonVariation.TERTIARY}
+              icon="command-rollback"
+              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >reloadAction.current?.()}</span>
+            /&gt;
           &lt;/Layout.Horizontal&gt;
         &lt;/Tabs&gt;
       &lt;/GitSyncErrorState.Provider&gt;
@@ -496,7 +514,7 @@ export default GitSyncErrors
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 27 2021 05:00:37 GMT+0000 (Greenwich Mean Time)
+                at Wed Oct 27 2021 06:36:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

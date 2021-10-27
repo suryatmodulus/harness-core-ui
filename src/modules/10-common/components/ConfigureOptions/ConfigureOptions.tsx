@@ -360,7 +360,6 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
     [hideModal, onChange, input, defaultValue]
   )
 
-  console.log(className)
   return (
     <Button
       style={{ color: 'var(--grey-400)', ...props.style }}

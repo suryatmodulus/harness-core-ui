@@ -64,6 +64,10 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
     {
       type: DelegateTypes.DELEGATE_OUT_CLUSTER,
       info: getString('connectors.GCP.delegateOutClusterInfo')
+    },
+    {
+      type: DelegateTypes.DELEGATE_IN_CLUSTER,
+      info: getString('connectors.GCP.delegateInClusterInfo')
     }
   ]
 

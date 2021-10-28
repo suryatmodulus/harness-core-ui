@@ -157,6 +157,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.marginBotFive}
                     value={values.timeout as string}
                     type="String"
                     variableName="step.timeout"
@@ -186,6 +187,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                 />
                 {getMultiTypeFromValue(formik?.values?.spec?.barrierRef) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
+                    className={stepCss.marginBotFive}
                     value={formik?.values?.spec?.barrierRef as string}
                     type={getString('string')}
                     variableName="spec.barrierRef"

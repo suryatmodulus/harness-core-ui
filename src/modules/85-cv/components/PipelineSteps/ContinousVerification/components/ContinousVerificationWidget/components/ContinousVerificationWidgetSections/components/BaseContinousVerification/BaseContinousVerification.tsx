@@ -39,6 +39,7 @@ export default function BaseContinousVerification(props: {
           />
           {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME && (
             <ConfigureOptions
+              className={stepCss.marginBotFive}
               value={formValues.timeout || ''}
               type="String"
               variableName="timeout"

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.95% </span>
+                <span class="strong">78.13% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/95</span>
+                <span class='fraction'>75/96</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.28% </span>
+                <span class="strong">49.07% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>165/349</span>
+                <span class='fraction'>184/375</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.56% </span>
+                <span class="strong">53.57% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>15/27</span>
+                <span class='fraction'>15/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.95% </span>
+                <span class="strong">78.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>75/95</span>
+                <span class='fraction'>75/96</span>
             </div>
         
             
@@ -620,7 +620,22 @@
 <a name='L561'></a><a href='#L561'>561</a>
 <a name='L562'></a><a href='#L562'>562</a>
 <a name='L563'></a><a href='#L563'>563</a>
-<a name='L564'></a><a href='#L564'>564</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">34x</span>
+<a name='L564'></a><a href='#L564'>564</a>
+<a name='L565'></a><a href='#L565'>565</a>
+<a name='L566'></a><a href='#L566'>566</a>
+<a name='L567'></a><a href='#L567'>567</a>
+<a name='L568'></a><a href='#L568'>568</a>
+<a name='L569'></a><a href='#L569'>569</a>
+<a name='L570'></a><a href='#L570'>570</a>
+<a name='L571'></a><a href='#L571'>571</a>
+<a name='L572'></a><a href='#L572'>572</a>
+<a name='L573'></a><a href='#L573'>573</a>
+<a name='L574'></a><a href='#L574'>574</a>
+<a name='L575'></a><a href='#L575'>575</a>
+<a name='L576'></a><a href='#L576'>576</a>
+<a name='L577'></a><a href='#L577'>577</a>
+<a name='L578'></a><a href='#L578'>578</a>
+<a name='L579'></a><a href='#L579'>579</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -849,6 +864,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -885,7 +908,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -958,8 +988,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1186,12 +1216,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import {
   Accordion,
+  Button,
   Color,
   Formik,
   FormInput,
   getMultiTypeFromValue,
   HarnessDocTooltip,
-  Icon,
   IconName,
   Label,
   Layout,
@@ -1322,7 +1352,7 @@ function TerraformPlanWidget(
           &lt;&gt;
             &lt;&gt;
               {stepViewType !== StepViewType.Template &amp;&amp; (
-                &lt;div className={cx(stepCss.formGroup, stepCss.lg)}&gt;
+                &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                   &lt;FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} /&gt;
                 &lt;/div&gt;
               )}
@@ -1350,7 +1380,7 @@ function TerraformPlanWidget(
                 )}
               &lt;/div&gt;
 &nbsp;
-              &lt;div className={stepCss.divider} /&gt;
+              &lt;div className={css.divider} /&gt;
 &nbsp;
               &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                 &lt;FormInput.RadioGroup
@@ -1400,7 +1430,7 @@ function TerraformPlanWidget(
                 /&gt;
               &lt;/div&gt;
 &nbsp;
-              &lt;Layout.Vertical className={cx(css.addMarginBottom, css.addMarginTop)}&gt;
+              &lt;Layout.Vertical&gt;
                 &lt;Label
                   style={{ color: Color.GREY_900 }}
                   className={css.configLabel}
@@ -1412,132 +1442,147 @@ function TerraformPlanWidget(
                 &lt;div className={cx(css.configFile, css.addMarginBottom)}&gt;
                   &lt;div className={css.configField}&gt;
                     {!formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>olderPath &amp;&amp; (
-                      &lt;Text className={css.configPlaceHolder}&gt;{getString('cd.configFilePlaceHolder')}&lt;/Text&gt;
+                      &lt;a className={css.configPlaceHolder} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setShowModal(true)}</span>&gt;
+                        {getString('cd.configFilePlaceHolder')}
+                      &lt;/a&gt;
                     )}
                     {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>olderPath &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                      &lt;Text font="normal" lineClamp={1} width={200}&gt;</span>
                         /{formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath}
                       &lt;/Text&gt;
                     )}
-                    &lt;Icon name="edit" onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setShowModal(true)}</span> /&gt;
+                    {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>olderPath ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                      &lt;Button</span>
+                        minimal
+                        icon="Edit"
+                        withoutBoxShadow
+                        iconProps={{ size: 16 }}
+                        onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setShowModal(true)}</span>
+                        data-name="config-edit"
+                        withoutCurrentColor={true}
+                        className={css.editBtn}
+                      /&gt;
+                    ) : null}
                   &lt;/div&gt;
                 &lt;/div&gt;
               &lt;/Layout.Vertical&gt;
-              &lt;div className={css.addMarginTop}&gt;
-                &lt;Accordion className={stepCss.accordion}&gt;
-                  &lt;Accordion.Panel
-                    id="step-1"
-                    summary={getString('common.optionalConfig')}
-                    details={
-                      &lt;&gt;
-                        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
-                          &lt;FormInput.MultiTextInput
-                            name="spec.configuration.workspace"
-                            label={getString('pipelineSteps.workspace')}
-                            multiTextInputProps={{ expressions, allowableTypes }}
-                            isOptional={true}
+&nbsp;
+              &lt;Accordion className={stepCss.accordion}&gt;
+                &lt;Accordion.Panel
+                  id="step-1"
+                  summary={getString('common.optionalConfig')}
+                  details={
+                    &lt;&gt;
+                      &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+                        &lt;FormInput.MultiTextInput
+                          name="spec.configuration.workspace"
+                          label={getString('pipelineSteps.workspace')}
+                          multiTextInputProps={{ expressions, allowableTypes }}
+                          isOptional={true}
+                        /&gt;
+                        {getMultiTypeFromValue(formik.values.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.w</span>orkspace) ===
+                          MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                          &lt;ConfigureOptions</span>
+                            value={formik.values?.spec?.configuration?.workspace as string}
+                            type="String"
+                            variableName="spec.configuration.workspace"
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+                              /* istanbul ignore else */
+<span class="cstat-no" title="statement not covered" >                              formik.setFieldValue('spec.configuration.workspace', value)</span>
+                            }}
+                            isReadonly={readonly}
                           /&gt;
-                          {getMultiTypeFromValue(formik.values.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.w</span>orkspace) ===
-                            MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                            &lt;ConfigureOptions</span>
-                              value={formik.values?.spec?.configuration?.workspace as string}
-                              type="String"
-                              variableName="spec.configuration.workspace"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
-                                /* istanbul ignore else */
-<span class="cstat-no" title="statement not covered" >                                formik.setFieldValue('spec.configuration.workspace', value)</span>
-                              }}
-                              isReadonly={readonly}
-                            /&gt;
-                          )}
-                        &lt;/div&gt;
-                        &lt;TfVarFileList formik={formik} isReadonly={props.readonly} allowableTypes={allowableTypes} /&gt;
-                        &lt;div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}&gt;
-                          &lt;MultiTypeFieldSelector
+                        )}
+                      &lt;/div&gt;
+                      &lt;div className={css.divider} /&gt;
+                      &lt;TfVarFileList formik={formik} isReadonly={props.readonly} allowableTypes={allowableTypes} /&gt;
+                      &lt;div className={css.divider} /&gt;
+                      &lt;div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}&gt;
+                        &lt;MultiTypeFieldSelector
+                          name="spec.configuration.backendConfig.spec.content"
+                          label={
+                            &lt;Text style={{ color: 'rgb(11, 11, 13)' }}&gt;
+                              {' '}
+                              {getString('optionalField', { name: getString('cd.backEndConfig') })}
+                            &lt;/Text&gt;
+                          }
+                          defaultValueToReset=""
+                          allowedTypes={allowableTypes}
+                          expressionRender={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                            return (</span>
+                              &lt;TFMonaco
+                                name="spec.configuration.backendConfig.spec.content"
+                                formik={formik}
+                                expressions={expressions}
+                                title={getString('cd.backEndConfig')}
+                              /&gt;
+                            )
+                          }}
+                          skipRenderValueInExpressionLabel
+                        &gt;
+                          &lt;TFMonaco
                             name="spec.configuration.backendConfig.spec.content"
-                            label={
-                              &lt;Text style={{ color: 'rgb(11, 11, 13)' }}&gt;
-                                {' '}
-                                {getString('optionalField', { name: getString('cd.backEndConfig') })}
+                            formik={formik}
+                            expressions={expressions}
+                            title={getString('cd.backEndConfig')}
+                          /&gt;
+                        &lt;/MultiTypeFieldSelector&gt;
+                        {getMultiTypeFromValue(formik.values.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ackendConfig?.spec?.content) ===
+                          MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                          &lt;ConfigureOptions</span>
+                            value={formik.values.spec?.configuration?.backendConfig?.spec?.content as string}
+                            type="String"
+                            variableName="spec.configuration.backendConfig.spec.content"
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; <span class="cstat-no" title="statement not covered" >setFieldValue('spec.configuration.backendConfig.spec.content', value)}</span>
+                            isReadonly={readonly}
+                          /&gt;
+                        )}
+                      &lt;/div&gt;
+                      &lt;div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}&gt;
+                        &lt;MultiTypeList
+                          name="spec.configuration.targets"
+                          multiTextInputProps={{
+                            expressions,
+                            allowableTypes: allowableTypes.filter(item =&gt; item !== MultiTypeInputType.RUNTIME)
+                          }}
+                          multiTypeFieldSelectorProps={{
+                            label: (
+                              &lt;Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}&gt;
+                                {getString('optionalField', { name: getString('pipeline.targets.title') })}
                               &lt;/Text&gt;
-                            }
-                            defaultValueToReset=""
-                            allowedTypes={allowableTypes}
-                            expressionRender={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                              return (</span>
-                                &lt;TFMonaco
-                                  name="spec.configuration.backendConfig.spec.content"
-                                  formik={formik}
-                                  expressions={expressions}
-                                  title={getString('cd.backEndConfig')}
-                                /&gt;
-                              )
-                            }}
-                            skipRenderValueInExpressionLabel
-                          &gt;
-                            &lt;TFMonaco
-                              name="spec.configuration.backendConfig.spec.content"
-                              formik={formik}
-                              expressions={expressions}
-                              title={getString('cd.backEndConfig')}
-                            /&gt;
-                          &lt;/MultiTypeFieldSelector&gt;
-                          {getMultiTypeFromValue(formik.values.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ackendConfig?.spec?.content) ===
-                            MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                            &lt;ConfigureOptions</span>
-                              value={formik.values.spec?.configuration?.backendConfig?.spec?.content as string}
-                              type="String"
-                              variableName="spec.configuration.backendConfig.spec.content"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; <span class="cstat-no" title="statement not covered" >setFieldValue('spec.configuration.backendConfig.spec.content', value)}</span>
-                              isReadonly={readonly}
-                            /&gt;
-                          )}
-                        &lt;/div&gt;
-                        &lt;div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}&gt;
-                          &lt;MultiTypeList
-                            name="spec.configuration.targets"
-                            multiTextInputProps={{
-                              expressions,
-                              allowableTypes: allowableTypes.filter(item =&gt; item !== MultiTypeInputType.RUNTIME)
-                            }}
-                            multiTypeFieldSelectorProps={{
-                              label: (
-                                &lt;Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}&gt;
-                                  {getString('optionalField', { name: getString('pipeline.targets.title') })}
-                                &lt;/Text&gt;
-                              )
-                            }}
-                            style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
-                          /&gt;
-                        &lt;/div&gt;
-                        &lt;div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}&gt;
-                          &lt;MultiTypeMap
-                            name="spec.configuration.environmentVariables"
-                            valueMultiTextInputProps={{
-                              expressions,
-                              allowableTypes: allowableTypes.filter(item =&gt; item !== MultiTypeInputType.RUNTIME)
-                            }}
-                            multiTypeFieldSelectorProps={{
-                              disableTypeSelection: true,
-                              label: (
-                                &lt;Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}&gt;
-                                  {getString('optionalField', { name: getString('environmentVariables') })}
-                                &lt;/Text&gt;
-                              )
-                            }}
-                          /&gt;
-                        &lt;/div&gt;
-                      &lt;/&gt;
-                    }
-                  /&gt;
-                &lt;/Accordion&gt;
-              &lt;/div&gt;
+                            )
+                          }}
+                          style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
+                        /&gt;
+                      &lt;/div&gt;
+                      &lt;div className={css.divider} /&gt;
+                      &lt;div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}&gt;
+                        &lt;MultiTypeMap
+                          name="spec.configuration.environmentVariables"
+                          valueMultiTextInputProps={{
+                            expressions,
+                            allowableTypes: allowableTypes.filter(item =&gt; item !== MultiTypeInputType.RUNTIME)
+                          }}
+                          multiTypeFieldSelectorProps={{
+                            disableTypeSelection: true,
+                            label: (
+                              &lt;Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}&gt;
+                                {getString('optionalField', { name: getString('environmentVariables') })}
+                              &lt;/Text&gt;
+                            )
+                          }}
+                        /&gt;
+                      &lt;/div&gt;
+                    &lt;/&gt;
+                  }
+                /&gt;
+              &lt;/Accordion&gt;
             &lt;/&gt;
 &nbsp;
             {showModal &amp;&amp; (
@@ -1548,7 +1593,7 @@ function TerraformPlanWidget(
                 {...modalProps}
                 title={getString('pipelineSteps.configFiles')}
                 isCloseButtonShown
-                style={{ width: '650px' }}
+                style={{ padding: '24px' }}
               &gt;
                 &lt;ConfigForm
                   onClick={<span class="fstat-no" title="function not covered" >data </span>=&gt; {
@@ -1753,7 +1798,7 @@ export class TerraformPlan extends PipelineStep&lt;TFPlanFormData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 27 2021 22:58:33 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 02:33:28 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

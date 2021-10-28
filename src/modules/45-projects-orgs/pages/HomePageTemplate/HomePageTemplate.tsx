@@ -10,7 +10,9 @@ import {
   ButtonVariation,
   Page
 } from '@wings-software/uicore'
+import { Link, useParams } from 'react-router-dom'
 import cx from 'classnames'
+import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import { useQueryParams } from '@common/hooks'
@@ -22,6 +24,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import RbacButton from '@rbac/components/Button/Button'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import css from './HomePageTemplate.module.scss'
 
 export interface TrialBannerProps {
@@ -47,6 +50,7 @@ interface HomePageTemplate {
   trialBannerProps: TrialBannerProps
   ctaProps?: CTAProps
   disableAdditionalCta?: boolean
+  module: Module
 }
 
 export const HomePageTemplate: React.FC<HomePageTemplate> = ({
@@ -56,7 +60,8 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   documentText,
   documentURL = 'https://ngdocs.harness.io/',
   projectCreateSuccessHandler,
-  trialBannerProps
+  trialBannerProps,
+  module
 }) => {
   const { updateAppStore } = useAppStore()
 
@@ -76,6 +81,9 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   const bannerClassName = hasBanner ? css.hasBanner : css.hasNoBanner
   const { showSuccess } = useToaster()
   const { contactSales } = useQueryParams<{ contactSales?: string }>()
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
 
   useEffect(
     () => {
@@ -126,6 +134,9 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
               </Text>
               <FlexExpander />
             </Layout.Horizontal>
+            <Link to={routes.toSubscriptions({ accountId, moduleCard: module, tab: 'PLANS' })}>
+              {getString('common.exploareAllPlans')}
+            </Link>
           </Layout.Vertical>
         </Container>
       </Page.Body>

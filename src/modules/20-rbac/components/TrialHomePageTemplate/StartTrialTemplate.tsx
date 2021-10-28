@@ -1,7 +1,8 @@
 import React from 'react'
 import { Heading, Layout, Text, Container, Button, Color } from '@wings-software/uicore'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import { useToaster } from '@common/components'
+import { useStrings } from 'framework/strings'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import {
   useStartTrialLicense,
@@ -86,6 +87,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
   }
 
   const { trackEvent } = useTelemetry()
+  const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="small">
       <Text padding={{ bottom: 'xxlarge' }} width={500}>
@@ -102,6 +104,9 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
         onClick={startBtn.onClick ? startBtn.onClick : handleStartButtonClick}
         disabled={loading}
       />
+      <Link to={routes.toSubscriptions({ accountId, moduleCard: module, tab: 'PLANS' })}>
+        {getString('common.exploareAllPlans')}
+      </Link>
     </Layout.Vertical>
   )
 }

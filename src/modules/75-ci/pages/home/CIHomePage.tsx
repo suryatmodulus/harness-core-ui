@@ -154,6 +154,7 @@ const CIHomePage: React.FC = () => {
       documentText={getString('ci.learnMore')}
       documentURL="https://ngdocs.harness.io/category/zgffarnh1m-ci-category"
       trialBannerProps={trialBannerProps}
+      module={module}
     />
   )
 }

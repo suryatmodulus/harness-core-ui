@@ -236,6 +236,7 @@ export const CDHomePage: React.FC = () => {
       subTitle={getString('cd.dashboard.subHeading')}
       documentText={getString('cd.learnMore')}
       trialBannerProps={trialBannerProps}
+      module={module}
     />
   )
 }

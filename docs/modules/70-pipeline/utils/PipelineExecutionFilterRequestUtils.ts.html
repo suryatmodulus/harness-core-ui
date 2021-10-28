@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.68% </span>
+                <span class="strong">58.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/62</span>
+                <span class='fraction'>37/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.53% </span>
+                <span class="strong">28.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>29/95</span>
+                <span class='fraction'>29/101</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.75% </span>
+                <span class="strong">41.18% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/16</span>
+                <span class='fraction'>7/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.85% </span>
+                <span class="strong">52.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/52</span>
+                <span class='fraction'>28/53</span>
             </div>
         
             
@@ -248,7 +248,17 @@
 <a name='L189'></a><a href='#L189'>189</a>
 <a name='L190'></a><a href='#L190'>190</a>
 <a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,6 +286,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -302,7 +322,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -432,7 +452,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">202x</span>
+<span class="cline-any cline-yes">242x</span>
 <span class="cline-any cline-yes">82x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -451,7 +471,7 @@ import type { FilterProperties } from 'services/cd-ng'
 import { isObjectEmpty, removeNullAndEmpty } from '@common/components/Filter/utils/FilterUtils'
 &nbsp;
 export interface DeploymentTypeContext {
-  deploymentType?: string
+  deploymentType?: MultiSelectOption[]
   infrastructureType?: string
   services?: MultiSelectOption[]
   environments?: MultiSelectOption[]
@@ -466,7 +486,17 @@ export interface BuildTypeContext {
   tag?: string
 }
 &nbsp;
-const exclusionList = ['buildType', 'repositoryName', 'sourceBranch', 'targetBranch', 'tag', 'branch']
+const exclusionList = [
+  'buildType',
+  'repositoryName',
+  'sourceBranch',
+  'targetBranch',
+  'tag',
+  'branch',
+  'services',
+  'environments',
+  'deploymentType'
+]
 &nbsp;
 export const getValidFilterArguments = <span class="fstat-no" title="function not covered" >(f</span>ormData: Record&lt;string, any&gt;): PipelineExecutionFilterProperties =&gt; {
   const {
@@ -493,7 +523,7 @@ export const getValidFilterArguments = <span class="fstat-no" title="function no
         tag
       }),
       cd: {
-        serviceDefinitionTypes: deploymentType ? [deploymentType] : undefined,
+        serviceDefinitionTypes: deploymentType?.map(<span class="fstat-no" title="function not covered" >(d</span>eployment: MultiSelectOption) =&gt; <span class="cstat-no" title="statement not covered" >deployment?.value)</span>,
         infrastructureType: infrastructureType,
         serviceIdentifiers: services?.map(<span class="fstat-no" title="function not covered" >(s</span>ervice: MultiSelectOption) =&gt; <span class="cstat-no" title="statement not covered" >service?.value)</span>,
         envIdentifiers: environments?.map(<span class="fstat-no" title="function not covered" >(e</span>nv: MultiSelectOption) =&gt; <span class="cstat-no" title="statement not covered" >env?.value)</span>
@@ -637,7 +667,7 @@ export const getFilterByIdentifier = <span class="fstat-no" title="function not 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 09:39:00 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 11:00:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

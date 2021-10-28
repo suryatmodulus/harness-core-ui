@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -113,25 +113,22 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -141,6 +138,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,60 +174,61 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import cx from 'classnames'
-import { Container, Icon, Text, Color } from '@wings-software/uicore'
+import { Container, Icon, Text, Color, Spacing, Layout, FontVariation } from '@wings-software/uicore'
 import type { MarginProps } from '@wings-software/uicore/dist/styled-props/margin/MarginProps'
 import { useStrings } from 'framework/strings'
 import { getServicesStates, getServicesTypes } from './ServiceDependenciesLegend.utils'
 import css from './ServiceDependenciesLegend.module.scss'
 &nbsp;
 interface ServiceDependenciesLegendProps {
-  className?: string
   hideServiceTypeLegend?: boolean
-  margin?: MarginProps
+  margin?: Spacing | MarginProps
 }
 &nbsp;
-const ServiceDependenciesLegend: React.FC&lt;ServiceDependenciesLegendProps&gt; = ({
-  className,
-  hideServiceTypeLegend,
-  margin
-}) =&gt; {
+const ServiceDependenciesLegend: React.FC&lt;ServiceDependenciesLegendProps&gt; = ({ hideServiceTypeLegend, margin }) =&gt; {
   const { getString } = useStrings()
   const servicesStates = getServicesStates()
   const serviceTypes = getServicesTypes()
 &nbsp;
   return (
     &lt;Container background={Color.PRIMARY_1} width="fit-content" className={css.container} margin={margin}&gt;
-      &lt;Container className={cx(css.serviceStatesContainer, className)}&gt;
-        {servicesStates.map(state =&gt; {
-          return (
-            &lt;Container flex key={state.identifier} padding={{ top: 'xsmall', right: 'xsmall' }}&gt;
-              &lt;Container style={{ backgroundColor: state.color }} className={css.serviceState}&gt;&lt;/Container&gt;
-              &lt;Text margin={{ right: 'small' }} font={{ size: 'xsmall' }}&gt;
-                {getString(state.label)}
+      &lt;Layout.Horizontal flex spacing="medium" height={30} padding={{ left: 'medium', right: 'medium' }}&gt;
+        {servicesStates.map(state =&gt; (
+          &lt;Container flex key={state.labelId}&gt;
+            &lt;Container
+              width={8}
+              height={8}
+              margin={{ right: 'xsmall' }}
+              className={css.serviceState}
+              style={{ backgroundColor: state.color }}
+            /&gt;
+            &lt;Text font={{ variation: FontVariation.TINY }} color={Color.GREY_700}&gt;
+              {getString(state.labelId)}
+            &lt;/Text&gt;
+          &lt;/Container&gt;
+        ))}
+      &lt;/Layout.Horizontal&gt;
+&nbsp;
+      {!hideServiceTypeLegend &amp;&amp; (
+        &lt;Layout.Horizontal
+          height={30}
+          spacing="medium"
+          padding={{ left: 'medium', right: 'medium' }}
+          flex={{ justifyContent: 'flex-start' }}
+          className={css.serviceTypesContainer}
+        &gt;
+          {serviceTypes.map(type =&gt; (
+            &lt;Container flex key={type.labelId}&gt;
+              &lt;Icon name={type.icon} size={type.size} color={Color.GREY_600} margin={{ right: 'xsmall' }} /&gt;
+              &lt;Text font={{ variation: FontVariation.TINY }} color={Color.GREY_700}&gt;
+                {getString(type.labelId)}
               &lt;/Text&gt;
             &lt;/Container&gt;
-          )
-        })}
-      &lt;/Container&gt;
-      {!hideServiceTypeLegend ? (
-        &lt;Container className={cx(css.serviceTypesContainer, className)}&gt;
-          {serviceTypes.map(type =&gt; {
-            return (
-              &lt;Container flex key={type.identifier}&gt;
-                &lt;Icon size={type.size} padding={{ left: 'xsmall', right: 'xsmall' }} name={type.icon} /&gt;
-                &lt;Text margin={{ right: 'small' }} font={{ size: 'xsmall' }}&gt;
-                  {type.label}
-                &lt;/Text&gt;
-              &lt;/Container&gt;
-            )
-          })}
-        &lt;/Container&gt;
-      ) : null}
+          ))}
+        &lt;/Layout.Horizontal&gt;
+      )}
     &lt;/Container&gt;
   )
 }
@@ -232,7 +241,7 @@ export default ServiceDependenciesLegend
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 09:39:00 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 11:00:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Right Drawer tests FlowControl tests should render fine 1`] = `
+exports[`FlowControl tests should render fine 1`] = `
 <div>
   <div
     class="drawer-mock"

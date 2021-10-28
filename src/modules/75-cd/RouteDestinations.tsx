@@ -73,6 +73,7 @@ import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYa
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 import ServiceDetailPage from '@cd/pages/ServiceDetailPage/ServiceDetailPage'
 import ServiceDetails from '@cd/components/ServiceDetails/ServiceDetails'
+import ChildAppMounter from 'microfrontends/ChildAppMounter'
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/DeployStage'
@@ -102,6 +103,7 @@ import ExecutionPolicyEvaluationsView from '@pipeline/pages/execution/ExecutionP
 import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
+import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
@@ -111,8 +113,10 @@ import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputF
 
 import { ArtifactInputForm } from './components/ArtifactInputForm/ArtifactInputForm'
 import GitOpsServersPage from './pages/gitops/GitOpsServersHomePage'
-import GitOpsServersList from './pages/gitops/HarnessManagedGitOps/HarnessManagedGitOpsServersList'
 import GitOpsModalContainer from './pages/gitops/NativeArgo/GitOpsProvidersList'
+
+// eslint-disable-next-line import/no-unresolved
+const GitOpsServersList = React.lazy(() => import('gitopsui/MicroFrontendApp'))
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
@@ -832,12 +836,11 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
       sidebarProps={CDSideNavProps}
       path={routes.toHarnessManagedGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <GitOpsServersPage>
-        <GitOpsServersList />
+        <ChildAppMounter ChildApp={GitOpsServersList} />
       </GitOpsServersPage>
     </RouteWithLayout>
     <RouteWithLayout
@@ -849,5 +852,10 @@ export default (
         <GitOpsModalContainer />
       </GitOpsServersPage>
     </RouteWithLayout>
+
+    {GovernanceRouteDestinations({
+      sidebarProps: CDSideNavProps,
+      pathProps: { ...accountPathProps, ...projectPathProps, ...pipelineModuleParams }
+    })}
   </>
 )

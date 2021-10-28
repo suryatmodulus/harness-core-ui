@@ -31,6 +31,7 @@ export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, 
 export interface UseGetMockDataWithMutateAndRefetch<T> extends UseGetMockData<T> {
   mutate: () => Record<string, unknown>
   refetch: () => Record<string, unknown>
+  cancel?: () => Record<string, unknown>
 }
 
 export interface UseMutateMockData<TData, TRequestBody = unknown> {

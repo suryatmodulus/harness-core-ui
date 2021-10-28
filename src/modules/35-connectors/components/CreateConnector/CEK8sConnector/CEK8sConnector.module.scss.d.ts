@@ -4,6 +4,7 @@ declare const styles: {
   readonly ceK8SConnector: string
   readonly overviewStep: string
   readonly infoSection: string
+  readonly formCont: string
   readonly selectConnector: string
   readonly nameField: string
   readonly createNewConnCta: string

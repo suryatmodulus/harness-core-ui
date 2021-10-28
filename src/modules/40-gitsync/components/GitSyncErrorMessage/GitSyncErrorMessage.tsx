@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ReactTimeago from 'react-timeago'
-import { Card, Color, Icon, IconName, Layout, Text } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+import { defaultTo } from 'lodash-es'
+import { Card, Color, Icon, IconName, Layout, Text, useToaster } from '@wings-software/uicore'
+import { GitSyncErrorDTO, listGitToHarnessErrorsForCommitPromise } from 'services/cd-ng'
 import {
   GitSyncErrorMessageItem,
   GitSyncErrorMessageProps
 } from '@gitsync/components/GitSyncErrorMessage/GitSyncErrorMessageItem'
+import { useStrings } from 'framework/strings'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { GitSyncErrorState } from '@gitsync/pages/errors/GitSyncErrorContext'
 import styles from '@gitsync/components/GitSyncErrorMessage/GitSyncErrorMessage.module.scss'
+
+const MESSAGE_LIMIT = 5
 
 const renderComponentConditionally = (Component: React.ReactElement, condition: boolean): React.ReactElement => {
   if (condition) {
@@ -63,8 +71,75 @@ const TimestampComponent: React.FC<{ timestamp?: number }> = ({ timestamp }) => 
   )
 }
 
+export const parseCommitItems = (items: GitSyncErrorDTO[]): GitSyncErrorMessageProps['items'] => {
+  return items.map(error => ({
+    title: error.completeFilePath,
+    reason: error.failureReason || '',
+    ...(error.status === 'RESOLVED' ? { fixCommit: error.additionalErrorDetails?.['resolvedByCommitId'] } : {})
+  }))
+}
+
 export const GitSyncErrorMessage: React.FC<GitSyncErrorMessageProps> = props => {
-  const { title, count, repo, branch, commitId, timestamp, items } = props
+  const { mode, title, count, repo, branch, commitId = '', timestamp, items } = props
+  const { showError } = useToaster()
+
+  const [messageItems, setMessageItems] = useState(items)
+
+  useEffect(() => {
+    setMessageItems(items)
+  }, [items])
+
+  const SeeMore: React.FC = () => {
+    const [isLoading, setIsLoading] = useState(false)
+    const { getString } = useStrings()
+    const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+    const { branch: selectedBranch, repoIdentifier } = useContext(GitSyncErrorState)
+
+    const expandMode = messageItems.length <= MESSAGE_LIMIT
+
+    const onClick = (): void => {
+      if (expandMode) {
+        setIsLoading(true)
+        listGitToHarnessErrorsForCommitPromise({
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
+            branch: selectedBranch,
+            repoIdentifier
+          },
+          commitId
+        })
+          .then(commitData => {
+            setIsLoading(false)
+            if (commitData.status === 'ERROR') {
+              throw new Error()
+            }
+            if (defaultTo(commitData.data?.content, []).length > 0) {
+              setMessageItems(parseCommitItems(defaultTo(commitData.data?.content, [])))
+            }
+          })
+          .catch(() => {
+            setIsLoading(false)
+            showError(getString('gitsync.failedToLoadData'))
+          })
+      } else {
+        setMessageItems(messageItems.splice(0, MESSAGE_LIMIT))
+      }
+    }
+    return (
+      <Layout.Horizontal margin={{ top: 'small' }}>
+        {!isLoading ? (
+          <Text color={Color.PRIMARY_7} onClick={onClick} className={styles.seeMore}>
+            {expandMode ? getString('gitsync.seeMore') : getString('gitsync.seeLess')}
+          </Text>
+        ) : (
+          <Icon name="spinner" />
+        )}
+      </Layout.Horizontal>
+    )
+  }
+
   return (
     <Card className={styles.gitSyncErrorMessage} data-testid="gitSyncErrorMessage">
       <Layout.Vertical>
@@ -80,7 +155,7 @@ export const GitSyncErrorMessage: React.FC<GitSyncErrorMessageProps> = props => 
               <IconValue
                 icon={'git-commit'}
                 type="CommitId"
-                value={commitId}
+                value={commitId?.slice(0, 7)}
                 background={Color.PRIMARY_1}
                 color={Color.PRIMARY_7}
               />,
@@ -89,9 +164,10 @@ export const GitSyncErrorMessage: React.FC<GitSyncErrorMessageProps> = props => 
             {renderComponentConditionally(<TimestampComponent timestamp={timestamp} />, !!timestamp)}
           </Layout.Horizontal>
         </Layout.Horizontal>
-        {(items || []).map((item, key) => (
+        {(messageItems || []).map((item, key) => (
           <GitSyncErrorMessageItem key={key} {...item} />
         ))}
+        {renderComponentConditionally(<SeeMore />, mode === 'COMMIT' && defaultTo(count, 0) > MESSAGE_LIMIT)}
       </Layout.Vertical>
     </Card>
   )

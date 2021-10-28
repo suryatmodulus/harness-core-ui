@@ -9,5 +9,8 @@ declare const styles: {
   readonly iconChecked: string
   readonly popoverWidth: string
   readonly selectButton: string
+  readonly noDataCardContainerSecret: string
+  readonly secretRefContainer: string
+  readonly createSecretsBtnLayout: string
 }
 export default styles

@@ -4,6 +4,8 @@ trialCta: 'Start 14 day CCM trial'
 common:
   newBudget: 'New Budget'
   budget: 'Budget'
+allRegions: 'All Regions'
+allClusters: 'All Clusters'
 pageErrorMsg:
   recommendationNoData: 'There are no recommendations yet. Recommendations typically take 24 hours to show up. Please check back later.'
   perspectiveNoData: 'There is not data available for the filters applied.'
@@ -51,6 +53,7 @@ co:
         selectProvider: 'Select the cloud provider account in which the workloads you want AutoStopping to manage are running.'
     configuration:
       asgSelectionInfoText: 'Only ASGs with non-empty target groups will be shown here'
+      addSelectedBtnText: 'Add Selected'
       step1:
         title: 'Define your AutoStopping rule'
         subTitle: 'Provide a friendly name to identify the resources managed by this rule and specify the idle time.'
@@ -66,26 +69,58 @@ co:
           instance: 'Add an instance to be managed by the AutoStopping Rule. You can choose to add multiple instances to a single Rule.'
           asg: 'Add an ASG to be managed by the AutoStopping Rule. You can choose only one ASG to a single Rule'
           kubernetes: 'Add a cluster to be managed by the AutoStopping Rule.'
+          ecs: 'Add an ECS Service to be managed by the AutoStopping Rule'
+          rds: 'Add the RDS instance(s) to be managed by this Autostopping Rule'
         addResourceCta:
           instance: 'Add an instance'
           asg: 'Add a auto-scaling group'
           kubernetes: 'Add a cluster'
+          ecs: 'Add an ECS Service'
+          rds: 'Add RDS instances'
       step3:
         title: 'Choose to convert the selected instance(s) to spot or remain on-demand. '
         asgTitle: 'Choose the on-demand vs spot ratio for your Auto Scaling group'
         subTitle: 'AutoStopping has full spot interruption handling and on-demand fall back capabilities built'
         asgSubTitle: 'The selected Auto Scaling group has been created using mixed instances as shown below. You can choose to go with the same or convert all of them to spot or on demand.'
+        ecsSubTitle: 'Specify desired task count for the selected ECS service'
         policyNotEnabled: 'Mixed instance policy is not enabled'
+        invalidValueErrorMsg: 'Please enter valid input'
+        desiredTaskCount: 'Desired Task Count'
       step4:
         setup: 'Set up'
         advancedConfiguration: 'Advanced Configuration'
       instanceModal:
         description: 'AutoStopping Rules can manage multiple VMs as long as they are all within the same cloud provider region.'
+      ecsModal:
+        title: 'Select ECS Service'
+        emptyDescription: 'Select a Region and a Cluster to see all the services.'
+      rdsModal:
+        title: 'Select RDS instance(s)'
+        emptyDescription: 'Select a Region to see all the databases.'
     review:
       configDetails: 'Configuration Details'
     setupAccess:
       pageName: 'Setup Access'
-      noSetupRequired: No need to setup access for kubernetes rule. Please move to Review step.
+      noSetupRequired: No need to setup access for {{source}}. Please move to Review step.
+      noSetupRequiredForRds:
+        title: 'AutoStopping for RDS can be leveraged for several use cases. Some examples are listed below.'
+        example1:
+          title: 'RDS instance connected to a workload running on EC2 VMs (e.g., API server and supported database)'
+          listPointer1: 'This will be achieved by creating dependant Rules that manage the RDS instance(s) and the compute resources connected to these RDS instances.'
+          listPointer2: 'For example'
+          subListPointer1: 'AutoStopping Rule named Database manages one or more RDS instances'
+          subListPointer2: 'AutoStopping Rule named API manages one or more EC2 VMs'
+          subListPointer3: 'API Rule is dependant on Database Rule'
+          subListPointer4: 'When there is traffic to the API server, then the database gets turned on, and then the API server gets turned on'
+          subListPointer5: 'When there is no traffic (idle time) to the API server, then both the RDS and EC2 VMs will be automatically stopped'
+        example2:
+          title: 'Background job that populates an RDS database (e.g., cron job scraping the web and populating the database)'
+          listPointer1: 'In this scenario, both the RDS instance(s) and/or the connected EC2 VM(s) can be started by calling our warm-up API as required. Read more'
+          listPointer2: 'Alternatively, both the RDS database(s) and the connected EC2 VM(s) can be scheduled to start and stop at fixed intervals of time'
+        example3:
+          title: 'Querying to archive databases'
+          listPointer1: 'In this scenario, leverage Harness CLI to keep the the RDS instance(s) running'
+          listPointer2: 'Use your own database clients to query the database.'
       customDomain:
         helpText: 'Specify the URL used to access the resources(Optional)'
         noHostedZones: 'Custom domain does not match to any of the existing domains'

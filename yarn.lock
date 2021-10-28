@@ -5165,20 +5165,20 @@
     vscode-languageserver "^5.2.1"
     vscode-uri "^2.1.1"
 
-"@wings-software/ng-tooltip@~1.30.26":
-  version "1.30.52"
-  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.30.52/2e9b86405fc79b963cf684bd39188c9f3ba9729ba86e101f72434bfc3ce1deb3#9dbd66085b6e26429153b3f8bcb7cf936dc5f8b3"
-  integrity sha512-IfmW3HRqE4RSzzEmYxOn9bxl5CJnRrvO7DpZSXWgH4W2NR5zhcjvHtpkj7O0ip3WHTNNYrFBpUJzAZ+/tQL9Tw==
+"@wings-software/ng-tooltip@~1.30.55":
+  version "1.30.55"
+  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.30.55/e87b58b4714852d4292d4e544a8969d54f6cde8bf810f9dd3f86eba887e4ca32#4ef6b9d4be8f0fb374c7f95f6fcafbe6e4529ab4"
+  integrity sha512-G4Q0AcnJE2T/WXEwAMLuhsRvGUwy2XnFpZk3mLIXlihntWS1cWkDJPOMdExjJUfJuh8MKEbUb29l2cosLx8IYA==
 
 "@wings-software/telemetry@^1.0.36":
   version "1.0.36"
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/uicore@0.1.419":
-  version "0.1.419"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.419/5060d6c98ec9051023477752f5ec850654fd7a7915aa6eb72349278f98803465#89eb5ffa99281765ccc309ac465e0971379841ac"
-  integrity sha512-dRWcDJXyAmfoVR8Th4NYXEW5JL+m2J0MbmgeHQYJJ4rUjRSgFEQO4smcKjT46uRVv0NBTd/C281jrgvvTeAuSw==
+"@wings-software/uicore@0.1.429":
+  version "0.1.429"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.429/17e16c7da567595184b5934df5b16aa9e8f8b8e500bde5e52dfc09555c71743c#fe18cc0dcf0f011fcffee6b8dc9258b2db8ffd83"
+  integrity sha512-d4JTU7ZXfGRVmNw0oCUxtkqyQ4gQou3oavycGizqaPlk5RTpKLwgvXUZE3880k7YPy3IzUBMha27grto0Apq+Q==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -13531,6 +13531,11 @@ marked@2.0.1:
   resolved "https://registry.yarnpkg.com/marked/-/marked-2.0.1.tgz#5e7ed7009bfa5c95182e4eb696f85e948cefcee3"
   integrity sha512-5+/fKgMv2hARmMW7DOpykr2iLhl0NgjyELk5yn92iE7z8Se1IS9n3UsFm86hFXIkvMBmVxki8+ckcpjBeyo/hw==
 
+marked@^3.0.8:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-3.0.8.tgz#2785f0dc79cbdc6034be4bb4f0f0a396bd3f8aeb"
+  integrity sha512-0gVrAjo5m0VZSJb4rpL59K1unJAMb/hm8HRXqasD8VeC8m91ytDPMritgFSlKonfdt+rRYYpP/JfLxgIX8yoSw==
+
 marky@^1.2.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/marky/-/marky-1.2.2.tgz#4456765b4de307a13d263a69b0c79bf226e68323"
@@ -17631,11 +17636,6 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
-
-snarkdown@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/snarkdown/-/snarkdown-2.0.0.tgz#b1feb4db91b9f94a8ebbd7a50f3e99aee18b1e03"
-  integrity "sha1-sf6025G5+UqOu9elDz6ZruGLHgM= sha512-MgL/7k/AZdXCTJiNgrO7chgDqaB9FGM/1Tvlcenenb7div6obaDATzs16JhFyHHBGodHT3B7RzRc5qk8pFhg3A=="
 
 sockjs@^0.3.21:
   version "0.3.21"

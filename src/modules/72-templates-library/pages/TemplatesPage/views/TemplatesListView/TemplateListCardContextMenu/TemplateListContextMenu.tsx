@@ -16,7 +16,7 @@ interface ContextMenuProps extends PopoverProps {
   onPreview?: (template: TemplateSummaryResponse) => void
   onOpenEdit?: (template: TemplateSummaryResponse) => void
   onOpenSettings?: (templateIdentifier: string) => void
-  onDelete?: (templateIdentifier: string) => void
+  onDelete?: (template: TemplateSummaryResponse) => void
   className?: string
 }
 
@@ -76,7 +76,7 @@ export const TemplateListContextMenu: React.FC<ContextMenuProps> = (props): JSX.
         label: getString('templatesLibrary.deleteTemplate'),
         disabled: !canDelete,
         onClick: () => {
-          onDelete?.(template.identifier || '')
+          onDelete?.(template)
         }
       }
     ]

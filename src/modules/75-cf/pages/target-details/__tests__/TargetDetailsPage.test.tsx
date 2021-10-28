@@ -5,6 +5,18 @@ import mockFeatureFlags from '@cf/pages/feature-flags-detail/__tests__/mockFeatu
 import mockImport from 'framework/utils/mockImport'
 import { TargetDetailPage } from '../TargetDetailPage'
 
+jest.mock('@cf/hooks/useGitSync', () => ({
+  useGitSync: jest.fn(() => ({
+    getGitSyncFormMeta: jest.fn().mockReturnValue({
+      gitSyncInitialValues: {},
+      gitSyncValidationSchema: {}
+    }),
+    isAutoCommitEnabled: false,
+    isGitSyncEnabled: true,
+    handleAutoCommit: jest.fn()
+  }))
+}))
+
 describe('TargetDetailPage', () => {
   test('TargetDetailPage should render loading correctly', async () => {
     mockImport('services/cf', {

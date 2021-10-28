@@ -15,7 +15,6 @@ import type { AbstractStepFactory, StepData as FactoryStepData } from '../../Abs
 import { iconMapByName } from './iconMap'
 // TODO: Mock API
 import featureStageSteps from './mock/featureStageSteps.json'
-import buildStageStepsWithRunTestsStep from './mock/buildStageStepsWithRunTestsStep.json'
 import css from './StepPalette.module.scss'
 
 export const getAllStepsCountForPalette = (originalData: StepCategory[]): number => {
@@ -41,12 +40,7 @@ export const getAllStepsCountForPalette = (originalData: StepCategory[]): number
 
 // TODO: remove once CI and CF onboard to the step palette v2 API
 const getMockedSteps = (stageType: StageType) => {
-  if (stageType === StageType.BUILD) {
-    return {
-      loading: false,
-      data: buildStageStepsWithRunTestsStep as unknown as ResponseStepCategory
-    }
-  } else if (stageType === StageType.FEATURE) {
+  if (stageType === StageType.FEATURE) {
     return {
       loading: false,
       data: featureStageSteps as unknown as ResponseStepCategory
@@ -98,32 +92,41 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, stepsFactory
       accountId
     },
     body: {
-      stepPalleteModuleInfos: [
-        {
-          module: 'cd',
-          category: stageType === StageType.APPROVAL ? 'Approval' : undefined,
-          shouldShowCommonSteps: true
-        },
-        {
-          module: 'cv',
-          shouldShowCommonSteps: false
-        }
-      ]
+      stepPalleteModuleInfos:
+        stageType === StageType.BUILD
+          ? [
+              {
+                module: 'ci',
+                shouldShowCommonSteps: false
+              }
+            ]
+          : [
+              {
+                module: 'cd',
+                category: stageType === StageType.APPROVAL ? 'Approval' : undefined,
+                shouldShowCommonSteps: true
+              },
+              {
+                module: 'cv',
+                shouldShowCommonSteps: false
+              }
+            ]
     },
     mock: getMockedSteps(stageType)
   })
 
   const { getString } = useStrings()
   useEffect(() => {
-    if (stageType === StageType.BUILD || stageType === StageType.FEATURE) {
-      // todo - remove once CF and CI are onboarded to the v2 step palette API
+    if (stageType === StageType.FEATURE) {
+      // todo - remove once CF is onboarded to the v2 step palette API
       const stepsCategories = stepsData?.data?.stepCategories
       /* istanbul ignore else */ if (stepsCategories) {
         setStepsCategories(stepsCategories)
         setOriginalCategories(stepsCategories)
       }
     } else {
-      // For CD stages, as per the v2 API
+      // For CI & CD stages, as per the v2 API
+      // Api response should expose stage type in the response for better filtering logic, instead of based on stage name
       const fromApi = stepsData?.data?.stepCategories
       const toShow: StepCategory[] = []
       fromApi?.forEach(stepCat => {

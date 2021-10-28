@@ -123,5 +123,9 @@ export const getSelectedResourceFromGatewayDetails = (gatewayDetails: GatewayDet
     ? RESOURCES.ASG
     : Utils.isK8sRule(gatewayDetails)
     ? RESOURCES.KUBERNETES
+    : !_isEmpty(gatewayDetails.routing.container_svc)
+    ? RESOURCES.ECS
+    : !_isEmpty(gatewayDetails.routing.database)
+    ? RESOURCES.RDS
     : null
 }

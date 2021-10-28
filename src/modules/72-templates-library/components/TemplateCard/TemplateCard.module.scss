@@ -55,4 +55,12 @@
       position: absolute;
     }
   }
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--spacing-4);
+    .label {
+      flex-shrink: 0;
+    }
+  }
 }

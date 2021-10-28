@@ -19,7 +19,6 @@ import { DEFAULT_MAX_SLIDER_WIDTH, DEFAULT_MIN_SLIDER_WIDTH, TimePeriodEnum } fr
 import type { ServiceHealthProps } from './ServiceHealth.types'
 import HealthScoreChart from './components/HealthScoreChart/HealthScoreChart'
 import MetricsAndLogs from './components/MetricsAndLogs/MetricsAndLogs'
-import HealthScoreCard from './components/HealthScoreCard/HealthScoreCard'
 import AnomaliesCard from './components/AnomaliesCard/AnomaliesCard'
 import ChangesSourceCard from './components/ChangesSourceCard/ChangesSourceCard'
 import ChangesAndServiceDependency from './components/ChangesAndServiceDependency/ChangesAndServiceDependency'
@@ -125,15 +124,12 @@ export default function ServiceHealth({
 
   return (
     <>
-      <Container className={css.serviceHealthHeader}>
-        <Select
-          value={selectedTimePeriod}
-          items={getTimePeriods(getString)}
-          className={css.timePeriods}
-          onChange={setSelectedTimePeriod}
-        />
-        <HealthScoreCard serviceIdentifier={serviceIdentifier} environmentIdentifier={environmentIdentifier} />
-      </Container>
+      <Select
+        value={selectedTimePeriod}
+        items={getTimePeriods(getString)}
+        className={css.timePeriods}
+        onChange={setSelectedTimePeriod}
+      />
       <Container className={css.serviceHealthCard}>
         <Card>
           <>

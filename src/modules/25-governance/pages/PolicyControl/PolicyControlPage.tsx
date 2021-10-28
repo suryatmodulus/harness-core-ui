@@ -5,15 +5,16 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
-import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import type { StringsMap } from 'stringTypes'
+import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 
 export interface PolicyControlPageProps {
-  title?: string
+  titleKey?: keyof StringsMap
 }
 
-const PolicyControlPage: React.FC<PolicyControlPageProps> = ({ title = '', children }) => {
-  const { accountId } = useParams<PipelineType<ProjectPathProps>>()
+const PolicyControlPage: React.FC<PolicyControlPageProps> = ({ titleKey, children }) => {
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<GovernancePathProps>()
   const { getString } = useStrings()
   const { pageTitle } = useQueryParams<{ pageTitle: string }>()
 
@@ -21,26 +22,26 @@ const PolicyControlPage: React.FC<PolicyControlPageProps> = ({ title = '', child
     <>
       <Page.Header
         breadcrumbs={<NGBreadcrumbs />}
-        title={pageTitle || title || ''}
+        title={pageTitle || (titleKey && getString(titleKey)) || ''}
         toolbar={
           <TabNavigation
             size={'small'}
             links={[
               {
                 label: getString('overview'),
-                to: routes.toPolicyDashboardPage({ accountId })
+                to: routes.toGovernancePolicyDashboard({ accountId, orgIdentifier, projectIdentifier, module })
               },
               {
                 label: getString('common.policies'),
-                to: routes.toPolicyListPage({ accountId })
+                to: routes.toGovernancePolicyListing({ accountId, orgIdentifier, projectIdentifier, module })
               },
               {
                 label: getString('common.policy.policysets'),
-                to: routes.toPolicySetsPage({ accountId })
+                to: routes.toGovernancePolicySetsListing({ accountId, orgIdentifier, projectIdentifier, module })
               },
               {
                 label: getString('common.policy.evaluations'),
-                to: routes.toPolicyEvaluationsPage({ accountId })
+                to: routes.toGovernanceEvaluationsListing({ accountId, orgIdentifier, projectIdentifier, module })
               }
             ]}
           />

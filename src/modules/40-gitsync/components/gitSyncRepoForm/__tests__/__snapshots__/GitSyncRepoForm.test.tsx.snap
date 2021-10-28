@@ -5,51 +5,72 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
   class="bp3-dialog dialog"
 >
   <div
+    class="bp3-dialog-header"
+  >
+    <h4
+      class="bp3-heading"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-top-xxxlarge StyledProps--padding-left-large StyledProps--padding-right-large"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+        >
+          common.entityReferenceTitle
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-small StyledProps--color StyledProps--color-grey350"
+        >
+          common.entityReferenceSubTitle (projectsText / orgsText / account)
+        </p>
+      </div>
+    </h4>
+    <button
+      aria-label="Close"
+      class="bp3-button bp3-minimal bp3-dialog-close-button"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-small-cross"
+        icon="small-cross"
+      >
+        <svg
+          data-icon="small-cross"
+          height="20"
+          viewBox="0 0 20 20"
+          width="20"
+        >
+          <desc>
+            small-cross
+          </desc>
+          <path
+            d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div
     class="contentContainer"
   >
     <div
-      class="Layout--horizontal StyledProps--main bp3-popover-dismiss"
+      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
     >
-      <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-        style="width: 100%; justify-content: flex-start;"
-        type="button"
+      <div
+        class="Layout--horizontal StyledProps--main bp3-popover-dismiss"
       >
-        <span
-          class="bp3-button-text"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
+          type="button"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7"
+          <span
+            class="bp3-button-text"
           >
-            + 
-            newConnector
-          </p>
-        </span>
-      </button>
-      <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeButton Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-        type="button"
-      >
-        <span
-          class="bp3-icon bp3-icon-cross StyledProps--main"
-          icon="cross"
-        >
-          <svg
-            data-icon="cross"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <desc>
-              cross
-            </desc>
-            <path
-              d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-      </button>
+            + newConnector
+          </span>
+        </button>
+      </div>
     </div>
     <div
       class="StyledProps--font StyledProps--main container"
@@ -124,11 +145,11 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
               role="tab"
               tabindex="0"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-small StyledProps--padding-bottom-small"
               >
                 <span
-                  class="bp3-icon bp3-icon-cube StyledProps--main iconMargin"
+                  class="bp3-icon bp3-icon-cube StyledProps--main tabIcon"
                   icon="cube"
                 >
                   <svg
@@ -146,8 +167,18 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                     />
                   </svg>
                 </span>
-                projectLabel
-              </p>
+                <div
+                  class="Layout--vertical StyledProps--main tabTitleContainer StyledProps--padding-left-small"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-h6 StyledProps--font-weight-light"
+                    style="--text-line-clamp: 1;"
+                  >
+                    projectLabel
+                  </p>
+                  
+                </div>
+              </div>
             </div>
             <div
               aria-controls="bp3-tab-panel_selectScope_organization"
@@ -160,11 +191,11 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
               role="tab"
               tabindex="0"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-small StyledProps--padding-bottom-small"
               >
                 <span
-                  class="bp3-icon bp3-icon-diagram-tree StyledProps--main iconMargin"
+                  class="bp3-icon bp3-icon-diagram-tree StyledProps--main tabIcon"
                   icon="diagram-tree"
                 >
                   <svg
@@ -182,8 +213,18 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                     />
                   </svg>
                 </span>
-                orgLabel
-              </p>
+                <div
+                  class="Layout--vertical StyledProps--main tabTitleContainer StyledProps--padding-left-small"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-h6 StyledProps--font-weight-light"
+                    style="--text-line-clamp: 1;"
+                  >
+                    orgLabel
+                  </p>
+                  
+                </div>
+              </div>
             </div>
             <div
               aria-controls="bp3-tab-panel_selectScope_account"
@@ -196,11 +237,11 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
               role="tab"
               tabindex="0"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--padding-medium"
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-small StyledProps--padding-bottom-small"
               >
                 <span
-                  class="bp3-icon bp3-icon-layers StyledProps--main iconMargin"
+                  class="bp3-icon bp3-icon-layers StyledProps--main tabIcon"
                   icon="layers"
                 >
                   <svg
@@ -218,8 +259,18 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                     />
                   </svg>
                 </span>
-                account
-              </p>
+                <div
+                  class="Layout--vertical StyledProps--main tabTitleContainer StyledProps--padding-left-small"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-h6 StyledProps--font-weight-light"
+                    style="--text-line-clamp: 1;"
+                  >
+                    account
+                  </p>
+                  
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -239,105 +290,126 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                   class="item"
                 >
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main connectorInfo StyledProps--margin-right-small"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                   >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="github"
-                    >
-                      <svg
-                        height="30"
-                        viewBox="0 0 24 24"
-                        width="30"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                        />
-                      </svg>
-                    </span>
                     <div
-                      class="connectorNameId"
-                    >
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
-                        style="--text-line-clamp: 1;"
-                      >
-                        ValidGitAccount
-                      </p>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-light StyledProps--color StyledProps--color-grey450"
-                        style="--text-line-clamp: 1;"
-                      >
-                        ValidGitRepo
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                      type="button"
+                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main connectorInfo StyledProps--margin-right-small StyledProps--margin-bottom-small"
                     >
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps--main"
-                        icon="edit"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="github"
                       >
                         <svg
-                          data-icon="edit"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
+                          height="30"
+                          viewBox="0 0 24 24"
+                          width="30"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <desc>
-                            edit
-                          </desc>
                           <path
-                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                            fill-rule="evenodd"
+                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
                           />
                         </svg>
                       </span>
-                    </button>
-                    <span
-                      class="bp3-icon bp3-icon-full-circle StyledProps--main status StyledProps--color StyledProps--color-red500"
-                      icon="full-circle"
-                    >
-                      <svg
-                        data-icon="full-circle"
-                        height="6"
-                        viewBox="0 0 16 16"
-                        width="6"
+                      <div
+                        class="connectorNameId"
                       >
-                        <desc>
-                          full-circle
-                        </desc>
-                        <path
-                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+                          style="--text-line-clamp: 1;"
+                        >
+                          ValidGitAccount
+                        </p>
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-light StyledProps--color StyledProps--color-grey600"
+                          style="--text-line-clamp: 1;"
+                        >
+                          common.ID: ValidGitRepo
+                        </p>
+                      </div>
+                    </div>
+                    <span
+                      class="bp3-tag bp3-round lastConnected"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        common.lastConnectedOn April 28th 2021
+                      </span>
                     </span>
                   </div>
                 </div>
-                <span
-                  class="bp3-icon StyledProps--main iconCheck"
-                  data-icon="pipeline-approval"
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                 >
-                  <svg
-                    height="16"
-                    viewBox="0 0 19 17"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main editBtn Button--with-current-color Button--withLeftIcon Button--variation Button--variation-icon"
+                    type="button"
                   >
-                    <path
-                      d="M18.81.669l.006.004.015.013a.5.5 0 01.062.7L6.479 16.375a.5.5 0 01-.709.062.52.52 0 01-.136-.176.523.523 0 01-.126-.095L.132 10.578a.5.5 0 01.005-.698l.017-.018a.5.5 0 01.707-.005l.007.007 5.233 5.367L18.107.735a.5.5 0 01.704-.066z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey600"
+                      data-icon="Edit"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 24 24"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                        <path
+                          clip-rule="evenodd"
+                          d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          opacity="0.3"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                  <span
+                    class="bp3-icon StyledProps--main iconCheck"
+                    data-icon="pipeline-approval"
+                    style="width: 30px;"
+                  >
+                    <svg
+                      height="16"
+                      viewBox="0 0 19 17"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18.81.669l.006.004.015.013a.5.5 0 01.062.7L6.479 16.375a.5.5 0 01-.709.062.52.52 0 01-.136-.176.523.523 0 01-.126-.095L.132 10.578a.5.5 0 01.005-.698l.017-.018a.5.5 0 01.707-.005l.007.007 5.233 5.367L18.107.735a.5.5 0 01.704-.066z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main status StyledProps--color StyledProps--color-red500"
+                    icon="full-circle"
+                    style="width: 30px;"
+                  >
+                    <svg
+                      data-icon="full-circle"
+                      height="10"
+                      viewBox="0 0 16 16"
+                      width="10"
+                    >
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
               <div
                 class="listItem listItem"
@@ -346,115 +418,127 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                   class="item"
                 >
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main connectorInfo StyledProps--margin-right-small"
+                    class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                   >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="github"
-                    >
-                      <svg
-                        height="30"
-                        viewBox="0 0 24 24"
-                        width="30"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                        />
-                      </svg>
-                    </span>
                     <div
-                      class="connectorNameId"
-                    >
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold"
-                        style="--text-line-clamp: 1;"
-                      >
-                        ValidGithubRepo
-                      </p>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-light StyledProps--color StyledProps--color-grey450"
-                        style="--text-line-clamp: 1;"
-                      >
-                        ValidGithubRepo
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                      type="button"
+                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main connectorInfo StyledProps--margin-right-small StyledProps--margin-bottom-small"
                     >
                       <span
-                        class="bp3-icon bp3-icon-edit StyledProps--main"
-                        icon="edit"
+                        class="bp3-icon StyledProps--main"
+                        data-icon="github"
                       >
                         <svg
-                          data-icon="edit"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
+                          height="30"
+                          viewBox="0 0 24 24"
+                          width="30"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <desc>
-                            edit
-                          </desc>
                           <path
-                            d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                            fill-rule="evenodd"
+                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
                           />
                         </svg>
                       </span>
-                    </button>
+                      <div
+                        class="connectorNameId"
+                      >
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+                          style="--text-line-clamp: 1;"
+                        >
+                          ValidGithubRepo
+                        </p>
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-light StyledProps--color StyledProps--color-grey600"
+                          style="--text-line-clamp: 1;"
+                        >
+                          common.ID: ValidGithubRepo
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                >
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main editBtn Button--with-current-color Button--withLeftIcon Button--variation Button--variation-icon"
+                    type="button"
+                  >
                     <span
-                      class="bp3-icon bp3-icon-full-circle StyledProps--main status StyledProps--color StyledProps--color-green500"
-                      icon="full-circle"
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey600"
+                      data-icon="Edit"
                     >
                       <svg
-                        data-icon="full-circle"
-                        height="6"
-                        viewBox="0 0 16 16"
-                        width="6"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <desc>
-                          full-circle
-                        </desc>
                         <path
-                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                          clip-rule="evenodd"
+                          d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
+                          fill="currentColor"
                           fill-rule="evenodd"
+                        />
+                        <path
+                          clip-rule="evenodd"
+                          d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                          opacity="0.3"
                         />
                       </svg>
                     </span>
-                  </div>
-                </div>
-                <span
-                  class="bp3-icon StyledProps--main iconCheck"
-                  data-icon="pipeline-approval"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 19 17"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
+                  </button>
+                  <span
+                    class="bp3-icon StyledProps--main iconCheck"
+                    data-icon="pipeline-approval"
+                    style="width: 30px;"
                   >
-                    <path
-                      d="M18.81.669l.006.004.015.013a.5.5 0 01.062.7L6.479 16.375a.5.5 0 01-.709.062.52.52 0 01-.136-.176.523.523 0 01-.126-.095L.132 10.578a.5.5 0 01.005-.698l.017-.018a.5.5 0 01.707-.005l.007.007 5.233 5.367L18.107.735a.5.5 0 01.704-.066z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
+                    <svg
+                      height="16"
+                      viewBox="0 0 19 17"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18.81.669l.006.004.015.013a.5.5 0 01.062.7L6.479 16.375a.5.5 0 01-.709.062.52.52 0 01-.136-.176.523.523 0 01-.126-.095L.132 10.578a.5.5 0 01.005-.698l.017-.018a.5.5 0 01.707-.005l.007.007 5.233 5.367L18.107.735a.5.5 0 01.704-.066z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main status StyledProps--color StyledProps--color-green500"
+                    icon="full-circle"
+                    style="width: 30px;"
+                  >
+                    <svg
+                      data-icon="full-circle"
+                      height="10"
+                      viewBox="0 0 16 16"
+                      width="10"
+                    >
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div
-        class="Layout--horizontal StyledProps--main"
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
       >
         <button
-          class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main applyButton bp3-popover-dismiss StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main bp3-popover-dismiss Button--with-current-color Button--variation Button--variation-primary"
           disabled=""
           tabindex="-1"
           type="button"
@@ -463,6 +547,16 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
             class="bp3-button-text"
           >
             entityReference.apply
+          </span>
+        </button>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-tertiary"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            cancel
           </span>
         </button>
       </div>

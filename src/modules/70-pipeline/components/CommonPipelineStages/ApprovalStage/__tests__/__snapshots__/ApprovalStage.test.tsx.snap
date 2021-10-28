@@ -208,12 +208,12 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
           <div
             class="content"
           >
-            <div
-              class="tabHeading"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-h5 StyledProps--margin-bottom-small"
               id="stageOverview"
             >
               stageOverview
-            </div>
+            </p>
             <div
               class="StyledProps--font StyledProps--main basicOverviewDetails"
               id="stageOverview"
@@ -373,11 +373,11 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
               </form>
             </div>
             <div
-              class="Accordion--accordion accordionTitle"
+              class="Accordion--accordion"
             >
               <div
                 class="Accordion--panel"
-                data-open="true"
+                data-open="false"
                 data-testid="variables-panel"
                 id="variables-panel"
               >
@@ -389,43 +389,23 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
                     class="Accordion--chevron"
                   />
                   <div
-                    class="Accordion--label"
+                    class=""
                   >
-                    Advanced
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-variation-h5"
+                    >
+                      advancedTitle
+                    </p>
                   </div>
                 </div>
                 <div
                   class="bp3-collapse Accordion--collapse"
-                  style="height: auto; overflow-y: visible; transition: none;"
                 >
                   <div
                     aria-hidden="false"
                     class="bp3-collapse-body"
-                    style="transform: translateY(0); transition: none;"
-                  >
-                    <div
-                      class="Accordion--details"
-                      data-testid="variables-details"
-                    >
-                      <div
-                        class="bp3-card bp3-elevation-0 Card--card sectionCard"
-                        id="variables"
-                      >
-                        <div
-                          class="tabSubHeading"
-                        >
-                          Stage Variables
-                        </div>
-                        <div
-                          class="Layout--horizontal StyledProps--main"
-                        >
-                          <div>
-                            {"a":"a","variables":[],"canAddVariable":true}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    style="transform: translateY(-undefinedpx);"
+                  />
                 </div>
               </div>
             </div>

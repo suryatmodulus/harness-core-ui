@@ -3,6 +3,7 @@ import { Color, Utils, Views, SelectOption } from '@wings-software/uicore'
 import type { UseStringsReturn } from 'framework/strings'
 import type { ResponseListEnvironmentResponse, EnvironmentResponse } from 'services/cd-ng'
 import type { StringsMap } from 'stringTypes'
+import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 
 export enum RiskValues {
   NO_DATA = 'NO_DATA',
@@ -13,7 +14,12 @@ export enum RiskValues {
   UNHEALTHY = 'UNHEALTHY'
 }
 
-export function getRiskColorValue(riskStatus?: keyof typeof RiskValues, realCSSColor = true): string {
+// Need to remove once removed from BE.
+type OldRiskTypes = 'LOW' | 'MEDIUM' | 'HIGH'
+
+type RiskTypes = keyof typeof RiskValues | OldRiskTypes
+
+export function getRiskColorValue(riskStatus?: RiskTypes, realCSSColor = true): string {
   switch (riskStatus) {
     case RiskValues.HEALTHY:
       return realCSSColor ? Utils.getRealCSSColor(Color.GREEN_500) : Color.GREEN_500
@@ -28,7 +34,7 @@ export function getRiskColorValue(riskStatus?: keyof typeof RiskValues, realCSSC
   }
 }
 
-export function getSecondaryRiskColorValue(riskStatus?: keyof typeof RiskValues, realCSSColor = true): string {
+export function getSecondaryRiskColorValue(riskStatus?: RiskTypes, realCSSColor = true): string {
   switch (riskStatus) {
     case RiskValues.HEALTHY:
       return realCSSColor ? Utils.getRealCSSColor(Color.GREEN_50) : Color.GREEN_50
@@ -43,7 +49,7 @@ export function getSecondaryRiskColorValue(riskStatus?: keyof typeof RiskValues,
   }
 }
 
-export const getRiskLabelStringId = (riskStatus?: keyof typeof RiskValues): keyof StringsMap => {
+export const getRiskLabelStringId = (riskStatus?: RiskTypes): keyof StringsMap => {
   switch (riskStatus) {
     case RiskValues.NO_DATA:
       return 'noData'
@@ -96,6 +102,20 @@ export const getEnvironmentOptions = (
   return []
 }
 
-export const getCVMonitoringServicesSearchParam = (view?: Views): string => {
-  return view === Views.GRID ? `?view=${view}` : ''
+interface GetCVMonitoringServicesSearchParamProps {
+  view?: Views
+  tab?: MonitoredServiceEnum.Configurations
+}
+
+export const getCVMonitoringServicesSearchParam = ({ view, tab }: GetCVMonitoringServicesSearchParamProps): string => {
+  let searchParam = `?`
+
+  if (view === Views.GRID) {
+    searchParam = searchParam.concat(`view=${view}&`)
+  }
+  if (tab === MonitoredServiceEnum.Configurations) {
+    searchParam = searchParam.concat(`tab=${tab}`)
+  }
+
+  return searchParam
 }

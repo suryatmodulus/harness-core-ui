@@ -101,12 +101,6 @@ const RetryHistory = ({ canExecute, showRetryHistory, canRetry }: RetryHistoryPr
   })
   const executionInfo = retryHistoryResponse?.data?.executionInfos
 
-  const showAllRetryHistory = (): void => {
-    if (!executionInfo) {
-      refetchRetryHistory()
-    }
-  }
-
   const gotoExecutionDetails = (planExecutionId: string): void => {
     if (planExecutionId !== executionIdentifier) {
       history.push(
@@ -218,7 +212,7 @@ const RetryHistory = ({ canExecute, showRetryHistory, canRetry }: RetryHistoryPr
         variation={ButtonVariation.SECONDARY}
         size={ButtonSize.SMALL}
         iconProps={{ size: 24, color: Color.PRIMARY_7 }}
-        onClick={showAllRetryHistory}
+        onClick={() => refetchRetryHistory()}
         disabled={!canExecute}
         className={cx(css.cardBtns, css.retryHistoryBtn)}
       />

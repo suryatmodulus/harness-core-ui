@@ -62,12 +62,22 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
     useResizeColumns
   )
 
-  const getIconName = (isSorted: boolean, isSortedDesc = false): IconName => {
-    if (isSorted && isSortedDesc) {
+  const getIconName = ({
+    isSorted,
+    isSortedDesc = false,
+    isServerSorted,
+    isServerSortedDesc
+  }: {
+    isSorted: boolean
+    isSortedDesc?: boolean
+    isServerSorted?: boolean
+    isServerSortedDesc?: boolean
+  }): IconName => {
+    if ((isSorted && isSortedDesc) || (isServerSorted && isServerSortedDesc)) {
       return 'caret-up'
     }
 
-    if (isSorted) {
+    if (isSorted || isServerSorted) {
       return 'caret-down'
     }
 
@@ -90,7 +100,13 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                 {headerGroup.headers.map(header => {
                   const label = header.render('Header')
                   const tooltipId = name ? name + header.id : undefined
-
+                  const serverSideSort = header?.serverSortProps?.enableServerSort
+                    ? {
+                        onClick: () => {
+                          header.serverSortProps?.getSortedColumn?.({ sort: header.id })
+                        }
+                      }
+                    : {}
                   return (
                     // eslint-disable-next-line react/jsx-key
                     <div
@@ -98,6 +114,7 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                       {...header.getHeaderProps(resizable ? header.getHeaderProps() : void 0)}
                       className={cx(css.cell, { [css.sortable]: sortable }, { [css.resizable]: resizable })}
                       style={{ width: header.width }}
+                      {...serverSideSort}
                     >
                       <Text
                         font={{ variation: FontVariation.TABLE_HEADERS }}
@@ -107,7 +124,12 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
                       </Text>
                       {sortable && header.canSort ? (
                         <Icon
-                          name={getIconName(header.isSorted, header.isSortedDesc)}
+                          name={getIconName({
+                            isSorted: header.isSorted,
+                            isSortedDesc: header.isSortedDesc,
+                            isServerSorted: header.serverSortProps?.isServerSorted,
+                            isServerSortedDesc: header.serverSortProps?.isServerSortedDesc
+                          })}
                           size={15}
                           padding={{ left: 'small' }}
                         />

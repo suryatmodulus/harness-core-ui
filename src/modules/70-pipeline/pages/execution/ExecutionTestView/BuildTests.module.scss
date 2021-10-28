@@ -3,6 +3,7 @@
   // height: calc(100vh - 150px);
   overflow: auto;
   padding: var(--spacing-medium);
+  height: auto;
 
   .graph {
     --cell-size: 14px;
@@ -314,7 +315,7 @@
 }
 
 .rightContainer {
-  width: 955px;
+  width: 945px;
   flex-shrink: 0;
 }
 
@@ -443,6 +444,28 @@
 
 .select {
   width: auto !important;
+}
+
+.sortBySelect {
+  width: 162px !important;
+  margin-right: 32px !important;
+  [class*='bp3-menu'] {
+    width: 162px;
+    max-width: 162px;
+    min-width: 162px;
+  }
+}
+
+.listIcons {
+  align-self: center;
+  &:hover {
+    cursor: pointer;
+    box-shadow: var(--button-shadow);
+  }
+}
+
+.activeGroupedIcon {
+  color: var(--primary-7) !important;
 }
 
 .testPopoverBody {

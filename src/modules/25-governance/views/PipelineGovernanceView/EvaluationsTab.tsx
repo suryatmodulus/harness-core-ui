@@ -21,6 +21,7 @@ import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import routes from '@common/RouteDefinitions'
+import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import type { StringsContextValue } from 'framework/strings/StringsContext'
 import { EvaluationStatusLabel } from '@governance/components/EvaluationStatus/EvaluationStatusLabel'
 import { EvaluationStatus, PipleLineEvaluationEvent, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
@@ -36,7 +37,9 @@ const evaluationNameFromAction = (getString: StringsContextValue['getString'], a
 
 export const EvaluationsTab: React.FC = () => {
   const [pageIndex, setPageIndex] = useState(0)
-  const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams<Record<string, string>>()
+  const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier, module } = useParams<
+    GovernancePathProps & { pipelineIdentifier: string }
+  >()
   const entity = `accountIdentifier:${accountId}/orgIdentifier:${orgIdentifier}/projectIdentifier:${projectIdentifier}/pipelineIdentifier:${pipelineIdentifier}`
   const queryParams = useMemo(() => {
     return {
@@ -124,7 +127,15 @@ export const EvaluationsTab: React.FC = () => {
               columns={columns}
               data={data || []}
               onRowClick={evaluation => {
-                history.push(routes.toPolicyEvaluationDetail({ accountId, evaluationId: evaluation.id }))
+                history.push(
+                  routes.toGovernanceEvaluationDetail({
+                    accountId,
+                    orgIdentifier: evaluation.org_id,
+                    projectIdentifier: evaluation.project_id,
+                    module,
+                    evaluationId: String(evaluation.id)
+                  })
+                )
               }}
             />
           </Container>

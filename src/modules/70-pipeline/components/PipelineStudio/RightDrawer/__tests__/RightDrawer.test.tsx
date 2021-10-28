@@ -72,6 +72,49 @@ jest.spyOn(pipelineng, 'useGetBarriersSetupInfoList').mockImplementation((): any
   return { data: '', error: null, loading: false }
 })
 
+const mockStepsData = {
+  status: 'SUCCESS',
+  data: {
+    name: 'Library',
+    stepsData: [],
+    stepCategories: [
+      {
+        name: 'Continuous Integration',
+        stepsData: [],
+        stepCategories: [
+          {
+            name: 'Build',
+            stepsData: [
+              {
+                name: 'Run',
+                type: 'Run',
+                disabled: false,
+                featureRestrictionName: null
+              },
+              {
+                name: 'Run Tests',
+                type: 'RunTests',
+                disabled: false,
+                featureRestrictionName: null
+              }
+            ],
+            stepCategories: []
+          }
+        ]
+      }
+    ]
+  },
+  metaData: null,
+  correlationId: 'someId'
+}
+
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+  useMutateAsGet: jest.fn().mockImplementation(() => {
+    return { data: mockStepsData, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
+
 const pipelineVariablesContextMock = {
   variablesPipeline: {
     name: 'stage1',
@@ -533,30 +576,6 @@ describe('Right Drawer tests', () => {
 
       const notificationHeader = await findAllByText('notifications.name')
       expect(notificationHeader).toHaveLength(2)
-    })
-  })
-
-  describe('FlowControl tests', () => {
-    test('should render fine', async () => {
-      pipelineContextMock.stepsFactory.getStepData = () => undefined
-      pipelineContextMock.state.pipelineView.drawerData.type = DrawerTypes.FlowControl
-      pipelineContextMock.state.pipelineView?.drawerData?.data &&
-        (pipelineContextMock.state.pipelineView.drawerData.data.paletteData = {
-          isRollback: false,
-          isParallelNodeClicked: false
-        } as any)
-
-      const { findByText, container } = render(
-        <PipelineContext.Provider value={pipelineContextMock}>
-          <TestWrapper>
-            <RightDrawer />
-          </TestWrapper>
-        </PipelineContext.Provider>
-      )
-
-      expect(container).toMatchSnapshot()
-      const flowControlHeader = await findByText('pipeline.barriers.syncBarriers')
-      expect(flowControlHeader).toBeInTheDocument()
     })
   })
 

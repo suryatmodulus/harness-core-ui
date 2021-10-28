@@ -404,9 +404,14 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                           )
                           cleanUpEmptyProvisioner(draft)
                         })
-                        debounceUpdateStage(stageData.stage)
+                        if (stageData.stage) {
+                          updateStage(stageData.stage).then(() => {
+                            setProvisionerEnabled(value.provisionerEnabled)
+                          })
+                        }
+                      } else {
+                        setProvisionerEnabled(value.provisionerEnabled)
                       }
-                      setProvisionerEnabled(value.provisionerEnabled)
                     }}
                   />
                 </Card>

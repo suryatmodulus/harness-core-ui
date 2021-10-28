@@ -18,7 +18,7 @@ describe('Test TerraformDestroy', () => {
     factory.registerStep(new TerraformDestroy())
   })
   test('with inline var file and expand the varfiles sections', async () => {
-    const { container, getByText } = render(
+    const { container, getByText, getByTestId } = render(
       <TestStepWidget
         initialValues={{
           type: 'TerraformDestroy',
@@ -68,8 +68,7 @@ describe('Test TerraformDestroy', () => {
       />
     )
     fireEvent.click(getByText('common.optionalConfig'))
-
-    fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
+    fireEvent.click(getByTestId('add-tfvar-file'))
 
     expect(container).toMatchSnapshot()
   })

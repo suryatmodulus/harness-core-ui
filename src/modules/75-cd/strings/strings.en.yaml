@@ -36,7 +36,7 @@ setUpProvisionerBtnText: Set Up Provisioner
 
 filePathRequired: Atleast one file path is required
 pathCannotBeEmpty: File Path cannot be empty
-configFilePlaceHolder: 'Specify Config File'
+configFilePlaceHolder: 'Specify Config File...'
 
 configIdentifer: Configuration Identifier
 addInline: Add Inline

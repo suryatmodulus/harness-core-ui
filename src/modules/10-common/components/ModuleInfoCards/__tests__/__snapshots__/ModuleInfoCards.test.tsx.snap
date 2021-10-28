@@ -447,7 +447,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
       </div>
     </div>
     <div
-      class="bp3-card bp3-elevation-0 Card--card card infoCard cd Card--selected Card--disabled"
+      class="bp3-card bp3-elevation-0 Card--card card infoCard cd Card--selected"
     >
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
@@ -1425,7 +1425,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
       </div>
     </div>
     <div
-      class="bp3-card bp3-elevation-0 Card--card card infoCard cd Card--disabled"
+      class="bp3-card bp3-elevation-0 Card--card card infoCard cd"
     >
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
@@ -2401,7 +2401,7 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
       </div>
     </div>
     <div
-      class="bp3-card bp3-elevation-0 Card--card card infoCard cd Card--disabled"
+      class="bp3-card bp3-elevation-0 Card--card card infoCard cd"
     >
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"

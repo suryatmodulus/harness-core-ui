@@ -106,8 +106,10 @@ sureToDisableTwoFAEnforcement: Are you sure you want to disable Two Factor Authe
 twoFAEnforcementDisabled: Two Factor Authentication enforcement has been disabled successfully
 authenticationSettings: Authentication Settings
 updating: Updating, please wait...
+onprem: 'Self Hosted'
+saas: 'SaaS'
 multipleOrganizations: Multiple Organizations
 multipleProjects: Multiple Projects
-samlSupport: Saml Support
-oauthSupport: Oauth Support
+samlSupport: SAML authentication
+oauthSupport: OAuth authentication
 twoFactorAuthSupport: Two Factor Auth Support

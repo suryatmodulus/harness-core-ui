@@ -13,10 +13,6 @@ selectTemplateToPreview: Select a template to preview
 templateTitle: '{{ entity }} Template'
 stableVersion: '{{ entity }} (Stable)'
 inputsCount: 'Total Inputs: {{count}}'
-templateUpdated: Template Updated
-errorWhileUpdating: Error occurred updating Template
-templatesDeleted: Templates Deleted
-errorWhileDeleting: Error occurred deleting Templates
 templateUpdatedError: The Template is updated by someone else. Do you want to take the latest Template? You might lose your saved Template settings.
 openInTemplateStudio: Open in Template Studio
 templatesPage:
@@ -46,3 +42,10 @@ templateSettingsModal:
 entityType: Entity Type
 templateScope: Template Scope
 templatesLabel: '{{entity}} Templates'
+fetchingActivityLogs: Fetching activity logs
+created: created
+updated: updated
+default: set default to
+sampleTemplateAuditComment: Changed service configuration from Kubernetes to Azure
+setAsStableTitle: Set as Stable?
+setAsStableText: 'Are you sure you want to set {{version}} as stable version?'

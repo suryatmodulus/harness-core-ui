@@ -182,12 +182,6 @@ export default (
           ...projectPathProps,
           ...editParams,
           ...cvModuleParams
-        }),
-        routes.toCVMonitoredServiceConfigurations({
-          ...accountPathProps,
-          ...projectPathProps,
-          ...editParams,
-          ...cvModuleParams
         })
       ]}
     >

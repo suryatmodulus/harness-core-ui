@@ -5,11 +5,11 @@ import { Color, FontVariation, Icon, Layout, Text } from '@wings-software/uicore
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import type {
-  ModuleLicenseDTO,
+  CDModuleLicenseDTO,
+  CEModuleLicenseDTO,
   CFModuleLicenseDTO,
   CIModuleLicenseDTO,
-  CDModuleLicenseDTO,
-  CEModuleLicenseDTO
+  ModuleLicenseDTO
 } from 'services/cd-ng'
 import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import css from './SubscriptionDetailsCard.module.scss'
@@ -193,6 +193,17 @@ const SubscriptionDetailsCardBody = ({
       </Text>
     </React.Fragment>
   ]
+  if (edition === Editions.COMMUNITY) {
+    const serviceType = getString('authSettings.onprem')
+    fields.push(
+      <React.Fragment key="service-type">
+        <Text color={Color.GREY_600}>{getString('common.serviceType')}</Text>
+        <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
+          {serviceType}
+        </Text>
+      </React.Fragment>
+    )
+  }
 
   switch (edition) {
     case Editions.TEAM:
@@ -201,6 +212,12 @@ const SubscriptionDetailsCardBody = ({
       {
         insertPlanElements(fields)
         insertLicenseCountElements(fields)
+        insertExpiryDate(fields)
+      }
+      break
+    case Editions.COMMUNITY:
+      {
+        insertPlanElements(fields)
         insertExpiryDate(fields)
       }
       break

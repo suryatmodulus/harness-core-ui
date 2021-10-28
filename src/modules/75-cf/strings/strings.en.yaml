@@ -59,6 +59,7 @@ creationModal:
   dataType: Data type
   defaultRulesTooltip: Define which variation users will see by default when the flag is ON or OFF
   testFlagOption: Test the Flag
+
   aboutFlag:
     aboutFlagHeading: About the flag
     permaFlag: This is a permanent flag
@@ -69,9 +70,6 @@ creationModal:
     tagsOptional: Tags (optional)
     tagsPlaceholder: Add Tags
     permaFlagTooltip: A flag is permanent if you wish to keep it in your code for the long term. We won't remind you to these types of flags.
-  git:
-    flagName: Feature Flag Name
-    autoCommitMessage: Always commit to this branch and do not prompt for commit message.
 testTheFlag:
   testFlagHeading: Test the flag
   setupAppText: "Let's set up your application and code so that it can communicate with our platform"
@@ -436,6 +434,13 @@ segmentDetail:
 selectFlagsModal:
   empty: No feature flags found.
   searchPlaceholder: Search for Flag by name or description
+gitSync:
+  saveFlagToGit: Save {{ flagName }} to Git
+  commitChanges: Commit Changes
+  autoCommitMsg: '[AUTO-COMMIT] : {{msg}}'
+  commitMsgRequired: Commit message is required
+  flagName: Feature Flag Name
+  autoCommitLabel: Always commit to this branch and do not prompt for commit message.
 onboarding:
   listeningToEvent: We’re listening for your flag event...
   simpliestFlag: Our Simplest Flag

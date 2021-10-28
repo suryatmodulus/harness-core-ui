@@ -9,6 +9,11 @@
   overflow: auto;
   margin-top: var(--spacing-xxxlarge);
   margin-bottom: var(--spacing-xxxlarge);
+
+  ul[class*='bp3-menu'] {
+    position: relative;
+    left: -5px;
+  }
 }
 
 .emptyArtifacts {

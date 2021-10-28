@@ -1,3 +1,8 @@
+.edit-flag-modal {
+  width: fit-content !important;
+  max-width: 90vw;
+}
+
 .variations-container {
   & > div {
     margin-right: var(--spacing-medium);

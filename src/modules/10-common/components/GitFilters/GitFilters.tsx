@@ -35,6 +35,7 @@ export interface GitFiltersProps {
   branchSelectClassName?: string
   showRepoSelector?: boolean
   showBranchSelector?: boolean
+  showBranchIcon?: boolean
 }
 
 interface BranchSelectOption extends SelectOption {
@@ -48,7 +49,12 @@ const branchSyncStatus: Record<string, GitBranchDTO['branchSyncStatus']> = {
 }
 
 const GitFilters: React.FC<GitFiltersProps> = props => {
-  const { defaultValue = { repo: '', branch: '' }, showRepoSelector = true, showBranchSelector = true } = props
+  const {
+    defaultValue = { repo: '', branch: '' },
+    showRepoSelector = true,
+    showBranchSelector = true,
+    showBranchIcon = true
+  } = props
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
@@ -269,12 +275,14 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
 
       {showBranchSelector && (
         <>
-          <Icon
-            padding={{ top: 'small' }}
-            margin={{ left: 'large' }}
-            name="git-new-branch"
-            color={Color.GREY_600}
-          ></Icon>
+          {showBranchIcon && (
+            <Icon
+              padding={{ top: 'small' }}
+              margin={{ left: 'large' }}
+              name="git-new-branch"
+              color={Color.GREY_600}
+            ></Icon>
+          )}
           <Select
             name={'branch'}
             value={branchSelectOptions.find(branchOption => branchOption.value === selectedGitBranch)}

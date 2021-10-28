@@ -214,14 +214,14 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   )}
                 </div>
 
-                <Container padding={{ top: 'xlarge' }} flex width={200}>
+                <Container padding={{ top: 'xlarge' }} flex width={180}>
                   <Button
                     text={getString('submit')}
                     variation={ButtonVariation.PRIMARY}
                     type="submit"
                     disabled={!formik?.values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef}
                   />
-                  <Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={props.onHide} />
+                  <Button variation={ButtonVariation.TERTIARY} text={getString('cancel')} onClick={props.onHide} />
                 </Container>
               </Form>
             </Layout.Vertical>

@@ -20,16 +20,16 @@ import {
   getDependencyData,
   getEdgesData,
   getIconForServiceNode,
-  getCoordinates
+  getIconDetails
 } from '@cv/components/DependencyGraph/DependencyGraph.utils'
 import { RiskValues } from '@cv/utils/CommonUtils'
 import type { ServiceSummaryDetails } from 'services/cv'
 import type { DependencyData } from '../DependencyGraph.types'
 import {
-  infraIconCoordinates,
+  infrastructureIconDetails,
   infrastructureIcon,
   serviceIcon,
-  serviceIconCoordinates
+  serviceIconDetails
 } from '../DependencyGraph.constants'
 
 describe('Unit tests for DependencyGraph', () => {
@@ -109,11 +109,11 @@ describe('Unit tests for DependencyGraph', () => {
   })
 
   test('Verify if getCoordinates gives correct coordinates when monitored service type is Application', () => {
-    expect(getCoordinates(serviceIcon)).toEqual(serviceIconCoordinates)
+    expect(getIconDetails(serviceIcon)).toEqual(serviceIconDetails)
   })
 
   test('Verify if getCoordinates gives correct coordinates when monitored service type is Infrastructure', () => {
-    expect(getCoordinates(infrastructureIcon)).toEqual(infraIconCoordinates)
+    expect(getIconDetails(infrastructureIcon)).toEqual(infrastructureIconDetails)
   })
 
   // eslint-disable-next-line jest/no-disabled-tests

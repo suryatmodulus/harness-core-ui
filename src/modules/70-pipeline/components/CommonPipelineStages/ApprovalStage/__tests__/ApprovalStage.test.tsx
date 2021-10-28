@@ -180,7 +180,7 @@ describe('Approval Stage shell view', () => {
   })
   test('Setup shell view tests', async () => {
     const pipelineContextMockValue = getDummyPipelineContextValue()
-    const { getByDisplayValue, getByText } = render(
+    const { getByDisplayValue, getByText, getAllByText } = render(
       <TestWrapper>
         <PipelineContext.Provider value={pipelineContextMockValue}>
           <ApprovalStageSetupShellMode />
@@ -217,7 +217,7 @@ describe('Approval Stage shell view', () => {
 
     // Click on execution tab and check the shallow render of graph
     act(() => {
-      fireEvent.click(getByText('advancedTitle'))
+      fireEvent.click(getAllByText('advancedTitle')[0])
     })
 
     // Click on the checkbox that enables us to enter when condition
@@ -246,7 +246,7 @@ describe('Jira Approval Stage shell view', () => {
   })
   test('Setup shell view tests', async () => {
     const pipelineContextMockValue = getDummyPipelineContextValueJiraApproval()
-    const { getByDisplayValue, getByText } = render(
+    const { getByDisplayValue, getByText, getAllByText } = render(
       <TestWrapper>
         <PipelineContext.Provider value={pipelineContextMockValue}>
           <ApprovalStageSetupShellMode />
@@ -278,7 +278,7 @@ describe('Jira Approval Stage shell view', () => {
 
     // Click on execution tab and check the shallow render of graph
     act(() => {
-      fireEvent.click(getByText('advancedTitle'))
+      fireEvent.click(getAllByText('advancedTitle')[0])
     })
 
     // Click on the checkbox that enables us to enter when condition

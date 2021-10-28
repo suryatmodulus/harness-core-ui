@@ -2,21 +2,22 @@ import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { Color, Layout, Text } from '@wings-software/uicore'
 import { Position } from '@blueprintjs/core'
-import { isEmpty } from 'lodash-es'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { templateColorStyleMap } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { TemplateListContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplateListCardContextMenu/TemplateListContextMenu'
-import { TemplateTags } from '@templates-library/components/TemplateTags/TemplateTags'
 import type { TemplatesViewProps } from '@templates-library/pages/TemplatesPage/views/TemplatesView'
+import { TagsPopover } from '@common/components'
+import GitDetailsColumn from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
 import css from './TemplatesListView.module.scss'
 
 type CustomColumn<T extends Record<string, any>> = Column<T> & {
   onPreview?: (template: TemplateSummaryResponse) => void
   onOpenEdit?: (template: TemplateSummaryResponse) => void
   onOpenSettings?: (templateIdentifier: string) => void
-  onDelete?: (templateIdentifier: string) => void
+  onDelete?: (template: TemplateSummaryResponse) => void
 }
 
 const RenderColumnMenu: Renderer<CellProps<TemplateSummaryResponse>> = ({ row, column }) => {
@@ -67,26 +68,29 @@ const RenderColumnTemplate: Renderer<CellProps<TemplateSummaryResponse>> = ({ ro
   const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="xsmall" data-testid={data.identifier} padding={{ right: 'medium' }}>
-      <Text
-        color={Color.GREY_800}
-        tooltipProps={{ position: Position.BOTTOM }}
-        lineClamp={1}
-        tooltip={
-          <Layout.Vertical
-            color={Color.GREY_800}
-            spacing="small"
-            padding="medium"
-            style={{ maxWidth: 400, overflowWrap: 'anywhere' }}
-          >
-            <Text color={Color.GREY_800}>{getString('nameLabel', { name: data.name })}</Text>
-            <br />
-            <Text>{getString('descriptionLabel', { description: data.description || '-' })}</Text>
-          </Layout.Vertical>
-        }
-      >
-        {data.name}
-      </Text>
-      <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }} lineClamp={1}>
+      <Layout.Horizontal spacing="medium">
+        <Text
+          color={Color.GREY_800}
+          tooltipProps={{ position: Position.BOTTOM }}
+          lineClamp={1}
+          tooltip={
+            <Layout.Vertical
+              color={Color.GREY_800}
+              spacing="small"
+              padding="medium"
+              style={{ maxWidth: 400, overflowWrap: 'anywhere' }}
+            >
+              <Text color={Color.GREY_800}>{getString('nameLabel', { name: data.name })}</Text>
+              <br />
+              <Text>{getString('descriptionLabel', { description: data.description || '-' })}</Text>
+            </Layout.Vertical>
+          }
+        >
+          {data.name}
+        </Text>
+        {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
+      </Layout.Horizontal>
+      <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }}>
         {getString('idLabel', { id: data.identifier })}
       </Text>
     </Layout.Vertical>
@@ -104,53 +108,52 @@ const RenderColumnLabel: Renderer<CellProps<TemplateSummaryResponse>> = ({ row }
   )
 }
 
-const RenderColumnTags: Renderer<CellProps<TemplateSummaryResponse>> = ({ row }) => {
-  const data = row.original
-  return (
-    <Layout.Horizontal width={'100%'} padding={{ right: 'medium' }} style={{ alignItems: 'center' }}>
-      {data.tags && !isEmpty(data.tags) ? (
-        <TemplateTags tags={data.tags} />
-      ) : (
-        <Text color={Color.GREY_400} font={{ weight: 'semi-bold' }}>
-          -
-        </Text>
-      )}
-    </Layout.Horizontal>
-  )
-}
-
 export const TemplateListView: React.FC<TemplatesViewProps> = (props): JSX.Element => {
   const { getString } = useStrings()
   const { data, selectedIdentifier, gotoPage, onPreview, onOpenEdit, onOpenSettings, onDelete, onSelect } = props
-
+  const { isGitSyncEnabled } = useAppStore()
   const hideMenu = !onPreview && !onOpenEdit && !onOpenSettings && !onDelete
+
+  const getTemplateNameWidth = (): string => {
+    if (isGitSyncEnabled) {
+      if (hideMenu) {
+        return '40%'
+      }
+      return '35%'
+    } else {
+      if (hideMenu) {
+        return '50%'
+      }
+      return '45%'
+    }
+  }
 
   const columns: CustomColumn<TemplateSummaryResponse>[] = React.useMemo(
     () => [
       {
         Header: getString('typeLabel').toUpperCase(),
         accessor: 'templateEntityType',
-        width: '15%',
+        width: isGitSyncEnabled ? '15%' : '25%',
         Cell: RenderColumnType
       },
       {
         Header: 'Template',
         accessor: 'name',
-        width: hideMenu ? '35%' : '30%',
+        width: getTemplateNameWidth(),
         Cell: RenderColumnTemplate
       },
       {
         Header: getString('version').toUpperCase(),
         accessor: 'versionLabel',
-        width: '25%',
+        width: isGitSyncEnabled ? '10%' : '25%',
         Cell: RenderColumnLabel,
         disableSortBy: true
       },
       {
-        Header: getString('tagsLabel').toUpperCase(),
-        accessor: 'tags',
-        width: '25%',
-        Cell: RenderColumnTags,
+        Header: getString('common.gitSync.repoDetails').toUpperCase(),
+        accessor: 'gitDetails',
+        width: '35%',
+        Cell: GitDetailsColumn,
         disableSortBy: true
       },
       {
@@ -170,6 +173,10 @@ export const TemplateListView: React.FC<TemplatesViewProps> = (props): JSX.Eleme
 
   if (hideMenu) {
     columns.pop()
+  }
+
+  if (!isGitSyncEnabled) {
+    columns.splice(3, 1)
   }
 
   return (

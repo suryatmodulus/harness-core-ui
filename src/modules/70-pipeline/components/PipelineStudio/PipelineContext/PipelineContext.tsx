@@ -246,16 +246,18 @@ export interface FetchPipelineUnboundProps {
   branch?: string
 }
 
-export const findAllByKey = (obj: any, keyToFind: string): string[] => {
-  return Object.entries(obj).reduce(
-    (acc: string[], [key, value]) =>
-      key === keyToFind
-        ? acc.concat(value as string)
-        : typeof value === 'object'
-        ? acc.concat(findAllByKey(value, keyToFind))
-        : acc,
-    []
-  )
+export const findAllByKey = (keyToFind: string, obj?: PipelineInfoConfig): string[] => {
+  return obj
+    ? Object.entries(obj).reduce(
+        (acc: string[], [key, value]) =>
+          key === keyToFind
+            ? acc.concat(value as string)
+            : typeof value === 'object'
+            ? acc.concat(findAllByKey(keyToFind, value))
+            : acc,
+        []
+      )
+    : []
 }
 
 const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipelineUnboundProps): Promise<void> => {
@@ -302,7 +304,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
             : defaultTo(data?.gitDetails, {})
         })
       )
-      templateRefs = findAllByKey(data.pipeline, 'templateRef')
+      templateRefs = findAllByKey('templateRef', data.pipeline)
     } else if (IdbPipeline) {
       await IdbPipeline.put(IdbPipelineStoreName, payload)
       dispatch(
@@ -315,7 +317,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           gitDetails: payload.gitDetails
         })
       )
-      templateRefs = findAllByKey(pipeline, 'templateRef')
+      templateRefs = findAllByKey('templateRef', pipeline)
     } else {
       dispatch(
         PipelineContextActions.success({
@@ -327,7 +329,7 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           gitDetails: pipelineWithGitDetails?.gitDetails?.objectId ? pipelineWithGitDetails.gitDetails : {}
         })
       )
-      templateRefs = findAllByKey(pipeline, 'templateRef')
+      templateRefs = findAllByKey('templateRef', pipeline)
       templateRefs.push('temp')
     }
     if (templateRefs.length > 0) {

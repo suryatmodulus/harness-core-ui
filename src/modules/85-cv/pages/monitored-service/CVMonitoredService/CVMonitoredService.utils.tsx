@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { isNull, isNumber } from 'lodash-es'
 import Highcharts, { PointOptionsObject } from 'highcharts'
-import { Text, Layout, Color, Tag } from '@wings-software/uicore'
+import { Text, Layout, Color, Tag, FontVariation } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import type { Renderer, CellProps } from 'react-table'
 import { useStrings, UseStringsReturn } from 'framework/strings'
@@ -14,7 +14,7 @@ import type {
 import { getRiskColorValue, getRiskLabelStringId } from '@cv/utils/CommonUtils'
 import ImageDeleteService from '@cv/assets/delete-service.svg'
 import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
-import type { FilterEnvInterface, ServiceHealthScoreProps } from './CVMonitoredService.types'
+import type { FilterEnvInterface, RiskTagWithLabelProps } from './CVMonitoredService.types'
 import { HistoricalTrendChartOption, DefaultChangePercentage } from './CVMonitoredService.constants'
 import css from './CVMonitoredService.module.scss'
 
@@ -88,26 +88,17 @@ export const RenderHealthTrend: Renderer<CellProps<MonitoredServiceListItemDTO>>
   return <ServiceHealthTrend healthScores={healthScores} />
 }
 
-export const ServiceHealthScore = ({
-  monitoredService,
-  labelVariation,
-  color
-}: ServiceHealthScoreProps): ReactElement => {
+export const RiskTagWithLabel = ({ riskData, labelVariation, color, label }: RiskTagWithLabelProps): ReactElement => {
   const { getString } = useStrings()
-
-  if (!monitoredService.healthMonitoringEnabled) {
-    return <></>
-  }
-
-  const { riskStatus, healthScore = -2 } = monitoredService.currentHealthScore ?? {}
+  const { riskStatus, healthScore } = riskData ?? {}
 
   return (
     <Layout.Horizontal className={css.healthScoreCardContainer} spacing="small">
       <Tag className={css.healthScoreCard} style={{ backgroundColor: getRiskColorValue(riskStatus) }}>
-        {healthScore > -1 ? healthScore : ''}
+        {healthScore}
       </Tag>
-      <Text color={color ?? Color.BLACK} font={{ variation: labelVariation }}>
-        {getString(getRiskLabelStringId(riskStatus))}
+      <Text color={color ?? Color.BLACK} font={{ variation: labelVariation ?? FontVariation.BODY }}>
+        {label ?? getString(getRiskLabelStringId(riskStatus))}
       </Text>
     </Layout.Horizontal>
   )
@@ -116,7 +107,11 @@ export const ServiceHealthScore = ({
 export const RenderHealthScore: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
   const monitoredService = row.original
 
-  return <ServiceHealthScore monitoredService={monitoredService} />
+  if (!monitoredService.healthMonitoringEnabled) {
+    return <></>
+  }
+
+  return <RiskTagWithLabel riskData={monitoredService.currentHealthScore} />
 }
 
 export const calculateChangePercentage = (changeSummary: ChangeSummaryDTO): { color: string; percentage: number } => {
@@ -162,6 +157,7 @@ export const getMonitoredServiceFilterOptions = (
     {
       title: getString('cv.allServices'),
       icon: 'services',
+      iconSize: 18,
       count: monitoredServiceListData?.totalItems ?? 0
     }
   ]

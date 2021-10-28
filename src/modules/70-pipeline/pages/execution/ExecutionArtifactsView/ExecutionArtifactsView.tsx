@@ -1,7 +1,7 @@
 import React from 'react'
 import { get } from 'lodash-es'
 import { useParams, useHistory } from 'react-router-dom'
-import { Icon, Text, Select, Container, Color } from '@wings-software/uicore'
+import { Text, Select, Container } from '@wings-software/uicore'
 import qs from 'qs'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import type { ExecutionNode, PipelineExecutionSummary, ExecutionGraph } from 'services/pipeline-ng'
@@ -10,6 +10,7 @@ import routes from '@common/RouteDefinitions'
 import { String } from 'framework/strings'
 import ArtifactsComponent from './ArtifactsComponent/ArtifactsComponent'
 import type { ArtifactGroup } from './ArtifactsComponent/ArtifactsComponent'
+import artifactsEmptyState from './images/artifacts_empty_state.svg'
 import css from './ExecutionArtifactsView.module.scss'
 
 export const getStageSetupIds: (data: PipelineExecutionSummary) => string[] = data => {
@@ -100,7 +101,7 @@ export default function ExecutionArtifactsView(): React.ReactElement {
         <ArtifactsComponent artifactGroups={artifactGroups} />
       ) : (
         <Container className={css.emptyArtifacts}>
-          <Icon size={40} name="join-table" color={Color.GREY_300} />
+          <img src={artifactsEmptyState} />
           <Text>
             <String stringID="pipeline.triggers.artifactTriggerConfigPanel.noArtifacts" />
           </Text>

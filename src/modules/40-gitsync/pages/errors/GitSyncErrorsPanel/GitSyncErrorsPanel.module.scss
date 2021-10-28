@@ -8,3 +8,12 @@
     width: 90px !important;
   }
 }
+
+.almostFullScreenCloseBtn:global(.bp3-button.bp3-minimal) {
+  position: absolute;
+  right: 100%;
+  top: 0;
+  background: var(--primary-7) !important;
+  color: var(--white) !important;
+  padding: 0 !important;
+}

@@ -262,7 +262,7 @@ describe('Test TerraformApply', () => {
     expect(container).toMatchSnapshot()
     fireEvent.click(getByText('common.optionalConfig'))
 
-    fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
+    // fireEvent.click(getByText('plusAdd'))
     const trashIcon = container.querySelector('[data-testid="remove-tfvar-file-0"]')
     fireEvent.click(trashIcon!)
     expect(container).toMatchSnapshot()

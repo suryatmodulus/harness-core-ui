@@ -19,7 +19,7 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
   const { handleStartTrial, module } = props
 
   const { getString } = useStrings()
-  const { GTM_CD_ENABLED } = useFeatureFlags()
+  const { CDNG_ENABLED } = useFeatureFlags()
   const { accountId } = useParams<{
     accountId: string
   }>()
@@ -27,7 +27,7 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
   const { mutate: updateDefaultExperience } = useUpdateAccountDefaultExperienceNG({
     accountIdentifier: accountId
   })
-  const moduleInfoCards = getInfoCardsProps(accountId, GTM_CD_ENABLED)[module]
+  const moduleInfoCards = getInfoCardsProps(accountId, CDNG_ENABLED)[module]
   const initialSelectedInfoCard = moduleInfoCards ? moduleInfoCards[0] : undefined
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard | undefined>(initialSelectedInfoCard)
 

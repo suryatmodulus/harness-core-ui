@@ -29,7 +29,7 @@ export const illegalIdentifiers = [
 ]
 
 export const DEFAULT_DATE_FORMAT = 'MM/DD/YYYY hh:mm a'
-
+export const DATE_WITHOUT_TIME_FORMAT = 'MMMM Do YYYY'
 export function pluralize(number: number): string {
   return number > 1 || number === 0 ? 's' : ''
 }

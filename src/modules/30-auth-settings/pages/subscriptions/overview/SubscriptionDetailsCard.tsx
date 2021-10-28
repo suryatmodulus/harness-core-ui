@@ -34,7 +34,7 @@ interface SubscriptionDetailsCardProps {
 
 const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props => {
   const { accountName, module, licenseData, trialInformation, refetchGetLicense } = props
-  const { days, expiryDate, isExpired, expiredDays, edition, isFree } = trialInformation
+  const { days, expiryDate, isExpired, expiredDays, edition, isFreeOrCommunity } = trialInformation
 
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
@@ -118,7 +118,7 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
         <SubscriptionDetailsCardBody
           licenseData={licenseData}
           edition={edition}
-          isFree={isFree}
+          isFree={isFreeOrCommunity}
           isExpired={isExpired}
           days={days}
           expiryDate={expiryDate}

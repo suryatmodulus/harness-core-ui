@@ -225,7 +225,9 @@ const InputSetList: React.FC = (): JSX.Element => {
           buttonText: getString('inputSets.newInputSet'),
           onClick: () => goToInputSetForm(),
           buttonDisabled: !canUpdateInputSet || !pipelineHasRuntimeInputs,
-          buttonDisabledTooltip: getString('pipeline.inputSets.noRuntimeInputsCurrently')
+          buttonDisabledTooltip: !pipelineHasRuntimeInputs
+            ? getString('pipeline.inputSets.noRuntimeInputsCurrently')
+            : undefined
         }}
       >
         <InputSetListView

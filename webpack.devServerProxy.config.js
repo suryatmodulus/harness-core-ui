@@ -65,6 +65,9 @@ module.exports = {
   '/template/api': {
     target: targetLocalHost ? 'http://localhost:15001' : baseUrl
   },
+  '/audit/api': {
+    target: targetLocalHost ? 'http://localhost:9005' : baseUrl
+  },
   '/pm': {
     target: process.env.GOVERNANCE_APP_URL || baseUrl
   },

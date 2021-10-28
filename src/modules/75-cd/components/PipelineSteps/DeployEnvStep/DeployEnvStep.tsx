@@ -3,13 +3,13 @@ import {
   Button,
   ButtonSize,
   ButtonVariation,
-  Container,
   Formik,
   FormikForm,
   FormInput,
   getMultiTypeFromValue,
   IconName,
   Label,
+  Dialog,
   Layout,
   MultiTypeInputType,
   SelectOption,
@@ -19,7 +19,7 @@ import {
 import * as Yup from 'yup'
 import { defaultTo, get, isEmpty, isNil, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Classes, Dialog } from '@blueprintjs/core'
+import { Classes } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { connect, FormikErrors, FormikProps } from 'formik'
@@ -169,16 +169,15 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
               <Label className={cx(Classes.LABEL, css.label)}>{getString('envType')}</Label>
               <ThumbnailSelect className={css.thumbnailSelect} name={'type'} items={typeList} />
             </Layout.Vertical>
-            <Container padding={{ top: 'xlarge' }}>
+            <Layout.Horizontal spacing="small" padding={{ top: 'xlarge' }}>
               <Button
                 variation={ButtonVariation.PRIMARY}
                 type={'submit'}
                 text={getString('save')}
                 data-id="environment-save"
               />
-              &nbsp; &nbsp;
-              <Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={closeModal} />
-            </Container>
+              <Button variation={ButtonVariation.TERTIARY} text={getString('cancel')} onClick={closeModal} />
+            </Layout.Horizontal>
           </FormikForm>
         )}
       </Formik>
@@ -273,12 +272,8 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
       <Dialog
         isOpen={true}
         enforceFocus={false}
-        canEscapeKeyClose
-        canOutsideClickClose
         onClose={onClose}
-        isCloseButtonShown
         title={state.isEdit ? getString('editEnvironment') : getString('newEnvironment')}
-        className={'padded-dialog'}
       >
         <NewEditEnvironmentModal
           data={state.data || { name: '', identifier: '' }}

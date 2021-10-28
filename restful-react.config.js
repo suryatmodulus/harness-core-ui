@@ -48,6 +48,16 @@ module.exports = {
     },
     customGenerator: arg => customGenerator(arg, "getConfig('template/api')")
   },
+  audit: {
+    output: 'src/services/audit/index.tsx',
+    url: 'http://localhost:9005/api/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
+    customProps: {
+      base: `{getConfig("audit/api")}`
+    },
+    customGenerator: arg => customGenerator(arg, "getConfig('audit/api')")
+  },
   'dashboard-service': {
     output: 'src/services/dashboard-service/index.tsx',
     url: 'http://localhost:7100/swagger.json',

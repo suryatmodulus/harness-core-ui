@@ -195,3 +195,5 @@ accessControlTitle:
   serviceAccounts: 'Access Control: Service Acccounts'
   resourceGroups: 'Access Control: Resource Groups'
   roles: 'Access Control: Roles'
+customRoles: new Roles
+customResourceGroups: new Resource Groups

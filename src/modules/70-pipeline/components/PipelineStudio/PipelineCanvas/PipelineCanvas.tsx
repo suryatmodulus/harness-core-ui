@@ -73,7 +73,7 @@ interface OtherModalProps {
 }
 
 interface SavePipelineObj {
-  pipeline: PipelineInfoConfig | PipelineInfoConfig
+  pipeline: PipelineInfoConfig
 }
 
 interface PipelineWithGitContextFormProps extends PipelineInfoConfig {

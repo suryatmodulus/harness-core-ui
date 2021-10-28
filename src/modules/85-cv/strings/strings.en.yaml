@@ -546,7 +546,7 @@ monitoredServices:
   monitoredServiceDetails: Monitored Service Details
   monitoredServiceName: Monitored service name
   newMonitoredServices: New Monitored Service
-  addNewMonitoredServices: Add New Monitored Service
+  addNewMonitoredServices: Create new monitored service
   editMonitoredServices: Edit Monitored Service
   editService: Edit service
   deleteMonitoredServiceWarning: Deleting your monitored service ‘{{ name }}’ will also delete its resources.
@@ -557,7 +557,10 @@ monitoredServices:
   monitoredServiceToggle: 'Monitored Service successfully {{enabled}}'
   showingAllServices: Showing all Services ({{ serviceCount }})
   noAvailableData: No available data.
+  dependencyHealth: Dependency Health
   healthScoreDataNotAvailable: Health score data not available.
+  healthScoreDataNotAvailableForServiceHealth: Health score data not available for service health.
+  healthScoreDataNotAvailableForDependencyHealth: Health score data not available for dependency health.
   failedToFetchHealthScore: Failed to fetch health score data.
   failedToFetchSummaryData: Failed to fetch summary data
   changeMonitoredServiceType: Change Monitored Service Type

@@ -9,7 +9,8 @@ import { useStrings } from 'framework/strings'
 import { useChangeEventList } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Table } from '@common/components'
-import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { getCVMonitoringServicesSearchParam, getErrorMessage } from '@cv/utils/CommonUtils'
+import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 import routes from '@common/RouteDefinitions'
 import noDataImage from '@cv/assets/noData.svg'
 import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
@@ -158,13 +159,13 @@ export default function ChangesTable({
         </Card>
       )
     } else if (!hasChangeSource) {
-      const configurationsTabRoute = routes.toCVMonitoredServiceConfigurations({
+      const configurationsTabRoute = `${routes.toCVAddMonitoringServicesEdit({
         accountId,
         projectIdentifier,
         orgIdentifier,
         identifier,
         module: 'cv'
-      })
+      })}${getCVMonitoringServicesSearchParam({ tab: MonitoredServiceEnum.Configurations })}`
       return (
         <Card className={css.cardContainer}>
           {content?.length ? (

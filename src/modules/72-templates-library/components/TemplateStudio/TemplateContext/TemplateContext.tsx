@@ -1,7 +1,7 @@
 import React from 'react'
 import merge from 'lodash-es/merge'
 import { deleteDB, IDBPDatabase, openDB } from 'idb'
-import { cloneDeep, isEqual } from 'lodash-es'
+import { cloneDeep, defaultTo, isEqual } from 'lodash-es'
 import type { Color } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import SessionToken from 'framework/utils/SessionToken'
@@ -13,8 +13,10 @@ import { useLocalStorage } from '@common/hooks'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import {
+  EntityGitDetails,
   getTemplateListPromise,
   GetTemplateListQueryParams,
+  GetTemplateQueryParams,
   NGTemplateInfoConfig,
   TemplateSummaryResponse
 } from 'services/template-ng'
@@ -42,6 +44,7 @@ interface TemplatePayload {
   isUpdated: boolean
   versions?: string[]
   stableVersion?: boolean
+  gitDetails?: EntityGitDetails
 }
 
 const getId = (
@@ -49,21 +52,28 @@ const getId = (
   orgIdentifier: string,
   projectIdentifier: string,
   templateIdentifier: string,
-  versionLabel: string
+  versionLabel: string,
+  repoIdentifier = '',
+  branch = ''
 ): string =>
-  `${accountIdentifier}_${orgIdentifier}_${projectIdentifier}_${templateIdentifier}_${encodeURIComponent(versionLabel)}`
+  `${accountIdentifier}_${orgIdentifier}_${projectIdentifier}_${templateIdentifier}_${encodeURIComponent(
+    versionLabel
+  )}_${repoIdentifier}_${branch}`
 
 export interface FetchTemplateBoundProps {
   dispatch: React.Dispatch<ActionReturnType>
   queryParams: GetPipelineQueryParams
   templateIdentifier: string
   versionLabel?: string
+  gitDetails: EntityGitDetails
 }
 
 export interface FetchTemplateUnboundProps {
   forceFetch?: boolean
   forceUpdate?: boolean
   signal?: AbortSignal
+  repoIdentifier?: string
+  branch?: string
 }
 
 const getTemplatesByIdentifier = (
@@ -93,21 +103,27 @@ const getTemplatesByIdentifier = (
 }
 
 const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTemplateUnboundProps): Promise<void> => {
-  const { dispatch, queryParams, templateIdentifier, versionLabel = '' } = props
-  const { forceFetch = false, forceUpdate = false, signal } = params
+  const { dispatch, queryParams, templateIdentifier, versionLabel = '', gitDetails } = props
+  const { forceFetch = false, forceUpdate = false, signal, repoIdentifier, branch } = params
   const id = getId(
     queryParams.accountIdentifier,
     queryParams.orgIdentifier || '',
     queryParams.projectIdentifier || '',
     templateIdentifier,
-    versionLabel
+    versionLabel,
+    defaultTo(gitDetails.repoIdentifier, ''),
+    defaultTo(gitDetails.branch, '')
   )
   if (IdbTemplate) {
     dispatch(TemplateContextActions.fetching())
     const data: TemplatePayload = await IdbTemplate.get(IdbTemplateStoreName, id)
     if ((!data || forceFetch) && templateIdentifier !== DefaultNewTemplateId) {
       const templatesList: TemplateSummaryResponse[] = await getTemplatesByIdentifier(
-        { ...queryParams, templateListType: TemplateListType.All },
+        {
+          ...queryParams,
+          templateListType: TemplateListType.All,
+          ...(repoIdentifier && branch ? { repoIdentifier, branch } : {})
+        },
         templateIdentifier,
         signal
       )
@@ -115,8 +131,9 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
       const defaultVersion = templatesList.find(item => item.stableTemplate)?.versionLabel || ''
       const selectedVersion = versions.includes(versionLabel) ? versionLabel : defaultVersion
       const stableVersion = !!templatesList.find(item => item.versionLabel === selectedVersion)?.stableTemplate
-      const template: NGTemplateInfoConfig =
-        parse(templatesList.find(item => item.versionLabel === selectedVersion)?.yaml || '')?.template || {}
+      const templateWithGitDetails = templatesList.find(item => item.versionLabel === selectedVersion)
+      const template: NGTemplateInfoConfig = defaultTo(parse(defaultTo(templateWithGitDetails?.yaml, ''))?.template, {})
+
       if (data && !forceUpdate) {
         dispatch(
           TemplateContextActions.success({
@@ -126,29 +143,50 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
             isBETemplateUpdated: !isEqual(template, data.originalTemplate),
             isUpdated: !isEqual(template, data.template),
             versions: versions,
-            stableVersion: stableVersion
+            stableVersion: stableVersion,
+            gitDetails: templateWithGitDetails?.gitDetails?.objectId
+              ? templateWithGitDetails.gitDetails
+              : defaultTo(data?.gitDetails, {})
           })
         )
         dispatch(TemplateContextActions.initialized())
       } else if (IdbTemplate) {
         const payload: TemplatePayload = {
           [KeyPath]: id,
-          template,
+          template: template,
           originalTemplate: cloneDeep(template),
           isUpdated: false,
           versions: versions,
-          stableVersion: stableVersion
+          stableVersion: stableVersion,
+          gitDetails: templateWithGitDetails?.gitDetails?.objectId
+            ? templateWithGitDetails.gitDetails
+            : defaultTo(data?.gitDetails, {})
         }
         await IdbTemplate.put(IdbTemplateStoreName, payload)
         dispatch(
           TemplateContextActions.success({
             error: '',
-            template,
+            template: template,
             originalTemplate: cloneDeep(template),
             isBETemplateUpdated: false,
             isUpdated: false,
             versions: versions,
-            stableVersion: stableVersion
+            stableVersion: stableVersion,
+            gitDetails: payload.gitDetails
+          })
+        )
+        dispatch(TemplateContextActions.initialized())
+      } else {
+        dispatch(
+          TemplateContextActions.success({
+            error: '',
+            template: template,
+            originalTemplate: cloneDeep(template),
+            isBETemplateUpdated: false,
+            isUpdated: false,
+            versions: versions,
+            stableVersion: stableVersion,
+            gitDetails: templateWithGitDetails?.gitDetails?.objectId ? templateWithGitDetails.gitDetails : {}
           })
         )
         dispatch(TemplateContextActions.initialized())
@@ -172,7 +210,8 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
           isUpdated: true,
           isBETemplateUpdated: false,
           versions: [DefaultNewVersionLabel],
-          stableVersion: true
+          stableVersion: true,
+          gitDetails: defaultTo(data?.gitDetails, {})
         })
       )
       dispatch(TemplateContextActions.initialized())
@@ -184,25 +223,37 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
 
 interface UpdateTemplateArgs {
   dispatch: React.Dispatch<ActionReturnType>
-  queryParams: GetPipelineQueryParams
+  queryParams: GetTemplateQueryParams
   identifier: string
   versionLabel?: string
   originalTemplate: NGTemplateInfoConfig
   versions: string[]
   stableVersion: boolean
+  gitDetails?: EntityGitDetails
 }
 
 const _updateTemplate = async (
   args: UpdateTemplateArgs,
   templateArg: NGTemplateInfoConfig | ((p: NGTemplateInfoConfig) => NGTemplateInfoConfig)
 ): Promise<void> => {
-  const { dispatch, queryParams, identifier, versionLabel = '', originalTemplate, versions, stableVersion } = args
+  const {
+    dispatch,
+    queryParams,
+    identifier,
+    versionLabel = '',
+    originalTemplate,
+    versions,
+    stableVersion,
+    gitDetails
+  } = args
   const id = getId(
     queryParams.accountIdentifier,
     queryParams.orgIdentifier || '',
     queryParams.projectIdentifier || '',
     identifier,
-    versionLabel
+    versionLabel,
+    defaultTo(gitDetails?.repoIdentifier, ''),
+    defaultTo(gitDetails?.branch, '')
   )
   if (IdbTemplate) {
     let template = templateArg
@@ -222,7 +273,8 @@ const _updateTemplate = async (
       originalTemplate,
       versions,
       stableVersion,
-      isUpdated
+      isUpdated,
+      gitDetails
     }
     if (IdbTemplate) {
       await IdbTemplate.put(IdbTemplateStoreName, payload)
@@ -299,14 +351,16 @@ export interface TemplateContextInterface {
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
   updateTemplate: (template: NGTemplateInfoConfig) => Promise<void>
   updateTemplateView: (data: TemplateViewData) => void
-  deleteTemplateCache: () => Promise<void>
+  deleteTemplateCache: (gitDetails?: EntityGitDetails) => Promise<void>
   setLoading: (loading: boolean) => void
+  updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
 }
 
 const _deleteTemplateCache = async (
-  queryParams: GetPipelineQueryParams,
+  queryParams: GetTemplateQueryParams,
   identifier: string,
-  versionLabel?: string
+  versionLabel?: string,
+  gitDetails?: EntityGitDetails
 ): Promise<void> => {
   if (IdbTemplate) {
     const id = getId(
@@ -314,7 +368,9 @@ const _deleteTemplateCache = async (
       queryParams.orgIdentifier || '',
       queryParams.projectIdentifier || '',
       identifier,
-      versionLabel || ''
+      versionLabel || '',
+      defaultTo(gitDetails?.repoIdentifier, ''),
+      defaultTo(gitDetails?.branch, '')
     )
     await IdbTemplate.delete(IdbTemplateStoreName, id)
   }
@@ -326,10 +382,50 @@ const _deleteTemplateCache = async (
       queryParams.orgIdentifier || '',
       queryParams.projectIdentifier || '',
       DefaultNewTemplateId,
-      DefaultNewVersionLabel
+      DefaultNewVersionLabel,
+      defaultTo(gitDetails?.repoIdentifier, ''),
+      defaultTo(gitDetails?.branch, '')
     )
     await IdbTemplate.delete(IdbTemplateStoreName, defaultId)
   }
+}
+interface UpdateGitDetailsArgs {
+  dispatch: React.Dispatch<ActionReturnType>
+  queryParams: GetTemplateQueryParams
+  identifier: string
+  versionLabel?: string
+  originalTemplate: NGTemplateInfoConfig
+  template: NGTemplateInfoConfig
+  versions: string[]
+  stableVersion: boolean
+}
+
+const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetails: EntityGitDetails): Promise<void> => {
+  const { dispatch, queryParams, identifier, originalTemplate, template, versionLabel } = args
+  await _deleteTemplateCache(queryParams, identifier, versionLabel, {})
+
+  const id = getId(
+    queryParams.accountIdentifier,
+    defaultTo(queryParams.orgIdentifier, ''),
+    defaultTo(queryParams.projectIdentifier, ''),
+    identifier,
+    defaultTo(versionLabel, ''),
+    defaultTo(gitDetails.repoIdentifier, ''),
+    defaultTo(gitDetails.branch, '')
+  )
+
+  const isUpdated = !isEqual(originalTemplate, template)
+  if (IdbTemplate) {
+    const payload: TemplatePayload = {
+      [KeyPath]: id,
+      template,
+      originalTemplate,
+      isUpdated,
+      gitDetails
+    }
+    await IdbTemplate.put(IdbTemplateStoreName, payload)
+  }
+  dispatch(TemplateContextActions.success({ error: '', template, isUpdated, gitDetails }))
 }
 
 export const TemplateContext = React.createContext<TemplateContextInterface>({
@@ -342,7 +438,8 @@ export const TemplateContext = React.createContext<TemplateContextInterface>({
   setYamlHandler: () => undefined,
   updateTemplate: () => new Promise<void>(() => undefined),
   deleteTemplateCache: () => new Promise<void>(() => undefined),
-  setLoading: () => void 0
+  setLoading: () => void 0,
+  updateGitDetails: () => new Promise<void>(() => undefined)
 })
 
 export const TemplateProvider: React.FC<{
@@ -350,6 +447,7 @@ export const TemplateProvider: React.FC<{
   templateIdentifier: string
   versionLabel?: string
 }> = ({ queryParams, templateIdentifier, versionLabel, children }) => {
+  const { repoIdentifier, branch } = queryParams
   const abortControllerRef = React.useRef<AbortController | null>(null)
   const isMounted = React.useRef(false)
   const [state, dispatch] = React.useReducer(
@@ -374,7 +472,11 @@ export const TemplateProvider: React.FC<{
     dispatch,
     queryParams,
     templateIdentifier,
-    versionLabel
+    versionLabel,
+    gitDetails: {
+      repoIdentifier,
+      branch
+    }
   })
 
   const updateTemplate = _updateTemplate.bind(null, {
@@ -383,6 +485,18 @@ export const TemplateProvider: React.FC<{
     identifier: templateIdentifier,
     versionLabel: versionLabel,
     originalTemplate: state.originalTemplate,
+    versions: state.versions,
+    stableVersion: state.stableVersion,
+    gitDetails: state.gitDetails
+  })
+
+  const updateGitDetails = _updateGitDetails.bind(null, {
+    dispatch,
+    queryParams,
+    identifier: templateIdentifier,
+    versionLabel: versionLabel,
+    originalTemplate: state.originalTemplate,
+    template: state.template,
     versions: state.versions,
     stableVersion: state.stableVersion
   })
@@ -464,7 +578,8 @@ export const TemplateProvider: React.FC<{
         updateTemplateView,
         deleteTemplateCache,
         setYamlHandler,
-        setLoading
+        setLoading,
+        updateGitDetails
       }}
     >
       {children}

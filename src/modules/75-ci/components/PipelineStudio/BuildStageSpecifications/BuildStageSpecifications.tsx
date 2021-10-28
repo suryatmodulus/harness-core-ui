@@ -282,7 +282,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                         id="variables"
                         style={{ width: '100%' }}
                       >
-                        <div className={css.tabSubHeading}>Stage Variables</div>
+                        <div className={css.tabSubHeading}>{getString('pipeline.stageVariables')}</div>
                         <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>
                           {getString('workflowVariableInfo')}
                         </Text>

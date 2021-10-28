@@ -396,7 +396,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             isCIEnabled={isCIEnabled}
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
-              services: getMultiSelectFormOptions(servicesResponse?.data?.content)
+              services: getMultiSelectFormOptions(servicesResponse?.data?.content),
+              deploymentType: [{ label: getString('kubernetesText'), value: 'Kubernetes' }]
             }}
             type="PipelineSetup"
           />
@@ -412,7 +413,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             targetBranch,
             buildType,
             repositoryName: repoName ? repoName[0] : undefined,
-            deploymentType: deploymentTypes ? deploymentTypes[0] : undefined,
+            deploymentType: getMultiSelectFormOptions(deploymentTypes),
             infrastructureType: infrastructureTypes ? infrastructureTypes[0] : undefined,
             services: getMultiSelectFormOptions(serviceNames),
             environments: getMultiSelectFormOptions(environmentNames)

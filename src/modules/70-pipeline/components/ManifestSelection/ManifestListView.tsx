@@ -12,7 +12,8 @@ import {
   getMultiTypeFromValue,
   ButtonSize,
   ButtonVariation,
-  Container
+  Container,
+  FontVariation
 } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -595,11 +596,18 @@ const ManifestListView = ({
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
         {!!listOfManifests?.length && (
           <div className={cx(css.manifestList, css.listHeader)}>
-            <span className={css.tableHeader}>{getString('common.ID')}</span>
-            <span className={css.tableHeader}>{getString('pipelineSteps.serviceTab.manifestList.manifestType')}</span>
-            <span className={css.tableHeader}>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
-            <span className={css.tableHeader}>{getString('location')}</span>
-
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
+              {getString('common.ID')}
+            </Text>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
+              {getString('pipelineSteps.serviceTab.manifestList.manifestType')}
+            </Text>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
+              {getString('pipelineSteps.serviceTab.manifestList.manifestStore')}
+            </Text>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
+              {getString('location')}
+            </Text>
             <span></span>
           </div>
         )}
@@ -648,7 +656,7 @@ const ManifestListView = ({
                         {connectorName ?? manifest?.spec?.store.spec.connectorRef}
                       </Text>
                       {getMultiTypeFromValue(manifest?.spec?.store.spec.connectorRef) === MultiTypeInputType.FIXED && (
-                        <Icon name="full-circle" size={12} color={color} />
+                        <Icon name="full-circle" size={8} color={color} />
                       )}
                     </div>
 
@@ -684,6 +692,7 @@ const ManifestListView = ({
                         <Layout.Horizontal>
                           <Button
                             icon="Edit"
+                            iconProps={{ size: 18 }}
                             onClick={() =>
                               editManifest(
                                 manifest?.type as ManifestTypes,
@@ -694,7 +703,12 @@ const ManifestListView = ({
                             minimal
                           />
 
-                          <Button icon="main-trash" onClick={() => removeManifestConfig(index)} minimal />
+                          <Button
+                            iconProps={{ size: 18 }}
+                            icon="main-trash"
+                            onClick={() => removeManifestConfig(index)}
+                            minimal
+                          />
                         </Layout.Horizontal>
                       </span>
                     )}

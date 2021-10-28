@@ -12,11 +12,12 @@ export interface GitPopoverProps {
   data: EntityGitDetails
   iconProps?: Omit<IconProps, 'name'>
   popoverProps?: IPopoverProps
+  customUI?: JSX.Element
 }
 
 export function RenderGitPopover(props: GitPopoverProps): React.ReactElement | null {
   const { getString } = useStrings()
-  const { data, iconProps, popoverProps } = props
+  const { data, iconProps, popoverProps, customUI } = props
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
 
   const gitPopover = React.useCallback(() => {
@@ -27,28 +28,32 @@ export function RenderGitPopover(props: GitPopoverProps): React.ReactElement | n
           <Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}>
             {getString('pipeline.gitDetails').toUpperCase()}
           </Text>
-          <Layout.Vertical spacing="large">
-            <Text font={{ size: 'small' }} color={Color.GREY_400}>
-              {getString('repository')}
-            </Text>
-            <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-              <Icon name="repository" size={16} color={Color.GREY_700} />
-              <Text font={{ size: 'small' }} color={Color.GREY_800}>
-                {(!loadingRepos && getRepoDetailsByIndentifier(data?.repoIdentifier, gitSyncRepos)?.name) || ''}
-              </Text>
-            </Layout.Horizontal>
-          </Layout.Vertical>
-          <Layout.Vertical spacing="large">
-            <Text font={{ size: 'small' }} color={Color.GREY_400}>
-              {getString('pipelineSteps.deploy.inputSet.branch')}
-            </Text>
-            <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-              <Icon name="git-new-branch" size={14} color={Color.GREY_700} />
-              <Text font={{ size: 'small' }} color={Color.GREY_800}>
-                {data.branch}
-              </Text>
-            </Layout.Horizontal>
-          </Layout.Vertical>
+          {customUI ?? (
+            <>
+              <Layout.Vertical spacing="large">
+                <Text font={{ size: 'small' }} color={Color.GREY_400}>
+                  {getString('repository')}
+                </Text>
+                <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+                  <Icon name="repository" size={16} color={Color.GREY_700} />
+                  <Text font={{ size: 'small' }} color={Color.GREY_800}>
+                    {(!loadingRepos && getRepoDetailsByIndentifier(data?.repoIdentifier, gitSyncRepos)?.name) || ''}
+                  </Text>
+                </Layout.Horizontal>
+              </Layout.Vertical>
+              <Layout.Vertical spacing="large">
+                <Text font={{ size: 'small' }} color={Color.GREY_400}>
+                  {getString('pipelineSteps.deploy.inputSet.branch')}
+                </Text>
+                <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+                  <Icon name="git-new-branch" size={14} color={Color.GREY_700} />
+                  <Text font={{ size: 'small' }} color={Color.GREY_800}>
+                    {data.branch}
+                  </Text>
+                </Layout.Horizontal>
+              </Layout.Vertical>
+            </>
+          )}
         </Layout.Vertical>
       </Popover>
     )

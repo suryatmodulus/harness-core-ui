@@ -12,6 +12,7 @@ import {
 } from '@wings-software/uicore'
 import * as yup from 'yup'
 import { Dialog } from '@blueprintjs/core'
+import { useStrings } from 'framework/strings'
 import { Description } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import css from './EditPolicyMetadataModalButton.module.scss'
 
@@ -102,11 +103,21 @@ export const EditPolicyMetadataModalButton: React.FC<EditPolicyMetadataButtonPro
       </Dialog>
     )
   }, [modalTitle, identifier, name, description, onApply, shouldOpenModal])
+  const { getString } = useStrings()
+
   useEffect(() => {
     if (shouldOpenModal && openModal) {
       openModal()
     }
   }, [shouldOpenModal, openModal])
 
-  return <Button icon="Edit" variation={ButtonVariation.ICON} onClick={openModal} {...props} />
+  return (
+    <Button
+      icon="Edit"
+      variation={ButtonVariation.ICON}
+      onClick={openModal}
+      {...props}
+      tooltip={getString('governance.editPolicy')}
+    />
+  )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { act } from 'react-dom/test-utils'
 import { findByText, fireEvent, render, waitFor } from '@testing-library/react'
+import * as lwService from 'services/lw'
 import { TestWrapper } from '@common/utils/testUtils'
 import COGatewayAccess from '../COGatewayAccess'
 import { mockedSecurityGroupResponse } from './data'
@@ -125,6 +126,10 @@ jest.mock('services/lw', () => ({
   })),
   useSecurityGroupsOfInstances: jest.fn().mockImplementation(() => ({
     mutate: jest.fn(() => Promise.resolve({ response: mockedSecurityGroupResponse })),
+    loading: false
+  })),
+  useDescribeServiceInContainerServiceCluster: jest.fn().mockImplementation(() => ({
+    data: {},
     loading: false
   }))
 }))
@@ -268,5 +273,30 @@ describe('Testing COGatewayAccess', () => {
     )
 
     expect(container).toMatchSnapshot('k8s rule setup access screen')
+  })
+
+  test('render nothing in case of ecs response with no load balancer', async () => {
+    jest.spyOn(lwService, 'useDescribeServiceInContainerServiceCluster').mockImplementation(
+      () =>
+        ({
+          data: { response: { loadbalanced: false } },
+          loading: false
+        } as any)
+    )
+
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <COGatewayAccess
+          gatewayDetails={initialGatewayDetails}
+          setGatewayDetails={jest.fn()}
+          valid={true}
+          setValidity={jest.fn()}
+          allServices={[]}
+        />
+      </TestWrapper>
+    )
+
+    const emptyPageText = await findByText(container, 'ce.co.autoStoppingRule.setupAccess.noSetupRequired')
+    expect(emptyPageText).toBeDefined()
   })
 })

@@ -125,12 +125,12 @@ describe('Change table', () => {
     )
 
     // verify pagination
-    const pageButtons = container.querySelectorAll('[class*="Pagination--container"] .bp3-button-text')
+    const pageButtons = container.querySelectorAll('[class*="Pagination--roundedButton"]')
     act(() => {
-      fireEvent.click(pageButtons[1])
+      fireEvent.click(pageButtons[2])
     })
 
-    userEvent.click(pageButtons[1])
+    userEvent.click(pageButtons[2])
 
     await waitFor(() =>
       expect(refetchChangeList).toHaveBeenLastCalledWith({

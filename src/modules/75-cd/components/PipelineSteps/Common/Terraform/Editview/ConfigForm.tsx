@@ -86,17 +86,18 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
           return (
             <Layout.Vertical>
               <Form>
-                <FormMultiTypeConnectorField
-                  label={getString('connectors.title.gitConnector')}
-                  type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
-                  width={260}
-                  name="spec.configuration.spec.configFiles.store.spec.connectorRef"
-                  placeholder={getString('select')}
-                  accountIdentifier={accountId}
-                  projectIdentifier={projectIdentifier}
-                  orgIdentifier={orgIdentifier}
-                  multiTypeProps={{ expressions, allowableTypes: props.allowableTypes }}
-                />
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  <FormMultiTypeConnectorField
+                    label={getString('connectors.title.gitConnector')}
+                    type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
+                    name="spec.configuration.spec.configFiles.store.spec.connectorRef"
+                    placeholder={getString('select')}
+                    accountIdentifier={accountId}
+                    projectIdentifier={projectIdentifier}
+                    orgIdentifier={orgIdentifier}
+                    multiTypeProps={{ expressions, allowableTypes: props.allowableTypes }}
+                  />
+                </div>
 
                 {(connectorValue?.connector?.spec?.connectionType === 'Account' ||
                   connectorValue?.connector?.spec?.type === 'Account') && (
@@ -220,16 +221,15 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   )}
                 </div>
 
-                <Container padding={{ top: 'xlarge' }} flex width={200}>
+                <Container padding={{ top: 'xlarge' }} flex width={180}>
                   <Button
                     text={getString('submit')}
                     variation={ButtonVariation.PRIMARY}
-                    margin={{ right: '10' }}
                     type="submit"
                     disabled={!formik?.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef}
                   />
                   <Button
-                    variation={ButtonVariation.SECONDARY}
+                    variation={ButtonVariation.TERTIARY}
                     padding={{ left: 'medium' }}
                     text={getString('cancel')}
                     onClick={props.onHide}

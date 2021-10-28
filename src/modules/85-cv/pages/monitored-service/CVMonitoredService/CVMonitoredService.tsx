@@ -26,6 +26,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getCVMonitoringServicesSearchParam, getErrorMessage, getEnvironmentOptions } from '@cv/utils/CommonUtils'
 import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
 import { getDependencyData } from '@cv/components/DependencyGraph/DependencyGraph.utils'
+import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 import { getFilterAndEnvironmentValue } from './CVMonitoredService.utils'
 import MonitoredServiceListView from './components/MonitoredServiceListView/MonitoredServiceListView'
 import MonitoredServiceGraphView from './components/MonitoredServiceGraphView/MonitoredServiceGraphView'
@@ -135,12 +136,12 @@ const MonitoredService: React.FC = () => {
 
   const onEditService = (identifier: string): void => {
     history.push({
-      pathname: routes.toCVMonitoredServiceConfigurations({
+      pathname: routes.toCVAddMonitoringServicesEdit({
         ...pathParams,
         identifier: identifier,
         module: 'cv'
       }),
-      search: getCVMonitoringServicesSearchParam(selectedView)
+      search: getCVMonitoringServicesSearchParam({ view: selectedView, tab: MonitoredServiceEnum.Configurations })
     })
   }
 
@@ -156,7 +157,7 @@ const MonitoredService: React.FC = () => {
             onClick={() => {
               history.push({
                 pathname: routes.toCVAddMonitoringServicesSetup(pathParams),
-                search: getCVMonitoringServicesSearchParam(selectedView)
+                search: getCVMonitoringServicesSearchParam({ view: selectedView })
               })
             }}
           />

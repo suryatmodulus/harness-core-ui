@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, SelectOption, Text, Button, Container } from '@wings-software/uicore'
+import { Icon, SelectOption, Text, Button, Container, Layout, ButtonVariation, Color } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
 import { MenuItem } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -16,6 +16,8 @@ import { EntityReference } from '@common/exports'
 import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useStrings } from 'framework/strings'
+import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
+import SecretEmptyState from '../../pages/secrets/secrets-empty-state.png'
 import css from './SecretReference.module.scss'
 
 const CustomSelect = Select.ofType<SelectOption>()
@@ -32,6 +34,8 @@ export interface SecretReferenceProps {
   type?: ListSecretsV2QueryParams['type']
   mock?: ResponsePageSecretResponseWrapper
   connectorTypeContext?: ConnectorInfoDTO['type']
+  onCancel?: () => void
+  handleInlineSSHSecretCreation?: () => void
 }
 
 const fetchRecords = (
@@ -90,7 +94,16 @@ const fetchRecords = (
 }
 
 const SecretReference: React.FC<SecretReferenceProps> = props => {
-  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type, mock, connectorTypeContext } = props
+  const {
+    defaultScope,
+    accountIdentifier,
+    projectIdentifier,
+    orgIdentifier,
+    type,
+    mock,
+    connectorTypeContext,
+    handleInlineSSHSecretCreation
+  } = props
   const { getString } = useStrings()
 
   const secretTypeOptions: SelectOption[] = [
@@ -104,7 +117,11 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
     }
   ]
   const [secretType, setSecretType] = React.useState<SelectOption>(secretTypeOptions[0])
-
+  const { openCreateSecretModal } = useCreateUpdateSecretModal({
+    onSuccess: /* istanbul ignore next */ () => {
+      //refetch()
+    }
+  })
   const selectTypeDropdown = (
     <Container flex={{ alignItems: 'baseline' }}>
       <Text margin={{ left: 'medium', right: 'xsmall' }}>{getString('secrets.secret.labelSecretType')}</Text>
@@ -131,51 +148,103 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
     </Container>
   )
   return (
-    <EntityReference<SecretRef>
-      onSelect={(secret, scope) => {
-        secret.scope = scope
-        props.onSelect(secret)
-      }}
-      defaultScope={defaultScope}
-      recordClassName={css.listItem}
-      fetchRecords={(scope, search, done) => {
-        const selectedType = type || (secretType?.value as SecretDTOV2['type'])
-        fetchRecords(
-          scope,
-          search,
-          done,
-          selectedType,
-          accountIdentifier,
-          projectIdentifier,
-          orgIdentifier,
-          mock,
-          connectorTypeContext
-        )
-      }}
-      projectIdentifier={projectIdentifier}
-      orgIdentifier={orgIdentifier}
-      noRecordsText={getString('secrets.secret.noSecretsFound')}
-      searchInlineComponent={!type ? selectTypeDropdown : undefined}
-      recordRender={({ item, selected }) => (
-        <>
-          <div className={css.item}>
-            {item.record.type === 'SecretText' || item.record.type === 'SecretFile' ? (
-              <Icon name={item.record.type === 'SecretText' ? 'text' : 'file'} size={24} className={css.secretIcon} />
-            ) : null}
-            <div>
-              <div>{item.record.name}</div>
-              {item.record.type === 'SecretText' || item.record.type === 'SecretFile' ? (
-                <div className={css.meta}>
-                  {item.identifier} . {(item.record.spec as SecretTextSpecDTO).secretManagerIdentifier}
-                </div>
-              ) : null}
-              {item.record.type === 'SSHKey' ? <div className={css.meta}>{item.identifier}</div> : null}
-            </div>
-          </div>
-          <Icon className={cx(css.iconCheck, { [css.iconChecked]: selected })} name="pipeline-approval" />
-        </>
-      )}
-    />
+    <Container className={css.secretRefContainer}>
+      <Layout.Horizontal className={css.createSecretsBtnLayout}>
+        {type !== 'SSHKey' && (
+          <Button
+            text={
+              type === 'SecretText' || secretType.value === 'SecretText'
+                ? getString('secrets.secret.newSecretText')
+                : getString('secrets.secret.newSecretFile')
+            }
+            icon="plus"
+            onClick={() =>
+              openCreateSecretModal(
+                type === 'SecretText' || secretType.value === 'SecretText' ? 'SecretText' : 'SecretFile'
+              )
+            }
+            variation={ButtonVariation.SECONDARY}
+            margin={{ bottom: 'medium' }}
+          />
+        )}
+        {type === 'SSHKey' && handleInlineSSHSecretCreation && (
+          <Button
+            text={getString('secrets.secret.newSSHCredential')}
+            icon="plus"
+            onClick={handleInlineSSHSecretCreation}
+            variation={ButtonVariation.SECONDARY}
+            margin={{ bottom: 'medium' }}
+          />
+        )}
+      </Layout.Horizontal>
+      <EntityReference<SecretRef>
+        onSelect={(secret, scope) => {
+          secret.scope = scope
+          props.onSelect(secret)
+        }}
+        defaultScope={defaultScope}
+        noDataCard={{
+          image: SecretEmptyState,
+          message: getString('secrets.secret.noSecretsFound'),
+          containerClassName: css.noDataCardContainerSecret,
+          className: css.noDataCardContainerSecret
+        }}
+        recordClassName={css.listItem}
+        fetchRecords={(scope, search, done) => {
+          const selectedType = type || (secretType?.value as SecretDTOV2['type'])
+          fetchRecords(
+            scope,
+            search,
+            done,
+            selectedType,
+            accountIdentifier,
+            projectIdentifier,
+            orgIdentifier,
+            mock,
+            connectorTypeContext
+          )
+        }}
+        projectIdentifier={projectIdentifier}
+        orgIdentifier={orgIdentifier}
+        onCancel={props.onCancel}
+        noRecordsText={getString('secrets.secret.noSecretsFound')}
+        searchInlineComponent={!type ? selectTypeDropdown : undefined}
+        renderTabSubHeading
+        recordRender={({ item, selected }) => (
+          <>
+            <Layout.Horizontal className={css.item} flex={{ alignItems: 'center', justifyContent: 'space-between' }}>
+              <Layout.Horizontal flex={{ alignItems: 'center' }}>
+                {item.record.type === 'SecretText' || item.record.type === 'SecretFile' ? (
+                  <Icon
+                    name={item.record.type === 'SecretText' ? 'text' : 'file'}
+                    size={24}
+                    className={css.secretIcon}
+                  />
+                ) : null}
+                <Layout.Vertical>
+                  <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.BLACK}>
+                    {item.record.name}
+                  </Text>
+                  {item.record.type === 'SecretText' || item.record.type === 'SecretFile' ? (
+                    <Text lineClamp={1} font={{ size: 'small', weight: 'light' }} color={Color.GREY_600}>
+                      {`${getString('common.ID')}: ${item.identifier}.${
+                        (item.record.spec as SecretTextSpecDTO).secretManagerIdentifier
+                      }`}
+                    </Text>
+                  ) : null}
+                  {item.record.type === 'SSHKey' ? (
+                    <Text lineClamp={1} font={{ size: 'small', weight: 'light' }} color={Color.GREY_600}>
+                      {`${getString('common.ID')}: ${item.identifier}`}
+                    </Text>
+                  ) : null}
+                </Layout.Vertical>
+              </Layout.Horizontal>
+              <Icon className={cx(css.iconCheck, { [css.iconChecked]: selected })} name="pipeline-approval" />
+            </Layout.Horizontal>
+          </>
+        )}
+      />
+    </Container>
   )
 }
 

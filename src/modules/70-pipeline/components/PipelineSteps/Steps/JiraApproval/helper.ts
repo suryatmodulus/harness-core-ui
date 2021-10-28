@@ -215,7 +215,7 @@ export const setIssueTypeOptions = (issuetypes: { [key: string]: JiraIssueTypeNG
     const issueTypeObject = issuetypes[keyy]
     toReturn.push({
       label: issueTypeObject.name,
-      value: issueTypeObject.id,
+      value: issueTypeObject.name,
       key: keyy
     })
   })

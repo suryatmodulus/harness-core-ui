@@ -61,7 +61,7 @@ export const commitViewData: { loading: boolean; error: boolean; data: ResponseP
               }
             ],
             failedCount: 2,
-            gitCommitId: 'commitId1',
+            gitCommitId: 'commit1',
             repoId: 'repo1'
           },
           {
@@ -84,7 +84,7 @@ export const commitViewData: { loading: boolean; error: boolean; data: ResponseP
               }
             ],
             failedCount: 1,
-            gitCommitId: 'commitId3',
+            gitCommitId: 'commit3',
             repoId: 'repo2'
           }
         ],

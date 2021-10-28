@@ -18,12 +18,6 @@
 }
 
 .stageSection {
-  :global(.bp3-collapse-body > div) {
-    background-color: var(--white) !important;
-  }
-
-  background-color: var(--white);
-
   &.stagePopover {
     padding: var(--spacing-medium);
   }
@@ -36,22 +30,11 @@
   }
   .tabSubHeading {
     font-size: var(--font-size-normal);
-    color: var(--black-color-3);
-    margin-bottom: 14px;
+    color: var(--grey-700);
     font-weight: 600;
   }
   .sectionCard {
     width: 1024px;
-    margin-bottom: 20px;
-    &.shadow {
-      box-shadow: 0px 0px 1px rgb(40 41 61 / 4%), 0px 2px 4px rgb(96 97 112 / 16%);
-    }
-    &.notwide {
-      width: auto;
-    }
-    background-color: var(--grey-50);
-    box-shadow: none;
-    -webkit-box-shadow: none;
   }
   &.noPadVertical {
     padding-top: 0px;
@@ -101,8 +84,4 @@
     width: 64px;
     margin-right: var(--spacing-small);
   }
-}
-.accordionTitle {
-  background-color: transparent;
-  max-width: 1024px;
 }

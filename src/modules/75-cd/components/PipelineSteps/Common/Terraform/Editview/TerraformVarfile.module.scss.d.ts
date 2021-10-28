@@ -11,6 +11,7 @@ declare const styles: {
   readonly dialog: string
   readonly pathRow: string
   readonly label: string
+  readonly optionalConfigDetails: string
   readonly addMarginTop: string
   readonly addMarginBottom: string
   readonly fieldBorder: string
@@ -42,5 +43,6 @@ declare const styles: {
   readonly contentTextArea: string
   readonly iconMargin: string
   readonly remoteIcon: string
+  readonly divider: string
 }
 export default styles

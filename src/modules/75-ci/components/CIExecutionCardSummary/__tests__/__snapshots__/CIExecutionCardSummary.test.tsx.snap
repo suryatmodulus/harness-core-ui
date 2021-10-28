@@ -112,6 +112,7 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
         </div>
         <p
           class="StyledProps--font StyledProps--main commitId"
+          data-name="commitId"
         >
           <a
             class="label"

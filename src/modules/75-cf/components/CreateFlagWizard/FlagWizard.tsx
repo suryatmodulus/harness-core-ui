@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uicore'
-import {
-  useCreateFeatureFlag,
-  FeatureFlagRequestRequestBody,
-  CreateFeatureFlagQueryParams,
-  useGetGitRepo
-} from 'services/cf'
+import { useCreateFeatureFlag, FeatureFlagRequestRequestBody, CreateFeatureFlagQueryParams } from 'services/cf'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
@@ -14,9 +9,9 @@ import { useStrings } from 'framework/strings'
 import { getErrorMessage, showToaster, FeatureFlagMutivariateKind } from '@cf/utils/CFUtils'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
 import { PageSpinner } from '@common/components'
+import { useGitSync } from '@cf/hooks/useGitSync'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
@@ -50,15 +45,8 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   const history = useHistory()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
 
-  const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
-
-  const gitRepo = useGetGitRepo({
-    identifier: projectIdentifier,
-    queryParams: {
-      accountIdentifier: accountId,
-      org: orgIdentifier
-    }
-  })
+  const { isAutoCommitEnabled, isGitSyncEnabled, gitSyncLoading, handleAutoCommit, getGitSyncFormMeta } = useGitSync()
+  const { gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.CREATED_FLAG)
 
   const { mutate: createFeatureFlag, loading: isLoadingCreateFeatureFlag } = useCreateFeatureFlag({
     queryParams: {
@@ -71,7 +59,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
 
   const events = useFeatureFlagTelemetry()
 
-  const onWizardSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {
+  const onWizardSubmit = (formData: FlagWizardFormValues | undefined): void => {
     modalErrorHandler?.hide()
 
     if (formData) {
@@ -83,11 +71,18 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
       // current gen login
       formData.owner = currentUserInfo.email || 'unknown'
       formData.project = projectIdentifier
+
+      if (isAutoCommitEnabled) {
+        formData.gitDetails = gitSyncInitialValues.gitDetails
+      }
     }
 
     if (formData) {
       createFeatureFlag(formData)
-        .then(() => {
+        .then(async () => {
+          if (!isAutoCommitEnabled && formData.autoCommit) {
+            await handleAutoCommit(formData.autoCommit)
+          }
           events.createFeatureFlagCompleted()
           hideModal()
           history.push(
@@ -113,7 +108,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
 
   return (
     <StepWizard className={css.flagWizardContainer} onCompleteWizard={onWizardSubmit}>
-      {gitRepo?.loading ? <PageSpinner /> : null}
+      {gitSyncLoading ? <PageSpinner /> : null}
 
       <FlagElemAbout
         name={getString('cf.creationModal.aboutFlag.aboutFlagHeading')}
@@ -137,7 +132,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
         />
       )}
 
-      {FF_GITSYNC && gitRepo?.data?.repoSet ? (
+      {isGitSyncEnabled && !isAutoCommitEnabled ? (
         <SaveFlagRepoStep
           name={getString('common.gitSync.gitRepositoryDetails')}
           isLoadingCreateFeatureFlag={isLoadingCreateFeatureFlag}

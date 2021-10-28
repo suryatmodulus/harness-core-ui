@@ -12,21 +12,24 @@ import {
   Text
 } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { TemplateTags } from '@templates-library/components/TemplateTags/TemplateTags'
 import { PageSpinner, useToaster } from '@common/components'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { useMutateAsGet } from '@common/hooks'
-import { useGetTemplateList, TemplateSummaryResponse } from 'services/template-ng'
+import { useGetTemplateList, TemplateSummaryResponse, EntityGitDetails } from 'services/template-ng'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { Module } from '@common/interfaces/RouteInterfaces'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import GitPopover from '@pipeline/components/GitPopover/GitPopover'
+import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import { TemplateInputs } from '../TemplateInputs/TemplateInputs'
 import { TemplateYaml } from '../TemplateYaml/TemplateYaml'
-import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
+import { TemplateActivityLog } from '../TemplateActivityLog/TemplateActivityLog'
 import css from './TemplateDetails.module.scss'
 
 export interface TemplateDetailsProps {
@@ -38,6 +41,7 @@ export interface TemplateDetailsProps {
   orgIdentifier?: string
   projectIdentifier?: string
   module?: Module
+  gitDetails?: EntityGitDetails
 }
 
 export enum TemplateTabs {
@@ -50,19 +54,21 @@ export enum TemplateTabs {
 export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   const {
     templateIdentifier,
-    versionLabel,
+    versionLabel = false,
     onClose,
     setTemplate,
     accountId,
     orgIdentifier,
     projectIdentifier,
-    module
+    module,
+    gitDetails
   } = props
   const { getString } = useStrings()
   const history = useHistory()
   const [versionOptions, setVersionOptions] = React.useState<SelectOption[]>([])
   const { showError } = useToaster()
   const { isReadonly } = useContext(TemplateContext)
+  const { isGitSyncEnabled } = useAppStore()
   const [selectedTemplate, setSelectedTemplate] = React.useState<TemplateSummaryResponse>()
   const [selectedTab, setSelectedTab] = React.useState<TemplateTabs>(TemplateTabs.YAML)
 
@@ -80,7 +86,10 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      templateListType: TemplateListType.All
+      templateListType: TemplateListType.All,
+      module,
+      repoIdentifier: gitDetails?.repoIdentifier,
+      branch: gitDetails?.branch
     },
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
@@ -140,7 +149,9 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
           module,
           templateType: selectedTemplate.templateEntityType,
           templateIdentifier: selectedTemplate.identifier,
-          versionLabel: selectedTemplate.versionLabel
+          versionLabel: selectedTemplate.versionLabel,
+          repoIdentifier: selectedTemplate.gitDetails?.repoIdentifier,
+          branch: selectedTemplate.gitDetails?.branch
         })
       )
     }
@@ -162,9 +173,17 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
         <Layout.Vertical spacing={'xxxlarge'}>
           <Container>
             <Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'huge'}>
-              <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
-                {selectedTemplate.name}
-              </Text>
+              <Layout.Horizontal>
+                <Text font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_800}>
+                  {selectedTemplate.name}
+                </Text>
+                {isGitSyncEnabled && (
+                  <GitPopover
+                    data={defaultTo(selectedTemplate.gitDetails, {})}
+                    iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
+                  />
+                )}
+              </Layout.Horizontal>
               <RbacButton
                 text={getString('templatesLibrary.openInTemplateStudio')}
                 variation={ButtonVariation.SECONDARY}
@@ -248,9 +267,15 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
               />
               <Tab
                 id={TemplateTabs.ACTVITYLOG}
-                disabled={true}
                 title={getString('activityLog')}
-                panel={<div>Version Log</div>}
+                panel={
+                  <TemplateActivityLog
+                    selectedTemplate={selectedTemplate}
+                    accountIdentifier={accountId}
+                    orgIdentifier={orgIdentifier}
+                    projectIdentifier={projectIdentifier}
+                  />
+                }
               />
             </Tabs>
           </div>

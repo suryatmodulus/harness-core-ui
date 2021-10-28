@@ -393,6 +393,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
       </div>
       <p
         class="StyledProps--font StyledProps--main commitId"
+        data-name="commitId"
       >
         <a
           class="label"

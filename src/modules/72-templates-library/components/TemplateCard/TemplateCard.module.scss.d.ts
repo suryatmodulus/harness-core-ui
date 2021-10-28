@@ -10,5 +10,7 @@ declare const styles: {
   readonly empty: string
   readonly userLabel: string
   readonly actionButton: string
+  readonly infoContainer: string
+  readonly label: string
 }
 export default styles

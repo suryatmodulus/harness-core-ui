@@ -374,7 +374,7 @@ exports[`TF Config Form tests edit view loads correctly -with commitId 1`] = `
           </div>
           <div
             class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--flex"
-            style="width: 200px;"
+            style="width: 180px;"
           >
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
@@ -387,7 +387,7 @@ exports[`TF Config Form tests edit view loads correctly -with commitId 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-tertiary"
               type="button"
             >
               <span
@@ -778,7 +778,7 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
           </div>
           <div
             class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--flex"
-            style="width: 200px;"
+            style="width: 180px;"
           >
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
@@ -791,7 +791,7 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-tertiary"
               type="button"
             >
               <span
@@ -1111,7 +1111,7 @@ exports[`TF Config Form tests initial render 1`] = `
           </div>
           <div
             class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge StyledProps--flex"
-            style="width: 200px;"
+            style="width: 180px;"
           >
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-primary"
@@ -1124,7 +1124,7 @@ exports[`TF Config Form tests initial render 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-secondary"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-tertiary"
               type="button"
             >
               <span

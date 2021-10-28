@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name,react-hooks/rules-of-hooks */
 import React, { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
 import type { CellProps, Column } from 'react-table'
 import { get } from 'lodash-es'
 import {
@@ -10,7 +11,9 @@ import {
   Text,
   FontVariation,
   Container,
-  PageError
+  PageError,
+  Layout,
+  Icon
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -30,7 +33,16 @@ export const SelectPolicyModalButton: React.FC<SelectPolicyModalButtonProps & Bu
   ...props
 }) => {
   const [openModal, hideModal] = useModalHook(() => {
-    const { data: examples, loading, error, refetch } = useGetexamples({})
+    const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+    const queryParams = useMemo(
+      () => ({
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      }),
+      [accountId, orgIdentifier, projectIdentifier]
+    )
+    const { data: examples, loading, error, refetch } = useGetexamples({ queryParams } as Record<string, unknown>)
     const { getString } = useStrings()
 
     const columns: Column<Example>[] = useMemo(
@@ -38,23 +50,27 @@ export const SelectPolicyModalButton: React.FC<SelectPolicyModalButtonProps & Bu
         {
           Header: getString('common.policy.table.name'),
           accessor: item => get(item, 'name') || item.type,
-          width: '70%',
+          width: '80%',
           Cell: ({ row }: CellProps<Example>) => (
-            <Text
-              icon="governance"
-              iconProps={{ padding: { right: 'small' } }}
-              font={{ variation: FontVariation.BODY2 }}
-            >
-              {get(row, 'name') || row.original.type}
-            </Text>
+            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Icon name="governance" size={20} />
+              <Container>
+                <Layout.Vertical spacing="xsmall">
+                  <Text font={{ variation: FontVariation.SMALL_BOLD }}>
+                    {get(row.original, 'name') || row.original.type}
+                  </Text>
+                  <Text font={{ variation: FontVariation.SMALL }}>{get(row.original, 'desc') || ''}</Text>
+                </Layout.Vertical>
+              </Container>
+            </Layout.Horizontal>
           )
         },
         {
           Header: getString('typeLabel'),
           accessor: item => item.type,
-          width: '30%',
+          width: '20%',
           Cell: ({ row }: CellProps<Example>) => (
-            <Text font={{ variation: FontVariation.BODY2 }}>{row.original.type}</Text>
+            <Text font={{ variation: FontVariation.BODY }}>{row.original.type}</Text>
           )
         }
       ],
@@ -88,6 +104,15 @@ export const SelectPolicyModalButton: React.FC<SelectPolicyModalButtonProps & Bu
       </Dialog>
     )
   }, [modalTitle, onApply])
+  const { getString } = useStrings()
 
-  return <Button icon="folder-shared" variation={ButtonVariation.ICON} onClick={openModal} {...props} />
+  return (
+    <Button
+      icon="folder-shared"
+      variation={ButtonVariation.ICON}
+      onClick={openModal}
+      tooltip={getString('governance.selectSamplePolicy')}
+      {...props}
+    />
+  )
 }

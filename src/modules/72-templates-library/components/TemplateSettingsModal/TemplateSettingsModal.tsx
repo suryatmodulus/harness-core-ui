@@ -190,11 +190,11 @@ export const TemplateSettingsModal = (props: TemplateSettingsModalProps) => {
           versionLabel: updateStableTemplateVersion
         }
       })
-      showSuccess(getString('templatesLibrary.templateUpdated'))
+      showSuccess(getString('common.template.updateTemplate.templateUpdated'))
       onSuccess?.()
     } catch (error) {
       showError(
-        error?.data?.message || error?.message || getString('templatesLibrary.errorWhileUpdating'),
+        error?.data?.message || error?.message || getString('common.template.updateTemplate.errorWhileUpdating'),
         undefined,
         'template.save.template.error'
       )

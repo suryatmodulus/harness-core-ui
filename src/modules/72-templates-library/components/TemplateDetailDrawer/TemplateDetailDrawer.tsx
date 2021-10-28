@@ -2,6 +2,8 @@ import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button } from '@wings-software/uicore'
 import type { Module } from '@common/interfaces/RouteInterfaces'
+import type { EntityGitDetails } from 'services/template-ng'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
 import css from './TemplateDetailDrawer.module.scss'
 
@@ -13,10 +15,12 @@ export interface TemplateDetailsProps {
   orgIdentifier?: string
   projectIdentifier?: string
   module?: Module
+  gitDetails?: EntityGitDetails
 }
 
 export const TemplateDetailsDrawer: React.FC<TemplateDetailsProps> = props => {
-  const { templateIdentifier, versionLabel, onClose, accountId, orgIdentifier, projectIdentifier, module } = props
+  const { templateIdentifier, versionLabel, onClose, accountId, orgIdentifier, projectIdentifier, module, gitDetails } =
+    props
 
   return (
     <Drawer
@@ -33,15 +37,18 @@ export const TemplateDetailsDrawer: React.FC<TemplateDetailsProps> = props => {
     >
       <Button minimal className={css.almostFullScreenCloseBtn} icon="cross" withoutBoxShadow onClick={onClose} />
       {templateIdentifier && (
-        <TemplateDetails
-          templateIdentifier={templateIdentifier}
-          versionLabel={versionLabel}
-          onClose={onClose}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-          module={module}
-        />
+        <GitSyncStoreProvider>
+          <TemplateDetails
+            templateIdentifier={templateIdentifier}
+            versionLabel={versionLabel}
+            onClose={onClose}
+            accountId={accountId}
+            orgIdentifier={orgIdentifier}
+            projectIdentifier={projectIdentifier}
+            module={module}
+            gitDetails={gitDetails}
+          />
+        </GitSyncStoreProvider>
       )}
     </Drawer>
   )

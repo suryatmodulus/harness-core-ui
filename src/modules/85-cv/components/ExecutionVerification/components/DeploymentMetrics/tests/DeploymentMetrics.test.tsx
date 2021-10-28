@@ -427,8 +427,8 @@ describe('Unit tests for Deployment metrics', () => {
     )
 
     // click on a page
-    const pageButtons = container.querySelectorAll('[class*="Pagination--container"] .bp3-button-text')
-    fireEvent.click(pageButtons[2])
+    const pageButtons = container.querySelectorAll('[class*="Pagination--roundedButton"]')
+    fireEvent.click(pageButtons[3])
 
     await waitFor(() =>
       expect(useGetDeploymentMetricsSpy).toHaveBeenLastCalledWith({
@@ -555,8 +555,8 @@ describe('Unit tests for Deployment metrics', () => {
     })
 
     // click on a page
-    const pageButtons = container.querySelectorAll('[class*="Pagination--container"] .bp3-button-text')
-    fireEvent.click(pageButtons[3])
+    const pageButtons = container.querySelectorAll('[class*="Pagination--roundedButton"]')
+    fireEvent.click(pageButtons[4])
 
     await waitFor(() =>
       expect(useGetDeploymentMetricsSpy).toHaveBeenLastCalledWith({

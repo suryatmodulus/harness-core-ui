@@ -30,7 +30,7 @@ import {
   GetModuleLicensesByAccountAndModuleTypeQueryParams
 } from 'services/cd-ng'
 
-import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useLicenseStore, handleUpdateLicenseStore, isCDCommunity } from 'framework/LicenseStore/LicenseStoreContext'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import SubscriptionTab from './SubscriptionTab'
 
@@ -42,7 +42,7 @@ export interface TrialInformation {
   isExpired: boolean
   expiredDays: number
   edition: Editions
-  isFree: boolean
+  isFreeOrCommunity: boolean
 }
 interface ModuleSelectCard {
   icon: IconName
@@ -227,7 +227,8 @@ const SubscriptionsPage: React.FC = () => {
   const isExpired = expiryTime !== -1 && days < 0
   const expiredDays = Math.abs(days)
   const edition = latestModuleLicense?.edition as Editions
-  const isFree = edition === Editions.FREE
+
+  const isFreeOrCommunity = edition === Editions.FREE || isCDCommunity(licenseInformation)
 
   const trialInformation: TrialInformation = {
     days,
@@ -235,7 +236,7 @@ const SubscriptionsPage: React.FC = () => {
     isExpired,
     expiredDays,
     edition,
-    isFree
+    isFreeOrCommunity: isFreeOrCommunity
   }
 
   const innerContent =
@@ -253,7 +254,6 @@ const SubscriptionsPage: React.FC = () => {
         refetchGetLicense={refetchGetLicense}
       />
     )
-
   return (
     <>
       <Page.Header title={getString('common.subscriptions.title')} />
@@ -262,13 +262,13 @@ const SubscriptionsPage: React.FC = () => {
         flex={{ align: 'center-center' }}
       >
         <Heading color={Color.BLACK} padding={{ bottom: 'large' }}>
-          {getString('common.plans.title')}
+          {isCDCommunity(licenseInformation) ? null : getString('common.plans.title')}
         </Heading>
         <Layout.Horizontal
           className={css.moduleSelectCards}
           flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
         >
-          {getModuleSelectElements()}
+          {isCDCommunity(licenseInformation) ? null : getModuleSelectElements()}
         </Layout.Horizontal>
         {innerContent}
       </Layout.Vertical>

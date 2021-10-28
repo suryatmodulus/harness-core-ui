@@ -2,11 +2,21 @@
   :global {
     .bp3-tab-list {
       background-color: var(--white);
-      padding: var(--spacing-none) var(--spacing-medium);
+      padding: var(--spacing-none) var(--spacing-xlarge);
+      align-items: center;
+      border-bottom: 1px solid var(--grey-200);
     }
 
     .bp3-tab-panel {
       margin-top: var(--spacing-none) !important;
     }
   }
+}
+
+.header {
+  border-bottom: none !important;
+}
+
+.pageBody {
+  max-height: calc(100vh - 140px);
 }

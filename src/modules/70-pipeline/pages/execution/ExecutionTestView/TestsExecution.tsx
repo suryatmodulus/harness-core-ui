@@ -22,7 +22,7 @@ import { get, noop, omit, debounce } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
-import { TestSuiteSummaryQueryParams, useTestSuiteSummary, useVgSearch } from 'services/ti-service'
+import { TestSuiteSummaryQueryParams, useTestSuiteSummary, useVgSearch, TestSuite } from 'services/ti-service'
 import { CallGraphAPIResponse, TestsCallgraph } from './TestsCallgraph'
 import { TestsExecutionItem } from './TestsExecutionItem'
 import { SortByKey, CALL_GRAPH_WIDTH, CALL_GRAPH_HEIGHT, CALL_GRAPH_API_LIMIT } from './TestsUtils'
@@ -38,11 +38,20 @@ interface TestsExecutionProps {
   showCallGraph?: boolean
 }
 
+const getEntireExecutionSummary = (executionSummaryContent: TestSuite[]): any =>
+  executionSummaryContent.reduce((a: any, b: any) => ({
+    duration_ms: a?.duration_ms + b?.duration_ms,
+    total_tests: a?.total_tests + b?.total_tests,
+    failed_tests: a?.failed_tests + b?.failed_tests,
+    skipped_tests: a?.skipped_tests + b?.skipped_tests
+  }))
+
 export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId, serviceToken, showCallGraph }) => {
   const context = useExecutionContext()
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
+  const [showGroupedView, setShowGroupedView] = useState(true)
   const [expandedIndex, setExpandedIndex] = useState<number | undefined>(0)
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     projectIdentifier: string
@@ -317,23 +326,52 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
                 })
               }}
             />
-
-            <Layout.Horizontal spacing="small">
-              <Text style={{ alignSelf: 'center' }}>{getString('pipeline.testsReports.sortBy')}</Text>
-              <Select
-                className={css.select}
-                items={sortByItems}
-                value={sortBySelectedItem}
-                onChange={item => {
-                  setSortBySelectedItem(item as { label: string; value: SortByKey })
-                  setSortBy(item.value as SortByKey)
-                  setPageIndex(0)
-                  refetchData({
-                    ...queryParams,
-                    sort: item.value as SortByKey,
-                    pageIndex: 0,
-                    status: showFailedTestsOnly ? 'failed' : undefined
-                  })
+            <Layout.Horizontal>
+              {showGroupedView ? (
+                <Layout.Horizontal spacing="small">
+                  <Text style={{ alignSelf: 'center' }}>{getString('pipeline.testsReports.sortBy')}</Text>
+                  <Select
+                    className={css.sortBySelect}
+                    items={sortByItems}
+                    value={sortBySelectedItem}
+                    onChange={item => {
+                      setSortBySelectedItem(item as { label: string; value: SortByKey })
+                      setSortBy(item.value as SortByKey)
+                      setPageIndex(0)
+                      refetchData({
+                        ...queryParams,
+                        sort: item.value as SortByKey,
+                        pageIndex: 0,
+                        status: showFailedTestsOnly ? 'failed' : undefined
+                      })
+                    }}
+                  />
+                </Layout.Horizontal>
+              ) : (
+                <Container height={32} />
+              )}
+              <Button
+                color={showGroupedView ? Color.PRIMARY_7 : Color.GREY_500}
+                className={cx(css.listIcons, showGroupedView && css.activeGroupedIcon)}
+                icon="th-list"
+                minimal
+                iconProps={{ size: 20 }}
+                onClick={() => {
+                  if (!showGroupedView) {
+                    setShowGroupedView(true)
+                  }
+                }}
+              />
+              <Button
+                color={!showGroupedView ? Color.PRIMARY_7 : Color.GREY_500}
+                className={cx(css.listIcons, !showGroupedView && css.activeGroupedIcon)}
+                icon="list-view"
+                minimal
+                iconProps={{ size: 20 }}
+                onClick={() => {
+                  if (showGroupedView) {
+                    setShowGroupedView(false)
+                  }
                 }}
               />
             </Layout.Horizontal>
@@ -354,24 +392,42 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
             <>
               {executionSummary.content.length > 0 && (
                 <Layout.Vertical spacing="small" margin={{ top: 'medium' }}>
-                  {executionSummary?.content?.map((summary, index) => (
+                  {showGroupedView ? (
+                    executionSummary?.content?.map((summary, index) => (
+                      <TestsExecutionItem
+                        key={(summary.name || '') + showFailedTestsOnly}
+                        buildIdentifier={String(
+                          context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''
+                        )}
+                        executionSummary={summary}
+                        serviceToken={serviceToken}
+                        status={showFailedTestsOnly ? 'failed' : undefined}
+                        expanded={index === expandedIndex ? true : undefined}
+                        stageId={stageId}
+                        stepId={stepId}
+                        onExpand={() => {
+                          setExpandedIndex(expandedIndex !== index ? index : undefined)
+                        }}
+                        onShowCallGraphForClass={showCallGraph ? onClassSelected : undefined}
+                        isUngroupedList={false}
+                      />
+                    ))
+                  ) : (
                     <TestsExecutionItem
-                      key={(summary.name || '') + showFailedTestsOnly}
+                      key={`${showFailedTestsOnly}`}
                       buildIdentifier={String(
                         context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''
                       )}
-                      executionSummary={summary}
+                      executionSummary={getEntireExecutionSummary(executionSummary?.content || [])}
                       serviceToken={serviceToken}
                       status={showFailedTestsOnly ? 'failed' : undefined}
-                      expanded={index === expandedIndex ? true : undefined}
                       stageId={stageId}
                       stepId={stepId}
-                      onExpand={() => {
-                        setExpandedIndex(expandedIndex !== index ? index : undefined)
-                      }}
+                      expanded={true}
                       onShowCallGraphForClass={showCallGraph ? onClassSelected : undefined}
+                      isUngroupedList={true}
                     />
-                  ))}
+                  )}
                 </Layout.Vertical>
               )}
               {executionSummary.content.length === 0 && showFailedTestsOnly && (
@@ -382,7 +438,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
             </>
           )}
 
-          {(executionSummary?.data?.totalItems || 0) > 20 && (
+          {showGroupedView && (executionSummary?.data?.totalItems || 0) > 20 && (
             <Pagination
               pageSize={executionSummary?.data?.pageSize || 0}
               pageIndex={pageIndex}

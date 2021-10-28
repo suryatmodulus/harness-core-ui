@@ -1,7 +1,8 @@
 export enum Editions {
   ENTERPRISE = 'ENTERPRISE',
   TEAM = 'TEAM',
-  FREE = 'FREE'
+  FREE = 'FREE',
+  COMMUNITY = 'COMMUNITY'
 }
 
 export enum ModuleLicenseType {

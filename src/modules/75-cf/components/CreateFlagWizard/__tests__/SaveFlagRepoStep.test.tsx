@@ -1,21 +1,31 @@
 import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import * as yup from 'yup'
 import { TestWrapper } from '@common/utils/testUtils'
 import SaveFlagRepoStep, { SaveFlagRepoStepProps } from '../SaveFlagRepoStep'
 
-jest.mock('services/cf', () => ({
-  useGetGitRepo: jest.fn().mockReturnValue({
-    loading: false,
-    data: {
-      repoDetails: {
-        branch: 'main',
-        filePath: '/flags.yaml',
-        repoIdentifier: 'harnesstest',
-        rootFolder: '/.harness/'
-      }
-    }
-  })
+jest.mock('@cf/hooks/useGitSync', () => ({
+  useGitSync: jest.fn(() => ({
+    getGitSyncFormMeta: jest.fn(() => ({
+      gitSyncInitialValues: {
+        gitDetails: {
+          branch: 'main',
+          filePath: '/flags.yaml',
+          repoIdentifier: 'harnesstest',
+          rootFolder: '/.harness/',
+          commitMsg: ''
+        },
+        autoCommit: false
+      },
+      gitSyncValidationSchema: yup.object().shape({
+        commitMsg: yup.string().required('cf.gitSync.commitMsgRequired')
+      })
+    })),
+    isAutoCommitEnabled: false,
+    isGitSyncEnabled: true,
+    handleAutoCommit: jest.fn()
+  }))
 }))
 
 const renderComponent = (props?: Partial<SaveFlagRepoStepProps>): void => {
@@ -50,12 +60,12 @@ describe('SaveFlagRepoStep', () => {
 
     expect(screen.getByTestId('save-flag-to-git-form')).toHaveFormValues({
       flagName: 'test flag',
-      filePath: '/flags.yaml',
-      rootFolder: '/.harness/'
+      'gitDetails.filePath': '/flags.yaml',
+      'gitDetails.rootFolder': '/.harness/',
+      'gitDetails.branch': 'main'
     })
 
     expect(screen.getByText('testflag1234')).toBeInTheDocument()
-    expect(screen.getByTestId('default-branch')).toHaveTextContent('main')
   })
 
   test('it should display "Save and Close" button if at end of wizard', async () => {
@@ -74,13 +84,14 @@ describe('SaveFlagRepoStep', () => {
       expect(nextStepMock).toHaveBeenCalledWith({
         autoCommit: false,
         gitDetails: {
-          commitMsg: 'this is my commit messsage'
+          commitMsg: 'this is my commit messsage',
+          repoIdentifier: 'harnesstest',
+          rootFolder: '/.harness/',
+          filePath: '/flags.yaml',
+          branch: 'main'
         },
-        filePath: '/flags.yaml',
         flagIdentifier: '',
-        flagName: '',
-        repoIdentifier: 'harnesstest',
-        rootFolder: '/.harness/'
+        flagName: ''
       })
     )
   })

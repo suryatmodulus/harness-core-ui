@@ -11,13 +11,20 @@ import {
   Icon,
   IconName,
   Color,
-  PageError
+  ButtonVariation,
+  FontVariation,
+  PageError,
+  NoDataCard,
+  NoDataCardProps
 } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { debounce, isEmpty } from 'lodash-es'
+import { useParams } from 'react-router-dom'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './EntityReference.module.scss'
 
 export interface ScopedObjectDTO {
@@ -66,9 +73,12 @@ export interface EntityReferenceProps<T> {
   className?: string
   projectIdentifier?: string
   noRecordsText?: string
+  noDataCard?: NoDataCardProps
   orgIdentifier?: string
   defaultScope?: Scope
   searchInlineComponent?: JSX.Element
+  onCancel?: () => void
+  renderTabSubHeading?: boolean
 }
 
 function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Scope {
@@ -90,13 +100,21 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     className = '',
     recordRender,
     recordClassName = '',
-    noRecordsText = getString('entityReference.noRecordFound'),
-    searchInlineComponent
+    searchInlineComponent,
+    noDataCard,
+    renderTabSubHeading = false
   } = props
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [selectedScope, setSelectedScope] = useState<Scope>(
     defaultScope || getDefaultScope(orgIdentifier, projectIdentifier)
   )
+  const { accountId } = useParams<AccountPathProps>()
+  const {
+    selectedProject,
+    selectedOrg,
+    currentUserInfo: { accounts = [] }
+  } = useAppStore()
+  const selectedAccount = accounts.find(account => account.uuid === accountId)
   const [data, setData] = useState<EntityReferenceResponse<T>[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>()
@@ -176,8 +194,8 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
       ))}
     </div>
   ) : (
-    <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }}>
-      <Text>{noRecordsText}</Text>
+    <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }} className={css.noDataContainer}>
+      <NoDataCard {...noDataCard} containerClassName={css.noDataCardImg} />
     </Container>
   )
 
@@ -186,16 +204,33 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     id: string,
     scope: Scope,
     icon: IconName,
-    title: StringKeys
+    title: StringKeys,
+    tabDesc = ''
   ): React.ReactElement | null => {
     return show ? (
       <Tab
         id={id}
         title={
-          <Text onClick={() => onScopeChange(scope)} padding={'medium'}>
-            <Icon name={icon} {...iconProps} className={css.iconMargin} />
-            {getString(title)}
-          </Text>
+          <Layout.Horizontal
+            flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+            padding={{ top: 'small', bottom: 'small' }}
+          >
+            <Icon name={icon} {...iconProps} className={css.tabIcon} />
+            <Layout.Vertical
+              onClick={() => onScopeChange(scope)}
+              padding={{ left: 'small' }}
+              className={css.tabTitleContainer}
+            >
+              <Text lineClamp={1} font={{ variation: FontVariation.H6, weight: 'light' }}>
+                {getString(title)}
+              </Text>
+              {renderTabSubHeading && tabDesc && (
+                <Text lineClamp={1} font={{ variation: FontVariation.FORM_LABEL, weight: 'light' }}>
+                  {tabDesc}
+                </Text>
+              )}
+            </Layout.Vertical>
+          </Layout.Horizontal>
         }
         panel={renderedList}
       />
@@ -219,19 +254,22 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
       </Layout.Vertical>
       <div className={css.tabsContainer}>
         <Tabs id={'selectScope'} vertical defaultSelectedTabId={defaultTab}>
-          {renderTab(!!projectIdentifier, TAB_ID.PROJECT, Scope.PROJECT, 'cube', 'projectLabel')}
-          {renderTab(!!orgIdentifier, TAB_ID.ORGANIZATION, Scope.ORG, 'diagram-tree', 'orgLabel')}
-          {renderTab(true, TAB_ID.ACCOUNT, Scope.ACCOUNT, 'layers', 'account')}
+          {renderTab(!!projectIdentifier, TAB_ID.PROJECT, Scope.PROJECT, 'cube', 'projectLabel', selectedProject?.name)}
+          {renderTab(!!orgIdentifier, TAB_ID.ORGANIZATION, Scope.ORG, 'diagram-tree', 'orgLabel', selectedOrg?.name)}
+          {renderTab(true, TAB_ID.ACCOUNT, Scope.ACCOUNT, 'layers', 'account', selectedAccount?.accountName)}
         </Tabs>
       </div>
-      <Layout.Horizontal>
+      <Layout.Horizontal spacing="medium">
         <Button
-          intent="primary"
+          variation={ButtonVariation.PRIMARY}
           text={getString('entityReference.apply')}
           onClick={() => props.onSelect(selectedRecord as T, selectedScope)}
           disabled={!selectedRecord}
-          className={cx(css.applyButton, Classes.POPOVER_DISMISS)}
+          className={cx(Classes.POPOVER_DISMISS)}
         />
+        {props.onCancel && (
+          <Button variation={ButtonVariation.TERTIARY} text={getString('cancel')} onClick={props.onCancel} />
+        )}
       </Layout.Horizontal>
     </Container>
   )

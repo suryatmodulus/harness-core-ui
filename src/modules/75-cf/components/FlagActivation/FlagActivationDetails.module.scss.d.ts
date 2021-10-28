@@ -1,6 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly editFlagModal: string
   readonly variationsContainer: string
   readonly tagsFlagActivationDetails: string
   readonly newEnvRulesContainer: string

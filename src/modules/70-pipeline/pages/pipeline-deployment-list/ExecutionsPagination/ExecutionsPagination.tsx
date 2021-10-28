@@ -25,7 +25,6 @@ export default function ExecutionPagination({
         pageCount={pipelineExecutionSummary?.totalPages || 0}
         itemCount={pipelineExecutionSummary?.totalElements || 0}
         gotoPage={gotoPage}
-        nextPage={gotoPage}
       />
     </div>
   )

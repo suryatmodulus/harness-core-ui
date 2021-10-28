@@ -1,4 +1,5 @@
 import { RiskValues, getRiskColorValue, getSecondaryRiskColorValue } from '@cv/utils/CommonUtils'
+import type { IconDetails } from './DependencyGraph.types'
 
 export const statusColors = [
   {
@@ -37,5 +38,5 @@ export const wrappedArrowLength = 5
 export const serviceIcon = 'dependency-default-icon'
 export const infrastructureIcon = 'infrastructure'
 
-export const serviceIconCoordinates = { x: '35%', y: '33%' }
-export const infraIconCoordinates = { x: '26%', y: '27%' }
+export const serviceIconDetails: IconDetails = { x: '34%', y: '34%', width: 20, height: 20 }
+export const infrastructureIconDetails: IconDetails = { x: '26%', y: '27%', width: 30, height: 30 }

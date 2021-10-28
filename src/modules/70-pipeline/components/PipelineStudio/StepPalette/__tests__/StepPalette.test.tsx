@@ -55,7 +55,7 @@ const mockStepsData = {
       name: 'Library',
       stepCategories: [
         {
-          name: 'CD',
+          name: 'Continuous Deployment',
           stepCategories: [
             {
               name: 'K8',

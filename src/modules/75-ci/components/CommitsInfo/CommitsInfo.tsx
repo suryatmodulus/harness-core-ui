@@ -35,7 +35,7 @@ export function CommitId({ commitId, commitLink }: CommitIdProps): React.ReactEl
   }
 
   return (
-    <Text className={css.commitId}>
+    <Text data-name="commitId" className={css.commitId}>
       {commitLink ? (
         <a className={css.label} href={commitLink} rel="noreferrer" target="_blank" onClick={handleLinkClick}>
           {slicedCommitId}

@@ -698,6 +698,7 @@ exports[`Connector Details Page Edit details test 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
+          
            
         </p>
         <p
@@ -708,6 +709,7 @@ exports[`Connector Details Page Edit details test 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
+          
            
         </p>
       </div>
@@ -874,6 +876,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
+          
            
         </p>
         <p
@@ -884,6 +887,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
+          
            
         </p>
       </div>
@@ -1050,6 +1054,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
+          
            
         </p>
         <p
@@ -1060,6 +1065,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
+          
            
         </p>
       </div>
@@ -1226,6 +1232,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
+          
            
         </p>
         <p
@@ -1236,6 +1243,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
+          
            
         </p>
       </div>

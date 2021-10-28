@@ -60,10 +60,7 @@ const AppLoader: React.FC = () => {
 
 export default (
   <>
-    <RouteWithLayout
-      path={routes.toAccountSettingsGovernance({ ...accountPathProps })}
-      sidebarProps={AccountSideNavProps}
-    >
+    <RouteWithLayout path={routes.toGovernance({ ...accountPathProps })} sidebarProps={AccountSideNavProps}>
       <AppLoader />
     </RouteWithLayout>
   </>

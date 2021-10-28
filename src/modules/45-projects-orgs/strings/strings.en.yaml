@@ -98,7 +98,7 @@ searchProjectPlaceHolder: Search your project by name or ID
 projectsInOrg: projects under <br/> your organization
 createAProject: Create a Project
 manageAProject: Click to manage project
-apiError: Unable to fetch data due to a network error.
+apiError: Unable to fetch data.
 landingDashboard:
   atAGlance: At a Glance
   last30Days: Last 30 Days
@@ -111,3 +111,5 @@ landingDashboard:
   welcomeMessageWithoutName: "Welcome, let's get you started!"
 whyCreateProject: Why create a project?
 createProjectMessage: 'Organize your pipelines, services, infrastructure and shared resources like Connectors, Secrets and Delegates all in one place. Invite teams, collaborate on software delivery processes using the Harness modules.'
+multipleOrganizations: multiple Organizations
+multipleProjects: multiple Projects

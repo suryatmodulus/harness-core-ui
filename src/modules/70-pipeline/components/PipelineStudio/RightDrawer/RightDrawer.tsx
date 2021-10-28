@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react'
 import { Dialog, Drawer, Position } from '@blueprintjs/core'
 import { Button, Icon, Text, Color, MultiTypeInputType, useModalHook } from '@wings-software/uicore'
-import { cloneDeep, get, isEmpty, isNil, merge, omit, set } from 'lodash-es'
+import { cloneDeep, defaultTo, get, isEmpty, isNil, merge, omit, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
 import { useParams } from 'react-router-dom'
@@ -16,13 +16,13 @@ import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pip
 import type { DependencyElement } from 'services/ci'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
-import { createTemplatePromise, NGTemplateInfoConfig, TemplateSummaryResponse } from 'services/template-ng'
-import { useToaster } from '@common/components'
-import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import type { NGTemplateInfoConfig, TemplateSummaryResponse } from 'services/template-ng'
 import { ModalProps, TemplateConfigModal } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PipelineGovernanceView } from '@governance/views/PipelineGovernanceView/PipelineGovernanceView'
 import { DefaultTemplate } from 'framework/Templates/templates'
+import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
+import { useQueryParams } from '@common/hooks'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes, TemplateDrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -132,7 +132,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   } = usePipelineContext()
   const { type, data, ...restDrawerProps } = drawerData
   const { trackEvent } = useTelemetry()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
   const stageType = selectedStage?.stage?.type
@@ -222,17 +223,29 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
   const [template, setTemplate] = React.useState<NGTemplateInfoConfig>()
   const [modalProps, setModalProps] = React.useState<ModalProps>()
-  const { showSuccess, showError } = useToaster()
 
   const [showConfigModal, hideConfigModal] = useModalHook(
     () => (
       <Dialog enforceFocus={false} isOpen={true} className={css.configDialog}>
         {modalProps && template && (
-          <TemplateConfigModal initialValues={template} onClose={hideConfigModal} modalProps={modalProps} />
+          <TemplateConfigModal
+            initialValues={merge(template, { repo: defaultTo(repoIdentifier, ''), branch: defaultTo(branch, '') })}
+            onClose={hideConfigModal}
+            modalProps={modalProps}
+          />
         )}
       </Dialog>
     ),
-    [template, modalProps]
+    [template, modalProps, repoIdentifier, branch]
+  )
+
+  const { saveAndPublish } = useSaveTemplate(
+    {
+      template: template as NGTemplateInfoConfig,
+      gitDetails: { repoIdentifier, branch },
+      isPipelineStudio: true
+    },
+    hideConfigModal
   )
 
   const onSaveAsTemplate = (spec: StepOrStepGroupOrTemplateStepData) => {
@@ -244,29 +257,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       })
     )
     setModalProps({
-      title: getString('common.saveAsNewTemplateHeading'),
-      promise: (latestTemplate: NGTemplateInfoConfig) => {
-        return createTemplatePromise({
-          body: yamlStringify({ template: cloneDeep(latestTemplate) }),
-          queryParams: {
-            accountIdentifier: accountId,
-            projectIdentifier,
-            orgIdentifier
-          },
-          requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
-        })
-      },
-      onSuccess: () => {
-        hideConfigModal()
-        showSuccess(getString('common.saveTemplate.publishTemplate'))
-      },
-      onFailure: (error: any) => {
-        showError(
-          error?.message || getString('common.saveTemplate.errorWhileSaving'),
-          undefined,
-          'template.save.template.error'
-        )
-      }
+      title: getString('common.template.saveAsNewTemplateHeading'),
+      promise: saveAndPublish
     })
     showConfigModal()
   }

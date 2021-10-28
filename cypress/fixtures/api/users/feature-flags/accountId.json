@@ -17,7 +17,7 @@
     { "uuid": null, "name": "NG_TEMPLATES", "enabled": true, "lastUpdatedAt": 0 },
     { "uuid": null, "name": "CE_AS_KUBERNETES_ENABLED", "enabled": true, "lastUpdatedAt": 0 },
     { "uuid": null, "name": "GTM_CCM_ENABLED", "enabled": true, "lastUpdatedAt": 0 },
-    { "uuid": null, "name": "GTM_CD_ENABLED", "enabled": true, "lastUpdatedAt": 0 }
+    { "uuid": null, "name": "CDNG_ENABLED", "enabled": true, "lastUpdatedAt": 0 }
   ],
   "responseMessages": []
 }

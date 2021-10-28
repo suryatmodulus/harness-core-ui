@@ -109,8 +109,8 @@ describe('Create Secret Manager Wizard', () => {
       fireEvent.click(password!)
     })
 
-    await waitFor(() => queryByText(container, 'secrets.titleCreate'))
-    const selectSecret = queryByText(document.body, 'secrets.titleSelect')
+    await waitFor(() => queryByText(container, 'common.entityReferenceTitle'))
+    const selectSecret = queryByText(document.body, 'common.entityReferenceTitle')
     expect(selectSecret).toBeTruthy()
 
     const secret = queryByText(document.body, 'selected_secret')
@@ -203,8 +203,8 @@ describe('Create Secret Manager Wizard', () => {
         fireEvent.click(password!)
       })
 
-      await waitFor(() => queryByText(container, 'secrets.titleCreate'))
-      const selectSecret = queryByText(document.body, 'secrets.titleSelect')
+      await waitFor(() => queryByText(container, 'common.entityReferenceTitle'))
+      const selectSecret = queryByText(document.body, 'common.entityReferenceTitle')
       expect(selectSecret).toBeTruthy()
 
       const secret = queryByText(document.body, 'selected_secret')

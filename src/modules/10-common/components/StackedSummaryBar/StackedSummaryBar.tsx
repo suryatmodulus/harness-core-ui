@@ -53,6 +53,18 @@ export const StackedSummaryBar: React.FC<StackedSummaryBarProps> = props => {
   // leftover section relative to maxCount should be as blank
   barSections.push({ width: (1 - summaryCount / maxCount) * effectiveBarLength, color: Color.GREY_100 })
 
+  const handleZeroOrInfinityTrend = (intentColor: Color): JSX.Element => {
+    return isNaN(trendChange) ? ( // handling Infinity and other unexpected trends
+      <Container flex={{ alignItems: 'center' }}>
+        <Icon name={'caret-up'} color={intentColor}></Icon>
+        <Icon name={'infinityTrend'} size={20} color={intentColor}></Icon>
+      </Container>
+    ) : (
+      // handing 0 trend change
+      <Container flex>{renderTrend(Color.GREY_300)}</Container>
+    )
+  }
+
   const renderTrend = (intentColor: Color): JSX.Element => {
     return (
       <>
@@ -91,10 +103,8 @@ export const StackedSummaryBar: React.FC<StackedSummaryBarProps> = props => {
               ? renderTrend(Color.RED_500)
               : renderTrend(Color.GREEN_500)}
           </Container>
-        ) : isNaN(trendChange) ? ( // handing Infinity and other unexpected trends
-          <Icon name="up" size={12}></Icon>
         ) : (
-          <Container flex>{renderTrend(Color.GREY_300)}</Container>
+          handleZeroOrInfinityTrend(intent === Intent.SUCCESS ? Color.GREEN_500 : Color.RED_500)
         )
       ) : (
         <></>

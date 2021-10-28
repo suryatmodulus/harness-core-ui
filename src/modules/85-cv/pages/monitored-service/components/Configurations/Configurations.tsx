@@ -20,6 +20,7 @@ import {
   useUpdateMonitoredService
 } from 'services/cv'
 import { PageSpinner, useToaster, NavigationCheck } from '@common/components'
+import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 import { ChangeSourceCategoryName } from '@cv/pages/ChangeSource/ChangeSourceDrawer/ChangeSourceDrawer.constants'
 import { useStrings } from 'framework/strings'
 import Service from './components/Service/Service'
@@ -91,7 +92,7 @@ export default function Configurations(): JSX.Element {
           projectIdentifier,
           accountId
         }),
-        search: getCVMonitoringServicesSearchParam(view)
+        search: getCVMonitoringServicesSearchParam({ view })
       })
     }
   }, [overrideBlockNavigation])
@@ -213,13 +214,13 @@ export default function Configurations(): JSX.Element {
     nextLocation => {
       const currentPath = nextLocation.pathname
       const createPath = routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps })
-      const editPath = routes.toCVMonitoredServiceConfigurations({
+      const editPath = `${routes.toCVAddMonitoringServicesEdit({
         ...accountPathProps,
         ...projectPathProps,
         ...modulePathProps,
         ...editParams,
         module: 'cv'
-      })
+      })}${getCVMonitoringServicesSearchParam({ tab: MonitoredServiceEnum.Configurations })}`
       const matchDefault = matchPath(currentPath, {
         path: identifier ? editPath : createPath,
         exact: true

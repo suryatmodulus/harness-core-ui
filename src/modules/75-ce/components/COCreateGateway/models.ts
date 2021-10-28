@@ -1,4 +1,13 @@
-import type { AccessPoint, ASGMinimal, HealthCheck, PortConfig, ServiceDep, ServiceMetadata } from 'services/lw'
+import type {
+  AccessPoint,
+  ASGMinimal,
+  ContainerSvc,
+  HealthCheck,
+  PortConfig,
+  RDSDatabase,
+  ServiceDep,
+  ServiceMetadata
+} from 'services/lw'
 
 interface Instance {
   filterText: string
@@ -19,6 +28,8 @@ export interface Routing {
     Namespace: string
   }
   custom_domain_providers?: { [key: string]: any }
+  container_svc?: ContainerSvc
+  database?: RDSDatabase
 }
 
 interface ServiceOpts {
@@ -70,6 +81,7 @@ export interface GatewayDetails {
   metadata: ServiceMetadata
   deps: ServiceDep[]
   accessPointData?: AccessPoint // only for read purpose
+  resourceMeta?: Record<string, any>
 }
 
 interface DNSLink {

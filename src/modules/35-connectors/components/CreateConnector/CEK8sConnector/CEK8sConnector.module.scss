@@ -5,12 +5,20 @@
 }
 
 .overviewStep {
+  position: relative;
+  height: 100%;
   .infoSection {
     padding: 15px 20px;
     background: #effbff;
     color: var(--grey-800);
     line-height: 24px;
     max-width: 800px;
+  }
+  .formCont {
+    height: 100%;
+    > div {
+      height: 100%;
+    }
   }
   .selectConnector {
     width: 54%;

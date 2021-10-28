@@ -10,8 +10,6 @@ declare const styles: {
   readonly tabHeading: string
   readonly tabSubHeading: string
   readonly sectionCard: string
-  readonly shadow: string
-  readonly notwide: string
   readonly noPadVertical: string
   readonly disabled: string
   readonly stageDetails: string
@@ -20,6 +18,5 @@ declare const styles: {
   readonly removeLink: string
   readonly dialogView: string
   readonly squareCardContainer: string
-  readonly accordionTitle: string
 }
 export default styles

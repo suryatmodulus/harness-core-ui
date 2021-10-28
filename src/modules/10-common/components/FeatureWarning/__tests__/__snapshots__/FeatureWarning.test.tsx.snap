@@ -35,7 +35,7 @@ exports[`FeatureWarning FeatureWarning 1`] = `
     >
       common.feature.upgradeRequired.description
       <span>
-        authSettings.multipleOrganizations
+        projectsOrgs.multipleOrganizations
       </span>
     </p>
     <p

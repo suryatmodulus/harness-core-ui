@@ -1,5 +1,6 @@
 import React, { Dispatch, useState, SetStateAction, useContext } from 'react'
 import * as Yup from 'yup'
+import { omit } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import {
   Formik,
@@ -14,14 +15,17 @@ import {
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
-import type { NGTemplateInfoConfig, ResponseTemplateWrapperResponse } from 'services/template-ng'
-import { TemplatePreview } from '@templates-library/components/TemplatePreview/TemplatePreview'
-import { PageSpinner } from '@common/components'
-import type { UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { EntityGitDetails, NGTemplateInfoConfig } from 'services/template-ng'
+import { TemplatePreview } from '@templates-library/components/TemplatePreview/TemplatePreview'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
+import { PageSpinner } from '@common/components'
+import type { UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import GitContextForm, { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { DefaultNewTemplateId, DefaultNewVersionLabel } from '../templates'
 import css from './TemplateConfigModal.module.scss'
 
@@ -30,33 +34,47 @@ export enum Fields {
   Identifier = 'identifier',
   Description = 'description',
   Tags = 'tags',
-  VersionLabel = 'versionLabel'
+  VersionLabel = 'versionLabel',
+  Repo = 'repo',
+  Branch = 'branch'
+}
+
+export interface PromiseExtraArgs {
+  isEdit?: boolean
+  updatedGitDetails?: EntityGitDetails
 }
 
 export interface ModalProps {
   title: string
   disabledFields?: Fields[]
   emptyFields?: Fields[]
-  promise: (values: NGTemplateInfoConfig) => Promise<ResponseTemplateWrapperResponse | UseSaveSuccessResponse>
+  promise: (values: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => Promise<void | UseSaveSuccessResponse>
   onSuccess?: (values: NGTemplateInfoConfig) => void
   onFailure?: (error: any) => void
 }
 
+interface NGTemplateInfoConfigWithGitDetails extends NGTemplateInfoConfig {
+  repo: string
+  branch: string
+}
 export interface ConfigModalProps {
-  initialValues: NGTemplateInfoConfig
+  initialValues: NGTemplateInfoConfigWithGitDetails
   onClose: () => void
   modalProps: ModalProps
+  showGitFields?: boolean
+  gitDetails?: IGitContextFormProps
 }
 
 interface BasicDetailsInterface extends ConfigModalProps {
-  setPreviewValues: Dispatch<SetStateAction<NGTemplateInfoConfig>>
+  setPreviewValues: Dispatch<SetStateAction<NGTemplateInfoConfigWithGitDetails>>
 }
 
-const BasicTemplateDetails = (props: BasicDetailsInterface) => {
-  const { initialValues, setPreviewValues, onClose, modalProps } = props
+const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
+  const { initialValues, setPreviewValues, onClose, modalProps, showGitFields, gitDetails } = props
   const { title, disabledFields = [], promise, onSuccess, onFailure } = modalProps
   const { getString } = useStrings()
   const [isEdit, setIsEdit] = React.useState<boolean>()
+  const { isGitSyncEnabled } = useAppStore()
   const currentTemplateType = initialValues.type
   const formName = `create${currentTemplateType}Template`
   const [loading, setLoading] = React.useState<boolean>()
@@ -67,9 +85,11 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
     setIsEdit(edit)
   }, [initialValues])
 
-  const onSubmit = React.useCallback((values: NGTemplateInfoConfig) => {
+  const onSubmit = React.useCallback((values: NGTemplateInfoConfigWithGitDetails) => {
     setLoading(true)
-    promise(values)
+    const formGitDetails =
+      values.repo && values.repo.trim().length > 0 ? { repoIdentifier: values.repo, branch: values.branch } : undefined
+    promise(omit(values, 'repo', 'branch'), { isEdit: false, updatedGitDetails: formGitDetails })
       .then(response => {
         setLoading(false)
         if (response && response.status === 'SUCCESS') {
@@ -84,6 +104,16 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
       })
   }, [])
 
+  const getSaveButtonText = React.useCallback((): string => {
+    if (isEdit) {
+      if (isGitSyncEnabled) {
+        return getString('continue')
+      }
+      return getString('save')
+    }
+    return getString('start')
+  }, [isEdit, isGitSyncEnabled, getString])
+
   return (
     <Container width={'55%'} className={css.basicDetails} background={Color.FORM_BG} padding={'huge'}>
       {loading && <PageSpinner />}
@@ -94,18 +124,26 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
       >
         {title || ''}
       </Text>
-      <Formik<NGTemplateInfoConfig>
+      <Formik<NGTemplateInfoConfigWithGitDetails>
         initialValues={initialValues}
         onSubmit={onSubmit}
         validate={values => setPreviewValues(values)}
         formName={formName}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('templatesLibrary.createNewModal.validation.name')),
-          versionLabel: Yup.string().required(getString('templatesLibrary.createNewModal.validation.versionLabel'))
+          name: Yup.string().trim().required(getString('templatesLibrary.createNewModal.validation.name')),
+          versionLabel: Yup.string()
+            .trim()
+            .required(getString('templatesLibrary.createNewModal.validation.versionLabel')),
+          ...(isGitSyncEnabled && showGitFields
+            ? {
+                repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
+                branch: Yup.string().trim().required(getString('common.git.validation.branchRequired'))
+              }
+            : {})
         })}
       >
-        {(formik: FormikProps<NGTemplateInfoConfig>) => {
+        {(formik: FormikProps<NGTemplateInfoConfigWithGitDetails>) => {
           return (
             <FormikForm>
               <Layout.Vertical spacing={'huge'}>
@@ -129,12 +167,17 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
                       label={getString('templatesLibrary.createNewModal.versionLabel')}
                       disabled={!!disabledFields?.includes(Fields.VersionLabel) || isReadonly}
                     />
+                    {isGitSyncEnabled && showGitFields && (
+                      <GitSyncStoreProvider>
+                        <GitContextForm formikProps={formik} gitDetails={gitDetails} />
+                      </GitSyncStoreProvider>
+                    )}
                   </Layout.Vertical>
                 </Container>
                 <Container>
                   <Layout.Horizontal spacing="small" flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
                     <RbacButton
-                      text={isEdit ? getString('save') : getString('start')}
+                      text={getSaveButtonText()}
                       type="submit"
                       variation={ButtonVariation.PRIMARY}
                       permission={{
@@ -156,11 +199,11 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
   )
 }
 
-export const TemplateConfigModal = (props: ConfigModalProps) => {
+export const TemplateConfigModal = (props: ConfigModalProps): JSX.Element => {
   const { initialValues, modalProps, ...rest } = props
   const { emptyFields = [] } = modalProps
-  const [previewValues, setPreviewValues] = useState<NGTemplateInfoConfig>(props.initialValues)
-  const [formInitialValues, setFormInitialValues] = React.useState<NGTemplateInfoConfig>(initialValues)
+  const [previewValues, setPreviewValues] = useState(props.initialValues)
+  const [formInitialValues, setFormInitialValues] = React.useState(initialValues)
 
   React.useEffect(() => {
     const newInitialValues = {
@@ -169,7 +212,9 @@ export const TemplateConfigModal = (props: ConfigModalProps) => {
       ...(emptyFields.includes(Fields.Identifier) && { identifier: DefaultNewTemplateId }),
       ...(emptyFields.includes(Fields.VersionLabel) && { versionLabel: DefaultNewVersionLabel }),
       ...(emptyFields.includes(Fields.Description) && { description: undefined }),
-      ...(emptyFields.includes(Fields.Tags) && { tags: undefined })
+      ...(emptyFields.includes(Fields.Tags) && { tags: undefined }),
+      ...(emptyFields.includes(Fields.Repo) && { repo: undefined }),
+      ...(emptyFields.includes(Fields.Branch) && { branch: undefined })
     }
     if (newInitialValues.identifier === DefaultNewTemplateId) {
       newInitialValues.identifier = ''

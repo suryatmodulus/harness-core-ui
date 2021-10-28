@@ -2,49 +2,42 @@ import type { IconName } from '@wings-software/uicore'
 import type { StringsMap } from 'stringTypes'
 import { RiskValues, getRiskColorValue, getRiskLabelStringId } from '@cv/utils/CommonUtils'
 
-export const getServicesStates = (): { label: keyof StringsMap; identifier: string; color: string }[] => {
+export const getServicesStates = (): { labelId: keyof StringsMap; color: string }[] => {
   return [
     {
-      label: getRiskLabelStringId(RiskValues.UNHEALTHY),
-      identifier: 'unhealthy',
+      labelId: getRiskLabelStringId(RiskValues.UNHEALTHY),
       color: getRiskColorValue(RiskValues.UNHEALTHY)
     },
     {
-      label: getRiskLabelStringId(RiskValues.NEED_ATTENTION),
-      identifier: 'needsAttention',
+      labelId: getRiskLabelStringId(RiskValues.NEED_ATTENTION),
       color: getRiskColorValue(RiskValues.NEED_ATTENTION)
     },
     {
-      label: getRiskLabelStringId(RiskValues.OBSERVE),
-      identifier: 'observe',
+      labelId: getRiskLabelStringId(RiskValues.OBSERVE),
       color: getRiskColorValue(RiskValues.OBSERVE)
     },
     {
-      label: getRiskLabelStringId(RiskValues.HEALTHY),
-      identifier: 'healthy',
+      labelId: getRiskLabelStringId(RiskValues.HEALTHY),
       color: getRiskColorValue(RiskValues.HEALTHY)
     },
     {
-      label: 'na',
-      identifier: 'na',
+      labelId: 'na',
       color: getRiskColorValue(RiskValues.NO_DATA)
     }
   ]
 }
 
-export const getServicesTypes = (): { label: string; identifier: string; icon: IconName; size: number }[] => {
+export const getServicesTypes = (): { labelId: keyof StringsMap; icon: IconName; size: number }[] => {
   return [
     {
-      label: 'Application',
-      identifier: 'application',
+      labelId: 'cv.changeSource.HarnessCDCurrentGen.applicationId',
       icon: 'dependency-default-icon',
-      size: 16
+      size: 10
     },
     {
-      label: 'Infrastructure',
-      identifier: 'infrastructure',
+      labelId: 'infrastructureText',
       icon: 'infrastructure',
-      size: 22
+      size: 14
     }
   ]
 }

@@ -168,7 +168,7 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
       <div className={css.heading}>{getString(getHeadingIdByType(props.type))}</div>
       <ModalErrorHandler bind={setModalErrorHandler} />
       <div className={overviewCss.infoSection}>{getString('connectors.ceK8.infoText')}</div>
-      <Container padding="small" className={css.connectorForm}>
+      <Container padding="small" className={cx(css.connectorForm, overviewCss.formCont)}>
         <Formik<OverviewDetailsForm>
           formName="overViewStepForm"
           onSubmit={formData => {
@@ -195,7 +195,7 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
           {formikProps => {
             return (
               <FormikForm>
-                <Container style={{ minHeight: 460 }}>
+                <Container style={{ minHeight: 300 }}>
                   <Layout.Horizontal flex={{ justifyContent: 'start' }}>
                     <FormInput.Select
                       name="referenceConnector"

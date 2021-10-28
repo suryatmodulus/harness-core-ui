@@ -8,7 +8,7 @@ declare const styles: {
   readonly editBtn: string
   readonly itemWithGit: string
   readonly gitInfo: string
-  readonly gitText: string
+  readonly gitBranchIcon: string
   readonly iconCheck: string
   readonly iconChecked: string
   readonly connectorLabel: string
@@ -19,5 +19,8 @@ declare const styles: {
   readonly rightStatus: string
   readonly label: string
   readonly selectWrapper: string
+  readonly noDataCardContainerConnector: string
+  readonly noDataCardContainerContent: string
+  readonly lastConnected: string
 }
 export default styles

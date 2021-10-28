@@ -17,6 +17,13 @@
     z-index: 1;
   }
 
+  .gitFilter {
+    height: 32px;
+    padding-left: var(--spacing-xlarge) !important;
+    padding-right: var(--spacing-medium) !important;
+    width: 50% !important;
+  }
+
   .searchBox {
     flex-grow: 1;
   }

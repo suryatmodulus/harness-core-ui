@@ -134,7 +134,7 @@ exports[`Create CE K8s Connector Wizard Proceed with following steps 1`] = `
               connectors.ceK8.infoText
             </div>
             <div
-              class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+              class="StyledProps--font StyledProps--main connectorForm formCont StyledProps--padding-small"
             >
               <div
                 class="OverlaySpinner--overlaySpinner"
@@ -145,7 +145,7 @@ exports[`Create CE K8s Connector Wizard Proceed with following steps 1`] = `
                   <div>
                     <div
                       class="StyledProps--font StyledProps--main"
-                      style="min-height: 460px;"
+                      style="min-height: 300px;"
                     >
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-start"
@@ -1456,7 +1456,7 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
               connectors.ceK8.infoText
             </div>
             <div
-              class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+              class="StyledProps--font StyledProps--main connectorForm formCont StyledProps--padding-small"
             >
               <div
                 class="OverlaySpinner--overlaySpinner"
@@ -1467,7 +1467,7 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
                   <div>
                     <div
                       class="StyledProps--font StyledProps--main"
-                      style="min-height: 460px;"
+                      style="min-height: 300px;"
                     >
                       <div
                         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-start"

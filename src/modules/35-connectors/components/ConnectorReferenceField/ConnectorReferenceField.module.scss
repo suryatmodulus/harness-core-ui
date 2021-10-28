@@ -5,13 +5,14 @@
   .item {
     display: flex;
     align-items: center;
-    width: 360px;
+    width: 250px;
     .connectorInfo {
-      max-width: 300px;
+      max-width: 240px;
       .connectorNameId {
-        max-width: 260px;
+        max-width: 230px;
+        padding-left: var(--spacing-xsmall);
         span {
-          max-width: 260px;
+          max-width: 230px;
         }
       }
     }
@@ -32,17 +33,21 @@
       }
     }
   }
-
+  .edit-btn {
+    display: none !important;
+  }
   .gitInfo {
-    width: 120px !important;
-    .gitText {
-      max-width: 100px;
+    width: 100% !important;
+    .gitBranchIcon {
+      padding-left: 10px;
+      border-left: 1px var(--grey-600) solid;
     }
   }
 
   &:hover {
     .edit-btn {
       display: flex !important;
+      color: var(--grey-600) !important;
     }
     .iconCheck {
       visibility: visible;
@@ -127,4 +132,16 @@
       max-width: 100%;
     }
   }
+}
+.noDataCardContainerConnector {
+  height: 100% !important;
+}
+.noDataCardContainerContent {
+  margin-top: 0px !important;
+}
+.lastConnected {
+  margin-top: 8px !important;
+  background-color: var(--orange-100) !important;
+  color: var(--orange-900) !important;
+  font-size: var(--font-size-xsmall) !important;
 }

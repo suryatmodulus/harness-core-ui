@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
 import { Layout, Text, Color, Container } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import { useGetdashboard } from 'services/pm'
@@ -8,7 +9,20 @@ import PoliciesBarChart from './PoliciesBarChart'
 import css from './PolicyDashboard.module.scss'
 
 const PolicyDashboard: React.FC = () => {
-  const { data: dashboardStats, loading: fetchingDashboardStats, error } = useGetdashboard({})
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const queryParams = useMemo(
+    () => ({
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }),
+    [accountId, orgIdentifier, projectIdentifier]
+  )
+  const {
+    data: dashboardStats,
+    loading: fetchingDashboardStats,
+    error
+  } = useGetdashboard({ queryParams } as Record<string, unknown>)
 
   return (
     <>

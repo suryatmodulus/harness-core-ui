@@ -24,3 +24,10 @@ export interface DependencyGraphProps {
   options?: NetworkgraphOptions
   highchartsCallback?: (chart: Chart) => void
 }
+
+export interface IconDetails {
+  x: string
+  y: string
+  width: number
+  height: number
+}

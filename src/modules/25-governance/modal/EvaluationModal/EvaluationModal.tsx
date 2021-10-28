@@ -11,6 +11,7 @@ export interface EvaluationModalProps extends EvaluationViewProps {
 export const EvaluationModal: React.FC<Partial<EvaluationModalProps>> = ({
   metadata,
   accountId,
+  module,
   modalTitle: title,
   headingErrorMessage: failureMessage
 }) => {
@@ -34,7 +35,12 @@ export const EvaluationModal: React.FC<Partial<EvaluationModalProps>> = ({
       style={{ width: 900, height: 600 }}
     >
       <Container style={{ overflow: 'auto' }}>
-        <EvaluationView metadata={metadata} accountId={accountId} headingErrorMessage={failureMessage} />
+        <EvaluationView
+          metadata={metadata}
+          accountId={accountId}
+          module={module}
+          headingErrorMessage={failureMessage}
+        />
       </Container>
     </Dialog>
   )

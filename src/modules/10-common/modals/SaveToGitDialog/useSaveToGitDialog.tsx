@@ -26,7 +26,8 @@ export interface UseSaveToGitDialogProps<T> {
   onSuccess?: (
     data: SaveToGitFormInterface,
     payload?: T,
-    objectId?: EntityGitDetails['objectId']
+    objectId?: EntityGitDetails['objectId'],
+    isEdit?: boolean
   ) => Promise<UseSaveSuccessResponse>
   onClose?: () => void
 }
@@ -211,7 +212,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
       showCreateUpdateModal()
     }
     props
-      .onSuccess?.(data, diffData, objectId)
+      .onSuccess?.(data, diffData, objectId, isEditMode)
       .then(async response => {
         setNextCallback(() => response?.nextCallback)
         setCreateUpdateStatus(response.status)
@@ -277,7 +278,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
             isEditing={isEditMode}
             resource={resource}
             onSuccess={data => {
-              handleSuccess(data, undefined, resource.gitDetails?.objectId)
+              handleSuccess(data, payloadData, resource.gitDetails?.objectId)
               hideModal()
             }}
             onClose={closeHandler}

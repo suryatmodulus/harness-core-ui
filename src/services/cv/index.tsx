@@ -82,7 +82,7 @@ export interface ActivityVerificationSummary {
   progress?: number
   progressPercentage?: number
   remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   startTime?: number
   total?: number
   verficationStatusMap?: {
@@ -127,7 +127,7 @@ export interface AlertRuleDTO {
 export interface AnalysisResult {
   count?: number
   label?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   riskScore?: number
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
 }
@@ -435,6 +435,11 @@ export interface CVNGLogDTO {
   type?: 'API_CALL_LOG' | 'EXECUTION_LOG'
 }
 
+export type CalenderSLOTargetSpec = SLOTargetSpec & {
+  endDate: number
+  startDate: number
+}
+
 export interface CategoryCountDetails {
   count?: number
   countInPrecedingWindow?: number
@@ -515,7 +520,16 @@ export interface ClusterSummary {
   count?: number
   label?: number
   risk?: number
-  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  riskLevel?:
+    | 'NO_DATA'
+    | 'NO_ANALYSIS'
+    | 'HEALTHY'
+    | 'OBSERVE'
+    | 'NEED_ATTENTION'
+    | 'UNHEALTHY'
+    | 'LOW'
+    | 'MEDIUM'
+    | 'HIGH'
   score?: number
   testFrequencyData?: number[]
 }
@@ -729,7 +743,7 @@ export interface DeploymentResultSummary {
 
 export interface DeploymentTimeSeriesAnalysisDTO {
   hostSummaries?: HostInfo[]
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   transactionMetricSummaries?: TransactionMetricHostData[]
 }
@@ -744,7 +758,7 @@ export interface DeploymentVerificationJobInstanceSummary {
   logsAnalysisSummary?: LogsAnalysisSummary
   progressPercentage?: number
   remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   startTime?: number
   status?:
     | 'IGNORED'
@@ -1009,6 +1023,8 @@ export interface Error {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -1123,8 +1139,13 @@ export interface Error {
   correlationId?: string
   detailedMessage?: string
   message?: string
+  metadata?: ErrorMetadataDTO
   responseMessages?: ResponseMessage[]
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ErrorMetadataDTO {
+  type?: string
 }
 
 export interface Failure {
@@ -1307,6 +1328,8 @@ export interface Failure {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -1632,9 +1655,12 @@ export type HarnessCDCurrentGenChangeSourceSpec = ChangeSourceSpec & {
 export type HarnessCDCurrentGenEventMetadata = ChangeEventMetadata & {
   accountId?: string
   appId?: string
+  artifactName?: string
+  artifactType?: string
   environmentId?: string
   name?: string
   serviceId?: string
+  status?: string
   workflowEndTime?: number
   workflowExecutionId?: string
   workflowId?: string
@@ -1665,6 +1691,7 @@ export interface HealthMonitoringFlagResponse {
 
 export interface HealthScoreDTO {
   currentHealthScore?: RiskData
+  dependentHealthScore?: RiskData
 }
 
 export interface HealthSource {
@@ -1699,7 +1726,7 @@ export interface HostData {
   anomalous?: boolean
   controlData?: number[]
   hostName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   testData?: number[]
 }
@@ -1708,7 +1735,7 @@ export interface HostInfo {
   canary?: boolean
   hostName?: string
   primary?: boolean
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
 }
 
@@ -1897,7 +1924,7 @@ export interface LearningEngineTask {
 }
 
 export interface LiveMonitoringLogAnalysisClusterDTO {
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   text?: string
   x?: number
@@ -1931,7 +1958,7 @@ export interface LogAnalysisClusterChartDTO {
   clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
   hostName?: string
   label?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   text?: string
   x?: number
   y?: number
@@ -1943,7 +1970,7 @@ export interface LogAnalysisClusterDTO {
   count?: number
   label?: number
   message?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   testFrequencyData?: number[]
 }
@@ -2005,7 +2032,16 @@ export interface LogData {
   count?: number
   label?: number
   riskScore?: number
-  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  riskStatus?:
+    | 'NO_DATA'
+    | 'NO_ANALYSIS'
+    | 'HEALTHY'
+    | 'OBSERVE'
+    | 'NEED_ATTENTION'
+    | 'UNHEALTHY'
+    | 'LOW'
+    | 'MEDIUM'
+    | 'HIGH'
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   text?: string
   trend?: FrequencyDTO[]
@@ -2041,7 +2077,7 @@ export interface MessageFrequency {
 }
 
 export interface MetricData {
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   timestamp?: number
   value?: number
 }
@@ -2334,6 +2370,16 @@ export interface PageMonitoredServiceResponse {
   totalPages?: number
 }
 
+export interface PageServiceLevelObjectiveResponse {
+  content?: ServiceLevelObjectiveResponse[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
 export interface PageStackdriverDashboardDTO {
   content?: StackdriverDashboardDTO[]
   empty?: boolean
@@ -2374,6 +2420,16 @@ export interface PageTransactionMetricInfo {
   totalPages?: number
 }
 
+export interface PageUserJourneyResponse {
+  content?: UserJourneyResponse[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
 export type PagerDutyChangeSourceSpec = ChangeSourceSpec & {
   connectorRef?: string
   pagerDutyServiceId?: string
@@ -2400,7 +2456,7 @@ export type PagerDutyEventMetaData = ChangeEventMetadata & {
 }
 
 export interface PagerDutyIncidentDTO {
-  assignments?: PagerDutyObject[]
+  assignees?: PagerDutyObject[]
   escalation_policy?: PagerDutyObject
   html_url?: string
   id?: string
@@ -2735,6 +2791,8 @@ export interface ResponseMessage {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -2910,6 +2968,13 @@ export interface ResponsePageMonitoredServiceResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponsePageServiceLevelObjectiveResponse {
+  correlationId?: string
+  data?: PageServiceLevelObjectiveResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponsePageStackdriverDashboardDTO {
   correlationId?: string
   data?: PageStackdriverDashboardDTO
@@ -2920,6 +2985,13 @@ export interface ResponsePageStackdriverDashboardDTO {
 export interface ResponsePageString {
   correlationId?: string
   data?: PageString
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePageUserJourneyResponse {
+  correlationId?: string
+  data?: PageUserJourneyResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3410,6 +3482,14 @@ export interface RestResponseServiceDependencyGraphDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseServiceLevelObjectiveResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceLevelObjectiveResponse
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseSetDatasourceTypeDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3474,6 +3554,14 @@ export interface RestResponseTransactionMetricInfoSummaryPageDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseUserJourneyResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UserJourneyResponse
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseVoid {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3485,7 +3573,16 @@ export interface RestResponseVoid {
 export interface ResultSummary {
   controlClusterSummaries?: ControlClusterSummary[]
   risk?: number
-  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  riskLevel?:
+    | 'NO_DATA'
+    | 'NO_ANALYSIS'
+    | 'HEALTHY'
+    | 'OBSERVE'
+    | 'NEED_ATTENTION'
+    | 'UNHEALTHY'
+    | 'LOW'
+    | 'MEDIUM'
+    | 'HIGH'
   score?: number
   testClusterSummaries?: ClusterSummary[]
 }
@@ -3493,7 +3590,16 @@ export interface ResultSummary {
 export interface RiskData {
   endTime?: number
   healthScore?: number
-  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  riskStatus?:
+    | 'NO_DATA'
+    | 'NO_ANALYSIS'
+    | 'HEALTHY'
+    | 'OBSERVE'
+    | 'NEED_ATTENTION'
+    | 'UNHEALTHY'
+    | 'LOW'
+    | 'MEDIUM'
+    | 'HIGH'
   startTime?: number
   timeRangeParams?: TimeRangeParams
 }
@@ -3511,6 +3617,37 @@ export interface RiskProfile {
 export interface RiskSummaryPopoverDTO {
   category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   envSummaries?: EnvSummary[]
+}
+
+export type RollingSLOTargetSpec = SLOTargetSpec & {
+  periodLength: string
+}
+
+export interface SLIMetricSpec {
+  eventType?: string
+  metric1?: string
+  metric2?: string
+}
+
+export interface SLISpec {
+  spec?: SLIMetricSpec
+  type?: 'Threshold' | 'Ratio'
+}
+
+export interface SLOTarget {
+  sloTargetPercentage?: number
+  spec: SLOTargetSpec
+  type?: 'Rolling' | 'Calender'
+}
+
+export interface SLOTargetSpec {
+  [key: string]: any
+}
+
+export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
+  sampleMap?: {
+    [key: string]: string
+  }
 }
 
 export interface ServiceDependencyDTO {
@@ -3549,9 +3686,38 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   lastSeenTime?: number
   longTermPattern?: boolean
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   shortTermHistory?: number[]
+}
+
+export interface ServiceLevelIndicator {
+  identifier?: string
+  name?: string
+  spec?: SLISpec
+  type?: 'Availability' | 'Latency'
+}
+
+export interface ServiceLevelObjectiveDTO {
+  description?: string
+  healthSourceRef: string
+  identifier: string
+  monitoredServiceRef: string
+  name: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceLevelIndicators: ServiceLevelIndicator[]
+  tags: {
+    [key: string]: string
+  }
+  target: SLOTarget
+  userJourneyRef: string
+}
+
+export interface ServiceLevelObjectiveResponse {
+  createdAt?: number
+  lastModifiedAt?: number
+  serviceLevelObjective: ServiceLevelObjectiveDTO
 }
 
 export interface ServiceRisk {
@@ -3571,10 +3737,21 @@ export interface ServiceSummaryDetails {
   environmentName?: string
   environmentRef?: string
   identifierRef?: string
-  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  riskData?: RiskData
+  riskLevel?:
+    | 'NO_DATA'
+    | 'NO_ANALYSIS'
+    | 'HEALTHY'
+    | 'OBSERVE'
+    | 'NEED_ATTENTION'
+    | 'UNHEALTHY'
+    | 'LOW'
+    | 'MEDIUM'
+    | 'HIGH'
   riskScore?: number
   serviceName?: string
   serviceRef?: string
+  type?: 'Application' | 'Infrastructure'
 }
 
 export interface Sources {
@@ -3855,7 +4032,7 @@ export interface TimeSeriesThresholdDTO {
 
 export interface TransactionMetric {
   metricName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   transactionName?: string
 }
@@ -3869,7 +4046,7 @@ export interface TransactionMetricHostData {
   anomalous?: boolean
   hostData?: HostData[]
   metricName?: string
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   transactionName?: string
 }
@@ -3900,7 +4077,16 @@ export interface TransactionMetricRisk {
   lastSeenTime?: number
   longTermPattern?: boolean
   metricName?: string
-  metricRisk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  metricRisk?:
+    | 'NO_DATA'
+    | 'NO_ANALYSIS'
+    | 'HEALTHY'
+    | 'OBSERVE'
+    | 'NEED_ATTENTION'
+    | 'UNHEALTHY'
+    | 'LOW'
+    | 'MEDIUM'
+    | 'HIGH'
   metricScore?: number
   transactionName?: string
 }
@@ -3908,6 +4094,19 @@ export interface TransactionMetricRisk {
 export interface TransactionMetricSums {
   metricSums?: MetricSum[]
   transactionName?: string
+}
+
+export interface UserJourneyDTO {
+  identifier: string
+  name: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export interface UserJourneyResponse {
+  createdAt?: number
+  lastModifiedAt?: number
+  userJourney: UserJourneyDTO
 }
 
 export interface ValidationError {
@@ -3938,7 +4137,7 @@ export interface VerificationResult {
   jobName?: string
   progressPercentage?: number
   remainingTimeMs?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   startTime?: number
   status?:
     | 'IGNORED'
@@ -3992,12 +4191,13 @@ export type MonitoredServiceDTORequestBody = MonitoredServiceDTO
 
 export type ServiceGuardTimeSeriesAnalysisDTORequestBody = ServiceGuardTimeSeriesAnalysisDTO
 
+export type ServiceLevelObjectiveDTORequestBody = ServiceLevelObjectiveDTO
+
 export interface ChangeEventListQueryParams {
   serviceIdentifiers: string[]
   envIdentifiers: string[]
   startTime: number
   endTime: number
-  changeCategories?: ('Deployment' | 'Infrastructure' | 'Alert')[]
   pageIndex?: number
   pageSize?: number
   sortOrders?: string[]

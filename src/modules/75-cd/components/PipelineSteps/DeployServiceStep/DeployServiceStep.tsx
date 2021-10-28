@@ -3,12 +3,12 @@ import {
   Button,
   ButtonSize,
   ButtonVariation,
-  Container,
   Formik,
   FormikForm,
   FormInput,
   getMultiTypeFromValue,
   IconName,
+  Dialog,
   Layout,
   MultiTypeInputType,
   SelectOption,
@@ -17,7 +17,6 @@ import {
 import * as Yup from 'yup'
 import { defaultTo, get, isEmpty, isNil, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { connect, FormikErrors, FormikProps } from 'formik'
@@ -155,16 +154,15 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
               isIdentifierEditable: !isEdit
             }}
           />
-          <Container padding={{ top: 'xlarge' }}>
+          <Layout.Horizontal spacing="small" padding={{ top: 'xlarge' }}>
             <Button
               variation={ButtonVariation.PRIMARY}
               type={'submit'}
               text={getString('save')}
               data-id="service-save"
             />
-            &nbsp; &nbsp;
-            <Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={closeModal} />
-          </Container>
+            <Button variation={ButtonVariation.TERTIARY} text={getString('cancel')} onClick={closeModal} />
+          </Layout.Horizontal>
         </FormikForm>
       )}
     </Formik>
@@ -258,12 +256,8 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
       <Dialog
         isOpen={true}
         enforceFocus={false}
-        canEscapeKeyClose
-        canOutsideClickClose
         onClose={onClose}
         title={state.isEdit ? getString('editService') : getString('newService')}
-        isCloseButtonShown
-        className={'padded-dialog'}
       >
         <NewEditServiceModal
           data={state.data || { name: '', identifier: '' }}

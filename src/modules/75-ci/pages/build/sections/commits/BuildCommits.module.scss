@@ -25,11 +25,14 @@
     width: 1px;
     height: 100%;
     // TODO: Replace color once it is available in UIKit
-    background-color: rgba(0, 19, 37, 0.6);
+    background-color: var(--grey-200);
   }
 
   &:last-child {
     padding-bottom: var(--spacing-xsmall);
+  }
+  :not(:nth-last-of-type(.commit)) {
+    border-bottom: none !important;
   }
 }
 
@@ -43,27 +46,37 @@
   position: relative;
   z-index: 1;
   // TODO: Replace color once it is available in UIKit
-  color: rgba(0, 19, 37, 0.3) !important;
-  background-color: var(--white) !important;
+  color: var(--grey-500) !important;
+  background-color: #fafcff !important;
 }
 
 .stackHeaderText {
   // TODO: Replace color once it is available in UIKit
-  color: rgba(0, 19, 37, 0.87);
-  opacity: 0.6;
+  color: var(--grey-500);
 }
 
 .commit {
   display: flex !important;
   justify-content: space-between;
   align-items: center;
-  // TODO: Replace color once it is available in UIKit
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  // TODO: Replace color once it is available in UIKit
-  box-shadow: 0px 1px 4px rgba(0, 12, 120, 0.15);
-  padding-top: var(--spacing-small);
-  padding-bottom: var(--spacing-small);
+  box-shadow: none !important;
+  border: 1px solid var(--grey-200) !important;
+  padding-top: var(--spacing-3) !important;
+  padding-bottom: var(--spacing-3) !important;
   margin-left: 34px;
+  border-bottom: none !important;
+  border-radius: 0 !important;
+
+  &:nth-child(2) {
+    border-top-left-radius: 4px !important;
+    border-top-right-radius: 4px !important;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid var(--grey-200) !important;
+    border-bottom-left-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+  }
 
   :global(.bp3-popover-wrapper),
   :global(.bp3-popover-target) {
@@ -74,8 +87,11 @@
     --font-size: var(--font-size-small) !important;
     --intent-color: var(--grey-900) !important;
   }
-}
 
+  [data-name='commitId'] {
+    min-width: 90px;
+  }
+}
 .commitTitle {
   // TODO: Replace color once it is available in UIKit
   color: rgba(0, 19, 37, 0.87);
@@ -90,7 +106,16 @@
 .user {
   display: flex;
   font-size: var(--font-size-small);
-  color: var(--grey-500);
+  color: var(--grey-600) !important;
+}
+
+.timeStamp {
+  color: var(--grey-600) !important;
+}
+.rightSideCommitDetails {
+  > span {
+    width: 90px !important;
+  }
 }
 
 .label {
@@ -136,4 +161,18 @@
 .hashIcon {
   // TODO: Replace color once it is available in UIKit
   color: #999999 !important;
+}
+
+.emptyCommits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 160px !important;
+}
+
+.zeroState {
+  width: 515px !important;
+  margin: 0 auto !important;
+  padding-top: 140px !important;
+  text-align: center;
 }

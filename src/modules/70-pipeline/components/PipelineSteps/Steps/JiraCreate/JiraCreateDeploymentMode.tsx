@@ -93,7 +93,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
     options =
       projectResponseList.map((project: JiraProjectBasicNG) => ({
         label: project.name || '',
-        value: project.id || '',
+        value: project.key || '',
         key: project.key || ''
       })) || []
 
@@ -160,19 +160,19 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           label={getString('pipeline.jiraApprovalStep.project')}
           name={`${prefix}spec.projectKey`}
           useValue
+          placeholder={
+            fetchingProjects
+              ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
+              : projectsFetchError?.message
+              ? projectsFetchError?.message
+              : getString('pipeline.jiraCreateStep.selectProject')
+          }
           multiTypeInputProps={{
             expressions,
             allowableTypes,
             selectProps: {
               defaultSelectedItem: selectedProjectValue,
-              items: projectOptions,
-              inputProps: {
-                placeholder: fetchingProjects
-                  ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
-                  : projectsFetchError?.message
-                  ? projectsFetchError?.message
-                  : getString('pipeline.jiraCreateStep.selectProject')
-              }
+              items: projectOptions
             }
           }}
           disabled={isApprovalStepFieldDisabled(readonly)}
@@ -183,7 +183,13 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
         <FormInput.MultiTypeInput
           selectItems={setIssueTypeOptions(projectMetadata?.issuetypes)}
           className={css.deploymentViewMedium}
-          placeholder={getString('pipeline.jiraApprovalStep.issueTypePlaceholder')}
+          placeholder={
+            fetchingProjectMetadata
+              ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
+              : projectMetadataFetchError?.message
+              ? projectMetadataFetchError?.message
+              : getString('pipeline.jiraApprovalStep.issueTypePlaceholder')
+          }
           label={getString('pipeline.jiraApprovalStep.issueType')}
           name={`${prefix}spec.issueType`}
           disabled={isApprovalStepFieldDisabled(readonly)}
@@ -193,14 +199,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
             allowableTypes,
             selectProps: {
               defaultSelectedItem: selectedIssueTypeValue,
-              items: setIssueTypeOptions(projectMetadata?.issuetypes),
-              inputProps: {
-                placeholder: fetchingProjectMetadata
-                  ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
-                  : projectMetadataFetchError?.message
-                  ? projectMetadataFetchError?.message
-                  : getString('pipeline.jiraApprovalStep.issueTypePlaceholder')
-              }
+              items: setIssueTypeOptions(projectMetadata?.issuetypes)
             }
           }}
         />

@@ -5,7 +5,8 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
-import { RiskValues, getRiskLabelStringId } from '@cv/utils/CommonUtils'
+import { RiskValues, getRiskLabelStringId, getCVMonitoringServicesSearchParam } from '@cv/utils/CommonUtils'
+import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 import CVMonitoredService from '../CVMonitoredService'
 import { monitoredServicelist, mockDeleteData, graphData } from './CVMonitoredService.mock'
 
@@ -87,7 +88,9 @@ describe('Monitored Service list', () => {
       <div
         data-testid="location"
       >
-        /account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoredserviceconfigurations/edit/delete_me_test
+        /account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/edit/delete_me_test${getCVMonitoringServicesSearchParam(
+          { tab: MonitoredServiceEnum.Configurations }
+        )}
       </div>
     `)
   })

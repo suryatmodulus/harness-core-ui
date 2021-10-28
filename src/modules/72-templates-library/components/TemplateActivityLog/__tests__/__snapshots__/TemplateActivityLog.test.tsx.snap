@@ -1,0 +1,254 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API SUCCESS if content is displayed: response data 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-left-huge"
+  >
+    <div
+      class="activity"
+    >
+      <div>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main timelineFirstIcon Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-edit StyledProps--main"
+            icon="edit"
+          >
+            <svg
+              data-icon="edit"
+              height="10"
+              viewBox="0 0 16 16"
+              width="10"
+            >
+              <desc>
+                edit
+              </desc>
+              <path
+                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          class="timelineSeparator"
+        />
+        <div
+          class="dot"
+        />
+        <div
+          class="timelineSeparator"
+        />
+      </div>
+      <div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--margin-left-small StyledProps--margin-top-xsmall"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          >
+            Admin
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            templatesLibrary.default
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          >
+            v2
+          </p>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-left-medium"
+        >
+          dummy date
+        </p>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-small StyledProps--margin-left-medium StyledProps--margin-top-medium StyledProps--border"
+        >
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+            style="--text-line-clamp: 2; width: 350px;"
+          >
+            templatesLibrary.sampleTemplateAuditComment
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="activity"
+    >
+      <div>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main timelineFirstIcon Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-edit StyledProps--main"
+            icon="edit"
+          >
+            <svg
+              data-icon="edit"
+              height="10"
+              viewBox="0 0 16 16"
+              width="10"
+            >
+              <desc>
+                edit
+              </desc>
+              <path
+                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          class="timelineSeparator"
+        />
+        <div
+          class="dot"
+        />
+        <div
+          class="timelineSeparator"
+        />
+      </div>
+      <div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--margin-left-small StyledProps--margin-top-xsmall"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          >
+            rbac.user
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            templatesLibrary.updated
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          >
+            v2
+          </p>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-left-medium"
+        >
+          dummy date
+        </p>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-small StyledProps--margin-left-medium StyledProps--margin-top-medium StyledProps--border"
+        >
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+            style="--text-line-clamp: 2; width: 350px;"
+          >
+            templatesLibrary.sampleTemplateAuditComment
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="activity"
+    >
+      <div>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main timelineFirstIcon Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-edit StyledProps--main"
+            icon="edit"
+          >
+            <svg
+              data-icon="edit"
+              height="10"
+              viewBox="0 0 16 16"
+              width="10"
+            >
+              <desc>
+                edit
+              </desc>
+              <path
+                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          class="timelineSeparator"
+        />
+        <div
+          class="dot"
+        />
+        <div
+          class="timelineSeparator timelineSeparatorLast"
+        />
+        <span
+          class="bp3-icon bp3-icon-double-chevron-down StyledProps--main lastIcon StyledProps--color StyledProps--color-grey250"
+          icon="double-chevron-down"
+        >
+          <svg
+            data-icon="double-chevron-down"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              double-chevron-down
+            </desc>
+            <path
+              d="M7.29 8.71c.18.18.43.29.71.29s.53-.11.71-.29l4-4a1.003 1.003 0 00-1.42-1.42L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4zM12 8c-.28 0-.53.11-.71.29L8 11.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 8z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+      <div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--margin-left-small StyledProps--margin-top-xsmall"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          >
+            Admin
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            templatesLibrary.created
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          >
+            v1
+          </p>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-left-medium"
+        >
+          dummy date
+        </p>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-small StyledProps--margin-left-medium StyledProps--margin-top-medium StyledProps--border"
+        >
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+            style="--text-line-clamp: 2; width: 350px;"
+          >
+            templatesLibrary.sampleTemplateAuditComment
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

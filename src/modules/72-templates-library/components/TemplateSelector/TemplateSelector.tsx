@@ -16,6 +16,7 @@ import {
   Views,
   PageError
 } from '@wings-software/uicore'
+import { defaultTo } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -29,6 +30,9 @@ import { TemplateListType } from '@templates-library/pages/TemplatesPage/Templat
 import TemplatesView from '@templates-library/pages/TemplatesPage/views/TemplatesView'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import routes from '@common/RouteDefinitions'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
 import css from './TemplateSelector.module.scss'
 
@@ -45,8 +49,10 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
   const [view, setView] = useState<Views>(Views.GRID)
+  const [gitFilter, setGitFilter] = useState<GitFilterScope | null>(null)
   const [searchParam, setSearchParam] = useState('')
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
+  const { isGitSyncEnabled } = useAppStore()
   const scopeOptions: SelectOption[] = [
     {
       value: Scope.PROJECT,
@@ -77,12 +83,18 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
       templateListType: TemplateListType.Stable,
       searchTerm: searchParam,
       page,
-      size: 20
+      size: 20,
+      ...(gitFilter?.repo &&
+        gitFilter.branch && {
+          repoIdentifier: gitFilter.repo,
+          branch: gitFilter.branch
+        })
     }
-  }, [accountId, orgId, projectId, searchParam, page])
+  }, [accountId, orgId, projectId, searchParam, page, gitFilter])
 
   const reset = React.useCallback((): void => {
     searchRef.current.clear()
+    setGitFilter(null)
   }, [searchRef])
 
   const {
@@ -131,6 +143,18 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
                     onChange={item => setSelectedScope(item)}
                     filterable={false}
                   />
+                  {isGitSyncEnabled && selectedScope.value === Scope.PROJECT && (
+                    <GitSyncStoreProvider>
+                      <GitFilters
+                        onChange={filter => {
+                          setGitFilter(filter)
+                          setPage(0)
+                        }}
+                        className={css.gitFilter}
+                        defaultValue={defaultTo(gitFilter, undefined)}
+                      />
+                    </GitSyncStoreProvider>
+                  )}
                   <ExpandingSearchInput
                     alwaysExpanded
                     className={css.searchBox}
@@ -203,15 +227,18 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
         <Container width={525} background={Color.FORM_BG}>
           {selectedTemplate ? (
             <Layout.Vertical height={'100%'}>
-              <TemplateDetails
-                setTemplate={setSelectedTemplate}
-                templateIdentifier={selectedTemplate.identifier || ''}
-                versionLabel={selectedTemplate.versionLabel}
-                accountId={accountId}
-                orgIdentifier={orgId}
-                projectIdentifier={projectId}
-                module={module}
-              />
+              <GitSyncStoreProvider>
+                <TemplateDetails
+                  setTemplate={setSelectedTemplate}
+                  templateIdentifier={selectedTemplate.identifier || ''}
+                  versionLabel={selectedTemplate.versionLabel}
+                  accountId={accountId}
+                  orgIdentifier={orgId}
+                  projectIdentifier={projectId}
+                  module={module}
+                  gitDetails={selectedTemplate.gitDetails}
+                />
+              </GitSyncStoreProvider>
               <Container>
                 <Layout.Horizontal
                   padding={{ top: 'xxxlarge', right: 'xxlarge', bottom: 'xxxlarge', left: 'xxlarge' }}

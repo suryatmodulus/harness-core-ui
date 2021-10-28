@@ -1,4 +1,5 @@
 import { Intent, IToaster, IToastProps, Position, Toaster } from '@blueprintjs/core'
+import type { editor as EDITOR } from 'monaco-editor/esm/vs/editor/editor.api'
 import { Color } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 
@@ -13,6 +14,26 @@ export function showToaster(message: string, props?: Partial<IToastProps>): IToa
 // eslint-disable-next-line
 export const getErrorMessage = (error: any): string =>
   get(error, 'data.error', get(error, 'data.message', error?.message))
+
+export const MonacoEditorOptions = {
+  ignoreTrimWhitespace: true,
+  minimap: { enabled: false },
+  codeLens: false,
+  scrollBeyondLastLine: false,
+  smartSelect: false,
+  tabSize: 2,
+  insertSpaces: true
+}
+
+// Monaco editor has a bug where when its value is set, the value
+// is selected all by default.
+// Fix by set selection range to zero
+export const deselectAllMonacoEditor = (editor?: EDITOR.IStandaloneCodeEditor): void => {
+  editor?.focus()
+  setTimeout(() => {
+    editor?.setSelection(new monaco.Selection(0, 0, 0, 0))
+  }, 0)
+}
 
 export enum EvaluationStatus {
   ERROR = 'error',

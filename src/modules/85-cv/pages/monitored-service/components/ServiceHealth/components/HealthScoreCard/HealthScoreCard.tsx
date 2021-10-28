@@ -1,29 +1,31 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
-import { Color, Container, Layout, Text } from '@wings-software/uicore'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getRiskColorValue } from '@cv/utils/CommonUtils'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { Classes } from '@blueprintjs/core'
+import { Color, Container, FontVariation, Layout, Text, Icon, Intent } from '@wings-software/uicore'
 import { useGetMonitoredServiceScoresFromServiceAndEnvironment } from 'services/cv'
+import { RiskValues, getErrorMessage } from '@cv/utils/CommonUtils'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { RiskTagWithLabel } from '@cv/pages/monitored-service/CVMonitoredService/CVMonitoredService.utils'
 import { useStrings } from 'framework/strings'
+import ErrorTooltip from '@common/components/ErrorTooltip/ErrorTooltip'
 import type { HealthScoreCardProps } from './HealthScoreCard.types'
-import HealthScoreCardLoading from './components/HealthScoreCardLoading/HealthScoreCardLoading'
-import HealthScoreCardError from './components/HealthScoreError/HealthScoreCardError'
 import css from './HealthScoreCard.module.scss'
 
-export default function HealthScoreCard(props: HealthScoreCardProps): JSX.Element {
-  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
-  const { serviceIdentifier, environmentIdentifier } = props
+const HealthScoreCard: React.FC<HealthScoreCardProps> = ({
+  serviceIdentifier,
+  environmentIdentifier,
+  monitoredServiceLoading
+}) => {
   const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps & { identifier: string }>()
 
-  const healthScoreQueryParams = useMemo(() => {
-    return {
-      orgIdentifier,
-      projectIdentifier,
-      accountId,
-      serviceIdentifier,
-      environmentIdentifier
-    }
-  }, [accountId, environmentIdentifier, orgIdentifier, projectIdentifier, serviceIdentifier])
+  const queryParams = {
+    accountId,
+    orgIdentifier,
+    projectIdentifier,
+    serviceIdentifier,
+    environmentIdentifier
+  }
 
   const {
     data: healthScoreData,
@@ -31,59 +33,81 @@ export default function HealthScoreCard(props: HealthScoreCardProps): JSX.Elemen
     loading,
     error
   } = useGetMonitoredServiceScoresFromServiceAndEnvironment({
-    lazy: true,
-    queryParams: healthScoreQueryParams
+    lazy: true
   })
 
   useEffect(() => {
     if (serviceIdentifier && environmentIdentifier) {
-      fetchHealthScore({ queryParams: healthScoreQueryParams })
+      fetchHealthScore({ queryParams })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [serviceIdentifier, environmentIdentifier, healthScoreQueryParams])
+  }, [serviceIdentifier, environmentIdentifier])
 
-  const { healthScore, color } = useMemo(() => {
-    const { riskStatus: riskStatusData, healthScore: healthScoreValue = -2 } =
-      healthScoreData?.data?.currentHealthScore || {}
-    const colorData = getRiskColorValue(riskStatusData)
-    return { healthScore: healthScoreValue, color: colorData }
-  }, [healthScoreData?.data?.currentHealthScore])
+  if (loading || monitoredServiceLoading) {
+    return (
+      <Layout.Horizontal spacing="small" flex data-testid="loading-healthscore">
+        <Container height={30} width={30} className={Classes.SKELETON} />
+        <Container height={15} width={90} className={Classes.SKELETON} />
+        <Container height={30} width={30} className={Classes.SKELETON} />
+        <Container height={15} width={122} className={Classes.SKELETON} />
+      </Layout.Horizontal>
+    )
+  }
 
-  const renderHealthScore = useCallback(() => {
-    if (loading) {
-      return <HealthScoreCardLoading />
-    } else if (error) {
-      return <HealthScoreCardError errorMessage={getString('cv.monitoredServices.failedToFetchHealthScore')} />
-    } else if (healthScore !== null && healthScore > -1) {
-      return (
-        <>
-          <div className={css.healthScoreCard} style={{ background: color }}>
-            {healthScore}
-          </div>
-          <Text color={Color.BLACK} font={{ size: 'small' }}>
-            {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
+  if (error) {
+    return (
+      <Layout.Horizontal flex spacing="xsmall">
+        <Icon name="warning-sign" size={10} intent={Intent.DANGER} />
+        <Text color={Color.GREY_500} font={{ variation: FontVariation.TINY_SEMI }}>
+          {getString('cv.monitoredServices.failedToFetchHealthScore')}
+        </Text>
+        <ErrorTooltip message={getErrorMessage(error)} onRetry={() => fetchHealthScore({ queryParams })} width={400}>
+          <Text
+            inline
+            font={{ variation: FontVariation.TINY_SEMI }}
+            color={Color.PRIMARY_7}
+            rightIcon="chevron-right"
+            rightIconProps={{ color: Color.PRIMARY_7, size: 10 }}
+            className={css.textLink}
+          >
+            {getString('common.seeDetails')}
           </Text>
-        </>
-      )
-    } else if (healthScore === -2 || healthScore === null) {
-      return (
-        <Container className={css.noDataState}>
-          <Text font={{ size: 'xsmall' }} padding={{ right: 'small' }} flex={{ alignItems: 'center' }}>
-            {getString('cv.monitoredServices.healthScoreDataNotAvailable')}
-          </Text>
-          <Layout.Horizontal className={css.healthScoreCardContainer}>
-            <div className={css.healthScoreCard} style={{ background: color }}></div>
-            <Text color={Color.BLACK} font={{ size: 'small' }}>
-              {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
-            </Text>
-          </Layout.Horizontal>
-        </Container>
-      )
-    } else {
-      return <></>
+        </ErrorTooltip>
+      </Layout.Horizontal>
+    )
+  }
+
+  const { currentHealthScore, dependentHealthScore } = healthScoreData?.data ?? {}
+
+  const NoHealthScoreData = (): JSX.Element | null => {
+    let label = ''
+    const noServiceHealthData = !currentHealthScore || currentHealthScore.riskStatus === RiskValues.NO_DATA
+    const noDependencyHealthData = !dependentHealthScore || dependentHealthScore.riskStatus === RiskValues.NO_DATA
+
+    if (noServiceHealthData && noDependencyHealthData) {
+      label = getString('cv.monitoredServices.healthScoreDataNotAvailable')
+    } else if (noServiceHealthData) {
+      label = getString('cv.monitoredServices.healthScoreDataNotAvailableForServiceHealth')
+    } else if (noDependencyHealthData) {
+      label = getString('cv.monitoredServices.healthScoreDataNotAvailableForDependencyHealth')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [color, healthScore, loading])
 
-  return <Layout.Horizontal className={css.healthScoreCardContainer}>{renderHealthScore()}</Layout.Horizontal>
+    return label ? (
+      <Text font={{ variation: FontVariation.TINY_SEMI }} color={Color.GREY_500} flex>
+        {label}
+      </Text>
+    ) : null
+  }
+
+  return (
+    <Layout.Horizontal spacing="small">
+      <NoHealthScoreData />
+      <RiskTagWithLabel
+        riskData={currentHealthScore}
+        label={getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
+      />
+      <RiskTagWithLabel riskData={dependentHealthScore} label={getString('cv.monitoredServices.dependencyHealth')} />
+    </Layout.Horizontal>
+  )
 }
+
+export default HealthScoreCard

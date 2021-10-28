@@ -3,20 +3,18 @@ import { FormikProps, FieldArray } from 'formik'
 import {
   Button,
   ButtonVariation,
+  FormikForm,
   FormInput,
   getMultiTypeFromValue,
   Layout,
-  MultiTextInput,
   MultiTypeInputType,
   SelectOption,
   Text
 } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
-import { FormGroup, Intent, IOptionProps } from '@blueprintjs/core'
-import { get } from 'lodash-es'
+import type { IOptionProps } from '@blueprintjs/core'
 
-import { errorCheck } from '@common/utils/formikHelpers'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -55,244 +53,226 @@ export default function OptionalConfiguration(props: {
   const { values: formValues, setFieldValue } = formik
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const updateInputFieldValue = (value: string | number, index: number, path: string): void => {
-    if (formValues.spec.environmentVariables?.[index].type === 'Number') {
-      value = parseFloat(value as string)
-      setFieldValue(path, value)
-    } else {
-      setFieldValue(path, value)
-    }
-  }
 
   return (
-    <div className={stepCss.stepPanel}>
-      <div className={stepCss.formGroup}>
-        <MultiTypeFieldSelector
-          name="spec.environmentVariables"
-          label={getString('pipeline.scriptInputVariables')}
-          isOptional
-          optionalLabel={getString('common.optionalLabel')}
-          defaultValueToReset={[]}
-          disableTypeSelection
-        >
-          <FieldArray
+    <FormikForm>
+      <div className={stepCss.stepPanel}>
+        <div className={stepCss.formGroup}>
+          <MultiTypeFieldSelector
             name="spec.environmentVariables"
-            render={({ push, remove }) => {
-              return (
-                <div className={css.panel}>
-                  <div className={css.environmentVarHeader}>
-                    <span className={css.label}>Name</span>
-                    <span className={css.label}>Type</span>
-                    <span className={css.label}>Value</span>
-                  </div>
-                  {formValues.spec.environmentVariables?.map(({ id }: ShellScriptStepVariable, i: number) => {
-                    const valueFieldName = `spec.environmentVariables[${i}].value`
-                    const valueHasError = errorCheck(valueFieldName, formik)
-
-                    return (
-                      <div className={css.environmentVarHeader} key={id}>
-                        <FormInput.Text name={`spec.environmentVariables[${i}].name`} disabled={readonly} />
-                        <FormInput.Select
-                          items={scriptInputType}
-                          name={`spec.environmentVariables[${i}].type`}
-                          placeholder={getString('typeLabel')}
-                          disabled={readonly}
-                        />
-                        <FormGroup
-                          intent={valueHasError ? Intent.DANGER : Intent.NONE}
-                          helperText={valueHasError ? get(formik?.errors, valueFieldName) : null}
-                        >
-                          <MultiTextInput
-                            name={valueFieldName}
-                            expressions={expressions}
-                            textProps={{
-                              type: formValues.spec.environmentVariables?.[i].type === 'Number' ? 'number' : 'text',
-                              name: valueFieldName
-                            }}
-                            allowableTypes={allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)}
-                            value={formValues.spec.environmentVariables?.[i].value as string}
-                            intent={valueHasError ? Intent.DANGER : Intent.NONE}
-                            onChange={value =>
-                              updateInputFieldValue(
-                                value as string | number,
-                                i,
-                                `spec.environmentVariables[${i}].value`
-                              )
-                            }
+            label={getString('pipeline.scriptInputVariables')}
+            isOptional
+            optionalLabel={getString('common.optionalLabel')}
+            defaultValueToReset={[]}
+            disableTypeSelection
+          >
+            <FieldArray
+              name="spec.environmentVariables"
+              render={({ push, remove }) => {
+                return (
+                  <div className={css.panel}>
+                    <div className={css.environmentVarHeader}>
+                      <span className={css.label}>Name</span>
+                      <span className={css.label}>Type</span>
+                      <span className={css.label}>Value</span>
+                    </div>
+                    {formValues.spec.environmentVariables?.map(({ id }: ShellScriptStepVariable, i: number) => {
+                      return (
+                        <div className={css.environmentVarHeader} key={id}>
+                          <FormInput.Text name={`spec.environmentVariables[${i}].name`} disabled={readonly} />
+                          <FormInput.Select
+                            items={scriptInputType}
+                            name={`spec.environmentVariables[${i}].type`}
+                            placeholder={getString('typeLabel')}
                             disabled={readonly}
                           />
-                        </FormGroup>
-                        <Button
-                          variation={ButtonVariation.ICON}
-                          icon="main-trash"
-                          data-testid={`remove-environmentVar-${i}`}
-                          onClick={() => remove(i)}
-                          disabled={readonly}
-                        />
-                      </div>
-                    )
-                  })}
-                  <Button
-                    icon="plus"
-                    variation={ButtonVariation.LINK}
-                    data-testid="add-environmentVar"
-                    disabled={readonly}
-                    onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
-                    className={css.addButton}
-                  >
-                    {getString('addInputVar')}
-                  </Button>
-                </div>
-              )
-            }}
-          />
-        </MultiTypeFieldSelector>
-      </div>
-      <div className={stepCss.formGroup}>
-        <MultiTypeFieldSelector
-          name="spec.outputVariables"
-          label={getString('pipeline.scriptOutputVariables')}
-          isOptional
-          optionalLabel={getString('common.optionalLabel')}
-          defaultValueToReset={[]}
-          disableTypeSelection
-        >
-          <FieldArray
-            name="spec.outputVariables"
-            render={({ push, remove }) => {
-              return (
-                <div className={css.panel}>
-                  <div className={css.outputVarHeader}>
-                    <span className={css.label}>Name</span>
-                    <span className={css.label}>Type</span>
-                    <span className={css.label}>Value</span>
+                          <FormInput.MultiTextInput
+                            name={`spec.environmentVariables[${i}].value`}
+                            multiTextInputProps={{
+                              allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
+                              expressions,
+                              disabled: readonly
+                            }}
+                            label=""
+                            disabled={readonly}
+                          />
+                          <Button
+                            variation={ButtonVariation.ICON}
+                            icon="main-trash"
+                            data-testid={`remove-environmentVar-${i}`}
+                            onClick={() => remove(i)}
+                            disabled={readonly}
+                          />
+                        </div>
+                      )
+                    })}
+                    <Button
+                      icon="plus"
+                      variation={ButtonVariation.LINK}
+                      data-testid="add-environmentVar"
+                      disabled={readonly}
+                      onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
+                      className={css.addButton}
+                    >
+                      {getString('addInputVar')}
+                    </Button>
                   </div>
-                  {formValues.spec.outputVariables?.map(({ id }: ShellScriptOutputStepVariable, i: number) => (
-                    <div className={css.outputVarHeader} key={id}>
-                      <FormInput.Text name={`spec.outputVariables[${i}].name`} disabled={readonly} />
-                      <FormInput.Select
-                        items={scriptOutputType}
-                        name={`spec.outputVariables[${i}].type`}
-                        placeholder={getString('typeLabel')}
-                        disabled={readonly}
-                      />
-                      <FormInput.MultiTextInput
-                        name={`spec.outputVariables[${i}].value`}
-                        multiTextInputProps={{
-                          allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
-                          expressions,
-                          disabled: readonly
-                        }}
-                        label=""
-                        disabled={readonly}
-                      />
-                      <Button minimal icon="main-trash" onClick={() => remove(i)} disabled={readonly} />
-                    </div>
-                  ))}
-                  <Button
-                    icon="plus"
-                    variation={ButtonVariation.LINK}
-                    onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
-                    disabled={readonly}
-                    className={css.addButton}
-                  >
-                    {getString('addOutputVar')}
-                  </Button>
-                </div>
-              )
-            }}
-          />
-        </MultiTypeFieldSelector>
-      </div>
-      <div className={stepCss.formGroup}>
-        <FormInput.RadioGroup
-          name="spec.onDelegate"
-          label={getString('pipeline.executionTarget')}
-          isOptional
-          optionalLabel={getString('common.optionalLabel')}
-          radioGroup={{ inline: true }}
-          items={targetTypeOptions}
-          className={css.radioGroup}
-          disabled={readonly}
-        />
-      </div>
-      {formValues.spec.onDelegate === 'targethost' ? (
-        <div>
-          <div className={cx(stepCss.formGroup, stepCss.md)}>
-            <FormInput.MultiTextInput
-              name="spec.executionTarget.host"
-              label={getString('targetHost')}
-              style={{ marginTop: 'var(--spacing-small)' }}
-              multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}
-              disabled={readonly}
+                )
+              }}
             />
-            {getMultiTypeFromValue(formValues.spec.executionTarget.host) === MultiTypeInputType.RUNTIME && (
-              <ConfigureOptions
-                value={formValues.spec.executionTarget.host}
-                type="String"
-                variableName="spec.executionTarget.host"
-                showRequiredField={false}
-                showDefaultField={false}
-                showAdvanced={true}
-                onChange={value => setFieldValue('spec.executionTarget.host', value)}
-                style={{ marginTop: 12 }}
-                isReadonly={readonly}
-              />
-            )}
-          </div>
-          <div className={cx(stepCss.formGroup, stepCss.md)}>
-            <MultiTypeSecretInput
-              type="SSHKey"
-              name="spec.executionTarget.connectorRef"
-              label={getString('sshConnector')}
-              expressions={expressions}
-              allowableTypes={allowableTypes}
-              disabled={readonly}
-            />
-            {getMultiTypeFromValue(formValues?.spec.executionTarget.connectorRef) === MultiTypeInputType.RUNTIME && (
-              <ConfigureOptions
-                value={formValues?.spec.executionTarget.connectorRef as string}
-                type={
-                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                    <Text>{getString('pipelineSteps.connectorLabel')}</Text>
-                  </Layout.Horizontal>
-                }
-                variableName="spec.executionTarget.connectorRef"
-                showRequiredField={false}
-                showDefaultField={false}
-                showAdvanced={true}
-                onChange={value => {
-                  setFieldValue('spec.executionTarget.connectorRef', value)
-                }}
-                style={{ marginTop: 4 }}
-                isReadonly={readonly}
-              />
-            )}
-          </div>
-          <div className={cx(stepCss.formGroup, stepCss.md)}>
-            <FormInput.MultiTextInput
-              name="spec.executionTarget.workingDirectory"
-              label={getString('workingDirectory')}
-              style={{ marginTop: 'var(--spacing-medium)' }}
-              disabled={readonly}
-              multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}
-            />
-            {getMultiTypeFromValue(formValues.spec.executionTarget.workingDirectory) === MultiTypeInputType.RUNTIME && (
-              <ConfigureOptions
-                value={formValues.spec.executionTarget.workingDirectory}
-                type="String"
-                variableName="spec.executionTarget.workingDirectory"
-                showRequiredField={false}
-                showDefaultField={false}
-                showAdvanced={true}
-                onChange={value => setFieldValue('spec.executionTarget.workingDirectory', value)}
-                style={{ marginTop: 12 }}
-                isReadonly={readonly}
-              />
-            )}
-          </div>
+          </MultiTypeFieldSelector>
         </div>
-      ) : null}
-    </div>
+        <div className={stepCss.formGroup}>
+          <MultiTypeFieldSelector
+            name="spec.outputVariables"
+            label={getString('pipeline.scriptOutputVariables')}
+            isOptional
+            optionalLabel={getString('common.optionalLabel')}
+            defaultValueToReset={[]}
+            disableTypeSelection
+          >
+            <FieldArray
+              name="spec.outputVariables"
+              render={({ push, remove }) => {
+                return (
+                  <div className={css.panel}>
+                    <div className={css.outputVarHeader}>
+                      <span className={css.label}>Name</span>
+                      <span className={css.label}>Type</span>
+                      <span className={css.label}>Value</span>
+                    </div>
+                    {formValues.spec.outputVariables?.map(({ id }: ShellScriptOutputStepVariable, i: number) => {
+                      return (
+                        <div className={css.outputVarHeader} key={id}>
+                          <FormInput.Text name={`spec.outputVariables[${i}].name`} disabled={readonly} />
+                          <FormInput.Select
+                            items={scriptOutputType}
+                            name={`spec.outputVariables[${i}].type`}
+                            placeholder={getString('typeLabel')}
+                            disabled={readonly}
+                          />
+
+                          <FormInput.MultiTextInput
+                            name={`spec.outputVariables[${i}].value`}
+                            multiTextInputProps={{
+                              allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
+                              expressions,
+                              disabled: readonly
+                            }}
+                            label=""
+                            disabled={readonly}
+                          />
+
+                          <Button minimal icon="main-trash" onClick={() => remove(i)} disabled={readonly} />
+                        </div>
+                      )
+                    })}
+                    <Button
+                      icon="plus"
+                      variation={ButtonVariation.LINK}
+                      onClick={() => push({ name: '', type: 'String', value: '', id: uuid() })}
+                      disabled={readonly}
+                      className={css.addButton}
+                    >
+                      {getString('addOutputVar')}
+                    </Button>
+                  </div>
+                )
+              }}
+            />
+          </MultiTypeFieldSelector>
+        </div>
+        <div className={stepCss.formGroup}>
+          <FormInput.RadioGroup
+            name="spec.onDelegate"
+            label={getString('pipeline.executionTarget')}
+            isOptional
+            optionalLabel={getString('common.optionalLabel')}
+            radioGroup={{ inline: true }}
+            items={targetTypeOptions}
+            className={css.radioGroup}
+            disabled={readonly}
+          />
+        </div>
+        {formValues.spec.onDelegate === 'targethost' ? (
+          <div>
+            <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <FormInput.MultiTextInput
+                name="spec.executionTarget.host"
+                label={getString('targetHost')}
+                style={{ marginTop: 'var(--spacing-small)' }}
+                multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}
+                disabled={readonly}
+              />
+              {getMultiTypeFromValue(formValues.spec.executionTarget.host) === MultiTypeInputType.RUNTIME && (
+                <ConfigureOptions
+                  value={formValues.spec.executionTarget.host}
+                  type="String"
+                  variableName="spec.executionTarget.host"
+                  showRequiredField={false}
+                  showDefaultField={false}
+                  showAdvanced={true}
+                  onChange={value => setFieldValue('spec.executionTarget.host', value)}
+                  style={{ marginTop: 12 }}
+                  isReadonly={readonly}
+                />
+              )}
+            </div>
+            <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <MultiTypeSecretInput
+                type="SSHKey"
+                name="spec.executionTarget.connectorRef"
+                label={getString('sshConnector')}
+                expressions={expressions}
+                allowableTypes={allowableTypes}
+                disabled={readonly}
+              />
+              {getMultiTypeFromValue(formValues?.spec.executionTarget.connectorRef) === MultiTypeInputType.RUNTIME && (
+                <ConfigureOptions
+                  value={formValues?.spec.executionTarget.connectorRef as string}
+                  type={
+                    <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                      <Text>{getString('pipelineSteps.connectorLabel')}</Text>
+                    </Layout.Horizontal>
+                  }
+                  variableName="spec.executionTarget.connectorRef"
+                  showRequiredField={false}
+                  showDefaultField={false}
+                  showAdvanced={true}
+                  onChange={value => {
+                    setFieldValue('spec.executionTarget.connectorRef', value)
+                  }}
+                  style={{ marginTop: 4 }}
+                  isReadonly={readonly}
+                />
+              )}
+            </div>
+            <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <FormInput.MultiTextInput
+                name="spec.executionTarget.workingDirectory"
+                label={getString('workingDirectory')}
+                style={{ marginTop: 'var(--spacing-medium)' }}
+                disabled={readonly}
+                multiTextInputProps={{ expressions, disabled: readonly, allowableTypes }}
+              />
+              {getMultiTypeFromValue(formValues.spec.executionTarget.workingDirectory) ===
+                MultiTypeInputType.RUNTIME && (
+                <ConfigureOptions
+                  value={formValues.spec.executionTarget.workingDirectory}
+                  type="String"
+                  variableName="spec.executionTarget.workingDirectory"
+                  showRequiredField={false}
+                  showDefaultField={false}
+                  showAdvanced={true}
+                  onChange={value => setFieldValue('spec.executionTarget.workingDirectory', value)}
+                  style={{ marginTop: 12 }}
+                  isReadonly={readonly}
+                />
+              )}
+            </div>
+          </div>
+        ) : null}
+      </div>
+    </FormikForm>
   )
 }

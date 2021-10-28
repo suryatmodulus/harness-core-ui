@@ -12,26 +12,18 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
       <div
         class="artifactList listHeader"
       >
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
+        <span />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           artifactRepository
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
-           
           location
-        </span>
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
-        />
+        </p>
+        <span />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -186,9 +178,9 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
               >
                 <svg
                   data-icon="full-circle"
-                  height="12"
+                  height="8"
                   viewBox="0 0 16 16"
-                  width="12"
+                  width="8"
                 >
                   <desc>
                     full-circle
@@ -224,9 +216,9 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                   data-icon="Edit"
                 >
                   <svg
-                    height="16"
+                    height="18"
                     viewBox="0 0 24 24"
-                    width="16"
+                    width="18"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -282,9 +274,9 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                   data-icon="main-trash"
                 >
                   <svg
-                    height="16"
+                    height="18"
                     viewBox="0 0 24 24"
-                    width="16"
+                    width="18"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -373,9 +365,9 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
               >
                 <svg
                   data-icon="full-circle"
-                  height="12"
+                  height="8"
                   viewBox="0 0 16 16"
-                  width="12"
+                  width="8"
                 >
                   <desc>
                     full-circle
@@ -414,9 +406,9 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                     data-icon="Edit"
                   >
                     <svg
-                      height="16"
+                      height="18"
                       viewBox="0 0 24 24"
-                      width="16"
+                      width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -444,9 +436,9 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                     data-icon="main-trash"
                   >
                     <svg
-                      height="16"
+                      height="18"
                       viewBox="0 0 24 24"
-                      width="16"
+                      width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -501,26 +493,18 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
       <div
         class="artifactList listHeader"
       >
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
+        <span />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           artifactRepository
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
-           
           location
-        </span>
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
-        />
+        </p>
+        <span />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -635,9 +619,9 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
               >
                 <svg
                   data-icon="full-circle"
-                  height="12"
+                  height="8"
                   viewBox="0 0 16 16"
-                  width="12"
+                  width="8"
                 >
                   <desc>
                     full-circle
@@ -671,9 +655,9 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                   data-icon="Edit"
                 >
                   <svg
-                    height="16"
+                    height="18"
                     viewBox="0 0 24 24"
-                    width="16"
+                    width="18"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -729,9 +713,9 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                   data-icon="main-trash"
                 >
                   <svg
-                    height="16"
+                    height="18"
                     viewBox="0 0 24 24"
-                    width="16"
+                    width="18"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -785,26 +769,18 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
       <div
         class="artifactList listHeader"
       >
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
+        <span />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           artifactRepository
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
-           
           location
-        </span>
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
-        />
+        </p>
+        <span />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -919,9 +895,9 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
               >
                 <svg
                   data-icon="full-circle"
-                  height="12"
+                  height="8"
                   viewBox="0 0 16 16"
-                  width="12"
+                  width="8"
                 >
                   <desc>
                     full-circle
@@ -983,9 +959,9 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                   data-icon="Edit"
                 >
                   <svg
-                    height="16"
+                    height="18"
                     viewBox="0 0 24 24"
-                    width="16"
+                    width="18"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -1013,9 +989,9 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                   data-icon="main-trash"
                 >
                   <svg
-                    height="16"
+                    height="18"
                     viewBox="0 0 24 24"
-                    width="16"
+                    width="18"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -1069,26 +1045,18 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
       <div
         class="artifactList listHeader"
       >
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
+        <span />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           artifactRepository
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
-           
           location
-        </span>
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
-        />
+        </p>
+        <span />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -1203,9 +1171,9 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
               >
                 <svg
                   data-icon="full-circle"
-                  height="12"
+                  height="8"
                   viewBox="0 0 16 16"
-                  width="12"
+                  width="8"
                 >
                   <desc>
                     full-circle
@@ -1261,26 +1229,18 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
       <div
         class="artifactList listHeader"
       >
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
+        <span />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           artifactRepository
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
-           
           location
-        </span>
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
-        />
+        </p>
+        <span />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -1342,9 +1302,9 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
               >
                 <svg
                   data-icon="full-circle"
-                  height="12"
+                  height="8"
                   viewBox="0 0 16 16"
-                  width="12"
+                  width="8"
                 >
                   <desc>
                     full-circle
@@ -1465,26 +1425,18 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
       <div
         class="artifactList listHeader"
       >
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
+        <span />
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
           artifactRepository
-        </span>
-        <span
-          class="tableHeader"
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
         >
-           
           location
-        </span>
-        <span
-          class="tableHeader"
-        />
-        <span
-          class="tableHeader"
-        />
+        </p>
+        <span />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -1544,9 +1496,9 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                   data-icon="Edit"
                 >
                   <svg
-                    height="16"
+                    height="18"
                     viewBox="0 0 24 24"
-                    width="16"
+                    width="18"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -1574,9 +1526,9 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                   data-icon="main-trash"
                 >
                   <svg
-                    height="16"
+                    height="18"
                     viewBox="0 0 24 24"
-                    width="16"
+                    width="18"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -1718,9 +1670,9 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
               >
                 <svg
                   data-icon="full-circle"
-                  height="12"
+                  height="8"
                   viewBox="0 0 16 16"
-                  width="12"
+                  width="8"
                 >
                   <desc>
                     full-circle
@@ -1759,9 +1711,9 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                     data-icon="Edit"
                   >
                     <svg
-                      height="16"
+                      height="18"
                       viewBox="0 0 24 24"
-                      width="16"
+                      width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -1789,9 +1741,9 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                     data-icon="main-trash"
                   >
                     <svg
-                      height="16"
+                      height="18"
                       viewBox="0 0 24 24"
-                      width="16"
+                      width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -1879,9 +1831,9 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
               >
                 <svg
                   data-icon="full-circle"
-                  height="12"
+                  height="8"
                   viewBox="0 0 16 16"
-                  width="12"
+                  width="8"
                 >
                   <desc>
                     full-circle
@@ -1920,9 +1872,9 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                     data-icon="Edit"
                   >
                     <svg
-                      height="16"
+                      height="18"
                       viewBox="0 0 24 24"
-                      width="16"
+                      width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -1950,9 +1902,9 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                     data-icon="main-trash"
                   >
                     <svg
-                      height="16"
+                      height="18"
                       viewBox="0 0 24 24"
-                      width="16"
+                      width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path

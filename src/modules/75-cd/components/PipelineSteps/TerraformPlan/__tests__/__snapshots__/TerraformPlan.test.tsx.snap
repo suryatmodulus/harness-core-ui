@@ -6,7 +6,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup lg"
+      class="formGroup md"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -425,7 +425,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical StyledProps--main addMarginBottom addMarginTop"
+      class="Layout--vertical StyledProps--main"
     >
       <label
         class="Label--main configLabel"
@@ -439,119 +439,392 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
         <div
           class="configField"
         >
-          <p
-            class="StyledProps--font StyledProps--main configPlaceHolder"
+          <a
+            class="configPlaceHolder"
           >
             cd.configFilePlaceHolder
-          </p>
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
-            icon="edit"
-          >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+          </a>
         </div>
       </div>
     </div>
     <div
-      class="addMarginTop"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="Accordion--accordion accordion"
+        class="Accordion--panel"
+        data-open="true"
+        data-testid="step-1-panel"
       >
         <div
-          class="Accordion--panel"
-          data-open="true"
-          data-testid="step-1-panel"
+          class="Accordion--summary"
+          data-testid="step-1-summary"
         >
           <div
-            class="Accordion--summary"
-            data-testid="step-1-summary"
-          >
-            <div
-              class="Accordion--chevron"
-            />
-            <div
-              class="Accordion--label"
-            >
-              common.optionalConfig
-            </div>
-          </div>
+            class="Accordion--chevron"
+          />
           <div
-            class="bp3-collapse Accordion--collapse"
-            style="height: 0px;"
+            class="Accordion--label"
+          >
+            common.optionalConfig
+          </div>
+        </div>
+        <div
+          class="bp3-collapse Accordion--collapse"
+          style="height: 0px;"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(0);"
           >
             <div
-              aria-hidden="false"
-              class="bp3-collapse-body"
-              style="transform: translateY(0);"
+              class="Accordion--details"
+              data-testid="step-1-details"
             >
               <div
-                class="Accordion--details"
-                data-testid="step-1-details"
+                class="formGroup md"
               >
                 <div
-                  class="formGroup md"
+                  class="bp3-form-group"
                 >
-                  <div
-                    class="bp3-form-group"
+                  <label
+                    class="bp3-label"
+                    for="spec.configuration.workspace"
                   >
-                    <label
-                      class="bp3-label"
-                      for="spec.configuration.workspace"
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.workspace"
+                    >
+                      pipelineSteps.workspace (optional)
+                    </span>
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                    >
+                      <div
+                        class="bp3-input-group MultiTypeInput--input"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="spec.configuration.workspace"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <span
+                        class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                      >
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <button
+                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="fixed-input"
+                            >
+                              <svg
+                                height="12"
+                                viewBox="0 0 9 9"
+                                width="12"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="divider"
+              />
+              <div
+                class="Layout--vertical StyledProps--main"
+              >
+                <label
+                  class="Label--main tfVarLabel"
+                >
+                  optionalField
+                </label>
+                <div
+                  class="formGroup tfVarMargin"
+                >
+                  <div>
+                    <div
+                      class="Layout--horizontal StyledProps--main addMarginTop StyledProps--flex StyledProps--flex-distribution-space-between"
+                      style="align-items: end;"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main tfContainer"
+                        draggable="true"
+                        style="align-items: baseline;"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
+                          icon="drag-handle-vertical"
+                        >
+                          <svg
+                            data-icon="drag-handle-vertical"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              drag-handle-vertical
+                            </desc>
+                            <path
+                              d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                        >
+                          1.
+                        </p>
+                        <div
+                          class="configField"
+                          data-name="edit-inline-0"
+                        >
+                          <div
+                            class="Layout--horizontal StyledProps--main"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main branch"
+                            />
+                          </div>
+                          <span
+                            class="bp3-icon bp3-icon-edit StyledProps--main"
+                            icon="edit"
+                          >
+                            <svg
+                              data-icon="edit"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <desc>
+                                edit
+                              </desc>
+                              <path
+                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <button
+                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+                          data-testid="remove-tfvar-file-0"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main"
+                            data-icon="main-trash"
+                          >
+                            <svg
+                              height="16"
+                              viewBox="0 0 24 24"
+                              width="16"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M5.143 9.48a1.2 1.2 0 011.189-1.36h10.649a1.2 1.2 0 011.194 1.321l-1.039 10.208a1.2 1.2 0 01-1.194 1.079H7.717a1.2 1.2 0 01-1.189-1.04L5.143 9.48zm11.837-.16H6.332l1.385 10.207h8.225l1.04-10.207zM9.916 2.594a.6.6 0 01.719-.452l4.224.965a.6.6 0 01.452.719L15 5.179l3.86.882a.6.6 0 01-.267 1.17L5.535 4.248a.6.6 0 11.267-1.17l3.805.87.309-1.354zm.86 1.62l3.056.698.175-.768-3.055-.698-.175.768z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                              <path
+                                clip-rule="evenodd"
+                                d="M12 11.808a.5.5 0 01.5.5v5a.5.5 0 01-1 0v-5a.5.5 0 01.5-.5zm-2.761.012a.5.5 0 01.541.454l.436 4.981a.5.5 0 01-.996.087l-.436-4.98a.5.5 0 01.455-.542zm5.523 0a.5.5 0 01.455.541l-.436 4.981a.5.5 0 11-.996-.087l.435-4.98a.5.5 0 01.542-.455z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                                opacity="0.3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--horizontal StyledProps--main addMarginTop StyledProps--flex StyledProps--flex-distribution-space-between"
+                      style="align-items: end;"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main tfContainer"
+                        draggable="true"
+                        style="align-items: baseline;"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
+                          icon="drag-handle-vertical"
+                        >
+                          <svg
+                            data-icon="drag-handle-vertical"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              drag-handle-vertical
+                            </desc>
+                            <path
+                              d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                        >
+                          2.
+                        </p>
+                        <div
+                          class="configField"
+                          data-name="edit-remote-1"
+                        >
+                          <div
+                            class="Layout--horizontal StyledProps--main"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main branch"
+                            />
+                          </div>
+                          <span
+                            class="bp3-icon bp3-icon-edit StyledProps--main"
+                            icon="edit"
+                          >
+                            <svg
+                              data-icon="edit"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <desc>
+                                edit
+                              </desc>
+                              <path
+                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <button
+                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+                          data-testid="remove-tfvar-file-1"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main"
+                            data-icon="main-trash"
+                          >
+                            <svg
+                              height="16"
+                              viewBox="0 0 24 24"
+                              width="16"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M5.143 9.48a1.2 1.2 0 011.189-1.36h10.649a1.2 1.2 0 011.194 1.321l-1.039 10.208a1.2 1.2 0 01-1.194 1.079H7.717a1.2 1.2 0 01-1.189-1.04L5.143 9.48zm11.837-.16H6.332l1.385 10.207h8.225l1.04-10.207zM9.916 2.594a.6.6 0 01.719-.452l4.224.965a.6.6 0 01.452.719L15 5.179l3.86.882a.6.6 0 01-.267 1.17L5.535 4.248a.6.6 0 11.267-1.17l3.805.87.309-1.354zm.86 1.62l3.056.698.175-.768-3.055-.698-.175.768z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                              <path
+                                clip-rule="evenodd"
+                                d="M12 11.808a.5.5 0 01.5.5v5a.5.5 0 01-1 0v-5a.5.5 0 01.5-.5zm-2.761.012a.5.5 0 01.541.454l.436 4.981a.5.5 0 01-.996.087l-.436-4.98a.5.5 0 01.455-.542zm5.523 0a.5.5 0 01.455.541l-.436 4.981a.5.5 0 11-.996-.087l.435-4.98a.5.5 0 01.542-.455z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                                opacity="0.3"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <button
+                          class="bp3-button Button--button StyledProps--font StyledProps--main addTfVarFile Button--with-current-color Button--iconOnly Button--variation Button--variation-link"
+                          data-testid="add-tfvar-file"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-button-text"
+                          >
+                            plusAdd
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="divider"
+              />
+              <div
+                class="formGroup addMarginTop addMarginBottom"
+              >
+                <div
+                  class="bp3-form-group"
+                >
+                  <label
+                    class="bp3-label"
+                    for="spec.configuration.backendConfig.spec.content"
+                  >
+                    <div
+                      class="formLabel"
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.workspace"
+                        data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.backendConfig.spec.content"
                       >
-                        pipelineSteps.workspace (optional)
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                          style="color: rgb(11, 11, 13);"
+                        >
+                           
+                          optionalField
+                        </p>
                       </span>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
                       <div
-                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                        class="bp3-popover-wrapper typeSelectorWrapper"
                       >
                         <div
-                          class="bp3-input-group MultiTypeInput--input"
+                          class="bp3-popover-target typeSelector"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="spec.configuration.workspace"
-                            type="text"
-                            value=""
-                          />
-                        </div>
-                        <span
-                          class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                        >
-                          <span
-                            class="bp3-popover-target"
+                          <button
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
+                            type="button"
                           >
-                            <button
-                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                            <span
+                              class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon StyledProps--main"
+                                class="bp3-icon StyledProps--main icon fixed"
                                 data-icon="fixed-input"
                               >
                                 <svg
@@ -566,264 +839,82 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                                   />
                                 </svg>
                               </span>
-                            </button>
-                          </span>
-                        </span>
+                            </span>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div
-                  class="Layout--vertical StyledProps--main"
-                >
-                  <label
-                    class="Label--main tfVarLabel"
-                  >
-                    optionalField
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
                   </label>
                   <div
-                    class="formGroup tfVarMargin"
+                    class="bp3-form-content"
                   >
-                    <div>
-                      <div
-                        class="Layout--horizontal StyledProps--main addMarginTop StyledProps--flex StyledProps--flex-distribution-space-between"
-                        style="align-items: end;"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main tfContainer"
-                          draggable="true"
-                          style="align-items: baseline;"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
-                            icon="drag-handle-vertical"
-                          >
-                            <svg
-                              data-icon="drag-handle-vertical"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                            >
-                              <desc>
-                                drag-handle-vertical
-                              </desc>
-                              <path
-                                d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                          >
-                            1.
-                          </p>
-                          <div
-                            class="configField"
-                            data-name="edit-inline-0"
-                          >
-                            <div
-                              class="Layout--horizontal StyledProps--main"
-                            >
-                              <p
-                                class="StyledProps--font StyledProps--main branch"
-                              />
-                            </div>
-                            <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main"
-                              icon="edit"
-                            >
-                              <svg
-                                data-icon="edit"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                              >
-                                <desc>
-                                  edit
-                                </desc>
-                                <path
-                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                          <button
-                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
-                            data-testid="remove-tfvar-file-0"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="main-trash"
-                            >
-                              <svg
-                                height="16"
-                                viewBox="0 0 11 14"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                                  fill="#4d5969"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </div>
-                      </div>
-                      <div
-                        class="Layout--horizontal StyledProps--main addMarginTop StyledProps--flex StyledProps--flex-distribution-space-between"
-                        style="align-items: end;"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main tfContainer"
-                          draggable="true"
-                          style="align-items: baseline;"
-                        >
-                          <span
-                            class="bp3-icon bp3-icon-drag-handle-vertical StyledProps--main drag"
-                            icon="drag-handle-vertical"
-                          >
-                            <svg
-                              data-icon="drag-handle-vertical"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                            >
-                              <desc>
-                                drag-handle-vertical
-                              </desc>
-                              <path
-                                d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                          >
-                            2.
-                          </p>
-                          <div
-                            class="configField"
-                            data-name="edit-remote-1"
-                          >
-                            <div
-                              class="Layout--horizontal StyledProps--main"
-                            >
-                              <p
-                                class="StyledProps--font StyledProps--main branch"
-                              />
-                            </div>
-                            <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main"
-                              icon="edit"
-                            >
-                              <svg
-                                data-icon="edit"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                              >
-                                <desc>
-                                  edit
-                                </desc>
-                                <path
-                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                          <button
-                            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
-                            data-testid="remove-tfvar-file-1"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="main-trash"
-                            >
-                              <svg
-                                height="16"
-                                viewBox="0 0 11 14"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                                  fill="#4d5969"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </div>
-                      </div>
-                      <span
-                        class="bp3-popover-wrapper"
+                    <div
+                      class="monacoWrapper"
+                    >
+                      <button
+                        class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
+                        type="button"
                       >
                         <span
-                          class="bp3-popover-target"
+                          class="bp3-icon bp3-icon-fullscreen StyledProps--main"
+                          icon="fullscreen"
                         >
-                          <button
-                            class="bp3-button Button--button StyledProps--font StyledProps--main addTfVarFile Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-link"
-                            data-testid="add-tfvar-file"
-                            type="button"
+                          <svg
+                            data-icon="fullscreen"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
                           >
-                            <span
-                              class="bp3-icon bp3-icon-plus StyledProps--main"
-                              icon="plus"
-                            >
-                              <svg
-                                data-icon="plus"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                width="16"
-                              >
-                                <desc>
-                                  plus
-                                </desc>
-                                <path
-                                  d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              class="bp3-button-text"
-                            >
-                              pipelineSteps.addTerraformVarFile
-                            </span>
-                          </button>
+                            <desc>
+                              fullscreen
+                            </desc>
+                            <path
+                              d="M3.41 2H5c.55 0 1-.45 1-1s-.45-1-1-1H1C.45 0 0 .45 0 1v4c0 .55.45 1 1 1s1-.45 1-1V3.41L5.29 6.7c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L3.41 2zM6 9c-.28 0-.53.11-.71.29L2 12.59V11c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .55.45 1 1 1h4c.55 0 1-.45 1-1s-.45-1-1-1H3.41l3.29-3.29c.19-.18.3-.43.3-.71 0-.55-.45-1-1-1zm9 1c-.55 0-1 .45-1 1v1.59L10.71 9.3A.965.965 0 0010 9a1.003 1.003 0 00-.71 1.71l3.3 3.29H11c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1zm0-10h-4c-.55 0-1 .45-1 1s.45 1 1 1h1.59l-3.3 3.29a1.003 1.003 0 001.42 1.42L14 3.41V5c0 .55.45 1 1 1s1-.45 1-1V1c0-.55-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
                         </span>
-                      </span>
+                      </button>
+                      <div
+                        class="main"
+                      >
+                        <textarea
+                          name="spec.configuration.backendConfig.spec.content"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
+              <div
+                class="formGroup addMarginTop addMarginBottom"
+              >
                 <div
-                  class="formGroup addMarginTop addMarginBottom"
+                  class="group withoutSpacing"
                 >
                   <div
                     class="bp3-form-group"
+                    style="flex-grow: 1; margin-bottom: 0px;"
                   >
                     <label
                       class="bp3-label"
-                      for="spec.configuration.backendConfig.spec.content"
+                      for="spec.configuration.targets"
                     >
                       <div
                         class="formLabel"
                       >
                         <span
                           class="Tooltip--acenter"
-                          data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.backendConfig.spec.content"
+                          data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.targets"
                         >
                           <p
                             class="StyledProps--font StyledProps--main"
-                            style="color: rgb(11, 11, 13);"
+                            style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                           >
-                             
                             optionalField
                           </p>
                         </span>
@@ -870,379 +961,291 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="monacoWrapper"
+                        class="group withoutAligning"
                       >
+                        <div
+                          class="bp3-form-group"
+                          style="flex-grow: 1;"
+                        >
+                          
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                            >
+                              <div
+                                class="bp3-input-group MultiTypeInput--input"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="spec.configuration.targets[0].value"
+                                  type="text"
+                                  value=""
+                                />
+                              </div>
+                              <span
+                                class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                              >
+                                <span
+                                  class="bp3-popover-target"
+                                >
+                                  <button
+                                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                                  >
+                                    <span
+                                      class="bp3-icon StyledProps--main"
+                                      data-icon="fixed-input"
+                                    >
+                                      <svg
+                                        height="12"
+                                        viewBox="0 0 9 9"
+                                        width="12"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                          fill="currentColor"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </button>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                         <button
-                          class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                          data-testid="remove-spec.configuration.targets-[0]"
                           type="button"
                         >
                           <span
-                            class="bp3-icon bp3-icon-fullscreen StyledProps--main"
-                            icon="fullscreen"
+                            class="bp3-icon StyledProps--main"
+                            data-icon="main-trash"
                           >
                             <svg
-                              data-icon="fullscreen"
-                              height="10"
-                              viewBox="0 0 16 16"
-                              width="10"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              width="20"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
-                              <desc>
-                                fullscreen
-                              </desc>
                               <path
-                                d="M3.41 2H5c.55 0 1-.45 1-1s-.45-1-1-1H1C.45 0 0 .45 0 1v4c0 .55.45 1 1 1s1-.45 1-1V3.41L5.29 6.7c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L3.41 2zM6 9c-.28 0-.53.11-.71.29L2 12.59V11c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .55.45 1 1 1h4c.55 0 1-.45 1-1s-.45-1-1-1H3.41l3.29-3.29c.19-.18.3-.43.3-.71 0-.55-.45-1-1-1zm9 1c-.55 0-1 .45-1 1v1.59L10.71 9.3A.965.965 0 0010 9a1.003 1.003 0 00-.71 1.71l3.3 3.29H11c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1zm0-10h-4c-.55 0-1 .45-1 1s.45 1 1 1h1.59l-3.3 3.29a1.003 1.003 0 001.42 1.42L14 3.41V5c0 .55.45 1 1 1s1-.45 1-1V1c0-.55-.45-1-1-1z"
+                                clip-rule="evenodd"
+                                d="M5.143 9.48a1.2 1.2 0 011.189-1.36h10.649a1.2 1.2 0 011.194 1.321l-1.039 10.208a1.2 1.2 0 01-1.194 1.079H7.717a1.2 1.2 0 01-1.189-1.04L5.143 9.48zm11.837-.16H6.332l1.385 10.207h8.225l1.04-10.207zM9.916 2.594a.6.6 0 01.719-.452l4.224.965a.6.6 0 01.452.719L15 5.179l3.86.882a.6.6 0 01-.267 1.17L5.535 4.248a.6.6 0 11.267-1.17l3.805.87.309-1.354zm.86 1.62l3.056.698.175-.768-3.055-.698-.175.768z"
+                                fill="currentColor"
                                 fill-rule="evenodd"
+                              />
+                              <path
+                                clip-rule="evenodd"
+                                d="M12 11.808a.5.5 0 01.5.5v5a.5.5 0 01-1 0v-5a.5.5 0 01.5-.5zm-2.761.012a.5.5 0 01.541.454l.436 4.981a.5.5 0 01-.996.087l-.436-4.98a.5.5 0 01.455-.542zm5.523 0a.5.5 0 01.455.541l-.436 4.981a.5.5 0 11-.996-.087l.435-4.98a.5.5 0 01.542-.455z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                                opacity="0.3"
                               />
                             </svg>
                           </span>
                         </button>
-                        <div
-                          class="main"
-                        >
-                          <textarea
-                            name="spec.configuration.backendConfig.spec.content"
-                          />
-                        </div>
                       </div>
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                        data-testid="add-spec.configuration.targets"
+                        style="padding: 0px;"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-button-text"
+                        >
+                          plusAdd
+                        </span>
+                      </button>
                     </div>
                   </div>
                 </div>
+              </div>
+              <div
+                class="divider"
+              />
+              <div
+                class="formGroup addMarginTop addMarginBottom"
+              >
                 <div
-                  class="formGroup addMarginTop addMarginBottom"
+                  class="group withoutSpacing"
                 >
                   <div
-                    class="group withoutSpacing"
+                    class="bp3-form-group"
+                    style="flex-grow: 1; margin-bottom: 0px;"
                   >
-                    <div
-                      class="bp3-form-group"
-                      style="flex-grow: 1; margin-bottom: 0px;"
+                    <label
+                      class="bp3-label"
+                      for="spec.configuration.environmentVariables"
                     >
-                      <label
-                        class="bp3-label"
-                        for="spec.configuration.targets"
-                      >
-                        <div
-                          class="formLabel"
-                        >
-                          <span
-                            class="Tooltip--acenter"
-                            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.targets"
-                          >
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
-                            >
-                              optionalField
-                            </p>
-                          </span>
-                          <div
-                            class="bp3-popover-wrapper typeSelectorWrapper"
-                          >
-                            <div
-                              class="bp3-popover-target typeSelector"
-                            >
-                              <button
-                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
-                                type="button"
-                              >
-                                <span
-                                  class="bp3-button-text"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main icon fixed"
-                                    data-icon="fixed-input"
-                                  >
-                                    <svg
-                                      height="12"
-                                      viewBox="0 0 9 9"
-                                      width="12"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                                        fill="currentColor"
-                                      />
-                                    </svg>
-                                  </span>
-                                </span>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
                       <div
-                        class="bp3-form-content"
+                        class="formLabel"
+                      >
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.environmentVariables"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                            style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                          >
+                            optionalField
+                          </p>
+                        </span>
+                      </div>
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="group withoutAligning"
                       >
                         <div
-                          class="group withoutAligning"
+                          style="flex-grow: 1;"
                         >
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                          >
+                            keyLabel
+                          </p>
                           <div
                             class="bp3-form-group"
-                            style="flex-grow: 1;"
+                            style="margin: 0px;"
                           >
-                            
                             <div
                               class="bp3-form-content"
                             >
                               <div
-                                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                                class="bp3-input-group"
                               >
-                                <div
-                                  class="bp3-input-group MultiTypeInput--input"
-                                >
-                                  <input
-                                    autocomplete="off"
-                                    class="bp3-input"
-                                    name="spec.configuration.targets[0].value"
-                                    type="text"
-                                    value=""
-                                  />
-                                </div>
-                                <span
-                                  class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="fixed-input"
-                                      >
-                                        <svg
-                                          height="12"
-                                          viewBox="0 0 9 9"
-                                          width="12"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                                            fill="currentColor"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </span>
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="spec.configuration.environmentVariables[0].key"
+                                  type="text"
+                                  value=""
+                                />
                               </div>
                             </div>
                           </div>
-                          <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                            data-testid="remove-spec.configuration.targets-[0]"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="main-trash"
-                            >
-                              <svg
-                                height="20"
-                                viewBox="0 0 11 14"
-                                width="20"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                                  fill="#4d5969"
-                                />
-                              </svg>
-                            </span>
-                          </button>
                         </div>
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                          data-testid="add-spec.configuration.targets"
-                          style="padding: 0px;"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            plusAdd
-                          </span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="formGroup addMarginTop addMarginBottom"
-                >
-                  <div
-                    class="group withoutSpacing"
-                  >
-                    <div
-                      class="bp3-form-group"
-                      style="flex-grow: 1; margin-bottom: 0px;"
-                    >
-                      <label
-                        class="bp3-label"
-                        for="spec.configuration.environmentVariables"
-                      >
                         <div
-                          class="formLabel"
+                          style="flex-grow: 1;"
                         >
-                          <span
-                            class="Tooltip--acenter"
-                            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.environmentVariables"
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
-                            >
-                              optionalField
-                            </p>
-                          </span>
-                        </div>
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
-                      <div
-                        class="bp3-form-content"
-                      >
-                        <div
-                          class="group withoutAligning"
-                        >
+                            valueLabel
+                          </p>
                           <div
-                            style="flex-grow: 1;"
+                            class="group withoutAligning withoutSpacing"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
-                            >
-                              keyLabel
-                            </p>
                             <div
                               class="bp3-form-group"
-                              style="margin: 0px;"
+                              style="flex-grow: 1;"
                             >
+                              
                               <div
                                 class="bp3-form-content"
                               >
                                 <div
-                                  class="bp3-input-group"
-                                >
-                                  <input
-                                    autocomplete="off"
-                                    class="bp3-input"
-                                    name="spec.configuration.environmentVariables[0].key"
-                                    type="text"
-                                    value=""
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            style="flex-grow: 1;"
-                          >
-                            <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
-                            >
-                              valueLabel
-                            </p>
-                            <div
-                              class="group withoutAligning withoutSpacing"
-                            >
-                              <div
-                                class="bp3-form-group"
-                                style="flex-grow: 1;"
-                              >
-                                
-                                <div
-                                  class="bp3-form-content"
+                                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
                                 >
                                   <div
-                                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                                    class="bp3-input-group MultiTypeInput--input"
                                   >
-                                    <div
-                                      class="bp3-input-group MultiTypeInput--input"
-                                    >
-                                      <input
-                                        autocomplete="off"
-                                        class="bp3-input"
-                                        name="spec.configuration.environmentVariables[0].value"
-                                        type="text"
-                                        value=""
-                                      />
-                                    </div>
-                                    <span
-                                      class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                                    >
-                                      <span
-                                        class="bp3-popover-target"
-                                      >
-                                        <button
-                                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                                        >
-                                          <span
-                                            class="bp3-icon StyledProps--main"
-                                            data-icon="fixed-input"
-                                          >
-                                            <svg
-                                              height="12"
-                                              viewBox="0 0 9 9"
-                                              width="12"
-                                              xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                              <path
-                                                d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                                                fill="currentColor"
-                                              />
-                                            </svg>
-                                          </span>
-                                        </button>
-                                      </span>
-                                    </span>
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="spec.configuration.environmentVariables[0].value"
+                                      type="text"
+                                      value=""
+                                    />
                                   </div>
+                                  <span
+                                    class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                                  >
+                                    <span
+                                      class="bp3-popover-target"
+                                    >
+                                      <button
+                                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                                      >
+                                        <span
+                                          class="bp3-icon StyledProps--main"
+                                          data-icon="fixed-input"
+                                        >
+                                          <svg
+                                            height="12"
+                                            viewBox="0 0 9 9"
+                                            width="12"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                              fill="currentColor"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </button>
+                                    </span>
+                                  </span>
                                 </div>
                               </div>
-                              <button
-                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                                data-testid="remove-spec.configuration.environmentVariables-[0]"
-                                type="button"
-                              >
-                                <span
-                                  class="bp3-icon StyledProps--main"
-                                  data-icon="main-trash"
-                                >
-                                  <svg
-                                    height="20"
-                                    viewBox="0 0 11 14"
-                                    width="20"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                                      fill="#4d5969"
-                                    />
-                                  </svg>
-                                </span>
-                              </button>
                             </div>
+                            <button
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                              data-testid="remove-spec.configuration.environmentVariables-[0]"
+                              type="button"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main"
+                                data-icon="main-trash"
+                              >
+                                <svg
+                                  height="20"
+                                  viewBox="0 0 24 24"
+                                  width="20"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M5.143 9.48a1.2 1.2 0 011.189-1.36h10.649a1.2 1.2 0 011.194 1.321l-1.039 10.208a1.2 1.2 0 01-1.194 1.079H7.717a1.2 1.2 0 01-1.189-1.04L5.143 9.48zm11.837-.16H6.332l1.385 10.207h8.225l1.04-10.207zM9.916 2.594a.6.6 0 01.719-.452l4.224.965a.6.6 0 01.452.719L15 5.179l3.86.882a.6.6 0 01-.267 1.17L5.535 4.248a.6.6 0 11.267-1.17l3.805.87.309-1.354zm.86 1.62l3.056.698.175-.768-3.055-.698-.175.768z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                  />
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M12 11.808a.5.5 0 01.5.5v5a.5.5 0 01-1 0v-5a.5.5 0 01.5-.5zm-2.761.012a.5.5 0 01.541.454l.436 4.981a.5.5 0 01-.996.087l-.436-4.98a.5.5 0 01.455-.542zm5.523 0a.5.5 0 01.455.541l-.436 4.981a.5.5 0 11-.996-.087l.435-4.98a.5.5 0 01.542-.455z"
+                                    fill="currentColor"
+                                    fill-rule="evenodd"
+                                    opacity="0.3"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
                           </div>
                         </div>
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                          data-testid="add-spec.configuration.environmentVariables"
-                          style="padding: 0px;"
-                          type="button"
-                        >
-                          <span
-                            class="bp3-button-text"
-                          >
-                            plusAdd
-                          </span>
-                        </button>
                       </div>
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                        data-testid="add-spec.configuration.environmentVariables"
+                        style="padding: 0px;"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-button-text"
+                        >
+                          plusAdd
+                        </span>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1443,7 +1446,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup lg"
+      class="formGroup md"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -1862,7 +1865,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical StyledProps--main addMarginBottom addMarginTop"
+      class="Layout--vertical StyledProps--main"
     >
       <label
         class="Label--main configLabel"
@@ -1876,66 +1879,43 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
         <div
           class="configField"
         >
-          <p
-            class="StyledProps--font StyledProps--main configPlaceHolder"
+          <a
+            class="configPlaceHolder"
           >
             cd.configFilePlaceHolder
-          </p>
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
-            icon="edit"
-          >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+          </a>
         </div>
       </div>
     </div>
     <div
-      class="addMarginTop"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="Accordion--accordion accordion"
+        class="Accordion--panel"
+        data-open="false"
+        data-testid="step-1-panel"
       >
         <div
-          class="Accordion--panel"
-          data-open="false"
-          data-testid="step-1-panel"
+          class="Accordion--summary"
+          data-testid="step-1-summary"
         >
           <div
-            class="Accordion--summary"
-            data-testid="step-1-summary"
-          >
-            <div
-              class="Accordion--chevron"
-            />
-            <div
-              class="Accordion--label"
-            >
-              common.optionalConfig
-            </div>
-          </div>
+            class="Accordion--chevron"
+          />
           <div
-            class="bp3-collapse Accordion--collapse"
+            class="Accordion--label"
           >
-            <div
-              aria-hidden="false"
-              class="bp3-collapse-body"
-              style="transform: translateY(-undefinedpx);"
-            />
+            common.optionalConfig
           </div>
+        </div>
+        <div
+          class="bp3-collapse Accordion--collapse"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
       </div>
     </div>
@@ -1949,7 +1929,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup lg"
+      class="formGroup md"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -2366,7 +2346,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical StyledProps--main addMarginBottom addMarginTop"
+      class="Layout--vertical StyledProps--main"
     >
       <label
         class="Label--main configLabel"
@@ -2380,66 +2360,43 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
         <div
           class="configField"
         >
-          <p
-            class="StyledProps--font StyledProps--main configPlaceHolder"
+          <a
+            class="configPlaceHolder"
           >
             cd.configFilePlaceHolder
-          </p>
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
-            icon="edit"
-          >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+          </a>
         </div>
       </div>
     </div>
     <div
-      class="addMarginTop"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="Accordion--accordion accordion"
+        class="Accordion--panel"
+        data-open="false"
+        data-testid="step-1-panel"
       >
         <div
-          class="Accordion--panel"
-          data-open="false"
-          data-testid="step-1-panel"
+          class="Accordion--summary"
+          data-testid="step-1-summary"
         >
           <div
-            class="Accordion--summary"
-            data-testid="step-1-summary"
-          >
-            <div
-              class="Accordion--chevron"
-            />
-            <div
-              class="Accordion--label"
-            >
-              common.optionalConfig
-            </div>
-          </div>
+            class="Accordion--chevron"
+          />
           <div
-            class="bp3-collapse Accordion--collapse"
+            class="Accordion--label"
           >
-            <div
-              aria-hidden="false"
-              class="bp3-collapse-body"
-              style="transform: translateY(-undefinedpx);"
-            />
+            common.optionalConfig
           </div>
+        </div>
+        <div
+          class="bp3-collapse Accordion--collapse"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
       </div>
     </div>
@@ -2453,7 +2410,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup lg"
+      class="formGroup md"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -2870,7 +2827,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical StyledProps--main addMarginBottom addMarginTop"
+      class="Layout--vertical StyledProps--main"
     >
       <label
         class="Label--main configLabel"
@@ -2884,66 +2841,43 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
         <div
           class="configField"
         >
-          <p
-            class="StyledProps--font StyledProps--main configPlaceHolder"
+          <a
+            class="configPlaceHolder"
           >
             cd.configFilePlaceHolder
-          </p>
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
-            icon="edit"
-          >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+          </a>
         </div>
       </div>
     </div>
     <div
-      class="addMarginTop"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="Accordion--accordion accordion"
+        class="Accordion--panel"
+        data-open="false"
+        data-testid="step-1-panel"
       >
         <div
-          class="Accordion--panel"
-          data-open="false"
-          data-testid="step-1-panel"
+          class="Accordion--summary"
+          data-testid="step-1-summary"
         >
           <div
-            class="Accordion--summary"
-            data-testid="step-1-summary"
-          >
-            <div
-              class="Accordion--chevron"
-            />
-            <div
-              class="Accordion--label"
-            >
-              common.optionalConfig
-            </div>
-          </div>
+            class="Accordion--chevron"
+          />
           <div
-            class="bp3-collapse Accordion--collapse"
+            class="Accordion--label"
           >
-            <div
-              aria-hidden="false"
-              class="bp3-collapse-body"
-              style="transform: translateY(-undefinedpx);"
-            />
+            common.optionalConfig
           </div>
+        </div>
+        <div
+          class="bp3-collapse Accordion--collapse"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
       </div>
     </div>
@@ -2957,7 +2891,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup lg"
+      class="formGroup md"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -3376,7 +3310,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical StyledProps--main addMarginBottom addMarginTop"
+      class="Layout--vertical StyledProps--main"
     >
       <label
         class="Label--main configLabel"
@@ -3390,66 +3324,43 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
         <div
           class="configField"
         >
-          <p
-            class="StyledProps--font StyledProps--main configPlaceHolder"
+          <a
+            class="configPlaceHolder"
           >
             cd.configFilePlaceHolder
-          </p>
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
-            icon="edit"
-          >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+          </a>
         </div>
       </div>
     </div>
     <div
-      class="addMarginTop"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="Accordion--accordion accordion"
+        class="Accordion--panel"
+        data-open="false"
+        data-testid="step-1-panel"
       >
         <div
-          class="Accordion--panel"
-          data-open="false"
-          data-testid="step-1-panel"
+          class="Accordion--summary"
+          data-testid="step-1-summary"
         >
           <div
-            class="Accordion--summary"
-            data-testid="step-1-summary"
-          >
-            <div
-              class="Accordion--chevron"
-            />
-            <div
-              class="Accordion--label"
-            >
-              common.optionalConfig
-            </div>
-          </div>
+            class="Accordion--chevron"
+          />
           <div
-            class="bp3-collapse Accordion--collapse"
+            class="Accordion--label"
           >
-            <div
-              aria-hidden="false"
-              class="bp3-collapse-body"
-              style="transform: translateY(-undefinedpx);"
-            />
+            common.optionalConfig
           </div>
+        </div>
+        <div
+          class="bp3-collapse Accordion--collapse"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
       </div>
     </div>
@@ -3920,7 +3831,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup lg"
+      class="formGroup md"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -4389,7 +4300,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
       </div>
     </div>
     <div
-      class="Layout--vertical StyledProps--main addMarginBottom addMarginTop"
+      class="Layout--vertical StyledProps--main"
     >
       <label
         class="Label--main configLabel"
@@ -4403,66 +4314,43 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
         <div
           class="configField"
         >
-          <p
-            class="StyledProps--font StyledProps--main configPlaceHolder"
+          <a
+            class="configPlaceHolder"
           >
             cd.configFilePlaceHolder
-          </p>
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
-            icon="edit"
-          >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+          </a>
         </div>
       </div>
     </div>
     <div
-      class="addMarginTop"
+      class="Accordion--accordion accordion"
     >
       <div
-        class="Accordion--accordion accordion"
+        class="Accordion--panel"
+        data-open="false"
+        data-testid="step-1-panel"
       >
         <div
-          class="Accordion--panel"
-          data-open="false"
-          data-testid="step-1-panel"
+          class="Accordion--summary"
+          data-testid="step-1-summary"
         >
           <div
-            class="Accordion--summary"
-            data-testid="step-1-summary"
-          >
-            <div
-              class="Accordion--chevron"
-            />
-            <div
-              class="Accordion--label"
-            >
-              common.optionalConfig
-            </div>
-          </div>
+            class="Accordion--chevron"
+          />
           <div
-            class="bp3-collapse Accordion--collapse"
+            class="Accordion--label"
           >
-            <div
-              aria-hidden="false"
-              class="bp3-collapse-body"
-              style="transform: translateY(-undefinedpx);"
-            />
+            common.optionalConfig
           </div>
+        </div>
+        <div
+          class="bp3-collapse Accordion--collapse"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
       </div>
     </div>

@@ -3,7 +3,6 @@
 declare const styles: {
   readonly provisionerForm: string
   readonly graphContainer: string
-  readonly provisionerEnabledCheckbox: string
   readonly squareCardContainer: string
   readonly squareCard: string
   readonly disabled: string

@@ -1,5 +1,5 @@
 .container {
-  --pipeline-approval-stage-color: #59a915;
+  --pipeline-approval-stage-color: var(--primary-7);
   --pipeline-deploy-stage-color: #c023ff;
   --pipeline-build-stage-color: #89cdff;
   --pipeline-custom-stage-color: #f78f00;

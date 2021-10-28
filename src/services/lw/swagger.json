@@ -752,6 +752,18 @@
           "in": "query",
           "required": true,
           "type": "string"
+        },
+        {
+          "name": "service",
+          "in": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "cluster",
+          "in": "query",
+          "required": false,
+          "type": "string"
         }
       ],
       "get": {
@@ -1690,6 +1702,165 @@
         }
       }
     },
+    "/accounts/{account_id}/container_services/clusters": {
+      "get": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cloud_account_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["containerClustersOfRegion"],
+        "summary": "Container clusters of region",
+        "description": "Get all clusters of container service in the region",
+        "operationId": "GetContainerClustersOfRegion",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ContainerClustersResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/container_services/clusters/{cluster_name}/services": {
+      "get": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cluster_name",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "name of the cluster"
+          },
+          {
+            "name": "cloud_account_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["listOfServicesInCluster"],
+        "summary": "List of services belonging to cluster of container service",
+        "description": "Get list of services belonging to the cluster of container service",
+        "operationId": "ListOfServicesInContainerServiceCluster",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllContainerServiceServicesResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/container_services/clusters/{cluster_name}/services/{service_name}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cluster_name",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "name of the cluster"
+          },
+          {
+            "name": "service_name",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "name of the service"
+          },
+          {
+            "name": "cloud_account_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["describeContainerServiceService"],
+        "summary": "Details of service in container service",
+        "description": "Details of service in container service",
+        "operationId": "DescribeServiceInContainerServiceCluster",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/DescribeServiceOfContainerServicesResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid"
+          }
+        }
+      }
+    },
     "/app_id": {
       "get": {
         "tags": ["appId"],
@@ -2399,7 +2570,31 @@
         },
         "custom_domain_providers": {
           "type": "object"
+        },
+        "container_svc": {
+          "type": "object",
+          "$ref": "#/definitions/ContainerSvc"
+        },
+        "database": {
+          "type": "object",
+          "$ref": "#/definitions/RDSDatabase"
         }
+      }
+    },
+    "RDSDatabase": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "region": { "type": "string" }
+      }
+    },
+    "ContainerSvc": {
+      "type": "object",
+      "properties": {
+        "cluster": { "type": "string" },
+        "service": { "type": "string" },
+        "region": { "type": "string" },
+        "task_count": { "type": "number" }
       }
     },
     "ServiceSavings": {
@@ -3172,6 +3367,100 @@
         "vpc": {
           "type": "string",
           "required": false
+        }
+      }
+    },
+    "ContainerClustersResponse": {
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerClusterMinimal"
+          }
+        }
+      }
+    },
+    "ContainerClusterMinimal": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        }
+      }
+    },
+    "AllContainerServiceServicesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerServiceServiceMinimal"
+          }
+        }
+      }
+    },
+    "ContainerServiceServiceMinimal": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "name of service"
+        },
+        "id": {
+          "type": "string",
+          "description": "id of service"
+        },
+        "region": {
+          "type": "string",
+          "description": "region of service"
+        },
+        "cluster": {
+          "type": "string",
+          "description": "Name of cluster of service"
+        }
+      }
+    },
+    "DescribeServiceOfContainerServicesResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "$ref": "#/definitions/ContainerServiceService"
+        }
+      }
+    },
+    "ContainerServiceService": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "name of service"
+        },
+        "id": {
+          "type": "string",
+          "description": "id of service"
+        },
+        "cluster": {
+          "type": "string",
+          "description": "name of cluster of the service"
+        },
+        "region": {
+          "type": "string",
+          "description": "region of service"
+        },
+        "task_count": {
+          "type": "integer",
+          "description": "desired number of tasks"
+        },
+        "loadbalanced": {
+          "type": "boolean",
+          "description": "Whether the service is load-balanced or not. Only loadbalanced services have DNS mapping"
         }
       }
     }

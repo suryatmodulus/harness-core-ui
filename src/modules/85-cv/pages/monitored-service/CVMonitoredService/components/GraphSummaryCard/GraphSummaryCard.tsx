@@ -3,7 +3,7 @@ import { Container, Layout, Text, Color, FontVariation, ButtonVariation, Button 
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
 import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
-import { ServiceDeleteContext, ServiceHealthTrend, ServiceHealthScore } from '../../CVMonitoredService.utils'
+import { ServiceDeleteContext, ServiceHealthTrend, RiskTagWithLabel } from '../../CVMonitoredService.utils'
 import type { GraphSummaryCardProps } from '../../CVMonitoredService.types'
 import { GraphServiceChanges } from './GraphSummaryCard.utils'
 import css from '../../CVMonitoredService.module.scss'
@@ -80,13 +80,15 @@ const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
           {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth').toUpperCase()}
         </Text>
         <ServiceHealthTrend healthScores={monitoredService.historicalTrend?.healthScores} />
-        <Container margin={{ top: 'large' }}>
-          <ServiceHealthScore
-            monitoredService={monitoredService}
-            labelVariation={FontVariation.SMALL}
-            color={Color.GREY_0}
-          />
-        </Container>
+        {monitoredService.healthMonitoringEnabled && (
+          <Container margin={{ top: 'large' }}>
+            <RiskTagWithLabel
+              riskData={monitoredService.currentHealthScore}
+              labelVariation={FontVariation.SMALL}
+              color={Color.GREY_0}
+            />
+          </Container>
+        )}
       </Layout.Vertical>
     </Container>
   )

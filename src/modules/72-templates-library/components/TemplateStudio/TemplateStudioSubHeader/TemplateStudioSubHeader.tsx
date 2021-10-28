@@ -5,6 +5,7 @@ import { useStrings } from 'framework/strings'
 import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
+import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import {
   GetErrorResponse,
   SaveTemplatePopover
@@ -16,11 +17,13 @@ import css from './TemplateStudioSubHeader.module.scss'
 export interface TemplateStudioSubHeaderProps {
   onViewChange: (view: SelectedView) => boolean
   getErrors?: () => Promise<GetErrorResponse>
+  onGitBranchChange: (selectedFilter: GitFilterScope) => void
 }
 
 export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => JSX.Element = ({
   onViewChange,
-  getErrors
+  getErrors,
+  onGitBranchChange
 }) => {
   const { state, fetchTemplate, view, isReadonly } = React.useContext(TemplateContext)
   const { isUpdated } = state
@@ -37,7 +40,7 @@ export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => J
       background={Color.WHITE}
     >
       <Layout.Horizontal height={'100%'} flex={{ alignItems: 'center', justifyContent: 'space-between' }}>
-        <TemplateStudioSubHeaderLeftView />
+        <TemplateStudioSubHeaderLeftView onGitBranchChange={onGitBranchChange} />
         <Container>
           <VisualYamlToggle
             className={css.visualYamlToggle}

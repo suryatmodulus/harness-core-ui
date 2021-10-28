@@ -17,6 +17,16 @@ import {
   UseResizeColumnsColumnProps
 } from 'react-table'
 
+export type sortType = any
+export type orderType = 'ASC' | 'DESC'
+
+interface serverSortProps {
+  enableServerSort: boolean
+  isServerSorted?: boolean
+  isServerSortedDesc?: boolean
+  getSortedColumn?: ({ sort }: { sort?: sortType }) => void
+}
+
 declare module 'react-table' {
   export interface TableOptions<D extends Record<string, unknown>>
     extends UseSortByOptions<D>,
@@ -44,5 +54,7 @@ declare module 'react-table' {
   export interface ColumnInstance<D extends Record<string, unknown> = Record<string, unknown>>
     extends UseFiltersColumnProps<D>,
       UseSortByColumnProps<D>,
-      UseResizeColumnsColumnProps<D> {}
+      UseResizeColumnsColumnProps<D> {
+    serverSortProps?: serverSortProps
+  }
 }

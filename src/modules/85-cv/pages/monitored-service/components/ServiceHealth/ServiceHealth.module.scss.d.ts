@@ -5,7 +5,6 @@ declare const styles: {
   readonly serviceHealthCard: string
   readonly tickersRow: string
   readonly ticker: string
-  readonly serviceHealthHeader: string
   readonly main: string
   readonly slider: string
   readonly tickerContainer: string

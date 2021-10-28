@@ -68,6 +68,8 @@ export const CECOEditGatewayPage: React.FC = () => {
         ConnectorID: service.metadata?.kubernetes_connector_id as string,
         Namespace: (service.routing?.k8s?.Namespace as string) || 'default'
       }
+    } else if (!_isEmpty(service.routing?.database)) {
+      routing.database = service.routing?.database
     } else {
       providerType = resources?.response?.[0]?.provider_type || providerType
       const selectedResources = resources?.response ? resources?.response : []
@@ -103,6 +105,12 @@ export const CECOEditGatewayPage: React.FC = () => {
       metadata: service.metadata as ServiceMetadata,
       customDomains: service.custom_domains,
       deps: deps
+    }
+    // for just display purpose
+    if (!_isEmpty(service.routing?.container_svc)) {
+      gwDetails.resourceMeta = {
+        container_svc: service.routing?.container_svc
+      }
     }
     setGatewayDetails(gwDetails)
   }, [data, resources])

@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, ButtonVariation, Color, Container, FormikForm, FormInput, Layout, Text } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './TemplateCommentModal.module.scss'
 
 export interface UpdateTemplateModalProps {
@@ -13,6 +14,7 @@ export interface UpdateTemplateModalProps {
 export const TemplateCommentModal = (props: UpdateTemplateModalProps) => {
   const { title, onSubmit, onClose } = props
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
 
   return (
     <Container padding={'xxxlarge'} className={css.main}>
@@ -44,7 +46,11 @@ export const TemplateCommentModal = (props: UpdateTemplateModalProps) => {
                 <Layout.Vertical spacing="small">
                   <Container>
                     <Layout.Horizontal spacing="small" flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
-                      <Button text={getString('save')} type="submit" variation={ButtonVariation.PRIMARY} />
+                      <Button
+                        text={isGitSyncEnabled ? getString('continue') : getString('save')}
+                        type="submit"
+                        variation={ButtonVariation.PRIMARY}
+                      />
                       <Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onClose} />
                     </Layout.Horizontal>
                   </Container>

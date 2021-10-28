@@ -14,7 +14,6 @@
   display: flex;
   justify-content: space-between;
   border-radius: var(--spacing-2);
-
   &:hover {
     border-color: var(--primary-6);
   }
@@ -39,7 +38,7 @@
   }
 }
 .contentContainer {
-  padding: var(--spacing-medium);
+  padding: var(--spacing-medium) var(--spacing-xxxlarge) var(--spacing-xxxlarge);
   position: relative;
 
   .closeButton {
@@ -54,9 +53,6 @@
       height: 3.5px;
     }
 
-    .bp3-tab[aria-selected='true'] p {
-      font-weight: bold !important;
-    }
     .bp3-tab[aria-selected='true'],
     .bp3-tab:not([aria-disabled='true']):hover {
       color: var(--blue-600);

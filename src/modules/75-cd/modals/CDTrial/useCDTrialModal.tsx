@@ -12,6 +12,7 @@ import { SelectOrCreatePipelineForm } from '@pipeline/components/SelectOrCreateP
 import { TrialModalTemplate } from '@common/components/TrialModalTemplate/TrialModalTemplate'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelineInfoConfig } from 'services/cd-ng'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import cdImage from '../images/illustration.png'
 import css from './useCDTrialModal.module.scss'
 
@@ -48,7 +49,7 @@ interface CDTrialTemplateData {
 
 const CDTrialTemplate: React.FC<CDTrialTemplateData> = ({ description, children, rightWidth }) => {
   const { getString } = useStrings()
-
+  const { licenseInformation } = useLicenseStore()
   return (
     <TrialModalTemplate
       iconName="cd-main"
@@ -56,6 +57,7 @@ const CDTrialTemplate: React.FC<CDTrialTemplateData> = ({ description, children,
       description={description}
       imgSrc={cdImage}
       rightWidth={rightWidth}
+      hideTrialBadge={isCDCommunity(licenseInformation)}
     >
       {children}
     </TrialModalTemplate>

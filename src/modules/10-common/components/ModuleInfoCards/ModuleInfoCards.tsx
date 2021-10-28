@@ -43,7 +43,7 @@ const INFO_CARD_STYLES: { [key: string]: string } = {
   cd: css.cd
 }
 
-export const getInfoCardsProps = (accountId: string, GTM_CD_ENABLED?: boolean): InfoCards => {
+export const getInfoCardsProps = (accountId: string, CDNG_ENABLED = true): InfoCards => {
   return {
     cd: [
       {
@@ -92,7 +92,7 @@ export const getInfoCardsProps = (accountId: string, GTM_CD_ENABLED?: boolean): 
         title: 'common.purpose.cd.newGen.title',
         description: 'common.purpose.cd.newGen.description',
         isNgRoute: true,
-        disabled: !GTM_CD_ENABLED,
+        disabled: !CDNG_ENABLED,
         isNew: true,
         footer: {
           title: 'common.purpose.cd.supportedStack',
@@ -163,7 +163,7 @@ const getCardKey = ({ key1, key2 }: { key1?: string; key2?: string }): string =>
 const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
   const { module, selectedInfoCard, setSelectedInfoCard, style } = props
   const { getString } = useStrings()
-  const { GTM_CD_ENABLED } = useFeatureFlags()
+  const { CDNG_ENABLED } = useFeatureFlags()
 
   const { accountId } = useParams<{
     accountId: string
@@ -227,7 +227,7 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
     )
   }
 
-  const infoCardProps = getInfoCardsProps(accountId, GTM_CD_ENABLED)[module]
+  const infoCardProps = getInfoCardsProps(accountId, CDNG_ENABLED)[module]
 
   const infoCardStyle = INFO_CARD_STYLES[module]
 

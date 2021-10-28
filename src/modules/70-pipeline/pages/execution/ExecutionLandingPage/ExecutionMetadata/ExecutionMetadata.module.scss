@@ -5,6 +5,7 @@
   justify-content: space-between;
   margin-top: var(--spacing-4);
   justify-content: space-between;
+  width: 100%;
 
   .trigger {
     display: flex;
@@ -26,4 +27,5 @@
 .meta-container {
   display: flex;
   gap: var(--spacing-small);
+  width: 100%;
 }

@@ -47,7 +47,7 @@ interface TrialInformation {
   isExpired: boolean
   expiredDays: number
   edition: Editions
-  isFree: boolean
+  isFreeOrCommunity: boolean
 }
 
 interface SubscriptionTabProps {
@@ -73,7 +73,7 @@ const SubscriptionTab = ({
   const { getString } = useStrings()
   const { tab: queryTab } = useQueryParams<{ tab?: SUBSCRIPTION_TAB_NAMES }>()
 
-  const { isFree, edition, isExpired, expiredDays, days } = trialInfo
+  const { isFreeOrCommunity, edition, isExpired, expiredDays, days } = trialInfo
 
   useEffect(() => {
     if (queryTab) {
@@ -82,7 +82,7 @@ const SubscriptionTab = ({
   }, [queryTab])
 
   function getBanner(): React.ReactElement | null {
-    if ((!isExpired && licenseData?.licenseType !== 'TRIAL' && expiredDays > 14) || isFree) {
+    if ((!isExpired && licenseData?.licenseType !== 'TRIAL' && expiredDays > 14) || isFreeOrCommunity) {
       return null
     }
 

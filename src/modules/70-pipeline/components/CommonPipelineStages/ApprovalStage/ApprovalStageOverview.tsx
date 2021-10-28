@@ -3,7 +3,17 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { cloneDeep, debounce, noop } from 'lodash-es'
-import { Accordion, Card, Container, FormikForm, Layout, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  Accordion,
+  Card,
+  Container,
+  FontVariation,
+  FormikForm,
+  HarnessDocTooltip,
+  Layout,
+  MultiTypeInputType,
+  Text
+} from '@wings-software/uicore'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { useStrings } from 'framework/strings'
@@ -34,7 +44,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const { stage } = getStageFromPipeline<ApprovalStageElementConfig>(selectedStageId || '')
   const cloneOriginalData = cloneDeep(stage)!
-
+  const allNGVariables = (cloneOriginalData?.stage?.variables || []) as AllNGVariables[]
   const { getString } = useStrings()
   const scrollRef = useRef<HTMLDivElement | null>(null)
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,9 +58,9 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
   return (
     <div className={cx(css.approvalStageOverviewWrapper, css.stageSection)}>
       <div className={css.content} ref={scrollRef}>
-        <div className={css.tabHeading} id="stageOverview">
+        <Text font={{ variation: FontVariation.H5 }} margin={{ bottom: 'small' }} id="stageOverview">
           {getString('stageOverview')}
-        </div>
+        </Text>
         <Container id="stageOverview" className={css.basicOverviewDetails}>
           <Formik
             enableReinitialize
@@ -103,14 +113,21 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
           </Formik>
         </Container>
 
-        <Accordion className={cx(css.accordionTitle)} activeId="variables">
+        <Accordion activeId={allNGVariables.length > 0 ? 'variables' : ''}>
           <Accordion.Panel
             id="variables"
-            summary={'Advanced'}
+            summary={
+              <Text margin={{ left: 'small' }} font={{ variation: FontVariation.H5 }}>
+                {getString('advancedTitle')}
+              </Text>
+            }
             addDomId={true}
             details={
               <Card className={css.sectionCard} id="variables">
-                <div className={css.tabSubHeading}>Stage Variables</div>
+                <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="overviewStageVariables">
+                  {getString('pipeline.stageVariables')}
+                  <HarnessDocTooltip tooltipId="overviewStageVariables" useStandAlone={true} />
+                </div>
                 <Layout.Horizontal>
                   <StepWidget<CustomVariablesData>
                     factory={stepsFactory}

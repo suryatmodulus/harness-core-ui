@@ -72,7 +72,7 @@ describe('SecretInput', () => {
 
     expect(handleSuccess).toHaveBeenCalled()
 
-    const closeButton = modal?.querySelector("span[icon='cross']")?.closest('button')
+    const closeButton = modal?.querySelector('.bp3-dialog-close-button')
 
     act(() => {
       fireEvent.click(closeButton!)

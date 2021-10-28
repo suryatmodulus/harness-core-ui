@@ -1,11 +1,13 @@
-import React from 'react'
-import { pick } from 'lodash-es'
+import React, { useState } from 'react'
+import { defaultTo, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { TextArea } from '@blueprintjs/core'
 import { Text } from '@wings-software/uicore'
 import { EntityGitDetails, useDeleteInputSetForPipeline, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog, useToaster } from '@common/exports'
+import { useDeleteTemplateVersionsOfIdentifier } from 'services/template-ng'
+import type { ResponseBoolean } from 'services/cd-ng'
 import type { PipelineDTO } from '../pipelines/views/PipelineListView'
 import type { InputSetLocal } from '../inputSet-list/InputSetListView'
 
@@ -59,12 +61,17 @@ export const DeleteConfirmDialogContent: React.FC<DeleteConfirmDialogContentProp
   )
 }
 
+interface DeleteMetaData {
+  versions?: string[]
+}
+
 export default function useDeleteConfirmationDialog(
   entityData: PipelineDTO | InputSetLocal,
   entityType: string,
   refetchData?: () => void,
-  pipelineIdentifier = ''
-): { confirmDelete: () => void } {
+  pipelineIdentifier = '',
+  setLoading?: (isLoading: boolean) => void
+): { confirmDelete: (deleteMetaData?: DeleteMetaData) => void } {
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
 
@@ -74,6 +81,8 @@ export default function useDeleteConfirmationDialog(
     accountId: string
   }>()
 
+  const [deleteCallMetaData, setDeleteCallMetaData] = useState<DeleteMetaData>()
+
   const getSuccessMessage = (): string => {
     switch (entityType) {
       case 'pipeline':
@@ -81,6 +90,8 @@ export default function useDeleteConfirmationDialog(
       case 'inputSet':
       case 'overlayInputSet':
         return getString('inputSets.inputSetDeleted', { name: entityData.name })
+      case 'template':
+        return getString('common.template.deleteTemplate.templatesDeleted', { name: entityData.name })
       default:
         return ''
     }
@@ -93,6 +104,8 @@ export default function useDeleteConfirmationDialog(
       case 'inputSet':
       case 'overlayInputSet':
         return `pipeline.delete.inputset.error`
+      case 'template':
+        return `common.template.deleteTemplate.errorWhileDeleting`
       default:
         return ''
     }
@@ -121,7 +134,35 @@ export default function useDeleteConfirmationDialog(
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, pipelineIdentifier, ...gitParams }
   })
 
-  const { openDialog: confirmDelete } = useConfirmationDialog({
+  const { mutate: deleteTemplates } = useDeleteTemplateVersionsOfIdentifier({})
+
+  const deleteEntity = async (): Promise<ResponseBoolean> => {
+    const contentType = 'application/json'
+    let deleted = null
+    if (entityType === 'pipeline') {
+      deleted = await deletePipeline(entityData.identifier || /* istanbul ignore next */ '', {
+        headers: { 'content-type': contentType }
+      })
+    } else if (entityType === 'template') {
+      deleted = await deleteTemplates(defaultTo(entityData?.identifier, ''), {
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          ...gitParams
+        },
+        body: JSON.stringify({ templateVersionLabels: deleteCallMetaData?.versions }),
+        headers: { 'content-type': contentType }
+      })
+    } else {
+      deleted = await deleteInputSet(entityData.identifier || /* istanbul ignore next */ '', {
+        headers: { 'content-type': contentType }
+      })
+    }
+    return deleted
+  }
+
+  const { openDialog: openConfirmDeleteDialog } = useConfirmationDialog({
     contentText: (
       <DeleteConfirmDialogContent
         entityName={entityData?.name || ''}
@@ -138,16 +179,9 @@ export default function useDeleteConfirmationDialog(
       /* istanbul ignore else */
       if (isConfirmed) {
         try {
-          let deleted = null
-          if (entityType === 'pipeline') {
-            deleted = await deletePipeline(entityData.identifier || /* istanbul ignore next */ '', {
-              headers: { 'content-type': 'application/json' }
-            })
-          } else {
-            deleted = await deleteInputSet(entityData.identifier || /* istanbul ignore next */ '', {
-              headers: { 'content-type': 'application/json' }
-            })
-          }
+          setLoading?.(true)
+          const deleted = await deleteEntity()
+          setLoading?.(false)
           /* istanbul ignore else */
           if (deleted?.status === 'SUCCESS') {
             showSuccess(getSuccessMessage())
@@ -163,5 +197,9 @@ export default function useDeleteConfirmationDialog(
     }
   })
 
+  const confirmDelete = (deleteMetaData?: DeleteMetaData): void => {
+    setDeleteCallMetaData(deleteMetaData)
+    openConfirmDeleteDialog()
+  }
   return { confirmDelete }
 }

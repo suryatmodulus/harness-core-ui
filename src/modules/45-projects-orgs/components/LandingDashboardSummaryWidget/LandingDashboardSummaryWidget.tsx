@@ -36,6 +36,19 @@ const getModuleSummaryHeader = (iconName: IconName, title: string): JSX.Element 
   )
 }
 
+const renderTooltipForProjectLabel = (
+  projectData: TopProjectsDashboardInfoCountWithSuccessFailureDetails
+): JSX.Element => {
+  return (
+    <Layout.Vertical padding="medium" spacing="small">
+      <Text color={Color.WHITE}>{projectData?.projectInfo?.projectName ?? ''}</Text>
+      <Text icon="union" iconProps={{ color: Color.GREY_300 }} color={Color.GREY_300}>
+        {projectData?.orgInfo?.orgName ?? ''}
+      </Text>
+    </Layout.Vertical>
+  )
+}
+
 const formatSummaryData = (
   response: Array<TopProjectsDashboardInfoCountWithSuccessFailureDetails>
 ): Array<StackedSummaryInterface> => {
@@ -45,6 +58,7 @@ const formatSummaryData = (
 
     const stackData: StackedSummaryInterface = {
       label: projectInfo?.projectName || '',
+      labelTooltip: renderTooltipForProjectLabel(projectData),
       barSectionsData: [
         { count: successCount, color: Color.PRIMARY_6 },
         { count: failureCount, color: Color.RED_500 }
@@ -194,12 +208,12 @@ const LandingDashboardSummaryWidget: React.FC = () => {
                 )}
 
                 {/* This is temporary handling till support for CI, CF modules are added */}
-                <Layout.Vertical className={css.comingSoon} flex={{ justifyContent: 'center' }}>
+                <Layout.Vertical flex={{ justifyContent: 'center' }}>
                   <Icon name="ci-main" size={40} margin="small" />
                   <Text>{getString('common.comingSoon')}</Text>
                 </Layout.Vertical>
 
-                <Layout.Vertical className={css.comingSoon} flex={{ justifyContent: 'center' }}>
+                <Layout.Vertical flex={{ justifyContent: 'center' }}>
                   <Icon name="cf-main" size={40} margin="small" />
                   <Text>{getString('common.comingSoon')}</Text>
                 </Layout.Vertical>

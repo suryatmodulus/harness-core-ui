@@ -123,8 +123,7 @@ export default function PipelineFilterForm<
   }
 
   const getDeploymentTypeOptions = (): React.ReactElement => {
-    const { environments, services } = initialValues as DeploymentTypeContext
-    const deploymentTypeLabel = { label: getString('kubernetesText'), value: 'Kubernetes' }
+    const { environments, services, deploymentType } = initialValues as DeploymentTypeContext
     // const infrastructureTypeLabel = { label: getString('kubernetesDirectText'), value: 'Kubernetes Direct' }
     return (
       <>
@@ -133,7 +132,7 @@ export default function PipelineFilterForm<
         </span>
 
         <FormInput.MultiSelect
-          items={[deploymentTypeLabel] || []}
+          items={deploymentType || []}
           name="deploymentType"
           label={getString('deploymentTypeText')}
           placeholder={getString('pipeline.filters.deploymentTypePlaceholder')}

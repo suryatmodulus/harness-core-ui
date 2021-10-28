@@ -1,7 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly tableHeader: string
   readonly rowItem: string
   readonly type: string
   readonly columnId: string

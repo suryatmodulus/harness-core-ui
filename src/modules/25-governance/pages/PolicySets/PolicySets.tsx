@@ -16,42 +16,18 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useToaster, useConfirmationDialog, StringUtils, Page } from '@common/exports'
-import { useUpdatePolicySet, useDeletePolicySet, useGetPolicySetList } from 'services/pm'
-
+import { useUpdatePolicySet, useDeletePolicySet, useGetPolicySetList, PolicySetWithLinkedPolicies } from 'services/pm'
 import { useStrings } from 'framework/strings'
-
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-
-// import { setPageNumber } from '@common/utils/utils'
 import Table from '@common/components/Table/Table'
 import { OptionsMenuButton } from '@common/components'
+import { getErrorMessage, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
 import PolicySetWizard from './components/PolicySetWizard'
 import PolicyIcon from './PolicySetIcon.svg'
 import css from './PolicySets.module.scss'
 
-export interface PoliciesSetDTO {
-  account_id?: number
-  action: string
-  created: number
-  enabled: boolean
-  id: number
-  name: string
-  org_id?: string
-  project_id: string
-  type: string
-  updated: number
-  identifier: string
-}
-
-const _useGetPolicySetList = useGetPolicySetList as any
-
-// let page = 0
-// let totalPages = 0
-const PAGE_SIZE = 15
-
-const PolicyEvaluations: React.FC = () => {
-  const { accountId } = useParams<ProjectPathProps>()
+const PolicySets: React.FC = () => {
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
   const { getString } = useStrings()
   useDocumentTitle(getString('common.policies'))
   // const [, setPage] = useState(0)
@@ -60,11 +36,13 @@ const PolicyEvaluations: React.FC = () => {
 
   const queryParams = useMemo(
     () => ({
-      accountId,
-      per_page: PAGE_SIZE,
-      page: pageIndex
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      per_page: String(LIST_FETCHING_PAGE_SIZE),
+      page: String(pageIndex)
     }),
-    [accountId, pageIndex]
+    [accountId, orgIdentifier, projectIdentifier, pageIndex]
   )
 
   const [policySetData, setPolicySetData] = React.useState<any>()
@@ -87,13 +65,13 @@ const PolicyEvaluations: React.FC = () => {
     error,
     refetch,
     response
-  } = _useGetPolicySetList({
+  } = useGetPolicySetList({
     queryParams
   })
 
-  const itemCount = useMemo(() => parseInt(response?.headers?.get('x-total-items') || 0), [response])
-  const pageCount = useMemo(() => parseInt(response?.headers?.get('x-total-pages') || 0), [response])
-  const pageSize = useMemo(() => parseInt(response?.headers?.get('x-page-size') || 0), [response])
+  const itemCount = useMemo(() => parseInt(response?.headers?.get('x-total-items') || '0'), [response])
+  const pageCount = useMemo(() => parseInt(response?.headers?.get('x-total-pages') || '0'), [response])
+  const pageSize = useMemo(() => parseInt(response?.headers?.get('x-page-size') || '0'), [response])
 
   // useEffect(() => {
   //   setPageNumber({ setPage, page, pageItemsCount: totalPages * pageSize })
@@ -130,7 +108,7 @@ const PolicyEvaluations: React.FC = () => {
     />
   )
 
-  const RenderPolicyName: Renderer<CellProps<PoliciesSetDTO>> = ({ row }) => {
+  const RenderPolicyName: Renderer<CellProps<PolicySetWithLinkedPolicies>> = ({ row }) => {
     const record = row.original
     return (
       <Layout.Horizontal spacing="small" flex style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
@@ -142,29 +120,29 @@ const PolicyEvaluations: React.FC = () => {
     )
   }
 
-  const getValue = (value: number) => {
+  const getValue = (value: number): string | null => {
     return value ? moment.unix(value / 1000).format(StringUtils.DEFAULT_DATE_FORMAT) : null
   }
 
-  const RenderCreatedAt: Renderer<CellProps<PoliciesSetDTO>> = ({ row }) => {
+  const RenderCreatedAt: Renderer<CellProps<PolicySetWithLinkedPolicies>> = ({ row }) => {
     const record = row.original
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {getValue(record.created)}
+        {getValue(record.created as number)}
       </Text>
     )
   }
 
-  const RenderLastUpdated: Renderer<CellProps<PoliciesSetDTO>> = ({ row }) => {
+  const RenderLastUpdated: Renderer<CellProps<PolicySetWithLinkedPolicies>> = ({ row }) => {
     const record = row.original
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {getValue(record.updated)}
+        {getValue(record.updated as number)}
       </Text>
     )
   }
 
-  const RenderEntityType: Renderer<CellProps<PoliciesSetDTO>> = ({ row }) => {
+  const RenderEntityType: Renderer<CellProps<PolicySetWithLinkedPolicies>> = ({ row }) => {
     const record = row.original
     return (
       <Text color={Color.BLACK} lineClamp={1}>
@@ -173,9 +151,9 @@ const PolicyEvaluations: React.FC = () => {
     )
   }
 
-  const RenderEnforced: Renderer<CellProps<PoliciesSetDTO>> = ({ row }) => {
+  const RenderEnforced: Renderer<CellProps<PolicySetWithLinkedPolicies>> = ({ row }) => {
     const record = row.original
-    const id = '' + row.original.id
+    const id = '' + row.original.identifier
     const { mutate: updatePolicySet } = useUpdatePolicySet({ policyset: id })
 
     return (
@@ -195,10 +173,10 @@ const PolicyEvaluations: React.FC = () => {
     )
   }
 
-  const RenderColumnMenu: Renderer<CellProps<PoliciesSetDTO>> = ({ row }) => {
+  const RenderColumnMenu: Renderer<CellProps<PolicySetWithLinkedPolicies>> = ({ row }) => {
     const data = row.original
     const { showSuccess, showError } = useToaster()
-    const { mutate: deletePolicySet } = useDeletePolicySet({})
+    const { mutate: deletePolicySet } = useDeletePolicySet({ queryParams })
     const { openDialog: openDeleteDialog } = useConfirmationDialog({
       contentText: getString('governance.deletePolicySetConfirmation', { name: data.name }),
       titleText: getString('governance.deletePolicySetTitle'),
@@ -207,11 +185,11 @@ const PolicyEvaluations: React.FC = () => {
       onCloseDialog: async didConfirm => {
         if (didConfirm && data) {
           try {
-            await deletePolicySet(data?.identifier.toString())
+            await deletePolicySet(data?.identifier?.toString() as string)
             showSuccess(getString('governance.deletePolicySetDone', { name: data.name }))
             refetch()
           } catch (err) {
-            showError(err?.message)
+            showError(getErrorMessage(err))
           }
         }
       }
@@ -240,7 +218,7 @@ const PolicyEvaluations: React.FC = () => {
     )
   }
 
-  const columns: Column<PoliciesSetDTO>[] = useMemo(
+  const columns: Column<PolicySetWithLinkedPolicies>[] = useMemo(
     () => [
       {
         Header: getString('common.policiesSets.table.name'),
@@ -280,14 +258,13 @@ const PolicyEvaluations: React.FC = () => {
       {
         Header: '',
         id: 'menu',
-        accessor: row => row.id,
+        accessor: row => row.identifier,
         width: '5%',
         Cell: RenderColumnMenu,
-
         disableSortBy: true
       }
     ],
-    []
+    [getString]
   )
 
   return (
@@ -304,7 +281,7 @@ const PolicyEvaluations: React.FC = () => {
           button: newUserGroupsBtn()
         }}
       >
-        <Table<PoliciesSetDTO>
+        <Table<PolicySetWithLinkedPolicies>
           className={css.table}
           columns={columns}
           data={policyList || []}
@@ -323,4 +300,4 @@ const PolicyEvaluations: React.FC = () => {
   )
 }
 
-export default PolicyEvaluations
+export default PolicySets

@@ -89,7 +89,7 @@ const RenderServiceChanges: Renderer<CellProps<MonitoredServiceListItemDTO>> = (
       <Text
         tooltip={getString('infrastructureText')}
         icon="infrastructure"
-        iconProps={{ size: 26, color: Color.GREY_700 }}
+        iconProps={{ size: 20, color: Color.GREY_700 }}
         {...styles}
       >
         {Infrastructure.count ?? 0}

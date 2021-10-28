@@ -13,51 +13,49 @@ import {
   FontVariation,
   ButtonSize,
   FlexExpander,
-  PageHeader
+  PageHeader,
+  useModalHook,
+  Dialog
 } from '@wings-software/uicore'
 import { Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
-import { showToaster, getErrorMessage, isEvaluationFailed } from '@governance/utils/GovernanceUtils'
+import {
+  showToaster,
+  getErrorMessage,
+  isEvaluationFailed,
+  MonacoEditorOptions,
+  deselectAllMonacoEditor
+} from '@governance/utils/GovernanceUtils'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@governance/utils/rego'
 import { useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
+import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import { EditPolicyMetadataModalButton } from './EditPolicyMetadataModalButton'
 import type { PolicyMetadata } from './EditPolicyMetadataModalButton'
 import { SelectPolicyModalButton } from './SelectPolicyModalButton'
+import SelectInputModal from './SelectInputModal'
 import css from './EditPolicy.module.scss'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PolicyTestOutputResponse = any
 
-const editorOptions = {
-  ignoreTrimWhitespace: true,
-  minimap: { enabled: false },
-  codeLens: false,
-  scrollBeyondLastLine: false,
-  smartSelect: false,
-  tabSize: 2,
-  insertSpaces: true
-}
-
 const EDITOR_GAP = 25
 const PAGE_PADDING = 50
-
-const deselectAll = (editor?: EDITOR.IStandaloneCodeEditor): void => {
-  editor?.focus()
-  setTimeout(() => {
-    editor?.setSelection(new monaco.Selection(0, 0, 0, 0))
-  }, 0)
-}
 
 export const EditPolicy: React.FC = () => {
   const {
     accountId,
+    module,
     policyIdentifier: policyIdentifierFromURL,
     orgIdentifier,
     projectIdentifier
-  } = useParams<Record<string, string>>()
+  } = useParams<GovernancePathProps>()
+  const queryParams = useMemo(
+    () => ({ accountIdentifier: accountId, orgIdentifier, projectIdentifier }),
+    [accountId, orgIdentifier, projectIdentifier]
+  )
   const [isEdit, setEdit] = useState(!!policyIdentifierFromURL)
   const [policyIdentifier, setPolicyIdentifier] = useState(policyIdentifierFromURL)
   const [name, setName] = useState('')
@@ -78,28 +76,16 @@ export const EditPolicy: React.FC = () => {
       return false
     }
   }, [input, regoScript])
-  const { mutate: createPolicy } = useCreatePolicy({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    }
-  })
-  const { mutate: evaluateRawPolicy } = useEvaluateRaw({})
+  const { mutate: createPolicy } = useCreatePolicy({ queryParams })
+  const { mutate: evaluateRawPolicy } = useEvaluateRaw({ queryParams } as Record<string, unknown>)
   const [createPolicyLoading, setCreatePolicyLoading] = useState(false)
   const [testPolicyLoading, setTestPolicyLoading] = useState(false)
   const [regoEditor, setRegoEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const [inputEditor, setInputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
+  const [inputFromSource, setInputFromSource] = useState<string>()
   const [outputEditor, setOutputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const history = useHistory()
-  const { mutate: updatePolicy } = useUpdatePolicy({
-    policy: policyIdentifier,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    }
-  })
+  const { mutate: updatePolicy } = useUpdatePolicy({ policy: policyIdentifier as string, queryParams })
   const onSavePolicy = useCallback(() => {
     setCreatePolicyLoading(true)
     const api = isEdit ? updatePolicy : createPolicy
@@ -113,11 +99,19 @@ export const EditPolicy: React.FC = () => {
         showToaster('Policy saved!')
         if (!isEdit) {
           setEdit(true)
-          history.replace(routes.toPolicyEditPage({ accountId, policyIdentifier: String(response.identifier || '') }))
+          history.replace(
+            routes.toGovernanceEditPolicy({
+              accountId,
+              orgIdentifier,
+              projectIdentifier,
+              module,
+              policyIdentifier: String(response.identifier || '')
+            })
+          )
         }
       })
       .catch(error => {
-        showToaster(getErrorMessage(error), { intent: Intent.DANGER })
+        showToaster(getErrorMessage(error), { intent: Intent.DANGER, timeout: 0 })
       })
       .finally(() => {
         setCreatePolicyLoading(false)
@@ -131,9 +125,21 @@ export const EditPolicy: React.FC = () => {
     updatePolicy,
     policyIdentifier,
     history,
-    accountId
+    accountId,
+    orgIdentifier,
+    projectIdentifier,
+    module
   ])
-  const { data: policyData, refetch: fetchPolicyData } = useGetPolicy({ policy: policyIdentifier, lazy: true })
+  const {
+    data: policyData,
+    refetch: fetchPolicyData,
+    loading: getPolicyLoading,
+    error: getPolicyError
+  } = useGetPolicy({
+    policy: policyIdentifier as string,
+    queryParams,
+    lazy: true
+  })
   const [loadingPolicy, setLoadingPolicy] = useState(false)
   const { getString } = useStrings()
   const [testFailure, setTestFailure] = useState<boolean | undefined>()
@@ -165,7 +171,7 @@ export const EditPolicy: React.FC = () => {
         <EditPolicyMetadataModalButton
           isEdit={isEdit}
           shouldOpenModal={shouldOpenMetadataModal}
-          identifier={policyIdentifier}
+          identifier={policyIdentifier as string}
           modalTitle={getString(policyIdentifier ? 'governance.editPolicy' : 'common.policy.newPolicy')}
           name={name}
           description={description}
@@ -184,8 +190,8 @@ export const EditPolicy: React.FC = () => {
             if (sampleRego !== regoScript || sampleInput !== input) {
               setRegoScript(sampleRego || '')
               setInput(sampleInput || '')
-              deselectAll(regoEditor)
-              deselectAll(inputEditor)
+              deselectAllMonacoEditor(regoEditor)
+              deselectAllMonacoEditor(inputEditor)
               resetOutput()
             }
           }}
@@ -222,14 +228,14 @@ export const EditPolicy: React.FC = () => {
         try {
           const _response = typeof response === 'string' ? JSON.parse(response) : response
           setOutput(_response)
-          deselectAll(outputEditor)
+          deselectAllMonacoEditor(outputEditor)
           setTestFailure(isEvaluationFailed(_response.status))
           layoutEditors()
         } catch {
           // eslint-disable-line no-empty
         }
       })
-      .catch(error => showToaster(getErrorMessage(error), { intent: Intent.DANGER }))
+      .catch(error => showToaster(getErrorMessage(error), { intent: Intent.DANGER, timeout: 0 }))
       .finally(() => setTestPolicyLoading(false))
   }, [evaluateRawPolicy, regoScript, input, outputEditor, setTestFailure, layoutEditors, resetOutput])
   const toolbar = useMemo(() => {
@@ -255,7 +261,7 @@ export const EditPolicy: React.FC = () => {
           size={ButtonSize.SMALL}
           text="Discard"
           onClick={() => {
-            history.push(routes.toPolicyListPage({ accountId }))
+            history.push(routes.toGovernancePolicyListing({ accountId, orgIdentifier, projectIdentifier, module }))
           }}
         />
         {!testPolicyLoading && (
@@ -282,7 +288,19 @@ export const EditPolicy: React.FC = () => {
         )}
       </Layout.Horizontal>
     )
-  }, [history, testPolicyLoading, accountId, createPolicyLoading, isInputValid, onSavePolicy, onTestPolicy, regoScript])
+  }, [
+    history,
+    testPolicyLoading,
+    accountId,
+    createPolicyLoading,
+    isInputValid,
+    onSavePolicy,
+    onTestPolicy,
+    regoScript,
+    orgIdentifier,
+    projectIdentifier,
+    module
+  ])
 
   useEffect(() => {
     window.addEventListener('resize', layoutEditors)
@@ -308,9 +326,39 @@ export const EditPolicy: React.FC = () => {
 
       // TODO Remove casting when BE supports description
       setDescription((policyData as { desription: string }).desription || '')
-      deselectAll(regoEditor)
+      deselectAllMonacoEditor(regoEditor)
     }
   }, [policyData, regoEditor])
+
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog
+        enforceFocus={false}
+        isOpen={true}
+        onClose={() => {
+          hideModal()
+        }}
+        title={'Select Input'}
+        style={{ width: 750, height: 650 }}
+        footer={
+          <Layout.Horizontal spacing="small" padding="none" margin="none">
+            <Button
+              text="Apply"
+              variation={ButtonVariation.PRIMARY}
+              onClick={() => {
+                setInput(JSON.stringify(JSON.parse(inputFromSource || ''), null, 2))
+                hideModal()
+              }}
+            ></Button>
+            <Button text="Cancel" variation={ButtonVariation.TERTIARY} onClick={() => hideModal()}></Button>
+          </Layout.Horizontal>
+        }
+      >
+        <SelectInputModal handleOnSelect={_data => setInputFromSource(_data)} />
+      </Dialog>
+    ),
+    [inputFromSource]
+  )
 
   return (
     <>
@@ -322,7 +370,11 @@ export const EditPolicy: React.FC = () => {
         }
         toolbar={toolbar}
       />
-      <Page.Body loading={loadingPolicy}>
+      <Page.Body
+        loading={loadingPolicy || getPolicyLoading}
+        error={getErrorMessage(getPolicyError)}
+        retryOnError={() => fetchPolicyData()}
+      >
         <Container className={css.container}>
           <SplitPane
             split="vertical"
@@ -338,7 +390,7 @@ export const EditPolicy: React.FC = () => {
                 language="rego"
                 theme="vs-light"
                 value={regoScript}
-                options={editorOptions}
+                options={MonacoEditorOptions}
                 onChange={newValue => {
                   setRegoScript(newValue)
                 }}
@@ -383,7 +435,7 @@ export const EditPolicy: React.FC = () => {
                           try {
                             setInput(JSON.stringify(JSON.parse(input), null, 2))
                           } catch (e) {
-                            showToaster(getErrorMessage(e), { intent: Intent.DANGER })
+                            showToaster(getErrorMessage(e), { intent: Intent.DANGER, timeout: 0 })
                           }
                         }}
                       />
@@ -391,6 +443,7 @@ export const EditPolicy: React.FC = () => {
                         variation={ButtonVariation.SECONDARY}
                         size={ButtonSize.SMALL}
                         text={getString('governance.selectInput')}
+                        onClick={() => showModal()}
                       />
                     </Layout.Horizontal>
                   </Container>
@@ -399,7 +452,7 @@ export const EditPolicy: React.FC = () => {
                       language="json"
                       theme="vs-light"
                       value={input}
-                      options={editorOptions}
+                      options={MonacoEditorOptions}
                       onChange={newValue => setInput(newValue)}
                       editorDidMount={setInputEditor}
                     />
@@ -459,7 +512,7 @@ export const EditPolicy: React.FC = () => {
                       language="json"
                       theme="vs-light"
                       value={output ? JSON.stringify(output, null, 2) : ''}
-                      options={{ ...editorOptions, readOnly: true }}
+                      options={{ ...MonacoEditorOptions, readOnly: true }}
                       editorDidMount={setOutputEditor}
                     />
                   </Container>

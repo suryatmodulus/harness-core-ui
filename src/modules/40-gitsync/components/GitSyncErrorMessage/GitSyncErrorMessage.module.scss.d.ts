@@ -7,5 +7,6 @@ declare const styles: {
   readonly errorItemViewContent: string
   readonly errorItemErrorFixed: string
   readonly timestamp: string
+  readonly seeMore: string
 }
 export default styles

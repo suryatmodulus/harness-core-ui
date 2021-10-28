@@ -1,5 +1,5 @@
 import { noop } from 'lodash-es'
-import { createContext, Dispatch, SetStateAction } from 'react'
+import { createContext, Dispatch, MutableRefObject, SetStateAction } from 'react'
 
 export enum GitErrorExperienceTab {
   ALL_ERRORS = 'ALL_ERRORS',
@@ -18,6 +18,7 @@ export interface GitSyncErrorStateType {
   branch: string
   repoIdentifier: string
   searchTerm: string
+  reloadAction: MutableRefObject<(() => void) | null>
 }
 
 export const GitSyncErrorState = createContext<GitSyncErrorStateType>({
@@ -26,5 +27,6 @@ export const GitSyncErrorState = createContext<GitSyncErrorStateType>({
   setView: noop,
   branch: '',
   repoIdentifier: '',
-  searchTerm: ''
+  searchTerm: '',
+  reloadAction: { current: noop }
 })

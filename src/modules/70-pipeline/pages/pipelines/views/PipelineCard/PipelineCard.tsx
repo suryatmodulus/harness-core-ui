@@ -294,7 +294,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           >
             <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
               <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
-                {getString('pipeline.gitRepos')}
+                {getString('pipeline.gitRepo')}
               </Text>
               <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
                 <Icon name="repository" size={10} color={Color.GREY_600} />
@@ -303,6 +303,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                   color={Color.BLACK}
                   title={pipeline?.gitDetails?.repoIdentifier}
                   lineClamp={1}
+                  width={90}
                 >
                   {(!loadingRepos &&
                     getRepoDetailsByIndentifier(pipeline.gitDetails.repoIdentifier, gitSyncRepos)?.name) ||
@@ -317,7 +318,13 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               </Text>
               <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
                 <Icon name="git-new-branch" size={10} color={Color.GREY_500} />
-                <Text font={{ size: 'small' }} color={Color.BLACK} title={pipeline?.gitDetails?.branch} lineClamp={1}>
+                <Text
+                  font={{ size: 'small' }}
+                  color={Color.BLACK}
+                  title={pipeline?.gitDetails?.branch}
+                  lineClamp={1}
+                  width={90}
+                >
                   {pipeline.gitDetails.branch}
                 </Text>
               </Layout.Horizontal>

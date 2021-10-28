@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
+import React, { useEffect, useState, useCallback, useMemo, useRef, SetStateAction, Dispatch } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
+import { get, omit } from 'lodash-es'
 import { Button, Color, Icon, Container, Text, useIsMounted, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
+import type { orderType, sortType, serverSortProps } from '@common/components/Table/react-table-config'
 import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } from 'services/ti-service'
 import { useStrings } from 'framework/strings'
 import { CopyText } from '@common/components/CopyText/CopyText'
@@ -20,16 +21,86 @@ const PAGE_SIZE = 10
 const COPY_CLIPBOARD_ICON_WIDTH = 16
 const SAFETY_TABLE_WIDTH = 216
 
+interface SortByObjInterface {
+  sort?: sortType
+  order?: orderType
+}
 export interface TestExecutionEntryProps {
   buildIdentifier: string
   serviceToken: string
   executionSummary: TestSuite
   expanded?: boolean
   status?: 'failed'
-  onExpand: () => void
+  onExpand?: () => void
   stageId: string
   stepId: string
   onShowCallGraphForClass?: (classname: string) => void
+  isUngroupedList: boolean
+}
+
+const getServerSort = ({
+  queryParams,
+  sort,
+  sortByObj,
+  setSortByObj,
+  refetchData
+}: {
+  queryParams: TestCaseSummaryQueryParams
+  sort?: any //'name' | 'class_name' | 'status' | 'duration_ms'
+  sortByObj: SortByObjInterface
+  setSortByObj: Dispatch<SetStateAction<SortByObjInterface>>
+  refetchData: (queryParams: TestCaseSummaryQueryParams) => void
+}): void => {
+  const newQueryParams = { ...queryParams }
+  let newOrder: orderType | undefined
+  if (sort === sortByObj.sort && sortByObj.order) {
+    newOrder = sortByObj.order === 'DESC' ? 'ASC' : 'DESC'
+  } else {
+    // no saved state for sortBy of the same sort type
+    newOrder = 'ASC'
+  }
+  setSortByObj({ sort, order: newOrder })
+  newQueryParams.sort = sort
+  newQueryParams.order = newOrder
+  refetchData(newQueryParams)
+}
+
+const getServerSortProps = ({
+  enableServerSort,
+  accessor,
+  sortByObj,
+  queryParams,
+  refetchData,
+  setSortByObj
+}: {
+  enableServerSort: boolean
+  accessor: string
+  sortByObj: SortByObjInterface
+  queryParams: TestCaseSummaryQueryParams
+  refetchData: (queryParams: TestCaseSummaryQueryParams) => void
+  setSortByObj: Dispatch<SetStateAction<SortByObjInterface>>
+}): serverSortProps => {
+  if (!enableServerSort) {
+    return { enableServerSort: false }
+  } else {
+    let sortName = accessor
+    if (sortName === 'result') {
+      sortName = 'status'
+    }
+    return {
+      enableServerSort: true,
+      isServerSorted: sortByObj.sort === sortName,
+      isServerSortedDesc: sortByObj.order === 'DESC',
+      getSortedColumn: ({ sort }: { sort?: sortType }) =>
+        getServerSort({
+          queryParams,
+          sort: sort === 'result' ? 'status' : sort,
+          sortByObj,
+          setSortByObj,
+          refetchData
+        })
+    }
+  }
 }
 
 const getColumnText = ({
@@ -103,13 +174,15 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   onExpand,
   stageId,
   stepId,
-  onShowCallGraphForClass
+  onShowCallGraphForClass,
+  isUngroupedList
 }) => {
   const containerRef = useRef<HTMLElement>(null)
   const rightSideContainerRef = useRef<HTMLElement>(null)
   const tableRef = useRef<HTMLDivElement>(null)
   const [titleWidth, setTitleWidth] = useState<number>()
   const [tableWidth, setTableWidth] = useState<number>()
+  const [sortByObj, setSortByObj] = useState<SortByObjInterface>({})
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams<{
     projectIdentifier: string
@@ -121,22 +194,26 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   const { openErrorModal } = useExpandErrorModal({})
 
   const queryParams = useMemo(
-    () => ({
-      accountId,
-      orgId: orgIdentifier,
-      projectId: projectIdentifier,
-      buildId: buildIdentifier,
-      pipelineId: pipelineIdentifier,
-      report: 'junit' as const,
-      suite_name: executionSummary.name,
-      status,
-      sort: 'status',
-      order: 'ASC',
-      pageIndex,
-      pageSize: PAGE_SIZE,
-      stageId,
-      stepId
-    }),
+    () =>
+      Object.assign(
+        {
+          accountId,
+          orgId: orgIdentifier,
+          projectId: projectIdentifier,
+          buildId: buildIdentifier,
+          pipelineId: pipelineIdentifier,
+          report: 'junit' as const,
+          suite_name: executionSummary.name,
+          status,
+          sort: 'status',
+          order: 'ASC',
+          pageIndex,
+          pageSize: PAGE_SIZE,
+          stageId,
+          stepId
+        },
+        isUngroupedList ? { suite_name: executionSummary.name } : {}
+      ),
     [
       accountId,
       orgIdentifier,
@@ -147,7 +224,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
       status,
       pageIndex,
       stageId,
-      stepId
+      stepId,
+      isUngroupedList
     ]
   ) as TestCaseSummaryQueryParams
 
@@ -227,30 +305,65 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         Header: getString('pipeline.testsReports.testCaseName').toUpperCase(),
         accessor: 'name',
         width: nameClassNameWidth,
-        Cell: renderColumn({ col: 'name', openTestsFailedModal: openErrorModal }),
+        Cell: renderColumn({
+          col: 'name',
+          openTestsFailedModal: openErrorModal
+        }),
         disableSortBy: data?.content?.length === 1,
-        openErrorModal
+        openErrorModal,
+        serverSortProps: getServerSortProps({
+          enableServerSort: isUngroupedList,
+          accessor: 'name',
+          sortByObj,
+          queryParams,
+          refetchData,
+          setSortByObj
+        })
       },
       {
         Header: getString('pipeline.testsReports.className').toUpperCase(),
         accessor: 'class_name',
         width: nameClassNameWidth,
         Cell: renderColumn({ col: 'class_name' }),
-        disableSortBy: data?.content?.length === 1
+        disableSortBy: data?.content?.length === 1,
+        serverSortProps: getServerSortProps({
+          enableServerSort: isUngroupedList,
+          accessor: 'class_name',
+          sortByObj,
+          queryParams,
+          refetchData,
+          setSortByObj
+        })
       },
       {
         Header: getString('pipeline.testsReports.result'),
         accessor: 'result',
         width: 100,
         Cell: renderColumn({ col: 'result' }),
-        disableSortBy: data?.content?.length === 1
+        disableSortBy: data?.content?.length === 1,
+        serverSortProps: getServerSortProps({
+          enableServerSort: isUngroupedList,
+          accessor: 'result',
+          sortByObj,
+          queryParams,
+          refetchData,
+          setSortByObj
+        })
       },
       {
         Header: getString('pipeline.duration').toUpperCase(),
         accessor: 'duration_ms',
         width: 100,
         Cell: renderColumn({ col: 'duration_ms' }),
-        disableSortBy: data?.content?.length === 1
+        disableSortBy: data?.content?.length === 1,
+        serverSortProps: getServerSortProps({
+          enableServerSort: isUngroupedList,
+          accessor: 'duration_ms',
+          sortByObj,
+          queryParams,
+          refetchData,
+          setSortByObj
+        })
       }
     ]
   }, [getString, renderColumn, data?.content?.length])
@@ -259,6 +372,9 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   useEffect(() => {
     if (expanded && !data) {
       refetchData(queryParams)
+    } else if (isUngroupedList && !data) {
+      const newQueryParams = { ...omit(queryParams, ['suite_name']) }
+      refetchData(newQueryParams)
     }
   }, [expanded, queryParams, refetchData, data])
 
@@ -266,6 +382,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     if (!loading && expanded && data?.content?.length && onShowCallGraphForClass) {
       setSelectedRow(data.content[0])
       onShowCallGraphForClass(data.content[0].class_name as string)
+    } else if (!loading && expanded && data?.content?.length) {
+      setSelectedRow(data.content[0])
     }
   }, [loading, expanded, data, onShowCallGraphForClass])
 
@@ -315,18 +433,22 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           color={Color.GREY_500}
           style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
         >
-          <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={onExpand} />
-          <Layout.Horizontal>
-            <Text width={titleWidth} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-              <CopyText iconName="clipboard-alt" textToCopy={executionSummary.name || ''}>
-                <Text tooltip={<Container padding="small">{executionSummary.name}</Container>}>
-                  <span className={css.testSuiteName}>
-                    {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
-                  </span>
+          {!isUngroupedList && (
+            <>
+              <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={() => onExpand?.()} />
+              <Layout.Horizontal>
+                <Text width={titleWidth} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                  <CopyText iconName="clipboard-alt" textToCopy={executionSummary.name || ''}>
+                    <Text tooltip={<Container padding="small">{executionSummary.name}</Container>}>
+                      <span className={css.testSuiteName}>
+                        {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
+                      </span>
+                    </Text>
+                  </CopyText>
                 </Text>
-              </CopyText>
-            </Text>
-          </Layout.Horizontal>
+              </Layout.Horizontal>
+            </>
+          )}
         </Text>
         <Container flex ref={rightSideContainerRef}>
           <Text

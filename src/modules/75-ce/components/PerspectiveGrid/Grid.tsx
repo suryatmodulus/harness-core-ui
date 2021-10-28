@@ -101,9 +101,6 @@ const Grid = <T extends Record<string, unknown>>(props: GridProps<T>): JSX.Eleme
             fetchData?.(idx, PAGE_SIZE)
           }}
           itemCount={totalItemCount || 0}
-          nextPage={idx => {
-            fetchData?.(idx, PAGE_SIZE)
-          }}
           pageCount={pageCount}
           pageIndex={gridPageIndex}
           pageSize={PAGE_SIZE}

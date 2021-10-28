@@ -596,7 +596,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                     class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-start StyledProps--padding-top-small StyledProps--padding-left-xsmall StyledProps--padding-bottom-xsmall StyledProps--margin-left-large"
                                   >
                                     <label
-                                      class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main StyledProps--font-variation-form-label StyledProps--flex"
+                                      class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main StyledProps--font-variation-form-label"
                                     >
                                       <input
                                         type="radio"
@@ -607,7 +607,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                       gitBranch
                                     </label>
                                     <label
-                                      class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main StyledProps--font-variation-form-label StyledProps--flex"
+                                      class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main StyledProps--font-variation-form-label"
                                     >
                                       <input
                                         type="radio"
@@ -618,7 +618,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                       gitTag
                                     </label>
                                     <label
-                                      class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main StyledProps--font-variation-form-label StyledProps--flex"
+                                      class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main StyledProps--font-variation-form-label"
                                     >
                                       <input
                                         type="radio"

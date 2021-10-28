@@ -76,7 +76,7 @@ describe('Test TerraformDestroy', () => {
   })
 
   test('should render edit view as edit step - Inline', () => {
-    const { container, getByText } = render(
+    const { container, getByText, getByTestId } = render(
       <TestStepWidget
         initialValues={{
           type: 'TerraformDestroy',
@@ -113,7 +113,7 @@ describe('Test TerraformDestroy', () => {
       />
     )
     fireEvent.click(getByText('common.optionalConfig'))
-    fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
+    fireEvent.click(getByTestId('add-tfvar-file'))
     expect(container).toMatchSnapshot()
   })
 
@@ -157,7 +157,7 @@ describe('Test TerraformDestroy', () => {
   })
 
   test('add new terraform var file', () => {
-    const { container, getByText } = render(
+    const { container, getByText, getByTestId } = render(
       <TestStepWidget
         initialValues={{
           type: 'TerraformDestroy',
@@ -191,7 +191,7 @@ describe('Test TerraformDestroy', () => {
       />
     )
     fireEvent.click(getByText('common.optionalConfig'))
-    fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
+    fireEvent.click(getByTestId('add-tfvar-file'))
     expect(container).toMatchSnapshot()
   })
 

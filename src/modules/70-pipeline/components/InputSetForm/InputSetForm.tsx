@@ -307,10 +307,12 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       if (view === SelectedView.VISUAL) {
         const yaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
         const inputSetYamlVisual = parse(yaml).inputSet as InputSetDTO
-        inputSet.name = inputSetYamlVisual.name
-        inputSet.identifier = inputSetYamlVisual.identifier
-        inputSet.description = inputSetYamlVisual.description
-        inputSet.pipeline = inputSetYamlVisual.pipeline
+        if (inputSetYamlVisual) {
+          inputSet.name = inputSetYamlVisual.name
+          inputSet.identifier = inputSetYamlVisual.identifier
+          inputSet.description = inputSetYamlVisual.description
+          inputSet.pipeline = inputSetYamlVisual.pipeline
+        }
       }
       setSelectedView(view)
     },

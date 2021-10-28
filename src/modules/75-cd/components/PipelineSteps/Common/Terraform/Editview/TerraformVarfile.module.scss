@@ -28,6 +28,10 @@
   width: 24px !important;
   box-shadow: none !important;
   padding: 0 !important;
+  &:hover {
+    cursor: pointer;
+    // background-color: var(--primary-7) !important;
+  }
 }
 
 .dragging {
@@ -66,6 +70,11 @@
   }
 }
 
+.optionalConfigDetails {
+  margin: 0px 6px;
+  margin-top: 4px;
+}
+
 .addMarginTop {
   margin-top: var(--spacing-medium) !important;
 }
@@ -84,8 +93,9 @@
 .configField {
   display: flex;
   justify-content: space-between;
-  width: 300px !important;
+  width: 100% !important;
   height: 32px;
+  background: #ffffff;
   border: 1px solid #e4e4eb;
   align-items: center;
   padding: 10px;
@@ -100,6 +110,7 @@
 }
 
 .tfMenu {
+  padding: 16px;
   background-color: white !important;
 }
 
@@ -183,12 +194,18 @@
 }
 
 .configPlaceHolder {
-  color: #d9dae6 !important;
+  color: #0278d5 !important;
+}
+
+.configPlaceHolder:hover {
+  text-decoration: none;
 }
 
 .addTfVarFile {
-  position: relative;
-  right: 22px;
+  // position: relative;
+  // right: 22px;
+  margin-top: 16px !important;
+  padding: 0 !important;
 }
 .dragging {
   background-color: var(--yellow-450) !important;
@@ -229,7 +246,7 @@
   font-weight: 400 !important;
   font-size: 14px !important;
   line-height: 16px !important;
-  color: var(--grey-600) !important;
+  color: #000000 !important;
   font-family: 'sans-serif', 'inter' !important;
   margin-top: var(--spacing-medium) !important;
   margin-bottom: var(--spacing-small) !important;
@@ -258,4 +275,11 @@
 }
 .remoteIcon {
   color: #000000 !important;
+}
+
+.divider {
+  width: 100%;
+  margin-top: var(--spacing-3);
+  margin-bottom: var(--spacing-5);
+  border-top: 0.5px solid var(--grey-200);
 }

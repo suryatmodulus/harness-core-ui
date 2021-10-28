@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, FlexExpander, Heading, Layout, Text, PageError, useToaster } from '@wings-software/uicore'
 import type { HeadingProps } from '@wings-software/uicore/dist/components/Heading/Heading'
@@ -14,6 +14,9 @@ import {
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import { GitSyncFormValues, UseGitSync, useGitSync } from '@cf/hooks/useGitSync'
+import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { DetailHeading } from '../DetailHeading'
 
 export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }> = () => {
@@ -41,46 +44,76 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
     identifier: '',
     queryParams
   })
-  const addSegmentToFlags = async (selectedFeatureFlags: SelectedFeatureFlag[]): Promise<void> => {
+
+  const gitSync = useGitSync()
+
+  const addSegmentToFlags = async (
+    selectedFeatureFlags: SelectedFeatureFlag[],
+    gitFormValues?: GitSyncFormValues
+  ): Promise<void> => {
     // Note: Due to https://harness.atlassian.net/browse/FFM-713 not done, we make
     // multiple patch APIs instead of single one
+
     return await Promise.all(
-      selectedFeatureFlags.map(({ feature, variationIdentifier }) =>
-        patchFeature(
+      selectedFeatureFlags.map(({ feature, variationIdentifier }) => {
+        const patchInstruction = {
+          instructions: [
+            {
+              kind: 'addSegmentToVariationTargetMap',
+              parameters: { variation: variationIdentifier, targetSegments: [segmentIdentifier] }
+            }
+          ]
+        }
+
+        return patchFeature(
+          gitFormValues ? { ...patchInstruction, gitDetails: gitFormValues.gitDetails } : patchInstruction,
           {
-            instructions: [
-              {
-                kind: 'addSegmentToVariationTargetMap',
-                parameters: { variation: variationIdentifier, targetSegments: [segmentIdentifier] }
-              }
-            ]
-          },
-          { pathParams: { identifier: feature.identifier } }
+            pathParams: { identifier: feature.identifier }
+          }
         )
-      )
+      })
     )
-      .then(() => {
+      .then(async () => {
+        if (gitFormValues?.autoCommit) {
+          await gitSync.handleAutoCommit(gitFormValues?.autoCommit)
+        }
         refetchFlags()
       })
       .catch(exception => showError(getErrorMessage(exception), undefined, 'cf.path.feature.error'))
   }
+
   const removeSegmentToVariationTargetMap = async (
     featureFlagIdentifier: string,
-    variationIdentifier: string
+    variationIdentifier: string,
+    gitSyncFormValues?: GitSyncFormValues
   ): Promise<void> => {
-    patchFeature(
-      {
-        instructions: [
-          {
-            kind: 'removeSegmentToVariationTargetMap',
-            parameters: { variation: variationIdentifier, targetSegments: [segmentIdentifier] }
-          }
-        ]
-      },
-      { pathParams: { identifier: featureFlagIdentifier } }
-    )
-      .then(() => {
-        refetchFlags()
+    let gitDetails
+    if (gitSync) {
+      const { gitSyncInitialValues } = gitSync.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.DELETED_FLAG_FROM_SEGMENT)
+
+      if (gitSync.isGitSyncEnabled) {
+        if (gitSync.isAutoCommitEnabled) {
+          gitDetails = gitSyncInitialValues.gitDetails
+        } else {
+          gitDetails = gitSyncFormValues?.gitDetails
+        }
+      }
+    }
+
+    const instructions = {
+      instructions: [
+        {
+          kind: 'removeSegmentToVariationTargetMap',
+          parameters: { variation: variationIdentifier, targetSegments: [segmentIdentifier] }
+        }
+      ]
+    }
+
+    await patchFeature(gitSync.isGitSyncEnabled ? { ...instructions, gitDetails } : instructions, {
+      pathParams: { identifier: featureFlagIdentifier }
+    })
+      .then(async () => {
+        await refetchFlags()
       })
       .catch(exception => showError(getErrorMessage(exception), undefined, 'cf.patch.feature.error'))
   }
@@ -104,7 +137,9 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
           environmentIdentifier={activeEnvironment}
           modalTitle={getString('cf.segmentDetail.addSegmentToFlag')}
           submitButtonTitle={getString('add')}
-          onSubmit={addSegmentToFlags}
+          onSubmit={async (checkedFeatureFlags, gitSyncFormValues) =>
+            await addSegmentToFlags(checkedFeatureFlags, gitSyncFormValues)
+          }
           shouldDisableItem={feature =>
             (flags?.filter(flag => flag.type === EntityAddingMode.DIRECT) || [])
               .map(flag => flag.identifier)
@@ -118,7 +153,9 @@ export const FlagsUseSegment: React.FC<{ segment?: Segment | undefined | null }>
         style={{ overflow: 'auto', padding: '0 var(--spacing-xxlarge) var(--spacing-xxlarge)' }}
       >
         {error && <PageError message={getErrorMessage(error)} onClick={() => refetchFlags()} />}
-        {!error && !loading && <FlagsList flags={flags} onRemoveVariationMapping={removeSegmentToVariationTargetMap} />}
+        {!error && !loading && (
+          <FlagsList flags={flags} gitSync={gitSync} onRemoveVariationMapping={removeSegmentToVariationTargetMap} />
+        )}
         {loading && <ContainerSpinner />}
       </Container>
     </Container>
@@ -164,9 +201,10 @@ const SectionHeader: React.FC<HeadingProps> = ({ children, ...props }) => {
 }
 
 const FlagsList: React.FC<{
+  gitSync: UseGitSync
   flags: SegmentFlagsResponseResponse | null
   onRemoveVariationMapping: (featureFlagIdentifier: string, variationIdentifier: string) => Promise<void>
-}> = ({ flags, onRemoveVariationMapping }) => {
+}> = ({ flags, onRemoveVariationMapping, gitSync }) => {
   const { getString } = useStrings()
   const directAddedFlags = flags?.filter(flag => flag.type === EntityAddingMode.DIRECT) || []
   const conditionalAddedFlags = flags?.filter(flag => flag.type === EntityAddingMode.CONDITION) || []
@@ -179,11 +217,15 @@ const FlagsList: React.FC<{
     <>
       {!!directAddedFlags?.length && (
         <>
-          {' '}
           <SectionHeader>{getString('cf.segmentDetail.directlyAdded')}</SectionHeader>
           <Layout.Vertical spacing="small" style={{ padding: '1px' }}>
             {directAddedFlags.map(_flag => (
-              <FlagItem key={_flag.identifier} flag={_flag} onRemoveVariationMapping={onRemoveVariationMapping} />
+              <FlagItem
+                key={_flag.identifier}
+                flag={_flag}
+                gitSync={gitSync}
+                onRemoveVariationMapping={onRemoveVariationMapping}
+              />
             ))}
           </Layout.Vertical>
         </>
@@ -193,7 +235,7 @@ const FlagsList: React.FC<{
           <SectionHeader>{getString('cf.segmentDetail.autoAdded')}</SectionHeader>
           <Layout.Vertical spacing="small" style={{ padding: '1px' }}>
             {conditionalAddedFlags.map(_flag => (
-              <FlagItem key={_flag.identifier} flag={_flag} />
+              <FlagItem key={_flag.identifier} flag={_flag} gitSync={gitSync} />
             ))}
           </Layout.Vertical>
         </>
@@ -203,14 +245,20 @@ const FlagsList: React.FC<{
 }
 
 interface FlagItemProps extends ItemContainerProps {
+  gitSync: UseGitSync
   flag: SegmentFlag
-  onRemoveVariationMapping?: (featureFlagIdentifier: string, variationIdentifier: string) => void
+  onRemoveVariationMapping?: (
+    featureFlagIdentifier: string,
+    variationIdentifier: string,
+    formValues?: GitSyncFormValues
+  ) => void
 }
 
-const FlagItem: React.FC<FlagItemProps> = ({ flag, onRemoveVariationMapping, ...props }) => {
+const FlagItem: React.FC<FlagItemProps> = ({ gitSync, flag, onRemoveVariationMapping, ...props }) => {
   const { name, description, variation } = flag
   const { getString } = useStrings()
   const variationTextWidth = onRemoveVariationMapping ? '88px' : '135px'
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   return (
     <ItemContainer style={{ paddingRight: 'var(--spacing-xsmall)' }} {...props}>
@@ -236,13 +284,27 @@ const FlagItem: React.FC<FlagItemProps> = ({ flag, onRemoveVariationMapping, ...
                 text: getString('cf.segmentDetail.removeFomFlag'),
                 icon: 'cross',
                 onClick: () => {
-                  onRemoveVariationMapping(flag.identifier, variation)
+                  if (gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
+                    setIsDeleteModalOpen(true)
+                  } else {
+                    onRemoveVariationMapping(flag.identifier, variation)
+                  }
                 }
               }
             ]}
           />
         )}
       </Layout.Horizontal>
+      {isDeleteModalOpen && (
+        <SaveFlagToGitModal
+          flagName={flag.name}
+          flagIdentifier={flag.identifier}
+          onSubmit={formValues => onRemoveVariationMapping?.(flag.identifier, variation, formValues)}
+          onClose={() => {
+            setIsDeleteModalOpen(false)
+          }}
+        />
+      )}
     </ItemContainer>
   )
 }

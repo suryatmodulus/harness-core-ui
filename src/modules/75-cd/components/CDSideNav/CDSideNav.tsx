@@ -52,7 +52,7 @@ export default function CDSideNav(): React.ReactElement {
   const { updateAppStore } = useAppStore()
   const { CD_OVERVIEW_PAGE, ARGO_PHASE1 } = useFeatureFlags()
   const { getString } = useStrings()
-  const { trial } = useQueryParams<{ trial?: boolean }>()
+  const { trial, community } = useQueryParams<{ trial?: boolean; community?: boolean }>()
 
   return (
     <Layout.Vertical spacing="small">
@@ -123,7 +123,7 @@ export default function CDSideNav(): React.ReactElement {
                 orgIdentifier: data.orgIdentifier
               })
             )
-          } else if (trial) {
+          } else if (trial || community) {
             // when it's on trial page, forward to pipeline
             history.push({
               pathname: routes.toPipelineStudio({

@@ -23,6 +23,7 @@ headers: Headers
 durationPrefix: 'Duration: '
 pipelineDetails: Pipeline Details
 accountName: Account Name
+serviceType: Service Type
 readOnly: Read Only
 editYaml: Edit YAML
 provisioner: Provisioner
@@ -516,6 +517,7 @@ policy:
   noPolicy: You have no Policy. Click on the button below to create a new one.
   noPolicyResult: No policy found
   noPolicyEvalResult: No policy Evaluations found
+  noSelectInput: Select appropriate options
   table:
     name: Policy
     lastModified: Last Modified
@@ -583,6 +585,10 @@ module:
 customPricing: for Custom Pricing
 specified: Specified
 file: File
+entityReferenceTitle: 'Create or Select an Existing {{compName}}'
+entityReferenceSubTitle: 'Choose {{compName}} based on the scope'
+noConnectorAvailable: No Existing Connectors available
+lastConnectedOn: Last connected on
 selectAVersion:
   title: Select a version to proceed
   description: Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
@@ -603,9 +609,18 @@ delete: Delete {{ name }}?
 suggestionsLabel: 'Suggestions:'
 refreshPage: refresh your page.
 files: Files
-saveAsNewTemplateHeading: Save as New Template
-saveTemplate:
-  publishTemplate: Template published successfully
-  errorWhileSaving: Error occurred saving Template
+template:
+  saveAsNewTemplateHeading: Save as New Template
+  saveTemplate:
+    publishTemplate: Template published successfully
+    errorWhileSaving: Error occurred saving Template
+  updateTemplate:
+    templateUpdated: Template Updated
+    errorWhileUpdating: Error occurred updating Template
+  deleteTemplate:
+    templatesDeleted: 'Templates "{{ name }}" Deleted'
+    errorWhileDeleting: Error occurred deleting Templates
 viewLatest: View latest
 viewUsage: View Usage
+selected: 'Selected:'
+friendlyMessage: Friendly message

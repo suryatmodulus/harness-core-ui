@@ -234,7 +234,8 @@ export function ExecutionFilters(): React.ReactElement {
             isCIEnabled={isCIEnabled}
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
-              services: getMultiSelectFormOptions(servicesResponse?.data?.content)
+              services: getMultiSelectFormOptions(servicesResponse?.data?.content),
+              deploymentType: [{ label: getString('kubernetesText'), value: 'Kubernetes' }]
             }}
             type="PipelineExecution"
           />
@@ -249,7 +250,7 @@ export function ExecutionFilters(): React.ReactElement {
             sourceBranch,
             targetBranch,
             buildType,
-            deploymentType: serviceDefinitionTypes ? serviceDefinitionTypes[0] : undefined,
+            deploymentType: getMultiSelectFormOptions(serviceDefinitionTypes),
             infrastructureType,
             services: getMultiSelectFormOptions(serviceIdentifiers),
             environments: getMultiSelectFormOptions(envIdentifiers)

@@ -61,14 +61,6 @@ describe('GitOps Adapters List snapshot test', () => {
     await waitFor(() => expect(document.getElementsByClassName('bp3-portal')[0]).toBeTruthy())
   })
 
-  test('Render pagination and test page change', async () => {
-    const { container } = setup()
-    const paginationInfo = container?.querySelector('.Pagination--container .Pagination--text')
-
-    expect(paginationInfo).toBeTruthy()
-    expect(container).toMatchSnapshot()
-  })
-
   test('Render adapters list and open an adapter', async () => {
     const { container } = setup()
     const firstCard = container.querySelector('.uicore-masonry-layout--item-0')

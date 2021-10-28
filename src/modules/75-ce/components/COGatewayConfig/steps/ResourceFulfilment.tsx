@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-import { get as _get } from 'lodash-es'
+import React, { useCallback, useState } from 'react'
+import { get as _get, defaultTo as _defaultTo, debounce as _debounce, isEmpty as _isEmpty } from 'lodash-es'
 import * as Yup from 'yup'
-import { CardSelect, Formik, FormikForm, FormInput, Layout, Text } from '@wings-software/uicore'
+import { CardSelect, Container, Formik, FormikForm, FormInput, Layout, Text } from '@wings-software/uicore'
 import type { FormikContext } from 'formik'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
-import { CONFIG_STEP_IDS } from '@ce/constants'
+import { CONFIG_STEP_IDS, RESOURCES } from '@ce/constants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings } from 'framework/strings'
 import { Utils } from '@ce/common/Utils'
+import { useToaster } from '@common/exports'
 import COGatewayConfigStep from '../COGatewayConfigStep'
 import odIcon from '../images/ondemandIcon.svg'
 import spotIcon from '../images/spotIcon.svg'
@@ -18,6 +19,7 @@ interface ResourceFulfilmentProps {
   setGatewayDetails: (details: GatewayDetails) => void
   setDrawerOpen: (status: boolean) => void
   totalStepsCount: number
+  selectedResource?: RESOURCES | null
 }
 
 interface CardData {
@@ -42,14 +44,18 @@ const instanceTypeCardData: CardData[] = [
   }
 ]
 
+const allowedResources = [RESOURCES.INSTANCES, RESOURCES.ASG, RESOURCES.ECS]
+
 const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const { showError } = useToaster()
 
   const [selectedInstanceType, setSelectedInstanceType] = useState<CardData | null>(
-    props.gatewayDetails.fullfilment
-      ? instanceTypeCardData[instanceTypeCardData.findIndex(card => card.value === props.gatewayDetails.fullfilment)]
-      : null
+    _defaultTo(
+      instanceTypeCardData[instanceTypeCardData.findIndex(card => card.value === props.gatewayDetails.fullfilment)],
+      null
+    )
   )
 
   const handleODChange = (formik: FormikContext<any>, val: string) => {
@@ -65,9 +71,11 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
       // eslint-disable-next-line
       updatedGatewayDetails.routing.instance.scale_group = {
         ...props.gatewayDetails.routing.instance.scale_group,
-        desired: props.gatewayDetails.routing?.instance?.scale_group?.mixed_instance
-          ? props.gatewayDetails.routing.instance.scale_group?.max
-          : numericVal, // desired = od + spot (which is always equal to max capacity)
+        desired: Utils.getConditionalResult(
+          Boolean(props.gatewayDetails.routing?.instance?.scale_group?.mixed_instance),
+          props.gatewayDetails.routing.instance.scale_group?.max,
+          numericVal
+        ), // desired = od + spot (which is always equal to max capacity)
         on_demand: numericVal, // eslint-disable-line
         ...(props.gatewayDetails.routing?.instance?.scale_group?.mixed_instance && {
           spot: (props.gatewayDetails.routing.instance.scale_group?.max as number) - numericVal // eslint-disable-line
@@ -98,31 +106,71 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
   }
 
   const handleAsgInstancesChange = (formik: FormikContext<any>, val: string, instanceType: 'OD' | 'SPOT') => {
-    if (instanceType === 'OD') {
-      handleODChange(formik, val)
-    } else if (instanceType === 'SPOT') {
-      handleSpotChange(formik, val)
+    const instanceTypeHandlerMap: Record<string, () => void> = {
+      OD: () => {
+        handleODChange(formik, val)
+      },
+      SPOT: () => {
+        handleSpotChange(formik, val)
+      }
     }
+    instanceTypeHandlerMap[instanceType]?.()
+  }
+
+  const handleEcsTaskCountUpdate = useCallback(
+    _debounce((updatedCount: string) => {
+      try {
+        const updatedGatewayDetails: GatewayDetails = {
+          ...props.gatewayDetails,
+          routing: {
+            ...props.gatewayDetails.routing,
+            container_svc: { ...props.gatewayDetails.routing.container_svc, task_count: +updatedCount }
+          }
+        }
+        props.setGatewayDetails(updatedGatewayDetails)
+      } catch (e) {
+        showError(getString('ce.co.autoStoppingRule.configuration.step3.invalidValueErrorMsg'))
+      }
+    }, 700),
+    [props.gatewayDetails.routing.container_svc]
+  )
+
+  const getTitle = () => {
+    let title = getString('ce.co.autoStoppingRule.configuration.step3.title')
+    if (props.selectedResource === RESOURCES.ASG) {
+      title = getString('ce.co.autoStoppingRule.configuration.step3.asgTitle')
+    }
+    if (props.selectedResource === RESOURCES.ECS) {
+      title = getString('ce.co.autoStoppingRule.configuration.step3.desiredTaskCount')
+    }
+    return title
+  }
+
+  const getSubTitle = () => {
+    let subStr = getString('ce.co.autoStoppingRule.configuration.step3.subTitle')
+    if (props.selectedResource === RESOURCES.ASG) {
+      subStr = getString('ce.co.autoStoppingRule.configuration.step3.asgSubTitle')
+    }
+    if (props.selectedResource === RESOURCES.ECS) {
+      subStr = getString('ce.co.autoStoppingRule.configuration.step3.ecsSubTitle')
+    }
+    return subStr
+  }
+
+  if (props.selectedResource && !(allowedResources.indexOf(props.selectedResource) > -1)) {
+    return null
   }
 
   return (
     <COGatewayConfigStep
       count={3}
-      title={
-        props.gatewayDetails.routing?.instance?.scale_group
-          ? getString('ce.co.autoStoppingRule.configuration.step3.asgTitle')
-          : getString('ce.co.autoStoppingRule.configuration.step3.title')
-      }
+      title={getTitle()}
       onInfoIconClick={() => props.setDrawerOpen(true)}
-      subTitle={
-        props.gatewayDetails.routing?.instance?.scale_group
-          ? getString('ce.co.autoStoppingRule.configuration.step3.asgSubTitle')
-          : getString('ce.co.autoStoppingRule.configuration.step3.subTitle')
-      }
+      subTitle={getSubTitle()}
       totalStepsCount={props.totalStepsCount}
       id={CONFIG_STEP_IDS[2]}
     >
-      {!props.gatewayDetails.routing?.instance?.scale_group && (
+      {(!props.selectedResource || props.selectedResource === RESOURCES.INSTANCES) && (
         <Layout.Vertical>
           <CardSelect
             data={instanceTypeCardData.filter(_instanceType =>
@@ -155,24 +203,24 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
           </Layout.Horizontal>
         </Layout.Vertical>
       )}
-      {props.gatewayDetails.routing?.instance?.scale_group && (
+      {props.selectedResource === RESOURCES.ASG && (
         <Layout.Horizontal className={css.asgInstanceSelectionContianer}>
           <div className={css.asgInstanceDetails}>
             <Text className={css.asgDetailRow}>
               <span>Desired capacity: </span>
               <span>
-                {props.gatewayDetails.routing?.instance?.scale_group.desired ||
+                {props.gatewayDetails.routing?.instance?.scale_group?.desired ||
                   (props.gatewayDetails.routing.instance.scale_group?.on_demand || 0) +
                     (props.gatewayDetails.routing.instance.scale_group?.spot || 0)}
               </span>
             </Text>
             <Text className={css.asgDetailRow}>
               <span>Min capacity: </span>
-              <span>{props.gatewayDetails.routing?.instance?.scale_group.min}</span>
+              <span>{props.gatewayDetails.routing?.instance?.scale_group?.min}</span>
             </Text>
             <Text className={css.asgDetailRow}>
               <span>Max capacity: </span>
-              <span>{props.gatewayDetails.routing?.instance?.scale_group.max}</span>
+              <span>{props.gatewayDetails.routing?.instance?.scale_group?.max}</span>
             </Text>
           </div>
           <div className={css.asgInstanceFormContainer}>
@@ -180,7 +228,7 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
               initialValues={{
                 odInstance:
                   props.gatewayDetails.routing.instance.scale_group?.on_demand ||
-                  props.gatewayDetails.routing?.instance?.scale_group.desired,
+                  props.gatewayDetails.routing?.instance?.scale_group?.desired,
                 spotInstance: _get(props.gatewayDetails.routing.instance.scale_group, 'spot', 0)
               }}
               formName="odInstance"
@@ -233,15 +281,45 @@ const ResourceFulfilment: React.FC<ResourceFulfilmentProps> = props => {
                   .required()
                   .positive()
                   .min(0)
-                  .max(props.gatewayDetails.routing?.instance?.scale_group.max as number),
+                  .max(props.gatewayDetails.routing?.instance?.scale_group?.max as number),
                 spotInstance: Yup.number()
                   .positive()
                   .min(0)
-                  .max(props.gatewayDetails.routing?.instance?.scale_group.max as number)
+                  .max(props.gatewayDetails.routing?.instance?.scale_group?.max as number)
               })}
             ></Formik>
           </div>
         </Layout.Horizontal>
+      )}
+      {props.selectedResource === RESOURCES.ECS && (
+        <Container>
+          <Formik
+            initialValues={{
+              taskCount: props.gatewayDetails.routing.container_svc?.task_count || 1
+            }}
+            enableReinitialize
+            formName=""
+            onSubmit={_ => {
+              return
+            }}
+            validationSchema={Yup.object().shape({
+              taskCount: Yup.number().required().positive().min(1)
+            })}
+          >
+            {_formikProps => (
+              <FormikForm>
+                <FormInput.Text
+                  name={'taskCount'}
+                  inputGroup={{ type: 'number', pattern: '[0-9]*' }}
+                  label={<Text>{getString('ce.co.autoStoppingRule.configuration.step3.desiredTaskCount')}</Text>}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleEcsTaskCountUpdate(e.target.value)}
+                  style={{ maxWidth: 200 }}
+                  disabled={_isEmpty(props.gatewayDetails.routing.container_svc)}
+                />
+              </FormikForm>
+            )}
+          </Formik>
+        </Container>
       )}
     </COGatewayConfigStep>
   )

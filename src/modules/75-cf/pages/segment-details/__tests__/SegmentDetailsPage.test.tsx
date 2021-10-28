@@ -7,6 +7,18 @@ import mockSegment from './mockSegment'
 import mockTargets from './mockTargets'
 import mockEnvironment from '../../environment-details/__tests__/mockEnvironment'
 
+jest.mock('@cf/hooks/useGitSync', () => ({
+  useGitSync: jest.fn(() => ({
+    getGitSyncFormMeta: jest.fn(() => ({
+      gitSyncInitialValues: {},
+      gitSyncValidationSchema: {}
+    })),
+    isAutoCommitEnabled: false,
+    isGitSyncEnabled: true,
+    handleAutoCommit: jest.fn()
+  }))
+}))
+
 describe('SegmentDetailsPage', () => {
   test('SegmentDetailsPage should render loading correctly', async () => {
     mockImport('services/cf', {

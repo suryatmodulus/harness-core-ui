@@ -9,8 +9,8 @@ import RbacButton from '@rbac/components/Button/Button'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 
-import type { ChildAppProps, Scope } from './microfrontendTypes'
 import ChildAppError from './ChildAppError'
+import type { ChildAppProps, Scope } from './index'
 
 export interface ChildAppMounterProps extends RouteComponentProps<Scope> {
   ChildApp: React.LazyExoticComponent<React.ComponentType<ChildAppProps>>

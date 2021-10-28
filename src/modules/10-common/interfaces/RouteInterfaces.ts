@@ -173,6 +173,18 @@ export interface SubscriptionQueryParams {
   tab?: 'OVERVIEW' | 'PLANS' | 'BILLING'
 }
 
-export interface TemplateStudioQueryParams {
+export interface TemplateStudioQueryParams extends GitQueryParams {
   versionLabel?: string
+}
+
+type RequireField<T, K extends keyof T> = T & Required<Pick<T, K>>
+
+export interface GovernancePathProps
+  extends RequireField<
+    Partial<Pick<ProjectPathProps, 'accountId' | 'orgIdentifier' | 'projectIdentifier'> & ModulePathParams>,
+    'accountId'
+  > {
+  policyIdentifier?: string
+  policySetIdentifier?: string
+  evaluationId?: string
 }

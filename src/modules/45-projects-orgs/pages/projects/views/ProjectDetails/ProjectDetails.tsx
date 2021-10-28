@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Color, Container, Icon, Layout, Popover, Text } from '@wings-software/uicore'
+import { Button, Color, Container, FontVariation, Icon, Layout, Popover, Text } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Classes, Position } from '@blueprintjs/core'
 import ReactTimeago from 'react-timeago'
@@ -132,8 +132,16 @@ const ProjectDetails: React.FC = () => {
               flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
             >
               <div className={css.colorBar} style={{ backgroundColor: projectData.color }} />
+              <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.GREY_500} lineClamp={1}>
+                {getString('idLabel', { id: projectData.identifier })}
+              </Text>
+              <div className={css.divider} />
+              <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.GREY_500} lineClamp={1}>
+                {`${getString('orgLabel')}: ${projectData.orgIdentifier}`}
+              </Text>
+              <div className={css.divider} />
               {data?.data?.projectResponse.lastModifiedAt ? (
-                <Text color={Color.GREY_500} font={{ size: 'small' }}>
+                <Text color={Color.GREY_500} font={{ variation: FontVariation.SMALL_SEMI }}>
                   {`${getString('common.modified')} `}
                   <ReactTimeago date={data?.data?.projectResponse.lastModifiedAt} />
                 </Text>
@@ -148,26 +156,9 @@ const ProjectDetails: React.FC = () => {
               >
                 {projectData.name}
               </Text>
-              <Text
-                font={{ size: 'small', weight: 'semi-bold' }}
-                color={Color.GREY_500}
-                lineClamp={1}
-                padding={{ right: 'medium' }}
-              >
-                {getString('idLabel', { id: projectData.identifier })}
-              </Text>
-              <div className={css.divider} />
-              <Text
-                font={{ size: 'small', weight: 'semi-bold' }}
-                color={Color.GREY_500}
-                lineClamp={1}
-                padding={{ left: 'medium' }}
-              >
-                {`${getString('orgLabel')}: ${projectData.orgIdentifier}`}
-              </Text>
             </Layout.Horizontal>
             {projectData.description ? (
-              <Text font="small" color={Color.BLACK} lineClamp={2}>
+              <Text font="small" color={Color.BLACK} lineClamp={1}>
                 {projectData.description}
               </Text>
             ) : null}

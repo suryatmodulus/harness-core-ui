@@ -1,12 +1,13 @@
 import React from 'react'
 import moment from 'moment'
 import { get } from 'lodash-es'
-import { Card, Layout, Text, Icon, Accordion } from '@wings-software/uicore'
+import { Card, Layout, Text, Icon, Accordion, Container } from '@wings-software/uicore'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import type { CIBuildCommit, CIPipelineModuleInfo } from 'services/ci'
 import { UserLabel, TimeAgoPopover } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { CommitId } from '@ci/components/CommitsInfo/CommitsInfo'
+import commitsEmptyState from './images/commits_empty_state.svg'
 import css from './BuildCommits.module.scss'
 
 interface CommitsGroupedByTimestamp {
@@ -39,7 +40,12 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
             </Text>
           )}
         </div>
-        <Layout.Horizontal flex={{ alignItems: 'center' }} spacing="medium">
+        <Layout.Horizontal
+          className={css.rightSideCommitDetails}
+          style={{ marginLeft: 'var(--spacing-3)' }}
+          flex={{ alignItems: 'center' }}
+          spacing="medium"
+        >
           {ownerName && (
             <UserLabel
               className={css.user}
@@ -49,7 +55,7 @@ const Commits: React.FC<{ commits: CIBuildCommit[]; showAvatar?: boolean }> = ({
               iconProps={{ size: 16 }}
             />
           )}
-          <TimeAgoPopover time={timeStamp} inline={false} />
+          <TimeAgoPopover className={css.timeStamp} time={timeStamp} inline={false} />
           {id && <CommitId commitId={id} commitLink={link} />}
         </Layout.Horizontal>
       </Card>
@@ -78,6 +84,7 @@ const CommitsGroupedByTimestamp: React.FC<{
 
 const BuildCommits: React.FC = () => {
   const context = useExecutionContext()
+  const { getString } = useStrings()
 
   const ciData = get(context, 'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci') as CIPipelineModuleInfo
 
@@ -113,10 +120,22 @@ const BuildCommits: React.FC = () => {
       triggerCommitsGroupedByTimestamp.push({ timeStamp: commit.timeStamp || 0, commits: [commit] })
     }
   })
+  const hasTriggerCommits = triggerCommits && triggerCommits.length > 0
+  if (!hasTriggerCommits && codebaseCommitsGroupedByTimestamp.length === 0) {
+    return (
+      <Container className={css.emptyCommits}>
+        <img src={commitsEmptyState} />
+        <Text font={{ size: 'medium' }} padding={{ top: 'xlarge' }}>
+          {getString('ci.commitsTab.youHaveNoCommits')}
+        </Text>
+        <Text padding={{ top: 'xsmall' }}>{getString('ci.commitsTab.youWillSeeYourCommitsHere')}</Text>
+      </Container>
+    )
+  }
 
   return (
     <div className={css.wrapper}>
-      {triggerCommits && triggerCommits.length > 0 ? (
+      {hasTriggerCommits ? (
         <>
           <Accordion activeId="codebase-commits">
             <Accordion.Panel

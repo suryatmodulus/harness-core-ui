@@ -76,3 +76,6 @@ gradleNote1: |
 gradleNote2: Test intelligence assumes ./gradlew is present in the root of the project. If not, it falls back to the gradle tool to run the tests. As long as the gradle version has test filtering support, it will be able to run test intelligence
 testSummary: Test Summary
 successful: Successful
+commitsTab:
+  youHaveNoCommits: You have no commits
+  youWillSeeYourCommitsHere: You will see your commits here

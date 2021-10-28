@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   Button,
   ButtonSize,
@@ -6,18 +6,31 @@ import {
   Color,
   Container,
   DropDown,
+  FontVariation,
   Icon,
   Layout,
   SelectOption,
   Text,
   useModalHook
 } from '@wings-software/uicore'
-import { isEmpty, isNil } from 'lodash-es'
 import { useParams, useHistory } from 'react-router-dom'
+import { defaultTo, isEmpty, isNil, merge } from 'lodash-es'
 import { Dialog } from '@blueprintjs/core'
+import {
+  Fields,
+  ModalProps,
+  PromiseExtraArgs,
+  TemplateConfigModal
+} from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import { TagsPopover, useToaster } from '@common/components'
+
 import templateFactory from '@templates-library/components/Templates/TemplatesFactory'
-import type { ModulePathParams, TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
+import type {
+  GitQueryParams,
+  ModulePathParams,
+  TemplateStudioPathProps,
+  TemplateStudioQueryParams
+} from '@common/interfaces/RouteInterfaces'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import routes from '@common/RouteDefinitions'
@@ -27,17 +40,39 @@ import type { UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useS
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { Fields, ModalProps, TemplateConfigModal } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { DefaultNewTemplateId, DefaultNewVersionLabel } from 'framework/Templates/templates'
+import GitPopover from '@pipeline/components/GitPopover/GitPopover'
+import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
+import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import css from './TemplateStudioSubHeaderLeftView.module.scss'
 
-export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
-  const { state, updateTemplate, deleteTemplateCache, fetchTemplate, view, isReadonly, setLoading } =
-    useContext(TemplateContext)
-  const { template, versions, stableVersion, isUpdated, isInitialized } = state
+interface TemplateWithGitContextFormProps extends NGTemplateInfoConfig {
+  repo?: string
+  branch?: string
+}
+
+interface TemplateStudioSubHeaderLeftViewProps {
+  onGitBranchChange: (selectedFilter: GitFilterScope) => void
+}
+
+export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLeftViewProps) => JSX.Element = ({
+  onGitBranchChange
+}) => {
+  const { state, updateTemplate, deleteTemplateCache, fetchTemplate, view, isReadonly, setLoading, updateGitDetails } =
+    React.useContext(TemplateContext)
+  const { template, versions, stableVersion, isUpdated, isInitialized, gitDetails } = state
   const { accountId, projectIdentifier, orgIdentifier, module, templateType, templateIdentifier } = useParams<
     TemplateStudioPathProps & ModulePathParams
   >()
+  const { updateQueryParams } = useUpdateQueryParams<TemplateStudioQueryParams>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
+  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const iconColor = templateFactory.getTemplateColor(templateType) || Color.BLACK
   const [modalProps, setModalProps] = React.useState<ModalProps>()
   const isYaml = view === SelectedView.YAML
@@ -60,7 +95,18 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
   const [showConfigModal, hideConfigModal] = useModalHook(
     () => (
       <Dialog enforceFocus={false} isOpen={true} className={css.createTemplateDialog}>
-        {modalProps && <TemplateConfigModal initialValues={template} onClose={onCloseCreate} modalProps={modalProps} />}
+        {modalProps && (
+          <TemplateConfigModal
+            initialValues={merge(template, {
+              repo: defaultTo(gitDetails.repoIdentifier, ''),
+              branch: defaultTo(gitDetails.branch, '')
+            })}
+            onClose={onCloseCreate}
+            modalProps={modalProps}
+            showGitFields={true}
+            gitDetails={gitDetails as IGitContextFormProps}
+          />
+        )}
       </Dialog>
     ),
     [template, modalProps]
@@ -83,14 +129,31 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
   ])
 
   const onSubmit = React.useCallback(
-    async (data: NGTemplateInfoConfig): Promise<UseSaveSuccessResponse> => {
+    async (data: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs): Promise<UseSaveSuccessResponse> => {
+      let { updatedGitDetails } = extraInfo
       template.name = data.name
       template.description = data.description
       template.identifier = data.identifier
       template.tags = data.tags ?? {}
       template.versionLabel = data.versionLabel
+      delete (template as TemplateWithGitContextFormProps).repo
+      delete (template as TemplateWithGitContextFormProps).branch
+
       try {
         await updateTemplate(template)
+        if (updatedGitDetails) {
+          if (gitDetails?.objectId) {
+            updatedGitDetails = { ...gitDetails, ...updatedGitDetails }
+          }
+          updateGitDetails(updatedGitDetails).then(() => {
+            if (updatedGitDetails) {
+              updateQueryParams(
+                { repoIdentifier: updatedGitDetails.repoIdentifier, branch: updatedGitDetails.branch },
+                { skipNulls: true }
+              )
+            }
+          })
+        }
         return { status: 'SUCCESS' }
       } catch (error) {
         return { status: 'ERROR' }
@@ -99,7 +162,7 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
     [template]
   )
 
-  const goToTemplateVersion = async (versionLabel: string) => {
+  const goToTemplateVersion = async (versionLabel: string): Promise<void> => {
     if (versionLabel !== DefaultNewVersionLabel && versionLabel !== template.versionLabel) {
       await deleteTemplateCache()
       history.replace(
@@ -110,20 +173,34 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
           module,
           templateType: template.type,
           templateIdentifier: template.identifier,
-          versionLabel: versionLabel
+          versionLabel: versionLabel,
+          repoIdentifier,
+          branch
         })
       )
     }
   }
 
+  const { openDialog: openConfirmationDialog } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: getString('templatesLibrary.setAsStableText', { version: template.versionLabel }),
+    titleText: getString('templatesLibrary.setAsStableTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: isConfirmed => {
+      if (isConfirmed) {
+        updateStableLabel()
+      }
+    }
+  })
+
   const updateStableLabel = async () => {
     try {
       await updateStableTemplate()
-      showSuccess(getString('templatesLibrary.templateUpdated'))
+      showSuccess(getString('common.template.updateTemplate.templateUpdated'))
       await fetchTemplate({ forceFetch: true, forceUpdate: true })
     } catch (error) {
       showError(
-        error?.message || getString('templatesLibrary.errorWhileUpdating'),
+        error?.message || getString('common.template.updateTemplate.errorWhileUpdating'),
         undefined,
         'template.save.template.error'
       )
@@ -163,6 +240,83 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
     }
   }, [template?.identifier, showConfigModal, isInitialized, template.type])
 
+  const GitDetails: React.FC = React.useCallback(() => {
+    if (gitDetails?.objectId || (templateIdentifier === DefaultNewTemplateId && gitDetails.repoIdentifier)) {
+      const repoName: string = getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name || ''
+      const folderName = `${gitDetails?.rootFolder || ''}${gitDetails?.filePath || ''}`
+      return (
+        <>
+          <Layout.Vertical spacing="large">
+            {templateIdentifier === DefaultNewTemplateId && !loadingRepos ? (
+              <Text font={{ size: 'small' }} color={Color.GREY_400}>
+                {getString('repository')}
+              </Text>
+            ) : (
+              <Text font={{ size: 'small' }} color={Color.GREY_400}>
+                {getString('common.git.filePath')}
+              </Text>
+            )}
+            <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+              <Icon name="repository" size={16} color={Color.GREY_700} />
+              {templateIdentifier === DefaultNewTemplateId && !loadingRepos ? (
+                <Text
+                  font={FontVariation.SMALL}
+                  style={{ wordWrap: 'break-word', maxWidth: '200px' }}
+                  lineClamp={1}
+                  color={Color.GREY_800}
+                >
+                  {repoName}
+                </Text>
+              ) : (
+                <Text
+                  font={FontVariation.SMALL}
+                  style={{ wordWrap: 'break-word', maxWidth: '200px' }}
+                  lineClamp={1}
+                  color={Color.GREY_800}
+                >
+                  {folderName}
+                </Text>
+              )}
+            </Layout.Horizontal>
+          </Layout.Vertical>
+
+          <Layout.Vertical spacing="large">
+            <Text font={{ size: 'small' }} color={Color.GREY_400}>
+              {getString('pipelineSteps.deploy.inputSet.branch')}
+            </Text>
+            <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+              {templateIdentifier === DefaultNewTemplateId || isReadonly ? (
+                <>
+                  <Icon name="git-new-branch" size={14} color={Color.GREY_700} />
+                  <Text
+                    font={FontVariation.SMALL}
+                    style={{ wordWrap: 'break-word', maxWidth: '200px' }}
+                    lineClamp={1}
+                    color={Color.GREY_800}
+                  >
+                    {gitDetails?.branch}
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Icon name="git-new-branch" size={14} color={Color.GREY_700} />
+                  <GitFilters
+                    onChange={onGitBranchChange}
+                    showRepoSelector={false}
+                    defaultValue={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
+                    showBranchIcon={false}
+                  />
+                </>
+              )}
+            </Layout.Horizontal>
+          </Layout.Vertical>
+        </>
+      )
+    } else {
+      return <></>
+    }
+  }, [gitDetails, templateIdentifier, repoIdentifier, branch, onGitBranchChange])
+
   return (
     <Container className={css.subHeaderLeftView}>
       <Layout.Horizontal spacing={'medium'} padding={{ right: 'medium' }} flex={{ alignItems: 'center' }}>
@@ -178,6 +332,7 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
               {template?.name}
             </Text>
             {!isNil(template?.tags) && !isEmpty(template?.tags) && <TagsPopover tags={template.tags} />}
+            {isGitSyncEnabled && <GitPopover data={gitDetails} customUI={<GitDetails />} />}
             {!isYaml && !isReadonly && (
               <RbacButton
                 variation={ButtonVariation.ICON}
@@ -216,7 +371,7 @@ export const TemplateStudioSubHeaderLeftView: () => JSX.Element = () => {
         )}
         {!stableVersion && !isUpdated && !isReadonly && (
           <Button
-            onClick={updateStableLabel}
+            onClick={openConfirmationDialog}
             variation={ButtonVariation.LINK}
             size={ButtonSize.SMALL}
             text={getString('common.setAsStable')}

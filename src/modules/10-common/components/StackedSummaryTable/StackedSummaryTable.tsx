@@ -1,7 +1,8 @@
 import React from 'react'
 import { pick } from 'lodash-es'
 import type { Renderer, CellProps, Column } from 'react-table'
-import { Color, FontVariation, Text } from '@wings-software/uicore'
+import { Color, FontVariation, Text, Utils } from '@wings-software/uicore'
+import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
 import {
   getStackedSummaryBarCount,
   StackedSummaryBar,
@@ -16,6 +17,8 @@ const logger = loggerFor(ModuleName.COMMON)
 
 export interface StackedSummaryInterface extends StackedSummaryBarData {
   label: string
+  labelTooltip?: JSX.Element
+  tooltipProps?: PopoverProps
 }
 
 export interface StackedSummaryTableProps {
@@ -36,9 +39,20 @@ export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => 
 
   const RenderStackedSummaryBarLabelColumn: Renderer<CellProps<StackedSummaryInterface>> = ({ row }) => {
     return (
-      <Text font={{ variation: FontVariation.BODY2 }} color={Color.PRIMARY_7}>
-        {row.original?.label}
-      </Text>
+      <Utils.WrapOptionalTooltip
+        tooltip={row.original?.labelTooltip}
+        tooltipProps={
+          row.original?.tooltipProps ?? {
+            isDark: true,
+            fill: true,
+            position: 'bottom'
+          }
+        }
+      >
+        <Text font={{ variation: FontVariation.BODY2 }} color={Color.PRIMARY_7} lineClamp={1}>
+          {row.original?.label}
+        </Text>
+      </Utils.WrapOptionalTooltip>
     )
   }
 

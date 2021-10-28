@@ -17,7 +17,8 @@ import {
   delegateConfigProps,
   userGroupPathProps,
   userPathProps,
-  serviceAccountProps
+  serviceAccountProps,
+  templatePathProps
 } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import type {
@@ -87,6 +88,9 @@ import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAcco
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import executionFactory from '@pipeline/factories/ExecutionFactory'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
+import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
+import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import CIHomePage from './pages/home/CIHomePage'
 import CIDashboardPage from './pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from './pages/pipeline-studio/CIPipelineStudio'
@@ -211,6 +215,10 @@ const CISideNavProps: SidebarContext = {
 }
 
 const pipelineModuleParams: ModulePathParams = {
+  module: ':module(ci)'
+}
+
+const templateModuleParams: ModulePathParams = {
   module: ':module(ci)'
 }
 
@@ -783,5 +791,26 @@ export default (
     >
       <ResourceGroupDetails />
     </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CISideNavProps}
+      path={routes.toTemplates({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <TemplatesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CISideNavProps}
+      path={routes.toTemplateStudio({ ...accountPathProps, ...templatePathProps, ...templateModuleParams })}
+    >
+      <TemplateStudioWrapper />
+    </RouteWithLayout>
+
+    {GovernanceRouteDestinations({
+      sidebarProps: CISideNavProps,
+      pathProps: { ...accountPathProps, ...projectPathProps, ...pipelineModuleParams }
+    })}
   </>
 )

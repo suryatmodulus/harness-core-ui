@@ -610,7 +610,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                           <div
                             class="tabSubHeading"
                           >
-                            Stage Variables
+                            pipeline.stageVariables
                           </div>
                           <p
                             class="StyledProps--font StyledProps--main"

@@ -32,3 +32,5 @@ pathToHarnessFolder: Path to the Harness folder
 fetchingBranches: Fetching branches
 gitEnabledBlockedTooltip: Git Experience should be enabled before creating any pipeline
 errorFixed: Error is Fixed by
+fileContent: File Content
+failedToLoadData: Failed to load data

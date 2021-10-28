@@ -9,12 +9,15 @@ const getProps = (): ConfigModalProps => ({
     name: '',
     type: 'Step',
     identifier: 'My_Step_Template',
-    versionLabel: 'v1'
+    versionLabel: 'v1',
+    repo: 'test_repo',
+    branch: 'test_branch'
   },
   modalProps: {
     title: 'Some Title',
     promise: Promise.resolve
-  }
+  },
+  showGitFields: false
 })
 
 describe('CREATE MODE', () => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
-import { debounce as _debounce, isEmpty as _isEmpty } from 'lodash-es'
+import { debounce as _debounce, isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { Container, Layout, Button } from '@wings-software/uicore'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
@@ -7,7 +7,7 @@ import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import type { Service } from 'services/lw'
 import { CONFIG_IDLE_TIME_CONSTRAINTS, CONFIG_STEP_IDS, CONFIG_TOTAL_STEP_COUNTS, RESOURCES } from '@ce/constants'
 import DefineRule from './steps/DefineRule'
-import ManageResources from './steps/ManageResources'
+import ManageResources from './steps/ManageResources/ManageResources'
 import ResourceFulfilment from './steps/ResourceFulfilment'
 import AdvancedConfiguration from './steps/AdvancedConfiguration'
 import { getSelectedResourceFromGatewayDetails, isActiveStep } from './helper'
@@ -63,7 +63,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     return (
       (props.gatewayDetails.selectedInstances.length > 0 ||
         !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group) ||
-        !_isEmpty(props.gatewayDetails.metadata.kubernetes_connector_id)) &&
+        !_isEmpty(props.gatewayDetails.metadata.kubernetes_connector_id) ||
+        !_isEmpty(props.gatewayDetails.routing.container_svc) ||
+        !_isEmpty(props.gatewayDetails.routing.database)) &&
       props.gatewayDetails.name !== '' &&
       props.gatewayDetails.idleTimeMins >= CONFIG_IDLE_TIME_CONSTRAINTS.MIN &&
       props.gatewayDetails.idleTimeMins <= CONFIG_IDLE_TIME_CONSTRAINTS.MAX &&
@@ -76,6 +78,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           (props.gatewayDetails.routing.instance.scale_group?.on_demand as number) <=
             (props.gatewayDetails.routing.instance.scale_group.max as number) &&
           (props.gatewayDetails.routing.instance.scale_group?.spot as number) >= 0
+        : true) &&
+      (selectedResource === RESOURCES.ECS
+        ? _defaultTo(props.gatewayDetails.routing.container_svc?.task_count, 0) > -1
         : true)
     )
   }
@@ -90,7 +95,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     props.gatewayDetails.deps,
     selectedResource,
     props.gatewayDetails.metadata.kubernetes_connector_id,
-    props.gatewayDetails.routing?.instance?.scale_group
+    props.gatewayDetails.routing?.instance?.scale_group,
+    props.gatewayDetails.routing?.container_svc,
+    props.gatewayDetails.routing?.database
   ])
 
   return (
@@ -143,14 +150,13 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             selectedResource={selectedResource}
             setSelectedResource={setSelectedResource}
           />
-          {selectedResource !== RESOURCES.KUBERNETES && (
-            <ResourceFulfilment
-              gatewayDetails={props.gatewayDetails}
-              setGatewayDetails={props.setGatewayDetails}
-              setDrawerOpen={setDrawerOpen}
-              totalStepsCount={totalStepsCount}
-            />
-          )}
+          <ResourceFulfilment
+            gatewayDetails={props.gatewayDetails}
+            setGatewayDetails={props.setGatewayDetails}
+            setDrawerOpen={setDrawerOpen}
+            totalStepsCount={totalStepsCount}
+            selectedResource={selectedResource}
+          />
           <AdvancedConfiguration
             gatewayDetails={props.gatewayDetails}
             setGatewayDetails={props.setGatewayDetails}

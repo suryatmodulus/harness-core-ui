@@ -47,7 +47,7 @@ const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
                 identifier: serviceIdentifier,
                 module: 'cv'
               }),
-              search: getCVMonitoringServicesSearchParam(Views.GRID)
+              search: getCVMonitoringServicesSearchParam({ view: Views.GRID })
             })
           }
         })}

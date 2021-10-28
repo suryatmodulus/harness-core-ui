@@ -23,7 +23,7 @@ const ModuleInfo: React.FC<ModuleProps> = ({ module = 'cd' }) => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
   const { showError } = useToaster()
-  const { GTM_CD_ENABLED } = useFeatureFlags()
+  const { CDNG_ENABLED } = useFeatureFlags()
   const history = useHistory()
 
   const { accountId } = useParams<{
@@ -118,13 +118,13 @@ const ModuleInfo: React.FC<ModuleProps> = ({ module = 'cd' }) => {
   }
 
   useEffect(() => {
-    const infoCardProps = getInfoCardsProps(accountId, GTM_CD_ENABLED)[module]
+    const infoCardProps = getInfoCardsProps(accountId, CDNG_ENABLED)[module]
 
     // Automatically select the first info card if none are selected
     if (!selectedInfoCard && infoCardProps) {
       setSelectedInfoCard(infoCardProps[0])
     }
-  }, [module, selectedInfoCard, accountId, GTM_CD_ENABLED])
+  }, [module, selectedInfoCard, accountId, CDNG_ENABLED])
 
   return (
     <Layout.Horizontal className={css.moduleInfo}>

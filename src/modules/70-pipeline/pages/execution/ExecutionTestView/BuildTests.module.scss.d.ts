@@ -51,6 +51,9 @@ declare const styles: {
   readonly failed: string
   readonly testSuiteName: string
   readonly select: string
+  readonly sortBySelect: string
+  readonly listIcons: string
+  readonly activeGroupedIcon: string
   readonly testPopoverBody: string
   readonly testPopoverHeading: string
   readonly testPopoverDetail: string

@@ -9,7 +9,8 @@ import {
   Button,
   ButtonSize,
   ButtonVariation,
-  Container
+  Container,
+  FontVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
@@ -49,11 +50,14 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
         {!!(sideCarArtifact?.length || primaryArtifact?.type) && (
           <div className={cx(css.artifactList, css.listHeader)}>
-            <span className={css.tableHeader}></span>
-            <span className={css.tableHeader}>{getString('artifactRepository')}</span>
-            <span className={css.tableHeader}> {getString('location')}</span>
-            <span className={css.tableHeader}></span>
-            <span className={css.tableHeader}></span>
+            <span></span>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
+              {getString('artifactRepository')}
+            </Text>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
+              {getString('location')}
+            </Text>
+            <span></span>
           </div>
         )}
 
@@ -90,7 +94,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                   </Text>
 
                   {getMultiTypeFromValue(primaryArtifact.spec?.connectorRef) === MultiTypeInputType.FIXED && (
-                    <Icon name="full-circle" size={12} color={primaryConnectorColor} />
+                    <Icon name="full-circle" size={8} color={primaryConnectorColor} />
                   )}
                 </div>
                 <div>
@@ -103,9 +107,10 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                     <Button
                       icon="Edit"
                       minimal
+                      iconProps={{ size: 18 }}
                       onClick={() => editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
                     />
-                    <Button minimal icon="main-trash" onClick={removePrimary} />
+                    <Button iconProps={{ size: 18 }} minimal icon="main-trash" onClick={removePrimary} />
                   </Layout.Horizontal>
                 )}
               </section>
@@ -163,7 +168,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                         {sidecarConnectorName ?? sidecar?.spec?.connectorRef}
                       </Text>
                       {getMultiTypeFromValue(sidecar?.spec?.connectorRef) === MultiTypeInputType.FIXED && (
-                        <Icon name="full-circle" size={12} color={sideCarConnectionColor} />
+                        <Icon name="full-circle" size={8} color={sideCarConnectionColor} />
                       )}
                     </div>
                     <div className={css.locationField}>
@@ -177,11 +182,17 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                           <Button
                             icon="Edit"
                             minimal
+                            iconProps={{ size: 18 }}
                             onClick={() => {
                               editArtifact(ModalViewFor.SIDECAR, sidecar?.type as ArtifactType, index)
                             }}
                           />
-                          <Button icon="main-trash" minimal onClick={() => removeSidecar(index)} />
+                          <Button
+                            iconProps={{ size: 18 }}
+                            icon="main-trash"
+                            minimal
+                            onClick={() => removeSidecar(index)}
+                          />
                         </Layout.Horizontal>
                       </span>
                     )}

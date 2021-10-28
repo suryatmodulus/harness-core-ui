@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Dialog, Intent } from '@blueprintjs/core'
+import * as yup from 'yup'
 import {
   Button,
   useModalHook,
@@ -11,8 +12,11 @@ import {
   FlexExpander,
   Icon,
   Pagination,
-  HarnessDocTooltip,
-  PageError
+  PageError,
+  Formik,
+  FormikForm,
+  Heading,
+  FontVariation
 } from '@wings-software/uicore'
 import { CF_DEFAULT_PAGE_SIZE, getErrorMessage, SegmentsSortByField, SortOrder } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
@@ -21,8 +25,11 @@ import { useToaster } from '@common/exports'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
+import { GitSyncFormValues, useGitSync } from '@cf/hooks/useGitSync'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { FeatureFlagRow } from './FeatureFlagRow'
 import { NoDataFoundRow } from '../NoDataFoundRow/NoDataFoundRow'
+import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
 
 export interface SelectedFeatureFlag {
   feature: Feature
@@ -41,7 +48,10 @@ export interface SelectFeatureFlagsModalButtonProps extends Omit<ButtonProps, 'o
   cancelButtonTitle?: string
 
   shouldDisableItem: (feature: Feature) => boolean
-  onSubmit: (selectedFeatureFlags: SelectedFeatureFlag[]) => Promise<{ error: any } | any>
+  onSubmit: (
+    selectedFeatureFlags: SelectedFeatureFlag[],
+    gitDetails?: GitSyncFormValues
+  ) => Promise<{ error: any } | any>
 }
 
 export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButtonProps> = ({
@@ -64,6 +74,13 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
     const [sortOrder, setSortOrder] = useState(SortOrder.ASCENDING)
     const [sortByField] = useState(SegmentsSortByField.NAME)
     const [pageNumber, setPageNumber] = useState(0)
+
+    const { isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit, getGitSyncFormMeta } = useGitSync()
+
+    const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(
+      AUTO_COMMIT_MESSAGES.UPDATED_FLAG_TARGETS
+    )
+
     const queryParams = useMemo(
       () => ({
         account: accountId,
@@ -89,6 +106,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
       lazy: true
     })
     const [checkedFeatureFlags, setCheckedFeatureFlags] = useState<Record<string, SelectedFeatureFlag>>({})
+
     const checkOrUncheckSegment = useCallback(
       (checked: boolean, feature: Feature, variationIdentifier: string) => {
         if (checked) {
@@ -104,13 +122,17 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
       [checkedFeatureFlags, setCheckedFeatureFlags]
     )
     const selectedCounter = Object.keys(checkedFeatureFlags || {}).length
-    const [submitLoading, setSubmitLoading] = useState(false)
-    const handleSubmit = (): void => {
-      setSubmitLoading(true)
 
+    const [submitLoading, setSubmitLoading] = useState(false)
+    const handleSubmit = (gitFormValues?: GitSyncFormValues): void => {
+      setSubmitLoading(true)
       try {
-        onSubmit(Object.values(checkedFeatureFlags))
-          .then(() => {
+        onSubmit(Object.values(checkedFeatureFlags), gitFormValues)
+          .then(async () => {
+            if (!isAutoCommitEnabled && gitFormValues?.autoCommit) {
+              await handleAutoCommit(gitFormValues.autoCommit)
+            }
+
             hideModal()
           })
           .catch(_error => {
@@ -132,31 +154,13 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
     const loading = loadingSegments || submitLoading
 
     return (
-      <Dialog
-        isOpen
-        enforceFocus={false}
-        onClose={hideModal}
-        title={
-          <Text
-            style={{
-              fontWeight: 600,
-              fontSize: '14px',
-              color: 'var(--black)',
-              lineHeight: '20px',
-              padding: 'var(--spacing-large) 0 0 var(--spacing-small)'
-            }}
-          >
-            <span data-tooltip-id="ff_segmentAddToFlagModal_heading">
-              {modalTitle}
-              <HarnessDocTooltip tooltipId="ff_segmentAddToFlagModal_heading" useStandAlone />
-            </span>
-          </Text>
-        }
-        style={{ width: 700, height: 700 }}
-      >
-        <Layout.Vertical padding={{ top: 'xxlarge', left: 'xxlarge' }} style={{ height: '100%' }}>
+      <Dialog isOpen enforceFocus={false} onClose={hideModal} title={''} style={{ width: 700, maxHeight: '95vh' }}>
+        <Layout.Vertical padding={{ left: 'xxlarge' }} style={{ height: '100%' }}>
           {/* Search Input */}
-          <Container padding={{ right: 'xlarge', bottom: 'large' }}>
+          <Heading level={3} font={{ variation: FontVariation.H3 }} margin={{ bottom: 'xlarge' }}>
+            {modalTitle}
+          </Heading>
+          <Container padding={{ right: 'xxlarge', bottom: 'large' }}>
             <TextInput
               leftIcon="search"
               width="100%"
@@ -167,10 +171,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
           </Container>
 
           {/* Table view */}
-          <Container
-            style={{ height: 'calc(100% - 210px)', overflow: 'auto' }}
-            margin={{ bottom: 'small', right: 'xxlarge' }}
-          >
+          <Container style={{ height: 'fit-content', overflow: 'auto' }} margin={{ bottom: 'small', right: 'xxlarge' }}>
             {(error && (
               <PageError
                 message={getErrorMessage(error)}
@@ -229,8 +230,6 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
               </>
             )}
           </Container>
-
-          {/* Pagination */}
           <Container margin={{ right: 'xxlarge' }} height={47}>
             {!error && (
               <Pagination
@@ -243,19 +242,45 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
             )}
           </Container>
 
-          {/* Buttons bar */}
-          <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }} style={{ alignItems: 'center' }}>
-            <Button
-              text={submitButtonTitle || getString('add')}
-              intent={Intent.PRIMARY}
-              disabled={loading || !!error || !selectedCounter}
-              onClick={handleSubmit}
-            />
-            <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
-            <FlexExpander />
-            {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
-            {!!selectedCounter && <Text>{getString('cf.shared.selected', { counter: selectedCounter })}</Text>}
-          </Layout.Horizontal>
+          <Container margin={{ right: 'xxlarge' }}>
+            <Formik
+              initialValues={{
+                gitDetails: gitSyncInitialValues.gitDetails,
+                autoCommit: gitSyncInitialValues.autoCommit
+              }}
+              formName="editVariations"
+              enableReinitialize={true}
+              validationSchema={yup.object().shape({
+                gitDetails: gitSyncValidationSchema
+              })}
+              validateOnChange
+              validateOnBlur
+              onSubmit={handleSubmit}
+            >
+              <FormikForm>
+                {isGitSyncEnabled && !isAutoCommitEnabled && (
+                  <SaveFlagToGitSubForm subtitle={getString('cf.gitSync.commitChanges')} hideNameField />
+                )}
+                <Layout.Horizontal
+                  spacing="small"
+                  padding={{ right: 'xxlarge', top: 'medium' }}
+                  style={{ alignItems: 'center' }}
+                >
+                  <Button
+                    type="submit"
+                    text={submitButtonTitle || getString('add')}
+                    intent={Intent.PRIMARY}
+                    disabled={loading || !!error || !selectedCounter}
+                  />
+                  <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
+                  <FlexExpander />
+
+                  {loading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
+                  {!!selectedCounter && <Text>{getString('cf.shared.selected', { counter: selectedCounter })}</Text>}
+                </Layout.Horizontal>
+              </FormikForm>
+            </Formik>
+          </Container>
         </Layout.Vertical>
       </Dialog>
     )

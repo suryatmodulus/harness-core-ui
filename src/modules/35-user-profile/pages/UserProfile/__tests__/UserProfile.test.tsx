@@ -202,8 +202,8 @@ describe('User Profile Page', () => {
       act(() => {
         fireEvent.click(password!)
       })
-      await waitFor(() => queryByText(form!, 'secrets.titleCreate'))
-      const selectSecret = queryByText(document.body, 'secrets.titleSelect')
+      await waitFor(() => queryByText(form!, 'common.entityReferenceTitle'))
+      const selectSecret = queryByText(document.body, 'common.entityReferenceTitle')
       expect(selectSecret).toBeTruthy()
       act(() => {
         fireEvent.click(selectSecret!)

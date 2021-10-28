@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { isEmpty, noop, omit } from 'lodash-es'
 import { Button, Layout, Container, Icon, Text, Color, ButtonVariation, shouldShowError } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import moment from 'moment'
 import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
 import {
   ConnectorInfoDTO,
@@ -35,6 +34,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import { getReadableDateTime } from '@common/utils/dateUtils'
 import { getUrlValueByType, isSMConnector } from './utils/ConnectorUtils'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
 import css from './ConnectorView.module.scss'
@@ -249,15 +249,17 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     )
   }
 
-  const getValue = (value?: number) => {
-    return value ? moment.unix(value / 1000).format(StringUtils.DEFAULT_DATE_FORMAT) : null
-  }
-
   const ConnectorActivityDetails: React.FC<ConnectorActivityDetailsProp> = (
     activityDetailsProp: ConnectorActivityDetailsProp
   ) => {
-    const lastTestedAt = getValue(activityDetailsProp.connector?.status?.testedAt)
-    const lastConnectedAt = getValue(activityDetailsProp.connector?.status?.lastConnectedAt)
+    const lastTestedAt = getReadableDateTime(
+      activityDetailsProp.connector?.status?.testedAt,
+      StringUtils.DEFAULT_DATE_FORMAT
+    )
+    const lastConnectedAt = getReadableDateTime(
+      activityDetailsProp.connector?.status?.lastConnectedAt,
+      StringUtils.DEFAULT_DATE_FORMAT
+    )
 
     return (
       <Layout.Vertical className={css.activityContainer}>
@@ -292,10 +294,12 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
           </Text>
           <Text color={Color.GREY_800}>{getString('lastUpdated')}</Text>
           <Text margin={{ top: 'small', bottom: 'small' }}>
-            {getValue(activityDetailsProp.connector.lastModifiedAt)}{' '}
+            {getReadableDateTime(activityDetailsProp.connector.lastModifiedAt, StringUtils.DEFAULT_DATE_FORMAT)}{' '}
           </Text>
           <Text color={Color.GREY_800}>{getString('connectorCreated')}</Text>
-          <Text margin={{ top: 'small', bottom: 'medium' }}>{getValue(activityDetailsProp.connector.createdAt)} </Text>
+          <Text margin={{ top: 'small', bottom: 'medium' }}>
+            {getReadableDateTime(activityDetailsProp.connector.createdAt, StringUtils.DEFAULT_DATE_FORMAT)}{' '}
+          </Text>
         </Container>
       </Layout.Vertical>
     )

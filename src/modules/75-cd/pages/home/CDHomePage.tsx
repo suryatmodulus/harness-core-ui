@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { PageError, PageSpinner } from '@wings-software/uicore'
+import { TrialInProgressTemplate } from '@rbac/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { ModuleName } from 'framework/types/ModuleName'
 import { HomePageTemplate } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
 import { useGetLicensesAndSummary, useGetProjectList } from 'services/cd-ng'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
-import { TrialInProgressTemplate } from '@rbac/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { useQueryParams } from '@common/hooks'
 import type { Project } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -16,7 +16,7 @@ import { useGetPipelineList, PagePMSPipelineSummaryResponse } from 'services/pip
 import { TrialType, useCDTrialModal, UseCDTrialModalProps } from '@cd/modals/CDTrial/useCDTrialModal'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { handleUpdateLicenseStore, useLicenseStore, isCDCommunity } from 'framework/LicenseStore/LicenseStoreContext'
 import { useToaster } from '@common/components'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import CDTrialHomePage from './CDTrialHomePage'
@@ -95,7 +95,7 @@ export const CDHomePage: React.FC = () => {
     }
   }
 
-  const { trial, modal } = useQueryParams<{ trial?: boolean; modal?: boolean }>()
+  const { trial, modal, community } = useQueryParams<{ trial?: boolean; modal?: boolean; community?: boolean }>()
   const { selectedProject, currentUserInfo } = useAppStore()
   const { accounts, defaultAccountId } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
@@ -229,7 +229,13 @@ export const CDHomePage: React.FC = () => {
       />
     )
   }
+
   const projectCreateSuccessHandler = (project?: Project): void => {
+    if (isCDCommunity(licenseInformation) && community) {
+      pushToPipelineStudio('-1', project, '?modal=trial')
+      return
+    }
+
     if (project) {
       history.push(
         routes.toProjectOverview({

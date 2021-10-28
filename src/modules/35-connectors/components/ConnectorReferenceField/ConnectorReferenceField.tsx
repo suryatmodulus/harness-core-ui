@@ -1,18 +1,20 @@
 import React from 'react'
-import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
+import { FormGroup, IFormGroupProps, Intent, Tag as BTag } from '@blueprintjs/core'
 import {
   Layout,
   Icon,
   Color,
   Button,
-  Tag,
   Text,
+  Tag,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormError,
   FormikTooltipContext,
   DataTooltipInterface,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  FontVariation,
+  ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
@@ -47,6 +49,9 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceScope } from '@rbac/interfaces/ResourceScope'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import { DATE_WITHOUT_TIME_FORMAT } from '@common/utils/StringUtils'
+import { getReadableDateTime } from '@common/utils/dateUtils'
+import ConnectorsEmptyState from './connectors-no-data.png'
 import css from './ConnectorReferenceField.module.scss'
 
 interface AdditionalParams {
@@ -116,26 +121,22 @@ export function getEditRenderer(
   canUpdate = true
 ): JSX.Element {
   return (
-    <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between', width: '100%' }}>
-      <div>
-        <Text font={{ size: 'small' }}>
-          <String stringID="thisConnectorIsSavedAs" />
-        </Text>
-        <Text font={{ weight: 'bold' }}>{selected?.value}</Text>
-      </div>
+    <Layout.Horizontal spacing="small" flex={{ alignItems: 'center' }}>
+      <Text font={{ variation: FontVariation.FORM_LABEL }}>
+        <String stringID="common.selected" />
+      </Text>
+      <Text font={{ size: 'small' }}>{selected?.value}</Text>
       {canUpdate ? (
         <Button
-          minimal
-          icon="edit"
+          variation={ButtonVariation.ICON}
+          iconProps={{ color: Color.GREY_600 }}
+          icon="Edit"
           onClick={e => {
             e.stopPropagation()
             openConnectorModal(true, type, {
               connectorInfo: selected?.connector,
               gitDetails: selected?.connector?.gitDetails
             })
-          }}
-          style={{
-            color: 'var(--primary-7)'
           }}
         />
       ) : (
@@ -179,10 +180,11 @@ interface RecordRenderProps {
   openConnectorModal: GetReferenceFieldMethodProps['openConnectorModal']
   type: ConnectorInfoDTO['type'] | ConnectorInfoDTO['type'][]
   checked?: boolean
+  getString(key: string, vars?: Record<string, any>): string
 }
 
 const RecordRender: React.FC<RecordRenderProps> = props => {
-  const { item, resourceScope, openConnectorModal, type, checked } = props
+  const { item, resourceScope, openConnectorModal, type, checked, getString } = props
   const [canUpdate] = usePermission(
     {
       resource: {
@@ -196,73 +198,86 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
   )
   return (
     <>
-      <div className={cx(css.item, { [css.itemWithGit]: !!item.record.gitDetails?.repoIdentifier })}>
-        <Layout.Horizontal spacing="small" margin={{ right: 'small' }} className={css.connectorInfo}>
-          <Icon name={getIconByType(item.record.type)} size={30}></Icon>
-          <div className={css.connectorNameId}>
-            <Text lineClamp={1} font={{ weight: 'bold' }}>
-              {item.record.name}
-            </Text>
-            <Text lineClamp={1} font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-              {item.identifier}
-            </Text>
-          </div>
-        </Layout.Horizontal>
-        <Layout.Horizontal spacing="xsmall">
-          {canUpdate && !item.record.harnessManaged ? (
-            <Button
-              minimal
-              icon="edit"
-              className={css.editBtn}
-              onClick={e => {
-                e.stopPropagation()
-                openConnectorModal(true, item.record?.type || type, {
-                  connectorInfo: item.record,
-                  gitDetails: { ...item.record?.gitDetails, getDefaultFromOtherRepo: false }
-                })
-              }}
-              style={{
-                color: 'var(--primary-4)'
-              }}
-            />
-          ) : (
-            <></>
+      <div className={cx(css.item)}>
+        <Layout.Vertical spacing="xsmall">
+          <Layout.Horizontal spacing="small" margin={{ right: 'small', bottom: 'small' }} className={css.connectorInfo}>
+            <Icon name={getIconByType(item.record.type)} size={30}></Icon>
+            <div className={css.connectorNameId}>
+              <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.BLACK}>
+                {item.record.name}
+              </Text>
+              <Text lineClamp={1} font={{ size: 'small', weight: 'light' }} color={Color.GREY_600}>
+                {`${getString('common.ID')}: ${item.identifier}`}
+              </Text>
+            </div>
+          </Layout.Horizontal>
+          {item.record.gitDetails?.repoIdentifier && (
+            <Layout.Horizontal
+              margin={{ left: 'xsmall' }}
+              flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+              spacing="small"
+              className={css.gitInfo}
+            >
+              <Text
+                lineClamp={1}
+                font={{ size: 'small', weight: 'light' }}
+                color={Color.GREY_450}
+                icon="repository"
+                iconProps={{ size: 12 }}
+              >
+                {item.record.gitDetails.repoIdentifier}
+              </Text>
+              <Text
+                lineClamp={1}
+                font={{ size: 'small', weight: 'light' }}
+                color={Color.GREY_450}
+                className={cx(css.gitBranchIcon)}
+                icon="git-new-branch"
+                iconProps={{ size: 12 }}
+              >
+                {item.record.gitDetails.branch}
+              </Text>
+            </Layout.Horizontal>
           )}
-          <Icon
-            className={css.status}
-            name="full-circle"
-            size={6}
-            color={item.record.status?.status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}
-          />
-        </Layout.Horizontal>
-      </div>
-      {item.record.gitDetails?.repoIdentifier && (
-        <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small" className={css.gitInfo}>
-          <Layout.Horizontal spacing="xsmall">
-            <Icon name="repository" size={12}></Icon>
-            <Text
-              lineClamp={1}
-              font={{ size: 'small', weight: 'light' }}
-              color={Color.GREY_450}
-              className={css.gitText}
-            >
-              {item.record.gitDetails.repoIdentifier}
-            </Text>
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="xsmall">
-            <Icon size={12} name="git-new-branch"></Icon>
-            <Text
-              lineClamp={1}
-              font={{ size: 'small', weight: 'light' }}
-              color={Color.GREY_450}
-              className={css.gitText}
-            >
-              {item.record.gitDetails.branch}
-            </Text>
-          </Layout.Horizontal>
+          {item.record.status?.status !== 'SUCCESS' && item.record.status?.lastConnectedAt !== 0 && (
+            <BTag round className={css.lastConnected}>
+              {`${getString('common.lastConnectedOn')} ${getReadableDateTime(
+                item.record.status?.lastConnectedAt,
+                DATE_WITHOUT_TIME_FORMAT
+              )}`}
+            </BTag>
+          )}
         </Layout.Vertical>
-      )}
-      <Icon className={cx(css.iconCheck, { [css.iconChecked]: checked })} name="pipeline-approval" />
+      </div>
+
+      <Layout.Horizontal spacing="small" flex={{ align: 'center-center' }}>
+        {canUpdate && !item.record.harnessManaged ? (
+          <Button
+            variation={ButtonVariation.ICON}
+            iconProps={{ color: Color.GREY_600 }}
+            intent="none"
+            icon="Edit"
+            className={css.editBtn}
+            onClick={e => {
+              e.stopPropagation()
+              openConnectorModal(true, item.record?.type || type, {
+                connectorInfo: item.record,
+                gitDetails: { ...item.record?.gitDetails, getDefaultFromOtherRepo: false }
+              })
+            }}
+          />
+        ) : (
+          <></>
+        )}
+        <Icon className={cx(css.iconCheck, { [css.iconChecked]: checked })} width={30} name="pipeline-approval" />
+        <Icon
+          className={css.status}
+          name="full-circle"
+          size={10}
+          width={30}
+          color={item.record.status?.status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}
+        />
+      </Layout.Horizontal>
     </>
   )
 }
@@ -281,7 +296,7 @@ export function getReferenceFieldProps({
   placeholder,
   getString,
   openConnectorModal
-}: GetReferenceFieldMethodProps): Omit<ReferenceSelectProps<ConnectorReferenceDTO>, 'onChange'> {
+}: GetReferenceFieldMethodProps): Omit<ReferenceSelectProps<ConnectorReferenceDTO>, 'onChange' | 'onCancel'> {
   return {
     name,
     width,
@@ -360,6 +375,13 @@ export function getReferenceFieldProps({
     projectIdentifier,
     orgIdentifier,
     noRecordsText: getString('noConnectorFound'),
+    componentName: getString('connector'),
+    noDataCard: {
+      image: ConnectorsEmptyState,
+      message: getString('common.noConnectorAvailable'),
+      containerClassName: css.noDataCardContainerConnector,
+      className: css.noDataCardContainerContent
+    },
     recordRender: function recordRender({ item, selectedScope, selected: checked }) {
       const recordRenderProps: RecordRenderProps = {
         item,
@@ -370,7 +392,8 @@ export function getReferenceFieldProps({
         },
         openConnectorModal,
         type,
-        checked
+        checked,
+        getString
       }
       return <RecordRender {...recordRenderProps} />
     }
@@ -604,6 +627,8 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
         selectedRenderer={getSelectedRenderer(selectedValue as ConnectorSelectedValue)}
         {...optionalReferenceSelectProps}
         disabled={disabled || loading}
+        componentName="Connector"
+        noDataCard={{ image: ConnectorsEmptyState }}
       />
     </FormGroup>
   )

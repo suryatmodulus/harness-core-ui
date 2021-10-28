@@ -247,13 +247,8 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     </Menu>
                   }
                 >
-                  <Button
-                    icon="plus"
-                    variation={ButtonVariation.LINK}
-                    data-testid="add-tfvar-file"
-                    className={css.addTfVarFile}
-                  >
-                    {getString('pipelineSteps.addTerraformVarFile')}
+                  <Button variation={ButtonVariation.LINK} data-testid="add-tfvar-file" className={css.addTfVarFile}>
+                    {getString('plusAdd')}
                   </Button>
                 </Popover>
                 {showRemoteWizard && (

@@ -1,0 +1,43 @@
+.fetchingSpinner {
+  transform: scale(0.6);
+}
+
+.activity {
+  display: flex;
+  margin: var(--spacing-medium) 0;
+}
+
+.timelineSeparator {
+  width: 0.2px;
+  border: 0.2px dashed var(--form-field-border);
+  height: 65px;
+  margin: -5px 0px -25px 13px;
+}
+
+.timelineSeparatorLast {
+  height: 25px;
+  margin: -5px 0px 0px 13px;
+}
+
+.dot {
+  height: 9px;
+  width: 9px;
+  margin-left: 9px;
+  background-color: var(--form-field-border);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.lastIcon {
+  margin-left: 6px !important;
+}
+
+.timelineFirstIcon {
+  background-color: var(--primary-5) !important;
+  color: white !important;
+  padding: var(--spacing-2) !important;
+  min-height: var(--spacing-6) !important;
+  height: var(--spacing-6) !important;
+  margin: var(--spacing-2) 0 0 var(--spacing-2) !important;
+  min-width: var(--spacing-6) !important;
+}

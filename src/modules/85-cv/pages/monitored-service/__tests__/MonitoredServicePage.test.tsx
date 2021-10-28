@@ -70,7 +70,9 @@ describe('Unit tests for createting monitored source', () => {
     jest.spyOn(cvServices, 'useGetMonitoredService').mockImplementation(
       () =>
         ({
-          data: monitoredServiceMockData,
+          data: {
+            data: monitoredServiceMockData
+          },
           error: null,
           loading: false
         } as any)
@@ -136,12 +138,27 @@ describe('Unit tests for createting monitored source', () => {
     jest.spyOn(cvServices, 'useGetMonitoredService').mockImplementation(
       () =>
         ({
-          data: monitoredServiceMockData,
+          data: {
+            data: monitoredServiceMockData
+          },
           error: null,
           loading: false,
           refetch: jest.fn()
         } as any)
     )
+    jest.spyOn(cvServices, 'useGetMonitoredServiceScoresFromServiceAndEnvironment').mockImplementation(
+      () =>
+        ({
+          data: null,
+          refetch: jest.fn(),
+          error: { message: '' },
+          loading: true
+        } as any)
+    )
+    jest.spyOn(cvServices, 'useGetMonitoredServiceOverAllHealthScoreWithServiceAndEnv').mockReturnValue({
+      data: {},
+      refetch: jest.fn()
+    } as any)
     jest.spyOn(cvServices, 'useChangeEventList').mockImplementation(
       () =>
         ({
@@ -149,6 +166,15 @@ describe('Unit tests for createting monitored source', () => {
           error: null,
           loading: false,
           refetch: jest.fn()
+        } as any)
+    )
+    jest.spyOn(cvServices, 'useGetServiceDependencyGraph').mockImplementation(
+      () =>
+        ({
+          data: {},
+          refetch: jest.fn(),
+          error: null,
+          loading: false
         } as any)
     )
     jest.spyOn(cvServices, 'useChangeEventTimeline').mockImplementation(
@@ -196,72 +222,5 @@ describe('Unit tests for createting monitored source', () => {
     act(() => {
       fireEvent.click(container.querySelector('div[data-tab-id="Configurations"]')!)
     })
-  })
-
-  test('should refetch on project change', async () => {
-    const refetchMonitoredService = jest.fn()
-    jest.spyOn(cvServices, 'useGetMonitoredService').mockImplementation(
-      () =>
-        ({
-          data: monitoredServiceMockData,
-          error: null,
-          loading: false,
-          refetch: refetchMonitoredService
-        } as any)
-    )
-    jest.spyOn(cvServices, 'useChangeEventList').mockImplementation(
-      () =>
-        ({
-          data: {},
-          error: null,
-          loading: false,
-          refetch: jest.fn()
-        } as any)
-    )
-    jest.spyOn(cvServices, 'useChangeEventTimeline').mockImplementation(
-      () =>
-        ({
-          data: {
-            resource: {
-              categoryTimeline: {
-                Deployment: [],
-                Infrastructure: [],
-                Alert: []
-              }
-            }
-          },
-          refetch: jest.fn(),
-          error: null,
-          loading: false
-        } as any)
-    )
-    const { rerender } = render(
-      <TestWrapper {...testWrapperEditMode}>
-        <MonitoredServicePage />
-      </TestWrapper>
-    )
-    expect(refetchMonitoredService).toHaveBeenCalledWith()
-
-    const renrenderProps = {
-      path: routes.toCVAddMonitoringServicesEdit({
-        ...accountPathProps,
-        ...projectPathProps,
-        identifier: ':identifier'
-      }),
-      pathParams: {
-        accountId: '1234_accountId',
-        projectIdentifier: '1234_project_new',
-        orgIdentifier: '1234_org',
-        identifier: 'monitored-service'
-      }
-    }
-    // rerender with different projectIdentifier
-    rerender(
-      <TestWrapper {...renrenderProps}>
-        <MonitoredServicePage />
-      </TestWrapper>
-    )
-
-    expect(refetchMonitoredService).toHaveBeenCalledWith()
   })
 })

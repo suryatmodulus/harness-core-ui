@@ -23,7 +23,7 @@
   }
 
   .header {
-    padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
+    padding: var(--spacing-large) var(--spacing-xlarge) !important;
     border-bottom: 1px solid var(--grey-200);
     background: var(--white) !important;
 
@@ -52,7 +52,7 @@
 }
 
 .noBanner {
-  --page-header-height: 137px;
+  --page-header-height: 147px;
 }
 
 .hasBanner {

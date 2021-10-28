@@ -6,6 +6,18 @@ import mockEnvironments from '@cf/pages/environments/__tests__/mockEnvironments'
 import FeatureFlagsPage from '../FeatureFlagsPage'
 import mockFeatureFlags from './mockFeatureFlags'
 
+jest.mock('@cf/hooks/useGitSync', () => ({
+  useGitSync: jest.fn(() => ({
+    getGitSyncFormMeta: jest.fn().mockReturnValue({
+      gitSyncInitialValues: {},
+      gitSyncValidationSchema: {}
+    }),
+    isAutoCommitEnabled: false,
+    isGitSyncEnabled: false,
+    handleAutoCommit: jest.fn()
+  }))
+}))
+
 describe('FeatureFlagsPage', () => {
   test('FeatureFlagsPage should render data correctly', async () => {
     mockImport('services/cf', {

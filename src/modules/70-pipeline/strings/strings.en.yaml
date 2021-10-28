@@ -10,6 +10,7 @@ closeStepConfig: Step Config
 stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
 clickHere: Click here
 stepDetails: Step details
+stageVariables: Stage Variables
 scriptInputVariables: Script Input Variables
 scriptOutputVariables: Script Output Variables
 executionTarget: Execution Target
@@ -729,7 +730,7 @@ tagDependencyRequired: required to fetch the tags
 myDeploymentsText: My Deployments
 myBuildsText: My Builds
 noBuckets: No buckets found with given region
-gitRepos: Git Repos
+gitRepo: Git Repo
 buildRepo: Build Repo
 stepDescription:
   HTTP: Run HTTP requests containing URLs, methods, headers, assertions, and variables.

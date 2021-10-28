@@ -77,7 +77,7 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
   const { showSuccess, showError } = useToaster()
 
   const onSubmitFirstStep = async (values: any) => {
-    values['enabled'] = true
+    values['enabled'] = false
 
     const _fields = pick(_policySetData, ['action', 'enabled', 'name', 'type', 'identifier'])
     const _clonedValues = pick(values, ['action', 'enabled', 'name', 'type', 'identifier'])
@@ -186,7 +186,7 @@ const StepTwo: React.FC<{
     orgIdentifier,
     projectIdentifier
   }
-  const { data: policies } = useGetPolicyList({})
+  const { data: policies } = useGetPolicyList({ queryParams })
   const [policyId, setPolicyId] = React.useState('')
   const [severity, setSeverity] = React.useState('')
   const [plList, setPlList] = React.useState<SelectOption[]>()
@@ -206,12 +206,17 @@ const StepTwo: React.FC<{
   }, [policies])
 
   const { data, loading: fetchingPolicySet } = useGetPolicySet({
+    queryParams,
     policyset: policySetData?.identifier?.toString() || prevStepData?.id
   })
 
-  const { mutate: patchPolicy } = useAddLinkedPolicy({ policyset: prevStepData?.id, policy: policyId, queryParams })
+  const { mutate: patchPolicy, loading: patchingPolicy } = useAddLinkedPolicy({
+    policyset: prevStepData?.id,
+    policy: policyId,
+    queryParams
+  })
 
-  const { mutate: deleteLinkedPolicy } = useDeleteLinkedPolicy({
+  const { mutate: deleteLinkedPolicy, loading: deletingPolicyAttaced } = useDeleteLinkedPolicy({
     policyset: prevStepData?.id,
     policy: deLinkpolicyId
   })
@@ -363,8 +368,18 @@ const StepTwo: React.FC<{
                 />
 
                 <Layout.Horizontal spacing="medium">
-                  <Button type="button" text={getString('back')} onClick={onPreviousStep} />
-                  <Button type="submit" intent="primary" text={getString('finish')} />
+                  <Button
+                    type="button"
+                    text={getString('back')}
+                    onClick={onPreviousStep}
+                    disabled={patchingPolicy || deletingPolicyAttaced}
+                  />
+                  <Button
+                    type="submit"
+                    intent="primary"
+                    text={getString('finish')}
+                    disabled={patchingPolicy || deletingPolicyAttaced}
+                  />
                 </Layout.Horizontal>
               </Container>
             </FormikForm>

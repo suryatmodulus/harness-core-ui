@@ -5,7 +5,8 @@ import type {
   RestResponseHealthMonitoringFlagResponse,
   SetHealthMonitoringFlagQueryParams,
   SetHealthMonitoringFlagPathParams,
-  PageMonitoredServiceListItemDTO
+  PageMonitoredServiceListItemDTO,
+  RiskData
 } from 'services/cv'
 import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
 import type { DependencyData } from '@cv/components/DependencyGraph/DependencyGraph.types'
@@ -58,8 +59,9 @@ export interface GraphSummaryCardProps {
   healthMonitoringFlagLoading?: boolean
 }
 
-export interface ServiceHealthScoreProps {
-  monitoredService: MonitoredServiceListItemDTO
+export interface RiskTagWithLabelProps {
+  riskData?: RiskData
   labelVariation?: FontVariation
   color?: Color
+  label?: string
 }

@@ -64,7 +64,7 @@ declare const monaco: any
 declare module 'event-source-polyfill'
 
 declare module 'gitopsui/MicroFrontendApp' {
-  import type { ChildAppComponent } from './microfrontends/microfrontendTypes'
+  import type { ChildAppComponent } from './microfrontends'
   const ChildApp: ChildAppComponent
 
   export default ChildApp

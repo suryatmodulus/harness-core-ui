@@ -253,7 +253,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                       className={cx(stageCss.tabSubHeading, 'ng-tooltip-native')}
                       data-tooltip-id="overviewStageVariables"
                     >
-                      Stage Variables
+                      {getString('pipeline.stageVariables')}
                       <HarnessDocTooltip tooltipId="overviewStageVariables" useStandAlone={true} />
                     </div>
                     <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>

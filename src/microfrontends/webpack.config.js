@@ -2,11 +2,13 @@ const path = require('path')
 const tsTransformPaths = require('@zerollup/ts-transform-paths')
 module.exports = {
   mode: 'production',
-  entry: './src/microfrontends/MicrofrontendTypes.ts',
+  entry: './src/microfrontends/index.ts',
   output: {
-    path: path.join(__dirname, 'declarations'),
-    filename: '[name].js'
+    path: path.join(__dirname, 'dist/microfrontends'),
+    filename: 'index.js',
+    libraryTarget: 'umd'
   },
+  target: 'web',
   module: {
     rules: [
       {

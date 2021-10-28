@@ -326,11 +326,21 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
                     role="cell"
                     style="width: 40%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
+                    <div
+                      class="bp3-popover-wrapper bp3-fill"
                     >
-                      dev test
-                    </p>
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
+                          style="--text-line-clamp: 1;"
+                          tabindex="0"
+                        >
+                          dev test
+                        </p>
+                      </div>
+                    </div>
                   </div>
                   <div
                     class="cell"
@@ -397,11 +407,21 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
                     role="cell"
                     style="width: 40%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
+                    <div
+                      class="bp3-popover-wrapper bp3-fill"
                     >
-                      test18
-                    </p>
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
+                          style="--text-line-clamp: 1;"
+                          tabindex="0"
+                        >
+                          test18
+                        </p>
+                      </div>
+                    </div>
                   </div>
                   <div
                     class="cell"
@@ -468,11 +488,21 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
                     role="cell"
                     style="width: 40%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
+                    <div
+                      class="bp3-popover-wrapper bp3-fill"
                     >
-                      test19
-                    </p>
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
+                          style="--text-line-clamp: 1;"
+                          tabindex="0"
+                        >
+                          test19
+                        </p>
+                      </div>
+                    </div>
                   </div>
                   <div
                     class="cell"
@@ -539,11 +569,21 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
                     role="cell"
                     style="width: 40%;"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
+                    <div
+                      class="bp3-popover-wrapper bp3-fill"
                     >
-                      locust
-                    </p>
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
+                          style="--text-line-clamp: 1;"
+                          tabindex="0"
+                        >
+                          locust
+                        </p>
+                      </div>
+                    </div>
                   </div>
                   <div
                     class="cell"
@@ -604,7 +644,7 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
               </div>
             </div>
             <div
-              class="Layout--vertical StyledProps--main comingSoon StyledProps--flex StyledProps--flex-justifyContent-center"
+              class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-small"
@@ -649,7 +689,7 @@ exports[`OverviewGlanceCards OverviewGlanceCards rendering 1`] = `
               </p>
             </div>
             <div
-              class="Layout--vertical StyledProps--main comingSoon StyledProps--flex StyledProps--flex-justifyContent-center"
+              class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center"
             >
               <span
                 class="bp3-icon StyledProps--main StyledProps--margin-small"

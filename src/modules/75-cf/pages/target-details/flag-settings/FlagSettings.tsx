@@ -12,7 +12,7 @@ import {
   PageError
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { Feature, Target, useGetAllFeatures, Variation } from 'services/cf'
+import { Feature, GitDetails, Target, useGetAllFeatures, Variation } from 'services/cf'
 import { ItemContainer } from '@cf/components/ItemContainer/ItemContainer'
 import routes from '@common/RouteDefinitions'
 import { CF_DEFAULT_PAGE_SIZE, FlagsSortByField, getErrorMessage, SortOrder } from '@cf/utils/CFUtils'
@@ -27,6 +27,9 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
+import { useGitSync, GitSyncFormValues } from '@cf/hooks/useGitSync'
+import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { DetailHeading } from '../DetailHeading'
 import css from './FlagSettings.module.scss'
 
@@ -79,6 +82,48 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
   )
   const { data, loading: loadingFeatures, error, refetch } = useGetAllFeatures({ queryParams })
   const [loadingFeaturesInBackground, setLoadingFeaturesInBackground] = useState(false)
+
+  const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
+  const { gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS)
+  const [isGitSyncModalOpen, setIsGitSyncModalOpen] = useState(false)
+
+  const [selectedVariation, setSelectedVariation] = useState<Variation>()
+  const [selectedFeature, setSelectedFeature] = useState<Feature>()
+
+  const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
+
+  const saveVariationChange = async (gitSyncFormValues?: GitSyncFormValues): Promise<boolean> => {
+    if (!selectedVariation || !target || !selectedFeature) {
+      return false
+    }
+
+    setLoadingFeaturesInBackground(true)
+
+    let gitDetails: GitDetails | undefined
+
+    if (isAutoCommitEnabled) {
+      gitDetails = gitSyncInitialValues.gitDetails
+    } else {
+      gitDetails = gitSyncFormValues?.gitDetails
+    }
+
+    await _useServeFlagVariationToTargets(
+      selectedFeature,
+      selectedVariation.identifier,
+      [target.identifier],
+      gitDetails
+    )
+
+    if (!isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
+      await handleAutoCommit(gitSyncFormValues.autoCommit)
+    }
+
+    await refetch().then(() => {
+      setIsGitSyncModalOpen(false)
+      setLoadingFeaturesInBackground(false)
+    })
+    return true
+  }
 
   const FlagSettingsHeader: React.FC = () => {
     const textStyle = {
@@ -176,7 +221,13 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
                   feature={feature}
                   patchParams={patchParams}
                   key={feature.identifier}
+                  isGitSyncEnabled={isGitSyncEnabled}
+                  isAutoCommitEnabled={isAutoCommitEnabled}
+                  openGitSyncModal={() => setIsGitSyncModalOpen(true)}
                   setLoadingFeaturesInBackground={setLoadingFeaturesInBackground}
+                  saveVariationChange={saveVariationChange}
+                  setSelectedVariation={setSelectedVariation}
+                  setSelectedFeature={setSelectedFeature}
                   refetch={async () => {
                     await refetch()
                   }}
@@ -197,6 +248,16 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
             )}
           </>
         )}
+        {isGitSyncModalOpen && (
+          <SaveFlagToGitModal
+            flagName={selectedFeature?.name || ''}
+            flagIdentifier={selectedFeature?.identifier || ''}
+            onSubmit={saveVariationChange}
+            onClose={() => {
+              setIsGitSyncModalOpen(false)
+            }}
+          />
+        )}
 
         {loading && <ContainerSpinner />}
         {!loading && error && <PageError message={getErrorMessage(error)} onClick={() => refetch()} />}
@@ -211,8 +272,22 @@ const FlagSettingsRow: React.FC<{
   patchParams: FlagPatchParams
   setLoadingFeaturesInBackground: React.Dispatch<React.SetStateAction<boolean>>
   refetch: () => Promise<void>
-}> = ({ target, feature, patchParams, setLoadingFeaturesInBackground, refetch }) => {
-  const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
+  isGitSyncEnabled: boolean
+  isAutoCommitEnabled: boolean
+  openGitSyncModal: () => void
+  setSelectedVariation: (variation: Variation) => void
+  setSelectedFeature: (feature: Feature) => void
+  saveVariationChange: (gitSyncFormvalues?: GitSyncFormValues) => Promise<boolean>
+}> = ({
+  feature,
+  patchParams,
+  isGitSyncEnabled,
+  isAutoCommitEnabled,
+  openGitSyncModal,
+  setSelectedVariation,
+  setSelectedFeature,
+  saveVariationChange
+}) => {
   const { showError } = useToaster()
   const { withActiveEnvironment } = useActiveEnvironment()
 
@@ -273,12 +348,14 @@ const FlagSettingsRow: React.FC<{
             selectedIdentifier={feature.evaluationIdentifier as string}
             onChange={async variation => {
               try {
-                await _useServeFlagVariationToTargets(feature, variation.identifier, [target.identifier])
-                setLoadingFeaturesInBackground(true)
-                refetch().then(() => {
-                  setLoadingFeaturesInBackground(false)
-                })
-                return true
+                setSelectedVariation(variation)
+                setSelectedFeature(feature)
+
+                if (isGitSyncEnabled && !isAutoCommitEnabled) {
+                  openGitSyncModal()
+                } else {
+                  return saveVariationChange()
+                }
               } catch (error) {
                 showError(getErrorMessage(error), 0, 'cf.serve.flag.variant.error')
               }

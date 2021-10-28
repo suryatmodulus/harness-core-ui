@@ -1,9 +1,11 @@
 import React from 'react'
-import { useModalHook, Button } from '@wings-software/uicore'
+import { useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import CreateOrSelectSecret from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper, ConnectorInfoDTO } from 'services/cd-ng'
+import { ReferenceSelectDialogTitle } from '@common/components/ReferenceSelect/ReferenceSelect'
+import { useStrings } from 'framework/strings'
 import css from './useCreateOrSelectSecretModal.module.scss'
 
 export interface UseCreateOrSelectSecretModalProps {
@@ -23,6 +25,7 @@ const useCreateOrSelectSecretModal = (
   props: UseCreateOrSelectSecretModalProps,
   inputs?: any[]
 ): UseCreateOrSelectSecretModalReturn => {
+  const { getString } = useStrings()
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -31,10 +34,12 @@ const useCreateOrSelectSecretModal = (
         onClose={() => {
           hideModal()
         }}
+        title={ReferenceSelectDialogTitle(getString('secretType'))}
         className={css.dialog}
       >
         <CreateOrSelectSecret
           {...props}
+          onCancel={hideModal}
           onSuccess={secret => {
             /* istanbul ignore next */
             props.onSuccess?.(secret)
@@ -46,7 +51,6 @@ const useCreateOrSelectSecretModal = (
             hideModal()
           }}
         />
-        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
     inputs || []

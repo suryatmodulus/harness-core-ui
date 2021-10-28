@@ -3,7 +3,7 @@
   "compilerOptions": {
     "noEmit": false,
     "declaration": true,
-    "declarationDir": "types"
+    "declarationDir": "dist"
   },
-  "include": ["MicrofrontendTypes.ts", "../global.d.ts"]
+  "include": ["index.ts", "../global.d.ts"]
 }

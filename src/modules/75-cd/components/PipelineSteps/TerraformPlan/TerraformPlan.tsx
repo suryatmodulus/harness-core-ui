@@ -1,12 +1,12 @@
 import React from 'react'
 import {
   Accordion,
+  Button,
   Color,
   Formik,
   FormInput,
   getMultiTypeFromValue,
   HarnessDocTooltip,
-  Icon,
   IconName,
   Label,
   Layout,
@@ -137,7 +137,7 @@ function TerraformPlanWidget(
           <>
             <>
               {stepViewType !== StepViewType.Template && (
-                <div className={cx(stepCss.formGroup, stepCss.lg)}>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
               )}
@@ -166,7 +166,7 @@ function TerraformPlanWidget(
                 )}
               </div>
 
-              <div className={stepCss.divider} />
+              <div className={css.divider} />
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.RadioGroup
@@ -217,7 +217,7 @@ function TerraformPlanWidget(
                 />
               </div>
 
-              <Layout.Vertical className={cx(css.addMarginBottom, css.addMarginTop)}>
+              <Layout.Vertical>
                 <Label
                   style={{ color: Color.GREY_900 }}
                   className={css.configLabel}
@@ -229,133 +229,148 @@ function TerraformPlanWidget(
                 <div className={cx(css.configFile, css.addMarginBottom)}>
                   <div className={css.configField}>
                     {!formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath && (
-                      <Text className={css.configPlaceHolder}>{getString('cd.configFilePlaceHolder')}</Text>
+                      <a className={css.configPlaceHolder} onClick={() => setShowModal(true)}>
+                        {getString('cd.configFilePlaceHolder')}
+                      </a>
                     )}
                     {formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath && (
                       <Text font="normal" lineClamp={1} width={200}>
                         /{formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath}
                       </Text>
                     )}
-                    <Icon name="edit" onClick={() => setShowModal(true)} />
+                    {formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath ? (
+                      <Button
+                        minimal
+                        icon="Edit"
+                        withoutBoxShadow
+                        iconProps={{ size: 16 }}
+                        onClick={() => setShowModal(true)}
+                        data-name="config-edit"
+                        withoutCurrentColor={true}
+                        className={css.editBtn}
+                      />
+                    ) : null}
                   </div>
                 </div>
               </Layout.Vertical>
-              <div className={css.addMarginTop}>
-                <Accordion className={stepCss.accordion}>
-                  <Accordion.Panel
-                    id="step-1"
-                    summary={getString('common.optionalConfig')}
-                    details={
-                      <>
-                        <div className={cx(stepCss.formGroup, stepCss.md)}>
-                          <FormInput.MultiTextInput
-                            name="spec.configuration.workspace"
-                            label={getString('pipelineSteps.workspace')}
-                            multiTextInputProps={{ expressions, allowableTypes }}
-                            isOptional={true}
+
+              <Accordion className={stepCss.accordion}>
+                <Accordion.Panel
+                  id="step-1"
+                  summary={getString('common.optionalConfig')}
+                  details={
+                    <>
+                      <div className={cx(stepCss.formGroup, stepCss.md)}>
+                        <FormInput.MultiTextInput
+                          name="spec.configuration.workspace"
+                          label={getString('pipelineSteps.workspace')}
+                          multiTextInputProps={{ expressions, allowableTypes }}
+                          isOptional={true}
+                        />
+                        {getMultiTypeFromValue(formik.values.spec?.configuration?.workspace) ===
+                          MultiTypeInputType.RUNTIME && (
+                          <ConfigureOptions
+                            className={stepCss.buttonMarginBottom}
+                            value={formik.values?.spec?.configuration?.workspace as string}
+                            type="String"
+                            variableName="spec.configuration.workspace"
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={value => {
+                              /* istanbul ignore else */
+                              formik.setFieldValue('spec.configuration.workspace', value)
+                            }}
+                            isReadonly={readonly}
                           />
-                          {getMultiTypeFromValue(formik.values.spec?.configuration?.workspace) ===
-                            MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              className={stepCss.buttonMarginBottom}
-                              value={formik.values?.spec?.configuration?.workspace as string}
-                              type="String"
-                              variableName="spec.configuration.workspace"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => {
-                                /* istanbul ignore else */
-                                formik.setFieldValue('spec.configuration.workspace', value)
-                              }}
-                              isReadonly={readonly}
-                            />
-                          )}
-                        </div>
-                        <TfVarFileList formik={formik} isReadonly={props.readonly} allowableTypes={allowableTypes} />
-                        <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
-                          <MultiTypeFieldSelector
+                        )}
+                      </div>
+                      <div className={css.divider} />
+                      <TfVarFileList formik={formik} isReadonly={props.readonly} allowableTypes={allowableTypes} />
+                      <div className={css.divider} />
+                      <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
+                        <MultiTypeFieldSelector
+                          name="spec.configuration.backendConfig.spec.content"
+                          label={
+                            <Text style={{ color: 'rgb(11, 11, 13)' }}>
+                              {' '}
+                              {getString('optionalField', { name: getString('cd.backEndConfig') })}
+                            </Text>
+                          }
+                          defaultValueToReset=""
+                          allowedTypes={allowableTypes}
+                          expressionRender={() => {
+                            return (
+                              <TFMonaco
+                                name="spec.configuration.backendConfig.spec.content"
+                                formik={formik}
+                                expressions={expressions}
+                                title={getString('cd.backEndConfig')}
+                              />
+                            )
+                          }}
+                          skipRenderValueInExpressionLabel
+                        >
+                          <TFMonaco
                             name="spec.configuration.backendConfig.spec.content"
-                            label={
-                              <Text style={{ color: 'rgb(11, 11, 13)' }}>
-                                {' '}
-                                {getString('optionalField', { name: getString('cd.backEndConfig') })}
+                            formik={formik}
+                            expressions={expressions}
+                            title={getString('cd.backEndConfig')}
+                          />
+                        </MultiTypeFieldSelector>
+                        {getMultiTypeFromValue(formik.values.spec?.configuration?.backendConfig?.spec?.content) ===
+                          MultiTypeInputType.RUNTIME && (
+                          <ConfigureOptions
+                            value={formik.values.spec?.configuration?.backendConfig?.spec?.content as string}
+                            type="String"
+                            variableName="spec.configuration.backendConfig.spec.content"
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={value => setFieldValue('spec.configuration.backendConfig.spec.content', value)}
+                            isReadonly={readonly}
+                          />
+                        )}
+                      </div>
+                      <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
+                        <MultiTypeList
+                          name="spec.configuration.targets"
+                          multiTextInputProps={{
+                            expressions,
+                            allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
+                          }}
+                          multiTypeFieldSelectorProps={{
+                            label: (
+                              <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
+                                {getString('optionalField', { name: getString('pipeline.targets.title') })}
                               </Text>
-                            }
-                            defaultValueToReset=""
-                            allowedTypes={allowableTypes}
-                            expressionRender={() => {
-                              return (
-                                <TFMonaco
-                                  name="spec.configuration.backendConfig.spec.content"
-                                  formik={formik}
-                                  expressions={expressions}
-                                  title={getString('cd.backEndConfig')}
-                                />
-                              )
-                            }}
-                            skipRenderValueInExpressionLabel
-                          >
-                            <TFMonaco
-                              name="spec.configuration.backendConfig.spec.content"
-                              formik={formik}
-                              expressions={expressions}
-                              title={getString('cd.backEndConfig')}
-                            />
-                          </MultiTypeFieldSelector>
-                          {getMultiTypeFromValue(formik.values.spec?.configuration?.backendConfig?.spec?.content) ===
-                            MultiTypeInputType.RUNTIME && (
-                            <ConfigureOptions
-                              value={formik.values.spec?.configuration?.backendConfig?.spec?.content as string}
-                              type="String"
-                              variableName="spec.configuration.backendConfig.spec.content"
-                              showRequiredField={false}
-                              showDefaultField={false}
-                              showAdvanced={true}
-                              onChange={value => setFieldValue('spec.configuration.backendConfig.spec.content', value)}
-                              isReadonly={readonly}
-                            />
-                          )}
-                        </div>
-                        <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
-                          <MultiTypeList
-                            name="spec.configuration.targets"
-                            multiTextInputProps={{
-                              expressions,
-                              allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
-                            }}
-                            multiTypeFieldSelectorProps={{
-                              label: (
-                                <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
-                                  {getString('optionalField', { name: getString('pipeline.targets.title') })}
-                                </Text>
-                              )
-                            }}
-                            style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
-                          />
-                        </div>
-                        <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
-                          <MultiTypeMap
-                            name="spec.configuration.environmentVariables"
-                            valueMultiTextInputProps={{
-                              expressions,
-                              allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
-                            }}
-                            multiTypeFieldSelectorProps={{
-                              disableTypeSelection: true,
-                              label: (
-                                <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
-                                  {getString('optionalField', { name: getString('environmentVariables') })}
-                                </Text>
-                              )
-                            }}
-                          />
-                        </div>
-                      </>
-                    }
-                  />
-                </Accordion>
-              </div>
+                            )
+                          }}
+                          style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
+                        />
+                      </div>
+                      <div className={css.divider} />
+                      <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
+                        <MultiTypeMap
+                          name="spec.configuration.environmentVariables"
+                          valueMultiTextInputProps={{
+                            expressions,
+                            allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME)
+                          }}
+                          multiTypeFieldSelectorProps={{
+                            disableTypeSelection: true,
+                            label: (
+                              <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
+                                {getString('optionalField', { name: getString('environmentVariables') })}
+                              </Text>
+                            )
+                          }}
+                        />
+                      </div>
+                    </>
+                  }
+                />
+              </Accordion>
             </>
 
             {showModal && (
@@ -366,7 +381,7 @@ function TerraformPlanWidget(
                 {...modalProps}
                 title={getString('pipelineSteps.configFiles')}
                 isCloseButtonShown
-                style={{ width: '650px' }}
+                style={{ padding: '24px' }}
               >
                 <ConfigForm
                   onClick={data => {

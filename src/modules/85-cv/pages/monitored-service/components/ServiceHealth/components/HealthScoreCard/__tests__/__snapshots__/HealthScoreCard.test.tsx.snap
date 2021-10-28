@@ -3,36 +3,65 @@
 exports[`HealthScoreCard Tests should render HealthScoreCard error view when fetching health score errors out 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main healthScoreCardContainer"
+    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex"
   >
-    <div
-      class="StyledProps--font StyledProps--main StyledProps--flex"
+    <span
+      class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--intent-danger"
+      icon="warning-sign"
+    >
+      <svg
+        data-icon="warning-sign"
+        height="10"
+        viewBox="0 0 16 16"
+        width="10"
+      >
+        <desc>
+          warning-sign
+        </desc>
+        <path
+          d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </span>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-variation-tiny-semi"
+    >
+      cv.monitoredServices.failedToFetchHealthScore
+    </p>
+    <span
+      class="bp3-popover-wrapper"
     >
       <span
-        class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--intent-danger StyledProps--margin-right-small"
-        icon="warning-sign"
+        class="bp3-popover-target"
       >
-        <svg
-          data-icon="warning-sign"
-          height="12"
-          viewBox="0 0 16 16"
-          width="12"
+        <span
+          class="StyledProps--font StyledProps--main textLink StyledProps--inline StyledProps--font-variation-tiny-semi StyledProps--color StyledProps--color-primary7"
+          style="display: inline-flex; align-items: center;"
         >
-          <desc>
-            warning-sign
-          </desc>
-          <path
-            d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
-            fill-rule="evenodd"
-          />
-        </svg>
+          common.seeDetails
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary7"
+            icon="chevron-right"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="10"
+              viewBox="0 0 16 16"
+              width="10"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
       </span>
-      <p
-        class="StyledProps--font StyledProps--main errorText StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
-      >
-        cv.monitoredServices.failedToFetchHealthScore
-      </p>
-    </div>
+    </span>
   </div>
 </div>
 `;
@@ -40,18 +69,51 @@ exports[`HealthScoreCard Tests should render HealthScoreCard error view when fet
 exports[`HealthScoreCard Tests should render HealthScoreCard when healthscore is present 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main healthScoreCardContainer"
+    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
   >
-    <div
-      class="healthScoreCard"
-    >
-      2
-    </div>
     <p
-      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny-semi StyledProps--color StyledProps--color-grey500 StyledProps--flex"
     >
-      cv.monitoredServices.monitoredServiceTabs.serviceHealth
+      cv.monitoredServices.healthScoreDataNotAvailableForDependencyHealth
     </p>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main healthScoreCardContainer"
+    >
+      <span
+        class="Tag--main"
+      >
+        <span
+          class="bp3-tag healthScoreCard"
+        >
+          <span
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            2
+          </span>
+        </span>
+      </span>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-body"
+      >
+        cv.monitoredServices.monitoredServiceTabs.serviceHealth
+      </p>
+    </div>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main healthScoreCardContainer"
+    >
+      <span
+        class="Tag--main"
+      >
+        <span
+          class="bp3-tag healthScoreCard"
+        />
+      </span>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-body"
+      >
+        cv.monitoredServices.dependencyHealth
+      </p>
+    </div>
   </div>
 </div>
 `;
@@ -59,25 +121,25 @@ exports[`HealthScoreCard Tests should render HealthScoreCard when healthscore is
 exports[`HealthScoreCard Tests should render HealthScoreCard with loading state 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main healthScoreCardContainer"
+    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+    data-testid="loading-healthscore"
   >
     <div
-      class="StyledProps--font StyledProps--main StyledProps--flex"
-      data-testid="loading-healthscore"
-    >
-      <div
-        class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-right-small"
-        style="width: 20px; height: 20px;"
-      />
-      <div
-        class="StyledProps--font StyledProps--main"
-      >
-        <div
-          class="StyledProps--font StyledProps--main bp3-skeleton StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
-          style="width: 90px; height: 5px;"
-        />
-      </div>
-    </div>
+      class="StyledProps--font StyledProps--main bp3-skeleton"
+      style="width: 30px; height: 30px;"
+    />
+    <div
+      class="StyledProps--font StyledProps--main bp3-skeleton"
+      style="width: 90px; height: 15px;"
+    />
+    <div
+      class="StyledProps--font StyledProps--main bp3-skeleton"
+      style="width: 30px; height: 30px;"
+    />
+    <div
+      class="StyledProps--font StyledProps--main bp3-skeleton"
+      style="width: 122px; height: 15px;"
+    />
   </div>
 </div>
 `;
@@ -85,28 +147,44 @@ exports[`HealthScoreCard Tests should render HealthScoreCard with loading state 
 exports[`HealthScoreCard Tests should render HealthScoreCard with no data 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main healthScoreCardContainer"
+    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
   >
-    <div
-      class="StyledProps--font StyledProps--main noDataState"
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny-semi StyledProps--color StyledProps--color-grey500 StyledProps--flex"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--padding-right-small StyledProps--flex StyledProps--flex-alignItems-center"
+      cv.monitoredServices.healthScoreDataNotAvailable
+    </p>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main healthScoreCardContainer"
+    >
+      <span
+        class="Tag--main"
       >
-        cv.monitoredServices.healthScoreDataNotAvailable
-      </p>
-      <div
-        class="Layout--horizontal StyledProps--main healthScoreCardContainer"
-      >
-        <div
-          class="healthScoreCard"
+        <span
+          class="bp3-tag healthScoreCard"
         />
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
-        >
-          cv.monitoredServices.monitoredServiceTabs.serviceHealth
-        </p>
-      </div>
+      </span>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-body"
+      >
+        cv.monitoredServices.monitoredServiceTabs.serviceHealth
+      </p>
+    </div>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main healthScoreCardContainer"
+    >
+      <span
+        class="Tag--main"
+      >
+        <span
+          class="bp3-tag healthScoreCard"
+        />
+      </span>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-variation-body"
+      >
+        cv.monitoredServices.dependencyHealth
+      </p>
     </div>
   </div>
 </div>

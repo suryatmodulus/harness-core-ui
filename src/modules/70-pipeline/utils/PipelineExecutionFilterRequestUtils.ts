@@ -10,7 +10,7 @@ import type { FilterProperties } from 'services/cd-ng'
 import { isObjectEmpty, removeNullAndEmpty } from '@common/components/Filter/utils/FilterUtils'
 
 export interface DeploymentTypeContext {
-  deploymentType?: string
+  deploymentType?: MultiSelectOption[]
   infrastructureType?: string
   services?: MultiSelectOption[]
   environments?: MultiSelectOption[]
@@ -25,7 +25,17 @@ export interface BuildTypeContext {
   tag?: string
 }
 
-const exclusionList = ['buildType', 'repositoryName', 'sourceBranch', 'targetBranch', 'tag', 'branch']
+const exclusionList = [
+  'buildType',
+  'repositoryName',
+  'sourceBranch',
+  'targetBranch',
+  'tag',
+  'branch',
+  'services',
+  'environments',
+  'deploymentType'
+]
 
 export const getValidFilterArguments = (formData: Record<string, any>): PipelineExecutionFilterProperties => {
   const {
@@ -52,7 +62,7 @@ export const getValidFilterArguments = (formData: Record<string, any>): Pipeline
         tag
       }),
       cd: {
-        serviceDefinitionTypes: deploymentType ? [deploymentType] : undefined,
+        serviceDefinitionTypes: deploymentType?.map((deployment: MultiSelectOption) => deployment?.value),
         infrastructureType: infrastructureType,
         serviceIdentifiers: services?.map((service: MultiSelectOption) => service?.value),
         envIdentifiers: environments?.map((env: MultiSelectOption) => env?.value)

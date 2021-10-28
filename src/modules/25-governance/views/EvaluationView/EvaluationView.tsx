@@ -7,11 +7,14 @@ import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { Evaluation, EvaluationDetails, EvaluatedPolicy } from 'services/pm'
 import { EvaluationStatus, evaluationStatusToColor } from '@governance/utils/GovernanceUtils'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import { EvaluationStatusLabel } from '../../components/EvaluationStatus/EvaluationStatusLabel'
 import css from './EvaluationView.module.scss'
 
 export interface EvaluationViewProps {
   accountId: string
+  module?: Module
+
   // data from Pipeline execution's governanceMetadata and from OPA execution API is
   // slightly different. Hence this field has type unknown and will be converted to correct
   // data types depends on where this component is used (in Pipeline or in Governance)
@@ -24,6 +27,7 @@ export interface EvaluationViewProps {
 
 export const EvaluationView: React.FC<EvaluationViewProps> = ({
   accountId,
+  module,
   metadata: _metadata,
   noHeadingMessage,
   headingErrorMessage
@@ -135,7 +139,15 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
                     variation={ButtonVariation.ICON}
                     icon="main-link"
                     onClick={() => {
-                      history.push(routes.toPolicyEvaluationDetail({ accountId, evaluationId: metadata.id }))
+                      history.push(
+                        routes.toGovernanceEvaluationDetail({
+                          accountId,
+                          orgIdentifier: metadata.org_id,
+                          projectIdentifier: metadata.project_id,
+                          module,
+                          evaluationId: String(metadata.id)
+                        })
+                      )
                     }}
                   />
                 </Text>
@@ -173,7 +185,15 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
                       <Layout.Horizontal spacing="xsmall" padding={{ top: 'medium' }} key={policyIdentifier}>
                         <Container style={{ flexGrow: 1 }}>
                           <Text font={{ variation: FontVariation.BODY }} color={Color.PRIMARY_7}>
-                            <Link to={routes.toPolicyEditPage({ accountId, policyIdentifier: policyIdentifier })}>
+                            <Link
+                              to={routes.toGovernanceEditPolicy({
+                                accountId,
+                                orgIdentifier: metadata.org_id,
+                                projectIdentifier: metadata.project_id,
+                                policyIdentifier: policyIdentifier,
+                                module
+                              })}
+                            >
                               {policyName}
                             </Link>
                           </Text>

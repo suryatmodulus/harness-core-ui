@@ -9,7 +9,9 @@ declare const styles: {
   readonly selectedItem: string
   readonly searchBox: string
   readonly search: string
-  readonly iconMargin: string
-  readonly applyButton: string
+  readonly tabIcon: string
+  readonly tabTitleContainer: string
+  readonly noDataContainer: string
+  readonly noDataCardImg: string
 }
 export default styles

@@ -27,6 +27,9 @@ import { useMutateAsGet } from '@common/hooks'
 import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView'
 import TemplatesView from '@templates-library/pages/TemplatesPage/views/TemplatesView'
 import ResultsViewHeader from '@templates-library/pages/TemplatesPage/views/ResultsViewHeader'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import css from './TemplatesPage.module.scss'
 
 export default function TemplatesPage(): React.ReactElement {
@@ -36,30 +39,35 @@ export default function TemplatesPage(): React.ReactElement {
   const [view, setView] = useState<Views>(Views.GRID)
   const [sort, setSort] = useState<string[]>([SortFields.LastUpdatedAt, Sort.DESC])
   const [searchParam, setSearchParam] = useState('')
-  const [templateIdentifierToDelete, setTemplateIdentifierToDelete] = React.useState<string>()
+  const [templateToDelete, setTemplateToDelete] = React.useState<TemplateSummaryResponse>({})
   const [templateIdentifierToSettings, setTemplateIdentifierToSettings] = React.useState<string>()
   const [selectedTemplate, setSelectedTemplate] = React.useState<TemplateSummaryResponse | undefined>()
+  const [gitFilter, setGitFilter] = useState<GitFilterScope | null>(null)
   const searchRef = React.useRef<ExpandingSearchInputHandle>({} as ExpandingSearchInputHandle)
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
+  const { isGitSyncEnabled } = useAppStore()
 
   const reset = React.useCallback((): void => {
     searchRef.current.clear()
+    setGitFilter(null)
   }, [searchRef])
 
   const [showDeleteTemplatesModal, hideDeleteTemplatesModal] = useModalHook(
     () => (
       <Dialog enforceFocus={false} isOpen={true} className={css.deleteTemplateDialog}>
-        <DeleteTemplateModal
-          templateIdentifier={templateIdentifierToDelete || ''}
-          onClose={hideDeleteTemplatesModal}
-          onSuccess={() => {
-            hideDeleteTemplatesModal()
-            reloadTemplates()
-          }}
-        />
+        <GitSyncStoreProvider>
+          <DeleteTemplateModal
+            template={templateToDelete}
+            onClose={hideDeleteTemplatesModal}
+            onSuccess={() => {
+              hideDeleteTemplatesModal()
+              reloadTemplates()
+            }}
+          />
+        </GitSyncStoreProvider>
       </Dialog>
     ),
-    [templateIdentifierToDelete]
+    [templateToDelete]
   )
 
   const [showTemplateSettingsModal, hideTemplateSettingsModal] = useModalHook(
@@ -95,7 +103,12 @@ export default function TemplatesPage(): React.ReactElement {
       searchTerm: searchParam,
       page,
       sort,
-      size: 20
+      size: 20,
+      ...(gitFilter?.repo &&
+        gitFilter.branch && {
+          repoIdentifier: gitFilter.repo,
+          branch: gitFilter.branch
+        })
     },
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
@@ -104,7 +117,7 @@ export default function TemplatesPage(): React.ReactElement {
     reloadTemplates()
   }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam, sort])
 
-  const goToTemplateStudio = (template: TemplateSummaryResponse) => {
+  const goToTemplateStudio = (template: TemplateSummaryResponse): void => {
     history.push(
       routes.toTemplateStudio({
         projectIdentifier,
@@ -113,7 +126,9 @@ export default function TemplatesPage(): React.ReactElement {
         module,
         templateType: template.templateEntityType,
         templateIdentifier: template.identifier || '',
-        versionLabel: template.versionLabel
+        versionLabel: template.versionLabel,
+        repoIdentifier: template.gitDetails?.repoIdentifier,
+        branch: template.gitDetails?.branch
       })
     )
   }
@@ -134,7 +149,21 @@ export default function TemplatesPage(): React.ReactElement {
         {loading && <PageSpinner />}
         <Layout.Vertical height={'100%'}>
           <Page.SubHeader>
-            <NewTemplatePopover />
+            <Layout.Horizontal>
+              <NewTemplatePopover />
+              {isGitSyncEnabled && (
+                <GitSyncStoreProvider>
+                  <GitFilters
+                    onChange={filter => {
+                      setGitFilter(filter)
+                      setPage(0)
+                    }}
+                    className={css.gitFilter}
+                    defaultValue={gitFilter || undefined}
+                  />
+                </GitSyncStoreProvider>
+              )}
+            </Layout.Horizontal>
             <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
               <ExpandingSearchInput
                 alwaysExpanded
@@ -168,8 +197,8 @@ export default function TemplatesPage(): React.ReactElement {
                       setTemplateIdentifierToSettings(identifier)
                       showTemplateSettingsModal()
                     }}
-                    onDelete={identifier => {
-                      setTemplateIdentifierToDelete(identifier)
+                    onDelete={template => {
+                      setTemplateToDelete(template)
                       showDeleteTemplatesModal()
                     }}
                     view={view}
@@ -183,6 +212,7 @@ export default function TemplatesPage(): React.ReactElement {
       <TemplateDetailsDrawer
         templateIdentifier={selectedTemplate?.identifier}
         versionLabel={selectedTemplate?.versionLabel}
+        gitDetails={selectedTemplate?.gitDetails}
         onClose={() => {
           setSelectedTemplate(undefined)
         }}

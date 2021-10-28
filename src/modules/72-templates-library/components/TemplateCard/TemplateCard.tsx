@@ -8,23 +8,29 @@ import { getIconsForTemplates, templateColorStyleMap } from '@templates-library/
 import { TemplateTags } from '@templates-library/components/TemplateTags/TemplateTags'
 import { useStrings } from 'framework/strings'
 import { TemplateListContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplatesListView/TemplateListCardContextMenu/TemplateListContextMenu'
+import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import type { NGTemplateInfoConfig, TemplateSummaryResponse } from 'services/template-ng'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TemplateColor } from './TemplateColor/TemplateColor'
 import css from './TemplateCard.module.scss'
 
 export interface TemplateCardProps {
-  template: NGTemplateInfoConfig | TemplateSummaryResponse
+  template: TemplateSummaryResponse
   onSelect?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) => void
   isSelected?: boolean
   onPreview?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) => void
   onOpenEdit?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) => void
   onOpenSettings?: (templateIdentifier: string) => void
-  onDelete?: (templateIdentifier: string) => void
+  onDelete?: (template: TemplateSummaryResponse) => void
 }
 
 export function TemplateCard(props: TemplateCardProps): JSX.Element {
   const { getString } = useStrings()
   const { template, onSelect, isSelected, onPreview, onOpenEdit, onOpenSettings, onDelete } = props
+
+  const { isGitSyncEnabled } = useAppStore()
+  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
 
   const templateEntityType =
     (template as TemplateSummaryResponse)?.templateEntityType || (template as NGTemplateInfoConfig)?.type
@@ -76,7 +82,57 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
           </Tag>
         </Container>
         <Container height={1} background={Color.GREY_100} />
-        {!!template.tags && !isEmpty(template.tags) && <TemplateTags tags={template.tags} />}
+        {!!template.tags && !isEmpty(template.tags) && (
+          <>
+            <TemplateTags tags={template.tags} />
+            <Container height={1} background={Color.GREY_100} />
+          </>
+        )}
+        {isGitSyncEnabled && !!template.gitDetails?.repoIdentifier && !!template.gitDetails.branch && (
+          <>
+            <Container className={css.infoContainer}>
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
+                <Text className={css.label} font="small" width={80} color={Color.GREY_700}>
+                  {getString('pipeline.gitRepo')}
+                </Text>
+                <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
+                  <Icon name="repository" size={10} color={Color.GREY_600} />
+                  <Text
+                    font={{ size: 'small' }}
+                    color={Color.BLACK}
+                    title={template?.gitDetails?.repoIdentifier}
+                    lineClamp={1}
+                    width={40}
+                  >
+                    {(!loadingRepos &&
+                      getRepoDetailsByIndentifier(template.gitDetails.repoIdentifier, gitSyncRepos)?.name) ||
+                      ''}
+                  </Text>
+                </Layout.Horizontal>
+              </Layout.Horizontal>
+
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
+                <Text className={css.label} font="small" width={80} color={Color.GREY_700}>
+                  {getString('pipelineSteps.deploy.inputSet.branch')}
+                </Text>
+                <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
+                  <Icon name="git-new-branch" size={10} color={Color.GREY_500} />
+                  <Text
+                    font={{ size: 'small' }}
+                    color={Color.BLACK}
+                    title={template?.gitDetails?.branch}
+                    lineClamp={1}
+                    width={40}
+                  >
+                    {template.gitDetails.branch}
+                  </Text>
+                </Layout.Horizontal>
+              </Layout.Horizontal>
+            </Container>
+            <Container height={1} background={Color.GREY_100} />
+          </>
+        )}
+
         <Container className={css.userLabel}>
           <Layout.Horizontal>
             <UserLabel name={''} />

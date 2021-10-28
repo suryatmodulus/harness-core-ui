@@ -95,7 +95,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
 
   const fetchPipelines = React.useCallback(async () => {
     cancel()
-    setData(await (await reloadPipelines({ filterType: 'PipelineSetup' })).data?.totalElements)
+    setData(await (await reloadPipelines({ filterType: 'PipelineSetup' }))?.data?.totalElements)
   }, [cancel])
 
   const {

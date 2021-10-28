@@ -262,3 +262,7 @@ export function handleUpdateLicenseStore(
     updateLicenseStore(licenseStoreData)
   }
 }
+
+export const isCDCommunity = (license: { [p: string]: ModuleLicenseDTO } | undefined | Record<string, undefined>) => {
+  return license?.CD?.edition === 'COMMUNITY'
+}

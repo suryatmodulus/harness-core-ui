@@ -831,6 +831,7 @@ export const FetchWorkloadSummaryDocument = gql`
     }
     perspectiveGrid(
       filters: $filters
+      isClusterQuery: $isClusterQuery
       aggregateFunction: [{ operationType: SUM, columnName: "cost" }]
       sortCriteria: []
       groupBy: { entityGroupBy: { fieldId: "workloadName", fieldName: "Workload Id", identifier: CLUSTER } }

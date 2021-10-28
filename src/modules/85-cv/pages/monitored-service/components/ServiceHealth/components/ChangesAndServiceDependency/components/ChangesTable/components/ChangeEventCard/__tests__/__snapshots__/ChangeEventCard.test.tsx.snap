@@ -282,64 +282,70 @@ exports[`Validate ChangeCard should render Pager Duty card 1`] = `
         class="StyledProps--font StyledProps--main container StyledProps--background-primary1 StyledProps--margin-top-small"
       >
         <div
-          class="StyledProps--font StyledProps--main serviceStatesContainer"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--padding-left-medium StyledProps--padding-right-medium"
+          style="height: 30px;"
         >
           <div
-            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
+            class="StyledProps--font StyledProps--main StyledProps--flex"
           >
             <div
-              class="StyledProps--font StyledProps--main serviceState"
+              class="StyledProps--font StyledProps--main serviceState StyledProps--margin-right-xsmall"
+              style="width: 8px; height: 8px;"
             />
             <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny StyledProps--color StyledProps--color-grey700"
             >
               cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy
             </p>
           </div>
           <div
-            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
+            class="StyledProps--font StyledProps--main StyledProps--flex"
           >
             <div
-              class="StyledProps--font StyledProps--main serviceState"
+              class="StyledProps--font StyledProps--main serviceState StyledProps--margin-right-xsmall"
+              style="width: 8px; height: 8px;"
             />
             <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny StyledProps--color StyledProps--color-grey700"
             >
               cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention
             </p>
           </div>
           <div
-            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
+            class="StyledProps--font StyledProps--main StyledProps--flex"
           >
             <div
-              class="StyledProps--font StyledProps--main serviceState"
+              class="StyledProps--font StyledProps--main serviceState StyledProps--margin-right-xsmall"
+              style="width: 8px; height: 8px;"
             />
             <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny StyledProps--color StyledProps--color-grey700"
             >
               cv.monitoredServices.serviceHealth.serviceDependencies.states.observe
             </p>
           </div>
           <div
-            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
+            class="StyledProps--font StyledProps--main StyledProps--flex"
           >
             <div
-              class="StyledProps--font StyledProps--main serviceState"
+              class="StyledProps--font StyledProps--main serviceState StyledProps--margin-right-xsmall"
+              style="width: 8px; height: 8px;"
             />
             <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny StyledProps--color StyledProps--color-grey700"
             >
               cv.monitoredServices.serviceHealth.serviceDependencies.states.healthy
             </p>
           </div>
           <div
-            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-top-xsmall StyledProps--padding-right-xsmall"
+            class="StyledProps--font StyledProps--main StyledProps--flex"
           >
             <div
-              class="StyledProps--font StyledProps--main serviceState"
+              class="StyledProps--font StyledProps--main serviceState StyledProps--margin-right-xsmall"
+              style="width: 8px; height: 8px;"
             />
             <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-size-xsmall"
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny StyledProps--color StyledProps--color-grey700"
             >
               na
             </p>

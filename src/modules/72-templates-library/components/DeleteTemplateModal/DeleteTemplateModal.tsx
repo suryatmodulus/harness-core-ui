@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Container,
   Layout,
@@ -11,7 +11,7 @@ import {
   FormError,
   FormikForm
 } from '@wings-software/uicore'
-import { get, isEmpty } from 'lodash-es'
+import { defaultTo, get, isEmpty } from 'lodash-es'
 import { Formik } from 'formik'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -19,12 +19,19 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner, useToaster } from '@common/components'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { useMutateAsGet } from '@common/hooks'
-import { useDeleteTemplateVersionsOfIdentifier, useGetTemplateList } from 'services/template-ng'
+import {
+  TemplateSummaryResponse,
+  useDeleteTemplateVersionsOfIdentifier,
+  useGetTemplateList
+} from 'services/template-ng'
 import { TemplatePreview } from '@templates-library/components/TemplatePreview/TemplatePreview'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
+import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import css from './DeleteTemplateModal.module.scss'
 
 export interface DeleteTemplateProps {
-  templateIdentifier: string
+  template: TemplateSummaryResponse
   onClose: () => void
   onSuccess: () => void
 }
@@ -37,29 +44,40 @@ export interface CheckboxOptions {
 
 export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
   const { getString } = useStrings()
-  const { templateIdentifier, onClose, onSuccess } = props
+  const { template, onClose, onSuccess } = props
   const [checkboxOptions, setCheckboxOptions] = React.useState<CheckboxOptions[]>([])
   const [query, setQuery] = React.useState<string>('')
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { showSuccess, showError } = useToaster()
-
+  const { isGitSyncEnabled } = useAppStore()
   const { mutate: deleteTemplates, loading: deleteLoading } = useDeleteTemplateVersionsOfIdentifier({})
+  const { setLoading } = useContext(TemplateContext)
 
   const {
     data: templateData,
     loading,
     error: templatesError
   } = useMutateAsGet(useGetTemplateList, {
-    body: { filterType: 'Template', templateIdentifiers: [templateIdentifier] },
+    body: { filterType: 'Template', templateIdentifiers: [template.identifier] },
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
       module,
-      templateListType: TemplateListType.All
+      templateListType: TemplateListType.All,
+      repoIdentifier: defaultTo(template.gitDetails?.repoIdentifier, ''),
+      branch: defaultTo(template.gitDetails?.branch, '')
     },
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
+
+  const { confirmDelete } = useDeleteConfirmationDialog(
+    template,
+    'template',
+    onSuccess,
+    template.identifier,
+    setLoading
+  )
 
   React.useEffect(() => {
     if (templatesError) {
@@ -69,36 +87,40 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
   }, [templatesError])
 
   const performDelete = async (versions: string[]) => {
-    try {
-      await deleteTemplates(templateIdentifier, {
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier,
-          projectIdentifier
-        },
-        body: JSON.stringify({ templateVersionLabels: versions }),
-        headers: { 'content-type': 'application/json' }
-      })
-      showSuccess(getString('templatesLibrary.templatesDeleted'))
-      onSuccess?.()
-    } catch (error) {
-      showError(
-        error?.data?.message || error?.message || getString('templatesLibrary.errorWhileDeleting'),
-        undefined,
-        'template.delete.template.error'
-      )
+    if (isGitSyncEnabled) {
+      confirmDelete({ versions })
+    } else {
+      try {
+        await deleteTemplates(defaultTo(template?.identifier, ''), {
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier
+          },
+          body: JSON.stringify({ templateVersionLabels: versions }),
+          headers: { 'content-type': 'application/json' }
+        })
+        showSuccess(getString('common.template.deleteTemplate.templatesDeleted', { name: template.name }))
+        onSuccess?.()
+      } catch (error) {
+        showError(
+          error?.data?.message || error?.message || getString('common.template.deleteTemplate.errorWhileDeleting'),
+          undefined,
+          'template.delete.template.error'
+        )
+      }
     }
   }
 
   React.useEffect(() => {
     if (templateData?.data?.content) {
       setCheckboxOptions(
-        templateData?.data?.content?.map(template => {
+        templateData?.data?.content?.map(currTemplateData => {
           return {
-            label: template.stableTemplate
-              ? getString('templatesLibrary.stableVersion', { entity: template.versionLabel })
-              : template.versionLabel || '',
-            value: template.versionLabel || '',
+            label: currTemplateData.stableTemplate
+              ? getString('templatesLibrary.stableVersion', { entity: currTemplateData.versionLabel })
+              : currTemplateData.versionLabel || '',
+            value: currTemplateData.versionLabel || '',
             checked: false,
             visible: true
           }
@@ -211,7 +233,7 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
                         flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}
                       >
                         <Button
-                          text={'Delete Selected'}
+                          text={isGitSyncEnabled ? getString('continue') : 'Delete Selected'}
                           type="submit"
                           variation={ButtonVariation.PRIMARY}
                           disabled={!options.some(item => item.checked)}

@@ -75,7 +75,7 @@ describe('Create SSH Cred Wizard', () => {
     await act(async () => {
       fireEvent.click(container.querySelector('a[data-testid="key"]')!)
     })
-    const $selectTab = getByText(document.body, 'secrets.titleSelect')
+    const $selectTab = getByText(document.body, 'common.entityReferenceTitle')
     await act(async () => {
       fireEvent.click($selectTab)
     })

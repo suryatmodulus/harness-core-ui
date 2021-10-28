@@ -238,6 +238,7 @@ const COGatewayList: React.FC = () => {
 
     const hasCustomDomains = (tableProps.row.original.custom_domains?.length as number) > 0
     const isSubmittedRule = tableProps.row.original.status === 'submitted'
+    const isEcsRule = !_isEmpty(tableProps.row.original.routing?.container_svc)
 
     const handleDomainClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.stopPropagation()
@@ -250,7 +251,7 @@ const COGatewayList: React.FC = () => {
       <Container style={{ maxWidth: '80%' }}>
         <Layout.Vertical spacing="medium">
           <Layout.Horizontal spacing="xxxsmall">
-            {!isK8sRule && (
+            {!isK8sRule && !isEcsRule && (
               <>
                 <Text
                   style={{
@@ -282,7 +283,7 @@ const COGatewayList: React.FC = () => {
                 )}
               </>
             )}
-            {!tableProps.row.original.disabled && (
+            {!tableProps.row.original.disabled && !isEcsRule && (
               <>
                 {data?.response?.['state'] != null ? (
                   getStateTag(data?.response?.['state'])

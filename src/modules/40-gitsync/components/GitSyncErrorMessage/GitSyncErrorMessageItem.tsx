@@ -4,6 +4,7 @@ import { useStrings } from 'framework/strings'
 import styles from '@gitsync/components/GitSyncErrorMessage/GitSyncErrorMessage.module.scss'
 
 export interface GitSyncErrorMessageProps {
+  mode: 'COMMIT' | 'FILE' | 'CONNECTIVITY'
   title: string
   count?: number
   repo?: string
@@ -32,6 +33,7 @@ export const GitSyncErrorMessageItem: React.FC<GitSyncErrorMessageProps['items']
           font={{ size: 'small', weight: 'semi-bold' }}
           color={Color.PRIMARY_7}
           className={styles.errorItemViewContent}
+          onClick={() => showDetails()}
         >
           {getString('common.viewContent')}
         </Text>
@@ -57,7 +59,7 @@ export const GitSyncErrorMessageItem: React.FC<GitSyncErrorMessageProps['items']
               color={Color.PRIMARY_7}
               data-testid="gitSyncErrorMessageItemFixCommit"
             >
-              {fixCommit}
+              {fixCommit?.slice(0, 7)}
             </Text>
           </Layout.Horizontal>
         </Layout.Horizontal>

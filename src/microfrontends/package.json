@@ -1,15 +1,16 @@
 {
   "name": "@wings-software/microfrontends",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "description": "",
-  "types": "types/microfrontends/microfrontendTypes.d.ts",
+  "types": "dist/microfrontends/index.d.ts",
+  "main": "dist/microfrontends/index.js",
   "author": "Harness Inc",
   "license": "Harness Inc",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
   "files": [
-    "types"
+    "dist"
   ],
   "repository": {
     "type": "git",

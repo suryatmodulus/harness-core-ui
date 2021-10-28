@@ -805,13 +805,13 @@ pipelineSteps:
     serviceIsRequired: Service is required
     aboutYourService: About the Service
     artifactList:
-      addSidecar: Add Sidecar
-      addPrimary: Add Primary Artifact
+      addSidecar: + Add Sidecar
+      addPrimary: + Add Primary Artifact
     manifestList:
       manifestFormat: Manifest Format
       manifestType: Manifest Type
       manifestStore: '{{$.store}}'
-      addManifest: Add Manifest
+      addManifest: + Add Manifest
   destroy: 'Destroy'
   configTypes:
     fromPlan: 'Inherit From Plan'

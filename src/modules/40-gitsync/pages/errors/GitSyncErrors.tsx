@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { createRef, useState } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import { Button, ButtonVariation, Color, ExpandingSearchInput, Layout, Tab, Tabs, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -19,7 +19,7 @@ import styles from '@gitsync/pages/errors/GitSyncErrors.module.scss'
 export const GitSyncErrorsWithRedirect: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { NG_GIT_ERROR_EXPERIENCE } = useFeatureFlags()
-  return !NG_GIT_ERROR_EXPERIENCE ? (
+  return NG_GIT_ERROR_EXPERIENCE ? (
     <GitSyncErrors />
   ) : (
     <Redirect to={routes.toGitSyncReposAdmin({ accountId, orgIdentifier, projectIdentifier, module })} />
@@ -53,6 +53,7 @@ const GitSyncErrors: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [branch, setBranch] = useState('')
   const [repoIdentifier, setRepoIdentifier] = useState('')
+  const reloadAction = createRef<() => void>()
 
   const contextValue: GitSyncErrorStateType = {
     selectedTab,
@@ -60,7 +61,8 @@ const GitSyncErrors: React.FC = () => {
     setView: setSelectedView,
     branch,
     repoIdentifier,
-    searchTerm
+    searchTerm,
+    reloadAction
   }
 
   const onTabSwitch = (tabId: GitErrorExperienceTab): void => {
@@ -133,7 +135,11 @@ const GitSyncErrors: React.FC = () => {
               onChange={setSearchTerm}
               className={styles.searchInput}
             />
-            <Button variation={ButtonVariation.TERTIARY} icon="command-rollback" />
+            <Button
+              variation={ButtonVariation.TERTIARY}
+              icon="command-rollback"
+              onClick={() => reloadAction.current?.()}
+            />
           </Layout.Horizontal>
         </Tabs>
       </GitSyncErrorState.Provider>

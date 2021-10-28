@@ -18,6 +18,7 @@ import {
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
+import * as yup from 'yup'
 import {
   Feature,
   FeatureState,
@@ -27,7 +28,8 @@ import {
   Serve,
   VariationMap,
   TargetMap,
-  PatchFeatureQueryParams
+  PatchFeatureQueryParams,
+  GitDetails
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { extraOperatorReference } from '@cf/constants'
@@ -39,6 +41,8 @@ import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGitSync } from '@cf/hooks/useGitSync'
+import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -46,6 +50,7 @@ import { CFEnvironmentSelect } from '../CFEnvironmentSelect/CFEnvironmentSelect'
 import patch, { ClauseData, getDiff } from '../../utils/instructions'
 import { MetricsView } from './views/MetricsView'
 import { NoEnvironment } from '../NoEnvironment/NoEnvironment'
+import SaveFlagToGitSubFormModal from '../SaveFlagToGitSubFormModal/SaveFlagToGitSubFormModal'
 import css from './FlagActivation.module.scss'
 
 // Show loading and wait 3s when the first environment is created before reloading
@@ -65,6 +70,8 @@ export interface FlagActivationFormValues {
   defaultServe: Serve
   customRules: ServingRule[]
   variationMap: VariationMap[]
+  gitDetails: GitDetails
+  autoCommit: boolean
 }
 
 const fromVariationMapToObj = (variationMap: VariationMap[]) =>
@@ -112,6 +119,10 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       }
     }
   })
+
+  const { getGitSyncFormMeta, isAutoCommitEnabled, isGitSyncEnabled, handleAutoCommit } = useGitSync()
+  const { gitSyncValidationSchema, gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_RULES)
+
   const initialValues = useMemo(
     () =>
       cloneDeep({
@@ -125,9 +136,13 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         variationMap: cloneDeep(
           // filter out variations with no targets. UI needs reworked to suit the use case: https://harness.atlassian.net/browse/FFM-1267
           flagData.envProperties?.variationMap?.filter(variationMapItem => !!variationMapItem?.targets?.length) ?? []
-        )
+        ),
+        flagName: flagData.name,
+        flagIdentifier: flagData.identifier,
+        gitDetails: gitSyncInitialValues.gitDetails,
+        autoCommit: gitSyncInitialValues.autoCommit
       }),
-    []
+    [gitSyncInitialValues.gitDetails, gitSyncInitialValues.autoCommit]
   )
 
   const noEnvironmentExists = !envsLoading && !envsError && environments?.length === 0
@@ -136,6 +151,8 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     setEditing(false)
     patch.feature.reset()
   }
+
+  const [isGitSyncOpenModal, setIsGitSyncModalOpen] = useState(false)
 
   const onSaveChanges = useCallback(
     (values: FlagActivationFormValues, formikActions: FormikActions<FlagActivationFormValues>): void => {
@@ -278,8 +295,19 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
 
       patch.feature
         .onPatchAvailable(data => {
-          patchFeature(data)
-            .then(() => {
+          patchFeature(
+            isGitSyncEnabled
+              ? {
+                  ...data,
+                  gitDetails: values.gitDetails
+                }
+              : data
+          )
+            .then(async () => {
+              if (!isAutoCommitEnabled && values.autoCommit) {
+                await handleAutoCommit(values.autoCommit)
+              }
+
               setEditing(false)
               return refetchFlag()
             })
@@ -437,11 +465,15 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
 
   return (
     <Formik
+      enableReinitialize={true}
       validateOnChange={false}
       validateOnBlur={false}
       formName="flagActivation"
-      initialValues={cloneDeep(initialValues)}
+      initialValues={initialValues}
       validate={validateForm}
+      validationSchema={yup.object().shape({
+        gitDetails: gitSyncValidationSchema
+      })}
       onSubmit={onSaveChanges}
     >
       {formikProps => {
@@ -514,7 +546,17 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               {(editing || formikProps.values.state !== flagData.envProperties?.state) &&
                 activeTabId === FFDetailPageTab.TARGETING && (
                   <Layout.Horizontal className={css.actionButtons} padding="medium" spacing="small">
-                    <Button type="submit" intent="primary" text={getString('save')} />
+                    <Button
+                      type="submit"
+                      intent="primary"
+                      text={getString('save')}
+                      onClick={event => {
+                        if (isGitSyncEnabled && !isAutoCommitEnabled) {
+                          event.preventDefault()
+                          setIsGitSyncModalOpen(true)
+                        }
+                      }}
+                    />
                     <Button
                       minimal
                       text={getString('cancel')}
@@ -527,6 +569,15 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                   </Layout.Horizontal>
                 )}
             </Container>
+            {isGitSyncOpenModal && (
+              <SaveFlagToGitSubFormModal
+                title={getString('cf.gitSync.saveFlagToGit', {
+                  flagName: flagData.name
+                })}
+                onSubmit={formikProps.submitForm}
+                onClose={() => setIsGitSyncModalOpen(false)}
+              />
+            )}
           </FormikForm>
         )
       }}

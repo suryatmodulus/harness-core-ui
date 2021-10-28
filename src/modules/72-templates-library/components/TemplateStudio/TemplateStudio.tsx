@@ -2,19 +2,18 @@ import React from 'react'
 import { matchPath, useParams, useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
 import SplitPane from 'react-split-pane'
-import { debounce, isEmpty, noop, omit } from 'lodash-es'
+import { debounce, defaultTo, isEmpty, noop, omit } from 'lodash-es'
 import { Container, Layout } from '@wings-software/uicore'
 import { Formik, FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
 import { NavigationCheck, Page, useConfirmationDialog, useToaster } from '@common/exports'
-import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 import { RightDrawer } from '@templates-library/components/TemplateStudio/RightDrawer/RightDrawer'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { TemplateStudioSubHeader } from '@templates-library/components/TemplateStudio/TemplateStudioSubHeader/TemplateStudioSubHeader'
 import { PageSpinner } from '@common/components'
 import templateFactory from '@templates-library/components/Templates/TemplatesFactory'
 import { TemplateStudioHeader } from '@templates-library/components/TemplateStudio/TemplateStudioHeader/TemplateStudioHeader'
-import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ModulePathParams, TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
 import { DefaultNewPipelineId, DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import type { StepElementConfig } from 'services/cd-ng'
@@ -27,6 +26,9 @@ import type { NGTemplateInfoConfig } from 'services/template-ng'
 import type { GetErrorResponse } from '@templates-library/components/TemplateStudio/SaveTemplatePopover/SaveTemplatePopover'
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
 import { sanitize } from '@common/utils/JSONUtils'
+import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { useQueryParams } from '@common/hooks'
+import { TemplateContext } from './TemplateContext/TemplateContext'
 import css from './TemplateStudio.module.scss'
 
 export type TemplateFormikRef<T = unknown> = {
@@ -43,11 +45,16 @@ export type TemplateFormRef<T = unknown> =
 export function TemplateStudio(): React.ReactElement {
   const { state, view, updateTemplateView, updateTemplate, deleteTemplateCache, isReadonly, fetchTemplate, setView } =
     React.useContext(TemplateContext)
-  const { templateIdentifier } = useParams<TemplateStudioPathProps>()
-  const { template, templateView, isLoading, isUpdated, yamlHandler, isBETemplateUpdated, isInitialized } = state
+  const { accountId, projectIdentifier, orgIdentifier, templateIdentifier, module, templateType } = useParams<
+    TemplateStudioPathProps & ModulePathParams
+  >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const { template, templateView, isLoading, isUpdated, yamlHandler, isBETemplateUpdated, isInitialized, gitDetails } =
+    state
   const { isYamlEditable } = templateView
   const { getString } = useStrings()
-  const { templateType } = useParams<TemplateStudioPathProps>()
+  const [blockNavigation, setBlockNavigation] = React.useState(false)
+  const [selectedBranch, setSelectedBranch] = React.useState(defaultTo(branch, ''))
   const [splitPaneSize, setSplitPaneSize] = React.useState(200)
   const [isYamlError, setYamlError] = React.useState(false)
   const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
@@ -72,23 +79,51 @@ export function TemplateStudio(): React.ReactElement {
     }
   })
 
+  const { openDialog: openUnsavedChangesDialog } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: isYamlError ? getString('navigationYamlError') : getString('navigationCheckText'),
+    titleText: isYamlError ? getString('navigationYamlErrorTitle') : getString('navigationCheckTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: async isConfirmed => {
+      if (isConfirmed) {
+        deleteTemplateCache(gitDetails).then(() => {
+          history.push(
+            routes.toPipelineStudio({
+              projectIdentifier,
+              orgIdentifier,
+              pipelineIdentifier: defaultTo(template?.identifier, '-1'),
+              accountId,
+              module,
+              branch: selectedBranch,
+              repoIdentifier: repoIdentifier
+            })
+          )
+          location.reload()
+        })
+      } else {
+        setSelectedBranch(defaultTo(branch, ''))
+      }
+      setBlockNavigation(false)
+    }
+  })
+
   const resizerStyle = navigator.userAgent.match(/firefox/i)
     ? { display: 'flow-root list-item' }
     : { display: 'inline-table' }
 
   const setSplitPaneSizeDeb = React.useRef(debounce(setSplitPaneSize, 200))
 
-  const handleStageResize = (size: number) => {
+  const handleStageResize = (size: number): void => {
     setSplitPaneSizeDeb.current(size)
   }
 
-  const onUpdate = async (newTemplate: NGTemplateInfoConfig) => {
+  const onUpdate = async (newTemplate: NGTemplateInfoConfig): Promise<void> => {
     newTemplate.spec = omit(newTemplate.spec, 'name', 'identifier')
     sanitize(newTemplate, { removeEmptyArray: false, removeEmptyObject: false, removeEmptyString: false })
     await updateTemplate(newTemplate)
   }
 
-  const openStepSelection = async (onSelection: (data: StepElementConfig) => void) => {
+  const openStepSelection = async (onSelection: (data: StepElementConfig) => void): Promise<void> => {
     if (templateIdentifier === DefaultNewTemplateId) {
       await updateTemplateView({
         ...templateView,
@@ -120,7 +155,7 @@ export function TemplateStudio(): React.ReactElement {
     [setYamlError, showError]
   )
 
-  const isValidYaml = function () {
+  const isValidYaml = function (): boolean {
     if (yamlHandler) {
       try {
         const parsedYaml = parse(yamlHandler.getLatestYaml())
@@ -130,7 +165,7 @@ export function TemplateStudio(): React.ReactElement {
         }
         updateTemplate(parsedYaml.template)
       } catch (e) {
-        showInvalidYamlError(e.message || getString('invalidYamlText'))
+        showInvalidYamlError(defaultTo(e.message, getString('invalidYamlText')))
         return false
       }
     }
@@ -177,7 +212,51 @@ export function TemplateStudio(): React.ReactElement {
     if (isBETemplateUpdated && !discardBEUpdateDialog) {
       openConfirmBEUpdateError()
     }
-  }, [isBETemplateUpdated, discardBEUpdateDialog, openConfirmBEUpdateError])
+    if (blockNavigation) {
+      openUnsavedChangesDialog()
+    }
+  }, [isBETemplateUpdated, discardBEUpdateDialog, openConfirmBEUpdateError, blockNavigation, openUnsavedChangesDialog])
+
+  const onGitBranchChange = React.useMemo(
+    () => (selectedFilter: GitFilterScope) => {
+      setSelectedBranch(selectedFilter.branch as string)
+      if (isUpdated && branch !== selectedFilter.branch) {
+        setBlockNavigation(true)
+      } else if (branch !== selectedFilter.branch) {
+        deleteTemplateCache({
+          repoIdentifier: defaultTo(selectedFilter.repo, ''),
+          branch: defaultTo(selectedFilter.branch, '')
+        }).then(() => {
+          history.push(
+            routes.toTemplateStudio({
+              projectIdentifier,
+              orgIdentifier,
+              templateIdentifier: defaultTo(templateIdentifier, '-1'),
+              accountId,
+              module,
+              templateType: template.type,
+              versionLabel: template.versionLabel,
+              branch: selectedFilter.branch,
+              repoIdentifier: selectedFilter.repo
+            })
+          )
+          location.reload()
+        })
+      }
+    },
+    [
+      branch,
+      isUpdated,
+      templateIdentifier,
+      projectIdentifier,
+      orgIdentifier,
+      accountId,
+      module,
+      deleteTemplateCache,
+      history,
+      template
+    ]
+  )
 
   React.useEffect(() => {
     if (templateIdentifier === DefaultNewPipelineId) {
@@ -221,7 +300,11 @@ export function TemplateStudio(): React.ReactElement {
           {!isLoading && isEmpty(template) && <GenericErrorHandler />}
           {isInitialized && !isEmpty(template) && (
             <>
-              <TemplateStudioSubHeader onViewChange={onViewChange} getErrors={getErrors} />
+              <TemplateStudioSubHeader
+                onViewChange={onViewChange}
+                getErrors={getErrors}
+                onGitBranchChange={onGitBranchChange}
+              />
               <Container className={css.canvasContainer}>
                 <Formik<NGTemplateInfoConfig>
                   onSubmit={noop}

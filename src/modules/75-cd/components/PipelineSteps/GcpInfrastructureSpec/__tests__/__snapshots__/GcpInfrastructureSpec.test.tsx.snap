@@ -1072,6 +1072,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
             <button
               class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
               id="configureOptions_namespace"
+              style="margin-bottom: 11px;"
               type="button"
             >
               <span

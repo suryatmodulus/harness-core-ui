@@ -87,6 +87,7 @@ import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAcco
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import executionFactory from '@pipeline/factories/ExecutionFactory'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
 import CIHomePage from './pages/home/CIHomePage'
 import CIDashboardPage from './pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from './pages/pipeline-studio/CIPipelineStudio'
@@ -783,5 +784,10 @@ export default (
     >
       <ResourceGroupDetails />
     </RouteWithLayout>
+
+    {GovernanceRouteDestinations({
+      sidebarProps: CISideNavProps,
+      pathProps: { ...accountPathProps, ...projectPathProps, ...pipelineModuleParams }
+    })}
   </>
 )

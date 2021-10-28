@@ -26,7 +26,7 @@ import PolicySetWizard from './components/PolicySetWizard'
 import PolicyIcon from './PolicySetIcon.svg'
 import css from './PolicySets.module.scss'
 
-const PolicyEvaluations: React.FC = () => {
+const PolicySets: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
   const { getString } = useStrings()
   useDocumentTitle(getString('common.policies'))
@@ -300,4 +300,4 @@ const PolicyEvaluations: React.FC = () => {
   )
 }
 
-export default PolicyEvaluations
+export default PolicySets

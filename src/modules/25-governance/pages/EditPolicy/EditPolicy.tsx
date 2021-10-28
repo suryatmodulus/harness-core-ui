@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import MonacoEditor from 'react-monaco-editor'
+import YAML from 'yaml'
 import SplitPane from 'react-split-pane'
 import cx from 'classnames'
 import type { editor as EDITOR } from 'monaco-editor/esm/vs/editor/editor.api'
@@ -31,6 +32,7 @@ import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { REGO_FORMAT } from '@governance/utils/rego'
 import { useCreatePolicy, useEvaluateRaw, useGetPolicy, useUpdatePolicy } from 'services/pm'
+import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import { EditPolicyMetadataModalButton } from './EditPolicyMetadataModalButton'
 import type { PolicyMetadata } from './EditPolicyMetadataModalButton'
 import { SelectPolicyModalButton } from './SelectPolicyModalButton'
@@ -46,10 +48,11 @@ const PAGE_PADDING = 50
 export const EditPolicy: React.FC = () => {
   const {
     accountId,
+    module,
     policyIdentifier: policyIdentifierFromURL,
     orgIdentifier,
     projectIdentifier
-  } = useParams<Record<string, string>>()
+  } = useParams<GovernancePathProps>()
   const queryParams = useMemo(
     () => ({ accountIdentifier: accountId, orgIdentifier, projectIdentifier }),
     [accountId, orgIdentifier, projectIdentifier]
@@ -83,7 +86,7 @@ export const EditPolicy: React.FC = () => {
   const [inputFromSource, setInputFromSource] = useState<string>()
   const [outputEditor, setOutputEditor] = useState<EDITOR.IStandaloneCodeEditor>()
   const history = useHistory()
-  const { mutate: updatePolicy } = useUpdatePolicy({ policy: policyIdentifier, queryParams })
+  const { mutate: updatePolicy } = useUpdatePolicy({ policy: policyIdentifier as string, queryParams })
   const onSavePolicy = useCallback(() => {
     setCreatePolicyLoading(true)
     const api = isEdit ? updatePolicy : createPolicy
@@ -97,11 +100,19 @@ export const EditPolicy: React.FC = () => {
         showToaster('Policy saved!')
         if (!isEdit) {
           setEdit(true)
-          history.replace(routes.toPolicyEditPage({ accountId, policyIdentifier: String(response.identifier || '') }))
+          history.replace(
+            routes.toGovernanceEditPolicy({
+              accountId,
+              orgIdentifier,
+              projectIdentifier,
+              module,
+              policyIdentifier: String(response.identifier || '')
+            })
+          )
         }
       })
       .catch(error => {
-        showToaster(getErrorMessage(error), { intent: Intent.DANGER })
+        showToaster(getErrorMessage(error), { intent: Intent.DANGER, timeout: 0 })
       })
       .finally(() => {
         setCreatePolicyLoading(false)
@@ -115,7 +126,10 @@ export const EditPolicy: React.FC = () => {
     updatePolicy,
     policyIdentifier,
     history,
-    accountId
+    accountId,
+    orgIdentifier,
+    projectIdentifier,
+    module
   ])
   const {
     data: policyData,
@@ -123,7 +137,7 @@ export const EditPolicy: React.FC = () => {
     loading: getPolicyLoading,
     error: getPolicyError
   } = useGetPolicy({
-    policy: policyIdentifier,
+    policy: policyIdentifier as string,
     queryParams,
     lazy: true
   })
@@ -158,7 +172,7 @@ export const EditPolicy: React.FC = () => {
         <EditPolicyMetadataModalButton
           isEdit={isEdit}
           shouldOpenModal={shouldOpenMetadataModal}
-          identifier={policyIdentifier}
+          identifier={policyIdentifier as string}
           modalTitle={getString(policyIdentifier ? 'governance.editPolicy' : 'common.policy.newPolicy')}
           name={name}
           description={description}
@@ -222,7 +236,7 @@ export const EditPolicy: React.FC = () => {
           // eslint-disable-line no-empty
         }
       })
-      .catch(error => showToaster(getErrorMessage(error), { intent: Intent.DANGER }))
+      .catch(error => showToaster(getErrorMessage(error), { intent: Intent.DANGER, timeout: 0 }))
       .finally(() => setTestPolicyLoading(false))
   }, [evaluateRawPolicy, regoScript, input, outputEditor, setTestFailure, layoutEditors, resetOutput])
   const toolbar = useMemo(() => {
@@ -248,7 +262,7 @@ export const EditPolicy: React.FC = () => {
           size={ButtonSize.SMALL}
           text="Discard"
           onClick={() => {
-            history.push(routes.toPolicyListPage({ accountId }))
+            history.push(routes.toGovernancePolicyListing({ accountId, orgIdentifier, projectIdentifier, module }))
           }}
         />
         {!testPolicyLoading && (
@@ -275,7 +289,19 @@ export const EditPolicy: React.FC = () => {
         )}
       </Layout.Horizontal>
     )
-  }, [history, testPolicyLoading, accountId, createPolicyLoading, isInputValid, onSavePolicy, onTestPolicy, regoScript])
+  }, [
+    history,
+    testPolicyLoading,
+    accountId,
+    createPolicyLoading,
+    isInputValid,
+    onSavePolicy,
+    onTestPolicy,
+    regoScript,
+    orgIdentifier,
+    projectIdentifier,
+    module
+  ])
 
   useEffect(() => {
     window.addEventListener('resize', layoutEditors)
@@ -410,7 +436,11 @@ export const EditPolicy: React.FC = () => {
                           try {
                             setInput(JSON.stringify(JSON.parse(input), null, 2))
                           } catch (e) {
-                            showToaster(getErrorMessage(e), { intent: Intent.DANGER })
+                            try {
+                              setInput(JSON.stringify(YAML.parse(input), null, 2))
+                            } catch {
+                              showToaster(getErrorMessage(e), { intent: Intent.DANGER, timeout: 0 })
+                            }
                           }
                         }}
                       />

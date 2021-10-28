@@ -11,7 +11,9 @@ import {
   Text,
   FontVariation,
   Container,
-  PageError
+  PageError,
+  Layout,
+  Icon
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -48,23 +50,27 @@ export const SelectPolicyModalButton: React.FC<SelectPolicyModalButtonProps & Bu
         {
           Header: getString('common.policy.table.name'),
           accessor: item => get(item, 'name') || item.type,
-          width: '70%',
+          width: '80%',
           Cell: ({ row }: CellProps<Example>) => (
-            <Text
-              icon="governance"
-              iconProps={{ padding: { right: 'small' } }}
-              font={{ variation: FontVariation.BODY2 }}
-            >
-              {get(row, 'name') || row.original.type}
-            </Text>
+            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Icon name="governance" size={20} />
+              <Container>
+                <Layout.Vertical spacing="xsmall">
+                  <Text font={{ variation: FontVariation.SMALL_BOLD }}>
+                    {get(row.original, 'name') || row.original.type}
+                  </Text>
+                  <Text font={{ variation: FontVariation.SMALL }}>{get(row.original, 'desc') || ''}</Text>
+                </Layout.Vertical>
+              </Container>
+            </Layout.Horizontal>
           )
         },
         {
           Header: getString('typeLabel'),
           accessor: item => item.type,
-          width: '30%',
+          width: '20%',
           Cell: ({ row }: CellProps<Example>) => (
-            <Text font={{ variation: FontVariation.BODY2 }}>{row.original.type}</Text>
+            <Text font={{ variation: FontVariation.BODY }}>{row.original.type}</Text>
           )
         }
       ],

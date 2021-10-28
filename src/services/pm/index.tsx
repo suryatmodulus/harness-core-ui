@@ -310,9 +310,9 @@ export const useEvaluateByIds = (props: UseEvaluateByIdsProps) =>
   )
 
 export interface EvaluateByTypeQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   /**
    * A unique ID for the entity under evaluation e.g. UUID, database key. Can be used to filter out evaluations for a particular entity. The caller must ensure the ID is globally unqiue and cannot clash with any other callers.
    */
@@ -364,9 +364,9 @@ export const useEvaluateByType = (props: UseEvaluateByTypeProps) =>
   )
 
 export interface GetEvaluationListQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   /**
    * Filter by evaluation 'entity' field
    */
@@ -412,9 +412,9 @@ export const useGetEvaluationList = (props: UseGetEvaluationListProps) =>
   })
 
 export interface DeleteEvaluationQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export type DeleteEvaluationProps = Omit<
@@ -449,9 +449,9 @@ export const useDeleteEvaluation = (props: UseDeleteEvaluationProps) =>
   })
 
 export interface GetEvaluationQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface GetEvaluationPathParams {
@@ -533,9 +533,9 @@ export const useLogin = (props: UseLoginProps) =>
   })
 
 export interface GetPolicyListQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   /**
    * the number of records returned per page
    */
@@ -574,9 +574,9 @@ export const useGetPolicyList = (props: UseGetPolicyListProps) =>
   })
 
 export interface CreatePolicyQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export type CreatePolicyProps = Omit<
@@ -611,9 +611,9 @@ export const useCreatePolicy = (props: UseCreatePolicyProps) =>
   })
 
 export interface DeletePolicyQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export type DeletePolicyProps = Omit<MutateProps<void, unknown, DeletePolicyQueryParams, string, void>, 'path' | 'verb'>
@@ -645,9 +645,9 @@ export const useDeletePolicy = (props: UseDeletePolicyProps) =>
   })
 
 export interface GetPolicyQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface GetPolicyPathParams {
@@ -687,9 +687,9 @@ export const useGetPolicy = ({ policy, ...props }: UseGetPolicyProps) =>
   )
 
 export interface UpdatePolicyQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface UpdatePolicyPathParams {
@@ -731,9 +731,9 @@ export const useUpdatePolicy = ({ policy, ...props }: UseUpdatePolicyProps) =>
   )
 
 export interface GetPolicySetListQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   /**
    * Filter by policy set 'type' field
    */
@@ -783,9 +783,9 @@ export const useGetPolicySetList = (props: UseGetPolicySetListProps) =>
   })
 
 export interface CreatePolicySetQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export type CreatePolicySetProps = Omit<
@@ -820,9 +820,9 @@ export const useCreatePolicySet = (props: UseCreatePolicySetProps) =>
   })
 
 export interface DeletePolicySetQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export type DeletePolicySetProps = Omit<
@@ -857,9 +857,9 @@ export const useDeletePolicySet = (props: UseDeletePolicySetProps) =>
   })
 
 export interface GetPolicySetQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface GetPolicySetPathParams {
@@ -899,9 +899,9 @@ export const useGetPolicySet = ({ policyset, ...props }: UseGetPolicySetProps) =
   )
 
 export interface UpdatePolicySetQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface UpdatePolicySetPathParams {
@@ -943,9 +943,9 @@ export const useUpdatePolicySet = ({ policyset, ...props }: UseUpdatePolicySetPr
   )
 
 export interface DeleteLinkedPolicyQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface DeleteLinkedPolicyPathParams {
@@ -987,9 +987,9 @@ export const useDeleteLinkedPolicy = ({ policyset, ...props }: UseDeleteLinkedPo
   )
 
 export interface AddLinkedPolicyQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface AddLinkedPolicyPathParams {

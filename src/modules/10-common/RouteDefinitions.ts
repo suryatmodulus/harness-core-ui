@@ -33,7 +33,8 @@ import type {
   ServiceAccountPathProps,
   ServicePathProps,
   TemplateStudioPathProps,
-  TemplateStudioQueryParams
+  TemplateStudioQueryParams,
+  GovernancePathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -72,33 +73,109 @@ const routes = {
   toAuthenticationSettings: withAccountId(() => '/settings/authentication'),
   toAccountConfiguration: withAccountId(() => '/settings/authentication/configuration'),
   toAccountActivityLog: withAccountId(() => '/settings/authentication/activity-log'),
-  toAccountSettingsGovernance: withAccountId(() => 'settings/governance'),
-  toPolicyDashboardPage: withAccountId(() => 'settings/governance/policy-dashboard'),
-  toPolicyListPage: withAccountId(() => 'settings/governance/policies'),
-  toPolicyNewPage: withAccountId(() => 'settings/governance/policies/new'),
-  toPolicyEditPage: withAccountId(
+
+  // Governance
+  toGovernance: withAccountId(({ orgIdentifier, projectIdentifier, module }: GovernancePathProps) =>
+    getScopeBasedRoute({
+      scope: {
+        orgIdentifier,
+        projectIdentifier,
+        module
+      },
+      path: 'governance'
+    })
+  ),
+  toGovernancePolicyDashboard: withAccountId(({ orgIdentifier, projectIdentifier, module }: GovernancePathProps) =>
+    getScopeBasedRoute({
+      scope: {
+        orgIdentifier,
+        projectIdentifier,
+        module
+      },
+      path: 'governance/dashboard'
+    })
+  ),
+  toGovernancePolicyListing: withAccountId(({ orgIdentifier, projectIdentifier, module }: GovernancePathProps) =>
+    getScopeBasedRoute({
+      scope: {
+        orgIdentifier,
+        projectIdentifier,
+        module
+      },
+      path: 'governance/policies'
+    })
+  ),
+  toGovernanceNewPolicy: withAccountId(({ orgIdentifier, projectIdentifier, module }: GovernancePathProps) =>
+    getScopeBasedRoute({
+      scope: {
+        orgIdentifier,
+        projectIdentifier,
+        module
+      },
+      path: 'governance/policies/new'
+    })
+  ),
+  toGovernanceEditPolicy: withAccountId(
     ({
-      policyIdentifier
-    }: AccountPathProps & {
+      orgIdentifier,
+      projectIdentifier,
+      policyIdentifier,
+      module
+    }: Partial<ProjectPathProps & ModulePathParams> & {
       policyIdentifier: string
-    }) => `settings/governance/policies/edit/${policyIdentifier}`
+    }) =>
+      getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path: `governance/policies/edit/${policyIdentifier}`
+      })
   ),
-  toPolicySetsPage: withAccountId(() => 'settings/governance/policy-sets'),
-  toPolicySetDetail: withAccountId(
-    ({
-      policySetIdentifier
-    }: AccountPathProps & {
-      policySetIdentifier: string
-    }) => `settings/governance/policy-sets/${policySetIdentifier}`
+  toGovernancePolicySetsListing: withAccountId(({ orgIdentifier, projectIdentifier, module }: GovernancePathProps) =>
+    getScopeBasedRoute({
+      scope: {
+        orgIdentifier,
+        projectIdentifier,
+        module
+      },
+      path: 'governance/policy-sets'
+    })
   ),
-  toPolicyEvaluationsPage: withAccountId(() => 'settings/governance/policy-evaluations'),
-  toPolicyEvaluationDetail: withAccountId(
-    ({
-      evaluationId
-    }: AccountPathProps & {
-      evaluationId?: number | string
-    }) => `settings/governance/policy-evaluations/${evaluationId}`
+  toGovernancePolicySetDetail: withAccountId(
+    ({ orgIdentifier, projectIdentifier, policySetIdentifier, module }: GovernancePathProps) =>
+      getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path: `governance/policy-sets/${policySetIdentifier}`
+      })
   ),
+  toGovernanceEvaluationsListing: withAccountId(({ orgIdentifier, projectIdentifier, module }: GovernancePathProps) =>
+    getScopeBasedRoute({
+      scope: {
+        orgIdentifier,
+        projectIdentifier,
+        module
+      },
+      path: 'governance/policy-evaluations'
+    })
+  ),
+  toGovernanceEvaluationDetail: withAccountId(
+    ({ orgIdentifier, projectIdentifier, evaluationId, module }: GovernancePathProps) =>
+      getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path: `governance/policy-evaluations/${evaluationId}`
+      })
+  ),
+
   toLogin: (): string => '/login',
   toRedirect: (): string => `/redirect`,
   toSignup: (): string => '/signup',

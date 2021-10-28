@@ -102,6 +102,7 @@ import ExecutionPolicyEvaluationsView from '@pipeline/pages/execution/ExecutionP
 import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
+import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
@@ -849,5 +850,10 @@ export default (
         <GitOpsModalContainer />
       </GitOpsServersPage>
     </RouteWithLayout>
+
+    {GovernanceRouteDestinations({
+      sidebarProps: CDSideNavProps,
+      pathProps: { ...accountPathProps, ...projectPathProps, ...pipelineModuleParams }
+    })}
   </>
 )

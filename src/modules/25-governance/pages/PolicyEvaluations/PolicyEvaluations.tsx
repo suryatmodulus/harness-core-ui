@@ -18,12 +18,12 @@ import routes from '@common/RouteDefinitions'
 
 import { useGetEvaluationList, Evaluation, EvaluationDetail } from 'services/pm'
 import { isEvaluationFailed } from '@governance/utils/GovernanceUtils'
-
+import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import css from './PolicyEvaluations.module.scss'
 
 const PolicyEvaluations: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<GovernancePathProps>()
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,
@@ -187,7 +187,15 @@ const PolicyEvaluations: React.FC = () => {
             gotoPage: (pageNumber: number) => setPage(pageNumber)
           }}
           onRowClick={evaluation => {
-            history.push(routes.toPolicyEvaluationDetail({ accountId, evaluationId: evaluation.id }))
+            history.push(
+              routes.toGovernanceEvaluationDetail({
+                accountId,
+                orgIdentifier: evaluation.org_id,
+                projectIdentifier: evaluation.project_id,
+                module,
+                evaluationId: String(evaluation.id)
+              })
+            )
           }}
         />
       </Page.Body>

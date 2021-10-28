@@ -64,3 +64,6 @@ export const evaluationStatusToColor = (status: string): Color => {
 
   return Color.SUCCESS
 }
+
+// @see https://github.com/drone/policy-mgmt/issues/270
+export const QUERY_PARAM_VALUE_ALL = '*'

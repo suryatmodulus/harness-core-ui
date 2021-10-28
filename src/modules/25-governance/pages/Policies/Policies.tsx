@@ -12,12 +12,12 @@ import { OptionsMenuButton } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import Table from '@common/components/Table/Table'
 import { getErrorMessage, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
+import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import PolicyIcon from './Policy.svg'
-
 import css from './Policies.module.scss'
 
 const Policies: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<GovernancePathProps>()
   const { getString } = useStrings()
   useDocumentTitle(getString('common.policies'))
   const [pageIndex, setPageIndex] = useState(0)
@@ -33,22 +33,14 @@ const Policies: React.FC = () => {
     [accountId, pageIndex, orgIdentifier, projectIdentifier]
   )
 
-  const {
-    data: policyList,
-    loading: fetchingPolicies,
-    error,
-    refetch,
-    response
-  } = useGetPolicyList({
-    queryParams
-  })
+  const { data: policyList, loading: fetchingPolicies, error, refetch, response } = useGetPolicyList({ queryParams })
   const itemCount = useMemo(() => parseInt(response?.headers?.get('x-total-items') || '0'), [response])
   const pageCount = useMemo(() => parseInt(response?.headers?.get('x-total-pages') || '0'), [response])
   const pageSize = useMemo(() => parseInt(response?.headers?.get('x-page-size') || '0'), [response])
   const history = useHistory()
 
   const newUserGroupsBtn = (): JSX.Element => {
-    const pathname = routes.toPolicyNewPage({ accountId })
+    const pathname = routes.toGovernanceNewPolicy({ accountId, orgIdentifier, projectIdentifier, module })
 
     return (
       <Button
@@ -145,7 +137,15 @@ const Policies: React.FC = () => {
                     icon: 'edit',
                     text: getString('edit'),
                     onClick: () => {
-                      history.push(routes.toPolicyEditPage({ accountId, policyIdentifier: String(data?.id || '') }))
+                      history.push(
+                        routes.toGovernanceEditPolicy({
+                          accountId,
+                          orgIdentifier,
+                          projectIdentifier,
+                          module,
+                          policyIdentifier: data?.id
+                        })
+                      )
                     }
                   },
                   {
@@ -161,7 +161,7 @@ const Policies: React.FC = () => {
         disableSortBy: true
       }
     ],
-    [getString, accountId, history, refetch]
+    [getString, accountId, history, refetch, queryParams, orgIdentifier, projectIdentifier]
   )
 
   return (
@@ -198,7 +198,15 @@ const Policies: React.FC = () => {
           columns={columns}
           data={policyList || []}
           onRowClick={data => {
-            history.push(routes.toPolicyEditPage({ accountId, policyIdentifier: String(data?.identifier || '') }))
+            history.push(
+              routes.toGovernanceEditPolicy({
+                accountId,
+                orgIdentifier,
+                projectIdentifier,
+                module,
+                policyIdentifier: data?.identifier as string
+              })
+            )
           }}
           // TODO: enable when page is ready
 

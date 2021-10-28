@@ -17,8 +17,7 @@ import CIRoutes from '@ci/RouteDestinations'
 import CVRoutes from '@cv/RouteDestinations'
 import CFRoutes from '@cf/RouteDestinations'
 import CERoutes from '@ce/RouteDestinations'
-// import GovernanceRoutes from '@governance/RouteDestinations'
-import PolicyRoutes from '@governance/RouteDestinations'
+import GovernanceRoutes from '@governance/RouteDestinations'
 import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
@@ -41,8 +40,7 @@ export default function RouteDestinations(): React.ReactElement {
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}
       {...DASHBOARDRoutes.props.children}
-      {...PolicyRoutes.props.children}
-      {/* {...GovernanceRoutes.props.children} */}
+      {...GovernanceRoutes.props.children}
       {...connectorRoutes.props.children}
       {...tempatesRoutes.props.children}
       {...userProfileRoutes.props.children}

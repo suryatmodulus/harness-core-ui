@@ -11,13 +11,14 @@ import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import routes from '@common/RouteDefinitions'
 import { LIST_FETCHING_PAGE_SIZE, PolicySetType } from '@governance/utils/GovernanceUtils'
+import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import css from './PipelineGovernanceView.module.scss'
 
 export const PolicySetsTab: React.FC<{ setPolicySetCount: React.Dispatch<React.SetStateAction<number>> }> = ({
   setPolicySetCount
 }) => {
   const [pageIndex, setPageIndex] = useState(0)
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<GovernancePathProps>()
   const queryParams = useMemo(() => {
     return {
       accountIdentifier: accountId,
@@ -101,10 +102,17 @@ export const PolicySetsTab: React.FC<{ setPolicySetCount: React.Dispatch<React.S
             <Table<PolicySet>
               columns={columns}
               data={data || []}
-              onRowClick={_policySet => {
-                // TODO: Policy Set detail page is not yet ready (no design)
+              onRowClick={policySet => {
+                // Policy Set detail page is not yet ready (no design)
                 // history.push(routes.toPolicySetDetail({ accountId, policySetIdentifier: policySet.identifier as string }))
-                history.push(routes.toPolicySetsPage({ accountId }))
+                history.push(
+                  routes.toGovernancePolicySetsListing({
+                    accountId,
+                    orgIdentifier: policySet.org_id,
+                    projectIdentifier: policySet.project_id,
+                    module
+                  })
+                )
               }}
             />
           </Container>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.47% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>80/106</span>
+                <span class='fraction'>78/104</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.32% </span>
+                <span class="strong">63.96% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>128/199</span>
+                <span class='fraction'>126/197</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.89% </span>
+                <span class="strong">55.56% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/19</span>
+                <span class='fraction'>10/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.24% </span>
+                <span class="strong">74.76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>79/105</span>
+                <span class='fraction'>77/103</span>
             </div>
         
             
@@ -529,14 +529,18 @@
 <a name='L470'></a><a href='#L470'>470</a>
 <a name='L471'></a><a href='#L471'>471</a>
 <a name='L472'></a><a href='#L472'>472</a>
-<a name='L473'></a><a href='#L473'>473</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L473'></a><a href='#L473'>473</a>
+<a name='L474'></a><a href='#L474'>474</a>
+<a name='L475'></a><a href='#L475'>475</a>
+<a name='L476'></a><a href='#L476'>476</a>
+<a name='L477'></a><a href='#L477'>477</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -548,7 +552,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -566,6 +569,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -781,16 +785,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1006,7 +1014,6 @@ import { useParams } from 'react-router-dom'
 import { isEmpty, noop, omit } from 'lodash-es'
 import { Button, Layout, Container, Icon, Text, Color, ButtonVariation, shouldShowError } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import moment from 'moment'
 import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
 import {
   ConnectorInfoDTO,
@@ -1038,6 +1045,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import { getReadableDateTime } from '@common/utils/dateUtils'
 import { getUrlValueByType, isSMConnector } from './utils/ConnectorUtils'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
 import css from './ConnectorView.module.scss'
@@ -1252,15 +1260,17 @@ const ConnectorView: React.FC&lt;ConnectorViewProps&gt; = (props: ConnectorViewP
     )
   }
 &nbsp;
-  const getValue = (value?: number) =&gt; {
-    return value ? moment.unix(value / 1000).format(StringUtils.DEFAULT_DATE_FORMAT) : null
-  }
-&nbsp;
   const ConnectorActivityDetails: React.FC&lt;ConnectorActivityDetailsProp&gt; = (
     activityDetailsProp: ConnectorActivityDetailsProp
   ) =&gt; {
-    const lastTestedAt = getValue(activityDetailsProp.connector<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus?.testedAt)
-    const lastConnectedAt = getValue(activityDetailsProp.connector<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus?.lastConnectedAt)
+    const lastTestedAt = getReadableDateTime(
+      activityDetailsProp.connector<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus?.testedAt,
+      StringUtils.DEFAULT_DATE_FORMAT
+    )
+    const lastConnectedAt = getReadableDateTime(
+      activityDetailsProp.connector<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus?.lastConnectedAt,
+      StringUtils.DEFAULT_DATE_FORMAT
+    )
 &nbsp;
     return (
       &lt;Layout.Vertical className={css.activityContainer}&gt;
@@ -1295,10 +1305,12 @@ const ConnectorView: React.FC&lt;ConnectorViewProps&gt; = (props: ConnectorViewP
           &lt;/Text&gt;
           &lt;Text color={Color.GREY_800}&gt;{getString('lastUpdated')}&lt;/Text&gt;
           &lt;Text margin={{ top: 'small', bottom: 'small' }}&gt;
-            {getValue(activityDetailsProp.connector.lastModifiedAt)}{' '}
+            {getReadableDateTime(activityDetailsProp.connector.lastModifiedAt, StringUtils.DEFAULT_DATE_FORMAT)}{' '}
           &lt;/Text&gt;
           &lt;Text color={Color.GREY_800}&gt;{getString('connectorCreated')}&lt;/Text&gt;
-          &lt;Text margin={{ top: 'small', bottom: 'medium' }}&gt;{getValue(activityDetailsProp.connector.createdAt)} &lt;/Text&gt;
+          &lt;Text margin={{ top: 'small', bottom: 'medium' }}&gt;
+            {getReadableDateTime(activityDetailsProp.connector.createdAt, StringUtils.DEFAULT_DATE_FORMAT)}{' '}
+          &lt;/Text&gt;
         &lt;/Container&gt;
       &lt;/Layout.Vertical&gt;
     )
@@ -1480,7 +1492,7 @@ export default ConnectorView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 05:36:16 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 07:17:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

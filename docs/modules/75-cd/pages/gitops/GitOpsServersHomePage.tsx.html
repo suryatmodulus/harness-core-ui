@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -105,7 +105,13 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -119,8 +125,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,48 +164,53 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
-<span class="cstat-no" title="statement not covered" >import { useParams } from 'react-router-dom'</span>
+<span class="cstat-no" title="statement not covered" >import { Route, useParams } from 'react-router-dom'</span>
 <span class="cstat-no" title="statement not covered" >import { TabNavigation } from '@wings-software/uicore'</span>
 <span class="cstat-no" title="statement not covered" >import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'</span>
 <span class="cstat-no" title="statement not covered" >import { Page } from '@common/exports'</span>
 <span class="cstat-no" title="statement not covered" >import { useStrings } from 'framework/strings'</span>
 <span class="cstat-no" title="statement not covered" >import routes from '@common/RouteDefinitions'</span>
-import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 <span class="cstat-no" title="statement not covered" >import { useFeatureFlags } from '@common/hooks/useFeatureFlag'</span>
+import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+<span class="cstat-no" title="statement not covered" >import css from './GitOpsServersHomePage.module.scss'</span>
 &nbsp;
 const GitOpsServersPage: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> children }) =&gt; {</span>
   const { accountId, orgIdentifier, projectIdentifier, module } = <span class="cstat-no" title="statement not covered" >useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
   const { ARGO_PHASE2_MANAGED } = <span class="cstat-no" title="statement not covered" >useFeatureFlags()</span>
+  const pathToMatch = <span class="cstat-no" title="statement not covered" >routes.toHarnessManagedGitOps({ accountId, orgIdentifier, projectIdentifier, module })</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
-      &lt;Page.Header
-        title={
-          &lt;div className="ng-tooltip-native"&gt;
-            &lt;h2&gt; {getString('cd.gitOps')}&lt;/h2&gt;
-          &lt;/div&gt;
-        }
-        breadcrumbs={&lt;NGBreadcrumbs links={[]} /&gt;}
-        toolbar={
-          ARGO_PHASE2_MANAGED &amp;&amp; (
-            &lt;TabNavigation
-              size={'normal'}
-              links={[
-                {
-                  label: 'GitOps Server',
-                  to: routes.toHarnessManagedGitOps({ accountId, orgIdentifier, projectIdentifier, module })
-                },
-                {
-                  label: 'Native Argo CD',
-                  to: routes.toNativeArgo({ accountId, orgIdentifier, projectIdentifier, module })
-                }
-              ]}
-            /&gt;
-          )
-        }
-      &gt;&lt;/Page.Header&gt;
-      {children}
+      &lt;Route exact path={[pathToMatch, `${pathToMatch}/agents`]}&gt;
+        &lt;Page.Header
+          title={
+            &lt;div className="ng-tooltip-native"&gt;
+              &lt;h2&gt; {getString('cd.gitOps')}&lt;/h2&gt;
+            &lt;/div&gt;
+          }
+          className={css.header}
+          breadcrumbs={&lt;NGBreadcrumbs links={[]} /&gt;}
+          toolbar={
+            ARGO_PHASE2_MANAGED ? (
+              &lt;TabNavigation
+                size={'normal'}
+                links={[
+                  {
+                    label: 'GitOps Server',
+                    to: routes.toHarnessManagedGitOps({ accountId, orgIdentifier, projectIdentifier, module })
+                  },
+                  {
+                    label: 'Native Argo CD',
+                    to: routes.toNativeArgo({ accountId, orgIdentifier, projectIdentifier, module })
+                  }
+                ]}
+              /&gt;
+            ) : undefined
+          }
+        /&gt;
+      &lt;/Route&gt;
+      &lt;div className={css.children}&gt;{children}&lt;/div&gt;
     &lt;/&gt;
   )
 }
@@ -208,7 +223,7 @@ const GitOpsServersPage: React.FC = <span class="cstat-no" title="statement not 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 07:17:55 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 08:48:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

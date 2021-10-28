@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/103</span>
+                <span class='fraction'>0/107</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/135</span>
+                <span class='fraction'>0/137</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/101</span>
+                <span class='fraction'>0/105</span>
             </div>
         
             
@@ -427,7 +427,20 @@
 <a name='L368'></a><a href='#L368'>368</a>
 <a name='L369'></a><a href='#L369'>369</a>
 <a name='L370'></a><a href='#L370'>370</a>
-<a name='L371'></a><a href='#L371'>371</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -478,6 +491,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -594,6 +608,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -604,7 +623,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -847,6 +873,7 @@ import type { IGitContextFormProps } from '@common/components/GitContextForm/Git
 <span class="cstat-no" title="statement not covered" >import GitPopover from '@pipeline/components/GitPopover/GitPopover'</span>
 <span class="cstat-no" title="statement not covered" >import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'</span>
 <span class="cstat-no" title="statement not covered" >import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'</span>
+<span class="cstat-no" title="statement not covered" >import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'</span>
 <span class="cstat-no" title="statement not covered" >import css from './TemplateStudioSubHeaderLeftView.module.scss'</span>
 &nbsp;
 interface TemplateWithGitContextFormProps extends NGTemplateInfoConfig {
@@ -960,7 +987,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
     [template]
   )
 &nbsp;
-  const goToTemplateVersion = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(versionLabel: string) =&gt; {</span>
+  const goToTemplateVersion = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(versionLabel: string): Promise&lt;void&gt; =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (versionLabel !== DefaultNewVersionLabel &amp;&amp; versionLabel !== template.versionLabel) {</span>
 <span class="cstat-no" title="statement not covered" >      await deleteTemplateCache()</span>
 <span class="cstat-no" title="statement not covered" >      history.replace(</span>
@@ -978,6 +1005,18 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
       )
     }
   }
+&nbsp;
+  const { openDialog: openConfirmationDialog } = <span class="cstat-no" title="statement not covered" >useConfirmationDialog({</span>
+    cancelButtonText: getString('cancel'),
+    contentText: getString('templatesLibrary.setAsStableText', { version: template.versionLabel }),
+    titleText: getString('templatesLibrary.setAsStableTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: <span class="fstat-no" title="function not covered" >isConfirmed </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >      if (isConfirmed) {</span>
+<span class="cstat-no" title="statement not covered" >        updateStableLabel()</span>
+      }
+    }
+  })
 &nbsp;
   const updateStableLabel = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
@@ -1157,7 +1196,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
         )}
         {!stableVersion &amp;&amp; !isUpdated &amp;&amp; !isReadonly &amp;&amp; (
           &lt;Button
-            onClick={updateStableLabel}
+            onClick={openConfirmationDialog}
             variation={ButtonVariation.LINK}
             size={ButtonSize.SMALL}
             text={getString('common.setAsStable')}
@@ -1174,7 +1213,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 07:17:55 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 08:48:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

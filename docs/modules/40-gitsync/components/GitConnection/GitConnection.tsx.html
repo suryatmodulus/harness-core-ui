@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82% </span>
+                <span class="strong">82.69% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/50</span>
+                <span class='fraction'>43/52</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82% </span>
+                <span class="strong">82.69% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/50</span>
+                <span class='fraction'>43/52</span>
             </div>
         
             
@@ -255,6 +255,8 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -356,7 +358,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -368,7 +369,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -423,7 +423,7 @@
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Radio } from '@blueprintjs/core'
-import { Button, Card, Color, Container, Icon, Layout, StepProps, Text } from '@wings-software/uicore'
+import { Button, Card, Color, Container, Layout, StepProps, Text } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import {
@@ -435,6 +435,8 @@ import {
 } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import DelegatesGit from '@gitsync/icons/DelegatesGit.svg'
+import PlatformGit from '@gitsync/icons/PlatformGit.svg'
 import css from './GitConnection.module.scss'
 &nbsp;
 interface GitConnectionStepProps {
@@ -534,9 +536,8 @@ const GitConnection: React.FC&lt;StepProps&lt;GitConnectionStepProps&gt; &amp; G
         &lt;/Text&gt;
         &lt;Layout.Horizontal spacing="xlarge" padding={{ top: 'large' }}&gt;
           &lt;Card
-            style={{ width: '50%' }}
             disabled={!isSaaS}
-            className={cx({ [css.selected]: agent === Agent.Manager })}
+            className={cx(css.card, { [css.selected]: agent === Agent.Manager })}
             onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >              if (isSaaS) {</span>
 <span class="cstat-no" title="statement not covered" >                setAgent(Agent.Manager)</span>
@@ -556,12 +557,11 @@ const GitConnection: React.FC&lt;StepProps&lt;GitConnectionStepProps&gt; &amp; G
             &lt;Text font="small" style={{ lineHeight: 'var(--spacing-large' }}&gt;
               {getString('gitsync.connectThroughManager')}
             &lt;/Text&gt;
-            &lt;Icon name="connectthroughmanager" size={250} flex={{ justifyContent: 'center' }} /&gt;
+            &lt;img src={PlatformGit} width="100%" className={css.img} /&gt;
           &lt;/Card&gt;
           &lt;Card
-            style={{ width: '50%' }}
             disabled={loading}
-            className={cx({ [css.selected]: agent === Agent.Delegate })}
+            className={cx(css.card, { [css.selected]: agent === Agent.Delegate })}
             onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setAgent(Agent.Delegate)}</span>
           &gt;
             &lt;Layout.Horizontal flex&gt;
@@ -577,7 +577,7 @@ const GitConnection: React.FC&lt;StepProps&lt;GitConnectionStepProps&gt; &amp; G
             &lt;Text font="small" padding={{ bottom: 'huge' }} style={{ lineHeight: 'var(--spacing-large' }}&gt;
               {getString('gitsync.connectThroughDelegate')}
             &lt;/Text&gt;
-            &lt;Icon name="connectthroughdelegate" size={400} height={150} flex={{ justifyContent: 'center' }} /&gt;
+            &lt;img src={DelegatesGit} width="100%" className={css.img} /&gt;
           &lt;/Card&gt;
         &lt;/Layout.Horizontal&gt;
         {/* &lt;Layout.Horizontal padding={{ top: 'xxlarge' }} spacing="small"&gt;
@@ -607,7 +607,7 @@ export default GitConnection
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 17:07:56 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 17:40:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

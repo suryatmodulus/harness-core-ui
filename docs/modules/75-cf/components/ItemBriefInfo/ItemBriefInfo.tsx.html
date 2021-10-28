@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>12/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.29% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>11/14</span>
             </div>
         
             
@@ -158,10 +158,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -224,7 +224,7 @@ interface ItemBriefInfoProps extends ItemContainerProps {
   disabled?: boolean
 }
 &nbsp;
-export const ItemBriefInfo: React.FC&lt;ItemBriefInfoProps&gt; = ({
+export const ItemBriefInfo: React.FC&lt;ItemBriefInfoProps&gt; = <span class="fstat-no" title="function not covered" >({</span>
   name,
   description,
   onRemoveClick,
@@ -232,10 +232,10 @@ export const ItemBriefInfo: React.FC&lt;ItemBriefInfoProps&gt; = ({
   disabled,
   ...props
 }) =&gt; {
-  const { getString } = useStrings()
-  const { activeEnvironment } = useActiveEnvironment()
+  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+  const { activeEnvironment } = <span class="cstat-no" title="statement not covered" >useActiveEnvironment()</span>
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;ItemContainer style={{ paddingRight: 'var(--spacing-xsmall)' }} {...props}&gt;
       &lt;Layout.Horizontal spacing="xsmall" style={{ alignItems: 'center' }}&gt;
         {noAvatar !== true &amp;&amp; (
@@ -248,9 +248,9 @@ export const ItemBriefInfo: React.FC&lt;ItemBriefInfoProps&gt; = ({
         )}
         &lt;Container style={{ flexGrow: 1 }} padding={{ left: 'xsmall' }}&gt;
           &lt;Text
-            margin={{ bottom: <span class="branch-1 cbranch-no" title="branch not covered" >description?.length </span>? <span class="branch-0 cbranch-no" title="branch not covered" >'xsmall' </span>: undefined }}
+            margin={{ bottom: description?.length ? 'xsmall' : undefined }}
             style={{
-              color: disabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--grey-400)' </span>: '#22222A',
+              color: disabled ? 'var(--grey-400)' : '#22222A',
               fontSize: '12px',
               fontWeight: 600,
               lineHeight: '16px'
@@ -258,10 +258,10 @@ export const ItemBriefInfo: React.FC&lt;ItemBriefInfoProps&gt; = ({
           &gt;
             {name}
           &lt;/Text&gt;
-          &lt;Text style={{ color: disabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--grey-350)' </span>: '#22222ac7', fontSize: '12px' }}&gt;{description}&lt;/Text&gt;
+          &lt;Text style={{ color: disabled ? 'var(--grey-350)' : '#22222ac7', fontSize: '12px' }}&gt;{description}&lt;/Text&gt;
         &lt;/Container&gt;
         {onRemoveClick &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;RbacOptionsMenuButton</span>
+          &lt;RbacOptionsMenuButton
             items={[
               {
                 text: getString('cf.targetDetail.removeSegment'),
@@ -286,7 +286,7 @@ export const ItemBriefInfo: React.FC&lt;ItemBriefInfoProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 04:26:13 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 05:36:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

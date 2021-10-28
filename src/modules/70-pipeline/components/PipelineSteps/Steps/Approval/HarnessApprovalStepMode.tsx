@@ -71,6 +71,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={stepCss.marginBotFive}
             value={formik.values.timeout || ''}
             type="String"
             variableName="timeout"
@@ -95,6 +96,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.spec.approvalMessage) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={stepCss.marginBotFive}
             value={formik.values.spec.approvalMessage as string}
             type="String"
             variableName="spec.approvalMessage"
@@ -140,6 +142,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.spec.approvers?.minimumCount as string) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            className={stepCss.marginBotFive}
             value={formik.values.spec.approvers?.minimumCount as string}
             type="Number"
             variableName="spec.approvers.minimumCount"

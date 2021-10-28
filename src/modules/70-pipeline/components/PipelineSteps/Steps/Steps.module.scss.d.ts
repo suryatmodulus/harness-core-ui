@@ -39,5 +39,7 @@ declare const styles: {
   readonly inpLabel: string
   readonly addSharedPathsBtn: string
   readonly nameIdLabel: string
+  readonly marginBotFive: string
+  readonly marginTopFive: string
 }
 export default styles

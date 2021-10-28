@@ -351,8 +351,7 @@
 <a name='L292'></a><a href='#L292'>292</a>
 <a name='L293'></a><a href='#L293'>293</a>
 <a name='L294'></a><a href='#L294'>294</a>
-<a name='L295'></a><a href='#L295'>295</a>
-<a name='L296'></a><a href='#L296'>296</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">42x</span>
+<a name='L295'></a><a href='#L295'>295</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">42x</span>
 <span class="cline-any cline-yes">42x</span>
 <span class="cline-any cline-yes">42x</span>
 <span class="cline-any cline-yes">42x</span>
@@ -471,7 +470,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -742,7 +740,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
     options =
       projectResponseList.map((project: JiraProjectBasicNG) =&gt; ({
         label: project.name || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-        value: project.id || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+        value: project.key || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
         key: project.key || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
       })) || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
 &nbsp;
@@ -809,19 +807,19 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           label={getString('pipeline.jiraApprovalStep.project')}
           name={`${prefix}spec.projectKey`}
           useValue
+          placeholder={
+            fetchingProjects
+              ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')</span>
+              : <span class="branch-1 cbranch-no" title="branch not covered" >projectsFetchError?.message</span>
+              ? <span class="branch-0 cbranch-no" title="branch not covered" >projectsFetchError?.message</span>
+              : getString('pipeline.jiraCreateStep.selectProject')
+          }
           multiTypeInputProps={{
             expressions,
             allowableTypes,
             selectProps: {
               defaultSelectedItem: selectedProjectValue,
-              items: projectOptions,
-              inputProps: {
-                placeholder: fetchingProjects
-                  ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')</span>
-                  : <span class="branch-1 cbranch-no" title="branch not covered" >projectsFetchError?.message</span>
-                  ? <span class="branch-0 cbranch-no" title="branch not covered" >projectsFetchError?.message</span>
-                  : getString('pipeline.jiraCreateStep.selectProject')
-              }
+              items: projectOptions
             }
           }}
           disabled={isApprovalStepFieldDisabled(readonly)}
@@ -832,7 +830,13 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
         &lt;FormInput.MultiTypeInput
           selectItems={setIssueTypeOptions(<span class="branch-1 cbranch-no" title="branch not covered" >projectMetadata?.issuetypes)</span>}
           className={css.deploymentViewMedium}
-          placeholder={getString('pipeline.jiraApprovalStep.issueTypePlaceholder')}
+          placeholder={
+            fetchingProjectMetadata
+              ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')</span>
+              : <span class="branch-1 cbranch-no" title="branch not covered" >projectMetadataFetchError?.message</span>
+              ? <span class="branch-0 cbranch-no" title="branch not covered" >projectMetadataFetchError?.message</span>
+              : getString('pipeline.jiraApprovalStep.issueTypePlaceholder')
+          }
           label={getString('pipeline.jiraApprovalStep.issueType')}
           name={`${prefix}spec.issueType`}
           disabled={isApprovalStepFieldDisabled(readonly)}
@@ -842,14 +846,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
             allowableTypes,
             selectProps: {
               defaultSelectedItem: selectedIssueTypeValue,
-              items: setIssueTypeOptions(<span class="branch-1 cbranch-no" title="branch not covered" >projectMetadata?.issuetypes)</span>,
-              inputProps: {
-                placeholder: fetchingProjectMetadata
-                  ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')</span>
-                  : <span class="branch-1 cbranch-no" title="branch not covered" >projectMetadataFetchError?.message</span>
-                  ? <span class="branch-0 cbranch-no" title="branch not covered" >projectMetadataFetchError?.message</span>
-                  : getString('pipeline.jiraApprovalStep.issueTypePlaceholder')
-              }
+              items: setIssueTypeOptions(<span class="branch-1 cbranch-no" title="branch not covered" >projectMetadata?.issuetypes)</span>
             }
           }}
         /&gt;
@@ -949,7 +946,7 @@ export default function JiraCreateDeploymentMode(props: JiraCreateDeploymentMode
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 11:00:24 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 12:46:07 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

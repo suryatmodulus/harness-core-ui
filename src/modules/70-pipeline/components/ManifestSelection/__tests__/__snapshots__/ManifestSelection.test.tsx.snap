@@ -155,9 +155,8 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                     data-icon="Edit"
                   >
                     <svg
-
                       height="18"
-                      viewBox="0 0 24 24"
+                      viewBox="0 0 12 12"
                       width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -218,7 +217,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
                   >
                     <svg
                       height="18"
-                      viewBox="0 0 24 24"
+                      viewBox="0 0 11 14"
                       width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -470,7 +469,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                   >
                     <svg
                       height="18"
-                      viewBox="0 0 24 24"
+                      viewBox="0 0 12 12"
                       width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -503,7 +502,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
                   >
                     <svg
                       height="18"
-                      viewBox="0 0 24 24"
+                      viewBox="0 0 11 14"
                       width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >

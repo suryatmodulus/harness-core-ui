@@ -59,23 +59,26 @@ exports[`GCR Step Edit View edit mode works 1`] = `
               >
                 <svg
                   height="12"
-                  viewBox="0 0 24 24"
+                  viewBox="0 0 12 12"
                   width="12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    clip-rule="evenodd"
-                    d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
-                    fill="currentColor"
+                  <g
+                    fill="none"
                     fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                    opacity="0.3"
-                  />
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                      stroke="#555770"
+                    />
+                    <path
+                      d="M6.583 5.146l2.063-2.063"
+                      opacity="0.3"
+                      stroke="#606170"
+                    />
+                  </g>
                 </svg>
               </span>
             </div>
@@ -658,22 +661,13 @@ exports[`GCR Step Edit View edit mode works 1`] = `
                     >
                       <svg
                         height="20"
-                        viewBox="0 0 24 24"
+                        viewBox="0 0 11 14"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          clip-rule="evenodd"
-                          d="M5.143 9.48a1.2 1.2 0 011.189-1.36h10.649a1.2 1.2 0 011.194 1.321l-1.039 10.208a1.2 1.2 0 01-1.194 1.079H7.717a1.2 1.2 0 01-1.189-1.04L5.143 9.48zm11.837-.16H6.332l1.385 10.207h8.225l1.04-10.207zM9.916 2.594a.6.6 0 01.719-.452l4.224.965a.6.6 0 01.452.719L15 5.179l3.86.882a.6.6 0 01-.267 1.17L5.535 4.248a.6.6 0 11.267-1.17l3.805.87.309-1.354zm.86 1.62l3.056.698.175-.768-3.055-.698-.175.768z"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                        />
-                        <path
-                          clip-rule="evenodd"
-                          d="M12 11.808a.5.5 0 01.5.5v5a.5.5 0 01-1 0v-5a.5.5 0 01.5-.5zm-2.761.012a.5.5 0 01.541.454l.436 4.981a.5.5 0 01-.996.087l-.436-4.98a.5.5 0 01.455-.542zm5.523 0a.5.5 0 01.455.541l-.436 4.981a.5.5 0 11-.996-.087l.435-4.98a.5.5 0 01.542-.455z"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          opacity="0.3"
+                          d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                          fill="#4d5969"
                         />
                       </svg>
                     </span>
@@ -747,22 +741,13 @@ exports[`GCR Step Edit View edit mode works 1`] = `
                     >
                       <svg
                         height="20"
-                        viewBox="0 0 24 24"
+                        viewBox="0 0 11 14"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          clip-rule="evenodd"
-                          d="M5.143 9.48a1.2 1.2 0 011.189-1.36h10.649a1.2 1.2 0 011.194 1.321l-1.039 10.208a1.2 1.2 0 01-1.194 1.079H7.717a1.2 1.2 0 01-1.189-1.04L5.143 9.48zm11.837-.16H6.332l1.385 10.207h8.225l1.04-10.207zM9.916 2.594a.6.6 0 01.719-.452l4.224.965a.6.6 0 01.452.719L15 5.179l3.86.882a.6.6 0 01-.267 1.17L5.535 4.248a.6.6 0 11.267-1.17l3.805.87.309-1.354zm.86 1.62l3.056.698.175-.768-3.055-.698-.175.768z"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                        />
-                        <path
-                          clip-rule="evenodd"
-                          d="M12 11.808a.5.5 0 01.5.5v5a.5.5 0 01-1 0v-5a.5.5 0 01.5-.5zm-2.761.012a.5.5 0 01.541.454l.436 4.981a.5.5 0 01-.996.087l-.436-4.98a.5.5 0 01.455-.542zm5.523 0a.5.5 0 01.455.541l-.436 4.981a.5.5 0 11-.996-.087l.435-4.98a.5.5 0 01.542-.455z"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          opacity="0.3"
+                          d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                          fill="#4d5969"
                         />
                       </svg>
                     </span>
@@ -836,22 +821,13 @@ exports[`GCR Step Edit View edit mode works 1`] = `
                     >
                       <svg
                         height="20"
-                        viewBox="0 0 24 24"
+                        viewBox="0 0 11 14"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          clip-rule="evenodd"
-                          d="M5.143 9.48a1.2 1.2 0 011.189-1.36h10.649a1.2 1.2 0 011.194 1.321l-1.039 10.208a1.2 1.2 0 01-1.194 1.079H7.717a1.2 1.2 0 01-1.189-1.04L5.143 9.48zm11.837-.16H6.332l1.385 10.207h8.225l1.04-10.207zM9.916 2.594a.6.6 0 01.719-.452l4.224.965a.6.6 0 01.452.719L15 5.179l3.86.882a.6.6 0 01-.267 1.17L5.535 4.248a.6.6 0 11.267-1.17l3.805.87.309-1.354zm.86 1.62l3.056.698.175-.768-3.055-.698-.175.768z"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                        />
-                        <path
-                          clip-rule="evenodd"
-                          d="M12 11.808a.5.5 0 01.5.5v5a.5.5 0 01-1 0v-5a.5.5 0 01.5-.5zm-2.761.012a.5.5 0 01.541.454l.436 4.981a.5.5 0 01-.996.087l-.436-4.98a.5.5 0 01.455-.542zm5.523 0a.5.5 0 01.455.541l-.436 4.981a.5.5 0 11-.996-.087l.435-4.98a.5.5 0 01.542-.455z"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          opacity="0.3"
+                          d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                          fill="#4d5969"
                         />
                       </svg>
                     </span>
@@ -970,23 +946,26 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
               >
                 <svg
                   height="12"
-                  viewBox="0 0 24 24"
+                  viewBox="0 0 12 12"
                   width="12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    clip-rule="evenodd"
-                    d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
-                    fill="currentColor"
+                  <g
+                    fill="none"
                     fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                    opacity="0.3"
-                  />
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                      stroke="#555770"
+                    />
+                    <path
+                      d="M6.583 5.146l2.063-2.063"
+                      opacity="0.3"
+                      stroke="#606170"
+                    />
+                  </g>
                 </svg>
               </span>
             </div>
@@ -1237,6 +1216,7 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
                 id="configureOptions_spec.host"
+                style="margin-bottom: 11px;"
                 type="button"
               >
                 <span
@@ -1341,6 +1321,7 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
                 id="configureOptions_spec.projectID"
+                style="margin-bottom: 11px;"
                 type="button"
               >
                 <span
@@ -1445,6 +1426,7 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
                 id="configureOptions_spec.imageName"
+                style="margin-bottom: 11px;"
                 type="button"
               >
                 <span
@@ -1560,7 +1542,7 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main buttonMarginTop Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
               id="configureOptions_spec.tags"
               type="button"
             >
@@ -1681,23 +1663,26 @@ exports[`GCR Step Edit View should render properly 1`] = `
               >
                 <svg
                   height="12"
-                  viewBox="0 0 24 24"
+                  viewBox="0 0 12 12"
                   width="12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    clip-rule="evenodd"
-                    d="M16.207 4.485a.5.5 0 01.354-.146 3.5 3.5 0 013.5 3.5.5.5 0 01-.147.353l-11 11a.5.5 0 01-.353.147h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.146-.354l11-11zm.553.862L6.06 16.046v2.293h2.294l10.699-10.7a2.5 2.5 0 00-2.293-2.292z"
-                    fill="currentColor"
+                  <g
+                    fill="none"
                     fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M16.89 6.646a.5.5 0 010 .708l-3.536 3.535a.5.5 0 01-.708-.707l3.536-3.536a.5.5 0 01.707 0z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                    opacity="0.3"
-                  />
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                      stroke="#555770"
+                    />
+                    <path
+                      d="M6.583 5.146l2.063-2.063"
+                      opacity="0.3"
+                      stroke="#606170"
+                    />
+                  </g>
                 </svg>
               </span>
             </div>
@@ -2723,22 +2708,13 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
                     >
                       <svg
                         height="20"
-                        viewBox="0 0 24 24"
+                        viewBox="0 0 11 14"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          clip-rule="evenodd"
-                          d="M5.143 9.48a1.2 1.2 0 011.189-1.36h10.649a1.2 1.2 0 011.194 1.321l-1.039 10.208a1.2 1.2 0 01-1.194 1.079H7.717a1.2 1.2 0 01-1.189-1.04L5.143 9.48zm11.837-.16H6.332l1.385 10.207h8.225l1.04-10.207zM9.916 2.594a.6.6 0 01.719-.452l4.224.965a.6.6 0 01.452.719L15 5.179l3.86.882a.6.6 0 01-.267 1.17L5.535 4.248a.6.6 0 11.267-1.17l3.805.87.309-1.354zm.86 1.62l3.056.698.175-.768-3.055-.698-.175.768z"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                        />
-                        <path
-                          clip-rule="evenodd"
-                          d="M12 11.808a.5.5 0 01.5.5v5a.5.5 0 01-1 0v-5a.5.5 0 01.5-.5zm-2.761.012a.5.5 0 01.541.454l.436 4.981a.5.5 0 01-.996.087l-.436-4.98a.5.5 0 01.455-.542zm5.523 0a.5.5 0 01.455.541l-.436 4.981a.5.5 0 11-.996-.087l.435-4.98a.5.5 0 01.542-.455z"
-                          fill="currentColor"
-                          fill-rule="evenodd"
-                          opacity="0.3"
+                          d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                          fill="#4d5969"
                         />
                       </svg>
                     </span>
@@ -3076,22 +3052,13 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
                         >
                           <svg
                             height="20"
-                            viewBox="0 0 24 24"
+                            viewBox="0 0 11 14"
                             width="20"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              clip-rule="evenodd"
-                              d="M5.143 9.48a1.2 1.2 0 011.189-1.36h10.649a1.2 1.2 0 011.194 1.321l-1.039 10.208a1.2 1.2 0 01-1.194 1.079H7.717a1.2 1.2 0 01-1.189-1.04L5.143 9.48zm11.837-.16H6.332l1.385 10.207h8.225l1.04-10.207zM9.916 2.594a.6.6 0 01.719-.452l4.224.965a.6.6 0 01.452.719L15 5.179l3.86.882a.6.6 0 01-.267 1.17L5.535 4.248a.6.6 0 11.267-1.17l3.805.87.309-1.354zm.86 1.62l3.056.698.175-.768-3.055-.698-.175.768z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                            <path
-                              clip-rule="evenodd"
-                              d="M12 11.808a.5.5 0 01.5.5v5a.5.5 0 01-1 0v-5a.5.5 0 01.5-.5zm-2.761.012a.5.5 0 01.541.454l.436 4.981a.5.5 0 01-.996.087l-.436-4.98a.5.5 0 01.455-.542zm5.523 0a.5.5 0 01.455.541l-.436 4.981a.5.5 0 11-.996-.087l.435-4.98a.5.5 0 01.542-.455z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                              opacity="0.3"
+                              d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                              fill="#4d5969"
                             />
                           </svg>
                         </span>
@@ -3285,22 +3252,13 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
                         >
                           <svg
                             height="20"
-                            viewBox="0 0 24 24"
+                            viewBox="0 0 11 14"
                             width="20"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              clip-rule="evenodd"
-                              d="M5.143 9.48a1.2 1.2 0 011.189-1.36h10.649a1.2 1.2 0 011.194 1.321l-1.039 10.208a1.2 1.2 0 01-1.194 1.079H7.717a1.2 1.2 0 01-1.189-1.04L5.143 9.48zm11.837-.16H6.332l1.385 10.207h8.225l1.04-10.207zM9.916 2.594a.6.6 0 01.719-.452l4.224.965a.6.6 0 01.452.719L15 5.179l3.86.882a.6.6 0 01-.267 1.17L5.535 4.248a.6.6 0 11.267-1.17l3.805.87.309-1.354zm.86 1.62l3.056.698.175-.768-3.055-.698-.175.768z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                            />
-                            <path
-                              clip-rule="evenodd"
-                              d="M12 11.808a.5.5 0 01.5.5v5a.5.5 0 01-1 0v-5a.5.5 0 01.5-.5zm-2.761.012a.5.5 0 01.541.454l.436 4.981a.5.5 0 01-.996.087l-.436-4.98a.5.5 0 01.455-.542zm5.523 0a.5.5 0 01.455.541l-.436 4.981a.5.5 0 11-.996-.087l.435-4.98a.5.5 0 01.542-.455z"
-                              fill="currentColor"
-                              fill-rule="evenodd"
-                              opacity="0.3"
+                              d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
+                              fill="#4d5969"
                             />
                           </svg>
                         </span>

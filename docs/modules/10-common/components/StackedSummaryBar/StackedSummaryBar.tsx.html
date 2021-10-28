@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.59% </span>
+                <span class="strong">93.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/27</span>
+                <span class='fraction'>27/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">59.26% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/25</span>
+                <span class='fraction'>16/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
+                <span class="strong">92.31% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/24</span>
+                <span class='fraction'>24/26</span>
             </div>
         
             
@@ -161,7 +161,17 @@
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -228,6 +238,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -238,8 +260,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -320,6 +340,18 @@ export const StackedSummaryBar: React.FC&lt;StackedSummaryBarProps&gt; = props =
   // leftover section relative to maxCount should be as blank
   barSections.push({ width: (1 - summaryCount / maxCount) * effectiveBarLength, color: Color.GREY_100 })
 &nbsp;
+  const handleZeroOrInfinityTrend = (intentColor: Color): JSX.Element =&gt; {
+    return isNaN(trendChange) ? ( // handling Infinity and other unexpected trends
+<span class="branch-0 cbranch-no" title="branch not covered" >      &lt;Container flex={{ alignItems: 'center' }}&gt;</span>
+        &lt;Icon name={'caret-up'} color={intentColor}&gt;&lt;/Icon&gt;
+        &lt;Icon name={'infinityTrend'} size={20} color={intentColor}&gt;&lt;/Icon&gt;
+      &lt;/Container&gt;
+    ) : (
+      // handing 0 trend change
+      &lt;Container flex&gt;{renderTrend(Color.GREY_300)}&lt;/Container&gt;
+    )
+  }
+&nbsp;
   const renderTrend = (intentColor: Color): JSX.Element =&gt; {
     return (
       &lt;&gt;
@@ -358,10 +390,8 @@ export const StackedSummaryBar: React.FC&lt;StackedSummaryBarProps&gt; = props =
               ? renderTrend(Color.RED_500)
               : renderTrend(Color.GREEN_500)}
           &lt;/Container&gt;
-        ) : isNaN(trendChange) ? ( // handing Infinity and other unexpected trends
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;Icon name="up" size={12}&gt;&lt;/Icon&gt;</span>
         ) : (
-          &lt;Container flex&gt;{renderTrend(Color.GREY_300)}&lt;/Container&gt;
+          handleZeroOrInfinityTrend(intent === Intent.SUCCESS ? Color.GREEN_500 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.RED_500)</span>
         )
       ) : (
 <span class="branch-1 cbranch-no" title="branch not covered" >        &lt;&gt;&lt;/&gt;</span>
@@ -376,7 +406,7 @@ export const StackedSummaryBar: React.FC&lt;StackedSummaryBarProps&gt; = props =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 08:48:29 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 09:39:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

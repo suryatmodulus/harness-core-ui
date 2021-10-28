@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">73.08% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/14</span>
+                <span class='fraction'>19/26</span>
             </div>
         
             
@@ -128,10 +128,25 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,6 +158,8 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,6 +183,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,7 +230,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { pick } from 'lodash-es'
 import type { Renderer, CellProps, Column } from 'react-table'
-import { Color, FontVariation, Text } from '@wings-software/uicore'
+import { Color, FontVariation, Text, Utils } from '@wings-software/uicore'
+import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
 import {
   getStackedSummaryBarCount,
   StackedSummaryBar,
@@ -217,6 +246,8 @@ const logger = loggerFor(ModuleName.COMMON)
 &nbsp;
 export interface StackedSummaryInterface extends StackedSummaryBarData {
   label: string
+  labelTooltip?: JSX.Element
+  tooltipProps?: PopoverProps
 }
 &nbsp;
 export interface StackedSummaryTableProps {
@@ -237,9 +268,20 @@ export const StackedSummaryTable: React.FC&lt;StackedSummaryTableProps&gt; = pro
 &nbsp;
   const RenderStackedSummaryBarLabelColumn: Renderer&lt;CellProps&lt;StackedSummaryInterface&gt;&gt; = ({ row }) =&gt; {
     return (
-      &lt;Text font={{ variation: FontVariation.BODY2 }} color={Color.PRIMARY_7}&gt;
-        {row.original<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>abel}
-      &lt;/Text&gt;
+      &lt;Utils.WrapOptionalTooltip
+        tooltip={row.original<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>abelTooltip}
+        tooltipProps={
+          row.original<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ooltipProps<span class="branch-0 cbranch-no" title="branch not covered" > ?? {</span>
+            isDark: true,
+            fill: true,
+            position: 'bottom'
+          }
+        }
+      &gt;
+        &lt;Text font={{ variation: FontVariation.BODY2 }} color={Color.PRIMARY_7} lineClamp={1}&gt;
+          {row.original<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>abel}
+        &lt;/Text&gt;
+      &lt;/Utils.WrapOptionalTooltip&gt;
     )
   }
 &nbsp;
@@ -277,7 +319,7 @@ export const StackedSummaryTable: React.FC&lt;StackedSummaryTableProps&gt; = pro
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 08:48:29 GMT+0000 (Greenwich Mean Time)
+                at Thu Oct 28 2021 09:39:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Button,
   Color,
@@ -13,13 +13,21 @@ import {
 import { useParams } from 'react-router-dom'
 import { omit as _omit, defaultTo as _defaultTo } from 'lodash-es'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'
+import {
+  ConnectorInfoDTO,
+  ConnectorRequestBody,
+  TokenDTO,
+  useCreateConnector,
+  useCreateToken,
+  useUpdateConnector
+} from 'services/cd-ng'
 import { downloadYamlAsFile } from '@common/utils/downloadYamlUtils'
 import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
 import { useToaster } from '@common/exports'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
-import { useCloudCostK8sClusterSetup } from 'services/ce'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useCloudCostK8sClusterSetupV2 } from 'services/ce'
 import CopyCodeSection from './components/CopyCodeSection'
 import PermissionYAMLPreview from './PermissionYAMLPreview'
 import css from './CEK8sConnector.module.scss'
@@ -39,6 +47,7 @@ const yamlFileName = 'ccm-kubernetes.yaml'
 const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePermissionsProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
+  const { currentUserInfo } = useAppStore()
   const { showError } = useToaster()
   const [isDownloadComplete, setIsDownloadComplete] = useState<boolean>(false)
   const [isDelegateDone, setIsDelegateDone] = useState<boolean>(false)
@@ -46,21 +55,47 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [isExtensionOpen, setIsExtensionOpen] = useState(false)
+  const [, setToken] = useState<string>()
+
   const { triggerExtension, closeExtension } = useContext(DialogExtensionContext)
 
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({
     queryParams: { accountIdentifier: accountId }
   })
-  const { mutate: downloadYaml } = useCloudCostK8sClusterSetup({
-    queryParams: { accountIdentifier: accountId, accountId }
+  const { mutate: downloadYaml } = useCloudCostK8sClusterSetupV2({
+    queryParams: {
+      accountIdentifier: accountId,
+      includeOptimization: props.prevStepData?.spec?.meta?.includeOptimization,
+      includeVisibility: props.prevStepData?.spec?.meta?.includeVisibility
+    }
   })
+
+  const { mutate: createToken, loading: saving } = useCreateToken({})
+
+  useEffect(() => {
+    handleTokenCreation()
+  }, [])
+
+  const handleTokenCreation = async () => {
+    const data: TokenDTO = {
+      identifier: _defaultTo(props.prevStepData?.identifier, ''),
+      name: _defaultTo(props.prevStepData?.identifier, ''),
+      description: '',
+      tags: {},
+      accountIdentifier: accountId,
+      apiKeyIdentifier: 'kubernetesCloudAccess',
+      parentIdentifier: _defaultTo(currentUserInfo?.uuid, ''),
+      apiKeyType: 'USER'
+    }
+    const tokenData = await createToken(data)
+    setToken(tokenData.data)
+  }
 
   const handleDownload = async () => {
     try {
       const response = await downloadYaml({
         connectorIdentifier: _defaultTo(props.prevStepData?.spec?.connectorRef, ''),
-        featuresEnabled: props.prevStepData?.spec?.featuresEnabled,
         ccmConnectorIdentifier: _defaultTo(props.prevStepData?.identifier, '')
       })
       const { status } = await downloadYamlAsFile(response, yamlFileName)
@@ -146,7 +181,7 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
           <Text
             className={css.previewLink}
             onClick={handlePreviewYamlClick}
-            rightIcon={isExtensionOpen ? 'caret-left' : 'caret-right'}
+            rightIcon={saving ? 'loading' : isExtensionOpen ? 'caret-left' : 'caret-right'}
           >
             {isExtensionOpen ? 'Collapse YAML' : 'Preview YAML'}
           </Text>

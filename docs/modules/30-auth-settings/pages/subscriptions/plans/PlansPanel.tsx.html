@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/16</span>
+                <span class='fraction'>15/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/16</span>
+                <span class='fraction'>15/18</span>
             </div>
         
             
@@ -108,7 +108,10 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -124,6 +127,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -156,6 +160,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -165,7 +171,7 @@ import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { FetchPlansQuery } from 'services/common/services'
 import type { ModuleName } from 'framework/types/ModuleName'
-import { TIME_TYPE } from './Plan'
+import { TIME_TYPE } from './planUtils'
 import PlanContainer from './PlanContainer'
 import css from './Plans.module.scss'
 &nbsp;
@@ -179,34 +185,37 @@ const PlansPanel: React.FC&lt;PlansPanelProps&gt; = ({ plans, module }) =&gt; {
   const [timeType, setTimeType] = useState&lt;TIME_TYPE&gt;(TIME_TYPE.YEARLY)
   const yearlySelected = timeType === TIME_TYPE.YEARLY ? css.selected : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
   const monthlySelected = timeType === TIME_TYPE.MONTHLY ? <span class="branch-0 cbranch-no" title="branch not covered" >css.selected </span>: ''
-  return (
-    &lt;Layout.Vertical&gt;
-      &lt;Layout.Horizontal flex={{ justifyContent: 'flex-end' }}&gt;
-        &lt;Text padding={{ right: 'medium', top: 'small' }}&gt;{getString('common.billed')}&lt;/Text&gt;
-        &lt;Text
-          color={Color.PRIMARY_6}
-          padding={{ left: 'medium', right: 'medium', top: 'small', bottom: 'small' }}
-          className={cx(css.yearly, yearlySelected)}
-          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setTimeType(TIME_TYPE.YEARLY)}</span>
-        &gt;
-          {getString('common.yearly')}
-        &lt;/Text&gt;
-        &lt;Text
-          color={Color.PRIMARY_6}
-          padding={{ left: 'medium', right: 'medium', top: 'small', bottom: 'small' }}
-          className={cx(css.monthly, monthlySelected)}
-          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setTimeType(TIME_TYPE.MONTHLY)}</span>
-        &gt;
-          {getString('common.monthly')}
-        &lt;/Text&gt;
-      &lt;/Layout.Horizontal&gt;
-      {timeType === TIME_TYPE.YEARLY ? (
-        &lt;PlanContainer plans={plans} timeType={TIME_TYPE.YEARLY} module={module} /&gt;
-      ) : (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;PlanContainer plans={plans} timeType={TIME_TYPE.MONTHLY} module={module} /&gt;</span>
-      )}
-    &lt;/Layout.Vertical&gt;
-  )
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (plans) {
+    return (
+      &lt;Layout.Vertical&gt;
+        &lt;Layout.Horizontal flex={{ justifyContent: 'flex-end' }}&gt;
+          &lt;Text padding={{ right: 'medium', top: 'small' }}&gt;{getString('common.billed')}&lt;/Text&gt;
+          &lt;Text
+            color={Color.PRIMARY_6}
+            padding={{ left: 'medium', right: 'medium', top: 'small', bottom: 'small' }}
+            className={cx(css.yearly, yearlySelected)}
+            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setTimeType(TIME_TYPE.YEARLY)}</span>
+          &gt;
+            {getString('common.yearly')}
+          &lt;/Text&gt;
+          &lt;Text
+            color={Color.PRIMARY_6}
+            padding={{ left: 'medium', right: 'medium', top: 'small', bottom: 'small' }}
+            className={cx(css.monthly, monthlySelected)}
+            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setTimeType(TIME_TYPE.MONTHLY)}</span>
+          &gt;
+            {getString('common.monthly')}
+          &lt;/Text&gt;
+        &lt;/Layout.Horizontal&gt;
+        {timeType === TIME_TYPE.YEARLY ? (
+          &lt;PlanContainer plans={plans} timeType={TIME_TYPE.YEARLY} moduleName={module} /&gt;
+        ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;PlanContainer plans={plans} timeType={TIME_TYPE.MONTHLY} moduleName={module} /&gt;</span>
+        )}
+      &lt;/Layout.Vertical&gt;
+    )
+  }
+<span class="cstat-no" title="statement not covered" >  return &lt;&gt;&lt;/&gt;</span>
 }
 &nbsp;
 export default PlansPanel
@@ -217,7 +226,7 @@ export default PlansPanel
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 29 2021 10:56:07 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 29 2021 15:41:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

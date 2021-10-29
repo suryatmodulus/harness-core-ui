@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.8% </span>
+                <span class="strong">88.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/41</span>
+                <span class='fraction'>40/45</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">90.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/40</span>
+                <span class='fraction'>40/44</span>
             </div>
         
             
@@ -210,14 +210,24 @@
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -281,6 +291,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -313,6 +325,8 @@
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
@@ -366,12 +380,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { ReactElement, useState, useEffect } from 'react'
 import cx from 'classnames'
 &nbsp;
+import { useParams, useHistory } from 'react-router-dom'
 import { Button, Layout } from '@wings-software/uicore'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import { useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { ModuleLicenseDTO } from 'services/cd-ng'
+import routes from '@common/RouteDefinitions'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 &nbsp;
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { StringsMap } from 'stringTypes'
@@ -437,6 +454,8 @@ const SubscriptionTab = ({
   const [selectedSubscriptionTab, setSelectedSubscriptionTab] = useState&lt;SubscriptionTabInfo&gt;(SUBSCRIPTION_TABS[0])
   const { getString } = useStrings()
   const { tab: queryTab } = useQueryParams&lt;{ tab?: SUBSCRIPTION_TAB_NAMES }&gt;()
+  const { accountId } = useParams&lt;AccountPathProps&gt;()
+  const history = useHistory()
 &nbsp;
   const { isFreeOrCommunity, edition, isExpired, expiredDays, days } = trialInfo
 &nbsp;
@@ -465,7 +484,9 @@ const SubscriptionTab = ({
   function getSubscriptionTabButtons(): React.ReactElement[] {
     const tabs = SUBSCRIPTION_TABS.map(tab =&gt; {
       function <span class="fstat-no" title="function not covered" >handleTabClick(</span>): void {
-<span class="cstat-no" title="statement not covered" >        setSelectedSubscriptionTab(tab)</span>
+<span class="cstat-no" title="statement not covered" >        history.push(</span>
+          routes.toSubscriptions({ accountId, moduleCard: selectedModule.toLowerCase() as Module, tab: tab.name })
+        )
       }
 &nbsp;
       const isSelected = tab === selectedSubscriptionTab
@@ -523,7 +544,7 @@ export default SubscriptionTab
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 29 2021 10:56:07 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 29 2021 15:41:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

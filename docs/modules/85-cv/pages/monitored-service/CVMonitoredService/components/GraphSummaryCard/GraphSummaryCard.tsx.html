@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.12% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/20</span>
+                <span class='fraction'>20/26</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.12% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -154,7 +154,19 @@
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
 <a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -250,12 +262,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Container, Layout, Text, Color, FontVariation, ButtonVariation, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
 import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
+import IconGrid from '../IconGrid/IconGrid'
 import { ServiceDeleteContext, ServiceHealthTrend, RiskTagWithLabel } from '../../CVMonitoredService.utils'
 import type { GraphSummaryCardProps } from '../../CVMonitoredService.types'
 import { GraphServiceChanges } from './GraphSummaryCard.utils'
@@ -332,15 +355,25 @@ const GraphSummaryCard: React.FC&lt;GraphSummaryCardProps&gt; = ({
         &lt;Text color={Color.GREY_0} font={{ variation: FontVariation.TINY_SEMI }}&gt;
           {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth').toUpperCase()}
         &lt;/Text&gt;
-        &lt;ServiceHealthTrend healthScores={monitoredService.historicalTrend<span class="branch-1 cbranch-no" title="branch not covered" >?.healthScores}</span> /&gt;
+        &lt;Container padding={{ top: 'small', bottom: 'large' }}&gt;
+          &lt;ServiceHealthTrend healthScores={monitoredService.historicalTrend<span class="branch-1 cbranch-no" title="branch not covered" >?.healthScores}</span> /&gt;
+        &lt;/Container&gt;
         {monitoredService.healthMonitoringEnabled &amp;&amp; (
-          &lt;Container margin={{ top: 'large' }}&gt;
-            &lt;RiskTagWithLabel
-              riskData={monitoredService.currentHealthScore}
-              labelVariation={FontVariation.SMALL}
-              color={Color.GREY_0}
-            /&gt;
-          &lt;/Container&gt;
+          &lt;RiskTagWithLabel
+            riskData={monitoredService.currentHealthScore}
+            labelVariation={FontVariation.SMALL}
+            color={Color.GREY_0}
+          /&gt;
+        )}
+        {monitoredService.dependentHealthScore<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; (
+          &lt;&gt;
+            &lt;Text color={Color.GREY_0} font={{ variation: FontVariation.TINY_SEMI }} padding={{ bottom: 'small' }}&gt;
+              {`${getString('cv.monitoredServices.dependenciesHealth')} (${
+                monitoredService.dependentHealthScore.length
+              })`}
+            &lt;/Text&gt;
+            &lt;IconGrid isDarkBackground iconProps={{ name: 'polygon' }} items={monitoredService.dependentHealthScore} /&gt;
+          &lt;/&gt;
         )}
       &lt;/Layout.Vertical&gt;
     &lt;/Container&gt;
@@ -355,7 +388,7 @@ export default GraphSummaryCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 28 2021 17:40:40 GMT+0000 (Greenwich Mean Time)
+                at Fri Oct 29 2021 05:26:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

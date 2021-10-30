@@ -22,5 +22,6 @@ declare const styles: {
   readonly noDataCardContainerConnector: string
   readonly noDataCardContainerContent: string
   readonly lastConnected: string
+  readonly marginTopOne: string
 }
 export default styles

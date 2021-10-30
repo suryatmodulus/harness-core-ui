@@ -73,6 +73,7 @@ export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = props => {
           {expressionAndRuntimeTypeComponent}
           {getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
             <ConfigureOptions
+              customCi={css.marginBottomEleven}
               value={value as string}
               type={getString('string')}
               variableName={name}

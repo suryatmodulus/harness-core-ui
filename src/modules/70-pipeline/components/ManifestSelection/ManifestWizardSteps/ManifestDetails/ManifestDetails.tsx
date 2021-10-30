@@ -452,6 +452,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                             {getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
                               MultiTypeInputType.RUNTIME && (
                               <ConfigureOptions
+                                customCi={css.marginTopEleven}
                                 value={(formik.values?.skipResourceVersioning || '') as string}
                                 type="String"
                                 variableName="skipResourceVersioning"

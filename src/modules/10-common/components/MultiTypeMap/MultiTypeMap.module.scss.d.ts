@@ -5,5 +5,6 @@ declare const styles: {
   readonly minimalCard: string
   readonly withoutSpacing: string
   readonly withoutAligning: string
+  readonly marginTopEleven: string
 }
 export default styles

@@ -9,5 +9,7 @@ declare const styles: {
   readonly secondColumn: string
   readonly allowedOptions: string
   readonly advancedBtn: string
+  readonly marginBottomFive: string
+  readonly marginTopTwelve: string
 }
 export default styles

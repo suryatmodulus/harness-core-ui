@@ -33,6 +33,7 @@ export interface ConfigureOptionsProps {
   fetchValues?: (done: (response: SelectOption[] | MultiSelectOption[]) => void) => void
   style?: CSSProperties
   isReadonly?: boolean
+  customCi?: string
 }
 
 export enum Validation {
@@ -61,8 +62,10 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
     showAdvanced = false,
     fetchValues,
     className,
-    isReadonly = false
+    isReadonly = false,
+    customCi
   } = props
+
   const [input, setInput] = React.useState(value)
   const { showError } = useToaster()
   const [options, setOptions] = React.useState<SelectOption[] | MultiSelectOption[]>([])
@@ -359,11 +362,10 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
     },
     [hideModal, onChange, input, defaultValue]
   )
-
   return (
     <Button
       style={{ color: 'var(--grey-400)', ...props.style }}
-      className={className}
+      className={customCi ? `${className} ${customCi}` : `${className} ${css.marginBottomFive}`}
       minimal
       rightIcon="cog"
       // To avoid non unique IDs ina  asingle form

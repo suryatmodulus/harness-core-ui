@@ -12,8 +12,7 @@ import {
 import { get } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
-
-// TODO: Need to import from uikit but right now it is not being exported from there
+import css from '../MultiTypeTextArea/MultiTypeTextArea.module.scss' // TODO: Need to import from uikit but right now it is not being exported from there
 // Also, we need to make field label to be a type of string | ReactElement because sometimes we need to pass an element
 interface MultiTextTypeInputProps extends Omit<IFormGroupProps, 'label' | 'labelFor'> {
   name: string
@@ -69,6 +68,7 @@ export function MultiTypeText(props: MultiTypeTextProps): React.ReactElement {
         />
         {enableConfigureOptions && getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            customCi={css.marginBottomEleven}
             value={value}
             type={getString('string')}
             variableName={name}

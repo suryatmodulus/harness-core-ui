@@ -63,6 +63,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
         />
         {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            customCi={helmcss.marginTopEleven}
             value={(formik.values?.skipResourceVersioning || '') as unknown as string}
             type="String"
             variableName="skipResourceVersioning"

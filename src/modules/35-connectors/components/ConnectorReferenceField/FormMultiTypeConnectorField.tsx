@@ -346,6 +346,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
           {component}
           {getMultiTypeFromValue(selected) === MultiTypeInputType.RUNTIME && (
             <ConfigureOptions
+              customCi={css.marginTopOne}
               value={selected}
               type={getString('string')}
               variableName={name}

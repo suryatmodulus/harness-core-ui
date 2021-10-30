@@ -342,6 +342,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                       />
                       {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
                         <ConfigureOptions
+                          customCi={css.marginTopEleven}
                           value={(formik.values?.skipResourceVersioning || '') as string}
                           type="String"
                           variableName="skipResourceVersioning"

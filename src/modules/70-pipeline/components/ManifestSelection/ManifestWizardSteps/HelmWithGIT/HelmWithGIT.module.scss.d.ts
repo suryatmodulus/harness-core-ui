@@ -17,5 +17,7 @@ declare const styles: {
   readonly tooltip: string
   readonly skipversionTooltip: string
   readonly tooltipContent: string
+  readonly marginTopFour: string
+  readonly marginTopEleven: string
 }
 export default styles

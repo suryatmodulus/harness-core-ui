@@ -386,6 +386,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                       />
                       {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
                         <ConfigureOptions
+                          customCi={helmcss.marginTopEleven}
                           value={(formik.values?.skipResourceVersioning || '') as string}
                           type="String"
                           variableName="skipResourceVersioning"

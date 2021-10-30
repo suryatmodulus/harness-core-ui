@@ -223,6 +223,7 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
         typeof value === 'string' &&
         getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            customCi={css.marginTopEleven}
             value={value}
             type={getString('map')}
             variableName={name}

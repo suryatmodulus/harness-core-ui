@@ -22,5 +22,6 @@ declare const styles: {
   readonly artifactIcon: string
   readonly tagInputButton: string
   readonly thumbnailSelect: string
+  readonly marginTopOne: string
 }
 export default styles

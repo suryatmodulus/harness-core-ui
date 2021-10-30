@@ -201,6 +201,7 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
         typeof value === 'string' &&
         getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            customCi={css.marginTopEleven}
             value={value}
             type={getString('list')}
             variableName={name}

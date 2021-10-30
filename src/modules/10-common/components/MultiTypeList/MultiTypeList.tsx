@@ -16,7 +16,6 @@ import MultiTypeFieldSelector, {
   MultiTypeFieldSelectorProps
 } from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import css from './MultiTypeList.module.scss'
-
 export type ListValue = { id: string; value: string }[]
 export type MultiTypeListType = ListValue | string
 
@@ -123,6 +122,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
         typeof value === 'string' &&
         getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
+            customCi={css.marginTopTwelve}
             value={value}
             type={getString('list')}
             variableName={name}

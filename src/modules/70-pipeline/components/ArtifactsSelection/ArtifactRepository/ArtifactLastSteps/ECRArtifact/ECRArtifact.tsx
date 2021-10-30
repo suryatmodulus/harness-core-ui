@@ -288,6 +288,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                 {getMultiTypeFromValue(formik.values.region) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
+                      customCi={css.marginTopOne}
                       style={{ alignSelf: 'center' }}
                       value={formik.values?.region as string}
                       type="String"
@@ -318,6 +319,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
+                      customCi={css.marginTopOne}
                       value={formik.values.imagePath as string}
                       type="String"
                       variableName="imagePath"
@@ -389,6 +391,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>
                       <ConfigureOptions
+                        customCi={css.marginTopOne}
                         value={formik.values.tag as string}
                         type="String"
                         variableName="tag"
@@ -416,6 +419,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>
                       <ConfigureOptions
+                        customCi={css.marginTopOne}
                         value={formik.values.tagRegex as string}
                         type="String"
                         variableName="tagRegex"

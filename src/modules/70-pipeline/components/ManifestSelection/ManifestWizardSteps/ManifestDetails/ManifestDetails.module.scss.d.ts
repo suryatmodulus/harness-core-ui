@@ -21,5 +21,6 @@ declare const styles: {
   readonly drag: string
   readonly dragging: string
   readonly dragOver: string
+  readonly marginTopEleven: string
 }
 export default styles

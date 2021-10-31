@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">67.35% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/96</span>
+                <span class='fraction'>66/98</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.92% </span>
+                <span class="strong">47.21% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>183/390</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">64% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>16/25</span>
+                <span class='fraction'>186/394</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">66.67% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>18/27</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">67.35% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>64/96</span>
+                <span class='fraction'>66/98</span>
             </div>
         
             
@@ -603,7 +603,11 @@
 <a name='L544'></a><a href='#L544'>544</a>
 <a name='L545'></a><a href='#L545'>545</a>
 <a name='L546'></a><a href='#L546'>546</a>
-<a name='L547'></a><a href='#L547'>547</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">34x</span>
+<a name='L547'></a><a href='#L547'>547</a>
+<a name='L548'></a><a href='#L548'>548</a>
+<a name='L549'></a><a href='#L549'>549</a>
+<a name='L550'></a><a href='#L550'>550</a>
+<a name='L551'></a><a href='#L551'>551</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -618,11 +622,15 @@
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -817,7 +825,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1032,7 +1040,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1151,26 +1159,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import {
-  IconName,
+  Button,
+  ButtonVariation,
   Formik,
   FormInput,
-  Button,
-  Layout,
   getMultiTypeFromValue,
-  MultiTypeInputType,
-  ButtonVariation
+  IconName,
+  Layout,
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { FieldArray, FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import * as Yup from 'yup'
 import { v4 as uuid } from 'uuid'
-import type {} from 'formik'
 import { defaultTo, isEmpty } from 'lodash-es'
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 &nbsp;
-import { StepViewType, StepProps, ValidateInputSetProps, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import type { StepElementConfig, K8sApplyStepInfo } from 'services/cd-ng'
+import {
+  StepFormikFowardRef,
+  setFormikRef,
+  StepProps,
+  StepViewType,
+  ValidateInputSetProps
+} from '@pipeline/components/AbstractSteps/Step'
+import type { K8sApplyStepInfo, StepElementConfig } from 'services/cd-ng'
 &nbsp;
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -1282,7 +1294,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
               filePaths: values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilePaths
             }
           }
-<span class="branch-1 cbranch-no" title="branch not covered" >          onChange?.(formData)</span>
+          onChange<span class="branch-0 cbranch-no" title="branch not covered" >?.(f</span>ormData)
         }}
         formName="k8Apply"
         initialValues={initialValues}
@@ -1363,7 +1375,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                               placeholder={getString('cd.filePathPlaceholder')}
                               name={`spec.filePaths[${index}].value`}
                               multiTextInputProps={{
-                                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                allowableTypes: allowableTypes.filter(item =&gt; item !== MultiTypeInputType.RUNTIME),
                                 expressions,
                                 textProps: { disabled: isDisabled }
                               }}
@@ -1578,7 +1590,7 @@ export class K8sApplyStep extends PipelineStep&lt;K8sApplyData&gt; {
         isDisabled={readonly}
         ref={formikRef}
         allowableTypes={allowableTypes}
-        onChange={onChange}
+        onChange={data =&gt; <span class="branch-1 cbranch-no" title="branch not covered" >onChange?.(this.processFormData(data))}</span>
       /&gt;
     )
   }
@@ -1702,7 +1714,7 @@ export class K8sApplyStep extends PipelineStep&lt;K8sApplyData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Oct 29 2021 15:41:03 GMT+0000 (Greenwich Mean Time)
+                at Sun Oct 31 2021 08:58:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

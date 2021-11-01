@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.86% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/14</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.46% </span>
+                <span class="strong">92.31% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/13</span>
+                <span class='fraction'>12/13</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -88,24 +88,24 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,19 +124,19 @@ import { Container } from '@wings-software/uicore'
 import TagsRenderer, { ListTagsProps } from '@common/components/TagsRenderer/TagsRenderer'
 import css from './TemplateTags.module.scss'
 &nbsp;
-export const TemplateTags: React.FC&lt;ListTagsProps&gt; = <span class="fstat-no" title="function not covered" >(p</span>rops): JSX.Element =&gt; {
-  const { tags } = <span class="cstat-no" title="statement not covered" >props</span>
-  const [length, setLength] = <span class="cstat-no" title="statement not covered" >React.useState(Object.keys(tags).length)</span>
-  const ref = <span class="cstat-no" title="statement not covered" >React.useRef&lt;HTMLDivElement | null&gt;(null)</span>
+export const TemplateTags: React.FC&lt;ListTagsProps&gt; = (props): JSX.Element =&gt; {
+  const { tags } = props
+  const [length, setLength] = React.useState(Object.keys(tags).length)
+  const ref = React.useRef&lt;HTMLDivElement | null&gt;(null)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  React.useLayoutEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-    const currentHeight = <span class="cstat-no" title="statement not covered" >ref?.current?.clientHeight</span>
-<span class="cstat-no" title="statement not covered" >    if (currentHeight &amp;&amp; currentHeight &gt; 20) {</span>
+  React.useLayoutEffect(() =&gt; {
+    const currentHeight = ref<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>urrent<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>lientHeight
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (currentHeight &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >currentHeight &gt; 20)</span> {
 <span class="cstat-no" title="statement not covered" >      setLength(length - 1)</span>
     }
   }, [length])
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Container className={css.container}&gt;
       &lt;Container ref={ref}&gt;
         &lt;TagsRenderer
@@ -157,7 +157,7 @@ export const TemplateTags: React.FC&lt;ListTagsProps&gt; = <span class="fstat-no
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 01 2021 15:10:09 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 01 2021 19:51:18 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

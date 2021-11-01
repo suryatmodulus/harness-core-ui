@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.27% </span>
+                <span class="strong">82.26% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/55</span>
+                <span class='fraction'>51/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.27% </span>
+                <span class="strong">63.48% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>74/101</span>
+                <span class='fraction'>73/115</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.68% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>47/53</span>
+                <span class='fraction'>50/60</span>
             </div>
         
             
@@ -214,7 +214,14 @@
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -231,7 +238,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -240,6 +247,8 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -252,7 +261,7 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -291,11 +300,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -345,6 +349,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -384,11 +398,11 @@ import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStor
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
-import type { Module, AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import type { Editions } from '@common/constants/SubscriptionTypes'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import bgImageURL from './ff.svg'
 &nbsp;
 const CFHomePage: React.FC = () =&gt; {
@@ -397,25 +411,27 @@ const CFHomePage: React.FC = () =&gt; {
   const { currentUserInfo, selectedProject } = useAppStore()
   const { NG_LICENSES_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const moduleType = ModuleName.CF
+  const module = moduleType.toLowerCase() as Module
 &nbsp;
   const { accounts } = currentUserInfo
   const createdFromNG = accounts<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(account =&gt; account.uuid === accountId)<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>reatedFromNG
 &nbsp;
   const { data, error, refetch, loading } = useGetLicensesAndSummary({
-    queryParams: { moduleType: ModuleName.CF as any },
+    queryParams: { moduleType },
     accountIdentifier: accountId
   })
 &nbsp;
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: <span class="fstat-no" title="function not covered" >(p</span>rojectData?: Project) =&gt; {
-<span class="cstat-no" title="statement not covered" >      closeProjectModal(),</span>
-        history.push({
-          pathname: routes.toCFOnboarding({
-            orgIdentifier: projectData?.orgIdentifier || '',
-            projectIdentifier: projectData?.identifier || '',
-            accountId
-          })
+<span class="cstat-no" title="statement not covered" >      closeProjectModal()</span>
+<span class="cstat-no" title="statement not covered" >      history.push({</span>
+        pathname: routes.toCFOnboarding({
+          orgIdentifier: projectData?.orgIdentifier || '',
+          projectIdentifier: projectData?.identifier || '',
+          accountId
         })
+      })
     }
   })
 &nbsp;
@@ -430,36 +446,31 @@ const CFHomePage: React.FC = () =&gt; {
   const trialBannerProps = {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
-    module: ModuleName.CF,
+    module: moduleType,
     edition: data?.data?.edition as Editions,
     refetch
   }
 &nbsp;
-  const { trial } = useQueryParams&lt;{ trial?: boolean }&gt;()
+  const { experience } = useQueryParams&lt;{ experience?: ModuleLicenseType }&gt;()
 &nbsp;
   const history = useHistory()
 &nbsp;
   const expiryTime = data?.data?.maxExpiryTime
   const updatedLicenseInfo = data?.data &amp;&amp; {
-    ...licenseInformation<span class="branch-0 cbranch-no" title="branch not covered" >?.['</span>CF'],
+    ...licenseInformation<span class="branch-0 cbranch-no" title="branch not covered" >?.[m</span>oduleType],
     ...pick(data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, ['licenseType', 'edition']),
     expiryTime
   }
 &nbsp;
   useEffect(() =&gt; {
-    handleUpdateLicenseStore(
-      { ...licenseInformation },
-      updateLicenseStore,
-      ModuleName.CF.toString() as Module,
-      updatedLicenseInfo
-    )
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 &nbsp;
   useEffect(() =&gt; {
     refetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trial])
+  }, [experience])
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (loading) {
 <span class="cstat-no" title="statement not covered" >    return &lt;PageSpinner /&gt;</span>
@@ -475,12 +486,12 @@ const CFHomePage: React.FC = () =&gt; {
 <span class="cstat-no" title="statement not covered" >    history.push(</span>
       routes.toModuleTrialHome({
         accountId,
-        module: 'cf'
+        module
       })
     )
   }
 &nbsp;
-  if (showTrialPages &amp;&amp; data &amp;&amp; data.data &amp;&amp; trial) {
+  if (showTrialPages &amp;&amp; experience === ModuleLicenseType.TRIAL) {
     return (
       &lt;TrialInProgressTemplate
         title={getString('cf.continuous')}
@@ -491,7 +502,7 @@ const CFHomePage: React.FC = () =&gt; {
     )
   }
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedProject) {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedProject &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!experience)</span> {
 <span class="cstat-no" title="statement not covered" >    history.replace(</span>
       routes.toCFFeatureFlags({
         projectIdentifier: selectedProject.identifier,
@@ -502,6 +513,16 @@ const CFHomePage: React.FC = () =&gt; {
   }
 &nbsp;
   const projectCreateSuccessHandler = <span class="fstat-no" title="function not covered" >(p</span>roject?: Project): void =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (experience) {</span>
+<span class="cstat-no" title="statement not covered" >      history.push({</span>
+        pathname: routes.toCFOnboarding({
+          orgIdentifier: project?.orgIdentifier || '',
+          projectIdentifier: project?.identifier || '',
+          accountId
+        })
+      })
+<span class="cstat-no" title="statement not covered" >      return</span>
+    }
 <span class="cstat-no" title="statement not covered" >    if (project) {</span>
 <span class="cstat-no" title="statement not covered" >      history.push(</span>
         routes.toCFFeatureFlags({
@@ -535,7 +556,7 @@ export default CFHomePage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 01 2021 11:46:35 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 01 2021 15:10:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

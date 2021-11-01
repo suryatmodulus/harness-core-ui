@@ -291,8 +291,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">101x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">101x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -374,56 +374,56 @@ const Plan: React.FC&lt;PlanProps&gt; = ({ plan, timeType, module }) =&gt; {
 &nbsp;
   return (
     &lt;Card className={cx(css.plan, currentPlanClassName, borderClassName)} disabled={isPlanDisabled}&gt;
-      &lt;Popover interactionKind={PopoverInteractionKind.HOVER} content={toolTip}&gt;
-        &lt;Layout.Vertical flex={{ align: CENTER_CENTER }}&gt;
-          &lt;CurrentPlanHeader
-            isTrial={isTrial}
-            isPaid={isPaid}
-            timeType={timeType}
-            module={module}
-            isCurrentPlan={isCurrentPlan}
-          /&gt;
-          &lt;Layout.Vertical
-            flex={{ align: CENTER_CENTER }}
-            spacing="large"
-            padding={{ top: 'xxlarge' }}
-            className={currentPlanBodyClassName}
-          &gt;
-            &lt;SvgInline url={url} className={iConClassName} /&gt;
+      &lt;Layout.Vertical flex={{ align: CENTER_CENTER }}&gt;
+        &lt;CurrentPlanHeader
+          isTrial={isTrial}
+          isPaid={isPaid}
+          timeType={timeType}
+          module={module}
+          isCurrentPlan={isCurrentPlan}
+        /&gt;
+        &lt;Layout.Vertical
+          flex={{ align: CENTER_CENTER }}
+          spacing="large"
+          padding={{ top: 'xxlarge' }}
+          className={currentPlanBodyClassName}
+        &gt;
+          &lt;SvgInline url={url} className={iConClassName} /&gt;
+          &lt;Popover interactionKind={PopoverInteractionKind.HOVER} content={toolTip}&gt;
             &lt;Text font={{ weight: 'semi-bold', size: 'medium' }} className={textColorClassName}&gt;
               {planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle}
             &lt;/Text&gt;
-            &lt;Layout.Vertical padding={{ top: 'large' }} flex={{ align: CENTER_CENTER }} spacing="medium"&gt;
-              &lt;Layout.Horizontal spacing="small"&gt;
-                {getPrice({ timeType, plan, openMarketoContactSales, getString })}
-                {hasUnit &amp;&amp; (
-                  &lt;Layout.Vertical padding={{ left: 'small' }} flex={{ justifyContent: 'center', alignItems: 'start' }}&gt;
-                    &lt;Text font={{ size: 'small' }} className={textColorClassName} tooltip={planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>nitTips || <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>&gt;
-                      {planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>nit}
-                    &lt;/Text&gt;
-                    &lt;Text font={{ size: 'small' }} color={Color.BLACK}&gt;
-                      {getString('common.perMonth')}
-                    &lt;/Text&gt;
-                  &lt;/Layout.Vertical&gt;
-                )}
-              &lt;/Layout.Horizontal&gt;
-              {getPriceTips({ timeType, plan, textColorClassName })}
-            &lt;/Layout.Vertical&gt;
-            {getBtns({ isPlanDisabled, btnProps, getString })}
-            &lt;Text color={Color.BLACK} padding="large" className={css.desc}&gt;
-              {planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>esc}
-            &lt;/Text&gt;
-            &lt;ul className={css.ul}&gt;
-              {planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>eatureListZone<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(feature =&gt; (
-                &lt;li key={feature<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle} className={css.li}&gt;
-                  &lt;Text&gt;{feature<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle}&lt;/Text&gt;
-                &lt;/li&gt;
-              ))}
-            &lt;/ul&gt;
-            &lt;Text className={css.support}&gt;{planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>upport}&lt;/Text&gt;
+          &lt;/Popover&gt;
+          &lt;Layout.Vertical padding={{ top: 'large' }} flex={{ align: CENTER_CENTER }} spacing="medium"&gt;
+            &lt;Layout.Horizontal spacing="small"&gt;
+              {getPrice({ timeType, plan, openMarketoContactSales, getString })}
+              {hasUnit &amp;&amp; (
+                &lt;Layout.Vertical padding={{ left: 'small' }} flex={{ justifyContent: 'center', alignItems: 'start' }}&gt;
+                  &lt;Text font={{ size: 'small' }} className={textColorClassName} tooltip={planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>nitTips || <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>&gt;
+                    {planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.u</span>nit}
+                  &lt;/Text&gt;
+                  &lt;Text font={{ size: 'small' }} color={Color.BLACK}&gt;
+                    {getString('common.perMonth')}
+                  &lt;/Text&gt;
+                &lt;/Layout.Vertical&gt;
+              )}
+            &lt;/Layout.Horizontal&gt;
+            {getPriceTips({ timeType, plan, textColorClassName })}
           &lt;/Layout.Vertical&gt;
+          {getBtns({ isPlanDisabled, btnProps, getString })}
+          &lt;Text color={Color.BLACK} padding="large" className={css.desc}&gt;
+            {planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>esc}
+          &lt;/Text&gt;
+          &lt;ul className={css.ul}&gt;
+            {planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>eatureListZone<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(feature =&gt; (
+              &lt;li key={feature<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle} className={css.li}&gt;
+                &lt;Text&gt;{feature<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle}&lt;/Text&gt;
+              &lt;/li&gt;
+            ))}
+          &lt;/ul&gt;
+          &lt;Text className={css.support}&gt;{planProps<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>upport}&lt;/Text&gt;
         &lt;/Layout.Vertical&gt;
-      &lt;/Popover&gt;
+      &lt;/Layout.Vertical&gt;
     &lt;/Card&gt;
   )
 }
@@ -436,7 +436,7 @@ export default Plan
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 01 2021 11:46:35 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 01 2021 15:10:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

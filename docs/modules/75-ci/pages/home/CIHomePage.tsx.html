@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.68% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/53</span>
+                <span class='fraction'>50/60</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.26% </span>
+                <span class="strong">65.14% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>73/97</span>
+                <span class='fraction'>71/109</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.2% </span>
+                <span class="strong">84.48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/51</span>
+                <span class='fraction'>49/58</span>
             </div>
         
             
@@ -208,7 +208,17 @@
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -225,7 +235,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -236,6 +246,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -254,11 +266,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -270,7 +277,7 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -332,6 +339,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -376,7 +396,7 @@ import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import type { Editions } from '@common/constants/SubscriptionTypes'
+import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import bgImageURL from './images/ci.svg'
 &nbsp;
 const CIHomePage: React.FC = () =&gt; {
@@ -387,50 +407,47 @@ const CIHomePage: React.FC = () =&gt; {
 &nbsp;
   const { currentUserInfo } = useAppStore()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const moduleType = ModuleName.CI
+  const module = moduleType.toLowerCase() as Module
 &nbsp;
   const { accounts } = currentUserInfo
   const createdFromNG = accounts<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind(account =&gt; account.uuid === accountId)?.createdFromNG
   const { data, error, refetch, loading } = useGetLicensesAndSummary({
-    queryParams: { moduleType: ModuleName.CI as any },
+    queryParams: { moduleType },
     accountIdentifier: accountId
   })
-  const { trial } = useQueryParams&lt;{ trial?: boolean }&gt;()
+  const { experience } = useQueryParams&lt;{ experience?: ModuleLicenseType }&gt;()
 &nbsp;
   const expiryTime = data?.data?.maxExpiryTime
   const updatedLicenseInfo = data?.data &amp;&amp; {
-    ...licenseInformation<span class="branch-0 cbranch-no" title="branch not covered" >?.['</span>CI'],
+    ...licenseInformation<span class="branch-0 cbranch-no" title="branch not covered" >?.[m</span>oduleType],
     ...pick(data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, ['licenseType', 'edition']),
     expiryTime
   }
 &nbsp;
   useEffect(() =&gt; {
-    handleUpdateLicenseStore(
-      { ...licenseInformation },
-      updateLicenseStore,
-      ModuleName.CI.toString() as Module,
-      updatedLicenseInfo
-    )
+    handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 &nbsp;
   useEffect(() =&gt; {
     refetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trial])
+  }, [experience])
 &nbsp;
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: <span class="fstat-no" title="function not covered" >(p</span>rojectData?: Project) =&gt; {
-<span class="cstat-no" title="statement not covered" >      closeProjectModal(),</span>
-        history.push({
-          pathname: routes.toPipelineStudio({
-            orgIdentifier: projectData?.orgIdentifier || '',
-            projectIdentifier: projectData?.identifier || '',
-            pipelineIdentifier: '-1',
-            accountId,
-            module: 'ci'
-          }),
-          search: '?modal=trial'
-        })
+<span class="cstat-no" title="statement not covered" >      closeProjectModal()</span>
+<span class="cstat-no" title="statement not covered" >      history.push({</span>
+        pathname: routes.toPipelineStudio({
+          orgIdentifier: projectData?.orgIdentifier || '',
+          projectIdentifier: projectData?.identifier || '',
+          pipelineIdentifier: '-1',
+          accountId,
+          module
+        }),
+        search: `?modal=${experience}`
+      })
     }
   })
 &nbsp;
@@ -447,7 +464,7 @@ const CIHomePage: React.FC = () =&gt; {
   const trialBannerProps = {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
-    module: ModuleName.CI,
+    module: moduleType,
     edition: data?.data?.edition as Editions,
     refetch
   }
@@ -466,12 +483,12 @@ const CIHomePage: React.FC = () =&gt; {
 <span class="cstat-no" title="statement not covered" >    history.push(</span>
       routes.toModuleTrialHome({
         accountId,
-        module: 'ci'
+        module
       })
     )
   }
 &nbsp;
-  if (showTrialPages &amp;&amp; data &amp;&amp; data.data &amp;&amp; trial) {
+  if (showTrialPages &amp;&amp; experience === ModuleLicenseType.TRIAL) {
     return (
       &lt;TrialInProgressTemplate
         title={getString('ci.continuous')}
@@ -483,13 +500,26 @@ const CIHomePage: React.FC = () =&gt; {
   }
 &nbsp;
   const projectCreateSuccessHandler = <span class="fstat-no" title="function not covered" >(p</span>roject?: Project): void =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (experience) {</span>
+<span class="cstat-no" title="statement not covered" >      history.push({</span>
+        pathname: routes.toPipelineStudio({
+          orgIdentifier: project?.orgIdentifier || '',
+          projectIdentifier: project?.identifier || '',
+          pipelineIdentifier: '-1',
+          accountId,
+          module
+        }),
+        search: `?modal=${experience}`
+      })
+<span class="cstat-no" title="statement not covered" >      return</span>
+    }
 <span class="cstat-no" title="statement not covered" >    if (project) {</span>
 <span class="cstat-no" title="statement not covered" >      history.push(</span>
         routes.toProjectOverview({
           projectIdentifier: project.identifier,
           orgIdentifier: project.orgIdentifier || '',
           accountId,
-          module: 'ci'
+          module
         })
       )
     }
@@ -517,7 +547,7 @@ export default CIHomePage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 01 2021 11:46:35 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 01 2021 15:10:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

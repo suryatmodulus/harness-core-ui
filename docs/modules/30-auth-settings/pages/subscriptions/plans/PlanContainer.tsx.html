@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.31% </span>
+                <span class="strong">78.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>65/83</span>
+                <span class='fraction'>67/85</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.84% </span>
+                <span class="strong">59.26% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>59/102</span>
+                <span class='fraction'>64/108</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.25% </span>
+                <span class="strong">80.72% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>65/81</span>
+                <span class='fraction'>67/83</span>
             </div>
         
             
@@ -304,7 +304,15 @@
 <a name='L245'></a><a href='#L245'>245</a>
 <a name='L246'></a><a href='#L246'>246</a>
 <a name='L247'></a><a href='#L247'>247</a>
-<a name='L248'></a><a href='#L248'>248</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -430,14 +438,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -677,15 +693,23 @@ const PlanContainer: React.FC&lt;PlanProps&gt; = ({ plans, timeType, moduleName 
 &nbsp;
       handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, <span class="branch-1 cbranch-no" title="branch not covered" >planData?.data)</span>
 &nbsp;
+      let search
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" >planData?.data<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.licenseType </span>=== ModuleLicenseType.TRIAL) {
+<span class="cstat-no" title="statement not covered" >        search = `?experience=${ModuleLicenseType.TRIAL}&amp;&amp;modal=${ModuleLicenseType.TRIAL}`</span>
+      }
+&nbsp;
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (edition === Editions.FREE) {
+        search = `?experience=${ModuleLicenseType.FREE}&amp;&amp;modal=${ModuleLicenseType.FREE}`
+      }
+&nbsp;
       <span class="missing-if-branch" title="if path not taken" >I</span>if (moduleName === ModuleName.CE) {
-<span class="cstat-no" title="statement not covered" >        history.push(routes.toCEOverview({ accountId }))</span>
+<span class="cstat-no" title="statement not covered" >        history.push({</span>
+          pathname: routes.toModuleTrialHome({ accountId, module }),
+          search
+        })
 <span class="cstat-no" title="statement not covered" >        return</span>
       }
 &nbsp;
-      let search
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >licenseData?.l</span>icenseType </span>=== ModuleLicenseType.TRIAL) {
-<span class="cstat-no" title="statement not covered" >        search = '?trial=true'</span>
-      }
       history.push({
         pathname: routes.toModuleHome({ accountId, module }),
         search
@@ -726,10 +750,10 @@ const PlanContainer: React.FC&lt;PlanProps&gt; = ({ plans, timeType, moduleName 
     }
 &nbsp;
     switch (licenseData?.licenseType) {
-<span class="branch-0 cbranch-no" title="branch not covered" >      case 'PAID':</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >      case ModuleLicenseType.PAID:</span>
 <span class="cstat-no" title="statement not covered" >        isPaid = true</span>
 <span class="cstat-no" title="statement not covered" >        break</span>
-      case 'TRIAL':
+      case ModuleLicenseType.TRIAL:
         isTrial = true
         break
     }
@@ -805,7 +829,7 @@ export default PlanContainer
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 01 2021 11:46:35 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 01 2021 15:10:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

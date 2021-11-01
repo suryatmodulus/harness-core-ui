@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.5% </span>
+                <span class="strong">80.49% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/40</span>
+                <span class='fraction'>33/41</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.5% </span>
+                <span class="strong">80.49% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/40</span>
+                <span class='fraction'>33/41</span>
             </div>
         
             
@@ -216,7 +216,9 @@
 <a name='L157'></a><a href='#L157'>157</a>
 <a name='L158'></a><a href='#L158'>158</a>
 <a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -238,6 +240,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -350,9 +353,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -397,6 +401,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useQueryParams } from '@common/hooks'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
+import type { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 &nbsp;
 export default function CISideNav(): React.ReactElement {
   const params = useParams&lt;
@@ -425,7 +430,7 @@ export default function CISideNav(): React.ReactElement {
   const module = 'ci'
   const { updateAppStore } = useAppStore()
   const { CI_OVERVIEW_PAGE } = useFeatureFlags()
-  const { trial } = useQueryParams&lt;{ trial?: boolean }&gt;()
+  const { experience } = useQueryParams&lt;{ experience?: ModuleLicenseType }&gt;()
 &nbsp;
   return (
     &lt;Layout.Vertical spacing="small"&gt;
@@ -498,7 +503,7 @@ export default function CISideNav(): React.ReactElement {
             )
           } else {
             // when it's on trial page, forward to pipeline
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (trial) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (experience) {
 <span class="cstat-no" title="statement not covered" >              history.push({</span>
                 pathname: routes.toPipelineStudio({
                   orgIdentifier: data.orgIdentifier || '',
@@ -507,18 +512,19 @@ export default function CISideNav(): React.ReactElement {
                   accountId,
                   module
                 }),
-                search: '?modal=trial'
+                search: `?modal=${experience}`
               })
-            } else {
-              history.push(
-                routes.toProjectOverview({
-                  projectIdentifier: data.identifier,
-                  orgIdentifier: data.orgIdentifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-                  accountId,
-                  module
-                })
-              )
+<span class="cstat-no" title="statement not covered" >              return</span>
             }
+&nbsp;
+            history.push(
+              routes.toProjectOverview({
+                projectIdentifier: data.identifier,
+                orgIdentifier: data.orgIdentifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+                accountId,
+                module
+              })
+            )
           }
         }}
       /&gt;
@@ -541,7 +547,7 @@ export default function CISideNav(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 01 2021 11:46:35 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 01 2021 15:10:09 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

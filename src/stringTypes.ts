@@ -781,6 +781,7 @@ export interface StringsMap {
   'governance.emptyPolicySet': string
   'governance.evaluatedOn': string
   'governance.evaluatedTime': string
+  'governance.evaluationEmpty': string
   'governance.evaluations': string
   'governance.event': string
   'governance.failureHeading': string

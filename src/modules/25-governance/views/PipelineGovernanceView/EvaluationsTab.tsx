@@ -47,7 +47,8 @@ export const EvaluationsTab: React.FC = () => {
       orgIdentifier,
       projectIdentifier,
       entity: encodeURIComponent(entity),
-      per_page: String(LIST_FETCHING_PAGE_SIZE)
+      per_page: String(LIST_FETCHING_PAGE_SIZE),
+      include_hierarchy: true
     } as GetEvaluationListQueryParams
   }, [accountId, orgIdentifier, projectIdentifier, entity])
   const { data, loading, error, refetch /*, response */ } = useGetEvaluationList({ queryParams })

@@ -26,7 +26,8 @@ export const PolicySetsTab: React.FC<{ setPolicySetCount: React.Dispatch<React.S
       projectIdentifier,
       per_page: String(LIST_FETCHING_PAGE_SIZE),
       page: String(pageIndex),
-      type: PolicySetType.PIPELINE
+      type: PolicySetType.PIPELINE,
+      include_hierarchy: true
     } as GetPolicySetListQueryParams
   }, [accountId, orgIdentifier, projectIdentifier, pageIndex])
   const { data, loading, error, refetch, response } = useGetPolicySetList({

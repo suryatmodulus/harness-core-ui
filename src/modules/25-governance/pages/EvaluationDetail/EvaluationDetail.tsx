@@ -40,7 +40,18 @@ export const EvaluationDetail: React.FC = () => {
   }, [data]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Page.Body loading={loading} error={getErrorMessage(error)} retryOnError={() => refetch()} filled>
+    <Page.Body
+      loading={loading}
+      error={getErrorMessage(error)}
+      retryOnError={() => refetch()}
+      filled
+      noData={{
+        when: () => !data?.details || data?.details?.length === 0,
+        icon: 'governance',
+        noIconColor: true,
+        message: getString('governance.evaluationEmpty')
+      }}
+    >
       {data && <EvaluationView metadata={data} accountId={accountId} module={module} noHeadingMessage />}
     </Page.Body>
   )

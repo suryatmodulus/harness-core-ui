@@ -484,7 +484,11 @@ export const EditPolicy: React.FC = () => {
                     />
                   </Container>
                   {(testFailure == false || testFailure === true) && (
-                    <Container background={testFailure ? Color.RED_100 : Color.GREEN_100} padding="medium">
+                    <Container
+                      background={testFailure ? Color.RED_100 : Color.GREEN_100}
+                      padding="medium"
+                      className={css.outputError}
+                    >
                       <Text
                         icon={testFailure ? 'warning-sign' : 'tick-circle'}
                         iconProps={{
@@ -516,7 +520,7 @@ export const EditPolicy: React.FC = () => {
                     <MonacoEditor
                       language="json"
                       theme="vs-light"
-                      value={output ? JSON.stringify(output, null, 2) : ''}
+                      value={output?.output ? JSON.stringify(output?.output, null, 2) : ''}
                       options={{ ...MonacoEditorOptions, readOnly: true }}
                       editorDidMount={setOutputEditor}
                     />

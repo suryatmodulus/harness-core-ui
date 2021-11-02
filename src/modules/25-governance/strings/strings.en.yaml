@@ -28,3 +28,4 @@ deletePolicySetTitle: Delete Policy Set
 deletePolicySetConfirmation: Are you sure you want to delete Policy Set "{{name}}"? This action cannot be undone.
 deletePolicySetDone: Policy Set "{{name}}" deleted.
 selectSamplePolicy: Select a Policy example
+evaluationEmpty: No Policy is linked for this evaluation.

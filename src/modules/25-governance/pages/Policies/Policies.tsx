@@ -143,7 +143,7 @@ const Policies: React.FC = () => {
                           orgIdentifier,
                           projectIdentifier,
                           module,
-                          policyIdentifier: data?.id
+                          policyIdentifier: data?.original?.identifier as string
                         })
                       )
                     }

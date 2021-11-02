@@ -85,7 +85,7 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
       </Layout.Horizontal>
 
       {/* Data content */}
-      {details.map(policySet => {
+      {details?.map(policySet => {
         const { status: policySetStatus, identifier = '' } = policySet
         const policySetName = get(policySet, 'name') || get(policySet, 'policySetName')
         const policyMetadata = get(policySet, 'details') || (get(policySet, 'policyMetadata') as EvaluatedPolicy[])

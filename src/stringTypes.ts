@@ -336,6 +336,7 @@ export interface StringsMap {
   'common.policiesSets.newPolicyset': string
   'common.policiesSets.noPolicySet': string
   'common.policiesSets.noPolicySetResult': string
+  'common.policiesSets.noPolicySets': string
   'common.policiesSets.policySetSearch': string
   'common.policiesSets.stepOne.validId': string
   'common.policiesSets.stepOne.validIdRegex': string

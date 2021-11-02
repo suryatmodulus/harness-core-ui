@@ -5,5 +5,6 @@ declare const styles: {
   readonly pill: string
   readonly pillDanger: string
   readonly pillSuccess: string
+  readonly popoverSets: string
 }
 export default styles

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 // import * as moment from 'moment'
-import { Text, Color, Layout, Icon } from '@wings-software/uicore'
+import { Text, Color, Layout, Icon, Popover, Button, Container } from '@wings-software/uicore'
 // import { useGet } from 'restful-react'
 import ReactTimeago from 'react-timeago'
+import { Position, PopoverInteractionKind } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
 // import { StringUtils } from '@common/exports'
@@ -23,7 +24,7 @@ import css from './PolicyEvaluations.module.scss'
 
 const PolicyEvaluations: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<GovernancePathProps>()
+  const { accountId, orgIdentifier = '*', projectIdentifier = '*', module } = useParams<GovernancePathProps>()
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,
@@ -77,16 +78,55 @@ const PolicyEvaluations: React.FC = () => {
 
   const RenderPolicySets: Renderer<CellProps<Evaluation>> = ({ row }) => {
     const record = row.original
+    const [menuOpen, setMenuOpen] = React.useState(false)
+    const firstRecord = record?.details?.[0]
+    const totalRecords = (record?.details?.length || 1) - 1
 
     return (
       <>
-        {record?.details?.map((data: EvaluationDetail, index: number) => {
-          return (
-            <span key={(data.name || '') + index} className={css.pill}>
-              {data.name}
-            </span>
-          )
-        })}
+        {record?.details?.length && (
+          <span key={'first-record'} className={css.pill}>
+            {firstRecord?.name}
+          </span>
+        )}
+        {!record?.details && <span>{getString('common.policiesSets.noPolicySets')}</span>}
+        {totalRecords > 0 && (
+          <Popover
+            isOpen={menuOpen}
+            usePortal={true}
+            onInteraction={nextOpenState => {
+              setMenuOpen(nextOpenState)
+            }}
+            interactionKind={PopoverInteractionKind.HOVER}
+            popoverClassName={css.popoverSets}
+            position={Position.BOTTOM_RIGHT}
+            content={
+              <Container padding={'medium'}>
+                {record?.details?.map((data: EvaluationDetail, index: number) => {
+                  if (index > 0) {
+                    return (
+                      <span key={(data.name || '') + index} className={css.pill}>
+                        {data.name}
+                      </span>
+                    )
+                  }
+                })}
+              </Container>
+            }
+          >
+            <Button
+              minimal
+              inline
+              intent={'primary'}
+              onClick={e => {
+                e.stopPropagation()
+                setMenuOpen(true)
+              }}
+            >
+              +{totalRecords} more
+            </Button>
+          </Popover>
+        )}
       </>
     )
   }

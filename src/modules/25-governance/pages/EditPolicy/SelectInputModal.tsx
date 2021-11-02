@@ -184,6 +184,13 @@ const SelectInputModal: React.FC<{ handleOnSelect: (data: string) => void }> = p
                       name="type"
                       disabled={false}
                     />
+
+                    <FormInput.Select
+                      items={[{ label: 'Pipeline Evaluation', value: 'evaluation' }]}
+                      label={'Event Type'}
+                      name="event"
+                      disabled={false}
+                    />
                     <FormInput.Select
                       items={[
                         { label: 'On Run', value: 'onrun' },
@@ -191,12 +198,6 @@ const SelectInputModal: React.FC<{ handleOnSelect: (data: string) => void }> = p
                       ]}
                       label={'Action'}
                       name="action"
-                      disabled={false}
-                    />
-                    <FormInput.Select
-                      items={[{ label: 'Pipeline Evaluation', value: 'evaluation' }]}
-                      label={'Event Type'}
-                      name="event"
                       disabled={false}
                     />
                   </Layout.Horizontal>

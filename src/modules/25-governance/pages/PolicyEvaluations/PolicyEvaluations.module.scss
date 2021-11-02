@@ -10,7 +10,9 @@
   align-items: center;
   font-weight: 500;
   border-radius: 4px;
-  margin-right: var(--spacing-3);
+  margin-right: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+  float: left;
 }
 
 .pillDanger {
@@ -41,4 +43,11 @@
   path {
     color: var(--green-800);
   }
+}
+
+.popoverSets {
+  width: 400px !important;
+  overflow: auto;
+  background: var(--white);
+  height: 300px !important;
 }

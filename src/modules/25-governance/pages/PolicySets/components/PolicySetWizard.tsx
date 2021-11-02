@@ -81,6 +81,7 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
 
     const _fields = pick(_policySetData, ['action', 'enabled', 'name', 'type', 'identifier'])
     const _clonedValues = pick(values, ['action', 'enabled', 'name', 'type', 'identifier'])
+
     // console.log(Object.keys(_clonedValues).length, policySetData?.id, _fields, _clonedValues)
     if (!isEqual(_fields, _clonedValues)) {
       if (policySetData?.id || Object.keys(_fields).length === Object.keys(_clonedValues).length) {
@@ -89,14 +90,16 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
             showSuccess(`Successfully updated ${values.name} Policy Set`)
             nextStep?.({ ...values, id: response?.identifier })
           })
-          .catch(error => showError(error?.message))
+          .catch(error => showError(error?.data?.message))
       } else {
         createPolicySet(values)
           .then(response => {
             showSuccess(`Successfully created ${values.name} Policy Set`)
             nextStep?.({ ...values, id: response?.identifier })
           })
-          .catch(error => showError(error?.message))
+          .catch(error => {
+            showError(error?.data?.message)
+          })
       }
     } else {
       nextStep?.({ ...values, id: _policySetData.identifier })
@@ -125,7 +128,9 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
               .required(getString('validation.identifierRequired'))
               .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
               .notOneOf(StringUtils.illegalIdentifiers)
-          })
+          }),
+          type: Yup.string().trim().required(getString('validation.thisIsARequiredField')),
+          action: Yup.string().trim().required(getString('validation.thisIsARequiredField'))
         })}
         initialValues={{
           name: _policySetData?.name || '',
@@ -327,7 +332,7 @@ const StepTwo: React.FC<{
                   fields={[
                     {
                       name: 'policy',
-                      label: 'Evaluate Policy',
+                      label: 'Policy to Evaluate',
                       renderer: (value, _index, handleChange) => (
                         <Layout.Vertical flex={{ alignItems: 'end' }} spacing="xsmall">
                           <Select

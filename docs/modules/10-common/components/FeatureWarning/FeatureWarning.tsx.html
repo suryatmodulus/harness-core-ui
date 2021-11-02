@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.29% </span>
+                <span class="strong">87.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/34</span>
+                <span class='fraction'>34/39</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>6/12</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/30</span>
+                <span class='fraction'>30/35</span>
             </div>
         
             
@@ -182,7 +182,8 @@
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">378x</span>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">378x</span>
 <span class="cline-any cline-yes">378x</span>
 <span class="cline-any cline-yes">378x</span>
 <span class="cline-any cline-yes">378x</span>
@@ -193,6 +194,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">378x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">378x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,16 +278,16 @@
 <span class="cline-any cline-yes">378x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">378x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -316,17 +318,18 @@ import { useStrings } from 'framework/strings'
 import { FeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
+import { useFeatureModule } from '@common/hooks/useFeatures'
+import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './FeatureWarning.module.scss'
 &nbsp;
 interface FeatureWarningTooltipProps {
-  featureName: string
+  featureName: FeatureIdentifier
   module?: Module
 }
 &nbsp;
 interface FeatureWarningProps {
-  featureName: string
+  featureName: FeatureIdentifier
   warningMessage?: string
-  module?: Module
   className?: string
   tooltipProps?: {
     position: PopoverPosition
@@ -398,20 +401,20 @@ export const FeatureWarningTooltip = <span class="fstat-no" title="function not 
   )
 }
 &nbsp;
-export const FeatureWarningWithTooltip = ({ featureName, module, tooltipProps }: FeatureWarningProps): ReactElement =&gt; {
+export const FeatureWarningWithTooltip = ({ featureName, tooltipProps }: FeatureWarningProps): ReactElement =&gt; {
+  const moduleType = useFeatureModule(featureName)
+  const module = moduleType &amp;&amp; (<span class="branch-1 cbranch-no" title="branch not covered" >moduleType.toLowerCase() as Module)</span>
   const tooltip = &lt;FeatureWarningTooltip featureName={featureName} module={module} /&gt;
   return &lt;WarningText tooltip={tooltip} tooltipProps={{ position: 'bottom-left', ...tooltipProps }} /&gt;
 }
 &nbsp;
-export const FeatureWarning = ({
-  module,
-  featureName,
-  warningMessage,
-  className
-}: FeatureWarningProps): ReactElement =&gt; {
+export const FeatureWarning = ({ featureName, warningMessage, className }: FeatureWarningProps): ReactElement =&gt; {
   const { getString } = useStrings()
   const featureDescription =
     warningMessage || FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : <span class="branch-1 cbranch-no" title="branch not covered" >featureName</span>
+&nbsp;
+  const moduleType = useFeatureModule(featureName)
+  const module = moduleType &amp;&amp; (<span class="branch-1 cbranch-no" title="branch not covered" >moduleType.toLowerCase() as Module)</span>
 &nbsp;
   return (
     &lt;Layout.Horizontal padding="small" spacing="small" className={cx(css.expanded, className)} flex&gt;
@@ -439,7 +442,7 @@ export const FeatureWarningBanner = <span class="fstat-no" title="function not c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 02 2021 12:11:17 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 02 2021 14:11:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

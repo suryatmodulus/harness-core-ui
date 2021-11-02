@@ -6,6 +6,7 @@ declare const styles: {
   readonly card: string
   readonly text: string
   readonly authorizationCard: string
+  readonly entityIdCard: string
   readonly notes: string
 }
 export default styles

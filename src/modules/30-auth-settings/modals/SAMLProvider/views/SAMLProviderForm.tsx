@@ -19,7 +19,8 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   TextInput,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import copy from 'copy-to-clipboard'
 import { useStrings } from 'framework/strings'
@@ -41,6 +42,7 @@ interface FormValues {
   displayName: string
   authorizationEnabled: boolean
   groupMembershipAttr: string
+  entityIdentifier?: string
 }
 
 enum Providers {
@@ -111,6 +113,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
     formData.set('authorizationEnabled', JSON.stringify(data.authorizationEnabled))
     formData.set('groupMembershipAttr', data.groupMembershipAttr)
     formData.set('ssoSetupType', AuthenticationMechanisms.SAML)
+    data.entityIdentifier && formData.set('entityIdentifier', data.entityIdentifier || '')
 
     const file = (data as any)?.files?.[0]
     file && formData.set('file', file)
@@ -123,8 +126,10 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
       let response
 
       if (samlProvider) {
+        console.log('updating', createFormData(values))
         response = await updateSamlSettings(createFormData(values) as any)
       } else {
+        console.log('uploading', createFormData(values))
         response = await uploadSamlSettings(createFormData(values) as any)
       }
 
@@ -159,7 +164,9 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
             initialValues={{
               displayName: samlProvider?.displayName || /* istanbul ignore next */ '',
               authorizationEnabled: samlProvider ? !!samlProvider?.authorizationEnabled : true,
-              groupMembershipAttr: samlProvider?.groupMembershipAttr || /* istanbul ignore next */ ''
+              groupMembershipAttr: samlProvider?.groupMembershipAttr || '',
+              entityIdEnabled: samlProvider ? !!samlProvider?.entityIdentifier : false,
+              entityIdentifier: samlProvider?.entityIdentifier || ''
             }}
             validationSchema={yup.object().shape({
               displayName: yup.string().trim().required(getString('common.validation.nameIsRequired')),
@@ -167,6 +174,10 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
               groupMembershipAttr: yup.string().when('authorizationEnabled', {
                 is: val => val,
                 then: yup.string().trim().required(getString('common.validation.groupAttributeIsRequired'))
+              }),
+              entityIdentifier: yup.string().when('entityIdEnabled', {
+                is: val => val,
+                then: yup.string().trim().required('getString(common.validation.groupAttributeIsRequired)')
               })
             })}
             onSubmit={values => {
@@ -275,6 +286,21 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                             name="groupMembershipAttr"
                             label={getString('authSettings.groupAttributeName')}
                           />
+                        </Container>
+                      )}
+                    </Card>
+                    <Card className={css.entityIdCard}>
+                      <Checkbox
+                        name="enableEntityId"
+                        label={'Add Entity ID'}
+                        font={{ variation: FontVariation.FORM_LABEL }}
+                        color={Color.GREY_600}
+                        checked={values.entityIdEnabled}
+                        onChange={e => setFieldValue('entityIdEnabled', e.currentTarget.checked)}
+                      />
+                      {values.entityIdEnabled && (
+                        <Container width={300} margin={{ top: 'large' }}>
+                          <FormInput.Text name="entityIdentifier" label={'Entity ID'} />
                         </Container>
                       )}
                     </Card>

@@ -20,6 +20,7 @@ import { useMutate, UseMutateProps } from 'restful-react'
 import { isEqual, pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { StringUtils, useToaster } from '@common/exports'
+import { getErrorMessage } from '@governance/utils/GovernanceUtils'
 
 import { NameIdDescriptionTags } from '@common/components'
 import {
@@ -30,7 +31,9 @@ import {
   LinkedPolicy,
   useGetPolicySet,
   PolicySetWithLinkedPolicies,
-  useAddLinkedPolicy
+  useAddLinkedPolicy,
+  GetPolicyListQueryParams,
+  DeleteLinkedPolicyQueryParams
 } from 'services/pm'
 import { getConfig } from 'services/config'
 import css from '../PolicySets.module.scss'
@@ -42,19 +45,23 @@ type CreatePolicySetWizardProps = StepProps<{ refetch: () => void; hideModal: ()
   policySetData: PolicySetWithLinkedPolicies | any
 }
 
+interface GetPolicyListParams extends GetPolicyListQueryParams {
+  include_hierarchy?: boolean
+}
+
 interface DeleteLinkedPolicyPathParams {
   policyset: string
   policy: string
 }
 
 type UseDeleteLinkedPolicyProps = Omit<
-  UseMutateProps<void, unknown, void, string, DeleteLinkedPolicyPathParams>,
+  UseMutateProps<void, unknown, DeleteLinkedPolicyQueryParams, string, DeleteLinkedPolicyPathParams>,
   'path' | 'verb'
 > &
   DeleteLinkedPolicyPathParams
 
 export const useDeleteLinkedPolicy = ({ policyset, policy, ...props }: UseDeleteLinkedPolicyProps) =>
-  useMutate<void, unknown, void, string, DeleteLinkedPolicyPathParams>(
+  useMutate<void, unknown, DeleteLinkedPolicyQueryParams, string, DeleteLinkedPolicyPathParams>(
     'DELETE',
     (paramsInPath: DeleteLinkedPolicyPathParams) =>
       `/policysets/${paramsInPath.policyset}/policy/${paramsInPath.policy}`,
@@ -89,14 +96,16 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
             showSuccess(`Successfully updated ${values.name} Policy Set`)
             nextStep?.({ ...values, id: response?.identifier })
           })
-          .catch(error => showError(error?.message))
+          .catch(error => showError(getErrorMessage(error)))
       } else {
         createPolicySet(values)
           .then(response => {
             showSuccess(`Successfully created ${values.name} Policy Set`)
             nextStep?.({ ...values, id: response?.identifier })
           })
-          .catch(error => showError(error?.message))
+          .catch(error => {
+            showError(getErrorMessage(error))
+          })
       }
     } else {
       nextStep?.({ ...values, id: _policySetData.identifier })
@@ -125,7 +134,9 @@ const StepOne: React.FC<CreatePolicySetWizardProps> = ({ nextStep, policySetData
               .required(getString('validation.identifierRequired'))
               .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
               .notOneOf(StringUtils.illegalIdentifiers)
-          })
+          }),
+          type: Yup.string().trim().required(getString('validation.thisIsARequiredField')),
+          action: Yup.string().trim().required(getString('validation.thisIsARequiredField'))
         })}
         initialValues={{
           name: _policySetData?.name || '',
@@ -181,10 +192,13 @@ const StepTwo: React.FC<{
 }> = ({ prevStepData, hideModal, refetch, policySetData, previousStep }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
-  const queryParams = {
+  const queryParams: GetPolicyListParams = {
     accountIdentifier: accountId,
     orgIdentifier,
     projectIdentifier
+  }
+  if (projectIdentifier) {
+    queryParams['include_hierarchy'] = true
   }
   const { data: policies } = useGetPolicyList({ queryParams })
   const [policyId, setPolicyId] = React.useState('')
@@ -210,11 +224,20 @@ const StepTwo: React.FC<{
     policyset: policySetData?.identifier?.toString() || prevStepData?.id
   })
 
-  const { mutate: patchPolicy } = useAddLinkedPolicy({ policyset: prevStepData?.id, policy: policyId, queryParams })
-
-  const { mutate: deleteLinkedPolicy } = useDeleteLinkedPolicy({
+  const { mutate: patchPolicy, loading: patchingPolicy } = useAddLinkedPolicy({
     policyset: prevStepData?.id,
-    policy: deLinkpolicyId
+    policy: policyId,
+    queryParams
+  })
+
+  const { mutate: deleteLinkedPolicy, loading: deletingPolicyAttaced } = useDeleteLinkedPolicy({
+    policyset: prevStepData?.id,
+    policy: deLinkpolicyId,
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier
+    }
   })
 
   const handlePatchRequest = async (severitySelected: any) => {
@@ -234,7 +257,7 @@ const StepTwo: React.FC<{
           showSuccess('Successfully linked policy with the policy set')
         })
         .catch(error => {
-          showError(error.message || error)
+          showError(getErrorMessage(error))
         })
     }
   }, [policyId, severity])
@@ -246,7 +269,7 @@ const StepTwo: React.FC<{
           showSuccess('Successfully delinked policy with the policy set')
         })
         .catch(error => {
-          showError(error.message || error)
+          showError(getErrorMessage(error))
         })
     }
   }, [deLinkpolicyId])
@@ -312,7 +335,7 @@ const StepTwo: React.FC<{
             <FormikForm>
               <Container className={css.policyAssignment}>
                 <FieldArray
-                  label="Applies to Pipeline on the following events"
+                  label={getString('governance.wizard.fieldArray')}
                   addLabel="Add Policy"
                   key={Math.random().toString(36).substring(2, 8)}
                   name="attachedPolicies"
@@ -327,7 +350,7 @@ const StepTwo: React.FC<{
                   fields={[
                     {
                       name: 'policy',
-                      label: 'Evaluate Policy',
+                      label: getString('governance.wizard.policyToEval'),
                       renderer: (value, _index, handleChange) => (
                         <Layout.Vertical flex={{ alignItems: 'end' }} spacing="xsmall">
                           <Select
@@ -364,8 +387,18 @@ const StepTwo: React.FC<{
                 />
 
                 <Layout.Horizontal spacing="medium">
-                  <Button type="button" text={getString('back')} onClick={onPreviousStep} />
-                  <Button type="submit" intent="primary" text={getString('finish')} />
+                  <Button
+                    type="button"
+                    text={getString('back')}
+                    onClick={onPreviousStep}
+                    disabled={patchingPolicy || deletingPolicyAttaced}
+                  />
+                  <Button
+                    type="submit"
+                    intent="primary"
+                    text={getString('finish')}
+                    disabled={patchingPolicy || deletingPolicyAttaced}
+                  />
                 </Layout.Horizontal>
               </Container>
             </FormikForm>

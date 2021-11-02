@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 // import * as moment from 'moment'
-import { Text, Color, Layout, Icon } from '@wings-software/uicore'
+import { Text, Color, Layout, Icon, Popover, Button, Container } from '@wings-software/uicore'
 // import { useGet } from 'restful-react'
 import ReactTimeago from 'react-timeago'
+import { Position, PopoverInteractionKind } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { useStrings } from 'framework/strings'
 // import { StringUtils } from '@common/exports'
@@ -17,26 +18,39 @@ import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 
 import { useGetEvaluationList, Evaluation, EvaluationDetail } from 'services/pm'
-import { isEvaluationFailed } from '@governance/utils/GovernanceUtils'
+import { isEvaluationFailed, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
 import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import css from './PolicyEvaluations.module.scss'
 
 const PolicyEvaluations: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<GovernancePathProps>()
+  const { accountId, orgIdentifier = '*', projectIdentifier = '*', module } = useParams<GovernancePathProps>()
+  const [pageIndex, setPageIndex] = useState(0)
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,
       orgIdentifier,
-      projectIdentifier
+      projectIdentifier,
+      per_page: String(LIST_FETCHING_PAGE_SIZE),
+      page: String(pageIndex)
     }),
-    [accountId, orgIdentifier, projectIdentifier]
+    [accountId, orgIdentifier, projectIdentifier, pageIndex]
   )
   const history = useHistory()
   useDocumentTitle(getString('common.policies'))
   const [page, setPage] = useState(0)
 
-  const { data: evaluationsList, loading: fetchingEvaluations, error, refetch } = useGetEvaluationList({ queryParams })
+  const {
+    data: evaluationsList,
+    loading: fetchingEvaluations,
+    error,
+    refetch,
+    response
+  } = useGetEvaluationList({ queryParams })
+
+  const itemCount = useMemo(() => parseInt(response?.headers?.get('x-total-items') || '0'), [response])
+  const pageCount = useMemo(() => parseInt(response?.headers?.get('x-total-pages') || '0'), [response])
+  const pageSize = useMemo(() => parseInt(response?.headers?.get('x-page-size') || '0'), [response])
 
   useEffect(() => {
     setPageNumber({ setPage, page, pageItemsCount: 1000 })
@@ -77,16 +91,54 @@ const PolicyEvaluations: React.FC = () => {
 
   const RenderPolicySets: Renderer<CellProps<Evaluation>> = ({ row }) => {
     const record = row.original
-
+    const [menuOpen, setMenuOpen] = React.useState(false)
+    const firstRecord = record?.details?.[0]
+    const totalRecords = (record?.details?.length || 1) - 1
     return (
       <>
-        {record?.details?.map((data: EvaluationDetail, index: number) => {
-          return (
-            <span key={(data.name || '') + index} className={css.pill}>
-              {data.name}
-            </span>
-          )
-        })}
+        {record?.details?.length && (
+          <span key={'first-record'} className={css.pill}>
+            {firstRecord?.name}
+          </span>
+        )}
+        {!record?.details && <span>{getString('common.policiesSets.noPolicySets')}</span>}
+        {totalRecords > 0 && (
+          <Popover
+            isOpen={menuOpen}
+            usePortal={true}
+            onInteraction={nextOpenState => {
+              setMenuOpen(nextOpenState)
+            }}
+            interactionKind={PopoverInteractionKind.HOVER}
+            popoverClassName={css.popoverSets}
+            position={Position.BOTTOM_RIGHT}
+            content={
+              <Container padding={'medium'}>
+                {record?.details?.map((data: EvaluationDetail, index: number) => {
+                  if (index > 0) {
+                    return (
+                      <span key={(data.name || '') + index} className={css.pill}>
+                        {data.name}
+                      </span>
+                    )
+                  }
+                })}
+              </Container>
+            }
+          >
+            <Button
+              minimal
+              inline
+              intent={'primary'}
+              onClick={e => {
+                e.stopPropagation()
+                setMenuOpen(true)
+              }}
+            >
+              +{totalRecords} more
+            </Button>
+          </Popover>
+        )}
       </>
     )
   }
@@ -165,6 +217,7 @@ const PolicyEvaluations: React.FC = () => {
     <>
       <Page.Body
         loading={fetchingEvaluations}
+        className={css.pageBody}
         error={(error?.data as Error)?.message || error?.message}
         retryOnError={() => refetch()}
         noData={{
@@ -180,11 +233,13 @@ const PolicyEvaluations: React.FC = () => {
           // TODO: enable when page is ready
 
           pagination={{
-            itemCount: evaluationsList?.length || 0,
-            pageSize: 1000,
-            pageCount: 0,
-            pageIndex: 0,
-            gotoPage: (pageNumber: number) => setPage(pageNumber)
+            itemCount,
+            pageSize,
+            pageCount,
+            pageIndex,
+            gotoPage: (index: number) => {
+              setPageIndex(index)
+            }
           }}
           onRowClick={evaluation => {
             history.push(

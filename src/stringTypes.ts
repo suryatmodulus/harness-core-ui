@@ -336,6 +336,7 @@ export interface StringsMap {
   'common.policiesSets.newPolicyset': string
   'common.policiesSets.noPolicySet': string
   'common.policiesSets.noPolicySetResult': string
+  'common.policiesSets.noPolicySets': string
   'common.policiesSets.policySetSearch': string
   'common.policiesSets.stepOne.validId': string
   'common.policiesSets.stepOne.validIdRegex': string
@@ -801,6 +802,8 @@ export interface StringsMap {
   'governance.successHeading': string
   'governance.warn': string
   'governance.warning': string
+  'governance.wizard.fieldArray': string
+  'governance.wizard.policyToEval': string
   'authSettings.SAMLProvider': string
   'authSettings.WhitelistedDomainsUpdated': string
   'authSettings.accountOrOAuthLogin': string

@@ -523,6 +523,7 @@ policy:
     createdAt: Created At
 policiesSets:
   newPolicyset: New Policy Set
+  noPolicySets: No Policy Sets evaluated
   evaluationCriteria: Policy evaluation criteria
   policySetSearch: Search Policy Set by name
   noPolicySet: You have no Policy Set. Click on the button below to create a new one.

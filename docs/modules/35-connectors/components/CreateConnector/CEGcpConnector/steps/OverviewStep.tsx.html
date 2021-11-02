@@ -271,7 +271,15 @@
 <a name='L212'></a><a href='#L212'>212</a>
 <a name='L213'></a><a href='#L213'>213</a>
 <a name='L214'></a><a href='#L214'>214</a>
-<a name='L215'></a><a href='#L215'>215</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">122x</span>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">122x</span>
 <span class="cline-any cline-yes">122x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -424,6 +432,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -638,48 +654,56 @@ const OverviewStep: React.FC&lt;OverviewProps&gt; = props =&gt; {
           {formikProps =&gt; (
             &lt;FormikForm&gt;
               &lt;ModalErrorHandler bind={() =&gt; setModalErrorHandler} /&gt;
-              &lt;Container className={css.main} style={{ width: '65%' }}&gt;
-                &lt;Layout.Vertical spacing="large"&gt;
-                  &lt;FormInput.InputWithIdentifier
-                    inputLabel={getString('connectors.name')}
-                    isIdentifierEditable={!isEditMode}
-                  /&gt;
-                  &lt;FormInput.Text name={'projectId'} label={getString('connectors.ceGcp.overview.projectIdLabel')} /&gt;
-                  &lt;Layout.Vertical spacing="small"&gt;
-                    &lt;Description descriptionProps={{}} hasValue={!!formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues.description} /&gt;
-                    &lt;Tags tagsProps={{}} isOptional={true} hasValue={!isEmpty(formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues.tags)} /&gt;
-                  &lt;/Layout.Vertical&gt;
-                &lt;/Layout.Vertical&gt;
-              &lt;/Container&gt;
-              {!isUniqueConnector &amp;&amp; (
-                &lt;div className={css.connectorExistBox}&gt;
+              &lt;Container style={{ minHeight: 550 }}&gt;
+                &lt;Container className={css.main} style={{ width: '65%' }}&gt;
                   &lt;Layout.Vertical spacing="large"&gt;
-                    &lt;div style={{ color: 'red' }}&gt;
-                      &lt;Icon name="circle-cross" color="red700" style={{ paddingRight: 5 }}&gt;&lt;/Icon&gt;
-                      &lt;span style={{ fontSize: 'var(--font-size-normal)' }}&gt;
-                        {getString('connectors.ceAws.overview.alreadyExist')}
-                      &lt;/span&gt;
-                    &lt;/div&gt;
-                    &lt;div&gt;
-                      &lt;Icon name="info" style={{ paddingRight: 5 }}&gt;&lt;/Icon&gt;
-                      {getString('connectors.ceAws.overview.alreadyExistInfo', {
-                        projectId,
-                        existingConnectorName,
-                        featureText
-                      })}
-                    &lt;/div&gt;
-                    &lt;div&gt;
-                      &lt;Icon name="lightbulb" style={{ paddingRight: 5 }}&gt;&lt;/Icon&gt;
-                      {getString('connectors.ceAws.overview.trySuggestion')}
-                      &lt;div&gt;
-                        {getString('connectors.ceAws.overview.editConnector')} &lt;a&gt;{existingConnectorName}&lt;/a&gt;{' '}
-                        {getString('connectors.ceAws.overview.ifReq')}
-                      &lt;/div&gt;
-                    &lt;/div&gt;
+                    &lt;FormInput.InputWithIdentifier
+                      inputLabel={getString('connectors.name')}
+                      isIdentifierEditable={!isEditMode}
+                    /&gt;
+                    &lt;FormInput.Text
+                      tooltipProps={{
+                        dataTooltipId: 'gcpConnectorProjectId'
+                      }}
+                      name={'projectId'}
+                      label={getString('connectors.ceGcp.overview.projectIdLabel')}
+                    /&gt;
+                    &lt;Layout.Vertical spacing="small"&gt;
+                      &lt;Description descriptionProps={{}} hasValue={!!formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues.description} /&gt;
+                      &lt;Tags tagsProps={{}} isOptional={true} hasValue={!isEmpty(formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues.tags)} /&gt;
+                    &lt;/Layout.Vertical&gt;
                   &lt;/Layout.Vertical&gt;
-                &lt;/div&gt;
-              )}
-              &lt;Layout.Horizontal spacing="medium" className={css.buttonPanel}&gt;
+                &lt;/Container&gt;
+                {!isUniqueConnector &amp;&amp; (
+                  &lt;div className={css.connectorExistBox}&gt;
+                    &lt;Layout.Vertical spacing="large"&gt;
+                      &lt;div style={{ color: 'red' }}&gt;
+                        &lt;Icon name="circle-cross" color="red700" style={{ paddingRight: 5 }}&gt;&lt;/Icon&gt;
+                        &lt;span style={{ fontSize: 'var(--font-size-normal)' }}&gt;
+                          {getString('connectors.ceAws.overview.alreadyExist')}
+                        &lt;/span&gt;
+                      &lt;/div&gt;
+                      &lt;div&gt;
+                        &lt;Icon name="info" style={{ paddingRight: 5 }}&gt;&lt;/Icon&gt;
+                        {getString('connectors.ceAws.overview.alreadyExistInfo', {
+                          projectId,
+                          existingConnectorName,
+                          featureText
+                        })}
+                      &lt;/div&gt;
+                      &lt;div&gt;
+                        &lt;Icon name="lightbulb" style={{ paddingRight: 5 }}&gt;&lt;/Icon&gt;
+                        {getString('connectors.ceAws.overview.trySuggestion')}
+                        &lt;div&gt;
+                          {getString('connectors.ceAws.overview.editConnector')} &lt;a&gt;{existingConnectorName}&lt;/a&gt;{' '}
+                          {getString('connectors.ceAws.overview.ifReq')}
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    &lt;/Layout.Vertical&gt;
+                  &lt;/div&gt;
+                )}
+              &lt;/Container&gt;
+              &lt;Layout.Horizontal spacing="medium"&gt;
                 &lt;Button
                   type="submit"
                   intent="primary"
@@ -706,7 +730,7 @@ export default OverviewStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 02 2021 06:11:41 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 02 2021 09:25:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

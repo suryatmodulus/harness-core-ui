@@ -6919,7 +6919,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
               </div>
             </div>
             <div
-              class="Layout--vertical Layout--layout-spacing-small StyledProps--main widgetHeight StyledProps--margin-top-medium"
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-medium"
             >
               <div
                 class="StyledProps--font StyledProps--main widget testSuite expanded StyledProps--padding-medium"
@@ -20047,7 +20047,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               </div>
             </div>
             <div
-              class="Layout--vertical Layout--layout-spacing-small StyledProps--main widgetHeight StyledProps--margin-top-medium"
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-medium"
             >
               <div
                 class="StyledProps--font StyledProps--main widget testSuite expanded StyledProps--padding-medium"

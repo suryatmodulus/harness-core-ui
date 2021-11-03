@@ -353,7 +353,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
           {!error && executionSummary?.content && (
             <>
               {executionSummary.content.length > 0 && (
-                <Layout.Vertical spacing="small" margin={{ top: 'medium' }} className={css.widgetHeight}>
+                <Layout.Vertical spacing="small" margin={{ top: 'medium' }}>
                   {executionSummary?.content?.map((summary, index) => (
                     <TestsExecutionItem
                       key={(summary.name || '') + showFailedTestsOnly}

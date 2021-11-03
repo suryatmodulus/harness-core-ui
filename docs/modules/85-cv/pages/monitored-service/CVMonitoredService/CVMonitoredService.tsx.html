@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.19% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/62</span>
+                <span class='fraction'>48/64</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.19% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/62</span>
+                <span class='fraction'>48/64</span>
             </div>
         
             
@@ -306,7 +306,15 @@
 <a name='L247'></a><a href='#L247'>247</a>
 <a name='L248'></a><a href='#L248'>248</a>
 <a name='L249'></a><a href='#L249'>249</a>
-<a name='L250'></a><a href='#L250'>250</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -333,6 +341,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -453,12 +462,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -466,6 +471,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -525,6 +536,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -534,6 +547,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -584,6 +600,7 @@ import { getCVMonitoringServicesSearchParam, getErrorMessage, getEnvironmentOpti
 import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
 import { getDependencyData } from '@cv/components/DependencyGraph/DependencyGraph.utils'
 import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
+import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import { getFilterAndEnvironmentValue } from './CVMonitoredService.utils'
 import MonitoredServiceListView from './components/MonitoredServiceListView/MonitoredServiceListView'
 import MonitoredServiceGraphView from './components/MonitoredServiceGraphView/MonitoredServiceGraphView'
@@ -702,23 +719,25 @@ const MonitoredService: React.FC = () =&gt; {
     })
   }
 &nbsp;
+  const createButton = (
+    &lt;Button
+      variation={ButtonVariation.PRIMARY}
+      icon="plus"
+      text={getString('cv.monitoredServices.newMonitoredServices')}
+      onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >        history.push({</span>
+          pathname: routes.toCVAddMonitoringServicesSetup(pathParams),
+          search: getCVMonitoringServicesSearchParam({ view: selectedView })
+        })
+      }}
+    /&gt;
+  )
+&nbsp;
   return (
     &lt;&gt;
       &lt;Page.Header breadcrumbs={&lt;NGBreadcrumbs /&gt;} title={getString('cv.monitoredServices.title')} /&gt;
       &lt;Page.Header
-        title={
-          &lt;Button
-            variation={ButtonVariation.PRIMARY}
-            icon="plus"
-            text={getString('cv.monitoredServices.newMonitoredServices')}
-            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >              history.push({</span>
-                pathname: routes.toCVAddMonitoringServicesSetup(pathParams),
-                search: getCVMonitoringServicesSearchParam({ view: selectedView })
-              })
-            }}
-          /&gt;
-        }
+        title={createButton}
         toolbar={
           &lt;Layout.Horizontal&gt;
             &lt;Select
@@ -749,8 +768,10 @@ const MonitoredService: React.FC = () =&gt; {
           retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetchMonitoredServiceList()}</span>
           noData={{
             when: () =&gt; !monitoredServiceListData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength,
-            icon: 'join-table',
-            message: getString('cv.monitoredServices.noData')
+            image: noServiceAvailableImage,
+            imageClassName: css.noServiceAvailableImage,
+            message: getString('cv.monitoredServices.youHaveNoMonitoredServices'),
+            button: createButton
           }}
           className={css.pageBody}
         &gt;
@@ -783,7 +804,10 @@ const MonitoredService: React.FC = () =&gt; {
           }}
           noData={{
             when: () =&gt; !monitoredServiceDependencyData,
-            message: getString('cv.monitoredServices.noData')
+            image: noServiceAvailableImage,
+            imageClassName: css.noServiceAvailableImage,
+            message: getString('cv.monitoredServices.youHaveNoMonitoredServices'),
+            button: createButton
           }}
           className={css.pageBody}
         &gt;
@@ -811,7 +835,7 @@ export default MonitoredService
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 03 2021 10:24:05 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 03 2021 11:26:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

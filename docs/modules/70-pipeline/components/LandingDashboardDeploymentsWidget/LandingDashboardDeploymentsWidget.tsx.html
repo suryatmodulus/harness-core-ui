@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">73.39% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>88/121</span>
+                <span class='fraction'>91/124</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.09% </span>
+                <span class="strong">53.07% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>189/356</span>
+                <span class='fraction'>190/358</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.5% </span>
+                <span class="strong">73.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>87/120</span>
+                <span class='fraction'>90/123</span>
             </div>
         
             
@@ -547,7 +547,11 @@
 <a name='L488'></a><a href='#L488'>488</a>
 <a name='L489'></a><a href='#L489'>489</a>
 <a name='L490'></a><a href='#L490'>490</a>
-<a name='L491'></a><a href='#L491'>491</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L491'></a><a href='#L491'>491</a>
+<a name='L492'></a><a href='#L492'>492</a>
+<a name='L493'></a><a href='#L493'>493</a>
+<a name='L494'></a><a href='#L494'>494</a>
+<a name='L495'></a><a href='#L495'>495</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -559,6 +563,9 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -833,6 +840,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -875,14 +883,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -962,6 +969,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1039,7 +1047,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useState, useEffect } from 'react'
 import cx from 'classnames'
-import { Card, Color, Container, FontVariation, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore' // Layout
+import { Card, Color, Container, FontVariation, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
@@ -1048,7 +1056,10 @@ import type { Error, Failure } from 'services/template-ng'
 import { useLandingDashboardContext, TimeRangeToDays } from '@common/factories/LandingDashboardContext'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
+import {
+  ChartType,
+  OverviewChartsWithToggle
+} from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
 import { handleZeroOrInfinityTrend, renderTrend } from '@common/components/StackedSummaryBar/utils'
 import {
   StackedSummaryInterface,
@@ -1202,7 +1213,7 @@ const getFormattedNumber = (givenNumber?: number | string): string =&gt; {
   return '0'
 }
 &nbsp;
-const summaryCardRenderer = (cardData: SummaryCardData, groupByValye: string): JSX.Element =&gt; {
+const summaryCardRenderer = (cardData: SummaryCardData, groupByValue: string): JSX.Element =&gt; {
   return (
     &lt;Container className={css.summaryCard}&gt;
       &lt;Text font={{ size: 'medium' }} color={Color.GREY_700} className={css.cardTitle}&gt;
@@ -1215,7 +1226,7 @@ const summaryCardRenderer = (cardData: SummaryCardData, groupByValye: string): J
           &lt;/Text&gt;
           {cardData.title === 'Deployment Frequency' &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >            &lt;Text color={Color.GREY_700} font={{ size: 'small', weight: 'semi-bold' }} className={css.groupByValue}&gt;</span>
-              {`/ ${groupByValye.toLocaleLowerCase()}`}
+              {`/ ${groupByValue.toLocaleLowerCase()}`}
             &lt;/Text&gt;
           )}
         &lt;/Layout.Horizontal&gt;
@@ -1235,10 +1246,10 @@ const summaryCardRenderer = (cardData: SummaryCardData, groupByValye: string): J
   )
 }
 &nbsp;
-const getSummaryCardRenderers = (summaryCardsData: SummaryCardData[], groupByValye: string): JSX.Element =&gt; {
+const getSummaryCardRenderers = (summaryCardsData: SummaryCardData[], groupByValue: string): JSX.Element =&gt; {
   return (
     &lt;Container className={css.summaryCardsContainer}&gt;
-      {summaryCardsData<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(currData =&gt; summaryCardRenderer(currData, groupByValye))}
+      {summaryCardsData<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(currData =&gt; summaryCardRenderer(currData, groupByValue))}
     &lt;/Container&gt;
   )
 }
@@ -1321,15 +1332,16 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams&lt;ProjectPathProps&gt;()
   const [range, setRange] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
-  const [groupByValye, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
+  const [groupByValue, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
   const [sortByValue, setSortByValue] = useState&lt;GetDeploymentStatsOverviewQueryParams['sortBy']&gt;('DEPLOYMENTS')
+  const [selectedView, setSelectedView] = useState&lt;ChartType&gt;(ChartType.BAR)
 &nbsp;
   const { data, error, refetch, loading } = useGetDeploymentStatsOverview({
     queryParams: {
       accountIdentifier: accountId,
       startTime: range[0],
       endTime: range[1],
-      groupBy: groupByValye,
+      groupBy: groupByValue,
       sortBy: sortByValue
     },
     lazy: true
@@ -1344,7 +1356,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
 &nbsp;
   useEffect(() =&gt; {
     refetch()
-  }, [refetch, range, groupByValye, sortByValue])
+  }, [refetch, range, groupByValue, sortByValue])
 &nbsp;
   useErrorHandler(error)
 &nbsp;
@@ -1359,21 +1371,20 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
         custom.push(val)
       })
     }
-    return [
-      {
-        name: 'Failed',
-        data: failureData,
-        color: '#EE5F54',
-        custom
-      },
-      {
-        name: 'Success',
-        data: successData,
-        color: '#5FB34E',
-        custom
-      }
-    ]
-  }, [response<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eploymentsStatsSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eploymentStats])
+    const successArr = {
+      name: 'Success',
+      data: successData,
+      color: '#5FB34E',
+      custom
+    }
+    const failureArr = {
+      name: 'Failed',
+      data: failureData,
+      color: '#EE5F54',
+      custom
+    }
+    return selectedView === ChartType.BAR ? [failureArr, successArr] : <span class="branch-1 cbranch-no" title="branch not covered" >[successArr, failureArr]</span>
+  }, [response<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eploymentsStatsSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eploymentStats, selectedView])
 &nbsp;
   const summaryCardsData: SummaryCardData[] = useMemo(() =&gt; {
     return [
@@ -1459,7 +1470,8 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
         &lt;Card style={{ width: '65%' }} className={css.deploymentsChartContainer}&gt;
           &lt;OverviewChartsWithToggle
             data={defaultTo(deploymentStatsData, [])}
-            summaryCards={getSummaryCardRenderers(summaryCardsData, groupByValye)}
+            summaryCards={getSummaryCardRenderers(summaryCardsData, groupByValue)}
+            updateSelectedView={setSelectedView}
             customChartOptions={{
               chart: {
                 height: 225
@@ -1534,7 +1546,7 @@ export default LandingDashboardDeploymentsWidget
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 03 2021 10:24:05 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 03 2021 11:26:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

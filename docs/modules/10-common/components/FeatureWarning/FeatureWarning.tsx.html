@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.18% </span>
+                <span class="strong">95.24% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/39</span>
+                <span class='fraction'>40/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">64.29% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/12</span>
+                <span class='fraction'>9/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>5/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">94.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>30/35</span>
+                <span class='fraction'>36/38</span>
             </div>
         
             
@@ -183,16 +183,25 @@
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
 <a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">380x</span>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">380x</span>
+<span class="cline-any cline-yes">380x</span>
+<span class="cline-any cline-yes">380x</span>
+<span class="cline-any cline-yes">380x</span>
+<span class="cline-any cline-yes">380x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">380x</span>
 <span class="cline-any cline-yes">380x</span>
 <span class="cline-any cline-yes">380x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">380x</span>
-<span class="cline-any cline-yes">380x</span>
-<span class="cline-any cline-yes">380x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">380x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">380x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,10 +234,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">380x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -257,9 +266,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">380x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -310,6 +326,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { ReactElement } from 'react'
+import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import { Button, ButtonSize, ButtonVariation, Color, FontVariation, Layout, Text } from '@wings-software/uicore'
@@ -318,7 +335,7 @@ import { useStrings } from 'framework/strings'
 import { FeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
-import { useFeatureModule } from '@common/hooks/useFeatures'
+import { useFeatureModule, useFeatureRequiredPlans } from '@common/hooks/useFeatures'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './FeatureWarning.module.scss'
 &nbsp;
@@ -357,7 +374,7 @@ const ExplorePlansBtn = ({ module, size }: ExplorePlansBtnProps): ReactElement =
   return (
     &lt;Button
       variation={ButtonVariation.SECONDARY}
-      size={size || <span class="branch-1 cbranch-no" title="branch not covered" >ButtonSize.MEDIUM}</span>
+      size={size || ButtonSize.MEDIUM}
       onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >history.push(routes.toSubscriptions({ accountId, moduleCard: module, tab: 'PLANS' }))}</span>
     &gt;
       {getString('common.explorePlans')}
@@ -382,10 +399,12 @@ const WarningText = ({ tooltip, tooltipProps }: WarningTextProps): ReactElement 
   )
 }
 &nbsp;
-export const FeatureWarningTooltip = <span class="fstat-no" title="function not covered" >({</span> featureName, module }: FeatureWarningTooltipProps): ReactElement =&gt; {
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
-  const featureDescription = <span class="cstat-no" title="statement not covered" >FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export const FeatureWarningTooltip = ({ featureName, module }: FeatureWarningTooltipProps): ReactElement =&gt; {
+  const { getString } = useStrings()
+  const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : <span class="branch-1 cbranch-no" title="branch not covered" >featureName</span>
+  const requiredPlans = useFeatureRequiredPlans(featureName)
+  const requiredPlansStr = requiredPlans.join(' or ')
+  return (
     &lt;Layout.Vertical padding="medium" className={css.tooltip}&gt;
       &lt;Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'small' }}&gt;
         {getString('common.feature.upgradeRequired.title')}
@@ -395,6 +414,11 @@ export const FeatureWarningTooltip = <span class="fstat-no" title="function not 
           {getString('common.feature.upgradeRequired.description')}
           {featureDescription}
         &lt;/Text&gt;
+        {!isEmpty(requiredPlans) &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;Text font={{ size: 'small' }} color={Color.GREY_700}&gt;</span>
+            {getString('common.feature.upgradeRequired.requiredPlans', { requiredPlans: requiredPlansStr })}
+          &lt;/Text&gt;
+        )}
         &lt;ExplorePlansBtn module={module} /&gt;
       &lt;/Layout.Vertical&gt;
     &lt;/Layout.Vertical&gt;
@@ -442,7 +466,7 @@ export const FeatureWarningBanner = <span class="fstat-no" title="function not c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 03 2021 11:26:56 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 03 2021 15:00:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

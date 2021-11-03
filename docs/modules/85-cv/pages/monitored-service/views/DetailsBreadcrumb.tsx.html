@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/85-cv/pages/monitored-service/components/EditHeader/EditHeader.tsx</title>
+    <title>Code coverage report for modules/85-cv/pages/monitored-service/views/DetailsBreadcrumb.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">modules/85-cv/pages/monitored-service/components/EditHeader</a> EditHeader.tsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">modules/85-cv/pages/monitored-service/views</a> DetailsBreadcrumb.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/20</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -89,24 +89,22 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -122,40 +120,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Container, Text } from '@wings-software/uicore'
-import moment from 'moment'
-import type { EditHeaderProps } from './EditHeader.types'
-import css from './EditHeader.module.scss'
+import { useParams } from 'react-router-dom'
+import type { Views } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
+import { useQueryParams } from '@common/hooks'
+import routes from '@common/RouteDefinitions'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { getCVMonitoringServicesSearchParam } from '@cv/utils/CommonUtils'
 &nbsp;
-export default function EditHeader(props: EditHeaderProps): JSX.Element {
-  const { monitoredServiceData, lastModifiedAt } = props
+const DetailsBreadcrumb: React.FC = () =&gt; {
+  const { getString } = useStrings()
+  const { view } = useQueryParams&lt;{ view?: Views.GRID }&gt;()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
+&nbsp;
   return (
-    &lt;Container className={css.container}&gt;
-      &lt;Container className={css.leftContainer}&gt;
-        &lt;Text font={{ size: 'medium', weight: 'bold' }}&gt;{monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame}&lt;/Text&gt;
-        &lt;Text
-          font={{ size: 'small' }}
-          padding={{ left: 'medium', top: 'xsmall' }}
-        &gt;{`ID: ${monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier}`}&lt;/Text&gt;
-      &lt;/Container&gt;
-      &lt;Container className={css.rightContainer}&gt;
-        &lt;Text font={{ size: 'small' }}&gt;{`Last updated: ${moment(lastModifiedAt).format(
-          'MM/DD/YYYY hh:mm:ss a'
-        )}`}&lt;/Text&gt;
-        &lt;Container className={css.serviceAndType}&gt;
-          &lt;Text className={css.monitoredServiceData} lineClamp={1}&gt;{`Type: ${monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype}`}&lt;/Text&gt;
-          &lt;Text
-            className={css.monitoredServiceData}
-            lineClamp={1}
-          &gt;{`Service: ${monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceRef}`}&lt;/Text&gt;
-        &lt;/Container&gt;
-        &lt;Text className={css.monitoredServiceData}&gt;{`Environment: ${monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentRef}`}&lt;/Text&gt;
-      &lt;/Container&gt;
-    &lt;/Container&gt;
+    &lt;NGBreadcrumbs
+      links={[
+        {
+          url: `${routes.toCVMonitoringServices({
+            accountId,
+            orgIdentifier,
+            projectIdentifier
+          })}${getCVMonitoringServicesSearchParam({ view })}`,
+          label: getString('cv.monitoredServices.title')
+        }
+      ]}
+    /&gt;
   )
 }
+&nbsp;
+export default DetailsBreadcrumb
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -163,17 +160,17 @@ export default function EditHeader(props: EditHeaderProps): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 03 2021 11:26:56 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 03 2021 15:00:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
-        <script src="../../../../../../prettify.js"></script>
+        <script src="../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../sorter.js"></script>
-        <script src="../../../../../../block-navigation.js"></script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
     </body>
 </html>
     

@@ -624,6 +624,12 @@ testsReports:
   resultLabel: Test Execution Result
   resultInfo: Heat Map showing a graphical over of the test results
   sortBy: 'Sort by:'
+  tiCallToAction:
+    header: Did you know you can save time using test intelligence?
+    upsellSubText: 'Optimize your tests cycle and reduce build time by using machine learning based Test Intelligence.'
+    utilizeTISubText: 'Reduce test cycle time of your Java application by using machine learning based Test Intelligence.'
+    findOutMore: Find out more
+    addRunStep: Add 'Run Step' to your Pipeline
 uniqueIdentifier: Identifier must be unique
 inputSets:
   applyInputSet: Apply Input Set
@@ -842,6 +848,8 @@ recentExecutionText: Most Recent Execution
 viewLatestExecution: You are viewing an older execution of this pipeline.
 featureRestriction:
   serviceLimitExceeded: Service License usage has exceeded the Subscribed Services.
+  maxTotalBuilds90Limit: You have used 90% of your 2500 free total builds quota. Once you reach 100% usage Harness will offer you 100 free builds per month. Please see Licensing page for additional information.
+  maxBuildsPerMonth90Limit: You have hit 90% of the free plan limit. After 1,000 builds, new builds will be restricted to 100 per month.
 policyEvaluations:
   title: Policy Evaluations
   failedToSavePipeline: Pipeline can not be saved due to the policy evaluation failures.

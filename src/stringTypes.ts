@@ -2219,6 +2219,8 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.retryIntervalMinimum': string
   'pipeline.failureStrategies.validation.retryIntervalRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string
+  'pipeline.featureRestriction.maxBuildsPerMonth90Limit': string
+  'pipeline.featureRestriction.maxTotalBuilds90Limit': string
   'pipeline.featureRestriction.serviceLimitExceeded': string
   'pipeline.filters.builtTypePlaceholder': string
   'pipeline.filters.deploymentTypePlaceholder': string
@@ -2552,6 +2554,11 @@ export interface StringsMap {
   'pipeline.testsReports.testExecutions': string
   'pipeline.testsReports.testMethods': string
   'pipeline.testsReports.testSuite': string
+  'pipeline.testsReports.tiCallToAction.addRunStep': string
+  'pipeline.testsReports.tiCallToAction.findOutMore': string
+  'pipeline.testsReports.tiCallToAction.header': string
+  'pipeline.testsReports.tiCallToAction.upsellSubText': string
+  'pipeline.testsReports.tiCallToAction.utilizeTISubText': string
   'pipeline.testsReports.timeSaved': string
   'pipeline.testsReports.totalDuration': string
   'pipeline.testsReports.totalExecutedTest': string

@@ -19,6 +19,7 @@ export interface OverviewChartsWithToggleProps {
   customChartOptions?: Highcharts.Options
   data: DataType
   summaryCards?: JSX.Element
+  updateSelectedView?: (selectedView: ChartType) => void
 }
 
 const renderChart = (selectedView: ChartType, props: OverviewChartsWithToggleProps): JSX.Element => {
@@ -51,6 +52,7 @@ export const OverviewChartsWithToggle: React.FC<OverviewChartsWithToggleProps> =
               e.stopPropagation()
               if (selectedView !== ChartType.BAR) {
                 setSelectedView(ChartType.BAR)
+                props.updateSelectedView && props.updateSelectedView(ChartType.BAR)
               }
             }}
           />
@@ -64,6 +66,7 @@ export const OverviewChartsWithToggle: React.FC<OverviewChartsWithToggleProps> =
               e.stopPropagation()
               if (selectedView !== ChartType.LINE) {
                 setSelectedView(ChartType.LINE)
+                props.updateSelectedView && props.updateSelectedView(ChartType.LINE)
               }
             }}
           />

@@ -18,7 +18,10 @@ import type { TooltipFormatterContextObject } from 'highcharts'
 import { useLandingDashboardContext, TimeRangeToDays } from '@common/factories/LandingDashboardContext'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { OverviewChartsWithToggle } from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
+import {
+  ChartType,
+  OverviewChartsWithToggle
+} from '@common/components/OverviewChartsWithToggle/OverviewChartsWithToggle'
 import {
   StackedSummaryInterface,
   StackedSummaryTable
@@ -127,6 +130,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   const [range, setRange] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
   const [groupByValye, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
   const [sortByValue, setSortByValue] = useState<GetDeploymentStatsOverviewQueryParams['sortBy']>('DEPLOYMENTS')
+  const [selectedView, setSelectedView] = useState<ChartType>(ChartType.BAR)
 
   const { data, error, refetch, loading } = useGetDeploymentStatsOverview({
     queryParams: {
@@ -163,21 +167,20 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
         custom.push(val)
       })
     }
-    return [
-      {
-        name: 'Failed',
-        data: failureData,
-        color: '#EE5F54',
-        custom
-      },
-      {
-        name: 'Success',
-        data: successData,
-        color: '#5FB34E',
-        custom
-      }
-    ]
-  }, [data])
+    const successArr = {
+      name: 'Success',
+      data: successData,
+      color: '#5FB34E',
+      custom
+    }
+    const failureArr = {
+      name: 'Failed',
+      data: failureData,
+      color: '#EE5F54',
+      custom
+    }
+    return selectedView === ChartType.BAR ? [failureArr, successArr] : [successArr, failureArr]
+  }, [data, selectedView])
 
   const getFormattedNumber = (givenNumber?: number | string): string => {
     if (givenNumber) {
@@ -382,6 +385,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
           <OverviewChartsWithToggle
             data={defaultTo(deploymentStatsData, [])}
             summaryCards={getSummaryCardRenderers()}
+            updateSelectedView={setSelectedView}
             customChartOptions={{
               tooltip: {
                 useHTML: true,

@@ -98,11 +98,10 @@
     .mostActiveServicesContainer {
       width: 35%;
       height: 325px;
-      overflow-y: scroll;
       padding: 0;
       .mostActiveServicesHeaderContainer {
         position: sticky;
-        top: 0px;
+        top: 0;
         background: white;
         z-index: 10;
         padding-left: var(--spacing-xlarge);
@@ -123,6 +122,8 @@
       }
       .mostActiveServicesChartContainer {
         padding: var(--spacing-small);
+        height: 271px; // 325 container height - 54 header height
+        overflow-y: auto;
       }
     }
   }

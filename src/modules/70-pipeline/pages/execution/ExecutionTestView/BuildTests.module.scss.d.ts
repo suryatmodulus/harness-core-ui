@@ -5,6 +5,7 @@ declare const styles: {
   readonly graph: string
   readonly widgetWrapper: string
   readonly leftContainer: string
+  readonly widgetHeight: string
   readonly widget: string
   readonly stats: string
   readonly statsTitle: string

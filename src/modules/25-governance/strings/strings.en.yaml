@@ -7,6 +7,7 @@ inputSuccededEvaluation: Input succeded policy evaluation
 warning: warning
 evaluatedTime: 'Evaluated {{time}}'
 failureHeading: Pipeline execution could not proceed due to the policy evaluation failures.
+failureHeadingEvaluationDetail: Policy evaluation failed.
 successHeading: All policies are passed.
 policySets: 'Policy Sets ({{count}})'
 evaluations: Evaluations {{count}}
@@ -34,3 +35,7 @@ noEvaluationForPipeline: No Evaluation found for this pipeline.
 wizard:
   policyToEval: Policy to Evaluate
   fieldArray: Applies to Pipeline on the following events
+policySetGroup: Policy Set Group
+policySetGroupAccount: Account {{name}}
+policySetGroupOrg: Organization {{name}}
+policySetGroupProject: Project {{name}}

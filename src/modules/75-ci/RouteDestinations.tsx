@@ -91,6 +91,7 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
+import ExecutionPolicyEvaluationsView from '@pipeline/pages/execution/ExecutionPolicyEvaluationsView/ExecutionPolicyEvaluationsView'
 import CIHomePage from './pages/home/CIHomePage'
 import CIDashboardPage from './pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from './pages/pipeline-studio/CIPipelineStudio'
@@ -581,6 +582,21 @@ export default (
     >
       <ExecutionLandingPage>
         <ExecutionPipelineView />
+      </ExecutionLandingPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CISideNavProps}
+      layout={MinimalLayout}
+      path={routes.toExecutionPolicyEvaluationsView({
+        ...accountPathProps,
+        ...executionPathProps,
+        ...pipelineModuleParams
+      })}
+    >
+      <ExecutionLandingPage>
+        <ExecutionPolicyEvaluationsView />
       </ExecutionLandingPage>
     </RouteWithLayout>
     <RouteWithLayout

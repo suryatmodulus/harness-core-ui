@@ -39,7 +39,7 @@ export const PolicySetsTab: React.FC<{ setPolicySetCount: React.Dispatch<React.S
       {
         Header: getString('common.policiesSets.table.name'),
         accessor: row => row.name,
-        width: '65%',
+        width: '60%',
         Cell: ({ row }: CellProps<PolicySet>) => (
           <Text icon="governance" iconProps={{ padding: { right: 'small' } }} font={{ variation: FontVariation.BODY2 }}>
             {row.original.name}
@@ -49,7 +49,7 @@ export const PolicySetsTab: React.FC<{ setPolicySetCount: React.Dispatch<React.S
       {
         Header: getString('common.policiesSets.table.enforced'),
         accessor: row => row.enabled,
-        width: '15%',
+        width: '10%',
         Cell: ({ row }: CellProps<PolicySet>) => (
           <Text
             font={{
@@ -61,9 +61,27 @@ export const PolicySetsTab: React.FC<{ setPolicySetCount: React.Dispatch<React.S
         )
       },
       {
+        Header: getString('governance.policySetGroup'),
+        accessor: row => row.identifier,
+        width: '18%',
+        Cell: ({ row }: CellProps<PolicySet>) => (
+          <Text
+            font={{
+              variation: FontVariation.BODY
+            }}
+          >
+            {row.original.project_id
+              ? getString('governance.policySetGroupProject')
+              : row.original.org_id
+              ? getString('governance.policySetGroupOrg')
+              : getString('governance.policySetGroupAccount')}
+          </Text>
+        )
+      },
+      {
         Header: getString('common.policy.table.lastModified'),
         accessor: row => row.updated,
-        width: '20%',
+        width: '12%',
         Cell: ({ row }: CellProps<PolicySet>) => (
           <Text font={{ variation: FontVariation.BODY }}>
             <ReactTimeago date={row.original?.updated || 0} />

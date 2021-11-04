@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { get } from 'lodash-es'
 import ReactTimeago from 'react-timeago'
@@ -21,16 +21,27 @@ export interface EvaluationViewProps {
   // @see https://harness.slack.com/archives/C029RA4PFJT/p1635106132101700?thread_ts=1634943427.098500&cid=C029RA4PFJT
   metadata: unknown
 
-  noHeadingMessage?: boolean
   headingErrorMessage?: string
+
+  noDetailColumn?: boolean
+}
+
+const enum SortBy {
+  NAME = 'NAME',
+  STATUS = 'STATUS'
+}
+
+const enum SortDirection {
+  ASC = 'ASC',
+  DESC = 'DESC'
 }
 
 export const EvaluationView: React.FC<EvaluationViewProps> = ({
   accountId,
   module,
   metadata: _metadata,
-  noHeadingMessage,
-  headingErrorMessage
+  headingErrorMessage,
+  noDetailColumn = false
 }) => {
   const { getString } = useStrings()
   const history = useHistory()
@@ -39,6 +50,35 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
   const failure = metadata.status === EvaluationStatus.ERROR
   const details = get(metadata, 'details') as EvaluationDetails
   const timestamp = Number(get(metadata, 'timestamp') || 0)
+  const [sortBy, setSortBy] = useState<SortBy>(SortBy.STATUS)
+  const [sortDirection, setSortDirection] = useState<SortDirection>(SortDirection.ASC)
+  const toggleSortBy = useCallback(
+    (column: SortBy) => {
+      if (column !== sortBy) {
+        setSortBy(sortBy === SortBy.NAME ? SortBy.STATUS : SortBy.NAME)
+      } else {
+        setSortDirection(sortDirection === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC)
+      }
+    },
+    [setSortBy, sortBy, setSortDirection, sortDirection]
+  )
+  const sortedDetails = useMemo(
+    () =>
+      details?.sort((a, b) => {
+        const SORT_LEFT = sortDirection === SortDirection.ASC ? 1 : -1
+        const SORT_RIGHT = sortDirection === SortDirection.ASC ? -1 : 1
+
+        if (sortBy === SortBy.STATUS) {
+          return (a.status as string).toLowerCase() > (b.status as string).toLowerCase() ? SORT_LEFT : SORT_RIGHT
+        } else {
+          const aName = get(a, 'name') || get(a, 'policySetName')
+          const bName = get(b, 'name') || get(b, 'policySetName')
+
+          return (aName as string).toLowerCase() > (bName as string).toLowerCase() ? SORT_LEFT : SORT_RIGHT
+        }
+      }),
+    [details, sortBy, sortDirection]
+  )
 
   useEffect(() => {
     // Always expand if there's only one item
@@ -50,17 +90,17 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
   return (
     <Container padding="xlarge">
       {/* Alert on top */}
-      {!noHeadingMessage && (
-        <Text
-          background={failure ? Color.RED_100 : Color.GREEN_100}
-          icon={failure ? 'warning-sign' : 'tick-circle'}
-          iconProps={{ style: { color: failure ? 'var(--red-500)' : 'var(--green-500)' } }}
-          font={{ variation: FontVariation.BODY1 }}
-          padding="small"
-        >
-          {headingErrorMessage || getString(failure ? 'governance.failureHeading' : 'governance.successHeading')}
-        </Text>
-      )}
+      <Text
+        background={failure ? Color.RED_100 : Color.GREEN_100}
+        icon={failure ? 'warning-sign' : 'tick-circle'}
+        iconProps={{ style: { color: failure ? 'var(--red-500)' : 'var(--green-500)' } }}
+        font={{ variation: FontVariation.BODY1 }}
+        padding="small"
+      >
+        {failure
+          ? headingErrorMessage || getString('governance.failureHeading')
+          : getString('governance.successHeading')}
+      </Text>
 
       {/* Evaluation time */}
       {(timestamp && (
@@ -73,19 +113,39 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
 
       {/* Detail header */}
       <Layout.Horizontal margin={{ top: 'large', bottom: 'medium' }}>
-        <Text font={{ variation: FontVariation.TABLE_HEADERS }} style={{ flexGrow: 1 }}>
+        <Text
+          className={css.columHeader}
+          font={{ variation: FontVariation.TABLE_HEADERS }}
+          style={{ flexGrow: 1 }}
+          role="button"
+          tabIndex={0}
+          rightIcon={
+            sortBy === SortBy.NAME ? (sortDirection === SortDirection.ASC ? 'caret-up' : 'caret-down') : undefined
+          }
+          onClick={() => toggleSortBy(SortBy.NAME)}
+        >
           {getString('common.policiesSets.table.name').toUpperCase()}
         </Text>
-        <Text width={250} font={{ variation: FontVariation.TABLE_HEADERS }}>
+        <Text
+          className={css.columHeader}
+          width={200}
+          font={{ variation: FontVariation.TABLE_HEADERS }}
+          role="button"
+          tabIndex={0}
+          rightIcon={
+            sortBy === SortBy.STATUS ? (sortDirection === SortDirection.ASC ? 'caret-up' : 'caret-down') : undefined
+          }
+          onClick={() => toggleSortBy(SortBy.STATUS)}
+        >
           {getString('status').toUpperCase()}
         </Text>
         <Text width={100} font={{ variation: FontVariation.TABLE_HEADERS }}>
-          {getString('details').toUpperCase()}
+          {(!noDetailColumn && getString('details').toUpperCase()) || ''}
         </Text>
       </Layout.Horizontal>
 
       {/* Data content */}
-      {details?.map(policySet => {
+      {sortedDetails?.map(policySet => {
         const { status: policySetStatus, identifier = '' } = policySet
         const policySetName = get(policySet, 'name') || get(policySet, 'policySetName')
         const policyMetadata = get(policySet, 'details') || (get(policySet, 'policyMetadata') as EvaluatedPolicy[])
@@ -135,21 +195,23 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
                 </Text>
 
                 <Text font={{ variation: FontVariation.TABLE_HEADERS }} className={css.details}>
-                  <Button
-                    variation={ButtonVariation.ICON}
-                    icon="main-link"
-                    onClick={() => {
-                      history.push(
-                        routes.toGovernanceEvaluationDetail({
-                          accountId,
-                          orgIdentifier: metadata.org_id,
-                          projectIdentifier: metadata.project_id,
-                          module,
-                          evaluationId: String(metadata.id)
-                        })
-                      )
-                    }}
-                  />
+                  {!noDetailColumn && (
+                    <Button
+                      variation={ButtonVariation.ICON}
+                      icon="main-link"
+                      onClick={() => {
+                        history.push(
+                          routes.toGovernanceEvaluationDetail({
+                            accountId,
+                            orgIdentifier: metadata.org_id,
+                            projectIdentifier: metadata.project_id,
+                            module,
+                            evaluationId: String(metadata.id)
+                          })
+                        )
+                      }}
+                    />
+                  )}
                 </Text>
               </Layout.Horizontal>
 
@@ -183,7 +245,7 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
 
                     return (
                       <Layout.Horizontal spacing="xsmall" padding={{ top: 'medium' }} key={policyIdentifier}>
-                        <Container style={{ flexGrow: 1 }}>
+                        <Container width="calc(100% - 280px)">
                           <Text font={{ variation: FontVariation.BODY }} color={Color.PRIMARY_7}>
                             <Link
                               to={routes.toGovernanceEditPolicy({
@@ -220,14 +282,14 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
                           )}
                         </Container>
 
-                        <Text className={css.status}>
+                        <Text className={css.status} width={200}>
                           <EvaluationStatusLabel
                             intent={policyOutcomeIntent}
                             label={policyOutcomeLabel.toLocaleUpperCase()}
                           />
                         </Text>
 
-                        <Text className={css.details}></Text>
+                        <Text className={css.details} width={80}></Text>
                       </Layout.Horizontal>
                     )
                   })}

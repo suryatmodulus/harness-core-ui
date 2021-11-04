@@ -52,7 +52,15 @@ export const EvaluationDetail: React.FC = () => {
         message: getString('governance.evaluationEmpty')
       }}
     >
-      {data && <EvaluationView metadata={data} accountId={accountId} module={module} noHeadingMessage />}
+      {data && (
+        <EvaluationView
+          metadata={data}
+          accountId={accountId}
+          module={module}
+          noDetailColumn
+          headingErrorMessage={getString('governance.failureHeadingEvaluationDetail')}
+        />
+      )}
     </Page.Body>
   )
 }

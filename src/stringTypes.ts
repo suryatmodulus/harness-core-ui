@@ -805,6 +805,7 @@ export interface StringsMap {
   'governance.evaluations': string
   'governance.event': string
   'governance.failureHeading': string
+  'governance.failureHeadingEvaluationDetail': string
   'governance.failureModalTitle': string
   'governance.formatInput': string
   'governance.inputFailedEvaluation': string
@@ -815,6 +816,10 @@ export interface StringsMap {
   'governance.onSave': string
   'governance.policyIdentifier': string
   'governance.policyName': string
+  'governance.policySetGroup': string
+  'governance.policySetGroupAccount': string
+  'governance.policySetGroupOrg': string
+  'governance.policySetGroupProject': string
   'governance.policySetName': string
   'governance.policySets': string
   'governance.policySetsApplied': string

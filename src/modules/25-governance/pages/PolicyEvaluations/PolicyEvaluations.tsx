@@ -18,14 +18,19 @@ import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 
 import { useGetEvaluationList, Evaluation, EvaluationDetail } from 'services/pm'
-import { isEvaluationFailed, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
+import { isEvaluationFailed, LIST_FETCHING_PAGE_SIZE, QUERY_PARAM_VALUE_ALL } from '@governance/utils/GovernanceUtils'
 import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import css from './PolicyEvaluations.module.scss'
 
 const PolicyEvaluations: React.FC = () => {
   const { getString } = useStrings()
   const [pageIndex, setPageIndex] = useState(0)
-  const { accountId, orgIdentifier = '*', projectIdentifier = '*', module } = useParams<GovernancePathProps>()
+  const {
+    accountId,
+    orgIdentifier = QUERY_PARAM_VALUE_ALL,
+    projectIdentifier = QUERY_PARAM_VALUE_ALL,
+    module
+  } = useParams<GovernancePathProps>()
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,
@@ -246,8 +251,8 @@ const PolicyEvaluations: React.FC = () => {
             history.push(
               routes.toGovernanceEvaluationDetail({
                 accountId,
-                orgIdentifier: evaluation.org_id,
-                projectIdentifier: evaluation.project_id,
+                orgIdentifier: orgIdentifier !== QUERY_PARAM_VALUE_ALL ? orgIdentifier : undefined,
+                projectIdentifier: projectIdentifier !== QUERY_PARAM_VALUE_ALL ? projectIdentifier : undefined,
                 module,
                 evaluationId: String(evaluation.id)
               })

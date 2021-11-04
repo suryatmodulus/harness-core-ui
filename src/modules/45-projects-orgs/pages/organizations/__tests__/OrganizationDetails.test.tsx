@@ -3,6 +3,7 @@ import { act, fireEvent, getAllByText, render, RenderResult, waitFor } from '@te
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { orgPathProps } from '@common/utils/routeUtils'
+import mockImport from 'framework/utils/mockImport'
 import OrganizationDetailsPage from '../OrganizationDetails/OrganizationDetailsPage'
 import {
   getOrgAggregateMockData as getOrgMockData,
@@ -77,14 +78,31 @@ describe('Organization Details', () => {
     })
     const form = findDialogContainer()
     expect(form).toBeTruthy()
-  }),
-    test('Click on Add Collaborator', async () => {
-      const plus = getAllByText(container, '+')[1]
-      await act(async () => {
-        fireEvent.click(plus)
-        await waitFor(() => getAllByText(document.body, 'projectsOrgs.invite')[0])
-      })
-      const form = findDialogContainer()
-      expect(form).toBeTruthy()
+  })
+  test('Click on Add Collaborator', async () => {
+    const plus = getAllByText(container, '+')[1]
+    await act(async () => {
+      fireEvent.click(plus)
+      await waitFor(() => getAllByText(document.body, 'projectsOrgs.invite')[0])
     })
+    const form = findDialogContainer()
+    expect(form).toBeTruthy()
+  })
+
+  test('Governance should be visible', async () => {
+    mockImport('@common/hooks/useFeatureFlag', {
+      useFeatureFlags: () => ({ OPA_PIPELINE_GOVERNANCE: true })
+    })
+
+    render(
+      <TestWrapper
+        path={routes.toOrganizationDetails({ ...orgPathProps })}
+        pathParams={{ accountId: 'testAcc', orgIdentifier: 'testOrg' }}
+      >
+        <OrganizationDetailsPage />
+      </TestWrapper>
+    )
+
+    expect(getByText('common.governance')).toBeTruthy()
+  })
 })

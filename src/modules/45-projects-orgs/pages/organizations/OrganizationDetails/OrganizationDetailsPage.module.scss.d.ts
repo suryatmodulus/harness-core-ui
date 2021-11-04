@@ -7,6 +7,7 @@ declare const styles: {
   readonly enabledModules: string
   readonly pageHeight: string
   readonly accessControl: string
+  readonly governance: string
   readonly projectsCard: string
   readonly projectCount: string
 }

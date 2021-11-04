@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 // import * as moment from 'moment'
-import { Text, Color, Layout, Icon, Popover, Button, Container } from '@wings-software/uicore'
+import { Text, Color, Layout, Intent, Popover, Button, Container } from '@wings-software/uicore'
 // import { useGet } from 'restful-react'
 import ReactTimeago from 'react-timeago'
 import { Position, PopoverInteractionKind } from '@blueprintjs/core'
@@ -18,7 +18,8 @@ import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 
 import { useGetEvaluationList, Evaluation, EvaluationDetail } from 'services/pm'
-import { isEvaluationFailed, LIST_FETCHING_PAGE_SIZE, QUERY_PARAM_VALUE_ALL } from '@governance/utils/GovernanceUtils'
+import { EvaluationStatus, LIST_FETCHING_PAGE_SIZE, QUERY_PARAM_VALUE_ALL } from '@governance/utils/GovernanceUtils'
+import { EvaluationStatusLabel } from '@governance/components/EvaluationStatus/EvaluationStatusLabel'
 import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import css from './PolicyEvaluations.module.scss'
 
@@ -154,25 +155,28 @@ const PolicyEvaluations: React.FC = () => {
 
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {record?.input?.action === 'onrun' ? 'Run' : 'Save'}
+        {record?.input?.action === 'onrun' ? getString('governance.onRun') : getString('governance.onSave')}
       </Text>
     )
   }
 
   const RenderStatus: Renderer<CellProps<Evaluation>> = ({ row }) => {
-    const record = row.original
+    let policySetOutcomeIntent: Intent = Intent.DANGER
+    let policySetOutcomeLabel = getString('failed')
 
+    switch (row.original.status) {
+      case EvaluationStatus.PASS:
+        policySetOutcomeIntent = Intent.SUCCESS
+        policySetOutcomeLabel = getString('success')
+        break
+      case EvaluationStatus.WARNING:
+        policySetOutcomeIntent = Intent.WARNING
+        policySetOutcomeLabel = getString('governance.warning')
+        break
+    }
     return (
       <>
-        {isEvaluationFailed(record?.status) ? (
-          <span className={css.pillDanger}>
-            <Icon name="deployment-failed-new" size={12} style={{ marginRight: 'var(--spacing-small)' }} /> FAILED
-          </span>
-        ) : (
-          <span className={css.pillSuccess}>
-            <Icon name="tick-circle" size={12} style={{ marginRight: 'var(--spacing-small)' }} /> PASSED
-          </span>
-        )}
+        <EvaluationStatusLabel intent={policySetOutcomeIntent} label={policySetOutcomeLabel.toUpperCase()} />
       </>
     )
   }

@@ -51,7 +51,7 @@ const PolicySets: React.FC = () => {
     isOpen: true,
     enforceFocus: false,
     style: {
-      width: 1000,
+      width: 1080,
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',
@@ -197,7 +197,7 @@ const PolicySets: React.FC = () => {
 
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {record?.action === 'onrun' ? getString('runPipelineText') : getString('save')}
+        {record?.action === 'onrun' ? getString('governance.onRun') : getString('governance.onSave')}
       </Text>
     )
   }

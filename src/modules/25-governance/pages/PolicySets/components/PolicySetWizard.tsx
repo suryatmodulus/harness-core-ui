@@ -214,7 +214,10 @@ const StepTwo: React.FC<{
   React.useEffect(() => {
     if (policies) {
       policies.forEach((v: Policy) => {
-        policyList.push({ label: v.name as string, value: v.identifier?.toString() as string })
+        policyList.push({
+          label: v.org_id || v.project_id ? (`${v.org_id}/${v.project_id} - ${v.name}` as string) : (v.name as string),
+          value: v.identifier?.toString() as string
+        })
       })
       setPlList(policyList)
     }
@@ -349,7 +352,7 @@ const StepTwo: React.FC<{
                       name: 'policy',
                       label: getString('governance.wizard.policyToEval'),
                       renderer: (value, _index, handleChange) => (
-                        <Layout.Vertical flex={{ alignItems: 'end' }} spacing="xsmall">
+                        <Layout.Vertical flex={{ alignItems: 'end' }} style={{ width: '315px' }} spacing="xsmall">
                           <Select
                             items={plList?.length ? plList : []}
                             value={value}
@@ -365,7 +368,7 @@ const StepTwo: React.FC<{
                       name: 'severity',
                       label: 'What should happen if a policy fails?',
                       renderer: (value, _index, handleChange) => (
-                        <Layout.Vertical flex={{ alignItems: 'end' }} spacing="xsmall">
+                        <Layout.Vertical flex={{ alignItems: 'end' }} style={{ width: '165px' }} spacing="xsmall">
                           <Select
                             items={[
                               { label: 'Warn & continue', value: 'warning' },

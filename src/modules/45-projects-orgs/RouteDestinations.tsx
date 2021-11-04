@@ -61,6 +61,7 @@ import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
+import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
 import LandingDashboardFactory from '@common/factories/LandingDashboardFactory'
 import { ModuleName } from 'framework/types/ModuleName'
 import LandingDashboardSummaryWidget from './components/LandingDashboardSummaryWidget/LandingDashboardSummaryWidget'
@@ -543,5 +544,10 @@ export default (
         <GitSyncErrorsWithRedirect />
       </GitSyncPage>
     </RouteWithLayout>
+
+    {GovernanceRouteDestinations({
+      sidebarProps: AccountSideNavProps,
+      pathProps: { ...accountPathProps, ...orgPathProps }
+    })}
   </>
 )

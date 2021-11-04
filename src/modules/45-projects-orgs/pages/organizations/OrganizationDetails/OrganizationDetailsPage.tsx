@@ -15,12 +15,14 @@ import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import ResourceCardList from '@common/components/ResourceCardList/ResourceCardList'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import RbacButton from '@rbac/components/Button/Button'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './OrganizationDetailsPage.module.scss'
 
 const OrganizationDetailsPage: React.FC = () => {
   const { accountId, orgIdentifier } = useParams<OrgPathProps>()
+  const { OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
   const history = useHistory()
   const { getString } = useStrings()
   const { data, refetch, loading, error } = useGetOrganizationAggregateDTO({
@@ -196,6 +198,23 @@ const OrganizationDetailsPage: React.FC = () => {
               ]}
             />
           </Layout.Vertical>
+          {OPA_PIPELINE_GOVERNANCE && (
+            <Layout.Vertical spacing="medium" padding={{ top: 'large' }}>
+              <Heading font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
+                {getString('projectsOrgs.orgGovernance')}
+              </Heading>
+              <ResourceCardList
+                items={[
+                  {
+                    label: <String stringID="common.governance" />,
+                    icon: 'governance',
+                    route: routes.toGovernance({ accountId, orgIdentifier }),
+                    colorClass: css.governance
+                  }
+                ]}
+              />
+            </Layout.Vertical>
+          )}
         </Layout.Vertical>
       </Page.Body>
     </>

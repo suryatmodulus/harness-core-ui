@@ -1873,6 +1873,7 @@ export interface StringsMap {
   'projectsOrgs.orgCreateSuccess': string
   'projectsOrgs.orgDeletedMessage': string
   'projectsOrgs.orgEditSuccess': string
+  'projectsOrgs.orgGovernance': string
   'projectsOrgs.orgName': string
   'projectsOrgs.orgResources.description1': string
   'projectsOrgs.orgResources.description2': string

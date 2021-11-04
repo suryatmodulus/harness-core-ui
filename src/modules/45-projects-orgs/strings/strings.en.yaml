@@ -93,6 +93,7 @@ orgResources:
   description1: Organization Resources are shared and available for use within any projects within this organization.
   description2: For better isolation of resources, it is recommended that you create resources at the project level.
 orgAccessControl: Organization Level Access Control
+orgGovernance: Organization Level Governance
 viewAllProjects: View All Projects
 searchProjectPlaceHolder: Search your project by name or ID
 projectsInOrg: projects under <br/> your organization

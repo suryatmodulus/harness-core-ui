@@ -9,7 +9,7 @@ import PoliciesBarChart from './PoliciesBarChart'
 import css from './PolicyDashboard.module.scss'
 
 const PolicyDashboard: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const { accountId, orgIdentifier = '*', projectIdentifier = '*' } = useParams<Record<string, string>>()
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,

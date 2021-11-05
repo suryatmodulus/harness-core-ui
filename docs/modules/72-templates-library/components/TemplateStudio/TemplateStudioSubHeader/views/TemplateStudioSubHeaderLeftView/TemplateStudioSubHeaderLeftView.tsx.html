@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/137</span>
+                <span class='fraction'>0/119</span>
             </div>
         
             
@@ -442,7 +442,8 @@
 <a name='L383'></a><a href='#L383'>383</a>
 <a name='L384'></a><a href='#L384'>384</a>
 <a name='L385'></a><a href='#L385'>385</a>
-<a name='L386'></a><a href='#L386'>386</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -683,7 +684,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -762,6 +762,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -894,7 +896,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
 }) =&gt; {
   const { state, updateTemplate, deleteTemplateCache, fetchTemplate, view, isReadonly, setLoading, updateGitDetails } =
 <span class="cstat-no" title="statement not covered" >    React.useContext(TemplateContext)</span>
-  const { template, versions, stableVersion, isUpdated, isInitialized, gitDetails } = <span class="cstat-no" title="statement not covered" >state</span>
+  const { template, versions, stableVersion, isUpdated, gitDetails } = <span class="cstat-no" title="statement not covered" >state</span>
   const { accountId, projectIdentifier, orgIdentifier, module, templateType, templateIdentifier } = <span class="cstat-no" title="statement not covered" >useParams&lt;</span>
     TemplateStudioPathProps &amp; ModulePathParams
   &gt;()
@@ -942,7 +944,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
   )
 &nbsp;
   const onCloseCreate = <span class="cstat-no" title="statement not covered" >React.useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (template?.identifier === DefaultNewTemplateId) {</span>
+<span class="cstat-no" title="statement not covered" >    if (template.identifier === DefaultNewTemplateId) {</span>
 <span class="cstat-no" title="statement not covered" >      history.push(routes.toTemplates({ orgIdentifier, projectIdentifier, accountId, module }))</span>
     }
 <span class="cstat-no" title="statement not covered" >    hideConfigModal()</span>
@@ -952,7 +954,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
     history,
     module,
     orgIdentifier,
-    template?.identifier,
+    template.identifier,
     projectIdentifier,
     routes.toTemplates
   ])
@@ -1055,19 +1057,18 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
   }, [versions])
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (isInitialized) {</span>
-<span class="cstat-no" title="statement not covered" >      if (template?.identifier === DefaultNewTemplateId &amp;&amp; !isEmpty(template.type)) {</span>
-<span class="cstat-no" title="statement not covered" >        setModalProps({</span>
-          title: getString('templatesLibrary.createNewModal.heading', { entity: template.type }),
-          promise: onSubmit,
-          onSuccess: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >            hideConfigModal()</span>
-          }
-        })
-<span class="cstat-no" title="statement not covered" >        showConfigModal()</span>
-      }
+<span class="cstat-no" title="statement not covered" >    if (template.identifier === DefaultNewTemplateId &amp;&amp; !isEmpty(template.type)) {</span>
+<span class="cstat-no" title="statement not covered" >      hideConfigModal()</span>
+<span class="cstat-no" title="statement not covered" >      setModalProps({</span>
+        title: getString('templatesLibrary.createNewModal.heading', { entity: template.type }),
+        promise: onSubmit,
+        onSuccess: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >          hideConfigModal()</span>
+        }
+      })
+<span class="cstat-no" title="statement not covered" >      showConfigModal()</span>
     }
-  }, [template?.identifier, showConfigModal, isInitialized, template.type])
+  }, [template.identifier, showConfigModal, template.type, onSubmit])
 &nbsp;
   const GitDetails: React.FC = <span class="cstat-no" title="statement not covered" >React.useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (gitDetails?.objectId || (templateIdentifier === DefaultNewTemplateId &amp;&amp; gitDetails.repoIdentifier)) {</span>
@@ -1166,7 +1167,9 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
               &lt;RbacButton
                 variation={ButtonVariation.ICON}
                 icon="Edit"
-                color={Color.GREY_500}
+                iconProps={{
+                  color: Color.GREY_800
+                }}
                 withoutCurrentColor
                 onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                  setModalProps({</span>
@@ -1219,7 +1222,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStudi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 05 2021 02:27:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 05 2021 13:47:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

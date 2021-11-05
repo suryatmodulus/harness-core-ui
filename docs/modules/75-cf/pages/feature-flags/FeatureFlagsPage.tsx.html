@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.28% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>134/178</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">57.08% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>137/240</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">64.1% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>25/39</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
                 <span class="strong">75.71% </span>
-                <span class="quiet">Lines</span>
+                <span class="quiet">Statements</span>
                 <span class='fraction'>134/177</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">52.99% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>124/234</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">65.79% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>25/38</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">76.14% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>134/176</span>
             </div>
         
             
@@ -780,7 +780,9 @@
 <a name='L721'></a><a href='#L721'>721</a>
 <a name='L722'></a><a href='#L722'>722</a>
 <a name='L723'></a><a href='#L723'>723</a>
-<a name='L724'></a><a href='#L724'>724</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L724'></a><a href='#L724'>724</a>
+<a name='L725'></a><a href='#L725'>725</a>
+<a name='L726'></a><a href='#L726'>726</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1436,7 +1438,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1626,8 +1630,8 @@ const RenderColumnFlag: React.FC&lt;RenderColumnFlagProps&gt; = ({
 <span class="cstat-no" title="statement not covered" >        toggleFeatureFlag.on(data.identifier, gitDetails)</span>
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (!gitSync.isAutoCommitEnabled &amp;&amp; gitSyncFormValues?.autoCommit) {</span>
-<span class="cstat-no" title="statement not covered" >        gitSync.handleAutoCommit(gitSyncFormValues?.autoCommit)</span>
+<span class="cstat-no" title="statement not covered" >      if (gitSyncFormValues?.autoCommit) {</span>
+<span class="cstat-no" title="statement not covered" >        gitSync.handleAutoCommit(gitSyncFormValues.autoCommit)</span>
       }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      setStatus(!status)</span>
@@ -2153,13 +2157,15 @@ const FeatureFlagsPage: React.FC = () =&gt; {
             &lt;Container&gt;
               &lt;FlagDialog environment={activeEnvironment} /&gt;
             &lt;/Container&gt;
-            {gitSync<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>sGitSyncEnabled &amp;&amp; (
-              &lt;GitSyncActions
+            {gitSync<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>sGitSyncActionsEnabled &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;GitSyncActions</span>
                 isLoading={gitSync.gitSyncLoading || gitSyncing}
-                branch={gitSync.gitRepoDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.branch </span>|| ''}
-                repository={gitSync.gitRepoDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier </span>|| ''}
+                branch={gitSync.gitRepoDetails?.branch || ''}
+                repository={gitSync.gitRepoDetails?.repoIdentifier || ''}
                 isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
-                handleToggleAutoCommit={<span class="fstat-no" title="function not covered" >(n</span>ewAutoCommitValue: boolean) =&gt; <span class="cstat-no" title="statement not covered" >gitSync.handleAutoCommit(newAutoCommitValue)}</span>
+                isGitSyncPaused={gitSync.isGitSyncPaused}
+                handleToggleAutoCommit={gitSync.handleAutoCommit}
+                handleGitPause={gitSync.handleGitPause}
               /&gt;
             )}
           &lt;/Container&gt;
@@ -2233,7 +2239,7 @@ export default FeatureFlagsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 05 2021 02:27:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 05 2021 13:47:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

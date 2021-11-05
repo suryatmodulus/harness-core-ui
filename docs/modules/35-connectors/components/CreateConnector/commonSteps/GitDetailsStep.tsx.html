@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.45% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>58/73</span>
+                <span class='fraction'>68/85</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.23% </span>
+                <span class="strong">67.07% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>102/154</span>
+                <span class='fraction'>110/164</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.17% </span>
+                <span class="strong">79.76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>57/72</span>
+                <span class='fraction'>67/84</span>
             </div>
         
             
@@ -390,7 +390,25 @@
 <a name='L331'></a><a href='#L331'>331</a>
 <a name='L332'></a><a href='#L332'>332</a>
 <a name='L333'></a><a href='#L333'>333</a>
-<a name='L334'></a><a href='#L334'>334</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">127x</span>
+<a name='L334'></a><a href='#L334'>334</a>
+<a name='L335'></a><a href='#L335'>335</a>
+<a name='L336'></a><a href='#L336'>336</a>
+<a name='L337'></a><a href='#L337'>337</a>
+<a name='L338'></a><a href='#L338'>338</a>
+<a name='L339'></a><a href='#L339'>339</a>
+<a name='L340'></a><a href='#L340'>340</a>
+<a name='L341'></a><a href='#L341'>341</a>
+<a name='L342'></a><a href='#L342'>342</a>
+<a name='L343'></a><a href='#L343'>343</a>
+<a name='L344'></a><a href='#L344'>344</a>
+<a name='L345'></a><a href='#L345'>345</a>
+<a name='L346'></a><a href='#L346'>346</a>
+<a name='L347'></a><a href='#L347'>347</a>
+<a name='L348'></a><a href='#L348'>348</a>
+<a name='L349'></a><a href='#L349'>349</a>
+<a name='L350'></a><a href='#L350'>350</a>
+<a name='L351'></a><a href='#L351'>351</a>
+<a name='L352'></a><a href='#L352'>352</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">127x</span>
 <span class="cline-any cline-yes">127x</span>
 <span class="cline-any cline-yes">127x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -440,6 +458,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">127x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">127x</span>
@@ -580,6 +613,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -775,6 +811,21 @@ interface DetailsStepInterface {
   validationRepo?: string
 }
 &nbsp;
+const getTooltipAnchorForHeading = (connectorType: ConnectorInfoDTO['type']): string =&gt; {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (connectorType === 'Aws') {
+<span class="cstat-no" title="statement not covered" >    return 'awsCCDetailsTooltip'</span>
+  } else if (connectorType === 'Git') {
+    return 'gitConnectorDetailsTooltip'
+  } else if (connectorType === 'Github') {
+    return 'githubConnectorDetailsTooltip'
+  } else if (connectorType === 'Bitbucket') {
+    return 'bitbucketConnectorDetailsTooltip'
+  } else <span class="missing-if-branch" title="else path not taken" >E</span>if (connectorType === 'Gitlab') {
+    return 'gitlabConnectorDetailsTooltip'
+  }
+<span class="cstat-no" title="statement not covered" >  return 'connectorDetailsTooltip'</span>
+}
+&nbsp;
 const GitDetailsStep: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; ConnectorDetailsStepProps&gt; = props =&gt; {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;ProjectPathProps&gt;()
@@ -915,7 +966,10 @@ const GitDetailsStep: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Conn
   return (
     &lt;Layout.Vertical width="60%" style={{ minHeight: 460 }} className={cx(css.firstep, commonCss.stepContainer)}&gt;
       &lt;ModalErrorHandler bind={setModalErrorHandler} /&gt;
-      &lt;Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'awsCCDetailsTooltip' }}&gt;
+      &lt;Text
+        font={{ variation: FontVariation.H3 }}
+        tooltipProps={{ dataTooltipId: getTooltipAnchorForHeading(props.type) }}
+      &gt;
         {getString('details')}
       &lt;/Text&gt;
 &nbsp;
@@ -1063,7 +1117,7 @@ export default GitDetailsStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 05 2021 02:27:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 05 2021 13:47:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.85% </span>
+                <span class="strong">53.01% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>84/162</span>
+                <span class='fraction'>88/166</span>
             </div>
         
             
@@ -392,7 +392,13 @@
 <a name='L333'></a><a href='#L333'>333</a>
 <a name='L334'></a><a href='#L334'>334</a>
 <a name='L335'></a><a href='#L335'>335</a>
-<a name='L336'></a><a href='#L336'>336</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L336'></a><a href='#L336'>336</a>
+<a name='L337'></a><a href='#L337'>337</a>
+<a name='L338'></a><a href='#L338'>338</a>
+<a name='L339'></a><a href='#L339'>339</a>
+<a name='L340'></a><a href='#L340'>340</a>
+<a name='L341'></a><a href='#L341'>341</a>
+<a name='L342'></a><a href='#L342'>342</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,6 +422,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -442,6 +451,7 @@
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -609,6 +619,8 @@
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -750,7 +762,10 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { NGVariable, StageElementConfig, StringNGVariable } from 'services/cd-ng'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import {
+  PipelineContextType,
+  usePipelineContext
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { useStrings } from 'framework/strings'
@@ -785,6 +800,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     getStageFromPipeline,
     updateStage,
     stepsFactory,
+    contextType,
     isReadonly
   } = usePipelineContext()
 &nbsp;
@@ -841,7 +857,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
   }, [])
 &nbsp;
   const validationSchema = yup.object().shape({
-    name: NameSchema(),
+    ...(contextType === PipelineContextType.Pipeline &amp;&amp; { name: NameSchema() }),
     sharedPaths: yup.lazy(<span class="fstat-no" title="function not covered" >value </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >      if (Array.isArray(value)) {</span>
 <span class="cstat-no" title="statement not covered" >        return yup.array().test('valuesShouldBeUnique', getString('validation.uniqueValues'), <span class="fstat-no" title="function not covered" >list </span>=&gt; {</span>
@@ -950,15 +966,17 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                 &lt;/div&gt;
                 &lt;Card className={cx(css.sectionCard)} disabled={isReadonly}&gt;
                   &lt;FormikForm&gt;
-                    &lt;NameIdDescriptionTags
-                      formikProps={formik}
-                      identifierProps={{
-                        isIdentifierEditable: false,
-                        inputGroupProps: { disabled: isReadonly }
-                      }}
-                      descriptionProps={{ disabled: isReadonly }}
-                      tagsProps={{ disabled: isReadonly }}
-                    /&gt;
+                    {contextType === PipelineContextType.Pipeline &amp;&amp; (
+                      &lt;NameIdDescriptionTags
+                        formikProps={formik}
+                        identifierProps={{
+                          isIdentifierEditable: false,
+                          inputGroupProps: { disabled: isReadonly }
+                        }}
+                        descriptionProps={{ disabled: isReadonly }}
+                        tagsProps={{ disabled: isReadonly }}
+                      /&gt;
+                    )}
 &nbsp;
                     &lt;div style={{ display: 'flex', alignItems: 'center' }}&gt;
                       &lt;Switch
@@ -1069,7 +1087,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 05 2021 02:27:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 05 2021 13:47:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

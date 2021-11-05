@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -112,7 +112,20 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -125,18 +138,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">25x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,8 +164,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-yes">29x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,15 +204,42 @@ interface BranchStatusIconProps {
   branch: string
   isLoading: boolean
   isAutoCommitEnabled: boolean
+  isGitSyncPaused: boolean
 }
 &nbsp;
 const BranchStatusIcon = ({
   isSettingsOpen,
   branch,
   isAutoCommitEnabled,
+  isGitSyncPaused,
   isLoading
 }: BranchStatusIconProps): ReactElement =&gt; {
   const { getString } = useStrings()
+&nbsp;
+  const getIcon = (): JSX.Element =&gt; {
+    if (isGitSyncPaused) {
+      return &lt;Icon name="disable" size={15} data-testid="git-paused-icon" className={css.pausedIcon} /&gt;
+    } else if (isLoading) {
+      return &lt;Icon name="steps-spinner" size={15} className={css.loadingSpinner} data-testid="git-sync-spinner" /&gt;
+    }
+    return (
+      &lt;Icon
+        data-testid="auto-commit-status-icon"
+        name="full-circle"
+        size={10}
+        className={isAutoCommitEnabled ? css.autoCommitEnabled : css.autoCommitDisabled}
+      /&gt;
+    )
+  }
+&nbsp;
+  const getToolTipText = (): string =&gt; {
+    return isGitSyncPaused
+      ? getString('cf.gitSync.syncingPaused')
+      : getString('cf.gitSync.branchStatus', {
+          branch,
+          status: isAutoCommitEnabled ? 'ON' : 'OFF'
+        })
+  }
 &nbsp;
   return (
     &lt;Container className={css.gitStatusIcon}&gt;
@@ -197,25 +250,11 @@ const BranchStatusIcon = ({
         }}
         tooltip={
           &lt;Container padding="medium" data-testid="git-sync-status-tooltip"&gt;
-            &lt;Text color={Color.WHITE}&gt;
-              {getString('cf.gitSync.branchStatus', {
-                branch,
-                status: isAutoCommitEnabled ? 'ON' : 'OFF'
-              })}
-            &lt;/Text&gt;
+            &lt;Text color={Color.WHITE}&gt;{getToolTipText()}&lt;/Text&gt;
           &lt;/Container&gt;
         }
       &gt;
-        {isLoading ? (
-          &lt;Icon name="steps-spinner" size={15} className={css.loadingSpinner} data-testid="git-sync-spinner" /&gt;
-        ) : (
-          &lt;Icon
-            data-testid="auto-commit-status-icon"
-            name="full-circle"
-            size={10}
-            className={isAutoCommitEnabled ? css.autoCommitEnabled : css.autoCommitDisabled}
-          /&gt;
-        )}
+        {getIcon()}
       &lt;/Utils.WrapOptionalTooltip&gt;
     &lt;/Container&gt;
   )
@@ -229,7 +268,7 @@ export default BranchStatusIcon
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 05 2021 02:27:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 05 2021 13:47:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

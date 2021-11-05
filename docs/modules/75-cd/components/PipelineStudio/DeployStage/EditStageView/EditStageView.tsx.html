@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.65% </span>
+                <span class="strong">49.02% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>71/149</span>
+                <span class='fraction'>75/153</span>
             </div>
         
             
@@ -355,7 +355,16 @@
 <a name='L296'></a><a href='#L296'>296</a>
 <a name='L297'></a><a href='#L297'>297</a>
 <a name='L298'></a><a href='#L298'>298</a>
-<a name='L299'></a><a href='#L299'>299</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -386,6 +395,9 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -551,9 +563,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -683,7 +701,10 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import {
+  PipelineContextType,
+  usePipelineContext
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -745,7 +766,7 @@ export const EditStageView: React.FC&lt;EditStageViewProps&gt; = ({
       disabled: true
     }
   ]
-  const { stepsFactory, getStageFromPipeline } = usePipelineContext()
+  const { stepsFactory, getStageFromPipeline, contextType } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const scrollRef = React.useRef&lt;HTMLDivElement | null&gt;(null)
   const allNGVariables = (<span class="branch-1 cbranch-no" title="branch not covered" >data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.variables </span>|| []) as AllNGVariables[]
@@ -844,8 +865,10 @@ export const EditStageView: React.FC&lt;EditStageViewProps&gt; = ({
 <span class="cstat-no" title="statement not covered" >              return errors</span>
             }}
             validationSchema={Yup.object().shape({
-              name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
-              identifier: IdentifierSchema()
+              ...(contextType === PipelineContextType.Pipeline &amp;&amp; {
+                name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
+                identifier: IdentifierSchema()
+              })
             })}
           &gt;
             {formikProps =&gt; {
@@ -853,31 +876,35 @@ export const EditStageView: React.FC&lt;EditStageViewProps&gt; = ({
               formikRef.current = formikProps
               return (
                 &lt;FormikForm&gt;
-                  {context ? (
-                    &lt;Card className={stageCss.sectionCard}&gt;
-                      &lt;NameIdDescriptionTags
-                        formikProps={formikProps}
-                        identifierProps={{
-                          inputLabel: getString('stageNameLabel'),
-                          isIdentifierEditable: !context,
-                          inputGroupProps: { disabled: isReadonly }
-                        }}
-                        descriptionProps={{ disabled: isReadonly }}
-                        tagsProps={{ disabled: isReadonly }}
-                        className={css.nameIdDescriptionTags}
-                      /&gt;
-                    &lt;/Card&gt;
-                  ) : (
-<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;NameIdDescriptionTags</span>
-                      formikProps={formikProps}
-                      identifierProps={{
-                        inputLabel: getString('stageNameLabel'),
-                        isIdentifierEditable: !context &amp;&amp; !isReadonly,
-                        inputGroupProps: { disabled: isReadonly }
-                      }}
-                      descriptionProps={{ disabled: isReadonly }}
-                      tagsProps={{ disabled: isReadonly }}
-                    /&gt;
+                  {contextType === PipelineContextType.Pipeline &amp;&amp; (
+                    &lt;&gt;
+                      {context ? (
+                        &lt;Card className={stageCss.sectionCard}&gt;
+                          &lt;NameIdDescriptionTags
+                            formikProps={formikProps}
+                            identifierProps={{
+                              inputLabel: getString('stageNameLabel'),
+                              isIdentifierEditable: !context,
+                              inputGroupProps: { disabled: isReadonly }
+                            }}
+                            descriptionProps={{ disabled: isReadonly }}
+                            tagsProps={{ disabled: isReadonly }}
+                            className={css.nameIdDescriptionTags}
+                          /&gt;
+                        &lt;/Card&gt;
+                      ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >                        &lt;NameIdDescriptionTags</span>
+                          formikProps={formikProps}
+                          identifierProps={{
+                            inputLabel: getString('stageNameLabel'),
+                            isIdentifierEditable: !context &amp;&amp; !isReadonly,
+                            inputGroupProps: { disabled: isReadonly }
+                          }}
+                          descriptionProps={{ disabled: isReadonly }}
+                          tagsProps={{ disabled: isReadonly }}
+                        /&gt;
+                      )}
+                    &lt;/&gt;
                   )}
 &nbsp;
                   {!context ? <span class="branch-0 cbranch-no" title="branch not covered" >whatToDeploy </span>: &lt;Card className={stageCss.sectionCard}&gt;{whatToDeploy}&lt;/Card&gt;}
@@ -958,7 +985,7 @@ export const EditStageView: React.FC&lt;EditStageViewProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 05 2021 02:27:08 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 05 2021 13:47:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

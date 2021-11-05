@@ -625,10 +625,9 @@ testsReports:
   resultInfo: Heat Map showing a graphical over of the test results
   sortBy: 'Sort by:'
   tiCallToAction:
-    header: Did you know you can save time using test intelligence?
+    header: Did you know you can save time using Test Intelligence?
     upsellSubText: 'Optimize your tests cycle and reduce build time by using machine learning based Test Intelligence.'
     utilizeTISubText: 'Reduce test cycle time of your Java application by using machine learning based Test Intelligence.'
-    findOutMore: Find out more
     addRunTestsStep: Add 'Run Tests step' to your Pipeline
 uniqueIdentifier: Identifier must be unique
 inputSets:

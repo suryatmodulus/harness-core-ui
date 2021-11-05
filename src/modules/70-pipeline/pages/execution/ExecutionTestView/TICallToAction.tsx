@@ -35,7 +35,7 @@ export const TICallToAction: React.FC<TICallToActionProps> = () => {
             </Container>
             <Layout.Horizontal spacing="medium" className={css.actionsContainer}>
               <Button className={css.findOutMoreBtn} variation={ButtonVariation.PRIMARY}>
-                {getString('pipeline.testsReports.tiCallToAction.findOutMore')}
+                {getString('common.findOutMore')}
               </Button>
               {canUseTI ? (
                 <Text style={{ fontSize: '13px' }} color={Color.PRIMARY_7}>

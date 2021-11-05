@@ -503,6 +503,7 @@ extendTrial:
   doItLater: I’ll do it later
 cgLaunchText: Launch First Generation
 reportName: Report Name
+findOutMore: Find out more
 frequency: 'Frequency'
 last7days: Last 7 days
 instanceLabel: '{{$.instanceFieldOptions.instances}}'

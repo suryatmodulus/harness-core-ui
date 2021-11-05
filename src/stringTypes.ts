@@ -182,6 +182,7 @@ export interface StringsMap {
   'common.filters.noMatchingFilterData': string
   'common.filters.saveNewFilter': string
   'common.filters.unsavedFilter': string
+  'common.findOutMore': string
   'common.frequency': string
   'common.friendlyMessage': string
   'common.genericErrors.inviteExpired': string
@@ -2557,7 +2558,6 @@ export interface StringsMap {
   'pipeline.testsReports.testMethods': string
   'pipeline.testsReports.testSuite': string
   'pipeline.testsReports.tiCallToAction.addRunTestsStep': string
-  'pipeline.testsReports.tiCallToAction.findOutMore': string
   'pipeline.testsReports.tiCallToAction.header': string
   'pipeline.testsReports.tiCallToAction.upsellSubText': string
   'pipeline.testsReports.tiCallToAction.utilizeTISubText': string

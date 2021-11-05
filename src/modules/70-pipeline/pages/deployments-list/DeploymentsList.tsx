@@ -36,7 +36,6 @@ export default function DeploymentsList(): React.ReactElement {
   )
 
   const textIdentifier = module === 'ci' ? 'buildsText' : 'deploymentsText'
-
   return (
     <div className={css.main}>
       <Page.Header

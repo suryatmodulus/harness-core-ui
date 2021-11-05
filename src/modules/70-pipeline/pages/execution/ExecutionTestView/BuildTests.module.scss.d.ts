@@ -33,6 +33,12 @@ declare const styles: {
   readonly name: string
   readonly commitHash: string
   readonly method: string
+  readonly tiCallToActionWrapper: string
+  readonly subText: string
+  readonly actionsContainer: string
+  readonly upgradeRequiredWrapper: string
+  readonly findOutMoreBtn: string
+  readonly imageContainer: string
   readonly testCasesHeader: string
   readonly rightContainer: string
   readonly testsSelectionBreakdown: string

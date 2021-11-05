@@ -1,8 +1,11 @@
 import React from 'react'
 import { Button, ButtonSize, ButtonVariation, Color, Layout, Text } from '@wings-software/uicore'
+import { useHistory, useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
 import type { StringsMap } from 'stringTypes'
-import type { Module } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useFeatures } from '@common/hooks/useFeatures'
+
 import type { CheckFeaturesReturn } from 'framework/featureStore/FeaturesContext'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useStrings } from 'framework/strings'
@@ -55,7 +58,9 @@ interface PipelineFeatureRestrictionBannerProps {
 // Show this banner if limit usage is breached for the feature
 export const PipelineFeatureLimitBreachedBanner = (props: PipelineFeatureRestrictionBannerProps) => {
   const { getString } = useStrings()
-
+  const history = useHistory()
+  const { accountId } = useParams<AccountPathProps>()
+  const { module } = props
   // This allowed boolean is set in the UI. Currently, we just set it for 'SERVICES' feature in CD module
   let isFeatureRestrictionAllowedForModule
   let limitBreached
@@ -67,7 +72,7 @@ export const PipelineFeatureLimitBreachedBanner = (props: PipelineFeatureRestric
 
   limitBreached = featureNames.some(featureName => {
     // Get the above map details
-    const featureRestrictionModuleDetails = getFeatureRestrictionDetailsForModule(props.module, featureName)
+    const featureRestrictionModuleDetails = getFeatureRestrictionDetailsForModule(module, featureName)
     const { featureDetail } = features.get(featureName) || {}
     const featureDetailsLimit = featureDetail?.limit
     limitBreached = featureDetailsLimit
@@ -75,7 +80,9 @@ export const PipelineFeatureLimitBreachedBanner = (props: PipelineFeatureRestric
       : false
     if (limitBreached) {
       isFeatureRestrictionAllowedForModule = featureRestrictionModuleDetails?.allowed
-      messageString = featureRestrictionModuleDetails?.limitCrossedMessage
+      messageString =
+        featureRestrictionModuleDetails?.limitCrossedMessage &&
+        getString(featureRestrictionModuleDetails.limitCrossedMessage)
     }
     return limitBreached
   })
@@ -103,9 +110,25 @@ export const PipelineFeatureLimitBreachedBanner = (props: PipelineFeatureRestric
       >
         {messageString}
       </Text>
-      <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL}>
-        {getString('common.viewUsage')}
+      <Button
+        variation={ButtonVariation.SECONDARY}
+        size={ButtonSize.SMALL}
+        width={130}
+        onClick={() => {
+          history.push(
+            routes.toSubscriptions({
+              accountId,
+              moduleCard: module
+            })
+          )
+        }}
+      >
+        {getString('common.explorePlans')}
       </Button>
+      {/* Won't be available until View Usage page is ready */}
+      {/* <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL}>
+        {getString('common.viewUsage')}
+      </Button> */}
     </Layout.Horizontal>
   ) : null
 }

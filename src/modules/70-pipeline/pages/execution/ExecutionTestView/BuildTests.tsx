@@ -1,7 +1,7 @@
 import { Layout, Select, Text, Container, SelectOption, PageError } from '@wings-software/uicore'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { get, uniqWith, isEqual } from 'lodash-es'
+import { get, uniqWith, isEqual, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import {
   useReportSummary,
@@ -21,6 +21,7 @@ import { TestsOverview } from './TestsOverview'
 import { TestsExecutionResult } from './TestsExecutionResult'
 import { TestsSelectionBreakdown } from './TestsSelectionBreakdown'
 import { TestsReportOverview } from './TestsReportOverview'
+import { TICallToAction } from './TICallToAction'
 // import { TestsCoverage } from './TestsCoverage'
 import css from './BuildTests.module.scss'
 
@@ -63,7 +64,7 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
   const [stageId, stepId] = (selectValue?.value as string)?.split('/') || []
 
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
-
+  const hasRunTestStep = false
   const infoQueryParams = useMemo(
     () => ({
       accountId,
@@ -194,16 +195,20 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
   const reportSummaryHasTests = (reportSummaryData?.total_tests || 0) > 0
   const testOverviewHasTests = (testOverviewData?.total_tests || 0) > 0
 
-  const uiType =
-    reportSummaryHasTests && testOverviewHasTests
-      ? UI.TIAndReports
-      : !reportSummaryHasTests && testOverviewHasTests
-      ? UI.TI
-      : reportSummaryHasTests && !testOverviewHasTests
-      ? UI.Reports
-      : reportInfoLoading || testInfoLoading
-      ? UI.LoadingState
-      : UI.ZeroState
+  const uiType = UI.Reports
+  // const uiType =
+  //   reportSummaryHasTests && testOverviewHasTests
+  //     ? UI.TIAndReports
+  //     : !reportSummaryHasTests && testOverviewHasTests
+  //     ? UI.TI
+  //     : reportSummaryHasTests && !testOverviewHasTests
+  //     ? UI.Reports
+  //     : reportInfoLoading || testInfoLoading
+  //     ? UI.LoadingState
+  //     : UI.ZeroState
+
+  // !No more Reports only view.
+  //
 
   useEffect(() => {
     if (status && stageId && stepId) {
@@ -362,25 +367,40 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
         </>
       )
       break
+    // Reports & TI Call To Action
     case UI.Reports:
       ui = (
         <>
           {header}
-          <Layout.Horizontal spacing="large">
+          <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
+            {typeof testOverviewData?.total_tests !== 'undefined' &&
+              typeof testOverviewData?.skipped_tests !== 'undefined' &&
+              typeof testOverviewData?.time_saved_ms !== 'undefined' &&
+              typeof testOverviewData?.time_taken_ms !== 'undefined' && (
+                <TestsOverview
+                  totalTests={testOverviewData.total_tests}
+                  skippedTests={testOverviewData.skipped_tests}
+                  timeSavedMS={testOverviewData.time_saved_ms}
+                  durationMS={testOverviewData.time_taken_ms}
+                  testsCountDiff={testsCountDiff}
+                />
+              )}
             {typeof reportSummaryData?.total_tests !== 'undefined' &&
               typeof reportSummaryData?.failed_tests !== 'undefined' &&
               typeof reportSummaryData?.successful_tests !== 'undefined' &&
-              typeof reportSummaryData?.skipped_tests !== 'undefined' &&
-              typeof reportSummaryData?.duration_ms !== 'undefined' && (
-                <TestsReportOverview
+              typeof reportSummaryData?.skipped_tests !== 'undefined' && (
+                <TestsExecutionResult
                   totalTests={reportSummaryData.total_tests}
                   failedTests={reportSummaryData.failed_tests}
                   successfulTests={reportSummaryData.successful_tests}
                   skippedTests={reportSummaryData.skipped_tests}
-                  durationMS={reportSummaryData.duration_ms}
                 />
               )}
-            {/* Overview and Reports split the width  */}
+            <TICallToAction />
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing="large">
+            {/* <TestsCoverage /> */}
+            {/* TI is above Reports which is 100% width */}
             {stageId && stepId && serviceToken && (
               <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
             )}

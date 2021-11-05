@@ -2554,7 +2554,7 @@ export interface StringsMap {
   'pipeline.testsReports.testExecutions': string
   'pipeline.testsReports.testMethods': string
   'pipeline.testsReports.testSuite': string
-  'pipeline.testsReports.tiCallToAction.addRunStep': string
+  'pipeline.testsReports.tiCallToAction.addRunTestsStep': string
   'pipeline.testsReports.tiCallToAction.findOutMore': string
   'pipeline.testsReports.tiCallToAction.header': string
   'pipeline.testsReports.tiCallToAction.upsellSubText': string

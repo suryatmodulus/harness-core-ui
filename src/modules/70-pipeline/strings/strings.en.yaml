@@ -629,7 +629,7 @@ testsReports:
     upsellSubText: 'Optimize your tests cycle and reduce build time by using machine learning based Test Intelligence.'
     utilizeTISubText: 'Reduce test cycle time of your Java application by using machine learning based Test Intelligence.'
     findOutMore: Find out more
-    addRunStep: Add 'Run Step' to your Pipeline
+    addRunTestsStep: Add 'Run Tests step' to your Pipeline
 uniqueIdentifier: Identifier must be unique
 inputSets:
   applyInputSet: Apply Input Set

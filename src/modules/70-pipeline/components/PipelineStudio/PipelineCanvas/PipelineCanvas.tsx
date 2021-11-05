@@ -873,7 +873,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   variation={ButtonVariation.PRIMARY}
                   icon="run-pipeline"
                   intent="success"
-                  disabled={isUpdated}
+                  // disabled={isUpdated}
                   className={css.runPipelineBtn}
                   text={getString('runPipelineText')}
                   tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
@@ -881,11 +881,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                     e.stopPropagation()
                     openRunPipelineModal()
                   }}
-                  featureProps={{
-                    featureRequest: {
-                      featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
-                    }
-                  }}
+                  // featureProps={{
+                  //   featureRequest: {
+                  //     featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
+                  //   }
+                  // }}
                   permission={{
                     resourceScope: {
                       accountIdentifier: accountId,

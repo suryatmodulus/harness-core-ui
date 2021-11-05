@@ -1028,11 +1028,11 @@ function RunPipelineFormBasic({
                           submitForm()
                         }
                       }}
-                      featureProps={{
-                        featureRequest: {
-                          featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
-                        }
-                      }}
+                      // featureProps={{
+                      //   featureRequest: {
+                      //     featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
+                      //   }
+                      // }}
                       permission={{
                         resource: {
                           resourceIdentifier: pipeline?.identifier as string,

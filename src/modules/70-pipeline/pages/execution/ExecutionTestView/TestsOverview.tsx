@@ -51,11 +51,10 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
         margin={{ bottom: 'xsmall' }}
         style={{ height: 32, flexShrink: 0 }}
       >
-        <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600} margin={{ right: 'medium' }}>
+        <Heading level={6} style={{ fontWeight: 600 }} color={Color.GREY_600} margin={{ right: 'medium' }}>
           {getString('pipeline.testsReports.executionOverview')}
         </Heading>
       </Container>
-
       <Container height="100%">
         <Layout.Horizontal spacing="medium" margin={{ bottom: 'medium' }}>
           <Text
@@ -78,31 +77,6 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
               ) : null}
             </span>
           </Text>
-          <Text
-            className={css.stats}
-            padding="medium"
-            color={Color.GREY_700}
-            style={{ position: 'relative', backgroundColor: 'var(--white)' }}
-          >
-            <Text className={cx(css.statsTitle)} margin={{ bottom: 'large', right: 'small' }}>
-              {getString('pipeline.testsReports.numberOfSelectedTests')}
-            </Text>
-            <span className={cx(css.statsNumber)}>{selectedTests}</span>
-            <div className={css.linesWrapper}>
-              {totalTests > 0 && (
-                <div
-                  className={cx(css.line, css.selected)}
-                  style={{ height: `${selectedTests / (totalTests / 100)}%` }}
-                ></div>
-              )}
-              {skippedTests > 0 && (
-                <div className={css.line} style={{ height: `${skippedTests / (totalTests / 100)}%` }}></div>
-              )}
-            </div>
-          </Text>
-        </Layout.Horizontal>
-
-        <Layout.Horizontal spacing="medium">
           {typeof durationMS !== 'undefined' ? (
             <Text
               className={css.stats}
@@ -125,8 +99,33 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
               ></Duration>
             </Text>
           ) : null}
+        </Layout.Horizontal>
+
+        <Layout.Horizontal spacing="medium">
+          <Text
+            className={css.stats}
+            padding="medium"
+            color={Color.GREY_700}
+            style={{ position: 'relative', backgroundColor: 'var(--white)' }}
+          >
+            <Text className={cx(css.statsTitle)} margin={{ bottom: 'large', right: 'small' }}>
+              {getString('pipeline.testsReports.numberOfSelectedTests')}
+            </Text>
+            <span className={cx(css.statsNumber)}>{selectedTests}</span>
+            <div className={css.linesWrapper}>
+              {totalTests > 0 && (
+                <div
+                  className={cx(css.line, css.selected)}
+                  style={{ height: `${selectedTests / (totalTests / 100)}%` }}
+                ></div>
+              )}
+              {skippedTests > 0 && (
+                <div className={css.line} style={{ height: `${skippedTests / (totalTests / 100)}%` }}></div>
+              )}
+            </div>
+          </Text>
           <Text className={cx(css.stats, css.timeSaved)} padding="medium" color={Color.WHITE}>
-            <Text className={cx(css.statsTitle)} color={Color.PURPLE_700} margin={{ bottom: 'large' }}>
+            <Text className={cx(css.statsTitle)} color={Color.WHITE} margin={{ bottom: 'large' }}>
               {getString('pipeline.testsReports.timeSaved')}
             </Text>
             <span className={cx(css.statsNumber)}>{timeSavedToDisplay}</span>

@@ -23,7 +23,7 @@ export const TestsSelectionBreakdown: React.FC<TestsSelectionBreakdownProps> = (
   return (
     <div className={cx(css.widgetWrapper, css.selectionBreakdown)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
-        <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+        <Heading level={6} style={{ fontWeight: 600 }} color={Color.GREY_600}>
           {getString('pipeline.testsReports.selectionBreakdown')}
         </Heading>
         <Button

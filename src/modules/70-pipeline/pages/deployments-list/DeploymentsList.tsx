@@ -36,9 +36,6 @@ export default function DeploymentsList(): React.ReactElement {
   )
 
   const textIdentifier = module === 'ci' ? 'buildsText' : 'deploymentsText'
-  const featureIdentifier = module === 'cd' ? FeatureIdentifier.BUILDS : FeatureIdentifier.SERVICES
-  const featureNames =
-    module === 'ci' ? [FeatureIdentifier.MAX_TOTAL_BUILDS, FeatureIdentifier.MAX_BUILDS_PER_MONTH] : undefined
 
   return (
     <div className={css.main}>
@@ -51,11 +48,9 @@ export default function DeploymentsList(): React.ReactElement {
         }
         breadcrumbs={<NGBreadcrumbs links={[]} />}
       ></Page.Header>
-      <PipelineFeatureLimitBreachedBanner
-        featureIdentifier={featureIdentifier}
-        featureNames={featureNames}
-        module={module}
-      />
+      {module === 'cd' && (
+        <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
+      )}
       <div className={css.content}>
         <PipelineDeploymentList onRunPipeline={openModal} />
       </div>

@@ -17,6 +17,7 @@ import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteIn
 import { UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
 
 import RbacButton from '@rbac/components/Button/Button'
 import PipelineSummaryCards from '@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards'
@@ -30,6 +31,7 @@ import type { QueryParams, StringQueryParams, QuickStatusParam } from './types'
 import deploymentIllustrations from './images/deployments-illustrations.svg'
 import buildIllustrations from './images/builds-illustrations.svg'
 import css from './PipelineDeploymentList.module.scss'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 
 const pollingIntervalInMilliseconds = 5_000
 
@@ -286,6 +288,13 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
             </div>
           ) : (
             <React.Fragment>
+              {module === 'ci' && (
+                <PipelineFeatureLimitBreachedBanner
+                  featureIdentifier={FeatureIdentifier.BUILDS}
+                  featureNames={[FeatureIdentifier.MAX_TOTAL_BUILDS, FeatureIdentifier.MAX_BUILDS_PER_MONTH]}
+                  module={module}
+                />
+              )}
               <ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary?.content} />
               <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
             </React.Fragment>

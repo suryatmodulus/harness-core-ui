@@ -26,7 +26,7 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({
   return (
     <div className={cx(css.widgetWrapper, css.executionResult)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
-        <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+        <Heading data-name="test-execution-result-label" level={6} style={{ fontWeight: 600 }} color={Color.GREY_600}>
           {getString('pipeline.testsReports.resultLabel')}
         </Heading>
         <Button

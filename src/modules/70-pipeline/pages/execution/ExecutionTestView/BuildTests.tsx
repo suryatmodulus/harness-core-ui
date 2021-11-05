@@ -1,7 +1,7 @@
-import { Layout, Select, Text, Container, SelectOption, PageError } from '@wings-software/uicore'
+import { Layout, Select, Color, Heading, Container, SelectOption, PageError } from '@wings-software/uicore'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { get, uniqWith, isEqual, isEmpty } from 'lodash-es'
+import { get, uniqWith, isEqual } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import {
   useReportSummary,
@@ -195,17 +195,17 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
   const reportSummaryHasTests = (reportSummaryData?.total_tests || 0) > 0
   const testOverviewHasTests = (testOverviewData?.total_tests || 0) > 0
 
-  const uiType = UI.Reports
-  // const uiType =
-  //   reportSummaryHasTests && testOverviewHasTests
-  //     ? UI.TIAndReports
-  //     : !reportSummaryHasTests && testOverviewHasTests
-  //     ? UI.TI
-  //     : reportSummaryHasTests && !testOverviewHasTests
-  //     ? UI.Reports
-  //     : reportInfoLoading || testInfoLoading
-  //     ? UI.LoadingState
-  //     : UI.ZeroState
+  // const uiType = UI.Reports
+  const uiType =
+    reportSummaryHasTests && testOverviewHasTests
+      ? UI.TIAndReports
+      : !reportSummaryHasTests && testOverviewHasTests
+      ? UI.TI
+      : reportSummaryHasTests && !testOverviewHasTests
+      ? UI.Reports
+      : reportInfoLoading || testInfoLoading
+      ? UI.LoadingState
+      : UI.ZeroState
 
   // !No more Reports only view.
   //
@@ -268,13 +268,13 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       flex
       padding={{ bottom: 'small' }}
       margin={{ bottom: 'medium' }}
-      style={{ borderBottom: '1px solid #D9DAE6' }}
+      style={{ borderBottom: '1px solid #D9DAE6', justifyContent: 'initial' }}
     >
-      <Text font={{ size: 'medium', weight: 'semi-bold' }} style={{ color: '#22222A' }}>
+      <Heading level={5} color={Color.BLACK} style={{ fontWeight: 600 }}>
         {getString('pipeline.testsReports.testExecutions')}
-      </Text>
+      </Heading>
       {selectItems && selectValue && (
-        <div style={{ width: '375px' }}>
+        <div style={{ width: '375px', marginLeft: 'var(--spacing-5)' }}>
           <Select fill value={selectValue} items={selectItems} onChange={value => setSelectValue(value as any)} />
         </div>
       )}

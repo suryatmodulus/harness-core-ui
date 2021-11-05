@@ -848,8 +848,10 @@ recentExecutionText: Most Recent Execution
 viewLatestExecution: You are viewing an older execution of this pipeline.
 featureRestriction:
   serviceLimitExceeded: Service License usage has exceeded the Subscribed Services.
-  maxTotalBuilds90Limit: You have used 90% of your 2500 free total builds quota. Once you reach 100% usage Harness will offer you 100 free builds per month. Please see Licensing page for additional information.
-  maxBuildsPerMonth90Limit: You have hit 90% of the free plan limit. After 1,000 builds, new builds will be restricted to 100 per month.
+  maxTotalBuilds90PercentLimit: You have used {{usagePercent}}% of your 2500 free total builds quota. Once you reach 100% usage, Harness will offer you 100 free builds per month. Please see Licensing page for additional information.
+  maxTotalBuilds100PercentLimit: You have used 100% of your 2500 free total builds quota. You can now run 100 free builds per month. Please see Licensing page for additional information.
+  numMonthlyBuilds: You have hit {{count}}/{{limit}} of the free plan limit. After 100 builds, new builds will be restricted to 100 per month.
+  maxBuildsPerMonth100PercentLimit: Monthly builds limit met. No more builds are available for this month.
 policyEvaluations:
   title: Policy Evaluations
   failedToSavePipeline: Pipeline can not be saved due to the policy evaluation failures.

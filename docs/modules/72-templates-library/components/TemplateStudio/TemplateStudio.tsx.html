@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/102</span>
+                <span class='fraction'>0/104</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/101</span>
+                <span class='fraction'>0/110</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/102</span>
+                <span class='fraction'>0/104</span>
             </div>
         
             
@@ -333,7 +333,13 @@
 <a name='L274'></a><a href='#L274'>274</a>
 <a name='L275'></a><a href='#L275'>275</a>
 <a name='L276'></a><a href='#L276'>276</a>
-<a name='L277'></a><a href='#L277'>277</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -361,6 +367,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -391,6 +399,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -417,6 +426,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -517,7 +527,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -580,6 +589,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -635,6 +647,8 @@ import type { GetErrorResponse } from '@templates-library/components/TemplateStu
 <span class="cstat-no" title="statement not covered" >import { DefaultNewTemplateId } from 'framework/Templates/templates'</span>
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 <span class="cstat-no" title="statement not covered" >import { useQueryParams } from '@common/hooks'</span>
+<span class="cstat-no" title="statement not covered" >import { useAppStore } from 'framework/AppStore/AppStoreContext'</span>
+<span class="cstat-no" title="statement not covered" >import NoEntityFound from '@pipeline/pages/utils/NoEntityFound/NoEntityFound'</span>
 <span class="cstat-no" title="statement not covered" >import { TemplateContext } from './TemplateContext/TemplateContext'</span>
 <span class="cstat-no" title="statement not covered" >import css from './TemplateStudio.module.scss'</span>
 &nbsp;
@@ -667,6 +681,7 @@ export type TemplateFormRef&lt;T = unknown&gt; =
   const { showError } = <span class="cstat-no" title="statement not covered" >useToaster()</span>
   const history = <span class="cstat-no" title="statement not covered" >useHistory()</span>
   const templateFormikRef = <span class="cstat-no" title="statement not covered" >React.useRef&lt;TemplateFormikRef | null&gt;(null)</span>
+  const { isGitSyncEnabled } = <span class="cstat-no" title="statement not covered" >useAppStore()</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useDocumentTitle([parse(template?.name || getString('common.templates'))])</span>
 &nbsp;
@@ -693,14 +708,15 @@ export type TemplateFormRef&lt;T = unknown&gt; =
 <span class="cstat-no" title="statement not covered" >      if (isConfirmed) {</span>
 <span class="cstat-no" title="statement not covered" >        deleteTemplateCache(gitDetails).then(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          history.push(</span>
-            routes.toPipelineStudio({
+            routes.toTemplateStudio({
               projectIdentifier,
               orgIdentifier,
-              pipelineIdentifier: defaultTo(template?.identifier, '-1'),
+              templateIdentifier: defaultTo(template?.identifier, '-1'),
               accountId,
               module,
               branch: selectedBranch,
-              repoIdentifier: repoIdentifier
+              repoIdentifier: repoIdentifier,
+              versionLabel: template?.versionLabel
             })
           )
 <span class="cstat-no" title="statement not covered" >          location.reload()</span>
@@ -793,7 +809,6 @@ export type TemplateFormRef&lt;T = unknown&gt; =
               repoIdentifier: selectedFilter.repo
             })
           )
-<span class="cstat-no" title="statement not covered" >          location.reload()</span>
         })
       }
     },
@@ -862,7 +877,10 @@ export type TemplateFormRef&lt;T = unknown&gt; =
       &lt;Page.Body&gt;
         {isLoading &amp;&amp; &lt;PageSpinner /&gt;}
         &lt;Layout.Vertical height={'100%'}&gt;
-          {!isLoading &amp;&amp; isEmpty(template) &amp;&amp; &lt;GenericErrorHandler /&gt;}
+          {!isLoading &amp;&amp; isEmpty(template) &amp;&amp; !isGitSyncEnabled &amp;&amp; &lt;GenericErrorHandler /&gt;}
+          {!isLoading &amp;&amp; isEmpty(template) &amp;&amp; isGitSyncEnabled &amp;&amp; (
+            &lt;NoEntityFound identifier={templateIdentifier} entityType="template" /&gt;
+          )}
           {isInitialized &amp;&amp; !isEmpty(template) &amp;&amp; (
             &lt;&gt;
               &lt;TemplateStudioSubHeader
@@ -892,7 +910,7 @@ export type TemplateFormRef&lt;T = unknown&gt; =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 08 2021 14:22:19 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 08 2021 15:42:08 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

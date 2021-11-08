@@ -2,7 +2,17 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { get } from 'lodash-es'
 import ReactTimeago from 'react-timeago'
-import { Button, ButtonVariation, Color, Container, FontVariation, Layout, Text, Intent } from '@wings-software/uicore'
+import {
+  Button,
+  ButtonVariation,
+  Color,
+  Container,
+  FontVariation,
+  Layout,
+  Text,
+  Intent,
+  Utils
+} from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { Evaluation, EvaluationDetails, EvaluatedPolicy } from 'services/pm'
@@ -48,6 +58,7 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
   const [expandedSets, setExpandedSets] = useState<Set<string>>(new Set())
   const metadata = _metadata as Evaluation
   const failure = metadata.status === EvaluationStatus.ERROR
+  const warning = metadata.status === EvaluationStatus.WARNING
   const details = get(metadata, 'details') as EvaluationDetails
   const timestamp = Number(get(metadata, 'timestamp') || 0)
   const [sortBy, setSortBy] = useState<SortBy>(SortBy.STATUS)
@@ -91,14 +102,19 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
     <Container padding="xlarge">
       {/* Alert on top */}
       <Text
-        background={failure ? Color.RED_100 : Color.GREEN_100}
-        icon={failure ? 'warning-sign' : 'tick-circle'}
-        iconProps={{ style: { color: failure ? 'var(--red-500)' : 'var(--green-500)' } }}
+        data-status={failure ? Color.RED_100 : warning ? Color.ORANGE_100 : Color.GREEN_100}
+        style={{
+          background: Utils.getRealCSSColor(failure ? Color.RED_100 : warning ? Color.ORANGE_100 : Color.GREEN_100)
+        }}
+        icon={failure || warning ? 'warning-sign' : 'tick-circle'}
+        iconProps={{ style: { color: failure ? 'var(--red-500)' : warning ? 'var(--warning)' : 'var(--green-500)' } }}
         font={{ variation: FontVariation.BODY1 }}
         padding="small"
       >
         {failure
           ? headingErrorMessage || getString('governance.failureHeading')
+          : warning
+          ? getString('governance.warningHeading')
           : getString('governance.successHeading')}
       </Text>
 

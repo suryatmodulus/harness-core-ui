@@ -2,12 +2,13 @@ editPolicy: Edit Policy
 formatInput: Format Input
 selectInput: Select Input
 clearOutput: Clear Output
-inputFailedEvaluation: Input failed policy evaluation
-inputSuccededEvaluation: Input succeded policy evaluation
+inputFailedEvaluation: Input failed Policy Evaluation
+inputSuccededEvaluation: Input succeeded Policy Evaluation
 warning: warning
 evaluatedTime: 'Evaluated {{time}}'
-failureHeading: Pipeline execution could not proceed due to the policy evaluation failures.
-failureHeadingEvaluationDetail: Policy evaluation failed.
+failureHeading: Pipeline execution could not proceed due to the Policy Evaluation failures.
+warningHeading: Pipeline execution has Policy Evaluation warnings.
+failureHeadingEvaluationDetail: Policy Evaluation failed.
 successHeading: All policies are passed.
 policySets: 'Policy Sets ({{count}})'
 evaluations: Evaluations {{count}}

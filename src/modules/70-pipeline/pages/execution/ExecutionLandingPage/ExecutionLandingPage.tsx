@@ -45,7 +45,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
   const [selectedStageId, setSelectedStageId] = React.useState('')
   const [selectedStepId, setSelectedStepId] = React.useState('')
   const queryParams = useQueryParams<ExecutionPageQueryParams>()
-  const location = useLocation<{ governanceFailed: boolean; governanceMetadata: GovernanceMetadata }>()
+  const location = useLocation<{ shouldShowGovernanceEvaluations: boolean; governanceMetadata: GovernanceMetadata }>()
   const locationPathNameArr = location?.pathname?.split('/') || []
   const selectedPageTab = locationPathNameArr[locationPathNameArr.length - 1]
   const [stepsGraphCanvasState, setStepsGraphCanvasState] = React.useState<GraphCanvasState>({
@@ -201,7 +201,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
             >
               {props.children}
             </div>
-            {!!location?.state?.governanceFailed && (
+            {!!location?.state?.shouldShowGovernanceEvaluations && (
               <EvaluationModal accountId={accountId} metadata={location?.state?.governanceMetadata} />
             )}
           </div>

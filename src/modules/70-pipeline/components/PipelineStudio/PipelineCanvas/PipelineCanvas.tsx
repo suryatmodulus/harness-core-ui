@@ -198,7 +198,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const { OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
   const [governanceMetadata, setGovernanceMetadata] = useState<GovernanceMetadata>()
   const shouldShowGovernanceEvaluation =
-    OPA_PIPELINE_GOVERNANCE && (governanceMetadata?.deny || governanceMetadata?.status === 'error')
+    OPA_PIPELINE_GOVERNANCE && (governanceMetadata?.status === 'error' || governanceMetadata?.status === 'warning')
 
   const { openDialog: openUnsavedChangesDialog } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),

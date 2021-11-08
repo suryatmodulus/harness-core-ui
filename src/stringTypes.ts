@@ -830,6 +830,7 @@ export interface StringsMap {
   'governance.successHeading': string
   'governance.warn': string
   'governance.warning': string
+  'governance.warningHeading': string
   'governance.wizard.fieldArray': string
   'governance.wizard.policyToEval': string
   'authSettings.SAMLProvider': string

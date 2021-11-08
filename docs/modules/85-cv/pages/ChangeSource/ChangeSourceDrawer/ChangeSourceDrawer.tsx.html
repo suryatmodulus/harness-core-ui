@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>38/40</span>
+                <span class='fraction'>39/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.59% </span>
+                <span class="strong">64.58% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>39/49</span>
+                <span class='fraction'>31/48</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.87% </span>
+                <span class="strong">92.68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>37/39</span>
+                <span class='fraction'>38/41</span>
             </div>
         
             
@@ -213,15 +213,12 @@
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -238,11 +235,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -287,6 +280,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -380,7 +376,6 @@ import { useParams } from 'react-router-dom'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { Connectors } from '@connectors/constants'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import type { ConnectorReferenceFieldProps } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
@@ -395,13 +390,9 @@ import {
 } from './ChangeSourceDrawer.utils'
 import type { ChangeSoureDrawerInterface, UpdatedChangeSourceDTO } from './ChangeSourceDrawer.types'
 import PageDutyChangeSource from './components/PagerDutyChangeSource/PagerDutyChangeSource'
-import {
-  ChangeSourceFieldNames,
-  HARNESS_CD,
-  HARNESS_CD_NEXTGEN,
-  ChangeSourceTypes
-} from './ChangeSourceDrawer.constants'
+import { ChangeSourceFieldNames, ChangeSourceTypes } from './ChangeSourceDrawer.constants'
 import HarnessCDCurrentGenChangeSource from './components/HarnessCDCurrentGenChangeSource/HarnessCDCurrentGenChangeSource'
+import KubernetesChangeSource from './components/KubernetesChangeSource/KubernetesChangeSource'
 import style from './ChangeSourceDrawer.module.scss'
 &nbsp;
 export function ChangeSourceDrawer({
@@ -431,31 +422,34 @@ export function ChangeSourceDrawer({
   const renderChangeSource = useCallback(
     (formik: FormikProps&lt;any&gt;): React.ReactNode =&gt; {
       const changeSourceType = formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype as string
-      if (!changeSourceType || changeSourceType === HARNESS_CD_NEXTGEN) {
+      if (!changeSourceType || changeSourceType === ChangeSourceTypes.HarnessCDNextGen) {
         return null
       }
       let changeSource = null
 &nbsp;
       switch (changeSourceType) {
-        case Connectors.PAGER_DUTY:
+        case ChangeSourceTypes.PagerDuty:
           changeSource = &lt;PageDutyChangeSource formik={formik} isEdit={isEdit} /&gt;
           break
-<span class="branch-1 cbranch-no" title="branch not covered" >        case HARNESS_CD:</span>
+<span class="branch-1 cbranch-no" title="branch not covered" >        case ChangeSourceTypes.HarnessCD:</span>
 <span class="cstat-no" title="statement not covered" >          changeSource = &lt;HarnessCDCurrentGenChangeSource formik={formik} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >          break</span>
-        default:
-          changeSource = (
+        case ChangeSourceTypes.K8sCluster:
+          changeSource = &lt;KubernetesChangeSource formik={formik} isEdit={isEdit} /&gt;
+          break
+<span class="branch-3 cbranch-no" title="branch not covered" >        default:</span>
+<span class="cstat-no" title="statement not covered" >          changeSource = (</span>
             &lt;FormConnectorReferenceField
               width={400}
               formik={formik}
               type={changeSourceType as ConnectorReferenceFieldProps['type']}
               name={'spec.connectorRef'}
-              disabled={isEdit &amp;&amp; changeSourceType === ChangeSourceTypes.K8sCluster}
+              disabled={isEdit}
               accountIdentifier={accountId}
               projectIdentifier={projectIdentifier}
               orgIdentifier={orgIdentifier}
               placeholder={getString('cv.healthSource.connectors.selectConnector', {
-                sourceType: formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype
+                sourceType: formik?.values?.type
               })}
               label={
                 &lt;Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}&gt;
@@ -538,7 +532,7 @@ export function ChangeSourceDrawer({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 08 2021 15:42:08 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 08 2021 19:16:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

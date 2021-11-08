@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.79% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/53</span>
+                <span class='fraction'>48/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.06% </span>
+                <span class="strong">67.36% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>98/178</span>
+                <span class='fraction'>97/144</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/14</span>
+                <span class='fraction'>11/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.54% </span>
+                <span class="strong">85.45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/52</span>
+                <span class='fraction'>47/55</span>
             </div>
         
             
@@ -315,7 +315,8 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -478,12 +479,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -548,16 +548,17 @@ import { useStrings } from 'framework/strings'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
+import ValidationStatus from '@cv/pages/components/ValidationStatus/ValidationStatus'
+import { StatusOfValidation } from '@cv/pages/components/ValidationStatus/ValidationStatus.constants'
 import {
   getOptions,
   getInputGroupProps,
-  renderValidationStatus,
   validateMetrics,
   createMetricDataFormik
 } from '../MonitoredServiceConnector.utils'
 &nbsp;
 import MetricPack from '../MetrickPack'
-import { ValidationStatus, HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
+import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
 import { validateNewRelic } from './NewRelicHealthSource.utils'
 import css from './NewrelicMonitoredSource.module.scss'
 &nbsp;
@@ -606,7 +607,7 @@ export default function NewRelicHealthSource({
   })
 &nbsp;
   const onValidate = async (appName: string, appId: string, metricObject: { [key: string]: any }): Promise&lt;void&gt; =&gt; {
-    setNewRelicValidation({ status: ValidationStatus.IN_PROGRESS, result: [] })
+    setNewRelicValidation({ status: StatusOfValidation.IN_PROGRESS, result: [] })
     const filteredMetricPack = selectedMetricPacks<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilter(item =&gt; metricObject[item.identifier as string])
     const { validationStatus, validationResult } = await validateMetrics(
       filteredMetricPack || <span class="branch-1 cbranch-no" title="branch not covered" >[],</span>
@@ -638,7 +639,7 @@ export default function NewRelicHealthSource({
     if (
       newRelicData.isEdit &amp;&amp;
       selectedMetricPacks.length &amp;&amp;
-      newRelicValidation.status !== ValidationStatus.IN_PROGRESS
+      newRelicValidation.status !== StatusOfValidation.IN_PROGRESS
     ) {
       onValidate(
         newRelicData<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pplicationName,
@@ -707,20 +708,19 @@ export default function NewRelicHealthSource({
                   /&gt;
                 &lt;/Container&gt;
                 &lt;Container width={'300px'} color={Color.BLACK}&gt;
-                  {formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ewRelicApplication.label &amp;&amp;
-                    formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ewRelicApplication.value &amp;&amp;
-                    renderValidationStatus(
-                      newRelicValidation.status,
-                      getString,
-                      newRelicValidation.result,
-                      setValidationResultData,
-<span class="fstat-no" title="function not covered" >                      () =</span>&gt;
-<span class="cstat-no" title="statement not covered" >                        onValidate(</span>
-                          formik?.values?.newRelicApplication?.label,
-                          formik?.values?.newRelicApplication?.value,
-                          formik?.values?.metricData
-                        )
-                    )}
+                  {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ewRelicApplication.label &amp;&amp; formik.values.newRelicApplication.value &amp;&amp; (
+                    &lt;ValidationStatus
+                      validationStatus={newRelicValidation<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus as StatusOfValidation}
+                      onClick={
+                        newRelicValidation.result<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength
+                          ? <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setValidationResultData(newRelicValidation.result)</span>
+                          : undefined
+                      }
+                      onRetry={<span class="fstat-no" title="function not covered" >() =</span>&gt;
+<span class="cstat-no" title="statement not covered" >                        onValidate(formik.values.appdApplication, formik.values.appDTier, formik.values.metricData)</span>
+                      }
+                    /&gt;
+                  )}
                 &lt;/Container&gt;
               &lt;/Layout.Horizontal&gt;
             &lt;/CardWithOuterTitle&gt;
@@ -766,7 +766,7 @@ export default function NewRelicHealthSource({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 08 2021 15:42:08 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 08 2021 19:16:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

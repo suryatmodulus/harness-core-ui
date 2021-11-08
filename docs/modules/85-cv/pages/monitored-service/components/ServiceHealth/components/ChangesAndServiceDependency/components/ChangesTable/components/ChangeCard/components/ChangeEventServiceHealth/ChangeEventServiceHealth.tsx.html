@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
+                <span class="strong">90.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/21</span>
+                <span class='fraction'>20/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>6/10</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
+                <span class="strong">90.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/21</span>
+                <span class='fraction'>20/22</span>
             </div>
         
             
@@ -107,8 +107,7 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -121,10 +120,10 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,15 +142,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">48x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,16 +163,16 @@ import { useStrings } from 'framework/strings'
 import { TimePeriodEnum } from '@cv/pages/monitored-service/components/ServiceHealth/ServiceHealth.constants'
 import HealthScoreChart from '@cv/pages/monitored-service/components/ServiceHealth/components/HealthScoreChart/HealthScoreChart'
 import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
-import { TimestampChart } from '@cv/components/ChangeTimeline/components/TimestampChart/TimestampChart'
+import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import { getColorForChangeEventType } from '@cv/components/ChangeTimeline/ChangeTimeline.utils'
 import type { ChangeEventServiceHealthProps } from './ChangeEventServiceHealth.types'
 import { TWO_HOURS_IN_MILLISECONDS, COLUMN_CHART_PROPS } from './ChangeEventServiceHealth.constants'
 import css from './ChangeEventServiceHealth.module.scss'
 &nbsp;
 export default function ChangeEventServiceHealth(props: ChangeEventServiceHealthProps): JSX.Element {
-  const { serviceIdentifier, envIdentifier, startTime, eventType } = props
+  const { serviceIdentifier, envIdentifier, startTime: propsStartTime, eventType } = props
   const { getString } = useStrings()
-  const [timestamps, setTimestamps] = useState&lt;number[]&gt;([])
+  const [[startTime, endTime], setTimestamps] = useState&lt;[number, number]&gt;([0, 0])
   return (
     &lt;Container className={css.main}&gt;
       &lt;Text className={css.status}&gt;{getString('status')}&lt;/Text&gt;
@@ -187,25 +185,24 @@ export default function ChangeEventServiceHealth(props: ChangeEventServiceHealth
         columChartProps={{
           ...COLUMN_CHART_PROPS,
           timestampMarker: {
-            timestamp: startTime,
+            timestamp: propsStartTime,
             color: getColorForChangeEventType(eventType)
           }
         }}
-        endTime={startTime + TWO_HOURS_IN_MILLISECONDS}
+        endTime={propsStartTime + TWO_HOURS_IN_MILLISECONDS}
         setHealthScoreData={riskData =&gt; {
-          const updatedTimestamps = []
-          for (const data of riskData || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span> {
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (data.endTime &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >data.startTime)</span> {
-<span class="cstat-no" title="statement not covered" >              updatedTimestamps.push(data.startTime)</span>
-<span class="cstat-no" title="statement not covered" >              updatedTimestamps.push(data.endTime)</span>
-            }
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (!riskData<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength) {
+<span class="cstat-no" title="statement not covered" >            return</span>
           }
-          setTimestamps(updatedTimestamps)
+          const newStartTime = riskData[0].startTime
+          const newEndTime = riskData[riskData.length - 2].endTime
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (!newStartTime || <span class="branch-1 cbranch-no" title="branch not covered" >!newEndTime)</span> {
+            return
+          }
+<span class="cstat-no" title="statement not covered" >          setTimestamps([newStartTime, newEndTime])</span>
         }}
       /&gt;
-      &lt;Container className={css.timestamps}&gt;
-        &lt;TimestampChart timestamps={timestamps} tickAmount={5} /&gt;
-      &lt;/Container&gt;
+      &lt;TimelineBar startDate={startTime} endDate={endTime} columnWidth={50} className={css.timestamps} /&gt;
       &lt;ServiceDependenciesLegend hideServiceTypeLegend margin={{ top: 'small' }} /&gt;
     &lt;/Container&gt;
   )
@@ -217,7 +214,7 @@ export default function ChangeEventServiceHealth(props: ChangeEventServiceHealth
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 08 2021 15:42:08 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 08 2021 19:16:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../../../../../prettify.js"></script>

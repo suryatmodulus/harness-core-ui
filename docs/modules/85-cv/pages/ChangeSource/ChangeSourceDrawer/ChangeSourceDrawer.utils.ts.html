@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.15% </span>
+                <span class="strong">96.2% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/78</span>
+                <span class='fraction'>76/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.11% </span>
+                <span class="strong">60.54% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>107/178</span>
+                <span class='fraction'>112/185</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.65% </span>
+                <span class="strong">95.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>66/69</span>
+                <span class='fraction'>67/70</span>
             </div>
         
             
@@ -246,7 +246,9 @@
 <a name='L187'></a><a href='#L187'>187</a>
 <a name='L188'></a><a href='#L188'>188</a>
 <a name='L189'></a><a href='#L189'>189</a>
-<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,7 +257,6 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -339,7 +340,7 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
@@ -372,7 +373,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -448,8 +452,7 @@ import {
   ChangeSourceFieldNames,
   ChangeSourceCategoryOptions,
   ChangeSourceCategoryName,
-  HARNESS_CD,
-  HARNESS_CD_NEXTGEN
+  ChangeSourceTypes
 } from './ChangeSourceDrawer.constants'
 import type { UpdatedChangeSourceDTO } from './ChangeSourceDrawer.types'
 &nbsp;
@@ -519,7 +522,7 @@ export const validateChangeSource = (
     errors.type = getString('cv.changeSource.selectChangeSourceType')
   }
 &nbsp;
-  if (!spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef &amp;&amp; type !== HARNESS_CD_NEXTGEN &amp;&amp; type !== HARNESS_CD) {
+  if (!spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef &amp;&amp; type !== ChangeSourceTypes.HarnessCDNextGen &amp;&amp; type !== ChangeSourceTypes.HarnessCD) {
     errors.spec = {
       connectorRef: getString('cv.onboarding.selectProductScreen.validationText.connectorRef')
     }
@@ -542,11 +545,11 @@ export const validateChangeSourceSpec = (
 ): { [key: string]: string } =&gt; {
   let errors = { ...errorSpec }
   switch (type) {
-    case Connectors.PAGER_DUTY:
+    case ChangeSourceTypes.PagerDuty:
       return spec<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>agerDutyServiceId
         ? {}
         : { ...errors, pagerDutyServiceId: getString('cv.changeSource.PageDuty.selectPagerDutyService') }
-    case HARNESS_CD:
+    case ChangeSourceTypes.HarnessCD:
       <span class="missing-if-branch" title="else path not taken" >E</span>if (!spec<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>arnessApplicationId) {
         errors = {
           ...errors,
@@ -560,6 +563,9 @@ export const validateChangeSourceSpec = (
         errors = { ...errors, harnessServiceId: getString('cv.changeSource.HarnessCDCurrentGen.selectHarnessService') }
       }
       return errors
+    case ChangeSourceTypes.K8sCluster:
+      return spec<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>sConnectorInvalid === true ? <span class="branch-0 cbranch-no" title="branch not covered" >{ ...errors, isConnectorInvalid: getString('invalidText') } </span>: errors
+&nbsp;
     default:
       return {}
   }
@@ -585,16 +591,16 @@ export const getChangeSourceOptions = (
 &nbsp;
 export const updateSpecByType = (data: ChangeSourceDTO): ChangeSourceDTO['spec'] =&gt; {
   switch (data<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype) {
-    case Connectors.PAGER_DUTY:
+    case ChangeSourceTypes.PagerDuty:
       return {
         connectorRef: data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef,
         pagerDutyServiceId: data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>agerDutyServiceId
       }
-<span class="branch-1 cbranch-no" title="branch not covered" >    case Connectors.KUBERNETES_CLUSTER:</span>
+<span class="branch-1 cbranch-no" title="branch not covered" >    case ChangeSourceTypes.K8sCluster:</span>
 <span class="cstat-no" title="statement not covered" >      return {</span>
         connectorRef: data?.spec?.connectorRef
       }
-<span class="branch-2 cbranch-no" title="branch not covered" >    case HARNESS_CD:</span>
+<span class="branch-2 cbranch-no" title="branch not covered" >    case ChangeSourceTypes.HarnessCD:</span>
 <span class="cstat-no" title="statement not covered" >      return {</span>
         harnessApplicationId: data?.spec?.harnessApplicationId?.value,
         harnessServiceId: data?.spec?.harnessServiceId?.value,
@@ -631,7 +637,7 @@ export const preSelectChangeSourceConnectorOnCategoryChange = (categoryName: str
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 08 2021 15:42:08 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 08 2021 19:16:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

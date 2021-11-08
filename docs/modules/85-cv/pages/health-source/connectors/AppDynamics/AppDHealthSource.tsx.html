@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.82% </span>
+                <span class="strong">83.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>57/68</span>
+                <span class='fraction'>59/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.55% </span>
+                <span class="strong">71.88% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>136/214</span>
+                <span class='fraction'>138/192</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>15/20</span>
+                <span class='fraction'>15/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">82.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>55/66</span>
+                <span class='fraction'>57/69</span>
             </div>
         
             
@@ -359,11 +359,7 @@
 <a name='L300'></a><a href='#L300'>300</a>
 <a name='L301'></a><a href='#L301'>301</a>
 <a name='L302'></a><a href='#L302'>302</a>
-<a name='L303'></a><a href='#L303'>303</a>
-<a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a>
-<a name='L306'></a><a href='#L306'>306</a>
-<a name='L307'></a><a href='#L307'>307</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L303'></a><a href='#L303'>303</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
@@ -391,8 +387,8 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -400,7 +396,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
@@ -625,13 +620,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -695,18 +687,17 @@ import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
+import ValidationStatus from '@cv/pages/components/ValidationStatus/ValidationStatus'
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
+import { StatusOfValidation } from '@cv/pages/components/ValidationStatus/ValidationStatus.constants'
 import {
   getOptions,
   getInputGroupProps,
-  renderValidationStatus,
   validateMetrics,
   createMetricDataFormik
 } from '../MonitoredServiceConnector.utils'
-&nbsp;
 import MetricPack from '../MetrickPack'
-import { ValidationStatus, HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
-&nbsp;
+import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
 import css from './AppDHealthSource.module.scss'
 &nbsp;
 export default function AppDMonitoredSource({
@@ -777,7 +768,7 @@ export default function AppDMonitoredSource({
   }, [data<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pplicationName])
 &nbsp;
   const onValidate = async (appName: string, tierName: string, metricObject: { [key: string]: any }): Promise&lt;void&gt; =&gt; {
-    setAppDValidation({ status: ValidationStatus.IN_PROGRESS, result: [] })
+    setAppDValidation({ status: StatusOfValidation.IN_PROGRESS, result: [] })
     const filteredMetricPack = selectedMetricPacks.filter(item =&gt; metricObject[item.identifier as string])
     const guid = Utils.randomId()
     setGuidMap(oldMap =&gt; {
@@ -834,7 +825,7 @@ export default function AppDMonitoredSource({
   }
 &nbsp;
   useEffect(() =&gt; {
-    if (data.isEdit &amp;&amp; selectedMetricPacks.length &amp;&amp; appDValidation.status !== ValidationStatus.IN_PROGRESS) {
+    if (data.isEdit &amp;&amp; selectedMetricPacks.length &amp;&amp; appDValidation.status !== StatusOfValidation.IN_PROGRESS) {
       onValidate(data<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pplicationName, data<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ierName, createMetricDataFormik(data<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricPacks))
     }
   }, [selectedMetricPacks, tierLoading, data.isEdit])
@@ -927,20 +918,17 @@ export default function AppDMonitoredSource({
                   &lt;/Container&gt;
                 )}
                 &lt;Container width={'300px'} color={Color.BLACK}&gt;
-                  {formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ppDTier &amp;&amp;
-                    formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ppdApplication &amp;&amp;
-                    renderValidationStatus(
-                      appDValidation.status,
-                      getString,
-                      appDValidation.result,
-                      setValidationResultData,
-<span class="fstat-no" title="function not covered" >                      () =</span>&gt;
-<span class="cstat-no" title="statement not covered" >                        onValidate(</span>
-                          formik?.values?.appdApplication,
-                          formik?.values?.appDTier,
-                          formik?.values?.metricData
-                        )
-                    )}
+                  {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ppDTier &amp;&amp; formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues.appdApplication &amp;&amp; (
+                    &lt;ValidationStatus
+                      validationStatus={appDValidation<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus as StatusOfValidation}
+                      onClick={
+                        appDValidation.result<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setValidationResultData(appDValidation.result) </span>: undefined
+                      }
+                      onRetry={<span class="fstat-no" title="function not covered" >() =</span>&gt;
+<span class="cstat-no" title="statement not covered" >                        onValidate(formik.values.appdApplication, formik.values.appDTier, formik.values.metricData)</span>
+                      }
+                    /&gt;
+                  )}
                 &lt;/Container&gt;
               &lt;/Layout.Horizontal&gt;
             &lt;/CardWithOuterTitle&gt;
@@ -982,7 +970,7 @@ export default function AppDMonitoredSource({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 08 2021 15:42:08 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 08 2021 19:16:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

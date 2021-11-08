@@ -1,4 +1,6 @@
 import React from 'react'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 import { Route, useParams, Redirect, Switch } from 'react-router-dom'
 import { createClient, Provider, dedupExchange, cacheExchange, fetchExchange } from 'urql'
 import { requestPolicyExchange } from '@urql/exchange-request-policy'
@@ -59,6 +61,20 @@ const AuthSettingsRoutes: React.FC = () => {
     })
   }, [])
 
+  const stripePromise = loadStripe(
+    'pk_test_51IzYnIK1vsc7tc8yri9N5swmDxflQhIkAQbVxepcq1YoRlvUDgCJNGaoPCcSqyfOQt5tyRy4a3OBhezumJpPtm3100xKIx3aZ6'
+  )
+
+  const options = {
+    // passing the client secret obtained in step 2
+    clientSecret:
+      'sk_test_51IzYnIK1vsc7tc8y6jZOJZyWHApHYNQJdcfCYKkhkxM4fHz1VnyzoHb3UpgqEUSeKuNQQPWnJfJcw0OufgJlnCLa00Pk2IGjvr',
+    // Fully customizable with appearance API.
+    appearance: {
+      /*...*/
+    }
+  }
+
   return (
     <Provider value={urqlClient()}>
       <Switch>
@@ -86,13 +102,15 @@ const AuthSettingsRoutes: React.FC = () => {
         >
           <AccountOverview />
         </RouteWithLayout>
-        <RouteWithLayout
-          sidebarProps={AccountSideNavProps}
-          path={routes.toSubscriptions({ ...accountPathProps })}
-          exact
-        >
-          <SubscriptionsPage />
-        </RouteWithLayout>
+        <Elements stripe={stripePromise} options={options}>
+          <RouteWithLayout
+            sidebarProps={AccountSideNavProps}
+            path={routes.toSubscriptions({ ...accountPathProps })}
+            exact
+          >
+            <SubscriptionsPage />
+          </RouteWithLayout>
+        </Elements>
         <Route path="*">
           <NotFoundPage />
         </Route>

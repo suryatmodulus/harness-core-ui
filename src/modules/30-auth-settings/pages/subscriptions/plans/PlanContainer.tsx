@@ -17,6 +17,7 @@ import {
   useExtendTrialLicense
 } from 'services/cd-ng'
 import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContactSalesMktoModal'
+import { usePaymentModal } from '@auth-settings/modals/Payment/usePaymentModal'
 import routes from '@common/RouteDefinitions'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -98,6 +99,8 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, moduleName }) => 
       accountIdentifier: accountId
     }
   })
+
+  const { openPaymentModal } = usePaymentModal()
 
   function handleManageSubscription(): void {
     history.push(routes.toSubscriptions({ accountId, moduleCard: module, tab: 'OVERVIEW' }))
@@ -209,6 +212,7 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, moduleName }) => 
       handleContactSales: openMarketoContactSales,
       handleExtendTrial,
       handleManageSubscription,
+      openPaymentModal,
       btnLoading,
       actions: actions?.data
     })

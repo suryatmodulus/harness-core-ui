@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.06% </span>
+                <span class="strong">97.14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/34</span>
+                <span class='fraction'>34/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.97% </span>
+                <span class="strong">65.15% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>62/132</span>
+                <span class='fraction'>86/132</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.97% </span>
+                <span class="strong">97.06% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/33</span>
+                <span class='fraction'>33/34</span>
             </div>
         
             
@@ -233,13 +233,7 @@
 <a name='L174'></a><a href='#L174'>174</a>
 <a name='L175'></a><a href='#L175'>175</a>
 <a name='L176'></a><a href='#L176'>176</a>
-<a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a>
-<a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a>
-<a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a>
-<a name='L183'></a><a href='#L183'>183</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L177'></a><a href='#L177'>177</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -254,8 +248,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -265,7 +259,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -309,6 +302,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -317,15 +313,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -424,7 +412,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { defaultTo, find } from 'lodash-es'
 &nbsp;
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { ButtonVariation } from '@wings-software/uicore'
 import { String as StrTemplate, useStrings } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
@@ -434,7 +422,6 @@ import type { StageType } from '@pipeline/utils/stageHelpers'
 import { Duration } from '@common/components/Duration/Duration'
 import { ExecutionStatus, isExecutionFailed } from '@pipeline/utils/statusHelpers'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
-import routes from '@common/RouteDefinitions'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { usePermission } from '@rbac/hooks/usePermission'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -442,6 +429,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import css from './ExecutionStageDetailsHeader.module.scss'
 &nbsp;
 export function ExecutionStageDetailsHeader(): React.ReactElement {
@@ -454,7 +442,6 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
   const errorMessage = defaultTo(stage?.failureInfo<span class="branch-1 cbranch-no" title="branch not covered" >?.message,</span> '')
   const { getString } = useStrings()
   const { RUN_INDIVIDUAL_STAGE } = useFeatureFlags()
-  const history = useHistory()
   const [canEdit, canExecute] = usePermission(
     {
       resourceScope: {
@@ -491,6 +478,16 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
       ) : null}
     &lt;/div&gt;
   )
+  const runPipeline = <span class="fstat-no" title="function not covered" >(): void =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >    openRunPipelineModal()</span>
+  }
+&nbsp;
+  const { openRunPipelineModal } = useRunPipelineModal({
+    pipelineIdentifier,
+    repoIdentifier: pipelineExecutionDetail<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineExecutionSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier,</span>
+    branch: pipelineExecutionDetail<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineExecutionSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.branch,</span>
+    stagesExecuted: [stage?.nodeIdentifier || '']
+  })
 &nbsp;
   return (
     &lt;div className={css.main}&gt;
@@ -503,22 +500,7 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
 <span class="branch-1 cbranch-no" title="branch not covered" >                &lt;RbacButton</span>
                   icon="repeat"
                   tooltip={getString('pipeline.execution.actions.rerunStage')}
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                    history.push(</span>
-                      `${routes.toPipelineStudio({
-                        accountId,
-                        orgIdentifier,
-                        projectIdentifier,
-                        pipelineIdentifier,
-                        module,
-                        repoIdentifier: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoIdentifier,
-                        branch: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.branch,
-                        runPipeline: true,
-                        executionId: executionIdentifier,
-                        stagesExecuted: [stage?.nodeIdentifier || '']
-                      })}`
-                    )
-                  }}
+                  onClick={runPipeline}
                   variation={ButtonVariation.ICON}
                   disabled={!canExecute}
                   minimal
@@ -610,7 +592,7 @@ export function ExecutionStageDetailsHeader(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 08 2021 09:26:52 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 08 2021 10:53:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

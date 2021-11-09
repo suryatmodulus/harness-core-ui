@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -104,14 +104,13 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -122,6 +121,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -129,11 +129,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,13 +156,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import cx from 'classnames'
-import { useModalHook } from '@wings-software/uicore'
-import { Dialog, Classes } from '@blueprintjs/core'
+import { useModalHook, Dialog } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import type { SamlSettings } from 'services/cd-ng'
 import SAMLProviderForm from './views/SAMLProviderForm'
-import css from './useSAMLProvider.module.scss'
-&nbsp;
 interface Props {
   onSuccess: () =&gt; void
 }
@@ -170,18 +171,23 @@ interface UseSAMLProviderReturn {
 &nbsp;
 export const useSAMLProviderModal = ({ onSuccess }: Props): UseSAMLProviderReturn =&gt; {
   const [samlProvider, setSamlProvider] = React.useState&lt;SamlSettings&gt;()
+  const { getString } = useStrings()
   const [showModal, hideModal] = useModalHook(
     () =&gt; (
-      &lt;Dialog enforceFocus={false} isOpen title="" onClose={hideModal} className={cx(Classes.DIALOG, css.dialog)}&gt;
+      &lt;Dialog
+        isOpen={true}
+        title={samlProvider ? getString('authSettings.editSAMLProvider') : getString('authSettings.addSAMLProvider')}
+        enforceFocus={false}
+        onClose={hideModal}
+        style={{ minWidth: 'max-content' }}
+      &gt;
         &lt;SAMLProviderForm
           samlProvider={samlProvider}
           onSubmit={() =&gt; {
             onSuccess()
             hideModal()
           }}
-          onCancel={() =&gt; {
-            hideModal()
-          }}
+          onCancel={hideModal}
         /&gt;
       &lt;/Dialog&gt;
     ),
@@ -205,7 +211,7 @@ export const useSAMLProviderModal = ({ onSuccess }: Props): UseSAMLProviderRetur
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 09 2021 06:01:42 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 09 2021 06:57:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

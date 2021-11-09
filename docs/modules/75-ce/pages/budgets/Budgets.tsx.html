@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.15% </span>
+                <span class="strong">71.6% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>57/79</span>
+                <span class='fraction'>58/81</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">70.89% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>55/77</span>
+                <span class='fraction'>56/79</span>
             </div>
         
             
@@ -365,7 +365,9 @@
 <a name='L306'></a><a href='#L306'>306</a>
 <a name='L307'></a><a href='#L307'>307</a>
 <a name='L308'></a><a href='#L308'>308</a>
-<a name='L309'></a><a href='#L309'>309</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -502,6 +504,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -566,6 +569,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -584,8 +590,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -749,7 +753,7 @@ const BudgetMenu: (props: BudgetMenuProps) =&gt; JSX.Element = ({ onEdit, onDele
 interface BudgetsListProps {
   budgetData: BudgetSummary[]
   handleDeleteBudget: (id: string) =&gt; void
-  handleEditBudget: (id: string) =&gt; void
+  handleEditBudget: (budget: BudgetSummary) =&gt; void
   navigateToBudgetDetailsPage: (id: string, name: string) =&gt; void
 }
 &nbsp;
@@ -810,13 +814,14 @@ const BudgetsList: (props: BudgetsListProps) =&gt; JSX.Element | null = ({
 &nbsp;
   const MenuCell: Renderer&lt;CellProps&lt;BudgetSummary&gt;&gt; = ({ row }) =&gt; {
     const budgetId = row.original.id
+    const budget = row.original
 &nbsp;
     const onDelete: () =&gt; void = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >      budgetId &amp;&amp; handleDeleteBudget(budgetId)</span>
     }
 &nbsp;
     const onEdit: () =&gt; void = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >      budgetId &amp;&amp; handleEditBudget(budgetId)</span>
+<span class="cstat-no" title="statement not covered" >      budgetId &amp;&amp; handleEditBudget(budget)</span>
     }
 &nbsp;
     return &lt;BudgetMenu onDelete={onDelete} onEdit={onEdit} /&gt;
@@ -874,6 +879,9 @@ const Budgets: () =&gt; JSX.Element = () =&gt; {
   const { openModal, hideModal } = useBudgetModal({
     onSuccess: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >      hideModal()</span>
+<span class="cstat-no" title="statement not covered" >      refetchBudget({</span>
+        requestPolicy: 'network-only'
+      })
     }
   })
 &nbsp;
@@ -890,13 +898,11 @@ const Budgets: () =&gt; JSX.Element = () =&gt; {
     }
   }
 &nbsp;
-  const handleEditBudget: (id: string) =&gt; void = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+  const handleEditBudget: (budget: BudgetSummary) =&gt; void = <span class="fstat-no" title="function not covered" >budget </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >    openModal({</span>
       isEdit: true,
-      selectedBudget: {
-        lastMonthCost: 0,
-        forecastCost: 0
-      }
+      perspective: budget.perspectiveId,
+      selectedBudget: budget
     })
   }
 &nbsp;
@@ -988,7 +994,7 @@ export default Budgets
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 09 2021 09:43:28 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 09 2021 11:21:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

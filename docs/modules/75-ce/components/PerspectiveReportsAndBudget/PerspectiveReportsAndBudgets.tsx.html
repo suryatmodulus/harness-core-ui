@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.65% </span>
+                <span class="strong">53.61% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>47/91</span>
+                <span class='fraction'>52/97</span>
             </div>
         
             
@@ -523,7 +523,16 @@
 <a name='L464'></a><a href='#L464'>464</a>
 <a name='L465'></a><a href='#L465'>465</a>
 <a name='L466'></a><a href='#L466'>466</a>
-<a name='L467'></a><a href='#L467'>467</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L467'></a><a href='#L467'>467</a>
+<a name='L468'></a><a href='#L468'>468</a>
+<a name='L469'></a><a href='#L469'>469</a>
+<a name='L470'></a><a href='#L470'>470</a>
+<a name='L471'></a><a href='#L471'>471</a>
+<a name='L472'></a><a href='#L472'>472</a>
+<a name='L473'></a><a href='#L473'>473</a>
+<a name='L474'></a><a href='#L474'>474</a>
+<a name='L475'></a><a href='#L475'>475</a>
+<a name='L476'></a><a href='#L476'>476</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -828,7 +837,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -845,6 +861,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1085,7 +1103,7 @@ const ReportsAndBudgets: React.FC&lt;ReportsAndBudgetsProps&gt; = ({ values, onP
           style={{ overflowY: 'auto' }}
         &gt;
           &lt;ScheduledReports /&gt;
-          &lt;Budgets /&gt;
+          &lt;Budgets perspectiveName={<span class="branch-1 cbranch-no" title="branch not covered" >values?.name </span>|| ''} /&gt;
           &lt;FlexExpander /&gt;
           &lt;Layout.Horizontal padding={{ top: 'medium' }} spacing="large"&gt;
             &lt;Button icon="chevron-left" text={getString('previous')} onClick={onPrevButtonClick} /&gt;
@@ -1192,7 +1210,7 @@ const useFetchBudget = (accountId: string, perspectiveId: string) =&gt; {
   return { budgets: data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource || <span class="branch-1 cbranch-no" title="branch not covered" >[],</span> loading, refetch }
 }
 &nbsp;
-const Budgets = (): JSX.Element =&gt; {
+const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element =&gt; {
   const { getString } = useStrings()
   const { accountId, perspectiveId } = useParams&lt;UrlParams&gt;()
   const { mutate: deleteBudget } = useDeleteBudget({ queryParams: { accountIdentifier: accountId } })
@@ -1294,7 +1312,14 @@ const Budgets = (): JSX.Element =&gt; {
           &lt;/Text&gt;
           &lt;Container margin={{ right: 'large' }}&gt;
             &lt;RenderEditDeleteActions
-              onClickEdit={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >openModal({ isEdit: true, selectedBudget: budget })}</span>
+              onClickEdit={<span class="fstat-no" title="function not covered" >() =</span>&gt;
+<span class="cstat-no" title="statement not covered" >                openModal({</span>
+                  perspectiveName: perspectiveName,
+                  perspective: perspectiveId,
+                  isEdit: true,
+                  selectedBudget: budget
+                })
+              }
               onClickDelete={handleDeleteBudget}
             /&gt;
           &lt;/Container&gt;
@@ -1312,6 +1337,8 @@ const Budgets = (): JSX.Element =&gt; {
       onButtonClick={<span class="fstat-no" title="function not covered" >() =</span>&gt;
 <span class="cstat-no" title="statement not covered" >        openModal({</span>
           isEdit: false,
+          perspectiveName: perspectiveName,
+          perspective: perspectiveId,
           selectedBudget: {
             lastMonthCost: lmc?.resource,
             forecastCost: fc?.resource
@@ -1462,7 +1489,7 @@ export default ReportsAndBudgets
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 09 2021 09:43:28 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 09 2021 11:21:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

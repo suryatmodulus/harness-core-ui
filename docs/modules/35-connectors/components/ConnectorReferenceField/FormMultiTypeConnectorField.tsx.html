@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.34% </span>
+                <span class="strong">70.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>68/94</span>
+                <span class='fraction'>68/96</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.88% </span>
+                <span class="strong">59.82% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>200/334</span>
+                <span class='fraction'>201/336</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">30% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/9</span>
+                <span class='fraction'>3/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.04% </span>
+                <span class="strong">70.53% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>67/93</span>
+                <span class='fraction'>67/95</span>
             </div>
         
             
@@ -429,7 +429,8 @@
 <a name='L370'></a><a href='#L370'>370</a>
 <a name='L371'></a><a href='#L371'>371</a>
 <a name='L372'></a><a href='#L372'>372</a>
-<a name='L373'></a><a href='#L373'>373</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">82x</span>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">82x</span>
 <span class="cline-any cline-yes">82x</span>
 <span class="cline-any cline-yes">82x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -637,6 +638,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -647,8 +649,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -711,6 +712,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">460x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1008,6 +1010,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
       }
 <span class="cstat-no" title="statement not covered" >      props.onChange?.(val, MultiTypeInputValue.SELECT_OPTION, MultiTypeInputType.FIXED)</span>
 <span class="cstat-no" title="statement not covered" >      formik?.setFieldValue(name, val)</span>
+<span class="cstat-no" title="statement not covered" >      setSelectedValue(val)</span>
 <span class="cstat-no" title="statement not covered" >      setInlineSelection({</span>
         selected: true,
         inlineModalClosed: false
@@ -1018,9 +1021,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: onConnectorCreateSuccess,
     onClose: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >      setInlineSelection({</span>
-        selected: inlineSelection.selected,
-        inlineModalClosed: true
+<span class="cstat-no" title="statement not covered" >      setInlineSelection(<span class="fstat-no" title="function not covered" >prevState </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return { ...prevState, inlineModalClosed: true }</span>
       })
     }
   })
@@ -1106,7 +1108,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
           isNewConnectorLabelVisible: canUpdate &amp;&amp; isNewConnectorLabelVisible,
           selectedRenderer: getSelectedRenderer(selectedValue),
           ...optionalReferenceSelectProps,
-          disabled: isDisabled
+          disabled: isDisabled,
+          hideModal: inlineSelection.selected &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >inlineSelection.inlineModalClosed</span>
         }}
         onChange={<span class="fstat-no" title="function not covered" >(v</span>al, valueType, type1) =&gt; {
 <span class="cstat-no" title="statement not covered" >          if (val &amp;&amp; type1 === MultiTypeInputType.FIXED) {</span>
@@ -1180,7 +1183,7 @@ export const FormMultiTypeConnectorField = connect(MultiTypeConnectorField)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 09 2021 08:52:34 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 09 2021 09:43:28 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

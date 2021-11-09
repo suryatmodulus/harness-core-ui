@@ -8,6 +8,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { StringsMap } from 'framework/strings/StringsContext'
+import { getStepPaletteModuleInfosFromStage } from '@pipeline/utils/stepUtils'
 import { StepPalette } from '../StepPalette'
 
 class StepFactory extends AbstractStepFactory {
@@ -38,6 +39,7 @@ const getProps = () => ({
   onClose: jest.fn(),
   stepsFactory: stepFactory,
   selectedStage: {},
+  stepPaletteModuleInfos: getStepPaletteModuleInfosFromStage(StageType.DEPLOY),
   stageType: StageType.DEPLOY
 })
 

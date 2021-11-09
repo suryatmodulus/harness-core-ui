@@ -3,7 +3,13 @@ import { ExpandingSearchInput, Text, Icon, Layout, Color, Container, Heading } f
 import { cloneDeep, uniqBy, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { ResponseStepCategory, StepCategory, StepData, useGetStepsV2 } from 'services/pipeline-ng'
+import {
+  ResponseStepCategory,
+  StepCategory,
+  StepData,
+  StepPalleteModuleInfo,
+  useGetStepsV2
+} from 'services/pipeline-ng'
 import { useMutateAsGet } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -62,11 +68,16 @@ enum FilterContext {
 export interface StepPaletteProps {
   onSelect: (item: FactoryStepData) => void
   stepsFactory: AbstractStepFactory
-  selectedStage: any
+  stepPaletteModuleInfos: StepPalleteModuleInfo[]
   stageType: StageType
   isProvisioner?: boolean
 }
-export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, stepsFactory, stageType }): JSX.Element => {
+export const StepPalette: React.FC<StepPaletteProps> = ({
+  onSelect,
+  stepsFactory,
+  stepPaletteModuleInfos,
+  stageType
+}): JSX.Element => {
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
@@ -91,27 +102,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, stepsFactory
     queryParams: {
       accountId
     },
-    body: {
-      stepPalleteModuleInfos:
-        stageType === StageType.BUILD
-          ? [
-              {
-                module: 'ci',
-                shouldShowCommonSteps: false
-              }
-            ]
-          : [
-              {
-                module: 'cd',
-                category: stageType === StageType.APPROVAL ? 'Approval' : undefined,
-                shouldShowCommonSteps: true
-              },
-              {
-                module: 'cv',
-                shouldShowCommonSteps: false
-              }
-            ]
-    },
+    body: { stepPalleteModuleInfos: stepPaletteModuleInfos },
     mock: getMockedSteps(stageType)
   })
 

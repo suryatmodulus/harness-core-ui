@@ -23,6 +23,7 @@ import { PipelineGovernanceView } from '@governance/views/PipelineGovernanceView
 import { DefaultTemplate } from 'framework/Templates/templates'
 import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
 import { useQueryParams } from '@common/hooks'
+import { getStepPaletteModuleInfosFromStage } from '@pipeline/utils/stepUtils'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes, TemplateDrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -678,8 +679,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       )}
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (
         <StepPalette
-          selectedStage={selectedStage || {}}
           stepsFactory={stepsFactory}
+          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType)}
           stageType={stageType as StageType}
           onSelect={onStepSelection}
         />
@@ -735,8 +736,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
       {type === DrawerTypes.AddProvisionerStep && selectedStageId && data?.paletteData && (
         <StepPalette
-          selectedStage={selectedStage || {}}
           stepsFactory={stepsFactory}
+          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType)}
           stageType={stageType as StageType}
           isProvisioner={true}
           onSelect={async (item: StepData) => {

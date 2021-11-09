@@ -27,17 +27,25 @@ export const EvaluationDetail: React.FC = () => {
   const history = useHistory()
   const location = useLocation()
   const { data, refetch, loading, error } = useGetEvaluation({ queryParams, evaluation: evaluationId as string })
+  const entityMetadata = useMemo(() => {
+    if (data?.entity_metadata) {
+      try {
+        return JSON.parse(decodeURIComponent(data.entity_metadata as string))
+      } catch {
+        // eslint-disable-line no-empty
+      }
+    }
+  }, [data])
 
   useEffect(() => {
-    if (data) {
-      const entityMetadata = JSON.parse(decodeURIComponent(data.entity_metadata as string))
+    if (data && entityMetadata) {
       const pageTitle = `${get(entityMetadata, 'pipelineName')} - ${evaluationNameFromAction(
         getString,
         data.action as string
       )} (${new Date(data.created as number).toLocaleString()})`
       history.replace({ pathname: location.pathname, search: `pageTitle=${pageTitle}` })
     }
-  }, [data]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [entityMetadata]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Page.Body
@@ -56,8 +64,7 @@ export const EvaluationDetail: React.FC = () => {
         <EvaluationView
           metadata={data}
           accountId={accountId}
-          module={module}
-          noDetailColumn
+          module={module || entityMetadata?.module}
           headingErrorMessage={getString('governance.failureHeadingEvaluationDetail')}
         />
       )}

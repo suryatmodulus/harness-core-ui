@@ -48,7 +48,7 @@ const enum SortDirection {
 
 export const EvaluationView: React.FC<EvaluationViewProps> = ({
   accountId,
-  module,
+  module: _module,
   metadata: _metadata,
   headingErrorMessage,
   noDetailColumn = false
@@ -90,6 +90,14 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
       }),
     [details, sortBy, sortDirection]
   )
+  // Note: This is a hack to build proper OPA links as module info is missing in the evaluation
+  // @see https://harness.slack.com/archives/C029RA4PFJT/p1636491331284300
+  const hasModule = (mod: string): boolean => !!document.querySelector(`[href$="/${mod}"][href^="#/account/"]`)
+  const getModule = (orgIdentifier: string, projectIdentifier: string): Module | undefined => {
+    if (orgIdentifier && projectIdentifier) {
+      return hasModule('cd') ? 'cd' : hasModule('ci') ? 'ci' : undefined
+    }
+  }
 
   useEffect(() => {
     // Always expand if there's only one item
@@ -216,13 +224,17 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
                       variation={ButtonVariation.ICON}
                       icon="main-link"
                       onClick={() => {
+                        const orgIdentifier = get(policySet, 'org_id') || get(policySet, 'orgId')
+                        const projectIdentifier = get(policySet, 'project_id') || get(policySet, 'projectId')
+                        const module = _module || getModule(orgIdentifier, projectIdentifier)
+
                         history.push(
-                          routes.toGovernanceEvaluationDetail({
+                          routes.toGovernancePolicySetsListing({
                             accountId,
-                            orgIdentifier: metadata.org_id,
-                            projectIdentifier: metadata.project_id,
+                            orgIdentifier,
+                            projectIdentifier,
                             module,
-                            evaluationId: String(metadata.id)
+                            policyIdentifier: identifier
                           })
                         )
                       }}
@@ -241,7 +253,7 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
                   {policyMetadata?.map(evaluatedPolicy => {
                     const { status = '', deny_messages, policy } = evaluatedPolicy
                     const policyName = policy?.name || get(evaluatedPolicy, 'policyName')
-                    const policyIdentifier = policy?.identifier || get(evaluatedPolicy, 'policyIdentifier')
+                    const policyIdentifier = policy?.identifier || get(evaluatedPolicy, 'identifier')
                     const denyMessages =
                       deny_messages || (get(evaluatedPolicy, 'denyMessages') as EvaluatedPolicy['deny_messages'])
 
@@ -259,6 +271,10 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
                         break
                     }
 
+                    const orgIdentifier = get(evaluatedPolicy, 'orgId') || policy?.org_id
+                    const projectIdentifier = get(evaluatedPolicy, 'projectId') || policy?.project_id
+                    const module = _module || getModule(orgIdentifier, projectIdentifier)
+
                     return (
                       <Layout.Horizontal spacing="xsmall" padding={{ top: 'medium' }} key={policyIdentifier}>
                         <Container width="calc(100% - 280px)">
@@ -266,9 +282,9 @@ export const EvaluationView: React.FC<EvaluationViewProps> = ({
                             <Link
                               to={routes.toGovernanceEditPolicy({
                                 accountId,
-                                orgIdentifier: metadata.org_id,
-                                projectIdentifier: metadata.project_id,
-                                policyIdentifier: policyIdentifier,
+                                orgIdentifier,
+                                projectIdentifier,
+                                policyIdentifier,
                                 module
                               })}
                             >

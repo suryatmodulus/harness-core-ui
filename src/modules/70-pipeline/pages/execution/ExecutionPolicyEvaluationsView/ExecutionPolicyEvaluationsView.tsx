@@ -6,7 +6,7 @@ import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { EvaluationView } from '@governance/views/EvaluationView/EvaluationView'
 
 export default function ExecutionPolicyEvaluationsView(): React.ReactElement | null {
-  const { accountId } = useParams<PipelineType<ExecutionPathProps>>()
+  const { accountId, module } = useParams<PipelineType<ExecutionPathProps>>()
   const context = useExecutionContext()
   const governanceMetadata = context?.pipelineExecutionDetail?.pipelineExecutionSummary?.governanceMetadata
 
@@ -16,7 +16,7 @@ export default function ExecutionPolicyEvaluationsView(): React.ReactElement | n
 
   return (
     <Container width="100%" height="100%">
-      <EvaluationView metadata={governanceMetadata} accountId={accountId} />
+      <EvaluationView metadata={governanceMetadata} accountId={accountId} module={module} />
     </Container>
   )
 }

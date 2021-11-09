@@ -299,13 +299,6 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
         <Heading data-name="test-execution-overview-label" level={6} style={{ fontWeight: 600 }} color={Color.GREY_600}>
           {getString('pipeline.testsReports.testExecutions')}
         </Heading>
-        <Button
-          icon="question"
-          minimal
-          tooltip={getString('pipeline.testsReports.testCasesExecutionInfo')}
-          iconProps={{ size: 14 }}
-          margin={{ left: 'xsmall' }}
-        />
         {loading && <Icon name="steps-spinner" size={16} color="blue500" margin={{ left: 'xsmall' }} />}
       </Container>
       <Layout.Horizontal spacing="medium" className={css.widget} padding="xlarge">

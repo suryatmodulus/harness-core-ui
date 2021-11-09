@@ -14,8 +14,9 @@ import { useStrings } from 'framework/strings'
 import css from './FeatureRestrictionBannersFactory.module.scss'
 
 type ModuleToFeatureMapValue = {
-  allowed: boolean
+  // allowed: boolean // i believe this allowed is powered by FeatureContext
   limit?: number
+  limitPercent?: number
   limitCrossedMessage?: keyof StringsMap
   upgradeRequiredBanner?: boolean
 }
@@ -29,43 +30,50 @@ interface DisplayBanner {
 }
 export const ModuleToFeatureMap: Record<string, Record<string, ModuleToFeatureMapValue[]>> = {
   cd: {
-    SERVICES: [{ allowed: true, limit: 90, limitCrossedMessage: 'pipeline.featureRestriction.serviceLimitExceeded' }]
+    SERVICES: [{ limit: 90, limitCrossedMessage: 'pipeline.featureRestriction.serviceLimitExceeded' }]
   },
   ci: {
     MAX_TOTAL_BUILDS: [
       {
-        allowed: true,
-        limit: 2500,
+        limit: 2500, // edge case where backend is 2600 but it should be 2500
         limitCrossedMessage: 'pipeline.featureRestriction.maxTotalBuilds100PercentLimit'
       },
       {
-        allowed: true,
         limit: 2250,
         limitCrossedMessage: 'pipeline.featureRestriction.maxTotalBuilds90PercentLimit'
       }
     ],
     MAX_BUILDS_PER_MONTH: [
       {
-        allowed: true,
         limit: 100,
         limitCrossedMessage: 'pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit',
         upgradeRequiredBanner: true
       },
       {
-        allowed: true,
         limit: 1,
         limitCrossedMessage: 'pipeline.featureRestriction.numMonthlyBuilds'
+      }
+    ],
+    ACTIVE_COMMITTERS: [
+      {
+        limitPercent: 100,
+        limitCrossedMessage: 'pipeline.featureRestriction.subscriptionExceededLimit',
+        upgradeRequiredBanner: true
+      },
+      {
+        limitPercent: 90,
+        limitCrossedMessage: 'pipeline.featureRestriction.subscription90PercentLimit'
       }
     ]
   },
   cf: {
-    SERVICES: [{ allowed: false }]
+    SERVICES: []
   },
   cv: {
-    SERVICES: [{ allowed: false }]
+    SERVICES: []
   },
   ce: {
-    SERVICES: [{ allowed: false }]
+    SERVICES: []
   }
 }
 
@@ -80,63 +88,58 @@ export const getFeatureRestrictionDetailsForModule = (
 
 interface FeatureRestrictionBannersProps {
   module: Module
-  featureIdentifier: FeatureIdentifier
   featureNames?: FeatureIdentifier[] // multiple conditions to check
   getCustomMessageString?: (features: CheckFeaturesReturn) => string
 }
 
 // Show this banner if limit usage is breached for the feature
-export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps): JSX.Element => {
+export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps): JSX.Element | null => {
   const { getString } = useStrings()
   const history = useHistory()
   const { accountId } = useParams<AccountPathProps>()
-  const { module } = props
-  // ! Use if we want dismiss
+  const { module, featureNames = [] } = props
   const shownBanners: DisplayBanner[] = []
   const [dismissedBanners, setDismissedBanners] = useLocalStorage<string[]>('dismiss_banners', [])
-
-  // This allowed boolean is set in the UI. Currently, we just set it for 'SERVICES' feature in CD module
-  // let isFeatureRestrictionAllowedForModule
-  // let limitBreached
-  let messageString
-  const featureNames = props.featureNames ? props.featureNames : [props.featureIdentifier]
-  // Get the feature usages, and the limit details from GTM hook
   const { features } = useFeatures({ featuresRequest: { featureNames } })
 
+  // only 1 banner will be shown per module
   featureNames.forEach(featureName => {
     // Get the above map details
     const featureRestrictionModuleDetails = getFeatureRestrictionDetailsForModule(module, featureName)
     const { featureDetail } = features.get(featureName) || {}
     // hardcode for testing purposes
-    // !check for MAX_BUILDSPERMONTH FIRST, if true, don't check monthly
-    // ! Currently we are checking both and showing all
-    if (featureName === 'MAX_BUILDS_PER_MONTH' && featureDetail) {
-      featureDetail.count = 1 // threshold is 2250 for 90% show error
+    // if (featureName === 'MAX_BUILDS_PER_MONTH' && featureDetail) {
+    //   featureDetail.count = 1 // threshold is 2250 for 90% show error
+    // }
+    if (featureName === 'ACTIVE_COMMITTERS' && featureDetail) {
+      featureDetail.count = 201 // threshold is 2250 for 90% show error
     }
-    if (featureName === 'MAX_TOTAL_BUILDS' && featureDetail) {
-      featureDetail.count = 2500 // threshold is 2250 for 90% show error
-    }
-    // !change to forEach if we need to save more than 1 banner**
-    return featureRestrictionModuleDetails?.some((featureRestriction: ModuleToFeatureMapValue) => {
-      const _isLimitBreached =
-        featureDetail?.count && featureRestriction?.limit ? featureDetail.count >= featureRestriction.limit : false
+    // check for the first message that would appear
+    return featureRestrictionModuleDetails?.some((uiDisplayBanner: ModuleToFeatureMapValue) => {
+      let _isLimitBreached = false
+      if (featureDetail?.count && featureDetail.limit) {
+        _isLimitBreached = uiDisplayBanner?.limit
+          ? featureDetail.count >= uiDisplayBanner.limit
+          : uiDisplayBanner.limitPercent
+          ? (featureDetail.count / featureDetail.limit) * 100 >= uiDisplayBanner.limitPercent
+          : false
+      }
 
       if (_isLimitBreached && featureDetail?.count && featureDetail?.limit) {
         const usagePercent = Math.min(Math.floor((featureDetail.count / featureDetail.limit) * 100), 100)
 
-        // isFeatureRestrictionAllowedForModule = featureRestriction?.allowed
-        messageString =
-          featureRestriction?.limitCrossedMessage &&
-          getString(featureRestriction.limitCrossedMessage, {
+        const messageString =
+          uiDisplayBanner?.limitCrossedMessage &&
+          getString(uiDisplayBanner.limitCrossedMessage, {
             usagePercent,
             limit: featureDetail.limit,
             count: featureDetail.count
           })
-        if (messageString) {
+        if (messageString && featureDetail?.enabled) {
           shownBanners.push({
             featureName,
-            isFeatureRestrictionAllowedForModule: featureRestriction.allowed,
-            upgradeRequiredBanner: featureRestriction.upgradeRequiredBanner,
+            isFeatureRestrictionAllowedForModule: featureDetail.enabled,
+            upgradeRequiredBanner: uiDisplayBanner.upgradeRequiredBanner,
             messageString
           })
         }
@@ -151,15 +154,12 @@ export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps)
   2. Usage limit is breached
   3. Message is present in the above map value
   */
-  // const showBanner =
-  //   isFeatureRestrictionAllowedForModule &&
-  //   limitBreached &&
-  //   messageString &&
-  //   !dismissedBanners.includes('MAX_BUILDS_PER_MONTH')
+
   return (
     shownBanners?.map(
       banner =>
-        banner.isFeatureRestrictionAllowedForModule && (
+        banner.isFeatureRestrictionAllowedForModule &&
+        !dismissedBanners.includes(banner.featureName) && (
           <Layout.Horizontal
             key={banner.messageString}
             className={cx(css.bannerContainer, banner.upgradeRequiredBanner && css.upgradeRequiredBanner)}
@@ -206,7 +206,7 @@ export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps)
             <Button
               icon="cross"
               minimal
-              onClick={() => setDismissedBanners([...dismissedBanners, 'MAX_BUILDS_PER_MONTH'])}
+              onClick={() => setDismissedBanners([...dismissedBanners, banner.featureName])}
             />
           </Layout.Horizontal>
         )

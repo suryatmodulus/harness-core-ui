@@ -223,7 +223,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       className={css.step}
                       key={`${stepData.name}-${i}`}
                       onClick={() => {
-                        if (stepData.type !== 'Placeholder') {
+                        if (stepData.type !== 'Placeholder' && !stepData.disabled) {
                           onSelect({
                             name: stepData.name || '',
                             type: stepData.type || '',

@@ -5,22 +5,27 @@ import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useFeature } from '@common/hooks/useFeatures'
 import { FeatureWarningWithTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 import { useStrings } from 'framework/strings'
+import tiUpgrade from './images/ti_upgrade.svg'
 import css from './BuildTests.module.scss'
 
 export interface TICallToActionProps {
   type?: string
 }
 
+const setUpTIDocs = 'https://ngdocs.harness.io/article/428cs02e6u'
+const aboutTIDocs = 'https://ngdocs.harness.io/article/vtu9k1dsfa-test-intelligence-concepts'
+
 export const TICallToAction: React.FC<TICallToActionProps> = () => {
   const { getString } = useStrings()
-  const { featureDetail } = useFeature({ featureRequest: { featureName: FeatureIdentifier.TEST_INTELLIGENCE } })
-  console.log(featureDetail)
-  const canUseTI = true
+  useFeature({ featureRequest: { featureName: FeatureIdentifier.TEST_INTELLIGENCE } })
+  const canUseTI = false
   return (
     <div className={cx(css.widgetWrapper, css.tiCallToActionWrapper)}>
       <Container className={css.widget} height="100%">
         <Layout.Horizontal spacing="medium">
-          <Container className={css.imageContainer}>test</Container>
+          <Container className={css.tiUpgradeImage}>
+            <img height={123} width={90} src={tiUpgrade} />
+          </Container>
           <Layout.Vertical style={{ justifyContent: 'space-between', height: '190px' }} width={378}>
             <Container width={314}>
               <Heading color={Color.BLACK} level={5}>
@@ -34,9 +39,11 @@ export const TICallToAction: React.FC<TICallToActionProps> = () => {
               {canUseTI && <Text color={Color.GREY_500}>Support for .Net and Python coming soon!</Text>}
             </Container>
             <Layout.Horizontal spacing="medium" className={css.actionsContainer}>
-              <Button className={css.findOutMoreBtn} variation={ButtonVariation.PRIMARY}>
-                {getString('common.findOutMore')}
-              </Button>
+              <a rel="noreferrer" target="_blank" href={canUseTI ? setUpTIDocs : aboutTIDocs}>
+                <Button className={css.findOutMoreBtn} variation={ButtonVariation.PRIMARY}>
+                  {getString('common.findOutMore')}
+                </Button>
+              </a>
               {canUseTI ? (
                 <Text style={{ fontSize: '13px' }} color={Color.PRIMARY_7}>
                   {getString('pipeline.testsReports.tiCallToAction.addRunTestsStep')}

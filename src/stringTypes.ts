@@ -2220,11 +2220,12 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.retryIntervalMinimum': string
   'pipeline.failureStrategies.validation.retryIntervalRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string
-  'pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit': string
   'pipeline.featureRestriction.maxTotalBuilds100PercentLimit': string
   'pipeline.featureRestriction.maxTotalBuilds90PercentLimit': string
   'pipeline.featureRestriction.numMonthlyBuilds': string
   'pipeline.featureRestriction.serviceLimitExceeded': string
+  'pipeline.featureRestriction.subscription90PercentLimit': string
+  'pipeline.featureRestriction.subscriptionExceededLimit': string
   'pipeline.filters.builtTypePlaceholder': string
   'pipeline.filters.deploymentTypePlaceholder': string
   'pipeline.filters.environmentPlaceholder': string
@@ -2527,11 +2528,9 @@ export interface StringsMap {
   'pipeline.testsReports.filename': string
   'pipeline.testsReports.hangTight': string
   'pipeline.testsReports.indirectCall': string
-  'pipeline.testsReports.learnMore': string
   'pipeline.testsReports.newTests': string
   'pipeline.testsReports.noFailedTestsFound': string
-  'pipeline.testsReports.notfound': string
-  'pipeline.testsReports.nothing': string
+  'pipeline.testsReports.noTestResults': string
   'pipeline.testsReports.numberOfSelectedTests': string
   'pipeline.testsReports.onlyUncoveredFiles': string
   'pipeline.testsReports.resource': string
@@ -2557,6 +2556,7 @@ export interface StringsMap {
   'pipeline.testsReports.testExecutions': string
   'pipeline.testsReports.testMethods': string
   'pipeline.testsReports.testSuite': string
+  'pipeline.testsReports.testsWillAppear': string
   'pipeline.testsReports.tiCallToAction.addRunTestsStep': string
   'pipeline.testsReports.tiCallToAction.header': string
   'pipeline.testsReports.tiCallToAction.upsellSubText': string

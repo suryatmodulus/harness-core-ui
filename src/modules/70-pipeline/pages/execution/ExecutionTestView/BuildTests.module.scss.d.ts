@@ -38,7 +38,7 @@ declare const styles: {
   readonly actionsContainer: string
   readonly upgradeRequiredWrapper: string
   readonly findOutMoreBtn: string
-  readonly imageContainer: string
+  readonly tiUpgradeImage: string
   readonly testCasesHeader: string
   readonly rightContainer: string
   readonly testsSelectionBreakdown: string

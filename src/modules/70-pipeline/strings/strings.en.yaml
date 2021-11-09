@@ -613,16 +613,15 @@ testsReports:
   result: RESULT
   testCasesExecution: Tests Execution
   testExecutions: Test Executions
-  testCasesExecutionInfo: Shows a list of executed tests and result. In case of error, hover the test to see additional information
+  testCasesExecutionInfo: Shows a list of executed tests and result. In case of error, hover over the test to see additional information
   noFailedTestsFound: No failed tests found
   showOnlyFailedTests: Show only failed tests
   hangTight: Hang tight! Report is being generated...
-  nothing: Nothing here!
-  notfound: No tests were found to analyze.
+  noTestResults: No test results
+  testsWillAppear: Tests will appear here if they were reported or uploaded to Harness.
   willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
-  learnMore: Learn how to enable Unit test reporting
   resultLabel: Test Execution Result
-  resultInfo: Heat Map showing a graphical over of the test results
+  resultInfo: Heat Map showing a graphical overview of the test results
   sortBy: 'Sort by:'
   tiCallToAction:
     header: Did you know you can save time using Test Intelligence?
@@ -847,10 +846,11 @@ recentExecutionText: Most Recent Execution
 viewLatestExecution: You are viewing an older execution of this pipeline.
 featureRestriction:
   serviceLimitExceeded: Service License usage has exceeded the Subscribed Services.
-  maxTotalBuilds90PercentLimit: You have used {{usagePercent}}% of your 2500 free total builds quota. Once you reach 100% usage, Harness will offer you 100 free builds per month. Please see Licensing page for additional information.
-  maxTotalBuilds100PercentLimit: You have used 100% of your 2500 free total builds quota. You can now run 100 free builds per month. Please see Licensing page for additional information.
-  numMonthlyBuilds: You have hit {{count}}/{{limit}} of the free plan limit. After 100 builds, new builds will be restricted to 100 per month.
-  maxBuildsPerMonth100PercentLimit: Monthly builds limit met. No more builds are available for this month.
+  maxTotalBuilds90PercentLimit: You have used {{usagePercent}}% of builds included in the free plan. After 2,500 builds, the free plan will be restricted to 100 builds per month.
+  maxTotalBuilds100PercentLimit: You have used 100 / 100 free builds this month. Consider upgrading for unlimited builds.
+  numMonthlyBuilds: You have used {{count}} / {{limit}} free builds this month.
+  subscription90PercentLimit: You have used {{usagePercent}}% of your developer subscription limit.
+  subscriptionExceededLimit: You have exceeded your developer subscription limit.
 policyEvaluations:
   title: Policy Evaluations
   failedToSavePipeline: Pipeline can not be saved due to the policy evaluation failures.

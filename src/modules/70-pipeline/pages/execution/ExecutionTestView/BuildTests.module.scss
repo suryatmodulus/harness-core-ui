@@ -315,7 +315,7 @@
   flex-shrink: 0;
 
   .widget {
-    background-color: var(--blue-50) !important;
+    background-color: #e8e8ff !important;
     border: 1px solid rgba(174, 202, 255, 0.5) !important;
   }
   .subText {
@@ -344,13 +344,9 @@
     }
   }
 
-  .imageContainer {
-    height: 90px;
-    width: 90px;
-    background-color: var(--grey-200) !important;
-    margin-right: var(--spacing-8) !important;
+  .tiUpgradeImage {
+    margin-right: var(--spacing-7) !important;
     display: flex;
-    align-self: center;
   }
 }
 

@@ -205,6 +205,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
       }
       props.onChange?.(val, MultiTypeInputValue.SELECT_OPTION, MultiTypeInputType.FIXED)
       formik?.setFieldValue(name, val)
+      setSelectedValue(val)
       setInlineSelection({
         selected: true,
         inlineModalClosed: false
@@ -215,9 +216,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: onConnectorCreateSuccess,
     onClose: () => {
-      setInlineSelection({
-        selected: inlineSelection.selected,
-        inlineModalClosed: true
+      setInlineSelection(prevState => {
+        return { ...prevState, inlineModalClosed: true }
       })
     }
   })
@@ -303,7 +303,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
           isNewConnectorLabelVisible: canUpdate && isNewConnectorLabelVisible,
           selectedRenderer: getSelectedRenderer(selectedValue),
           ...optionalReferenceSelectProps,
-          disabled: isDisabled
+          disabled: isDisabled,
+          hideModal: inlineSelection.selected && inlineSelection.inlineModalClosed
         }}
         onChange={(val, valueType, type1) => {
           if (val && type1 === MultiTypeInputType.FIXED) {

@@ -13,11 +13,12 @@ import {
   ConnectorInfoDTO
 } from 'services/cd-ng'
 import { EntityReference } from '@common/exports'
-import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
+import { EntityReferenceResponse, getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useStrings } from 'framework/strings'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import SecretEmptyState from '../../pages/secrets/secrets-empty-state.png'
+import type { SecretFormData } from '../CreateUpdateSecret/CreateUpdateSecret'
 import css from './SecretReference.module.scss'
 
 const CustomSelect = Select.ofType<SelectOption>()
@@ -116,9 +117,17 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
       value: 'SecretFile'
     }
   ]
-  const [secretType, setSecretType] = React.useState<SelectOption>(secretTypeOptions[0])
+  const defaultSecretType = secretTypeOptions.findIndex(val => val.value === type)
+  const [secretType, setSecretType] = React.useState<SelectOption>(
+    secretTypeOptions[defaultSecretType === -1 ? 0 : defaultSecretType]
+  )
   const { openCreateSecretModal } = useCreateUpdateSecretModal({
-    onSuccess: /* istanbul ignore next */ () => {
+    onSuccess: data => {
+      props.onSelect({
+        ...data,
+        spec: {},
+        scope: getScopeFromDTO<SecretFormData>(data)
+      })
       //refetch()
     }
   })

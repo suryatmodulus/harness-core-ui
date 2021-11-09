@@ -434,9 +434,8 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
       }
     },
     onClose: () => {
-      setInlineSelection({
-        selected: inlineSelection.selected,
-        inlineModalClosed: true
+      setInlineSelection(prevState => {
+        return { ...prevState, inlineModalClosed: true }
       })
     }
   })
@@ -453,9 +452,8 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
       }
     },
     onClose: () => {
-      setInlineSelection({
-        selected: inlineSelection.selected,
-        inlineModalClosed: true
+      setInlineSelection(prevState => {
+        return { ...prevState, inlineModalClosed: true }
       })
     }
   })

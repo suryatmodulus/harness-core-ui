@@ -40,7 +40,7 @@ interface BuildTestsProps {
 
 const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverviewMock }) => {
   const context = useExecutionContext()
-
+  const enableReportsWithCTA = false // ui feature flag
   const { getString } = useStrings()
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
@@ -64,7 +64,6 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
   const [stageId, stepId] = (selectValue?.value as string)?.split('/') || []
 
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
-  const hasRunTestStep = false
   const infoQueryParams = useMemo(
     () => ({
       accountId,
@@ -195,7 +194,7 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
   const reportSummaryHasTests = (reportSummaryData?.total_tests || 0) > 0
   const testOverviewHasTests = (testOverviewData?.total_tests || 0) > 0
 
-  // const uiType = UI.Reports
+  // const uiType = UI.ReportsWithCTA
   const uiType =
     reportSummaryHasTests && testOverviewHasTests
       ? UI.TIAndReports
@@ -206,9 +205,6 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       : reportInfoLoading || testInfoLoading
       ? UI.LoadingState
       : UI.ZeroState
-
-  // !No more Reports only view.
-  //
 
   useEffect(() => {
     if (status && stageId && stepId) {
@@ -367,9 +363,8 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
         </>
       )
       break
-    // Reports & TI Call To Action
     case UI.Reports:
-      ui = (
+      ui = enableReportsWithCTA ? (
         <>
           {header}
           <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
@@ -401,6 +396,29 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
           <Layout.Horizontal spacing="large">
             {/* <TestsCoverage /> */}
             {/* TI is above Reports which is 100% width */}
+            {stageId && stepId && serviceToken && (
+              <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
+            )}
+          </Layout.Horizontal>
+        </>
+      ) : (
+        <>
+          {header}
+          <Layout.Horizontal spacing="large">
+            {typeof reportSummaryData?.total_tests !== 'undefined' &&
+              typeof reportSummaryData?.failed_tests !== 'undefined' &&
+              typeof reportSummaryData?.successful_tests !== 'undefined' &&
+              typeof reportSummaryData?.skipped_tests !== 'undefined' &&
+              typeof reportSummaryData?.duration_ms !== 'undefined' && (
+                <TestsReportOverview
+                  totalTests={reportSummaryData.total_tests}
+                  failedTests={reportSummaryData.failed_tests}
+                  successfulTests={reportSummaryData.successful_tests}
+                  skippedTests={reportSummaryData.skipped_tests}
+                  durationMS={reportSummaryData.duration_ms}
+                />
+              )}
+            {/* Overview and Reports split the width  */}
             {stageId && stepId && serviceToken && (
               <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
             )}

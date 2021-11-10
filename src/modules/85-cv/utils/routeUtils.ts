@@ -1,3 +1,6 @@
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { PipelineInfoConfig } from 'services/cd-ng'
+
 export const ActivitySourceSetupRoutePaths = {
   KUBERNETES: 'kubernetes',
   HARNESS_CD: 'harness-cd'
@@ -32,4 +35,10 @@ export const getRoutePathByType = (type: any) => {
 
 export const editParams = {
   identifier: ':identifier'
+}
+
+export const isVerifyStepPresent = (pipeline: PipelineInfoConfig): boolean => {
+  return !!pipeline?.stages?.some(el =>
+    el?.stage?.spec?.execution?.steps?.some(step => step?.step?.type === StepType.Verify)
+  )
 }

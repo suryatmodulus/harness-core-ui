@@ -17,6 +17,7 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
 import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
+import { FeatureRestrictionBanners } from '@pipeline/factories/FeatureRestrictionBannersFactory/FeatureRestrictionBannersFactory'
 import { EvaluationModal } from '@governance/modal/EvaluationModal/EvaluationModal'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
@@ -192,8 +193,20 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
               <ExecutionHeader />
               <ExecutionMetadata />
             </header>
-            <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
+            {module === 'cd' && (
+              <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
+            )}
             <ExecutionTabs />
+            {module === 'ci' && (
+              <FeatureRestrictionBanners
+                featureNames={[
+                  FeatureIdentifier.ACTIVE_COMMITTERS,
+                  FeatureIdentifier.MAX_BUILDS_PER_MONTH,
+                  FeatureIdentifier.MAX_TOTAL_BUILDS
+                ]}
+                module={module}
+              />
+            )}
             <div
               className={css.childContainer}
               data-view={(selectedPageTab === PageTabs.PIPELINE && queryParams.view) || 'graph'}

@@ -628,6 +628,7 @@ testsReports:
     upsellSubText: 'Optimize your tests cycle and reduce build time by using machine learning based Test Intelligence.'
     utilizeTISubText: 'Reduce test cycle time of your Java application by using machine learning based Test Intelligence.'
     addRunTestsStep: Add 'Run Tests step' to your Pipeline
+    requiresEnterprisePlan: Requires Enterprise Plan to access Test Intelligence
 uniqueIdentifier: Identifier must be unique
 inputSets:
   applyInputSet: Apply Input Set
@@ -851,6 +852,7 @@ featureRestriction:
   numMonthlyBuilds: You have used {{count}} / {{limit}} free builds this month.
   subscription90PercentLimit: You have used {{usagePercent}}% of your developer subscription limit.
   subscriptionExceededLimit: You have exceeded your developer subscription limit.
+  blockRunMessage: You have used 100 / 100 free builds this month. Consider upgrading for unlimited builds.
 policyEvaluations:
   title: Policy Evaluations
   failedToSavePipeline: Pipeline can not be saved due to the policy evaluation failures.

@@ -6,6 +6,8 @@ import { isEmpty, isNil } from 'lodash-es'
 import cx from 'classnames'
 import { iconMap } from '@pipeline/components/PipelineStudio/StepPalette/iconMap'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
+// import { DescriptionMap } from '@common/components/FeatureWarning/FeatureWarning'
+
 import type { StepData } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
@@ -30,8 +32,16 @@ const TooltipContent = ({ description, stepsFactory, stepData }: StepTooltipCont
   // Component renders the tooltip over steps in the palette.
   // If the step is disabled, show the enforcement tooltip
   const { getString } = useStrings()
-  if (stepData?.disabled && stepData?.featureRestrictionName) {
-    return <FeatureWarningTooltip featureName={stepData.featureRestrictionName as FeatureIdentifier} />
+  const { disabled, featureRestrictionName = '' } = stepData || {}
+  if (disabled && featureRestrictionName) {
+    // const descriptionString = DescriptionMap[featureRestrictionName]
+    return (
+      <FeatureWarningTooltip
+        // description={(descriptionString && getString(descriptionString)) || ''}
+        // darkTheme={true}
+        featureName={featureRestrictionName as FeatureIdentifier}
+      />
+    )
   }
   if (description) {
     return (

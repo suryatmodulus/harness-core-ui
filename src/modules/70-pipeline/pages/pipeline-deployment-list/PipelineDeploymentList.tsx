@@ -288,16 +288,17 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
             </div>
           ) : (
             <React.Fragment>
-              {module === 'ci' && (
-                <FeatureRestrictionBanners
-                  featureNames={[
-                    FeatureIdentifier.MAX_TOTAL_BUILDS,
-                    FeatureIdentifier.MAX_BUILDS_PER_MONTH,
-                    FeatureIdentifier.ACTIVE_COMMITTERS
-                  ]}
-                  module={module}
-                />
-              )}
+              {module === 'ci' &&
+                ((
+                  <FeatureRestrictionBanners
+                    featureNames={[
+                      FeatureIdentifier.ACTIVE_COMMITTERS,
+                      FeatureIdentifier.MAX_BUILDS_PER_MONTH,
+                      FeatureIdentifier.MAX_TOTAL_BUILDS
+                    ]}
+                    module={module}
+                  />
+                ) || <div />)}
               <ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary?.content} />
               <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
             </React.Fragment>

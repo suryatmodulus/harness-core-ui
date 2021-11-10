@@ -88,12 +88,14 @@ export const getFeatureRestrictionDetailsForModule = (
 
 interface FeatureRestrictionBannersProps {
   module: Module
-  featureNames?: FeatureIdentifier[] // multiple conditions to check
+  featureNames?: FeatureIdentifier[] // order will determine which banner will appear
   getCustomMessageString?: (features: CheckFeaturesReturn) => string
 }
 
 // Show this banner if limit usage is breached for the feature
-export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps): JSX.Element | null => {
+export const FeatureRestrictionBanners = (
+  props: FeatureRestrictionBannersProps
+): JSX.Element | (JSX.Element | null)[] | null => {
   const { getString } = useStrings()
   const history = useHistory()
   const { accountId } = useParams<AccountPathProps>()
@@ -102,40 +104,28 @@ export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps)
   const [dismissedBanners, setDismissedBanners] = useLocalStorage<string[]>('dismiss_banners', [])
   const { features } = useFeatures({ featuresRequest: { featureNames } })
 
-  // only 1 banner will be shown per module
-  featureNames.forEach(featureName => {
+  // only 1 banner will be shown for this module
+  featureNames.some(featureName => {
     // Get the above map details
     const featureRestrictionModuleDetails = getFeatureRestrictionDetailsForModule(module, featureName)
     const { featureDetail } = features.get(featureName) || {}
     // hardcode for testing purposes
+    // if (featureName === 'MAX_TOTAL_BUILDS' && featureDetail) {
+    //   featureDetail.count = 2250 // threshold is 2250 for 90% show error
+    // }
     // if (featureName === 'MAX_BUILDS_PER_MONTH' && featureDetail) {
     //   featureDetail.count = 1 // threshold is 2250 for 90% show error
     // }
-    if (featureName === 'ACTIVE_COMMITTERS' && featureDetail) {
-      featureDetail.count = 201 // threshold is 2250 for 90% show error
-    }
+    // if (featureName === 'ACTIVE_COMMITTERS' && featureDetail) {
+    //   featureDetail.enabled = true // threshold is 2250 for 90% show error
+    //   // featureDetail.count = 201 // threshold is 2250 for 90% show error
+    // }
     // check for the first message that would appear
     return featureRestrictionModuleDetails?.some((uiDisplayBanner: ModuleToFeatureMapValue) => {
-      let _isLimitBreached = false
-      if (featureDetail?.count && featureDetail.limit) {
-        _isLimitBreached = uiDisplayBanner?.limit
-          ? featureDetail.count >= uiDisplayBanner.limit
-          : uiDisplayBanner.limitPercent
-          ? (featureDetail.count / featureDetail.limit) * 100 >= uiDisplayBanner.limitPercent
-          : false
-      }
-
-      if (_isLimitBreached && featureDetail?.count && featureDetail?.limit) {
-        const usagePercent = Math.min(Math.floor((featureDetail.count / featureDetail.limit) * 100), 100)
-
-        const messageString =
-          uiDisplayBanner?.limitCrossedMessage &&
-          getString(uiDisplayBanner.limitCrossedMessage, {
-            usagePercent,
-            limit: featureDetail.limit,
-            count: featureDetail.count
-          })
-        if (messageString && featureDetail?.enabled) {
+      if (featureDetail?.enabled === false && uiDisplayBanner.upgradeRequiredBanner) {
+        // when feature is not allowed and upgrade banner should be shown
+        const messageString = uiDisplayBanner?.limitCrossedMessage && getString(uiDisplayBanner.limitCrossedMessage)
+        if (messageString) {
           shownBanners.push({
             featureName,
             isFeatureRestrictionAllowedForModule: featureDetail.enabled,
@@ -143,114 +133,113 @@ export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps)
             messageString
           })
         }
+        return true
+      } else if (featureDetail?.enabled) {
+        /*
+          Show the banner if
+          1. Feature enforcement enabled
+          2. Usage limit | percent uiDisplayBanner is breached
+          3. Message is present in the above map value
+        */
+        let _isLimitBreached = false
+        if (featureDetail?.count && featureDetail.limit) {
+          _isLimitBreached = uiDisplayBanner?.limit
+            ? featureDetail.count >= uiDisplayBanner.limit
+            : uiDisplayBanner.limitPercent
+            ? (featureDetail.count / featureDetail.limit) * 100 >= uiDisplayBanner.limitPercent
+            : false
+
+          if (_isLimitBreached) {
+            const usagePercent = Math.min(Math.floor((featureDetail.count / featureDetail.limit) * 100), 100)
+            const messageString =
+              uiDisplayBanner?.limitCrossedMessage &&
+              getString(uiDisplayBanner.limitCrossedMessage, {
+                usagePercent,
+                limit: featureDetail.limit,
+                count: featureDetail.count
+              })
+
+            if (messageString && featureDetail?.enabled) {
+              shownBanners.push({
+                featureName,
+                isFeatureRestrictionAllowedForModule: featureDetail.enabled,
+                upgradeRequiredBanner: uiDisplayBanner.upgradeRequiredBanner,
+                messageString
+              })
+            }
+            return true
+          }
+        }
+      } else {
+        // no banners to show
+        return false
       }
-      return _isLimitBreached
     })
   })
-
-  /*
-  Show the banner if
-  1. Feature is restricted in the module and
-  2. Usage limit is breached
-  3. Message is present in the above map value
-  */
-
-  return (
-    shownBanners?.map(
-      banner =>
-        banner.isFeatureRestrictionAllowedForModule &&
-        !dismissedBanners.includes(banner.featureName) && (
-          <Layout.Horizontal
-            key={banner.messageString}
-            className={cx(css.bannerContainer, banner.upgradeRequiredBanner && css.upgradeRequiredBanner)}
-            flex={{ alignItems: 'center', justifyContent: 'space-between' }}
-            background={banner.upgradeRequiredBanner ? '#FFF5ED' : Color.WHITE}
-            height={56}
-            padding={{ left: 'large', top: 'medium', bottom: 'medium' }}
-          >
-            <Container flex>
-              <Text
-                icon={banner.upgradeRequiredBanner ? 'lightbulb' : 'info-sign'}
-                iconProps={{ intent: 'primary', size: 16, margin: { right: 'medium' } }}
-                font={{ weight: 'semi-bold', size: 'small' }}
-                color={Color.PRIMARY_10}
-                margin={{ right: 'medium' }}
+  console.log(shownBanners)
+  if (shownBanners.length) {
+    return (
+      shownBanners
+        // .filter(shownBanner => !dismissedBanners.includes(shownBanner?.featureName))
+        .map(banner => {
+          if (!dismissedBanners.includes(banner?.featureName)) {
+            return (
+              <Layout.Horizontal
+                key={banner.messageString}
+                className={cx(css.bannerContainer, banner.upgradeRequiredBanner && css.upgradeRequiredBanner)}
+                flex={{ alignItems: 'center', justifyContent: 'space-between' }}
+                background={banner.upgradeRequiredBanner ? '#FFF5ED' : Color.WHITE}
+                height={56}
+                padding={{ left: 'large', top: 'medium', bottom: 'medium' }}
               >
-                {banner.upgradeRequiredBanner && (
-                  <Text style={{ fontWeight: 700, marginRight: 'var(--spacing-5)' }} color={Color.ORANGE_900}>
-                    {getString('common.feature.upgradeRequired.title').toUpperCase()}
+                <Container flex>
+                  <Text
+                    icon={banner.upgradeRequiredBanner ? 'upgrade-bolt' : 'info-message'}
+                    iconProps={{
+                      intent: 'primary',
+                      size: 20,
+                      margin: { right: 'medium' },
+                      color: banner.upgradeRequiredBanner ? Color.ORANGE_900 : Color.BLUE_700
+                    }}
+                    font={{ weight: 'semi-bold', size: 'small' }}
+                    color={Color.PRIMARY_10}
+                    margin={{ right: 'medium' }}
+                  >
+                    {banner.upgradeRequiredBanner && (
+                      <Text style={{ fontWeight: 700, marginRight: 'var(--spacing-5)' }} color={Color.ORANGE_900}>
+                        {getString('common.feature.upgradeRequired.title').toUpperCase()}
+                      </Text>
+                    )}
+                    {banner.messageString}
                   </Text>
-                )}
-                {banner.messageString}
-              </Text>
-              <Button
-                variation={ButtonVariation.SECONDARY}
-                size={ButtonSize.SMALL}
-                width={130}
-                onClick={() => {
-                  history.push(
-                    routes.toSubscriptions({
-                      accountId,
-                      moduleCard: module
-                    })
-                  )
-                }}
-              >
-                {getString('common.explorePlans')}
-              </Button>
-            </Container>
-            {/* Won't be available until View Usage page is ready */}
-            {/* <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL}>
-        {getString('common.viewUsage')}
-      </Button> */}
-            <Button
-              icon="cross"
-              minimal
-              onClick={() => setDismissedBanners([...dismissedBanners, banner.featureName])}
-            />
-          </Layout.Horizontal>
-        )
-    ) || null
-  )
-  // return showBanner ? (
-  //   <Layout.Horizontal
-  //     className={css.bannerContainer}
-  //     flex={{ alignItems: 'center', justifyContent: 'space-between' }}
-  //     background={requiresUpgradeBanner ? Color.ORANGE_50 : Color.WHITE}
-  //     height={56}
-  //     padding={{ left: 'large', top: 'medium', bottom: 'medium' }}
-  //   >
-  //     <Container flex>
-  //       <Text
-  //         icon={requiresUpgradeBanner ? 'lightbulb' : 'info-sign'}
-  //         iconProps={{ intent: 'primary', size: 16, margin: { right: 'medium' } }}
-  //         font={{ weight: 'semi-bold', size: 'small' }}
-  //         color={Color.PRIMARY_10}
-  //         margin={{ right: 'medium' }}
-  //       >
-  //         {messageString}
-  //       </Text>
-  //       <Button
-  //         variation={ButtonVariation.SECONDARY}
-  //         size={ButtonSize.SMALL}
-  //         width={130}
-  //         onClick={() => {
-  //           history.push(
-  //             routes.toSubscriptions({
-  //               accountId,
-  //               moduleCard: module
-  //             })
-  //           )
-  //         }}
-  //       >
-  //         {getString('common.explorePlans')}
-  //       </Button>
-  //     </Container>
-  //     {/* Won't be available until View Usage page is ready */}
-  //     {/* <Button variation={ButtonVariation.SECONDARY} size={ButtonSize.SMALL}>
-  //       {getString('common.viewUsage')}
-  //     </Button> */}
-  //     <Button icon="cross" minimal onClick={() => setDismissedBanners([...dismissedBanners, 'MAX_BUILDS_PER_MONTH'])} />
-  //   </Layout.Horizontal>
-  // ) : null
+                  <Button
+                    variation={ButtonVariation.SECONDARY}
+                    size={ButtonSize.SMALL}
+                    width={130}
+                    onClick={() => {
+                      history.push(
+                        routes.toSubscriptions({
+                          accountId,
+                          moduleCard: module
+                        })
+                      )
+                    }}
+                  >
+                    {getString('common.explorePlans')}
+                  </Button>
+                </Container>
+                <Button
+                  icon="cross"
+                  minimal
+                  onClick={() => setDismissedBanners([...dismissedBanners, banner.featureName])}
+                />
+              </Layout.Horizontal>
+            )
+          } else {
+            return null
+          }
+        })
+    )
+  }
+  return null
 }

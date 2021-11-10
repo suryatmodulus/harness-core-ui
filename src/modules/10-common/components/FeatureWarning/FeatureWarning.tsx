@@ -49,7 +49,7 @@ type DescriptionMapType = { [key: string]: keyof StringsMap }
 // Custom descriptions
 export const DescriptionMap: DescriptionMapType = {
   TEST_INTELLIGENCE: 'pipeline.testsReports.tiCallToAction.requiresEnterprisePlan',
-  BUILDS: 'pipeline.featureRestriction.blockRunMessage'
+  BUILDS: 'pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit'
 }
 
 const ExplorePlansBtn = ({ module, size }: ExplorePlansBtnProps): ReactElement => {

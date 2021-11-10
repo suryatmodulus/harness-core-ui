@@ -848,11 +848,10 @@ viewLatestExecution: You are viewing an older execution of this pipeline.
 featureRestriction:
   serviceLimitExceeded: Service License usage has exceeded the Subscribed Services.
   maxTotalBuilds90PercentLimit: You have used {{usagePercent}}% of builds included in the free plan. After 2,500 builds, the free plan will be restricted to 100 builds per month.
-  maxTotalBuilds100PercentLimit: You have used 100 / 100 free builds this month. Consider upgrading for unlimited builds.
+  maxBuildsPerMonth100PercentLimit: You have used 100 / 100 free builds this month. Consider upgrading for unlimited builds.
   numMonthlyBuilds: You have used {{count}} / {{limit}} free builds this month.
   subscription90PercentLimit: You have used {{usagePercent}}% of your developer subscription limit.
   subscriptionExceededLimit: You have exceeded your developer subscription limit.
-  blockRunMessage: You have used 100 / 100 free builds this month. Consider upgrading for unlimited builds.
 policyEvaluations:
   title: Policy Evaluations
   failedToSavePipeline: Pipeline can not be saved due to the policy evaluation failures.

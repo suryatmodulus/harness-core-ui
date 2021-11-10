@@ -2220,8 +2220,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.retryIntervalMinimum': string
   'pipeline.failureStrategies.validation.retryIntervalRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string
-  'pipeline.featureRestriction.blockRunMessage': string
-  'pipeline.featureRestriction.maxTotalBuilds100PercentLimit': string
+  'pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit': string
   'pipeline.featureRestriction.maxTotalBuilds90PercentLimit': string
   'pipeline.featureRestriction.numMonthlyBuilds': string
   'pipeline.featureRestriction.serviceLimitExceeded': string

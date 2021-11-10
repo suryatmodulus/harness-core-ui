@@ -101,49 +101,54 @@ export default function HealthSourceTable({
         </CardWithOuterTitle>
       )
     },
-    [isRunTimeInput, value]
+    [isRunTimeInput, value, onAddNewHealthSource, editRow]
   )
 
-  const renderHealthSourceTableInCV = useCallback((healthSourceTableData: RowData[]) => {
-    if (healthSourceTableData?.length) {
+  const renderHealthSourceTableInCV = useCallback(
+    (healthSourceTableData: RowData[]) => {
+      if (healthSourceTableData?.length) {
+        return (
+          <Table
+            className={css.healthSourceTableWrapper}
+            sortable={true}
+            onRowClick={data => {
+              const rowFilteredData = healthSourceTableData?.find(
+                (healthSource: RowData) => healthSource.identifier === data.identifier
+              )
+              if (rowFilteredData) {
+                onEdit(rowFilteredData)
+              }
+            }}
+            columns={[
+              {
+                Header: getString('name'),
+                accessor: 'name',
+                width: '30%'
+              },
+              {
+                Header: getString('typeLabel'),
+                width: '35%',
+                Cell: renderTypeByFeature
+              },
+              {
+                Header: getString('source'),
+                accessor: 'type',
+                width: '35%',
+                Cell: renderTypeWithIcon
+              }
+            ]}
+            data={healthSourceTableData}
+          />
+        )
+      }
       return (
-        <Table
-          className={css.healthSourceTableWrapper}
-          sortable={true}
-          onRowClick={data => {
-            const rowFilteredData = healthSourceTableData?.find(
-              (healthSource: RowData) => healthSource.identifier === data.identifier
-            )
-            editRow(rowFilteredData)
-          }}
-          columns={[
-            {
-              Header: getString('name'),
-              accessor: 'name',
-              width: '30%'
-            },
-            {
-              Header: getString('typeLabel'),
-              width: '35%',
-              Cell: renderTypeByFeature
-            },
-            {
-              Header: getString('source'),
-              accessor: 'type',
-              width: '35%',
-              Cell: renderTypeWithIcon
-            }
-          ]}
-          data={healthSourceTableData}
-        />
+        <Container className={css.noData}>
+          <NoDataCard icon={'join-table'} message={getString('cv.healthSource.noData')} />
+        </Container>
       )
-    }
-    return (
-      <Container className={css.noData}>
-        <NoDataCard icon={'join-table'} message={getString('cv.healthSource.noData')} />
-      </Container>
-    )
-  }, [])
+    },
+    [value, onAddNewHealthSource, editRow]
+  )
 
   return renderHealthSourceTable(!!shouldRenderAtVerifyStep, tableData)
 }

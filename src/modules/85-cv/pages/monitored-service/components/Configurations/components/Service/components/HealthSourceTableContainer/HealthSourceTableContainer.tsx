@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback } from 'react'
 import type { FormikContext, FormikProps } from 'formik'
 import type { HealthSource } from 'services/cv'
 import { useDrawer } from '@cv/hooks/useDrawerHook/useDrawerHook'
@@ -27,20 +27,6 @@ export default function HealthSourceTableContainer({
     createHeader: props => <HealthSourceDrawerHeader {...props} />,
     createDrawerContent: props => <HealthSourceDrawerContent {...props} />
   })
-
-  const [editModeData, setEditModeData] = useState<HealthSource | null>()
-
-  useEffect(() => {
-    if (editModeData) {
-      openHealthSourceDrawer({
-        formik: serviceFormFormik,
-        isEditMode: true,
-        rowData: editModeData,
-        tableData:
-          createHealthsourceList(serviceFormFormik?.values?.sources?.healthSources as RowData[], editModeData) || []
-      })
-    }
-  }, [editModeData])
 
   const updateHealthSource = useCallback(
     (data: any, formik: FormikContext<MonitoredServiceForm>): void => {
@@ -98,7 +84,15 @@ export default function HealthSourceTableContainer({
 
   return (
     <HealthSourceTable
-      onEdit={values => setEditModeData(values)}
+      onEdit={values =>
+        openHealthSourceDrawer({
+          formik: serviceFormFormik,
+          isEditMode: true,
+          rowData: values,
+          tableData:
+            createHealthsourceList(serviceFormFormik?.values?.sources?.healthSources as RowData[], values) || []
+        })
+      }
       onAddNewHealthSource={() =>
         openHealthSourceDrawer({
           formik: serviceFormFormik,

@@ -60,7 +60,7 @@ export default function VerifyStepHealthSourceTable(tableProps: VerifyStepHealth
         environmentRef: envIdentifier,
         monitoredServiceRef: monitoredServiceRef,
         rowData: values,
-        tableData: createHealthsourceList(healthSourcesList, values),
+        tableData: values ? createHealthsourceList(healthSourcesList, values) : healthSourcesList,
         changeSources: changeSourcesList,
         onSuccess: (data: MonitoredServiceResponse) => {
           onSuccess(data)
@@ -72,17 +72,34 @@ export default function VerifyStepHealthSourceTable(tableProps: VerifyStepHealth
     [serviceIdentifier, envIdentifier, healthSourcesList, monitoredServiceRef, isRunTimeInput]
   )
 
-  const onEdit = useCallback(values => {
-    const drawerProps = getHealthSourceDrawerProps(values)
-    showHealthSourceDrawer(drawerProps)
-    setDrawerHeaderProps?.(healthSourceDrawerHeaderProps(true))
-  }, [])
+  const onEdit = useCallback(
+    values => {
+      const drawerProps = getHealthSourceDrawerProps(values)
+      showHealthSourceDrawer(drawerProps)
+      setDrawerHeaderProps?.(healthSourceDrawerHeaderProps(true))
+    },
+    [
+      serviceIdentifier,
+      envIdentifier,
+      healthSourcesList,
+      monitoredServiceRef.identifier,
+      monitoredServiceRef.name,
+      isRunTimeInput
+    ]
+  )
 
   const onAddNewHealthSource = useCallback(() => {
     const drawerProps = getHealthSourceDrawerProps()
     setDrawerHeaderProps?.(healthSourceDrawerHeaderProps())
     return showHealthSourceDrawer(drawerProps)
-  }, [])
+  }, [
+    serviceIdentifier,
+    envIdentifier,
+    healthSourcesList,
+    monitoredServiceRef.identifier,
+    monitoredServiceRef.name,
+    isRunTimeInput
+  ])
   return (
     <>
       <HealthSourceTable

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">87.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>105/120</span>
+                <span class='fraction'>108/124</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.8% </span>
+                <span class="strong">59.61% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>119/199</span>
+                <span class='fraction'>121/203</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.76% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>24/29</span>
+                <span class='fraction'>24/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.14% </span>
+                <span class="strong">87.7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>104/118</span>
+                <span class='fraction'>107/122</span>
             </div>
         
             
@@ -486,7 +486,10 @@
 <a name='L427'></a><a href='#L427'>427</a>
 <a name='L428'></a><a href='#L428'>428</a>
 <a name='L429'></a><a href='#L429'>429</a>
-<a name='L430'></a><a href='#L430'>430</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L430'></a><a href='#L430'>430</a>
+<a name='L431'></a><a href='#L431'>431</a>
+<a name='L432'></a><a href='#L432'>432</a>
+<a name='L433'></a><a href='#L433'>433</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -510,6 +513,7 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -783,6 +787,8 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -830,7 +836,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -920,7 +926,7 @@ import { Text, Layout, Button, Popover, Avatar, Color, Icon, ButtonVariation } f
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
-import { defaultTo } from 'lodash-es'
+import { defaultTo, noop } from 'lodash-es'
 import {
   UserAggregate,
   useRemoveUser,
@@ -948,6 +954,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { setPageNumber } from '@common/utils/utils'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './UserListView.module.scss'
 &nbsp;
 interface ActiveUserListViewProps {
@@ -1212,6 +1219,8 @@ const ActiveUserListView: React.FC&lt;ActiveUserListViewProps&gt; = ({
   const history = useHistory()
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()
   const [page, setPage] = useState(0)
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
 &nbsp;
   const { data, loading, error, refetch } = useMutateAsGet(useGetAggregatedUsers, {
     body: {},
@@ -1255,11 +1264,11 @@ const ActiveUserListView: React.FC&lt;ActiveUserListViewProps&gt; = ({
         Cell: RenderColumnUser
       },
       {
-        Header: getString('rbac.usersPage.roleBinding'),
+        Header: isCommunity ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: getString('rbac.usersPage.roleBinding'),
         id: 'roleBinding',
         accessor: row =&gt; row.roleAssignmentMetadata,
         width: '45%',
-        Cell: RenderColumnRoleAssignments,
+        Cell: isCommunity ? <span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >noop </span></span>: RenderColumnRoleAssignments,
         openRoleAssignmentModal: addRole
       },
       {
@@ -1351,7 +1360,7 @@ export default ActiveUserListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 10 2021 08:22:47 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 10 2021 09:56:38 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.09% </span>
+                <span class="strong">72.52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>93/129</span>
+                <span class='fraction'>95/131</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50.53% </span>
+                <span class="strong">50.79% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>190/376</span>
+                <span class='fraction'>192/378</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.88% </span>
+                <span class="strong">72.31% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>92/128</span>
+                <span class='fraction'>94/130</span>
             </div>
         
             
@@ -568,7 +568,10 @@
 <a name='L509'></a><a href='#L509'>509</a>
 <a name='L510'></a><a href='#L510'>510</a>
 <a name='L511'></a><a href='#L511'>511</a>
-<a name='L512'></a><a href='#L512'>512</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -851,7 +854,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -895,6 +898,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1132,7 +1138,7 @@ export const getTooltip = <span class="fstat-no" title="function not covered" >(
   const point: TimeBasedStats = <span class="cstat-no" title="statement not covered" >custom?.[currPoint.key]</span>
   const time =
 <span class="cstat-no" title="statement not covered" >    point &amp;&amp; point?.time</span>
-      ? new Date(point?.time).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
+      ? new Date(point?.time).toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
       : currPoint.x
   let failureRate: string | number = <span class="cstat-no" title="statement not covered" >'Infinity'</span>
 <span class="cstat-no" title="statement not covered" >  if (point?.countWithSuccessFailureDetails?.failureCount &amp;&amp; point.countWithSuccessFailureDetails?.count) {</span>
@@ -1202,28 +1208,28 @@ const getBadge = <span class="fstat-no" title="function not covered" >(t</span>y
 <span class="cstat-no" title="statement not covered" >  switch (type) {</span>
     case 'pendingManualInterventionExecutions':
 <span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;div className={css.badge}&gt;
+        &lt;div className={css.badge} key={type}&gt;
           &lt;Icon name="status-pending" size={16} color={Color.ORANGE_700} /&gt;
           &lt;Text className={css.badgeText}&gt;{`${stat} Pending Manual Interventions`}&lt;/Text&gt;
         &lt;/div&gt;
       )
     case 'pendingApprovalExecutions':
 <span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;div className={css.badge}&gt;
+        &lt;div className={css.badge} key={type}&gt;
           &lt;Icon name="status-pending" size={16} color={Color.ORANGE_700} /&gt;
           &lt;Text className={css.badgeText}&gt;{`${stat} Pending Approvals`}&lt;/Text&gt;
         &lt;/div&gt;
       )
     case 'failed24HrsExecutions':
 <span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;div className={cx(css.badge, css.failed24HrsExecutionsBadge)}&gt;
+        &lt;div className={cx(css.badge, css.failed24HrsExecutionsBadge)} key={type}&gt;
           &lt;Icon name="warning-sign" size={12} color={Color.RED_600} /&gt;
           &lt;Text className={css.badgeText}&gt;{`${stat} Pipelines failed in past 24 hours`}&lt;/Text&gt;
         &lt;/div&gt;
       )
     case 'runningExecutions':
 <span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;div className={cx(css.badge, css.runningExecutions)}&gt;
+        &lt;div className={cx(css.badge, css.runningExecutions)} key={type}&gt;
           &lt;Icon name="status-running" size={16} color={Color.PRIMARY_7} /&gt;
           &lt;Text className={css.badgeText}&gt;{`${stat} Currently running pipelines`}&lt;/Text&gt;
         &lt;/div&gt;
@@ -1249,7 +1255,7 @@ const getFormattedNumber = (givenNumber?: number | string): string =&gt; {
 &nbsp;
 const summaryCardRenderer = (cardData: SummaryCardData, groupByValue: string): JSX.Element =&gt; {
   return (
-    &lt;Container className={css.summaryCard}&gt;
+    &lt;Container className={css.summaryCard} key={cardData.title}&gt;
       &lt;Text font={{ size: 'medium' }} color={Color.GREY_700} className={css.cardTitle}&gt;
         {cardData.title}
       &lt;/Text&gt;
@@ -1366,7 +1372,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
   const history = useHistory()
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams&lt;ProjectPathProps&gt;()
-  const [range, setRange] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
+  const [range, setRange] = useState([0, 0])
   const [groupByValue, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
   const [sortByValue, setSortByValue] = useState&lt;GetDeploymentStatsOverviewQueryParams['sortBy']&gt;('DEPLOYMENTS')
   const [selectedView, setSelectedView] = useState&lt;ChartType&gt;(ChartType.BAR)
@@ -1405,6 +1411,9 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
   }, [selectedTimeRange])
 &nbsp;
   useEffect(() =&gt; {
+    if (!range[0]) {
+      return
+    }
     refetch()
   }, [refetch, range, groupByValue, sortByValue])
 &nbsp;
@@ -1542,10 +1551,10 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
                 },
                 labels: {
                   formatter: function (this) {
-                    let time = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
+                    let time = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
                     <span class="missing-if-branch" title="else path not taken" >E</span>if (response<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eploymentsStatsSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eploymentStats<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength) {
                       const val = response.deploymentsStatsSummary.deploymentStats[this.pos].time
-                      time = val ? new Date(val).toLocaleDateString('en-US', { day: 'numeric', month: 'long' }) : <span class="branch-1 cbranch-no" title="branch not covered" >time</span>
+                      time = val ? new Date(val).toLocaleDateString('en-US', { day: 'numeric', month: 'short' }) : <span class="branch-1 cbranch-no" title="branch not covered" >time</span>
                     }
                     return time
                   }
@@ -1557,7 +1566,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
                 }
               }
             }}
-          &gt;&lt;/OverviewChartsWithToggle&gt;
+          /&gt;
         &lt;/Card&gt;
         &lt;Card className={css.mostActiveServicesContainer}&gt;
           &lt;Layout.Horizontal
@@ -1597,7 +1606,7 @@ export default LandingDashboardDeploymentsWidget
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 10 2021 08:22:47 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 10 2021 09:56:38 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

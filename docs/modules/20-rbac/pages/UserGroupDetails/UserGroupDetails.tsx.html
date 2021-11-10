@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.78% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/46</span>
+                <span class='fraction'>42/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.02% </span>
+                <span class="strong">60.32% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>36/61</span>
+                <span class='fraction'>38/63</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.86% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>39/42</span>
+                <span class='fraction'>42/45</span>
             </div>
         
             
@@ -252,7 +252,12 @@
 <a name='L193'></a><a href='#L193'>193</a>
 <a name='L194'></a><a href='#L194'>194</a>
 <a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -266,6 +271,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -280,6 +286,8 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
@@ -426,8 +434,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -470,12 +480,15 @@ import MemberList from '@rbac/pages/UserGroupDetails/views/MemberList'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import NotificationList from '@rbac/components/NotificationList/NotificationList'
+import { useLicenseStore, isCDCommunity } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './UserGroupDetails.module.scss'
 &nbsp;
 const UserGroupDetails: React.FC = () =&gt; {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, module, userGroupIdentifier } =
     useParams&lt;PipelineType&lt;ProjectPathProps &amp; { userGroupIdentifier: string }&gt;&gt;()
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
 &nbsp;
   const { data, loading, error, refetch } = useGetUserGroupAggregate({
     identifier: userGroupIdentifier,
@@ -605,30 +618,32 @@ const UserGroupDetails: React.FC = () =&gt; {
           &lt;MemberList ssoLinked={userGroup.ssoLinked} /&gt;
         &lt;/Container&gt;
         &lt;Container width="50%" className={css.detailsContainer}&gt;
-          &lt;Layout.Vertical spacing="medium" padding={{ bottom: 'large' }}&gt;
-            &lt;Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}&gt;
-              {getString('rbac.roleBinding')}
-            &lt;/Text&gt;
-            &lt;Card className={css.card}&gt;
-              &lt;RoleBindingsList data={userGroupAggregateResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>oleAssignmentsMetadataDTO} showNoData={true} /&gt;
-            &lt;/Card&gt;
-            &lt;Layout.Horizontal
-              flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
-              padding={{ top: 'medium' }}
-            &gt;
-              &lt;ManagePrincipalButton
-                data-testid={'addRole-UserGroup'}
-                text={getString('common.plusNumber', { number: getString('common.role') })}
-                variation={ButtonVariation.LINK}
-                onClick={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                  event.stopPropagation()</span>
-<span class="cstat-no" title="statement not covered" >                  openRoleAssignmentModal(PrincipalType.USER_GROUP, userGroup, data?.data?.roleAssignmentsMetadataDTO)</span>
-                }}
-                resourceType={ResourceType.USERGROUP}
-                resourceIdentifier={userGroupIdentifier}
-              /&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Layout.Vertical&gt;
+          {!isCommunity &amp;&amp; (
+            &lt;Layout.Vertical spacing="medium" padding={{ bottom: 'large' }}&gt;
+              &lt;Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}&gt;
+                {getString('rbac.roleBinding')}
+              &lt;/Text&gt;
+              &lt;Card className={css.card}&gt;
+                &lt;RoleBindingsList data={userGroupAggregateResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>oleAssignmentsMetadataDTO} showNoData={true} /&gt;
+              &lt;/Card&gt;
+              &lt;Layout.Horizontal
+                flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                padding={{ top: 'medium' }}
+              &gt;
+                &lt;ManagePrincipalButton
+                  data-testid={'addRole-UserGroup'}
+                  text={getString('common.plusNumber', { number: getString('common.role') })}
+                  variation={ButtonVariation.LINK}
+                  onClick={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                    event.stopPropagation()</span>
+<span class="cstat-no" title="statement not covered" >                    openRoleAssignmentModal(PrincipalType.USER_GROUP, userGroup, data?.data?.roleAssignmentsMetadataDTO)</span>
+                  }}
+                  resourceType={ResourceType.USERGROUP}
+                  resourceIdentifier={userGroupIdentifier}
+                /&gt;
+              &lt;/Layout.Horizontal&gt;
+            &lt;/Layout.Vertical&gt;
+          )}
           &lt;Layout.Vertical spacing="medium"&gt;
             &lt;Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}&gt;
               {getString('common.notificationPreferences')}
@@ -649,7 +664,7 @@ export default UserGroupDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 10 2021 08:22:47 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 10 2021 09:56:38 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.39% </span>
+                <span class="strong">72.09% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>91/124</span>
+                <span class='fraction'>93/129</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.07% </span>
+                <span class="strong">50.53% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>190/358</span>
+                <span class='fraction'>190/376</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.23% </span>
+                <span class="strong">64.29% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>18/26</span>
+                <span class='fraction'>18/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.17% </span>
+                <span class="strong">71.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>90/123</span>
+                <span class='fraction'>92/128</span>
             </div>
         
             
@@ -551,7 +551,24 @@
 <a name='L492'></a><a href='#L492'>492</a>
 <a name='L493'></a><a href='#L493'>493</a>
 <a name='L494'></a><a href='#L494'>494</a>
-<a name='L495'></a><a href='#L495'>495</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L495'></a><a href='#L495'>495</a>
+<a name='L496'></a><a href='#L496'>496</a>
+<a name='L497'></a><a href='#L497'>497</a>
+<a name='L498'></a><a href='#L498'>498</a>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a>
+<a name='L507'></a><a href='#L507'>507</a>
+<a name='L508'></a><a href='#L508'>508</a>
+<a name='L509'></a><a href='#L509'>509</a>
+<a name='L510'></a><a href='#L510'>510</a>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -841,6 +858,22 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -922,6 +955,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1045,10 +1079,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useState, useEffect } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useState, useEffect, useCallback } from 'react'
 import cx from 'classnames'
 import { Card, Color, Container, FontVariation, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
 import type { GetDataError, UseGetProps } from 'restful-react'
@@ -1098,7 +1132,7 @@ export const getTooltip = <span class="fstat-no" title="function not covered" >(
   const point: TimeBasedStats = <span class="cstat-no" title="statement not covered" >custom?.[currPoint.key]</span>
   const time =
 <span class="cstat-no" title="statement not covered" >    point &amp;&amp; point?.time</span>
-      ? new Date(point?.time).toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
+      ? new Date(point?.time).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
       : currPoint.x
   let failureRate: string | number = <span class="cstat-no" title="statement not covered" >'Infinity'</span>
 <span class="cstat-no" title="statement not covered" >  if (point?.countWithSuccessFailureDetails?.failureCount &amp;&amp; point.countWithSuccessFailureDetails?.count) {</span>
@@ -1329,12 +1363,28 @@ const renderTooltipForServiceLabel = (service: ActiveServiceInfo): JSX.Element =
 &nbsp;
 const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
   const { getString } = useStrings()
+  const history = useHistory()
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams&lt;ProjectPathProps&gt;()
   const [range, setRange] = useState([Date.now() - TimeRangeToDays[selectedTimeRange] * 24 * 60 * 60000, Date.now()])
   const [groupByValue, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
   const [sortByValue, setSortByValue] = useState&lt;GetDeploymentStatsOverviewQueryParams['sortBy']&gt;('DEPLOYMENTS')
   const [selectedView, setSelectedView] = useState&lt;ChartType&gt;(ChartType.BAR)
+  const goToServiceDetails = useCallback(
+<span class="fstat-no" title="function not covered" >    (s</span>ervice: ActiveServiceInfo) =&gt; {
+      const serviceId = <span class="cstat-no" title="statement not covered" >service.serviceInfo?.serviceIdentifier || ''</span>
+<span class="cstat-no" title="statement not covered" >      history.push(</span>
+        routes.toServiceDetails({
+          accountId,
+          orgIdentifier: service.orgInfo?.orgIdentifier || '',
+          projectIdentifier: service.projectInfo?.projectIdentifier || '',
+          serviceId,
+          module: 'cd'
+        })
+      )
+    },
+    [accountId]
+  )
 &nbsp;
   const { data, error, refetch, loading } = useGetDeploymentStatsOverview({
     queryParams: {
@@ -1416,6 +1466,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
         return {
           label: defaultTo(service.serviceInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceName, ''),
           labelTooltip: renderTooltipForServiceLabel(service),
+          labelClick: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >goToServiceDetails(service),</span>
           barSectionsData: [
             {
               count: defaultTo(service.countWithSuccessFailureDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccessCount, 0),
@@ -1546,7 +1597,7 @@ export default LandingDashboardDeploymentsWidget
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 10 2021 06:52:34 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 10 2021 08:22:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

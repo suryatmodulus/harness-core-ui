@@ -36,9 +36,9 @@ describe('LandingDashboardDeploymentsWidget tests', () => {
     const mostActiveServicesTitle = getByText('common.mostActiveServices')
     expect(mostActiveServicesTitle).toBeInTheDocument()
 
-    const successLegendText = getByText('Success')
+    const successLegendText = getByText('Success (5)')
     expect(successLegendText).toBeInTheDocument()
-    const failedLegendText = getByText('Failed')
+    const failedLegendText = getByText('Failed (2)')
     expect(failedLegendText).toBeInTheDocument()
   })
 })

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.59% </span>
+                <span class="strong">78.54% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>345/439</span>
+                <span class='fraction'>344/438</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.21% </span>
+                <span class="strong">79.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>343/433</span>
+                <span class='fraction'>342/432</span>
             </div>
         
             
@@ -1663,26 +1663,17 @@
 <a name='L1604'></a><a href='#L1604'>1604</a>
 <a name='L1605'></a><a href='#L1605'>1605</a>
 <a name='L1606'></a><a href='#L1606'>1606</a>
-<a name='L1607'></a><a href='#L1607'>1607</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L1607'></a><a href='#L1607'>1607</a>
+<a name='L1608'></a><a href='#L1608'>1608</a>
+<a name='L1609'></a><a href='#L1609'>1609</a>
+<a name='L1610'></a><a href='#L1610'>1610</a>
+<a name='L1611'></a><a href='#L1611'>1611</a>
+<a name='L1612'></a><a href='#L1612'>1612</a>
+<a name='L1613'></a><a href='#L1613'>1613</a>
+<a name='L1614'></a><a href='#L1614'>1614</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1695,6 +1686,30 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1703,7 +1718,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3272,7 +3286,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
 import type { FormikErrors } from 'formik'
 import { useHistory, useParams } from 'react-router-dom'
-import { Layout, SelectOption, Color, Text, Switch, PageSpinner } from '@wings-software/uicore'
+import {
+  Layout,
+  SelectOption,
+  Color,
+  Text,
+  Switch,
+  PageSpinner,
+  VisualYamlSelectedView as SelectedView
+} from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { isEmpty, isUndefined, merge, cloneDeep, get } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
@@ -3309,7 +3331,6 @@ import {
   getScopeFromValue,
   getScopeFromDTO
 } from '@common/components/EntityReference/EntityReference'
-import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type {
   YamlBuilderHandlerBinding,
   YamlBuilderProps,
@@ -4882,7 +4903,7 @@ export default TriggersWizardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 10 2021 11:30:15 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 10 2021 15:40:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

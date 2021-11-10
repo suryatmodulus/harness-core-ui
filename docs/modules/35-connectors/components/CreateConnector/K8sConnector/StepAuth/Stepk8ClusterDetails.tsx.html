@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.24% </span>
+                <span class="strong">95.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>60/63</span>
+                <span class='fraction'>58/61</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.91% </span>
+                <span class="strong">63.64% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>37/57</span>
+                <span class='fraction'>35/55</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.83% </span>
+                <span class="strong">95.65% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>23/24</span>
+                <span class='fraction'>22/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.24% </span>
+                <span class="strong">95.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>60/63</span>
+                <span class='fraction'>58/61</span>
             </div>
         
             
@@ -482,23 +482,7 @@
 <a name='L423'></a><a href='#L423'>423</a>
 <a name='L424'></a><a href='#L424'>424</a>
 <a name='L425'></a><a href='#L425'>425</a>
-<a name='L426'></a><a href='#L426'>426</a>
-<a name='L427'></a><a href='#L427'>427</a>
-<a name='L428'></a><a href='#L428'>428</a>
-<a name='L429'></a><a href='#L429'>429</a>
-<a name='L430'></a><a href='#L430'>430</a>
-<a name='L431'></a><a href='#L431'>431</a>
-<a name='L432'></a><a href='#L432'>432</a>
-<a name='L433'></a><a href='#L433'>433</a>
-<a name='L434'></a><a href='#L434'>434</a>
-<a name='L435'></a><a href='#L435'>435</a>
-<a name='L436'></a><a href='#L436'>436</a>
-<a name='L437'></a><a href='#L437'>437</a>
-<a name='L438'></a><a href='#L438'>438</a>
-<a name='L439'></a><a href='#L439'>439</a>
-<a name='L440'></a><a href='#L440'>440</a>
-<a name='L441'></a><a href='#L441'>441</a>
-<a name='L442'></a><a href='#L442'>442</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">127x</span>
+<a name='L426'></a><a href='#L426'>426</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">127x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -513,8 +497,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">127x</span>
 <span class="cline-any cline-yes">127x</span>
 <span class="cline-any cline-yes">127x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -857,30 +839,16 @@
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">78x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -944,8 +912,6 @@
   Layout,
   Color,
   Text,
-  CardSelect,
-  Icon,
   Container,
   FormInput,
   Formik,
@@ -953,10 +919,10 @@
   SelectOption,
   FontVariation,
   ButtonVariation,
-  PageSpinner
+  PageSpinner,
+  ThumbnailSelect
 } from '@wings-software/uicore'
 import React, { useState, useEffect } from 'react'
-import cx from 'classnames'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorConfigDTO } from 'services/cd-ng'
@@ -1297,31 +1263,17 @@ const Stepk8ClusterDetails: React.FC&lt;StepProps&lt;Stepk8ClusterDetailsProps&g
         {formikProps =&gt; (
           &lt;&gt;
             &lt;Container className={css.clusterWrapper}&gt;
-              &lt;CardSelect
-                onChange={<span class="fstat-no" title="function not covered" >(i</span>tem: DelegateCardInterface) =&gt; {
-<span class="cstat-no" title="statement not covered" >                  formikProps?.setFieldValue('delegateType', item.type)</span>
+              &lt;ThumbnailSelect
+                items={DelegateCards.map(card =&gt; ({ label: card.info, value: card.type }))}
+                name="delegateType"
+                size="large"
+                onChange={<span class="fstat-no" title="function not covered" >type </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                  formikProps?.setFieldValue('delegateType', type)</span>
 <span class="cstat-no" title="statement not covered" >                  formikProps?.setFieldValue(</span>
                     'authType',
-                    item.type === DelegateTypes.DELEGATE_OUT_CLUSTER ? AuthTypes.USER_PASSWORD : ''
+                    type === DelegateTypes.DELEGATE_OUT_CLUSTER ? AuthTypes.USER_PASSWORD : ''
                   )
                 }}
-                data={DelegateCards}
-                className={css.cardRow}
-                renderItem={(item: DelegateCardInterface) =&gt; {
-                  return (
-                    &lt;Container
-                      className={cx(css.card, { [css.selectedCard]: item.type === formikProps.values.delegateType })}
-                    &gt;
-                      &lt;Text inline className={css.textInfo}&gt;
-                        {item.info}
-                      &lt;/Text&gt;
-                      {item.type === formikProps.values.delegateType ? (
-                        &lt;Icon margin="small" name="deployment-success-new" size={16} /&gt;
-                      ) : null}
-                    &lt;/Container&gt;
-                  )
-                }}
-                selected={DelegateCards[DelegateCards.findIndex(card =&gt; card.type === formikProps.values.delegateType)]}
               /&gt;
 &nbsp;
               {DelegateTypes.DELEGATE_OUT_CLUSTER === formikProps.values.delegateType ? (
@@ -1387,7 +1339,7 @@ export default Stepk8ClusterDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 10 2021 11:30:15 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 10 2021 15:40:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

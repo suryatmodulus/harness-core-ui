@@ -64,7 +64,6 @@ const RbacButton: React.FC<ButtonProps> = ({
         disabled: true,
         tooltip: (
           <FeatureWarningTooltip
-            darkTheme={true}
             featureName={featureProps?.featureRequest.featureName}
             description={(descriptionString && getString(descriptionString)) || ''}
           />

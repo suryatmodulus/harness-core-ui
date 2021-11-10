@@ -18,7 +18,6 @@ import css from './FeatureWarning.module.scss'
 
 interface FeatureWarningTooltipProps {
   featureName: FeatureIdentifier
-  darkTheme?: boolean
   description?: string
 }
 
@@ -85,11 +84,7 @@ const WarningText = ({ tooltip, tooltipProps }: WarningTextProps): ReactElement 
   )
 }
 
-export const FeatureWarningTooltip = ({
-  featureName,
-  darkTheme = false,
-  description = ''
-}: FeatureWarningTooltipProps): ReactElement => {
+export const FeatureWarningTooltip = ({ featureName, description = '' }: FeatureWarningTooltipProps): ReactElement => {
   const { getString } = useStrings()
   const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
   const requiredPlans = useFeatureRequiredPlans(featureName)
@@ -106,11 +101,11 @@ export const FeatureWarningTooltip = ({
 
   return (
     <Layout.Vertical padding="medium" className={css.tooltip}>
-      <Text font={{ size: 'small', weight: 'semi-bold' }} color={darkTheme ? Color.GREY_100 : Color.GREY_800}>
+      <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_100}>
         {getString('common.feature.upgradeRequired.title')}
       </Text>
       <Layout.Vertical spacing="medium">
-        <Text font={{ size: 'small' }} color={darkTheme ? Color.GREY_300 : Color.GREY_700}>
+        <Text font={{ size: 'small' }} color={Color.GREY_300}>
           {!description && getString('common.feature.upgradeRequired.description')}
           {description || featureDescription}
         </Text>

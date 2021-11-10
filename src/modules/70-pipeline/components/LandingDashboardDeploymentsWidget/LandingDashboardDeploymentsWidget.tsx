@@ -343,14 +343,16 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
         custom.push(val)
       })
     }
+    const successCount = successData.reduce((sum, i) => sum + i, 0)
+    const failureCount = failureData.reduce((sum, i) => sum + i, 0)
     const successArr = {
-      name: 'Success',
+      name: `Success (${successCount})`,
       data: successData,
       color: '#5FB34E',
       custom
     }
     const failureArr = {
-      name: 'Failed',
+      name: `Failed (${failureCount})`,
       data: failureData,
       color: '#EE5F54',
       custom

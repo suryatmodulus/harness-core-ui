@@ -114,7 +114,7 @@ export default function RepositoryCard({
       </Container>
       <Container className={styles.cardFooter}>
         <Container className={styles.avatarWrapper}>
-          {username && <Avatar name={username} src={avatarUrl} size="small" />}
+          {username && <Avatar name={username} src={avatarUrl} size="small" className={styles.repoCard} />}
           <Text font={{ size: 'small' }} color={Color.BLACK} lineClamp={2}>
             {message}
           </Text>

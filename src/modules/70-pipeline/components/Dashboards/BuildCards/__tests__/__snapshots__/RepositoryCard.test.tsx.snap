@@ -86,7 +86,7 @@ exports[`RepositoryCard Renders correctly when successRateDiff is negative 1`] =
         class="StyledProps--font StyledProps--main avatarWrapper"
       >
         <div
-          class="Avatar--Avatar Avatar--contentStyle"
+          class="repoCard Avatar--Avatar Avatar--contentStyle"
         >
           <span
             class="bp3-popover-wrapper Avatar--avatarPopOver"
@@ -227,7 +227,7 @@ exports[`RepositoryCard Renders correctly when successRateDiff is positive 1`] =
         class="StyledProps--font StyledProps--main avatarWrapper"
       >
         <div
-          class="Avatar--Avatar Avatar--contentStyle"
+          class="repoCard Avatar--Avatar Avatar--contentStyle"
         >
           <span
             class="bp3-popover-wrapper Avatar--avatarPopOver"

@@ -19,5 +19,6 @@ declare const styles: {
   readonly avatarWrapper: string
   readonly successBorder: string
   readonly errorBorder: string
+  readonly repoCard: string
 }
 export default styles

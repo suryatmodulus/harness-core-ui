@@ -130,3 +130,15 @@
 .errorBorder {
   border-left: 1px solid var(--ci-color-red-500);
 }
+
+.repoCard {
+  :global {
+    .bp3-popover-content {
+      height: calc(2 * var(--spacing-xxxlarge));
+      background-color: var(--grey-100);
+    }
+    .bp3-popover-arrow-fill {
+      fill: var(--grey-100);
+    }
+  }
+}

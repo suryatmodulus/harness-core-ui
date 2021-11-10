@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.18% </span>
+                <span class="strong">90.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/34</span>
+                <span class='fraction'>30/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>24/28</span>
+                <span class='fraction'>28/32</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">90.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>30/33</span>
+                <span class='fraction'>29/32</span>
             </div>
         
             
@@ -189,25 +189,17 @@
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L133'></a><a href='#L133'>133</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,14 +215,16 @@
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">138x</span>
-<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -333,19 +327,14 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { Button, ButtonVariation, Layout, PageSpinner, useModalHook } from '@wings-software/uicore'
 &nbsp;
 import type { InputSetSelectorProps, InputSetValue } from '@pipeline/components/InputSetSelector/InputSetSelector'
-import type {
-  GitQueryParams,
-  PipelineType,
-  ProjectPathProps,
-  RunPipelineQueryParams
-} from '@common/interfaces/RouteInterfaces'
+import type { ExecutionPathProps, GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useGetInputsetYaml } from 'services/pipeline-ng'
-import { useQueryParams } from '@common/hooks'
 import { RunPipelineForm } from './RunPipelineForm'
 import css from './RunPipelineForm.module.scss'
 &nbsp;
 export interface RunPipelineModalParams {
   pipelineIdentifier: string
+  executionId?: string
   inputSetSelected?: InputSetSelectorProps['value']
   stagesExecuted?: string[]
 }
@@ -358,20 +347,22 @@ export interface UseRunPipelineModalReturn {
 export const useRunPipelineModal = (
   runPipelineModaParams: RunPipelineModalParams &amp; GitQueryParams
 ): UseRunPipelineModalReturn =&gt; {
-  const { inputSetSelected, pipelineIdentifier, branch, repoIdentifier, stagesExecuted } = runPipelineModaParams
-  const { projectIdentifier, orgIdentifier, accountId, module } = useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()
-  const { executionId } = useQueryParams&lt;GitQueryParams &amp; RunPipelineQueryParams&gt;()
+  const { inputSetSelected, pipelineIdentifier, branch, repoIdentifier, executionId, stagesExecuted } =
+    runPipelineModaParams
+  const { projectIdentifier, orgIdentifier, accountId, module, executionIdentifier } =
+    useParams&lt;PipelineType&lt;ExecutionPathProps&gt;&gt;()
+&nbsp;
+  const planExecutionId: string | undefined = executionIdentifier ?? executionId
 &nbsp;
   const [inputSetYaml, setInputSetYaml] = useState('')
 &nbsp;
   const { data: runPipelineInputsetData, loading } = useGetInputsetYaml({
-    planExecutionId: executionId ?? '',
+    planExecutionId: planExecutionId ?? '',
     queryParams: {
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId
     },
-    lazy: true,
     requestOptions: {
       headers: {
         'content-type': 'application/yaml'
@@ -469,7 +460,7 @@ export const useRunPipelineModal = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 10 2021 02:24:08 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 10 2021 04:10:58 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

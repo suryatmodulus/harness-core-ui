@@ -420,32 +420,36 @@ const _softFetchPipeline = async (
     gitDetails.branch || ''
   )
   if (IdbPipeline) {
-    const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
-    if (data?.pipeline && !isEqual(data.pipeline, pipeline)) {
-      const isUpdated = !isEqual(originalPipeline, data.pipeline)
-      if (!isEmpty(selectionState.selectedStageId) && selectionState.selectedStageId) {
-        const stage = _getStageFromPipeline(selectionState.selectedStageId, data.pipeline).stage
-        if (isNil(stage)) {
-          dispatch(
-            PipelineContextActions.success({
-              error: '',
-              pipeline: data.pipeline,
-              isUpdated,
-              pipelineView: {
-                ...pipelineView,
-                isSplitViewOpen: false,
-                isDrawerOpened: false,
-                drawerData: { type: DrawerTypes.StepConfig },
-                splitViewData: {}
-              }
-            })
-          )
+    try {
+      const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
+      if (data?.pipeline && !isEqual(data.pipeline, pipeline)) {
+        const isUpdated = !isEqual(originalPipeline, data.pipeline)
+        if (!isEmpty(selectionState.selectedStageId) && selectionState.selectedStageId) {
+          const stage = _getStageFromPipeline(selectionState.selectedStageId, data.pipeline).stage
+          if (isNil(stage)) {
+            dispatch(
+              PipelineContextActions.success({
+                error: '',
+                pipeline: data.pipeline,
+                isUpdated,
+                pipelineView: {
+                  ...pipelineView,
+                  isSplitViewOpen: false,
+                  isDrawerOpened: false,
+                  drawerData: { type: DrawerTypes.StepConfig },
+                  splitViewData: {}
+                }
+              })
+            )
+          } else {
+            dispatch(PipelineContextActions.success({ error: '', pipeline: data.pipeline, isUpdated }))
+          }
         } else {
           dispatch(PipelineContextActions.success({ error: '', pipeline: data.pipeline, isUpdated }))
         }
-      } else {
-        dispatch(PipelineContextActions.success({ error: '', pipeline: data.pipeline, isUpdated }))
       }
+    } catch (err) {
+      dispatch(PipelineContextActions.success({ error: 'DB is not initialized' }))
     }
   } else {
     dispatch(PipelineContextActions.success({ error: 'DB is not initialized' }))

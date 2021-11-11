@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.85% </span>
+                <span class="strong">42.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/26</span>
+                <span class='fraction'>11/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.79% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>19/66</span>
+                <span class='fraction'>0/66</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56% </span>
+                <span class="strong">44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/25</span>
+                <span class='fraction'>11/25</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -461,7 +461,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -481,9 +481,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -684,13 +684,13 @@ interface OperandSelectorProps {
   setProviderAndIdentifier: (providerData: ProviderType, serviceData: ProviderType) =&gt; void
 }
 &nbsp;
-const OperandSelector: React.FC&lt;OperandSelectorProps&gt; = ({
+const OperandSelector: React.FC&lt;OperandSelectorProps&gt; = <span class="fstat-no" title="function not covered" >({</span>
   service,
   provider,
   fieldValuesList,
   setProviderAndIdentifier
 }) =&gt; {
-  const [labelResult] = useFetchPerspectiveFiltersValueQuery({
+  const [labelResult] = <span class="cstat-no" title="statement not covered" >useFetchPerspectiveFiltersValueQuery({</span>
     variables: {
       filters: [
         {
@@ -710,9 +710,9 @@ const OperandSelector: React.FC&lt;OperandSelectorProps&gt; = ({
     }
   })
 &nbsp;
-  const { data: labelResData, fetching: labelFetching } = labelResult
+  const { data: labelResData, fetching: labelFetching } = <span class="cstat-no" title="statement not covered" >labelResult</span>
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Popover
       className={css.operandContainer}
       interactionKind={PopoverInteractionKind.CLICK}
@@ -728,7 +728,7 @@ const OperandSelector: React.FC&lt;OperandSelectorProps&gt; = ({
       usePortal={true}
       content={
         &lt;PopoverContent
-          labelData={<span class="branch-1 cbranch-no" title="branch not covered" >labelResData?.perspectiveFilters<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.values </span>|| []}
+          labelData={labelResData?.perspectiveFilters?.values || []}
           labelFetching={labelFetching}
           fieldValuesList={fieldValuesList}
           setProviderAndIdentifier={setProviderAndIdentifier}
@@ -736,7 +736,7 @@ const OperandSelector: React.FC&lt;OperandSelectorProps&gt; = ({
       }
     &gt;
       &lt;div className={css.operandSelectorContainer}&gt;
-        {provider<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d &amp;&amp; service<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d ? `${provider.name || provider.id} &gt; ${service.name}` : <span class="branch-1 cbranch-no" title="branch not covered" >'Choose Operand'}</span>
+        {provider?.id &amp;&amp; service?.id ? `${provider.name || provider.id} &gt; ${service.name}` : 'Choose Operand'}
         &lt;Icon name="caret-down" /&gt;
       &lt;/div&gt;
     &lt;/Popover&gt;
@@ -751,7 +751,7 @@ export default OperandSelector
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 11 2021 10:58:41 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 11 2021 11:51:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/15</span>
+                <span class='fraction'>10/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/10</span>
+                <span class='fraction'>0/10</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">66.67% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/15</span>
+                <span class='fraction'>10/15</span>
             </div>
         
             
@@ -151,8 +151,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,7 +171,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,7 +187,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -227,9 +227,9 @@ interface OperatorSelectorProps {
   isDisabled: boolean
 }
 &nbsp;
-const OperatorSelector: React.FC&lt;OperatorSelectorProps&gt; = ({ operator, onOperatorChange, isDisabled }) =&gt; {
-  const { getString } = useStrings()
-  const operators = [
+const OperatorSelector: React.FC&lt;OperatorSelectorProps&gt; = <span class="fstat-no" title="function not covered" >({</span> operator, onOperatorChange, isDisabled }) =&gt; {
+  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+  const operators = <span class="cstat-no" title="statement not covered" >[</span>
     {
       value: QlceViewFilterOperator.In,
       label: getString('ce.perspectives.createPerspective.operatorLabels.in')
@@ -248,7 +248,7 @@ const OperatorSelector: React.FC&lt;OperatorSelectorProps&gt; = ({ operator, onO
     }
   ]
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Popover
       disabled={isDisabled}
       interactionKind={PopoverInteractionKind.CLICK}
@@ -263,16 +263,16 @@ const OperatorSelector: React.FC&lt;OperatorSelectorProps&gt; = ({ operator, onO
       usePortal={true}
       content={
         &lt;Container&gt;
-          {operators.map(opertor =&gt; {
-            return (
+          {operators.map(<span class="fstat-no" title="function not covered" >opertor </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >            return (</span>
               &lt;CustomMenuItem
                 hidePopoverOnClick={true}
                 onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                  onOperatorChange(opertor.value)</span>
                 }}
-                key={opertor<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>abel}
+                key={opertor?.label}
                 fontSize={'normal'}
-                text={opertor.value || <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>
+                text={opertor.value || ''}
               /&gt;
             )
           })}
@@ -280,7 +280,7 @@ const OperatorSelector: React.FC&lt;OperatorSelectorProps&gt; = ({ operator, onO
       }
     &gt;
       &lt;div className={cx(css.operandSelectorContainer, { [css.disabledSelect]: isDisabled })}&gt;
-        {operator &amp;&amp; !isDisabled ? operator : <span class="branch-1 cbranch-no" title="branch not covered" >getString('ce.perspectives.createPerspective.filters.operator')}</span>
+        {operator &amp;&amp; !isDisabled ? operator : getString('ce.perspectives.createPerspective.filters.operator')}
         &lt;Icon name="caret-down" /&gt;
       &lt;/div&gt;
     &lt;/Popover&gt;
@@ -295,7 +295,7 @@ export default OperatorSelector
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 11 2021 10:58:41 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 11 2021 11:51:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

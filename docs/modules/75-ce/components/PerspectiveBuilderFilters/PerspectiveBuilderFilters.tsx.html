@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.54% </span>
+                <span class="strong">34.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/26</span>
+                <span class='fraction'>9/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/28</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.54% </span>
+                <span class="strong">34.62% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/26</span>
+                <span class='fraction'>9/26</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -169,28 +169,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -258,8 +258,8 @@ interface FiltersProps {
   removeEntireRow: () =&gt; void
 }
 &nbsp;
-const Filters: React.FC&lt;FiltersProps&gt; = ({ index, formikProps, removePill, fieldValuesList, removeEntireRow }) =&gt; {
-  const onPillDataChange: (id: number, data: Omit&lt;PillData, 'type'&gt;) =&gt; void = <span class="fstat-no" title="function not covered" >(i</span>d, data) =&gt; {
+const Filters: React.FC&lt;FiltersProps&gt; = <span class="fstat-no" title="function not covered" >({</span> index, formikProps, removePill, fieldValuesList, removeEntireRow }) =&gt; {
+  const onPillDataChange: (id: number, data: Omit&lt;PillData, 'type'&gt;) =&gt; void = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>d, data) =&gt; {</span>
     const setFieldValue = <span class="cstat-no" title="statement not covered" >formikProps.setFieldValue</span>
 <span class="cstat-no" title="statement not covered" >    if (data.viewField.identifier === 'CUSTOM') {</span>
 <span class="cstat-no" title="statement not covered" >      data.values = []</span>
@@ -268,19 +268,19 @@ const Filters: React.FC&lt;FiltersProps&gt; = ({ index, formikProps, removePill,
   }
 &nbsp;
   const dateRange =
-    (formikProps.values.viewTimeRange<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>iewTimeRangeType &amp;&amp;
-      perspectiveDefaultTimeRangeMapper[formikProps.values.viewTimeRange<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>iewTimeRangeType]) ||
-<span class="branch-2 cbranch-no" title="branch not covered" >    DATE_RANGE_SHORTCUTS.LAST_7_DAYS</span>
-  return (
+<span class="cstat-no" title="statement not covered" >    (formikProps.values.viewTimeRange?.viewTimeRangeType &amp;&amp;</span>
+      perspectiveDefaultTimeRangeMapper[formikProps.values.viewTimeRange?.viewTimeRangeType]) ||
+    DATE_RANGE_SHORTCUTS.LAST_7_DAYS
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;FieldArray
       name={`viewRules[${index}].viewConditions`}
-      render={arrayHelpers =&gt; {
-        const viewRules = formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>iewRules
-        const filters = ((viewRules &amp;&amp; viewRules[index].viewConditions) || <span class="branch-2 cbranch-no" title="branch not covered" >[])</span> as unknown as PillData[]
-        return (
+      render={<span class="fstat-no" title="function not covered" >arrayHelpers </span>=&gt; {
+        const viewRules = <span class="cstat-no" title="statement not covered" >formikProps?.values?.viewRules</span>
+        const filters = (<span class="cstat-no" title="statement not covered" >(viewRules &amp;&amp; viewRules[index].viewConditions) || [])</span> as unknown as PillData[]
+<span class="cstat-no" title="statement not covered" >        return (</span>
           &lt;section className={cx(css.filterContainer)}&gt;
-            {filters.map((data, innerIndex) =&gt; {
-              return (
+            {filters.map(<span class="fstat-no" title="function not covered" >(d</span>ata, innerIndex) =&gt; {
+<span class="cstat-no" title="statement not covered" >              return (</span>
                 &lt;React.Fragment key={`filter-pill-${innerIndex}`}&gt;
                   &lt;PerspectiveBuilderFilter
                     timeRange={{
@@ -334,7 +334,7 @@ export default Filters
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 11 2021 10:58:41 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 11 2021 11:51:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

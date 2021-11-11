@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.93% </span>
+                <span class="strong">57.26% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>66/112</span>
+                <span class='fraction'>67/117</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.17% </span>
+                <span class="strong">28.38% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>42/144</span>
+                <span class='fraction'>42/148</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">58.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>66/110</span>
+                <span class='fraction'>67/115</span>
             </div>
         
             
@@ -554,7 +554,16 @@
 <a name='L495'></a><a href='#L495'>495</a>
 <a name='L496'></a><a href='#L496'>496</a>
 <a name='L497'></a><a href='#L497'>497</a>
-<a name='L498'></a><a href='#L498'>498</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L498'></a><a href='#L498'>498</a>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a>
+<a name='L507'></a><a href='#L507'>507</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -587,6 +596,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -595,7 +605,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -775,6 +785,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -896,6 +910,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1079,6 +1097,7 @@ import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTo
 import {
   DeleteFeatureFlagQueryParams,
   Feature,
+  GitSyncErrorResponse,
   PatchFeatureQueryParams,
   useDeleteFeatureFlag,
   usePatchFeature,
@@ -1092,7 +1111,7 @@ import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from 
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 &nbsp;
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
-import type { GitSyncFormValues, UseGitSync } from '@cf/hooks/useGitSync'
+import { GitSyncFormValues, GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
@@ -1270,8 +1289,12 @@ const FlagActivationDetails: React.FC&lt;FlagActivationDetailsProps&gt; = props 
 <span class="cstat-no" title="statement not covered" >              refetchFlag()</span>
 <span class="cstat-no" title="statement not covered" >              showToaster(getString('cf.messages.flagUpdated'))</span>
             })
-            .catch(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >              patch.feature.reset()</span>
+            .catch(<span class="fstat-no" title="function not covered" >error </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >              if (error.status === GIT_SYNC_ERROR_CODE) {</span>
+<span class="cstat-no" title="statement not covered" >                gitSync.handleError(error.data as GitSyncErrorResponse)</span>
+              } else {
+<span class="cstat-no" title="statement not covered" >                patch.feature.reset()</span>
+              }
             })
         })
         .onEmptyPatch(hideEditDetailsModal)
@@ -1391,8 +1414,12 @@ const FlagActivationDetails: React.FC&lt;FlagActivationDetailsProps&gt; = props 
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      history.replace(featureFlagListURL)</span>
 <span class="cstat-no" title="statement not covered" >      showToaster(getString('cf.messages.flagDeleted'))</span>
-    } catch (error) {
-<span class="cstat-no" title="statement not covered" >      showError(getErrorMessage(error), 0, 'cf.delete.ff.error')</span>
+    } catch (error: any) {
+<span class="cstat-no" title="statement not covered" >      if (error.status === GIT_SYNC_ERROR_CODE) {</span>
+<span class="cstat-no" title="statement not covered" >        gitSync.handleError(error.data as GitSyncErrorResponse)</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        showError(getErrorMessage(error), 0, 'cf.delete.ff.error')</span>
+      }
     }
   }
 &nbsp;
@@ -1555,7 +1582,7 @@ export default FlagActivationDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 11 2021 14:11:13 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 11 2021 14:56:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

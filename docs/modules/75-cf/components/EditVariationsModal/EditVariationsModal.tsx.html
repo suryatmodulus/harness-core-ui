@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.5% </span>
+                <span class="strong">71.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>58/80</span>
+                <span class='fraction'>59/83</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.08% </span>
+                <span class="strong">62.12% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>82/130</span>
+                <span class='fraction'>82/132</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.03% </span>
+                <span class="strong">72.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>57/77</span>
+                <span class='fraction'>58/80</span>
             </div>
         
             
@@ -432,7 +432,11 @@
 <a name='L373'></a><a href='#L373'>373</a>
 <a name='L374'></a><a href='#L374'>374</a>
 <a name='L375'></a><a href='#L375'>375</a>
-<a name='L376'></a><a href='#L376'>376</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -464,7 +468,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -604,6 +608,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -831,7 +839,7 @@ import { getErrorMessage, useValidateVariationValues } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
-import { Feature, PatchFeatureQueryParams, usePatchFeature, Variation } from 'services/cf'
+import { Feature, GitSyncErrorResponse, PatchFeatureQueryParams, usePatchFeature, Variation } from 'services/cf'
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
@@ -839,7 +847,7 @@ import { PageSpinner } from '@common/components'
 &nbsp;
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 &nbsp;
-import type { UseGitSync } from '@cf/hooks/useGitSync'
+import { GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import patch from '../../utils/instructions'
 &nbsp;
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
@@ -976,9 +984,13 @@ export const EditVariationsModal: React.FC&lt;EditVariationsModalProps&gt; = ({
 &nbsp;
           hideModal()
           onSuccess()
-        } catch (error) {
-<span class="cstat-no" title="statement not covered" >          showError(getErrorMessage(error), 0, 'cf.submit.patch.error')</span>
-<span class="cstat-no" title="statement not covered" >          patch.feature.reset()</span>
+        } catch (error: any) {
+<span class="cstat-no" title="statement not covered" >          if (error.status === GIT_SYNC_ERROR_CODE) {</span>
+<span class="cstat-no" title="statement not covered" >            gitSync.handleError(error.data as GitSyncErrorResponse)</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            showError(getErrorMessage(error), 0, 'cf.submit.patch.error')</span>
+<span class="cstat-no" title="statement not covered" >            patch.feature.reset()</span>
+          }
         }
       })
     }
@@ -1189,7 +1201,7 @@ export const EditVariationsModal: React.FC&lt;EditVariationsModalProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 11 2021 14:11:13 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 11 2021 14:56:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.57% </span>
+                <span class="strong">73.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>133/176</span>
+                <span class='fraction'>133/180</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.99% </span>
+                <span class="strong">52.1% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>124/234</span>
+                <span class='fraction'>124/238</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76% </span>
+                <span class="strong">74.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>133/175</span>
+                <span class='fraction'>133/179</span>
             </div>
         
             
@@ -782,7 +782,16 @@
 <a name='L723'></a><a href='#L723'>723</a>
 <a name='L724'></a><a href='#L724'>724</a>
 <a name='L725'></a><a href='#L725'>725</a>
-<a name='L726'></a><a href='#L726'>726</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L726'></a><a href='#L726'>726</a>
+<a name='L727'></a><a href='#L727'>727</a>
+<a name='L728'></a><a href='#L728'>728</a>
+<a name='L729'></a><a href='#L729'>729</a>
+<a name='L730'></a><a href='#L730'>730</a>
+<a name='L731'></a><a href='#L731'>731</a>
+<a name='L732'></a><a href='#L732'>732</a>
+<a name='L733'></a><a href='#L733'>733</a>
+<a name='L734'></a><a href='#L734'>734</a>
+<a name='L735'></a><a href='#L735'>735</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -806,6 +815,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -913,6 +923,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1161,6 +1175,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1535,6 +1553,7 @@ import {
   Feature,
   Features,
   FeatureState,
+  GitSyncErrorResponse,
   useDeleteFeatureFlag,
   useGetAllFeatures
 } from 'services/cf'
@@ -1570,7 +1589,7 @@ import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOp
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import GitSyncActions from '@cf/components/GitSyncActions/GitSyncActions'
-import { GitDetails, GitSyncFormValues, useGitSync, UseGitSync } from '@cf/hooks/useGitSync'
+import { GitDetails, GitSyncFormValues, GIT_SYNC_ERROR_CODE, useGitSync, UseGitSync } from '@cf/hooks/useGitSync'
 import imageURL from './Feature_Flags_LP.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
@@ -1614,7 +1633,7 @@ const RenderColumnFlag: React.FC&lt;RenderColumnFlagProps&gt; = ({
     [activeEnvironment]
   )
 &nbsp;
-  const handleFlagToggle = <span class="fstat-no" title="function not covered" >(g</span>itSyncFormValues?: GitSyncFormValues): void =&gt; {
+  const handleFlagToggle = <span class="fstat-no" title="function not covered" >async </span>(gitSyncFormValues?: GitSyncFormValues): Promise&lt;void&gt; =&gt; {
     let gitDetails: GitDetails | undefined
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (gitSync.isAutoCommitEnabled) {</span>
@@ -1625,9 +1644,9 @@ const RenderColumnFlag: React.FC&lt;RenderColumnFlagProps&gt; = ({
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    try {</span>
 <span class="cstat-no" title="statement not covered" >      if (status) {</span>
-<span class="cstat-no" title="statement not covered" >        toggleFeatureFlag.off(data.identifier, gitDetails)</span>
+<span class="cstat-no" title="statement not covered" >        await toggleFeatureFlag.off(data.identifier, gitDetails)</span>
       } else {
-<span class="cstat-no" title="statement not covered" >        toggleFeatureFlag.on(data.identifier, gitDetails)</span>
+<span class="cstat-no" title="statement not covered" >        await toggleFeatureFlag.on(data.identifier, gitDetails)</span>
       }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      if (gitSyncFormValues?.autoCommit) {</span>
@@ -1636,8 +1655,12 @@ const RenderColumnFlag: React.FC&lt;RenderColumnFlagProps&gt; = ({
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      setStatus(!status)</span>
 <span class="cstat-no" title="statement not covered" >      update(!status)</span>
-    } catch (error) {
-<span class="cstat-no" title="statement not covered" >      showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')</span>
+    } catch (error: any) {
+<span class="cstat-no" title="statement not covered" >      if (error.status === GIT_SYNC_ERROR_CODE) {</span>
+<span class="cstat-no" title="statement not covered" >        gitSync.handleError(error.data as GitSyncErrorResponse)</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')</span>
+      }
     }
   }
 &nbsp;
@@ -1884,8 +1907,12 @@ const RenderColumnEdit: React.FC&lt;ColumnMenuProps&gt; = ({ gitSync, deleteFlag
 &nbsp;
       showToaster(getString('cf.messages.flagDeleted'))
       refetch<span class="branch-0 cbranch-no" title="branch not covered" >?.()</span>
-    } catch (error) {
-<span class="cstat-no" title="statement not covered" >      showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')</span>
+    } catch (error: any) {
+<span class="cstat-no" title="statement not covered" >      if (error.status === GIT_SYNC_ERROR_CODE) {</span>
+<span class="cstat-no" title="statement not covered" >        gitSync.handleError(error.data as GitSyncErrorResponse)</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')</span>
+      }
     }
   }
 &nbsp;
@@ -2034,9 +2061,9 @@ const FeatureFlagsPage: React.FC = () =&gt; {
     [toggleFeatureFlag.loading, deleteFlag.loading]
   )
 &nbsp;
-  const error = flagsError || envsError || deleteFlag.error || toggleFeatureFlag.error
-&nbsp;
   const gitSync = useGitSync()
+&nbsp;
+  const error = flagsError || envsError || deleteFlag.error || toggleFeatureFlag.error
 &nbsp;
   const columns: Column&lt;Feature&gt;[] = useMemo(
     () =&gt; [
@@ -2239,7 +2266,7 @@ export default FeatureFlagsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 11 2021 14:11:13 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 11 2021 14:56:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

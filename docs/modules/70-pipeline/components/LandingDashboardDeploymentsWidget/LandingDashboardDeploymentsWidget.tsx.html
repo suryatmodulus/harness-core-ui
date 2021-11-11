@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.33% </span>
+                <span class="strong">75.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>99/135</span>
+                <span class='fraction'>100/133</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50.79% </span>
+                <span class="strong">53.97% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>192/378</span>
+                <span class='fraction'>204/378</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">72.41% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>20/30</span>
+                <span class='fraction'>21/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">74.62% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>96/132</span>
+                <span class='fraction'>97/130</span>
             </div>
         
             
@@ -567,13 +567,7 @@
 <a name='L508'></a><a href='#L508'>508</a>
 <a name='L509'></a><a href='#L509'>509</a>
 <a name='L510'></a><a href='#L510'>510</a>
-<a name='L511'></a><a href='#L511'>511</a>
-<a name='L512'></a><a href='#L512'>512</a>
-<a name='L513'></a><a href='#L513'>513</a>
-<a name='L514'></a><a href='#L514'>514</a>
-<a name='L515'></a><a href='#L515'>515</a>
-<a name='L516'></a><a href='#L516'>516</a>
-<a name='L517'></a><a href='#L517'>517</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L511'></a><a href='#L511'>511</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -864,14 +858,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -965,7 +953,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1089,10 +1077,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useState, useEffect, useCallback } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useState, useEffect } from 'react'
 import cx from 'classnames'
 import { Card, Color, Container, FontVariation, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
 import type { GetDataError, UseGetProps } from 'restful-react'
@@ -1373,28 +1361,22 @@ const renderTooltipForServiceLabel = (service: ActiveServiceInfo): JSX.Element =
 &nbsp;
 const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
   const { getString } = useStrings()
-  const history = useHistory()
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams&lt;ProjectPathProps&gt;()
   const [range, setRange] = useState([0, 0])
   const [groupByValue, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
   const [sortByValue, setSortByValue] = useState&lt;GetDeploymentStatsOverviewQueryParams['sortBy']&gt;('DEPLOYMENTS')
   const [selectedView, setSelectedView] = useState&lt;ChartType&gt;(ChartType.BAR)
-  const goToServiceDetails = useCallback(
-<span class="fstat-no" title="function not covered" >    (s</span>ervice: ActiveServiceInfo) =&gt; {
-      const serviceId = <span class="cstat-no" title="statement not covered" >service.serviceInfo?.serviceIdentifier || ''</span>
-<span class="cstat-no" title="statement not covered" >      history.push(</span>
-        routes.toServiceDetails({
-          accountId,
-          orgIdentifier: service.orgInfo?.orgIdentifier || '',
-          projectIdentifier: service.projectInfo?.projectIdentifier || '',
-          serviceId,
-          module: 'cd'
-        })
-      )
-    },
-    [accountId]
-  )
+  const getServiceDetailsLink = (service: ActiveServiceInfo): string =&gt; {
+    const serviceId = service.serviceInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceIdentifier || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+    return routes.toServiceDetails({
+      accountId,
+      orgIdentifier: service.orgInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>rgIdentifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+      projectIdentifier: service.projectInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rojectIdentifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+      serviceId,
+      module: 'cd'
+    })
+  }
 &nbsp;
   const { data, error, refetch, loading } = useGetDeploymentStatsOverview({
     queryParams: {
@@ -1481,7 +1463,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
         return {
           label: defaultTo(service.serviceInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceName, ''),
           labelTooltip: renderTooltipForServiceLabel(service),
-          labelClick: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >goToServiceDetails(service),</span>
+          labelLink: getServiceDetailsLink(service),
           barSectionsData: [
             {
               count: defaultTo(service.countWithSuccessFailureDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccessCount, 0),
@@ -1612,7 +1594,7 @@ export default LandingDashboardDeploymentsWidget
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 11 2021 11:51:55 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 11 2021 13:13:10 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

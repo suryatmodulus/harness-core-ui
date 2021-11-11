@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/15</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/5</span>
+                <span class='fraction'>5/7</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/15</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
@@ -112,7 +112,14 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,8 +132,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,6 +149,8 @@
 <span class="cline-any cline-yes">35x</span>
 <span class="cline-any cline-yes">35x</span>
 <span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,32 +193,39 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 &nbsp;
 import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
 import Card from '@cv/components/Card/Card'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
 export default function BaseContinousVerification(props: {
   formik: FormikProps&lt;ContinousVerificationData&gt;
   isNewStep?: boolean
+  stepViewType?: StepViewType
+  allowableTypes: MultiTypeInputType[]
 }): React.ReactElement {
   const {
     formik: { values: formValues, setFieldValue },
-    isNewStep = <span class="branch-0 cbranch-no" title="branch not covered" >true</span>
+    isNewStep = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span>
+    stepViewType,
+    allowableTypes
   } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
     &lt;Card&gt;
       &lt;&gt;
-        &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
-          &lt;FormInput.InputWithIdentifier
-            isIdentifierEditable={isNewStep}
-            inputLabel={getString('pipelineSteps.stepNameLabel')}
-          /&gt;
-        &lt;/div&gt;
+        {stepViewType !== StepViewType.Template &amp;&amp; (
+          &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+            &lt;FormInput.InputWithIdentifier
+              isIdentifierEditable={isNewStep}
+              inputLabel={getString('pipelineSteps.stepNameLabel')}
+            /&gt;
+          &lt;/div&gt;
+        )}
         &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
           &lt;FormMultiTypeDurationField
             name="timeout"
             label={getString('pipelineSteps.timeoutLabel')}
-            multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+            multiTypeDurationProps={{ enableConfigureOptions: false, expressions, allowableTypes }}
           /&gt;
           {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
             &lt;ConfigureOptions
@@ -229,7 +250,7 @@ export default function BaseContinousVerification(props: {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 11 2021 11:51:55 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 11 2021 13:13:10 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../../prettify.js"></script>

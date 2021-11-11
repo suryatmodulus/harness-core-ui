@@ -249,14 +249,14 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
           </p>
         </div>
         <div
-          class="table table"
+          class="TableV2--table table"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 18%;"
@@ -268,7 +268,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 8%;"
@@ -280,7 +280,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 12%;"
@@ -292,7 +292,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 22%;"
@@ -304,7 +304,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 15%;"
@@ -316,7 +316,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -328,7 +328,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -340,7 +340,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 5%;"
@@ -353,14 +353,14 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card clickable"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 18%;"
               >
@@ -372,7 +372,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 8%;"
               >
@@ -385,7 +385,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 12%;"
               >
@@ -427,7 +427,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 22%;"
               >
@@ -484,7 +484,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 15%;"
               >
@@ -499,14 +499,14 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
                 -
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
@@ -546,7 +546,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                 </span>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >
@@ -938,14 +938,14 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
           </p>
         </div>
         <div
-          class="table table"
+          class="TableV2--table table"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 18%;"
@@ -957,7 +957,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 8%;"
@@ -969,7 +969,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 12%;"
@@ -981,7 +981,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 22%;"
@@ -993,7 +993,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 15%;"
@@ -1005,7 +1005,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -1017,7 +1017,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -1029,7 +1029,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 5%;"
@@ -1042,14 +1042,14 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card clickable"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 18%;"
               >
@@ -1061,7 +1061,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 8%;"
               >
@@ -1074,7 +1074,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 12%;"
               >
@@ -1116,7 +1116,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 22%;"
               >
@@ -1173,7 +1173,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 15%;"
               >
@@ -1188,14 +1188,14 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
                 -
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
@@ -1235,7 +1235,7 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                 </span>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >
@@ -1627,14 +1627,14 @@ exports[`Test COGatewayList renders without crashing 1`] = `
           </p>
         </div>
         <div
-          class="table table"
+          class="TableV2--table table"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 18%;"
@@ -1646,7 +1646,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 8%;"
@@ -1658,7 +1658,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 12%;"
@@ -1670,7 +1670,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 22%;"
@@ -1682,7 +1682,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 15%;"
@@ -1694,7 +1694,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -1706,7 +1706,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -1718,7 +1718,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 5%;"
@@ -1731,14 +1731,14 @@ exports[`Test COGatewayList renders without crashing 1`] = `
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card clickable"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 18%;"
               >
@@ -1750,7 +1750,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 8%;"
               >
@@ -1763,7 +1763,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 12%;"
               >
@@ -1805,7 +1805,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 22%;"
               >
@@ -1862,7 +1862,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 15%;"
               >
@@ -1877,14 +1877,14 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
                 -
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
@@ -1924,7 +1924,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                 </span>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >

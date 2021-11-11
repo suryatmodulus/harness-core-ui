@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Text, Container, PageSpinner } from '@wings-software/uicore'
+import { Color, Text, Container, PageSpinner, TableV2 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 
 import {
@@ -10,7 +10,6 @@ import {
   ListGitSyncEntitiesByTypePathParams,
   GitSyncConfig
 } from 'services/cd-ng'
-import Table from '@common/components/Table/Table'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getTableColumns } from './EntityHelper'
 import css from './GitSyncEntityTab.module.scss'
@@ -32,7 +31,7 @@ const EntityListView: React.FC<EntityListViewProps> = props => {
   const data = props.data?.content?.[0]
 
   return (
-    <Table<GitSyncEntityDTO>
+    <TableV2<GitSyncEntityDTO>
       className={css.table}
       columns={getTableColumns()}
       data={data?.gitSyncEntities || []}

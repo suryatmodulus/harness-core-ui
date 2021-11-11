@@ -139,7 +139,7 @@ describe('Monitored Service list', () => {
       </TestWrapper>
     )
     fireEvent.click(container.querySelector('.context-menu-mock-delete')!)
-    await waitFor(() => expect(container.querySelectorAll('.body [role="row"]').length).toEqual(2))
+    await waitFor(() => expect(container.querySelectorAll('.TableV2--body [role="row"]').length).toEqual(2))
   })
 
   test('Test Dependancy Graph renders', async () => {

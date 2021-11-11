@@ -12,10 +12,10 @@ import {
   IconName,
   Intent,
   Pagination,
-  NoDataCard
+  NoDataCard,
+  TableV2
 } from '@wings-software/uicore'
 import { Evaluation, GetEvaluationListQueryParams, PolicySet, useGetEvaluationList } from 'services/pm'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import routes from '@common/RouteDefinitions'
@@ -128,7 +128,7 @@ export const EvaluationsTab: React.FC = () => {
       )}
       {!loading && !error && (data?.length as number) > 0 && (
         <Container className={css.tableContainer}>
-          <Table<Evaluation>
+          <TableV2<Evaluation>
             columns={columns}
             data={data || []}
             onRowClick={evaluation => {

@@ -185,17 +185,17 @@ exports[`UserDetails Test render data 1`] = `
           common.userGroups
         </p>
         <div
-          class="ReactTable--table"
+          class="TableV2--table"
         >
           <div
-            class="ReactTable--body"
+            class="TableV2--body"
           >
             <div
-              class="ReactTable--row ReactTable--card"
+              class="TableV2--row TableV2--card"
               role="row"
             >
               <div
-                class="ReactTable--cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 95%;"
               >
@@ -211,7 +211,7 @@ exports[`UserDetails Test render data 1`] = `
                 </div>
               </div>
               <div
-                class="ReactTable--cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >

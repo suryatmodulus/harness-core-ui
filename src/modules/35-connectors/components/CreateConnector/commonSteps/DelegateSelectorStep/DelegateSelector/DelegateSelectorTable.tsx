@@ -3,9 +3,8 @@ import type { CellProps, Renderer } from 'react-table'
 import type { GetDataError } from 'restful-react'
 import ReactTimeago from 'react-timeago'
 import { Tooltip } from '@blueprintjs/core'
-import { Color, Container, Icon, Layout, Text, PageError } from '@wings-software/uicore'
+import { Color, Container, Icon, Layout, Text, PageError, TableV2 } from '@wings-software/uicore'
 import DelegateEmptyState from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/icons/DelegateEmptyState.svg'
-import Table from '@common/components/Table/Table'
 import type { TableProps } from '@common/components/Table/Table'
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
@@ -188,7 +187,7 @@ export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props
   )
   const getContent = (): React.ReactElement => {
     if (data && data.length) {
-      return <Table columns={columns} data={data} className={css.table} />
+      return <TableV2 columns={columns} data={data} className={css.table} />
     }
     if (!data && loading) {
       return <ContainerSpinner data-name="delegateTableLoadingState" />

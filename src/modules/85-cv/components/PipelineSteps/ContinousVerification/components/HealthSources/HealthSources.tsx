@@ -1,8 +1,7 @@
 import React from 'react'
-import { Container, FormInput, Icon } from '@wings-software/uicore'
+import { Container, FormInput, Icon, TableV2 } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import { isEmpty } from 'lodash-es'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import type { HealthSource } from 'services/cv'
 import Card from '@cv/components/Card/Card'
@@ -58,7 +57,7 @@ export default function HealthSources(props: HealthSourcesProps): React.ReactEle
             />
           </>
         ) : (
-          <Table<HealthSource>
+          <TableV2<HealthSource>
             columns={[
               {
                 Header: 'Source',

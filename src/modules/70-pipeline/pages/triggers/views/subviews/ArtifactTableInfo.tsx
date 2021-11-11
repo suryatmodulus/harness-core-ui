@@ -1,8 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Button, Layout, Text } from '@wings-software/uicore'
+import { Button, Layout, TableV2, Text } from '@wings-software/uicore'
 import { RadioGroup, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import Table from '@common/components/Table/Table'
 import type { artifactTableItem } from '../../utils/TriggersWizardPageUtils'
 import css from './ArtifactTableInfo.module.scss'
 
@@ -312,7 +311,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
 
   return (
     <>
-      <Table
+      <TableV2
         className={`${appliedArtifact ? css.appliedArtifact : css.selectArtifactTable}`}
         columns={columns}
         data={Array.isArray(newData) ? newData : [newData]}

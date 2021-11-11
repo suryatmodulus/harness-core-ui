@@ -1,11 +1,10 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { Container, Text, Color, FontVariation, Layout } from '@wings-software/uicore'
+import { Container, Text, Color, FontVariation, Layout, TableV2 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { MonitoredServiceListItemDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
-import { Table } from '@common/components'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
@@ -190,7 +189,7 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
       <Text font={{ variation: FontVariation.H6 }} color={Color.GREY_800} padding={{ top: 'large', bottom: 'large' }}>
         {getString('cv.monitoredServices.showingAllServices', { serviceCount: content?.length })}
       </Text>
-      <Table
+      <TableV2
         sortable={true}
         columns={[
           {

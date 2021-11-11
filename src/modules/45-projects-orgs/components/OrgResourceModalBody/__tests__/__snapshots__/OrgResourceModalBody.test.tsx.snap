@@ -6,14 +6,14 @@ exports[`Org Resource Modal Body test initializes ok  1`] = `
     class="StyledProps--font StyledProps--main"
   >
     <div
-      class="ReactTable--table"
+      class="TableV2--table"
     >
       <div
-        class="ReactTable--header"
+        class="TableV2--header"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 5%;"
@@ -25,7 +25,7 @@ exports[`Org Resource Modal Body test initializes ok  1`] = `
           </p>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 25%;"
@@ -38,14 +38,14 @@ exports[`Org Resource Modal Body test initializes ok  1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--body"
+        class="TableV2--body"
       >
         <div
-          class="ReactTable--row ReactTable--card ReactTable--clickable"
+          class="TableV2--row TableV2--card TableV2--clickable"
           role="row"
         >
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 5%;"
           >
@@ -61,7 +61,7 @@ exports[`Org Resource Modal Body test initializes ok  1`] = `
             </label>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -84,11 +84,11 @@ exports[`Org Resource Modal Body test initializes ok  1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--row ReactTable--card ReactTable--clickable"
+          class="TableV2--row TableV2--card TableV2--clickable"
           role="row"
         >
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 5%;"
           >
@@ -104,7 +104,7 @@ exports[`Org Resource Modal Body test initializes ok  1`] = `
             </label>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >

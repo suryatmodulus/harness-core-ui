@@ -8,7 +8,7 @@ import {
   Button,
   Container,
   PageError,
-  ReactTable,
+  TableV2,
   useConfirmationDialog
 } from '@wings-software/uicore'
 import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
@@ -149,7 +149,7 @@ const UserGroupTable: React.FC = () => {
       {loading ? (
         <Text color={Color.GREY_600}>{getString('common.loading')}</Text>
       ) : userGroupData?.data?.length ? (
-        <ReactTable<UserGroupDTO> hideHeaders={true} data={userGroupData.data} columns={columns} />
+        <TableV2<UserGroupDTO> hideHeaders={true} data={userGroupData.data} columns={columns} />
       ) : userGroupData?.data ? (
         <Text color={Color.GREY_600}>{getString('rbac.userGroupPage.noUserGroups')}</Text>
       ) : (

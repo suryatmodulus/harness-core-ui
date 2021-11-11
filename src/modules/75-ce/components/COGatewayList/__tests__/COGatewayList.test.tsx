@@ -136,7 +136,7 @@ describe('Test COGatewayList', () => {
       </TestWrapper>
     )
 
-    const row = container.querySelector('.row.clickable')
+    const row = container.querySelector('.TableV2--row.TableV2--clickable')
     // const delete =
     expect(row).toBeDefined()
     act(() => {

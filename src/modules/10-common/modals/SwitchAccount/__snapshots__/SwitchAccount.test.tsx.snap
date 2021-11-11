@@ -90,14 +90,14 @@ exports[`Switch Account render 1`] = `
     class="StyledProps--font StyledProps--main container StyledProps--padding-left-large StyledProps--padding-right-large"
   >
     <div
-      class="ReactTable--table"
+      class="TableV2--table"
     >
       <div
-        class="ReactTable--header"
+        class="TableV2--header"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 30%;"
@@ -109,7 +109,7 @@ exports[`Switch Account render 1`] = `
           </p>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 30%;"
@@ -121,7 +121,7 @@ exports[`Switch Account render 1`] = `
           </p>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 20%;"
@@ -133,7 +133,7 @@ exports[`Switch Account render 1`] = `
           </p>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 20%;"
@@ -146,14 +146,14 @@ exports[`Switch Account render 1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--body"
+        class="TableV2--body"
       >
         <div
-          class="ReactTable--row ReactTable--card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -169,7 +169,7 @@ exports[`Switch Account render 1`] = `
             </button>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -181,7 +181,7 @@ exports[`Switch Account render 1`] = `
             </p>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -192,7 +192,7 @@ exports[`Switch Account render 1`] = `
             </p>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -204,11 +204,11 @@ exports[`Switch Account render 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--row ReactTable--card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -224,7 +224,7 @@ exports[`Switch Account render 1`] = `
             </button>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -236,7 +236,7 @@ exports[`Switch Account render 1`] = `
             </p>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -247,7 +247,7 @@ exports[`Switch Account render 1`] = `
             </p>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -265,11 +265,11 @@ exports[`Switch Account render 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--row ReactTable--card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -285,7 +285,7 @@ exports[`Switch Account render 1`] = `
             </button>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -297,7 +297,7 @@ exports[`Switch Account render 1`] = `
             </p>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -308,7 +308,7 @@ exports[`Switch Account render 1`] = `
             </p>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -326,11 +326,11 @@ exports[`Switch Account render 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--row ReactTable--card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -346,7 +346,7 @@ exports[`Switch Account render 1`] = `
             </button>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -358,7 +358,7 @@ exports[`Switch Account render 1`] = `
             </p>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -369,7 +369,7 @@ exports[`Switch Account render 1`] = `
             </p>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -387,11 +387,11 @@ exports[`Switch Account render 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--row ReactTable--card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -407,7 +407,7 @@ exports[`Switch Account render 1`] = `
             </button>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -419,7 +419,7 @@ exports[`Switch Account render 1`] = `
             </p>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -430,7 +430,7 @@ exports[`Switch Account render 1`] = `
             </p>
           </div>
           <div
-            class="ReactTable--cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >

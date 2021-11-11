@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
-import { Accordion, Text, Color, Icon, Container } from '@wings-software/uicore'
+import { Accordion, Text, Color, Icon, Container, TableV2 } from '@wings-software/uicore'
 import type { CellProps, Column, Renderer } from 'react-table'
-import Table from '@common/components/Table/Table'
 import type { FetchPlansQuery } from 'services/common/services'
 import { useStrings } from 'framework/strings'
 import css from './Plan.module.scss'
@@ -181,7 +180,7 @@ const FeatureTable: React.FC<FeatureComparisonProps> = ({ featureCaption = [], f
     [featureGroup]
   )
 
-  return <Table<PlanInfo> columns={columns} data={data} />
+  return <TableV2<PlanInfo> columns={columns} data={data} />
 }
 const FeatureComparison: React.FC<FeatureComparisonProps> = ({ featureCaption, featureGroup, module }) => {
   const { getString } = useStrings()

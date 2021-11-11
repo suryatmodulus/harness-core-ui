@@ -141,14 +141,14 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
         class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-right-xxlarge StyledProps--padding-left-xxlarge"
       >
         <div
-          class="table"
+          class="TableV2--table"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 30%;"
@@ -160,7 +160,7 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 25%;"
@@ -172,7 +172,7 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 25%;"
@@ -184,7 +184,7 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 20%;"
@@ -197,7 +197,7 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           />
         </div>
       </div>

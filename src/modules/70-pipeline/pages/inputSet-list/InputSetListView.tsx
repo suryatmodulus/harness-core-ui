@@ -1,9 +1,8 @@
-import { Button, ButtonVariation, Color, Icon, IconName, Layout, Popover, Text } from '@wings-software/uicore'
+import { Button, ButtonVariation, Color, Icon, IconName, Layout, Popover, TableV2, Text } from '@wings-software/uicore'
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { Classes, Menu, Position } from '@blueprintjs/core'
-import Table from '@common/components/Table/Table'
 import type { PageInputSetSummaryResponse, InputSetSummaryResponse } from 'services/pipeline-ng'
 import { TagsPopover } from '@common/components'
 import { useQueryParams } from '@common/hooks'
@@ -263,7 +262,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
   }
 
   return (
-    <Table<InputSetLocal>
+    <TableV2<InputSetLocal>
       className={css.table}
       columns={columns}
       data={data?.content || /* istanbul ignore next */ []}

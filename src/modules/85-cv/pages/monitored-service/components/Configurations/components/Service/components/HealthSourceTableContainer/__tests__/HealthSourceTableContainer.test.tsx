@@ -57,13 +57,13 @@ describe('Validate', () => {
         <HealthSourceTableContainer serviceFormFormik={{ values: serviceFormik } as any} />
       </TestWrapper>
     )
-    expect(container.querySelectorAll('.body div[role="row"]').length).toEqual(1)
+    expect(container.querySelectorAll('.TableV2--body div[role="row"]').length).toEqual(1)
 
     // drawer opens with correct header
     await waitFor(() => expect(getByText('cv.healthSource.addHealthSource')).toBeInTheDocument())
 
     act(() => {
-      fireEvent.click(container.querySelector('.body div[role="row"]')!)
+      fireEvent.click(container.querySelector('.TableV2--body div[role="row"]')!)
     })
     // drawer opens with correct header
     await waitFor(() => expect(getByText('cv.healthSource.backtoMonitoredService')).toBeInTheDocument())
@@ -85,13 +85,13 @@ describe('Validate', () => {
         <HealthSourceTableContainer serviceFormFormik={{ values: serviceFormik } as any} />
       </TestWrapper>
     )
-    expect(container.querySelectorAll('.body div[role="row"]').length).toEqual(1)
+    expect(container.querySelectorAll('.TableV2--body div[role="row"]').length).toEqual(1)
 
     // drawer opens with correct header
     await waitFor(() => expect(getByText('cv.healthSource.addHealthSource')).toBeInTheDocument())
 
     act(() => {
-      fireEvent.click(container.querySelector('.body div[role="row"]')!)
+      fireEvent.click(container.querySelector('.TableV2--body div[role="row"]')!)
     })
     // drawer opens with correct header
     await waitFor(() => expect(getByText('cv.healthSource.backtoMonitoredService')).toBeInTheDocument())

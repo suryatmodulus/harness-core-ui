@@ -22,9 +22,10 @@ describe('Test ChangeSourceTable', () => {
     await waitFor(() => expect(getByText('cv.changeSource.addChangeSource')).toBeTruthy())
     act(() => {
       fireEvent.click(getByText('cv.changeSource.addChangeSource'))
+      expect(container).toMatchSnapshot()
     })
     await waitFor(() => expect(onAddNewChangeSource).toHaveBeenCalled())
-    await waitFor(() => expect(container.querySelector('.body div[role="row"]')).toBeTruthy())
+    await waitFor(() => expect(container.querySelector('.TableV2--body div[role="row"]')).toBeTruthy())
     act(() => {
       fireEvent.click(getByText('adadas'))
     })

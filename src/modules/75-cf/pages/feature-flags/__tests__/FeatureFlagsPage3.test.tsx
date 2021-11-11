@@ -69,7 +69,7 @@ describe('FeatureFlagsPage', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(container.getElementsByClassName('row card clickable')[0] as HTMLElement)
+    fireEvent.click(container.getElementsByClassName('TableV2--row TableV2--card TableV2--clickable')[0] as HTMLElement)
 
     expect(getByText('/account/dummy/cf/orgs/dummy/projects/dummy/feature-flags/hello_world')).toBeDefined()
   })

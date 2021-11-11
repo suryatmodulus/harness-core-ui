@@ -553,14 +553,14 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
         class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-right-xxlarge StyledProps--padding-left-xxlarge"
       >
         <div
-          class="table"
+          class="TableV2--table"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 35%;"
@@ -572,7 +572,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 35%;"
@@ -584,7 +584,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 30%;"
@@ -597,14 +597,14 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card clickable"
+              class="TableV2--row TableV2--card TableV2--clickable"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 35%;"
               >
@@ -644,7 +644,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 35%;"
               >
@@ -655,7 +655,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 30%;"
               >

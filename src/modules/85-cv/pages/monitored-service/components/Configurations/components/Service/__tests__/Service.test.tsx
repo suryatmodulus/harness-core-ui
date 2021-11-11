@@ -124,7 +124,7 @@ describe('Verify Service', () => {
 
     // Change Source populates
     await waitFor(() =>
-      expect(container.querySelectorAll('.changeSourceTableWrapper .body [role="row"]').length).toEqual(1)
+      expect(container.querySelectorAll('.changeSourceTableWrapper .TableV2--body [role="row"]').length).toEqual(1)
     )
     await waitFor(() => expect(getByText('PagerDuty 101')).toBeTruthy()) // name
     await waitFor(() => expect(getByText('Alert')).toBeTruthy()) // type
@@ -132,7 +132,7 @@ describe('Verify Service', () => {
 
     // Health Source populates
     await waitFor(() =>
-      expect(container.querySelectorAll('.healthSourceTableWrapper .body [role="row"]').length).toEqual(1)
+      expect(container.querySelectorAll('.healthSourceTableWrapper .TableV2--body [role="row"]').length).toEqual(1)
     )
     await waitFor(() => expect(getByText('Splunk 102')).toBeTruthy()) // name
     await waitFor(() => expect(getByText('pipeline.verification.analysisTab.logs')).toBeTruthy()) // type

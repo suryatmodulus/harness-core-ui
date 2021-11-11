@@ -6,11 +6,11 @@ import {
   NoDataCard,
   NoDataCardProps,
   PageError,
-  PageErrorProps
+  PageErrorProps,
+  TableV2
 } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import { Table } from '@common/components'
 import type { TableProps } from '@common/components/Table/Table'
 import { TableFilter, TableFilterProps } from '@cv/components/TableFilter/TableFilter'
 import { SetupSourceCardHeaderProps, SetupSourceEmptyCardHeader } from '../SetupSourceCardHeader/SetupSourceCardHeader'
@@ -78,7 +78,7 @@ export function SetupSourceMappingList<T extends Record<string, unknown>>(
       )
     }
     return (
-      <Table
+      <TableV2
         {...tableProps}
         columns={
           loading

@@ -11,7 +11,8 @@ import {
   PageHeader,
   useConfirmationDialog,
   useToaster,
-  Page
+  Page,
+  TableV2
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Column } from 'react-table'
@@ -21,7 +22,6 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { Policy, useDeletePolicy, useGetPolicyList } from 'services/pm'
 import { OptionsMenuButton } from '@common/components'
 import routes from '@common/RouteDefinitions'
-import Table from '@common/components/Table/Table'
 import { getErrorMessage, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
 import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import PolicyIcon from './Policy.svg'
@@ -204,7 +204,7 @@ const Policies: React.FC = () => {
           button: newUserGroupsBtn()
         }}
       >
-        <Table<Policy>
+        <TableV2<Policy>
           className={css.table}
           columns={columns}
           data={policyList || []}

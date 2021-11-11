@@ -13,7 +13,8 @@ import {
   HarnessDocTooltip,
   Heading,
   PageSpinner,
-  Page
+  Page,
+  TableV2
 } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import HighchartsReact from 'highcharts-react-official'
@@ -34,7 +35,6 @@ import {
   useGetServiceDiagnostics,
   ServiceError
 } from 'services/lw'
-import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useStrings } from 'framework/strings'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
@@ -582,7 +582,7 @@ const COGatewayList: React.FC = () => {
                       <PageSpinner />
                     </Layout.Horizontal>
                   ) : (
-                    <Table<Service>
+                    <TableV2<Service>
                       data={tableData.slice(
                         pageIndex * TOTAL_ITEMS_PER_PAGE,
                         pageIndex * TOTAL_ITEMS_PER_PAGE + TOTAL_ITEMS_PER_PAGE

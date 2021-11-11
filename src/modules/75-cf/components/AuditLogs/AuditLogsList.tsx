@@ -1,12 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Button, Container, Layout, Text, PageError } from '@wings-software/uicore'
+import { Button, Container, Layout, Text, PageError, TableV2 } from '@wings-software/uicore'
 import type { IconName } from '@blueprintjs/core'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import type { ContainerProps } from '@wings-software/uicore/dist/components/Container/Container'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import Table from '@common/components/Table/Table'
 import { AuditTrail, Feature, useGetAuditByParams } from 'services/cf'
 import { formatDate, formatTime, AuditLogAction, CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
@@ -202,7 +201,7 @@ export const AuditLogsList: React.FC<AuditLogsListProps> = ({
   return (
     <Container padding="xlarge" {...props}>
       {!!data?.data?.auditTrails?.length && (
-        <Table<AuditTrail>
+        <TableV2<AuditTrail>
           columns={columns}
           data={data.data.auditTrails as AuditTrail[]}
           pagination={{

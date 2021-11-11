@@ -101,14 +101,14 @@ exports[`test cases for Budgets List Page should be able to render the budget li
       class="StyledProps--font StyledProps--main StyledProps--padding-large"
     >
       <div
-        class="table"
+        class="TableV2--table"
       >
         <div
-          class="header"
+          class="TableV2--header"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 25%;"
@@ -120,7 +120,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 20%;"
@@ -132,7 +132,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 35%;"
@@ -144,7 +144,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 15%;"
@@ -156,7 +156,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 5%;"
@@ -169,14 +169,14 @@ exports[`test cases for Budgets List Page should be able to render the budget li
           </div>
         </div>
         <div
-          class="body"
+          class="TableV2--body"
         >
           <div
-            class="row card clickable"
+            class="TableV2--row TableV2--card TableV2--clickable"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 25%;"
             >
@@ -196,7 +196,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 20%;"
             >
@@ -207,7 +207,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -279,7 +279,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 15%;"
             >
@@ -299,7 +299,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 5%;"
             >
@@ -338,11 +338,11 @@ exports[`test cases for Budgets List Page should be able to render the budget li
             </div>
           </div>
           <div
-            class="row card clickable"
+            class="TableV2--row TableV2--card TableV2--clickable"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 25%;"
             >
@@ -362,7 +362,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 20%;"
             >
@@ -373,7 +373,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -445,7 +445,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 15%;"
             >
@@ -465,7 +465,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 5%;"
             >
@@ -504,11 +504,11 @@ exports[`test cases for Budgets List Page should be able to render the budget li
             </div>
           </div>
           <div
-            class="row card clickable"
+            class="TableV2--row TableV2--card TableV2--clickable"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 25%;"
             >
@@ -528,7 +528,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 20%;"
             >
@@ -539,7 +539,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -611,7 +611,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 15%;"
             >
@@ -631,7 +631,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 5%;"
             >
@@ -670,11 +670,11 @@ exports[`test cases for Budgets List Page should be able to render the budget li
             </div>
           </div>
           <div
-            class="row card clickable"
+            class="TableV2--row TableV2--card TableV2--clickable"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 25%;"
             >
@@ -694,7 +694,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 20%;"
             >
@@ -705,7 +705,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -777,7 +777,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 15%;"
             >
@@ -797,7 +797,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 5%;"
             >

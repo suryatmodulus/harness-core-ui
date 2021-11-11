@@ -1,11 +1,10 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Color, Icon, Button, Popover, TagsPopover } from '@wings-software/uicore'
+import { Text, Layout, Color, Icon, Button, Popover, TagsPopover, TableV2 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { Project, ProjectAggregateDTO, ResponsePageProjectAggregateDTO } from 'services/cd-ng'
-import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 import { String, useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -280,7 +279,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
     [reloadPage, showEditProject, collaborators]
   )
   return (
-    <Table<ProjectAggregateDTO>
+    <TableV2<ProjectAggregateDTO>
       className={css.table}
       columns={columns}
       name="ProjectListView"

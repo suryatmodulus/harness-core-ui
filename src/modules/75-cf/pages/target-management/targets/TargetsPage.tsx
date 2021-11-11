@@ -11,11 +11,11 @@ import {
   FlexExpander,
   Layout,
   Pagination,
+  TableV2,
   Text
 } from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
 import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
-import Table from '@common/components/Table/Table'
 import {
   CF_DEFAULT_PAGE_SIZE,
   getErrorMessage,
@@ -324,7 +324,7 @@ export const TargetsPage: React.FC = () => {
     />
   ) : (
     <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
-      <Table<Target>
+      <TableV2<Target>
         columns={columns}
         data={targetsData?.targets || []}
         onRowClick={target => {

@@ -11,14 +11,14 @@ import {
   Tabs,
   Text,
   Utils,
-  PageError
+  PageError,
+  TableV2
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import type { Column } from 'react-table'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import { ApiKey, useDeleteApiKey, useGetAllAPIKeys } from 'services/cf'
 import { useToaster } from '@common/exports'
-import Table from '@common/components/Table/Table'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { CF_DEFAULT_PAGE_SIZE, EnvironmentSDKKeyType, getErrorMessage } from '@cf/utils/CFUtils'
@@ -234,7 +234,7 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
                     recents.find(r => r.identifier === id)?.apiKey || fallback
                 }}
               >
-                <Table<ApiKey> data={(apiKeys || []) as ApiKey[]} columns={columns} />
+                <TableV2<ApiKey> data={(apiKeys || []) as ApiKey[]} columns={columns} />
               </RowContext.Provider>
             </Container>
             {!!pagination.itemCount && (

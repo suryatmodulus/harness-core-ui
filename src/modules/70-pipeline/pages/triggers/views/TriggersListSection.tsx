@@ -15,13 +15,13 @@ import {
   TagsPopover,
   tagsType,
   useConfirmationDialog,
-  useToaster
+  useToaster,
+  TableV2
 } from '@wings-software/uicore'
 import copy from 'clipboard-copy'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { isUndefined, isEmpty, sum } from 'lodash-es'
 import cx from 'classnames'
-import Table from '@common/components/Table/Table'
 import { NGTriggerDetailsResponse, useDeleteTrigger, useUpdateTrigger } from 'services/pipeline-ng'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -622,7 +622,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
   )
 
   return (
-    <Table<NGTriggerDetailsResponse>
+    <TableV2<NGTriggerDetailsResponse>
       className={css.table}
       columns={columns}
       data={data || /* istanbul ignore next */ []}

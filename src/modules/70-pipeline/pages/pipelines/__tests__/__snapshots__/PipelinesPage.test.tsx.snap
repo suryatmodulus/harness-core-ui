@@ -2130,14 +2130,14 @@ exports[`CD Pipeline Page List render list view 1`] = `
       </div>
     </div>
     <div
-      class="table table"
+      class="TableV2--table table"
     >
       <div
-        class="header"
+        class="TableV2--header"
         role="row"
       >
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 35%;"
@@ -2149,7 +2149,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 25%;"
@@ -2161,7 +2161,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 25%;"
@@ -2173,7 +2173,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 10%;"
@@ -2185,7 +2185,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 5%;"
@@ -2198,14 +2198,14 @@ exports[`CD Pipeline Page List render list view 1`] = `
         </div>
       </div>
       <div
-        class="body"
+        class="TableV2--body"
       >
         <div
-          class="row card clickable"
+          class="TableV2--row TableV2--card TableV2--clickable"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 35%;"
           >
@@ -2319,7 +2319,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -2483,7 +2483,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -2523,7 +2523,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 10%;"
           >
@@ -2566,7 +2566,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </button>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 5%;"
           >
@@ -2610,11 +2610,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           </div>
         </div>
         <div
-          class="row card clickable"
+          class="TableV2--row TableV2--card TableV2--clickable"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 35%;"
           >
@@ -2692,7 +2692,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -2856,7 +2856,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -2896,7 +2896,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 10%;"
           >
@@ -2939,7 +2939,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </button>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 5%;"
           >
@@ -2983,11 +2983,11 @@ exports[`CD Pipeline Page List render list view 1`] = `
           </div>
         </div>
         <div
-          class="row card clickable"
+          class="TableV2--row TableV2--card TableV2--clickable"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 35%;"
           >
@@ -3065,7 +3065,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -3229,7 +3229,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -3269,7 +3269,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 10%;"
           >
@@ -3312,7 +3312,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             </button>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 5%;"
           >

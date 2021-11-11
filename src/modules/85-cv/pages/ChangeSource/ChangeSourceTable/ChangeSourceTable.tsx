@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
 import { cloneDeep } from 'lodash-es'
 import type { Renderer, CellProps } from 'react-table'
-import { Container, Icon, Layout, Text, NoDataCard } from '@wings-software/uicore'
-import { Table } from '@common/components'
+import { Container, Icon, Layout, Text, NoDataCard, TableV2 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ChangeSourceDTO } from 'services/cv'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
@@ -60,7 +59,7 @@ export default function ChangeSourceTable({ value, onSuccess, onEdit }: ChangeSo
     <>
       <Text className={css.tableTitle}>{getString('cv.navLinks.adminSideNavLinks.activitySources')}</Text>
       {tableData?.length ? (
-        <Table
+        <TableV2
           className={css.changeSourceTableWrapper}
           sortable={true}
           onRowClick={rowdata => {

@@ -1,9 +1,8 @@
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Color, Layout, Text } from '@wings-software/uicore'
+import { Color, Layout, TableV2, Text } from '@wings-software/uicore'
 import { Position } from '@blueprintjs/core'
 import { TemplateListCardContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplateListCardContextMenu/TemplateListCardContextMenu'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { TemplateSummaryResponse } from 'services/template-ng'
@@ -180,7 +179,7 @@ export const TemplatesListView: React.FC<TemplatesViewProps> = (props): JSX.Elem
   }
 
   return (
-    <Table<TemplateSummaryResponse>
+    <TableV2<TemplateSummaryResponse>
       className={css.table}
       columns={columns}
       data={data?.content || []}

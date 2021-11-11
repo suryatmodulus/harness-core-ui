@@ -11,7 +11,8 @@ import {
   Pagination,
   Text,
   Utils,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  TableV2
 } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
 import { Classes, Position, Switch } from '@blueprintjs/core'
@@ -20,7 +21,6 @@ import type { MutateMethod } from 'restful-react'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useConfirmAction } from '@common/hooks'
-import Table from '@common/components/Table/Table'
 import {
   DeleteFeatureFlagQueryParams,
   Feature,
@@ -669,7 +669,7 @@ const FeatureFlagsPage: React.FC = () => {
           {hasFeatureFlags && (
             <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
               <Container className={css.list}>
-                <Table<Feature>
+                <TableV2<Feature>
                   columns={columns}
                   data={features?.features || []}
                   onRowClick={feature => {

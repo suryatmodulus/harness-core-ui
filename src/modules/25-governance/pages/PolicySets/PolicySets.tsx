@@ -11,6 +11,7 @@ import {
   useModalHook,
   PageHeader,
   Utils,
+  TableV2,
   useConfirmationDialog,
   useToaster,
   Page
@@ -22,7 +23,6 @@ import { StringUtils } from '@common/exports'
 import { useUpdatePolicySet, useDeletePolicySet, useGetPolicySetList, PolicySetWithLinkedPolicies } from 'services/pm'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import Table from '@common/components/Table/Table'
 import { OptionsMenuButton } from '@common/components'
 import { getErrorMessage, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
 import PolicySetWizard from './components/PolicySetWizard'
@@ -319,7 +319,7 @@ const PolicySets: React.FC = () => {
           button: newUserGroupsBtn()
         }}
       >
-        <Table<PolicySetWithLinkedPolicies>
+        <TableV2<PolicySetWithLinkedPolicies>
           className={css.table}
           columns={columns}
           data={policyList || []}

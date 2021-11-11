@@ -1,7 +1,7 @@
 import React from 'react'
 import { pick } from 'lodash-es'
 import type { Renderer, CellProps, Column } from 'react-table'
-import { Utils, ReactTable } from '@wings-software/uicore'
+import { TableV2, Utils } from '@wings-software/uicore'
 import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
 import { NavLink } from 'react-router-dom'
 import {
@@ -88,6 +88,6 @@ export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => 
   ]
 
   return (
-    <ReactTable<StackedSummaryInterface> columns={columns} data={summaryData} className={css.overviewSummary} minimal />
+    <TableV2<StackedSummaryInterface> columns={columns} data={summaryData} className={css.overviewSummary} minimal />
   )
 }

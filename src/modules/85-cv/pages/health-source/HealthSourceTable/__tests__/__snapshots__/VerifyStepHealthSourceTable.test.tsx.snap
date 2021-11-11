@@ -19,14 +19,14 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput fa
         </a>
       </div>
       <div
-        class="table table"
+        class="TableV2--table table"
       >
         <div
-          class="header"
+          class="TableV2--header"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 60%;"
@@ -38,7 +38,7 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput fa
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 40%;"
@@ -51,14 +51,14 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput fa
           </div>
         </div>
         <div
-          class="body"
+          class="TableV2--body"
         >
           <div
-            class="row card"
+            class="TableV2--row TableV2--card"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 60%;"
             >
@@ -101,7 +101,7 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput fa
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 40%;"
             >
@@ -132,11 +132,11 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput fa
             </div>
           </div>
           <div
-            class="row card"
+            class="TableV2--row TableV2--card"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 60%;"
             >
@@ -172,7 +172,7 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput fa
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 40%;"
             >
@@ -225,14 +225,14 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput tr
         </p>
       </div>
       <div
-        class="table table"
+        class="TableV2--table table"
       >
         <div
-          class="header"
+          class="TableV2--header"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 60%;"
@@ -244,7 +244,7 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput tr
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 40%;"
@@ -257,14 +257,14 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput tr
           </div>
         </div>
         <div
-          class="body"
+          class="TableV2--body"
         >
           <div
-            class="row card"
+            class="TableV2--row TableV2--card"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 60%;"
             >
@@ -307,7 +307,7 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput tr
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 40%;"
             >
@@ -338,11 +338,11 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput tr
             </div>
           </div>
           <div
-            class="row card"
+            class="TableV2--row TableV2--card"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 60%;"
             >
@@ -378,7 +378,7 @@ exports[`Verify VerifyStepHealthSourceTable should render with isRunTimeInput tr
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 40%;"
             >

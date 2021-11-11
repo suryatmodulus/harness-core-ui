@@ -12,12 +12,12 @@ import {
   Text,
   Radio,
   ButtonVariation,
-  useToaster
+  useToaster,
+  TableV2
 } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import type { SelectOption } from '@wings-software/uicore'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import Table from '@common/components/Table/Table'
 import { Region, useAllRegions, ContainerServiceServiceMinimal, useAllResourcesOfAccount, Resource } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import type { GatewayDetails } from '../COCreateGateway/models'
@@ -222,7 +222,7 @@ const RDSServicesTable: React.FC<RDSServicesTableProps> = props => {
     )
   }
   return (
-    <Table<Resource>
+    <TableV2<Resource>
       data={data.slice(pageIndex * TOTAL_ITEMS_PER_PAGE, pageIndex * TOTAL_ITEMS_PER_PAGE + TOTAL_ITEMS_PER_PAGE)}
       pagination={{
         pageSize: TOTAL_ITEMS_PER_PAGE,

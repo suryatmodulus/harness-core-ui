@@ -13,7 +13,7 @@ import {
   ButtonSize,
   useToaster,
   TagsPopover,
-  ReactTable,
+  TableV2,
   FontVariation,
   useConfirmationDialog
 } from '@wings-software/uicore'
@@ -697,7 +697,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   }
 
   return (
-    <ReactTable<ConnectorResponse>
+    <TableV2<ConnectorResponse>
       className={css.table}
       columns={columns}
       data={listData}

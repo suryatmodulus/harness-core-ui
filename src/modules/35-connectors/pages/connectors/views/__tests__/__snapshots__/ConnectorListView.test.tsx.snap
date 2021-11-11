@@ -9959,14 +9959,14 @@ exports[`Connectors List Test Click on Test button with result error 2`] = `
 exports[`Connectors List Test Initial render should match snapshot 1`] = `
 <div>
   <div
-    class="ReactTable--table table"
+    class="TableV2--table table"
   >
     <div
-      class="ReactTable--header"
+      class="TableV2--header"
       role="row"
     >
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 25%;"
@@ -9983,7 +9983,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 25%;"
@@ -10000,7 +10000,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 15%;"
@@ -10017,7 +10017,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 15%;"
@@ -10034,7 +10034,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 15%;"
@@ -10051,7 +10051,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 5%;"
@@ -10069,14 +10069,14 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="ReactTable--body"
+      class="TableV2--body"
     >
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -10133,7 +10133,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -10162,7 +10162,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10187,7 +10187,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10215,7 +10215,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10226,17 +10226,17 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         />
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -10317,7 +10317,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -10358,7 +10358,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10383,7 +10383,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10411,7 +10411,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10422,17 +10422,17 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         />
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -10479,7 +10479,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -10520,7 +10520,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10545,7 +10545,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10573,7 +10573,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10584,7 +10584,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         >
@@ -10627,11 +10627,11 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -10683,7 +10683,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -10724,7 +10724,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10749,7 +10749,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10817,7 +10817,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10828,7 +10828,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         >
@@ -10871,11 +10871,11 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -10927,7 +10927,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -10968,7 +10968,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -10993,7 +10993,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -11042,7 +11042,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -11053,7 +11053,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         >
@@ -11096,11 +11096,11 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -11163,7 +11163,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -11204,7 +11204,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -11229,7 +11229,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -11257,7 +11257,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -11266,7 +11266,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           />
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         >
@@ -11309,11 +11309,11 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -11400,7 +11400,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -11441,7 +11441,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -11466,7 +11466,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -11515,7 +11515,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -11526,7 +11526,7 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         >
@@ -11668,14 +11668,14 @@ exports[`Connectors List Test Initial render should match snapshot 1`] = `
 exports[`Connectors List Test Test of listing connectors with git enabled 1`] = `
 <div>
   <div
-    class="ReactTable--table table"
+    class="TableV2--table table"
   >
     <div
-      class="ReactTable--header"
+      class="TableV2--header"
       role="row"
     >
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 19%;"
@@ -11692,7 +11692,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 25%;"
@@ -11709,7 +11709,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 20%;"
@@ -11726,7 +11726,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 10%;"
@@ -11743,7 +11743,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 15%;"
@@ -11760,7 +11760,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 6%;"
@@ -11777,7 +11777,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         </div>
       </div>
       <div
-        class="ReactTable--cell"
+        class="TableV2--cell"
         colspan="1"
         role="columnheader"
         style="width: 5%;"
@@ -11795,14 +11795,14 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
       </div>
     </div>
     <div
-      class="ReactTable--body"
+      class="TableV2--body"
     >
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 19%;"
         >
@@ -11859,7 +11859,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -11888,7 +11888,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 20%;"
         >
@@ -11935,7 +11935,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 10%;"
         >
@@ -11960,7 +11960,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -11988,7 +11988,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 6%;"
         >
@@ -11999,7 +11999,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         >
@@ -12042,11 +12042,11 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         </div>
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 19%;"
         >
@@ -12127,7 +12127,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -12168,7 +12168,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 20%;"
         >
@@ -12215,7 +12215,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 10%;"
         >
@@ -12240,7 +12240,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -12268,7 +12268,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 6%;"
         >
@@ -12279,7 +12279,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         >
@@ -12322,11 +12322,11 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
         </div>
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 19%;"
         >
@@ -12373,7 +12373,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -12414,12 +12414,12 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 20%;"
         />
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 10%;"
         >
@@ -12444,7 +12444,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -12472,7 +12472,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 6%;"
         >
@@ -12483,17 +12483,17 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         />
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 19%;"
         >
@@ -12545,7 +12545,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -12586,12 +12586,12 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 20%;"
         />
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 10%;"
         >
@@ -12616,7 +12616,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -12684,7 +12684,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 6%;"
         >
@@ -12695,17 +12695,17 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         />
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 19%;"
         >
@@ -12757,7 +12757,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -12798,12 +12798,12 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 20%;"
         />
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 10%;"
         >
@@ -12828,7 +12828,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -12877,7 +12877,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 6%;"
         >
@@ -12888,17 +12888,17 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         />
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 19%;"
         >
@@ -12961,7 +12961,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -13002,12 +13002,12 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 20%;"
         />
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 10%;"
         >
@@ -13032,7 +13032,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -13060,7 +13060,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 6%;"
         >
@@ -13069,17 +13069,17 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           />
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         />
       </div>
       <div
-        class="ReactTable--row ReactTable--card ReactTable--clickable"
+        class="TableV2--row TableV2--card TableV2--clickable"
         role="row"
       >
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 19%;"
         >
@@ -13166,7 +13166,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 25%;"
         >
@@ -13207,12 +13207,12 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 20%;"
         />
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 10%;"
         >
@@ -13237,7 +13237,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 15%;"
         >
@@ -13286,7 +13286,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 6%;"
         >
@@ -13297,7 +13297,7 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
           </div>
         </div>
         <div
-          class="ReactTable--cell"
+          class="TableV2--cell"
           role="cell"
           style="width: 5%;"
         />

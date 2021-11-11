@@ -4,9 +4,8 @@ import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Column } from 'react-table'
 import { get } from 'lodash-es'
 import ReactTimeago from 'react-timeago'
-import { Container, FontVariation, NoDataCard, PageError, Pagination, Text } from '@wings-software/uicore'
+import { Container, FontVariation, NoDataCard, PageError, Pagination, TableV2, Text } from '@wings-software/uicore'
 import { GetPolicySetListQueryParams, PolicySet, useGetPolicySetList } from 'services/pm'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import routes from '@common/RouteDefinitions'
@@ -122,7 +121,7 @@ export const PolicySetsTab: React.FC<{ setPolicySetCount: React.Dispatch<React.S
       )}
       {!loading && !error && (data?.length as number) > 0 && (
         <Container className={css.tableContainer}>
-          <Table<PolicySet>
+          <TableV2<PolicySet>
             columns={columns}
             data={data || []}
             onRowClick={policySet => {

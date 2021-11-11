@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import type { Column } from 'react-table'
 import { get } from 'lodash-es'
 import { Position } from '@blueprintjs/core'
-import { Container, Layout, Pagination, Text, HarnessDocTooltip, ReactTable } from '@wings-software/uicore'
+import { Container, Layout, Pagination, Text, HarnessDocTooltip, TableV2 } from '@wings-software/uicore'
 import { EnvironmentResponseDTO, useDeleteEnvironmentV2, useGetEnvironmentListForProject } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { IdentifierText } from '@cf/components/IdentifierText/IdentifierText'
@@ -265,7 +265,7 @@ const EnvironmentsPage: React.FC = () => {
         <>
           {hasEnvs && (
             <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
-              <ReactTable<EnvironmentResponseDTO>
+              <TableV2<EnvironmentResponseDTO>
                 columns={columns}
                 data={(environments as EnvironmentResponseDTO[]) || []}
                 onRowClick={({ identifier }) => handleEdit(identifier as string)}

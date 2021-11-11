@@ -8,13 +8,13 @@ import {
   FontVariation,
   Container,
   Color,
-  Popover
+  Popover,
+  TableV2
 } from '@wings-software/uicore'
 import { Classes, Menu, MenuItem, Position } from '@blueprintjs/core'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams, useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
-import Table from '@common/components/Table/Table'
 import { useFetchBudgetQuery, BudgetSummary } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import { useDeleteBudget } from 'services/ce'
@@ -153,7 +153,7 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
   }
 
   return (
-    <Table<BudgetSummary>
+    <TableV2<BudgetSummary>
       data={budgetData}
       onRowClick={row => {
         navigateToBudgetDetailsPage(row.id, row.name)

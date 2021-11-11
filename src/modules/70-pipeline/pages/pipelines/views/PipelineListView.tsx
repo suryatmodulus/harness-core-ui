@@ -9,11 +9,11 @@ import {
   SparkChart,
   Icon,
   ButtonVariation,
-  TagsPopover
+  TagsPopover,
+  TableV2
 } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { GitDetailsColumn } from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
@@ -373,7 +373,7 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
   }
 
   return (
-    <Table<PipelineDTO>
+    <TableV2<PipelineDTO>
       className={css.table}
       columns={columns}
       data={data?.content || []}

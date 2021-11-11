@@ -8,14 +8,14 @@ import {
   ButtonVariation,
   useConfirmationDialog,
   useToaster,
-  Page
+  Page,
+  TableV2
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Tag } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { Invite, useDeleteInvite, useGetPendingUsersAggregated, useUpdateInvite } from 'services/cd-ng'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
@@ -295,7 +295,7 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, s
             }
       }
     >
-      <Table<Invite>
+      <TableV2<Invite>
         className={css.table}
         columns={columns}
         name="PendingUsersListView"

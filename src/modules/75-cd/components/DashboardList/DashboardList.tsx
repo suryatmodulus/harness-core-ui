@@ -1,8 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { Color, ExpandingSearchInput, Layout, Text, PageError } from '@wings-software/uicore'
+import { Color, ExpandingSearchInput, Layout, Text, PageError, TableV2 } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import Table from '@common/components/Table/Table'
 import type { TableProps } from '@common/components/Table/Table'
 // import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { PageSpinner } from '@common/components'
@@ -115,7 +114,7 @@ export const DashboardList = <T extends Record<string, any>>(props: DashboardLis
       )
     }
     return (
-      <Table<T>
+      <TableV2<T>
         columns={columns}
         data={filteredData.slice(PAGE_SIZE * pageIndex, PAGE_SIZE * (pageIndex + 1))}
         pagination={{

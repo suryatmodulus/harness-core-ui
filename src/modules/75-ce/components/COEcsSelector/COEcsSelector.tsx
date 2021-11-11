@@ -12,12 +12,12 @@ import {
   Text,
   Radio,
   ButtonVariation,
-  useToaster
+  useToaster,
+  TableV2
 } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import type { SelectOption } from '@wings-software/uicore'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import Table from '@common/components/Table/Table'
 import {
   ContainerClusterMinimal,
   Region,
@@ -351,7 +351,7 @@ const ECSServicesTable: React.FC<ECSServicesTableProps> = props => {
     )
   }
   return (
-    <Table<ContainerServiceServiceMinimal>
+    <TableV2<ContainerServiceServiceMinimal>
       data={data.slice(pageIndex * TOTAL_ITEMS_PER_PAGE, pageIndex * TOTAL_ITEMS_PER_PAGE + TOTAL_ITEMS_PER_PAGE)}
       pagination={{
         pageSize: TOTAL_ITEMS_PER_PAGE,

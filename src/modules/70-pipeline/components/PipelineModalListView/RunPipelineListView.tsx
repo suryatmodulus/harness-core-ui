@@ -1,8 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Layout, Color, Text } from '@wings-software/uicore'
-import Table from '@common/components/Table/Table'
+import { Layout, Color, Text, TableV2 } from '@wings-software/uicore'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
@@ -140,7 +139,7 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
   }
 
   return (
-    <Table<PipelineDTO>
+    <TableV2<PipelineDTO>
       className={css.table}
       columns={columns}
       data={data?.content || []}

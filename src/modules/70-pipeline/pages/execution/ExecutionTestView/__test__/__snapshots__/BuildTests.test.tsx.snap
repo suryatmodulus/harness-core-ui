@@ -7177,14 +7177,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main"
                 >
                   <div
-                    class="table testSuiteTable"
+                    class="TableV2--table testSuiteTable"
                   >
                     <div
-                      class="header"
+                      class="TableV2--header"
                       role="row"
                     >
                       <div
-                        class="cell sortable resizable"
+                        class="TableV2--cell TableV2--sortable TableV2--resizable"
                         colspan="1"
                         role="columnheader"
                         style="width: 50px;"
@@ -7195,14 +7195,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           #
                         </p>
                         <div
-                          class="resizer"
+                          class="TableV2--resizer"
                           draggable="false"
                           role="separator"
                           style="cursor: ew-resize;"
                         />
                       </div>
                       <div
-                        class="cell sortable resizable"
+                        class="TableV2--cell TableV2--sortable TableV2--resizable"
                         colspan="1"
                         role="columnheader"
                         style="width: 216px;"
@@ -7233,14 +7233,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </svg>
                         </span>
                         <div
-                          class="resizer"
+                          class="TableV2--resizer"
                           draggable="false"
                           role="separator"
                           style="cursor: ew-resize;"
                         />
                       </div>
                       <div
-                        class="cell sortable resizable"
+                        class="TableV2--cell TableV2--sortable TableV2--resizable"
                         colspan="1"
                         role="columnheader"
                         style="width: 216px;"
@@ -7271,14 +7271,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </svg>
                         </span>
                         <div
-                          class="resizer"
+                          class="TableV2--resizer"
                           draggable="false"
                           role="separator"
                           style="cursor: ew-resize;"
                         />
                       </div>
                       <div
-                        class="cell sortable resizable"
+                        class="TableV2--cell TableV2--sortable TableV2--resizable"
                         colspan="1"
                         role="columnheader"
                         style="width: 100px;"
@@ -7309,14 +7309,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </svg>
                         </span>
                         <div
-                          class="resizer"
+                          class="TableV2--resizer"
                           draggable="false"
                           role="separator"
                           style="cursor: ew-resize;"
                         />
                       </div>
                       <div
-                        class="cell sortable resizable"
+                        class="TableV2--cell TableV2--sortable TableV2--resizable"
                         colspan="1"
                         role="columnheader"
                         style="width: 100px;"
@@ -7347,7 +7347,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </svg>
                         </span>
                         <div
-                          class="resizer"
+                          class="TableV2--resizer"
                           draggable="false"
                           role="separator"
                           style="cursor: ew-resize;"
@@ -7355,14 +7355,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="body"
+                      class="TableV2--body"
                     >
                       <div
-                        class="row card rowSelected"
+                        class="TableV2--row TableV2--card rowSelected"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -7379,7 +7379,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -7446,7 +7446,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -7505,7 +7505,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -7522,7 +7522,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -7545,11 +7545,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -7566,7 +7566,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -7625,7 +7625,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -7684,7 +7684,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -7701,7 +7701,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -7724,11 +7724,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -7745,7 +7745,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -7804,7 +7804,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -7863,7 +7863,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -7880,7 +7880,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -7903,11 +7903,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -7924,7 +7924,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -7983,7 +7983,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8042,7 +8042,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8059,7 +8059,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8082,11 +8082,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -8103,7 +8103,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8162,7 +8162,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8221,7 +8221,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8238,7 +8238,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8261,11 +8261,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -8282,7 +8282,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8341,7 +8341,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8400,7 +8400,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8417,7 +8417,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8440,11 +8440,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -8461,7 +8461,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8520,7 +8520,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8579,7 +8579,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8596,7 +8596,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8619,11 +8619,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -8640,7 +8640,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8699,7 +8699,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8758,7 +8758,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8775,7 +8775,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8798,11 +8798,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -8819,7 +8819,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8878,7 +8878,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -8937,7 +8937,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8954,7 +8954,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -8977,11 +8977,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -8998,7 +8998,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9057,7 +9057,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9116,7 +9116,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -9133,7 +9133,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -9156,11 +9156,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -9177,7 +9177,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9236,7 +9236,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9295,7 +9295,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -9312,7 +9312,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -9335,11 +9335,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -9356,7 +9356,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9415,7 +9415,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9474,7 +9474,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -9491,7 +9491,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -9514,11 +9514,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -9535,7 +9535,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9594,7 +9594,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9653,7 +9653,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -9670,7 +9670,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -9693,11 +9693,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -9714,7 +9714,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9773,7 +9773,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9832,7 +9832,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -9849,7 +9849,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -9872,11 +9872,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -9893,7 +9893,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -9952,7 +9952,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10011,7 +10011,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10028,7 +10028,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10051,11 +10051,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -10072,7 +10072,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10131,7 +10131,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10190,7 +10190,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10207,7 +10207,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10230,11 +10230,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -10251,7 +10251,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10310,7 +10310,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10369,7 +10369,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10386,7 +10386,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10409,11 +10409,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -10430,7 +10430,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10489,7 +10489,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10548,7 +10548,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10565,7 +10565,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10588,11 +10588,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -10609,7 +10609,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10668,7 +10668,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10727,7 +10727,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10744,7 +10744,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10767,11 +10767,11 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card"
+                        class="TableV2--row TableV2--card"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -10788,7 +10788,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10847,7 +10847,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -10906,7 +10906,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -10923,7 +10923,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -20471,14 +20471,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main"
                 >
                   <div
-                    class="table testSuiteTable clickable"
+                    class="TableV2--table testSuiteTable clickable"
                   >
                     <div
-                      class="header"
+                      class="TableV2--header"
                       role="row"
                     >
                       <div
-                        class="cell sortable resizable"
+                        class="TableV2--cell TableV2--sortable TableV2--resizable"
                         colspan="1"
                         role="columnheader"
                         style="width: 50px;"
@@ -20489,14 +20489,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           #
                         </p>
                         <div
-                          class="resizer"
+                          class="TableV2--resizer"
                           draggable="false"
                           role="separator"
                           style="cursor: ew-resize;"
                         />
                       </div>
                       <div
-                        class="cell sortable resizable"
+                        class="TableV2--cell TableV2--sortable TableV2--resizable"
                         colspan="1"
                         role="columnheader"
                         style="width: 216px;"
@@ -20527,14 +20527,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </svg>
                         </span>
                         <div
-                          class="resizer"
+                          class="TableV2--resizer"
                           draggable="false"
                           role="separator"
                           style="cursor: ew-resize;"
                         />
                       </div>
                       <div
-                        class="cell sortable resizable"
+                        class="TableV2--cell TableV2--sortable TableV2--resizable"
                         colspan="1"
                         role="columnheader"
                         style="width: 216px;"
@@ -20565,14 +20565,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </svg>
                         </span>
                         <div
-                          class="resizer"
+                          class="TableV2--resizer"
                           draggable="false"
                           role="separator"
                           style="cursor: ew-resize;"
                         />
                       </div>
                       <div
-                        class="cell sortable resizable"
+                        class="TableV2--cell TableV2--sortable TableV2--resizable"
                         colspan="1"
                         role="columnheader"
                         style="width: 100px;"
@@ -20603,14 +20603,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </svg>
                         </span>
                         <div
-                          class="resizer"
+                          class="TableV2--resizer"
                           draggable="false"
                           role="separator"
                           style="cursor: ew-resize;"
                         />
                       </div>
                       <div
-                        class="cell sortable resizable"
+                        class="TableV2--cell TableV2--sortable TableV2--resizable"
                         colspan="1"
                         role="columnheader"
                         style="width: 100px;"
@@ -20641,7 +20641,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </svg>
                         </span>
                         <div
-                          class="resizer"
+                          class="TableV2--resizer"
                           draggable="false"
                           role="separator"
                           style="cursor: ew-resize;"
@@ -20649,14 +20649,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="body"
+                      class="TableV2--body"
                     >
                       <div
-                        class="row card clickable rowSelected"
+                        class="TableV2--row TableV2--card TableV2--clickable rowSelected"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -20673,7 +20673,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -20740,7 +20740,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -20799,7 +20799,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -20816,7 +20816,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -20839,11 +20839,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -20860,7 +20860,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -20919,7 +20919,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -20978,7 +20978,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -20995,7 +20995,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21018,11 +21018,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -21039,7 +21039,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21098,7 +21098,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21157,7 +21157,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21174,7 +21174,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21197,11 +21197,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -21218,7 +21218,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21277,7 +21277,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21336,7 +21336,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21353,7 +21353,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21376,11 +21376,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -21397,7 +21397,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21456,7 +21456,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21515,7 +21515,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21532,7 +21532,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21555,11 +21555,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -21576,7 +21576,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21635,7 +21635,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21694,7 +21694,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21711,7 +21711,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21734,11 +21734,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -21755,7 +21755,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21814,7 +21814,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21873,7 +21873,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21890,7 +21890,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -21913,11 +21913,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -21934,7 +21934,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -21993,7 +21993,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22052,7 +22052,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22069,7 +22069,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22092,11 +22092,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -22113,7 +22113,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22172,7 +22172,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22231,7 +22231,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22248,7 +22248,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22271,11 +22271,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -22292,7 +22292,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22351,7 +22351,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22410,7 +22410,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22427,7 +22427,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22450,11 +22450,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -22471,7 +22471,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22530,7 +22530,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22589,7 +22589,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22606,7 +22606,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22629,11 +22629,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -22650,7 +22650,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22709,7 +22709,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22768,7 +22768,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22785,7 +22785,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22808,11 +22808,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -22829,7 +22829,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22888,7 +22888,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -22947,7 +22947,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22964,7 +22964,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -22987,11 +22987,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -23008,7 +23008,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23067,7 +23067,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23126,7 +23126,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -23143,7 +23143,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -23166,11 +23166,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -23187,7 +23187,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23246,7 +23246,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23305,7 +23305,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -23322,7 +23322,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -23345,11 +23345,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -23366,7 +23366,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23425,7 +23425,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23484,7 +23484,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -23501,7 +23501,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -23524,11 +23524,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -23545,7 +23545,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23604,7 +23604,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23663,7 +23663,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -23680,7 +23680,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -23703,11 +23703,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -23724,7 +23724,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23783,7 +23783,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23842,7 +23842,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -23859,7 +23859,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -23882,11 +23882,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -23903,7 +23903,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -23962,7 +23962,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -24021,7 +24021,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -24038,7 +24038,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -24061,11 +24061,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         </div>
                       </div>
                       <div
-                        class="row card clickable"
+                        class="TableV2--row TableV2--card TableV2--clickable"
                         role="row"
                       >
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 50px;"
                         >
@@ -24082,7 +24082,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -24141,7 +24141,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 216px;"
                         >
@@ -24200,7 +24200,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >
@@ -24217,7 +24217,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                           </div>
                         </div>
                         <div
-                          class="cell"
+                          class="TableV2--cell"
                           role="cell"
                           style="width: 100px;"
                         >

@@ -1021,14 +1021,14 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
           </a>
         </div>
         <div
-          class="table table"
+          class="TableV2--table table"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 60%;"
@@ -1040,7 +1040,7 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 40%;"
@@ -1053,14 +1053,14 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card"
+              class="TableV2--row TableV2--card"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 60%;"
               >
@@ -1096,7 +1096,7 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 40%;"
               >
@@ -1509,14 +1509,14 @@ exports[`Test ContinousVerificationStep Step should render editView when current
           </a>
         </div>
         <div
-          class="table table"
+          class="TableV2--table table"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 60%;"
@@ -1528,7 +1528,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 40%;"
@@ -1541,14 +1541,14 @@ exports[`Test ContinousVerificationStep Step should render editView when current
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card"
+              class="TableV2--row TableV2--card"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 60%;"
               >
@@ -1584,7 +1584,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
                 </div>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 40%;"
               >

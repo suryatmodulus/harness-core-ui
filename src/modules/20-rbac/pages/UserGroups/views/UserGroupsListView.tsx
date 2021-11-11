@@ -8,7 +8,7 @@ import {
   ButtonVariation,
   Icon,
   FontVariation,
-  ReactTable,
+  TableV2,
   useConfirmationDialog,
   useToaster
 } from '@wings-software/uicore'
@@ -307,7 +307,7 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
     [openRoleAssignmentModal, openUserGroupModal, reload]
   )
   return (
-    <ReactTable<UserGroupAggregateDTO>
+    <TableV2<UserGroupAggregateDTO>
       className={css.table}
       columns={columns}
       name="UserGroupsListView"

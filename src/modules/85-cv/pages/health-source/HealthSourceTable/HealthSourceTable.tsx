@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react'
 import { cloneDeep } from 'lodash-es'
 import type { CellProps, Renderer } from 'react-table'
-import { Container, Icon, Layout, Text, NoDataCard, Button, ButtonVariation } from '@wings-software/uicore'
+import { Container, Icon, Layout, Text, NoDataCard, Button, ButtonVariation, TableV2 } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import type { HealthSource, HealthSourceDTO } from 'services/cv'
 import { useStrings } from 'framework/strings'
-import { Table } from '@common/components'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import HealthSources from '@cv/components/PipelineSteps/ContinousVerification/components/HealthSources/HealthSources'
 import type { RowData } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
@@ -108,7 +107,7 @@ export default function HealthSourceTable({
     (healthSourceTableData: RowData[]) => {
       if (healthSourceTableData?.length) {
         return (
-          <Table
+          <TableV2
             className={css.healthSourceTableWrapper}
             sortable={true}
             onRowClick={data => {

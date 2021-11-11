@@ -409,7 +409,8 @@ describe('Select Artifact Modal tests', () => {
     const dialog = findDialogContainer() as HTMLElement
 
     await act(async () => {
-      const firstRow = dialog.querySelector('.table .body .row:first-child')
+      expect(dialog).toMatchSnapshot()
+      const firstRow = dialog.querySelector('.TableV2--table .TableV2--body .TableV2--row:first-child')
       const radioBtn = firstRow?.querySelector('input[name=artifactLabel]')
       fireEvent.click(radioBtn!)
     })
@@ -548,7 +549,7 @@ describe('Select Artifact Modal tests', () => {
     const dialog = findDialogContainer() as HTMLElement
 
     await act(async () => {
-      const firstRow = dialog.querySelector('.table .body .row:first-child')
+      const firstRow = dialog.querySelector('.TableV2--table .TableV2--body .TableV2--row:first-child')
       const radioBtn = firstRow?.querySelector('input[name=artifactLabel]')
       fireEvent.click(radioBtn!)
     })

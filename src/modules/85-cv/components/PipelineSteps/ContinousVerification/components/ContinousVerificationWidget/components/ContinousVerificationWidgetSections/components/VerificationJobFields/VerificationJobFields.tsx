@@ -1,12 +1,13 @@
-import React, { useMemo, CSSProperties, useEffect, useState } from 'react'
-import { FormInput, SelectOption, MultiTypeInputType } from '@wings-software/uicore'
+import React, { CSSProperties, useEffect, useMemo, useState } from 'react'
+import { FormInput, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import { useListBaselineExecutions } from 'services/cv'
 import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
+import { getMultiTypeInputProps } from './VerificationJobFields.utils'
 
 interface BaseFieldProps {
   zIndex?: Pick<CSSProperties, 'zIndex'>
@@ -16,6 +17,7 @@ interface BaseFieldProps {
   formik?: FormikProps<ContinousVerificationData>
   expressions?: string[]
   isSimpleDropdown?: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 
 export function getDefaultBaselineOptions(getString: UseStringsReturn['getString']): SelectOption[] {
@@ -34,7 +36,7 @@ export function getVerificationSensitivityOptions(getString: UseStringsReturn['g
 }
 
 export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
-  const { zIndex, label, name, expressions, formik, isSimpleDropdown } = props
+  const { zIndex, label, name, expressions, formik, isSimpleDropdown, allowableTypes } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 10 }), [zIndex]) as CSSProperties
   const { getString } = useStrings()
   if (!isSimpleDropdown) {
@@ -44,13 +46,7 @@ export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
         style={style}
         label={label ? label : getString('sensitivity')}
         selectItems={getVerificationSensitivityOptions(getString)}
-        multiTypeInputProps={
-          expressions
-            ? { expressions }
-            : {
-                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
-              }
-        }
+        multiTypeInputProps={getMultiTypeInputProps(expressions, allowableTypes)}
       />
     )
   } else {
@@ -79,7 +75,7 @@ export function Duration(props: BaseFieldProps): JSX.Element {
     }),
     []
   )
-  const { zIndex, label, name, expressions, formik, isSimpleDropdown } = props
+  const { zIndex, label, name, expressions, formik, isSimpleDropdown, allowableTypes } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 8 }), [zIndex]) as CSSProperties
   const { getString } = useStrings()
   if (!isSimpleDropdown) {
@@ -89,13 +85,7 @@ export function Duration(props: BaseFieldProps): JSX.Element {
         style={style}
         label={label ? label : getString('duration')}
         selectItems={selectProps.items}
-        multiTypeInputProps={
-          expressions
-            ? { expressions }
-            : {
-                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
-              }
-        }
+        multiTypeInputProps={getMultiTypeInputProps(expressions, allowableTypes)}
       />
     )
   } else {
@@ -206,7 +196,7 @@ export function BaselineSelect(props: BaseFieldProps): JSX.Element {
     }
   }, [data])
 
-  const { zIndex, label, name, expressions, formik, isSimpleDropdown } = props
+  const { zIndex, label, name, expressions, formik, isSimpleDropdown, allowableTypes } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 5 }), [zIndex]) as CSSProperties
   if (!isSimpleDropdown) {
     return (
@@ -215,13 +205,7 @@ export function BaselineSelect(props: BaseFieldProps): JSX.Element {
         style={style}
         label={label ? label : getString('connectors.cdng.baseline')}
         selectItems={baselineOption}
-        multiTypeInputProps={
-          expressions
-            ? { expressions }
-            : {
-                allowableTypes: [MultiTypeInputType.FIXED]
-              }
-        }
+        multiTypeInputProps={getMultiTypeInputProps(expressions, allowableTypes)}
       />
     )
   } else {

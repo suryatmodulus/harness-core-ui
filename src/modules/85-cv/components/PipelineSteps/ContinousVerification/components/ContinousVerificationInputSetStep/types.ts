@@ -1,3 +1,4 @@
+import type { MultiTypeInputType } from '@wings-software/uicore'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { ContinousVerificationData } from '../../types'
 
@@ -8,6 +9,7 @@ export interface ContinousVerificationProps {
   readonly?: boolean
   template?: ContinousVerificationData
   path?: string
+  allowableTypes: MultiTypeInputType[]
 }
 
 export interface serviceAndEnvData {

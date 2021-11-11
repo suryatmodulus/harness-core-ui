@@ -1,14 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { FormInput, FormikForm, SelectOption, Container, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { FormInput, FormikForm, Container, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 
 import { parse } from 'yaml'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useGetPipeline } from 'services/pipeline-ng'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { spec } from '../../types'
 import { checkIfRunTimeInput } from '../../utils'
 import type { ContinousVerificationProps } from './types'
@@ -29,11 +30,12 @@ import css from './ContinousVerificationInputSetStep.module.scss'
 export function ContinousVerificationInputSetStep(
   props: ContinousVerificationProps & { formik?: any }
 ): React.ReactElement {
-  const { template, path, initialValues, readonly, onUpdate, formik } = props
+  const { template, path, initialValues, readonly, onUpdate, formik, allowableTypes } = props
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   const [pipeline, setPipeline] = useState<{ pipeline: PipelineInfoConfig } | undefined>()
   const prefix = isEmpty(path) ? '' : `${path}.`
   const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = (template?.spec?.spec as spec) || {}
@@ -78,13 +80,14 @@ export function ContinousVerificationInputSetStep(
       <Container className={css.container}>
         {checkIfRunTimeInput(sensitivity) && (
           <Container className={css.item}>
-            <FormInput.Select
+            <FormInput.MultiTypeInput
               label={getString('sensitivity')}
               name={`${prefix}spec.spec.sensitivity`}
-              items={VerificationSensitivityOptions}
-              onChange={(option: SelectOption) => {
-                const updatedSpecs = { spec: { ...initialValues.spec.spec, sensitivity: option.value as string } }
-                onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
+              selectItems={VerificationSensitivityOptions}
+              useValue
+              multiTypeInputProps={{
+                expressions,
+                allowableTypes
               }}
               disabled={readonly}
             />
@@ -93,13 +96,14 @@ export function ContinousVerificationInputSetStep(
 
         {checkIfRunTimeInput(duration) && (
           <Container className={css.item}>
-            <FormInput.Select
+            <FormInput.MultiTypeInput
               label={getString('duration')}
               name={`${prefix}spec.spec.duration`}
-              items={durationOptions}
-              onChange={(option: SelectOption) => {
-                const updatedSpecs = { spec: { ...initialValues.spec.spec, duration: option.value as string } }
-                onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
+              selectItems={durationOptions}
+              useValue
+              multiTypeInputProps={{
+                expressions,
+                allowableTypes
               }}
               disabled={readonly}
             />
@@ -108,13 +112,14 @@ export function ContinousVerificationInputSetStep(
 
         {checkIfRunTimeInput(baseline) && (
           <Container className={css.item}>
-            <FormInput.Select
+            <FormInput.MultiTypeInput
               label={getString('connectors.cdng.baseline')}
               name={`${prefix}spec.spec.baseline`}
-              items={baseLineOptions}
-              onChange={(option: SelectOption) => {
-                const updatedSpecs = { spec: { ...initialValues.spec.spec, baseline: option.value as string } }
-                onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
+              selectItems={baseLineOptions}
+              useValue
+              multiTypeInputProps={{
+                expressions,
+                allowableTypes
               }}
               disabled={readonly}
             />
@@ -123,13 +128,14 @@ export function ContinousVerificationInputSetStep(
 
         {checkIfRunTimeInput(trafficsplit) && (
           <Container className={css.item}>
-            <FormInput.Select
+            <FormInput.MultiTypeInput
               label={getString('connectors.cdng.trafficsplit')}
               name={`${prefix}spec.spec.trafficsplit`}
-              items={trafficSplitPercentageOptions}
-              onChange={(option: SelectOption) => {
-                const updatedSpecs = { spec: { ...initialValues.spec.spec, trafficsplit: option.value as number } }
-                onUpdate?.({ ...initialValues, spec: { ...initialValues.spec, ...updatedSpecs } })
+              selectItems={trafficSplitPercentageOptions}
+              useValue
+              multiTypeInputProps={{
+                expressions,
+                allowableTypes
               }}
               disabled={readonly}
             />
@@ -138,9 +144,13 @@ export function ContinousVerificationInputSetStep(
 
         {checkIfRunTimeInput(deploymentTag) && (
           <Container className={css.item}>
-            <FormInput.Text
+            <FormInput.MultiTextInput
               label={getString('connectors.cdng.artifactTag')}
               name={`${prefix}spec.spec.deploymentTag`}
+              multiTextInputProps={{
+                expressions,
+                allowableTypes
+              }}
               disabled={readonly}
             />
           </Container>
@@ -148,10 +158,15 @@ export function ContinousVerificationInputSetStep(
 
         {checkIfRunTimeInput(template?.timeout) && (
           <Container className={css.item}>
-            <DurationInputFieldForInputSet
-              label={getString('pipelineSteps.timeoutLabel')}
+            <FormMultiTypeDurationField
               name={`${prefix}timeout`}
+              label={getString('pipelineSteps.timeoutLabel')}
               disabled={readonly}
+              multiTypeDurationProps={{
+                expressions,
+                enableConfigureOptions: false,
+                allowableTypes
+              }}
             />
           </Container>
         )}

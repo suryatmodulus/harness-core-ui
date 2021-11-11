@@ -10,32 +10,39 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
 import Card from '@cv/components/Card/Card'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function BaseContinousVerification(props: {
   formik: FormikProps<ContinousVerificationData>
   isNewStep?: boolean
+  stepViewType?: StepViewType
+  allowableTypes: MultiTypeInputType[]
 }): React.ReactElement {
   const {
     formik: { values: formValues, setFieldValue },
-    isNewStep = true
+    isNewStep = true,
+    stepViewType,
+    allowableTypes
   } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   return (
     <Card>
       <>
-        <div className={cx(stepCss.formGroup, stepCss.md)}>
-          <FormInput.InputWithIdentifier
-            isIdentifierEditable={isNewStep}
-            inputLabel={getString('pipelineSteps.stepNameLabel')}
-          />
-        </div>
+        {stepViewType !== StepViewType.Template && (
+          <div className={cx(stepCss.formGroup, stepCss.md)}>
+            <FormInput.InputWithIdentifier
+              isIdentifierEditable={isNewStep}
+              inputLabel={getString('pipelineSteps.stepNameLabel')}
+            />
+          </div>
+        )}
         <div className={cx(stepCss.formGroup, stepCss.sm)}>
           <FormMultiTypeDurationField
             name="timeout"
             label={getString('pipelineSteps.timeoutLabel')}
-            multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+            multiTypeDurationProps={{ enableConfigureOptions: false, expressions, allowableTypes }}
           />
           {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME && (
             <ConfigureOptions

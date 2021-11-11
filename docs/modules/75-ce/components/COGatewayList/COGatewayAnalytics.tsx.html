@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.82% </span>
+                <span class="strong">79.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>67/85</span>
+                <span class='fraction'>69/87</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.78% </span>
+                <span class="strong">63.83% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>113/180</span>
+                <span class='fraction'>120/188</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.05% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>64/82</span>
+                <span class='fraction'>66/84</span>
             </div>
         
             
@@ -462,7 +462,14 @@
 <a name='L403'></a><a href='#L403'>403</a>
 <a name='L404'></a><a href='#L404'>404</a>
 <a name='L405'></a><a href='#L405'>405</a>
-<a name='L406'></a><a href='#L406'>406</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -478,6 +485,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -691,6 +699,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -712,6 +723,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -886,6 +900,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
+import { Utils } from '@ce/common/Utils'
 import COGatewayLogs from './COGatewayLogs'
 import COGatewayUsageTime from './COGatewayUsageTime'
 import odIcon from './images/ondemandIcon.svg'
@@ -1096,6 +1111,9 @@ const COGatewayAnalytics: React.FC&lt;COGatewayAnalyticsProps&gt; = props =&gt; 
     setIdleHourSeries(newIdleHours)
     setActualHoursSeries(newActualHours)
   }, [graphData])
+&nbsp;
+  const isK8sRule = Utils.isK8sRule(props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata as Service)
+&nbsp;
   return (
     &lt;Container&gt;
       &lt;Layout.Vertical spacing="large" padding="xlarge"&gt;
@@ -1143,7 +1161,10 @@ const COGatewayAnalytics: React.FC&lt;COGatewayAnalyticsProps&gt; = props =&gt; 
             &lt;/Layout.Horizontal&gt;
             &lt;Text&gt;Compute type&lt;/Text&gt;
             &lt;Layout.Horizontal spacing="xsmall"&gt;
-              &lt;img src={props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.fulfilment == 'spot' ? <span class="branch-0 cbranch-no" title="branch not covered" >spotIcon </span>: odIcon} alt="" aria-hidden /&gt;
+              {isK8sRule &amp;&amp; &lt;Icon name="app-kubernetes" size={18} /&gt;}
+              {!isK8sRule &amp;&amp; (
+                &lt;img src={props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.fulfilment == 'spot' ? <span class="branch-0 cbranch-no" title="branch not covered" >spotIcon </span>: odIcon} alt="" aria-hidden /&gt;
+              )}
               &lt;Text&gt;{props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.fulfilment}&lt;/Text&gt;
             &lt;/Layout.Horizontal&gt;
           &lt;/Layout.Vertical&gt;
@@ -1279,7 +1300,7 @@ export default COGatewayAnalytics
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 11 2021 07:47:27 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 11 2021 08:48:34 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

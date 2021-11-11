@@ -1,8 +1,9 @@
 import React from 'react'
-import { pick, noop } from 'lodash-es'
+import { pick } from 'lodash-es'
 import type { Renderer, CellProps, Column } from 'react-table'
-import { Color, FontVariation, Text, Utils, ReactTable } from '@wings-software/uicore'
+import { Utils, ReactTable } from '@wings-software/uicore'
 import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
+import { NavLink } from 'react-router-dom'
 import {
   getStackedSummaryBarCount,
   StackedSummaryBar,
@@ -15,8 +16,8 @@ import css from './StackedSummaryTable.module.scss'
 const logger = loggerFor(ModuleName.COMMON)
 
 export interface StackedSummaryInterface extends StackedSummaryBarData {
-  labelClick?: () => void
   label: string
+  labelLink?: string
   labelTooltip?: JSX.Element
   tooltipProps?: PopoverProps
 }
@@ -38,7 +39,7 @@ export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => 
   const maxCount = getStackedSummaryBarCount(summaryData[0].barSectionsData)
 
   const RenderStackedSummaryBarLabelColumn: Renderer<CellProps<StackedSummaryInterface>> = ({ row }) => {
-    const labelClick = row.original?.labelClick
+    const labelLink = row.original?.labelLink
     return (
       <Utils.WrapOptionalTooltip
         tooltip={row.original?.labelTooltip}
@@ -50,15 +51,13 @@ export const StackedSummaryTable: React.FC<StackedSummaryTableProps> = props => 
           }
         }
       >
-        <Text
-          font={{ variation: FontVariation.BODY2 }}
-          color={Color.PRIMARY_7}
-          lineClamp={1}
-          onClick={labelClick || noop}
-          style={{ cursor: labelClick ? 'pointer' : 'unset' }}
-        >
-          {row.original?.label}
-        </Text>
+        {labelLink ? (
+          <NavLink to={labelLink}>
+            <label className={'links'}>{row.original?.label}</label>
+          </NavLink>
+        ) : (
+          <label className={'links'}>{row.original?.label}</label>
+        )}
       </Utils.WrapOptionalTooltip>
     )
   }

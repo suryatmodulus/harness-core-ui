@@ -50,15 +50,27 @@ const renderTooltipForProjectLabel = (
 }
 
 const formatSummaryData = (
-  response: Array<TopProjectsDashboardInfoCountWithSuccessFailureDetails>
+  response: Array<TopProjectsDashboardInfoCountWithSuccessFailureDetails>,
+  accountId: string
 ): Array<StackedSummaryInterface> => {
   const formattedData = response.map(projectData => {
     const { projectInfo, countDetails } = projectData
+    const orgIdentifier = projectData?.orgInfo?.orgIdentifier
+    const projectIdentifier = projectInfo?.projectIdentifier
+    const labelLink =
+      orgIdentifier && projectIdentifier
+        ? routes.toProjectDetails({
+            accountId,
+            orgIdentifier,
+            projectIdentifier
+          })
+        : undefined
     const { successCount = 0, failureCount = 0, countChangeAndCountChangeRateInfo } = countDetails || {}
 
     const stackData: StackedSummaryInterface = {
       label: projectInfo?.projectName || '',
       labelTooltip: renderTooltipForProjectLabel(projectData),
+      labelLink,
       barSectionsData: [
         { count: successCount, color: Color.GREEN_500 },
         { count: failureCount, color: Color.RED_500 }
@@ -87,7 +99,8 @@ const renderModuleSummary = (
       <StackedSummaryTable
         columnHeaders={[strings.projectText, getModuleSummaryHeader(iconName, strings.title)]}
         summaryData={formatSummaryData(
-          responseData?.[dataKey]?.response as TopProjectsDashboardInfoCountWithSuccessFailureDetails[]
+          responseData?.[dataKey]?.response as TopProjectsDashboardInfoCountWithSuccessFailureDetails[],
+          accountId
         )}
       ></StackedSummaryTable>
     ) : (

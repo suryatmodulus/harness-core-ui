@@ -1,7 +1,7 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import cx from 'classnames'
 import { Card, Color, Container, FontVariation, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
 import type { TooltipFormatterContextObject } from 'highcharts'
 import type { GetDataError, UseGetProps } from 'restful-react'
@@ -282,28 +282,22 @@ const renderTooltipForServiceLabel = (service: ActiveServiceInfo): JSX.Element =
 
 const LandingDashboardDeploymentsWidget: React.FC = () => {
   const { getString } = useStrings()
-  const history = useHistory()
   const { selectedTimeRange } = useLandingDashboardContext()
   const { accountId } = useParams<ProjectPathProps>()
   const [range, setRange] = useState([0, 0])
   const [groupByValue, setGroupByValues] = useState(TimeRangeGroupByMapping[selectedTimeRange])
   const [sortByValue, setSortByValue] = useState<GetDeploymentStatsOverviewQueryParams['sortBy']>('DEPLOYMENTS')
   const [selectedView, setSelectedView] = useState<ChartType>(ChartType.BAR)
-  const goToServiceDetails = useCallback(
-    (service: ActiveServiceInfo) => {
-      const serviceId = service.serviceInfo?.serviceIdentifier || ''
-      history.push(
-        routes.toServiceDetails({
-          accountId,
-          orgIdentifier: service.orgInfo?.orgIdentifier || '',
-          projectIdentifier: service.projectInfo?.projectIdentifier || '',
-          serviceId,
-          module: 'cd'
-        })
-      )
-    },
-    [accountId]
-  )
+  const getServiceDetailsLink = (service: ActiveServiceInfo): string => {
+    const serviceId = service.serviceInfo?.serviceIdentifier || ''
+    return routes.toServiceDetails({
+      accountId,
+      orgIdentifier: service.orgInfo?.orgIdentifier || '',
+      projectIdentifier: service.projectInfo?.projectIdentifier || '',
+      serviceId,
+      module: 'cd'
+    })
+  }
 
   const { data, error, refetch, loading } = useGetDeploymentStatsOverview({
     queryParams: {
@@ -390,7 +384,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
         return {
           label: defaultTo(service.serviceInfo?.serviceName, ''),
           labelTooltip: renderTooltipForServiceLabel(service),
-          labelClick: () => goToServiceDetails(service),
+          labelLink: getServiceDetailsLink(service),
           barSectionsData: [
             {
               count: defaultTo(service.countWithSuccessFailureDetails?.successCount, 0),

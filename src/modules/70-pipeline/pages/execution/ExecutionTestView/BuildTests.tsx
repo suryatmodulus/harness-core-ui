@@ -194,7 +194,6 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
   const reportSummaryHasTests = (reportSummaryData?.total_tests || 0) > 0
   const testOverviewHasTests = (testOverviewData?.total_tests || 0) > 0
 
-  // const uiType = UI.ReportsWithCTA
   const uiType =
     reportSummaryHasTests && testOverviewHasTests
       ? UI.TIAndReports
@@ -368,15 +367,16 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
         <>
           {header}
           <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
-            {typeof testOverviewData?.total_tests !== 'undefined' &&
-              typeof testOverviewData?.skipped_tests !== 'undefined' &&
-              typeof testOverviewData?.time_saved_ms !== 'undefined' &&
-              typeof testOverviewData?.time_taken_ms !== 'undefined' && (
+            {typeof reportSummaryData?.total_tests !== 'undefined' &&
+              typeof reportSummaryData?.skipped_tests !== 'undefined' &&
+              typeof reportSummaryData?.duration_ms !== 'undefined' &&
+              typeof reportSummaryData?.failed_tests !== 'undefined' && (
                 <TestsOverview
-                  totalTests={testOverviewData.total_tests}
-                  skippedTests={testOverviewData.skipped_tests}
-                  timeSavedMS={testOverviewData.time_saved_ms}
-                  durationMS={testOverviewData.time_taken_ms}
+                  totalTests={reportSummaryData.total_tests}
+                  skippedTests={reportSummaryData.skipped_tests}
+                  // timeSavedMS={reportSummaryData.time_saved_ms}
+                  durationMS={reportSummaryData.duration_ms}
+                  failedTests={reportSummaryData.failed_tests}
                   testsCountDiff={testsCountDiff}
                 />
               )}

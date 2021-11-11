@@ -12,6 +12,7 @@ declare const styles: {
   readonly row: string
   readonly diff: string
   readonly diffNegative: string
+  readonly failedNumber: string
   readonly timeSaved: string
   readonly overview: string
   readonly linesWrapper: string

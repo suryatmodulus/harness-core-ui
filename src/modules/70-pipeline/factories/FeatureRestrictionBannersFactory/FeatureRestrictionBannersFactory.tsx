@@ -2,22 +2,27 @@ import React from 'react'
 import cx from 'classnames'
 import { Button, ButtonSize, ButtonVariation, Color, Layout, Text, Container } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
+import { isEmpty } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 import type { StringsMap } from 'stringTypes'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useFeatures } from '@common/hooks/useFeatures'
 import { useLocalStorage } from '@common/hooks'
-
-import type { CheckFeaturesReturn } from 'framework/featureStore/FeaturesContext'
-import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import type { CheckFeatureReturn, CheckFeaturesReturn } from 'framework/featureStore/FeaturesContext'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useStrings } from 'framework/strings'
 import css from './FeatureRestrictionBannersFactory.module.scss'
+
+interface Dependency {
+  [key: string]: { enabled?: boolean }
+}
 
 type ModuleToFeatureMapValue = {
   limit?: number
   limitPercent?: number
   limitCrossedMessage?: keyof StringsMap
   upgradeRequiredBanner?: boolean
+  dependency?: Dependency
 }
 
 interface DisplayBanner {
@@ -27,6 +32,34 @@ interface DisplayBanner {
   upgradeRequiredBanner?: boolean
   isFeatureRestrictionAllowedForModule?: boolean
 }
+
+const getBannerDependencyMet = ({
+  features,
+  featureName,
+  dependency
+}: {
+  featureName: FeatureIdentifier
+  features: Map<FeatureIdentifier, CheckFeatureReturn>
+  dependency?: Dependency
+}): boolean => {
+  if (dependency) {
+    const dependencyKeys = Object.entries(dependency)
+    // ACTIVE_COMMITTERS featureDetail check is required to show the api finished
+    if (
+      dependencyKeys?.some(
+        ([key, value]) =>
+          features.get(key as FeatureIdentifier)?.enabled !== value.enabled ||
+          (featureName === FeatureIdentifier.ACTIVE_COMMITTERS &&
+            isEmpty(features.get(key as FeatureIdentifier)?.featureDetail || {}))
+      )
+    ) {
+      return false
+    }
+  }
+
+  return true
+}
+
 export const ModuleToFeatureMap: Record<string, Record<string, ModuleToFeatureMapValue[]>> = {
   cd: {
     SERVICES: [{ limit: 90, limitCrossedMessage: 'pipeline.featureRestriction.serviceLimitExceeded' }]
@@ -42,22 +75,37 @@ export const ModuleToFeatureMap: Record<string, Record<string, ModuleToFeatureMa
       {
         limit: 100,
         limitCrossedMessage: 'pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit',
-        upgradeRequiredBanner: true
+        upgradeRequiredBanner: true,
+        dependency: {
+          MAX_TOTAL_BUILDS: { enabled: false }
+        }
       },
       {
-        limit: 1,
-        limitCrossedMessage: 'pipeline.featureRestriction.numMonthlyBuilds'
+        limit: 0,
+        limitCrossedMessage: 'pipeline.featureRestriction.numMonthlyBuilds',
+        dependency: {
+          MAX_TOTAL_BUILDS: { enabled: false }
+        }
+        //
       }
     ],
     ACTIVE_COMMITTERS: [
       {
         limitPercent: 100,
         limitCrossedMessage: 'pipeline.featureRestriction.subscriptionExceededLimit',
-        upgradeRequiredBanner: true
+        upgradeRequiredBanner: true,
+        dependency: {
+          MAX_TOTAL_BUILDS: { enabled: true },
+          MAX_BUILDS_PER_MONTH: { enabled: true }
+        }
       },
       {
         limitPercent: 90,
-        limitCrossedMessage: 'pipeline.featureRestriction.subscription90PercentLimit'
+        limitCrossedMessage: 'pipeline.featureRestriction.subscription90PercentLimit',
+        dependency: {
+          MAX_TOTAL_BUILDS: { enabled: true },
+          MAX_BUILDS_PER_MONTH: { enabled: true }
+        }
       }
     ]
   },
@@ -106,10 +154,13 @@ export const FeatureRestrictionBanners = (
     const { featureDetail } = features.get(featureName) || {}
     // check for the first message that would appear
     return featureRestrictionModuleDetails?.some((uiDisplayBanner: ModuleToFeatureMapValue) => {
+      let bannerAdded = false
       if (featureDetail?.enabled === false && uiDisplayBanner.upgradeRequiredBanner) {
         // when feature is not allowed and upgrade banner should be shown
+        const dependency = uiDisplayBanner?.dependency
+        const dependencyMet = getBannerDependencyMet({ features, featureName, dependency })
         const messageString = uiDisplayBanner?.limitCrossedMessage && getString(uiDisplayBanner.limitCrossedMessage)
-        if (messageString) {
+        if (dependencyMet && messageString) {
           shownBanners.push({
             featureName,
             isFeatureRestrictionAllowedForModule: featureDetail.enabled,
@@ -117,21 +168,26 @@ export const FeatureRestrictionBanners = (
             messageString
           })
         }
-        return true
+        bannerAdded = true
       } else if (featureDetail?.enabled) {
         /*
           Show the banner if
           1. Feature enforcement enabled
-          2. Usage limit | percent uiDisplayBanner is breached
-          3. Message is present in the above map value
+          2. If dependency exists and matches
+          3. Usage limit | percent uiDisplayBanner is breached
+          4. Message is present in the above map value
         */
+
+        const dependency = uiDisplayBanner?.dependency
+        const dependencyMet = getBannerDependencyMet({ features, dependency })
         let _isLimitBreached = false
-        if (featureDetail?.count && featureDetail.limit) {
-          _isLimitBreached = uiDisplayBanner?.limit
-            ? featureDetail.count >= uiDisplayBanner.limit
-            : uiDisplayBanner.limitPercent
-            ? (featureDetail.count / featureDetail.limit) * 100 >= uiDisplayBanner.limitPercent
-            : false
+        if (dependencyMet && typeof featureDetail?.count !== 'undefined' && featureDetail.limit) {
+          _isLimitBreached =
+            typeof uiDisplayBanner?.limit !== 'undefined'
+              ? featureDetail.count >= uiDisplayBanner.limit
+              : uiDisplayBanner.limitPercent
+              ? (featureDetail.count / featureDetail.limit) * 100 >= uiDisplayBanner.limitPercent
+              : false
 
           if (_isLimitBreached) {
             const usagePercent = Math.min(Math.floor((featureDetail.count / featureDetail.limit) * 100), 100)
@@ -150,14 +206,12 @@ export const FeatureRestrictionBanners = (
                 upgradeRequiredBanner: uiDisplayBanner.upgradeRequiredBanner,
                 messageString
               })
+              bannerAdded = true
             }
-            return true
           }
         }
-      } else {
-        // no banners to show
-        return false
       }
+      return bannerAdded
     })
   })
 

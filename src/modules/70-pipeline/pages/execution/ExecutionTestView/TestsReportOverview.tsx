@@ -35,10 +35,17 @@ export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({
         margin={{ bottom: 'xsmall' }}
         style={{ height: 32, flexShrink: 0 }}
       >
-        <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600} margin={{ right: 'medium' }}>
+        <Heading
+          level={6}
+          data-name="test-execution-overview"
+          style={{ fontWeight: 600, marginBottom: 'var(--spacing-3)' }}
+          color={Color.GREY_600}
+          margin={{ right: 'medium' }}
+        >
           {getString('overview')}
         </Heading>
         <Duration
+          style={{ marginBottom: 'var(--spacing-3)' }}
           color={Color.GREY_400}
           iconProps={{ color: Color.GREY_400 }}
           durationText=" "

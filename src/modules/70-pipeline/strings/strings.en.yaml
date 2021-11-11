@@ -588,7 +588,6 @@ testsReports:
   timeSaved: Time Saved
   totalExecutedTest: Total Executed Tests
   selectionBreakdown: Test Selection Breakdown
-  selectionBreakdownInfo: Shows aggregated data on how tests were selected
   totalWithColon: 'TOTAL:'
   failedWithColon: 'FAILED:'
   successWithColon: 'SUCCESS:'
@@ -613,7 +612,6 @@ testsReports:
   result: RESULT
   testCasesExecution: Tests Execution
   testExecutions: Test Executions
-  testCasesExecutionInfo: Shows a list of executed tests and result. In case of error, hover over the test to see additional information
   noFailedTestsFound: No failed tests found
   showOnlyFailedTests: Show only failed tests
   hangTight: Hang tight! Report is being generated...
@@ -621,7 +619,6 @@ testsReports:
   testsWillAppear: Tests will appear here if they were reported or uploaded to Harness.
   willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
   resultLabel: Test Execution Result
-  resultInfo: Heat Map showing a graphical overview of the test results
   sortBy: 'Sort by:'
   tiCallToAction:
     header: Did you know you can save time using Test Intelligence?

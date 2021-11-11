@@ -101,6 +101,9 @@
         }
       }
     }
+    &.failedNumber {
+      color: var(--red-700);
+    }
   }
   &.timeSaved {
     background-color: var(--green-500) !important;

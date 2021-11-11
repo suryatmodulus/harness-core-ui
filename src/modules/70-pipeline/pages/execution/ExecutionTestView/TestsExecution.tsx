@@ -296,7 +296,12 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
   return (
     <div className={cx(css.widgetWrapper, css.rightContainer)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
-        <Heading data-name="test-execution-overview-label" level={6} style={{ fontWeight: 600 }} color={Color.GREY_600}>
+        <Heading
+          data-name="test-executions"
+          level={6}
+          style={{ fontWeight: 600, marginBottom: 'var(--spacing-3)' }}
+          color={Color.GREY_600}
+        >
           {getString('pipeline.testsReports.testExecutions')}
         </Heading>
         {loading && <Icon name="steps-spinner" size={16} color="blue500" margin={{ left: 'xsmall' }} />}

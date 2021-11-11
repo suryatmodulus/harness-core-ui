@@ -6,7 +6,7 @@ import { Classes, Menu, Position } from '@blueprintjs/core'
 import type { PageInputSetSummaryResponse, InputSetSummaryResponse } from 'services/pipeline-ng'
 import { TagsPopover } from '@common/components'
 import { useQueryParams } from '@common/hooks'
-import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, Module } from '@common/interfaces/RouteInterfaces'
 import GitDetailsColumn from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
 import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
@@ -14,6 +14,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import useDeleteConfirmationDialog from '../utils/DeleteConfirmDialog'
 import css from './InputSetList.module.scss'
 
@@ -81,10 +82,12 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }
   const data = row.original
   const { getString } = useStrings()
 
-  const { pipelineIdentifier } = useParams<{
+  const { pipelineIdentifier, module } = useParams<{
     pipelineIdentifier: string
+    module: Module
   }>()
 
+  const isCIModule = module === 'ci'
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const runPipeline = (): void => {
@@ -115,6 +118,11 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }
       onClick={e => {
         e.stopPropagation()
         runPipeline()
+      }}
+      featureProps={{
+        featureRequest: {
+          featureName: isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS
+        }
       }}
       permission={{
         resource: {

@@ -39,229 +39,10 @@
   ],
   "schemes": ["https", "http"],
   "paths": {
-    "/budgets/{id}": {
-      "get": {
-        "tags": ["budgets"],
-        "summary": "Get budget",
-        "description": "",
-        "operationId": "getBudget",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseBudget"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["budgets"],
-        "summary": "Clone budget",
-        "description": "",
-        "operationId": "cloneBudget",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "cloneName",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseString"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": ["budgets"],
-        "summary": "Update budget",
-        "description": "",
-        "operationId": "updateBudget",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/Budget"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseString"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["budgets"],
-        "summary": "Delete budget",
-        "description": "",
-        "operationId": "deleteBudget",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseString"
-            }
-          }
-        }
-      }
-    },
-    "/budgets/perspectiveBudgets": {
-      "get": {
-        "tags": ["budgets"],
-        "summary": "List budgets for perspective",
-        "description": "",
-        "operationId": "listBudgetsForPerspective",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "perspectiveId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListBudget"
-            }
-          }
-        }
-      }
-    },
-    "/budgets": {
-      "get": {
-        "tags": ["budgets"],
-        "summary": "List budgets for account",
-        "description": "",
-        "operationId": "listBudgetsForAccount",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseListBudget"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["budgets"],
-        "summary": "Create budget",
-        "description": "",
-        "operationId": "createBudget",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/Budget"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseString"
-            }
-          }
-        }
-      }
-    },
     "/budgets/lastMonthCost": {
       "get": {
         "tags": ["budgets"],
-        "summary": "Get last month cost for perspective",
+        "summary": "Deprecated use /perspective/lastMonthCost instead, Get last month cost for perspective.",
         "description": "",
         "operationId": "getLastMonthCost",
         "produces": ["application/json"],
@@ -269,7 +50,7 @@
           {
             "name": "accountIdentifier",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
@@ -283,16 +64,17 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseDouble"
+              "$ref": "#/definitions/ResponseDouble"
             }
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/budgets/forecastCost": {
       "get": {
         "tags": ["budgets"],
-        "summary": "Get forecast cost for perspective",
+        "summary": "Deprecated use /perspective/forecastCost instead, Get forecast cost for perspective.",
         "description": "",
         "operationId": "getForecastCost",
         "produces": ["application/json"],
@@ -314,10 +96,11 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseDouble"
+              "$ref": "#/definitions/ResponseDouble"
             }
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/budgets/{id}/costDetails": {
@@ -331,7 +114,7 @@
           {
             "name": "accountIdentifier",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
@@ -345,7 +128,227 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseBudgetData"
+              "$ref": "#/definitions/ResponseBudgetData"
+            }
+          }
+        }
+      }
+    },
+    "/budgets/{id}": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "Get budget",
+        "description": "",
+        "operationId": "getBudget",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseBudget"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["budgets"],
+        "summary": "Clone budget",
+        "description": "",
+        "operationId": "cloneBudget",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cloneName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseString"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["budgets"],
+        "summary": "Update budget",
+        "description": "",
+        "operationId": "updateBudget",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseString"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["budgets"],
+        "summary": "Delete budget",
+        "description": "",
+        "operationId": "deleteBudget",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseString"
+            }
+          }
+        }
+      }
+    },
+    "/budgets/perspectiveBudgets": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "List budgets for perspective",
+        "description": "",
+        "operationId": "listBudgetsForPerspective",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseListBudget"
+            }
+          }
+        }
+      }
+    },
+    "/budgets": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "List budgets for account",
+        "description": "",
+        "operationId": "listBudgetsForAccount",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseListBudget"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["budgets"],
+        "summary": "Create budget",
+        "description": "",
+        "operationId": "createBudget",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Budget"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseString"
             }
           }
         }
@@ -554,6 +557,32 @@
           "default": {
             "description": "successful operation"
           }
+        },
+        "deprecated": true
+      }
+    },
+    "/connector/gcpserviceaccount": {
+      "get": {
+        "tags": ["connector"],
+        "summary": "Provision and Get GCP Service Account",
+        "description": "",
+        "operationId": "gcpserviceaccount",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseString"
+            }
+          }
         }
       }
     },
@@ -582,27 +611,15 @@
         }
       }
     },
-    "/connector/gcpserviceaccount": {
+    "/graphql/schema": {
       "get": {
-        "tags": ["connector"],
-        "summary": "Provision and Get GCP Service Account",
-        "description": "",
-        "operationId": "gcpserviceaccount",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
+        "tags": ["graphql"],
+        "operationId": "getSchema",
+        "produces": ["application/json", "text/plain"],
+        "parameters": [],
         "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseString"
-            }
+          "default": {
+            "description": "successful operation"
           }
         }
       }
@@ -629,7 +646,7 @@
       "post": {
         "tags": ["graphql"],
         "operationId": "execute_1",
-        "consumes": ["text/plain"],
+        "consumes": ["application/json"],
         "produces": ["application/json", "text/plain"],
         "parameters": [
           {
@@ -655,7 +672,7 @@
             "name": "body",
             "required": false,
             "schema": {
-              "type": "string"
+              "$ref": "#/definitions/GraphQLQuery"
             }
           }
         ],
@@ -669,19 +686,6 @@
                 "type": "object"
               }
             }
-          }
-        }
-      }
-    },
-    "/graphql/schema": {
-      "get": {
-        "tags": ["graphql"],
-        "operationId": "getSchema",
-        "produces": ["application/json", "text/plain"],
-        "parameters": [],
-        "responses": {
-          "default": {
-            "description": "successful operation"
           }
         }
       }
@@ -925,7 +929,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseListCEReportSchedule"
+              "$ref": "#/definitions/ResponseListCEReportSchedule"
             }
           }
         }
@@ -935,6 +939,7 @@
         "summary": "Create perspective reports",
         "description": "",
         "operationId": "createReportSetting",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -956,7 +961,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseListCEReportSchedule"
+              "$ref": "#/definitions/ResponseListCEReportSchedule"
             }
           }
         }
@@ -987,7 +992,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseListCEReportSchedule"
+              "$ref": "#/definitions/ResponseListCEReportSchedule"
             }
           }
         }
@@ -1022,7 +1027,69 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseString"
+              "$ref": "#/definitions/ResponseString"
+            }
+          }
+        }
+      }
+    },
+    "/perspective/lastMonthCost": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get last month cost for perspective",
+        "description": "",
+        "operationId": "getLastMonthCostV2",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        }
+      }
+    },
+    "/perspective/forecastCost": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get forecast cost for perspective",
+        "description": "",
+        "operationId": "getForecastCostV2",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
             }
           }
         }
@@ -1039,7 +1106,7 @@
           {
             "name": "accountIdentifier",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
@@ -1053,7 +1120,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseCEView"
+              "$ref": "#/definitions/ResponseCEView"
             }
           }
         }
@@ -1063,12 +1130,13 @@
         "summary": "Create perspective",
         "description": "",
         "operationId": "createPerspective",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
             "name": "accountIdentifier",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
@@ -1090,7 +1158,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseCEView"
+              "$ref": "#/definitions/ResponseCEView"
             }
           }
         }
@@ -1100,12 +1168,13 @@
         "summary": "Update perspective",
         "description": "",
         "operationId": "updatePerspective",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
             "name": "accountIdentifier",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
@@ -1121,7 +1190,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseCEView"
+              "$ref": "#/definitions/ResponseCEView"
             }
           }
         }
@@ -1136,13 +1205,13 @@
           {
             "name": "accountIdentifier",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
             "name": "perspectiveId",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "string"
           }
         ],
@@ -1150,7 +1219,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseString"
+              "$ref": "#/definitions/ResponseString"
             }
           }
         }
@@ -1158,6 +1227,83 @@
     }
   },
   "definitions": {
+    "ResponseDouble": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "number",
+          "format": "double"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "BudgetCostData": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "actualCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgeted": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgetVariance": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgetVariancePercentage": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "BudgetData": {
+      "type": "object",
+      "properties": {
+        "costData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BudgetCostData"
+          }
+        },
+        "forecastCost": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "ResponseBudgetData": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/BudgetData"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
     "AlertThreshold": {
       "type": "object",
       "properties": {
@@ -1357,6 +1503,133 @@
           }
         }
       ]
+    },
+    "ResponseBudget": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/Budget"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "ResponseString": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "string"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "ResponseListBudget": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Budget"
+          }
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "BusinessMapping": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "accountId": {
+          "type": "string"
+        },
+        "costTargets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostTarget"
+          }
+        },
+        "sharedCosts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SharedCost"
+          }
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastUpdatedAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdBy": {
+          "$ref": "#/definitions/EmbeddedUser"
+        },
+        "lastUpdatedBy": {
+          "$ref": "#/definitions/EmbeddedUser"
+        }
+      }
+    },
+    "CostTarget": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ViewRule"
+          }
+        }
+      }
+    },
+    "EmbeddedUser": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
     },
     "ResponseMessage": {
       "type": "object",
@@ -1707,267 +1980,6 @@
         }
       }
     },
-    "RestResponseBudget": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/Budget"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "StackTraceElement": {
-      "type": "object",
-      "properties": {
-        "methodName": {
-          "type": "string"
-        },
-        "fileName": {
-          "type": "string"
-        },
-        "lineNumber": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "className": {
-          "type": "string"
-        },
-        "nativeMethod": {
-          "type": "boolean"
-        }
-      }
-    },
-    "Throwable": {
-      "type": "object",
-      "properties": {
-        "cause": {
-          "$ref": "#/definitions/Throwable"
-        },
-        "stackTrace": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/StackTraceElement"
-          }
-        },
-        "message": {
-          "type": "string"
-        },
-        "localizedMessage": {
-          "type": "string"
-        },
-        "suppressed": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Throwable"
-          }
-        }
-      }
-    },
-    "RestResponseString": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "string"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "RestResponseListBudget": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Budget"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "RestResponseDouble": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "number",
-          "format": "double"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "BudgetCostData": {
-      "type": "object",
-      "properties": {
-        "time": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "actualCost": {
-          "type": "number",
-          "format": "double"
-        },
-        "budgeted": {
-          "type": "number",
-          "format": "double"
-        },
-        "budgetVariance": {
-          "type": "number",
-          "format": "double"
-        },
-        "budgetVariancePercentage": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "BudgetData": {
-      "type": "object",
-      "properties": {
-        "costData": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BudgetCostData"
-          }
-        },
-        "forecastCost": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "RestResponseBudgetData": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/BudgetData"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "BusinessMapping": {
-      "type": "object",
-      "properties": {
-        "uuid": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 32
-        },
-        "accountId": {
-          "type": "string"
-        },
-        "costTargets": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CostTarget"
-          }
-        },
-        "sharedCosts": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/SharedCost"
-          }
-        },
-        "createdAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "lastUpdatedAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "createdBy": {
-          "$ref": "#/definitions/EmbeddedUser"
-        },
-        "lastUpdatedBy": {
-          "$ref": "#/definitions/EmbeddedUser"
-        }
-      }
-    },
-    "CostTarget": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "rules": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ViewRule"
-          }
-        }
-      }
-    },
-    "EmbeddedUser": {
-      "type": "object",
-      "properties": {
-        "uuid": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        }
-      }
-    },
     "RestResponseBusinessMapping": {
       "type": "object",
       "properties": {
@@ -2021,6 +2033,53 @@
         "percentageContribution": {
           "type": "number",
           "format": "double"
+        }
+      }
+    },
+    "StackTraceElement": {
+      "type": "object",
+      "properties": {
+        "methodName": {
+          "type": "string"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "lineNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "className": {
+          "type": "string"
+        },
+        "nativeMethod": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Throwable": {
+      "type": "object",
+      "properties": {
+        "cause": {
+          "$ref": "#/definitions/Throwable"
+        },
+        "stackTrace": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StackTraceElement"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "localizedMessage": {
+          "type": "string"
+        },
+        "suppressed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Throwable"
+          }
         }
       }
     },
@@ -2083,6 +2142,26 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/ViewCondition"
+          }
+        }
+      }
+    },
+    "RestResponseString": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "string"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
           }
         }
       }
@@ -2198,24 +2277,6 @@
         },
         "data": {
           "$ref": "#/definitions/AwsAccountConnectionDetail"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "ResponseString": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "type": "string"
         },
         "metaData": {
           "type": "object"
@@ -2509,46 +2570,42 @@
         }
       }
     },
-    "RestResponseListCEReportSchedule": {
+    "ResponseListCEReportSchedule": {
       "type": "object",
       "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
         },
-        "resource": {
+        "data": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/CEReportSchedule"
           }
         },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
         }
       }
     },
-    "RestResponseCEView": {
+    "ResponseCEView": {
       "type": "object",
       "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
         },
-        "resource": {
+        "data": {
           "$ref": "#/definitions/CEView"
         },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
         }
       }
     }

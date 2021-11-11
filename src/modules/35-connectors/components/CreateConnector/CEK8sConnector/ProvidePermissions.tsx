@@ -52,7 +52,7 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
     queryParams: { accountIdentifier: accountId }
   })
   const { mutate: downloadYaml } = useCloudCostK8sClusterSetup({
-    queryParams: { accountIdentifier: accountId, accountId }
+    queryParams: { accountIdentifier: accountId }
   })
 
   const handleDownload = async () => {

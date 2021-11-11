@@ -244,10 +244,10 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
 
   const COSTS = useMemo(
     () => [
-      [getString('ce.perspectives.budgets.setBudgetAmount.lastMonthCost'), lmc?.resource],
-      [getString('ce.perspectives.budgets.setBudgetAmount.projectedCost'), fc?.resource]
+      [getString('ce.perspectives.budgets.setBudgetAmount.lastMonthCost'), lmc?.data],
+      [getString('ce.perspectives.budgets.setBudgetAmount.projectedCost'), fc?.data]
     ],
-    [lmc?.resource, fc?.resource]
+    [lmc?.data, fc?.data]
   )
 
   const handleSubmit = (data: Form) => {
@@ -255,8 +255,8 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
       ...((prevStepData || {}) as Budget & { perspective: string }),
       type: data.type,
       budgetAmount: data.budgetAmount,
-      lastMonthCost: lmc?.resource,
-      forecastCost: fc?.resource,
+      lastMonthCost: lmc?.data,
+      forecastCost: fc?.data,
       period: data.period,
       startTime: data.startTime,
       growthRate: data.growthRate
@@ -318,7 +318,7 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
                   }}
                   className={css.setBudgetContainer}
                 >
-                  <SetBudgetForm formikProps={formikProps} isEditMode={isEditMode} lastMonthCost={lmc?.resource} />
+                  <SetBudgetForm formikProps={formikProps} isEditMode={isEditMode} lastMonthCost={lmc?.data} />
                   <Container
                     padding={{
                       left: 'medium'

@@ -52,7 +52,7 @@ const CreatePerspectivePage: React.FC = () => {
 
   const [perspectiveData, setPerspectiveData] = useState<CEView | null>(null)
 
-  const { perspectiveId } = useParams<{
+  const { perspectiveId, accountId } = useParams<{
     perspectiveId: string
     accountId: string
   }>()
@@ -63,16 +63,17 @@ const CreatePerspectivePage: React.FC = () => {
     error
   } = useGetPerspective({
     queryParams: {
-      perspectiveId: perspectiveId
+      perspectiveId: perspectiveId,
+      accountIdentifier: accountId
     }
   })
 
   useEffect(() => {
-    if (perspectiveRes?.resource) {
-      const data = perspectiveRes.resource
+    if (perspectiveRes?.data) {
+      const data = perspectiveRes.data
       setPerspectiveData(data)
     }
-  }, [perspectiveRes?.resource])
+  }, [perspectiveRes?.data])
 
   // const perspectiveData = perspectiveRes?.resource
 

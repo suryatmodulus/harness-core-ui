@@ -122,7 +122,7 @@ const useFetchReports = (accountId: string, perspectiveId: string) => {
     accountIdentifier: accountId,
     queryParams: { perspectiveId }
   })
-  return { reports: data?.resource || [], loading, refetch }
+  return { reports: data?.data || [], loading, refetch }
 }
 
 const ScheduledReports: React.FC = () => {
@@ -198,7 +198,7 @@ const useFetchBudget = (accountId: string, perspectiveId: string) => {
   const { data, loading, refetch } = useListBudgetsForPerspective({
     queryParams: { accountIdentifier: accountId, perspectiveId: perspectiveId }
   })
-  return { budgets: data?.resource || [], loading, refetch }
+  return { budgets: data?.data || [], loading, refetch }
 }
 
 const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element => {
@@ -331,8 +331,8 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
           perspectiveName: perspectiveName,
           perspective: perspectiveId,
           selectedBudget: {
-            lastMonthCost: lmc?.resource,
-            forecastCost: fc?.resource
+            lastMonthCost: lmc?.data,
+            forecastCost: fc?.data
           }
         })
       }

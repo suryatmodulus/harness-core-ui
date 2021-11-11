@@ -92,11 +92,11 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
     }
 
     try {
-      const { resource } = await createView(apiObject as CEView)
-      if (resource) {
-        props.onNext(resource)
+      const { data } = await createView(apiObject as CEView)
+      if (data) {
+        props.onNext(data)
       }
-    } catch (err) {
+    } catch (err: any) {
       const errMessage = err.data.message
       showError(errMessage)
     }

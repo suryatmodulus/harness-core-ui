@@ -74,9 +74,9 @@ const SelectPerspective: (props: StepProps<BudgetStepData> & SelectPerspectivePr
 
     try {
       const response = await createView(createData as CEView)
-      const { resource } = response
+      const { data } = response
 
-      const uuid = resource?.uuid
+      const uuid = data?.uuid
 
       if (uuid) {
         history.push(

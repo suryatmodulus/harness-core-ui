@@ -120,13 +120,14 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const { data: perspectiveRes, loading } = useGetPerspective({
     queryParams: {
-      perspectiveId: perspectiveId
+      perspectiveId: perspectiveId,
+      accountIdentifier: accountId
     }
   })
 
   const chartRef = useRef<Highcharts.Chart>()
 
-  const perspectiveData = perspectiveRes?.resource
+  const perspectiveData = perspectiveRes?.data
 
   const { isClusterOnly, hasClusterAsSource } = clusterInfoUtil(perspectiveData?.dataSources)
 

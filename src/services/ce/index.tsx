@@ -172,6 +172,48 @@ export interface ResponseAwsAccountConnectionDetail {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseBudget {
+  correlationId?: string
+  data?: Budget
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseBudgetData {
+  correlationId?: string
+  data?: BudgetData
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseCEView {
+  correlationId?: string
+  data?: CEView
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseDouble {
+  correlationId?: string
+  data?: number
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListBudget {
+  correlationId?: string
+  data?: Budget[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListCEReportSchedule {
+  correlationId?: string
+  data?: CEReportSchedule[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseMapStringQueryStat {
   correlationId?: string
   data?: {
@@ -514,22 +556,6 @@ export interface RestResponseBoolean {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseBudget {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Budget
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseBudgetData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: BudgetData
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseBusinessMapping {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -538,43 +564,11 @@ export interface RestResponseBusinessMapping {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseCEView {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CEView
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseDouble {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: number
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListBudget {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Budget[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseListBusinessMapping {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: BusinessMapping[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListCEReportSchedule {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CEReportSchedule[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -680,11 +674,11 @@ export type CEViewRequestBody = CEView
 export type ViewCustomFieldRequestBody = ViewCustomField
 
 export interface ListBudgetsForAccountQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type ListBudgetsForAccountProps = Omit<
-  GetProps<RestResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>,
+  GetProps<ResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>,
   'path'
 >
 
@@ -692,7 +686,7 @@ export type ListBudgetsForAccountProps = Omit<
  * List budgets for account
  */
 export const ListBudgetsForAccount = (props: ListBudgetsForAccountProps) => (
-  <Get<RestResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>
+  <Get<ResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>
     path={`/budgets`}
     base={getConfig('ccm/api')}
     {...props}
@@ -700,7 +694,7 @@ export const ListBudgetsForAccount = (props: ListBudgetsForAccountProps) => (
 )
 
 export type UseListBudgetsForAccountProps = Omit<
-  UseGetProps<RestResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>,
+  UseGetProps<ResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>,
   'path'
 >
 
@@ -708,17 +702,17 @@ export type UseListBudgetsForAccountProps = Omit<
  * List budgets for account
  */
 export const useListBudgetsForAccount = (props: UseListBudgetsForAccountProps) =>
-  useGet<RestResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>(`/budgets`, {
+  useGet<ResponseListBudget, unknown, ListBudgetsForAccountQueryParams, void>(`/budgets`, {
     base: getConfig('ccm/api'),
     ...props
   })
 
 export interface CreateBudgetQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type CreateBudgetProps = Omit<
-  MutateProps<RestResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>,
+  MutateProps<ResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -726,7 +720,7 @@ export type CreateBudgetProps = Omit<
  * Create budget
  */
 export const CreateBudget = (props: CreateBudgetProps) => (
-  <Mutate<RestResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>
+  <Mutate<ResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>
     verb="POST"
     path={`/budgets`}
     base={getConfig('ccm/api')}
@@ -735,7 +729,7 @@ export const CreateBudget = (props: CreateBudgetProps) => (
 )
 
 export type UseCreateBudgetProps = Omit<
-  UseMutateProps<RestResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>,
+  UseMutateProps<ResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -743,7 +737,7 @@ export type UseCreateBudgetProps = Omit<
  * Create budget
  */
 export const useCreateBudget = (props: UseCreateBudgetProps) =>
-  useMutate<RestResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>('POST', `/budgets`, {
+  useMutate<ResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>('POST', `/budgets`, {
     base: getConfig('ccm/api'),
     ...props
   })
@@ -753,13 +747,13 @@ export interface GetForecastCostQueryParams {
   perspectiveId?: string
 }
 
-export type GetForecastCostProps = Omit<GetProps<RestResponseDouble, unknown, GetForecastCostQueryParams, void>, 'path'>
+export type GetForecastCostProps = Omit<GetProps<ResponseDouble, unknown, GetForecastCostQueryParams, void>, 'path'>
 
 /**
- * Get forecast cost for perspective
+ * Deprecated use /perspective/forecastCost instead, Get forecast cost for perspective.
  */
 export const GetForecastCost = (props: GetForecastCostProps) => (
-  <Get<RestResponseDouble, unknown, GetForecastCostQueryParams, void>
+  <Get<ResponseDouble, unknown, GetForecastCostQueryParams, void>
     path={`/budgets/forecastCost`}
     base={getConfig('ccm/api')}
     {...props}
@@ -767,34 +761,31 @@ export const GetForecastCost = (props: GetForecastCostProps) => (
 )
 
 export type UseGetForecastCostProps = Omit<
-  UseGetProps<RestResponseDouble, unknown, GetForecastCostQueryParams, void>,
+  UseGetProps<ResponseDouble, unknown, GetForecastCostQueryParams, void>,
   'path'
 >
 
 /**
- * Get forecast cost for perspective
+ * Deprecated use /perspective/forecastCost instead, Get forecast cost for perspective.
  */
 export const useGetForecastCost = (props: UseGetForecastCostProps) =>
-  useGet<RestResponseDouble, unknown, GetForecastCostQueryParams, void>(`/budgets/forecastCost`, {
+  useGet<ResponseDouble, unknown, GetForecastCostQueryParams, void>(`/budgets/forecastCost`, {
     base: getConfig('ccm/api'),
     ...props
   })
 
 export interface GetLastMonthCostQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   perspectiveId?: string
 }
 
-export type GetLastMonthCostProps = Omit<
-  GetProps<RestResponseDouble, unknown, GetLastMonthCostQueryParams, void>,
-  'path'
->
+export type GetLastMonthCostProps = Omit<GetProps<ResponseDouble, unknown, GetLastMonthCostQueryParams, void>, 'path'>
 
 /**
- * Get last month cost for perspective
+ * Deprecated use /perspective/lastMonthCost instead, Get last month cost for perspective.
  */
 export const GetLastMonthCost = (props: GetLastMonthCostProps) => (
-  <Get<RestResponseDouble, unknown, GetLastMonthCostQueryParams, void>
+  <Get<ResponseDouble, unknown, GetLastMonthCostQueryParams, void>
     path={`/budgets/lastMonthCost`}
     base={getConfig('ccm/api')}
     {...props}
@@ -802,26 +793,26 @@ export const GetLastMonthCost = (props: GetLastMonthCostProps) => (
 )
 
 export type UseGetLastMonthCostProps = Omit<
-  UseGetProps<RestResponseDouble, unknown, GetLastMonthCostQueryParams, void>,
+  UseGetProps<ResponseDouble, unknown, GetLastMonthCostQueryParams, void>,
   'path'
 >
 
 /**
- * Get last month cost for perspective
+ * Deprecated use /perspective/lastMonthCost instead, Get last month cost for perspective.
  */
 export const useGetLastMonthCost = (props: UseGetLastMonthCostProps) =>
-  useGet<RestResponseDouble, unknown, GetLastMonthCostQueryParams, void>(`/budgets/lastMonthCost`, {
+  useGet<ResponseDouble, unknown, GetLastMonthCostQueryParams, void>(`/budgets/lastMonthCost`, {
     base: getConfig('ccm/api'),
     ...props
   })
 
 export interface ListBudgetsForPerspectiveQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   perspectiveId?: string
 }
 
 export type ListBudgetsForPerspectiveProps = Omit<
-  GetProps<RestResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>,
+  GetProps<ResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>,
   'path'
 >
 
@@ -829,7 +820,7 @@ export type ListBudgetsForPerspectiveProps = Omit<
  * List budgets for perspective
  */
 export const ListBudgetsForPerspective = (props: ListBudgetsForPerspectiveProps) => (
-  <Get<RestResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>
+  <Get<ResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>
     path={`/budgets/perspectiveBudgets`}
     base={getConfig('ccm/api')}
     {...props}
@@ -837,7 +828,7 @@ export const ListBudgetsForPerspective = (props: ListBudgetsForPerspectiveProps)
 )
 
 export type UseListBudgetsForPerspectiveProps = Omit<
-  UseGetProps<RestResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>,
+  UseGetProps<ResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>,
   'path'
 >
 
@@ -845,17 +836,17 @@ export type UseListBudgetsForPerspectiveProps = Omit<
  * List budgets for perspective
  */
 export const useListBudgetsForPerspective = (props: UseListBudgetsForPerspectiveProps) =>
-  useGet<RestResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>(`/budgets/perspectiveBudgets`, {
+  useGet<ResponseListBudget, unknown, ListBudgetsForPerspectiveQueryParams, void>(`/budgets/perspectiveBudgets`, {
     base: getConfig('ccm/api'),
     ...props
   })
 
 export interface DeleteBudgetQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type DeleteBudgetProps = Omit<
-  MutateProps<RestResponseString, unknown, DeleteBudgetQueryParams, string, void>,
+  MutateProps<ResponseString, unknown, DeleteBudgetQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -863,7 +854,7 @@ export type DeleteBudgetProps = Omit<
  * Delete budget
  */
 export const DeleteBudget = (props: DeleteBudgetProps) => (
-  <Mutate<RestResponseString, unknown, DeleteBudgetQueryParams, string, void>
+  <Mutate<ResponseString, unknown, DeleteBudgetQueryParams, string, void>
     verb="DELETE"
     path={`/budgets`}
     base={getConfig('ccm/api')}
@@ -872,7 +863,7 @@ export const DeleteBudget = (props: DeleteBudgetProps) => (
 )
 
 export type UseDeleteBudgetProps = Omit<
-  UseMutateProps<RestResponseString, unknown, DeleteBudgetQueryParams, string, void>,
+  UseMutateProps<ResponseString, unknown, DeleteBudgetQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -880,13 +871,13 @@ export type UseDeleteBudgetProps = Omit<
  * Delete budget
  */
 export const useDeleteBudget = (props: UseDeleteBudgetProps) =>
-  useMutate<RestResponseString, unknown, DeleteBudgetQueryParams, string, void>('DELETE', `/budgets`, {
+  useMutate<ResponseString, unknown, DeleteBudgetQueryParams, string, void>('DELETE', `/budgets`, {
     base: getConfig('ccm/api'),
     ...props
   })
 
 export interface GetBudgetQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export interface GetBudgetPathParams {
@@ -894,7 +885,7 @@ export interface GetBudgetPathParams {
 }
 
 export type GetBudgetProps = Omit<
-  GetProps<RestResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>,
+  GetProps<ResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>,
   'path'
 > &
   GetBudgetPathParams
@@ -903,7 +894,7 @@ export type GetBudgetProps = Omit<
  * Get budget
  */
 export const GetBudget = ({ id, ...props }: GetBudgetProps) => (
-  <Get<RestResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>
+  <Get<ResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>
     path={`/budgets/${id}`}
     base={getConfig('ccm/api')}
     {...props}
@@ -911,7 +902,7 @@ export const GetBudget = ({ id, ...props }: GetBudgetProps) => (
 )
 
 export type UseGetBudgetProps = Omit<
-  UseGetProps<RestResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>,
+  UseGetProps<ResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>,
   'path'
 > &
   GetBudgetPathParams
@@ -920,13 +911,13 @@ export type UseGetBudgetProps = Omit<
  * Get budget
  */
 export const useGetBudget = ({ id, ...props }: UseGetBudgetProps) =>
-  useGet<RestResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>(
+  useGet<ResponseBudget, unknown, GetBudgetQueryParams, GetBudgetPathParams>(
     (paramsInPath: GetBudgetPathParams) => `/budgets/${paramsInPath.id}`,
     { base: getConfig('ccm/api'), pathParams: { id }, ...props }
   )
 
 export interface CloneBudgetQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   cloneName?: string
 }
 
@@ -935,7 +926,7 @@ export interface CloneBudgetPathParams {
 }
 
 export type CloneBudgetProps = Omit<
-  MutateProps<RestResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>,
+  MutateProps<ResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>,
   'path' | 'verb'
 > &
   CloneBudgetPathParams
@@ -944,7 +935,7 @@ export type CloneBudgetProps = Omit<
  * Clone budget
  */
 export const CloneBudget = ({ id, ...props }: CloneBudgetProps) => (
-  <Mutate<RestResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>
+  <Mutate<ResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>
     verb="POST"
     path={`/budgets/${id}`}
     base={getConfig('ccm/api')}
@@ -953,7 +944,7 @@ export const CloneBudget = ({ id, ...props }: CloneBudgetProps) => (
 )
 
 export type UseCloneBudgetProps = Omit<
-  UseMutateProps<RestResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>,
+  UseMutateProps<ResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>,
   'path' | 'verb'
 > &
   CloneBudgetPathParams
@@ -962,14 +953,14 @@ export type UseCloneBudgetProps = Omit<
  * Clone budget
  */
 export const useCloneBudget = ({ id, ...props }: UseCloneBudgetProps) =>
-  useMutate<RestResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>(
+  useMutate<ResponseString, unknown, CloneBudgetQueryParams, void, CloneBudgetPathParams>(
     'POST',
     (paramsInPath: CloneBudgetPathParams) => `/budgets/${paramsInPath.id}`,
     { base: getConfig('ccm/api'), pathParams: { id }, ...props }
   )
 
 export interface UpdateBudgetQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export interface UpdateBudgetPathParams {
@@ -977,7 +968,7 @@ export interface UpdateBudgetPathParams {
 }
 
 export type UpdateBudgetProps = Omit<
-  MutateProps<RestResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>,
+  MutateProps<ResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>,
   'path' | 'verb'
 > &
   UpdateBudgetPathParams
@@ -986,7 +977,7 @@ export type UpdateBudgetProps = Omit<
  * Update budget
  */
 export const UpdateBudget = ({ id, ...props }: UpdateBudgetProps) => (
-  <Mutate<RestResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>
+  <Mutate<ResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>
     verb="PUT"
     path={`/budgets/${id}`}
     base={getConfig('ccm/api')}
@@ -995,7 +986,7 @@ export const UpdateBudget = ({ id, ...props }: UpdateBudgetProps) => (
 )
 
 export type UseUpdateBudgetProps = Omit<
-  UseMutateProps<RestResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>,
+  UseMutateProps<ResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>,
   'path' | 'verb'
 > &
   UpdateBudgetPathParams
@@ -1004,14 +995,14 @@ export type UseUpdateBudgetProps = Omit<
  * Update budget
  */
 export const useUpdateBudget = ({ id, ...props }: UseUpdateBudgetProps) =>
-  useMutate<RestResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>(
+  useMutate<ResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>(
     'PUT',
     (paramsInPath: UpdateBudgetPathParams) => `/budgets/${paramsInPath.id}`,
     { base: getConfig('ccm/api'), pathParams: { id }, ...props }
   )
 
 export interface GetCostDetailsQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export interface GetCostDetailsPathParams {
@@ -1019,7 +1010,7 @@ export interface GetCostDetailsPathParams {
 }
 
 export type GetCostDetailsProps = Omit<
-  GetProps<RestResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>,
+  GetProps<ResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>,
   'path'
 > &
   GetCostDetailsPathParams
@@ -1028,7 +1019,7 @@ export type GetCostDetailsProps = Omit<
  * Get cost details for budget
  */
 export const GetCostDetails = ({ id, ...props }: GetCostDetailsProps) => (
-  <Get<RestResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>
+  <Get<ResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>
     path={`/budgets/${id}/costDetails`}
     base={getConfig('ccm/api')}
     {...props}
@@ -1036,7 +1027,7 @@ export const GetCostDetails = ({ id, ...props }: GetCostDetailsProps) => (
 )
 
 export type UseGetCostDetailsProps = Omit<
-  UseGetProps<RestResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>,
+  UseGetProps<ResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>,
   'path'
 > &
   GetCostDetailsPathParams
@@ -1045,7 +1036,7 @@ export type UseGetCostDetailsProps = Omit<
  * Get cost details for budget
  */
 export const useGetCostDetails = ({ id, ...props }: UseGetCostDetailsProps) =>
-  useGet<RestResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>(
+  useGet<ResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>(
     (paramsInPath: GetCostDetailsPathParams) => `/budgets/${paramsInPath.id}/costDetails`,
     { base: getConfig('ccm/api'), pathParams: { id }, ...props }
   )
@@ -1329,12 +1320,12 @@ export interface Execute1QueryParams {
 }
 
 export type Execute1Props = Omit<
-  MutateProps<Execute1Response, unknown, Execute1QueryParams, void, void>,
+  MutateProps<Execute1Response, unknown, Execute1QueryParams, GraphQLQuery, void>,
   'path' | 'verb'
 >
 
 export const Execute1 = (props: Execute1Props) => (
-  <Mutate<Execute1Response, unknown, Execute1QueryParams, void, void>
+  <Mutate<Execute1Response, unknown, Execute1QueryParams, GraphQLQuery, void>
     verb="POST"
     path={`/graphql`}
     base={getConfig('ccm/api')}
@@ -1343,12 +1334,12 @@ export const Execute1 = (props: Execute1Props) => (
 )
 
 export type UseExecute1Props = Omit<
-  UseMutateProps<Execute1Response, unknown, Execute1QueryParams, void, void>,
+  UseMutateProps<Execute1Response, unknown, Execute1QueryParams, GraphQLQuery, void>,
   'path' | 'verb'
 >
 
 export const useExecute1 = (props: UseExecute1Props) =>
-  useMutate<Execute1Response, unknown, Execute1QueryParams, void, void>('POST', `/graphql`, {
+  useMutate<Execute1Response, unknown, Execute1QueryParams, GraphQLQuery, void>('POST', `/graphql`, {
     base: getConfig('ccm/api'),
     ...props
   })
@@ -1416,12 +1407,12 @@ export const useTimescaleSqlQueriesStats = (props: UseTimescaleSqlQueriesStatsPr
   })
 
 export interface DeletePerspectiveQueryParams {
-  accountIdentifier?: string
-  perspectiveId?: string
+  accountIdentifier: string
+  perspectiveId: string
 }
 
 export type DeletePerspectiveProps = Omit<
-  MutateProps<RestResponseString, unknown, DeletePerspectiveQueryParams, void, void>,
+  MutateProps<ResponseString, unknown, DeletePerspectiveQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -1429,7 +1420,7 @@ export type DeletePerspectiveProps = Omit<
  * Delete perspective
  */
 export const DeletePerspective = (props: DeletePerspectiveProps) => (
-  <Mutate<RestResponseString, unknown, DeletePerspectiveQueryParams, void, void>
+  <Mutate<ResponseString, unknown, DeletePerspectiveQueryParams, void, void>
     verb="DELETE"
     path={`/perspective`}
     base={getConfig('ccm/api')}
@@ -1438,7 +1429,7 @@ export const DeletePerspective = (props: DeletePerspectiveProps) => (
 )
 
 export type UseDeletePerspectiveProps = Omit<
-  UseMutateProps<RestResponseString, unknown, DeletePerspectiveQueryParams, void, void>,
+  UseMutateProps<ResponseString, unknown, DeletePerspectiveQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -1446,50 +1437,47 @@ export type UseDeletePerspectiveProps = Omit<
  * Delete perspective
  */
 export const useDeletePerspective = (props: UseDeletePerspectiveProps) =>
-  useMutate<RestResponseString, unknown, DeletePerspectiveQueryParams, void, void>('DELETE', `/perspective`, {
+  useMutate<ResponseString, unknown, DeletePerspectiveQueryParams, void, void>('DELETE', `/perspective`, {
     base: getConfig('ccm/api'),
     ...props
   })
 
 export interface GetPerspectiveQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   perspectiveId?: string
 }
 
-export type GetPerspectiveProps = Omit<GetProps<RestResponseCEView, unknown, GetPerspectiveQueryParams, void>, 'path'>
+export type GetPerspectiveProps = Omit<GetProps<ResponseCEView, unknown, GetPerspectiveQueryParams, void>, 'path'>
 
 /**
  * Get perspective
  */
 export const GetPerspective = (props: GetPerspectiveProps) => (
-  <Get<RestResponseCEView, unknown, GetPerspectiveQueryParams, void>
+  <Get<ResponseCEView, unknown, GetPerspectiveQueryParams, void>
     path={`/perspective`}
     base={getConfig('ccm/api')}
     {...props}
   />
 )
 
-export type UseGetPerspectiveProps = Omit<
-  UseGetProps<RestResponseCEView, unknown, GetPerspectiveQueryParams, void>,
-  'path'
->
+export type UseGetPerspectiveProps = Omit<UseGetProps<ResponseCEView, unknown, GetPerspectiveQueryParams, void>, 'path'>
 
 /**
  * Get perspective
  */
 export const useGetPerspective = (props: UseGetPerspectiveProps) =>
-  useGet<RestResponseCEView, unknown, GetPerspectiveQueryParams, void>(`/perspective`, {
+  useGet<ResponseCEView, unknown, GetPerspectiveQueryParams, void>(`/perspective`, {
     base: getConfig('ccm/api'),
     ...props
   })
 
 export interface CreatePerspectiveQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   clone?: boolean
 }
 
 export type CreatePerspectiveProps = Omit<
-  MutateProps<RestResponseCEView, unknown, CreatePerspectiveQueryParams, CEViewRequestBody, void>,
+  MutateProps<ResponseCEView, unknown, CreatePerspectiveQueryParams, CEViewRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -1497,7 +1485,7 @@ export type CreatePerspectiveProps = Omit<
  * Create perspective
  */
 export const CreatePerspective = (props: CreatePerspectiveProps) => (
-  <Mutate<RestResponseCEView, unknown, CreatePerspectiveQueryParams, CEViewRequestBody, void>
+  <Mutate<ResponseCEView, unknown, CreatePerspectiveQueryParams, CEViewRequestBody, void>
     verb="POST"
     path={`/perspective`}
     base={getConfig('ccm/api')}
@@ -1506,7 +1494,7 @@ export const CreatePerspective = (props: CreatePerspectiveProps) => (
 )
 
 export type UseCreatePerspectiveProps = Omit<
-  UseMutateProps<RestResponseCEView, unknown, CreatePerspectiveQueryParams, CEViewRequestBody, void>,
+  UseMutateProps<ResponseCEView, unknown, CreatePerspectiveQueryParams, CEViewRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -1514,18 +1502,17 @@ export type UseCreatePerspectiveProps = Omit<
  * Create perspective
  */
 export const useCreatePerspective = (props: UseCreatePerspectiveProps) =>
-  useMutate<RestResponseCEView, unknown, CreatePerspectiveQueryParams, CEViewRequestBody, void>(
-    'POST',
-    `/perspective`,
-    { base: getConfig('ccm/api'), ...props }
-  )
+  useMutate<ResponseCEView, unknown, CreatePerspectiveQueryParams, CEViewRequestBody, void>('POST', `/perspective`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
 
 export interface UpdatePerspectiveQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpdatePerspectiveProps = Omit<
-  MutateProps<RestResponseCEView, unknown, UpdatePerspectiveQueryParams, CEViewRequestBody, void>,
+  MutateProps<ResponseCEView, unknown, UpdatePerspectiveQueryParams, CEViewRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -1533,7 +1520,7 @@ export type UpdatePerspectiveProps = Omit<
  * Update perspective
  */
 export const UpdatePerspective = (props: UpdatePerspectiveProps) => (
-  <Mutate<RestResponseCEView, unknown, UpdatePerspectiveQueryParams, CEViewRequestBody, void>
+  <Mutate<ResponseCEView, unknown, UpdatePerspectiveQueryParams, CEViewRequestBody, void>
     verb="PUT"
     path={`/perspective`}
     base={getConfig('ccm/api')}
@@ -1542,7 +1529,7 @@ export const UpdatePerspective = (props: UpdatePerspectiveProps) => (
 )
 
 export type UseUpdatePerspectiveProps = Omit<
-  UseMutateProps<RestResponseCEView, unknown, UpdatePerspectiveQueryParams, CEViewRequestBody, void>,
+  UseMutateProps<ResponseCEView, unknown, UpdatePerspectiveQueryParams, CEViewRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -1550,7 +1537,7 @@ export type UseUpdatePerspectiveProps = Omit<
  * Update perspective
  */
 export const useUpdatePerspective = (props: UseUpdatePerspectiveProps) =>
-  useMutate<RestResponseCEView, unknown, UpdatePerspectiveQueryParams, CEViewRequestBody, void>('PUT', `/perspective`, {
+  useMutate<ResponseCEView, unknown, UpdatePerspectiveQueryParams, CEViewRequestBody, void>('PUT', `/perspective`, {
     base: getConfig('ccm/api'),
     ...props
   })
@@ -1735,13 +1722,80 @@ export const useValidateCustomField = (props: UseValidateCustomFieldProps) =>
     { base: getConfig('ccm/api'), ...props }
   )
 
+export interface GetForecastCostV2QueryParams {
+  accountIdentifier: string
+  perspectiveId: string
+}
+
+export type GetForecastCostV2Props = Omit<GetProps<ResponseDouble, unknown, GetForecastCostV2QueryParams, void>, 'path'>
+
+/**
+ * Get forecast cost for perspective
+ */
+export const GetForecastCostV2 = (props: GetForecastCostV2Props) => (
+  <Get<ResponseDouble, unknown, GetForecastCostV2QueryParams, void>
+    path={`/perspective/forecastCost`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetForecastCostV2Props = Omit<
+  UseGetProps<ResponseDouble, unknown, GetForecastCostV2QueryParams, void>,
+  'path'
+>
+
+/**
+ * Get forecast cost for perspective
+ */
+export const useGetForecastCostV2 = (props: UseGetForecastCostV2Props) =>
+  useGet<ResponseDouble, unknown, GetForecastCostV2QueryParams, void>(`/perspective/forecastCost`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
+export interface GetLastMonthCostV2QueryParams {
+  accountIdentifier: string
+  perspectiveId: string
+}
+
+export type GetLastMonthCostV2Props = Omit<
+  GetProps<ResponseDouble, unknown, GetLastMonthCostV2QueryParams, void>,
+  'path'
+>
+
+/**
+ * Get last month cost for perspective
+ */
+export const GetLastMonthCostV2 = (props: GetLastMonthCostV2Props) => (
+  <Get<ResponseDouble, unknown, GetLastMonthCostV2QueryParams, void>
+    path={`/perspective/lastMonthCost`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetLastMonthCostV2Props = Omit<
+  UseGetProps<ResponseDouble, unknown, GetLastMonthCostV2QueryParams, void>,
+  'path'
+>
+
+/**
+ * Get last month cost for perspective
+ */
+export const useGetLastMonthCostV2 = (props: UseGetLastMonthCostV2Props) =>
+  useGet<ResponseDouble, unknown, GetLastMonthCostV2QueryParams, void>(`/perspective/lastMonthCost`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
 export interface DeleteReportSettingQueryParams {
   reportId?: string
   perspectiveId?: string
 }
 
 export type DeleteReportSettingProps = Omit<
-  MutateProps<RestResponseString, unknown, DeleteReportSettingQueryParams, string, void>,
+  MutateProps<ResponseString, unknown, DeleteReportSettingQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -1749,7 +1803,7 @@ export type DeleteReportSettingProps = Omit<
  * Delete perspective reports
  */
 export const DeleteReportSetting = (props: DeleteReportSettingProps) => (
-  <Mutate<RestResponseString, unknown, DeleteReportSettingQueryParams, string, void>
+  <Mutate<ResponseString, unknown, DeleteReportSettingQueryParams, string, void>
     verb="DELETE"
     path={`/perspectiveReport`}
     base={getConfig('ccm/api')}
@@ -1758,7 +1812,7 @@ export const DeleteReportSetting = (props: DeleteReportSettingProps) => (
 )
 
 export type UseDeleteReportSettingProps = Omit<
-  UseMutateProps<RestResponseString, unknown, DeleteReportSettingQueryParams, string, void>,
+  UseMutateProps<ResponseString, unknown, DeleteReportSettingQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -1766,7 +1820,7 @@ export type UseDeleteReportSettingProps = Omit<
  * Delete perspective reports
  */
 export const useDeleteReportSetting = (props: UseDeleteReportSettingProps) =>
-  useMutate<RestResponseString, unknown, DeleteReportSettingQueryParams, string, void>('DELETE', `/perspectiveReport`, {
+  useMutate<ResponseString, unknown, DeleteReportSettingQueryParams, string, void>('DELETE', `/perspectiveReport`, {
     base: getConfig('ccm/api'),
     ...props
   })
@@ -1781,7 +1835,7 @@ export interface GetReportSettingPathParams {
 }
 
 export type GetReportSettingProps = Omit<
-  GetProps<RestResponseListCEReportSchedule, unknown, GetReportSettingQueryParams, GetReportSettingPathParams>,
+  GetProps<ResponseListCEReportSchedule, unknown, GetReportSettingQueryParams, GetReportSettingPathParams>,
   'path'
 > &
   GetReportSettingPathParams
@@ -1790,7 +1844,7 @@ export type GetReportSettingProps = Omit<
  * Get perspective reports
  */
 export const GetReportSetting = ({ accountIdentifier, ...props }: GetReportSettingProps) => (
-  <Get<RestResponseListCEReportSchedule, unknown, GetReportSettingQueryParams, GetReportSettingPathParams>
+  <Get<ResponseListCEReportSchedule, unknown, GetReportSettingQueryParams, GetReportSettingPathParams>
     path={`/perspectiveReport/${accountIdentifier}`}
     base={getConfig('ccm/api')}
     {...props}
@@ -1798,7 +1852,7 @@ export const GetReportSetting = ({ accountIdentifier, ...props }: GetReportSetti
 )
 
 export type UseGetReportSettingProps = Omit<
-  UseGetProps<RestResponseListCEReportSchedule, unknown, GetReportSettingQueryParams, GetReportSettingPathParams>,
+  UseGetProps<ResponseListCEReportSchedule, unknown, GetReportSettingQueryParams, GetReportSettingPathParams>,
   'path'
 > &
   GetReportSettingPathParams
@@ -1807,7 +1861,7 @@ export type UseGetReportSettingProps = Omit<
  * Get perspective reports
  */
 export const useGetReportSetting = ({ accountIdentifier, ...props }: UseGetReportSettingProps) =>
-  useGet<RestResponseListCEReportSchedule, unknown, GetReportSettingQueryParams, GetReportSettingPathParams>(
+  useGet<ResponseListCEReportSchedule, unknown, GetReportSettingQueryParams, GetReportSettingPathParams>(
     (paramsInPath: GetReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountIdentifier}`,
     { base: getConfig('ccm/api'), pathParams: { accountIdentifier }, ...props }
   )
@@ -1817,13 +1871,7 @@ export interface CreateReportSettingPathParams {
 }
 
 export type CreateReportSettingProps = Omit<
-  MutateProps<
-    RestResponseListCEReportSchedule,
-    unknown,
-    void,
-    CEReportScheduleRequestBody,
-    CreateReportSettingPathParams
-  >,
+  MutateProps<ResponseListCEReportSchedule, unknown, void, CEReportScheduleRequestBody, CreateReportSettingPathParams>,
   'path' | 'verb'
 > &
   CreateReportSettingPathParams
@@ -1832,7 +1880,7 @@ export type CreateReportSettingProps = Omit<
  * Create perspective reports
  */
 export const CreateReportSetting = ({ accountIdentifier, ...props }: CreateReportSettingProps) => (
-  <Mutate<RestResponseListCEReportSchedule, unknown, void, CEReportScheduleRequestBody, CreateReportSettingPathParams>
+  <Mutate<ResponseListCEReportSchedule, unknown, void, CEReportScheduleRequestBody, CreateReportSettingPathParams>
     verb="POST"
     path={`/perspectiveReport/${accountIdentifier}`}
     base={getConfig('ccm/api')}
@@ -1842,7 +1890,7 @@ export const CreateReportSetting = ({ accountIdentifier, ...props }: CreateRepor
 
 export type UseCreateReportSettingProps = Omit<
   UseMutateProps<
-    RestResponseListCEReportSchedule,
+    ResponseListCEReportSchedule,
     unknown,
     void,
     CEReportScheduleRequestBody,
@@ -1856,30 +1904,18 @@ export type UseCreateReportSettingProps = Omit<
  * Create perspective reports
  */
 export const useCreateReportSetting = ({ accountIdentifier, ...props }: UseCreateReportSettingProps) =>
-  useMutate<
-    RestResponseListCEReportSchedule,
-    unknown,
-    void,
-    CEReportScheduleRequestBody,
-    CreateReportSettingPathParams
-  >('POST', (paramsInPath: CreateReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountIdentifier}`, {
-    base: getConfig('ccm/api'),
-    pathParams: { accountIdentifier },
-    ...props
-  })
+  useMutate<ResponseListCEReportSchedule, unknown, void, CEReportScheduleRequestBody, CreateReportSettingPathParams>(
+    'POST',
+    (paramsInPath: CreateReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountIdentifier}`,
+    { base: getConfig('ccm/api'), pathParams: { accountIdentifier }, ...props }
+  )
 
 export interface UpdateReportSettingPathParams {
   accountIdentifier: string
 }
 
 export type UpdateReportSettingProps = Omit<
-  MutateProps<
-    RestResponseListCEReportSchedule,
-    unknown,
-    void,
-    CEReportScheduleRequestBody,
-    UpdateReportSettingPathParams
-  >,
+  MutateProps<ResponseListCEReportSchedule, unknown, void, CEReportScheduleRequestBody, UpdateReportSettingPathParams>,
   'path' | 'verb'
 > &
   UpdateReportSettingPathParams
@@ -1888,7 +1924,7 @@ export type UpdateReportSettingProps = Omit<
  * Update perspective reports
  */
 export const UpdateReportSetting = ({ accountIdentifier, ...props }: UpdateReportSettingProps) => (
-  <Mutate<RestResponseListCEReportSchedule, unknown, void, CEReportScheduleRequestBody, UpdateReportSettingPathParams>
+  <Mutate<ResponseListCEReportSchedule, unknown, void, CEReportScheduleRequestBody, UpdateReportSettingPathParams>
     verb="PUT"
     path={`/perspectiveReport/${accountIdentifier}`}
     base={getConfig('ccm/api')}
@@ -1898,7 +1934,7 @@ export const UpdateReportSetting = ({ accountIdentifier, ...props }: UpdateRepor
 
 export type UseUpdateReportSettingProps = Omit<
   UseMutateProps<
-    RestResponseListCEReportSchedule,
+    ResponseListCEReportSchedule,
     unknown,
     void,
     CEReportScheduleRequestBody,
@@ -1912,21 +1948,14 @@ export type UseUpdateReportSettingProps = Omit<
  * Update perspective reports
  */
 export const useUpdateReportSetting = ({ accountIdentifier, ...props }: UseUpdateReportSettingProps) =>
-  useMutate<
-    RestResponseListCEReportSchedule,
-    unknown,
-    void,
-    CEReportScheduleRequestBody,
-    UpdateReportSettingPathParams
-  >('PUT', (paramsInPath: UpdateReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountIdentifier}`, {
-    base: getConfig('ccm/api'),
-    pathParams: { accountIdentifier },
-    ...props
-  })
+  useMutate<ResponseListCEReportSchedule, unknown, void, CEReportScheduleRequestBody, UpdateReportSettingPathParams>(
+    'PUT',
+    (paramsInPath: UpdateReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountIdentifier}`,
+    { base: getConfig('ccm/api'), pathParams: { accountIdentifier }, ...props }
+  )
 
 export interface CloudCostK8sClusterSetupQueryParams {
   accountIdentifier?: string
-  accountId?: string
 }
 
 export type CloudCostK8sClusterSetupProps = Omit<

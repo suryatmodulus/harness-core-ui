@@ -172,8 +172,8 @@ const BudgetCard: () => JSX.Element | null = () => {
               openModal({
                 isEdit: false,
                 selectedBudget: {
-                  lastMonthCost: lmc?.resource,
-                  forecastCost: fc?.resource
+                  lastMonthCost: lmc?.data,
+                  forecastCost: fc?.data
                 }
               })
             }}

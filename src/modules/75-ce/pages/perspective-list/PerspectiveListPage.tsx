@@ -64,7 +64,8 @@ const PerspectiveListPage: React.FC = () => {
 
   const { mutate: deleteView } = useDeletePerspective({
     queryParams: {
-      accountIdentifier: accountId
+      accountIdentifier: accountId,
+      perspectiveId: '' // this will be set by deleteView fn when called.
     }
   })
 
@@ -86,9 +87,7 @@ const PerspectiveListPage: React.FC = () => {
 
     try {
       const response = await createView(formData as CEView)
-      const { resource } = response
-
-      const uuid = resource?.uuid
+      const uuid = response?.data?.uuid
 
       if (uuid) {
         history.push(
@@ -98,7 +97,7 @@ const PerspectiveListPage: React.FC = () => {
           })
         )
       }
-    } catch (e) {
+    } catch (e: any) {
       const errMessage = e.data.message
       showError(errMessage)
     }

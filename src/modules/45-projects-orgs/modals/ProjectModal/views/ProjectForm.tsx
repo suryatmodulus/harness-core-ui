@@ -25,6 +25,7 @@ import { DEFAULT_COLOR } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
 import ProjectsEmptyState from '@projects-orgs/pages/projects/projects-empty-state.png'
 import { NameSchema, IdentifierSchema } from '@common/utils/Validation'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
@@ -64,7 +65,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
     displayProjectCardPreview = true
   } = props
   const { getString } = useStrings()
-
+  const { currentUserInfo: user } = useAppStore()
   return (
     <Formik
       initialValues={{
@@ -125,7 +126,15 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
               {displayProjectCardPreview && (
                 <Container width="50%" flex={{ align: 'center-center' }} className={css.preview}>
                   {Object.keys(formikProps.touched).length ? (
-                    <ProjectCard data={{ projectResponse: { project: formikProps.values } }} isPreview={true} />
+                    <ProjectCard
+                      data={{
+                        projectResponse: { project: formikProps.values },
+                        admins: [
+                          { name: user.name, email: user?.email || '', uuid: user?.uuid || '', locked: user?.locked }
+                        ]
+                      }}
+                      isPreview={true}
+                    />
                   ) : (
                     <Layout.Vertical width="100%" padding="huge" flex={{ align: 'center-center' }}>
                       <img src={ProjectsEmptyState} className={css.img} />

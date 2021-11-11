@@ -5,6 +5,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { UseStringsReturn } from 'framework/strings'
 import type { ExecutionWrapperConfig } from 'services/cd-ng'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
+import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import {
   DiagramModel,
   CreateNewModel,
@@ -282,7 +283,7 @@ export class ExecutionStepModel extends DiagramModel {
     if (node.step) {
       const isTemplateStep = !!(node.step as TemplateStepData)?.template
       const stepType = isTemplateStep
-        ? get(templateTypes, (node?.step as TemplateStepData)?.template.templateRef) || ''
+        ? get(templateTypes, getIdentifierFromValue((node?.step as TemplateStepData)?.template.templateRef)) || ''
         : node?.step?.type
       const nodeType = getExecutionPipelineNodeType(node?.step?.type) || ExecutionPipelineNodeType.NORMAL
       const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))

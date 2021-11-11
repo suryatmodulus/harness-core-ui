@@ -26,6 +26,7 @@ import type { UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useS
 import GitContextForm, { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { IdentifierSchema, IdentifierSchemaWithOutName, NameSchema } from '@common/utils/Validation'
 import { DefaultNewTemplateId, DefaultNewVersionLabel } from '../templates'
 import css from './TemplateConfigModal.module.scss'
 
@@ -131,10 +132,14 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
         formName={formName}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('templatesLibrary.createNewModal.validation.name')),
-          versionLabel: Yup.string()
-            .trim()
-            .required(getString('templatesLibrary.createNewModal.validation.versionLabel')),
+          name: NameSchema({ requiredErrorMsg: getString('templatesLibrary.createNewModal.validation.name') }),
+          identifier: IdentifierSchema(),
+          versionLabel: IdentifierSchemaWithOutName(getString, {
+            requiredErrorMsg: getString('templatesLibrary.createNewModal.validation.versionLabel'),
+            regexErrorMsg: getString('common.validation.fieldMustBeAlphanumeric', {
+              name: getString('templatesLibrary.createNewModal.versionLabel')
+            })
+          }),
           ...(isGitSyncEnabled && showGitFields
             ? {
                 repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),

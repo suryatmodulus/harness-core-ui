@@ -32,6 +32,8 @@ import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
 import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './TemplateStepWidget.module.scss'
 
@@ -55,6 +57,8 @@ export function TemplateStepWidget(
   const [inputSetTemplate, setInputSetTemplate] = React.useState<Omit<StepElementConfig, 'name' | 'identifier'>>()
   const { showError } = useToaster()
   const { expressions } = useVariablesExpression()
+  const templateRef = getIdentifierFromValue(initialValues.template.templateRef)
+  const scope = getScopeFromValue(initialValues.template.templateRef)
 
   const {
     data: templateInputYaml,
@@ -62,12 +66,12 @@ export function TemplateStepWidget(
     refetch,
     loading
   } = useGetTemplateInputSetYaml({
-    templateIdentifier: initialValues.template?.templateRef || '',
+    templateIdentifier: templateRef,
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier,
-      versionLabel: initialValues.template?.versionLabel || ''
+      projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
+      orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined,
+      versionLabel: initialValues.template.versionLabel
     }
   })
 

@@ -25,7 +25,7 @@ createNewModal:
   versionLabel: Version Label
   label: Label
   namePlaceholder: Template Name
-  versionPlaceholder: 'Ex: Version 1'
+  versionPlaceholder: 'Ex: Version1'
   validation:
     name: Template name is required
     versionLabel: Version Label is required

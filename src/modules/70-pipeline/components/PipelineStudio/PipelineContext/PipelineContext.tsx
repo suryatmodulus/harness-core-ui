@@ -30,7 +30,13 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { PipelineStageWrapper } from '@pipeline/utils/pipelineTypes'
-import { getTemplateListPromise, GetTemplateListQueryParams } from 'services/template-ng'
+import {
+  getTemplateListPromise,
+  GetTemplateListQueryParams,
+  ResponsePageTemplateSummaryResponse
+} from 'services/template-ng'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -59,16 +65,38 @@ interface PipelineInfoConfigWithGitDetails extends PipelineInfoConfig {
 const logger = loggerFor(ModuleName.CD)
 
 export const getTemplateTypesByRef = (params: GetTemplateListQueryParams, templateRefs: string[]) => {
-  return getTemplateListPromise({
-    body: {
-      filterType: 'Template',
-      templateIdentifiers: templateRefs
-    },
-    queryParams: params
-  }).then(response => {
+  const scopedTemplates = templateRefs.reduce((a: { [key: string]: string[] }, b) => {
+    const identifier = getIdentifierFromValue(b)
+    const scope = getScopeFromValue(b)
+    if (a[scope]) {
+      a[scope].push(identifier)
+    } else {
+      a[scope] = [identifier]
+    }
+    return a
+  }, {})
+  const promises: Promise<ResponsePageTemplateSummaryResponse>[] = []
+  Object.keys(scopedTemplates).forEach(scope => {
+    promises.push(
+      getTemplateListPromise({
+        body: {
+          filterType: 'Template',
+          templateIdentifiers: scopedTemplates[scope]
+        },
+        queryParams: {
+          ...params,
+          projectIdentifier: scope === Scope.PROJECT ? params.projectIdentifier : undefined,
+          orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? params.orgIdentifier : undefined
+        }
+      })
+    )
+  })
+  return Promise.all(promises).then(responses => {
     const templateTypes = {}
-    response.data?.content?.forEach(item => {
-      set(templateTypes, item.identifier || '', parse(item.yaml || '').template.spec.type)
+    responses.forEach(response => {
+      response.data?.content?.forEach(item => {
+        set(templateTypes, item.identifier || '', parse(item.yaml || '').template.spec.type)
+      })
     })
     return templateTypes
   })

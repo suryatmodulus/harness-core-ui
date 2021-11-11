@@ -31,6 +31,8 @@ import { DefaultTemplate } from 'framework/Templates/templates'
 import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
 import { useQueryParams } from '@common/hooks'
 import { getStepPaletteModuleInfosFromStage } from '@pipeline/utils/stepUtils'
+import { getIdentifierFromValue, getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes, TemplateDrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -199,7 +201,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   }
 
   if (stepData || templateStepTemplate) {
-    const stepType = stepData ? stepData?.type : get(templateTypes, templateStepTemplate.templateRef)
+    const stepType = stepData
+      ? stepData?.type
+      : get(templateTypes, getIdentifierFromValue(templateStepTemplate.templateRef))
     const toolTipType = type ? `_${type}` : ''
     title = (
       <div className={css.stepConfig}>
@@ -572,8 +576,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const onUseTemplate = (_step: StepOrStepGroupOrTemplateStepData) => {
     const stepType =
       (data?.stepConfig?.node as StepElementConfig)?.type ||
-      get(templateTypes, (data?.stepConfig?.node as TemplateStepData).template.templateRef) ||
-      ''
+      get(templateTypes, getIdentifierFromValue((data?.stepConfig?.node as TemplateStepData).template.templateRef))
     updateTemplateView({
       isTemplateDrawerOpened: true,
       templateDrawerData: {
@@ -603,7 +606,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               const processNode = produce({} as TemplateStepData, draft => {
                 draft.name = node?.name || ''
                 draft.identifier = node?.identifier || ''
-                set(draft, 'template.templateRef', copiedTemplate.identifier)
+                const scope = getScopeFromDTO(copiedTemplate)
+                set(
+                  draft,
+                  'template.templateRef',
+                  scope === Scope.PROJECT ? copiedTemplate.identifier : `${scope}.${copiedTemplate.identifier}`
+                )
                 set(draft, 'template.versionLabel', copiedTemplate.versionLabel)
               })
               await updateNode(processNode)
@@ -619,7 +627,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     const processNode = produce({} as StepElementConfig, draft => {
       draft.name = node.name
       draft.identifier = node.identifier
-      draft.type = get(templateTypes, node.template.templateRef)
+      draft.type = get(templateTypes, getIdentifierFromValue(node.template.templateRef))
     })
     await updateNode(processNode)
   }

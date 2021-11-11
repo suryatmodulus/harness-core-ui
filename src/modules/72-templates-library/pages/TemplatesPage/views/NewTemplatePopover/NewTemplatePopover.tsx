@@ -22,7 +22,7 @@ export function NewTemplatePopover(): React.ReactElement {
   const handleAddTemplate = () => undefined
   const { getString } = useStrings()
   const history = useHistory()
-  const allowedTemplateTypes = getAllowedTemplateTypes(getString)
+  const allowedTemplateTypes = getAllowedTemplateTypes(getString, window.location.origin === 'https://app.harness.io')
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { isReadonly } = useContext(TemplateContext)

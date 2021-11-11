@@ -73,7 +73,7 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
             onClose={closeHandler}
           />
           <GitConnection
-            name={getString('gitsync.selectConnectivityMode')}
+            name={getString('common.selectConnectivityMode')}
             onSuccess={(data?: GitSyncConfig) => {
               handleSuccess(data)
             }}

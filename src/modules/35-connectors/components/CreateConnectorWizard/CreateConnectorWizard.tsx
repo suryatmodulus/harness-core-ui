@@ -3,6 +3,7 @@ import { pick } from 'lodash-es'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import type { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import CreateGitConnector from '../CreateConnector/GitConnector/CreateGitConnector'
 import CreateGithubConnector from '../CreateConnector/GithubConnector/CreateGithubConnector'
 import CreateGitlabConnector from '../CreateConnector/GitlabConnector/CreateGitlabConnector'
@@ -43,6 +44,8 @@ interface CreateConnectorWizardProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
+  connectivityMode?: ConnectivityModeType | undefined
+  setConnectivityMode?: (val: ConnectivityModeType) => void
   gitDetails?: IGitContextFormProps
   onClose: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
@@ -59,7 +62,9 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     'gitDetails',
     'accountId',
     'orgIdentifier',
-    'projectIdentifier'
+    'projectIdentifier',
+    'connectivityMode',
+    'setConnectivityMode'
   ])
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:

@@ -448,6 +448,7 @@ export interface StringsMap {
   'common.selectAVersion.description': string
   'common.selectAVersion.title': string
   'common.selectBranch': string
+  'common.selectConnectivityMode': string
   'common.selectDefaultExperience': string
   'common.selectUserGroups': string
   'common.selectVersion': string
@@ -1820,7 +1821,6 @@ export interface StringsMap {
   'gitsync.rootfolderLabel': string
   'gitsync.seeLess': string
   'gitsync.seeMore': string
-  'gitsync.selectConnectivityMode': string
   'gitsync.selectDefaultBranch': string
   'gitsync.selectHarnessFolder': string
   'gitsync.successfullCreate': string

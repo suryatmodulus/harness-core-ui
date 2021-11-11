@@ -8,6 +8,7 @@ projectSetup: Project Setup
 orgSetup: Org Setup
 delegateForTask: '{{delegate}} for {{taskName}}'
 noDelegateForTask: 'No delegate found for {{taskName}}'
+selectConnectivityMode: Select Connectivity Mode
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
 createPipeline: Create a Pipeline

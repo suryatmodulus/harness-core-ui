@@ -21,7 +21,6 @@ connectThroughManager: Communication with the Git provider will be made through 
 connectThroughDelegate: Communication with the Git provider will be made through the Delegate. This provides enhanced security but will result in slower response time.
 learnMore: Learn More about these settings
 configureHarnessFolder: Configure Harness Folder
-selectConnectivityMode: Select Connectivity Mode
 harnessFolderHeader: What is a Harness Folder?
 harnessFolderText: Harness folder allows to save the Harness configurations like Pipelines, Connectors, Delegates, trigger, etc alongside with the code in your git repository.
 folderDetails: Folder Details

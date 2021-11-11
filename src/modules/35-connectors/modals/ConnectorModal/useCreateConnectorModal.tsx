@@ -7,6 +7,7 @@ import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import css from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 
 export interface UseCreateConnectorModalProps {
@@ -24,7 +25,8 @@ export interface UseCreateConnectorModalReturn {
     isEditMode: boolean,
     type: ConnectorInfoDTO['type'],
     connector?: ConnectorModaldata,
-    modalProps?: IDialogProps
+    modalProps?: IDialogProps,
+    connectivityMode?: ConnectivityModeType
   ) => void
   hideConnectorModal: () => void
 }
@@ -34,6 +36,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   const [type, setType] = useState(Connectors.KUBERNETES_CLUSTER)
   const [connectorInfo, setConnectorInfo] = useState<ConnectorInfoDTO | undefined>()
   const [gitDetails, setGitDetails] = useState<IGitContextFormProps | undefined>()
+  const [connectivityMode, setConnectivityMode] = useState<ConnectivityModeType | undefined>(
+    ConnectivityModeType.Manager
+  )
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     enforceFocus: false,
@@ -63,6 +68,8 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           type={type}
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
+          connectivityMode={connectivityMode}
+          setConnectivityMode={setConnectivityMode}
           connectorInfo={connectorInfo}
           gitDetails={gitDetails}
           onSuccess={data => {
@@ -85,7 +92,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
         />
       </Dialog>
     ),
-    [type, isEditMode, connectorInfo, gitDetails]
+    [type, isEditMode, connectorInfo, gitDetails, connectivityMode]
   )
 
   return {
@@ -93,12 +100,14 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       isEditing: boolean,
       connectorType: ConnectorInfoDTO['type'],
       connector?: ConnectorModaldata,
-      _modalProps?: IDialogProps
+      _modalProps?: IDialogProps,
+      _connectivityMode?: ConnectivityModeType
     ) => {
       setConnectorInfo(connector?.connectorInfo)
       setGitDetails(connector?.gitDetails)
       setIsEditMode(isEditing)
       setType(connectorType)
+      setConnectivityMode(_connectivityMode)
       setModalProps(_modalProps || modalProps)
       showModal()
     },

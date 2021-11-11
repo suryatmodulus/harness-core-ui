@@ -1,3 +1,4 @@
+import type { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type {
   ConnectorInfoDTO,
@@ -34,6 +35,8 @@ export interface CreateConnectorModalProps {
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
   gitDetails?: IGitContextFormProps
+  connectivityMode?: ConnectivityModeType | undefined
+  setConnectivityMode?: (val: any) => void
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
@@ -125,6 +128,10 @@ export const connectorUrlType = {
   ACCOUNT: 'Account',
   REPO: 'Repo',
   REGION: 'Region'
+}
+export enum ConnectivityMode {
+  Manager = 'Manager',
+  Delegate = 'Delegate'
 }
 
 export const CONNECTOR_CREDENTIALS_STEP_IDENTIFIER = 'CONNECTOR_CREDENTIALS_STEP_IDENTIFIER'

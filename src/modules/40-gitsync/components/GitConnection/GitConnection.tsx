@@ -6,6 +6,7 @@ import { Button, Card, Color, Container, Layout, StepProps, Text } from '@wings-
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import {
+  ConnectorConfigDTO,
   GitSyncConfig,
   isSaasGitPromise,
   ResponseSaasGitDTO,
@@ -31,7 +32,7 @@ enum Agent {
   Delegate = 'Delegate'
 }
 
-const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionProps> = props => {
+const GitConnection: React.FC<StepProps<GitConnectionStepProps | ConnectorConfigDTO> & GitConnectionProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { prevStepData, onSuccess } = props
   const [isSaaS, setIsSaaS] = useState<boolean | undefined>()
@@ -141,7 +142,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
           <Card
             disabled={loading}
             className={cx(css.card, { [css.selected]: agent === Agent.Delegate })}
-            onClick={() => setAgent(Agent.Delegate)}
+            onClick={() => setAgent(Agent.Delegate) }
           >
             <Layout.Horizontal flex>
               <Text font={{ size: 'normal', weight: 'bold' }} padding={{ bottom: 'medium' }} color={Color.PRIMARY_6}>

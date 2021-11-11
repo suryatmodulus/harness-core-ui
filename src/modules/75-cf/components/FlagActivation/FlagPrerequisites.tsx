@@ -28,6 +28,7 @@ import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import {
   Feature,
+  GitSyncErrorResponse,
   PatchFeatureQueryParams,
   Prerequisite,
   useGetAllFeatures,
@@ -36,7 +37,7 @@ import {
 } from 'services/cf'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 
-import type { UseGitSync } from '@cf/hooks/useGitSync'
+import { GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import patch from '../../utils/instructions'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
 import css from './FlagActivationDetails.module.scss'
@@ -195,7 +196,11 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
               refetchFlag()
             })
             .catch(err => {
-              showError(get(err, 'data.message', err?.message), undefined, 'cf.patch.req.error')
+              if (err.status === GIT_SYNC_ERROR_CODE) {
+                gitSync.handleError(err.data as GitSyncErrorResponse)
+              } else {
+                showError(get(err, 'data.message', err?.message), undefined, 'cf.patch.req.error')
+              }
             })
             .finally(() => {
               patch.feature.reset()

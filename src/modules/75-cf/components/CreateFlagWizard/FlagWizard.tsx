@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uicore'
-import { useCreateFeatureFlag, FeatureFlagRequestRequestBody, CreateFeatureFlagQueryParams } from 'services/cf'
+import {
+  useCreateFeatureFlag,
+  FeatureFlagRequestRequestBody,
+  CreateFeatureFlagQueryParams,
+  GitSyncErrorResponse
+} from 'services/cf'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
@@ -10,7 +15,7 @@ import { getErrorMessage, showToaster, FeatureFlagMutivariateKind } from '@cf/ut
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
 import { PageSpinner } from '@common/components'
-import { useGitSync } from '@cf/hooks/useGitSync'
+import { GIT_SYNC_ERROR_CODE, useGitSync } from '@cf/hooks/useGitSync'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
@@ -45,7 +50,8 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   const history = useHistory()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
 
-  const { isAutoCommitEnabled, isGitSyncEnabled, gitSyncLoading, handleAutoCommit, getGitSyncFormMeta } = useGitSync()
+  const { isAutoCommitEnabled, isGitSyncEnabled, gitSyncLoading, handleAutoCommit, getGitSyncFormMeta, handleError } =
+    useGitSync()
   const { gitSyncInitialValues } = getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.CREATED_FLAG)
 
   const { mutate: createFeatureFlag, loading: isLoadingCreateFeatureFlag } = useCreateFeatureFlag({
@@ -99,7 +105,11 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
           showToaster(getString('cf.messages.flagCreated'))
         })
         .catch(error => {
-          showError(getErrorMessage(error), 0, 'cf.savegw.error')
+          if (error.status === GIT_SYNC_ERROR_CODE) {
+            handleError(error.data as GitSyncErrorResponse)
+          } else {
+            showError(getErrorMessage(error), 0, 'cf.savegw.error')
+          }
         })
     } else {
       hideModal()

@@ -1,12 +1,14 @@
 import { useParams } from 'react-router-dom'
+import React, { useState, useMemo } from 'react'
 import * as yup from 'yup'
 import type { ObjectSchema } from 'yup'
-import { useMemo } from 'react'
+import { useModalHook } from '@wings-software/uicore'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { GitRepo, useGetGitRepo, usePatchGitRepo } from 'services/cf'
+import { GitRepo, GitSyncErrorResponse, useGetGitRepo, usePatchGitRepo } from 'services/cf'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { useStrings } from 'framework/strings'
+import GitErrorModal from '@cf/components/GitErrorModal/GitErrorModal'
 
 export interface GitDetails {
   branch: string
@@ -31,9 +33,19 @@ export interface UseGitSync {
   isGitSyncPaused: boolean
   isGitSyncActionsEnabled: boolean
   gitSyncLoading: boolean
+  apiError: string
   handleAutoCommit: (newAutoCommitValue: boolean) => Promise<void>
   handleGitPause: (newGitPauseValue: boolean) => Promise<void>
   getGitSyncFormMeta: (autoCommitMessage?: string) => GitSyncFormMeta
+  handleError: (error: GitSyncErrorResponse) => void
+}
+
+export const GIT_SYNC_ERROR_CODE = 424
+
+export interface GitSyncErrorResponseBody {
+  data: { code: string; message: string }
+  message: string
+  status: number
 }
 
 export const useGitSync = (): UseGitSync => {
@@ -77,6 +89,28 @@ export const useGitSync = (): UseGitSync => {
     () => !!(FF_GITSYNC && getGitRepo?.data?.repoSet && !getGitRepo?.data?.repoDetails?.enabled),
     [FF_GITSYNC, getGitRepo?.data?.repoDetails?.enabled, getGitRepo?.data?.repoSet]
   )
+
+  const [apiError, setApiError] = useState<string>('')
+
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <GitErrorModal
+        onClose={hideModal}
+        onSubmit={() => {
+          const newGitPauseValue = false
+          handleGitPause(newGitPauseValue)
+          hideModal()
+        }}
+        apiError={apiError}
+      />
+    ),
+    [apiError]
+  )
+
+  const handleError = (error: GitSyncErrorResponse): void => {
+    setApiError(error.message)
+    showModal()
+  }
 
   const getGitSyncFormMeta = (autoCommitMessage?: string): GitSyncFormMeta => ({
     gitSyncInitialValues: {
@@ -140,8 +174,10 @@ export const useGitSync = (): UseGitSync => {
     isGitSyncPaused,
     isGitSyncActionsEnabled,
     gitSyncLoading: getGitRepo.loading || patchGitRepo.loading,
+    apiError,
     handleAutoCommit,
     handleGitPause,
-    getGitSyncFormMeta
+    getGitSyncFormMeta,
+    handleError
   }
 }

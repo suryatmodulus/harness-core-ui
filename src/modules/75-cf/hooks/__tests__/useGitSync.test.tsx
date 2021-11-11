@@ -1,6 +1,7 @@
 /* eslint-disable jest-no-mock */
 import { renderHook } from '@testing-library/react-hooks'
-
+import React, { FC } from 'react'
+import { ModalProvider } from '@wings-software/uicore'
 import * as cfServiceMock from 'services/cf'
 import * as useFeatureFlagMock from '@common/hooks/useFeatureFlag'
 import type { GitRepo } from 'services/cf'
@@ -8,7 +9,6 @@ import { useGitSync } from '../useGitSync'
 
 jest.mock('services/cf')
 jest.mock('@common/hooks/useFeatureFlag')
-
 jest.mock('react-router-dom', () => ({
   useParams: () => jest.fn()
 }))
@@ -31,6 +31,13 @@ const setUseGitRepoMock = (repoDetails: Partial<GitRepo> = {}, repoSet = false):
   } as any)
 }
 
+const renderHookUnderTest = () => {
+  const wrapper: FC = ({ children }) => {
+    return <ModalProvider>{children}</ModalProvider>
+  }
+  return renderHook(() => useGitSync(), { wrapper })
+}
+
 describe('useGitSync', () => {
   beforeEach(() => {
     setUseGitRepoMock()
@@ -44,7 +51,7 @@ describe('useGitSync', () => {
       loading: false
     } as any)
 
-    const { result } = renderHook(() => useGitSync())
+    const { result } = renderHookUnderTest()
 
     const data = result.current.getGitSyncFormMeta()
     expect(data.gitSyncInitialValues).toEqual({
@@ -67,7 +74,7 @@ describe('useGitSync', () => {
       mutate: patchMutateMock
     } as any)
 
-    const { result } = renderHook(() => useGitSync())
+    const { result } = renderHookUnderTest()
 
     result.current.handleAutoCommit(true)
     expect(patchMutateMock).toHaveBeenCalledWith({
@@ -82,6 +89,29 @@ describe('useGitSync', () => {
     })
   })
 
+  test('it should call patch endpoint when Git Pause value changed', async () => {
+    const patchMutateMock = jest.fn()
+
+    jest.spyOn(cfServiceMock, 'usePatchGitRepo').mockReturnValue({
+      loading: false,
+      mutate: patchMutateMock
+    } as any)
+
+    const { result } = renderHookUnderTest()
+
+    result.current.handleGitPause(true)
+    expect(patchMutateMock).toHaveBeenCalledWith({
+      instructions: [
+        {
+          kind: 'setEnabled',
+          parameters: {
+            enabled: true
+          }
+        }
+      ]
+    })
+  })
+
   test('it should not call patch endpoint when auto commit value is the same', async () => {
     const patchMutateMock = jest.fn()
 
@@ -90,10 +120,25 @@ describe('useGitSync', () => {
       mutate: patchMutateMock
     } as any)
 
-    const { result } = renderHook(() => useGitSync())
+    const { result } = renderHookUnderTest()
 
     result.current.handleAutoCommit(false)
     expect(patchMutateMock).not.toHaveBeenCalledWith()
+  })
+
+  test('it should set API error correctly', async () => {
+    const patchMutateMock = jest.fn()
+
+    jest.spyOn(cfServiceMock, 'usePatchGitRepo').mockReturnValue({
+      loading: false,
+      mutate: patchMutateMock
+    } as any)
+
+    const { result } = renderHookUnderTest()
+
+    result.current.handleError({ code: '424', message: 'TEST ERROR MESSAGE' })
+
+    expect(result.current.apiError).toBe('TEST ERROR MESSAGE')
   })
 
   test.each([
@@ -107,7 +152,7 @@ describe('useGitSync', () => {
 
       jest.spyOn(useFeatureFlagMock, 'useFeatureFlag').mockReturnValue(ffGitSync)
 
-      const { result } = renderHook(() => useGitSync())
+      const { result } = renderHookUnderTest()
 
       expect(result.current.isAutoCommitEnabled).toBe(expectedResult)
     }
@@ -124,7 +169,7 @@ describe('useGitSync', () => {
 
       jest.spyOn(useFeatureFlagMock, 'useFeatureFlag').mockReturnValue(ffGitSync)
 
-      const { result } = renderHook(() => useGitSync())
+      const { result } = renderHookUnderTest()
 
       expect(result.current.isGitSyncEnabled).toBe(expectedResult)
     }

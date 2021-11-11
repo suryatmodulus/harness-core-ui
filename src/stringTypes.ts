@@ -3635,9 +3635,12 @@ export interface StringsMap {
   'cf.gitSync.commitChanges': string
   'cf.gitSync.commitMsgRequired': string
   'cf.gitSync.flagName': string
+  'cf.gitSync.gitErrorModalTitle': string
+  'cf.gitSync.gitServiceApiError': string
   'cf.gitSync.saveFlagToGit': string
   'cf.gitSync.syncingPaused': string
   'cf.gitSync.toggleGitSyncPause': string
+  'cf.gitSync.turnOffGitAndContinue': string
   'cf.homepage.learnMore': string
   'cf.homepage.slogan': string
   'cf.learnMore': string

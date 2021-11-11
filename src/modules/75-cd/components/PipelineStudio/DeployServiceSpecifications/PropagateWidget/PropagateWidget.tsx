@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  FormInput,
-  SelectOption,
-  Layout,
-  RadioButton,
-  Container,
-  Color,
-  HarnessDocTooltip
-} from '@wings-software/uicore'
+import { FormInput, SelectOption, Layout, Radio, Container, Color, HarnessDocTooltip } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
 import { Formik, FormikProps } from 'formik'
 import * as Yup from 'yup'
@@ -82,7 +74,7 @@ export default function PropagateWidget(props: PropagateWidgetProps): JSX.Elemen
                 className={css.stageSelectionGrid}
               >
                 <Layout.Horizontal flex spacing={'medium'}>
-                  <RadioButton
+                  <Radio
                     color={Color.GREY_500}
                     font={{ weight: 'semi-bold' }}
                     label={'Propagate from:'}
@@ -107,7 +99,7 @@ export default function PropagateWidget(props: PropagateWidgetProps): JSX.Elemen
               </section>
 
               <section onClick={() => !isReadonly && initWithServiceDefinition()} className={css.stageSelectionGrid}>
-                <RadioButton
+                <Radio
                   color={Color.GREY_500}
                   font={{ weight: 'semi-bold' }}
                   label={getString('cd.pipelineSteps.serviceTab.differentService')}

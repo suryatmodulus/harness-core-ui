@@ -22,7 +22,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
         xmlns="http://www.w3.org/2000/svg"
       >
         <desc>
-          Created with Highcharts 9.1.0
+          Created with Highcharts 9.2.0
         </desc>
         <defs>
           <clippath
@@ -441,7 +441,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
           y="450"
         />
         <g
-          class="highcharts-legend"
+          class="highcharts-legend highcharts-no-tooltip"
           data-z-index="7"
         >
           <rect
@@ -489,7 +489,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
         xmlns="http://www.w3.org/2000/svg"
       >
         <desc>
-          Created with Highcharts 9.1.0
+          Created with Highcharts 9.2.0
         </desc>
         <defs>
           <clippath
@@ -908,7 +908,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
           y="450"
         />
         <g
-          class="highcharts-legend"
+          class="highcharts-legend highcharts-no-tooltip"
           data-z-index="7"
         >
           <rect
@@ -956,7 +956,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
         xmlns="http://www.w3.org/2000/svg"
       >
         <desc>
-          Created with Highcharts 9.1.0
+          Created with Highcharts 9.2.0
         </desc>
         <defs>
           <clippath
@@ -1179,7 +1179,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
           y="597"
         />
         <g
-          class="highcharts-legend"
+          class="highcharts-legend highcharts-no-tooltip"
           data-z-index="7"
         >
           <rect
@@ -27308,7 +27308,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <desc>
-                        Created with Highcharts 9.1.0
+                        Created with Highcharts 9.2.0
                       </desc>
                       <defs>
                         <clippath
@@ -27531,7 +27531,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                         y="597"
                       />
                       <g
-                        class="highcharts-legend"
+                        class="highcharts-legend highcharts-no-tooltip"
                         data-z-index="7"
                       >
                         <rect

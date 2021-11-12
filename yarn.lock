@@ -10789,10 +10789,10 @@ highcharts-react-official@3.0.0:
   resolved "https://registry.yarnpkg.com/highcharts-react-official/-/highcharts-react-official-3.0.0.tgz#f2e81ed59d299c3473a0dd5ba5df24028875226a"
   integrity sha512-VefJgDY2hkT9gfppsQGrRF2g5u8d9dtfHGcx2/xqiP+PkZXCqalw9xOeKVCRvJKTOh0coiDFwvVjOvB7KaGl4A==
 
-highcharts@9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-9.1.0.tgz#2cdb38e2e03530b4fde022bb05fbce5b34651e39"
-  integrity "sha1-LNs44uA1MLT94CK7BfvOWzRlHjk= sha512-K7HUuKhEylZ1pMdzGR35kPgUmpp0MDNpaWhEMkGiC5Jfzg/endtTLHJN2lsFqEO+xoN7AykBK98XaJPEpsrLyA=="
+highcharts@9.2.0:
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-9.2.0.tgz#be3c2fb995fdbb1c1b841b6069b2f68f20bcfa64"
+  integrity sha512-ci5K1bS6epjjCm1eJXn08NULMlvaMU/FLGtOGHFXVAHP/mDf13J0wGzVd9e4Af+8V3fYnYDf0HKAVk3ytgQETw==
 
 highlight.js@^10.1.1, highlight.js@~10.4.0:
   version "10.4.1"

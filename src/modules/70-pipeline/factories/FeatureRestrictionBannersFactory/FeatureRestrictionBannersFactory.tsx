@@ -38,13 +38,13 @@ const getBannerDependencyMet = ({
   featureName,
   dependency
 }: {
-  featureName: FeatureIdentifier
+  featureName?: FeatureIdentifier
   features: Map<FeatureIdentifier, CheckFeatureReturn>
   dependency?: Dependency
 }): boolean => {
   if (dependency) {
     const dependencyKeys = Object.entries(dependency)
-    // ACTIVE_COMMITTERS featureDetail check is required to show the api finished
+    // featureName ACTIVE_COMMITTERS featureDetail check is required to show the api finished to prevent banner flicker
     if (
       dependencyKeys?.some(
         ([key, value]) =>
@@ -136,9 +136,7 @@ interface FeatureRestrictionBannersProps {
 }
 
 // Show this banner if limit usage is breached for the feature
-export const FeatureRestrictionBanners = (
-  props: FeatureRestrictionBannersProps
-): JSX.Element | (JSX.Element | null)[] | null => {
+export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps): JSX.Element | null => {
   const { getString } = useStrings()
   const history = useHistory()
   const { accountId } = useParams<AccountPathProps>()
@@ -155,8 +153,13 @@ export const FeatureRestrictionBanners = (
     // check for the first message that would appear
     return featureRestrictionModuleDetails?.some((uiDisplayBanner: ModuleToFeatureMapValue) => {
       let bannerAdded = false
-      if (featureDetail?.enabled === false && uiDisplayBanner.upgradeRequiredBanner) {
+      if (
+        featureDetail?.enabled === false &&
+        featureDetail?.moduleType === module.toUpperCase() &&
+        uiDisplayBanner.upgradeRequiredBanner
+      ) {
         // when feature is not allowed and upgrade banner should be shown
+        // moduleType necessary since sometimes enabled===false and no moduleType exists
         const dependency = uiDisplayBanner?.dependency
         const dependencyMet = getBannerDependencyMet({ features, featureName, dependency })
         const messageString = uiDisplayBanner?.limitCrossedMessage && getString(uiDisplayBanner.limitCrossedMessage)
@@ -216,56 +219,64 @@ export const FeatureRestrictionBanners = (
   })
 
   if (shownBanners.length) {
-    return shownBanners
-      .filter(shownBanner => !dismissedBanners.includes(shownBanner?.featureName))
-      .map(banner => (
-        <Layout.Horizontal
-          key={banner.messageString}
-          className={cx(css.bannerContainer, banner.upgradeRequiredBanner && css.upgradeRequiredBanner)}
-          flex={{ alignItems: 'center', justifyContent: 'space-between' }}
-          background={banner.upgradeRequiredBanner ? '#FFF5ED' : Color.WHITE}
-          height={56}
-          padding={{ left: 'large', top: 'medium', bottom: 'medium' }}
-        >
-          <Container flex>
-            <Text
-              icon={banner.upgradeRequiredBanner ? 'upgrade-bolt' : 'info-message'}
-              iconProps={{
-                intent: 'primary',
-                size: 20,
-                margin: { right: 'xsmall' },
-                color: banner.upgradeRequiredBanner ? Color.ORANGE_900 : Color.PRIMARY_7
-              }}
-              font={{ weight: 'semi-bold', size: 'small' }}
-              color={Color.PRIMARY_10}
-              margin={{ right: 'medium' }}
+    return (
+      <>
+        {shownBanners
+          .filter(shownBanner => !dismissedBanners.includes(shownBanner?.featureName))
+          .map(banner => (
+            <Layout.Horizontal
+              key={banner.messageString}
+              className={cx(css.bannerContainer, banner.upgradeRequiredBanner && css.upgradeRequiredBanner)}
+              flex={{ alignItems: 'center', justifyContent: 'space-between' }}
+              background={banner.upgradeRequiredBanner ? '#FFF5ED' : Color.WHITE}
+              height={56}
+              padding={{ left: 'large', top: 'medium', bottom: 'medium' }}
             >
-              {banner.upgradeRequiredBanner && (
-                <Text style={{ fontWeight: 700, marginRight: 'var(--spacing-5)' }} color={Color.ORANGE_900}>
-                  {getString('common.feature.upgradeRequired.title').toUpperCase()}
+              <Container flex>
+                <Text
+                  icon={banner.upgradeRequiredBanner ? 'upgrade-bolt' : 'info-message'}
+                  iconProps={{
+                    intent: 'primary',
+                    size: 20,
+                    margin: { right: 'xsmall' },
+                    color: banner.upgradeRequiredBanner ? Color.ORANGE_900 : Color.PRIMARY_7
+                  }}
+                  font={{ weight: 'semi-bold', size: 'small' }}
+                  color={Color.PRIMARY_10}
+                  margin={{ right: 'medium' }}
+                >
+                  {banner.upgradeRequiredBanner && (
+                    <Text style={{ fontWeight: 700, marginRight: 'var(--spacing-5)' }} color={Color.ORANGE_900}>
+                      {getString('common.feature.upgradeRequired.title').toUpperCase()}
+                    </Text>
+                  )}
+                  {banner.messageString}
                 </Text>
-              )}
-              {banner.messageString}
-            </Text>
-            <Button
-              variation={ButtonVariation.SECONDARY}
-              size={ButtonSize.SMALL}
-              width={130}
-              onClick={() => {
-                history.push(
-                  routes.toSubscriptions({
-                    accountId,
-                    moduleCard: module
-                  })
-                )
-              }}
-            >
-              {getString('common.explorePlans')}
-            </Button>
-          </Container>
-          <Button icon="cross" minimal onClick={() => setDismissedBanners([...dismissedBanners, banner.featureName])} />
-        </Layout.Horizontal>
-      ))
+                <Button
+                  variation={ButtonVariation.SECONDARY}
+                  size={ButtonSize.SMALL}
+                  width={130}
+                  onClick={() => {
+                    history.push(
+                      routes.toSubscriptions({
+                        accountId,
+                        moduleCard: module
+                      })
+                    )
+                  }}
+                >
+                  {getString('common.explorePlans')}
+                </Button>
+              </Container>
+              <Button
+                icon="cross"
+                minimal
+                onClick={() => setDismissedBanners([...dismissedBanners, banner.featureName])}
+              />
+            </Layout.Horizontal>
+          ))}
+      </>
+    )
   }
   return null
 }

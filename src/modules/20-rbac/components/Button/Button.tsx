@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { pick } from 'lodash-es'
+import cx from 'classnames'
 import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-software/uicore'
 import { PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
@@ -11,6 +12,7 @@ import { FeatureWarningTooltip } from '@common/components/FeatureWarning/Feature
 // import { useStrings } from 'framework/strings'
 // import type { FeatureProps } from 'framework/featureStore/FeaturesContext'
 // import { FeatureWarningTooltip, DescriptionMap } from '@common/components/FeatureWarning/FeatureWarning'
+import css from './Button.module.scss'
 
 export interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
@@ -57,15 +59,15 @@ const RbacButton: React.FC<ButtonProps> = ({
 
     // feature check by default take priority
     if (featureProps?.featureRequest && !featureEnabled) {
-      const descriptionString =
-        featureProps?.featureRequest.featureName && DescriptionMap[featureProps.featureRequest.featureName]
+      // const descriptionString =
+      //   featureProps?.featureRequest.featureName && DescriptionMap[featureProps.featureRequest.featureName]
 
       return {
         disabled: true,
         tooltip: (
           <FeatureWarningTooltip
             featureName={featureProps?.featureRequest.featureName}
-            description={(descriptionString && getString(descriptionString)) || ''}
+            // description={(descriptionString && getString(descriptionString)) || ''}
           />
         )
       }
@@ -96,11 +98,11 @@ const RbacButton: React.FC<ButtonProps> = ({
 
   const btnProps = getBtnProps()
   const { disabled, tooltip } = btnProps
-
+  // !do not merge this PR until Run pipeline from builds page fixed
   return (
     <CoreButton
       {...restProps}
-      className={Classes.DARK}
+      className={cx(disabled && css.disabledBtn)}
       disabled={restProps.disabled || disabled}
       tooltip={disabled ? tooltip : restProps.tooltip ? restProps.tooltip : undefined}
       tooltipProps={

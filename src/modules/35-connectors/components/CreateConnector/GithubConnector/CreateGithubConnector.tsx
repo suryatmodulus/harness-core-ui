@@ -61,13 +61,17 @@ const CreateGithubConnector = (props: CreateConnectorModalProps): JSX.Element =>
       />
 
       <ConnectivityModeStep
-        name={getString('selectConnectivityMode')}
+        name={getString('connectors.selectConnectivityMode')}
         type={Connectors.GITHUB}
         gitDetails={props.gitDetails}
         connectorInfo={props.connectorInfo}
         isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        buildPayload={buildGithubPayload}
         connectivityMode={props.connectivityMode}
         setConnectivityMode={props.setConnectivityMode}
+        hideModal={props.onClose}
+        onConnectorCreated={props.onSuccess}
       />
 
       {props.connectivityMode === ConnectivityModeType.Delegate ? (

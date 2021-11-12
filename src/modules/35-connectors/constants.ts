@@ -1,12 +1,14 @@
 import type { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import type {
   ConnectorInfoDTO,
   ConnectorConnectivityDetails,
   Activity,
   EntityDetail,
   ConnectorRequestBody,
-  ResponseBoolean
+  ResponseBoolean,
+  Connector
 } from 'services/cd-ng'
 
 interface ConnectorType {
@@ -26,6 +28,11 @@ interface ActivityStatusType {
 
 interface ActivityType {
   [key: string]: Activity['type']
+}
+
+export interface ConnectorCreateEditProps {
+  gitData?: SaveToGitFormInterface
+  payload?: Connector
 }
 
 export interface CreateConnectorModalProps {

@@ -19,6 +19,7 @@ successfullUpdate: 'Connector {{name}} updated successfully'
 connectorNotFound: Connector not found.
 scopeError: 'Cannot create a Connector at {{createdAtScope}} scope from {{createdFromScope}} scope.'
 createFromYaml: 'Create New Connector from YAML'
+selectConnectivityMode: 'Select Connectivity Mode'
 successfullyCreated: 'Connector created successfully'
 secretManagerDetails: 'Secret Manager Details'
 gcrConnectorDetails: 'Google Container Registry Overview'

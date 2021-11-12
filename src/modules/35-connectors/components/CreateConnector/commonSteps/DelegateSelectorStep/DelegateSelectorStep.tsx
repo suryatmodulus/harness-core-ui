@@ -42,17 +42,13 @@ import {
   DelegatesFoundState
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
 import { CredTypeValues, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
+import type { ConnectorCreateEditProps } from '@connectors/constants'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 interface BuildPayloadProps {
   projectIdentifier: string
   orgIdentifier: string
   delegateSelectors: Array<string>
-}
-
-interface ConnectorCreateEditProps {
-  gitData?: SaveToGitFormInterface
-  payload?: Connector
 }
 
 export interface DelegateSelectorProps {

@@ -117,6 +117,10 @@ export interface StringsMap {
   'common.configureOptions.validationErrors.regExNotValid': string
   'common.configureOptions.values': string
   'common.confirmText': string
+  'common.connectThroughDelegate': string
+  'common.connectThroughDelegateInfo': string
+  'common.connectThroughPlatform': string
+  'common.connectThroughPlatformInfo': string
   'common.connectivityErrors': string
   'common.contactSupport': string
   'common.createPipeline': string
@@ -1652,6 +1656,7 @@ export interface StringsMap {
   'connectors.roleARN': string
   'connectors.scopeError': string
   'connectors.secretManagerDetails': string
+  'connectors.selectConnectivityMode': string
   'connectors.selectConnector': string
   'connectors.selectConnectorLabel': string
   'connectors.showInstructions': string

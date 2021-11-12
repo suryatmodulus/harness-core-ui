@@ -452,7 +452,6 @@ export interface StringsMap {
   'common.selectAVersion.description': string
   'common.selectAVersion.title': string
   'common.selectBranch': string
-  'common.selectConnectivityMode': string
   'common.selectDefaultExperience': string
   'common.selectUserGroups': string
   'common.selectVersion': string

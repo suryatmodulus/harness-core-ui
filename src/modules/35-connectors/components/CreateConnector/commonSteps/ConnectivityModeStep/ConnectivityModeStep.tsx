@@ -108,7 +108,6 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
     }
   }
 
-  // modal to show for git commit
   const { openSaveToGitDialog } = useSaveToGitDialog<Connector>({
     onSuccess: (
       gitData: SaveToGitFormInterface,
@@ -233,10 +232,6 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
             }
           }}
           formName={`connectivityModeForm${props.type}`}
-          // validationSchema={Yup.object().shape({
-          //   name: NameSchema(),
-          //   identifier: IdentifierSchema()
-          // })}
           enableReinitialize
         >
           {formik => {
@@ -254,7 +249,6 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
                     formik={formik}
                     onChange={val => {
                       props.setConnectivityMode?.(val)
-                      // console.log(props.connectivityMode)
                     }}
                   />
                 </Layout.Vertical>
@@ -273,7 +267,6 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
                       formik.values.connectivityMode === ConnectivityModeType.Delegate ? 'continue' : 'saveAndContinue'
                     )}
                     disabled={isSaveButtonDisabled}
-                    //   className={css.saveAndContinue}
                     rightIcon="chevron-right"
                     data-testid="connectivitySaveAndContinue"
                   />

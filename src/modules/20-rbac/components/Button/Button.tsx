@@ -33,7 +33,6 @@ const RbacButton: React.FC<ButtonProps> = ({
   const { enabled: featureEnabled } = useFeature({
     featureRequest: featureProps?.featureRequest
   })
-  const { getString } = useStrings()
   const [canDoAction] = usePermission(
     {
       ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),
@@ -71,6 +70,10 @@ const RbacButton: React.FC<ButtonProps> = ({
             // description={(descriptionString && getString(descriptionString)) || ''}
           />
         )
+        // return {
+        //   disabled: true,
+        //   darkTheme: true,
+        //   tooltip: <FeatureWarningTooltip featureName={featureProps?.featureRequest.featureName} />
       }
     }
 

@@ -319,7 +319,8 @@
 
   .widget {
     background-color: #e8e8ff !important;
-    border: 1px solid rgba(174, 202, 255, 0.5) !important;
+    border: 1px solid #e1d0ff !important;
+    padding-top: var(--spacing-8) !important;
   }
   .subText {
     margin: var(--spacing-3) 0 !important;

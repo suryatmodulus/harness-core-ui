@@ -8,6 +8,7 @@ import { iconMap } from '@pipeline/components/PipelineStudio/StepPalette/iconMap
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 // import { DescriptionMap } from '@common/components/FeatureWarning/FeatureWarning'
 
+// import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 import type { StepData } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'

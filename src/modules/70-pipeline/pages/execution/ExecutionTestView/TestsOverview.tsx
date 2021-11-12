@@ -9,7 +9,7 @@ import css from './BuildTests.module.scss'
 interface TestsOverviewProps {
   totalTests: number
   skippedTests: number
-  failedTests?: number // no TI
+  failedTests?: number // when provided, no TI
   timeSavedMS?: number
   durationMS?: number
   testsCountDiff?: number
@@ -28,8 +28,9 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
   const { getString } = useStrings()
 
   const selectedTests = totalTests - skippedTests
-  const failureRate = (failedTests && failedTests / (totalTests || 1)) || undefined
-  const failureRateDisplay = (failureRate && renderFailureRate(failureRate) + `%`) || undefined
+  const failureRate = failedTests && failedTests / (totalTests || 1)
+  const failureRateDisplay =
+    typeof failureRate !== 'undefined' ? (failureRate && renderFailureRate(failureRate)) + `%` : undefined
 
   const timeSavedToDisplay: string = useMemo(() => {
     if (!timeSavedMS) {
@@ -142,7 +143,7 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
               </div>
             </Text>
           )}
-          {failureRateDisplay ? (
+          {typeof failureRateDisplay !== 'undefined' ? (
             <Text
               className={css.stats}
               padding="medium"
@@ -150,7 +151,7 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
               style={{ position: 'relative', backgroundColor: 'var(--white)' }}
             >
               <Text className={cx(css.statsTitle)} margin={{ bottom: 'large', right: 'small' }}>
-                {getString('pipeline.testsReports.failedTests')}
+                {getString('common.failureRate')}
               </Text>
               <span className={cx(css.statsNumber)}>{failureRateDisplay}</span>
             </Text>

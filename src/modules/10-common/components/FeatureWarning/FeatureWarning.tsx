@@ -3,11 +3,10 @@ import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import { Button, ButtonSize, ButtonVariation, Color, FontVariation, Layout, Text } from '@wings-software/uicore'
-import type { PopoverPosition } from '@blueprintjs/core'
+import { Classes, PopoverPosition } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import type { StringsMap } from 'stringTypes'
 
-import { FeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
+import { FeatureDescriptor, CustomFeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
 import { useLicenseStore, LICENSE_STATE_VALUES } from 'framework/LicenseStore/LicenseStoreContext'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
@@ -44,14 +43,6 @@ interface WarningTextProps {
   }
 }
 
-type DescriptionMapType = { [key: string]: keyof StringsMap }
-
-// Custom descriptions
-export const DescriptionMap: DescriptionMapType = {
-  TEST_INTELLIGENCE: 'pipeline.testsReports.tiCallToAction.requiresEnterprisePlan',
-  BUILDS: 'pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit'
-}
-
 const ExplorePlansBtn = ({ module, size }: ExplorePlansBtnProps): ReactElement => {
   const { getString } = useStrings()
   const history = useHistory()
@@ -84,9 +75,10 @@ const WarningText = ({ tooltip, tooltipProps }: WarningTextProps): ReactElement 
   )
 }
 
-export const FeatureWarningTooltip = ({ featureName, description = '' }: FeatureWarningTooltipProps): ReactElement => {
+export const FeatureWarningTooltip = ({ featureName }: FeatureWarningTooltipProps): ReactElement => {
   const { getString } = useStrings()
   const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
+  const customFeatureDescription = CustomFeatureDescriptor[featureName]
   const requiredPlans = useFeatureRequiredPlans(featureName)
   const requiredPlansStr = requiredPlans.join(' or ')
   const moduleType = useFeatureModule(featureName)
@@ -106,10 +98,10 @@ export const FeatureWarningTooltip = ({ featureName, description = '' }: Feature
       </Text>
       <Layout.Vertical spacing="medium">
         <Text font={{ size: 'small' }} color={Color.GREY_300}>
-          {!description && getString('common.feature.upgradeRequired.description')}
-          {description || featureDescription}
+          {!customFeatureDescription && getString('common.feature.upgradeRequired.description')}
+          {customFeatureDescription || featureDescription}
         </Text>
-        {!description && !isEmpty(requiredPlans) && (
+        {!customFeatureDescription && !isEmpty(requiredPlans) && (
           <Text font={{ size: 'small' }} color={Color.GREY_700}>
             {getString('common.feature.upgradeRequired.requiredPlans', { requiredPlans: requiredPlansStr })}
           </Text>
@@ -122,11 +114,17 @@ export const FeatureWarningTooltip = ({ featureName, description = '' }: Feature
 
 export const FeatureWarningWithTooltip = ({ featureName, tooltipProps }: FeatureWarningProps): ReactElement => {
   const tooltip = <FeatureWarningTooltip featureName={featureName} />
-  return <WarningText tooltip={tooltip} tooltipProps={{ position: 'bottom-left', ...tooltipProps }} />
+  return (
+    <WarningText
+      tooltip={tooltip}
+      tooltipProps={{ position: 'bottom-left', ...tooltipProps, className: Classes.DARK }}
+    />
+  )
 }
 
 export const FeatureWarning = ({ featureName, warningMessage, className }: FeatureWarningProps): ReactElement => {
   const { getString } = useStrings()
+  const customFeatureDescription = CustomFeatureDescriptor[featureName]
   const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
 
   return (
@@ -137,7 +135,7 @@ export const FeatureWarning = ({ featureName, warningMessage, className }: Featu
           warningMessage
         ) : (
           <>
-            {getString('common.feature.upgradeRequired.description')} {featureDescription}
+            {getString('common.feature.upgradeRequired.description')} {customFeatureDescription || featureDescription}
           </>
         )}
       </Text>

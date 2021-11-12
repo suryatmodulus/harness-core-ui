@@ -21,14 +21,14 @@ export const TICallToAction: React.FC<TICallToActionProps> = () => {
   const canUseTI = false
   return (
     <div className={cx(css.widgetWrapper, css.tiCallToActionWrapper)}>
-      <Container className={css.widget} height="100%">
+      <Container style={{ paddingTop: 'var(--spacing-3)' }} className={css.widget} height="100%">
         <Layout.Horizontal spacing="medium">
           <Container className={css.tiUpgradeImage}>
             <img height={123} width={90} src={tiUpgrade} />
           </Container>
-          <Layout.Vertical style={{ justifyContent: 'space-between', height: '190px' }} width={378}>
-            <Container width={314}>
-              <Heading color={Color.BLACK} level={5}>
+          <Layout.Vertical style={{ justifyContent: 'space-between', height: '170px' }} width={378}>
+            <Container width={334}>
+              <Heading width={314} color={Color.BLACK} level={5}>
                 {getString('pipeline.testsReports.tiCallToAction.header')}
               </Heading>
               <Text color={Color.BLACK} className={css.subText}>

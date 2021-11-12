@@ -10,8 +10,9 @@ export const renderFailureRate = (failureRate: number): number => {
     scale *= 10
     value *= 10
   }
-
-  return Math.round(value) / scale
+  const valueScaled = Math.round(value) / scale
+  const exceeds4DecimalPlaces = valueScaled.toString().split('.')?.[1]?.length > 4
+  return exceeds4DecimalPlaces ? Number(valueScaled.toFixed(4)) : valueScaled
 }
 
 export enum SortByKey {

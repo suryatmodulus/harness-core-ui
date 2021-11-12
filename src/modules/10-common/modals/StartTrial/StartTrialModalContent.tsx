@@ -9,6 +9,7 @@ import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '@common/comp
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { Experiences } from '@common/constants/Utils'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 
 export interface StartTrialModalContentProps {
   handleStartTrial?: () => void
@@ -30,15 +31,20 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
   const moduleInfoCards = getInfoCardsProps(accountId, CDNG_ENABLED)[module]
   const initialSelectedInfoCard = moduleInfoCards ? moduleInfoCards[0] : undefined
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard | undefined>(initialSelectedInfoCard)
+  const { licenseInformation } = useLicenseStore()
 
-  function getModuleButton(): React.ReactElement {
-    async function handleOnClick(): Promise<void> {
+  const getModuleButton = (): React.ReactElement => {
+    const handleOnClick = async (): Promise<void> => {
       if (!selectedInfoCard || selectedInfoCard?.isNgRoute) {
         handleStartTrial?.()
       } else if (selectedInfoCard?.route) {
-        await updateDefaultExperience({
-          defaultExperience: Experiences.CG
-        })
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        if (Object.keys(licenseInformation).length === 0) {
+          await updateDefaultExperience({
+            defaultExperience: Experiences.CG
+          })
+        }
         window.location.href = selectedInfoCard.route?.()
         return
       }

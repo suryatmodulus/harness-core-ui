@@ -269,7 +269,9 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
                     text={runPipeline ? getString('pipeline.runAPipeline') : getString('common.createPipeline')}
                     onClick={createPipeline ? () => goToPipeline() : props.onRunPipeline}
                     permission={{
-                      permission: PermissionIdentifier.EXECUTE_PIPELINE,
+                      permission: runPipeline
+                        ? PermissionIdentifier.EXECUTE_PIPELINE
+                        : PermissionIdentifier.EDIT_PIPELINE,
                       resource: {
                         resourceType: ResourceType.PIPELINE,
                         resourceIdentifier: pipelineIdentifier || queryParams.pipelineIdentifier

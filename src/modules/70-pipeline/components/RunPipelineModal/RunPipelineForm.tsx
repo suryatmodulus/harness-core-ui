@@ -562,6 +562,9 @@ function RunPipelineFormBasic({
         const governanceMetadata = data?.planExecution?.governanceMetadata
 
         if (response.status === 'SUCCESS') {
+          if (onClose) {
+            onClose()
+          }
           if (response.data) {
             showSuccess(getString('runPipelineForm.pipelineRunSuccessFully'))
             history.push({

@@ -93,7 +93,7 @@ export const JFrogArtifactoryStepBase = (
                 'spec.connectorRef': {
                   label: (
                     <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
-                      {getString('pipelineSteps.connectorLabel')}
+                      {getString('ci.artifactoryConnectorLabel')}
                     </Text>
                   ),
                   type: Connectors.ARTIFACTORY

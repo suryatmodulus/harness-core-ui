@@ -3887,6 +3887,7 @@ export interface StringsMap {
   'cf.testTheFlag.verifyText': string
   'ci.advancedLabel': string
   'ci.annotations': string
+  'ci.artifactoryConnectorLabel': string
   'ci.ciTrialHomePage.startTrial.description': string
   'ci.ciTrialHomePage.startTrial.startBtn.description': string
   'ci.clipboardCopyFail': string

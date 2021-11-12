@@ -79,3 +79,4 @@ successful: Successful
 commitsTab:
   youHaveNoCommits: You have no commits
   youWillSeeYourCommitsHere: You will see your commits here
+artifactoryConnectorLabel: Artifactory Connector

@@ -4221,6 +4221,7 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy': string
   'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.showingAllServices': string
+  'cv.monitoredServices.showingServiceAtRisk': string
   'cv.monitoredServices.table.changes': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string
@@ -4491,6 +4492,7 @@ export interface StringsMap {
   'cv.serviceDashboardPage.thirtyDays': string
   'cv.serviceDashboardPage.twelveHours': string
   'cv.serviceHealthTrend': string
+  'cv.servicesAtRisk': string
   'cv.setup': string
   'cv.share': string
   'cv.showLess': string

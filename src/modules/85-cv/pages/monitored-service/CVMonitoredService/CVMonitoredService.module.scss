@@ -36,8 +36,20 @@
   margin-right: var(--spacing-large);
 }
 
+$headerHeight: 146px;
+
+.pageContainer {
+  height: calc(100% - #{$headerHeight});
+  overflow: auto;
+  position: relative;
+}
+
 .pageBody {
-  --page-header-height: 146px !important;
+  --page-header-height: #{$headerHeight} !important;
+}
+
+.noDataContainer {
+  height: 100% !important;
 }
 
 .dependencyGraph {

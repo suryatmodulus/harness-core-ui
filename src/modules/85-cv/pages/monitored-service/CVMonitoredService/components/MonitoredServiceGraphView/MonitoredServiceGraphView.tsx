@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import type { Chart as HighchartsChart, TooltipFormatterContextObject } from 'highcharts'
-import { Layout, Container, Views } from '@wings-software/uicore'
+import { Layout, Container, Views, NoDataCard } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import { getCVMonitoringServicesSearchParam } from '@cv/utils/CommonUtils'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
 import { HighchartCustomTooltip } from '@cv/utils/HighchartCustomTooltip'
@@ -17,10 +18,11 @@ import { getListingPageDependencyGraphOptions } from './MonitoredServiceGraphVie
 import css from '../../CVMonitoredService.module.scss'
 
 const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
+  serviceCountData,
   monitoredServiceListData,
   monitoredServiceDependencyData,
   selectedFilter,
-  setSelectedFilter,
+  onFilter,
   onEditService,
   onDeleteService,
   onToggleService,
@@ -77,6 +79,8 @@ const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
     )
   }
 
+  const filterOptions = getMonitoredServiceFilterOptions(getString, serviceCountData)
+
   return (
     <Layout.Vertical
       height="100%"
@@ -84,15 +88,24 @@ const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
       padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'xlarge' }}
     >
       <FilterCard
-        data={getMonitoredServiceFilterOptions(getString, monitoredServiceListData)}
+        data={filterOptions}
         cardClassName={css.filterCard}
-        selected={selectedFilter ?? getMonitoredServiceFilterOptions(getString, monitoredServiceListData)[0]}
-        onChange={item => setSelectedFilter(item)}
+        selected={filterOptions.find(card => card.type === selectedFilter)}
+        onChange={item => onFilter(item.type)}
       />
-      <Container style={{ flexGrow: 1 }}>
-        {renderDependencyData()}
-        <HighchartCustomTooltip chart={chart}>{getHighchartCustomTooltipContent}</HighchartCustomTooltip>
-      </Container>
+      {monitoredServiceDependencyData?.nodes?.length ? (
+        <Container style={{ flexGrow: 1 }}>
+          {renderDependencyData()}
+          <HighchartCustomTooltip chart={chart}>{getHighchartCustomTooltipContent}</HighchartCustomTooltip>
+        </Container>
+      ) : (
+        <NoDataCard
+          image={noServiceAvailableImage}
+          message={getString('cv.monitoredServices.youHaveNoMonitoredServices')}
+          imageClassName={css.noServiceAvailableImage}
+          containerClassName={css.noDataContainer}
+        />
+      )}
       <ServiceDependenciesLegend margin={{ top: 'medium' }} />
     </Layout.Vertical>
   )

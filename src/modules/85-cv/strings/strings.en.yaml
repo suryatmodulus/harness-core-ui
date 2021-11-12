@@ -41,6 +41,7 @@ selectWorkload: Select Workload
 riskTimeline: Risk Timeline
 perHeatMapCell: per heat map cell
 allServices: All Services
+servicesAtRisk: Services at Risk
 searchForAService: Search for a service
 trafficSplit: Traffic Split Percentage (optional)
 pinABaseline: Pin a baseline
@@ -556,6 +557,7 @@ monitoredServices:
   monitoredServiceUpdated: Monitoring Service updated
   monitoredServiceToggle: 'Monitored Service successfully {{enabled}}'
   showingAllServices: Showing all Services ({{ serviceCount }})
+  showingServiceAtRisk: Showing Services at Risk ({{ serviceCount }})
   noAvailableData: No available data.
   noServiceAvailable: No service available
   dependencyHealth: Dependency Health

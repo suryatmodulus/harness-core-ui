@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import { defaultTo } from 'lodash-es'
 import {
   Page,
   Button,
@@ -14,6 +15,7 @@ import {
 import { useStrings } from 'framework/strings'
 import {
   useGetMonitoredServiceListEnvironments,
+  useGetCountOfServices,
   useListMonitoredService,
   useSetHealthMonitoringFlag,
   useDeleteMonitoredService,
@@ -24,11 +26,11 @@ import { useQueryParams } from '@common/hooks'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getCVMonitoringServicesSearchParam, getErrorMessage, getEnvironmentOptions } from '@cv/utils/CommonUtils'
-import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
 import { getDependencyData } from '@cv/components/DependencyGraph/DependencyGraph.utils'
 import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
-import { getFilterAndEnvironmentValue } from './CVMonitoredService.utils'
+import { getEnvironmentIdentifier } from './CVMonitoredService.utils'
+import { FilterTypes } from './CVMonitoredService.types'
 import MonitoredServiceListView from './components/MonitoredServiceListView/MonitoredServiceListView'
 import MonitoredServiceGraphView from './components/MonitoredServiceGraphView/MonitoredServiceGraphView'
 import css from './CVMonitoredService.module.scss'
@@ -38,20 +40,32 @@ const MonitoredService: React.FC = () => {
   const history = useHistory()
   const { view } = useQueryParams<{ view?: Views.GRID }>()
   const { showError, showSuccess } = useToaster()
-  const params = useParams<ProjectPathProps>()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const pathParams = {
-    accountId: params.accountId,
-    projectIdentifier: params.projectIdentifier,
-    orgIdentifier: params.orgIdentifier
+    accountId,
+    orgIdentifier,
+    projectIdentifier
   }
 
   const [page, setPage] = useState(0)
   const [selectedView, setSelectedView] = useState<Views>(view === Views.GRID ? Views.GRID : Views.LIST)
   const [environment, setEnvironment] = useState<SelectOption>()
-  const [selectedFilter, setSelectedFilter] = useState<FilterCardItem>()
+  const [selectedFilter, setSelectedFilter] = useState<FilterTypes>(FilterTypes.ALL)
 
   const { data: environmentDataList, loading: loadingEnvironments } = useGetMonitoredServiceListEnvironments({
     queryParams: pathParams
+  })
+
+  const {
+    data: serviceCountData,
+    loading: serviceCountLoading,
+    error: serviceCountError,
+    refetch: refetchServiceCountData
+  } = useGetCountOfServices({
+    queryParams: {
+      ...pathParams,
+      environmentIdentifier: getEnvironmentIdentifier(environment)
+    }
   })
 
   const {
@@ -64,7 +78,8 @@ const MonitoredService: React.FC = () => {
       offset: page,
       pageSize: 10,
       ...pathParams,
-      ...getFilterAndEnvironmentValue(environment?.value as string, '')
+      environmentIdentifier: getEnvironmentIdentifier(environment),
+      servicesAtRiskFilter: selectedFilter === FilterTypes.RISK
     }
   })
 
@@ -76,7 +91,8 @@ const MonitoredService: React.FC = () => {
   } = useGetServiceDependencyGraph({
     queryParams: {
       ...pathParams,
-      ...getFilterAndEnvironmentValue(environment?.value as string, '')
+      environmentIdentifier: getEnvironmentIdentifier(environment),
+      servicesAtRiskFilter: selectedFilter === FilterTypes.RISK
     }
   })
 
@@ -101,7 +117,7 @@ const MonitoredService: React.FC = () => {
         }
       })
 
-      await Promise.all([refetchMonitoredServiceList(), refetchServiceDependencyGraphData()])
+      await Promise.all([refetchServiceCountData(), refetchMonitoredServiceList(), refetchServiceDependencyGraphData()])
 
       showSuccess(
         getString('cv.monitoredServices.monitoredServiceToggle', {
@@ -121,9 +137,9 @@ const MonitoredService: React.FC = () => {
     try {
       await deleteMonitoredService(identifier)
 
-      const { pageIndex = 0, pageItemCount } = monitoredServiceListData?.data || {}
+      const { pageIndex = 0, pageItemCount } = defaultTo(monitoredServiceListData?.data, {})
 
-      await Promise.all([refetchMonitoredServiceList(), refetchServiceDependencyGraphData()])
+      await Promise.all([refetchServiceCountData(), refetchMonitoredServiceList(), refetchServiceDependencyGraphData()])
 
       showSuccess(getString('cv.monitoredServices.monitoredServiceDeleted'))
 
@@ -135,11 +151,18 @@ const MonitoredService: React.FC = () => {
     }
   }
 
+  const onFilter = (type: FilterTypes): void => {
+    if (type !== selectedFilter) {
+      setSelectedFilter(type)
+      refetchServiceCountData()
+    }
+  }
+
   const onEditService = (identifier: string): void => {
     history.push({
       pathname: routes.toCVAddMonitoringServicesEdit({
         ...pathParams,
-        identifier: identifier,
+        identifier,
         module: 'cv'
       }),
       search: getCVMonitoringServicesSearchParam({ view: selectedView, tab: MonitoredServiceEnum.Configurations })
@@ -160,6 +183,22 @@ const MonitoredService: React.FC = () => {
     />
   )
 
+  const loading =
+    serviceCountLoading || monitoredServiceListLoading || deleteMonitoredServiceLoading || healthMonitoringFlagLoading
+  const error = serviceCountError || monitoredServiceListError
+
+  const retryOnError = (): void => {
+    if (serviceCountError) {
+      refetchServiceCountData()
+    }
+    if (monitoredServiceListError) {
+      refetchMonitoredServiceList()
+    }
+    if (serviceDependencyGraphError) {
+      refetchServiceDependencyGraphData()
+    }
+  }
+
   return (
     <>
       <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('cv.monitoredServices.title')} />
@@ -169,13 +208,13 @@ const MonitoredService: React.FC = () => {
           <Layout.Horizontal>
             <Select
               value={{
-                label: `${getString('environment')}: ${environment?.label ?? getString('all')}`,
-                value: environment?.value ?? getString('all')
+                label: `${getString('environment')}: ${defaultTo(environment?.label, getString('all'))}`,
+                value: defaultTo(environment?.value, getString('all'))
               }}
               defaultSelectedItem={{ label: getString('all'), value: getString('all') }}
               items={getEnvironmentOptions(environmentDataList, loadingEnvironments, getString)}
               onChange={item => {
-                setSelectedFilter(undefined)
+                setPage(0)
                 setEnvironment(item)
               }}
               className={css.filterSelect}
@@ -190,11 +229,11 @@ const MonitoredService: React.FC = () => {
       />
       {selectedView === Views.LIST ? (
         <Page.Body
-          loading={monitoredServiceListLoading || deleteMonitoredServiceLoading || healthMonitoringFlagLoading}
-          error={getErrorMessage(monitoredServiceListError)}
-          retryOnError={() => refetchMonitoredServiceList()}
+          loading={loading}
+          error={getErrorMessage(error)}
+          retryOnError={retryOnError}
           noData={{
-            when: () => !monitoredServiceListData?.data?.content?.length,
+            when: () => !serviceCountData?.allServicesCount,
             image: noServiceAvailableImage,
             imageClassName: css.noServiceAvailableImage,
             message: getString('cv.monitoredServices.youHaveNoMonitoredServices'),
@@ -203,9 +242,10 @@ const MonitoredService: React.FC = () => {
           className={css.pageBody}
         >
           <MonitoredServiceListView
+            serviceCountData={serviceCountData}
             monitoredServiceListData={monitoredServiceListData?.data}
             selectedFilter={selectedFilter}
-            setSelectedFilter={setSelectedFilter}
+            onFilter={onFilter}
             onEditService={onEditService}
             onDeleteService={onDeleteService}
             setPage={setPage}
@@ -214,23 +254,11 @@ const MonitoredService: React.FC = () => {
         </Page.Body>
       ) : (
         <Page.Body
-          loading={
-            serviceDependencyGraphLoading ||
-            monitoredServiceListLoading ||
-            deleteMonitoredServiceLoading ||
-            healthMonitoringFlagLoading
-          }
-          error={getErrorMessage(serviceDependencyGraphError ?? monitoredServiceListError)}
-          retryOnError={() => {
-            if (serviceDependencyGraphError) {
-              refetchServiceDependencyGraphData()
-            }
-            if (monitoredServiceListError) {
-              refetchMonitoredServiceList()
-            }
-          }}
+          loading={loading || serviceDependencyGraphLoading}
+          error={getErrorMessage(error || serviceDependencyGraphError)}
+          retryOnError={retryOnError}
           noData={{
-            when: () => !monitoredServiceDependencyData,
+            when: () => !serviceCountData?.allServicesCount,
             image: noServiceAvailableImage,
             imageClassName: css.noServiceAvailableImage,
             message: getString('cv.monitoredServices.youHaveNoMonitoredServices'),
@@ -239,9 +267,10 @@ const MonitoredService: React.FC = () => {
           className={css.pageBody}
         >
           <MonitoredServiceGraphView
+            serviceCountData={serviceCountData}
             monitoredServiceListData={monitoredServiceListData?.data}
             selectedFilter={selectedFilter}
-            setSelectedFilter={setSelectedFilter}
+            onFilter={onFilter}
             onEditService={onEditService}
             onDeleteService={onDeleteService}
             healthMonitoringFlagLoading={healthMonitoringFlagLoading}

@@ -1,12 +1,13 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { Container, Text, Color, FontVariation, Layout, TableV2 } from '@wings-software/uicore'
+import { Container, Text, Color, FontVariation, Layout, TableV2, NoDataCard, Heading } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { MonitoredServiceListItemDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
+import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import IconGrid from '../IconGrid/IconGrid'
@@ -19,6 +20,7 @@ import {
 } from '../../CVMonitoredService.utils'
 import type { MonitoredServiceListViewProps } from '../../CVMonitoredService.types'
 import MonitoredServiceCategory from '../../../components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
+import { getListTitle } from './MonitoredServiceListView.utils'
 import css from '../../CVMonitoredService.module.scss'
 
 const CategoryProps: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => (
@@ -136,9 +138,10 @@ const RenderDependenciesHealth: Renderer<CellProps<MonitoredServiceListItemDTO>>
 }
 
 const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
+  serviceCountData,
   monitoredServiceListData,
   selectedFilter,
-  setSelectedFilter,
+  onFilter,
   onEditService,
   onDeleteService,
   onToggleService,
@@ -178,67 +181,85 @@ const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({
     )
   }
 
-  return content ? (
+  const filterOptions = getMonitoredServiceFilterOptions(getString, serviceCountData)
+
+  return (
     <Container padding={{ top: 'medium', left: 'xlarge', right: 'xlarge' }} height="inherit">
       <FilterCard
-        data={getMonitoredServiceFilterOptions(getString, monitoredServiceListData)}
+        data={filterOptions}
         cardClassName={css.filterCard}
-        selected={selectedFilter ?? getMonitoredServiceFilterOptions(getString, monitoredServiceListData)[0]}
-        onChange={setSelectedFilter}
+        selected={filterOptions.find(card => card.type === selectedFilter)}
+        onChange={item => onFilter(item.type)}
       />
-      <Text font={{ variation: FontVariation.H6 }} color={Color.GREY_800} padding={{ top: 'large', bottom: 'large' }}>
-        {getString('cv.monitoredServices.showingAllServices', { serviceCount: content?.length })}
-      </Text>
-      <TableV2
-        sortable={true}
-        columns={[
-          {
-            Header: ' ',
-            width: '2.5%',
-            Cell: CategoryProps
-          },
-          {
-            Header: getString('name'),
-            width: '14.5%',
-            Cell: RenderServiceName
-          },
-          {
-            Header: getString('cv.monitoredServices.table.changes'),
-            width: '18%',
-            Cell: RenderServiceChanges
-          },
-          {
-            Header: getString('cv.monitoredServices.table.lastestHealthTrend'),
-            width: '20%',
-            Cell: RenderHealthTrend
-          },
-          {
-            Header: getString('cv.monitoredServices.table.serviceHealthScore'),
-            width: '18%',
-            Cell: RenderHealthScore
-          },
-          {
-            Header: getString('cv.monitoredServices.dependenciesHealth'),
-            width: '18%',
-            Cell: RenderDependenciesHealth
-          },
-          {
-            Header: getString('enabledLabel'),
-            width: '10%',
-            Cell: RenderStatusToggle
-          }
-        ]}
-        data={content}
-        pagination={{
-          pageSize,
-          pageIndex,
-          pageCount: totalPages,
-          itemCount: totalItems,
-          gotoPage: setPage
-        }}
-      />
+      {content?.length ? (
+        <>
+          <Heading
+            level={2}
+            font={{ variation: FontVariation.H6 }}
+            color={Color.GREY_800}
+            padding={{ top: 'large', bottom: 'large' }}
+          >
+            {getListTitle(getString, selectedFilter, totalItems)}
+          </Heading>
+          <TableV2
+            sortable={true}
+            columns={[
+              {
+                Header: ' ',
+                width: '2.5%',
+                Cell: CategoryProps
+              },
+              {
+                Header: getString('name'),
+                width: '14.5%',
+                Cell: RenderServiceName
+              },
+              {
+                Header: getString('cv.monitoredServices.table.changes'),
+                width: '18%',
+                Cell: RenderServiceChanges
+              },
+              {
+                Header: getString('cv.monitoredServices.table.lastestHealthTrend'),
+                width: '20%',
+                Cell: RenderHealthTrend
+              },
+              {
+                Header: getString('cv.monitoredServices.table.serviceHealthScore'),
+                width: '18%',
+                Cell: RenderHealthScore
+              },
+              {
+                Header: getString('cv.monitoredServices.dependenciesHealth'),
+                width: '18%',
+                Cell: RenderDependenciesHealth
+              },
+              {
+                Header: getString('enabledLabel'),
+                width: '10%',
+                Cell: RenderStatusToggle
+              }
+            ]}
+            data={content}
+            pagination={{
+              pageSize,
+              pageIndex,
+              pageCount: totalPages,
+              itemCount: totalItems,
+              gotoPage: setPage
+            }}
+          />
+        </>
+      ) : (
+        <NoDataCard
+          image={noServiceAvailableImage}
+          message={getString('cv.monitoredServices.youHaveNoMonitoredServices')}
+          imageClassName={css.noServiceAvailableImage}
+          containerClassName={css.noDataContainer}
+        />
+      )}
     </Container>
-  ) : null
+  )
 }
 
 export default MonitoredServiceListView

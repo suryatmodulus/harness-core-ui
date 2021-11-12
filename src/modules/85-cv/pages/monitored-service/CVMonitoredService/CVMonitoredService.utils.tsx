@@ -1,32 +1,22 @@
 import React, { ReactElement } from 'react'
 import { isNull, isNumber } from 'lodash-es'
 import Highcharts, { PointOptionsObject } from 'highcharts'
-import { Text, Layout, Color, Tag, FontVariation } from '@wings-software/uicore'
+import { Text, Layout, Color, Tag, FontVariation, SelectOption } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import type { Renderer, CellProps } from 'react-table'
 import { useStrings, UseStringsReturn } from 'framework/strings'
-import type {
-  ChangeSummaryDTO,
-  MonitoredServiceListItemDTO,
-  RiskData,
-  PageMonitoredServiceListItemDTO
-} from 'services/cv'
+import type { ChangeSummaryDTO, CountServiceDTO, MonitoredServiceListItemDTO, RiskData } from 'services/cv'
 import { getRiskColorValue, getRiskLabelStringId } from '@cv/utils/CommonUtils'
 import ImageDeleteService from '@cv/assets/delete-service.svg'
 import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
-import type { FilterEnvInterface, RiskTagWithLabelProps } from './CVMonitoredService.types'
+import { RiskTagWithLabelProps, FilterTypes } from './CVMonitoredService.types'
 import { HistoricalTrendChartOption, DefaultChangePercentage } from './CVMonitoredService.constants'
 import css from './CVMonitoredService.module.scss'
 
-export const getFilterAndEnvironmentValue = (environment: string, searchTerm: string): FilterEnvInterface => {
-  const filter: FilterEnvInterface = {}
-  if (environment && environment !== 'All') {
-    filter['environmentIdentifier'] = environment
+export const getEnvironmentIdentifier = (environment?: SelectOption): string | undefined => {
+  if (environment?.value !== 'All') {
+    return environment?.value as string
   }
-  if (searchTerm) {
-    filter['searchTerm'] = searchTerm
-  }
-  return filter
 }
 
 export const createTrendDataWithZone = (trendData: RiskData[]): Highcharts.SeriesLineOptions => {
@@ -160,14 +150,22 @@ export const ServiceDeleteContext = ({ serviceName }: { serviceName?: string }):
 
 export const getMonitoredServiceFilterOptions = (
   getString: UseStringsReturn['getString'],
-  monitoredServiceListData?: PageMonitoredServiceListItemDTO
+  serviceCountData: CountServiceDTO | null
 ): FilterCardItem[] => {
   return [
     {
+      type: FilterTypes.ALL,
       title: getString('cv.allServices'),
       icon: 'services',
       iconSize: 18,
-      count: monitoredServiceListData?.totalItems ?? 0
+      count: serviceCountData?.allServicesCount
+    },
+    {
+      type: FilterTypes.RISK,
+      title: getString('cv.servicesAtRisk'),
+      icon: 'offline-outline',
+      iconSize: 18,
+      count: serviceCountData?.servicesAtRiskCount
     }
   ]
 }

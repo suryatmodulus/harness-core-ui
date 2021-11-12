@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor, fireEvent, screen } from '@testing-library/react'
+import { render, waitFor, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
@@ -8,7 +8,14 @@ import * as cvServices from 'services/cv'
 import { RiskValues, getRiskLabelStringId, getCVMonitoringServicesSearchParam } from '@cv/utils/CommonUtils'
 import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 import CVMonitoredService from '../CVMonitoredService'
-import { monitoredServicelist, mockDeleteData, graphData } from './CVMonitoredService.mock'
+import {
+  serviceCountData,
+  MSListData,
+  updatedServiceCountData,
+  updatedMSListData,
+  riskMSListData,
+  graphData
+} from './CVMonitoredService.mock'
 
 export const testWrapperProps: TestWrapperProps = {
   path: routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps }),
@@ -19,6 +26,8 @@ export const testWrapperProps: TestWrapperProps = {
   }
 }
 
+const refetchServiceCountData = jest.fn()
+
 jest.mock('@cv/components/ContextMenuActions/ContextMenuActions', () => (props: any) => {
   return (
     <>
@@ -28,62 +37,41 @@ jest.mock('@cv/components/ContextMenuActions/ContextMenuActions', () => (props: 
   )
 })
 
+beforeEach(() => jest.clearAllMocks())
+
+jest.spyOn(cvServices, 'useDeleteMonitoredService').mockImplementation(() => ({ mutate: jest.fn() } as any))
+jest
+  .spyOn(cvServices, 'useGetMonitoredServiceListEnvironments')
+  .mockImplementation(() => ({ data: ['new_env_test', 'AppDTestEnv1', 'AppDTestEnv2'] } as any))
+jest.spyOn(cvServices, 'useListMonitoredService').mockImplementation(() => ({ data: MSListData } as any))
+jest.spyOn(cvServices, 'useGetServiceDependencyGraph').mockImplementation(() => ({ data: graphData } as any))
+jest
+  .spyOn(cvServices, 'useGetCountOfServices')
+  .mockImplementation(() => ({ data: serviceCountData, refetch: refetchServiceCountData } as any))
+
 describe('Monitored Service list', () => {
-  beforeAll(() => {
-    jest.spyOn(cvServices, 'useDeleteMonitoredService').mockImplementation(
-      () =>
-        ({
-          data: {},
-          mutate: jest.fn()
-        } as any)
-    )
-    jest.spyOn(cvServices, 'useGetMonitoredServiceListEnvironments').mockImplementation(
-      () =>
-        ({
-          data: ['new_env_test', 'AppDTestEnv1', 'AppDTestEnv2']
-        } as any)
-    )
-    jest.spyOn(cvServices, 'useListMonitoredService').mockImplementation(
-      () =>
-        ({
-          data: {
-            ...monitoredServicelist,
-            loading: false,
-            refetch: jest.fn(),
-            error: {}
-          },
-          loading: false,
-          error: {}
-        } as any)
-    )
-    jest.spyOn(cvServices, 'useGetServiceDependencyGraph').mockImplementation(
-      () =>
-        ({
-          data: {
-            ...graphData
-          },
-          loading: false,
-          error: {}
-        } as any)
-    )
-  })
   test('Service listing component renders', async () => {
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <CVMonitoredService />
       </TestWrapper>
     )
-    await waitFor(() => expect(container.querySelectorAll('[role="row"]').length).toEqual(4))
+
+    expect(screen.queryByText('cv.monitoredServices.showingAllServices')).toBeInTheDocument()
+    expect(container.querySelectorAll('.TableV2--body [role="row"]')).toHaveLength(serviceCountData.allServicesCount!)
   })
 
   test('edit flow works correctly', async () => {
-    const { container, findByTestId } = render(
+    const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <CVMonitoredService />
       </TestWrapper>
     )
-    fireEvent.click(container.querySelector('.context-menu-mock-edit')!)
-    const path = await findByTestId('location')
+
+    userEvent.click(container.querySelector('.context-menu-mock-edit')!)
+
+    const path = screen.getByTestId('location')
+
     expect(path).toMatchInlineSnapshot(`
       <div
         data-testid="location"
@@ -103,9 +91,9 @@ describe('Monitored Service list', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.UNHEALTHY))).toBeDefined())
-    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.NEED_ATTENTION))).toBeDefined())
-    await waitFor(() => expect(getByText(getRiskLabelStringId(RiskValues.HEALTHY))).toBeDefined())
+    expect(getByText(getRiskLabelStringId(RiskValues.UNHEALTHY))).toBeDefined()
+    expect(getByText(getRiskLabelStringId(RiskValues.NEED_ATTENTION))).toBeDefined()
+    expect(getByText(getRiskLabelStringId(RiskValues.HEALTHY))).toBeDefined()
   })
 
   test('Test Service and Environment names renders', async () => {
@@ -115,34 +103,36 @@ describe('Monitored Service list', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('ServiceName 1')).toBeDefined())
-    await waitFor(() => expect(getByText('EnvironmentName 1')).toBeDefined())
-    await waitFor(() => expect(getByText('ServiceName 2')).toBeDefined())
-    await waitFor(() => expect(getByText('EnvironmentName 2')).toBeDefined())
-    await waitFor(() => expect(getByText('ServiceName 3')).toBeDefined())
-    await waitFor(() => expect(getByText('EnvironmentName 3')).toBeDefined())
+    expect(getByText('ServiceName 1')).toBeDefined()
+    expect(getByText('EnvironmentName 1')).toBeDefined()
+    expect(getByText('ServiceName 2')).toBeDefined()
+    expect(getByText('EnvironmentName 2')).toBeDefined()
+    expect(getByText('ServiceName 3')).toBeDefined()
+    expect(getByText('EnvironmentName 3')).toBeDefined()
   })
 
   test('delete flow works correctly', async () => {
-    jest.spyOn(cvServices, 'useListMonitoredService').mockImplementation(
-      () =>
-        ({
-          data: { ...mockDeleteData },
-          loading: false,
-          refetch: jest.fn(),
-          error: {}
-        } as any)
-    )
+    jest
+      .spyOn(cvServices, 'useListMonitoredService')
+      .mockImplementation(() => ({ data: updatedMSListData, refetch: jest.fn() } as any))
+
+    jest
+      .spyOn(cvServices, 'useGetCountOfServices')
+      .mockImplementation(() => ({ data: updatedServiceCountData, refetch: refetchServiceCountData } as any))
+
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <CVMonitoredService />
       </TestWrapper>
     )
-    fireEvent.click(container.querySelector('.context-menu-mock-delete')!)
-    await waitFor(() => expect(container.querySelectorAll('.TableV2--body [role="row"]').length).toEqual(2))
+
+    userEvent.click(container.querySelector('.context-menu-mock-delete')!)
+
+    expect(container.querySelectorAll('.TableV2--body [role="row"]')).toHaveLength(2)
+    await waitFor(() => expect(refetchServiceCountData).toBeCalledTimes(1))
   })
 
-  test('Test Dependancy Graph renders', async () => {
+  test('Test Dependency Graph renders', async () => {
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <CVMonitoredService />
@@ -150,25 +140,20 @@ describe('Monitored Service list', () => {
     )
 
     userEvent.click(container.querySelector('[data-icon="graph"]')!)
-    await waitFor(() => expect(container.querySelector('.DependencyGraph')).toBeInTheDocument())
+
+    expect(container.querySelector('.DependencyGraph')).toBeInTheDocument()
   })
 
-  test('Test Dependancy Graph loading state renders', async () => {
-    jest.spyOn(cvServices, 'useGetServiceDependencyGraph').mockImplementation(
-      () =>
-        ({
-          data: {},
-          loading: true,
-          error: {}
-        } as any)
-    )
+  test('Test Dependency Graph loading state renders', async () => {
+    jest.spyOn(cvServices, 'useGetServiceDependencyGraph').mockImplementation(() => ({ loading: true } as any))
+
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <CVMonitoredService />
       </TestWrapper>
     )
 
-    await waitFor(() => expect(container.querySelector('[class*="spinner"]')).not.toBeNull)
+    expect(container.querySelector('[class*="spinner"]')).not.toBeInTheDocument()
   })
 
   test('Enable service', async () => {
@@ -184,19 +169,18 @@ describe('Monitored Service list', () => {
 
     userEvent.click(container.querySelector('[data-name="on-btn"]')!)
 
-    await waitFor(() =>
-      expect(mutate).toHaveBeenCalledWith(undefined, {
-        pathParams: {
-          identifier: 'Monitoring_service_101'
-        },
-        queryParams: {
-          enable: true,
-          accountId: '1234_accountId',
-          orgIdentifier: '1234_org',
-          projectIdentifier: '1234_project'
-        }
-      })
-    )
+    expect(mutate).toHaveBeenCalledWith(undefined, {
+      pathParams: {
+        identifier: 'Monitoring_service_101'
+      },
+      queryParams: {
+        enable: true,
+        accountId: '1234_accountId',
+        orgIdentifier: '1234_org',
+        projectIdentifier: '1234_project'
+      }
+    })
+    waitFor(() => expect(refetchServiceCountData).toBeCalledTimes(1))
   })
 
   test('Loading state', async () => {
@@ -212,15 +196,11 @@ describe('Monitored Service list', () => {
 
     userEvent.click(container.querySelectorAll('[data-name="on-btn"]')[0])
 
-    await waitFor(() => expect(mutate).not.toHaveBeenCalled())
+    expect(mutate).not.toHaveBeenCalled()
   })
 
   test('Error state', async () => {
-    const mutate = jest.fn().mockRejectedValue({
-      data: {
-        message: 'Something went wrong'
-      }
-    })
+    const mutate = jest.fn().mockRejectedValue({ data: { message: 'Something went wrong' } })
 
     jest.spyOn(cvServices, 'useSetHealthMonitoringFlag').mockImplementation(() => ({ mutate } as any))
 
@@ -232,8 +212,46 @@ describe('Monitored Service list', () => {
 
     userEvent.click(container.querySelectorAll('[data-name="on-btn"]')[0])
 
-    await waitFor(() => expect(mutate).toHaveBeenCalled())
+    expect(mutate).toHaveBeenCalled()
+    expect(refetchServiceCountData).toBeCalledTimes(0)
+    waitFor(() => expect(screen.queryByText('Something went wrong')).toBeInTheDocument())
+  })
 
-    expect(screen.queryByText('Something went wrong')).toBeInTheDocument()
+  test('Risk filter with data', async () => {
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredService />
+      </TestWrapper>
+    )
+
+    expect(container.querySelectorAll('.TableV2--body [role="row"]')).toHaveLength(
+      updatedServiceCountData.allServicesCount!
+    )
+
+    jest.spyOn(cvServices, 'useListMonitoredService').mockImplementation(() => ({ data: riskMSListData } as any))
+
+    userEvent.click(container.querySelector('[data-icon="offline-outline"]')!)
+
+    expect(refetchServiceCountData).toBeCalledTimes(1)
+    expect(screen.queryByText(`cv.monitoredServices.showingServiceAtRisk`)).toBeInTheDocument()
+    expect(container.querySelectorAll('.TableV2--body [role="row"]')).toHaveLength(
+      updatedServiceCountData.servicesAtRiskCount!
+    )
+  })
+
+  test('Risk filter with no data', async () => {
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredService />
+      </TestWrapper>
+    )
+
+    jest.spyOn(cvServices, 'useListMonitoredService').mockImplementation(() => ({} as any))
+
+    userEvent.click(container.querySelector('[data-icon="offline-outline"]')!)
+
+    expect(refetchServiceCountData).toBeCalledTimes(1)
+    expect(screen.queryByText(`cv.monitoredServices.showingServiceAtRisk`)).not.toBeInTheDocument()
+    expect(screen.queryByText('cv.monitoredServices.youHaveNoMonitoredServices')).toBeInTheDocument()
   })
 })

@@ -1,12 +1,11 @@
 import type { Color, FontVariation } from '@wings-software/uicore'
-import type { MonitoredServiceListItemDTO, PageMonitoredServiceListItemDTO, RiskData } from 'services/cv'
-import type { FilterCardItem } from '@cv/components/FilterCard/FilterCard.types'
+import type {
+  CountServiceDTO,
+  MonitoredServiceListItemDTO,
+  PageMonitoredServiceListItemDTO,
+  RiskData
+} from 'services/cv'
 import type { DependencyData } from '@cv/components/DependencyGraph/DependencyGraph.types'
-
-export interface FilterEnvInterface {
-  searchTerm?: string
-  environmentIdentifier?: string
-}
 
 export interface ContextMenuActionsProps {
   onEdit?(): void
@@ -18,10 +17,19 @@ export interface ContextMenuActionsProps {
   editLabel?: string
 }
 
+export enum FilterTypes {
+  ALL = 'ALL',
+  RISK = 'RISK',
+  DEPLOYMENT = 'DEPLOYMENT',
+  INFRASTRUCTURE = 'INFRASTRUCTURE',
+  INSIGHT = 'INSIGHT'
+}
+
 interface MonitoredServiceViewsProps {
+  serviceCountData: CountServiceDTO | null
   monitoredServiceListData?: PageMonitoredServiceListItemDTO
-  selectedFilter?: FilterCardItem
-  setSelectedFilter: React.Dispatch<React.SetStateAction<FilterCardItem | undefined>>
+  selectedFilter: FilterTypes
+  onFilter: (type: FilterTypes) => void
   onEditService: (identifier: string) => void
   onDeleteService: (identifier: string) => Promise<void>
   onToggleService: (identifier: string, checked: boolean) => Promise<void>

@@ -1,5 +1,5 @@
 import { RiskValues } from '@cv/utils/CommonUtils'
-import type { MonitoredServiceListItemDTO } from 'services/cv'
+import type { ResponsePageMonitoredServiceListItemDTO, MonitoredServiceListItemDTO, CountServiceDTO } from 'services/cv'
 
 export const yamlResponse = {
   metaData: {},
@@ -50,101 +50,91 @@ export const changeSummaryWithNegativeChange = {
   }
 }
 
-export const monitoredServicelist = {
+export const serviceCountData: CountServiceDTO = {
+  allServicesCount: 3,
+  servicesAtRiskCount: 1
+}
+
+const MSListContent: MonitoredServiceListItemDTO[] = [
+  {
+    name: 'delete me test',
+    identifier: 'delete_me_test',
+    serviceRef: 'AppDService',
+    serviceName: 'ServiceName 1',
+    environmentName: 'EnvironmentName 1',
+    environmentRef: 'new_env_test',
+    type: 'Application',
+    healthMonitoringEnabled: true,
+    historicalTrend: {
+      healthScores: [{ riskStatus: RiskValues.NO_DATA }]
+    },
+    currentHealthScore: { riskStatus: RiskValues.HEALTHY, healthScore: 100 }
+  },
+  {
+    name: 'Monitoring service 102 new',
+    identifier: 'Monitoring_service_101',
+    serviceRef: 'AppDService101',
+    environmentRef: 'AppDTestEnv1',
+    serviceName: 'ServiceName 2',
+    environmentName: 'EnvironmentName 2',
+    type: 'Application',
+    healthMonitoringEnabled: true,
+    historicalTrend: {
+      healthScores: [{ riskStatus: RiskValues.NO_DATA }]
+    },
+    currentHealthScore: { riskStatus: RiskValues.NEED_ATTENTION, healthScore: 40 }
+  },
+  {
+    name: 'new monitored service 101',
+    identifier: 'test_service_AppDTestEnv2',
+    serviceRef: 'test_service',
+    environmentRef: 'AppDTestEnv2',
+    serviceName: 'ServiceName 3',
+    environmentName: 'EnvironmentName 3',
+    type: 'Application',
+    healthMonitoringEnabled: true,
+    historicalTrend: {
+      healthScores: [{ riskStatus: RiskValues.NO_DATA }]
+    },
+    currentHealthScore: { riskStatus: RiskValues.UNHEALTHY, healthScore: 10 }
+  }
+]
+
+export const MSListData: ResponsePageMonitoredServiceListItemDTO = {
   data: {
     totalPages: 1,
-    totalItems: 3,
-    pageItemCount: 3,
+    totalItems: serviceCountData.allServicesCount,
+    pageItemCount: serviceCountData.allServicesCount,
     pageSize: 10,
-    content: [
-      {
-        name: 'delete me test',
-        identifier: 'delete_me_test',
-        serviceRef: 'AppDService',
-        serviceName: 'ServiceName 1',
-        environmentName: 'EnvironmentName 1',
-        environmentRef: 'new_env_test',
-        type: 'Application',
-        healthMonitoringEnabled: true,
-        historicalTrend: {
-          healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
-        },
-        currentHealthScore: { riskValue: 10, riskStatus: RiskValues.HEALTHY }
-      },
-      {
-        name: 'Monitoring service 102 new',
-        identifier: 'Monitoring_service_101',
-        serviceRef: 'AppDService101',
-        environmentRef: 'AppDTestEnv1',
-        serviceName: 'ServiceName 2',
-        environmentName: 'EnvironmentName 2',
-        type: 'Application',
-        healthMonitoringEnabled: true,
-        historicalTrend: {
-          healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
-        },
-        tags: { tag1: '', tag2: '', tag3: '' },
-        currentHealthScore: { riskValue: 50, riskStatus: RiskValues.NEED_ATTENTION }
-      },
-      {
-        name: 'new monitored service 101',
-        identifier: 'dadadasd',
-        serviceRef: 'test_service',
-        environmentRef: 'AppDTestEnv2',
-        serviceName: 'ServiceName 3',
-        environmentName: 'EnvironmentName 3',
-        type: 'Application',
-        healthMonitoringEnabled: true,
-        historicalTrend: {
-          healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
-        },
-        currentHealthScore: { riskValue: 90, riskStatus: RiskValues.UNHEALTHY }
-      }
-    ],
-    pageIndex: 0,
-    empty: false
+    content: MSListContent,
+    pageIndex: 0
   }
 }
 
-export const mockDeleteData = {
+export const updatedServiceCountData: CountServiceDTO = {
+  allServicesCount: 2,
+  servicesAtRiskCount: 1
+}
+
+export const updatedMSListData: ResponsePageMonitoredServiceListItemDTO = {
   data: {
     totalPages: 1,
-    totalItems: 3,
-    pageItemCount: 3,
+    totalItems: updatedServiceCountData.allServicesCount,
+    pageItemCount: updatedServiceCountData.allServicesCount,
     pageSize: 10,
-    content: [
-      {
-        name: 'Monitoring service 102 new',
-        identifier: 'Monitoring_service_101',
-        serviceRef: 'AppDService101',
-        environmentRef: 'AppDTestEnv1',
-        serviceName: 'ServiceName 2',
-        environmentName: 'EnvironmentName 2',
-        type: 'Application',
-        healthMonitoringEnabled: true,
-        historicalTrend: {
-          healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
-        },
-        tags: { tag1: '', tag2: '', tag3: '' },
-        currentHealthScore: { riskValue: 50, riskStatus: RiskValues.NEED_ATTENTION }
-      },
-      {
-        name: 'new monitored service 101',
-        identifier: 'dadadasd',
-        serviceRef: 'test_service',
-        environmentRef: 'AppDTestEnv2',
-        serviceName: 'ServiceName 3',
-        environmentName: 'EnvironmentName 3',
-        type: 'Application',
-        healthMonitoringEnabled: true,
-        historicalTrend: {
-          healthScores: [{ riskStatus: RiskValues.NO_DATA, riskValue: -2 }]
-        },
-        currentHealthScore: { riskValue: 90, riskStatus: RiskValues.UNHEALTHY }
-      }
-    ],
-    pageIndex: 0,
-    empty: false
+    content: MSListContent.slice(1),
+    pageIndex: 0
+  }
+}
+
+export const riskMSListData: ResponsePageMonitoredServiceListItemDTO = {
+  data: {
+    totalPages: 1,
+    totalItems: updatedServiceCountData.servicesAtRiskCount,
+    pageItemCount: updatedServiceCountData.servicesAtRiskCount,
+    pageSize: 10,
+    content: MSListContent.filter(service => service.currentHealthScore?.riskStatus === RiskValues.UNHEALTHY),
+    pageIndex: 0
   }
 }
 

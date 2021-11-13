@@ -575,6 +575,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                           >
                             <p
                               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
+                              data-name="ci-codebase-title"
                             >
                               ciCodebase
                             </p>

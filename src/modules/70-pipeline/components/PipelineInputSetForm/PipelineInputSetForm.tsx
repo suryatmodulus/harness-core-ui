@@ -185,7 +185,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
             MultiTypeInputType.RUNTIME && (
             <>
               <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'large', right: 0, bottom: 0 }}>
-                <Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
+                <Text data-name="ci-codebase-title" color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
                   {getString('ciCodebase')}
                 </Text>
               </Layout.Horizontal>

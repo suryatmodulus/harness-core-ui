@@ -89,6 +89,7 @@ exports[`CI enabled CI READONLY mode: CI stage readonly mode 1`] = `
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
+          data-name="ci-codebase-title"
         >
           ciCodebase
         </p>
@@ -168,6 +169,7 @@ exports[`CI enabled CI present in one of the stages: CI codebase input set form 
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
+          data-name="ci-codebase-title"
         >
           ciCodebase
         </p>

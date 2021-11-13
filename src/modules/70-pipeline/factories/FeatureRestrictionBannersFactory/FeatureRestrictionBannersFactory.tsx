@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { Button, ButtonSize, ButtonVariation, Color, Layout, Text, Container } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
@@ -8,9 +8,9 @@ import type { StringsMap } from 'stringTypes'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useFeatures } from '@common/hooks/useFeatures'
 import { useLocalStorage } from '@common/hooks'
-import type { CheckFeatureReturn, CheckFeaturesReturn } from 'framework/featureStore/FeaturesContext'
+import type { CheckFeatureReturn, CheckFeaturesReturn, FeatureDetail } from 'framework/featureStore/FeaturesContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
-import { useStrings } from 'framework/strings'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import css from './FeatureRestrictionBannersFactory.module.scss'
 
 interface Dependency {
@@ -58,6 +58,118 @@ const getBannerDependencyMet = ({
   }
 
   return true
+}
+
+const getQualifiedEnforcedBanner = ({
+  dependencyMet,
+  featureDetail,
+  uiDisplayBanner,
+  getString,
+  featureName
+}: {
+  dependencyMet: boolean
+  featureDetail?: FeatureDetail
+  uiDisplayBanner: ModuleToFeatureMapValue
+  getString: UseStringsReturn['getString']
+  featureName: FeatureIdentifier
+}): DisplayBanner | undefined => {
+  let _isLimitBreached = false
+  if (dependencyMet && typeof featureDetail?.count !== 'undefined' && featureDetail.limit) {
+    _isLimitBreached =
+      typeof uiDisplayBanner?.limit !== 'undefined'
+        ? featureDetail.count >= uiDisplayBanner.limit
+        : uiDisplayBanner.limitPercent
+        ? (featureDetail.count / featureDetail.limit) * 100 >= uiDisplayBanner.limitPercent
+        : false
+
+    if (_isLimitBreached) {
+      const usagePercent = Math.min(Math.floor((featureDetail.count / featureDetail.limit) * 100), 100)
+      const messageString =
+        uiDisplayBanner?.limitCrossedMessage &&
+        getString(uiDisplayBanner.limitCrossedMessage, {
+          usagePercent,
+          limit: featureDetail.limit,
+          count: featureDetail.count
+        })
+
+      if (messageString && featureDetail?.enabled) {
+        return {
+          featureName,
+          isFeatureRestrictionAllowedForModule: featureDetail.enabled,
+          upgradeRequiredBanner: uiDisplayBanner.upgradeRequiredBanner,
+          messageString
+        }
+      }
+    }
+  }
+  return undefined
+}
+
+const Banner = ({
+  banner,
+  getString,
+  history,
+  accountId,
+  module,
+  setDismissedBanners,
+  dismissedBanners
+}: {
+  banner: DisplayBanner
+  getString: UseStringsReturn['getString']
+  history: { push: (route: string) => void }
+  accountId: string
+  module: Module
+  setDismissedBanners: Dispatch<SetStateAction<string[]>>
+  dismissedBanners: string[]
+}): JSX.Element => {
+  return (
+    <Layout.Horizontal
+      key={banner.messageString}
+      className={cx(css.bannerContainer, banner.upgradeRequiredBanner && css.upgradeRequiredBanner)}
+      flex={{ alignItems: 'center', justifyContent: 'space-between' }}
+      background={banner.upgradeRequiredBanner ? '#FFF5ED' : Color.WHITE}
+      height={56}
+      padding={{ left: 'large', top: 'medium', bottom: 'medium' }}
+    >
+      <Container flex>
+        <Text
+          icon={banner.upgradeRequiredBanner ? 'upgrade-bolt' : 'info-message'}
+          iconProps={{
+            intent: 'primary',
+            size: 20,
+            margin: { right: 'xsmall' },
+            color: banner.upgradeRequiredBanner ? Color.ORANGE_900 : Color.PRIMARY_7
+          }}
+          font={{ weight: 'semi-bold', size: 'small' }}
+          color={Color.PRIMARY_10}
+          margin={{ right: 'medium' }}
+        >
+          {banner.upgradeRequiredBanner && (
+            <Text style={{ fontWeight: 700, marginRight: 'var(--spacing-5)' }} color={Color.ORANGE_900}>
+              {getString('common.feature.upgradeRequired.title').toUpperCase()}
+            </Text>
+          )}
+          {banner.messageString}
+        </Text>
+        <Button
+          variation={ButtonVariation.SECONDARY}
+          size={ButtonSize.SMALL}
+          width={130}
+          onClick={() => {
+            history.push(
+              routes.toSubscriptions({
+                accountId,
+                moduleCard: module
+              })
+            )
+          }}
+        >
+          {getString('common.explorePlans')}
+        </Button>
+      </Container>
+      <Button icon="cross" minimal onClick={() => setDismissedBanners([...dismissedBanners, banner.featureName])} />
+    </Layout.Horizontal>
+  )
 }
 
 export const ModuleToFeatureMap: Record<string, Record<string, ModuleToFeatureMapValue[]>> = {
@@ -177,41 +289,24 @@ export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps)
           Show the banner if
           1. Feature enforcement enabled
           2. If dependency exists and matches
+          
+          getQualifiedEnforcedBanner
           3. Usage limit | percent uiDisplayBanner is breached
           4. Message is present in the above map value
         */
 
         const dependency = uiDisplayBanner?.dependency
         const dependencyMet = getBannerDependencyMet({ features, dependency })
-        let _isLimitBreached = false
-        if (dependencyMet && typeof featureDetail?.count !== 'undefined' && featureDetail.limit) {
-          _isLimitBreached =
-            typeof uiDisplayBanner?.limit !== 'undefined'
-              ? featureDetail.count >= uiDisplayBanner.limit
-              : uiDisplayBanner.limitPercent
-              ? (featureDetail.count / featureDetail.limit) * 100 >= uiDisplayBanner.limitPercent
-              : false
-
-          if (_isLimitBreached) {
-            const usagePercent = Math.min(Math.floor((featureDetail.count / featureDetail.limit) * 100), 100)
-            const messageString =
-              uiDisplayBanner?.limitCrossedMessage &&
-              getString(uiDisplayBanner.limitCrossedMessage, {
-                usagePercent,
-                limit: featureDetail.limit,
-                count: featureDetail.count
-              })
-
-            if (messageString && featureDetail?.enabled) {
-              shownBanners.push({
-                featureName,
-                isFeatureRestrictionAllowedForModule: featureDetail.enabled,
-                upgradeRequiredBanner: uiDisplayBanner.upgradeRequiredBanner,
-                messageString
-              })
-              bannerAdded = true
-            }
-          }
+        const addBanner = getQualifiedEnforcedBanner({
+          dependencyMet,
+          featureDetail,
+          uiDisplayBanner,
+          getString,
+          featureName
+        })
+        if (addBanner) {
+          shownBanners.push(addBanner)
+          bannerAdded = true
         }
       }
       return bannerAdded
@@ -224,56 +319,16 @@ export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps)
         {shownBanners
           .filter(shownBanner => !dismissedBanners.includes(shownBanner?.featureName))
           .map(banner => (
-            <Layout.Horizontal
-              key={banner.messageString}
-              className={cx(css.bannerContainer, banner.upgradeRequiredBanner && css.upgradeRequiredBanner)}
-              flex={{ alignItems: 'center', justifyContent: 'space-between' }}
-              background={banner.upgradeRequiredBanner ? '#FFF5ED' : Color.WHITE}
-              height={56}
-              padding={{ left: 'large', top: 'medium', bottom: 'medium' }}
-            >
-              <Container flex>
-                <Text
-                  icon={banner.upgradeRequiredBanner ? 'upgrade-bolt' : 'info-message'}
-                  iconProps={{
-                    intent: 'primary',
-                    size: 20,
-                    margin: { right: 'xsmall' },
-                    color: banner.upgradeRequiredBanner ? Color.ORANGE_900 : Color.PRIMARY_7
-                  }}
-                  font={{ weight: 'semi-bold', size: 'small' }}
-                  color={Color.PRIMARY_10}
-                  margin={{ right: 'medium' }}
-                >
-                  {banner.upgradeRequiredBanner && (
-                    <Text style={{ fontWeight: 700, marginRight: 'var(--spacing-5)' }} color={Color.ORANGE_900}>
-                      {getString('common.feature.upgradeRequired.title').toUpperCase()}
-                    </Text>
-                  )}
-                  {banner.messageString}
-                </Text>
-                <Button
-                  variation={ButtonVariation.SECONDARY}
-                  size={ButtonSize.SMALL}
-                  width={130}
-                  onClick={() => {
-                    history.push(
-                      routes.toSubscriptions({
-                        accountId,
-                        moduleCard: module
-                      })
-                    )
-                  }}
-                >
-                  {getString('common.explorePlans')}
-                </Button>
-              </Container>
-              <Button
-                icon="cross"
-                minimal
-                onClick={() => setDismissedBanners([...dismissedBanners, banner.featureName])}
-              />
-            </Layout.Horizontal>
+            <Banner
+              key={banner?.messageString}
+              banner={banner}
+              getString={getString}
+              history={history}
+              accountId={accountId}
+              module={module}
+              setDismissedBanners={setDismissedBanners}
+              dismissedBanners={dismissedBanners}
+            />
           ))}
       </>
     )

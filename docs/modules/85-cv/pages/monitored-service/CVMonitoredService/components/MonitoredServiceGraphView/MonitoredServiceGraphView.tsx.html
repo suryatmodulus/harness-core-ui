@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.42% </span>
+                <span class="strong">79.41% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/31</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">22.22% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>4/18</span>
+                <span class='fraction'>27/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">33.33% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>2/6</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>8/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.42% </span>
+                <span class="strong">42.86% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>3/7</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">79.41% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/31</span>
+                <span class='fraction'>27/34</span>
             </div>
         
             
@@ -158,7 +158,20 @@
 <a name='L99'></a><a href='#L99'>99</a>
 <a name='L100'></a><a href='#L100'>100</a>
 <a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -171,12 +184,14 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,6 +254,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -247,7 +263,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -262,10 +288,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useCallback } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import type { Chart as HighchartsChart, TooltipFormatterContextObject } from 'highcharts'
-import { Layout, Container, Views } from '@wings-software/uicore'
+import { Layout, Container, Views, NoDataCard } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import { getCVMonitoringServicesSearchParam } from '@cv/utils/CommonUtils'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
 import { HighchartCustomTooltip } from '@cv/utils/HighchartCustomTooltip'
@@ -278,10 +305,11 @@ import { getListingPageDependencyGraphOptions } from './MonitoredServiceGraphVie
 import css from '../../CVMonitoredService.module.scss'
 &nbsp;
 const MonitoredServiceGraphView: React.FC&lt;MonitoredServiceGraphViewProps&gt; = ({
+  serviceCountData,
   monitoredServiceListData,
   monitoredServiceDependencyData,
   selectedFilter,
-  setSelectedFilter,
+  onFilter,
   onEditService,
   onDeleteService,
   onToggleService,
@@ -338,6 +366,8 @@ const MonitoredServiceGraphView: React.FC&lt;MonitoredServiceGraphViewProps&gt; 
     )
   }
 &nbsp;
+  const filterOptions = getMonitoredServiceFilterOptions(getString, serviceCountData)
+&nbsp;
   return (
     &lt;Layout.Vertical
       height="100%"
@@ -345,15 +375,24 @@ const MonitoredServiceGraphView: React.FC&lt;MonitoredServiceGraphViewProps&gt; 
       padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'xlarge' }}
     &gt;
       &lt;FilterCard
-        data={getMonitoredServiceFilterOptions(getString, monitoredServiceListData)}
+        data={filterOptions}
         cardClassName={css.filterCard}
-        selected={<span class="branch-0 cbranch-no" title="branch not covered" >selectedFilter </span>?? getMonitoredServiceFilterOptions(getString, monitoredServiceListData)[0]}
-        onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >setSelectedFilter(item)}</span>
+        selected={filterOptions.find(card =&gt; card.type === selectedFilter)}
+        onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >onFilter(item.type)}</span>
       /&gt;
-      &lt;Container style={{ flexGrow: 1 }}&gt;
-        {renderDependencyData()}
-        &lt;HighchartCustomTooltip chart={chart}&gt;{getHighchartCustomTooltipContent}&lt;/HighchartCustomTooltip&gt;
-      &lt;/Container&gt;
+      {monitoredServiceDependencyData<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>odes<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? (
+        &lt;Container style={{ flexGrow: 1 }}&gt;
+          {renderDependencyData()}
+          &lt;HighchartCustomTooltip chart={chart}&gt;{getHighchartCustomTooltipContent}&lt;/HighchartCustomTooltip&gt;
+        &lt;/Container&gt;
+      ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;NoDataCard</span>
+          image={noServiceAvailableImage}
+          message={getString('cv.monitoredServices.youHaveNoMonitoredServices')}
+          imageClassName={css.noServiceAvailableImage}
+          containerClassName={css.noDataContainer}
+        /&gt;
+      )}
       &lt;ServiceDependenciesLegend margin={{ top: 'medium' }} /&gt;
     &lt;/Layout.Vertical&gt;
   )
@@ -367,7 +406,7 @@ export default MonitoredServiceGraphView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 17:13:17 GMT+0000 (Greenwich Mean Time)
+                at Sun Nov 14 2021 00:08:28 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

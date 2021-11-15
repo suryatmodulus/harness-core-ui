@@ -91,6 +91,7 @@ export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & G
   mockData?: ResponseJsonNode
   executionInputSetTemplateYaml?: string
   stagesExecuted?: string[]
+  executionIdentifier?: string
 }
 
 export interface SelectedStageData {
@@ -138,7 +139,8 @@ function RunPipelineFormBasic({
   branch,
   repoIdentifier,
   executionInputSetTemplateYaml = '',
-  stagesExecuted
+  stagesExecuted,
+  executionIdentifier
 }: RunPipelineFormProps & InputSetGitQueryParams): React.ReactElement {
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
@@ -287,7 +289,7 @@ function RunPipelineFormBasic({
     identifier: pipelineIdentifier
   })
   const { executionId } = useQueryParams<{ executionId?: string }>()
-
+  const pipelineExecutionId = executionIdentifier ?? executionId
   const { mutate: reRunPipeline, loading: reRunLoading } = useRePostPipelineExecuteWithInputSetYaml({
     queryParams: {
       accountIdentifier: accountId,
@@ -298,7 +300,7 @@ function RunPipelineFormBasic({
       branch
     },
     identifier: pipelineIdentifier,
-    originalExecutionId: executionId || '',
+    originalExecutionId: pipelineExecutionId || '',
     requestOptions: {
       headers: {
         'content-type': 'application/yaml'
@@ -315,7 +317,7 @@ function RunPipelineFormBasic({
       branch
     },
     identifier: pipelineIdentifier,
-    originalExecutionId: executionId || ''
+    originalExecutionId: pipelineExecutionId || ''
   })
 
   const {
@@ -530,7 +532,7 @@ function RunPipelineFormBasic({
 
       try {
         let response
-        if (isEmpty(executionId)) {
+        if (isEmpty(pipelineExecutionId)) {
           response = selectedStageData.allStagesSelected
             ? await runPipeline(
                 !isEmpty(valuesPipelineRef.current)
@@ -902,7 +904,7 @@ function RunPipelineFormBasic({
                       <MultiSelectDropDown
                         popoverClassName={css.disabledStageDropdown}
                         hideItemCount={selectedStageData.allStagesSelected}
-                        disabled={Boolean(executionId)}
+                        disabled={Boolean(pipelineExecutionId)}
                         buttonTestId={'stage-select'}
                         onChange={onStageSelect}
                         onPopoverClose={() => {

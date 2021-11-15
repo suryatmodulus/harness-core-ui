@@ -151,7 +151,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({
                 )}
               </div>
 
-              <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+              <Layout.Horizontal spacing="xxlarge">
                 <Button
                   variation={ButtonVariation.PRIMARY}
                   type="submit"
@@ -162,7 +162,6 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({
                     /* istanbul ignore next */
                     nextStep?.({ ...formik.values, selectedType })
                   }}
-                  className={css.saveBtn}
                   disabled={
                     /* istanbul ignore next */
                     !selectedType ||

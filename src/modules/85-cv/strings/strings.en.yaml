@@ -559,12 +559,11 @@ monitoredServices:
   showingAllServices: Showing all Services ({{ serviceCount }})
   showingServiceAtRisk: Showing Services at Risk ({{ serviceCount }})
   noAvailableData: No available data.
-  noServiceAvailable: No service available
   dependencyHealth: Dependency Health
   dependenciesHealth: Dependencies Health
   healthScoreDataNotAvailable: Health score data not available.
-  healthScoreDataNotAvailableForServiceHealth: Health score data not available for service health.
-  healthScoreDataNotAvailableForDependencyHealth: Health score data not available for dependency health.
+  serviceHealthScoreDataNotAvailable: Service Health score data not available.
+  dependencyHealthScoreDataNotAvailable: Dependency Health score data not available.
   failedToFetchHealthScore: Failed to fetch health score data.
   failedToFetchSummaryData: Failed to fetch summary data
   changeMonitoredServiceType: Change Monitored Service Type

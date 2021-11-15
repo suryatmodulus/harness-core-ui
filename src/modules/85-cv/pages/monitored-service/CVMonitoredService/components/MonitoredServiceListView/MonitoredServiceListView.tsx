@@ -117,7 +117,6 @@ const RenderServiceChanges: Renderer<CellProps<MonitoredServiceListItemDTO>> = (
 }
 
 const RenderDependenciesHealth: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
-  const { getString } = useStrings()
   const monitoredService = row.original
 
   if (monitoredService.dependentHealthScore?.length) {
@@ -130,11 +129,7 @@ const RenderDependenciesHealth: Renderer<CellProps<MonitoredServiceListItemDTO>>
     )
   }
 
-  return (
-    <Text color={Color.BLACK} font={{ variation: FontVariation.BODY }}>
-      {getString('cv.monitoredServices.noServiceAvailable')}
-    </Text>
-  )
+  return null
 }
 
 const MonitoredServiceListView: React.FC<MonitoredServiceListViewProps> = ({

@@ -4184,6 +4184,7 @@ export interface StringsMap {
   'cv.monitoredServices.deleteService': string
   'cv.monitoredServices.dependenciesHealth': string
   'cv.monitoredServices.dependencyHealth': string
+  'cv.monitoredServices.dependencyHealthScoreDataNotAvailable': string
   'cv.monitoredServices.editMonitoredServices': string
   'cv.monitoredServices.editService': string
   'cv.monitoredServices.environmentValidation': string
@@ -4191,8 +4192,6 @@ export interface StringsMap {
   'cv.monitoredServices.failedToFetchSummaryData': string
   'cv.monitoredServices.filterlabel': string
   'cv.monitoredServices.healthScoreDataNotAvailable': string
-  'cv.monitoredServices.healthScoreDataNotAvailableForDependencyHealth': string
-  'cv.monitoredServices.healthScoreDataNotAvailableForServiceHealth': string
   'cv.monitoredServices.monitoredServiceCreated': string
   'cv.monitoredServices.monitoredServiceDeleted': string
   'cv.monitoredServices.monitoredServiceDetails': string
@@ -4204,7 +4203,6 @@ export interface StringsMap {
   'cv.monitoredServices.nameValidation': string
   'cv.monitoredServices.newMonitoredServices': string
   'cv.monitoredServices.noAvailableData': string
-  'cv.monitoredServices.noServiceAvailable': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceDependencies.noData': string
   'cv.monitoredServices.serviceHealth.anamolies': string
@@ -4222,6 +4220,7 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention': string
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.observe': string
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy': string
+  'cv.monitoredServices.serviceHealthScoreDataNotAvailable': string
   'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.showingAllServices': string
   'cv.monitoredServices.showingServiceAtRisk': string

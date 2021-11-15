@@ -3640,9 +3640,12 @@ export interface StringsMap {
   'cf.gitSync.flagName': string
   'cf.gitSync.gitErrorModalTitle': string
   'cf.gitSync.gitServiceApiError': string
+  'cf.gitSync.goToGit': string
+  'cf.gitSync.invalidYaml': string
   'cf.gitSync.saveFlagToGit': string
   'cf.gitSync.syncingPaused': string
   'cf.gitSync.toggleGitSyncPause': string
+  'cf.gitSync.tryAgain': string
   'cf.gitSync.turnOffGitAndContinue': string
   'cf.homepage.learnMore': string
   'cf.homepage.slogan': string

@@ -30,6 +30,8 @@ describe('GitErrorModal', () => {
     await waitFor(() => expect(screen.getByTestId('git-error-modal')).toBeInTheDocument())
 
     expect(screen.getByText(/default api error/i)).toBeInTheDocument()
+    expect(screen.getByText('cf.gitSync.turnOffGitAndContinue')).toBeInTheDocument()
+    expect(screen.getByText('cancel')).toBeInTheDocument()
   })
 
   test('it should call onSubmit correctly', async () => {

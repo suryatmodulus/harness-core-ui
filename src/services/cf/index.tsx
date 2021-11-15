@@ -11,6 +11,10 @@ export interface ApiKey {
    */
   apiKey: string
   identifier: string
+  /**
+   * The hashed API key
+   */
+  key?: string
   name: string
   type: 'Server' | 'Client'
 }
@@ -54,6 +58,7 @@ export interface Distribution {
 export interface Environment {
   apiKeys: ApiKeys
   description?: string
+  id?: string
   identifier: string
   name: string
   project: string
@@ -163,6 +168,7 @@ export interface GitRepo {
   objectId: string
   repoIdentifier: string
   rootFolder: string
+  yamlError?: string
 }
 
 export interface GitRepoResp {

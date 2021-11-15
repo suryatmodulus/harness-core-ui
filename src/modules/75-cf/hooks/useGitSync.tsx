@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import * as yup from 'yup'
 import type { ObjectSchema } from 'yup'
 import { useModalHook } from '@wings-software/uicore'
@@ -9,6 +9,7 @@ import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { useStrings } from 'framework/strings'
 import GitErrorModal from '@cf/components/GitErrorModal/GitErrorModal'
+import InvalidYamlModal from '@cf/components/InvalidYamlModal/InvalidYamlModal'
 
 export interface GitDetails {
   branch: string
@@ -41,12 +42,6 @@ export interface UseGitSync {
 }
 
 export const GIT_SYNC_ERROR_CODE = 424
-
-export interface GitSyncErrorResponseBody {
-  data: { code: string; message: string }
-  message: string
-  status: number
-}
 
 export const useGitSync = (): UseGitSync => {
   const { projectIdentifier, accountId, orgIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
@@ -90,16 +85,29 @@ export const useGitSync = (): UseGitSync => {
     [FF_GITSYNC, getGitRepo?.data?.repoDetails?.enabled, getGitRepo?.data?.repoSet]
   )
 
+  useEffect(() => {
+    if (getGitRepo.data?.repoDetails?.yamlError) {
+      showInvalidYamlModal()
+    } else {
+      hideInvalidYamlModal()
+    }
+  }, [getGitRepo.data?.repoDetails?.yamlError])
+
   const [apiError, setApiError] = useState<string>('')
 
-  const [showModal, hideModal] = useModalHook(
+  const handleError = (error: GitSyncErrorResponse): void => {
+    setApiError(error.message)
+    showErrorModal()
+  }
+
+  const [showErrorModal, hideErrorModal] = useModalHook(
     () => (
       <GitErrorModal
-        onClose={hideModal}
+        onClose={hideErrorModal}
         onSubmit={() => {
           const newGitPauseValue = false
           handleGitPause(newGitPauseValue)
-          hideModal()
+          hideErrorModal()
         }}
         apiError={apiError}
       />
@@ -107,10 +115,18 @@ export const useGitSync = (): UseGitSync => {
     [apiError]
   )
 
-  const handleError = (error: GitSyncErrorResponse): void => {
-    setApiError(error.message)
-    showModal()
-  }
+  const [showInvalidYamlModal, hideInvalidYamlModal] = useModalHook(
+    () => (
+      <InvalidYamlModal
+        handleRetry={() => getGitRepo.refetch()}
+        isLoading={getGitRepo.loading}
+        apiError={getGitRepo.data?.repoDetails?.yamlError}
+        flagsYamlFilename={getGitRepo.data?.repoDetails?.filePath}
+        handleClose={hideInvalidYamlModal}
+      />
+    ),
+    [getGitRepo.data?.repoDetails?.yamlError, getGitRepo.loading]
+  )
 
   const getGitSyncFormMeta = (autoCommitMessage?: string): GitSyncFormMeta => ({
     gitSyncInitialValues: {

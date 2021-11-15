@@ -16,7 +16,7 @@ addVariable: Add Variable
 advanced: '{{ $.advancedTitle }}'
 editVariable: Edit variable
 editVariableType: Edit variable type
-removeThisVariable: Remove This Variable
+removeThisVariable: Remove This variable
 optionalConfig: Optional Configuration
 optionalLabel: (optional)
 headers: Headers

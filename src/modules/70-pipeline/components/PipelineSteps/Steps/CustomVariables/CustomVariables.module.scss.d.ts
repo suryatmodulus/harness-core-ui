@@ -23,5 +23,10 @@ declare const styles: {
   readonly selectedSearchText: string
   readonly selectedSearchTextValueRow: string
   readonly currentSelection: string
+  readonly copyTextRow: string
+  readonly copyTextInput: string
+  readonly copyTextPopoverWrapper: string
+  readonly variableNameCell: string
+  readonly hoveredRow: string
 }
 export default styles

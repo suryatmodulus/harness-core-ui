@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Text,
   Button,
@@ -16,11 +16,10 @@ import { debounce, escape } from 'lodash-es'
 
 import { String } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { TextInputWithCopyBtn } from '@common/components/TextInputWithCopyBtn/TextInputWithCopyBtn'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import type { NGVariable } from 'services/cd-ng'
 import type { YamlProperties } from 'services/pipeline-ng'
-import { toVariableStr } from '@common/utils/StringUtils'
-import { CopyText } from '@common/components/CopyText/CopyText'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -63,6 +62,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
   const { initialValues, onUpdate, domId, heading, className, yamlProperties, readonly, path } = props
   const uids = React.useRef<string[]>([])
 
+  const [hoveredVariable, setHoveredVariable] = useState<Record<string, boolean>>({})
   const [selectedVariable, setSelectedVariable] = React.useState<VariableState | null>(null)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedUpdate = React.useCallback(
@@ -159,8 +159,6 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                   }
                   const key = uids.current[index]
                   const yamlData = yamlProperties?.[index]
-                  const vairableNameParts = yamlData?.localName?.split('.') || []
-                  const variableName = vairableNameParts[vairableNameParts.length - 1]
                   const hasSameMetaPath = searchedEntity.path === `${updatedPath}[${index}].value`
                   const searchedEntityType = searchedEntity.type || null
 
@@ -169,31 +167,35 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                     ?.includes(searchText?.toLowerCase() || '')
 
                   return (
-                    <div key={key} className={css.variableListTable}>
-                      {yamlData && yamlData.fqn && yamlData.localName ? (
-                        <CopyText valueClassName="variable-name-cell" textToCopy={toVariableStr(yamlData.fqn)}>
-                          <span
-                            className={cx({
-                              'selected-search-text': searchedEntityType === 'key' && hasSameMetaPath
-                            })}
-                            dangerouslySetInnerHTML={{
-                              __html: getTextWithSearchMarkers({
-                                searchText: escape(searchText),
-                                txt: escape(variableName),
-                                className: cx(css.selectedSearchText, {
-                                  [css.currentSelection]: searchedEntityType === 'key' && hasSameMetaPath
-                                })
-                              })
-                            }}
-                          />
-                        </CopyText>
+                    <div
+                      key={key}
+                      className={cx(
+                        css.variableListTable,
+                        'variable-list-row',
+                        hoveredVariable[index] ? css.hoveredRow : ''
+                      )}
+                      onMouseLeave={() => setHoveredVariable({ [index]: false })}
+                    >
+                      {hoveredVariable[index] ? (
+                        <TextInputWithCopyBtn
+                          name={`variables[${index}].name`}
+                          label=""
+                          localName={yamlData?.localName}
+                          fullName={yamlData?.fqn}
+                          outerClassName={css.copyTextRow}
+                          textInputClassName={css.copyTextInput}
+                          popoverWrapperClassName={css.copyTextPopoverWrapper}
+                        />
                       ) : (
-                        <Text className="variable-name-cell" lineClamp={1}>
+                        <Text className={cx(css.variableNameCell)} lineClamp={1}>
                           <span
                             className={cx({
                               [css.selectedSearchTextValueRow]: searchedEntityType === 'key' && hasSameMetaPath,
                               'selected-search-text': searchedEntityType === 'key' && hasSameMetaPath
                             })}
+                            onMouseOver={() => {
+                              setHoveredVariable({ [index]: true })
+                            }}
                             dangerouslySetInnerHTML={{
                               __html: getTextWithSearchMarkers({
                                 searchText: escape(searchText),
@@ -204,7 +206,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                         </Text>
                       )}
                       <div
-                        className={cx(css.valueRow, 'variable-value-cell', {
+                        className={cx(css.valueRow, {
                           [css.selectedSearchTextValueRow]: searchText?.length && isValidValueMatch,
                           'selected-search-text': searchedEntityType === 'value' && hasSameMetaPath
                         })}

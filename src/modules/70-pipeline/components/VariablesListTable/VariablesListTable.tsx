@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { isPlainObject, get, isNil, escape, defaultTo } from 'lodash-es'
 import cx from 'classnames'
 
-import { FontVariation, Text, useNestedAccordion } from '@wings-software/uicore'
-import { CopyText } from '@common/components/CopyText/CopyText'
+import { Color, FontVariation, Text, useNestedAccordion } from '@wings-software/uicore'
 import type { VariableResponseMapValue } from 'services/pipeline-ng'
-import { toVariableStr } from '@common/utils/StringUtils'
+import { TextInputWithCopyBtn } from '@common/components/TextInputWithCopyBtn/TextInputWithCopyBtn'
 
 import {
   getTextWithSearchMarkers,
@@ -26,6 +25,7 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
   const { searchText, searchIndex, searchResults = [] } = usePipelineVariables()
   const searchedEntity = defaultTo(searchResults[searchIndex || 0], {} as SearchResult)
   const tableRef = React.useRef()
+  const [hoveredVariable, setHoveredVariable] = useState<Record<string, boolean>>({})
   const { openNestedPath } = useNestedAccordion()
   React.useLayoutEffect(() => {
     if (tableRef.current) {
@@ -71,12 +71,36 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
         const hasSameMetaKeyId = searchedEntity?.metaKeyId === value
         const isValidValueMatch = `${formattedValue}`?.toLowerCase()?.includes(searchText?.toLowerCase() || '')
         return (
-          <div key={key} className={css.variableListRow}>
-            <CopyText valueClassName="variable-name-cell" textToCopy={toVariableStr(defaultTo(yamlProps?.fqn, ''))}>
+          <div
+            key={key}
+            className={cx(
+              css.variableListRow,
+              'variable-list-row',
+              hoveredVariable[variableName] ? css.hoveredRow : ''
+            )}
+            onMouseLeave={() => setHoveredVariable({ [variableName]: false })}
+          >
+            {hoveredVariable[variableName] ? (
+              <div className={cx(css.nameSection, css.nameSectionWithCopy)}>
+                <TextInputWithCopyBtn
+                  name=""
+                  disabled
+                  label=""
+                  localName={yamlProps?.localName}
+                  fullName={yamlProps?.fqn}
+                  popoverWrapperClassName={css.copyOptionPopoverWrapper}
+                  textInputClassName={css.copyOptionTextInput}
+                  staticDisplayValue={variableName}
+                />
+              </div>
+            ) : (
               <span
                 className={cx(css.nameSection, {
                   'selected-search-text': searchedEntityType === 'key' && hasSameMetaKeyId
                 })}
+                onMouseOver={() => {
+                  setHoveredVariable({ [variableName]: true })
+                }}
                 dangerouslySetInnerHTML={{
                   __html: getTextWithSearchMarkers({
                     searchText: escape(searchText),
@@ -87,8 +111,15 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
                   })
                 }}
               />
-            </CopyText>
-            <Text font={{ variation: FontVariation.BODY }} lineClamp={1}>
+            )}
+
+            <Text
+              className={css.valueSection}
+              font={{ variation: FontVariation.BODY, weight: 'semi-bold' }}
+              padding={{ left: 'medium' }}
+              color={Color.BLACK_100}
+              lineClamp={1}
+            >
               <span
                 className={cx({
                   'selected-search-text': searchedEntityType === 'value' && hasSameMetaKeyId

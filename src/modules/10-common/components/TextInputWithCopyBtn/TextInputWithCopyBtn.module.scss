@@ -11,7 +11,7 @@
       box-shadow: none;
       border: 1px solid var(--form-field-border);
       padding-right: 32px;
-      height: 32px !important;
+      height: 32px;
 
       &:focus {
         border-color: var(--primary-7);
@@ -52,7 +52,7 @@
     background-color: var(--form-field-border) !important;
     border: none !important;
     padding: 0 !important;
-    height: 30px !important;
+    height: 30px;
     min-height: unset !important;
     color: var(--primary-7) !important;
     border-radius: 0 2px 2px 0 !important;

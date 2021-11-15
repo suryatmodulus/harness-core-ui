@@ -7,6 +7,12 @@
     width: 100%;
     box-shadow: none;
     padding: 0;
+
+    :global {
+      .bp3-popover-target {
+        display: inline;
+      }
+    }
   }
   .pipelineDetails {
     overflow-x: hidden;
@@ -127,16 +133,10 @@
   .variable-list-header {
     display: grid;
     grid-template-columns: repeat(2, minmax(10px, 1fr));
-    padding-top: var(--spacing-6);
     font-size: var(--font-size-small);
     text-transform: uppercase;
-    border-color: #d9dae599;
-    p:first-child {
-      padding-left: var(--spacing-huge);
-      & + p {
-        padding-left: var(--spacing-xxlarge);
-      }
-    }
+    font-weight: 600;
+    padding: var(--spacing-6) 0 0 var(--spacing-8);
   }
 
   .custom-variables {
@@ -204,6 +204,7 @@
     .Accordion--details {
       padding-top: 0 !important;
       padding-bottom: 0 !important;
+      overflow-x: clip;
     }
     :local(.stageSummary) {
       &.Accordion--summary {
@@ -266,67 +267,64 @@
 }
 
 .variable-padding-l0 {
-  :global(.variable-name-cell) {
-    padding-left: var(--spacing-small);
+  :global(.variable-list-row) {
+    padding-left: var(--spacing-xxlarge);
   }
 }
 .variable-padding-l1 {
-  :global(.variable-name-cell) {
-    padding-left: var(--spacing-xlarge);
+  :global(.variable-list-row) {
+    padding-left: var(--spacing-huge);
   }
 }
 .variable-padding-l2 {
-  :global(.variable-name-cell) {
-    padding-left: calc(var(--spacing-large) + 4px) !important;
+  :global(.variable-list-row) {
+    padding-left: calc(var(--spacing-huge) + 4px) !important;
   }
 }
 
 .variable-padding-l3 {
-  :global(.variable-name-cell) {
-    padding-left: calc(var(--spacing-huge) + 8px) !important;
+  :global(.variable-list-row) {
+    padding-left: 80px !important;
+  }
+}
+
+.variable-padding--tag-l0 {
+  :global(.variable-list-row) {
+    padding-left: calc(var(--spacing-large) + 12px) !important;
   }
 }
 
 .variable-padding--tag-l1 {
-  :global(.variable-name-cell) {
+  :global(.variable-list-row) {
     padding-left: calc(var(--spacing-large) + 28px) !important;
   }
 }
 .variable-padding--tag-l2 {
-  :global(.variable-name-cell) {
-    padding-left: var(--spacing-huge) !important;
+  :global(.variable-list-row) {
+    padding-left: var(--spacing-xxlarge) !important;
   }
 }
 .variable-padding--tag-l3 {
-  :global(.variable-name-cell) {
-    padding-left: calc(var(--spacing-huge) + 16px) !important;
+  :global(.variable-list-row) {
+    padding-left: calc(var(--spacing-xxlarge) + 16px) !important;
   }
 }
 
 .custom-var-pad-l1 {
-  :global(.variable-name-cell) {
+  :global(.variable-list-row) {
     padding-left: calc(var(--spacing-xlarge) + 4px) !important;
-  }
-  :global(.variable-value-cell) {
-    padding-left: var(--spacing-xlarge);
   }
 }
 
 .custom-var-pad-l2 {
-  :global(.variable-name-cell) {
+  :global(.variable-list-row) {
     padding-left: calc(var(--spacing-xxxlarge) + 20px) !important;
-  }
-  :global(.variable-value-cell) {
-    padding-left: var(--spacing-xxlarge);
   }
 }
 
 .custom-var-pad-l3 {
-  :global(.variable-name-cell) {
+  :global(.variable-list-row) {
     padding-left: calc(var(--spacing-13) + 8px) !important;
-  }
-  :global(.variable-value-cell) {
-    padding-left: var(--spacing-xxlarge);
   }
 }
 

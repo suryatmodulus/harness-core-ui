@@ -47,6 +47,7 @@ declare interface Window {
   bugsnagToken: string
   Harness: {
     openNgTooltipEditor: () => void
+    openTooltipEditor: () => void
   }
   getApiBaseUrl: (str: string) => string
   MktoForms2: any

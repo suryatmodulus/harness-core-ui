@@ -3835,57 +3835,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
     class="variablesListTable"
   >
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            name
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        name
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -3896,57 +3854,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            timeout
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        timeout
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -3957,57 +3873,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            connectorRef
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        connectorRef
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4018,57 +3892,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            region
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        region
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4079,57 +3911,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            account
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        account
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4140,57 +3930,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            imageName
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        imageName
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4201,57 +3949,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            tags
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        tags
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4262,57 +3968,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            dockerfile
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        dockerfile
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4323,57 +3987,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            context
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        context
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4384,57 +4006,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            labels
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        labels
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4449,57 +4029,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            buildArgs
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        buildArgs
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4514,57 +4052,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            optimize
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        optimize
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4575,57 +4071,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            target
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        target
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4636,57 +4090,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            remoteCacheImage
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        remoteCacheImage
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4697,57 +4109,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            memory
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        memory
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -4758,57 +4128,15 @@ exports[`ECR Step InputVariable View should render properly 1`] = `
       </p>
     </div>
     <div
-      class="variableListRow"
+      class="variableListRow variable-list-row"
     >
-      <div
-        class="main"
+      <span
+        class="nameSection"
       >
-        <div
-          class="text variable-name-cell"
-        >
-          <span
-            class="nameSection"
-          >
-            cpu
-          </span>
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-              data-name="copy-alt"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
+        cpu
+      </span>
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
         style="--text-line-clamp: 1;"
       >
         <span

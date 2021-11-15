@@ -79,7 +79,7 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
             disabled: isApprovalStepFieldDisabled(readonly),
             expressions,
             allowableTypes,
-            inputMode: 'numeric'
+            textProps: { type: 'number' }
           }}
           className={css.deploymentViewMedium}
         />

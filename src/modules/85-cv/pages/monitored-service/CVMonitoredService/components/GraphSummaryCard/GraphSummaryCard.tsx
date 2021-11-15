@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams, Link } from 'react-router-dom'
 import {
   Container,
   Layout,
@@ -7,10 +8,14 @@ import {
   FontVariation,
   ButtonVariation,
   Button,
-  useConfirmationDialog
+  useConfirmationDialog,
+  Views
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import routes from '@common/RouteDefinitions'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
+import { getCVMonitoringServicesSearchParam } from '@cv/utils/CommonUtils'
 import IconGrid from '../IconGrid/IconGrid'
 import { ServiceDeleteContext, ServiceHealthTrend, RiskTagWithLabel } from '../../CVMonitoredService.utils'
 import type { GraphSummaryCardProps } from '../../CVMonitoredService.types'
@@ -25,6 +30,7 @@ const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
   healthMonitoringFlagLoading
 }) => {
   const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
 
   const { openDialog: confirmServiceDelete } = useConfirmationDialog({
     titleText: getString('common.delete', { name: monitoredService.serviceName }),
@@ -39,12 +45,28 @@ const GraphSummaryCard: React.FC<GraphSummaryCardProps> = ({
   })
 
   return (
-    <Container width={358} background={Color.GREY_700} padding="large" className={css.graphSummaryCard}>
+    <Container
+      width={358}
+      background={Color.GREY_700}
+      padding="large"
+      className={css.graphSummaryCard}
+      onClick={e => e.stopPropagation()}
+    >
       <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <Container>
-          <Text color={Color.GREY_0} font={{ variation: FontVariation.H6 }}>
-            {monitoredService?.serviceName?.toUpperCase()}
-          </Text>
+          <Link
+            to={`${routes.toCVAddMonitoringServicesEdit({
+              accountId,
+              orgIdentifier,
+              projectIdentifier,
+              identifier: monitoredService.identifier,
+              module: 'cv'
+            })}${getCVMonitoringServicesSearchParam({ view: Views.GRID })}`}
+          >
+            <Text color={Color.PRIMARY_7} font={{ variation: FontVariation.H6 }}>
+              {monitoredService?.serviceName?.toUpperCase()}
+            </Text>
+          </Link>
           <Text color={Color.GREY_0} font={{ variation: FontVariation.SMALL }}>
             {monitoredService?.environmentName}
           </Text>

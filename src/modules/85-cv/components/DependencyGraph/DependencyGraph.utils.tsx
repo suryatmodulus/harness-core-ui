@@ -11,6 +11,7 @@ import {
 import type { Node, DependencyData, GraphData, IconDetails } from '@cv/components/DependencyGraph/DependencyGraph.types'
 import type { Edge, RestResponseServiceDependencyGraphDTO, ServiceSummaryDetails } from 'services/cv'
 import { getRiskColorValue, getSecondaryRiskColorValue, RiskValues } from '@cv/utils/CommonUtils'
+import css from './DependencyGraph.module.scss'
 
 function replaceFill(logo: any, primaryColor: string) {
   if (Object.prototype.hasOwnProperty.call(logo, 'props')) {
@@ -249,6 +250,7 @@ export function dependencyGraphOptions(dependencyData: DependencyData): Highchar
           useHTML: true,
           allowOverlap: false,
           y: 50,
+          className: css.serviceName,
           formatter: function (this: any) {
             if (this.key) {
               const filteredNode = dependencyData?.nodes?.filter(node => node?.id === this.key)?.[0]

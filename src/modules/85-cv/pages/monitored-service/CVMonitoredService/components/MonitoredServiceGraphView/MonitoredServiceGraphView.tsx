@@ -1,20 +1,15 @@
 import React, { useState, useCallback } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
-import type { Chart as HighchartsChart, TooltipFormatterContextObject } from 'highcharts'
-import { Layout, Container, Views, NoDataCard } from '@wings-software/uicore'
+import { createPortal } from 'react-dom'
+import { Layout, Container, NoDataCard } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import routes from '@common/RouteDefinitions'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
-import { getCVMonitoringServicesSearchParam } from '@cv/utils/CommonUtils'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
-import { HighchartCustomTooltip } from '@cv/utils/HighchartCustomTooltip'
 import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
 import { DependencyGraph } from '@cv/components/DependencyGraph/DependencyGraph'
 import GraphSummaryCard from '../GraphSummaryCard/GraphSummaryCard'
 import type { MonitoredServiceGraphViewProps } from '../../CVMonitoredService.types'
 import { getMonitoredServiceFilterOptions } from '../../CVMonitoredService.utils'
-import { getListingPageDependencyGraphOptions } from './MonitoredServiceGraphView.utils'
+import { getDependencyGraphOptions } from './MonitoredServiceGraphView.utils'
 import css from '../../CVMonitoredService.module.scss'
 
 const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
@@ -28,55 +23,43 @@ const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
   onToggleService,
   healthMonitoringFlagLoading
 }) => {
-  const history = useHistory()
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-
-  const [chart, setChart] = useState<HighchartsChart | null>(null)
+  const [point, setPoint] = useState<{ sticky: any; point: any }>()
 
   const renderDependencyData = useCallback(() => {
-    return monitoredServiceDependencyData ? (
-      <DependencyGraph
-        dependencyData={monitoredServiceDependencyData}
-        highchartsCallback={setChart}
-        options={getListingPageDependencyGraphOptions(serviceIdentifier => {
-          if (serviceIdentifier) {
-            history.push({
-              pathname: routes.toCVAddMonitoringServicesEdit({
-                accountId,
-                orgIdentifier,
-                projectIdentifier,
-                identifier: serviceIdentifier,
-                module: 'cv'
-              }),
-              search: getCVMonitoringServicesSearchParam({ view: Views.GRID })
-            })
-          }
-        })}
-      />
-    ) : (
-      <></>
-    )
+    if (monitoredServiceDependencyData) {
+      return (
+        <DependencyGraph
+          dependencyData={monitoredServiceDependencyData}
+          options={getDependencyGraphOptions(setPoint)}
+        />
+      )
+    }
+
+    return <></>
   }, [monitoredServiceDependencyData])
 
-  const getHighchartCustomTooltipContent = (formatterContext: TooltipFormatterContextObject): JSX.Element => {
-    const { key } = formatterContext
-
+  const renderSummaryCard = (): JSX.Element => {
     const monitoredService = monitoredServiceListData?.content?.find(
-      mService => mService.identifier === (key as unknown as string)
+      mService => mService.identifier === point?.point.id
     )
 
-    return monitoredService ? (
-      <GraphSummaryCard
-        monitoredService={monitoredService}
-        onEditService={onEditService}
-        onDeleteService={onDeleteService}
-        onToggleService={onToggleService}
-        healthMonitoringFlagLoading={healthMonitoringFlagLoading}
-      />
-    ) : (
-      <></>
-    )
+    if (monitoredService && point?.sticky.element) {
+      return createPortal(
+        <foreignObject className="node" width="360px" height="435px">
+          <GraphSummaryCard
+            monitoredService={monitoredService}
+            onEditService={onEditService}
+            onDeleteService={onDeleteService}
+            onToggleService={onToggleService}
+            healthMonitoringFlagLoading={healthMonitoringFlagLoading}
+          />
+        </foreignObject>,
+        point.sticky.element
+      )
+    }
+
+    return <></>
   }
 
   const filterOptions = getMonitoredServiceFilterOptions(getString, serviceCountData)
@@ -96,7 +79,7 @@ const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
       {monitoredServiceDependencyData?.nodes?.length ? (
         <Container style={{ flexGrow: 1 }}>
           {renderDependencyData()}
-          <HighchartCustomTooltip chart={chart}>{getHighchartCustomTooltipContent}</HighchartCustomTooltip>
+          {renderSummaryCard()}
         </Container>
       ) : (
         <NoDataCard

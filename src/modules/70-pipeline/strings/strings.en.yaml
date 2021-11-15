@@ -849,4 +849,6 @@ policyEvaluations:
   policySetName: 'Policy Set: {{name}}'
   emptyPolicySet: This policy set does not have any policies attached to it.
   policySetsApplied: '{{pipelineName}}: Policy Sets applied'
-expressionsReplaced: Some expression were replaced.
+expressionsReplaced: 'Pipeline updated with {{count}} expression(s) replaced. Please provide the value(s) for new expression(s).'
+runstageError: '{{count}} Error(s): Unable to run stages.'
+stageDependencyError: 'Stage {{stageId}} has a ‘useFromStage’ dependency on Stage {{dependentStage}}. Please select Stage {{dependentStage}} to run Stage {{stageId}}.'

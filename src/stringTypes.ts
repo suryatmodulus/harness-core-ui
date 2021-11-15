@@ -2413,6 +2413,7 @@ export interface StringsMap {
   'pipeline.runFailedStages': string
   'pipeline.runModalNoPipelineText': string
   'pipeline.runPipelineForm.notifyOnlyMe': string
+  'pipeline.runstageError': string
   'pipeline.savingInProgress': string
   'pipeline.scriptInputVariables': string
   'pipeline.scriptOutputVariables': string
@@ -2426,6 +2427,7 @@ export interface StringsMap {
   'pipeline.serviceDependencyText': string
   'pipeline.singleStageExecution': string
   'pipeline.sslVerify': string
+  'pipeline.stageDependencyError': string
   'pipeline.stageVariables': string
   'pipeline.stagetoRetryFrom': string
   'pipeline.startTime': string

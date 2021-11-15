@@ -16,6 +16,7 @@ declare const styles: {
   readonly runModalSubHeading: string
   readonly runModalHeaderTitle: string
   readonly runModalFormContent: string
+  readonly noRuntimeInput: string
   readonly runModalFormContentExecutionView: string
   readonly noPipelineInputSetForm: string
   readonly helpSection: string
@@ -33,6 +34,9 @@ declare const styles: {
   readonly infoStrip: string
   readonly iconInfo: string
   readonly expressionsTooltip: string
+  readonly bp3Tooltip: string
+  readonly bp3PopoverArrowFill: string
+  readonly error: string
   readonly underlineText: string
   readonly disabledStageDropdown: string
   readonly multiSelectDropDownMain: string
@@ -43,5 +47,7 @@ declare const styles: {
   readonly crossIcon: string
   readonly modalContent: string
   readonly runPipelineDialog: string
+  readonly replaceExpressionForm: string
+  readonly form: string
 }
 export default styles

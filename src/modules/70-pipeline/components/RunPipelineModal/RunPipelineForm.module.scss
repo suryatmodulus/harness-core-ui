@@ -96,6 +96,10 @@
   overflow-x: hidden;
   overflow: auto !important;
   border-top: 1px solid var(--grey-200);
+  &.noRuntimeInput {
+    border-top: none;
+    min-height: unset;
+  }
 }
 
 .runModalFormContentExecutionView {
@@ -179,8 +183,22 @@
 }
 
 .expressionsTooltip {
-  :global(.bp3-tooltip) {
+  :global(.bp3-popover) {
+    .bp3-tooltip .bp3-popover-arrow-fill {
+      fill: var(--white) !important;
+    }
+  }
+  .error {
+    color: var(--error);
+  }
+  :global(.bp3-popover-content) {
     border-radius: 8px;
+    background: var(--white);
+    color: var(--primary);
+    ul {
+      list-style: none;
+      padding: 0 var(--spacing-small);
+    }
   }
 }
 
@@ -215,4 +233,21 @@
   position: relative;
   padding-bottom: 0 !important;
   background-color: var(--form-bg) !important;
+}
+
+.replaceExpressionForm {
+  margin: var(--spacing-large) !important;
+  padding-top: var(--spacing-large) !important;
+  .form {
+    padding: var(--spacing-small) var(--spacing-xlarge) !important;
+    background: var(--white) !important;
+    border: 1px solid var(--grey-200);
+    border-radius: var(--spacing-2);
+  }
+
+  :global(.bp3-input-group) {
+    input {
+      width: 300px;
+    }
+  }
 }

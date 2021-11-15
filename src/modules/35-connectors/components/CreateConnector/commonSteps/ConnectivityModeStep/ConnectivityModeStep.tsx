@@ -6,35 +6,25 @@ import {
   FontVariation,
   Formik,
   FormikForm,
-  getErrorInfoFromErrorObject,
   Layout,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  shouldShowError,
   StepProps,
   Text
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { noop, omit } from 'lodash-es'
-import {
-  Connector,
+import type {
   ConnectorConfigDTO,
   ConnectorInfoDTO,
   ConnectorRequestBody,
-  CreateConnectorQueryParams,
   EntityGitDetails,
-  ResponseConnectorResponse,
-  useCreateConnector,
-  useUpdateConnector
+  ResponseConnectorResponse
 } from 'services/cd-ng'
-import { PageSpinner, useToaster } from '@common/components'
+import { PageSpinner } from '@common/components'
 import ConnectivityMode, { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import type { ConnectorCreateEditProps } from '@connectors/constants'
-import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
-import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import { Entities } from '@common/interfaces/GitSyncInterface'
+import useCreateEditConnector from '@connectors/hooks/useCreateEditConnector'
 
 interface BuildPayloadProps {
   projectIdentifier: string
@@ -55,20 +45,11 @@ interface ConnectivityModeStepProps {
   setConnectivityMode?: (val: ConnectivityModeType) => void
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   hideModal?: () => void
-  customHandleCreate?: (
-    payload: ConnectorConfigDTO,
-    prevData: ConnectorConfigDTO,
-    stepData: StepProps<ConnectorConfigDTO> & ConnectivityModeStepProps
-  ) => Promise<ConnectorInfoDTO | undefined>
-  customHandleUpdate?: (
-    payload: ConnectorConfigDTO,
-    prevData: ConnectorConfigDTO,
-    stepData: StepProps<ConnectorConfigDTO> & ConnectivityModeStepProps
-  ) => Promise<ConnectorInfoDTO | undefined>
+  customHandleCreate?: (payload: ConnectorConfigDTO) => Promise<ConnectorInfoDTO | undefined>
+  customHandleUpdate?: (payload: ConnectorConfigDTO) => Promise<ConnectorInfoDTO | undefined>
 }
 
 const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectivityModeStepProps> = props => {
-  const { showSuccess, showError } = useToaster()
   const { prevStepData, nextStep, connectorInfo, buildPayload, customHandleUpdate, customHandleCreate } = props
   const { getString } = useStrings()
   const {
@@ -76,22 +57,11 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
     projectIdentifier: projectIdentifierFromUrl,
     orgIdentifier: orgIdentifierFromUrl
   } = useParams<any>()
-  let gitDetails = props.gitDetails
 
   const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
   const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
   const isGitSyncEnabled = useAppStore().isGitSyncEnabled && !props.disableGitSync && orgIdentifier && projectIdentifier
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const [connectorPayloadRef, setConnectorPayloadRef] = useState<Connector | undefined>()
-  const { mutate: createConnector, loading: creating } = useCreateConnector({
-    queryParams: { accountIdentifier: accountId }
-  })
-  const { mutate: updateConnector, loading: updating } = useUpdateConnector({
-    queryParams: { accountIdentifier: accountId }
-  })
-
-  let stepDataRef: ConnectorConfigDTO | null = null
-  const defaultInitialValues = { connectivityMode: ConnectivityModeType.Manager }
 
   const afterSuccessHandler = (response: ResponseConnectorResponse): void => {
     props.onConnectorCreated?.(response?.data)
@@ -108,61 +78,26 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
     }
   }
 
-  const { openSaveToGitDialog } = useSaveToGitDialog<Connector>({
-    onSuccess: (
-      gitData: SaveToGitFormInterface,
-      payload?: Connector,
-      objectId?: string
-    ): Promise<UseSaveSuccessResponse> =>
-      handleCreateOrEdit({ gitData, payload: payload || (connectorPayloadRef as Connector) }, objectId),
-    onClose: noop
+  const { onInitiate, loading } = useCreateEditConnector({
+    accountId,
+    isEditMode: props.isEditMode,
+    isGitSyncEnabled,
+    afterSuccessHandler
   })
 
-  const handleCreateOrEdit = async (
-    connectorData: ConnectorCreateEditProps,
-    objectId?: EntityGitDetails['objectId']
-  ): Promise<UseSaveSuccessResponse> => {
-    const { gitData } = connectorData
-    const payload = connectorData.payload || (connectorPayloadRef as Connector)
-    modalErrorHandler?.hide()
-    let queryParams: CreateConnectorQueryParams = {}
-    if (gitData) {
-      queryParams = {
-        accountIdentifier: accountId,
-        ...omit(gitData, 'sourceBranch')
-      }
-      if (gitData.isNewBranch) {
-        queryParams.baseBranch = prevStepData?.branch
-      }
-    }
+  let stepDataRef: ConnectorConfigDTO | null = null
+  const defaultInitialValues = { connectivityMode: ConnectivityModeType.Manager }
 
-    const response = props.isEditMode
-      ? await updateConnector(payload, {
-          queryParams: {
-            ...queryParams,
-            lastObjectId: objectId ?? gitDetails?.objectId
-          }
-        })
-      : await createConnector(payload, { queryParams: queryParams })
-
-    return {
-      status: response.status,
-      nextCallback: afterSuccessHandler.bind(null, response)
-    }
-  }
-
-  const connectorName = creating
-    ? (prevStepData as ConnectorConfigDTO)?.name
-    : (connectorInfo as ConnectorInfoDTO)?.name
+  const connectorName = (prevStepData as ConnectorConfigDTO)?.name || (connectorInfo as ConnectorInfoDTO)?.name
 
   return (
     <>
-      {!isGitSyncEnabled && (creating || updating) ? (
+      {!isGitSyncEnabled && loading ? (
         <PageSpinner
           message={
-            creating
-              ? getString('connectors.creating', { name: connectorName })
-              : getString('connectors.updating', { name: connectorName })
+            props.isEditMode
+              ? getString('connectors.updating', { name: connectorName })
+              : getString('connectors.creating', { name: connectorName })
           }
         />
       ) : null}
@@ -185,47 +120,15 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
               projectIdentifier: projectIdentifier,
               orgIdentifier: orgIdentifier
             }
-            const data = buildPayload(connectorData)
-            setConnectorPayloadRef(data)
+
             stepDataRef = stepData
-
-            if (isGitSyncEnabled) {
-              if (!props.isEditMode) {
-                gitDetails = { branch: prevStepData?.branch, repoIdentifier: prevStepData?.repo }
-              }
-              openSaveToGitDialog({
-                isEditing: props.isEditMode,
-                resource: {
-                  type: Entities.CONNECTORS,
-                  name: data.connector?.name || '',
-                  identifier: data.connector?.identifier || '',
-                  gitDetails
-                },
-                payload: data
-              })
-            } else {
-              if (customHandleUpdate || customHandleCreate) {
-                props.isEditMode
-                  ? customHandleUpdate?.(data, { ...prevStepData, ...stepData }, props)
-                  : customHandleCreate?.(data, { ...prevStepData, ...stepData }, props)
-              } else {
-                handleCreateOrEdit({ payload: data }) /* Handling non-git flow */
-                  .then(res => {
-                    if (res.status === 'SUCCESS') {
-                      props.isEditMode
-                        ? showSuccess(getString('connectors.updatedSuccessfully'))
-                        : showSuccess(getString('connectors.createdSuccessfully'))
-
-                      res.nextCallback?.()
-                    }
-                  })
-                  .catch(e => {
-                    if (shouldShowError(e)) {
-                      showError(getErrorInfoFromErrorObject(e))
-                    }
-                  })
-              }
-            }
+            modalErrorHandler?.hide()
+            onInitiate({
+              connectorFormData: connectorData,
+              buildPayload,
+              customHandleCreate,
+              customHandleUpdate
+            })
           }}
           formName={`connectivityModeForm${props.type}`}
           enableReinitialize
@@ -262,7 +165,7 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
                     text={getString(
                       formik.values.connectivityMode === ConnectivityModeType.Delegate ? 'continue' : 'saveAndContinue'
                     )}
-                    disabled={creating || updating}
+                    disabled={loading}
                     rightIcon="chevron-right"
                     data-testid="connectivitySaveAndContinue"
                   />

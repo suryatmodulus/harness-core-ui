@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.61% </span>
+                <span class="strong">80.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>51/61</span>
+                <span class='fraction'>49/61</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.43% </span>
+                <span class="strong">62.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>109/157</span>
+                <span class='fraction'>94/150</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.67% </span>
+                <span class="strong">41.18% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/15</span>
+                <span class='fraction'>7/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.61% </span>
+                <span class="strong">80.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>51/61</span>
+                <span class='fraction'>49/61</span>
             </div>
         
             
@@ -364,7 +364,9 @@
 <a name='L305'></a><a href='#L305'>305</a>
 <a name='L306'></a><a href='#L306'>306</a>
 <a name='L307'></a><a href='#L307'>307</a>
-<a name='L308'></a><a href='#L308'>308</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">49x</span>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -383,10 +385,9 @@
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">49x</span>
-<span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -429,6 +430,7 @@
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
@@ -527,8 +529,6 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -542,6 +542,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -559,6 +560,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -671,7 +675,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
 import {
   Text,
   Button,
@@ -689,11 +693,10 @@ import { debounce, escape } from 'lodash-es'
 &nbsp;
 import { String } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import { TextInputWithCopyBtn } from '@common/components/TextInputWithCopyBtn/TextInputWithCopyBtn'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import type { NGVariable } from 'services/cd-ng'
 import type { YamlProperties } from 'services/pipeline-ng'
-import { toVariableStr } from '@common/utils/StringUtils'
-import { CopyText } from '@common/components/CopyText/CopyText'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -736,6 +739,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
   const { initialValues, onUpdate, domId, heading, className, yamlProperties, readonly, path } = props
   const uids = React.useRef&lt;string[]&gt;([])
 &nbsp;
+  const [hoveredVariable, setHoveredVariable] = useState&lt;Record&lt;string, boolean&gt;&gt;({})
   const [selectedVariable, setSelectedVariable] = React.useState&lt;VariableState | null&gt;(null)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedUpdate = React.useCallback(
@@ -832,8 +836,6 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                   }
                   const key = uids.current[index]
                   const yamlData = yamlProperties?.[index]
-                  const vairableNameParts = yamlData?.localName?.split('.') || []
-                  const variableName = vairableNameParts[vairableNameParts.length - 1]
                   const hasSameMetaPath = searchedEntity.path === `${updatedPath}[${index}].value`
                   const searchedEntityType = searchedEntity.type || null
 &nbsp;
@@ -842,31 +844,35 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                     ?.includes(<span class="branch-1 cbranch-no" title="branch not covered" >searchText?.toLowerCase() </span>|| '')
 &nbsp;
                   return (
-                    &lt;div key={key} className={css.variableListTable}&gt;
-                      {yamlData &amp;&amp; yamlData.fqn &amp;&amp; yamlData.localName ? (
-                        &lt;CopyText valueClassName="variable-name-cell" textToCopy={toVariableStr(yamlData.fqn)}&gt;
-                          &lt;span
-                            className={cx({
-                              'selected-search-text': searchedEntityType === 'key' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >hasSameMetaPath</span>
-                            })}
-                            dangerouslySetInnerHTML={{
-                              __html: getTextWithSearchMarkers({
-                                searchText: escape(searchText),
-                                txt: escape(variableName),
-                                className: cx(css.selectedSearchText, {
-                                  [css.currentSelection]: searchedEntityType === 'key' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >hasSameMetaPath</span>
-                                })
-                              })
-                            }}
-                          /&gt;
-                        &lt;/CopyText&gt;
+                    &lt;div
+                      key={key}
+                      className={cx(
+                        css.variableListTable,
+                        'variable-list-row',
+                        hoveredVariable[index] ? <span class="branch-0 cbranch-no" title="branch not covered" >css.hoveredRow </span>: ''
+                      )}
+                      onMouseLeave={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setHoveredVariable({ [index]: false })}</span>
+                    &gt;
+                      {hoveredVariable[index] ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                        &lt;TextInputWithCopyBtn</span>
+                          name={`variables[${index}].name`}
+                          label=""
+                          localName={yamlData?.localName}
+                          fullName={yamlData?.fqn}
+                          outerClassName={css.copyTextRow}
+                          textInputClassName={css.copyTextInput}
+                          popoverWrapperClassName={css.copyTextPopoverWrapper}
+                        /&gt;
                       ) : (
-                        &lt;Text className="variable-name-cell" lineClamp={1}&gt;
+                        &lt;Text className={cx(css.variableNameCell)} lineClamp={1}&gt;
                           &lt;span
                             className={cx({
                               [css.selectedSearchTextValueRow]: searchedEntityType === 'key' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >hasSameMetaPath,</span>
                               'selected-search-text': searchedEntityType === 'key' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >hasSameMetaPath</span>
                             })}
+                            onMouseOver={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                              setHoveredVariable({ [index]: true })</span>
+                            }}
                             dangerouslySetInnerHTML={{
                               __html: getTextWithSearchMarkers({
                                 searchText: escape(searchText),
@@ -877,7 +883,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                         &lt;/Text&gt;
                       )}
                       &lt;div
-                        className={cx(css.valueRow, 'variable-value-cell', {
+                        className={cx(css.valueRow, {
                           [css.selectedSearchTextValueRow]: <span class="branch-1 cbranch-no" title="branch not covered" >searchText?.length </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isValidValueMatch,</span>
                           'selected-search-text': searchedEntityType === 'value' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >hasSameMetaPath</span>
                         })}
@@ -985,7 +991,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Nov 14 2021 00:08:28 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 15 2021 04:02:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

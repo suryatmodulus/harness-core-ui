@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
@@ -136,22 +136,36 @@
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">49x</span>
-<span class="cline-any cline-yes">49x</span>
-<span class="cline-any cline-yes">49x</span>
-<span class="cline-any cline-yes">49x</span>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">49x</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">49x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,11 +183,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -217,7 +245,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { IFormGroupProps, IInputGroupProps, HTMLInputProps, Popover, Menu } from '@blueprintjs/core'
-import { FormInput, Button, Icon, Utils } from '@wings-software/uicore'
+import { FormInput, Button, Icon, Utils, TextInput } from '@wings-software/uicore'
 import cx from 'classnames'
 &nbsp;
 import { useStrings } from 'framework/strings'
@@ -246,6 +274,10 @@ export interface TextInputWithCopyBtnProps extends Omit&lt;IFormGroupProps, 'lab
   onChange?: IInputGroupProps['onChange']
   localName?: string
   fullName?: string
+  outerClassName?: string
+  textInputClassName?: string
+  popoverWrapperClassName?: string
+  staticDisplayValue?: string
 }
 &nbsp;
 export function TextInputWithCopyBtn(props: TextInputWithCopyBtnProps): React.ReactElement {
@@ -253,20 +285,30 @@ export function TextInputWithCopyBtn(props: TextInputWithCopyBtnProps): React.Re
   const { getString } = useStrings()
 &nbsp;
   return (
-    &lt;div className={cx(css.textInputWithCopyBtn, { [css.disabled]: disabled })}&gt;
-      &lt;FormInput.Text
-        {...rest}
-        inputGroup={{ disabled }}
-        disabled={disabled}
-        className={cx(css.input, rest.className)}
-      /&gt;
+    &lt;div className={cx(css.textInputWithCopyBtn, props.outerClassName, { [css.disabled]: disabled })}&gt;
+      {props.staticDisplayValue ? (
+        // Render a non formik text component if the display value is static
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;TextInput</span>
+          {...rest}
+          value={props.staticDisplayValue}
+          disabled={true}
+          className={cx(css.input, props.textInputClassName, rest.className)}
+        /&gt;
+      ) : (
+        &lt;FormInput.Text
+          {...rest}
+          inputGroup={{ disabled }}
+          disabled={disabled}
+          className={cx(css.input, props.textInputClassName, rest.className)}
+        /&gt;
+      )}
       &lt;Popover
         interactionKind="click"
         minimal
         position="bottom-right"
         wrapperTagName="div"
         targetTagName="div"
-        className={css.popoverWrapper}
+        className={cx(props.popoverWrapperClassName, css.popoverWrapper)}
         popoverClassName={css.popover}
       &gt;
         &lt;Button icon="copy-alt" className={css.btn} iconProps={{ size: 12 }} disabled={!localName &amp;&amp; !fullName} /&gt;
@@ -301,7 +343,7 @@ export function TextInputWithCopyBtn(props: TextInputWithCopyBtnProps): React.Re
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Nov 14 2021 00:08:28 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 15 2021 04:02:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

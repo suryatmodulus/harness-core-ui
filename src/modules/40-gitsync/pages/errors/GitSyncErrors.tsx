@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import { Button, ButtonVariation, Color, ExpandingSearchInput, Layout, Tab, Tabs, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -82,7 +82,8 @@ const GitSyncErrors: React.FC = () => {
   const {
     loading: isCountLoading,
     data: countData,
-    error: countError
+    error: countError,
+    refetch
   } = useGetGitSyncErrorsCount({
     queryParams: {
       accountIdentifier: accountId,
@@ -93,6 +94,15 @@ const GitSyncErrors: React.FC = () => {
       repoIdentifier
     }
   })
+
+  useEffect(() => {
+    refetch()
+  }, [selectedView, refetch])
+
+  const reload = (): void => {
+    refetch()
+    reloadAction.current?.()
+  }
 
   const { gitToHarnessErrorCount = 0, connectivityErrorCount = 0 } = countData?.data || {}
   const showCountData = !!(countData?.data && !isCountLoading && !countError)
@@ -135,11 +145,7 @@ const GitSyncErrors: React.FC = () => {
               onChange={setSearchTerm}
               className={styles.searchInput}
             />
-            <Button
-              variation={ButtonVariation.TERTIARY}
-              icon="command-rollback"
-              onClick={() => reloadAction.current?.()}
-            />
+            <Button variation={ButtonVariation.TERTIARY} icon="command-rollback" onClick={reload} />
           </Layout.Horizontal>
         </Tabs>
       </GitSyncErrorState.Provider>

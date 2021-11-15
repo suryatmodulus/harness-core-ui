@@ -11,21 +11,23 @@ import {
 
 const useListGitToHarnessErrorsCommits = jest.fn()
 const useListGitSyncErrors = jest.fn()
+const refetch = jest.fn()
+const mockDataWithRefetch = { ...mockData, refetch }
 
 jest.mock('services/cd-ng', () => ({
   useListGitToHarnessErrorsCommits: (...args: any[]) => {
     useListGitToHarnessErrorsCommits(args)
-    return commitViewData
+    return { ...commitViewData, refetch }
   },
   useListGitSyncErrors: (...args: any[]) => {
     useListGitSyncErrors(args)
-    return mockData
+    return mockDataWithRefetch
   },
   useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
-    return mockData
+    return mockDataWithRefetch
   }),
   useGetGitSyncErrorsCount: jest.fn().mockImplementation(() => {
-    return mockData
+    return mockDataWithRefetch
   })
 }))
 

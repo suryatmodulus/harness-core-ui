@@ -3,6 +3,8 @@
 declare const styles: {
   readonly gitSyncErrorMessage: string
   readonly section: string
+  readonly title: string
+  readonly titleDirection: string
   readonly errorItemTitle: string
   readonly errorItemViewContent: string
   readonly errorItemErrorFixed: string

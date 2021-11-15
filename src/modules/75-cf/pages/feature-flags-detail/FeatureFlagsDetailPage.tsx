@@ -94,18 +94,16 @@ const FeatureFlagsDetailPage: React.FC = () => {
 
   return (
     <Container flex height="100%">
-      <Layout.Horizontal width={450} className={css.flagContainer}>
-        <Layout.Vertical className={css.flagDetailsTopSection}>
-          {featureFlag && (
-            <FlagActivationDetails
-              featureFlag={featureFlag}
-              refetchFlag={refetch}
-              gitSyncActionsComponent={gitSync?.isGitSyncActionsEnabled ? <GitSyncActionsComponent /> : undefined}
-              gitSync={gitSync}
-            />
-          )}
-        </Layout.Vertical>
-      </Layout.Horizontal>
+      <Layout.Vertical className={css.flagContainer} width={450}>
+        {featureFlag && (
+          <FlagActivationDetails
+            featureFlag={featureFlag}
+            refetchFlag={refetch}
+            gitSyncActionsComponent={gitSync?.isGitSyncActionsEnabled ? <GitSyncActionsComponent /> : undefined}
+            gitSync={gitSync}
+          />
+        )}
+      </Layout.Vertical>
 
       <Layout.Horizontal
         width="calc(100% - 450px + 20px)"

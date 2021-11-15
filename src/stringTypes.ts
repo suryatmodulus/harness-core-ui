@@ -2026,6 +2026,7 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
   'pipeline.buildRepo': string
+  'pipeline.ciCodebase.buildType': string
   'pipeline.ciCodebase.prCloneStrategy': string
   'pipeline.clickHere': string
   'pipeline.clickToExpandErrorDetails': string

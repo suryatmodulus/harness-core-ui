@@ -293,12 +293,12 @@ export const validateCICodebase = ({
   getString
 }: ValidatePipelineProps): FormikErrors<PipelineInfoConfig> => {
   const errors = {}
-  const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(stage =>
-    get(stage, 'stage.spec.cloneCodebase')
-  )
+  const shouldValidateCICodebase =
+    originalPipeline?.stages?.some(stage => get(stage, 'stage.spec.cloneCodebase')) ||
+    !isEmpty(get(originalPipeline, 'properties.ci.codebase'))
 
   if (
-    isCloneCodebaseEnabledAtLeastAtOneStage &&
+    shouldValidateCICodebase &&
     has(originalPipeline, 'properties') &&
     has(originalPipeline?.properties, 'ci') &&
     isEmpty(get(originalPipeline, 'properties.ci.codebase.build')) &&
@@ -308,7 +308,7 @@ export const validateCICodebase = ({
   }
 
   if (
-    isCloneCodebaseEnabledAtLeastAtOneStage &&
+    shouldValidateCICodebase &&
     getMultiTypeFromValue((template as PipelineInfoConfig)?.properties?.ci?.codebase?.build as unknown as string) ===
       MultiTypeInputType.RUNTIME
   ) {
@@ -316,7 +316,7 @@ export const validateCICodebase = ({
       set(
         errors,
         'properties.ci.codebase.build.type',
-        getString?.('fieldRequired', { field: getString?.('typeLabel') })
+        getString?.('fieldRequired', { field: getString?.('pipeline.ciCodebase.buildType') })
       )
     }
 
@@ -335,11 +335,7 @@ export const validateCICodebase = ({
       pipeline?.properties?.ci?.codebase?.build?.type === 'tag' &&
       isEmpty(pipeline?.properties?.ci?.codebase?.build?.spec?.tag)
     ) {
-      set(
-        errors,
-        'properties.ci.codebase.build.spec.tag',
-        getString?.('fieldRequired', { field: getString?.('gitTag') })
-      )
+      set(errors, 'properties.ci.codebase.build.spec.tag', getString?.('fieldRequired', { field: getString('gitTag') }))
     }
 
     if (

@@ -726,6 +726,7 @@ stepCommonFields:
     mustBeANumber: '{{label}} must be a number'
 ciCodebase:
   prCloneStrategy: Pull Request Clone Strategy
+  buildType: CI Codebase Build Type
 tagDependencyRequired: required to fetch the tags
 myDeploymentsText: My Deployments
 myBuildsText: My Builds

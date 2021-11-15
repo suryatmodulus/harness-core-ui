@@ -107,6 +107,7 @@ export const useRunPipelineModal = (
                 onCloseRunPipelineModal()
               }}
               stagesExecuted={stagesExecuted}
+              executionIdentifier={planExecutionId}
             />
             <Button
               aria-label="close modal"

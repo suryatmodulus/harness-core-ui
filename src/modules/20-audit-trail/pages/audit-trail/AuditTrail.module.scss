@@ -1,0 +1,10 @@
+.subHeader {
+  flex: 1;
+  .search {
+    margin-right: var(--spacing-medium);
+  }
+}
+.table {
+  padding: var(--spacing-large) var(--spacing-xxlarge);
+  padding-bottom: var(--spacing-none);
+}

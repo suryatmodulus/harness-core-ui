@@ -34,6 +34,7 @@ export interface StringsMap {
   'common.approve': string
   'common.artifactTag': string
   'common.at': string
+  'common.auditTrail': string
   'common.aws': string
   'common.azure': string
   'common.banners.email.description': string

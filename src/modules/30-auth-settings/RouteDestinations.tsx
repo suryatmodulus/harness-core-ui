@@ -17,6 +17,7 @@ import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import { AccountSideNavProps } from '@common/RouteDestinations'
+import AuditTrail from 'modules/20-audit-trail/pages/audit-trail/AuditTrail'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ACCOUNT, {
   icon: 'nav-settings',
@@ -92,6 +93,13 @@ const AuthSettingsRoutes: React.FC = () => {
           exact
         >
           <SubscriptionsPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={AccountSideNavProps}
+          path={routes.toAccountAuditTrail({ ...accountPathProps })}
+          exact
+        >
+          <AuditTrail />
         </RouteWithLayout>
         <Route path="*">
           <NotFoundPage />

@@ -198,6 +198,7 @@ const routes = {
     }
   ),
   toAccountResources: withAccountId(() => 'settings/resources'),
+  toAccountAuditTrail: withAccountId(() => 'settings/audit-trail'),
   toConnectors: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `resources/connectors`

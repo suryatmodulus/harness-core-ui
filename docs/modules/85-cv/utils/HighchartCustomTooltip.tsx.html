@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/20</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/20</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.56% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/18</span>
+                <span class='fraction'>0/18</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -110,22 +110,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -149,31 +149,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type {
   Chart as HighchartsChart,
   TooltipFormatterCallbackFunction,
   TooltipFormatterContextObject
 } from 'highcharts'
-import { useEffect, useState, useRef } from 'react'
-import ReactDOM from 'react-dom'
+<span class="cstat-no" title="statement not covered" >import { useEffect, useState, useRef } from 'react'</span>
+<span class="cstat-no" title="statement not covered" >import ReactDOM from 'react-dom'</span>
 &nbsp;
-const generateTooltipId = <span class="fstat-no" title="function not covered" >(c</span>hartId: number): string =&gt; <span class="cstat-no" title="statement not covered" >`highcharts-custom-tooltip-${chartId}`</span>
+const generateTooltipId = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(c</span>hartId: number): string =&gt; <span class="cstat-no" title="statement not covered" >`highcharts-custom-tooltip-${chartId}`</span></span>
 &nbsp;
 interface Props {
   chart: HighchartsChart | null
   children(formatterContext: TooltipFormatterContextObject): JSX.Element
 }
 &nbsp;
-export const HighchartCustomTooltip: React.FC&lt;Props&gt; = ({ chart, children }) =&gt; {
-  const isInit = useRef(false)
-  const [context, setContext] = useState&lt;TooltipFormatterContextObject | null&gt;(null)
+export const <span class="cstat-no" title="statement not covered" >HighchartCustomTooltip: React.FC&lt;Props&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>{</span> chart, children }) =&gt; {</span>
+  const isInit = <span class="cstat-no" title="statement not covered" >useRef(false)</span>
+  const [context, setContext] = <span class="cstat-no" title="statement not covered" >useState&lt;TooltipFormatterContextObject | null&gt;(null)</span>
 &nbsp;
-  useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >chart?.t</span>ooltip </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >chart.update)</span> {
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (chart?.tooltip &amp;&amp; chart.update) {</span>
       const formatter: TooltipFormatterCallbackFunction = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function () {</span></span>
         // Ensures that tooltip DOM container is rendered before React portal is created.
 <span class="cstat-no" title="statement not covered" >        if (!isInit.current) {</span>
@@ -197,9 +197,9 @@ export const HighchartCustomTooltip: React.FC&lt;Props&gt; = ({ chart, children 
     }
   }, [chart])
 &nbsp;
-  const node = <span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >chart?.i</span>ndex </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >document.getElementById(generateTooltipId(chart.index))</span>
+  const node = <span class="cstat-no" title="statement not covered" >chart?.index &amp;&amp; document.getElementById(generateTooltipId(chart.index))</span>
 &nbsp;
-  return node &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >context </span>? <span class="branch-0 cbranch-no" title="branch not covered" >ReactDOM.createPortal(children(context), node) </span>: null
+<span class="cstat-no" title="statement not covered" >  return node &amp;&amp; context ? ReactDOM.createPortal(children(context), node) : null</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -208,7 +208,7 @@ export const HighchartCustomTooltip: React.FC&lt;Props&gt; = ({ chart, children 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 15 2021 12:02:20 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 15 2021 13:20:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

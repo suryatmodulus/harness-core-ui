@@ -187,15 +187,18 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                           popoverWrapperClassName={css.copyTextPopoverWrapper}
                         />
                       ) : (
-                        <Text className={cx(css.variableNameCell)} lineClamp={1}>
+                        <Text
+                          className={cx(css.variableNameCell)}
+                          lineClamp={1}
+                          onMouseOver={() => {
+                            setHoveredVariable({ [index]: true })
+                          }}
+                        >
                           <span
                             className={cx({
                               [css.selectedSearchTextValueRow]: searchedEntityType === 'key' && hasSameMetaPath,
                               'selected-search-text': searchedEntityType === 'key' && hasSameMetaPath
                             })}
-                            onMouseOver={() => {
-                              setHoveredVariable({ [index]: true })
-                            }}
                             dangerouslySetInnerHTML={{
                               __html: getTextWithSearchMarkers({
                                 searchText: escape(searchText),

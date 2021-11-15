@@ -142,7 +142,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps | ConnectorConfig
           <Card
             disabled={loading}
             className={cx(css.card, { [css.selected]: agent === Agent.Delegate })}
-            onClick={() => setAgent(Agent.Delegate) }
+            onClick={() => setAgent(Agent.Delegate)}
           >
             <Layout.Horizontal flex>
               <Text font={{ size: 'normal', weight: 'bold' }} padding={{ bottom: 'medium' }} color={Color.PRIMARY_6}>

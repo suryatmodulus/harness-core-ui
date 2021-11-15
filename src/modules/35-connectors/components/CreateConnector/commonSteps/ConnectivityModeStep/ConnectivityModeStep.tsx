@@ -151,8 +151,6 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
     }
   }
 
-  const isSaveButtonDisabled = creating || updating
-
   const connectorName = creating
     ? (prevStepData as ConnectorConfigDTO)?.name
     : (connectorInfo as ConnectorInfoDTO)?.name
@@ -219,8 +217,6 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
                         : showSuccess(getString('connectors.createdSuccessfully'))
 
                       res.nextCallback?.()
-                    } else {
-                      /* TODO handle error with API status 200 */
                     }
                   })
                   .catch(e => {
@@ -266,7 +262,7 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
                     text={getString(
                       formik.values.connectivityMode === ConnectivityModeType.Delegate ? 'continue' : 'saveAndContinue'
                     )}
-                    disabled={isSaveButtonDisabled}
+                    disabled={creating || updating}
                     rightIcon="chevron-right"
                     data-testid="connectivitySaveAndContinue"
                   />

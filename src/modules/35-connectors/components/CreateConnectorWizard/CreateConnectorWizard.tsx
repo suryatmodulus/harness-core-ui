@@ -44,7 +44,7 @@ interface CreateConnectorWizardProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
-  connectivityMode?: ConnectivityModeType | undefined
+  connectivityMode?: ConnectivityModeType
   setConnectivityMode?: (val: ConnectivityModeType) => void
   gitDetails?: IGitContextFormProps
   onClose: () => void

@@ -47,7 +47,6 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import routes from '@common/RouteDefinitions'
-import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import {
   getIconByType,
   GetTestConnectionValidationTextByType,

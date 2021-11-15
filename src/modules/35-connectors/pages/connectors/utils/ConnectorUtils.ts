@@ -24,6 +24,7 @@ import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
 import { setSecretField } from '@secrets/utils/SecretField'
+import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import { AuthTypes, GitAuthTypes, GitAPIAuthTypes } from './ConnectorHelper'
 
 export interface DelegateCardInterface {
@@ -71,6 +72,10 @@ export const GitConnectionType = {
 export const AppDynamicsAuthType = {
   USERNAME_PASSWORD: 'UsernamePassword',
   API_CLIENT_TOKEN: 'ApiClientToken'
+}
+
+export const getExecuteOnDelegateValue = (type: ConnectivityModeType) => {
+  return type === ConnectivityModeType.Delegate
 }
 
 const buildAuthTypePayload = (formData: FormData) => {
@@ -179,6 +184,7 @@ export const buildGithubPayload = (formData: FormData) => {
     type: Connectors.GITHUB,
     spec: {
       ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      executeOnDelegate: getExecuteOnDelegateValue(formData.connectivityMode),
       type: formData.urlType,
       url: formData.url,
       ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : {}),

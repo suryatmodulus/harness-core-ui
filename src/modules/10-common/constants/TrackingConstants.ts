@@ -37,7 +37,7 @@ export enum StepActions {
 export enum PipelineActions {
   StartedExecution = 'Started Pipeline Execution',
   // CompletedExecution = 'Completed Pipeline Execution', // this is done from BE
-  PipelineCreated = 'Creating/Updating a pipeline',
+  PipelineCreated = 'Creating/Updating a pipeline using YAML OR Visual Mode',
   PipelineCreatedViaVisual = 'Creating/Updating a pipeline using Visual Mode',
   PipelineCreatedViaYAML = 'Creating/Updating a pipeline using YAML editor'
 }

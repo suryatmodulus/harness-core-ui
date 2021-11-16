@@ -104,6 +104,7 @@ allowpaths:
   - /slo
   - /slo/create
   - /slo/{identifier}
+  - /monitored-service/all/time-series-health-sources
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

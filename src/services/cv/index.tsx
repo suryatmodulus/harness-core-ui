@@ -7311,6 +7311,82 @@ export const saveMonitoredServicePromise = (
     void
   >('POST', getConfig('cv/api'), `/monitored-service`, props, signal)
 
+export interface GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetAllMonitoredServicesWithTimeSeriesHealthSourcesProps = Omit<
+  GetProps<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * get all of monitored service data with time series health sources
+ */
+export const GetAllMonitoredServicesWithTimeSeriesHealthSources = (
+  props: GetAllMonitoredServicesWithTimeSeriesHealthSourcesProps
+) => (
+  <Get<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >
+    path={`/monitored-service/all/time-series-health-sources`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllMonitoredServicesWithTimeSeriesHealthSourcesProps = Omit<
+  UseGetProps<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * get all of monitored service data with time series health sources
+ */
+export const useGetAllMonitoredServicesWithTimeSeriesHealthSources = (
+  props: UseGetAllMonitoredServicesWithTimeSeriesHealthSourcesProps
+) =>
+  useGet<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >(`/monitored-service/all/time-series-health-sources`, { base: getConfig('cv/api'), ...props })
+
+/**
+ * get all of monitored service data with time series health sources
+ */
+export const getAllMonitoredServicesWithTimeSeriesHealthSourcesPromise = (
+  props: GetUsingFetchProps<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >(getConfig('cv/api'), `/monitored-service/all/time-series-health-sources`, props, signal)
+
 export interface GetCountOfServicesQueryParams {
   accountId?: string
   orgIdentifier?: string

@@ -1,15 +1,23 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { act, findAllByRole, findByText, fireEvent, render, waitFor } from '@testing-library/react'
 import { Container } from '@wings-software/uicore'
+
 import { TestWrapper } from '@common/utils/testUtils'
 import { RiskValues } from '@cv/utils/CommonUtils'
 import { mockedHealthScoreData } from '@cv/pages/monitored-service/components/ServiceHealth/__tests__/ServiceHealth.mock'
 import { changeSummaryWithPositiveChange } from '@cv/pages/monitored-service/CVMonitoredService/__test__/CVMonitoredService.mock'
 import Button from '@rbac/components/Button/Button'
+
+import { mockData } from './data-mocks/ChangeEventListMock'
 import { CVChanges } from '../CVChanges'
 
-const WrapperComponent = (): JSX.Element => {
-  const updateTime = new Date(2021)
+const mockFetch = jest.fn()
+
+beforeEach(() => {
+  mockFetch.mockReset()
+})
+const WrapperComponent = (): React.ReactElement => {
+  const updateTime = new Date(1636428309233)
   return (
     <TestWrapper>
       <CVChanges updateTime={updateTime} />
@@ -95,14 +103,32 @@ jest.mock('services/cv', () => ({
       loading: false
     }
   }),
-  useChangeEventList: jest.fn().mockImplementation(() => {
-    return {
-      data: {},
-      refetch: jest.fn(),
-      error: null,
-      loading: false
-    }
-  }),
+  useChangeEventList: jest
+    .fn()
+    .mockImplementation(
+      ({ queryParams: { serviceIdentifiers, envIdentifiers, changeSourceTypes, changeCategories } }) => {
+        const contents = mockData.resource.content.filter(
+          content =>
+            serviceIdentifiers.includes(content.serviceIdentifier) &&
+            envIdentifiers.includes(content.envIdentifier) &&
+            changeCategories.includes(content.category) &&
+            changeSourceTypes.includes(content.type)
+        )
+        return {
+          data: {
+            ...mockData,
+            resource: {
+              ...mockData.resource,
+              totalItems: contents.length,
+              content: contents
+            }
+          },
+          refetch: mockFetch,
+          error: null,
+          loading: false
+        }
+      }
+    ),
   useChangeEventTimeline: jest.fn().mockImplementation(() => {
     return {
       data: {},
@@ -114,9 +140,158 @@ jest.mock('services/cv', () => ({
   })
 }))
 
-describe('Unit tests for ServiceHealth', () => {
-  test('Verify if all the fields are rendered correctly inside ServiceHealth', async () => {
-    const { container } = render(<WrapperComponent />)
+describe('Unit tests for CVChanges', () => {
+  test('Verify if all the fields are rendered correctly CVChanges', async () => {
+    const { container, getByText } = render(<WrapperComponent />)
     expect(container).toMatchSnapshot()
+    expect(getByText('services: all')).toBeDefined()
+    expect(getByText('environments: all')).toBeDefined()
+    expect(getByText('cv.cvChanges.sourceFilterDefault: all')).toBeDefined()
+    expect(getByText('cv.cvChanges.changeTypeFilterDefault: all')).toBeDefined()
+    expect(mockFetch).toHaveBeenCalledTimes(2)
+  })
+
+  test('change a time period', async () => {
+    const { container } = render(<WrapperComponent />)
+    const timePeriodDropdown = container.querySelector('input[name="timePeriod"]') as HTMLInputElement
+    const selectCaret = container
+      .querySelector(`[name="timePeriod"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="chevron-down"]')
+    await waitFor(() => {
+      fireEvent.click(selectCaret!)
+    })
+    const typeToSelect = await findByText(container, 'cv.monitoredServices.serviceHealth.last4Hrs')
+    act(() => {
+      fireEvent.click(typeToSelect)
+    })
+    expect(timePeriodDropdown.value).toBe('cv.monitoredServices.serviceHealth.last4Hrs')
+    const tRows = await findAllByRole(container, 'row')
+    // This is because we take header row too into consideration.
+    expect(tRows.length).toBe(5)
+    expect(mockFetch).toHaveBeenCalledTimes(4)
+  })
+
+  test('change services filter', async () => {
+    const { container, getByTestId } = render(<WrapperComponent />)
+
+    const servicesDropdown = getByTestId('serviceFilter') as HTMLInputElement
+
+    await waitFor(() => {
+      fireEvent.click(servicesDropdown!)
+    })
+
+    const typeToSelect = await findByText(container, 'service1')
+
+    expect(typeToSelect).toBeInTheDocument()
+    act(() => {
+      fireEvent.click(typeToSelect)
+    })
+    const tRows = await findAllByRole(container, 'row')
+    // This is because we take header row too into consideration.
+    expect(tRows.length).toBe(3)
+    expect(mockFetch).toHaveBeenCalledTimes(3)
+  })
+
+  test('change environments filter', async () => {
+    const { container, getByTestId } = render(<WrapperComponent />)
+
+    const servicesDropdown = getByTestId('envFilter') as HTMLInputElement
+
+    await waitFor(() => {
+      fireEvent.click(servicesDropdown!)
+    })
+
+    const typeToSelect = await findByText(container, 'env1')
+
+    expect(typeToSelect).toBeInTheDocument()
+    act(() => {
+      fireEvent.click(typeToSelect)
+    })
+    const tRows = await findAllByRole(container, 'row')
+    // This is because we take header row too into consideration.
+    expect(tRows.length).toBe(3)
+  })
+
+  test('change source filter', async () => {
+    const { container, getByTestId } = render(<WrapperComponent />)
+
+    const sourcesDropdown = getByTestId('sourceFilter') as HTMLInputElement
+
+    await waitFor(() => {
+      fireEvent.click(sourcesDropdown!)
+    })
+
+    const typeToSelect = await findByText(container, 'common.pagerDuty')
+
+    expect(typeToSelect).toBeInTheDocument()
+    act(() => {
+      fireEvent.click(typeToSelect)
+    })
+    const tRows = await findAllByRole(container, 'row')
+    // This is because we take header row too into consideration.
+    expect(tRows.length).toBe(2)
+    expect(mockFetch).toHaveBeenCalledTimes(3)
+  })
+
+  test('change changeType filter', async () => {
+    const { container, getByTestId } = render(<WrapperComponent />)
+
+    const changeTypeDropdown = getByTestId('changeTypeFilter') as HTMLInputElement
+
+    await waitFor(() => {
+      fireEvent.click(changeTypeDropdown!)
+    })
+
+    const typeToSelectType = await findByText(container, 'deploymentText')
+
+    expect(typeToSelectType).toBeInTheDocument()
+    act(() => {
+      fireEvent.click(typeToSelectType)
+    })
+    const tRows = await findAllByRole(container, 'row')
+    // This is because we take header row too into consideration.
+    expect(tRows.length).toBe(3)
+    expect(mockFetch).toHaveBeenCalledTimes(3)
+  })
+
+  test('delete filter', async () => {
+    const { container, getByTestId } = render(<WrapperComponent />)
+
+    const servicesDropdown = getByTestId('serviceFilter') as HTMLInputElement
+    await waitFor(() => {
+      fireEvent.click(servicesDropdown!)
+    })
+    const typeToSelect1 = await findByText(container, 'service1')
+    expect(typeToSelect1).toBeInTheDocument()
+    act(() => {
+      fireEvent.click(typeToSelect1)
+    })
+
+    const servicesDropdown1 = getByTestId('serviceFilter') as HTMLInputElement
+    await waitFor(() => {
+      fireEvent.click(servicesDropdown1!)
+    })
+    const typeToSelect2 = await findByText(container, 'AppDService101')
+    expect(typeToSelect2).toBeInTheDocument()
+    act(() => {
+      fireEvent.click(typeToSelect2)
+    })
+    const tRows1 = await findAllByRole(container, 'row')
+    // This is because we take header row too into consideration.
+    expect(tRows1.length).toBe(5)
+
+    const servicesDropdown2 = getByTestId('serviceFilter') as HTMLInputElement
+    await waitFor(() => {
+      fireEvent.click(servicesDropdown2!)
+    })
+    const typeToSelect3 = await findByText(container, 'AppDService101')
+    expect(typeToSelect3).toBeInTheDocument()
+    act(() => {
+      fireEvent.click(typeToSelect3)
+    })
+    const tRows2 = await findAllByRole(container, 'row')
+    // This is because we take header row too into consideration.
+    expect(tRows2.length).toBe(3)
+    expect(mockFetch).toHaveBeenCalledTimes(5)
   })
 })

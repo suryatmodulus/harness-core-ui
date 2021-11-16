@@ -23,7 +23,7 @@ export const setFieldValue = async ({ container, type, fieldId, value }: FormInp
       if (!value) {
         throw new Error(`A value is needed to fill ${fieldId}`)
       }
-      const input = queryByAttribute('name', container, fieldId)
+      const input = queryByAttribute('name', container, fieldId as string)
       expect(input).toBeTruthy()
       if (input) fireEvent.change(input, { target: { value: value } })
       break
@@ -45,7 +45,7 @@ export const setFieldValue = async ({ container, type, fieldId, value }: FormInp
         if (targetIndex) {
           fireEvent.click(options[targetIndex])
           await waitFor(() =>
-            expect(queryByAttribute('name', container, fieldId)?.getAttribute('value'))?.toEqual(value)
+            expect(queryByAttribute('name', container, fieldId as string)?.getAttribute('value'))?.toEqual(value)
           )
         }
       }
@@ -55,7 +55,7 @@ export const setFieldValue = async ({ container, type, fieldId, value }: FormInp
       if (!value && value !== '') {
         throw new Error(`A value is needed to fill ${fieldId}`)
       }
-      const input = queryByAttribute('name', container, fieldId)
+      const input = queryByAttribute('name', container, fieldId as string)
       expect(input).toBeTruthy()
       if (input) fireEvent.change(input, { target: { value: value } })
       break
@@ -67,7 +67,7 @@ export const setFieldValue = async ({ container, type, fieldId, value }: FormInp
       break
     }
     case InputTypes.CHECKBOX: {
-      const input = queryByAttribute('name', container, fieldId)
+      const input = queryByAttribute('name', container, fieldId as string)
       expect(input).toBeTruthy()
       if (input) fireEvent.click(input)
       break

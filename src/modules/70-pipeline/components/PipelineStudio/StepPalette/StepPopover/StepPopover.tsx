@@ -75,9 +75,13 @@ export const StepPopover: React.FC<StepPopoverProps> = props => {
           {stepsFactory.getStepIsHarnessSpecific(stepData.type || '') && (
             <Icon size={12} name="harness-logo-white-bg-blue" className={css.stepHarnessLogo} />
           )}
+
           <Icon
             name={!isNil(step) ? stepsFactory.getStepIcon(stepData.type || '') : iconMap[stepData.name || '']}
             size={25}
+            {...(stepsFactory.getStepIconColor(stepData.type || '') !== undefined
+              ? { color: stepsFactory.getStepIconColor(stepData.type || '') }
+              : {})}
           />
         </Card>
         <TooltipContent description={description} stepData={stepData} stepsFactory={stepsFactory} />

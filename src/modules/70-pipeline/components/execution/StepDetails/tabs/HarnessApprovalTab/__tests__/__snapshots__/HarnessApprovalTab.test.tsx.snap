@@ -245,11 +245,12 @@ exports[`<HarnessApprovalTab /> tests Waiting Status does not shows form if user
         </span>
       </div>
     </div>
-    <div
-      class="reviewMsg"
+    <p
+      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--intent-warning StyledProps--font-align-center"
+      style="--text-line-clamp: 1; width: 500px;"
     >
       Please review the following information and approve the pipeline progression
-    </div>
+    </p>
   </div>
   <div
     class="harnessApproval"
@@ -471,11 +472,12 @@ exports[`<HarnessApprovalTab /> tests Waiting Status shows form if user is autho
         </span>
       </div>
     </div>
-    <div
-      class="reviewMsg"
+    <p
+      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--intent-warning StyledProps--font-align-center"
+      style="--text-line-clamp: 1; width: 500px;"
     >
       Please review the following information and approve the pipeline progression
-    </div>
+    </p>
   </div>
   <div
     class="harnessApproval"

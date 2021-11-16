@@ -71,19 +71,13 @@ describe('Approval Stage minimal view', () => {
       fireEvent.click(getByText('pipelineSteps.build.create.setupStage'))
     })
     await waitFor(() => queryByText('approvalStage.stageNameRequired'))
+    await waitFor(() => queryByText('pipeline.approvalTypeRequired'))
 
     const nameInput = container.querySelector('.bp3-input')
     act(() => {
       fireEvent.change(nameInput!, { target: { value: 'stagename' } })
     })
     expect(props.stageProps?.onChange).toBeCalledTimes(4)
-    expect(props.stageProps?.onChange).toBeCalledWith({
-      name: 'stagename',
-      identifier: 'stagename',
-      description: undefined,
-      approvalType: 'HarnessApproval',
-      tags: {}
-    })
     act(() => {
       fireEvent.click(getByText('Harness Approval'))
     })
@@ -131,6 +125,7 @@ describe('Jira Approval Stage minimal view', () => {
       fireEvent.click(getByText('pipelineSteps.build.create.setupStage'))
     })
     await waitFor(() => queryByText('approvalStage.stageNameRequired'))
+    await waitFor(() => queryByText('pipeline.approvalTypeRequired'))
 
     const nameInput = container.querySelector('.bp3-input')
     act(() => {
@@ -138,9 +133,6 @@ describe('Jira Approval Stage minimal view', () => {
     })
 
     expect(props.stageProps?.onChange).toBeCalledTimes(4)
-    act(() => {
-      fireEvent.click(getByText('Change'))
-    })
     act(() => {
       fireEvent.click(getByText('Jira'))
     })

@@ -94,6 +94,7 @@ export function HarnessApprovalView(props: HarnessApprovalViewProps): React.Reac
   return (
     <Tabs id="step-details" className={tabCss.tabs} renderActiveTabPanelOnly>
       <Tabs.Tab
+        key="Approval"
         id="Approval"
         title={getString('approvalStage.title')}
         panel={
@@ -114,14 +115,21 @@ export function HarnessApprovalView(props: HarnessApprovalViewProps): React.Reac
           )
         }
       />
-      <Tabs.Tab id="PipelineDetails" title={getString('common.pipelineDetails')} panel={<PipelineDetailsTab />} />
+      <Tabs.Tab
+        id="PipelineDetails"
+        key="PipelineDetails"
+        title={getString('common.pipelineDetails')}
+        panel={<PipelineDetailsTab />}
+      />
       <Tabs.Tab
         id="Input"
+        key="Input"
         title={getString('common.input')}
         panel={<InputOutputTab baseFqn={step.baseFqn} mode="input" data={step.stepParameters} />}
       />
       <Tabs.Tab
         id="Output"
+        key="Output"
         title={getString('outputLabel')}
         panel={
           <InputOutputTab

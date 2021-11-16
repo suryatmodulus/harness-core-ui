@@ -249,7 +249,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                       class="helpSection"
                     >
                       <span
-                        class="bp3-icon StyledProps--main helpIcon"
+                        class="bp3-icon StyledProps--main helpIcon StyledProps--intent-primary"
                         data-icon="question"
                       >
                         <svg
@@ -642,7 +642,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
               class="secondaryButton"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-left-medium Button--with-current-color Button--variation Button--variation-secondary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-left-medium Button--with-current-color Button--variation Button--variation-tertiary"
                 id="cancel-runpipeline"
                 type="button"
               >

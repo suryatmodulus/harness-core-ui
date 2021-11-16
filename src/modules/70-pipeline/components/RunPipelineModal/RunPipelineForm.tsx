@@ -1044,7 +1044,7 @@ function RunPipelineFormBasic({
                     />
                     <div className={css.secondaryButton}>
                       <Button
-                        variation={ButtonVariation.SECONDARY}
+                        variation={ButtonVariation.TERTIARY}
                         id="cancel-runpipeline"
                         text={getString('cancel')}
                         margin={{ left: 'medium' }}

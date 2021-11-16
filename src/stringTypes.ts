@@ -2006,6 +2006,7 @@ export interface StringsMap {
   'pipeline.approvalStep.validation.minimumCountOne': string
   'pipeline.approvalStep.validation.minimumCountRequired': string
   'pipeline.approvalStep.validation.userGroups': string
+  'pipeline.approvalTypeRequired': string
   'pipeline.artifactsSelection.artifactDetails': string
   'pipeline.artifactsSelection.artifactTyperequired': string
   'pipeline.artifactsSelection.existingDocker.enterTagRegex': string

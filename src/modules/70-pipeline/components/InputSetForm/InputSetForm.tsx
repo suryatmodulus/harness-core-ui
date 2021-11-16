@@ -529,7 +529,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                           />
                           &nbsp; &nbsp;
                           <Button
-                            variation={ButtonVariation.SECONDARY}
+                            variation={ButtonVariation.TERTIARY}
                             onClick={() => {
                               history.goBack()
                             }}
@@ -572,7 +572,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                       />
                       &nbsp; &nbsp;
                       <Button
-                        variation={ButtonVariation.SECONDARY}
+                        variation={ButtonVariation.TERTIARY}
                         onClick={() => {
                           history.goBack()
                         }}

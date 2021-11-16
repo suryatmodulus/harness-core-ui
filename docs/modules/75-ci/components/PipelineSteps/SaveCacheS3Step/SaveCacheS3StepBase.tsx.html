@@ -188,8 +188,10 @@
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">41x</span>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">41x</span>
@@ -240,14 +242,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -320,7 +326,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -334,7 +339,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './SaveCacheS3StepFunctionConfigs'
 import type { SaveCacheS3StepProps, SaveCacheS3StepData, SaveCacheS3StepDataUI } from './SaveCacheS3Step'
@@ -344,7 +349,7 @@ import { ArchiveFormatOptions } from '../../../constants/Constants'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
 export const SaveCacheS3StepBase = (
-  { initialValues, onUpdate, isNewStep = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span> readonly, onChange, stepViewType, allowableTypes }: SaveCacheS3StepProps,
+  { initialValues, onUpdate, isNewStep = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span> readonly, stepViewType, allowableTypes, onChange }: SaveCacheS3StepProps,
   formikRef: StepFormikFowardRef&lt;SaveCacheS3StepData&gt;
 ): JSX.Element =&gt; {
   const {
@@ -367,20 +372,24 @@ export const SaveCacheS3StepBase = (
       )}
       formName="savedS3Cache"
       validate={valuesToValidate =&gt; {
-        return validate(valuesToValidate, editViewValidateFieldsConfig, {
-          initialValues,
-          steps: <span class="branch-1 cbranch-no" title="branch not covered" >currentStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.execution<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.steps </span>|| {},
-          serviceDependencies: <span class="branch-1 cbranch-no" title="branch not covered" >currentStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceDependencies </span>|| {},
-          getString
-        })
-      }}
-      validationSchema={Yup.object().shape({
-        ...getNameAndIdentifierSchema(getString, stepViewType)
-      })}
-      onSubmit={(_values: SaveCacheS3StepDataUI) =&gt; {
-<span class="branch-1 cbranch-no" title="branch not covered" >        onChange?.(</span>
-          getFormValuesInCorrectFormat&lt;SaveCacheS3StepDataUI, SaveCacheS3StepData&gt;(_values, transformValuesFieldsConfig)
+        const schemaValues = getFormValuesInCorrectFormat&lt;SaveCacheS3StepDataUI, SaveCacheS3StepData&gt;(
+          valuesToValidate,
+          transformValuesFieldsConfig
         )
+<span class="branch-1 cbranch-no" title="branch not covered" >        onChange?.(schemaValues)</span>
+        return validate(
+          valuesToValidate,
+          editViewValidateFieldsConfig,
+          {
+            initialValues,
+            steps: <span class="branch-1 cbranch-no" title="branch not covered" >currentStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.execution<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.steps </span>|| {},
+            serviceDependencies: <span class="branch-1 cbranch-no" title="branch not covered" >currentStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceDependencies </span>|| {},
+            getString
+          },
+          stepViewType
+        )
+      }}
+      onSubmit={(_values: SaveCacheS3StepDataUI) =&gt; {
         const schemaValues = getFormValuesInCorrectFormat&lt;SaveCacheS3StepDataUI, SaveCacheS3StepData&gt;(
           _values,
           transformValuesFieldsConfig
@@ -457,7 +466,7 @@ export const SaveCacheS3StepBaseWithRef = React.forwardRef(SaveCacheS3StepBase)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 16 2021 14:55:43 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 16 2021 16:01:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

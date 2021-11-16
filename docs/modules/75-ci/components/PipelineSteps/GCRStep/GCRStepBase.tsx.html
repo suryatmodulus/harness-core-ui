@@ -197,8 +197,10 @@
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
 <a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">41x</span>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">41x</span>
@@ -254,7 +256,11 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -338,7 +344,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -352,7 +357,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './GCRStepFunctionConfigs'
 import type { GCRStepProps, GCRStepData, GCRStepDataUI } from './GCRStep'
@@ -361,7 +366,7 @@ import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
 export const GCRStepBase = (
-  { initialValues, onUpdate, isNewStep = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span> readonly, onChange, stepViewType, allowableTypes }: GCRStepProps,
+  { initialValues, onUpdate, isNewStep = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span> readonly, stepViewType, allowableTypes, onChange }: GCRStepProps,
   formikRef: StepFormikFowardRef&lt;GCRStepData&gt;
 ): JSX.Element =&gt; {
   const {
@@ -391,19 +396,23 @@ export const GCRStepBase = (
       )}
       formName="ciGcrStep"
       validate={valuesToValidate =&gt; {
-<span class="branch-1 cbranch-no" title="branch not covered" >        onChange?.(</span>
-          getFormValuesInCorrectFormat&lt;GCRStepDataUI, GCRStepData&gt;(valuesToValidate, transformValuesFieldsConfig)
+        const schemaValues = getFormValuesInCorrectFormat&lt;GCRStepDataUI, GCRStepData&gt;(
+          valuesToValidate,
+          transformValuesFieldsConfig
         )
-        return validate(valuesToValidate, editViewValidateFieldsConfig, {
-          initialValues,
-          steps: <span class="branch-1 cbranch-no" title="branch not covered" >currentStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.execution<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.steps </span>|| {},
-          serviceDependencies: <span class="branch-1 cbranch-no" title="branch not covered" >currentStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceDependencies </span>|| {},
-          getString
-        })
+<span class="branch-1 cbranch-no" title="branch not covered" >        onChange?.(schemaValues)</span>
+        return validate(
+          valuesToValidate,
+          editViewValidateFieldsConfig,
+          {
+            initialValues,
+            steps: <span class="branch-1 cbranch-no" title="branch not covered" >currentStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.execution<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.steps </span>|| {},
+            serviceDependencies: <span class="branch-1 cbranch-no" title="branch not covered" >currentStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceDependencies </span>|| {},
+            getString
+          },
+          stepViewType
+        )
       }}
-      validationSchema={Yup.object().shape({
-        ...getNameAndIdentifierSchema(getString, stepViewType)
-      })}
       onSubmit={(_values: GCRStepDataUI) =&gt; {
         const schemaValues = getFormValuesInCorrectFormat&lt;GCRStepDataUI, GCRStepData&gt;(
           _values,
@@ -484,7 +493,7 @@ export const GCRStepBaseWithRef = React.forwardRef(GCRStepBase)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 16 2021 14:55:43 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 16 2021 16:01:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

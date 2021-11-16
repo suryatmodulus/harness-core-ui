@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.53% </span>
+                <span class="strong">75.3% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>120/161</span>
+                <span class='fraction'>125/166</span>
             </div>
         
             
@@ -512,7 +512,19 @@
 <a name='L453'></a><a href='#L453'>453</a>
 <a name='L454'></a><a href='#L454'>454</a>
 <a name='L455'></a><a href='#L455'>455</a>
-<a name='L456'></a><a href='#L456'>456</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">84x</span>
+<a name='L456'></a><a href='#L456'>456</a>
+<a name='L457'></a><a href='#L457'>457</a>
+<a name='L458'></a><a href='#L458'>458</a>
+<a name='L459'></a><a href='#L459'>459</a>
+<a name='L460'></a><a href='#L460'>460</a>
+<a name='L461'></a><a href='#L461'>461</a>
+<a name='L462'></a><a href='#L462'>462</a>
+<a name='L463'></a><a href='#L463'>463</a>
+<a name='L464'></a><a href='#L464'>464</a>
+<a name='L465'></a><a href='#L465'>465</a>
+<a name='L466'></a><a href='#L466'>466</a>
+<a name='L467'></a><a href='#L467'>467</a>
+<a name='L468'></a><a href='#L468'>468</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">84x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">84x</span>
@@ -834,6 +846,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-yes">599x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -883,6 +896,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">599x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">228x</span>
 <span class="cline-any cline-yes">228x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -909,6 +927,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">84x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-yes">54x</span>
@@ -945,6 +968,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">263x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -960,7 +984,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">153x</span>
+<span class="cline-any cline-yes">110x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1287,7 +1311,8 @@ function generateSchemaForBoolean(): Lazy {
 &nbsp;
 export function generateSchemaFields(
   fields: Field[],
-  { initialValues, steps, serviceDependencies, getString }: GenerateSchemaDependencies
+  { initialValues, steps, serviceDependencies, getString }: GenerateSchemaDependencies,
+  stepViewType: StepViewType
 ): SchemaField[] {
   return fields.map(field =&gt; {
     const { name, type, label, isRequired, isActive } = field
@@ -1302,11 +1327,11 @@ export function generateSchemaFields(
       validationRule = generateSchemaForMap(field, { getString })
     }
 &nbsp;
-    if (type === Types.Identifier) {
+    if (stepViewType !== StepViewType.Template &amp;&amp; type === Types.Identifier) {
       validationRule = generateSchemaForIdentifier({ initialValues, steps, serviceDependencies, getString })
     }
 &nbsp;
-    if (type === Types.Name) {
+    if (stepViewType !== StepViewType.Template &amp;&amp; type === Types.Name) {
       validationRule = generateSchemaForName({ getString })
     }
 &nbsp;
@@ -1337,7 +1362,12 @@ export function generateSchemaFields(
       validationRule = yup.string()
     }
 &nbsp;
-    if ((type === Types.Identifier || type === Types.Name || type === Types.Text) &amp;&amp; isRequired &amp;&amp; label) {
+    if (
+      stepViewType !== StepViewType.Template &amp;&amp;
+      (type === Types.Identifier || type === Types.Name || type === Types.Text) &amp;&amp;
+      isRequired &amp;&amp;
+      label
+    ) {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (validationRule) {
         validationRule = (validationRule as any).required(
           getString('fieldRequired', { field: getString(label as StringKeys) })
@@ -1363,7 +1393,12 @@ export function generateSchemaFields(
   })
 }
 &nbsp;
-export function validate(values: any, config: Field[], dependencies: GenerateSchemaDependencies): FormikErrors&lt;any&gt; {
+export function validate(
+  values: any,
+  config: Field[],
+  dependencies: GenerateSchemaDependencies,
+  stepViewType: StepViewType
+): FormikErrors&lt;any&gt; {
   const errors = {}
   <span class="missing-if-branch" title="else path not taken" >E</span>if (isEmpty(dependencies.steps)) {
     dependencies.steps = []
@@ -1371,7 +1406,7 @@ export function validate(values: any, config: Field[], dependencies: GenerateSch
   <span class="missing-if-branch" title="else path not taken" >E</span>if (isEmpty(dependencies.serviceDependencies)) {
     dependencies.serviceDependencies = []
   }
-  const schemaFields = generateSchemaFields(config, dependencies)
+  const schemaFields = generateSchemaFields(config, dependencies, stepViewType)
   schemaFields.forEach(({ name, validationRule, isActive = true }) =&gt; {
     if (!isActive) return
 &nbsp;
@@ -1398,7 +1433,8 @@ export function validateInputSet(
   values: any,
   template: any,
   config: Field[],
-  dependencies: GenerateSchemaDependencies
+  dependencies: GenerateSchemaDependencies,
+  stepViewType: StepViewType
 ): FormikErrors&lt;any&gt; {
   const configWithActiveState = config.map(field =&gt; {
     return {
@@ -1408,7 +1444,7 @@ export function validateInputSet(
     }
   })
 &nbsp;
-  return validate(values, configWithActiveState, dependencies)
+  return validate(values, configWithActiveState, dependencies, stepViewType)
 }
 &nbsp;
 export function getNameAndIdentifierSchema(
@@ -1429,7 +1465,7 @@ export function getNameAndIdentifierSchema(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 16 2021 14:55:43 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 16 2021 16:01:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

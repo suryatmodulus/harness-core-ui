@@ -78,6 +78,10 @@ export const getExecuteOnDelegateValue = (type: ConnectivityModeType) => {
   return type === ConnectivityModeType.Delegate
 }
 
+export const getConnectivityMode = (executeOnDelegate: boolean | undefined) => {
+  return executeOnDelegate === false ? ConnectivityModeType.Manager : ConnectivityModeType.Delegate
+}
+
 const buildAuthTypePayload = (formData: FormData) => {
   const { authType = '' } = formData
 
@@ -361,7 +365,8 @@ export const setupGithubFormData = async (connectorInfo: ConnectorInfoDTO, accou
     apiAuthType: connectorInfo?.spec?.apiAccess?.type,
     installationId: connectorInfo?.spec?.apiAccess?.spec?.installationId,
     applicationId: connectorInfo?.spec?.apiAccess?.spec?.applicationId,
-    privateKey: connectorInfo?.spec?.apiAccess?.spec?.privateKeyRef
+    privateKey: connectorInfo?.spec?.apiAccess?.spec?.privateKeyRef,
+    connectivityMode: getConnectivityMode(connectorInfo?.spec?.executeOnDelegate)
   }
 
   return formData

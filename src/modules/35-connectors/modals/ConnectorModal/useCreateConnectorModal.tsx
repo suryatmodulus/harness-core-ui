@@ -8,6 +8,7 @@ import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
+import { getConnectivityMode } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import css from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 
 export interface UseCreateConnectorModalProps {
@@ -25,8 +26,7 @@ export interface UseCreateConnectorModalReturn {
     isEditMode: boolean,
     type: ConnectorInfoDTO['type'],
     connector?: ConnectorModaldata,
-    modalProps?: IDialogProps,
-    connectivityMode?: ConnectivityModeType
+    modalProps?: IDialogProps
   ) => void
   hideConnectorModal: () => void
 }
@@ -100,14 +100,17 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       isEditing: boolean,
       connectorType: ConnectorInfoDTO['type'],
       connector?: ConnectorModaldata,
-      _modalProps?: IDialogProps,
-      _connectivityMode?: ConnectivityModeType
+      _modalProps?: IDialogProps
     ) => {
       setConnectorInfo(connector?.connectorInfo)
       setGitDetails(connector?.gitDetails)
       setIsEditMode(isEditing)
       setType(connectorType)
-      setConnectivityMode(_connectivityMode)
+      setConnectivityMode(
+        isEditing
+          ? getConnectivityMode(connector?.connectorInfo?.spec?.executeOnDelegate)
+          : ConnectivityModeType.Manager
+      )
       setModalProps(_modalProps || modalProps)
       showModal()
     },

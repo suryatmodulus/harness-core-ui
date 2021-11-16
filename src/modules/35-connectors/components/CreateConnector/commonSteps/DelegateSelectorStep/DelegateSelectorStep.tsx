@@ -30,17 +30,15 @@ import {
   DelegatesFoundState
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
 import { CredTypeValues, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
-import useCreateEditConnector from '@connectors/hooks/useCreateEditConnector'
+import useCreateEditConnector, { BuildPayloadProps } from '@connectors/hooks/useCreateEditConnector'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
-interface BuildPayloadProps {
-  projectIdentifier: string
-  orgIdentifier: string
+interface DelegateSelectorStepData extends BuildPayloadProps {
   delegateSelectors: Array<string>
 }
 
 export interface DelegateSelectorProps {
-  buildPayload: (data: BuildPayloadProps) => ConnectorRequestBody
+  buildPayload: (data: DelegateSelectorStepData) => ConnectorRequestBody
   hideModal?: () => void
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
@@ -109,13 +107,6 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     }
   }
 
-  const { onInitiate, loading } = useCreateEditConnector({
-    accountId,
-    isEditMode: props.isEditMode,
-    isGitSyncEnabled,
-    afterSuccessHandler
-  })
-
   const isDelegateSelectorMandatory = (): boolean => {
     return (
       DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType ||
@@ -125,6 +116,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       HashiCorpVaultAccessTypes.VAULT_AGENT === prevStepData?.accessType
     )
   }
+
   const initialDelegateSelectors = (() => {
     if (!props.isEditMode) {
       return []
@@ -144,12 +136,21 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   )
   const [delegatesFound, setDelegatesFound] = useState<DelegatesFoundState>(DelegatesFoundState.ActivelyConnected)
   let stepDataRef: ConnectorConfigDTO | null = null
+
+  const { onInitiate, loading } = useCreateEditConnector<DelegateSelectorStepData>({
+    accountId,
+    isEditMode: props.isEditMode,
+    isGitSyncEnabled,
+    afterSuccessHandler
+  })
+
   const isSaveButtonDisabled =
     (isDelegateSelectorMandatory() && delegateSelectors.length === 0) ||
     (mode === DelegateOptions.DelegateOptionsSelective && delegateSelectors.length === 0) ||
     loading
 
   const connectorName = (prevStepData as ConnectorConfigDTO)?.name || (connectorInfo as ConnectorInfoDTO)?.name
+
   return (
     <>
       {!isGitSyncEnabled && loading ? (
@@ -196,7 +197,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
               return
             }
 
-            const connectorData: BuildPayloadProps = {
+            const connectorData: DelegateSelectorStepData = {
               ...prevStepData,
               ...updatedStepData,
               projectIdentifier: projectIdentifier,

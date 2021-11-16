@@ -17,27 +17,36 @@ import type { ConnectorCreateEditProps } from '@connectors/constants'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import { useStrings } from 'framework/strings'
 
+export interface BuildPayloadProps {
+  projectIdentifier: string
+  orgIdentifier: string
+  branch?: string
+  repo?: string
+}
+
 interface UseCreateEditConnector {
   accountId: string
   isEditMode: boolean
   isGitSyncEnabled: boolean
-  afterSuccessHandler: (data: any) => void
+  afterSuccessHandler: (data: UseSaveSuccessResponse) => void
   gitDetails?: EntityGitDetails
 }
 
-interface OnInitiateConnectorCreateEditProps {
-  buildPayload: (data: any) => any
-  connectorFormData: any
+interface OnInitiateConnectorCreateEditProps<T> {
+  buildPayload: (data: T & BuildPayloadProps) => Connector
+  connectorFormData: T & BuildPayloadProps
   customHandleCreate?: (payload: ConnectorConfigDTO) => Promise<ConnectorInfoDTO | undefined>
   customHandleUpdate?: (payload: ConnectorConfigDTO) => Promise<ConnectorInfoDTO | undefined>
 }
 
-export default function useCreateEditConnector(props: UseCreateEditConnector) {
-  const [connectorPayload, setConnectorPayload] = useState<Connector>({})
-  const [connectorResponse, setConnectorResponse] = useState<UseSaveSuccessResponse>()
-  const [gitDetails, setGitDetails] = useState(props.gitDetails)
+export default function useCreateEditConnector<T>(props: UseCreateEditConnector) {
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
+
+  const [connectorPayload, setConnectorPayload] = useState<Connector>({})
+  const [connectorResponse, setConnectorResponse] = useState<UseSaveSuccessResponse>()
+  let gitDetails = props.gitDetails
+  let connectorData: T & BuildPayloadProps
 
   const { mutate: createConnector, loading: creating } = useCreateConnector({
     queryParams: { accountIdentifier: props.accountId }
@@ -45,10 +54,9 @@ export default function useCreateEditConnector(props: UseCreateEditConnector) {
   const { mutate: updateConnector, loading: updating } = useUpdateConnector({
     queryParams: { accountIdentifier: props.accountId }
   })
-  //   setLoading(creating || updating)
 
   const handleCreateOrEdit = async (
-    connectorFormData: any,
+    connectorFormData: T & BuildPayloadProps,
     payload: ConnectorCreateEditProps,
     objectId?: EntityGitDetails['objectId']
   ): Promise<UseSaveSuccessResponse> => {
@@ -87,7 +95,7 @@ export default function useCreateEditConnector(props: UseCreateEditConnector) {
       payload?: Connector,
       objectId?: string
     ): Promise<UseSaveSuccessResponse> =>
-      handleCreateOrEdit(null, { gitData, payload: payload || connectorPayload }, objectId),
+      handleCreateOrEdit(connectorData, { gitData, payload: payload || connectorPayload }, objectId),
     onClose: noop
   })
 
@@ -101,13 +109,14 @@ export default function useCreateEditConnector(props: UseCreateEditConnector) {
       buildPayload,
       customHandleCreate,
       customHandleUpdate
-    }: OnInitiateConnectorCreateEditProps) => {
+    }: OnInitiateConnectorCreateEditProps<T & BuildPayloadProps>) => {
+      connectorData = connectorFormData
       const payload = buildPayload(connectorFormData)
       setConnectorPayload(payload)
       if (props.isGitSyncEnabled) {
         // Using git context set at 1st step while creating new connector
         if (!props.isEditMode) {
-          setGitDetails({ ...gitDetails, branch: connectorFormData?.branch, repoIdentifier: connectorFormData?.repo })
+          gitDetails = { ...gitDetails, branch: connectorFormData?.branch, repoIdentifier: connectorFormData?.repo }
         }
         openSaveToGitDialog({
           isEditing: props.isEditMode,

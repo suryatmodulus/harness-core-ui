@@ -1,5 +1,4 @@
 import React from 'react'
-import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -13,7 +12,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './ECRStepFunctionConfigs'
 import type { ECRStepProps, ECRStepData, ECRStepDataUI } from './ECRStep'
@@ -22,7 +21,7 @@ import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const ECRStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes }: ECRStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, allowableTypes, onChange }: ECRStepProps,
   formikRef: StepFormikFowardRef<ECRStepData>
 ): JSX.Element => {
   const {
@@ -52,19 +51,23 @@ export const ECRStepBase = (
       )}
       formName="ciEcrStep"
       validate={valuesToValidate => {
-        onChange?.(
-          getFormValuesInCorrectFormat<ECRStepDataUI, ECRStepData>(valuesToValidate, transformValuesFieldsConfig)
+        const schemaValues = getFormValuesInCorrectFormat<ECRStepDataUI, ECRStepData>(
+          valuesToValidate,
+          transformValuesFieldsConfig
         )
-        return validate(valuesToValidate, editViewValidateFieldsConfig, {
-          initialValues,
-          steps: currentStage?.stage?.spec?.execution?.steps || {},
-          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
-          getString
-        })
+        onChange?.(schemaValues)
+        return validate(
+          valuesToValidate,
+          editViewValidateFieldsConfig,
+          {
+            initialValues,
+            steps: currentStage?.stage?.spec?.execution?.steps || {},
+            serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+            getString
+          },
+          stepViewType
+        )
       }}
-      validationSchema={Yup.object().shape({
-        ...getNameAndIdentifierSchema(getString, stepViewType)
-      })}
       onSubmit={(_values: ECRStepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<ECRStepDataUI, ECRStepData>(
           _values,

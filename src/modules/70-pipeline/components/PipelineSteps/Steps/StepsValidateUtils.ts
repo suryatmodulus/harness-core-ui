@@ -318,7 +318,8 @@ function generateSchemaForBoolean(): Lazy {
 
 export function generateSchemaFields(
   fields: Field[],
-  { initialValues, steps, serviceDependencies, getString }: GenerateSchemaDependencies
+  { initialValues, steps, serviceDependencies, getString }: GenerateSchemaDependencies,
+  stepViewType: StepViewType
 ): SchemaField[] {
   return fields.map(field => {
     const { name, type, label, isRequired, isActive } = field
@@ -333,11 +334,11 @@ export function generateSchemaFields(
       validationRule = generateSchemaForMap(field, { getString })
     }
 
-    if (type === Types.Identifier) {
+    if (stepViewType !== StepViewType.Template && type === Types.Identifier) {
       validationRule = generateSchemaForIdentifier({ initialValues, steps, serviceDependencies, getString })
     }
 
-    if (type === Types.Name) {
+    if (stepViewType !== StepViewType.Template && type === Types.Name) {
       validationRule = generateSchemaForName({ getString })
     }
 
@@ -368,7 +369,12 @@ export function generateSchemaFields(
       validationRule = yup.string()
     }
 
-    if ((type === Types.Identifier || type === Types.Name || type === Types.Text) && isRequired && label) {
+    if (
+      stepViewType !== StepViewType.Template &&
+      (type === Types.Identifier || type === Types.Name || type === Types.Text) &&
+      isRequired &&
+      label
+    ) {
       if (validationRule) {
         validationRule = (validationRule as any).required(
           getString('fieldRequired', { field: getString(label as StringKeys) })
@@ -394,7 +400,12 @@ export function generateSchemaFields(
   })
 }
 
-export function validate(values: any, config: Field[], dependencies: GenerateSchemaDependencies): FormikErrors<any> {
+export function validate(
+  values: any,
+  config: Field[],
+  dependencies: GenerateSchemaDependencies,
+  stepViewType: StepViewType
+): FormikErrors<any> {
   const errors = {}
   if (isEmpty(dependencies.steps)) {
     dependencies.steps = []
@@ -402,7 +413,7 @@ export function validate(values: any, config: Field[], dependencies: GenerateSch
   if (isEmpty(dependencies.serviceDependencies)) {
     dependencies.serviceDependencies = []
   }
-  const schemaFields = generateSchemaFields(config, dependencies)
+  const schemaFields = generateSchemaFields(config, dependencies, stepViewType)
   schemaFields.forEach(({ name, validationRule, isActive = true }) => {
     if (!isActive) return
 
@@ -429,7 +440,8 @@ export function validateInputSet(
   values: any,
   template: any,
   config: Field[],
-  dependencies: GenerateSchemaDependencies
+  dependencies: GenerateSchemaDependencies,
+  stepViewType: StepViewType
 ): FormikErrors<any> {
   const configWithActiveState = config.map(field => {
     return {
@@ -439,7 +451,7 @@ export function validateInputSet(
     }
   })
 
-  return validate(values, configWithActiveState, dependencies)
+  return validate(values, configWithActiveState, dependencies, stepViewType)
 }
 
 export function getNameAndIdentifierSchema(

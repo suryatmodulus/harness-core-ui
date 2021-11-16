@@ -1,5 +1,4 @@
 import React from 'react'
-import * as Yup from 'yup'
 import cx from 'classnames'
 import {
   Text,
@@ -29,7 +28,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { RunStepProps, RunStepData, RunStepDataUI } from './RunStep'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RunStepFunctionConfigs'
@@ -38,7 +37,7 @@ import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes }: RunStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, allowableTypes, onChange }: RunStepProps,
   formikRef: StepFormikFowardRef<RunStepData>
 ): JSX.Element => {
   const {
@@ -62,19 +61,23 @@ export const RunStepBase = (
       )}
       formName="ciRunStep"
       validate={valuesToValidate => {
-        onChange?.(
-          getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(valuesToValidate, transformValuesFieldsConfig)
+        const schemaValues = getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(
+          valuesToValidate,
+          transformValuesFieldsConfig
         )
-        return validate(valuesToValidate, editViewValidateFieldsConfig, {
-          initialValues,
-          steps: currentStage?.stage?.spec?.execution?.steps || {},
-          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || [],
-          getString
-        })
+        onChange?.(schemaValues)
+        return validate(
+          valuesToValidate,
+          editViewValidateFieldsConfig,
+          {
+            initialValues,
+            steps: currentStage?.stage?.spec?.execution?.steps || {},
+            serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || [],
+            getString
+          },
+          stepViewType
+        )
       }}
-      validationSchema={Yup.object().shape({
-        ...getNameAndIdentifierSchema(getString, stepViewType)
-      })}
       onSubmit={(_values: RunStepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(
           _values,

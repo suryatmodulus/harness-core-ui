@@ -117,7 +117,7 @@ export class GCRStep extends PipelineStep<GCRStepData> {
   }: ValidateInputSetProps<GCRStepData>): FormikErrors<GCRStepData> {
     const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString }, viewType)
     }
 
     return {}

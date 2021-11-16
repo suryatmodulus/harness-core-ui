@@ -16,7 +16,13 @@ import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Page } from '@common/exports'
-import type { AuditEventDTO, PageAuditEventDTO } from 'services/audit'
+import {
+  AuditEventDTO,
+  AuditFilterProperties,
+  PageAuditEventDTO,
+  useGetAuditList,
+  UseGetAuditListProps
+} from 'services/audit'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import type { FilterDTO } from 'services/cd-ng'
@@ -79,8 +85,9 @@ const AuditTrail: React.FC = () => {
   const [searchParam, setSearchParam] = useState<string>()
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
   const [filters, setFilters] = useState<FilterDTO[]>()
+  const payload = { scopes: [{ accountIdentifier: 'accountID' }] } as AuditFilterProperties
 
-  // const { mutate: fetchAuditList } = useGetAuditList({})
+  // const { mutate: fetchAuditList } = useGetAuditList()
 
   const data = dummyResponse.data as PageAuditEventDTO
 
@@ -156,6 +163,15 @@ const AuditTrail: React.FC = () => {
 
   const onDateChange = (selectedDates: [Date, Date]): void => {
     setDate(selectedDates)
+    const [startTime, endTime] = selectedDates
+    console.log('startTime', startTime)
+    console.log('endTime', endTime)
+    // fetch data on date change.
+  }
+
+  const onChangeEventTypeFilter = (value: SelectOption) => {
+    setEventType(value)
+    console.log('fetch data based on event type - ', value)
   }
 
   const handleFilterSelection = (
@@ -197,7 +213,7 @@ const AuditTrail: React.FC = () => {
               items={LoginEventsList}
               width={170}
               value={selectedEventType?.value?.toString()}
-              onChange={setEventType}
+              onChange={onChangeEventTypeFilter}
             />
           </Layout.Horizontal>
           <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>

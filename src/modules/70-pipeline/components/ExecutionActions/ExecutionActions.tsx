@@ -20,7 +20,6 @@ import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 
 import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import RetryPipeline from '../RetryPipeline/RetryPipeline'
 import { useRunPipelineModal } from '../RunPipelineModal/useRunPipelineModal'
 import css from './ExecutionActions.module.scss'
@@ -84,7 +83,6 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
   })
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
-  const { RETRY_FAILED_PIPELINE } = useFeatureFlags()
 
   const canAbort = isExecutionActive(executionStatus) && canExecute
   const canPause =
@@ -184,7 +182,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     showRetryPipelineModal()
   }
   const showRetryPipeline = (): boolean => {
-    return isRetryPipelineAllowed(executionStatus) && canRetry && (RETRY_FAILED_PIPELINE as boolean)
+    return isRetryPipelineAllowed(executionStatus) && canRetry
   }
 
   const DIALOG_PROPS: IDialogProps = {

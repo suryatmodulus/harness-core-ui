@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.04% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>79/94</span>
+                <span class='fraction'>80/96</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.24% </span>
+                <span class="strong">58.7% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>106/182</span>
+                <span class='fraction'>108/184</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.04% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>79/94</span>
+                <span class='fraction'>80/96</span>
             </div>
         
             
@@ -555,7 +555,11 @@
 <a name='L496'></a><a href='#L496'>496</a>
 <a name='L497'></a><a href='#L497'>497</a>
 <a name='L498'></a><a href='#L498'>498</a>
-<a name='L499'></a><a href='#L499'>499</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">46x</span>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">46x</span>
@@ -630,26 +634,29 @@
 <span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-yes">31x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">31x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">31x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -780,6 +787,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1128,6 +1136,7 @@ const FormContent = ({
   const [fieldList, setFieldList] = useState&lt;JiraFieldNG[]&gt;([])
   const [projectOptions, setProjectOptions] = useState&lt;JiraProjectSelectOption[]&gt;([])
   const [projectMetadata, setProjectMetadata] = useState&lt;JiraProjectNG&gt;()
+  const [connectorValueType, setConnectorValueType] = useState&lt;MultiTypeInputType&gt;(MultiTypeInputType.FIXED)
 &nbsp;
   const commonParams = {
     accountIdentifier: accountId,
@@ -1149,7 +1158,9 @@ const FormContent = ({
 &nbsp;
   useEffect(() =&gt; {
     // If connector value changes in form, fetch projects
-    if (connectorRefFixedValue) {
+    // second block is needed so that we don't fetch projects if type is expression
+    // CDC-15633
+    if (connectorRefFixedValue &amp;&amp; connectorValueType === MultiTypeInputType.FIXED) {
       refetchProjects({
         queryParams: {
           ...commonParams,
@@ -1276,11 +1287,12 @@ const FormContent = ({
           type="Jira"
           enableConfigureOptions={false}
           selected={formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec.connectorRef as string}
-          onChange={<span class="fstat-no" title="function not covered" >(v</span>alue: any) =&gt; {
+          onChange={<span class="fstat-no" title="function not covered" >(v</span>alue: any, _unused, multiType) =&gt; {
             // Clear dependent fields
+<span class="cstat-no" title="statement not covered" >            setConnectorValueType(multiType)</span>
 <span class="cstat-no" title="statement not covered" >            if (value?.record?.identifier !== connectorRefFixedValue) {</span>
 <span class="cstat-no" title="statement not covered" >              resetForm(formik, 'connectorRef')</span>
-<span class="cstat-no" title="statement not covered" >              if (value !== MultiTypeInputType.FIXED) {</span>
+<span class="cstat-no" title="statement not covered" >              if (multiType !== MultiTypeInputType.FIXED) {</span>
 <span class="cstat-no" title="statement not covered" >                setProjectOptions([])</span>
 <span class="cstat-no" title="statement not covered" >                setProjectMetadata(undefined)</span>
               }
@@ -1558,7 +1570,7 @@ export default JiraApprovalStepModeWithRef
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 16 2021 01:25:27 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 16 2021 05:43:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

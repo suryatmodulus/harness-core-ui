@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.17% </span>
+                <span class="strong">72.8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>90/123</span>
+                <span class='fraction'>91/125</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50.74% </span>
+                <span class="strong">51.22% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>103/203</span>
+                <span class='fraction'>105/205</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.77% </span>
+                <span class="strong">73.39% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>90/122</span>
+                <span class='fraction'>91/124</span>
             </div>
         
             
@@ -676,7 +676,12 @@
 <a name='L617'></a><a href='#L617'>617</a>
 <a name='L618'></a><a href='#L618'>618</a>
 <a name='L619'></a><a href='#L619'>619</a>
-<a name='L620'></a><a href='#L620'>620</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">46x</span>
+<a name='L620'></a><a href='#L620'>620</a>
+<a name='L621'></a><a href='#L621'>621</a>
+<a name='L622'></a><a href='#L622'>622</a>
+<a name='L623'></a><a href='#L623'>623</a>
+<a name='L624'></a><a href='#L624'>624</a>
+<a name='L625'></a><a href='#L625'>625</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">46x</span>
@@ -766,6 +771,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -783,6 +790,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -976,6 +985,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1383,6 +1393,8 @@ const FormContent = ({
   const [projectOptions, setProjectOptions] = useState&lt;JiraProjectSelectOption[]&gt;([])
   const [projectMetadata, setProjectMetadata] = useState&lt;JiraProjectNG&gt;()
 &nbsp;
+  const [connectorValueType, setConnectorValueType] = useState&lt;MultiTypeInputType&gt;(MultiTypeInputType.FIXED)
+&nbsp;
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
@@ -1403,7 +1415,9 @@ const FormContent = ({
 &nbsp;
   useEffect(() =&gt; {
     // If connector value changes in form, fetch projects
-    if (connectorRefFixedValue) {
+    // second block is needed so that we don't fetch projects if type is expression
+    // CDC-15633
+    if (connectorRefFixedValue &amp;&amp; connectorValueType === MultiTypeInputType.FIXED) {
       refetchProjects({
         queryParams: {
           ...commonParams,
@@ -1593,11 +1607,12 @@ const FormContent = ({
           type="Jira"
           enableConfigureOptions={false}
           selected={formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec.connectorRef as string}
-          onChange={<span class="fstat-no" title="function not covered" >(v</span>alue: any) =&gt; {
+          onChange={<span class="fstat-no" title="function not covered" >(v</span>alue: any, _unused, multiType) =&gt; {
             // Clear dependent fields
+<span class="cstat-no" title="statement not covered" >            setConnectorValueType(multiType)</span>
 <span class="cstat-no" title="statement not covered" >            if (value?.record?.identifier !== connectorRefFixedValue) {</span>
 <span class="cstat-no" title="statement not covered" >              resetForm(formik, 'connectorRef')</span>
-<span class="cstat-no" title="statement not covered" >              if (value !== MultiTypeInputType.FIXED) {</span>
+<span class="cstat-no" title="statement not covered" >              if (multiType !== MultiTypeInputType.FIXED) {</span>
 <span class="cstat-no" title="statement not covered" >                setProjectOptions([])</span>
 <span class="cstat-no" title="statement not covered" >                setProjectMetadata(undefined)</span>
               }
@@ -1921,7 +1936,7 @@ export default JiraCreateStepModeWithRef
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 16 2021 01:25:27 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 16 2021 05:43:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

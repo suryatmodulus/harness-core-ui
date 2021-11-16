@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.51% </span>
+                <span class="strong">80.39% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>81/97</span>
+                <span class='fraction'>82/102</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.03% </span>
+                <span class="strong">51.54% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>65/116</span>
+                <span class='fraction'>67/130</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.71% </span>
+                <span class="strong">58.62% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>17/28</span>
+                <span class='fraction'>17/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.38% </span>
+                <span class="strong">81.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>81/96</span>
+                <span class='fraction'>82/101</span>
             </div>
         
             
@@ -557,7 +557,19 @@
 <a name='L498'></a><a href='#L498'>498</a>
 <a name='L499'></a><a href='#L499'>499</a>
 <a name='L500'></a><a href='#L500'>500</a>
-<a name='L501'></a><a href='#L501'>501</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">46x</span>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a>
+<a name='L507'></a><a href='#L507'>507</a>
+<a name='L508'></a><a href='#L508'>508</a>
+<a name='L509'></a><a href='#L509'>509</a>
+<a name='L510'></a><a href='#L510'>510</a>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-yes">46x</span>
@@ -630,6 +642,7 @@
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -640,6 +653,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -798,6 +813,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1130,6 +1154,7 @@ const FormContent = ({
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const [selectedProjectKey, setSelectedProjectKey] = useState&lt;string&gt;('')
   const [selectedIssueTypeKey, setSelectedIssueTypeKey] = useState&lt;string&gt;('')
+  const [connectorValueType, setConnectorValueType] = useState&lt;MultiTypeInputType&gt;(MultiTypeInputType.FIXED)
 &nbsp;
   const commonParams = {
     accountIdentifier: accountId,
@@ -1141,7 +1166,9 @@ const FormContent = ({
 &nbsp;
   useEffect(() =&gt; {
     // If connector value changes in form, fetch projects
-    if (connectorRefFixedValue) {
+    // second block is needed so that we don't fetch projects if type is expression
+    // CDC-15633
+    if (connectorRefFixedValue &amp;&amp; connectorValueType === MultiTypeInputType.FIXED) {
       refetchProjects({
         queryParams: {
           ...commonParams,
@@ -1301,6 +1328,15 @@ const FormContent = ({
           selected={formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec.connectorRef as string}
           disabled={isApprovalStepFieldDisabled(readonly)}
           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
+          onChange={<span class="fstat-no" title="function not covered" >(v</span>alue: any, _unused, multiType) =&gt; {
+            // Clear dependent fields
+<span class="cstat-no" title="statement not covered" >            setConnectorValueType(multiType)</span>
+<span class="cstat-no" title="statement not covered" >            if (value?.record?.identifier !== connectorRefFixedValue) {</span>
+<span class="cstat-no" title="statement not covered" >              if (multiType !== MultiTypeInputType.FIXED) {</span>
+<span class="cstat-no" title="statement not covered" >                setProjectOptions([])</span>
+              }
+            }
+          }}
         /&gt;
         {getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >          &lt;ConfigureOptions</span>
@@ -1564,7 +1600,7 @@ export default JiraUpdateStepModeWithRef
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 16 2021 01:25:27 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 16 2021 05:43:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

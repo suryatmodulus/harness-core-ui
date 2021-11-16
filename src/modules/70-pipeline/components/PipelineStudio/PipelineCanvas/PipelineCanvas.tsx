@@ -304,6 +304,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         location.reload()
       }
       trackEvent(isYaml ? PipelineActions.PipelineCreatedViaYAML : PipelineActions.PipelineCreatedViaVisual, {})
+      trackEvent(PipelineActions.PipelineCreated, {})
     } else {
       clear()
       setSchemaErrorView(true)

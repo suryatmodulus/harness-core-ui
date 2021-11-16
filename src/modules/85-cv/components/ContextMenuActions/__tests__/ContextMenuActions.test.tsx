@@ -30,7 +30,7 @@ describe('ContextMenuActions', () => {
     fireEvent.click(getAllByText('edit')[0])
     expect(onEdit).toHaveBeenCalled()
     fireEvent.click(getByText('delete'))
-    fireEvent.click(document.querySelectorAll('.bp3-dialog-footer button')[0])
+    fireEvent.click(document.querySelectorAll('.bp3-dialog button')[0])
     expect(onDelete).toHaveBeenCalled()
   })
 })

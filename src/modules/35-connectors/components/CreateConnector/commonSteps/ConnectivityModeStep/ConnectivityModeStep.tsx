@@ -24,11 +24,9 @@ import { PageSpinner } from '@common/components'
 import ConnectivityMode, { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import useCreateEditConnector from '@connectors/hooks/useCreateEditConnector'
+import useCreateEditConnector, { BuildPayloadProps } from '@connectors/hooks/useCreateEditConnector'
 
-interface BuildPayloadProps {
-  projectIdentifier: string
-  orgIdentifier: string
+interface ConnectivityModeStepData extends BuildPayloadProps {
   connectivityMode: ConnectivityModeType
 }
 
@@ -78,7 +76,7 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
     }
   }
 
-  const { onInitiate, loading } = useCreateEditConnector({
+  const { onInitiate, loading } = useCreateEditConnector<ConnectivityModeStepData>({
     accountId,
     isEditMode: props.isEditMode,
     isGitSyncEnabled,

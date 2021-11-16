@@ -136,10 +136,6 @@ export const connectorUrlType = {
   REPO: 'Repo',
   REGION: 'Region'
 }
-export enum ConnectivityMode {
-  Manager = 'Manager',
-  Delegate = 'Delegate'
-}
 
 export const CONNECTOR_CREDENTIALS_STEP_IDENTIFIER = 'CONNECTOR_CREDENTIALS_STEP_IDENTIFIER'
 

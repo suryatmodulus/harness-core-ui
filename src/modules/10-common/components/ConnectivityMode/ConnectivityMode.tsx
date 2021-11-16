@@ -5,9 +5,8 @@ import type { FormikProps } from 'formik'
 
 import DelegatesGit from '@common/icons/DelegatesGit.svg'
 import PlatformGit from '@common/icons/PlatformGit.svg'
-
-import css from './ConnectivityMode.module.scss'
 import { useStrings } from 'framework/strings'
+import css from './ConnectivityMode.module.scss'
 
 export enum ConnectivityModeType {
   Manager = 'Manager',
@@ -18,6 +17,10 @@ export interface ConnectivityCardItem {
   title: string
   info: string
   icon: JSX.Element
+}
+
+interface ConnectivityModeFormProps {
+  connectivityMode: string
 }
 
 interface ConnectivityModeProps {
@@ -58,7 +61,7 @@ const ConnectivityMode: React.FC<ConnectivityModeProps> = props => {
               <Text font={{ variation: FontVariation.H6 }} color={Color.GREY_900}>
                 {item.title}
               </Text>
-              {item.type === (props.formik.values as any).connectivityMode ? (
+              {item.type === (props.formik.values as ConnectivityModeFormProps).connectivityMode ? (
                 <Icon margin="small" name="deployment-success-new" size={16} />
               ) : null}
             </Layout.Horizontal>
@@ -72,7 +75,9 @@ const ConnectivityMode: React.FC<ConnectivityModeProps> = props => {
       }}
       selected={
         ConnectivityCard[
-          ConnectivityCard.findIndex(card => card.type === (props.formik.values as any).connectivityMode)
+          ConnectivityCard.findIndex(
+            card => card.type === (props.formik.values as ConnectivityModeFormProps).connectivityMode
+          )
         ]
       }
     />

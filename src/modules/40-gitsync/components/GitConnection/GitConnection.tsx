@@ -6,7 +6,6 @@ import { Button, Card, Color, Container, Layout, StepProps, Text } from '@wings-
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import {
-  ConnectorConfigDTO,
   GitSyncConfig,
   isSaasGitPromise,
   ResponseSaasGitDTO,
@@ -32,7 +31,7 @@ enum Agent {
   Delegate = 'Delegate'
 }
 
-const GitConnection: React.FC<StepProps<GitConnectionStepProps | ConnectorConfigDTO> & GitConnectionProps> = props => {
+const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { prevStepData, onSuccess } = props
   const [isSaaS, setIsSaaS] = useState<boolean | undefined>()

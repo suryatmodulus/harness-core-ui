@@ -547,6 +547,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         })
       }
       hideModal()
+      trackEvent(PipelineActions.StartedPipelineCreation, { module })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [hideModal, pipeline, updatePipeline]

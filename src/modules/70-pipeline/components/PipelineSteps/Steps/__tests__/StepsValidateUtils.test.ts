@@ -2,6 +2,7 @@ import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { render } from 'mustache'
 import { validate, validateInputSet, Types } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 
 const strings = {
   fieldRequired: '{{field}} is a required field',
@@ -173,7 +174,7 @@ const template = {
 describe('StepValidateUtils', () => {
   describe('validate', () => {
     test('should return errors for required fields', () => {
-      const result = validate({}, editViewFieldsConfig, { getString: getStringMock })
+      const result = validate({}, editViewFieldsConfig, { getString: getStringMock }, StepViewType.Edit)
 
       expect(result).toEqual({
         identifier: 'Identifier is a required field',
@@ -189,7 +190,13 @@ describe('StepValidateUtils', () => {
 
   describe('validateInputSet', () => {
     test('should return errors for required fields', () => {
-      const result = validateInputSet({}, template, inputSetViewFieldsConfig, { getString: getStringMock })
+      const result = validateInputSet(
+        {},
+        template,
+        inputSetViewFieldsConfig,
+        { getString: getStringMock },
+        StepViewType.Edit
+      )
 
       expect(result).toEqual({
         spec: {
@@ -201,12 +208,24 @@ describe('StepValidateUtils', () => {
     })
 
     test('should filter out fields that are not runtime inputs and not apply validation for them', () => {
-      const result1 = validateInputSet({}, {}, inputSetViewFieldsConfig, { getString: getStringMock })
+      const result1 = validateInputSet(
+        {},
+        {},
+        inputSetViewFieldsConfig,
+        { getString: getStringMock },
+        StepViewType.InputSet
+      )
       expect(result1).toEqual({})
 
-      const result2 = validateInputSet({}, { spec: { connectorRef: RUNTIME_INPUT_VALUE } }, inputSetViewFieldsConfig, {
-        getString: getStringMock
-      })
+      const result2 = validateInputSet(
+        {},
+        { spec: { connectorRef: RUNTIME_INPUT_VALUE } },
+        inputSetViewFieldsConfig,
+        {
+          getString: getStringMock
+        },
+        StepViewType.InputSet
+      )
       expect(result2).toEqual({
         spec: {
           connectorRef: 'Container Registry is a required field'

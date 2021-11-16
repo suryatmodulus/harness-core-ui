@@ -116,7 +116,7 @@ export class ECRStep extends PipelineStep<ECRStepData> {
   }: ValidateInputSetProps<ECRStepData>): FormikErrors<ECRStepData> {
     const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString }, viewType)
     }
 
     return {}
